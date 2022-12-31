@@ -7,6 +7,21 @@ Install [Visual Studio Code](https://code.visualstudio.com/) and the
 
 [LuaTeX reference manual sources](https://github.com/TeX-Live/luatex/tree/trunk/manual)
 
+```
+git clone https://github.com/Josef-Friedrich/luatex-lua-library.git
+```
+
+`.vscode/settings.json`:
+
+```json
+{
+"Lua.workspace.library": [
+    // https://github.com/Josef-Friedrich/luatex-lua-library
+    "/path/to/the/lualatex-lua-library/repo"
+  ]
+}
+```
+
 ## Howtos
 
 * [Custom libraries](https://github.com/sumneko/lua-language-server/wiki/Libraries#custom)
