@@ -1,12 +1,19 @@
 # luatex-lua-library
+
 Type definitions / Stubs for the Lua interface of LuaTeX
 
-https://github.com/sumneko/lua-language-server/wiki/Libraries#custom
+Install [Visual Studio Code](https://code.visualstudio.com/) and the
+[lua-language-server](https://marketplace.visualstudio.com/items?itemName=sumneko.lua).
 
-https://github.com/sumneko/lua-language-server/wiki/Annotations#meta
+[LuaTeX reference manual sources](https://github.com/TeX-Live/luatex/tree/trunk/manual)
+
+## Howtos
+
+* [Custom libraries](https://github.com/sumneko/lua-language-server/wiki/Libraries#custom)
+* [@meta annotation](https://github.com/sumneko/lua-language-server/wiki/Annotations#meta)
 
 ## Other type definition / stub repos:
 
-* https://github.com/sumneko/lua-language-server/tree/master/meta/template
-* https://github.com/sumneko/lua-language-server/tree/master/meta/3rd
-* https://github.com/jamie-34254/fivem_lua_stubs
+* [Template of the Lua interface itself](https://github.com/sumneko/lua-language-server/tree/master/meta/template)
+* [In the lua-language-server included 3rd party libraries](https://github.com/sumneko/lua-language-server/tree/master/meta/3rd)
+* [FiveM Lua Stubs](https://github.com/jamie-34254/fivem_lua_stubs)
