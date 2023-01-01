@@ -50,25 +50,25 @@
 ---as actual *Lua* bytecode, so it can also be used to preload *Lua* code. The
 ---function must not contain any upvalues. The associated function calls are:
 ---
----\startfunctioncall
+---```
 ---<function> f = lua.getbytecode(<number> n)
 ---lua.setbytecode(<number> n, <function> f)
----\stopfunctioncall
+---```
 ---
 ---Note: Since a *Lua* file loaded using `loadfile(filename)` is essentially
 ---an anonymous function, a complete file can be stored in a bytecode register like
 ---this:
 ---
----\startfunctioncall
+---```
 ---lua.bytecode[n] = loadfile(filename)
----\stopfunctioncall
+---```
 ---
 ---Now all definitions (functions, variables) contained in the file can be
 ---created by executing this bytecode register:
 ---
----\startfunctioncall
+---```
 ---lua.bytecode[n]()
----\stopfunctioncall
+---```
 ---
 ---Note that the path of the file is stored in the *Lua* bytecode to be used in
 ---stack backtraces and therefore dumped into the format file if the above code is
@@ -87,18 +87,18 @@
 ---There is an array of 65536 (0--65535) potential chunk names for use with the
 ---`directlua` and `latelua` primitives.
 ---
----\startfunctioncall
+---```
 ---lua.name[<number> n] = <string> s
 ---<string> s = lua.name[<number> n]
----\stopfunctioncall
+---```
 ---
 ---If you want to unset a *Lua* name, you can assign `nil` to it. The function
 ---accessors are:
 ---
----\startfunctioncall
+---```
 ---lua.setluaname(<string> s,<number> n])
 ---<string> s = lua.getluaname(<number> n)
----\stopfunctioncall
+---```
 ---
 ---\stopsubsection
 ---
@@ -127,9 +127,9 @@
 ---in message reporting, as well as an iterator function that gets all of the names
 ---and values as a table.
 ---
----\startfunctioncall
+---```
 ---<table> info = status.list()
----\stopfunctioncall
+---```
 ---
 ---The keys in the table are the known items, the value is the current value. Almost
 ---all of the values in `status` are fetched through a metatable at run|-|time
@@ -176,7 +176,7 @@
 ---\NC \type{luastate_bytes}     \NC number of bytes in use by *Lua* interpreters \NC \NR
 ---\NC \type{luatex_engine}      \NC the *LuaTeX* engine identifier \NC \NR
 ---\NC \type{luatex_hashchars}   \NC length to which *Lua* hashes strings (`2^n`) \NC \NR
----\NC \type{luatex_hashtype}    \NC the hash method used (in \LUAJITTEX) \NC \NR
+---\NC \type{luatex_hashtype}    \NC the hash method used (in *Lua*JITTEX) \NC \NR
 ---\NC \type{luatex_version}     \NC the *LuaTeX* version number \NC \NR
 ---\NC \type{luatex_revision}    \NC the *LuaTeX* revision string \NC \NR
 ---\NC \type{max_buf_stack}      \NC max used buffer position \NC \NR
@@ -233,12 +233,12 @@
 ---parameters that are partially writable.
 ---
 ---The designation “virtual” means that these items are not properly defined
----in \LUA, but are only front\-ends that are handled by a metatable that operates
+---in *Lua*, but are only front\-ends that are handled by a metatable that operates
 ---on the actual *TeX* values. As a result, most of the *Lua* table operators (like
 ---`pairs` and `#`) do not work on such items.
 ---
 ---At the moment, it is possible to access almost every parameter that you can use
----after `the`, is a single tokens or is sort of special in \TEX. This excludes
+---after `the`, is a single tokens or is sort of special in *TeX*. This excludes
 ---parameters that need extra arguments, like `\the\scriptfont`. The subset
 ---comprising simple integer and dimension registers are writable as well as
 ---readable (like `tracingcommands` and `parindent`).
@@ -260,10 +260,10 @@
 ---and so does whether `tex.set` has any effect. For the parameters that {\em
 ---can} be set, it is possible to use `global` as the first argument to `tex.set`; this makes the assignment global instead of local.
 ---
----\startfunctioncall
+---```
 ---tex.set (["global",] <string> n, ...)
 ---... = tex.get (<string> n)
----\stopfunctioncall
+---```
 ---
 ---Glue is kind of special because there are five values involved. The return value
 ---is a \nod {glue_spec} node but when you pass `false` as last argument to
@@ -556,7 +556,7 @@
 ---
 ---If you are wondering why this list looks haphazard; these are all the cases of
 ---the “convert” internal command that do not require an argument, as well as
----the ones that require only a simple numeric value. The special (\LUA|-|only) case
+---the ones that require only a simple numeric value. The special (*Lua*|-|only) case
 ---of `tex.fontidentifier` returns the `csname` string that matches a
 ---font id number (if there is one).
 ---
@@ -611,7 +611,7 @@
 ---
 ---\libindex{getmark}
 ---
----\TEX's attributes (`attribute`), counters (`count`), dimensions (`dimen`), skips (`skip`, `muskip`) and token (`toks`) registers
+---*TeX*'s attributes (`attribute`), counters (`count`), dimensions (`dimen`), skips (`skip`, `muskip`) and token (`toks`) registers
 ---can be accessed and written to using two times five virtual sub|-|tables of the
 ---`tex` table:
 ---
@@ -642,38 +642,32 @@
 ---is to eventually also allow `<chardef tokens>` and even macros that expand
 ---into a number).
 ---
----* ize
 ---
----    * 
----        The count registers accept and return *Lua* numbers.
+---
+---    * The count registers accept and return *Lua* numbers.
 ---    
 ---
----    * 
----        The dimension registers accept *Lua* numbers (in scaled points) or
+---    * The dimension registers accept *Lua* numbers (in scaled points) or
 ---        strings (with an included absolute dimension; `em` and `ex`
 ---        and `px` are forbidden). The result is always a number in scaled
 ---        points.
 ---    
 ---
----    * 
----        The token registers accept and return *Lua* strings. *Lua* strings are
+---    * The token registers accept and return *Lua* strings. *Lua* strings are
 ---        converted to and from token lists using `the` `toks` style
 ---        expansion: all category codes are either space (10) or other (12).
 ---    
 ---
----    * 
----        The skip registers accept and return \nod {glue_spec} userdata node
+---    * The skip registers accept and return \nod {glue_spec} userdata node
 ---        objects (see the description of the node interface elsewhere in this
 ---        manual).
 ---    
 ---
----    * 
----        The glue registers are just skip registers but instead of userdata
+---    * The glue registers are just skip registers but instead of userdata
 ---        are verbose.
 ---    
 ---
----    * 
----        Like the counts, the attribute registers accept and return *Lua* numbers.
+---    * Like the counts, the attribute registers accept and return *Lua* numbers.
 ---    
 ---
 ---
@@ -682,12 +676,12 @@
 ---for all cases, for example, here is the set of possibilities for `skip`
 ---registers:
 ---
----\startfunctioncall
+---```
 ---tex.setskip (["global",] <number> n, <node> s)
 ---tex.setskip (["global",] <string> s, <node> s)
 ---<node> s = tex.getskip (<number> n)
 ---<node> s = tex.getskip (<string> s)
----\stopfunctioncall
+---```
 ---
 ---We have similar setters for `count`, `dimen`, `muskip`, and
 ---`toks`. Counters and dimen are represented by numbers, skips and muskips by
@@ -702,16 +696,16 @@
 ---
 ---Here is an example using a threesome:
 ---
----\startfunctioncall
+---```
 ---local d = tex.getdimen("foo")
 ---if tex.isdimen("bar") then
 ---    tex.setdimen("bar",d)
 ---end
----\stopfunctioncall
+---```
 ---
 ---There are six extra skip (glue) related helpers:
 ---
----\startfunctioncall
+---```
 ---tex.setglue (["global"], <number> n,
 ---    width, stretch, shrink, stretch_order, shrink_order)
 ---tex.setglue (["global"], <string> s,
@@ -720,7 +714,7 @@
 ---    tex.getglue (<number> n)
 ---width, stretch, shrink, stretch_order, shrink_order =
 ---    tex.getglue (<string> s)
----\stopfunctioncall
+---```
 ---
 ---The other two are `tex.setmuglue` and `tex.getmuglue`.
 ---
@@ -736,10 +730,10 @@
 ---
 ---For tokens registers we have an alternative where a catcode table is specified:
 ---
----\startfunctioncall
+---```
 ---tex.scantoks(0,3,"`e=mc^2`")
 ---tex.scantoks("global",0,"`\int\limits^1_2`")
----\stopfunctioncall
+---```
 ---
 ---In the function|-|based interface, it is possible to define values globally by
 ---using the string `global` as the first function argument.
@@ -765,7 +759,7 @@
 ---\libindex{setdelcodes}   \libindex{getdelcodes}
 ---\libindex{setmathcodes}  \libindex{getmathcodes}
 ---
----\TEX's character code tables (`lccode`, `uccode`, `sfcode`, `catcode`, `mathcode`, `delcode`) can be accessed and written to using
+---*TeX*'s character code tables (`lccode`, `uccode`, `sfcode`, `catcode`, `mathcode`, `delcode`) can be accessed and written to using
 ---six virtual subtables of the `tex` table
 ---
 ---\startthreecolumns
@@ -782,43 +776,43 @@
 ---The function call interfaces are roughly as above, but there are a few twists.
 ---`sfcode`s are the simple ones:
 ---
----\startfunctioncall
+---```
 ---tex.setsfcode (["global",] <number> n, <number> s)
 ---<number> s = tex.getsfcode (<number> n)
----\stopfunctioncall
+---```
 ---
 ---The function call interface for `lccode` and `uccode` additionally
 ---allows you to set the associated sibling at the same time:
 ---
----\startfunctioncall
+---```
 ---tex.setlccode (["global"], <number> n, <number> lc)
 ---tex.setlccode (["global"], <number> n, <number> lc, <number> uc)
 ---<number> lc = tex.getlccode (<number> n)
 ---tex.setuccode (["global"], <number> n, <number> uc)
 ---tex.setuccode (["global"], <number> n, <number> uc, <number> lc)
 ---<number> uc = tex.getuccode (<number> n)
----\stopfunctioncall
+---```
 ---
 ---The function call interface for `catcode` also allows you to specify a
 ---category table to use on assignment or on query (default in both cases is the
 ---current one):
 ---
----\startfunctioncall
+---```
 ---tex.setcatcode (["global"], <number> n, <number> c)
 ---tex.setcatcode (["global"], <number> cattable, <number> n, <number> c)
 ---<number> lc = tex.getcatcode (<number> n)
 ---<number> lc = tex.getcatcode (<number> cattable, <number> n)
----\stopfunctioncall
+---```
 ---
 ---The interfaces for `delcode` and `mathcode` use small array tables to
 ---set and retrieve values:
 ---
----\startfunctioncall
+---```
 ---tex.setmathcode (["global"], <number> n, <table> mval )
 ---<table> mval = tex.getmathcode (<number> n)
 ---tex.setdelcode (["global"], <number> n, <table> dval )
 ---<table> dval = tex.getdelcode (<number> n)
----\stopfunctioncall
+---```
 ---
 ---Where the table for `mathcode` is an array of 3 numbers, like this:
 ---
@@ -843,7 +837,7 @@
 ---
 ---You can also avoid the table:
 ---
----\startfunctioncall
+---```
 ---tex.setmathcode (["global"], <number> n, <number> class,
 ---    <number> family, <number> character)
 ---class, family, char =
@@ -852,7 +846,7 @@
 ---    <number> smallchar, <number> largefam, <number> largechar)
 ---smallfam, smallchar, largefam, largechar =
 ---    tex.getdelcodes (<number> n)
----\stopfunctioncall
+---```
 ---
 ---Normally, the third and fourth values in a delimiter code assignment will be zero
 ---according to `Udelcode` usage, but the returned table can have values there
@@ -924,7 +918,7 @@
 ---fifth argument is a type. When set to non|-|zero the `/Type` entry is
 ---omitted. A value of 1 or 3 still writes a `/BBox`, while 2 or 3 will write
 ---a `/Matrix`. The sixth argument is the (virtual) margin that extends beyond
----the effective boundingbox as seen by \TEX. Instead of a box number one can also
+---the effective boundingbox as seen by *TeX*. Instead of a box number one can also
 ---pass a `[h|v]list` node.
 ---
 ---You can generate the reference (a rule type) with:
@@ -985,10 +979,10 @@
 ---
 ---It is possible to set and query the internal math parameters using:
 ---
----\startfunctioncall
+---```
 ---tex.setmath(["global",] <string> n, <string> t, <number> n)
 ---<number> n = tex.getmath(<string> n, <string> t)
----\stopfunctioncall
+---```
 ---
 ---As before an optional first parameter `global` indicates a global
 ---assignment.
@@ -1137,25 +1131,25 @@
 ---\topicindex{printing}
 ---
 ---The `tex` table also contains the three print functions that are the major
----interface from *Lua* scripting to \TEX. The arguments to these three functions
+---interface from *Lua* scripting to *TeX*. The arguments to these three functions
 ---are all stored in an in|-|memory virtual file that is fed to the *TeX* scanner as
 ---the result of the expansion of `directlua`.
 ---
 ---The total amount of returnable text from a `directlua` command is only
 ---limited by available system \RAM. However, each separate printed string has to
----fit completely in \TEX's input buffer. The result of using these functions from
+---fit completely in *TeX*'s input buffer. The result of using these functions from
 ---inside callbacks is undefined at the moment.
 ---
 ---\subsubsection{`print`}
 ---
 ---\libindex{print}
 ---
----\startfunctioncall
+---```
 ---tex.print(<string> s, ...)
 ---tex.print(<number> n, <string> s, ...)
 ---tex.print(<table> t)
 ---tex.print(<number> n, <table> t)
----\stopfunctioncall
+---```
 ---
 ---Each string argument is treated by *TeX* as a separate input line. If there is a
 ---table argument instead of a list of strings, this has to be a consecutive array
@@ -1175,26 +1169,23 @@
 ---
 ---\libindex{sprint}
 ---
----\startfunctioncall
+---```
 ---tex.sprint(<string> s, ...)
 ---tex.sprint(<number> n, <string> s, ...)
 ---tex.sprint(<table> t)
 ---tex.sprint(<number> n, <table> t)
----\stopfunctioncall
+---```
 ---
 ---Each string argument is treated by *TeX* as a special kind of input line that
 ---makes it suitable for use as a partial line input mechanism:
 ---
 ---
----* 
----    *TeX* does not switch to the “new line” state, so that leading spaces
+---* *TeX* does not switch to the “new line” state, so that leading spaces
 ---    are not ignored.
 ---
----* 
----    No `endlinechar` is inserted.
+---* No `endlinechar` is inserted.
 ---
----* 
----    Trailing spaces are not removed. Note that this does not prevent *TeX* itself
+---* Trailing spaces are not removed. Note that this does not prevent *TeX* itself
 ---    from eating spaces as result of interpreting the line. For example, in
 ---
 ---    ```
@@ -1217,16 +1208,14 @@
 ---tokens, while nodes need to be around when they get injected. Therefore it is
 ---important to realize the following:
 ---
----* ize
----* 
----    When you inject a token, you need to pass a valid token userdata object. This
+---
+---* When you inject a token, you need to pass a valid token userdata object. This
 ---    object will be collected by *Lua* when it no longer is referenced. When it gets
 ---    printed to *TeX* the token itself gets copied so there is no interference with the
 ---    *Lua* garbage collection. You manage the object yourself. Because tokens are
 ---    actually just numbers, there is no real extra overhead at the *TeX* end.
 ---
----* 
----    When you inject a node, you need to pass a valid node userdata object. The
+---* When you inject a node, you need to pass a valid node userdata object. The
 ---    node related to the object will not be collected by *Lua* when it no longer
 ---    is referenced. It lives on at the *TeX* end in its own memory space. When it
 ---    gets printed to *TeX* the node reference is used assuming that node stays
@@ -1252,9 +1241,9 @@
 ---
 ---\libindex{tprint}
 ---
----\startfunctioncall
+---```
 ---tex.tprint({<number> n, <string> s, ...}, {...})
----\stopfunctioncall
+---```
 ---
 ---This function is basically a shortcut for repeated calls to `tex.sprint(<number> n, <string> s, ...)`, once for each of the supplied argument
 ---tables.
@@ -1267,7 +1256,7 @@
 ---table of strings or an argument list of strings that will be pushed into the
 ---input stream.
 ---
----\startfunctioncall
+---```
 ---tex.cprint( 1," 1: `&{\\foo}") tex.print("\\par") -- a lot of \bgroup s
 ---tex.cprint( 2," 2: `&{\\foo}") tex.print("\\par") -- matching \egroup s
 ---tex.cprint( 9," 9: `&{\\foo}") tex.print("\\par") -- all get ignored
@@ -1275,7 +1264,7 @@
 ---tex.cprint(11,"11: `&{\\foo}") tex.print("\\par") -- letters
 ---tex.cprint(12,"12: `&{\\foo}") tex.print("\\par") -- other characters
 ---tex.cprint(14,"12: $&{\\foo}") tex.print("\\par") -- comment triggers
----\stopfunctioncall
+---```
 ---
 ---% \subsubsection{`write`, `twrite`, `nwrite`}
 ---\subsubsection{`write`}
@@ -1284,15 +1273,15 @@
 ---% \libindex{twrite}
 ---% \libindex{nwrite}
 ---
----\startfunctioncall
+---```
 ---tex.write(<string> s, ...)
 ---tex.write(<table> t)
----\stopfunctioncall
+---```
 ---
 ---Each string argument is treated by *TeX* as a special kind of input line that
 ---makes it suitable for use as a quick way to dump information:
 ---
----* ize
+---
 ---\item All catcodes on that line are either \quote{space} (for '~') or “character” (for all others).
 ---\item There is no `endlinechar` appended.
 ---
@@ -1316,9 +1305,9 @@
 ---
 ---\libindex{round}
 ---
----\startfunctioncall
+---```
 ---<number> n = tex.round(<number> o)
----\stopfunctioncall
+---```
 ---
 ---Rounds *Lua* number `o`, and returns a number that is in the range of a
 ---valid *TeX* register value. If the number starts out of range, it generates a
@@ -1328,10 +1317,10 @@
 ---
 ---\libindex{scale}
 ---
----\startfunctioncall
+---```
 ---<number> n = tex.scale(<number> o, <number> delta)
 ---<table> n = tex.scale(table o, <number> delta)
----\stopfunctioncall
+---```
 ---
 ---Multiplies the *Lua* numbers `o` and \nod {delta}, and returns a rounded
 ---number that is in the range of a valid *TeX* register value. In the table
@@ -1340,7 +1329,7 @@
 ---\quote{number too big} error(s) as well.
 ---
 ---Note: the precision of the output of this function will depend on your computer's
----architecture and operating system, so use with care! An interface to \LUATEX's
+---architecture and operating system, so use with care! An interface to *LuaTeX*'s
 ---internal, 100\% portable scale function will be added at a later date.
 ---
 ---\subsubsection{`number` and `romannumeral`}
@@ -1350,9 +1339,9 @@
 ---
 ---These are the companions to the primitives `number` and `romannumeral`. They can be used like:
 ---
----\startfunctioncall
+---```
 ---tex.print(tex.romannumeral(123))
----\stopfunctioncall
+---```
 ---
 ---\subsubsection{`fontidentifier` and `fontname`}
 ---
@@ -1361,37 +1350,34 @@
 ---
 ---The first one returns the name only, the second one reports the size too.
 ---
----\startfunctioncall
+---```
 ---tex.print(tex.fontname(tex.fontname))
 ---tex.print(tex.fontname(tex.fontidentidier))
----\stopfunctioncall
+---```
 ---
 ---\subsubsection{`sp`}
 ---
 ---\libindex{sp}
 ---
----\startfunctioncall
+---```
 ---<number> n = tex.sp(<number> o)
 ---<number> n = tex.sp(<string> s)
----\stopfunctioncall
+---```
 ---
 ---Converts the number `o` or a string `s` that represents an explicit
 ---dimension into an integer number of scaled points.
 ---
 ---For parsing the string, the same scanning and conversion rules are used that
----*LuaTeX* would use if it was scanning a dimension specifier in its \TEX|-|like
+---*LuaTeX* would use if it was scanning a dimension specifier in its *TeX*|-|like
 ---input language (this includes generating errors for bad values), expect for the
 ---following:
 ---
----* ize[n]
----* 
----    only explicit values are allowed, control sequences are not handled
 ---
----* 
----    infinite dimension units (`fil...`) are forbidden
+---* only explicit values are allowed, control sequences are not handled
 ---
----* 
----    `mu` units do not generate an error (but may not be useful either)
+---* infinite dimension units (`fil...`) are forbidden
+---
+---* `mu` units do not generate an error (but may not be useful either)
 ---
 ---
 ---
@@ -1402,20 +1388,20 @@
 ---
 ---You can mess with the current line number:
 ---
----\startfunctioncall
+---```
 ---local n = tex.getlinenumber()
 ---tex.setlinenumber(n+10)
----\stopfunctioncall
+---```
 ---
 ---which can be shortcut to:
 ---
----\startfunctioncall
+---```
 ---tex.setlinenumber(10,true)
----\stopfunctioncall
+---```
 ---
 ---This might be handy when you have a callback that read numbers from a file and
 ---combines them in one line (in which case an error message probably has to refer
----to the original line). Interference with \TEX's internal handling of numbers is
+---to the original line). Interference with *TeX*'s internal handling of numbers is
 ---of course possible.
 ---
 ---\subsubsection{`error` and `show_context`}
@@ -1425,10 +1411,10 @@
 ---\libindex{error}
 ---\libindex{show_context}
 ---
----\startfunctioncall
+---```
 ---tex.error(<string> s)
 ---tex.error(<string> s, <table> help)
----\stopfunctioncall
+---```
 ---
 ---This creates an error somewhat like the combination of `errhelp` and `errmessage` would. During this error, deletions are disabled.
 ---
@@ -1464,19 +1450,19 @@
 ---*TeX* itself (and probably also harm performance) so this simple local expansion
 ---loop has to do.
 ---
----\startfunctioncall
+---```
 ---tex.runtoks(<token register>)
 ---tex.runtoks(<lua function>)
----\stopfunctioncall
+---```
 ---
 ---When the `tracingnesting` parameter is set to a value larger than~2 some
 ---information is reported about the state of the local loop.
 ---
 ---This function has two optional arguments in case a token register is passed:
 ---
----\startfunctioncall
+---```
 ---tex.runtoks(<token register>,force,grouped)
----\stopfunctioncall
+---```
 ---
 ---Inside for instance an `\edef` the `runtoks` function behaves (at
 ---least tries to) like it were an `\the`. This prevents unwanted side
@@ -1495,10 +1481,10 @@
 ---
 ---An example of a (possible error triggering) complication is that *TeX* expects to
 ---be in some state, say horizontal mode, and you have to make sure it is when you
----start feeding back something from *Lua* into \TEX. Normally a user will not run
+---start feeding back something from *Lua* into *TeX*. Normally a user will not run
 ---into issues but when you start writing tokens or nodes or have a nested run there
 ---can be situations that you need to run `forcehmode`. There is no recipe for
----this and intercepting possible cases would weaken \LUATEX's flexibility.
+---this and intercepting possible cases would weaken *LuaTeX*'s flexibility.
 ---
 ---\subsubsection{`hashtokens`}
 ---
@@ -1506,9 +1492,9 @@
 ---
 ---\topicindex{hash}
 ---
----\startfunctioncall
+---```
 ---for i,v in pairs (tex.hashtokens()) do ... end
----\stopfunctioncall
+---```
 ---
 ---Returns a list of names. This can be useful for debugging, but note that this
 ---also reports control sequences that may be unreachable at this moment due to
@@ -1521,10 +1507,10 @@
 ---
 ---\libindex{definefont}
 ---
----\startfunctioncall
+---```
 ---tex.definefont(<string> csname, <number> fontid)
 ---tex.definefont(<boolean> global, <string> csname, <number> fontid)
----\stopfunctioncall
+---```
 ---
 ---Associates `csname` with the internal font number `fontid`. The
 ---definition is global if (and only if) `global` is specified and true (the
@@ -1541,14 +1527,14 @@
 ---\topicindex{initialization}
 ---\topicindex{primitives}
 ---
----\startfunctioncall
+---```
 ---tex.enableprimitives(<string> prefix, <table> primitive names)
----\stopfunctioncall
+---```
 ---
 ---This function accepts a prefix string and an array of primitive names. For each
 ---combination of “prefix” and “name”, the `tex.enableprimitives` first verifies that “name” is an actual primitive
 ---(it must be returned by one of the `tex.extraprimitives` calls explained
----below, or part of \TEX82, or `directlua`). If it is not, `tex.enableprimitives` does nothing and skips to the next pair.
+---below, or part of *TeX*82, or `directlua`). If it is not, `tex.enableprimitives` does nothing and skips to the next pair.
 ---
 ---But if it is, then it will construct a csname variable by concatenating the
 ---“prefix” and “name”, unless the “prefix” is already the
@@ -1569,7 +1555,7 @@
 ---will define `\LuaTeXformatname` with the same intrinsic meaning as the
 ---documented primitive `formatname`, provided that the control sequences `\LuaTeXformatname` is currently undefined.
 ---
----When *LuaTeX* is run with `--ini` only the \TEX82 primitives and `directlua` are available, so no extra primitives {\bf at all}.
+---When *LuaTeX* is run with `--ini` only the *TeX*82 primitives and `directlua` are available, so no extra primitives {\bf at all}.
 ---
 ---If you want to have all the new functionality available using their default
 ---names, as it is now, you will have to add
@@ -1584,7 +1570,7 @@
 ---prefixes for different subsets, as you see fit.
 ---
 ---Calling some form of `tex.enableprimitives` is highly important though,
----because if you do not, you will end up with a \TEX82-lookalike that can run *Lua*
+---because if you do not, you will end up with a *TeX*82-lookalike that can run *Lua*
 ---code but not do much else. The defined csnames are (of course) saved in the
 ---format and will be available at runtime.
 ---
@@ -1592,9 +1578,9 @@
 ---
 ---\libindex{extraprimitives}
 ---
----\startfunctioncall
+---```
 ---<table> t = tex.extraprimitives(<string> s, ...)
----\stopfunctioncall
+---```
 ---
 ---This function returns a list of the primitives that originate from the engine(s)
 ---given by the requested string value(s). The possible values and their (current)
@@ -1626,7 +1612,7 @@
 ---\stoptabulate
 ---
 ---Note that `luatex` does not contain `directlua`, as that is
----considered to be a core primitive, along with all the \TEX82 primitives, so it is
+---considered to be a core primitive, along with all the *TeX*82 primitives, so it is
 ---part of the list that is returned from `'core'`.
 ---
 ---Running `tex.extraprimitives` will give you the complete list of
@@ -1636,9 +1622,9 @@
 ---
 ---\libindex{primitives}
 ---
----\startfunctioncall
+---```
 ---<table> t = tex.primitives()
----\stopfunctioncall
+---```
 ---
 ---This function returns a list of all primitives that *LuaTeX* knows about.
 ---
@@ -1650,9 +1636,9 @@
 ---
 ---\libindex{badness}
 ---
----\startfunctioncall
+---```
 ---<number> b = tex.badness(<number> t, <number> s)
----\stopfunctioncall
+---```
 ---
 ---This helper function is useful during linebreak calculations. `t` and `s` are scaled values; the function returns the badness for when total `t`
 ---is supposed to be made from amounts that sum to `s`. The returned number is
@@ -1673,10 +1659,10 @@
 ---
 ---\libindex{linebreak}
 ---
----\startfunctioncall
+---```
 ---local <node> nodelist, <table> info =
 ---    tex.linebreak(<node> listhead, <table> parameters)
----\stopfunctioncall
+---```
 ---
 ---The understood parameters are as follows:
 ---
@@ -1721,20 +1707,16 @@
 ---callbacks, or when the original list starting at listhead was generated in
 ---horizontal mode):
 ---
----* ize
----* 
----    add an “indent box” and perhaps a \nod {local_par} node at the start
+---
+---* add an “indent box” and perhaps a \nod {local_par} node at the start
 ---    (only if you need them)
 ---
----* 
----    replace any found final glue by an infinite penalty (or add such a penalty,
+---* replace any found final glue by an infinite penalty (or add such a penalty,
 ---    if the last node is not a glue)
 ---
----* 
----    add a glue node for the `parfillskip` after that penalty node
+---* add a glue node for the `parfillskip` after that penalty node
 ---
----* 
----    make sure all the `prev` pointers are OK
+---* make sure all the `prev` pointers are OK
 ---
 ---
 ---
@@ -1764,9 +1746,9 @@
 ---
 ---\libindex{shipout}
 ---
----\startfunctioncall
+---```
 ---tex.shipout(<number> n)
----\stopfunctioncall
+---```
 ---
 ---Ships out box number `n` to the output file, and clears the box register.
 ---
@@ -1806,9 +1788,9 @@
 ---
 ---There are three generators: `normal_rand` (no argument is used), `uniform_rand` (takes a number that will get rounded before being used) and `uniformdeviate` which behaves like the primitive and expects a scaled integer, so
 ---
----\startfunctioncall
+---```
 ---tex.print(tex.uniformdeviate(65536)/65536)
----\stopfunctioncall
+---```
 ---
 ---will give a random number between zero and one.
 ---
@@ -1901,7 +1883,7 @@
 ---\NC \type{pk_dpi}           \NC number   \NC     72  \NC cf.\ web2c docs \NC \NR
 ---\NC \type{trace_file_names} \NC boolean  \NC true
 ---\NC
----    `false` disables \TEX's normal file open|-|close feedback (the
+---    `false` disables *TeX*'s normal file open|-|close feedback (the
 ---    assumption is that callbacks will take care of that)
 ---\NC \NR
 ---\NC \type{file_line_error} \NC boolean \NC false
@@ -1979,10 +1961,10 @@
 ---
 ---\libindex{write}
 ---
----\startfunctioncall
+---```
 ---texio.write(<string> target, <string> s, ...)
 ---texio.write(<string> s, ...)
----\stopfunctioncall
+---```
 ---
 ---Without the `target` argument, writes all given strings to the same
 ---location(s) *TeX* writes messages to at this moment. If `batchmode` is in
@@ -1999,10 +1981,10 @@
 ---
 ---\libindex{write_nl}
 ---
----\startfunctioncall
+---```
 ---texio.write_nl(<string> target, <string> s, ...)
 ---texio.write_nl(<string> s, ...)
----\stopfunctioncall
+---```
 ---
 ---This function behaves like `texio.write`, but make sure that the given
 ---strings will appear at the beginning of a new line. You can pass a single empty
@@ -2024,7 +2006,7 @@
 ---\libindex{closeinput}
 ---
 ---This function that should be used with care. It acts as `endinput` but at
----the *Lua* end. You can use it to (sort of) force a jump back to \TEX. Normally a
+---the *Lua* end. You can use it to (sort of) force a jump back to *TeX*. Normally a
 ---*Lua* will just collect prints and at the end bump an input level and flush these
 ---prints. This function can help you stay at the current level but you need to know
 ---what you're doing (or more precise: what *TeX* is doing with input).
@@ -2258,7 +2240,7 @@
 ---                           treatment \NC \NR
 ---\NC `csname`     \NC the associated control sequence (if applicable) \NC \NR
 ---\NC `id`         \NC the unique id of the token \NC \NR
----\NC `tok`        \NC the full token number as stored in \TEX \NC \NR
+---\NC `tok`        \NC the full token number as stored in *TeX* \NC \NR
 ---\NC `active`     \NC a boolean indicating the active state of the token \NC \NR
 ---\NC `expandable` \NC a boolean indicating if the token (macro) is expandable \NC \NR
 ---\NC `protected`  \NC a boolean indicating if the token (macro) is protected \NC \NR
@@ -2271,7 +2253,7 @@
 ---of a token.
 ---
 ---The numbers that represent a catcode are the same as in *TeX* itself, so using
----this information assumes that you know a bit about \TEX's internals. The other
+---this information assumes that you know a bit about *TeX*'s internals. The other
 ---numbers and names are used consistently but are not frozen. So, when you use them
 ---for comparing you can best query a known primitive or character first to see the
 ---values.
@@ -2522,24 +2504,24 @@
 ---automatically and the \KPATHSEA\ executable and program names are set to `luatex` (that is, unless explicitly prohibited by the user's startup script.
 ---See~\in {section} [init] for more details).
 ---
----Second, in \TEXLUA\ mode, the initialization has to be done explicitly via the
+---Second, in *TeX*LUA\ mode, the initialization has to be done explicitly via the
 ---`kpse.set_program_name` function, which sets the \KPATHSEA\ executable
 ---(and optionally program) name.
 ---
----\startfunctioncall
+---```
 ---kpse.set_program_name(<string> name)
 ---kpse.set_program_name(<string> name, <string> progname)
----\stopfunctioncall
+---```
 ---
 ---The second argument controls the use of the “dotted” values in the `texmf.cnf` configuration file, and defaults to the first argument.
 ---
 ---Third, if you prefer the object oriented interface, you have to call a different
 ---function. It has the same arguments, but it returns a userdata variable.
 ---
----\startfunctioncall
+---```
 ---local kpathsea = kpse.new(<string> name)
 ---local kpathsea = kpse.new(<string> name, <string> progname)
----\stopfunctioncall
+---```
 ---
 ---Apart from these two functions, the calling conventions of the interfaces are
 ---identical. Depending on the chosen interface, you either call `kpse.find_file` or `kpathsea:find_file`, with identical arguments and
@@ -2557,10 +2539,10 @@
 ---These two function can be used to register used files. Because callbacks can load
 ---files themselves you might need these helpers (if you use recording at all).
 ---
----\startfunctioncall
+---```
 ---kpse.record_input_file(<string> name)
 ---kpse.record_output_file(<string> name)
----\stopfunctioncall
+---```
 ---
 ---\stopsubsection
 ---
@@ -2572,17 +2554,17 @@
 ---
 ---The most often used function in the library is `find_file`:
 ---
----\startfunctioncall
+---```
 ---<string> f = kpse.find_file(<string> filename)
 ---<string> f = kpse.find_file(<string> filename, <string> ftype)
 ---<string> f = kpse.find_file(<string> filename, <boolean> mustexist)
 ---<string> f = kpse.find_file(<string> filename, <string> ftype, <boolean> mustexist)
 ---<string> f = kpse.find_file(<string> filename, <string> ftype, <number> dpi)
----\stopfunctioncall
+---```
 ---
 ---Arguments:
 ---
----* ize[intro]
+---
 ---
 ---\sym{filename}
 ---
@@ -2682,9 +2664,9 @@
 ---A more powerful (but slower) generic method for finding files is also available.
 ---It returns a string for each found file.
 ---
----\startfunctioncall
+---```
 ---<string> f, ... = kpse.lookup(<string> filename, <table> options)
----\stopfunctioncall
+---```
 ---
 ---The options match commandline arguments from `kpsewhich`:
 ---
@@ -2721,10 +2703,10 @@
 ---
 ---Extra initialization for programs that need to generate bitmap fonts.
 ---
----\startfunctioncall
+---```
 ---kpse.init_prog(<string> prefix, <number> base_dpi, <string> mfmode)
 ---kpse.init_prog(<string> prefix, <number> base_dpi, <string> mfmode, <string> fallback)
----\stopfunctioncall
+---```
 ---
 ---\stopsubsection
 ---
@@ -2734,9 +2716,9 @@
 ---
 ---Test if an (absolute) file name is a readable file.
 ---
----\startfunctioncall
+---```
 ---<string> f = kpse.readable_file(<string> name)
----\stopfunctioncall
+---```
 ---
 ---The return value is the actual absolute filename you should use, because the disk
 ---name is not always the same as the requested name, due to aliases and
@@ -2751,9 +2733,9 @@
 ---
 ---Like kpsewhich's `-expand-path`:
 ---
----\startfunctioncall
+---```
 ---<string> r = kpse.expand_path(<string> s)
----\stopfunctioncall
+---```
 ---
 ---\stopsubsection
 ---
@@ -2763,9 +2745,9 @@
 ---
 ---Like kpsewhich's  `-expand-var`:
 ---
----\startfunctioncall
+---```
 ---<string> r = kpse.expand_var(<string> s)
----\stopfunctioncall
+---```
 ---
 ---\stopsubsection
 ---
@@ -2775,9 +2757,9 @@
 ---
 ---Like kpsewhich's `-expand-braces`:
 ---
----\startfunctioncall
+---```
 ---<string> r = kpse.expand_braces(<string> s)
----\stopfunctioncall
+---```
 ---
 ---\stopsubsection
 ---
@@ -2787,9 +2769,9 @@
 ---
 ---Like kpsewhich's `-show-path`:
 ---
----\startfunctioncall
+---```
 ---<string> r = kpse.show_path(<string> ftype)
----\stopfunctioncall
+---```
 ---
 ---\stopsubsection
 ---
@@ -2799,9 +2781,9 @@
 ---
 ---Like kpsewhich's `-var-value`:
 ---
----\startfunctioncall
+---```
 ---<string> r = kpse.var_value(<string> s)
----\stopfunctioncall
+---```
 ---
 ---\stopsubsection
 ---
@@ -2811,9 +2793,9 @@
 ---
 ---Returns the kpathsea version string.
 ---
----\startfunctioncall
+---```
 ---<string> r = kpse.version()
----\stopfunctioncall
+---```
 ---
 ---\stopsubsection
 ---
