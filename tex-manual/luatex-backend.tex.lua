@@ -235,7 +235,7 @@
 ---
 ---\libindex{setorigin} \libindex{getorigin}
 ---
----This one is used to set the horizonal and|/|or vertical offset, a traditional
+---This one is used to set the horizonal and/or vertical offset, a traditional
 ---backend property.
 ---
 ---```

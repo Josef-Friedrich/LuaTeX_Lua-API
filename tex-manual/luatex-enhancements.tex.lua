@@ -377,9 +377,8 @@
 ---\directlua <16-bit number> <general text>
 ---\stopsyntax
 ---
----The \syntax {<general text>} is expanded fully, and then fed into the *Lua*
----interpreter. After reading and expansion has been applied to the \syntax
----{<general text>}, the resulting token list is converted to a string as if it was
+---The `<general text>` is expanded fully, and then fed into the *Lua*
+---interpreter. After reading and expansion has been applied to the `<general text>`, the resulting token list is converted to a string as if it was
 ---displayed using `\the\toks`. On the *Lua* side, each `directlua` block
 ---is treated as a separate chunk. In such a chunk you can use the `local`
 ---directive to keep your variables from interfering with those used by the macro
@@ -403,7 +402,7 @@
 ---with spaces. Of course such an approach depends on the macro package that you
 ---use.
 ---
----The \syntax {<16-bit number>} designates a name of a *Lua* chunk and is
+---The `<16-bit number>` designates a name of a *Lua* chunk and is
 ---taken from the `lua.name` array (see the documentation of the `lua`
 ---table further in this manual). When a chunk name starts with a `@` it will
 ---be displayed as a file name. This is a side effect of the way *Lua* implements
@@ -445,7 +444,7 @@
 ---\ETEX's `scantokens`. For a description of print functions look at \in
 ---{section} [sec:luaprint].
 ---
----Because the \syntax {<general text>} is a chunk, the normal *Lua* error handling
+---Because the `<general text>` is a chunk, the normal *Lua* error handling
 ---is triggered if there is a problem in the included code. The *Lua* error messages
 ---should be clear enough, but the contextual information is still pretty bad.
 ---Often, you will only see the line number of the right brace at the end of the
@@ -475,8 +474,7 @@
 ---
 ---Expansion of macros in the final `<general text>` is delayed until just
 ---before the whatsit is executed (like in `write`). With regard to \PDF\
----output stream `latelua` behaves as \PDF\ page literals. The \syntax
----{name <general text>} and \syntax {<16-bit number>} behave in the same way as
+---output stream `latelua` behaves as \PDF\ page literals. The `name <general text>` and `<16-bit number>` behave in the same way as
 ---they do for `directlua`.
 ---
 ---The `lateluafunction` primitive takes a number and is similar to `luafunction` but gets delated to shipout time. It's just there for completeness.
@@ -1256,7 +1254,7 @@
 ---effective height and depth of glyphs in a way that reflected the applied vertical
 ---offset. The height got that offset added, the depth only when the offset was
 ---larger than zero. We can now control this in more detail with this mode
----parameter. An offset is added to the height and|/|or subtracted from the depth.
+---parameter. An offset is added to the height and/or subtracted from the depth.
 ---The effective values are never negative. The zero mode is the default.
 ---
 ---\starttabulate[|l|pl|]

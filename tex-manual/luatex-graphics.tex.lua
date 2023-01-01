@@ -486,7 +486,7 @@
 ---instance, you cannot split a single statement over multiple chunks.
 ---
 ---In contrast with the normal stand alone `mpost` command, there is
----\notabene {no} implied “input” at the start of the first chunk.
+---`no` implied “input” at the start of the first chunk.
 ---
 ---\subsection{`finish`}
 ---

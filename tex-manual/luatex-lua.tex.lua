@@ -300,7 +300,7 @@
 ---\startsubsection[title={Executing programs}]
 ---
 ---In keeping with the other *TeX*-like programs in *TeX*LIVE, the two *Lua* functions
----`os.execute` and `io.popen`, as well as the two new functions `os.exec` and `os.spawn` that are explained below, take the value of `shell_escape` and|/|or `shell_escape_commands` in account. Whenever
+---`os.execute` and `io.popen`, as well as the two new functions `os.exec` and `os.spawn` that are explained below, take the value of `shell_escape` and/or `shell_escape_commands` in account. Whenever
 ---*LuaTeX* is run with the assumed intention to typeset a document (and by that we
 ---mean that it is called as `luatex`, as opposed to `texlua`, and that
 ---the command line option `--luaonly` was not given), it will only run the
@@ -463,7 +463,7 @@
 ---
 ---* `os.env` is a hash table containing a dump of the variables and
 ---    values in the process environment at the start of the run. It is writeable,
----    but the actual environment is \notabene {not} updated automatically.
+---    but the actual environment is `not` updated automatically.
 ---
 ---
 ---* `os.gettimeofday()` returns the current “\UNIX\ time”, but as a

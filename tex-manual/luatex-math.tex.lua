@@ -748,7 +748,7 @@
 ---operators). They relate to an extra parameter `mathnolimitsmode`. The half
 ---corrections are what happens when scripts are placed above and below. The
 ---problem with italic corrections is that officially that correction italic is used
----for above|/|below placement while advanced kerns are used for placement at the
+---for above/below placement while advanced kerns are used for placement at the
 ---right end. The question is: how often is this implemented, and if so, do the
 ---kerns assume correction too. Anyway, with this parameter one can control it.
 ---
@@ -1424,7 +1424,7 @@
 ---
 ---The `Ustopmath` and `Ustopdisplaymath` primitives check if the current
 ---math mode is the correct one (inline vs.\ displayed), but you can freely intermix
----the four mathon|/|mathoff commands with explicit dollar sign(s).
+---the four mathon/mathoff commands with explicit dollar sign(s).
 ---
 ---\subsection{Script commands `Unosuperscript` and `Unosubscript`}
 ---
@@ -1528,7 +1528,7 @@
 ---\topicindex {math+tracing}
 ---
 ---Because there are quite some math related parameters and values, it is possible
----to limit tracing. Only when `tracingassigns` and|/|or `tracingrestores` are set to 2 or more they will be traced.
+---to limit tracing. Only when `tracingassigns` and/or `tracingrestores` are set to 2 or more they will be traced.
 ---
 ---\subsection {Math options with `mathdefaultsmode`}
 ---

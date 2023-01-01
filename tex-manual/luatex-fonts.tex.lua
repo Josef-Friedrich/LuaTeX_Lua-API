@@ -14,7 +14,7 @@
 ---All *TeX* fonts are represented to *Lua* code as tables, and internally as
 ---\CCODE structures. All keys in the table below are saved in the internal font
 ---structure if they are present in the table returned by the \cbk {define_font}
----callback, or if they result from the normal \TFM|/|\VF\ reading routines if there
+---callback, or if they result from the normal \TFM/\VF\ reading routines if there
 ---is no \cbk {define_font} callback defined.
 ---
 ---The column “\VF” means that this key will be created by the `font.read_vf()` routine, “\TFM” means that the key will be created by the
@@ -395,7 +395,7 @@
 ---\stoptabulate
 ---
 ---The other fields are used as follows. The `fullname` will be the
----\POSTSCRIPT|/|\PDF\ font name. The `cidinfo` will be used as the character
+---\POSTSCRIPT/\PDF\ font name. The `cidinfo` will be used as the character
 ---set: the CID `/Ordering` and `/Registry` keys. The `filename`
 ---points to the actual font file. If you include the full path in the `filename` or if the file is in the local directory, *LuaTeX* will run a little
 ---bit more efficient because it will not have to re-run the `find_*_file`
@@ -838,7 +838,7 @@
 ---effective height and depth of glyphs in a way that reflected the applied vertical
 ---offset. The height got that offset added, the depth only when the offset was
 ---larger than zero. We can now control this in more detail with this mode
----parameter. An offset is added to the height and|/|or subtracted from the depth.
+---parameter. An offset is added to the height and/or subtracted from the depth.
 ---The effective values are never negative. The zero mode is the default.
 ---
 ---\starttabulate[|l|pl|]

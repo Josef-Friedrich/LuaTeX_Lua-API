@@ -190,7 +190,7 @@
 ---    relevant for encrypted \PDF\ files.
 ---
 ---
----* The current version of *LuaTeX* no longer replaces and|/|or merges fonts in
+---* The current version of *LuaTeX* no longer replaces and/or merges fonts in
 ---    embedded \PDF\ files with fonts of the enveloping \PDF\ document. This
 ---    regression may be temporary, depending on how the rewritten font backend will
 ---    look like.
@@ -919,7 +919,7 @@
 ---
 ---\startsubsection[title={Four directions}]
 ---
----The directional model in *LuaTeX* is inherited from \OMEGA|/|\ALEPH\ but we tried
+---The directional model in *LuaTeX* is inherited from \OMEGA/\ALEPH\ but we tried
 ---to improve it a bit. At some point we played with recovery of modes but that was
 ---disabled later on when we found that it interfered with nested directions. That
 ---itself had as side effect that the node list was no longer balanced with respect
@@ -1309,7 +1309,7 @@
 ---
 ---The previous behaviour was a known side effect and (as that kind of input
 ---normally comes from generated sources) it was normally dealt with by adding a
----comment token to the line in case the spaces and|/|or tabs were intentional and
+---comment token to the line in case the spaces and/or tabs were intentional and
 ---to be kept. We are aware of the fact that this contradicts some of our other
 ---choices but consistency with other engines and the fact that in \KPSE\ mode a
 ---common file \IO\ layer is used can have a side effect of breaking compatibility.

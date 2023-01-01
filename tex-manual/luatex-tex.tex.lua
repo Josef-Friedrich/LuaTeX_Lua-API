@@ -1955,7 +1955,7 @@
 ---\topicindex{\IO}
 ---
 ---This library takes care of the low-level I/O interface: writing to the log file
----and|/|or console.
+---and/or console.
 ---
 ---\startsubsection[title={`write`}]
 ---
@@ -2591,7 +2591,7 @@
 ---        "fmt",
 ---        "font feature files",
 ---        "gf",
----        "graphic|/|figure",
+---        "graphic/figure",
 ---        "ist",
 ---        "lig files",
 ---        "ls-R",

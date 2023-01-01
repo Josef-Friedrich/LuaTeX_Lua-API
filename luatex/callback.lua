@@ -1,0 +1,132 @@
+---@meta
+
+---
+---This library has functions that register, find and list callbacks. Callbacks are
+---*Lua* functions that are called in well defined places. There are two kind of
+---callbacks: those that mix with existing functionality, and those that (when
+---enabled) replace functionality. In mosty cases the second category is expected to
+---behave similar to the built in functionality because in a next step specific
+---data is expected. For instance, you can replace the hyphenation routine. The
+---function gets a list that can be hyphenated (or not). The final list should be
+---valid and is (normally) used for constructing a paragraph. Another function can
+---replace the ligature builder and/or kerner. Doing something else is possible
+---but in the end might not give the user the expected outcome.
+------
+---Source: [luatex-callbacks.tex#L17-L26](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-callbacks.tex#L17-L26)
+---
+callback = {}
+
+---Source: `callback.list()`
+---@alias CallbackName
+---|"append_to_vlist_filter"
+---|"build_page_insert"
+---|"buildpage_filter"
+---|"call_edit
+---|"contribute_filter"
+---|"define_font"
+---|"find_cidmap_file"
+---|"find_data_file"
+---|"find_enc_file"
+---|"find_font_file"
+---|"find_format_file"
+---|"find_image_file"
+---|"find_map_file"
+---|"find_opentype_file"
+---|"find_output_file"
+---|"find_pk_file"
+---|"find_read_file"
+---|"find_truetype_file"
+---|"find_type1_file"
+---|"find_vf_file"
+---|"find_write_file"
+---|"finish_pdffile"
+---|"finish_pdfpage"
+---|"hpack_quality"
+---|"hyphenate
+---|"input_level_string"
+---|"insert_local_par"
+---|"kerning
+---|"ligaturing
+---|"linebreak_filter"
+---|"make_extensible"
+---|"mlist_to_hlist"
+---|"new_graf
+---|"open_read_file"
+---|"page_order_index"
+---|"post_linebreak_filter"
+---|"pre_dump
+---|"pre_linebreak_filter"
+---|"pre_output_filter"
+---|"process_input_buffer"
+---|"process_jobname"
+---|"process_output_buffer"
+---|"process_pdf_image_content"
+---|"process_rule"
+---|"provide_charproc_data"
+---|"read_cidmap_file"
+---|"read_data_file"
+---|"read_enc_file"
+---|"read_font_file"
+---|"read_map_file"
+---|"read_opentype_file"
+---|"read_pk_file"
+---|"read_truetype_file"
+---|"read_type1_file"
+---|"read_vf_file"
+---|"show_error_hook"
+---|"show_error_message"
+---|"show_lua_error_hook"
+---|"show_warning_message"
+---|"start_file
+---|"start_page_number"
+---|"start_run
+---|"stop_file
+---|"stop_page_number"
+---|"stop_run
+---|"vpack_filter"
+---|"vpack_quality"
+---|"wrapup_run
+
+---
+---The first thing you need to do is registering a callback:
+---
+---Here the `callback_name` is a predefined callback name, see below.
+---
+---*LuaTeX* internalizes the callback function in such a way that it does not matter
+---if you redefine a function accidentally.
+---
+---Callback assignments are always global. You can use the special value `nil`
+---instead of a function for clearing the callback.
+---
+---For some minor speed gain, you can assign the boolean `false` to the
+---non-file related callbacks, doing so will prevent *LuaTeX* from executing
+---whatever it would execute by default (when no callback function is registered at
+---all). Be warned: this may cause all sorts of grief unless you know `exactly` what you are doing!
+------
+---Source: [luatex-callbacks.tex#L28-L54](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-callbacks.tex#L28-L54)
+---
+---@param callback_name CallbackName
+---@param func function|nil|false
+---
+---@return integer|nil id # The function returns the internal `id` of the callback or `nil`, if the callback could not be registered.
+---@return string error # In the latter case, `error` contains an error message, otherwise it is `nil`. The function returns `No such callback exists.` if a wrong callback name was specified.
+function callback.register(callback_name, func) end
+
+---
+---The keys in the table are the known callback names, the value is a boolean where
+---`true` means that the callback is currently set (active).
+------
+---Source: [luatex-callbacks.tex#L56-L62](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-callbacks.tex#L56-L62)
+---
+---@return table info
+function callback.list() end
+
+---
+---If the callback is not set, `find` returns `nil`.
+------
+---Source: [luatex-callbacks.tex#L64-L68](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-callbacks.tex#L64-L68)
+---
+---@param callback_name CallbackName
+---
+---@return function|nil f
+function callback.find(callback_name) end

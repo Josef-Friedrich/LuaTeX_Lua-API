@@ -109,7 +109,7 @@
 ---
 ---We try to keep upcoming versions compatible but intermediate releases can contain
 ---experimental features. A general rule is that versions that end up on *TeX*LIVE\
----and|/|or are released around *ConTeXt* meetings are stable. Any version between
+---and/or are released around *ConTeXt* meetings are stable. Any version between
 ---the yearly *TeX*LIVE\ releases are to be considered beta and in the repository end
 ---up as trunk releases. We have an experimental branch that we use for development
 ---but there is no support for any of its experimental features. Intermediate

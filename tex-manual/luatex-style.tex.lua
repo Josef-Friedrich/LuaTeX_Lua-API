@@ -310,7 +310,7 @@
 ---\makesyntaxcodetable
 ---
 ---\unexpanded\def\startsyntax {\begingroup\catcodetable\syntaxcodetable  \dostartsyntax}
----\unexpanded\def\syntax      {\begingroup\catcodetable\syntaxcodetable  \dosyntax}
+---\unexpanded\def`\begingroup\catcodetable\syntaxcodetable  \dosyntax`
 ---           \let\stopsyntax   \relax
 ---
 ---\unexpanded\def\syntaxenvbody#1%

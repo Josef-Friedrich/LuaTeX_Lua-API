@@ -4,6 +4,8 @@ import re
 import sys
 import glob
 
+from pathlib import Path
+
 
 def patch_file(file_name: str):
     content: str = ""
@@ -12,7 +14,7 @@ def patch_file(file_name: str):
         content = src.read()
 
     content = re.sub(
-        r"\\(type|typ|prm|lpr|nod)[\n ]+\{([^}]*)\}", r"`\2`", content
+        r"\\(type|typ|prm|lpr|nod|syntax|notabene)[\n ]+\{([^}]*)\}", r"`\2`", content
     )
 
     content = re.sub(r"\\quote\s*\{([^}]*)\}", r"“\1”", content)
@@ -33,8 +35,7 @@ def patch_file(file_name: str):
 
     content = content.replace("~", " ")
     content = content.replace("|-|", "-")
-
-
+    content = content.replace("|/|", "/")
 
     content = "---" + content.replace("\n", "\n---")
 
@@ -44,11 +45,8 @@ def patch_file(file_name: str):
     print(content)
 
 
-print(glob.glob("*.tex"))
-
-
 if len(sys.argv) < 2:
-    for file_name in glob.glob("*.tex"):
+    for file_name in glob.glob(str(Path(__file__).resolve().parent) + "/*.tex"):
         patch_file(file_name)
 else:
     patch_file(sys.argv[1])

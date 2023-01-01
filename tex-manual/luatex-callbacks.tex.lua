@@ -22,7 +22,7 @@
 ---data is expected. For instance, you can replace the hyphenation routine. The
 ---function gets a list that can be hyphenated (or not). The final list should be
 ---valid and is (normally) used for constructing a paragraph. Another function can
----replace the ligature builder and|/|or kerner. Doing something else is possible
+---replace the ligature builder and/or kerner. Doing something else is possible
 ---but in the end might not give the user the expected outcome.
 ---
 ---The first thing you need to do is registering a callback:
@@ -36,7 +36,7 @@
 ---    callback.register(<string> callback_name, false)
 ---```
 ---
----Here the \syntax {callback_name} is a predefined callback name, see below. The
+---Here the `callback_name` is a predefined callback name, see below. The
 ---function returns the internal `id` of the callback or `nil`, if the
 ---callback could not be registered. In the latter case, `error` contains an
 ---error message, otherwise it is `nil`.
@@ -50,8 +50,7 @@
 ---For some minor speed gain, you can assign the boolean `false` to the
 ---non-file related callbacks, doing so will prevent *LuaTeX* from executing
 ---whatever it would execute by default (when no callback function is registered at
----all). Be warned: this may cause all sorts of grief unless you know \notabene
----{exactly} what you are doing!
+---all). Be warned: this may cause all sorts of grief unless you know `exactly` what you are doing!
 ---
 ---```
 ---<table> info =

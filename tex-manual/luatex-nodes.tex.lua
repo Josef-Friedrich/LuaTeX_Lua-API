@@ -16,7 +16,7 @@
 ---
 ---*TeX*'s nodes are represented in *Lua* as userdata objects with a variable set of
 ---fields. In the following syntax tables, such as the type of such a userdata object
----is represented as \syntax {<node>}.
+---is represented as `<node>`.
 ---
 ---The current return value of `node.types()` is:
 ---\startluacode
@@ -1168,7 +1168,7 @@
 ---Nodes can be compared to each other, but: you are actually comparing indices into
 ---the node memory. This means that equality tests can only be trusted under very
 ---limited conditions. It will not work correctly in any situation where one of the
----two nodes has been freed and|/|or reallocated: in that case, there will be false
+---two nodes has been freed and/or reallocated: in that case, there will be false
 ---positives.
 ---
 ---At the moment, memory management of nodes should still be done explicitly by the
