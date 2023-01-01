@@ -49,6 +49,47 @@ node = {}
 ---@field head? Node
 ---@field attr Node # list of attributes
 
+---@alias RuleNodeSubtype
+---|0 # normal
+---|1 # box
+---|2 # image
+---|3 # empty
+---|4 # user
+---|5 # over
+---|6 # under,
+---|7 # fraction
+---|8 # radical
+---|9 # outline
+
+---
+---Contrary to traditional *TeX*, *LuaTeX* has more `rule` subtypes because we
+---also use rules to store reuseable objects and images. User nodes are invisible
+---and can be intercepted by a callback.
+---
+---The `left` and `right` keys are somewhat special (and experimental).
+---When rules are auto adapting to the surrounding box width you can enforce a shift
+---to the right by setting `left`. The value is also subtracted from the width
+---which can be a value set by the engine itself and is not entirely under user
+---control. The `right` is also subtracted from the width. It all happens in
+---the backend so these are not affecting the calculations in the frontend (actually
+---the auto settings also happen in the backend). For a vertical rule `left`
+---affects the height and `right` affects the depth. There is no matching
+---interface at the *TeX* end (although we can have more keywords for rules it would
+---complicate matters and introduce a speed penalty.) However, you can just
+---construct a rule node with *Lua* and write it to the *TeX* input. The `outline` subtype is just a convenient variant and the `transform` field
+---specifies the width of the outline.
+---
+---@class RuleNode: Node
+---@field subtype RuleNodeSubtype
+---@field width integer # the width of the rule where the special value −1073741824 is used for ‘running’ glue dimensions
+---@field height integer # the height of the rule (can be negative)
+---@field depth integer # the depth of the rule (can be negative)
+---@field left integer # shift at the left end (also subtracted from width)
+---@field right integer # (subtracted from width)
+---@field dir DirectionSpecifier the direction of this rule
+---@field index integer # an optional index that can be referred too
+---@field transform integer # an private variable (also used to specify outline width)
+
 ---@class WhatsitNode: Node
 ---@field type number
 ---@field user_id number
@@ -76,7 +117,7 @@ node = {}
 ---Source: [pdftex-t.tex#L3954-L3980](https://github.com/tex-mirror/pdftex/blob/6fb2352aa70a23ad3830f1434613170be3f3cd74/doc/manual/pdftex-t.tex#L3954-L3980)
 ---@class PdfColorstackWhatsitNode: WhatsitNode
 ---@field stack integer # colorstack id number
----@field command integer # command to execute. ⟨stack action⟩ → set (0) | push (1) | pop (2) | current () [texnodes.c#L3523-L3545](https://github.com/TeX-Live/luatex/blob/6472bd794fea67de09f01e1a89e9b12141be7474/source/texk/web2c/luatexdir/tex/texnodes.c#L3523-L3545)
+---@field command integer # command to execute. ⟨stack action⟩ → set (0) | push (1) | pop (2) | current (3) [texnodes.c#L3523-L3545](https://github.com/TeX-Live/luatex/blob/6472bd794fea67de09f01e1a89e9b12141be7474/source/texk/web2c/luatexdir/tex/texnodes.c#L3523-L3545)
 ---@field data string # for example `1 0 0 rg 1 0 0 RG`. `rg` only colors filled outlines while the stroke color is set with `RG`.
 
 ---@class HlistNode: Node
