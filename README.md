@@ -44,7 +44,7 @@ Signature overloads in `tex.sp()`
 
 Documentation for the field `data` of the `pdf_colorstack` node:
 
-![](PdfColorstockWhatsitNode.data.png)
+![](images/PdfColorstockWhatsitNode.data.png)
 
 ## Documentation
 
