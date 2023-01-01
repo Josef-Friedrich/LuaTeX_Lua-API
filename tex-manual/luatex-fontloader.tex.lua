@@ -1,0 +1,1121 @@
+---% language=uk
+---
+---\environment luatex-style
+---
+---\startcomponent luatex-fontloader
+---
+---\startchapter[reference=fontloader,title={The fontloader}]
+---
+---\topicindex {fonts+loading}
+---
+---The fontloader library is sort of independent of the rest in the sense that it
+---can load font into a *Lua* table that then can be converted into a table suitable
+---for *TeX*. The library is an adapted subset of \FONTFORGE\ and as such gives a
+---similar view on a font (which has advantages when you want to debug). We will not
+---discuss \OPENTYPE\ in detail here as the \MICROSOFT\ website offers enough
+---information about it. The tables returned by the loader are not that far from the
+---standard. We have no plans to extend the loader (it may even become an external
+---module at some time).
+---
+---\startsection[title={Getting quick information on a font}][library=fontloader]
+---
+---\topicindex {fonts+information}
+---
+---\libindex{info}
+---
+---When you want to locate font by name you need some basic information that is
+---hidden in the font files. For that reason we provide an efficient helper that
+---gets the basic information without loading all of the font. Normally this helper
+---is used to create a font (name) database.
+---
+---```
+---<table> info =
+---    fontloader.info(<string> filename)
+---```
+---
+---This function returns either `nil`, or a `table`, or an array of
+---small tables (in the case of a \TRUETYPE\ collection). The returned table(s) will
+---contain some fairly interesting information items from the font(s) defined by the
+---file:
+---
+---\starttabulate[|l|l|p|]
+---\DB key                 \BC type     \BC explanation \NC \NR
+---\TB
+---\NC \type{fontname}     \NC string   \NC the \POSTSCRIPT\ name of the font\NC \NR
+---\NC \type{fullname}     \NC string   \NC the formal name of the font\NC \NR
+---\NC \type{familyname}   \NC string   \NC the family name this font belongs to\NC \NR
+---\NC \type{weight}       \NC string   \NC a string indicating the color value of the font\NC \NR
+---\NC \type{version}      \NC string   \NC the internal font version\NC \NR
+---\NC \type{italicangle}  \NC float    \NC the slant angle\NC \NR
+---\NC \type{units_per_em} \NC number   \NC 1000 for \POSTSCRIPT-based fonts, usually 2048 for \TRUETYPE\NC \NR
+---\NC \type{pfminfo}      \NC table    \NC (see \in{section}[fontloaderpfminfotable])\NC \NR
+---\LL
+---\stoptabulate
+---
+---Getting information through this function is (sometimes much) more efficient than
+---loading the font properly, and is therefore handy when you want to create a
+---dictionary of available fonts based on a directory contents.
+---
+---\stopsection
+---
+---\startsection[title={Loading an \OPENTYPE\ or \TRUETYPE\ file}][library=fontloader]
+---
+---\topicindex {\OPENTYPE}
+---\topicindex {\TRUETYPE}
+---
+---\libindex{open}
+---\libindex{close}
+---\libindex{to_table}
+---
+---If you want to use an \OPENTYPE\ font, you have to get the metric information
+---from somewhere. Using the `fontloader` library, the simplest way to get
+---that information is thus:
+---
+---```
+---function load_font (filename)
+---  local metrics = nil
+---  local font = fontloader.open(filename)
+---  if font then
+---     metrics = fontloader.to_table(font)
+---     fontloader.close(font)
+---  end
+---  return metrics
+---end
+---
+---myfont = load_font('/opt/tex/texmf/fonts/data/arial.ttf')
+---```
+---
+---The main function call is
+---
+---```
+---<userdata> f, <table> w = fontloader.open(<string> filename)
+---<userdata> f, <table> w = fontloader.open(<string> filename, <string> fontname)
+---```
+---
+---The first return value is a userdata representation of the font. The second
+---return value is a table containing any warnings and errors reported by fontloader
+---while opening the font. In normal typesetting, you would probably ignore the
+---second argument, but it can be useful for debugging purposes.
+---
+---For \TRUETYPE\ collections (when filename ends in 'ttc') and \DFONT\ collections,
+---you have to use a second string argument to specify which font you want from the
+---collection. Use the `fontname` strings that are returned by `fontloader.info` for that.
+---
+---To turn the font into a table, `fontloader.to_table` is used on the font
+---returned by `fontloader.open`.
+---
+---```
+---<table> f = fontloader.to_table(<userdata> font)
+---```
+---
+---This table cannot be used directly by *LuaTeX* and should be turned into another
+---one as described in \in {chapter} [fonts]. Do not forget to store the `fontname` value in the `psname` field of the metrics table to be returned
+---to *LuaTeX*, otherwise the font inclusion backend will not be able to find the
+---correct font in the collection.
+---
+---See \in {section} [fontloadertables] for details on the userdata object returned
+---by `fontloader.open` and the layout of the `metrics` table returned
+---by `fontloader.to_table`.
+---
+---The font file is parsed and partially interpreted by the font loading routines
+---from \FONTFORGE. The file format can be \OPENTYPE, \TRUETYPE, \TRUETYPE\
+---Collection, \CFF, or \TYPEONE.
+---
+---There are a few advantages to this approach compared to reading the actual font
+---file ourselves:
+---
+---
+---
+---* The font is automatically re-encoded, so that the `metrics` table for
+---    \TRUETYPE\ and \OPENTYPE\ fonts is using \UNICODE\ for the character indices.
+---
+---
+---* Many features are pre-processed into a format that is easier to handle than
+---    just the bare tables would be.
+---
+---
+---* \POSTSCRIPT-based \OPENTYPE\ fonts do not store the character height and
+---    depth in the font file, so the character boundingbox has to be calculated in
+---    some way.
+---
+---
+---
+---
+---A loaded font is discarded with:
+---
+---```
+---fontloader.close(<userdata> font)
+---```
+---
+---\stopsection
+---
+---\startsection[title={Applying a “feature file”}][library=fontloader]
+---
+---\libindex{apply_featurefile}
+---
+---You can apply a “feature file” to a loaded font:
+---
+---```
+---<table> errors = fontloader.apply_featurefile(<userdata> font, <string> filename)
+---```
+---
+---A “feature file” is a textual representation of the features in an
+---\OPENTYPE\ font. See
+---
+---```
+---http://www.adobe.com/devnet/opentype/afdko/topic_feature_file_syntax.html
+---```
+---
+---and
+---
+---```
+---http://fontforge.sourceforge.net/featurefile.html
+---```
+---
+---for a more detailed description of feature files.
+---
+---If the function fails, the return value is a table containing any errors reported
+---by fontloader while applying the feature file. On success, `nil` is
+---returned.
+---
+---\stopsection
+---
+---\startsection[title={Applying an “\AFM\ file”}][library=fontloader]
+---
+---\topicindex {\TYPEONE}
+---
+---\libindex{apply_afmfile}
+---
+---You can apply an “\AFM\ file” to a loaded font:
+---
+---```
+---<table> errors = fontloader.apply_afmfile(<userdata> font, <string> filename)
+---```
+---
+---An \AFM\ file is a textual representation of (some of) the meta information
+---in a \TYPEONE\ font. See
+---
+---```
+---ftp://ftp.math.utah.edu/u/ma/hohn/linux/postscript/5004.AFM_Spec.pdf
+---```
+---
+---for more information about \AFM\ files.
+---
+---Note: If you `fontloader.open` a \TYPEONE\ file named `font.pfb`,
+---the library will automatically search for and apply `font.afm` if it exists
+---in the same directory as the file `font.pfb`. In that case, there is no
+---need for an explicit call to `apply_afmfile()`.
+---
+---If the function fails, the return value is a table containing any errors reported
+---by fontloader while applying the AFM file. On success, `nil` is returned.
+---
+---\stopsection
+---
+---\startsection[title={Fontloader font tables},reference=fontloadertables][library=fontloader]
+---
+---\topicindex {fontloader+tables}
+---
+---\libindex{fields}
+---
+---As mentioned earlier, the return value of `fontloader.open` is a userdata
+---object. One way to have access to the actual metrics is to call `fontloader.to_table` on this object, returning the table structure that is
+---explained in the following sections. In teh following sections we will not
+---explain each field in detail. Most fields are self descriptive and for the more
+---technical aspects you need to consult the relevant font references.
+---
+---It turns out that the result from `fontloader.to_table` sometimes needs
+---very large amounts of memory (depending on the font's complexity and size) so it
+---is possible to access the userdata object directly.
+---
+---
+---* All top-level keys that would be returned by `to_table()`
+---    can also be accessed directly.
+---
+---* The top-level key “glyphs” returns a {\it virtual\/} array that
+---    allows indices from `f.glyphmin` to (`f.glyphmax`).
+---
+---* The items in that virtual array (the actual glyphs) are themselves also
+---    userdata objects, and each has accessors for all of the keys explained in the
+---    section “Glyph items” below.
+---
+---* The top-level key “subfonts” returns an {\it actual} array of userdata
+---    objects, one for each of the subfonts (or nil, if there are no subfonts).
+---
+---
+---
+---A short example may be helpful. This code generates a printout of all
+---the glyph names in the font `PunkNova.kern.otf`:
+---
+---```
+---local f = fontloader.open('PunkNova.kern.otf')
+---print (f.fontname)
+---local i = 0
+---if f.glyphcnt > 0 then
+---    for i=f.glyphmin,f.glyphmax do
+---       local g = f.glyphs[i]
+---       if g then
+---          print(g.name)
+---       end
+---       i = i + 1
+---    end
+---end
+---fontloader.close(f)
+---```
+---
+---In this case, the *LuaTeX* memory requirement stays below 100MB on the test
+---computer, while the internal structure generated by `to_table()` needs more
+---than 2GB of memory (the font itself is 6.9MB in disk size).
+---
+---Only the top-level font, the subfont table entries, and the glyphs are virtual
+---objects, everything else still produces normal *Lua* values and tables.
+---
+---If you want to know the valid fields in a font or glyph structure, call the `fields` function on an object of a particular type (either glyph or font):
+---
+---```
+---<table> fields = fontloader.fields(<userdata> font)
+---<table> fields = fontloader.fields(<userdata> font_glyph)
+---```
+---
+---For instance:
+---
+---```
+---local fields = fontloader.fields(f)
+---local fields = fontloader.fields(f.glyphs[0])
+---```
+---
+---\stopsection
+---
+---\startsection[title={Table types}][library=fontloader]
+---
+---\startsubsection[title={The main table}]
+---
+---The top-level keys in the returned table are (the explanations in this part of
+---the documentation are not yet finished):
+---
+---\starttabulate[|l|l|p|]
+---\DB key                                 \BC type     \NC explanation \NC \NR
+---\TB
+---\NC \type{table_version}                \NC number   \NC indicates the metrics version (currently 0.3)\NC \NR
+---\NC \type{fontname}                     \NC string   \NC \POSTSCRIPT\ font name\NC \NR
+---\NC \type{fullname}                     \NC string   \NC official (human-oriented) font name\NC \NR
+---\NC \type{familyname}                   \NC string   \NC family name\NC \NR
+---\NC \type{weight}                       \NC string   \NC weight indicator\NC \NR
+---\NC \type{copyright}                    \NC string   \NC copyright information\NC \NR
+---\NC \type{filename}                     \NC string   \NC the file name\NC \NR
+---\NC \type{version}                      \NC string   \NC font version\NC \NR
+---\NC \type{italicangle}                  \NC float    \NC slant angle\NC \NR
+---\NC \type{units_per_em}                 \NC number   \NC 1000 for \POSTSCRIPT-based fonts, usually 2048 for \TRUETYPE\NC \NR
+---\NC \type{ascent}                       \NC number   \NC height of ascender in `units_per_em`\NC \NR
+---\NC \type{descent}                      \NC number   \NC depth of descender in `units_per_em`\NC \NR
+---\NC \type{upos}                         \NC float    \NC \NC \NR
+---\NC \type{uwidth}                       \NC float    \NC \NC \NR
+---\NC \type{uniqueid}                     \NC number   \NC \NC \NR
+---\NC \type{glyphs}                       \NC array    \NC \NC \NR
+---\NC \type{glyphcnt}                     \NC number   \NC number of included glyphs\NC \NR
+---\NC \type{glyphmax}                     \NC number   \NC maximum used index the glyphs array\NC \NR
+---\NC \type{glyphmin}                     \NC number   \NC minimum used index the glyphs array\NC \NR
+---\NC \type{notdef_loc}                   \NC number   \NC location of the `.notdef` glyph
+---                                                         or `-1` when not present \NC \NR
+---\NC \type{hasvmetrics}                  \NC number   \NC \NC \NR
+---\NC \type{onlybitmaps}                  \NC number   \NC \NC \NR
+---\NC \type{serifcheck}                   \NC number   \NC \NC \NR
+---\NC \type{isserif}                      \NC number   \NC \NC \NR
+---\NC \type{issans}                       \NC number   \NC \NC \NR
+---\NC \type{encodingchanged}              \NC number   \NC \NC \NR
+---\NC \type{strokedfont}                  \NC number   \NC \NC \NR
+---\NC \type{use_typo_metrics}             \NC number   \NC \NC \NR
+---\NC \type{weight_width_slope_only}      \NC number   \NC \NC \NR
+---\NC \type{head_optimized_for_cleartype} \NC number   \NC \NC \NR
+---\NC \type{uni_interp}                   \NC enum     \NC `unset`, `none`, `adobe`,
+---                                                         `greek`, `japanese`, `trad_chinese`,
+---                                                         `simp_chinese`, `korean`, `ams`\NC \NR
+---\NC \type{origname}                     \NC string   \NC the file name, as supplied by the user\NC \NR
+---\NC \type{map}                          \NC table    \NC \NC \NR
+---\NC \type{private}                      \NC table    \NC \NC \NR
+---\NC \type{xuid}                         \NC string   \NC \NC \NR
+---\NC \type{pfminfo}                      \NC table    \NC \NC \NR
+---\NC \type{names}                        \NC table    \NC \NC \NR
+---\NC \type{cidinfo}                      \NC table    \NC \NC \NR
+---\NC \type{subfonts}                     \NC array    \NC \NC \NR
+---\NC \type{commments}                    \NC string   \NC \NC \NR
+---\NC \type{fontlog}                      \NC string   \NC \NC \NR
+---\NC \type{cvt_names}                    \NC string   \NC \NC \NR
+---\NC \type{anchor_classes}               \NC table    \NC \NC \NR
+---\NC \type{ttf_tables}                   \NC table    \NC \NC \NR
+---\NC \type{ttf_tab_saved}                \NC table    \NC \NC \NR
+---\NC \type{kerns}                        \NC table    \NC \NC \NR
+---\NC \type{vkerns}                       \NC table    \NC \NC \NR
+---\NC \type{texdata}                      \NC table    \NC \NC \NR
+---\NC \type{lookups}                      \NC table    \NC \NC \NR
+---\NC \type{gpos}                         \NC table    \NC \NC \NR
+---\NC \type{gsub}                         \NC table    \NC \NC \NR
+---\NC \type{mm}                           \NC table    \NC \NC \NR
+---\NC \type{chosenname}                   \NC string   \NC \NC \NR
+---\NC \type{macstyle}                     \NC number   \NC \NC \NR
+---\NC \type{fondname}                     \NC string   \NC \NC \NR
+---%NC \type{design_size}                  \NC number   \NC \NC \NR
+---\NC \type{fontstyle_id}                 \NC number   \NC \NC \NR
+---\NC \type{fontstyle_name}               \NC table    \NC \NC \NR
+---%NC \type{design_range_bottom}          \NC number   \NC \NC \NR
+---%NC \type{design_range_top}             \NC number   \NC \NC \NR
+---\NC \type{strokewidth}                  \NC float    \NC \NC \NR
+---\NC \type{mark_classes}                 \NC table    \NC \NC \NR
+---\NC \type{creationtime}                 \NC number   \NC \NC \NR
+---\NC \type{modificationtime}             \NC number   \NC \NC \NR
+---\NC \type{os2_version}                  \NC number   \NC \NC \NR
+---\NC \type{math}                         \NC table    \NC \NC \NR
+---\NC \type{validation_state}             \NC table    \NC \NC \NR
+---\NC \type{horiz_base}                   \NC table    \NC \NC \NR
+---\NC \type{vert_base}                    \NC table    \NC \NC \NR
+---\NC \type{extrema_bound}                \NC number   \NC \NC \NR
+---\NC \type{truetype}                     \NC boolean  \NC signals a \TRUETYPE\ font \NC \NR
+---\LL
+---\stoptabulate
+---
+---\stopsubsection
+---
+---\startsubsection[title={`glyphs`}]
+---
+---The `glyphs` is an array containing the per-character
+---information (quite a few of these are only present if non-zero).
+---
+---\starttabulate[|l|l|p|]
+---\DB key                      \BC type     \BC explanation \NC \NR
+---\TB
+---\NC \type{name}              \NC string   \NC the glyph name \NC \NR
+---\NC \type{unicode}           \NC number   \NC unicode code point, or -1 \NC \NR
+---\NC \type{boundingbox}       \NC array    \NC array of four numbers, see note below \NC \NR
+---\NC \type{width}             \NC number   \NC only for horizontal fonts \NC \NR
+---\NC \type{vwidth}            \NC number   \NC only for vertical fonts \NC \NR
+---\NC \type{tsidebearing}      \NC number   \NC only for vertical ttf/otf fonts, and only if non-zero \NC \NR
+---\NC \type{lsidebearing}      \NC number   \NC only if non-zero and not equal to boundingbox[1] \NC \NR
+---\NC \type{class}             \NC string   \NC one of "none", "base", "ligature", "mark", "component"
+---                                              (if not present, the glyph class is “automatic”) \NC \NR
+---\NC \type{kerns}             \NC array    \NC only for horizontal fonts, if set \NC \NR
+---\NC \type{vkerns}            \NC array    \NC only for vertical fonts, if set \NC \NR
+---\NC \type{dependents}        \NC array    \NC linear array of glyph name strings, only if nonempty\NC \NR
+---\NC \type{lookups}           \NC table    \NC only if nonempty \NC \NR
+---\NC \type{ligatures}         \NC table    \NC only if nonempty \NC \NR
+---\NC \type{anchors}           \NC table    \NC only if set \NC \NR
+---\NC \type{comment}           \NC string   \NC only if set \NC \NR
+---\NC \type{tex_height}        \NC number   \NC only if set \NC \NR
+---\NC \type{tex_depth}         \NC number   \NC only if set \NC \NR
+---\NC \type{italic_correction} \NC number   \NC only if set \NC \NR
+---\NC \type{top_accent}        \NC number   \NC only if set \NC \NR
+---\NC \type{is_extended_shape} \NC number   \NC only if this character is part of a math extension list \NC \NR
+---\NC \type{altuni}            \NC table    \NC alternate \UNICODE\ items \NC \NR
+---\NC \type{vert_variants}     \NC table    \NC \NC \NR
+---\NC \type{horiz_variants}    \NC table    \NC \NC \NR
+---\NC \type{mathkern}          \NC table    \NC \NC \NR
+---\LL
+---\stoptabulate
+---
+---On `boundingbox`: The boundingbox information for \TRUETYPE\ fonts and
+---\TRUETYPE-based \OTF\ fonts is read directly from the font file.
+---\POSTSCRIPT-based fonts do not have this information, so the boundingbox of
+---traditional \POSTSCRIPT\ fonts is generated by interpreting the actual bezier
+---curves to find the exact boundingbox. This can be a slow process, so the
+---boundingboxes of \POSTSCRIPT-based \OTF\ fonts (and raw \CFF\ fonts) are
+---calculated using an approximation of the glyph shape based on the actual glyph
+---points only, instead of taking the whole curve into account. This means that
+---glyphs that have missing points at extrema will have a too-tight boundingbox,
+---but the processing is so much faster that in our opinion the tradeoff is worth
+---it.
+---
+---The `kerns` and `vkerns` are linear arrays of small hashes:
+---
+---\starttabulate[|l|l|p|]
+---\DB key           \BC type   \BC explanation \NC \NR
+---\TB
+---\NC \type{char}   \NC string \NC \NC \NR
+---\NC \type{off}    \NC number \NC \NC \NR
+---\NC \type{lookup} \NC string \NC \NC \NR
+---\LL
+---\stoptabulate
+---
+---The `lookups` is a hash, based on lookup subtable names, with
+---the value of each key inside that a linear array of small hashes:
+---
+---% TODO: fix this description
+---
+---\starttabulate[|l|l|p|]
+---\DB key                  \BC type \BC explanation \NC \NR
+---\TB
+---\NC \type{type}          \NC enum \NC `position`, `pair`, `substitution`, `alternate`, `multiple`, `ligature`, `lcaret`, \cbk {kerning}, `vkerning`,
+---                                      `anchors`, `contextpos`, `contextsub`, `chainpos`, `chainsub`, `reversesub`, `max`, `kernback`, `vkernback`
+---                                      \NC \NR
+---\NC \type{specification} \NC table \NC extra data \NC \NR
+---\LL
+---\stoptabulate
+---
+---For the first seven values of `type`, there can be additional
+---sub-information, stored in the sub-table `specification`:
+---
+---\starttabulate[|l|l|p|]
+---\DB value               \BC type     \BC explanation \NC \NR
+---\TB
+---\NC \type{position}     \NC table    \NC a table of the `offset_specs` type \NC \NR
+---\NC \type{pair}         \NC table    \NC one string: `paired`, and an array of one
+---                                         or two `offset_specs` tables: `offsets` \NC \NR
+---\NC \type{substitution} \NC table    \NC one string: `variant` \NC \NR
+---\NC \type{alternate}    \NC table    \NC one string: `components` \NC \NR
+---\NC \type{multiple}     \NC table    \NC one string: `components` \NC \NR
+---\NC \type{ligature}     \NC table    \NC two strings: `components`, `char` \NC \NR
+---\NC \type{lcaret}       \NC array    \NC linear array of numbers \NC \NR
+---\LL
+---\stoptabulate
+---
+---Tables for `offset_specs` contain up to four number-valued fields: `x` (a horizontal offset), `y` (a vertical offset), `h` (an advance
+---width correction) and `v` (an advance height correction).
+---
+---The `ligatures` is a linear array of small hashes:
+---
+---\starttabulate[|l|l|p|]
+---\DB key               \BC type   \BC explanation \NC \NR
+---\TB
+---\NC \type{lig}        \NC table  \NC uses the same substructure as a single item in
+---                                     the `lookups` table explained above \NC \NR
+---\NC \type{char}       \NC string \NC \NC \NR
+---\NC \type{components} \NC array  \NC linear array of named components \NC \NR
+---\NC \type{ccnt}       \NC number \NC \NC \NR
+---\LL
+---\stoptabulate
+---
+---The `anchor` table is indexed by a string signifying the anchor type, which
+---is one of:
+---
+---\starttabulate[|l|l|p|]
+---\DB key             \BC type  \BC explanation \NC \NR
+---\TB
+---\NC \type{mark}     \NC table \NC placement mark \NC \NR
+---\NC \type{basechar} \NC table \NC mark for attaching combining items to a base char \NC \NR
+---\NC \type{baselig}  \NC table \NC mark for attaching combining items to a ligature \NC \NR
+---\NC \type{basemark} \NC table \NC generic mark for attaching combining items to connect to \NC \NR
+---\NC \type{centry}   \NC table \NC cursive entry point \NC \NR
+---\NC \type{cexit}    \NC table \NC cursive exit point \NC \NR
+---\LL
+---\stoptabulate
+---
+---The content of these is a short array of defined anchors, with the
+---entry keys being the anchor names. For all except `baselig`, the
+---value is a single table with this definition:
+---
+---\starttabulate[|l|l|p|]
+---\DB key                 \BC type   \BC explanation \NC \NR
+---\TB
+---\NC \type{x}            \NC number \NC x location \NC \NR
+---\NC \type{y}            \NC number \NC y location \NC \NR
+---\NC \type{ttf_pt_index} \NC number \NC truetype point index, only if given \NC \NR
+---\LL
+---\stoptabulate
+---
+---For `baselig`, the value is a small array of such anchor sets sets, one for
+---each constituent item of the ligature.
+---
+---For clarification, an anchor table could for example look like this :
+---
+---```
+---['anchor'] = {
+---    ['basemark'] = {
+---        ['Anchor-7'] = { ['x']=170, ['y']=1080 }
+---    },
+---    ['mark'] ={
+---        ['Anchor-1'] = { ['x']=160, ['y']=810 },
+---        ['Anchor-4'] = { ['x']=160, ['y']=800 }
+---    },
+---    ['baselig'] = {
+---        [1] = { ['Anchor-2'] = { ['x']=160, ['y']=650 } },
+---        [2] = { ['Anchor-2'] = { ['x']=460, ['y']=640 } }
+---        }
+---    }
+---```
+---
+---Note: The `baselig` table can be sparse!
+---
+---\stopsubsection
+---
+---\startsubsection[title={`map`}]
+---
+---The top-level map is a list of encoding mappings. Each of those is a table
+---itself.
+---
+---\starttabulate[|l|l|p|]
+---\DB key             \BC type   \BC explanation \NC \NR
+---\TB
+---\NC \type{enccount} \NC number \NC \NC \NR
+---\NC \type{encmax}   \NC number \NC \NC \NR
+---\NC \type{backmax}  \NC number \NC \NC \NR
+---\NC \type{remap}    \NC table  \NC \NC \NR
+---\NC \type{map}      \NC array  \NC non-linear array of mappings\NC \NR
+---\NC \type{backmap}  \NC array  \NC non-linear array of backward mappings\NC \NR
+---\NC \type{enc}      \NC table  \NC \NC \NR
+---\LL
+---\stoptabulate
+---
+---The `remap` table is very small:
+---
+---\starttabulate[|l|l|p|]
+---\DB key             \BC type   \BC explanation \NC \NR
+---\TB
+---\NC \type{firstenc} \NC number \NC \NC \NR
+---\NC \type{lastenc}  \NC number \NC \NC \NR
+---\NC \type{infont}   \NC number \NC \NC \NR
+---\LL
+---\stoptabulate
+---
+---The `enc` table is a bit more verbose:
+---
+---\starttabulate[|l|l|p|]
+---\DB key                     \BC type   \BC explanation \NC \NR
+---\TB
+---\NC \type{enc_name}         \NC string \NC \NC \NR
+---\NC \type{char_cnt}         \NC number \NC \NC \NR
+---\NC \type{char_max}         \NC number \NC \NC \NR
+---\NC \type{unicode}          \NC array  \NC of \UNICODE\ position numbers\NC \NR
+---\NC \type{psnames}          \NC array  \NC of \POSTSCRIPT\ glyph names\NC \NR
+---\NC \type{builtin}          \NC number \NC \NC \NR
+---\NC \type{hidden}           \NC number \NC \NC \NR
+---\NC \type{only_1byte}       \NC number \NC \NC \NR
+---\NC \type{has_1byte}        \NC number \NC \NC \NR
+---\NC \type{has_2byte}        \NC number \NC \NC \NR
+---\NC \type{is_unicodebmp}    \NC number \NC only if non-zero\NC \NR
+---\NC \type{is_unicodefull}   \NC number \NC only if non-zero\NC \NR
+---\NC \type{is_custom}        \NC number \NC only if non-zero\NC \NR
+---\NC \type{is_original}      \NC number \NC only if non-zero\NC \NR
+---\NC \type{is_compact}       \NC number \NC only if non-zero\NC \NR
+---\NC \type{is_japanese}      \NC number \NC only if non-zero\NC \NR
+---\NC \type{is_korean}        \NC number \NC only if non-zero\NC \NR
+---\NC \type{is_tradchinese}   \NC number \NC only if non-zero [name?]\NC \NR
+---\NC \type{is_simplechinese} \NC number \NC only if non-zero\NC \NR
+---\NC \type{low_page}         \NC number \NC \NC \NR
+---\NC \type{high_page}        \NC number \NC \NC \NR
+---\NC \type{iconv_name}       \NC string \NC \NC \NR
+---\NC \type{iso_2022_escape}  \NC string \NC \NC \NR
+---\LL
+---\stoptabulate
+---
+---\stopsubsection
+---
+---\startsubsection[title={`private`}]
+---
+---This is the font's private \POSTSCRIPT\ dictionary, if any. Keys and values are
+---both strings.
+---
+---\stopsubsection
+---
+---\startsubsection[title={`cidinfo`}]
+---
+---\starttabulate[|l|l|p|]
+---\DB key               \BC type   \BC explanation \NC \NR
+---\TB
+---\NC \type{registry}   \NC string \NC \NC \NR
+---\NC \type{ordering}   \NC string \NC \NC \NR
+---\NC \type{supplement} \NC number \NC \NC \NR
+---\NC \type{version}    \NC number \NC \NC \NR
+---\LL
+---\stoptabulate
+---
+---\stopsubsection
+---
+---\startsubsection[reference=fontloaderpfminfotable,title={`pfminfo`}]
+---
+---The `pfminfo` table contains most of the OS/2 information:
+---
+---\starttabulate[|l|l|p|]
+---\DB key                     \BC type   \BC explanation \NC \NR
+---\TB
+---\NC \type{pfmset}           \NC number \NC \NC \NR
+---\NC \type{winascent_add}    \NC number \NC \NC \NR
+---\NC \type{windescent_add}   \NC number \NC \NC \NR
+---\NC \type{hheadascent_add}  \NC number \NC \NC \NR
+---\NC \type{hheaddescent_add} \NC number \NC \NC \NR
+---\NC \type{typoascent_add}   \NC number \NC \NC \NR
+---\NC \type{typodescent_add}  \NC number \NC \NC \NR
+---\NC \type{subsuper_set}     \NC number \NC \NC \NR
+---\NC \type{panose_set}       \NC number \NC \NC \NR
+---\NC \type{hheadset}         \NC number \NC \NC \NR
+---\NC \type{vheadset}         \NC number \NC \NC \NR
+---\NC \type{pfmfamily}        \NC number \NC \NC \NR
+---\NC \type{weight}           \NC number \NC \NC \NR
+---\NC \type{width}            \NC number \NC \NC \NR
+---\NC \type{avgwidth}         \NC number \NC \NC \NR
+---\NC \type{firstchar}        \NC number \NC \NC \NR
+---\NC \type{lastchar}         \NC number \NC \NC \NR
+---\NC \type{fstype}           \NC number \NC \NC \NR
+---\NC \type{linegap}          \NC number \NC \NC \NR
+---\NC \type{vlinegap}         \NC number \NC \NC \NR
+---\NC \type{hhead_ascent}     \NC number \NC \NC \NR
+---\NC \type{hhead_descent}    \NC number \NC \NC \NR
+---\NC \type{os2_typoascent}   \NC number \NC \NC \NR
+---\NC \type{os2_typodescent}  \NC number \NC \NC \NR
+---\NC \type{os2_typolinegap}  \NC number \NC \NC \NR
+---\NC \type{os2_winascent}    \NC number \NC \NC \NR
+---\NC \type{os2_windescent}   \NC number \NC \NC \NR
+---\NC \type{os2_subxsize}     \NC number \NC \NC \NR
+---\NC \type{os2_subysize}     \NC number \NC \NC \NR
+---\NC \type{os2_subxoff}      \NC number \NC \NC \NR
+---\NC \type{os2_subyoff}      \NC number \NC \NC \NR
+---\NC \type{os2_supxsize}     \NC number \NC \NC \NR
+---\NC \type{os2_supysize}     \NC number \NC \NC \NR
+---\NC \type{os2_supxoff}      \NC number \NC \NC \NR
+---\NC \type{os2_supyoff}      \NC number \NC \NC \NR
+---\NC \type{os2_strikeysize}  \NC number \NC \NC \NR
+---\NC \type{os2_strikeypos}   \NC number \NC \NC \NR
+---\NC \type{os2_family_class} \NC number \NC \NC \NR
+---\NC \type{os2_xheight}      \NC number \NC \NC \NR
+---\NC \type{os2_capheight}    \NC number \NC \NC \NR
+---\NC \type{os2_defaultchar}  \NC number \NC \NC \NR
+---\NC \type{os2_breakchar}    \NC number \NC \NC \NR
+---\NC \type{os2_vendor}       \NC string \NC \NC \NR
+---\NC \type{codepages}        \NC table  \NC A two-number array of encoded code pages \NC \NR
+---\NC \type{unicoderages}     \NC table  \NC A four-number array of encoded unicode ranges \NC \NR
+---\NC \type{panose}           \NC table  \NC \NC \NR
+---\LL
+---\stoptabulate
+---
+---The `panose` subtable has exactly 10 string keys:
+---
+---\starttabulate[|l|l|p|]
+---\DB key                    \BC type    \BC explanation \NC \NR
+---\TB
+---\NC \type{familytype}      \NC string  \NC Values as in the \OPENTYPE\ font
+---                                           specification: `Any`, `No Fit`,
+---                                           `Text and Display`, `Script`,
+---                                           `Decorative`, `Pictorial` \NC
+---                                           \NR
+---\NC \type{serifstyle}      \NC string  \NC See the \OPENTYPE\ font specification for
+---                                           values \NC \NR
+---\NC \type{weight}          \NC string  \NC idem \NC \NR
+---\NC \type{proportion}      \NC string  \NC idem \NC \NR
+---\NC \type{contrast}        \NC string  \NC idem \NC \NR
+---\NC \type{strokevariation} \NC string  \NC idem \NC \NR
+---\NC \type{armstyle}        \NC string  \NC idem \NC \NR
+---\NC \type{letterform}      \NC string  \NC idem \NC \NR
+---\NC \type{midline}         \NC string  \NC idem \NC \NR
+---\NC \type{xheight}         \NC string  \NC idem \NC \NR
+---\LL
+---\stoptabulate
+---
+---\stopsubsection
+---
+---\startsubsection[reference=fontloadernamestable,title={`names`}]
+---
+---Each item has two top-level keys:
+---
+---\starttabulate[|l|l|p|]
+---\DB key          \BC type   \BC explanation \NC \NR
+---\TB
+---\NC \type{lang}  \NC string \NC language for this entry \NC \NR
+---\NC \type{names} \NC table  \NC \NC \NR
+---\LL
+---\stoptabulate
+---
+---The `names` keys are the actual \TRUETYPE\ name strings. The possible keys
+---are: `copyright`, `family`, `subfamily`, `uniqueid`,
+---`fullname`, `version`, `postscriptname`, `trademark`,
+---`manufacturer`, `designer`, `descriptor`, `venderurl`,
+---`designerurl`, `license`, `licenseurl`, `idontknow`,
+---`preffamilyname`, `prefmodifiers`, `compatfull`, `sampletext`, `cidfindfontname`, `wwsfamily` and `wwssubfamily`.
+---
+---\stopsubsection
+---
+---\startsubsection[title={`anchor_classes`}]
+---
+---The anchor_classes classes:
+---
+---\starttabulate[|l|l|p|]
+---\DB key           \BC type   \BC explanation \NC \NR
+---\TB
+---\NC \type{name}   \NC string \NC a descriptive id of this anchor class\NC \NR
+---\NC \type{lookup} \NC string \NC \NC \NR
+---\NC \type{type}   \NC string \NC one of `mark`, `mkmk`, `curs`, `mklg` \NC \NR
+---\LL
+---\stoptabulate
+---
+---% type is actually a lookup subtype, not a feature name. Officially, these
+---% strings should be gpos_mark2mark etc.
+---
+---\stopsubsection
+---
+---\startsubsection[title={`gpos`}]
+---
+---The `gpos` table has one array entry for each lookup. (The `gpos_`
+---prefix is somewhat redundant.)
+---
+---\starttabulate[|l|l|p|]
+---\DB key              \BC type   \BC explanation \NC \NR
+---\TB
+---\NC \type{type}      \NC string \NC one of `gpos_single`, `gpos_pair`,
+---                                    `gpos_cursive`, `gpos_mark2base`,\crlf
+---                                    `gpos_mark2ligature`, `gpos_mark2mark`, `gpos_context`,\crlf `gpos_contextchain` \NC \NR
+---\NC \type{flags}     \NC table  \NC \NC \NR
+---\NC \type{name}      \NC string \NC \NC \NR
+---\NC \type{features}  \NC array  \NC \NC \NR
+---\NC \type{subtables} \NC array  \NC \NC \NR
+---\LL
+---\stoptabulate
+---
+---The flags table has a true value for each of the lookup flags that is actually
+---set:
+---
+---\starttabulate[|l|l|p|]
+---\DB key                         \BC type    \BC explanation \NC \NR
+---\TB
+---\NC \type{r2l}                  \NC boolean \NC \NC \NR
+---\NC \type{ignorebaseglyphs}     \NC boolean \NC \NC \NR
+---\NC \type{ignoreligatures}      \NC boolean \NC \NC \NR
+---\NC \type{ignorecombiningmarks} \NC boolean \NC \NC \NR
+---\NC \type{mark_class}           \NC string  \NC \NC \NR
+---\LL
+---\stoptabulate
+---
+---The features subtable items of gpos have:
+---
+---\starttabulate[|l|l|p|]
+---\DB key            \BC type   \BC explanation \NC \NR
+---\TB
+---\NC \type{tag}     \NC string \NC \NC \NR
+---\NC \type{scripts} \NC table  \NC \NC \NR
+---\LL
+---\stoptabulate
+---
+---The scripts table within features has:
+---
+---\starttabulate[|l|l|p|]
+---\DB key           \BC type             \BC explanation \NC \NR
+---\TB
+---\NC \type{script} \NC string           \NC \NC \NR
+---\NC \type{langs}  \NC array of strings \NC \NC \NR
+---\LL
+---\stoptabulate
+---
+---The subtables table has:
+---
+---\starttabulate[|l|l|p|]
+---\DB key                     \BC type   \BC explanation \NC \NR
+---\TB
+---\NC \type{name}             \NC string \NC \NC \NR
+---\NC \type{suffix}           \NC string \NC (only if used)\NC \NR % used by gpos_single to get a default
+---\NC \type{anchor_classes}   \NC number \NC (only if used)\NC \NR
+---\NC \type{vertical_kerning} \NC number \NC (only if used)\NC \NR
+---\NC \type{kernclass}        \NC table  \NC (only if used)\NC \NR
+---\LL
+---\stoptabulate
+---
+---The kernclass with subtables table has:
+---
+---\starttabulate[|l|l|p|]
+---\DB key            \BC type             \BC explanation \NC \NR
+---\TB
+---\NC \type{firsts}  \NC array of strings \NC \NC \NR
+---\NC \type{seconds} \NC array of strings \NC \NC \NR
+---\NC \type{lookup}  \NC string or array  \NC associated lookup(s) \NC \NR
+---\NC \type{offsets} \NC array of numbers \NC \NC \NR
+---\LL
+---\stoptabulate
+---
+---Note: the kernclass (as far as we can see) always has one entry so it could be one level
+---deep instead. Also the seconds start at `[2]` which is close to the fontforge
+---internals so we keep that too.
+---
+---\stopsubsection
+---
+---\startsubsection[title={`gsub`}]
+---
+---This has identical layout to the `gpos` table, except for the
+---type:
+---
+---\starttabulate[|l|l|p|]
+---\DB key         \BC type   \BC explanation \NC \NR
+---\TB
+---\NC \type{type} \NC string \NC one of `gsub_single`, `gsub_multiple`,
+---                               `gsub_alternate`, `gsub_ligature`,\crlf
+---                               `gsub_context`, `gsub_contextchain`,
+---                               `gsub_reversecontextchain` \NC \NR
+---\LL
+---\stoptabulate
+---
+---\stopsubsection
+---
+---\startsubsection[title={`ttf_tables` and `ttf_tab_saved`}]
+---
+---\starttabulate[|l|l|p|]
+---\DB key           \BC type   \BC explanation \NC \NR
+---\TB
+---\NC \type{tag}    \NC string \NC \NC \NR
+---\NC \type{len}    \NC number \NC \NC \NR
+---\NC \type{maxlen} \NC number \NC \NC \NR
+---\NC \type{data}   \NC number \NC \NC \NR
+---\LL
+---\stoptabulate
+---
+---\stopsubsection
+---
+---\startsubsection[title={`mm`}]
+---
+---\starttabulate[|l|l|p|]
+---\DB key                   \BC type   \BC explanation \NC \NR
+---\TB
+---\NC \type{axes}           \NC table  \NC array of axis names \NC \NR
+---\NC \type{instance_count} \NC number \NC \NC \NR
+---\NC \type{positions}      \NC table  \NC array of instance positions
+---                                         (\#axes * instances )\NC \NR
+---\NC \type{defweights}     \NC table  \NC array of default weights for instances \NC \NR
+---\NC \type{cdv}            \NC string \NC \NC \NR
+---\NC \type{ndv}            \NC string \NC \NC \NR
+---\NC \type{axismaps}       \NC table  \NC \NC \NR
+---\LL
+---\stoptabulate
+---
+---The `axismaps`:
+---
+---\starttabulate[|l|l|p|]
+---\DB key            \BC type   \BC explanation \NC \NR
+---\TB
+---\NC \type{blends}  \NC table  \NC an array of blend points \NC \NR
+---\NC \type{designs} \NC table  \NC an array of design values \NC \NR
+---\NC \type{min}     \NC number \NC \NC \NR
+---\NC \type{def}     \NC number \NC \NC \NR
+---\NC \type{max}     \NC number \NC \NC \NR
+---\LL
+---\stoptabulate
+---
+---\stopsubsection
+---
+---\startsubsection[title={`mark_classes`}]
+---
+---The keys in this table are mark class names, and the values are a
+---space-separated string of glyph names in this class.
+---
+---\stopsubsection
+---
+---\startsubsection[title={`math`}]
+---
+---The math table has the variables that are also discussed in the chapter aboout
+---math: `ScriptPercentScaleDown`, `ScriptScriptPercentScaleDown`, `DelimitedSubFormulaMinHeight`, `DisplayOperatorMinHeight`, `MathLeading`, `AxisHeight`, `AccentBaseHeight`, `FlattenedAccentBaseHeight`, `SubscriptShiftDown`, `SubscriptTopMax`,
+---`SubscriptBaselineDropMin`, `SuperscriptShiftUp`, `SuperscriptShiftUpCramped`, `SuperscriptBottomMin`, `SuperscriptBaselineDropMax`, `SubSuperscriptGapMin`, `SuperscriptBottomMaxWithSubscript`, `SpaceAfterScript`, `UpperLimitGapMin`, `UpperLimitBaselineRiseMin`, `LowerLimitGapMin`,
+---`LowerLimitBaselineDropMin`, `StackTopShiftUp`, `StackTopDisplayStyleShiftUp`, `StackBottomShiftDown`, `StackBottomDisplayStyleShiftDown`, `StackGapMin`, `StackDisplayStyleGapMin`, `StretchStackTopShiftUp`, `StretchStackBottomShiftDown`, `StretchStackGapAboveMin`, `StretchStackGapBelowMin`, `FractionNumeratorShiftUp`, `FractionNumeratorDisplayStyleShiftUp`, `FractionDenominatorShiftDown`,
+---`FractionDenominatorDisplayStyleShiftDown`, `FractionNumeratorGapMin`, `FractionNumeratorDisplayStyleGapMin` `FractionRuleThickness`, `FractionDenominatorGapMin`, `FractionDenominatorDisplayStyleGapMin`, `SkewedFractionHorizontalGap`,
+---`SkewedFractionVerticalGap`, `OverbarVerticalGap`, `OverbarRuleThickness`, `OverbarExtraAscender`, `UnderbarVerticalGap`, `UnderbarRuleThickness`, `UnderbarExtraDescender`, `RadicalVerticalGap`, `RadicalDisplayStyleVerticalGap`, `RadicalRuleThickness`, `RadicalExtraAscender`, `RadicalKernBeforeDegree`, `RadicalKernAfterDegree`, `RadicalDegreeBottomRaisePercent`, `MinConnectorOverlap`, `FractionDelimiterSize` and `FractionDelimiterDisplayStyleSize`.
+---
+---\stopsubsection
+---
+---\startsubsection[title={`validation_state`}]
+---
+---This is just a bonus table with keys: `bad_ps_fontname`, `bad_glyph_table`, `bad_cff_table`, `bad_metrics_table`, `bad_cmap_table`, `bad_bitmaps_table`, `bad_gx_table`, `bad_ot_table`, `bad_os2_version` and `bad_sfnt_header`.
+---
+---\stopsubsection
+---
+---\startsubsection[title={`horiz_base` and `vert_base`}]
+---
+---\starttabulate[|l|l|p|]
+---\DB key            \BC type  \BC explanation \NC \NR
+---\TB
+---\NC \type{tags}    \NC table \NC an array of script list tags\NC \NR
+---\NC \type{scripts} \NC table \NC \NC \NR
+---\LL
+---\stoptabulate
+---
+---The `scripts` subtable:
+---
+---\starttabulate[|l|l|p|]
+---\DB key                     \BC type    \BC explanation \NC \NR
+---\TB
+---\NC \type{baseline}         \NC table   \NC \NC \NR
+---\NC \type{default_baseline} \NC number  \NC \NC \NR
+---\NC \type{lang}             \NC table   \NC \NC \NR
+---\LL
+---\stoptabulate
+---
+---
+---The `lang` subtable:
+---
+---\starttabulate[|l|l|p|]
+---\DB key             \BC type   \BC explanation \NC \NR
+---\TB
+---\NC \type{tag}      \NC string \NC a script tag \NC \NR
+---\NC \type{ascent}   \NC number \NC \NC \NR
+---\NC \type{descent}  \NC number \NC \NC \NR
+---\NC \type{features} \NC table  \NC \NC \NR
+---\LL
+---\stoptabulate
+---
+---The `features` points to an array of tables with the same layout except
+---that in those nested tables, the tag represents a language.
+---
+---\stopsubsection
+---
+---\startsubsection[title={`altuni`}]
+---
+---An array of alternate \UNICODE\ values. Inside that array are hashes with:
+---
+---\starttabulate[|l|l|p|]
+---\DB key            \BC type   \BC explanation \NC \NR
+---\TB
+---\NC \type{unicode} \NC number \NC this glyph is also used for this unicode \NC \NR
+---\NC \type{variant} \NC number \NC the alternative is driven by this unicode selector \NC \NR
+---\LL
+---\stoptabulate
+---
+---\stopsubsection
+---
+---\startsubsection[title={`vert_variants` and `horiz_variants`}]
+---
+---\starttabulate[|l|l|p|]
+---\DB key                      \BC type   \BC explanation \NC \NR
+---\TB
+---\NC \type{variants}          \NC string \NC \NC \NR
+---\NC \type{italic_correction} \NC number \NC \NC \NR
+---\NC \type{parts}             \NC table  \NC \NC \NR
+---\LL
+---\stoptabulate
+---
+---The `parts` table is an array of smaller tables:
+---
+---\starttabulate[|l|l|p|]
+---\DB key              \BC type   \BC explanation \NC \NR
+---\TB
+---\NC \type{component} \NC string \NC \NC \NR
+---\NC \type{extender}  \NC number \NC \NC \NR
+---\NC \type{start}     \NC number \NC \NC \NR
+---\NC \type{end}       \NC number \NC \NC \NR
+---\NC \type{advance}   \NC number \NC \NC \NR
+---\LL
+---\stoptabulate
+---
+---\stopsubsection
+---
+---\startsubsection[title={`mathkern`}]
+---
+---\starttabulate[|l|l|p|]
+---\DB key                 \BC type  \BC explanation \NC \NR
+---\TB
+---\NC \type{top_right}    \NC table \NC \NC \NR
+---\NC \type{bottom_right} \NC table \NC \NC \NR
+---\NC \type{top_left}     \NC table \NC \NC \NR
+---\NC \type{bottom_left}  \NC table \NC \NC \NR
+---\LL
+---\stoptabulate
+---
+---Each of the subtables is an array of small hashes with two keys:
+---
+---\starttabulate[|l|l|p|]
+---\DB key           \BC type   \BC explanation \NC \NR
+---\TB
+---\NC \type{height} \NC number \NC \NC \NR
+---\NC \type{kern}   \NC number \NC \NC \NR
+---\LL
+---\stoptabulate
+---
+---\stopsubsection
+---
+---\startsubsection[title={`kerns`}]
+---
+---Substructure is identical to the per-glyph subtable.
+---
+---\stopsubsection
+---
+---\startsubsection[title={`vkerns`}]
+---
+---Substructure is identical to the per-glyph subtable.
+---
+---\stopsubsection
+---
+---\startsubsection[title={`texdata`}]
+---
+---\starttabulate[|l|l|p|]
+---\DB key           \BC type   \BC explanation \NC \NR
+---\TB
+---\NC \type{type}   \NC string \NC `unset`, `text`, `math`, `mathext` \NC \NR
+---\NC \type{params} \NC array  \NC 22 font numeric parameters \NC \NR
+---\LL
+---\stoptabulate
+---
+---\stopsubsection
+---
+---\startsubsection[title={`lookups`}]
+---
+---Top-level `lookups` is quite different from the ones at character level.
+---The keys in this hash are strings, the values the actual lookups, represented as
+---dictionary tables.
+---
+---\starttabulate[|l|l|p|]
+---\DB key                  \BC type   \BC explanation \NC \NR
+---\TB
+---\NC \type{type}          \NC string \NC \NC \NR
+---\NC \type{format}        \NC enum   \NC one of `glyphs`, `class`, `coverage`,
+---                                        `reversecoverage` \NC \NR
+---\NC \type{tag}           \NC string \NC \NC \NR
+---\NC \type{current_class} \NC array  \NC \NC \NR
+---\NC \type{before_class}  \NC array  \NC \NC \NR
+---\NC \type{after_class}   \NC array  \NC \NC \NR
+---\NC \type{rules}         \NC array  \NC an array of rule items\NC \NR
+---\LL
+---\stoptabulate
+---
+---Rule items have one common item and one specialized item:
+---
+---\starttabulate[|l|l|p|]
+---\DB key                    \BC type  \BC explanation \NC \NR
+---\TB
+---\NC \type{lookups}         \NC array \NC a linear array of lookup names                         \NC \NR
+---\NC \type{glyphs}          \NC array \NC only if the parent's format is `glyphs`          \NC \NR
+---\NC \type{class}           \NC array \NC only if the parent's format is `class`           \NC \NR
+---\NC \type{coverage}        \NC array \NC only if the parent's format is `coverage`        \NC \NR
+---\NC \type{reversecoverage} \NC array \NC only if the parent's format is `reversecoverage` \NC \NR
+---\LL
+---\stoptabulate
+---
+---A glyph table is:
+---
+---\starttabulate[|l|l|p|]
+---\DB key          \BC type   \BC explanation \NC \NR
+---\TB
+---\NC \type{names} \NC string \NC \NC \NR
+---\NC \type{back}  \NC string \NC \NC \NR
+---\NC \type{fore}  \NC string \NC \NC \NR
+---\LL
+---\stoptabulate
+---
+---A class table is:
+---
+---\starttabulate[|l|l|p|]
+---\DB key            \BC type  \BC explanation \NC \NR
+---\TB
+---\NC \type{current} \NC array \NC of numbers  \NC \NR
+---\NC \type{before}  \NC array \NC of numbers  \NC \NR
+---\NC \type{after}   \NC array \NC of numbers  \NC \NR
+---\LL
+---\stoptabulate
+---
+---for coverage:
+---
+---\starttabulate[|l|l|p|]
+---\DB key            \BC type  \BC explanation \NC \NR
+---\TB
+---\NC \type{current} \NC array \NC of strings \NC \NR
+---\NC \type{before}  \NC array \NC of strings \NC \NR
+---\NC \type{after}   \NC array \NC of strings \NC \NR
+---\LL
+---\stoptabulate
+---
+---and for reverse coverage:
+---
+---\starttabulate[|l|l|p|]
+---\DB key                 \BC type   \BC explanation \NC \NR
+---\TB
+---\NC \type{current}      \NC array  \NC of strings  \NC \NR
+---\NC \type{before}       \NC array  \NC of strings  \NC \NR
+---\NC \type{after}        \NC array  \NC of strings  \NC \NR
+---\NC \type{replacements} \NC string \NC             \NC \NR
+---\LL
+---\stoptabulate
+---
+---\stopsubsection
+---
+---\stopsection
+---
+---\stopchapter
+---
+---\stopcomponent
+---

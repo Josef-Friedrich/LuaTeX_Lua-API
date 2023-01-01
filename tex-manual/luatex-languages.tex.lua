@@ -1,0 +1,1066 @@
+---% language=uk
+---
+---\environment luatex-style
+---
+---\startcomponent luatex-languages
+---
+---\startchapter[reference=languages,title={Languages, characters, fonts and glyphs}]
+---
+---\startsection[title={Introduction}]
+---
+---\topicindex {languages}
+---
+---*LuaTeX*'s internal handling of the characters and glyphs that eventually become
+---typeset is quite different from the way *TeX*82 handles those same objects. The
+---easiest way to explain the difference is to focus on unrestricted horizontal mode
+---(i.e.\ paragraphs) and hyphenation first. Later on, it will be easy to deal
+---with the differences that occur in horizontal and math modes.
+---
+---In *TeX*82, the characters you type are converted into `char` node records
+---when they are encountered by the main control loop. *TeX* attaches and processes
+---the font information while creating those records, so that the resulting “horizontal list” contains the final forms of ligatures and implicit kerning.
+---This packaging is needed because we may want to get the effective width of for
+---instance a horizontal box.
+---
+---When it becomes necessary to hyphenate words in a paragraph, *TeX* converts (one
+---word at time) the `char` node records into a string by replacing ligatures
+---with their components and ignoring the kerning. Then it runs the hyphenation
+---algorithm on this string, and converts the hyphenated result back into a “horizontal list” that is consecutively spliced back into the paragraph stream.
+---Keep in mind that the paragraph may contain unboxed horizontal material, which
+---then already contains ligatures and kerns and the words therein are part of the
+---hyphenation process.
+---
+---Those `char` node records are somewhat misnamed, as they are glyph
+---positions in specific fonts, and therefore not really “characters” in the
+---linguistic sense. There is no language information inside the `char` node
+---records at all. Instead, language information is passed along using `language whatsit` nodes inside the horizontal list.
+---
+---In *LuaTeX*, the situation is quite different. The characters you type are always
+---converted into `glyph` node records with a special subtype to identify them
+---as being intended as linguistic characters. *LuaTeX* stores the needed language
+---information in those records, but does not do any font-related processing at
+---the time of node creation. It only stores the index of the current font and a
+---reference to a character in that font.
+---
+---When it becomes necessary to typeset a paragraph, *LuaTeX* first inserts all
+---hyphenation points right into the whole node list. Next, it processes all the
+---font information in the whole list (creating ligatures and adjusting kerning),
+---and finally it adjusts all the subtype identifiers so that the records are “glyph nodes” from now on.
+---
+---\stopsection
+---
+---\startsection[title={Characters, glyphs and discretionaries},reference=charsandglyphs]
+---
+---\topicindex {characters}
+---\topicindex {glyphs}
+---\topicindex {hyphenation}
+---
+---*TeX*82 (including \PDFTEX) differentiates between `char` nodes and `lig` nodes. The former are simple items that contained nothing but a “character” and a “font” field, and they lived in the same memory as
+---tokens did. The latter also contained a list of components, and a subtype
+---indicating whether this ligature was the result of a word boundary, and it was
+---stored in the same place as other nodes like boxes and kerns and glues.
+---
+---In *LuaTeX*, these two types are merged into one, somewhat larger structure called
+---a `glyph` node. Besides having the old character, font, and component
+---fields there are a few more, like “attr” that we will see in \in {section}
+---[glyphnodes], these nodes also contain a subtype, that codes four main types and
+---two additional ghost types. For ligatures, multiple bits can be set at the same
+---time (in case of a single-glyph word).
+---
+---
+---    * `character`, for characters to be hyphenated: the lowest bit
+---        (bit 0) is set to 1.
+---    
+---    * `glyph`, for specific font glyphs: the lowest bit (bit 0) is
+---        not set.
+---    
+---    * `ligature`, for constructed ligatures bit 1 is set.
+---    
+---    * `ghost`, for so called “ghost objects” bit 2 is set.
+---    
+---    * `left`, for ligatures created from a left word boundary and for
+---        ghosts created from `leftghost` bit 3 gets set.
+---    
+---    * `right`, for ligatures created from a right word boundary and
+---        for ghosts created from `rightghost` bit 4 is set.
+---    
+---
+---
+---The `glyph` nodes also contain language data, split into four items that
+---were current when the node was created: the `setlanguage` (15 bits), `lefthyphenmin` (8 bits), `righthyphenmin` (8 bits), and `uchyph`
+---(1 bit).
+---
+---Incidentally, *LuaTeX* allows 16383 separate languages, and words can be 256
+---characters long. The language is stored with each character. You can set
+---`firstvalidlanguage` to for instance 1 and make thereby language 0
+---an ignored hyphenation language.
+---
+---The new primitive `hyphenationmin` can be used to signal the minimal length
+---of a word. This value is stored with the (current) language.
+---
+---Because the `uchyph` value is saved in the actual nodes, its handling is
+---subtly different from *TeX*82: changes to `uchyph` become effective
+---immediately, not at the end of the current partial paragraph.
+---
+---Typeset boxes now always have their language information embedded in the nodes
+---themselves, so there is no longer a possible dependency on the surrounding
+---language settings. In *TeX*82, a mid-paragraph statement like `\unhbox0`
+---would process the box using the current paragraph language unless there was a
+---`setlanguage` issued inside the box. In *LuaTeX*, all language variables
+---are already frozen.
+---
+---In traditional *TeX* the process of hyphenation is driven by `lccode`s. In
+---*LuaTeX* we made this dependency less strong. There are several strategies
+---possible. When you do nothing, the currently used `lccode`s are used, when
+---loading patterns, setting exceptions or hyphenating a list.
+---
+---When you set `savinghyphcodes` to a value greater than zero the current set
+---of `lccode`s will be saved with the language. In that case changing a `lccode` afterwards has no effect. However, you can adapt the set with:
+---
+---```
+---\hjcode`a=`a
+---```
+---
+---This change is global which makes sense if you keep in mind that the moment that
+---hyphenation happens is (normally) when the paragraph or a horizontal box is
+---constructed. When `savinghyphcodes` was zero when the language got
+---initialized you start out with nothing, otherwise you already have a set.
+---
+---When a `hjcode` is greater than 0 but less than 32 is indicates the
+---to be used length. In the following example we map a character (`x`) onto
+---another one in the patterns and tell the engine that `œ` counts as one
+---character. Because traditionally zero itself is reserved for inhibiting
+---hyphenation, a value of 32 counts as zero.
+---
+---Here are some examples (we assume that French patterns are used):
+---
+---\starttabulate[||||]
+---\NC                                  \NC \type{foobar} \NC \type{foo-bar} \NC \NR
+---\NC \type{\hjcode`x=`o}              \NC \type{fxxbar} \NC \type{fxx-bar} \NC \NR
+---\NC \type{\lefthyphenmin3}           \NC \type{œdipus} \NC \type{œdi-pus} \NC \NR
+---\NC \type{\lefthyphenmin4}           \NC \type{œdipus} \NC \type{œdipus}  \NC \NR
+---\NC \type{\hjcode`œ=2}               \NC \type{œdipus} \NC \type{œdi-pus} \NC \NR
+---\NC \type{\hjcode`i=32 \hjcode`d=32} \NC \type{œdipus} \NC \type{œdipus}  \NC \NR
+---\NC
+---\stoptabulate
+---
+---Carrying all this information with each glyph would give too much overhead and
+---also make the process of setting up these codes more complex. A solution with
+---`hjcode` sets was considered but rejected because in practice the current
+---approach is sufficient and it would not be compatible anyway.
+---
+---Beware: the values are always saved in the format, independent of the setting
+---of `savinghyphcodes` at the moment the format is dumped.
+---
+---A boundary node normally would mark the end of a word which interferes with for
+---instance discretionary injection. For this you can use the `wordboundary`
+---as a trigger. Here are a few examples of usage:
+---
+---\startbuffer
+---    discrete---discrete
+---\stopbuffer
+---\typebuffer \startnarrower \dontcomplain \hsize 1pt \getbuffer \par \stopnarrower
+---\startbuffer
+---    discrete\discretionary{}{}{---}discrete
+---\stopbuffer
+---\typebuffer \startnarrower \dontcomplain \hsize 1pt \getbuffer \par \stopnarrower
+---\startbuffer
+---    discrete\wordboundary\discretionary{}{}{---}discrete
+---\stopbuffer
+---\typebuffer \startnarrower \dontcomplain \hsize 1pt \getbuffer \par \stopnarrower
+---\startbuffer
+---    discrete\wordboundary\discretionary{}{}{---}\wordboundary discrete
+---\stopbuffer
+---\typebuffer \startnarrower \dontcomplain \hsize 1pt \getbuffer \par \stopnarrower
+---\startbuffer
+---    discrete\wordboundary\discretionary{---}{}{}\wordboundary discrete
+---\stopbuffer
+---\typebuffer \startnarrower \dontcomplain \hsize 1pt \getbuffer \par \stopnarrower
+---
+---We only accept an explicit hyphen when there is a preceding glyph and we skip a
+---sequence of explicit hyphens since that normally indicates a `--` or `---` ligature in which case we can in a worse case usage get bad node lists
+---later on due to messed up ligature building as these dashes are ligatures in base
+---fonts. This is a side effect of separating the hyphenation, ligaturing and
+---kerning steps.
+---
+---The start and end of a sequence of characters is signalled by a `glue`, `penalty`, `kern` or `boundary` node. But by default also a `hlist`, `vlist`, `rule`, `dir`, `whatsit`, `ins`, and
+---`adjust` node indicate a start or end. You can omit the last set from the
+---test by setting `hyphenationbounds` to a non-zero value:
+---
+---\starttabulate[|c|l|]
+---\DB value    \BC behaviour \NC \NR
+---\TB
+---\NC \type{0} \NC not strict \NC \NR
+---\NC \type{1} \NC strict start \NC \NR
+---\NC \type{2} \NC strict end \NC \NR
+---\NC \type{3} \NC strict start and strict end \NC \NR
+---\LL
+---\stoptabulate
+---
+---The word start is determined as follows:
+---
+---\starttabulate[|l|l|]
+---\DB node      \BC behaviour \NC \NR
+---\TB
+---\BC boundary  \NC yes when wordboundary \NC \NR
+---\BC hlist     \NC when hyphenationbounds 1 or 3 \NC \NR
+---\BC vlist     \NC when hyphenationbounds 1 or 3 \NC \NR
+---\BC rule      \NC when hyphenationbounds 1 or 3 \NC \NR
+---\BC dir       \NC when hyphenationbounds 1 or 3 \NC \NR
+---\BC whatsit   \NC when hyphenationbounds 1 or 3 \NC \NR
+---\BC glue      \NC yes \NC \NR
+---\BC math      \NC skipped \NC \NR
+---\BC glyph     \NC exhyphenchar (one only) : yes (so no -- ---) \NC \NR
+---\BC otherwise \NC yes \NC \NR
+---\LL
+---\stoptabulate
+---
+---The word end is determined as follows:
+---
+---\starttabulate[|l|l|]
+---\DB node      \BC behaviour \NC \NR
+---\TB
+---\BC boundary  \NC yes \NC \NR
+---\BC glyph     \NC yes when different language \NC \NR
+---\BC glue      \NC yes \NC \NR
+---\BC penalty   \NC yes \NC \NR
+---\BC kern      \NC yes when not italic (for some historic reason) \NC \NR
+---\BC hlist     \NC when hyphenationbounds 2 or 3 \NC \NR
+---\BC vlist     \NC when hyphenationbounds 2 or 3 \NC \NR
+---\BC rule      \NC when hyphenationbounds 2 or 3 \NC \NR
+---\BC dir       \NC when hyphenationbounds 2 or 3 \NC \NR
+---\BC whatsit   \NC when hyphenationbounds 2 or 3 \NC \NR
+---\BC ins       \NC when hyphenationbounds 2 or 3 \NC \NR
+---\BC adjust    \NC when hyphenationbounds 2 or 3 \NC \NR
+---\LL
+---\stoptabulate
+---
+---\in {Figures} [hb:1] upto \in [hb:5] show some examples. In all cases we set the
+---min values to 1 and make sure that the words hyphenate at each character.
+---
+---\hyphenation{o-n-e t-w-o}
+---
+---\def\SomeTest#1#2%
+---  {\lefthyphenmin  \plusone
+---   \righthyphenmin \plusone
+---   \parindent      \zeropoint
+---   \everypar       \emptytoks
+---   \dontcomplain
+---   \hbox to 2cm {%
+---     \vtop {%
+---       \hsize 1pt
+---       \hyphenationbounds#1
+---       #2
+---       \par}}}
+---
+---\startplacefigure[reference=hb:1,title={\type{one}}]
+---    \startcombination[4*1]
+---        {\SomeTest{0}{one}} {\type{0}}
+---        {\SomeTest{1}{one}} {\type{1}}
+---        {\SomeTest{2}{one}} {\type{2}}
+---        {\SomeTest{3}{one}} {\type{3}}
+---    \stopcombination
+---\stopplacefigure
+---
+---\startplacefigure[reference=hb:2,title={\type{one\null two}}]
+---    \startcombination[4*1]
+---        {\SomeTest{0}{one\null two}} {\type{0}}
+---        {\SomeTest{1}{one\null two}} {\type{1}}
+---        {\SomeTest{2}{one\null two}} {\type{2}}
+---        {\SomeTest{3}{one\null two}} {\type{3}}
+---    \stopcombination
+---\stopplacefigure
+---
+---\startplacefigure[reference=hb:3,title={\type{\null one\null two}}]
+---    \startcombination[4*1]
+---        {\SomeTest{0}{\null one\null two}} {\type{0}}
+---        {\SomeTest{1}{\null one\null two}} {\type{1}}
+---        {\SomeTest{2}{\null one\null two}} {\type{2}}
+---        {\SomeTest{3}{\null one\null two}} {\type{3}}
+---    \stopcombination
+---\stopplacefigure
+---
+---\startplacefigure[reference=hb:4,title={\type{one\null two\null}}]
+---    \startcombination[4*1]
+---        {\SomeTest{0}{one\null two\null}} {\type{0}}
+---        {\SomeTest{1}{one\null two\null}} {\type{1}}
+---        {\SomeTest{2}{one\null two\null}} {\type{2}}
+---        {\SomeTest{3}{one\null two\null}} {\type{3}}
+---    \stopcombination
+---\stopplacefigure
+---
+---\startplacefigure[reference=hb:5,title={\type{\null one\null two\null}}]
+---    \startcombination[4*1]
+---        {\SomeTest{0}{\null one\null two\null}} {\type{0}}
+---        {\SomeTest{1}{\null one\null two\null}} {\type{1}}
+---        {\SomeTest{2}{\null one\null two\null}} {\type{2}}
+---        {\SomeTest{3}{\null one\null two\null}} {\type{3}}
+---    \stopcombination
+---\stopplacefigure
+---
+---% (Future versions of *LuaTeX* might provide more granularity.)
+---
+---In traditional *TeX* ligature building and hyphenation are interwoven with the
+---line break mechanism. In *LuaTeX* these phases are isolated. As a consequence we
+---deal differently with (a sequence of) explicit hyphens. We already have added
+---some control over aspects of the hyphenation and yet another one concerns
+---automatic hyphens (e.g.\ `-` characters in the input).
+---
+---When `automatichyphenmode` has a value of 0, a hyphen will be turned into
+---an automatic discretionary. The snippets before and after it will not be
+---hyphenated. A side effect is that a leading hyphen can lead to a split but one
+---will seldom run into that situation. Setting a pre and post character makes this
+---more prominent. A value of 1 will prevent this side effect and a value of 2 will
+---not turn the hyphen into a discretionary. Experiments with other options, like
+---permitting hyphenation of the words on both sides were discarded.
+---
+---\startbuffer[a]
+---before-after \par
+---before--after \par
+---before---after \par
+---\stopbuffer
+---
+---\startbuffer[b]
+----before \par
+---after- \par
+-----before \par
+---after-- \par
+------before \par
+---after--- \par
+---\stopbuffer
+---
+---\startbuffer[c]
+---before-after \par
+---before--after \par
+---before---after \par
+---\stopbuffer
+---
+---\startbuffer[demo]
+---\startcombination[nx=4,ny=3,location=top]
+---    {\framed[align=normal,strut=no,top=\vskip.5ex,bottom=\vskip.5ex]{\automatichyphenmode\zerocount \hsize6em \getbuffer[a]}} {A 0 6em}
+---    {\framed[align=normal,strut=no,top=\vskip.5ex,bottom=\vskip.5ex]{\automatichyphenmode\zerocount \hsize2pt \getbuffer[a]}} {A 0 2pt}
+---    {\framed[align=normal,strut=no,top=\vskip.5ex,bottom=\vskip.5ex]{\automatichyphenmode\plusone   \hsize2pt \getbuffer[a]}} {A 1 2pt}
+---    {\framed[align=normal,strut=no,top=\vskip.5ex,bottom=\vskip.5ex]{\automatichyphenmode\plustwo   \hsize2pt \getbuffer[a]}} {A 2 2pt}
+---    {\framed[align=normal,strut=no,top=\vskip.5ex,bottom=\vskip.5ex]{\automatichyphenmode\zerocount \hsize6em \getbuffer[b]}} {B 0 6em}
+---    {\framed[align=normal,strut=no,top=\vskip.5ex,bottom=\vskip.5ex]{\automatichyphenmode\zerocount \hsize2pt \getbuffer[b]}} {B 0 2pt}
+---    {\framed[align=normal,strut=no,top=\vskip.5ex,bottom=\vskip.5ex]{\automatichyphenmode\plusone   \hsize2pt \getbuffer[b]}} {B 1 2pt}
+---    {\framed[align=normal,strut=no,top=\vskip.5ex,bottom=\vskip.5ex]{\automatichyphenmode\plustwo   \hsize2pt \getbuffer[b]}} {B 2 2pt}
+---    {\framed[align=normal,strut=no,top=\vskip.5ex,bottom=\vskip.5ex]{\automatichyphenmode\zerocount \hsize6em \getbuffer[c]}} {C 0 6em}
+---    {\framed[align=normal,strut=no,top=\vskip.5ex,bottom=\vskip.5ex]{\automatichyphenmode\zerocount \hsize2pt \getbuffer[c]}} {C 0 2pt}
+---    {\framed[align=normal,strut=no,top=\vskip.5ex,bottom=\vskip.5ex]{\automatichyphenmode\plusone   \hsize2pt \getbuffer[c]}} {C 1 2pt}
+---    {\framed[align=normal,strut=no,top=\vskip.5ex,bottom=\vskip.5ex]{\automatichyphenmode\plustwo   \hsize2pt \getbuffer[c]}} {C 2 2pt}
+---\stopcombination
+---\stopbuffer
+---
+---\startplacefigure[reference=automatichyphenmode:1,title={The automatic modes `0` (default), `1` and `2`, with a `hsize`
+---of 6em and 2pt (which triggers a linebreak).}]
+---    \dontcomplain \tt \getbuffer[demo]
+---\stopplacefigure
+---
+---\startplacefigure[reference=automatichyphenmode:2,title={The automatic modes `0` (default), `1` and `2`, with `preexhyphenchar` and `postexhyphenchar` set to characters `A` and `B`.}]
+---    \postexhyphenchar`A\relax
+---    \preexhyphenchar `B\relax
+---    \dontcomplain \tt \getbuffer[demo]
+---\stopplacefigure
+---
+---In \in {figure} [automatichyphenmode:1] \in {and} [automatichyphenmode:2] we show
+---what happens with three samples:
+---
+---Input A: \typebuffer[a]
+---Input B: \typebuffer[b]
+---Input C: \typebuffer[c]
+---
+---As with primitive companions of other single character commands, the `-`
+---command has a more verbose primitive version in `explicitdiscretionary`
+---and the normally intercepted in the hyphenator character `-` (or whatever
+---is configured) is available as `automaticdiscretionary`.
+---
+---\stopsection
+---
+---\startsection[title={The main control loop}]
+---
+---\topicindex {main loop}
+---\topicindex {hyphenation}
+---
+---In *LuaTeX*'s main loop, almost all input characters that are to be typeset are
+---converted into `glyph` node records with subtype “character”, but
+---there are a few exceptions.
+---
+---
+---
+---* The `accent` primitive creates nodes with subtype “glyph”
+---    instead of “character”: one for the actual accent and one for the
+---    accentee. The primary reason for this is that `accent` in *TeX*82 is
+---    explicitly dependent on the current font encoding, so it would not make much
+---    sense to attach a new meaning to the primitive's name, as that would
+---    invalidate many old documents and macro packages. A secondary reason is that
+---    in *TeX*82, `accent` prohibits hyphenation of the current word. Since
+---    in *LuaTeX* hyphenation only takes place on “character” nodes, it is
+---    possible to achieve the same effect. Of course, modern \UNICODE\ aware macro
+---    packages will not use the `accent` primitive at all but try to map
+---    directly on composed characters.
+---
+---    This change of meaning did happen with `char`, that now generates
+---    “glyph” nodes with a character subtype. In traditional *TeX* there was
+---    a strong relationship between the 8-bit input encoding, hyphenation and
+---    glyphs taken from a font. In *LuaTeX* we have \UTF\ input, and in most cases
+---    this maps directly to a character in a font, apart from glyph replacement in
+---    the font engine. If you want to access arbitrary glyphs in a font directly
+---    you can always use *Lua* to do so, because fonts are available as *Lua*
+---    table.
+---
+---
+---* All the results of processing in math mode eventually become nodes with
+---    “glyph” subtypes. In fact, the result of processing math is just
+---    a regular list of glyphs, kerns, glue, penalties, boxes etc.
+---
+---
+---* The \ALEPH-derived commands `leftghost` and `rightghost`
+---    create nodes of a third subtype: “ghost”. These nodes are ignored
+---    completely by all further processing until the stage where inter-glyph
+---    kerning is added.
+---
+---
+---* Automatic discretionaries are handled differently. *TeX*82 inserts an empty
+---    discretionary after sensing an input character that matches the `hyphenchar` in the current font. This test is wrong in our opinion: whether
+---    or not hyphenation takes place should not depend on the current font, it is a
+---    language property. \footnote {When *TeX* showed up we didn't have \UNICODE\
+---    yet and being limited to eight bits meant that one sometimes had to
+---    compromise between supporting character input, glyph rendering, hyphenation.}
+---
+---    In *LuaTeX*, it works like this: if *LuaTeX* senses a string of input
+---    characters that matches the value of the new integer parameter `exhyphenchar`, it will insert an explicit discretionary after that series of
+---    nodes. Initially *TeX* sets the `\exhyphenchar=`\-`. Incidentally, this
+---    is a global parameter instead of a language-specific one because it may be
+---    useful to change the value depending on the document structure instead of the
+---    text language.
+---
+---    The insertion of discretionaries after a sequence of explicit hyphens happens
+---    at the same time as the other hyphenation processing, {\it not\/} inside the
+---    main control loop.
+---
+---    The only use *LuaTeX* has for `hyphenchar` is at the check whether a
+---    word should be considered for hyphenation at all. If the `hyphenchar`
+---    of the font attached to the first character node in a word is negative, then
+---    hyphenation of that word is abandoned immediately. This behaviour is added
+---    for backward compatibility only, and the use of `\hyphenchar=-1` as a
+---    means of preventing hyphenation should not be used in new *LuaTeX* documents.
+---
+---
+---* The `setlanguage` command no longer creates whatsits. The meaning of
+---    `setlanguage` is changed so that it is now an integer parameter like all
+---    others. That integer parameter is used in `\glyph_node` creation to add
+---    language information to the glyph nodes. In conjunction, the `language`
+---    primitive is extended so that it always also updates the value of `setlanguage`.
+---
+---
+---* The `noboundary` command (that prohibits word boundary processing
+---    where that would normally take place) now does create nodes. These nodes are
+---    needed because the exact place of the `noboundary` command in the
+---    input stream has to be retained until after the ligature and font processing
+---    stages.
+---
+---
+---* There is no longer a `main_loop` label in the code. Remember that
+---    *TeX*82 did quite a lot of processing while adding `char_nodes` to the
+---    horizontal list? For speed reasons, it handled that processing code outside
+---    of the “main control” loop, and only the first character of any “word” was handled by that “main control” loop. In *LuaTeX*, there is
+---    no longer a need for that (all hard work is done later), and the (now very
+---    small) bits of character-handling code have been moved back inline. When
+---    `tracingcommands` is on, this is visible because the full word is
+---    reported, instead of just the initial character.
+---
+---
+---
+---
+---Because we tend to make hard coded behaviour configurable a few new primitives
+---have been added:
+---
+---```
+---\hyphenpenaltymode
+---\automatichyphenpenalty
+---\explicithyphenpenalty
+---```
+---
+---The first parameter has the following consequences for automatic discs (the ones
+---resulting from an `exhyphenchar`:
+---
+---\starttabulate[|c|l|l|]
+---\DB mode     \BC automatic disc `-`      \BC explicit disc \prm{-}         \NC \NR
+---\TB
+---\NC \type{0} \NC `exhyphenpenalty`        \NC `exhyphenpenalty`        \NC \NR
+---\NC \type{1} \NC `hyphenpenalty`          \NC `hyphenpenalty`          \NC \NR
+---\NC \type{2} \NC `exhyphenpenalty`        \NC `hyphenpenalty`          \NC \NR
+---\NC \type{3} \NC `hyphenpenalty`          \NC `exhyphenpenalty`        \NC \NR
+---\NC \type{4} \NC `automatichyphenpenalty` \NC `explicithyphenpenalty`  \NC \NR
+---\NC \type{5} \NC `exhyphenpenalty`        \NC `explicithyphenpenalty`  \NC \NR
+---\NC \type{6} \NC `hyphenpenalty`          \NC `explicithyphenpenalty`  \NC \NR
+---\NC \type{7} \NC `automatichyphenpenalty` \NC `exhyphenpenalty`        \NC \NR
+---\NC \type{8} \NC `automatichyphenpenalty` \NC `hyphenpenalty`          \NC \NR
+---\LL
+---\stoptabulate
+---
+---other values do what we always did in *LuaTeX*: insert `exhyphenpenalty`.
+---
+---\stopsection
+---
+---\startsection[title={Loading patterns and exceptions},reference=patternsexceptions]
+---
+---\topicindex {hyphenation}
+---\topicindex {hyphenation+patterns}
+---\topicindex {hyphenation+exceptions}
+---\topicindex {patterns}
+---\topicindex {exceptions}
+---
+---Although we keep the traditional approach towards hyphenation (which is still
+---superior) the implementation of the hyphenation algorithm in *LuaTeX* is quite
+---different from the one in *TeX*82.
+---
+---After expansion, the argument for `patterns` has to be proper \UTF8 with
+---individual patterns separated by spaces, no `char` or `chardef`d
+---commands are allowed. The current implementation is quite strict and will reject
+---all non-\UNICODE\ characters. Likewise, the expanded argument for `hyphenation` also has to be proper \UTF8, but here a bit of extra syntax is
+---provided:
+---
+---
+---* Three sets of arguments in curly braces (`{`{}{}}) indicate a desired
+---    complex discretionary, with arguments as in `discretionary`'s command in
+---    normal document input.
+---
+---* A `-` indicates a desired simple discretionary, cf.\ `\-` and
+---    `\discretionary{-`{}{}} in normal document input.
+---
+---* Internal command names are ignored. This rule is provided especially for `discretionary`, but it also helps to deal with `relax` commands that
+---    may sneak in.
+---
+---* An `=` indicates a (non-discretionary) hyphen in the document input.
+---
+---
+---
+---The expanded argument is first converted back to a space-separated string while
+---dropping the internal command names. This string is then converted into a
+---dictionary by a routine that creates key-value pairs by converting the other
+---listed items. It is important to note that the keys in an exception dictionary
+---can always be generated from the values. Here are a few examples:
+---
+---\starttabulate[|l|l|l|]
+---\DB value                  \BC implied key (input) \BC effect \NC\NR
+---\TB
+---\NC `ta-ble`         \NC table               \NC `ta\-ble` (`=` `ta\discretionary{-`{}{}ble}) \NC\NR
+---\NC `ba{k-`{}{c}ken} \NC backen              \NC `ba\discretionary{k-`{}{c}ken} \NC\NR
+---\LL
+---\stoptabulate
+---
+---The resultant patterns and exception dictionary will be stored under the language
+---code that is the present value of `language`.
+---
+---In the last line of the table, you see there is no `discretionary` command
+---in the value: the command is optional in the *TeX*-based input syntax. The
+---underlying reason for that is that it is conceivable that a whole dictionary of
+---words is stored as a plain text file and loaded into *LuaTeX* using one of the
+---functions in the *Lua* `lang` library. This loading method is quite a bit
+---faster than going through the *TeX* language primitives, but some (most?) of that
+---speed gain would be lost if it had to interpret command sequences while doing so.
+---
+---It is possible to specify extra hyphenation points in compound words by using
+---`{-`{}{-}} for the explicit hyphen character (replace `-` by the
+---actual explicit hyphen character if needed). For example, this matches the word
+---“multi-word-boundaries” and allows an extra break inbetween “boun” and “daries”:
+---
+---```
+---\hyphenation{multi{-}{}{-}word{-}{}{-}boun-daries}
+---```
+---
+---The motivation behind the \ETEX\ extension `savinghyphcodes` was that
+---hyphenation heavily depended on font encodings. This is no longer true in
+---*LuaTeX*, and the corresponding primitive is basically ignored. Because we now
+---have `hjcode`, the case relate codes can be used exclusively for `uppercase` and `lowercase`.
+---
+---The three curly brace pair pattern in an exception can be somewhat unexpected so
+---we will try to explain it by example. The pattern `foo{`{}{x}bar} pattern
+---creates a lookup `fooxbar` and the pattern `foo{`{}{}bar} creates
+---`foobar`. Then, when a hit happens there is a replacement text (`x`)
+---or none. Because we introduced penalties in discretionary nodes, the exception
+---syntax now also can take a penalty specification. The value between square brackets
+---is a multiplier for `exceptionpenalty`. Here we have set it to 10000 so
+---effectively we get 30000 in the example.
+---
+---\def\ShowSample#1#2%
+---  {\startlinecorrection[blank]
+---   \hyphenation{#1}%
+---   \exceptionpenalty=10000
+---   \bTABLE[foregroundstyle=type]
+---     \bTR
+---       \bTD[align=middle,nx=4] \type{#1} \eTD
+---     \eTR
+---     \bTR
+---       \bTD[align=middle] \type{10em} \eTD
+---       \bTD[align=middle] `3em` \eTD
+---       \bTD[align=middle] `0em` \eTD
+---       \bTD[align=middle] `6em` \eTD
+---     \eTR
+---     \bTR
+---       \bTD[width=10em]\vtop{\hsize 10em 123 #2 123\par}\eTD
+---       \bTD[width=10em]\vtop{\hsize  3em 123 #2 123\par}\eTD
+---       \bTD[width=10em]\vtop{\hsize  0em 123 #2 123\par}\eTD
+---       \bTD[width=10em]\vtop{\setupalign[verytolerant,stretch]\rmtf\hsize 6em 123 #2 #2 #2 #2 123\par}\eTD
+---     \eTR
+---   \eTABLE
+---   \stoplinecorrection}
+---
+---\ShowSample{x{a-}{-b}{}x{a-}{-b}{}x{a-}{-b}{}x{a-}{-b}{}xx}{xxxxxx}
+---\ShowSample{x{a-}{-b}{}x{a-}{-b}{}[3]x{a-}{-b}{}[1]x{a-}{-b}{}xx}{xxxxxx}
+---
+---\ShowSample{z{a-}{-b}{z}{a-}{-b}{z}{a-}{-b}{z}{a-}{-b}{z}z}{zzzzzz}
+---\ShowSample{z{a-}{-b}{z}{a-}{-b}{z}[3]{a-}{-b}{z}[1]{a-}{-b}{z}z}{zzzzzz}
+---
+---\stopsection
+---
+---\startsection[title={Applying hyphenation}]
+---
+---\topicindex {hyphenation+how it works}
+---\topicindex {hyphenation+discretionaries}
+---\topicindex {discretionaries}
+---
+---The internal structures *LuaTeX* uses for the insertion of discretionaries in
+---words is very different from the ones in *TeX*82, and that means there are some
+---noticeable differences in handling as well.
+---
+---First and foremost, there is no “compressed trie” involved in hyphenation.
+---The algorithm still reads pattern files generated by \PATGEN, but *LuaTeX* uses a
+---finite state hash to match the patterns against the word to be hyphenated. This
+---algorithm is based on the “libhnj” library used by \OPENOFFICE, which in
+---turn is inspired by *TeX*.
+---
+---There are a few differences between *LuaTeX* and *TeX*82 that are a direct result
+---of the implementation:
+---
+---
+---* *LuaTeX* happily hyphenates the full \UNICODE\ character range.
+---
+---* Pattern and exception dictionary size is limited by the available memory
+---    only, all allocations are done dynamically. The trie-related settings in
+---    `texmf.cnf` are ignored.
+---
+---* Because there is no “trie preparation” stage, language patterns never
+---    become frozen. This means that the primitive `patterns` (and its *Lua*
+---    counterpart `lang.patterns`) can be used at any time, not only in
+---    ini*TeX*.
+---
+---* Only the string representation of `patterns` and `hyphenation` is
+---    stored in the format file. At format load time, they are simply
+---    re-evaluated. It follows that there is no real reason to preload languages
+---    in the format file. In fact, it is usually not a good idea to do so. It is
+---    much smarter to load patterns no sooner than the first time they are actually
+---    needed.
+---
+---* *LuaTeX* uses the language-specific variables `prehyphenchar` and `posthyphenchar` in the creation of implicit discretionaries, instead of
+---    *TeX*82's `hyphenchar`, and the values of the language-specific
+---    variables `preexhyphenchar` and `postexhyphenchar` for explicit
+---    discretionaries (instead of *TeX*82's empty discretionary).
+---
+---* The value of the two counters related to hyphenation, `hyphenpenalty`
+---    and `exhyphenpenalty`, are now stored in the discretionary nodes. This
+---    permits a local overload for explicit `discretionary` commands. The
+---    value current when the hyphenation pass is applied is used. When no callbacks
+---    are used this is compatible with traditional *TeX*. When you apply the *Lua*
+---    `lang.hyphenate` function the current values are used.
+---
+---* The hyphenation exception dictionary is maintained as key-value hash, and
+---    that is also dynamic, so the `hyph_size` setting is not used either.
+---
+---
+---
+---Because we store penalties in the disc node the `discretionary` command has
+---been extended to accept an optional penalty specification, so you can do the
+---following:
+---
+---\startbuffer
+---\hsize1mm
+---1:foo{\hyphenpenalty 10000\discretionary{}{}{}}bar\par
+---2:foo\discretionary penalty 10000 {}{}{}bar\par
+---3:foo\discretionary{}{}{}bar\par
+---\stopbuffer
+---
+---\typebuffer
+---
+---This results in:
+---
+---\blank \start \getbuffer \stop \blank
+---
+---Inserted characters and ligatures inherit their attributes from the nearest glyph
+---node item (usually the preceding one, but the following one for the items
+---inserted at the left-hand side of a word).
+---
+---Word boundaries are no longer implied by font switches, but by language switches.
+---One word can have two separate fonts and still be hyphenated correctly (but it
+---can not have two different languages, the `setlanguage` command forces a
+---word boundary).
+---
+---All languages start out with `\prehyphenchar=`\-`, `\posthyphenchar=0`,
+---`\preexhyphenchar=0` and `\postexhyphenchar=0`. When you assign the
+---values of one of these four parameters, you are actually changing the settings
+---for the current `language`, this behaviour is compatible with `patterns`
+---and `hyphenation`.
+---
+---*LuaTeX* also hyphenates the first word in a paragraph. Words can be up to 256
+---characters long (up from 64 in *TeX*82). Longer words are ignored right now, but
+---eventually either the limitation will be removed or perhaps it will become
+---possible to silently ignore the excess characters (this is what happens in
+---*TeX*82, but there the behaviour cannot be controlled).
+---
+---If you are using the *Lua* function `lang.hyphenate`, you should be aware
+---that this function expects to receive a list of “character” nodes. It will
+---not operate properly in the presence of “glyph”, “ligature”, or
+---“ghost” nodes, nor does it know how to deal with kerning.
+---
+---\stopsection
+---
+---\startsection[title={Applying ligatures and kerning}]
+---
+---\topicindex {ligatures}
+---\topicindex {kerning}
+---
+---After all possible hyphenation points have been inserted in the list, *LuaTeX*
+---will process the list to convert the “character” nodes into “glyph”
+---and “ligature” nodes. This is actually done in two stages: first all
+---ligatures are processed, then all kerning information is applied to the result
+---list. But those two stages are somewhat dependent on each other: If the used font
+---makes it possible to do so, the ligaturing stage adds virtual “character”
+---nodes to the word boundaries in the list. While doing so, it removes and
+---interprets `noboundary` nodes. The kerning stage deletes those word
+---boundary items after it is done with them, and it does the same for “ghost” nodes. Finally, at the end of the kerning stage, all remaining “character” nodes are converted to “glyph” nodes.
+---
+---This word separation is worth mentioning because, if you overrule from *Lua* only
+---one of the two callbacks related to font handling, then you have to make sure you
+---perform the tasks normally done by *LuaTeX* itself in order to make sure that the
+---other, non-overruled, routine continues to function properly.
+---
+---Although we could improve the situation the reality is that in modern \OPENTYPE\
+---fonts ligatures can be constructed in many ways: by replacing a sequence of
+---characters by one glyph, or by selectively replacing individual glyphs, or by
+---kerning, or any combination of this. Add to that contextual analysis and it will
+---be clear that we have to let *Lua* do that job instead. The generic font handler
+---that we provide (which is part of *ConTeXt*) distinguishes between base mode
+---(which essentially is what we describe here and which delegates the task to *TeX*)
+---and node mode (which deals with more complex fonts.
+---
+---Let's look at an example. Take the word `office`, hyphenated `of-fice`, using a “normal” font with all the `f`-`f` and
+---`f`-`i` type ligatures:
+---
+---\starttabulate[|l|l|]
+---\NC initial              \NC `{o`{f}{f}{i}{c}{e}}             \NC\NR
+---\NC after hyphenation    \NC `{o`{f}{{-},{},{}}{f}{i}{c}{e}}  \NC\NR
+---\NC first ligature stage \NC `{o`{{f-},{f},{<ff>}}{i}{c}{e}}  \NC\NR
+---\NC final result         \NC `{o`{{f-},{<fi>},{<ffi>}}{c}{e}} \NC\NR
+---\stoptabulate
+---
+---That's bad enough, but let us assume that there is also a hyphenation point
+---between the `f` and the `i`, to create `of-f-ice`. Then the
+---final result should be:
+---
+---```
+---{o}{{f-},
+---    {{f-},
+---     {i},
+---     {<fi>}},
+---    {{<ff>-},
+---     {i},
+---     {<ffi>}}}{c}{e}
+---```
+---
+---with discretionaries in the post-break text as well as in the replacement text of
+---the top-level discretionary that resulted from the first hyphenation point.
+---
+---Here is that nested solution again, in a different representation:
+---
+---\testpage[4]
+---
+---\starttabulate[|l|c|c|c|c|c|c|]
+---\DB         \BC pre           \BC     \BC post      \BC       \BC replace       \BC       \NC \NR
+---\TB
+---\NC topdisc \NC `f-`    \NC (1) \NC           \NC sub 1 \NC               \NC sub 2 \NC \NR
+---\NC sub 1   \NC `f-`    \NC (2) \NC `i` \NC (3)   \NC `<fi>`  \NC (4)   \NC \NR
+---\NC sub 2   \NC `<ff>-` \NC (5) \NC `i` \NC (6)   \NC `<ffi>` \NC (7)   \NC \NR
+---\LL
+---\stoptabulate
+---
+---When line breaking is choosing its breakpoints, the following fields will
+---eventually be selected:
+---
+---\starttabulate[|l|c|c|]
+---\NC `of-f-ice` \NC `f-`    \NC (1) \NC \NR
+---\NC                  \NC `f-`    \NC (2) \NC \NR
+---\NC                  \NC `i`     \NC (3) \NC \NR
+---\NC `of-fice`  \NC `f-`    \NC (1) \NC \NR
+---\NC                  \NC `<fi>`  \NC (4) \NC \NR
+---\NC `off-ice`  \NC `<ff>-` \NC (5) \NC \NR
+---\NC                  \NC `i`     \NC (6) \NC \NR
+---\NC `office`   \NC `<ffi>` \NC (7) \NC \NR
+---\stoptabulate
+---
+---The current solution in *LuaTeX* is not able to handle nested discretionaries,
+---but it is in fact smart enough to handle this fictional `of-f-ice` example.
+---It does so by combining two sequential discretionary nodes as if they were a
+---single object (where the second discretionary node is treated as an extension of
+---the first node).
+---
+---One can observe that the `of-f-ice` and `off-ice` cases both end with
+---the same actual post replacement list (`i`), and that this would be the
+---case even if `i` was the first item of a potential following ligature like
+---`ic`. This allows *LuaTeX* to do away with one of the fields, and thus make
+---the whole stuff fit into just two discretionary nodes.
+---
+---The mapping of the seven list fields to the six fields in this discretionary node
+---pair is as follows:
+---
+---\starttabulate[|l|c|c|]
+---\DB field                 \BC description   \NC       \NC \NR
+---\TB
+---\NC `disc1.pre`     \NC `f-`    \NC (1)   \NC \NR
+---\NC `disc1.post`    \NC `<fi>`  \NC (4)   \NC \NR
+---\NC `disc1.replace` \NC `<ffi>` \NC (7)   \NC \NR
+---\NC `disc2.pre`     \NC `f-`    \NC (2)   \NC \NR
+---\NC `disc2.post`    \NC `i`     \NC (3,6) \NC \NR
+---\NC `disc2.replace` \NC `<ff>-` \NC (5)   \NC \NR
+---\LL
+---\stoptabulate
+---
+---What is actually generated after ligaturing has been applied is therefore:
+---
+---```
+---{o}{{f-},
+---    {<fi>},
+---    {<ffi>}}
+---   {{f-},
+---    {i},
+---    {<ff>-}}{c}{e}
+---```
+---
+---The two discretionaries have different subtypes from a discretionary appearing on
+---its own: the first has subtype 4, and the second has subtype 5. The need for
+---these special subtypes stems from the fact that not all of the fields appear in
+---their “normal” location. The second discretionary especially looks odd,
+---with things like the `<ff>-` appearing in `disc2.replace`. The fact
+---that some of the fields have different meanings (and different processing code
+---internally) is what makes it necessary to have different subtypes: this enables
+---*LuaTeX* to distinguish this sequence of two joined discretionary nodes from the
+---case of two standalone discretionaries appearing in a row.
+---
+---Of course there is still that relationship with fonts: ligatures can be implemented by
+---mapping a sequence of glyphs onto one glyph, but also by selective replacement and
+---kerning. This means that the above examples are just representing the traditional
+---approach.
+---
+---\stopsection
+---
+---\startsection[title={Breaking paragraphs into lines}]
+---
+---\topicindex {linebreaks}
+---\topicindex {paragraphs}
+---\topicindex {discretionaries}
+---
+---This code is almost unchanged, but because of the above-mentioned changes
+---with respect to discretionaries and ligatures, line breaking will potentially be
+---different from traditional *TeX*. The actual line breaking code is still based on
+---the *TeX*82 algorithms, and it does not expect there to be discretionaries inside
+---of discretionaries. But, as patterns evolve and font handling can influence
+---discretionaries, you need to be aware of the fact that long term consistency is not
+---an engine matter only.
+---
+---But that situation is now fairly common in *LuaTeX*, due to the changes to the
+---ligaturing mechanism. And also, the *LuaTeX* discretionary nodes are implemented
+---slightly different from the *TeX*82 nodes: the `no_break` text is now
+---embedded inside the disc node, where previously these nodes kept their place in
+---the horizontal list. In traditional *TeX* the discretionary node contains a
+---counter indicating how many nodes to skip, but in *LuaTeX* we store the pre, post
+---and replace text in the discretionary node.
+---
+---The combined effect of these two differences is that *LuaTeX* does not always use
+---all of the potential breakpoints in a paragraph, especially when fonts with many
+---ligatures are used. Of course kerning also complicates matters here.
+---
+---\stopsection
+---
+---\startsection[title={The `lang` library}][library=lang]
+---
+---\subsection {`new` and `id`}
+---
+---\topicindex {languages+library}
+---
+---\libindex {new}
+---\libindex {id}
+---
+---This library provides the interface to *LuaTeX*'s structure representing a
+---language, and the associated functions.
+---
+---```
+---<language> l = lang.new()
+---<language> l = lang.new(<number> id)
+---```
+---
+---This function creates a new userdata object. An object of type `<language>`
+---is the first argument to most of the other functions in the `lang` library.
+---These functions can also be used as if they were object methods, using the colon
+---syntax. Without an argument, the next available internal id number will be
+---assigned to this object. With argument, an object will be created that links to
+---the internal language with that id number.
+---
+---```
+---<number> n = lang.id(<language> l)
+---```
+---
+---The number returned is the internal `language` id number this object refers to.
+---
+---\subsection {`hyphenation`}
+---
+---\libindex {hyphenation}
+---
+---You can hyphenate a string directly with:
+---
+---```
+---<string> n = lang.hyphenation(<language> l)
+---lang.hyphenation(<language> l, <string> n)
+---```
+---
+---\subsection {`clear_hyphenation` and `clean`}
+---
+---\libindex {clear_hyphenation}
+---\libindex {clean}
+---
+---This either returns the current hyphenation exceptions for this language, or adds
+---new ones. The syntax of the string is explained in \in {section}
+---[patternsexceptions].
+---
+---```
+---lang.clear_hyphenation(<language> l)
+---```
+---
+---This call clears the exception dictionary (string) for this language.
+---
+---```
+---<string> n = lang.clean(<language> l, <string> o)
+---<string> n = lang.clean(<string> o)
+---```
+---
+---This function creates a hyphenation key from the supplied hyphenation value. The
+---syntax of the argument string is explained in \in {section} [patternsexceptions].
+---This function is useful if you want to do something else based on the words in a
+---dictionary file, like spell-checking.
+---
+---\subsection {`patterns` and `clear_patterns`}
+---
+---\libindex {patterns}
+---\libindex {clear_patterns}
+---
+---```
+---<string> n = lang.patterns(<language> l)
+---lang.patterns(<language> l, <string> n)
+---```
+---
+---This adds additional patterns for this language object, or returns the current
+---set. The syntax of this string is explained in \in {section}
+---[patternsexceptions].
+---
+---```
+---lang.clear_patterns(<language> l)
+---```
+---
+---This can be used to clear the pattern dictionary for a language.
+---
+---\subsection {`hyphenationmin`}
+---
+---\libindex {hyphenationmin}
+---
+---This function sets (or gets) the value of the *TeX* parameter
+---`\hyphenationmin`.
+---
+---```
+---n = lang.hyphenationmin(<language> l)
+---lang.hyphenationmin(<language> l, <number> n)
+---```
+---
+---\subsection {`[pre|post][ex|]hyphenchar`}
+---
+---\libindex {prehyphenchar}
+---\libindex {posthyphenchar}
+---\libindex {preexhyphenchar}
+---\libindex {postexhyphenchar}
+---
+---```
+---<number> n = lang.prehyphenchar(<language> l)
+---lang.prehyphenchar(<language> l, <number> n)
+---
+---<number> n = lang.posthyphenchar(<language> l)
+---lang.posthyphenchar(<language> l, <number> n)
+---```
+---
+---These two are used to get or set the “pre-break” and “post-break” hyphen characters for implicit hyphenation in this language. The
+---intial values are decimal 45 (hyphen) and decimal 0 (indicating emptiness).
+---
+---```
+---<number> n = lang.preexhyphenchar(<language> l)
+---lang.preexhyphenchar(<language> l, <number> n)
+---
+---<number> n = lang.postexhyphenchar(<language> l)
+---lang.postexhyphenchar(<language> l, <number> n)
+---```
+---
+---These gets or set the “pre-break” and “post-break” hyphen
+---characters for explicit hyphenation in this language. Both are initially
+---decimal 0 (indicating emptiness).
+---
+---\subsection {`hyphenate`}
+---
+---\libindex {hyphenate}
+---
+---The next call inserts hyphenation points (discretionary nodes) in a node list. If
+---`tail` is given as argument, processing stops on that node. Currently,
+---`success` is always true if `head` (and `tail`, if specified)
+---are proper nodes, regardless of possible other errors.
+---
+---```
+---<boolean> success = lang.hyphenate(<node> head)
+---<boolean> success = lang.hyphenate(<node> head, <node> tail)
+---```
+---
+---Hyphenation works only on “characters”, a special subtype of all the glyph
+---nodes with the node subtype having the value `1`. Glyph modes with
+---different subtypes are not processed. See \in {section} [charsandglyphs] for
+---more details.
+---
+---\subsection {`[set|get]hjcode`}
+---
+---\libindex {sethjcode}
+---\libindex {gethjcode}
+---
+---The following two commands can be used to set or query hj codes:
+---
+---```
+---lang.sethjcode(<language> l, <number> char, <number> usedchar)
+---<number> usedchar = lang.gethjcode(<language> l, <number> char)
+---```
+---
+---When you set a hjcode the current sets get initialized unless the set was already
+---initialized due to `savinghyphcodes` being larger than zero.
+---
+---\stopsection
+---
+---\stopchapter
+---
+---\stopcomponent
+---
+---% \parindent0pt \hsize=1.1cm
+---% 12-34-56 \par
+---% 12-34-\hbox{56} \par
+---% 12-34-\vrule width 1em height 1.5ex \par
+---% 12-\hbox{34}-56 \par
+---% 12-\vrule width 1em height 1.5ex-56 \par
+---% \hjcode`\1=`\1 \hjcode`\2=`\2 \hjcode`\3=`\3 \hjcode`\4=`\4 \vskip.5cm
+---% 12-34-56 \par
+---% 12-34-\hbox{56} \par
+---% 12-34-\vrule width 1em height 1.5ex \par
+---% 12-\hbox{34}-56 \par
+---% 12-\vrule width 1em height 1.5ex-56 \par
+---
+---

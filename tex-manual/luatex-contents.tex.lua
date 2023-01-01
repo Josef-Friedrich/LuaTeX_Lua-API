@@ -1,0 +1,20 @@
+---\environment luatex-style
+---
+---\startcomponent luatex-contents
+---
+---\starttitle[title=Contents]
+---
+---\start
+---
+---    \definecolor[maincolor][black]
+---
+---    \placelist
+---      [chapter,section,subsection]
+---      [criterium=text]
+---
+---\stop
+---
+---\stoptitle
+---
+---\stopcomponent
+---

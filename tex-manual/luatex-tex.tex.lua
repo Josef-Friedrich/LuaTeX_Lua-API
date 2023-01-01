@@ -17,7 +17,7 @@
 ---
 ---\libindex{version}
 ---
----This library contains one read|-|only item:
+---This library contains one read-only item:
 ---
 ---```
 ---<string> s = lua.version
@@ -123,7 +123,7 @@
 ---\libindex{resetmessages}
 ---\libindex{setexitcode}
 ---
----This contains a number of run|-|time configuration items that you may find useful
+---This contains a number of run-time configuration items that you may find useful
 ---in message reporting, as well as an iterator function that gets all of the names
 ---and values as a table.
 ---
@@ -132,7 +132,7 @@
 ---```
 ---
 ---The keys in the table are the known items, the value is the current value. Almost
----all of the values in `status` are fetched through a metatable at run|-|time
+---all of the values in `status` are fetched through a metatable at run-time
 ---whenever they are accessed, so you cannot use `pairs` on `status`,
 ---but you {\it can\/} use `pairs` on `info`, of course. If you do not
 ---need the full list, you can also ask for a single item by using its name as an
@@ -149,7 +149,7 @@
 ---\NC \type{dest_names_size}    \NC \PDF\ destination table size \NC \NR
 ---\NC \type{dvi_gone}           \NC written \DVI\ bytes \NC \NR
 ---\NC \type{dvi_ptr}            \NC not yet written \DVI\ bytes \NC \NR
----\NC \type{dyn_used}           \NC token (multi|-|word) memory in use  \NC \NR
+---\NC \type{dyn_used}           \NC token (multi-word) memory in use  \NC \NR
 ---\NC \type{filename}           \NC name of the current input file \NC \NR
 ---\NC \type{fix_mem_end}        \NC maximum number of used tokens \NC \NR
 ---\NC \type{fix_mem_min}        \NC minimum number of allocated words for tokens \NC \NR
@@ -209,7 +209,7 @@
 ---\NC \type{str_ptr}            \NC number of strings \NC \NR
 ---\NC \type{total_pages}        \NC number of written pages \NC \NR
 ---\NC \type{var_mem_max}        \NC number of allocated words for nodes \NC \NR
----\NC \type{var_used}           \NC variable (one|-|word) memory in use \NC \NR
+---\NC \type{var_used}           \NC variable (one-word) memory in use \NC \NR
 ---\NC \type{lc_collate}         \NC the value of `LC_COLLATE`  at startup time (becomes `C` at startup) \NC \NR
 ---\NC \type{lc_ctype}           \NC the value of `LC_CTYPE`    at startup time (becomes `C` at startup) \NC \NR
 ---%NC \type{lc_monetary}        \NC the value of `LC_MONETARY` at startup time \NC \NR
@@ -266,17 +266,17 @@
 ---```
 ---
 ---Glue is kind of special because there are five values involved. The return value
----is a \nod {glue_spec} node but when you pass `false` as last argument to
+---is a `glue_spec` node but when you pass `false` as last argument to
 ---`tex.get` you get the width of the glue and when you pass `true` you
 ---get all five values. Otherwise you get a node which is a copy of the internal
 ---value so you are responsible for its freeing at the *Lua* end. When you set a
----glue quantity you can either pass a \nod {glue_spec} or upto five numbers. If
+---glue quantity you can either pass a `glue_spec` or upto five numbers. If
 ---you pass `true` to `get` you get 5 values returned for a glue and
 ---when you pass `false` you only get the width returned.
 ---
 ---\subsubsection{Integer parameters}
 ---
----The integer parameters accept and return *Lua* numbers. These are read|-|write:
+---The integer parameters accept and return *Lua* numbers. These are read-write:
 ---
 ---\starttwocolumns
 ---```
@@ -350,7 +350,7 @@
 ---```
 ---\stoptwocolumns
 ---
----These are read|-|only:
+---These are read-only:
 ---
 ---\startthreecolumns
 ---```
@@ -370,7 +370,7 @@
 ---
 ---The dimension parameters accept *Lua* numbers (signifying scaled points) or
 ---strings (with included dimension). The result is always a number in scaled
----points. These are read|-|write:
+---points. These are read-write:
 ---
 ---\startthreecolumns
 ---```
@@ -407,7 +407,7 @@
 ---```
 ---\stopthreecolumns
 ---
----These are read|-|only:
+---These are read-only:
 ---
 ---\startthreecolumns
 ---```
@@ -457,7 +457,7 @@
 ---
 ---\subsubsection{Direction parameters}
 ---
----The direction parameters are read|-|only and return a *Lua* string.
+---The direction parameters are read-only and return a *Lua* string.
 ---
 ---\startthreecolumns
 ---```
@@ -471,7 +471,7 @@
 ---
 ---\subsubsection{Glue parameters}
 ---
----The glue parameters accept and return a userdata object that represents a \nod {glue_spec} node.
+---The glue parameters accept and return a userdata object that represents a `glue_spec` node.
 ---
 ---\startthreecolumns
 ---```
@@ -495,7 +495,7 @@
 ---
 ---\subsubsection{Muglue parameters}
 ---
----All muglue parameters are to be used read|-|only and return a *Lua* string.
+---All muglue parameters are to be used read-only and return a *Lua* string.
 ---
 ---\startthreecolumns
 ---```
@@ -511,7 +511,7 @@
 ---converted to and from token lists using `the` `toks` style expansion:
 ---all category codes are either space (10) or other (12). It follows that assigning
 ---to some of these, like “tex.output”, is actually useless, but it feels bad
----to make exceptions in view of a coming extension that will accept full|-|blown
+---to make exceptions in view of a coming extension that will accept full-blown
 ---token strings.
 ---
 ---\startthreecolumns
@@ -535,7 +535,7 @@
 ---
 ---\topicindex{convert commands}
 ---
----All “convert” commands are read|-|only and return a *Lua* string. The
+---All “convert” commands are read-only and return a *Lua* string. The
 ---supported commands at this moment are:
 ---
 ---\starttwocolumns
@@ -556,7 +556,7 @@
 ---
 ---If you are wondering why this list looks haphazard; these are all the cases of
 ---the “convert” internal command that do not require an argument, as well as
----the ones that require only a simple numeric value. The special (*Lua*|-|only) case
+---the ones that require only a simple numeric value. The special (*Lua*-only) case
 ---of `tex.fontidentifier` returns the `csname` string that matches a
 ---font id number (if there is one).
 ---
@@ -566,7 +566,7 @@
 ---
 ---\topicindex{last items}
 ---
----All “last item” commands are read|-|only and return a number. The
+---All “last item” commands are read-only and return a number. The
 ---supported commands at this moment are:
 ---
 ---\startthreecolumns
@@ -612,7 +612,7 @@
 ---\libindex{getmark}
 ---
 ---*TeX*'s attributes (`attribute`), counters (`count`), dimensions (`dimen`), skips (`skip`, `muskip`) and token (`toks`) registers
----can be accessed and written to using two times five virtual sub|-|tables of the
+---can be accessed and written to using two times five virtual sub-tables of the
 ---`tex` table:
 ---
 ---\startthreecolumns
@@ -658,7 +658,7 @@
 ---        expansion: all category codes are either space (10) or other (12).
 ---    
 ---
----    * The skip registers accept and return \nod {glue_spec} userdata node
+---    * The skip registers accept and return `glue_spec` userdata node
 ---        objects (see the description of the node interface elsewhere in this
 ---        manual).
 ---    
@@ -687,7 +687,7 @@
 ---`toks`. Counters and dimen are represented by numbers, skips and muskips by
 ---nodes, and toks by strings.
 ---
----Again the glue variants are not using the \nod {glue_spec} userdata nodes. The
+---Again the glue variants are not using the `glue_spec` userdata nodes. The
 ---`setglue` function accepts upto 5 arguments: width, stretch, shrink,
 ---stretch order and shrink order. If you pass no values or if a value is not a
 ---number the corresponding property will become a zero. The `getglue`
@@ -735,7 +735,7 @@
 ---tex.scantoks("global",0,"`\int\limits^1_2`")
 ---```
 ---
----In the function|-|based interface, it is possible to define values globally by
+---In the function-based interface, it is possible to define values globally by
 ---using the string `global` as the first function argument.
 ---
 ---There is a dedicated getter for marks: `getmark` that takes two arguments.
@@ -878,7 +878,7 @@
 ---<node> n = tex.getbox(<string> cs)
 ---```
 ---
----for function|-|based access. In the function-based interface, it is possible to
+---for function-based access. In the function-based interface, it is possible to
 ---define values globally by using the string `global` as the first function
 ---argument.
 ---
@@ -908,14 +908,14 @@
 ---
 ---The following function will register a box for reuse (this is modelled after so
 ---called xforms in \PDF). You can (re)use the box with `useboxresource` or
----by creating a rule node with subtype~2.
+---by creating a rule node with subtype 2.
 ---
 ---```
 ---local index = tex.saveboxresource(n,attributes,resources,immediate,type,margin)
 ---```
 ---
 ---The optional second and third arguments are strings, the fourth is a boolean. The
----fifth argument is a type. When set to non|-|zero the `/Type` entry is
+---fifth argument is a type. When set to non-zero the `/Type` entry is
 ---omitted. A value of 1 or 3 still writes a `/BBox`, while 2 or 3 will write
 ---a `/Matrix`. The sixth argument is the (virtual) margin that extends beyond
 ---the effective boundingbox as seen by *TeX*. Instead of a box number one can also
@@ -1132,7 +1132,7 @@
 ---
 ---The `tex` table also contains the three print functions that are the major
 ---interface from *Lua* scripting to *TeX*. The arguments to these three functions
----are all stored in an in|-|memory virtual file that is fed to the *TeX* scanner as
+---are all stored in an in-memory virtual file that is fed to the *TeX* scanner as
 ---the result of the expansion of `directlua`.
 ---
 ---The total amount of returnable text from a `directlua` command is only
@@ -1156,7 +1156,7 @@
 ---of strings to print (the first non-string value will stop the printing process).
 ---
 ---The optional parameter can be used to print the strings using the catcode regime
----defined by `catcodetable`~`n`. If `n` is `-1`, the currently
+---defined by `catcodetable` `n`. If `n` is `-1`, the currently
 ---active catcode regime is used. If `n` is `-2`, the resulting catcodes are
 ---the result of `the` `toks`: all category codes are 12 (other) except for
 ---the space character, that has category code 10 (space). Otherwise, if `n`
@@ -1233,7 +1233,7 @@
 ---goes fine. But now assume that you store the whole lot in a macro: in that case
 ---the tokenized node can be flushed many times. But, after the first such flush the
 ---node is used and its memory freed. You can prevent this by using copies which is
----controlled by setting `luacopyinputnodes` to a non|-|zero value. This is one
+---controlled by setting `luacopyinputnodes` to a non-zero value. This is one
 ---of these fuzzy areas you have to live with if you really mess with these low
 ---level issues.
 ---
@@ -1282,7 +1282,7 @@
 ---makes it suitable for use as a quick way to dump information:
 ---
 ---
----\item All catcodes on that line are either \quote{space} (for '~') or “character” (for all others).
+---\item All catcodes on that line are either “space” (for ' ') or “character” (for all others).
 ---\item There is no `endlinechar` appended.
 ---
 ---
@@ -1322,11 +1322,11 @@
 ---<table> n = tex.scale(table o, <number> delta)
 ---```
 ---
----Multiplies the *Lua* numbers `o` and \nod {delta}, and returns a rounded
+---Multiplies the *Lua* numbers `o` and `delta`, and returns a rounded
 ---number that is in the range of a valid *TeX* register value. In the table
 ---version, it creates a copy of the table with all numeric top||level values scaled
 ---in that manner. If the multiplied number(s) are of range, it generates
----\quote{number too big} error(s) as well.
+---“number too big” error(s) as well.
 ---
 ---Note: the precision of the output of this function will depend on your computer's
 ---architecture and operating system, so use with care! An interface to *LuaTeX*'s
@@ -1368,7 +1368,7 @@
 ---dimension into an integer number of scaled points.
 ---
 ---For parsing the string, the same scanning and conversion rules are used that
----*LuaTeX* would use if it was scanning a dimension specifier in its *TeX*|-|like
+---*LuaTeX* would use if it was scanning a dimension specifier in its *TeX*-like
 ---input language (this includes generating errors for bad values), expect for the
 ---following:
 ---
@@ -1455,7 +1455,7 @@
 ---tex.runtoks(<lua function>)
 ---```
 ---
----When the `tracingnesting` parameter is set to a value larger than~2 some
+---When the `tracingnesting` parameter is set to a value larger than 2 some
 ---information is reported about the state of the local loop.
 ---
 ---This function has two optional arguments in case a token register is passed:
@@ -1585,7 +1585,7 @@
 ---This function returns a list of the primitives that originate from the engine(s)
 ---given by the requested string value(s). The possible values and their (current)
 ---return values are given in the following table. In addition the somewhat special
----primitives \quote{\tex{ }}, \quote{\tex {/}} and \quote{`-`} are defined.
+---primitives “\tex{ ”}, “\tex {/”} and “`-`” are defined.
 ---
 ---\startluacode
 ---function document.showprimitives(tag)
@@ -1593,7 +1593,7 @@
 ---    table.sort(t)
 ---    for i=1,#t do
 ---        local v = t[i]
----        if v ~= ' ' and v ~= "/" and v ~= "-" then
+---        if v  = ' ' and v  = "/" and v  = "-" then
 ---            context.type(v)
 ---            context.space()
 ---        end
@@ -1708,7 +1708,7 @@
 ---horizontal mode):
 ---
 ---
----* add an “indent box” and perhaps a \nod {local_par} node at the start
+---* add an “indent box” and perhaps a `local_par` node at the start
 ---    (only if you need them)
 ---
 ---* replace any found final glue by an infinite penalty (or add such a penalty,
@@ -1883,7 +1883,7 @@
 ---\NC \type{pk_dpi}           \NC number   \NC     72  \NC cf.\ web2c docs \NC \NR
 ---\NC \type{trace_file_names} \NC boolean  \NC true
 ---\NC
----    `false` disables *TeX*'s normal file open|-|close feedback (the
+---    `false` disables *TeX*'s normal file open-close feedback (the
 ---    assumption is that callbacks will take care of that)
 ---\NC \NR
 ---\NC \type{file_line_error} \NC boolean \NC false
@@ -1940,7 +1940,7 @@
 ---    if tex.tracingmacros > 0 then
 ---      local l = tex.count.tracingstacklevels
 ---      if l > 0 then
----        return string.rep("~",l) .. string.rep(".",n-l)
+---        return string.rep(" ",l) .. string.rep(".",n-l)
 ---      end
 ---    end
 ---  end)
@@ -1954,7 +1954,7 @@
 ---\topicindex{libraries+\type{texio}}
 ---\topicindex{\IO}
 ---
----This library takes care of the low|-|level I/O interface: writing to the log file
+---This library takes care of the low-level I/O interface: writing to the log file
 ---and|/|or console.
 ---
 ---\startsubsection[title={`write`}]
@@ -2081,7 +2081,7 @@
 ---The `scan_argument` function expands the given argument. When a braced
 ---argument is scanned, expansion can be prohibited by passing `false`
 ---(default is `true`). In case of a control sequence passing `false`
----will result in a one|-|level expansion (the meaning of the macro).
+---will result in a one-level expansion (the meaning of the macro).
 ---
 ---The string scanner scans for something between curly braces and expands on the
 ---way, or when it sees a control sequence it will return its meaning. Otherwise it
@@ -2502,7 +2502,7 @@
 ---
 ---First, when *LuaTeX* is used to typeset documents, this initialization happens
 ---automatically and the \KPATHSEA\ executable and program names are set to `luatex` (that is, unless explicitly prohibited by the user's startup script.
----See~\in {section} [init] for more details).
+---See \in {section} [init] for more details).
 ---
 ---Second, in *TeX*LUA\ mode, the initialization has to be done explicitly via the
 ---`kpse.set_program_name` function, which sets the \KPATHSEA\ executable
@@ -2644,7 +2644,7 @@
 ---\sym{mustexist}
 ---
 ---is similar to \KPSEWHICH's `-must-exist`, and the default is `false`.
----If you specify `true` (or a non|-|zero integer), then the \KPSE\ library
+---If you specify `true` (or a non-zero integer), then the \KPSE\ library
 ---will search the disk as well as the `ls-R` databases.
 ---
 ---\sym{dpi}
@@ -2722,7 +2722,7 @@
 ---
 ---The return value is the actual absolute filename you should use, because the disk
 ---name is not always the same as the requested name, due to aliases and
----system|-|specific handling under e.g.\ \MSDOS. Returns `nil` if the file
+---system-specific handling under e.g.\ \MSDOS. Returns `nil` if the file
 ---does not exist or is not readable.
 ---
 ---\stopsubsection

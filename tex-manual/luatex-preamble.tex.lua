@@ -1,0 +1,111 @@
+---% language=uk
+---
+---\environment luatex-style
+---
+---\startcomponent luatex-preamble
+---
+---\startchapter[reference=preamble,title={Preamble}]
+---
+---\topicindex{nodes}
+---\topicindex{boxes}
+---\topicindex{*Lua*}
+---
+---This is a reference manual, not a tutorial. This means that we discuss changes
+---relative to traditional *TeX* and also present new functionality. As a consequence
+---we will refer to concepts that we assume to be known or that might be explained
+---later.
+---
+---The average user doesn't need to know much about what is in this manual. For
+---instance fonts and languages are normally dealt with in the macro package that
+---you use. Messing around with node lists is also often not really needed at the
+---user level. If you do mess around, you'd better know what you're dealing with.
+---Reading \quotation {The *TeX* Book} by Donald Knuth is a good investment of time
+---then also because it's good to know where it all started. A more summarizing
+---overview is given by \quotation {*TeX* by Topic} by Victor Eijkhout. You might
+---want to peek in \quotation {The \ETEX\ manual} and documentation about \PDFTEX.
+---
+---But \unknown\ if you're here because of *Lua*, then all you need to know is that
+---you can call it from within a run. The macro package that you use probably will
+---provide a few wrapper mechanisms but the basic `directlua` command that
+---does the job is:
+---
+---```
+---\directlua{tex.print("Hi there")}
+---```
+---
+---You can put code between curly braces but if it's a lot you can also put it in a
+---file and load that file with the usual *Lua* commands.
+---
+---If you still decide to read on, then it's good to know what nodes are, so we do a
+---quick introduction here. If you input this text:
+---
+---```
+---Hi There
+---```
+---
+---eventually we will get a linked lists of nodes, which in \ASCII\ art looks like:
+---
+---```
+---H <=> i <=> [glue] <=> T <=> h <=> e <=> r <=> e
+---```
+---
+---When we have a paragraph, we actually get something:
+---
+---```
+---[localpar] <=> H <=> i <=> [glue] <=> T <=> h <=> e <=> r <=> e <=> [glue]
+---```
+---
+---Each character becomes a so called glyph node, a record with properties like the
+---current font, the character code and the current language. Spaces become glue
+---nodes. There are many node types that we will discuss later. Each node points
+---back to a previous node or next node, given that these exist.
+---
+---It's also good to know beforehand that *TeX* is basically centered around
+---creating paragraphs and pages. The par builder takes a list and breaks it into
+---lines. We turn horizontal material into vertical. Lines are so called boxes and
+---can be separated by glue, penalties and more. The page builder accumulates lines
+---and when feasible triggers an output routine that will take the list so far.
+---Constructing the actual page is not part of *TeX* but done using primitives that
+---permit manipulation of boxes. The result is handled back to *TeX* and flushed to
+---a (often \PDF) file.
+---
+---The *LuaTeX* engine provides hooks for *Lua* code at nearly every reasonable
+---point in the process: collecting content, hyphenating, applying font features,
+---breaking into lines, etc. This means that you can overload *TeX*'s natural
+---behaviour, which still is the benchmark. When we refer to “callbacks” we
+---means these hooks.
+---
+---Where plain *TeX* is basically a basic framework for writing a specific style,
+---macro packages like *ConTeXt* and \LATEX\ provide the user a whole lot of
+---additional tools to make documents look good. They hide the dirty details of font
+---management, language demands, turning structure into typeset results, wrapping
+---pages, including images, and so on. You should be aware of the fact that when you
+---hook in your own code to manipulate lists, this can interfere with the macro
+---package that you use.
+---
+---When you read about nodes in the following chapters it's good to keep in mind their
+---commands that relate to then. Here are a few:
+---
+---\starttabulate[|l|l|p|]
+---\DB command                \BC node          \BC explanation \NC \NR
+---\TB
+---\NC `hbox`            \NC `hlist` \NC horizontal box \NC \NR
+---\NC `vbox`            \NC `vlist` \NC vertical box with the baseline at the bottom \NC \NR
+---\NC `vtop`            \NC `vlist` \NC vertical box with the baseline at the top \NC \NR
+---\NC `hskip`           \NC `glue`  \NC horizontal skip with optional stretch and shrink \NC \NR
+---\NC `vskip`           \NC `glue`  \NC vertical skip with optional stretch and shrink \NC \NR
+---\NC `kern`            \NC `kern`  \NC horizontal or vertical fixed skip \NC \NR
+---\NC `discretionary`   \NC `disc`  \NC hyphenation point (pre, post, replace) \NC \NR
+---\NC `char`            \NC `glyph` \NC a character \NC \NR
+---\NC `hrule`           \NC `rule`  \NC a horizontal rule \NC \NR
+---\NC `vrule`           \NC `rule`  \NC a vertical rule \NC \NR
+---\NC `textdir(ection)` \NC `dir`   \NC a change in text direction \NC \NR
+---\LL
+---\stoptabulate
+---
+---For now this should be enough to enable you to understand the next chapters.
+---
+---\stopchapter
+---
+---\stopcomponent
+---

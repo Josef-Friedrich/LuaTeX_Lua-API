@@ -54,8 +54,9 @@ function tex.print(n, t) end
 ---Converts the number `o` that represents an explicit
 ---dimension into an integer number of scaled points.
 ---
-
 ---@param o integer
+---
+---@return integer
 function tex.sp(o) end
 
 ---Converts a string `s` that represents an explicit
@@ -71,6 +72,8 @@ function tex.sp(o) end
 ---* `mu` units do not generate an error (but may not be useful either)
 ---
 ---@param s string
+---
+---@return integer
 function tex.sp(s) end
 
 --https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L1438

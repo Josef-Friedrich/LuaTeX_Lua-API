@@ -1,0 +1,1379 @@
+---% language=uk
+---
+---\environment luatex-style
+---
+---\startcomponent luatex-enhancements
+---
+---\startchapter[reference=enhancements,title={Basic *TeX* enhancements}]
+---
+---\startsection[title={Introduction}]
+---
+---\startsubsection[title={Primitive behaviour}]
+---
+---From day one, *LuaTeX* has offered extra features compared to the superset of
+---\PDFTEX, which includes \ETEX, and \ALEPH. This has not been limited to the
+---possibility to execute *Lua* code via `directlua`, but *LuaTeX* also adds
+---functionality via new *TeX*-side primitives or extensions to existing ones.
+---
+---When *LuaTeX* starts up in “iniluatex” mode (`luatex -ini`), it
+---defines only the primitive commands known by *TeX*82 and the one extra command
+---`directlua`. As is fitting, a *Lua* function has to be called to add the
+---extra primitives to the user environment. The simplest method to get access to
+---all of the new primitive commands is by adding this line to the format generation
+---file:
+---
+---```
+---\directlua { tex.enableprimitives('',tex.extraprimitives()) }
+---```
+---
+---But be aware that the curly braces may not have the proper `catcode`
+---assigned to them at this early time (giving a “Missing number” error), so
+---it may be needed to put these assignments before the above line:
+---
+---```
+---\catcode `\{=1
+---\catcode `\}=2
+---```
+---
+---More fine-grained primitives control is possible and you can look up the
+---details in \in {section} [luaprimitives]. For simplicity's sake, this manual
+---assumes that you have executed the `directlua` command as given above.
+---
+---The startup behaviour documented above is considered stable in the sense that
+---there will not be backward-incompatible changes any more. We have promoted some
+---rather generic \PDFTEX\ primitives to core *LuaTeX* ones, and the few that we
+---inherited from \ALEPH\ (\OMEGA) are also promoted. Effectively this means that we
+---now only have the `tex`, `etex` and `luatex` sets left.
+---
+---In \in {Chapter} [modifications] we discuss several primitives that are derived
+---from \PDFTEX\ and \ALEPH\ (\OMEGA). Here we stick to real new ones. In the
+---chapters on fonts and math we discuss a few more new ones.
+---
+---\stopsubsection
+---
+---\startsubsection[title={Version information}]
+---
+---\startsubsubsection[title={`luatexbanner`, `luatexversion` and `luatexrevision`}]
+---
+---\topicindex{version}
+---\topicindex{banner}
+---
+---There are three new primitives to test the version of *LuaTeX*:
+---
+---\unexpanded\def\VersionHack#1% otherwise different luatex and luajittex runs
+---  {\ctxlua{%
+---     local banner = "\luatexbanner"
+---     local banner = string.match(banner,"(.+)\letterpercent(") or banner
+---     context(string.gsub(banner ,"jit",""))%
+---  }}
+---
+---\starttabulate[|l|l|pl|]
+---\DB primitive             \BC value
+---                          \BC explanation \NC \NR
+---\TB
+---\NC `luatexbanner`   \NC \VersionHack{\luatexbanner}
+---                          \NC the banner reported on the command line \NC \NR
+---\NC `luatexversion`  \NC \the\luatexversion
+---                          \NC a combination of major and minor number \NC \NR
+---\NC `luatexrevision` \NC \luatexrevision
+---                          \NC the revision number, the current value is \NC \NR
+---\LL
+---\stoptabulate
+---
+---The official *LuaTeX* version is defined as follows:
+---
+---
+---* The major version is the integer result of `luatexversion` divided by
+---    100. The primitive is an “internal variable”, so you may need to prefix
+---    its use with `the` depending on the context.
+---
+---* The minor version is the two-digit result of `luatexversion` modulo 100.
+---
+---* The revision is reported by `luatexrevision`. This primitive expands to
+---    a positive integer.
+---
+---* The full version number consists of the major version, minor version and
+---    revision, separated by dots.
+---
+---
+---
+---\stopsubsubsection
+---
+---\startsubsubsection[title={`formatname`}]
+---
+---\topicindex{format}
+---
+---The `formatname` syntax is identical to `jobname`. In \INITEX, the
+---expansion is empty. Otherwise, the expansion is the value that `jobname` had
+---during the \INITEX\ run that dumped the currently loaded format. You can use this
+---token list to provide your own version info.
+---
+---\stopsubsubsection
+---
+---\stopsubsection
+---
+---\stopsection
+---
+---\startsection[title={\UNICODE\ text support}]
+---
+---\startsubsection[title={Extended ranges}]
+---
+---\topicindex{\UNICODE}
+---
+---Text input and output is now considered to be \UNICODE\ text, so input characters
+---can use the full range of \UNICODE\ (`2^{20}+2^{16}-1 = \hbox{0x10FFFF}`). Later
+---chapters will talk of characters and glyphs. Although these are not
+---interchangeable, they are closely related. During typesetting, a character is
+---always converted to a suitable graphic representation of that character in a
+---specific font. However, while processing a list of to-be-typeset nodes, its
+---contents may still be seen as a character. Inside *LuaTeX* there is no clear
+---separation between the two concepts. Because the subtype of a glyph node can be
+---changed in *Lua* it is up to the user. Subtypes larger than 255 indicate that
+---font processing has happened.
+---
+---A few primitives are affected by this, all in a similar fashion: each of them has
+---to accommodate for a larger range of acceptable numbers. For instance, `char` now accepts values between 0 and `1{,}114{,}111`. This should not be a
+---problem for well-behaved input files, but it could create incompatibilities for
+---input that would have generated an error when processed by older *TeX*-based
+---engines. The affected commands with an altered initial (left of the equal sign)
+---or secondary (right of the equal sign) value are: `char`, `lccode`,
+---`uccode`, `hjcode`, `catcode`, `sfcode`, `efcode`, `lpcode`, `rpcode`, `chardef`.
+---
+---As far as the core engine is concerned, all input and output to text files is
+---\UTF-8 encoded. Input files can be pre-processed using the `reader`
+---callback. This will be explained in \in {section} [iocallback]. Normalization of
+---the \UNICODE\ input is on purpose not built-in and can be handled by a macro
+---package during callback processing. We have made some practical choices and the
+---user has to live with those.
+---
+---Output in byte-sized chunks can be achieved by using characters just outside of
+---the valid \UNICODE\ range, starting at the value `1{,}114{,}112` (0x110000). When
+---the time comes to print a character `c>=1{,}114{,}112`, *LuaTeX* will actually
+---print the single byte corresponding to `c` minus 1{,}114{,}112.
+---
+---Output to the terminal uses `^^` notation for the lower control range
+---(`c<32`), with the exception of `^^I`, `^^J` and `^^M`. These
+---are considered “safe” and therefore printed as-is. You can disable
+---escaping with `texio.setescape(false)` in which case you get the normal
+---characters on the console.
+---
+---\stopsubsection
+---
+---\startsubsection[title={`Uchar`}]
+---
+---\topicindex{\UNICODE}
+---
+---The expandable command `Uchar` reads a number between 0 and `1{,}114{,}111`
+---and expands to the associated \UNICODE\ character.
+---
+---\stopsubsection
+---
+---\startsubsection[title={Extended tables}]
+---
+---All traditional *TeX* and \ETEX\ registers can be 16-bit numbers. The affected
+---commands are:
+---
+---\startfourcolumns
+---\startlines
+---`count`
+---`dimen`
+---`skip`
+---`muskip`
+---`marks`
+---`toks`
+---`countdef`
+---`dimendef`
+---`skipdef`
+---`muskipdef`
+---`toksdef`
+---`insert`
+---`box`
+---`unhbox`
+---`unvbox`
+---`copy`
+---`unhcopy`
+---`unvcopy`
+---`wd`
+---`ht`
+---`dp`
+---`setbox`
+---`vsplit`
+---\stoplines
+---\stopfourcolumns
+---
+---Because font memory management has been rewritten, character properties in fonts
+---are no longer shared among font instances that originate from the same metric
+---file. Of course we share fonts in the backend when possible so that the resulting
+---\PDF\ file is as efficient as possible, but for instance also expansion and
+---protrusion no longer use copies as in \PDFTEX.
+---
+---\stopsubsection
+---
+---\stopsection
+---
+---\startsection[title={Attributes}]
+---
+---\startsubsection[title={Nodes}]
+---
+---\topicindex {nodes}
+---
+---When *TeX* reads input it will interpret the stream according to the properties
+---of the characters. Some signal a macro name and trigger expansion, others open
+---and close groups, trigger math mode, etc. What's left over becomes the typeset
+---text. Internally we get linked list of nodes. Characters become `glyph`
+---nodes that have for instance a `font` and `char` property and `\kern 10pt` becomes a `kern` node with a `width` property. Spaces are
+---alien to *TeX* as they are turned into `glue` nodes. So, a simple paragraph
+---is mostly a mix of sequences of `glyph` nodes (words) and `glue` nodes
+---(spaces).
+---
+---The sequences of characters at some point are extended with `disc` nodes
+---that relate to hyphenation. After that font logic can be applied and we get a
+---list where some characters can be replaced, for instance multiple characters can
+---become one ligature, and font kerns can be injected. This is driven by the
+---font properties.
+---
+---Boxes (like `hbox` and `vbox`) become `hlist` or `vlist`
+---nodes with `width`, `height`, `depth` and `shift`
+---properties and a pointer `list` to its actual content. Boxes can be
+---constructed explicitly or can be the result of subprocesses. For instance, when
+---lines are broken into paragraphs, the lines are a linked list of `hlist`
+---nodes.
+---
+---So, to summarize: all that you enter as content eventually becomes a node, often
+---as part of a (nested) list structure. They have a relative small memory footprint
+---and carry only the minimal amount of information needed. In traditional *TeX* a
+---character node only held the font and slot number, in *LuaTeX* we also store some
+---language related information, the expansion factor, etc. Now that we have access
+---to these nodes from *Lua* it makes sense to be able to carry more information
+---with an node and this is where attributes kick in.
+---
+---\stopsubsection
+---
+---\startsubsection[title={Attribute registers}]
+---
+---\topicindex {attributes}
+---
+---Attributes are a completely new concept in *LuaTeX*. Syntactically, they behave a
+---lot like counters: attributes obey *TeX*'s nesting stack and can be used after
+---`the` etc.\ just like the normal `count` registers.
+---
+---\startsyntax
+---\attribute <16-bit number> <optional equals> <32-bit number>!crlf
+---\attributedef <csname> <optional equals> <16-bit number>
+---\stopsyntax
+---
+---Conceptually, an attribute is either “set” or “unset”. Unset
+---attributes have a special negative value to indicate that they are unset, that
+---value is the lowest legal value: `-"7FFFFFFF` in hexadecimal, a.k.a.
+---`-2147483647` in decimal. It follows that the value `-"7FFFFFFF` cannot be
+---used as a legal attribute value, but you {\it can\/} assign `-"7FFFFFFF` to
+---“unset” an attribute. All attributes start out in this “unset”
+---state in \INITEX.
+---
+---Attributes can be used as extra counter values, but their usefulness comes mostly
+---from the fact that the numbers and values of all “set” attributes are
+---attached to all nodes created in their scope. These can then be queried from any
+---*Lua* code that deals with node processing. Further information about how to use
+---attributes for node list processing from *Lua* is given in \in {chapter}[nodes].
+---
+---Attributes are stored in a sorted (sparse) linked list that are shared when
+---possible. This permits efficient testing and updating. You can define many
+---thousands of attributes but normally such a large number makes no sense and is
+---also not that efficient because each node carries a (possibly shared) link to a
+---list of currently set attributes. But they are a convenient extension and one of
+---the first extensions we implemented in *LuaTeX*.
+---
+---\stopsubsection
+---
+---\startsubsection[title={Box attributes}]
+---
+---\topicindex {attributes}
+---\topicindex {boxes}
+---
+---Nodes typically receive the list of attributes that is in effect when they are
+---created. This moment can be quite asynchronous. For example: in paragraph
+---building, the individual line boxes are created after the `par` command has
+---been processed, so they will receive the list of attributes that is in effect
+---then, not the attributes that were in effect in, say, the first or third line of
+---the paragraph.
+---
+---Similar situations happen in *LuaTeX* regularly. A few of the more obvious
+---problematic cases are dealt with: the attributes for nodes that are created
+---during hyphenation, kerning and ligaturing borrow their attributes from their
+---surrounding glyphs, and it is possible to influence box attributes directly.
+---
+---When you assemble a box in a register, the attributes of the nodes contained in
+---the box are unchanged when such a box is placed, unboxed, or copied. In this
+---respect attributes act the same as characters that have been converted to
+---references to glyphs in fonts. For instance, when you use attributes to implement
+---color support, each node carries information about its eventual color. In that
+---case, unless you implement mechanisms that deal with it, applying a color to
+---already boxed material will have no effect. Keep in mind that this
+---incompatibility is mostly due to the fact that separate specials and literals are
+---a more unnatural approach to colors than attributes.
+---
+---It is possible to fine-tune the list of attributes that are applied to a `hbox`, `vbox` or `vtop` by the use of the keyword `attr`. The
+---`attr` keyword(s) should come before a `to` or `spread`, if
+---that is also specified. An example is:
+---
+---\startbuffer[tex]
+---\attribute997=123
+---\attribute998=456
+---\setbox0=\hbox {Hello}
+---\setbox2=\hbox attr 999 = 789 attr 998 = -"7FFFFFFF{Hello}
+---\stopbuffer
+---
+---\startbuffer[lua]
+---  for b=0,2,2 do
+---    for a=997, 999 do
+---      tex.sprint("box ", b, " : attr ",a," : ",tostring(tex.box[b]     [a]))
+---      tex.sprint("\\quad\\quad")
+---      tex.sprint("list ",b, " : attr ",a," : ",tostring(tex.box[b].list[a]))
+---      tex.sprint("\\par")
+---    end
+---  end
+---\stopbuffer
+---
+---\typebuffer[tex]
+---
+---Box 0 now has attributes 997 and 998 set while box 2 has attributes 997 and 999
+---set while the nodes inside that box will all have attributes 997 and 998 set.
+---Assigning the maximum negative value causes an attribute to be ignored.
+---
+---To give you an idea of what this means at the *Lua* end, take the following
+---code:
+---
+---\typebuffer[lua]
+---
+---Later we will see that you can access properties of a node. The boxes here are so
+---called `hlist` nodes that have a field `list` that points to the
+---content. Because the attributes are a list themselves you can access them by
+---indexing the node (here we do that with `[a]`. Running this snippet gives:
+---
+---\start
+---    \getbuffer[tex]
+---    \startpacked \tt
+---        \ctxluabuffer[lua]
+---    \stoppacked
+---\stop
+---
+---Because some values are not set we need to apply the `tostring` function
+---here so that we get the word `nil`.
+---
+---\stopsubsection
+---
+---\stopsection
+---
+---\startsection[title={*Lua* related primitives}]
+---
+---\startsubsection[title={`directlua`}]
+---
+---In order to merge *Lua* code with *TeX* input, a few new primitives are needed.
+---The primitive `directlua` is used to execute *Lua* code immediately. The
+---syntax is
+---
+---\startsyntax
+---\directlua <general text>!crlf
+---\directlua <16-bit number> <general text>
+---\stopsyntax
+---
+---The \syntax {<general text>} is expanded fully, and then fed into the *Lua*
+---interpreter. After reading and expansion has been applied to the \syntax
+---{<general text>}, the resulting token list is converted to a string as if it was
+---displayed using `\the\toks`. On the *Lua* side, each `directlua` block
+---is treated as a separate chunk. In such a chunk you can use the `local`
+---directive to keep your variables from interfering with those used by the macro
+---package.
+---
+---The conversion to and from a token list means that you normally can not use *Lua*
+---line comments (starting with `--`) within the argument. As there typically
+---will be only one “line” the first line comment will run on until the end
+---of the input. You will either need to use *TeX*-style line comments (starting
+---with \%), or change the *TeX* category codes locally. Another possibility is to
+---say:
+---
+---```
+---\begingroup
+---\endlinechar=10
+---\directlua ...
+---\endgroup
+---```
+---
+---Then *Lua* line comments can be used, since *TeX* does not replace line endings
+---with spaces. Of course such an approach depends on the macro package that you
+---use.
+---
+---The \syntax {<16-bit number>} designates a name of a *Lua* chunk and is
+---taken from the `lua.name` array (see the documentation of the `lua`
+---table further in this manual). When a chunk name starts with a `@` it will
+---be displayed as a file name. This is a side effect of the way *Lua* implements
+---error handling.
+---
+---The `directlua` command is expandable. Since it passes *Lua* code to the
+---*Lua* interpreter its expansion from the *TeX* viewpoint is usually empty.
+---However, there are some *Lua* functions that produce material to be read by *TeX*,
+---the so called print functions. The most simple use of these is `tex.print(<string> s)`. The characters of the string `s` will be placed on
+---the *TeX* input buffer, that is, “before *TeX*'s eyes” to be read by *TeX*
+---immediately. For example:
+---
+---\startbuffer
+---\count10=20
+---a\directlua{tex.print(tex.count[10]+5)}b
+---\stopbuffer
+---
+---\typebuffer
+---
+---expands to
+---
+---\getbuffer
+---
+---Here is another example:
+---
+---\startbuffer
+---`\pi = \directlua{tex.print(math.pi)}`
+---\stopbuffer
+---
+---\typebuffer
+---
+---will result in
+---
+---\getbuffer
+---
+---Note that the expansion of `directlua` is a sequence of characters, not of
+---tokens, contrary to all *TeX* commands. So formally speaking its expansion is
+---null, but it places material on a pseudo-file to be immediately read by *TeX*, as
+---\ETEX's `scantokens`. For a description of print functions look at \in
+---{section} [sec:luaprint].
+---
+---Because the \syntax {<general text>} is a chunk, the normal *Lua* error handling
+---is triggered if there is a problem in the included code. The *Lua* error messages
+---should be clear enough, but the contextual information is still pretty bad.
+---Often, you will only see the line number of the right brace at the end of the
+---code.
+---
+---While on the subject of errors: some of the things you can do inside *Lua* code
+---can break up *LuaTeX* pretty bad. If you are not careful while working with the
+---node list interface, you may even end up with assertion errors from within the
+---*TeX* portion of the executable.
+---
+---\stopsubsection
+---
+---\startsubsection[title={`latelua` and `lateluafunction`}]
+---
+---Contrary to `directlua`, `latelua` stores *Lua* code in a whatsit
+---that will be processed at the time of shipping out. Its intended use is a cross
+---between \PDF\ literals (often available as \orm {pdfliteral}) and the
+---traditional *TeX* extension `write`. Within the *Lua* code you can print
+---\PDF\ statements directly to the \PDF\ file via `pdf.print`, or you can
+---write to other output streams via `texio.write` or simply using *Lua* \IO\
+---routines.
+---
+---\startsyntax
+---\latelua <general text>!crlf
+---\latelua <16-bit number> <general text>
+---\stopsyntax
+---
+---Expansion of macros in the final `<general text>` is delayed until just
+---before the whatsit is executed (like in `write`). With regard to \PDF\
+---output stream `latelua` behaves as \PDF\ page literals. The \syntax
+---{name <general text>} and \syntax {<16-bit number>} behave in the same way as
+---they do for `directlua`.
+---
+---The `lateluafunction` primitive takes a number and is similar to `luafunction` but gets delated to shipout time. It's just there for completeness.
+---
+---\stopsubsection
+---
+---\startsubsection[title={`luaescapestring`}]
+---
+---\topicindex {escaping}
+---
+---This primitive converts a *TeX* token sequence so that it can be safely used as
+---the contents of a *Lua* string: embedded backslashes, double and single quotes,
+---and newlines and carriage returns are escaped. This is done by prepending an
+---extra token consisting of a backslash with category code 12, and for the line
+---endings, converting them to `n` and `r` respectively. The token
+---sequence is fully expanded.
+---
+---\startsyntax
+---\luaescapestring <general text>
+---\stopsyntax
+---
+---Most often, this command is not actually the best way to deal with the
+---differences between *TeX* and *Lua*. In very short bits of *Lua* code it is often
+---not needed, and for longer stretches of *Lua* code it is easier to keep the code
+---in a separate file and load it using *Lua*'s `dofile`:
+---
+---```
+---\directlua { dofile('mysetups.lua') }
+---```
+---
+---\stopsubsection
+---
+---\startsubsection[title={`luafunction`, `luafunctioncall` and `luadef`}]
+---
+---The `directlua` commands involves tokenization of its argument (after
+---picking up an optional name or number specification). The tokenlist is then
+---converted into a string and given to *Lua* to turn into a function that is
+---called. The overhead is rather small but when you have millions of calls it can
+---have some impact. For this reason there is a variant call available: `luafunction`. This command is used as follows:
+---
+---```
+---\directlua {
+---    local t = lua.get_functions_table()
+---    t[1] = function() tex.print("!") end
+---    t[2] = function() tex.print("?") end
+---}
+---
+---\luafunction1
+---\luafunction2
+---```
+---
+---Of course the functions can also be defined in a separate file. There is no limit
+---on the number of functions apart from normal *Lua* limitations. Of course there
+---is the limitation of no arguments but that would involve parsing and thereby give
+---no gain. The function, when called in fact gets one argument, being the index, so
+---in the following example the number `8` gets typeset.
+---
+---```
+---\directlua {
+---    local t = lua.get_functions_table()
+---    t[8] = function(slot) tex.print(slot) end
+---}
+---```
+---
+---The `luafunctioncall` primitive does the same but is unexpandable, for
+---instance in an `edef`. In addition *LuaTeX* provides a definer:
+---
+---```
+---                 \luadef\MyFunctionA 1
+---          \global\luadef\MyFunctionB 2
+---\protected\global\luadef\MyFunctionC 3
+---```
+---
+---You should really use these commands with care. Some references get stored in
+---tokens and assume that the function is available when that token expands. On the
+---other hand, as we have tested this functionality in relative complex situations
+---normal usage should not give problems.
+---
+---\stopsubsection
+---
+---\startsubsection[title={`luabytecode` and `luabytecodecall`}]
+---
+---Analogue to the function callers discussed in the previous section we have byte
+---code callers. Again the call variant is unexpandable.
+---
+---```
+---\directlua {
+---    lua.bytecode[9998] = function(s)
+---        tex.sprint(s*token.scan_int())
+---    end
+---    lua.bytecode[5555] = function(s)
+---        tex.sprint(s*token.scan_dimen())
+---    end
+---}
+---```
+---
+---This works with:
+---
+---```
+---\luabytecode    9998 5  \luabytecode    5555 5sp
+---\luabytecodecall9998 5  \luabytecodecall5555 5sp
+---```
+---
+---The variable `s` in the code is the number of the byte code register that
+---can be used for diagnostic purposes. The advantage of bytecode registers over
+---function calls is that they are stored in the format (but without upvalues).
+---
+---\stopsubsection
+---
+---\stopsection
+---
+---\startsection[title={Catcode tables}]
+---
+---\startsubsection[title={Catcodes}]
+---
+---\topicindex {catcodes}
+---
+---Catcode tables are a new feature that allows you to switch to a predefined
+---catcode regime in a single statement. You can have a practically unlimited number
+---of different tables. This subsystem is backward compatible: if you never use the
+---following commands, your document will not notice any difference in behaviour
+---compared to traditional *TeX*. The contents of each catcode table is independent
+---from any other catcode table, and its contents is stored and retrieved from the
+---format file.
+---
+---\stopsubsection
+---
+---\startsubsection[title={`catcodetable`}]
+---
+---\startsyntax
+---\catcodetable <15-bit number>
+---\stopsyntax
+---
+---The primitive `catcodetable` switches to a different catcode table. Such a
+---table has to be previously created using one of the two primitives below, or it
+---has to be zero. Table zero is initialized by \INITEX.
+---
+---\stopsubsection
+---
+---\startsubsection[title={`initcatcodetable`}]
+---
+---\startsyntax
+---\initcatcodetable <15-bit number>
+---\stopsyntax
+---
+---The primitive `initcatcodetable` creates a new table with catcodes
+---identical to those defined by \INITEX. The new catcode table is allocated
+---globally: it will not go away after the current group has ended. If the supplied
+---number is identical to the currently active table, an error is raised. The
+---initial values are:
+---
+---\starttabulate[|c|c|l|l|]
+---\DB catcode \BC character               \BC equivalent \BC category          \NC \NR
+---\TB
+---\NC  0 \NC \tttf \letterbackslash       \NC         \NC `escape`       \NC \NR
+---\NC  5 \NC \tttf \letterhat\letterhat M \NC return  \NC `car_ret`      \NC \NR
+---\NC  9 \NC \tttf \letterhat\letterhat @ \NC null    \NC `ignore`       \NC \NR
+---\NC 10 \NC \tttf <space>                \NC space   \NC `spacer`       \NC \NR
+---\NC 11 \NC {\tttf a} \endash\ {\tttf z} \NC         \NC `letter`       \NC \NR
+---\NC 11 \NC {\tttf A} \endash\ {\tttf Z} \NC         \NC `letter`       \NC \NR
+---\NC 12 \NC everything else              \NC         \NC `other`        \NC \NR
+---\NC 14 \NC \tttf \letterpercent         \NC         \NC `comment`      \NC \NR
+---\NC 15 \NC \tttf \letterhat\letterhat ? \NC delete  \NC `invalid_char` \NC \NR
+---\LL
+---\stoptabulate
+---
+---\stopsubsection
+---
+---\startsubsection[title={`savecatcodetable`}]
+---
+---\startsyntax
+---\savecatcodetable <15-bit number>
+---\stopsyntax
+---
+---`savecatcodetable` copies the current set of catcodes to a new table with
+---the requested number. The definitions in this new table are all treated as if
+---they were made in the outermost level.
+---
+---The new table is allocated globally: it will not go away after the current group
+---has ended. If the supplied number is the currently active table, an error is
+---raised.
+---
+---\stopsubsection
+---
+---\stopsection
+---
+---\startsection[title={Suppressing errors}]
+---
+---\startsubsection[title={`suppressfontnotfounderror`}]
+---
+---\topicindex {errors}
+---
+---If this integer parameter is non-zero, then *LuaTeX* will not complain about
+---font metrics that are not found. Instead it will silently skip the font
+---assignment, making the requested csname for the font `ifx` equal to `nullfont`, so that it can be tested against that without bothering the user.
+---
+---\startsyntax
+---\suppressfontnotfounderror = 1
+---\stopsyntax
+---
+---\stopsubsection
+---
+---\startsubsection[title={`suppresslongerror`}]
+---
+---\topicindex {errors}
+---
+---If this integer parameter is non-zero, then *LuaTeX* will not complain about
+---`par` commands encountered in contexts where that is normally prohibited
+---(most prominently in the arguments of macros not defined as `long`).
+---
+---\startsyntax
+---\suppresslongerror = 1
+---\stopsyntax
+---
+---\stopsubsection
+---
+---\startsubsection[title={`suppressifcsnameerror`}]
+---
+---\topicindex {errors}
+---
+---If this integer parameter is non-zero, then *LuaTeX* will not complain about
+---non-expandable commands appearing in the middle of a `ifcsname` expansion.
+---Instead, it will keep getting expanded tokens from the input until it encounters
+---an `endcsname` command. If the input expansion is unbalanced with respect
+---to `csname` \ldots `endcsname` pairs, the *LuaTeX* process may hang
+---indefinitely.
+---
+---\startsyntax
+---\suppressifcsnameerror = 1
+---\stopsyntax
+---
+---\stopsubsection
+---
+---\startsubsection[title={`suppressoutererror`}]
+---
+---\topicindex {errors}
+---
+---If this new integer parameter is non-zero, then *LuaTeX* will not complain
+---about `outer` commands encountered in contexts where that is normally
+---prohibited.
+---
+---\startsyntax
+---\suppressoutererror = 1
+---\stopsyntax
+---
+---\stopsubsection
+---
+---\startsubsection[title={`suppressmathparerror`}]
+---
+---\topicindex {errors}
+---\topicindex {math}
+---
+---The following setting will permit `par` tokens in a math formula:
+---
+---\startsyntax
+---\suppressmathparerror = 1
+---\stopsyntax
+---
+---So, the next code is valid then:
+---
+---```
+---` x + 1 =
+---
+---a `
+---```
+---
+---\stopsubsection
+---
+---\startsubsection[title={`suppressprimitiveerror`}]
+---
+---\topicindex {errors}
+---\topicindex {primitives}
+---
+---When set to a non-zero value the following command will not issue an error:
+---
+---\startsyntax
+---\suppressprimitiveerror = 1
+---
+---\primitive\notaprimitive
+---\stopsyntax
+---
+---\stopsubsection
+---
+---\stopsection
+---
+---\startsection[title={Fonts}]
+---
+---\startsubsection[title={Font syntax}]
+---
+---\topicindex {fonts}
+---
+---*LuaTeX* will accept a braced argument as a font name:
+---
+---```
+---\font\myfont = {cmr10}
+---```
+---
+---This allows for embedded spaces, without the need for double quotes. Macro
+---expansion takes place inside the argument.
+---
+---\stopsubsection
+---
+---\startsubsection[title={`fontid` and `setfontid`}]
+---
+---\startsyntax
+---\fontid\font
+---\stopsyntax
+---
+---This primitive expands into a number. It is not a register so there is no need to
+---prefix with `number` (and using `the` gives an error). The currently
+---used font id is \fontid\font. Here are some more:
+---
+---\starttabulate[|l|c|c|]
+---\DB style \BC command \BC font id \NC \NR
+---\TB
+---\NC normal      \NC `\tf` \NC \bf \fontid\font \NC \NR
+---\NC bold        \NC `\bf` \NC \bf \fontid\font \NC \NR
+---\NC italic      \NC `\it` \NC \it \fontid\font \NC \NR
+---\NC bold italic \NC `\bi` \NC \bi \fontid\font \NC \NR
+---\LL
+---\stoptabulate
+---
+---These numbers depend on the macro package used because each one has its own way
+---of dealing with fonts. They can also differ per run, as they can depend on the
+---order of loading fonts. For instance, when in *ConTeXt* virtual math \UNICODE\
+---fonts are used, we can easily get over a hundred ids in use. Not all ids have to
+---be bound to a real font, after all it's just a number.
+---
+---The primitive `setfontid` can be used to enable a font with the given id,
+---which of course needs to be a valid one.
+---
+---\stopsubsection
+---
+---\startsubsection[title={`noligs` and `nokerns`}]
+---
+---\topicindex {ligatures+suppress}
+---\topicindex {kerns+suppress}
+---
+---These primitives prohibit ligature and kerning insertion at the time when the
+---initial node list is built by *LuaTeX*'s main control loop. You can enable these
+---primitives when you want to do node list processing of “characters”, where
+---*TeX*'s normal processing would get in the way.
+---
+---\startsyntax
+---\noligs <integer>!crlf
+---\nokerns <integer>
+---\stopsyntax
+---
+---These primitives can also be implemented by overloading the ligature building and
+---kerning functions, i.e.\ by assigning dummy functions to their associated
+---callbacks. Keep in mind that when you define a font (using *Lua*) you can also
+---omit the kern and ligature tables, which has the same effect as the above.
+---
+---\stopsubsection
+---
+---\startsubsection[title={\type{\nospaces}}]
+---
+---\topicindex {spaces+suppress}
+---
+---This new primitive can be used to overrule the usual `spaceskip` related
+---heuristics when a space character is seen in a text flow. The value \type{1}
+---triggers no injection while \type{2} results in injection of a zero skip. In \in
+---{figure} [fig:nospaces] we see the results for four characters separated by a
+---space.
+---
+---\startplacefigure[reference=fig:nospaces,title={The `nospaces` options.}]
+---\startcombination[3*2]
+---    {\ruledhbox to 5cm{\vtop{\hsize 10mm\nospaces=0\relax x x x x \par}\hss}} {`0 / hsize 10mm`}
+---    {\ruledhbox to 5cm{\vtop{\hsize 10mm\nospaces=1\relax x x x x \par}\hss}} {`1 / hsize 10mm`}
+---    {\ruledhbox to 5cm{\vtop{\hsize 10mm\nospaces=2\relax x x x x \par}\hss}} {`2 / hsize 10mm`}
+---    {\ruledhbox to 5cm{\vtop{\hsize  1mm\nospaces=0\relax x x x x \par}\hss}} {`0 / hsize 1mm`}
+---    {\ruledhbox to 5cm{\vtop{\hsize  1mm\nospaces=1\relax x x x x \par}\hss}} {`1 / hsize 1mm`}
+---    {\ruledhbox to 5cm{\vtop{\hsize  1mm\nospaces=2\relax x x x x \par}\hss}} {`2 / hsize 1mm`}
+---\stopcombination
+---\stopplacefigure
+---
+---\stopsubsection
+---
+---\stopsection
+---
+---\startsection[title={Tokens, commands and strings}]
+---
+---\startsubsection[title={`scantextokens`}]
+---
+---\topicindex {tokens+scanning}
+---
+---The syntax of `scantextokens` is identical to `scantokens`. This
+---primitive is a slightly adapted version of \ETEX's `scantokens`. The
+---differences are:
+---
+---
+---* The last (and usually only) line does not have a `endlinechar`
+---    appended.
+---
+---* `scantextokens` never raises an EOF error, and it does not execute
+---    `everyeof` tokens.
+---
+---* There are no “\unknown\ while end of file \unknown” error tests
+---    executed. This allows the expansion to end on a different grouping level or
+---    while a conditional is still incomplete.
+---
+---
+---
+---\stopsubsection
+---
+---\startsubsection[title={`toksapp`, `tokspre`, `etoksapp`, `etokspre`,
+---`gtoksapp`, `gtokspre`, `xtoksapp`,  `xtokspre`}]
+---
+---Instead of:
+---
+---```
+---\toks0\expandafter{\the\toks0 foo}
+---```
+---
+---you can use:
+---
+---```
+---\etoksapp0{foo}
+---```
+---
+---The `pre` variants prepend instead of append, and the `e` variants
+---expand the passed general text. The `g` and `x` variants are global.
+---
+---\stopsubsection
+---
+---\startsubsection[title={`csstring`, `begincsname` and `lastnamedcs`}]
+---
+---These are somewhat special. The `csstring` primitive is like
+---`string` but it omits the leading escape character. This can be
+---somewhat more efficient than stripping it afterwards.
+---
+---The `begincsname` primitive is like `csname` but doesn't create
+---a relaxed equivalent when there is no such name. It is equivalent to
+---
+---```
+---\ifcsname foo\endcsname
+---  \csname foo\endcsname
+---\fi
+---```
+---
+---The advantage is that it saves a lookup (don't expect much speedup) but more
+---important is that it avoids using the `if` test. The `lastnamedcs`
+---is one that should be used with care. The above example could be written as:
+---
+---```
+---\ifcsname foo\endcsname
+---  \lastnamedcs
+---\fi
+---```
+---
+---This is slightly more efficient than constructing the string twice (deep down in
+---*LuaTeX* this also involves some \UTF8 juggling), but probably more relevant is
+---that it saves a few tokens and can make code a bit more readable.
+---
+---\stopsubsection
+---
+---\startsubsection[title={`clearmarks`}]
+---
+---\topicindex {marks}
+---
+---This primitive complements the \ETEX\ mark primitives and clears a mark class
+---completely, resetting all three connected mark texts to empty. It is an
+---immediate command.
+---
+---\startsyntax
+---\clearmarks <16-bit number>
+---\stopsyntax
+---
+---\stopsubsection
+---
+---\startsubsection[title={`alignmark` and `aligntab`}]
+---
+---The primitive `alignmark` duplicates the functionality of `#` inside
+---alignment preambles, while `aligntab` duplicates the functionality of `&`.
+---
+---\stopsubsection
+---
+---\startsubsection[title={`letcharcode`}]
+---
+---This primitive can be used to assign a meaning to an active character, as in:
+---
+---```
+---\def\foo{bar} \letcharcode123=\foo
+---```
+---
+---This can be a bit nicer than using the uppercase tricks (using the property of
+---`uppercase` that it treats active characters special).
+---
+---\stopsubsection
+---
+---\startsubsection[title={`glet`}]
+---
+---This primitive is similar to:
+---
+---```
+---\protected\def\glet{\global\let}
+---```
+---
+---but faster (only measurable with millions of calls) and probably more convenient
+---(after all we also have `\gdef`).
+---
+---\stopsubsection
+---
+---\startsubsection[title={`expanded`, `immediateassignment` and `immediateassigned`}]
+---
+---\topicindex {expansion}
+---
+---The `expanded` primitive takes a token list and expands it content which can
+---come in handy: it avoids a tricky mix of `expandafter` and `noexpand`.
+---You can compare it with what happens inside the body of an `edef`. But this
+---kind of expansion it still doesn't expand some primitive operations.
+---
+---\startbuffer
+---\newcount\NumberOfCalls
+---
+---\def\TestMe{\advance\NumberOfCalls1 }
+---
+---\edef\Tested{\TestMe foo:\the\NumberOfCalls}
+---\edef\Tested{\TestMe foo:\the\NumberOfCalls}
+---\edef\Tested{\TestMe foo:\the\NumberOfCalls}
+---
+---\meaning\Tested
+---\stopbuffer
+---
+---\typebuffer
+---
+---The result is a macro that has the not expanded code in its body:
+---
+---\getbuffer
+---
+---Instead we can define \tex {TestMe} in a way that expands the assignment
+---immediately. You need of course to be aware of preventing look ahead interference
+---by using a space or \tex {relax} (often an expression works better as it doesn't
+---leave an \tex {relax}).
+---
+---\startbuffer
+---\def\TestMe{\immediateassignment\advance\NumberOfCalls1 }
+---
+---\edef\Tested{\TestMe foo:\the\NumberOfCalls}
+---\edef\Tested{\TestMe foo:\the\NumberOfCalls}
+---\edef\Tested{\TestMe foo:\the\NumberOfCalls}
+---
+---\meaning\Tested
+---\stopbuffer
+---
+---\typebuffer
+---
+---This time the counter gets updates and we don't see interference in the
+---resulting \tex {Tested} macro:
+---
+---\getbuffer
+---
+---Here is a somewhat silly example of expanded comparison:
+---
+---\startbuffer
+---\def\expandeddoifelse#1#2#3#4%
+---  {\immediateassignment\edef\tempa{#1}%
+---   \immediateassignment\edef\tempb{#2}%
+---   \ifx\tempa\tempb
+---     \immediateassignment\def\next{#3}%
+---   \else
+---     \immediateassignment\def\next{#4}%
+---   \fi
+---   \next}
+---
+---\edef\Tested
+---  {(\expandeddoifelse{abc}{def}{yes}{nop}/%
+---    \expandeddoifelse{abc}{abc}{yes}{nop})}
+---
+---\meaning\Tested
+---\stopbuffer
+---
+---\typebuffer
+---
+---It gives:
+---
+---\getbuffer
+---
+---A variant is:
+---
+---```
+---\def\expandeddoifelse#1#2#3#4%
+---  {\immediateassigned{
+---     \edef\tempa{#1}%
+---     \edef\tempb{#2}%
+---   }%
+---   \ifx\tempa\tempb
+---     \immediateassignment\def\next{#3}%
+---   \else
+---     \immediateassignment\def\next{#4}%
+---   \fi
+---   \next}
+---```
+---
+---The possible error messages are the same as using assignments in preambles of
+---alignments and after the `accent` command. The supported assignments are the
+---so called prefixed commands (except box assignments).
+---
+---\stopsubsection
+---
+---\startsubsection[title={`ifcondition`}]
+---
+---\topicindex {conditions}
+---
+---This is a somewhat special one. When you write macros conditions need to be
+---properly balanced in order to let *TeX*'s fast branch skipping work well. This new
+---primitive is basically a no||op flagged as a condition so that the scanner can
+---recognize it as an if-test. However, when a real test takes place the work is
+---done by what follows, in the next example \tex {something}.
+---
+---```
+---\unexpanded\def\something#1#2%
+---  {\edef\tempa{#1}%
+---   \edef\tempb{#2}
+---   \ifx\tempa\tempb}
+---
+---\ifcondition\something{a}{b}%
+---    \ifcondition\something{a}{a}%
+---        true 1
+---    \else
+---        false 1
+---    \fi
+---\else
+---    \ifcondition\something{a}{a}%
+---        true 2
+---    \else
+---        false 2
+---    \fi
+---\fi
+---```
+---
+---If you are familiar with \METAPOST, this is a bit like `vardef` where the macro
+---has a return value. Here the return value is a test.
+---
+---\stopsubsection
+---
+---\stopsection
+---
+---\startsection[title={Boxes, rules and leaders}]
+---
+---\startsubsection[title={`outputbox`}]
+---
+---\topicindex {output}
+---
+---This integer parameter allows you to alter the number of the box that will be
+---used to store the page sent to the output routine. Its default value is 255, and
+---the acceptable range is from 0 to 65535.
+---
+---\startsyntax
+---\outputbox = 12345
+---\stopsyntax
+---
+---\stopsubsection
+---
+---\startsubsection[title={`vpack`, `hpack` and `tpack`}]
+---
+---These three primitives are like `vbox`, `hbox` and `vtop`
+---but don't apply the related callbacks.
+---
+---\stopsubsection
+---
+---\startsubsection[title={`vsplit`}]
+---
+---\topicindex {splitting}
+---
+---The `vsplit` primitive has to be followed by a specification of the required
+---height. As alternative for the `to` keyword you can use `upto` to get
+---a split of the given size but result has the natural dimensions then.
+---
+---\stopsubsection
+---
+---\startsubsection[title={Images and reused box objects},reference=sec:imagedandforms]
+---
+---These two concepts are now core concepts and no longer whatsits. They are in fact
+---now implemented as rules with special properties. Normal rules have subtype 0,
+---saved boxes have subtype 1 and images have subtype 2. This has the positive side
+---effect that whenever we need to take content with dimensions into account, when
+---we look at rule nodes, we automatically also deal with these two types.
+---
+---The syntax of the `\save...resource` is the same as in \PDFTEX\ but you
+---should consider them to be backend specific. This means that a macro package
+---should treat them as such and check for the current output mode if applicable.
+---
+---\starttabulate[|l|p|]
+---\DB command \BC explanation \NC \NR
+---\TB
+---\NC `saveboxresource`             \NC save the box as an object to be included later \NC \NR
+---\NC `saveimageresource`           \NC save the image as an object to be included later \NC \NR
+---\NC `useboxresource`              \NC include the saved box object here (by index) \NC \NR
+---\NC `useimageresource`            \NC include the saved image object here (by index) \NC \NR
+---\NC `lastsavedboxresourceindex`   \NC the index of the last saved box object \NC \NR
+---\NC `lastsavedimageresourceindex` \NC the index of the last saved image object \NC \NR
+---\NC `lastsavedimageresourcepages` \NC the number of pages in the last saved image object \NC \NR
+---\LL
+---\stoptabulate
+---
+---*LuaTeX* accepts optional dimension parameters for `\use...resource` in the
+---same format as for rules. With images, these dimensions are then used instead of
+---the ones given to `useimageresource` but the original dimensions are not
+---overwritten, so that a `useimageresource` without dimensions still
+---provides the image with dimensions defined by `saveimageresource`. These
+---optional parameters are not implemented for `saveboxresource`.
+---
+---```
+---\useimageresource width 20mm height 10mm depth 5mm \lastsavedimageresourceindex
+---\useboxresource   width 20mm height 10mm depth 5mm \lastsavedboxresourceindex
+---```
+---
+---The box resources are of course implemented in the backend and therefore we do
+---support the `attr` and `resources` keys that accept a token list. New
+---is the `type` key. When set to non-zero the `/Type` entry is
+---omitted. A value of 1 or 3 still writes a `/BBox`, while 2 or 3 will write
+---a `/Matrix`.
+---
+---\stopsubsection
+---
+---\startsubsection[title={`nohrule` and `novrule`}]
+---
+---\topicindex {rules}
+---
+---Because introducing a new keyword can cause incompatibilities, two new primitives
+---were introduced: `nohrule` and `novrule`. These can be used to
+---reserve space. This is often more efficient than creating an empty box with fake
+---dimensions.
+---
+---\stopsubsection
+---
+---\startsubsection[title={`gleaders`}]
+---
+---\topicindex {leaders}
+---
+---This type of leaders is anchored to the origin of the box to be shipped out. So
+---they are like normal `leaders` in that they align nicely, except that the
+---alignment is based on the {\it largest\/} enclosing box instead of the {\it
+---smallest\/}. The `g` stresses this global nature.
+---
+---\stopsubsection
+---
+---\stopsection
+---
+---\startsection[title={Languages}]
+---
+---\startsubsection[title={`hyphenationmin`}]
+---
+---\topicindex {languages}
+---\topicindex {hyphenation}
+---
+---This primitive can be used to set the minimal word length, so setting it to a value
+---of `5` means that only words of 6 characters and more will be hyphenated, of course
+---within the constraints of the `lefthyphenmin` and `righthyphenmin`
+---values (as stored in the glyph node). This primitive accepts a number and stores
+---the value with the language.
+---
+---\stopsubsection
+---
+---\startsubsection[title={`boundary`, `noboundary`, `protrusionboundary` and `wordboundary`}]
+---
+---The `noboundary` command is used to inject a whatsit node but now injects a normal
+---node with type `boundary` and subtype 0. In addition you can say:
+---
+---```
+---x\boundary 123\relax y
+---```
+---
+---This has the same effect but the subtype is now 1 and the value 123 is stored.
+---The traditional ligature builder still sees this as a cancel boundary directive
+---but at the *Lua* end you can implement different behaviour. The added benefit of
+---passing this value is a side effect of the generalization. The subtypes 2 and 3
+---are used to control protrusion and word boundaries in hyphenation and have
+---related primitives.
+---
+---\stopsubsection
+---
+---\startsubsection[title={`glyphdimensionsmode`}]
+---
+---Already in the early days of *LuaTeX* the decision was made to calculate the
+---effective height and depth of glyphs in a way that reflected the applied vertical
+---offset. The height got that offset added, the depth only when the offset was
+---larger than zero. We can now control this in more detail with this mode
+---parameter. An offset is added to the height and|/|or subtracted from the depth.
+---The effective values are never negative. The zero mode is the default.
+---
+---\starttabulate[|l|pl|]
+---\DB value     \BC effect \NC\NR
+---\TB
+---\NC `0` \NC the old behaviour: add the offset to the height and only subtract
+---                  the offset only from the depth when it is positive \NC \NR
+---\NC `1` \NC add the offset to the height and subtract it from the depth \NC \NR
+---\NC `2` \NC add the offset to the height and subtract it from the depth but
+---                  keep the maxima of the current and previous results \NC \NR
+---\NC `3` \NC use the height and depth of the glyph, so no offset is applied \NC \NR
+---\LL
+---\stoptabulate
+---
+---\stopsubsection
+---
+---\stopsection
+---
+---\startsection[title={Control and debugging}]
+---
+---\startsubsection[title={Tracing}]
+---
+---\topicindex {tracing}
+---
+---If `tracingonline` is larger than 2, the node list display will also print
+---the node number of the nodes.
+---
+---\stopsubsection
+---
+---\startsubsection[title={`outputmode`}]
+---
+---\topicindex {output}
+---\topicindex {backend}
+---
+---The `outputmode` variable tells *LuaTeX* what it has to produce:
+---
+---\starttabulate[|l|l|]
+---\DB value \BC output \NC \NR
+---\TB
+---\NC `0` \NC \DVI\ code \NC \NR
+---\NC `1` \NC \PDF\ code \NC \NR
+---\LL
+---\stoptabulate
+---
+---\stopsubsection
+---
+---\startsubsection[title={`draftmode`}]
+---
+---The value of the `draftmode` counter signals the backend if it should output
+---less. The \PDF\ backend accepts a value of 1, while the \DVI\ backend ignores the
+---value. This is no critical feature so we can remove it in future versions when it
+---can make the backend cleaner.
+---
+---\stopsubsection
+---
+---\stopsection
+---
+---\startsection[title={Files}]
+---
+---\startsubsection[title={File syntax}]
+---
+---\topicindex {files+names}
+---
+---*LuaTeX* will accept a braced argument as a file name:
+---
+---```
+---\input {plain}
+---\openin 0 {plain}
+---```
+---
+---This allows for embedded spaces, without the need for double quotes. Macro
+---expansion takes place inside the argument.
+---
+---The `tracingfonts` primitive that has been inherited from \PDFTEX\ has
+---been adapted to support variants in reporting the font. The reason for this
+---extension is that a csname not always makes sense. The zero case is the default.
+---
+---\starttabulate[|l|l|]
+---\DB value \BC reported \NC \NR
+---\TB
+---\NC \type{0} \NC \type{\foo xyz} \NC \NR
+---\NC \type{1} \NC \type{\foo (bar)} \NC \NR
+---\NC \type{2} \NC \type{<bar> xyz} \NC \NR
+---\NC \type{3} \NC \type{<bar @ ..pt> xyz} \NC \NR
+---\NC \type{4} \NC \type{<id>} \NC \NR
+---\NC \type{5} \NC \type{<id: bar>} \NC \NR
+---\NC \type{6} \NC \type{<id: bar @ ..pt> xyz} \NC \NR
+---\LL
+---\stoptabulate
+---
+---\stopsubsection
+---
+---\startsubsection[title={Writing to file}]
+---
+---\topicindex {files+writing}
+---
+---You can now open upto 127 files with `openout`. When no file is open
+---writes will go to the console and log. As a consequence a system command is
+---no longer possible but one can use `os.execute` to do the same.
+---
+---\stopsubsection
+---
+---\stopsection
+---
+---\startsection[title={Math}]
+---
+---\topicindex {math}
+---
+---We will cover math extensions in its own chapter because not only the font
+---subsystem and spacing model have been enhanced (thereby introducing many new
+---primitives) but also because some more control has been added to existing
+---functionality. Much of this relates to the different approaches of traditional
+---*TeX* fonts and \OPENTYPE\ math.
+---
+---\stopsection
+---
+---\stopchapter
+---
+---\stopcomponent
+---

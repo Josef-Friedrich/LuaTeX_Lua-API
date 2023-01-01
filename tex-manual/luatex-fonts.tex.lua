@@ -1,0 +1,885 @@
+---% language=uk engine=luatex
+---
+---\environment luatex-style
+---
+---\startcomponent luatex-fonts
+---
+---\startchapter[reference=fonts,title={Font structure}]
+---
+---\startsection[title={The font tables}]
+---
+---\topicindex {fonts}
+---\topicindex {fonts+tables}
+---
+---All *TeX* fonts are represented to *Lua* code as tables, and internally as
+---\CCODE structures. All keys in the table below are saved in the internal font
+---structure if they are present in the table returned by the \cbk {define_font}
+---callback, or if they result from the normal \TFM|/|\VF\ reading routines if there
+---is no \cbk {define_font} callback defined.
+---
+---The column “\VF” means that this key will be created by the `font.read_vf()` routine, “\TFM” means that the key will be created by the
+---`font.read_tfm()` routine, and “used” means whether or not the
+---*LuaTeX* engine itself will do something with the key. The top-level keys in
+---the table are as follows:
+---
+---\starttabulate[|l|c|c|c|l|pl|]
+---\DB key                     \BC vf  \BC tfm \BC used \BC value type \BC description \NC \NR
+---\TB
+---\NC \type{name}             \NC yes \NC yes \NC yes  \NC string     \NC metric (file) name \NC \NR
+---\NC \type{area}             \NC no  \NC yes \NC yes  \NC string     \NC (directory) location, typically empty \NC \NR
+---\NC \type{used}             \NC no  \NC yes \NC yes  \NC boolean    \NC indicates usage (initial: false) \NC \NR
+---\NC \type{characters}       \NC yes \NC yes \NC yes  \NC table      \NC the defined glyphs of this font \NC \NR
+---\NC \type{checksum}         \NC yes \NC yes \NC no   \NC number     \NC default: 0 \NC \NR
+---\NC \type{designsize}       \NC no  \NC yes \NC yes  \NC number     \NC expected size (default: 655360 == 10pt) \NC \NR
+---\NC \type{direction}        \NC no  \NC yes \NC yes  \NC number     \NC default: 0 \NC \NR
+---\NC \type{encodingbytes}    \NC no  \NC no  \NC yes  \NC number     \NC default: depends on `format` \NC \NR
+---\NC \type{encodingname}     \NC no  \NC no  \NC yes  \NC string     \NC encoding name \NC \NR
+---\NC \type{fonts}            \NC yes \NC no  \NC yes  \NC table      \NC locally used fonts \NC \NR
+---\NC \type{psname}           \NC no  \NC no  \NC yes  \NC string     \NC This is the \POSTSCRIPT\ fontname in the incoming font
+---                                                                        source, and it's used as fontname identifier in the \PDF\
+---                                                                        output. This has to be a valid string, e.g.\ no spaces
+---                                                                        and such, as the backend will not do a cleanup. This gives
+---                                                                        complete control to the loader. \NC \NR
+---\NC \type{fullname}         \NC no  \NC no  \NC yes  \NC string     \NC output font name, used as a fallback in the \PDF\ output
+---                                                                        if the `psname` is not set \NC \NR
+---\NC \type{subfont}          \NC no  \NC no  \NC yes  \NC number     \NC default: 0, index in (`ttc`) font with multiple fonts \NC \NR
+---\NC \type{header}           \NC yes \NC no  \NC no   \NC string     \NC header comments, if any \NC \NR
+---\NC \type{hyphenchar}       \NC no  \NC no  \NC yes  \NC number     \NC default: *TeX*'s `hyphenchar` \NC \NR
+---\NC \type{parameters}       \NC no  \NC yes \NC yes  \NC hash       \NC default: 7 parameters, all zero \NC \NR
+---\NC \type{size}             \NC no  \NC yes \NC yes  \NC number     \NC the required scaling (by default the same as designsize) \NC \NR
+---\NC \type{skewchar}         \NC no  \NC no  \NC yes  \NC number     \NC default: *TeX*'s `skewchar` \NC \NR
+---\NC \type{type}             \NC yes \NC no  \NC yes  \NC string     \NC basic type of this font \NC \NR
+---\NC \type{format}           \NC no  \NC no  \NC yes  \NC string     \NC disk format type \NC \NR
+---\NC \type{embedding}        \NC no  \NC no  \NC yes  \NC string     \NC \PDF\ inclusion  \NC \NR
+---\NC \type{filename}         \NC no  \NC no  \NC yes  \NC string     \NC the name of the font on disk \NC \NR
+---\NC \type{tounicode}        \NC no  \NC yes \NC yes  \NC number     \NC When this is set to 1 *LuaTeX* assumes per-glyph
+---                                                                        tounicode entries are present in the font. \NC \NR
+---\NC \type{stretch}          \NC no  \NC no  \NC yes  \NC number     \NC the “stretch” value from `expandglyphsinfont` \NC \NR
+---\NC \type{shrink}           \NC no  \NC no  \NC yes  \NC number     \NC the “shrink” value from `expandglyphsinfont` \NC \NR
+---\NC \type{step}             \NC no  \NC no  \NC yes  \NC number     \NC the “step” value from `expandglyphsinfont` \NC \NR
+---\NC \type{expansion_factor} \NC no  \NC no  \NC no   \NC number     \NC the actual expansion factor of an expanded font \NC \NR
+---\NC \type{attributes}       \NC no  \NC no  \NC yes  \NC string     \NC the \orm {pdffontattr} \NC \NR
+---\NC \type{cache}            \NC no  \NC no  \NC yes  \NC string     \NC This key controls caching of the *Lua* table on the
+---                                                                        *TeX* end where `yes` means: use a reference to
+---                                                                        the table that is passed to *LuaTeX* (this is the
+---                                                                        default), and `no` means: don't store the
+---                                                                        table reference, don't cache any *Lua* data for this
+---                                                                        font while `renew` means: don't store the table
+---                                                                        reference, but save a reference to the table that is
+---                                                                        created at the first access to one of its fields in the
+---                                                                        font. \NC \NR
+---\NC \type{nomath}           \NC no  \NC no  \NC yes  \NC boolean    \NC This key allows a minor speedup for text fonts. If it
+---                                                                        is present and true, then *LuaTeX* will not check the
+---                                                                        character entries for math-specific keys. \NC \NR
+---\NC \type{oldmath}          \NC no  \NC no  \NC yes  \NC boolean    \NC This key flags a font as representing an old school *TeX*
+---                                                                        math font and disables the \OPENTYPE\ code path. \NC \NR
+---\NC \type{slant}            \NC no  \NC no  \NC yes  \NC number     \NC This parameter will tilt the font and
+---                                                                        does the same as `SlantFont` in the map file for
+---                                                                        \TYPEONE\ fonts. \NC \NR
+---\NC \type{extend}           \NC no  \NC no  \NC yes  \NC number     \NC This parameter will scale the font horizontally and
+---                                                                        does the same as `ExtendFont` in the map file for
+---                                                                        \TYPEONE\ fonts. \NC \NR
+---\NC \type{squeeze}          \NC no  \NC no  \NC yes  \NC number     \NC This parameter will scale the font vertically and has
+---                                                                        no equivalent in the map file. \NC \NR
+---\NC \type{width}            \NC no  \NC no  \NC yes  \NC number     \NC The backend will inject \PDF\ operators that set the
+---                                                                        penwidth. The value is (as usual in *TeX*) divided by 1000.
+---                                                                        It works with the `mode` file. \NC \NR
+---\NC \type{mode}             \NC no  \NC no  \NC yes  \NC number     \NC The backend will inject \PDF\ operators that relate to the
+---                                                                        drawing mode with 0 being a fill, 1 being an outline,
+---                                                                        2 both draw and fill and 3 no painting at all. \NC \NR
+---\LL
+---\stoptabulate
+---
+---The saved reference in the `cache` option is thread-local, so be careful
+---when you are using coroutines: an error will be thrown if the table has been
+---cached in one thread, but you reference it from another thread.
+---
+---The key `name` is always required. The keys `stretch`, `shrink`, `step` only have meaning when used together: they can be used to
+---replace a post-loading `expandglyphsinfont` command. The `auto_expand` option is not supported in *LuaTeX*. In fact, the primitives that
+---create expanded or protruding copies are probably only useful when used with
+---traditional fonts because all these extra \OPENTYPE\ properties are kept out of
+---the picture. The `expansion_factor` is value that can be present inside a
+---font in `font.fonts`. It is the actual expansion factor (a value between
+---`-shrink` and `stretch`, with step `step`) of a font that was
+---automatically generated by the font expansion algorithm.
+---
+---The `subfont` parameter can be used to specify the subfont in a `ttc`
+---font. When given, it is used instead of the `psname` and `fullname`
+---combination. The first subfont has number 1. A zero value signals using the names
+---as lookup.
+---
+---Because we store the actual state of expansion with each glyph and don't have
+---special font instances, we can change some font related parameters before lines
+---are constructed, like:
+---
+---```
+---font.setexpansion(font.current(),100,100,20)
+---```
+---
+---This is mostly meant for experiments (or an optimizing routing written in *Lua*)
+---so there is no primitive.
+---
+---The key `attributes` can be used to set font attributes in the \PDF\ file.
+---The key `used` is set by the engine when a font is actively in use, this
+---makes sure that the font's definition is written to the output file (\DVI\ or
+---\PDF). The \TFM\ reader sets it to false. The `direction` is a number
+---signalling the “normal” direction for this font. There are sixteen
+---possibilities:
+---
+---\starttabulate[|Tc|c|Tc|c|Tc|c|Tc|c|]
+---\DB \# \BC dir \BC \# \BC dir \BC \# \BC dir \BC \# \BC dir \NC \NR
+---\TB
+---\NC  0 \NC LT  \NC  4 \NC RT  \NC  8 \NC TT  \NC 12 \NC BT  \NC \NR
+---\NC  1 \NC LL  \NC  5 \NC RL  \NC  9 \NC TL  \NC 13 \NC BL  \NC \NR
+---\NC  2 \NC LB  \NC  6 \NC RB  \NC 10 \NC TB  \NC 14 \NC BB  \NC \NR
+---\NC  3 \NC LR  \NC  7 \NC RR  \NC 11 \NC TR  \NC 15 \NC BR  \NC \NR
+---\LL
+---\stoptabulate
+---
+---These are \OMEGA-style direction abbreviations: the first character indicates
+---the “first” edge of the character glyphs (the edge that is seen first in
+---the writing direction), the second the “top” side. Keep in mind that
+---*LuaTeX* has a bit different directional model so these values are not used for
+---anything.
+---
+---The `parameters` is a hash with mixed key types. There are seven possible
+---string keys, as well as a number of integer indices (these start from 8 up). The
+---seven strings are actually used instead of the bottom seven indices, because that
+---gives a nicer user interface.
+---
+---The names and their internal remapping are:
+---
+---\starttabulate[|l|c|]
+---\DB name                  \BC remapping \NC \NR
+---\TB
+---\NC `slant`         \NC 1 \NC \NR
+---\NC `space`         \NC 2 \NC \NR
+---\NC `space_stretch` \NC 3 \NC \NR
+---\NC `space_shrink`  \NC 4 \NC \NR
+---\NC `x_height`      \NC 5 \NC \NR
+---\NC `quad`          \NC 6 \NC \NR
+---\NC `extra_space`   \NC 7 \NC \NR
+---\LL
+---\stoptabulate
+---
+---The keys `type`, `format`, `embedding`, `fullname` and
+---`filename` are used to embed \OPENTYPE\ fonts in the result \PDF.
+---
+---The `characters` table is a list of character hashes indexed by an integer
+---number. The number is the “internal code” *TeX* knows this character by.
+---
+---Two very special string indexes can be used also: `left_boundary` is a
+---virtual character whose ligatures and kerns are used to handle word boundary
+---processing. `right_boundary` is similar but not actually used for anything
+---(yet).
+---
+---Each character hash itself is a hash. For example, here is the character “f” (decimal 102) in the font `cmr10 at 10pt`. The numbers that represent
+---dimensions are in scaled points.
+---
+---```
+---[102] = {
+---    ["width"]  = 200250,
+---    ["height"] = 455111,
+---    ["depth"]  = 0,
+---    ["italic"] = 50973,
+---    ["kerns"]  = {
+---        [63] = 50973,
+---        [93] = 50973,
+---        [39] = 50973,
+---        [33] = 50973,
+---        [41] = 50973
+---    },
+---    ["ligatures"] = {
+---        [102] = { ["char"] = 11, ["type"] = 0 },
+---        [108] = { ["char"] = 13, ["type"] = 0 },
+---        [105] = { ["char"] = 12, ["type"] = 0 }
+---    }
+---}
+---```
+---
+---The following top-level keys can be present inside a character hash:
+---
+---\starttabulate[|l|c|c|c|l|p|]
+---\DB key                     \BC vf  \BC tfm \BC used  \BC type    \BC description \NC\NR
+---\TB
+---\NC \type{width}            \NC yes \NC yes \NC yes   \NC number  \NC character's width, in sp (default 0) \NC\NR
+---\NC \type{height}           \NC no  \NC yes \NC yes   \NC number  \NC character's height, in sp (default 0) \NC\NR
+---\NC \type{depth}            \NC no  \NC yes \NC yes   \NC number  \NC character's depth, in sp (default 0) \NC\NR
+---\NC \type{italic}           \NC no  \NC yes \NC yes   \NC number  \NC character's italic correction, in sp (default zero) \NC\NR
+---\NC \type{top_accent}       \NC no  \NC no  \NC maybe \NC number  \NC character's top accent alignment place, in sp (default zero) \NC\NR
+---\NC \type{bot_accent}       \NC no  \NC no  \NC maybe \NC number  \NC character's bottom accent alignment place, in sp (default zero) \NC\NR
+---\NC \type{left_protruding}  \NC no  \NC no  \NC maybe \NC number  \NC character's `lpcode` \NC\NR
+---\NC \type{right_protruding} \NC no  \NC no  \NC maybe \NC number  \NC character's `rpcode` \NC\NR
+---\NC \type{expansion_factor} \NC no  \NC no  \NC maybe \NC number  \NC character's `efcode` \NC\NR
+---\NC \type{tounicode}        \NC no  \NC no  \NC maybe \NC string  \NC character's \UNICODE\ equivalent(s), in \UTF-16BE hexadecimal format \NC\NR
+---\NC \type{next}             \NC no  \NC yes \NC yes   \NC number  \NC the “next larger” character index \NC\NR
+---\NC \type{extensible}       \NC no  \NC yes \NC yes   \NC table   \NC the constituent parts of an extensible recipe \NC\NR
+---\NC \type{vert_variants}    \NC no  \NC no  \NC yes   \NC table   \NC constituent parts of a vertical variant set \NC \NR
+---\NC \type{horiz_variants}   \NC no  \NC no  \NC yes   \NC table   \NC constituent parts of a horizontal variant set \NC \NR
+---\NC \type{kerns}            \NC no  \NC yes \NC yes   \NC table   \NC kerning information \NC\NR
+---\NC \type{ligatures}        \NC no  \NC yes \NC yes   \NC table   \NC ligaturing information \NC\NR
+---\NC \type{commands}         \NC yes \NC no  \NC yes   \NC array   \NC virtual font commands \NC\NR
+---\NC \type{name}             \NC no  \NC no  \NC no    \NC string  \NC the character (\POSTSCRIPT) name \NC\NR
+---\NC \type{index}            \NC no  \NC no  \NC yes   \NC number  \NC the (\OPENTYPE\ or \TRUETYPE) font glyph index \NC\NR
+---\NC \type{used}             \NC no  \NC yes \NC yes   \NC boolean \NC typeset already (default: false) \NC\NR
+---\NC \type{mathkern}         \NC no  \NC no  \NC yes   \NC table   \NC math cut-in specifications \NC\NR
+---\LL
+---\stoptabulate
+---
+---The values of `top_accent`, `bot_accent` and `mathkern` are
+---used only for math accent and superscript placement, see \at {page} [math] in
+---this manual for details. The values of `left_protruding` and `right_protruding` are used only when `protrudechars` is non-zero. Whether
+---or not `expansion_factor` is used depends on the font's global expansion
+---settings, as well as on the value of `adjustspacing`.
+---
+---The usage of `tounicode` is this: if this font specifies a `tounicode=1` at the top level, then *LuaTeX* will construct a `/ToUnicode`
+---entry for the \PDF\ font (or font subset) based on the character-level `tounicode` strings, where they are available. If a character does not have a
+---sensible \UNICODE\ equivalent, do not provide a string either (no empty strings).
+---
+---If the font level `tounicode` is not set, then *LuaTeX* will build up `/ToUnicode` based on the *TeX* code points you used, and any character-level
+---`tounicodes` will be ignored. The string format is exactly the format that
+---is expected by Adobe \CMAP\ files (\UTF-16BE in hexadecimal encoding), minus the
+---enclosing angle brackets. For instance the `tounicode` for a `fi`
+---ligature would be `00660069`. When you pass a number the conversion will be
+---done for you.
+---
+---A math character can have a `next` field that points to a next larger
+---shape. However, the presence of `extensible` will overrule `next`, if
+---that is also present. The `extensible` field in turn can be overruled by
+---`vert_variants`, the \OPENTYPE\ version. The `extensible` table is
+---very simple:
+---
+---\starttabulate[|l|l|p|]
+---\DB key        \BC type   \BC description                \NC\NR
+---\TB
+---\NC \type{top} \NC number \NC top character index        \NC\NR
+---\NC \type{mid} \NC number \NC middle character index     \NC\NR
+---\NC \type{bot} \NC number \NC bottom character index     \NC\NR
+---\NC \type{rep} \NC number \NC repeatable character index \NC\NR
+---\LL
+---\stoptabulate
+---
+---The `horiz_variants` and `vert_variants` are arrays of components.
+---Each of those components is itself a hash of up to five keys:
+---
+---\starttabulate[|l|l|p|]
+---\DB key             \BC type   \BC explanation \NC \NR
+---\TB
+---\NC \type{glyph}    \NC number \NC The character index. Note that this is an encoding number, not a name. \NC \NR
+---\NC \type{extender} \NC number \NC One (1) if this part is repeatable, zero (0) otherwise. \NC \NR
+---\NC \type{start}    \NC number \NC The maximum overlap at the starting side (in scaled points). \NC \NR
+---\NC \type{end}      \NC number \NC The maximum overlap at the ending side (in scaled points). \NC \NR
+---\NC \type{advance}  \NC number \NC The total advance width of this item. It can be zero or missing,
+---                                   then the natural size of the glyph for character `component`
+---                                   is used. \NC \NR
+---\LL
+---\stoptabulate
+---
+---The `kerns` table is a hash indexed by character index (and “character index” is defined as either a non-negative integer or the string
+---value `right_boundary`), with the values of the kerning to be applied, in
+---scaled points.
+---
+---The `ligatures` table is a hash indexed by character index (and “character index” is defined as either a non-negative integer or the string
+---value `right_boundary`), with the values being yet another small hash, with
+---two fields:
+---
+---\starttabulate[|l|l|p|]
+---\DB key         \BC type   \BC description \NC \NR
+---\TB
+---\NC \type{type} \NC number \NC the type of this ligature command, default 0 \NC \NR
+---\NC \type{char} \NC number \NC the character index of the resultant ligature \NC \NR
+---\LL
+---\stoptabulate
+---
+---The `char` field in a ligature is required. The `type` field inside a
+---ligature is the numerical or string value of one of the eight possible ligature
+---types supported by *TeX*. When *TeX* inserts a new ligature, it puts the new glyph
+---in the middle of the left and right glyphs. The original left and right glyphs
+---can optionally be retained, and when at least one of them is kept, it is also
+---possible to move the new “insertion point” forward one or two places. The
+---glyph that ends up to the right of the insertion point will become the next
+---“left”.
+---
+---\starttabulate[|l|c|l|l|]
+---\DB textual (Knuth)       \BC number \BC string        \BC result      \NC\NR
+---\TB
+---\NC \type{l + r =: n}     \NC 0      \NC \type{=:}     \NC \type{|n}   \NC\NR
+---\NC \type{l + r =:| n}    \NC 1      \NC \type{=:|}    \NC \type{|nr}  \NC\NR
+---\NC \type{l + r |=: n}    \NC 2      \NC \type{|=:}    \NC \type{|ln}  \NC\NR
+---\NC \type{l + r |=:| n}   \NC 3      \NC \type{|=:|}   \NC \type{|lnr} \NC\NR
+---\NC \type{l + r  =:|> n}  \NC 5      \NC \type{=:|>}   \NC \type{n|r}  \NC\NR
+---\NC \type{l + r |=:> n}   \NC 6      \NC \type{|=:>}   \NC \type{l|n}  \NC\NR
+---\NC \type{l + r |=:|> n}  \NC 7      \NC \type{|=:|>}  \NC \type{l|nr} \NC\NR
+---\NC \type{l + r |=:|>> n} \NC 11     \NC \type{|=:|>>} \NC \type{ln|r} \NC\NR
+---\LL
+---\stoptabulate
+---
+---The default value is 0, and can be left out. That signifies a “normal”
+---ligature where the ligature replaces both original glyphs. In this table the `|`
+---indicates the final insertion point.
+---
+---The `commands` array is explained below.
+---
+---\stopsection
+---
+---\startsection[title={Real fonts}]
+---
+---\topicindex {fonts+real}
+---\topicindex {fonts+virtual}
+---
+---Whether or not a *TeX* font is a “real” font that should be written to the
+---\PDF\ document is decided by the `type` value in the top-level font
+---structure. If the value is `real`, then this is a proper font, and the
+---inclusion mechanism will attempt to add the needed font object definitions to the
+---\PDF. Values for `type` are:
+---
+---\starttabulate[|l|p|]
+---\DB value          \BC description            \NC\NR
+---\TB
+---\NC \type{real}    \NC this is a base font    \NC\NR
+---\NC \type{virtual} \NC this is a virtual font \NC\NR
+---\LL
+---\stoptabulate
+---
+---The actions to be taken depend on a number of different variables:
+---
+---
+---* Whether the used font fits in an 8-bit encoding scheme or not. This is true for
+---    traditional *TeX* fonts that communicate via \TFM\ files.
+---
+---* The type of the disk font file, for instance a bitmap file or an outline
+---    \TYPEONE, \TRUETYPE\ or \OPENTYPE\ font.
+---
+---* The level of embedding requested, although in most cases a subset of
+---    characters is embedded. The times when nothing got embedded are (in our
+---    opinion at least) basically gone.
+---
+---
+---
+---A font that uses anything other than an 8-bit encoding vector has to be written
+---to the \PDF\ in a different way. When the font table has `encodingbytes`
+---set to 2, then it is a wide font, in all other cases it isn't. The value 2 is the
+---default for \OPENTYPE\ and \TRUETYPE\ fonts loaded via *Lua*. For \TYPEONE\ fonts,
+---you have to set `encodingbytes` to 2 explicitly. For \PK\ bitmap fonts,
+---wide font encoding is not supported at all.
+---
+---If no special care is needed, *LuaTeX* falls back to the mapfile-based solution
+---used by \PDFTEX\ and \DVIPS, so that legacy fonts are supported transparently. If
+---a “wide” font is used, the new subsystem kicks in, and some extra fields
+---have to be present in the font structure. In this case, *LuaTeX* does not use a
+---map file at all. These extra fields are: `format`, `embedding`, `fullname`, `cidinfo` (as explained above), `filename`, and the `index` key in the separate characters.
+---
+---The `format` variable can have the following values. `type3` fonts
+---are provided for backward compatibility only, and do not support the new wide
+---encoding options.
+---
+---\starttabulate[|l|p|]
+---\DB value           \BC description                                               \NC \NR
+---\TB
+---\NC \type{type1}    \NC this is a \POSTSCRIPT\ \TYPEONE\ font                     \NC \NR
+---\NC \type{type3}    \NC this is a bitmapped (\PK) font                            \NC \NR
+---\NC \type{truetype} \NC this is a \TRUETYPE\ or \TRUETYPE-based \OPENTYPE\ font \NC \NR
+---\NC \type{opentype} \NC this is a \POSTSCRIPT-based \OPENTYPE\ font             \NC \NR
+---\LL
+---\stoptabulate
+---
+---Valid values for the `embedding` variable are:
+---
+---\starttabulate[|l|p|]
+---\DB value         \BC description                             \NC \NR
+---\TB
+---\NC \type{no}     \NC don't embed the font at all             \NC \NR
+---\NC \type{subset} \NC include and atttempt to subset the font \NC \NR
+---\NC \type{full}   \NC include this font in its entirety       \NC \NR
+---\LL
+---\stoptabulate
+---
+---The other fields are used as follows. The `fullname` will be the
+---\POSTSCRIPT|/|\PDF\ font name. The `cidinfo` will be used as the character
+---set: the CID `/Ordering` and `/Registry` keys. The `filename`
+---points to the actual font file. If you include the full path in the `filename` or if the file is in the local directory, *LuaTeX* will run a little
+---bit more efficient because it will not have to re-run the `find_*_file`
+---callback in that case.
+---
+---Be careful: when mixing old and new fonts in one document, it is possible to
+---create \POSTSCRIPT\ name clashes that can result in printing errors. When this
+---happens, you have to change the `fullname` of the font to a more unique
+---one.
+---
+---Typeset strings are written out in a wide format using 2 bytes per glyph, using
+---the `index` key in the character information as value. The overall effect
+---is like having an encoding based on numbers instead of traditional (\POSTSCRIPT)
+---name-based reencoding. One way to get the correct `index` numbers for
+---\TYPEONE\ fonts is by loading the font via `fontloader.open` and use the
+---table indices as `index` fields.
+---
+---In order to make sure that cut and paste of the final document works okay you can
+---best make sure that there is a `tounicode` vector enforced. Not all \PDF\
+---viewers handle this right so take \ACROBAT\ as reference.
+---
+---\stopsection
+---
+---\startsection[reference=virtualfonts,title={Virtual fonts}]
+---
+---\subsection{The structure}
+---
+---\topicindex {fonts+virtual}
+---
+---You have to take the following steps if you want *LuaTeX* to treat the returned
+---table from \cbk {define_font} as a virtual font:
+---
+---
+---* Set the top-level key `type` to `virtual`. In most cases it's
+---    optional because we look at the `commands` entry anyway.
+---
+---* Make sure there is at least one valid entry in `fonts` (see below),
+---    although recent versions of *LuaTeX* add a default entry when this table is
+---    missing.
+---
+---* Add a `commands` array to those characters that matter. A virtual
+---    character can itself point to virtual characters but be careful with nesting
+---    as you can create loops and overflow the stack (which often indicates an
+---    error anyway).
+---
+---
+---
+---The presence of the toplevel `type` key with the specific value `virtual` will trigger handling of the rest of the special virtual font fields in
+---the table, but the mere existence of 'type' is enough to prevent *LuaTeX* from
+---looking for a virtual font on its own. This also works “in reverse”: if
+---you are absolutely certain that a font is not a virtual font, assigning the value
+---`real` to `type` will inhibit *LuaTeX* from looking for a virtual
+---font file, thereby saving you a disk search. This only matters when we load a
+---\TFM\ file.
+---
+---The `fonts` is an (indexed) *Lua* table. The values are one- or two-key
+---hashes themselves, each entry indicating one of the base fonts in a virtual font.
+---In case your font is referring to itself, you can use the `font.nextid()`
+---function which returns the index of the next to be defined font which is probably
+---the currently defined one. So, a table looks like this:
+---
+---```
+---fonts = {
+---  { name = "ptmr8a", size = 655360 },
+---  { name = "psyr", size = 600000 },
+---  { id = 38 }
+---}
+---```
+---
+---The first referenced font (at index 1) in this virtual font is `ptrmr8a`
+---loaded at 10pt, and the second is `psyr` loaded at a little over 9pt. The
+---third one is a previously defined font that is known to *LuaTeX* as font id 38.
+---The array index numbers are used by the character command definitions that are
+---part of each character.
+---
+---The `commands` array is a hash where each item is another small array,
+---with the first entry representing a command and the extra items being the
+---parameters to that command. The allowed commands and their arguments are:
+---
+---\starttabulate[|l|l|l|p|]
+---\DB command        \BC arguments \BC type      \BC description \NC \NR
+---\TB
+---\NC \type{font}    \NC 1         \NC number    \NC select a new font from the local `fonts` table \NC \NR
+---\NC \type{char}    \NC 1         \NC number    \NC typeset this character number from the current font,
+---                                                   and move right by the character's width \NC \NR
+---\NC \type{node}    \NC 1         \NC node      \NC output this node (list), and move right
+---                                                   by the width of this list\NC \NR
+---\NC \type{slot}    \NC 2         \NC 2 numbers \NC a shortcut for the combination of a font and char command\NC \NR
+---\NC \type{push}    \NC 0         \NC           \NC save current position\NC \NR
+---\NC \type{nop}     \NC 0         \NC           \NC do nothing \NC \NR
+---\NC \type{pop}     \NC 0         \NC           \NC pop position \NC \NR
+---\NC \type{rule}    \NC 2         \NC 2 numbers \NC output a rule `ht*wd`, and move right. \NC \NR
+---\NC \type{down}    \NC 1         \NC number    \NC move down on the page \NC \NR
+---\NC \type{right}   \NC 1         \NC number    \NC move right on the page \NC \NR
+---\NC \type{special} \NC 1         \NC string    \NC output a `special` command \NC \NR
+---\NC \type{pdf}     \NC 2         \NC 2 strings \NC output a \PDF\ literal, the first string is one of `origin`,
+---                                                   `page`, `text`, `font`, `direct` or `raw`; if you
+---                                                   have one string only `origin` is assumed \NC \NR
+---\NC \type{lua}     \NC 1         \NC string,
+---                                     function  \NC execute a *Lua* script when the glyph is embedded; in case of a
+---                                                   function it gets the font id and character code passed \NC \NR
+---\NC \type{image}   \NC 1         \NC image     \NC output an image (the argument can be either an `<image>` variable or an `image_spec` table) \NC \NR
+---\NC \type{comment} \NC any       \NC any       \NC the arguments of this command are ignored \NC \NR
+---\LL
+---\stoptabulate
+---
+---When a font id is set to 0 then it will be replaced by the currently assigned
+---font id. This prevents the need for hackery with future id's. Normally one could
+---use `font.nextid` but when more complex fonts are built in the meantime
+---other instances could have been loaded.
+---
+---The `pdf` option also accepts a `mode` keyword in which case the
+---third argument sets the mode. That option will change the mode in an efficient
+---way (passing an empty string would result in an extra empty lines in the \PDF\
+---file. This option only makes sense for virtual fonts. The `font` mode only
+---makes sense in virtual fonts. Modes are somewhat fuzzy and partially inherited
+---from \PDFTEX.
+---
+---\starttabulate[|l|p|]
+---\DB mode           \BC description \NC \NR
+---\TB
+---\NC `origin` \NC enter page mode and set the position \NC \NR
+---\NC `page`   \NC enter page mode \NC \NR
+---\NC `text`   \NC enter text mode \NC \NR
+---\NC `font`   \NC enter font mode (kind of text mode, only in virtual fonts) \NC \NR
+---\NC `always` \NC finish the current string and force a transform if needed \NC \NR
+---\NC `raw`    \NC finish the current string \NC \NR
+---\LL
+---\stoptabulate
+---
+---You always need to check what \PDF\ code is generated because there can be all
+---kind of interferences with optimization in the backend and fonts are complicated
+---anyway. Here is a rather elaborate glyph commands example using such keys:
+---
+---```
+---...
+---commands = {
+---    { "push" },                     -- remember where we are
+---    { "right", 5000 },              -- move right about 0.08pt
+---    { "font", 3 },                  -- select the fonts[3] entry
+---    { "char", 97 },                 -- place character 97 (ASCII 'a')
+--- -- { "slot", 2, 97 },              -- an alternative for the previous two
+---    { "pop" },                      -- go all the way back
+---    { "down", -200000 },            -- move upwards by about 3pt
+---    { "special", "pdf: 1 0 0 rg" }  -- switch to red color
+--- -- { "pdf", "origin", "1 0 0 rg" } -- switch to red color (alternative)
+---    { "rule", 500000, 20000 }       -- draw a bar
+---    { "special", "pdf: 0 g" }       -- back to black
+--- -- { "pdf", "origin", "0 g" }      -- back to black (alternative)
+---}
+---...
+---```
+---
+---The default value for `font` is always 1 at the start of the
+---`commands` array. Therefore, if the virtual font is essentially only a
+---re-encoding, then you do usually not have created an explicit “font”
+---command in the array.
+---
+---Rules inside of `commands` arrays are built up using only two dimensions:
+---they do not have depth. For correct vertical placement, an extra `down`
+---command may be needed.
+---
+---Regardless of the amount of movement you create within the `commands`, the
+---output pointer will always move by exactly the width that was given in the `width` key of the character hash. Any movements that take place inside the `commands` array are ignored on the upper level.
+---
+---The special can have a `pdf:`, `pdf:origin:`,  `pdf:page:`,
+---`pdf:direct:` or  `pdf:raw:` prefix. When you have to concatenate
+---strings using the `pdf` command might be more efficient.
+---
+---\subsection{Artificial fonts}
+---
+---Even in a “real” font, there can be virtual characters. When *LuaTeX*
+---encounters a `commands` field inside a character when it becomes time to
+---typeset the character, it will interpret the commands, just like for a true
+---virtual character. In this case, if you have created no “fonts” array,
+---then the default (and only) “base” font is taken to be the current font
+---itself. In practice, this means that you can create virtual duplicates of
+---existing characters which is useful if you want to create composite characters.
+---
+---Note: this feature does {\it not\/} work the other way around. There can not be
+---“real” characters in a virtual font! You cannot use this technique for
+---font re-encoding either; you need a truly virtual font for that (because
+---characters that are already present cannot be altered).
+---
+---\subsection{Example virtual font}
+---
+---\topicindex {fonts+virtual}
+---
+---Finally, here is a plain *TeX* input file with a virtual font demonstration:
+---
+---\startbuffer
+---\directlua {
+---  callback.register('define_font',
+---    function (name,size)
+---      if name == 'cmr10-red' then
+---        local f = font.read_tfm('cmr10',size)
+---        f.name  = 'cmr10-red'
+---        f.type  = 'virtual'
+---        f.fonts = {
+---          { name = 'cmr10', size = size }
+---        }
+---        for i,v in pairs(f.characters) do
+---          if string.char(i):find('[tacohanshartmut]') then
+---             v.commands = {
+---               { "special", "pdf: 1 0 0 rg" },
+---               { "char", i },
+---               { "special", "pdf: 0 g" },
+---              }
+---          end
+---        end
+---        return f
+---      else
+---        return font.read_tfm(name,size)
+---      end
+---    end
+---  )
+---}
+---
+---\font\myfont  = cmr10-red at 10pt \myfont  This is a line of text \par
+---\font\myfontx = cmr10     at 10pt \myfontx Here is another line of text \par
+---\stopbuffer
+---
+---\typebuffer
+---
+---\stopsection
+---
+---\startsection[title={The `vf` library}]
+---
+---The `vf` library can be used when *Lua* code, as defined in the `commands` of the font, is executed. The functions provided are similar as the
+---commands: `char`, `down`, `fontid`, `image`, `node`, `nop`, `pop`, `push`, `right`, `rule`, `special` and `pdf`. This library has been present for a while but not been
+---advertised and tested much, if only because it's easy to define an invalid font
+---(or mess up the \PDF\ stream). Keep in mind that the *Lua* snippets are executed
+---each time when a character is output.
+---
+---\stopsection
+---
+---\startsection[title={The `font` library}]
+---
+---\topicindex {fonts+library}
+---
+---The font library provides the interface into the internals of the font system,
+---and it also contains helper functions to load traditional *TeX* font metrics
+---formats. Other font loading functionality is provided by the `fontloader`
+---library that will be discussed in the next section.
+---
+---\subsection{Loading a \TFM\ file}
+---
+---\topicindex {fonts+tfm}
+---
+---The behaviour documented in this subsection is considered stable in the sense that
+---there will not be backward-incompatible changes any more.
+---
+---```
+---<table> fnt =
+---    font.read_tfm(<string> name, <number> s)
+---```
+---
+---The number is a bit special:
+---
+---
+---* If it is positive, it specifies an “at size” in scaled points.
+---
+---* If it is negative, its absolute value represents a “scaled”
+---    setting relative to the designsize of the font.
+---
+---
+---
+---\subsection{Loading a \VF\ file}
+---
+---\topicindex {fonts+vf}
+---
+---The behavior documented in this subsection is considered stable in the sense that
+---there will not be backward-incompatible changes any more.
+---
+---```
+---<table> vf_fnt =
+---    font.read_vf(<string> name, <number> s)
+---```
+---
+---The meaning of the number `s` and the format of the returned table are
+---similar to the ones in the `read_tfm` function.
+---
+---\subsection{The fonts array}
+---
+---\topicindex {fonts+virtual}
+---
+---The whole table of *TeX* fonts is accessible from *Lua* using a virtual array.
+---
+---```
+---font.fonts[n] = { ... }
+---<table> f = font.fonts[n]
+---```
+---
+---Because this is a virtual array, you cannot call `pairs` on it, but see
+---below for the `font.each` iterator.
+---
+---The two metatable functions implementing the virtual array are:
+---
+---```
+---<table> f = font.getfont(<number> n)
+---font.setfont(<number> n, <table> f)
+---```
+---
+---Note that at the moment, each access to the `font.fonts` or call to `font.getfont` creates a *Lua* table for the whole font unless you cached it.
+---If you want a copy of the internal data you can use `font.copyfont`:
+---
+---```
+---<table> f = font.copyfont(<number> n)
+---```
+---
+---This one will return a table of the parameters as known to *TeX*. These can be
+---different from the ones in the cached table:
+---
+---```
+---<table> p = font.getparameters(<number> n)
+---```
+---
+---Also note the following: assignments can only be made to fonts that have already
+---been defined in *TeX*, but have not been accessed {\it at all\/} since that
+---definition. This limits the usability of the write access to `font.fonts`
+---quite a lot, a less stringent ruleset will likely be implemented later.
+---
+---\subsection{Checking a font's status}
+---
+---You can test for the status of a font by calling this function:
+---
+---```
+---<boolean> f =
+---    font.frozen(<number> n)
+---```
+---
+---The return value is one of `true` (unassignable), `false` (can be
+---changed) or `nil` (not a valid font at all).
+---
+---\subsection{Defining a font directly}
+---
+---\topicindex {fonts+define}
+---
+---You can define your own font into `font.fonts` by calling this function:
+---
+---```
+---<number> i =
+---    font.define(<table> f)
+---```
+---
+---The return value is the internal id number of the defined font (the index into
+---`font.fonts`). If the font creation fails, an error is raised. The table is
+---a font structure. An alternative call is:
+---
+---```
+---<number> i =
+---    font.define(<number> n, <table> f)
+---```
+---
+---Where the first argument is a reserved font id (see below).
+---
+---\subsection{Extending a font}
+---
+---\topicindex {fonts+extend}
+---
+---Within reasonable bounds you can extend a font after it has been defined. Because
+---some properties are best left unchanged this is limited to adding characters.
+---
+---```
+---font.addcharacters(<number n>, <table> f)
+---```
+---
+---The table passed can have the fields `characters` which is a (sub)table
+---like the one used in define, and for virtual fonts a `fonts` table can be
+---added. The characters defined in the `characters` table are added (when not
+---yet present) or replace an existing entry. Keep in mind that replacing can have
+---side effects because a character already can have been used. Instead of posing
+---restrictions we expect the user to be careful. (The `setfont` helper is
+---a more drastic replacer.)
+---
+---\subsection{Projected next font id}
+---
+---\topicindex {fonts+id}
+---
+---```
+---<number> i =
+---    font.nextid()
+---```
+---
+---This returns the font id number that would be returned by a `font.define`
+---call if it was executed at this spot in the code flow. This is useful for virtual
+---fonts that need to reference themselves. If you pass `true` as argument,
+---the id gets reserved and you can pass to `font.define` as first argument.
+---This can be handy when you create complex virtual fonts.
+---
+---```
+---<number> i =
+---    font.nextid(true)
+---```
+---
+---\subsection{Font ids}
+---
+---\topicindex {fonts+id}
+---\topicindex {fonts+current}
+---
+---```
+---<number> i =
+---    font.id(<string> csname)
+---```
+---
+---This returns the font id associated with `csname`, or `-1` if `csname` is not defined.
+---
+---```
+---<number> i =
+---    font.max()
+---```
+---
+---This is the largest used index in `font.fonts`.
+---
+---```
+---<number> i = font.current()
+---font.current(<number> i)
+---```
+---
+---This gets or sets the currently used font number.
+---
+---\subsection{Iterating over all fonts}
+---
+---\topicindex {fonts+iterate}
+---
+---```
+---for i,v in font.each() do
+---  ...
+---end
+---```
+---
+---This is an iterator over each of the defined *TeX* fonts. The first returned
+---value is the index in `font.fonts`, the second the font itself, as a *Lua*
+---table. The indices are listed incrementally, but they do not always form an array
+---of consecutive numbers: in some cases there can be holes in the sequence.
+---
+---\startsubsection[title={\type{\glyphdimensionsmode}}]
+---
+---Already in the early days of *LuaTeX* the decision was made to calculate the
+---effective height and depth of glyphs in a way that reflected the applied vertical
+---offset. The height got that offset added, the depth only when the offset was
+---larger than zero. We can now control this in more detail with this mode
+---parameter. An offset is added to the height and|/|or subtracted from the depth.
+---The effective values are never negative. The zero mode is the default.
+---
+---\starttabulate[|l|pl|]
+---\DB value     \BC effect \NC\NR
+---\TB
+---\NC `0` \NC the old behavior: add the offset to the height and only subtract
+---                  the offset only from the depth when it is positive \NC \NR
+---\NC `1` \NC add the offset to the height and subtract it from the depth \NC \NR
+---\NC `2` \NC add the offset to the height and subtract it from the depth but
+---                  keep the maxima of the current and previous results \NC \NR
+---\NC `3` \NC use the height and depth of the glyph, so no offset is applied \NC \NR
+---\LL
+---\stoptabulate
+---
+---\stopsubsection
+---
+---\startsubsection[title={`\discretionaryligaturemode`}]
+---
+---This parameter controls how complex ligatures interact with discretionaries (as
+---injected by the hyphenator). The non||zero values prevent the construction of
+---so called init and select discretionaries.
+---
+---\definefontfeature[ligmodetest][default][mode=base]
+---\definefont       [ligmodefont][Serif*ligmodetest]
+---
+---\hyphenation{xx-f-f-i-xx}
+---
+---\starttabulate[|p|p|p|]
+---    \DB 0 \BC 1 \BC 2 \NC \NR
+---    \TB
+---    \NC \ligmodefont \discretionaryligaturemode0 \hsize1pt xxffixx
+---    \NC \ligmodefont \discretionaryligaturemode1 \hsize1pt xxffixx
+---    \NC \ligmodefont \discretionaryligaturemode2 \hsize1pt xxffixx \NC \NR
+---    \LL
+---\stoptabulate
+---
+---\stopsubsection
+---
+---\stopsection
+---
+---\stopchapter
+---
+---\stopcomponent
+---
