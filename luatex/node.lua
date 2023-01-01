@@ -1,7 +1,5 @@
 ---@meta
-
 --- https://github.com/TeX-Live/luatex/blob/trunk/manual/luatex-nodes.tex
-
 ---The node library contains functions that facilitate dealing with (lists of) nodes and their values.
 ---They allow you to create, alter, copy, delete, and insert LuaTEX node objects, the core objects
 ---within the typesetter.
@@ -41,7 +39,7 @@
 ---for tracing.
 node = {}
 
---https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L49
+-- https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L49
 
 ---@class Node
 ---@field next Node|nil # the next node in a list, or nil
@@ -65,6 +63,13 @@ node = {}
 ---@field glue_sign number
 ---@field glue_order number
 ---@field width number
+
+---*LuaTeX* only understands 4 of the 16 direction specifiers of aleph: `TLT` (latin), `TRT` (arabic), `RTT` (cjk), `LTL` (mongolian). All other direction specifiers generate an error. In addition to a keyword driven model we also provide an integer driven one.
+---@alias DirectionSpecifier
+---| "TLT" # latin
+---| "TRT" # arabic
+---| "RTT" # cjk
+---| "LTL" # mongolian
 
 ---@alias NodeType
 ---| "hlist"
@@ -170,6 +175,95 @@ function node.id(type) end
 ---
 ---@return Node
 function node.new(id, subtype) end
+
+---
+---This function calculates the natural in-line dimensions of the end of the node list starting
+---at node `n`.  The return values are scaled points.
+---
+---You need to keep in mind that this is one of the few places in *TeX* where floats
+---are used, which means that you can get small differences in rounding when you
+---compare the width reported by `hpack` with `dimensions`.
+------
+---[Source: luatex-nodes.tex#L1490-L1546](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1490-L1546)
+---
+---@param n Node
+---@param dir? DirectionSpecifier
+---
+---@return integer w # scaled points
+---@return integer h # scaled points
+---@return integer d # scaled points
+function node.dimension(n, dir) end
+
+---This function calculates the natural in-line dimensions of the node list starting
+---at node `n` and terminating just before node `t`.
+------
+---[Source: luatex-nodes.tex#L1490-L1546](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1490-L1546)
+---
+---@param n Node
+---@param t Node # terminating node
+---@param dir? DirectionSpecifier
+---
+---@return integer w # scaled points
+---@return integer h # scaled points
+---@return integer d # scaled points
+function node.dimension(n, t, dir) end
+
+---
+---This function calculates the natural in-line dimensions of the end of the node list starting
+---at node `n`.
+---
+---This is an
+---alternative format that starts with glue parameters as the first three arguments.
+---
+---This calling method takes glue settings into account and is especially useful for
+---finding the actual width of a sublist of nodes that are already boxed, for
+---example in code like this, which prints the width of the space in between the
+---`a` and `b` as it would be if `\box0` was used as-is:
+---
+---```
+---\setbox0 = \hbox to 20pt {a b}
+---
+---\directlua{print (node.dimensions(
+---    tex.box[0].glue_set,
+---    tex.box[0].glue_sign,
+---    tex.box[0].glue_order,
+---    tex.box[0].head.next,
+---    node.tail(tex.box[0].head)
+---)) }
+---```
+------
+---[Source: luatex-nodes.tex#L1490-L1546](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1490-L1546)
+---
+---@param glue_set integer
+---@param glue_sign integer
+---@param glue_order integer
+---@param n Node
+---@param dir? DirectionSpecifier
+---
+---@return integer w # scaled points
+---@return integer h # scaled points
+---@return integer d # scaled points
+function node.dimension(glue_set, glue_sign, glue_order, n, dir) end
+
+---This function calculates the natural in-line dimensions of the node list starting
+---at node `n` and terminating just before node `t`.
+---
+---This is an
+---alternative format that starts with glue parameters as the first three arguments.
+------
+---[Source: luatex-nodes.tex#L1490-L1546](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1490-L1546)
+---
+---@param glue_set integer
+---@param glue_sign integer
+---@param glue_order integer
+---@param n Node
+---@param t Node # terminating node
+---@param dir? DirectionSpecifier
+---
+---@return integer w # scaled points
+---@return integer h # scaled points
+---@return integer d # scaled points
+function node.dimension(glue_set, glue_sign, glue_order, n, t, dir) end
 
 ---
 ---This function removes the node `current` from the list following `head`. It is your responsibility to make sure it is really part of that list.
