@@ -47,15 +47,37 @@ node = {}
 ---@field id number # the node’s type (id) number
 ---@field subtype number # the node subtype identifier
 ---@field head? Node
+---@field attr Node # list of attributes
 
 ---@class WhatsitNode: Node
 ---@field type number
 ---@field user_id number
 ---@field value number
 
----@class ColorstackWhatsitNode: WhatsitNode
----@field stack number
----@field data string
+---
+---pdfTEX 1.40.0 comes with color stack support (actually any graphic state stack).
+---
+---\pdfcolorstackinit [ page ] [ direct ] ⟨general text⟩
+--- (expandable)
+---
+---The primitive initializes a new graphic stack and returns its number. Optional page keyword
+---instructs pdfTEX to restore the graphic at the beginning of every new page. Also optional direct
+---has the same effect as for \pdfliteral primitive. The primitive was introduced in pdfTEX 1.40.0.
+---
+---`\pdfcolorstack ⟨stack number⟩ ⟨stack action⟩ ⟨general text⟩`
+---
+---The command operates on the stack of a given number. If ⟨stack action⟩ is push keyword, the
+---⟨generalnew value provided as text⟩ is inserted into the top of the graphic stack and becomes
+---the current stack value. If followed by pop , the top value is removed from the stack and the
+---new top value becomes the current. set keyword replaces the current value with ⟨general text⟩
+---without changing the stack size. current keyword instructs just to use the current stack value
+---without modifying the stack at all. The primitive was introduced in pdfTEX 1.40.0.
+------
+---Source: [pdftex-t.tex#L3954-L3980](https://github.com/tex-mirror/pdftex/blob/6fb2352aa70a23ad3830f1434613170be3f3cd74/doc/manual/pdftex-t.tex#L3954-L3980)
+---@class PdfColorstackWhatsitNode: WhatsitNode
+---@field stack integer # colorstack id number
+---@field command integer # command to execute. ⟨stack action⟩ → set (0) | push (1) | pop (2) | current () [texnodes.c#L3523-L3545](https://github.com/TeX-Live/luatex/blob/6472bd794fea67de09f01e1a89e9b12141be7474/source/texk/web2c/luatexdir/tex/texnodes.c#L3523-L3545)
+---@field data string # for example `1 0 0 rg 1 0 0 RG`. `rg` only colors filled outlines while the stroke color is set with `RG`.
 
 ---@class HlistNode: Node
 ---@field head Node

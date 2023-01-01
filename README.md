@@ -42,6 +42,11 @@ Signature overloads in `tex.sp()`
 
 ![](images/tex.sp.png)
 
+## Documentation
+
+* [LuaTeX Mirror](https://github.com/TeX-Live/luatex)
+* [pdfTeX Mirror](https://github.com/tex-mirror/pdftex)
+
 ## Howtos
 
 * [Custom libraries](https://github.com/sumneko/lua-language-server/wiki/Libraries#custom)
