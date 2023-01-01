@@ -14,6 +14,7 @@ token = {}
 
 ---https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L2285
 
+---
 ---@class Token
 ---@field command integer # a number representing the internal command number
 ---@field cmdname any # the type of the command (for instance the catcode in case of a character or the classifier that determines the internal treatment
@@ -26,6 +27,7 @@ token = {}
 ---@field mode integer|any # a number either representing a character or another entity
 ---@field index integer # a number running from 0x0000 upto 0xFFFF indicating a TeX register index
 
+---
 ---The scanners look for a sequence. When you want to pick up one token from the
 ---input you use `get_next`. This creates a token with the (low level)
 ---properties.
@@ -48,6 +50,7 @@ function token.put_next(...) end
 ---@param global? 'global'
 function token.set_macro(csname, content, global) end
 
+---
 ---The `set_macro` function can get upto 4 arguments.
 ---You can pass a catcodetable identifier as first argument.
 ---
