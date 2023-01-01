@@ -152,12 +152,12 @@
 ---\blank[3*big]
 ---
 ---\starttabulate[|||]
----\NC Version  \EQ \currentdate \NC \NR
----\NC *LuaTeX*  \EQ \cldcontext{LUATEXENGINE} %
+--- Version  \EQ \currentdate 
+--- *LuaTeX*  \EQ \cldcontext{LUATEXENGINE} %
 ---                 \cldcontext{"\letterpercent 0.2f",LUATEXVERSION} / %
 ---                 \cldcontext{LUATEXFUNCTIONALITY}
----                 \NC \NR
----\NC *ConTeXt* \EQ MkIV \contextversion \NC \NR
+---                 
+--- *ConTeXt* \EQ MkIV \contextversion 
 ---\stoptabulate
 ---
 ---\stopchapter

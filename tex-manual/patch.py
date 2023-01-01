@@ -14,7 +14,7 @@ def patch_file(file_name: str):
         content = src.read()
 
     content = re.sub(
-        r"\\(type|typ|prm|lpr|nod|syntax|notabene)[\n ]+\{([^}]*)\}", r"`\2`", content
+        r"\\(type|typ|prm|lpr|nod|syntax|notabene|whs)[\s]*\{([^}]*)\}", r"`\2`", content
     )
 
     content = re.sub(r"\\quote\s*\{([^}]*)\}", r"“\1”", content)
@@ -36,6 +36,8 @@ def patch_file(file_name: str):
     content = content.replace("~", " ")
     content = content.replace("|-|", "-")
     content = content.replace("|/|", "/")
+    content = content.replace("\\NC \\NR", "")
+    content = content.replace("\\NC", "")
 
     content = "---" + content.replace("\n", "\n---")
 

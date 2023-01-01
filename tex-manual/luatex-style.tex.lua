@@ -410,10 +410,10 @@
 ---\unexpanded\def\lpr#1{\doifmode{*bodypart}{\primitiveindex[#1]{\bf\tex {#1}}}\tex {#1}}
 ---\unexpanded\def\prm#1{\doifmode{*bodypart}{\primitiveindex[#1]{\tex    {#1}}}\tex {#1}}
 ---\unexpanded\def\orm#1{\doifmode{*bodypart}{\primitiveindex[#1]{\tex    {#1}}}\tex {#1}}
----\unexpanded\def\cbk#1{\doifmode{*bodypart}{\callbackindex [#1]{`#1`}}\type{#1}}
----\unexpanded\def\nod#1{\doifmode{*bodypart}{\nodeindex     [#1]{\bf\type{#1}}}\type{#1}}
----\unexpanded\def\whs#1{\doifmode{*bodypart}{\nodeindex     [#1]{`#1`}}\type{#1}}
----\unexpanded\def\noa#1{\doifmode{*bodypart}{\nodeindex     [#1]{`#1`}}\type{#1}}
+---\unexpanded\def\cbk#1{\doifmode{*bodypart}{\callbackindex [#1]{`#1`}}`#1`}
+---\unexpanded\def\nod#1{\doifmode{*bodypart}{\nodeindex     [#1]{\bf`#1`}}`#1`}
+---\unexpanded\def\whs#1{\doifmode{*bodypart}{\nodeindex     [#1]{`#1`}}`#1`}
+---\unexpanded\def\noa#1{\doifmode{*bodypart}{\nodeindex     [#1]{`#1`}}`#1`}
 ---
 ---\hyphenation{sub-nodes}
 ---
@@ -433,9 +433,9 @@
 ---  [2]
 ---  [textstyle=\tttf]
 ---
----\unexpanded\def\lib     #1{\doifmode{*bodypart}{\expanded{\libraryindex{\currentlibraryindex+#1}}\type{\currentlibraryindex.#1}}}
+---\unexpanded\def\lib     #1{\doifmode{*bodypart}{\expanded{\libraryindex{\currentlibraryindex+#1}}`\currentlibraryindex.#1`}}
 ---\unexpanded\def\libindex#1{\doifmode{*bodypart}{\expanded{\libraryindex{\currentlibraryindex+#1}}}}
----\unexpanded\def\libidx#1#2{\doifmode{*bodypart}{\expanded{\libraryindex{#1+#2}}\type{#1.#2}}}
+---\unexpanded\def\libidx#1#2{\doifmode{*bodypart}{\expanded{\libraryindex{#1+#2}}`#1.#2`}}
 ---\unexpanded\def\lix   #1#2{\doifmode{*bodypart}{\expanded{\libraryindex{#1+#2}}}}
 ---
 ---% \setstructurepageregister[][keys:1=,entries:1=]

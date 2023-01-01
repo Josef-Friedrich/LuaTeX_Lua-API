@@ -22,9 +22,9 @@
 ---\startsection[title={The `luaharfbuzz` library}][library=luaharfbuzz]
 ---
 ---At the moment the documentation of the library is a raw "html-to-pdf" 
----rendering of the \type{index.html} file under \type{luaharfbuzz/docs} 
+---rendering of the `index.html` file under `luaharfbuzz/docs` 
 ---folder of the source code. The example is almost the verbatim copy
----of the file under \type{luaharfbuzz/examples}.
+---of the file under `luaharfbuzz/examples`.
 ---\page
 ---
 ---
@@ -37,11 +37,11 @@
 ---
 ---\startsubsection[title={Example}]
 ---
----The example is (a small modification of)  the file \type{core_types.lua}
----and it requires the file \type{harfbuzz.lua}; both are 
----under \type{luaharfbuzz}  folder of the source code.
----The fonts \type{notonastaliq.ttf} and \type{amiri-regular.ttf'} are under 
----\type{luaharfbuzz/fonts}.
+---The example is (a small modification of)  the file `core_types.lua`
+---and it requires the file `harfbuzz.lua`; both are 
+---under `luaharfbuzz`  folder of the source code.
+---The fonts `notonastaliq.ttf` and `amiri-regular.ttf'` are under 
+---`luaharfbuzz/fonts`.
 ---
 ---
 ---\blank[3*big]
@@ -136,7 +136,7 @@
 ---
 ---\blank[3*big]
 ---
----The file \type{harfbuzz.lua}:
+---The file `harfbuzz.lua`:
 ---\typebuffer[hbmod]
 ---
 ---

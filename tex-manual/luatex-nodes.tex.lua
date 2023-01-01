@@ -38,8 +38,7 @@
 ---
 ---You can ask for a list of fields with `node.fields` and for valid subtypes
 ---with `node.subtypes`. The `node.values` function reports some used
----values. Valid arguments are `dir`, `direction`, `glue`, \whs
----{pdf_literal}, \whs {pdf_action}, \whs {pdf_window} and \whs {color_stack}. Keep
+---values. Valid arguments are `dir`, `direction`, `glue`, `pdf_literal`, `pdf_action`, `pdf_window` and `color_stack`. Keep
 ---in mind that the setters normally expect a number, but this helper gives you a
 ---list of what numbers matter. For practical reason the `pagestate` values
 ---are also reported with this helper.
@@ -54,11 +53,11 @@
 ---present in all nodes regardless of their type, these are:
 ---
 ---\starttabulate[|l|l|p|]
----\DB field          \BC type   \BC explanation \NC \NR
+---\DB field          \BC type   \BC explanation 
 ---\TB
----\NC \type{next}    \NC node   \NC the next node in a list, or nil \NC \NR
----\NC \type{id}      \NC number \NC the node's type (`id`) number \NC \NR
----\NC \type{subtype} \NC number \NC the node `subtype` identifier \NC \NR
+--- `next`     node    the next node in a list, or nil 
+--- `id`       number  the node's type (`id`) number 
+--- `subtype`  number  the node `subtype` identifier 
 ---\LL
 ---\stoptabulate
 ---
@@ -78,22 +77,22 @@
 ---\subsection{`hlist` nodes}
 ---
 ---\starttabulate[|l|l|p|]
----\DB field             \BC type   \BC explanation \NC \NR
+---\DB field             \BC type   \BC explanation 
 ---\TB
----\NC \type{subtype}    \NC number \NC \showsubtypes{list} \NC \NR
----\NC \type{attr}       \NC node   \NC list of attributes \NC \NR
----\NC \type{width}      \NC number \NC the width of the box \NC \NR
----\NC \type{height}     \NC number \NC the height of the box \NC \NR
----\NC \type{depth}      \NC number \NC the depth of the box \NC \NR
----\NC \type{shift}      \NC number \NC a displacement perpendicular to the character
----                                     progression direction \NC \NR
----\NC \type{glue_order} \NC number \NC a number in the range `[0,4]`, indicating the
----                                     glue order \NC \NR
----\NC \type{glue_set}   \NC number \NC the calculated glue ratio \NC \NR
----\NC \type{glue_sign}  \NC number \NC 0 = `normal`, 1 = `stretching`, 2 =
----                                     `shrinking` \NC \NR
----\NC \type{head/list}  \NC node   \NC the first node of the body of this list \NC \NR
----\NC \type{dir}        \NC string \NC the direction of this box, see \in [dirnodes] \NC \NR
+--- `subtype`     number  \showsubtypes{list} 
+--- `attr`        node    list of attributes 
+--- `width`       number  the width of the box 
+--- `height`      number  the height of the box 
+--- `depth`       number  the depth of the box 
+--- `shift`       number  a displacement perpendicular to the character
+---                                     progression direction 
+--- `glue_order`  number  a number in the range `[0,4]`, indicating the
+---                                     glue order 
+--- `glue_set`    number  the calculated glue ratio 
+--- `glue_sign`   number  0 = `normal`, 1 = `stretching`, 2 =
+---                                     `shrinking` 
+--- `head/list`   node    the first node of the body of this list 
+--- `dir`         string  the direction of this box, see \in [dirnodes] 
 ---\LL
 ---\stoptabulate
 ---
@@ -126,19 +125,19 @@
 ---and can be intercepted by a callback.
 ---
 ---\starttabulate[|l|l|p|]
----\DB field            \BC type   \BC explanation \NC \NR
+---\DB field            \BC type   \BC explanation 
 ---\TB
----\NC \type{subtype}   \NC number \NC \showsubtypes {rule} \NC \NR
----\NC \type{attr}      \NC node   \NC list of attributes \NC \NR
----\NC \type{width}     \NC number \NC the width of the rule where the special value
----                                    `-1073741824` is used for “running” glue dimensions \NC \NR
----\NC \type{height}    \NC number \NC the height of the rule (can be negative) \NC \NR
----\NC \type{depth}     \NC number \NC the depth of the rule (can be negative) \NC \NR
----\NC \type{left}      \NC number \NC shift at the left end (also subtracted from width) \NC \NR
----\NC \type{right}     \NC number \NC (subtracted from width) \NC \NR
----\NC \type{dir}       \NC string \NC the direction of this rule, see \in[dirnodes] \NC \NR
----\NC \type{index}     \NC number \NC an optional index that can be referred to \NC \NR
----\NC \type{transform} \NC number \NC an private variable (also used to specify outline width) \NC \NR
+--- `subtype`    number  \showsubtypes {rule} 
+--- `attr`       node    list of attributes 
+--- `width`      number  the width of the rule where the special value
+---                                    `-1073741824` is used for “running” glue dimensions 
+--- `height`     number  the height of the rule (can be negative) 
+--- `depth`      number  the depth of the rule (can be negative) 
+--- `left`       number  shift at the left end (also subtracted from width) 
+--- `right`      number  (subtracted from width) 
+--- `dir`        string  the direction of this rule, see \in[dirnodes] 
+--- `index`      number  an optional index that can be referred to 
+--- `transform`  number  an private variable (also used to specify outline width) 
 ---\LL
 ---\stoptabulate
 ---
@@ -163,14 +162,14 @@
 ---This node relates to the `insert` primitive.
 ---
 ---\starttabulate[|l|l|p|]
----\DB field            \BC type   \BC explanation \NC \NR
+---\DB field            \BC type   \BC explanation 
 ---\TB
----\NC \type{subtype}   \NC number \NC the insertion class \NC \NR
----\NC \type{attr}      \NC node   \NC list of attributes \NC \NR
----\NC \type{cost}      \NC number \NC the penalty associated with this insert \NC \NR
----\NC \type{height}    \NC number \NC height of the insert \NC \NR
----\NC \type{depth}     \NC number \NC depth of the insert \NC \NR
----\NC \type{head/list} \NC node   \NC the first node of the body of this insert \NC \NR
+--- `subtype`    number  the insertion class 
+--- `attr`       node    list of attributes 
+--- `cost`       number  the penalty associated with this insert 
+--- `height`     number  height of the insert 
+--- `depth`      number  depth of the insert 
+--- `head/list`  node    the first node of the body of this insert 
 ---\LL
 ---\stoptabulate
 ---
@@ -191,12 +190,12 @@
 ---This one relates to the `mark` primitive.
 ---
 ---\starttabulate[|l|l|p|]
----\DB field          \BC type   \BC explanation \NC \NR
+---\DB field          \BC type   \BC explanation 
 ---\TB
----\NC \type{subtype} \NC number \NC unused \NC \NR
----\NC \type{attr}    \NC node   \NC list of attributes \NC \NR
----\NC \type{class}   \NC number \NC the mark class \NC \NR
----\NC \type{mark}    \NC table  \NC a table representing a token list \NC \NR
+--- `subtype`  number  unused 
+--- `attr`     node    list of attributes 
+--- `class`    number  the mark class 
+--- `mark`     table   a table representing a token list 
 ---\LL
 ---\stoptabulate
 ---
@@ -208,11 +207,11 @@
 ---This node comes from `vadjust` primitive.
 ---
 ---\starttabulate[|l|l|p|]
----\DB field            \BC type   \BC explanation \NC \NR
+---\DB field            \BC type   \BC explanation 
 ---\TB
----\NC \type{subtype}   \NC number \NC \showsubtypes{adjust} \NC \NR
----\NC \type{attr}      \NC node   \NC list of attributes \NC \NR
----\NC \type{head/list} \NC node   \NC adjusted material \NC \NR
+--- `subtype`    number  \showsubtypes{adjust} 
+--- `attr`       node    list of attributes 
+--- `head/list`  node    adjusted material 
 ---\LL
 ---\stoptabulate
 ---
@@ -228,15 +227,15 @@
 ---hyphenation mechanism produces these nodes.
 ---
 ---\starttabulate[|l|l|p|]
----\DB field          \BC type   \BC explanation \NC \NR
+---\DB field          \BC type   \BC explanation 
 ---\TB
----\NC \type{subtype} \NC number \NC \showsubtypes{disc} \NC \NR
----\NC \type{attr}    \NC node   \NC list of attributes \NC \NR
----\NC \type{pre}     \NC node   \NC pointer to the pre-break text \NC \NR
----\NC \type{post}    \NC node   \NC pointer to the post-break text \NC \NR
----\NC \type{replace} \NC node   \NC pointer to the no-break text \NC \NR
----\NC \type{penalty} \NC number \NC the penalty associated with the break, normally
----                                  `hyphenpenalty` or `exhyphenpenalty` \NC \NR
+--- `subtype`  number  \showsubtypes{disc} 
+--- `attr`     node    list of attributes 
+--- `pre`      node    pointer to the pre-break text 
+--- `post`     node    pointer to the post-break text 
+--- `replace`  node    pointer to the no-break text 
+--- `penalty`  number  the penalty associated with the break, normally
+---                                  `hyphenpenalty` or `exhyphenpenalty` 
 ---\LL
 ---\stoptabulate
 ---
@@ -272,11 +271,11 @@
 ---``` signs.
 ---
 ---\starttabulate[|l|l|p|]
----\DB field           \BC type   \BC explanation \NC \NR
+---\DB field           \BC type   \BC explanation 
 ---\TB
----\NC \type{subtype}  \NC number \NC \showsubtypes{math} \NC \NR
----\NC \type{attr}     \NC node   \NC list of attributes \NC \NR
----\NC \type{surround} \NC number \NC width of the `mathsurround` kern \NC \NR
+--- `subtype`   number  \showsubtypes{math} 
+--- `attr`      node    list of attributes 
+--- `surround`  number  width of the `mathsurround` kern 
 ---\LL
 ---\stoptabulate
 ---
@@ -296,13 +295,13 @@
 ---accessible fields:
 ---
 ---\starttabulate[|l|l|p|]
----\DB field                \BC type   \BC explanation \NC \NR
+---\DB field                \BC type   \BC explanation 
 ---\TB
----\NC \type{width}         \NC number \NC the horizontal or vertical displacement \NC \NR
----\NC \type{stretch}       \NC number \NC extra (positive) displacement or stretch amount \NC \NR
----\NC \type{stretch_order} \NC number \NC factor applied to stretch amount \NC \NR
----\NC \type{shrink}        \NC number \NC extra (negative) displacement or shrink amount\NC \NR
----\NC \type{shrink_order}  \NC number \NC factor applied to shrink amount \NC \NR
+--- `width`          number  the horizontal or vertical displacement 
+--- `stretch`        number  extra (positive) displacement or stretch amount 
+--- `stretch_order`  number  factor applied to stretch amount 
+--- `shrink`         number  extra (negative) displacement or shrink amount
+--- `shrink_order`   number  factor applied to shrink amount 
 ---\LL
 ---\stoptabulate
 ---
@@ -332,11 +331,11 @@
 ---is only a few memory words larger than a spec).
 ---
 ---\starttabulate[|l|l|p|]
----\DB field          \BC type   \BC explanation \NC \NR
+---\DB field          \BC type   \BC explanation 
 ---\TB
----\NC \type{subtype} \NC number \NC \showsubtypes{glue} \NC \NR
----\NC \type{attr}    \NC node   \NC list of attributes \NC \NR
----\NC \type{leader}  \NC node   \NC pointer to a box or rule for leaders \NC \NR
+--- `subtype`  number  \showsubtypes{glue} 
+--- `attr`     node    list of attributes 
+--- `leader`   node    pointer to a box or rule for leaders 
 ---\LL
 ---\stoptabulate
 ---
@@ -356,11 +355,11 @@
 ---machinery can also add them.
 ---
 ---\starttabulate[|l|l|p|]
----\DB field          \BC type   \BC explanation \NC \NR
+---\DB field          \BC type   \BC explanation 
 ---\TB
----\NC \type{subtype} \NC number \NC \showsubtypes{kern} \NC \NR
----\NC \type{attr}    \NC node   \NC list of attributes \NC \NR
----\NC \type{kern}    \NC number \NC fixed horizontal or vertical advance \NC \NR
+--- `subtype`  number  \showsubtypes{kern} 
+--- `attr`     node    list of attributes 
+--- `kern`     number  fixed horizontal or vertical advance 
 ---\LL
 ---\stoptabulate
 ---
@@ -372,17 +371,17 @@
 ---The `penalty` command is one that generates these nodes.
 ---
 ---\starttabulate[|l|l|p|]
----\DB field          \BC type   \BC explanation \NC \NR
+---\DB field          \BC type   \BC explanation 
 ---\TB
----\NC \type{subtype} \NC number \NC \showsubtypes{penalty} \NC \NR
----\NC \type{attr}    \NC node   \NC list of attributes \NC \NR
----\NC \type{penalty} \NC number \NC the penalty value \NC \NR
+--- `subtype`  number  \showsubtypes{penalty} 
+--- `attr`     node    list of attributes 
+--- `penalty`  number  the penalty value 
 ---\LL
 ---\stoptabulate
 ---
 ---The subtypes are just informative and *TeX* itself doesn't use them. When you
 ---run into an `linebreakpenalty` you need to keep in mind that it's a
----accumulation of `club`, \type{widow} and other relevant penalties.
+---accumulation of `club`, `widow` and other relevant penalties.
 ---
 ---\subsection[glyphnodes]{`glyph` nodes}
 ---
@@ -394,24 +393,24 @@
 ---it considers some input to be text.
 ---
 ---\starttabulate[|l|l|p|]
----\DB field                   \BC type    \BC explanation \NC \NR
+---\DB field                   \BC type    \BC explanation 
 ---\TB
----\NC \type{subtype}          \NC number  \NC bit field \NC \NR
----\NC \type{attr}             \NC node    \NC list of attributes \NC \NR
----\NC \type{char}             \NC number  \NC the character index in the font \NC \NR
----\NC \type{font}             \NC number  \NC the font identifier \NC \NR
----\NC \type{lang}             \NC number  \NC the language identifier \NC \NR
----\NC \type{left}             \NC number  \NC the frozen `\lefthyphenmnin` value \NC \NR
----\NC \type{right}            \NC number  \NC the frozen `\righthyphenmnin` value \NC \NR
----\NC \type{uchyph}           \NC boolean \NC the frozen `uchyph` value \NC \NR
----\NC \type{components}       \NC node    \NC pointer to ligature components \NC \NR
----\NC \type{xoffset}          \NC number  \NC a virtual displacement in horizontal direction \NC \NR
----\NC \type{yoffset}          \NC number  \NC a virtual displacement in vertical direction \NC \NR
----\NC \type{width}            \NC number  \NC the (original) width of the character \NC \NR
----\NC \type{height}           \NC number  \NC the (original) height of the character\NC \NR
----\NC \type{depth}            \NC number  \NC the (original) depth of the character\NC \NR
----\NC \type{expansion_factor} \NC number  \NC the to be applied expansion_factor \NC \NR
----\NC \type{data}             \NC number  \NC a general purpose field for users (we had room for it) \NC \NR
+--- `subtype`           number   bit field 
+--- `attr`              node     list of attributes 
+--- `char`              number   the character index in the font 
+--- `font`              number   the font identifier 
+--- `lang`              number   the language identifier 
+--- `left`              number   the frozen `\lefthyphenmnin` value 
+--- `right`             number   the frozen `\righthyphenmnin` value 
+--- `uchyph`            boolean  the frozen `uchyph` value 
+--- `components`        node     pointer to ligature components 
+--- `xoffset`           number   a virtual displacement in horizontal direction 
+--- `yoffset`           number   a virtual displacement in vertical direction 
+--- `width`             number   the (original) width of the character 
+--- `height`            number   the (original) height of the character
+--- `depth`             number   the (original) depth of the character
+--- `expansion_factor`  number   the to be applied expansion_factor 
+--- `data`              number   a general purpose field for users (we had room for it) 
 ---\LL
 ---\stoptabulate
 ---
@@ -423,13 +422,13 @@
 ---bits for the `subtype` field are:
 ---
 ---\starttabulate[|c|l|]
----\DB bit \BC meaning   \NC \NR
+---\DB bit \BC meaning   
 ---\TB
----\NC 0   \NC character \NC \NR
----\NC 1   \NC ligature  \NC \NR
----\NC 2   \NC ghost     \NC \NR
----\NC 3   \NC left      \NC \NR
----\NC 4   \NC right     \NC \NR
+--- 0    character 
+--- 1    ligature  
+--- 2    ghost     
+--- 3    left      
+--- 4    right     
 ---\LL
 ---\stoptabulate
 ---
@@ -463,11 +462,11 @@
 ---This node relates to the `noboundary`, `boundary`, `protrusionboundary` and `wordboundary` primitives.
 ---
 ---\starttabulate[|l|l|p|]
----\DB field          \BC type   \BC explanation \NC \NR
+---\DB field          \BC type   \BC explanation 
 ---\TB
----\NC \type{subtype} \NC number \NC \showsubtypes{boundary} \NC \NR
----\NC \type{attr}    \NC node   \NC list of attributes \NC \NR
----\NC \type{value}   \NC number \NC values 0--255 are reserved \NC \NR
+--- `subtype`  number  \showsubtypes{boundary} 
+--- `attr`     node    list of attributes 
+--- `value`    number  values 0--255 are reserved 
 ---\LL
 ---\stoptabulate
 ---
@@ -480,16 +479,16 @@
 ---too much with this one.
 ---
 ---\starttabulate[|l|l|p|]
----\DB field                  \BC type   \BC explanation \NC \NR
+---\DB field                  \BC type   \BC explanation 
 ---\TB
----\NC \type{attr}            \NC node   \NC list of attributes \NC \NR
----\NC \type{pen_inter}       \NC number \NC local interline penalty (from `localinterlinepenalty`) \NC \NR
----\NC \type{pen_broken}      \NC number \NC local broken penalty (from `localbrokenpenalty`) \NC \NR
----\NC \type{dir}             \NC string \NC the direction of this par. see \in [dirnodes] \NC \NR
----\NC \type{box_left}        \NC node   \NC the `localleftbox` \NC \NR
----\NC \type{box_left_width}  \NC number \NC width of the `localleftbox` \NC \NR
----\NC \type{box_right}       \NC node   \NC the `localrightbox` \NC \NR
----\NC \type{box_right_width} \NC number \NC width of the `localrightbox` \NC \NR
+--- `attr`             node    list of attributes 
+--- `pen_inter`        number  local interline penalty (from `localinterlinepenalty`) 
+--- `pen_broken`       number  local broken penalty (from `localbrokenpenalty`) 
+--- `dir`              string  the direction of this par. see \in [dirnodes] 
+--- `box_left`         node    the `localleftbox` 
+--- `box_left_width`   number  width of the `localleftbox` 
+--- `box_right`        node    the `localrightbox` 
+--- `box_right_width`  number  width of the `localrightbox` 
 ---\LL
 ---\stoptabulate
 ---
@@ -506,11 +505,11 @@
 ---the `textdir` command generates them.
 ---
 ---\starttabulate[|l|l|p|]
----\DB field        \BC type   \BC explanation \NC \NR
+---\DB field        \BC type   \BC explanation 
 ---\TB
----\NC \type{attr}  \NC node   \NC list of attributes \NC \NR
----\NC \type{dir}   \NC string \NC the direction (but see below) \NC \NR
----\NC \type{level} \NC number \NC nesting level of this direction whatsit \NC \NR
+--- `attr`   node    list of attributes 
+--- `dir`    string  the direction (but see below) 
+--- `level`  number  nesting level of this direction whatsit 
 ---\LL
 ---\stoptabulate
 ---
@@ -540,12 +539,12 @@
 ---Margin kerns result from protrusion.
 ---
 ---\starttabulate[|l|l|p|]
----\DB field          \BC type   \BC explanation \NC \NR
+---\DB field          \BC type   \BC explanation 
 ---\TB
----\NC \type{subtype} \NC number \NC \showsubtypes{marginkern} \NC \NR
----\NC \type{attr}    \NC node   \NC list of attributes \NC \NR
----\NC \type{width}   \NC number \NC the advance of the kern \NC \NR
----\NC \type{glyph}   \NC node   \NC the glyph to be used \NC \NR
+--- `subtype`  number  \showsubtypes{marginkern} 
+--- `attr`     node    list of attributes 
+--- `width`    number  the advance of the kern 
+--- `glyph`    node    the glyph to be used 
 ---\LL
 ---\stoptabulate
 ---
@@ -572,11 +571,11 @@
 ---\subsection{`math_char` and `math_text_char` subnodes}
 ---
 ---\starttabulate[|l|l|p|]
----\DB field       \BC type   \BC explanation \NC \NR
+---\DB field       \BC type   \BC explanation 
 ---\TB
----\NC \type{attr} \NC node   \NC list of attributes \NC \NR
----\NC \type{char} \NC number \NC the character index \NC \NR
----\NC \type{fam}  \NC number \NC the family number \NC \NR
+--- `attr`  node    list of attributes 
+--- `char`  number  the character index 
+--- `fam`   number  the family number 
 ---\LL
 ---\stoptabulate
 ---
@@ -588,10 +587,10 @@
 ---\subsection{`sub_box` and `sub_mlist` subnodes}
 ---
 ---\starttabulate[|l|l|p|]
----\DB field            \BC type \BC explanation \NC \NR
+---\DB field            \BC type \BC explanation 
 ---\TB
----\NC \type{attr}      \NC node \NC list of attributes \NC \NR
----\NC \type{head/list} \NC node \NC list of nodes \NC \NR
+--- `attr`       node  list of attributes 
+--- `head/list`  node  list of nodes 
 ---\LL
 ---\stoptabulate
 ---
@@ -608,13 +607,13 @@
 ---before, the `next` and `prev` fields are unused.
 ---
 ---\starttabulate[|l|l|p|]
----\DB field             \BC type   \BC explanation \NC \NR
+---\DB field             \BC type   \BC explanation 
 ---\TB
----\NC \type{attr}       \NC node   \NC list of attributes \NC \NR
----\NC \type{small_char} \NC number \NC character index of base character \NC \NR
----\NC \type{small_fam}  \NC number \NC family number of base character \NC \NR
----\NC \type{large_char} \NC number \NC character index of next larger character \NC \NR
----\NC \type{large_fam}  \NC number \NC family number of next larger character \NC \NR
+--- `attr`        node    list of attributes 
+--- `small_char`  number  character index of base character 
+--- `small_fam`   number  family number of base character 
+--- `large_char`  number  character index of next larger character 
+--- `large_fam`   number  family number of next larger character 
 ---\LL
 ---\stoptabulate
 ---
@@ -632,58 +631,58 @@
 ---Some noads have an option field. The values in this bitset are common:
 ---
 ---\starttabulate[|l|r|]
----\DB meaning         \BC bits                      \NC \NR
+---\DB meaning         \BC bits                      
 ---\TB
----\NC set             \NC               \type{0x08} \NC \NR
----\NC internal        \NC \type{0x00} + \type{0x08} \NC \NR
----\NC internal        \NC \type{0x01} + \type{0x08} \NC \NR
----\NC axis            \NC \type{0x02} + \type{0x08} \NC \NR
----\NC no axis         \NC \type{0x04} + \type{0x08} \NC \NR
----\NC exact           \NC \type{0x10} + \type{0x08} \NC \NR
----\NC left            \NC \type{0x11} + \type{0x08} \NC \NR
----\NC middle          \NC \type{0x12} + \type{0x08} \NC \NR
----\NC right           \NC \type{0x14} + \type{0x08} \NC \NR
----\NC no sub script   \NC \type{0x21} + \type{0x08} \NC \NR
----\NC no super script \NC \type{0x22} + \type{0x08} \NC \NR
----\NC no script       \NC \type{0x23} + \type{0x08} \NC \NR
+--- set                            `0x08` 
+--- internal         `0x00` + `0x08` 
+--- internal         `0x01` + `0x08` 
+--- axis             `0x02` + `0x08` 
+--- no axis          `0x04` + `0x08` 
+--- exact            `0x10` + `0x08` 
+--- left             `0x11` + `0x08` 
+--- middle           `0x12` + `0x08` 
+--- right            `0x14` + `0x08` 
+--- no sub script    `0x21` + `0x08` 
+--- no super script  `0x22` + `0x08` 
+--- no script        `0x23` + `0x08` 
 ---\LL
 ---\stoptabulate
 ---
 ---\subsection{simple `noad` nodes}
 ---
 ---\starttabulate[|l|l|p|]
----\DB field          \BC type        \BC explanation \NC \NR
+---\DB field          \BC type        \BC explanation 
 ---\TB
----\NC \type{subtype} \NC number      \NC \showsubtypes{noad} \NC \NR
----\NC \type{attr}    \NC node        \NC list of attributes \NC \NR
----\NC \type{nucleus} \NC kernel node \NC base \NC \NR
----\NC \type{sub}     \NC kernel node \NC subscript \NC \NR
----\NC \type{sup}     \NC kernel node \NC superscript \NC \NR
----\NC \type{options} \NC number      \NC bitset of rendering options \NC \NR
+--- `subtype`  number       \showsubtypes{noad} 
+--- `attr`     node         list of attributes 
+--- `nucleus`  kernel node  base 
+--- `sub`      kernel node  subscript 
+--- `sup`      kernel node  superscript 
+--- `options`  number       bitset of rendering options 
 ---\LL
 ---\stoptabulate
 ---
 ---\subsection{`accent` nodes}
 ---
 ---\starttabulate[|l|l|p|]
----\DB field             \BC type        \BC explanation \NC \NR
+---\DB field             \BC type        \BC explanation 
 ---\TB
----\NC \type{subtype}    \NC number      \NC \showsubtypes{accent} \NC \NR
----\NC \type{nucleus}    \NC kernel node \NC base \NC \NR
----\NC \type{sub}        \NC kernel node \NC subscript \NC \NR
----\NC \type{sup}        \NC kernel node \NC superscript \NC \NR
----\NC \type{accent}     \NC kernel node \NC top accent \NC \NR
----\NC \type{bot_accent} \NC kernel node \NC bottom accent \NC \NR
----\NC \type{fraction}   \NC number      \NC larger step criterium (divided by 1000) \NC \NR
+--- `subtype`     number       \showsubtypes{accent} 
+--- `nucleus`     kernel node  base 
+--- `sub`         kernel node  subscript 
+--- `sup`         kernel node  superscript 
+--- `accent`      kernel node  top accent 
+--- `bot_accent`  kernel node  bottom accent 
+--- `fraction`    number       larger step criterium (divided by 1000) 
 ---\LL
 ---\stoptabulate
 ---
 ---\subsection{`style` nodes}
 ---
 ---\starttabulate[|l|l|p|]
----\DB field        \BC type   \BC explanation    \NC \NR
+---\DB field        \BC type   \BC explanation    
 ---\TB
----\NC \type{style} \NC string \NC contains the style \NC \NR
+--- `style`  string  contains the style 
 ---\LL
 ---\stoptabulate
 ---
@@ -694,13 +693,13 @@
 ---\subsection{`choice` nodes}
 ---
 ---\starttabulate[|l|l|p|]
----\DB field               \BC type \BC explanation \NC \NR
+---\DB field               \BC type \BC explanation 
 ---\TB
----\NC \type{attr}         \NC node \NC list of attributes \NC \NR
----\NC \type{display}      \NC node \NC list of display size alternatives \NC \NR
----\NC \type{text}         \NC node \NC list of text size alternatives \NC \NR
----\NC \type{script}       \NC node \NC list of scriptsize alternatives \NC \NR
----\NC \type{scriptscript} \NC node \NC list of scriptscriptsize alternatives \NC \NR
+--- `attr`          node  list of attributes 
+--- `display`       node  list of display size alternatives 
+--- `text`          node  list of text size alternatives 
+--- `script`        node  list of scriptsize alternatives 
+--- `scriptscript`  node  list of scriptscriptsize alternatives 
 ---\LL
 ---\stoptabulate
 ---
@@ -710,17 +709,17 @@
 ---\subsection{`radical` nodes}
 ---
 ---\starttabulate[|l|l|p|]
----\DB field          \BC type           \BC explanation \NC \NR
+---\DB field          \BC type           \BC explanation 
 ---\TB
----\NC \type{subtype} \NC number         \NC \showsubtypes{radical} \NC \NR
----\NC \type{attr}    \NC node           \NC list of attributes \NC \NR
----\NC \type{nucleus} \NC kernel node    \NC base \NC \NR
----\NC \type{sub}     \NC kernel node    \NC subscript \NC \NR
----\NC \type{sup}     \NC kernel node    \NC superscript \NC \NR
----\NC \type{left}    \NC delimiter node \NC \NC \NR
----\NC \type{degree}  \NC kernel node    \NC only set by `Uroot` \NC \NR
----\NC \type{width}   \NC number         \NC required width \NC \NR
----\NC \type{options} \NC number         \NC bitset of rendering options \NC \NR
+--- `subtype`  number          \showsubtypes{radical} 
+--- `attr`     node            list of attributes 
+--- `nucleus`  kernel node     base 
+--- `sub`      kernel node     subscript 
+--- `sup`      kernel node     superscript 
+--- `left`     delimiter node  
+--- `degree`   kernel node     only set by `Uroot` 
+--- `width`    number          required width 
+--- `options`  number          bitset of rendering options 
 ---\LL
 ---\stoptabulate
 ---
@@ -730,16 +729,16 @@
 ---\subsection{`fraction` nodes}
 ---
 ---\starttabulate[|l|l|p|]
----\DB field          \BC type           \BC explanation \NC \NR
+---\DB field          \BC type           \BC explanation 
 ---\TB
----\NC \type{attr}    \NC node           \NC list of attributes \NC \NR
----\NC \type{width}   \NC number         \NC (optional) width of the fraction \NC \NR
----\NC \type{num}     \NC kernel node    \NC numerator \NC \NR
----\NC \type{denom}   \NC kernel node    \NC denominator \NC \NR
----\NC \type{left}    \NC delimiter node \NC left side symbol \NC \NR
----\NC \type{right}   \NC delimiter node \NC right side symbol \NC \NR
----\NC \type{middle}  \NC delimiter node \NC middle symbol \NC \NR
----\NC \type{options} \NC number         \NC bitset of rendering options \NC \NR
+--- `attr`     node            list of attributes 
+--- `width`    number          (optional) width of the fraction 
+--- `num`      kernel node     numerator 
+--- `denom`    kernel node     denominator 
+--- `left`     delimiter node  left side symbol 
+--- `right`    delimiter node  right side symbol 
+--- `middle`   delimiter node  middle symbol 
+--- `options`  number          bitset of rendering options 
 ---\LL
 ---\stoptabulate
 ---
@@ -750,16 +749,16 @@
 ---\subsection{`fence` nodes}
 ---
 ---\starttabulate[|l|l|p|]
----\DB field          \BC type           \BC explanation \NC \NR
+---\DB field          \BC type           \BC explanation 
 ---\TB
----\NC \type{subtype} \NC number         \NC \showsubtypes{fence} \NC \NR
----\NC \type{attr}    \NC node           \NC list of attributes \NC \NR
----\NC \type{delim}   \NC delimiter node \NC delimiter specification \NC \NR
----\NC \type{italic}  \NC number         \NC italic correction \NC \NR
----\NC \type{height}  \NC number         \NC required height \NC \NR
----\NC \type{depth}   \NC number         \NC required depth \NC \NR
----\NC \type{options} \NC number         \NC bitset of rendering options \NC \NR
----\NC \type{class}   \NC number         \NC spacing related class \NC \NR
+--- `subtype`  number          \showsubtypes{fence} 
+--- `attr`     node            list of attributes 
+--- `delim`    delimiter node  delimiter specification 
+--- `italic`   number          italic correction 
+--- `height`   number          required height 
+--- `depth`    number          required depth 
+--- `options`  number          bitset of rendering options 
+--- `class`    number          spacing related class 
 ---\LL
 ---\stoptabulate
 ---
@@ -786,56 +785,56 @@
 ---specific to the chosen backend: \DVI\ or \PDF. Here we discuss the generic
 ---font-end nodes nodes.
 ---
----\subsection{\whs {open}}
+---\subsection{`open`}
 ---
 ---\starttabulate[|l|l|p|]
----\DB field         \BC type   \BC explanation \NC \NR
+---\DB field         \BC type   \BC explanation 
 ---\TB
----\NC \type{attr}   \NC node   \NC list of attributes \NC \NR
----\NC \type{stream} \NC number \NC *TeX*'s stream id number \NC \NR
----\NC \type{name}   \NC string \NC file name \NC \NR
----\NC \type{ext}    \NC string \NC file extension \NC \NR
----\NC \type{area}   \NC string \NC file area (this may become obsolete) \NC \NR
+--- `attr`    node    list of attributes 
+--- `stream`  number  *TeX*'s stream id number 
+--- `name`    string  file name 
+--- `ext`     string  file extension 
+--- `area`    string  file area (this may become obsolete) 
 ---\LL
 ---\stoptabulate
 ---
----\subsection{\whs {write}}
+---\subsection{`write`}
 ---
 ---\starttabulate[|l|l|p|]
----\DB field         \BC type   \BC explanation \NC \NR
+---\DB field         \BC type   \BC explanation 
 ---\TB
----\NC \type{attr}   \NC node   \NC list of attributes \NC \NR
----\NC \type{stream} \NC number \NC *TeX*'s stream id number \NC \NR
----\NC \type{data}   \NC table  \NC a table representing the token list to be written \NC \NR
+--- `attr`    node    list of attributes 
+--- `stream`  number  *TeX*'s stream id number 
+--- `data`    table   a table representing the token list to be written 
 ---\LL
 ---\stoptabulate
 ---
----\subsection{\whs {close}}
+---\subsection{`close`}
 ---
 ---\starttabulate[|l|l|p|]
----\DB field         \BC type   \BC explanation \NC \NR
+---\DB field         \BC type   \BC explanation 
 ---\TB
----\NC \type{attr}   \NC node   \NC list of attributes \NC \NR
----\NC \type{stream} \NC number \NC *TeX*'s stream id number \NC \NR
+--- `attr`    node    list of attributes 
+--- `stream`  number  *TeX*'s stream id number 
 ---\LL
 ---\stoptabulate
 ---
----\subsection{\whs {user_defined}}
+---\subsection{`user_defined`}
 ---
 ---User-defined whatsit nodes can only be created and handled from *Lua* code. In
 ---effect, they are an extension to the extension mechanism. The *LuaTeX* engine
 ---will simply step over such whatsits without ever looking at the contents.
 ---
 ---\starttabulate[|l|l|p|]
----\DB field          \BC type   \BC explanation \NC \NR
+---\DB field          \BC type   \BC explanation 
 ---\TB
----\NC \type{attr}    \NC node   \NC list of attributes \NC \NR
----\NC \type{user_id} \NC number \NC id number \NC \NR
----\NC \type{type}    \NC number \NC type of the value \NC \NR
----\NC \type{value}   \NC number \NC a *Lua* number \NC \NR
----\NC                \NC node   \NC a node list \NC \NR
----\NC                \NC string \NC a *Lua* string \NC \NR
----\NC                \NC table  \NC a *Lua* table \NC \NR
+--- `attr`     node    list of attributes 
+--- `user_id`  number  id number 
+--- `type`     number  type of the value 
+--- `value`    number  a *Lua* number 
+---                 node    a node list 
+---                 string  a *Lua* string 
+---                 table   a *Lua* table 
 ---\LL
 ---\stoptabulate
 ---
@@ -844,35 +843,35 @@
 ---instead of `108`).
 ---
 ---\starttabulate[|r|c|p|]
----\DB value \BC meaning \BC explanation \NC \NR
+---\DB value \BC meaning \BC explanation 
 ---\TB
----\NC   97  \NC a       \NC list of attributes (a node list) \NC \NR
----\NC  100  \NC d       \NC a *Lua* number \NC \NR
----\NC  108  \NC l       \NC a *Lua* value (table, number, boolean, etc) \NC \NR
----\NC  110  \NC n       \NC a node list \NC \NR
----\NC  115  \NC s       \NC a *Lua* string \NC \NR
----\NC  116  \NC t       \NC a *Lua* token list in *Lua* table form (a list of triplets) \NC \NR
+---   97   a        list of attributes (a node list) 
+---  100   d        a *Lua* number 
+---  108   l        a *Lua* value (table, number, boolean, etc) 
+---  110   n        a node list 
+---  115   s        a *Lua* string 
+---  116   t        a *Lua* token list in *Lua* table form (a list of triplets) 
 ---\LL
 ---\stoptabulate
 ---
----\subsection{\whs {save_pos}}
+---\subsection{`save_pos`}
 ---
 ---\starttabulate[|l|l|p|]
----\DB field       \BC type \BC explanation \NC \NR
+---\DB field       \BC type \BC explanation 
 ---\TB
----\NC \type{attr} \NC node \NC list of attributes \NC \NR
+--- `attr`  node  list of attributes 
 ---\LL
 ---\stoptabulate
 ---
----\subsection{\whs {late_lua}}
+---\subsection{`late_lua`}
 ---
 ---\starttabulate[|l|l|p|]
----\DB field        \BC type               \BC explanation \NC \NR
+---\DB field        \BC type               \BC explanation 
 ---\TB
----\NC \type{attr}  \NC node               \NC list of attributes \NC \NR
----\NC \type{data}  \NC string or function \NC the to be written information stored as *Lua* value \NC \NR
----\NC \type{token} \NC string             \NC the to be written information stored as token list \NC \NR
----\NC \type{name}  \NC string             \NC the name to use for *Lua* error reporting \NC \NR
+--- `attr`   node                list of attributes 
+--- `data`   string or function  the to be written information stored as *Lua* value 
+--- `token`  string              the to be written information stored as token list 
+--- `name`   string              the name to use for *Lua* error reporting 
 ---\LL
 ---\stoptabulate
 ---
@@ -888,16 +887,16 @@
 ---
 ---\startsection[title={\DVI\ backend whatsits}]
 ---
----\subsection{\whs {special}}
+---\subsection{`special`}
 ---
 ---There is only one \DVI\ backend whatsit, and it just flushes its content to the
 ---output file.
 ---
 ---\starttabulate[|l|l|p|]
----\DB field       \BC type   \BC explanation \NC \NR
+---\DB field       \BC type   \BC explanation 
 ---\TB
----\NC \type{attr} \NC node   \NC list of attributes \NC \NR
----\NC \type{data} \NC string \NC the `special` information \NC \NR
+--- `attr`  node    list of attributes 
+--- `data`  string  the `special` information 
 ---\LL
 ---\stoptabulate
 ---
@@ -905,28 +904,28 @@
 ---
 ---\startsection[title={\PDF\ backend whatsits}]
 ---
----\subsection{\whs {pdf_literal}}
+---\subsection{`pdf_literal`}
 ---
 ---\starttabulate[|l|l|p|]
----\DB field        \BC type   \BC explanation \NC \NR
+---\DB field        \BC type   \BC explanation 
 ---\TB
----\NC \type{attr}  \NC node   \NC list of attributes \NC \NR
----\NC \type{mode}  \NC number \NC the “mode” setting of this literal \NC \NR
----\NC \type{data}  \NC string \NC the to be written information stored as *Lua* string \NC \NR
----\NC \type{token} \NC string \NC the to be written information stored as token list \NC \NR
+--- `attr`   node    list of attributes 
+--- `mode`   number  the “mode” setting of this literal 
+--- `data`   string  the to be written information stored as *Lua* string 
+--- `token`  string  the to be written information stored as token list 
 ---\LL
 ---\stoptabulate
 ---
 ---Possible mode values are:
 ---
 ---\starttabulate[|c|p|]
----\DB value \BC keyword        \NC \NR
+---\DB value \BC keyword        
 ---\TB
----\NC 0     \NC \type{origin}  \NC \NR
----\NC 1     \NC \type{page}    \NC \NR
----\NC 2     \NC \type{direct}  \NC \NR
----\NC 3     \NC \type{raw}     \NC \NR
----\NC 4     \NC \type{text}    \NC \NR
+--- 0      `origin`  
+--- 1      `page`    
+--- 2      `direct`  
+--- 3      `raw`     
+--- 4      `text`    
 ---\LL
 ---\stoptabulate
 ---
@@ -934,193 +933,193 @@
 ---Especially the `raw` variant can produce bad \PDF\ so you can best check
 ---what you generate.
 ---
----\subsection{\whs {pdf_refobj}}
+---\subsection{`pdf_refobj`}
 ---
 ---\starttabulate[|l|l|p|]
----\DB field         \BC type   \BC explanation \NC \NR
+---\DB field         \BC type   \BC explanation 
 ---\TB
----\NC \type{attr}   \NC node   \NC list of attributes \NC \NR
----\NC \type{objnum} \NC number \NC the referenced \PDF\ object number \NC \NR
+--- `attr`    node    list of attributes 
+--- `objnum`  number  the referenced \PDF\ object number 
 ---\LL
 ---\stoptabulate
 ---
----\subsection{\whs {pdf_annot}}
+---\subsection{`pdf_annot`}
 ---
 ---\starttabulate[|l|l|p|]
----\DB field         \BC type   \BC explanation \NC \NR
+---\DB field         \BC type   \BC explanation 
 ---\TB
----\NC \type{attr}   \NC node   \NC list of attributes \NC \NR
----\NC \type{width}  \NC number \NC the width (not used in calculations) \NC \NR
----\NC \type{height} \NC number \NC the height (not used in calculations) \NC \NR
----\NC \type{depth}  \NC number \NC the depth (not used in calculations) \NC \NR
----\NC \type{objnum} \NC number \NC the referenced \PDF\ object number \NC \NR
----\NC \type{data}   \NC string \NC the annotation data \NC \NR
+--- `attr`    node    list of attributes 
+--- `width`   number  the width (not used in calculations) 
+--- `height`  number  the height (not used in calculations) 
+--- `depth`   number  the depth (not used in calculations) 
+--- `objnum`  number  the referenced \PDF\ object number 
+--- `data`    string  the annotation data 
 ---\LL
 ---\stoptabulate
 ---
----\subsection{\whs {pdf_start_link}}
+---\subsection{`pdf_start_link`}
 ---
 ---\starttabulate[|l|l|p|]
----\DB field            \BC type   \BC explanation \NC \NR
+---\DB field            \BC type   \BC explanation 
 ---\TB
----\NC \type{attr}      \NC node   \NC list of attributes \NC \NR
----\NC \type{width}     \NC number \NC the width (not used in calculations) \NC \NR
----\NC \type{height}    \NC number \NC the height (not used in calculations) \NC \NR
----\NC \type{depth}     \NC number \NC the depth (not used in calculations) \NC \NR
----\NC \type{objnum}    \NC number \NC the referenced \PDF\ object number \NC \NR
----\NC \type{link_attr} \NC table  \NC the link attribute token list \NC \NR
----\NC \type{action}    \NC node   \NC the action to perform \NC \NR
+--- `attr`       node    list of attributes 
+--- `width`      number  the width (not used in calculations) 
+--- `height`     number  the height (not used in calculations) 
+--- `depth`      number  the depth (not used in calculations) 
+--- `objnum`     number  the referenced \PDF\ object number 
+--- `link_attr`  table   the link attribute token list 
+--- `action`     node    the action to perform 
 ---\LL
 ---\stoptabulate
 ---
----\subsection{\whs {pdf_end_link}}
+---\subsection{`pdf_end_link`}
 ---
 ---\starttabulate[|l|l|p|]
----\DB field       \BC type \BC explanation \NC \NR
+---\DB field       \BC type \BC explanation 
 ---\TB
----\NC \type{attr} \NC node \NC \NC \NR
+--- `attr`  node  
 ---\LL
 ---\stoptabulate
 ---
----\subsection{\whs {pdf_dest}}
+---\subsection{`pdf_dest`}
 ---
 ---\starttabulate[|l|l|p|]
----\DB field              \BC type     \BC explanation \NC \NR
+---\DB field              \BC type     \BC explanation 
 ---\TB
----\NC \type{attr}        \NC node     \NC list of attributes \NC \NR
----\NC \type{width}       \NC number   \NC the width (not used in calculations) \NC \NR
----\NC \type{height}      \NC number   \NC the height (not used in calculations) \NC \NR
----\NC \type{depth}       \NC number   \NC the depth (not used in calculations) \NC \NR
----\NC \type{named_id}    \NC number   \NC is the `dest_id` a string value? \NC \NR
----\NC \type{dest_id}     \NC number   \NC the destination id \NC \NR
----\NC                    \NC string   \NC the destination name \NC \NR
----\NC \type{dest_type}   \NC number   \NC type of destination \NC \NR
----\NC \type{xyz_zoom}    \NC number   \NC the zoom factor (times 1000) \NC \NR
----\NC \type{objnum}      \NC number   \NC the \PDF\ object number; for structure references the \PDF\ object number of the linked structure element \NC \NR
+--- `attr`         node      list of attributes 
+--- `width`        number    the width (not used in calculations) 
+--- `height`       number    the height (not used in calculations) 
+--- `depth`        number    the depth (not used in calculations) 
+--- `named_id`     number    is the `dest_id` a string value? 
+--- `dest_id`      number    the destination id 
+---                     string    the destination name 
+--- `dest_type`    number    type of destination 
+--- `xyz_zoom`     number    the zoom factor (times 1000) 
+--- `objnum`       number    the \PDF\ object number; for structure references the \PDF\ object number of the linked structure element 
 ---\LL
 ---\stoptabulate
 ---
----\subsection{\whs {pdf_action}}
+---\subsection{`pdf_action`}
 ---
 ---These are a special kind of items that only appear inside \PDF\ start link
 ---objects.
 ---
 ---\starttabulate[|l|l|p|]
----\DB field              \BC type             \BC explanation \NC \NR
+---\DB field              \BC type             \BC explanation 
 ---\TB
----\NC \type{action_type} \NC number           \NC the kind of action involved \NC \NR
----\NC \type{action_id}   \NC number or string \NC token list reference or string \NC \NR
----\NC \type{named_id}    \NC number           \NC are `dest_id` and `struct_id` string values? \NC \NR
----\NC \type{file}        \NC string           \NC the target filename \NC \NR
----\NC \type{new_window}  \NC number           \NC the window state of the target \NC \NR
----\NC \type{data}        \NC string           \NC the name of the destination \NC \NR
----\NC \type{struct_id}   \NC nil              \NC the action does not reference a structure destination \NC \NR
----\NC                    \NC number           \NC id of the referenced structure destination \NC \NR
----\NC                    \NC string           \NC name of the referenced structure destination \NC \NR
+--- `action_type`  number            the kind of action involved 
+--- `action_id`    number or string  token list reference or string 
+--- `named_id`     number            are `dest_id` and `struct_id` string values? 
+--- `file`         string            the target filename 
+--- `new_window`   number            the window state of the target 
+--- `data`         string            the name of the destination 
+--- `struct_id`    nil               the action does not reference a structure destination 
+---                     number            id of the referenced structure destination 
+---                     string            name of the referenced structure destination 
 ---\LL
 ---\stoptabulate
 ---
 ---Valid action types are:
 ---
 ---\starttabulate[|l|l|]
----\DB value \BC meaning       \NC \NR
+---\DB value \BC meaning       
 ---\TB
----\NC 0     \NC \type{page}   \NC \NR
----\NC 1     \NC \type{goto}   \NC \NR
----\NC 2     \NC \type{thread} \NC \NR
----\NC 3     \NC \type{user}   \NC \NR
+--- 0      `page`   
+--- 1      `goto`   
+--- 2      `thread` 
+--- 3      `user`   
 ---\LL
 ---\stoptabulate
 ---
 ---Valid window types are:
 ---
 ---\starttabulate[|l|l|]
----\DB value \BC meaning       \NC \NR
+---\DB value \BC meaning       
 ---\TB
----\NC 0     \NC \type{notset} \NC \NR
----\NC 1     \NC \type{new}    \NC \NR
----\NC 2     \NC \type{nonew}  \NC \NR
+--- 0      `notset` 
+--- 1      `new`    
+--- 2      `nonew`  
 ---\LL
 ---\stoptabulate
 ---
----\subsection{\whs {pdf_thread}}
+---\subsection{`pdf_thread`}
 ---
 ---\starttabulate[|l|l|p|]
----\DB field              \BC type   \BC explanation \NC \NR
+---\DB field              \BC type   \BC explanation 
 ---\TB
----\NC \type{attr}        \NC node   \NC list of attributes \NC \NR
----\NC \type{width}       \NC number \NC the width (not used in calculations) \NC \NR
----\NC \type{height}      \NC number \NC the height (not used in calculations) \NC \NR
----\NC \type{depth}       \NC number \NC the depth (not used in calculations) \NC \NR
----\NC \type{named_id}    \NC number \NC is `tread_id` a string value? \NC \NR
----\NC \type{tread_id}    \NC number \NC the thread id \NC \NR
----\NC                    \NC string \NC the thread name \NC \NR
----\NC \type{thread_attr} \NC number \NC extra thread information \NC \NR
+--- `attr`         node    list of attributes 
+--- `width`        number  the width (not used in calculations) 
+--- `height`       number  the height (not used in calculations) 
+--- `depth`        number  the depth (not used in calculations) 
+--- `named_id`     number  is `tread_id` a string value? 
+--- `tread_id`     number  the thread id 
+---                     string  the thread name 
+--- `thread_attr`  number  extra thread information 
 ---\LL
 ---\stoptabulate
 ---
----\subsection{\whs {pdf_start_thread}}
+---\subsection{`pdf_start_thread`}
 ---
 ---\starttabulate[|l|l|p|]
----\DB field              \BC type   \BC explanation \NC \NR
+---\DB field              \BC type   \BC explanation 
 ---\TB
----\NC \type{attr}        \NC node   \NC list of attributes \NC \NR
----\NC \type{width}       \NC number \NC the width (not used in calculations) \NC \NR
----\NC \type{height}      \NC number \NC the height (not used in calculations) \NC \NR
----\NC \type{depth}       \NC number \NC the depth (not used in calculations) \NC \NR
----\NC \type{named_id}    \NC number \NC is `tread_id` a string value? \NC \NR
----\NC \type{tread_id}    \NC number \NC the thread id \NC \NR
----\NC                    \NC string \NC the thread name \NC \NR
----\NC \type{thread_attr} \NC number \NC extra thread information \NC \NR
+--- `attr`         node    list of attributes 
+--- `width`        number  the width (not used in calculations) 
+--- `height`       number  the height (not used in calculations) 
+--- `depth`        number  the depth (not used in calculations) 
+--- `named_id`     number  is `tread_id` a string value? 
+--- `tread_id`     number  the thread id 
+---                     string  the thread name 
+--- `thread_attr`  number  extra thread information 
 ---\LL
 ---\stoptabulate
 ---
----\subsection{\whs {pdf_end_thread}}
+---\subsection{`pdf_end_thread`}
 ---
 ---\starttabulate[|l|l|p|]
----\DB field       \BC type \BC explanation \NC \NR
+---\DB field       \BC type \BC explanation 
 ---\TB
----\NC \type{attr} \NC node \NC \NC \NR
+--- `attr`  node  
 ---\LL
 ---\stoptabulate
 ---
----\subsection{\whs {pdf_colorstack}}
+---\subsection{`pdf_colorstack`}
 ---
 ---\starttabulate[|l|l|p|]
----\DB field          \BC type   \BC explanation \NC \NR
+---\DB field          \BC type   \BC explanation 
 ---\TB
----\NC \type{attr}    \NC node   \NC list of attributes \NC \NR
----\NC \type{stack}   \NC number \NC colorstack id number \NC \NR
----\NC \type{command} \NC number \NC command to execute \NC \NR
----\NC \type{data}    \NC string \NC data \NC \NR
+--- `attr`     node    list of attributes 
+--- `stack`    number  colorstack id number 
+--- `command`  number  command to execute 
+--- `data`     string  data 
 ---\LL
 ---\stoptabulate
 ---
----\subsection{\whs {pdf_setmatrix}}
+---\subsection{`pdf_setmatrix`}
 ---
 ---\starttabulate[|l|l|p|]
----\DB field       \BC type   \BC explanation \NC \NR
+---\DB field       \BC type   \BC explanation 
 ---\TB
----\NC \type{attr} \NC node   \NC list of attributes \NC \NR
----\NC \type{data} \NC string \NC data \NC \NR
+--- `attr`  node    list of attributes 
+--- `data`  string  data 
 ---\LL
 ---\stoptabulate
 ---
----\subsection{\whs {pdf_save}}
+---\subsection{`pdf_save`}
 ---
 ---\starttabulate[|l|l|p|]
----\DB field       \BC type \BC explanation \NC \NR
+---\DB field       \BC type \BC explanation 
 ---\TB
----\NC \type{attr} \NC node \NC list of attributes \NC \NR
+--- `attr`  node  list of attributes 
 ---\LL
 ---\stoptabulate
 ---
----\subsection{\whs {pdf_restore}}
+---\subsection{`pdf_restore`}
 ---
 ---\starttabulate[|l|l|p|]
----\DB field       \BC type \BC explanation \NC \NR
+---\DB field       \BC type \BC explanation 
 ---\TB
----\NC \type{attr} \NC node \NC list of attributes \NC \NR
+--- `attr`  node  list of attributes 
 ---\LL
 ---\stoptabulate
 ---
@@ -1356,7 +1355,7 @@
 ---or make changes to specific attributes, the needed copying and freeing takes
 ---place automatically.
 ---
----\subsection{`prev` and \type{next}}
+---\subsection{`prev` and `next`}
 ---
 ---\libindex{prev}
 ---\libindex{next}
@@ -1697,7 +1696,7 @@
 ---\libindex {traverse_char}
 ---\libindex {traverse_glyph}
 ---
----The \type{traverse_char} iterator loops over the `glyph` nodes in a list.
+---The `traverse_char` iterator loops over the `glyph` nodes in a list.
 ---Only nodes with a subtype less than 256 are seen.
 ---
 ---```
@@ -1705,7 +1704,7 @@
 ---    node.traverse_char(<node> n)
 ---```
 ---
----The \type{traverse_glyph} iterator loops over a list and returns the list and
+---The `traverse_glyph` iterator loops over a list and returns the list and
 ---filters all glyphs:
 ---
 ---```
@@ -1993,9 +1992,9 @@
 ---items. It has only one user-visible field:
 ---
 ---\starttabulate[|l|l|p|]
----\DB field       \BC type \BC explanation \NC \NR
+---\DB field       \BC type \BC explanation 
 ---\TB
----\NC \type{next} \NC node \NC pointer to the first attribute \NC \NR
+--- `next`  node  pointer to the first attribute 
 ---\LL
 ---\stoptabulate
 ---
@@ -2006,11 +2005,11 @@
 ---“attribute” item, etc.
 ---
 ---\starttabulate[|l|l|p|]
----\DB field         \BC type   \BC explanation \NC \NR
+---\DB field         \BC type   \BC explanation 
 ---\TB
----\NC \type{next}   \NC node   \NC pointer to the next attribute \NC \NR
----\NC \type{number} \NC number \NC the attribute type id \NC \NR
----\NC \type{value}  \NC number \NC the attribute value \NC \NR
+--- `next`    node    pointer to the next attribute 
+--- `number`  number  the attribute type id 
+--- `value`   number  the attribute value 
 ---\LL
 ---\stoptabulate
 ---
@@ -2238,27 +2237,27 @@
 ---Some accessors are used frequently and for these we provide more efficient helpers:
 ---
 ---\starttabulate[|l|p|]
----\DB function          \BC explanation \NC \NR
+---\DB function          \BC explanation 
 ---\TB
----\NC \type{getnext}    \NC parsing nodelist always involves this one \NC \NR
----\NC \type{getprev}    \NC used less but a logical companion to `getnext` \NC \NR
----\NC \type{getboth}    \NC returns the next and prev pointer of a node \NC \NR
----\NC \type{getid}      \NC consulted a lot \NC \NR
----\NC \type{getsubtype} \NC consulted less but also a topper \NC \NR
----\NC \type{getfont}    \NC used a lot in \OPENTYPE\ handling (glyph nodes are consulted a lot) \NC \NR
----\NC \type{getchar}    \NC idem and also in other places \NC \NR
----\NC \type{getwhd}     \NC returns the `width`, `height` and `depth` of a list, rule or
----                          (unexpanded) glyph as well as glue (its spec is looked at) and unset nodes\NC \NR
----\NC \type{getdisc}    \NC returns the `pre`, `post` and `replace` fields and
----                          optionally when true is passed also the tail fields \NC \NR
----\NC \type{getlist}    \NC we often parse nested lists so this is a convenient one too \NC \NR
----\NC \type{getleader}  \NC comparable to list, seldom used in *TeX* (but needs frequent consulting
----                          like lists; leaders could have been made a dedicated node type) \NC \NR
----\NC \type{getfield}   \NC generic getter, sufficient for the rest (other field names are
----                          often shared so a specific getter makes no sense then) \NC \NR
----\NC \type{getbox}     \NC gets the given box (a list node) \NC \NR
----\NC \type{getoffsets} \NC gets the `xoffset` and `yoffset` of a glyph or
----                          `left` and `right` values of a rule \NC \NR
+--- `getnext`     parsing nodelist always involves this one 
+--- `getprev`     used less but a logical companion to `getnext` 
+--- `getboth`     returns the next and prev pointer of a node 
+--- `getid`       consulted a lot 
+--- `getsubtype`  consulted less but also a topper 
+--- `getfont`     used a lot in \OPENTYPE\ handling (glyph nodes are consulted a lot) 
+--- `getchar`     idem and also in other places 
+--- `getwhd`      returns the `width`, `height` and `depth` of a list, rule or
+---                          (unexpanded) glyph as well as glue (its spec is looked at) and unset nodes
+--- `getdisc`     returns the `pre`, `post` and `replace` fields and
+---                          optionally when true is passed also the tail fields 
+--- `getlist`     we often parse nested lists so this is a convenient one too 
+--- `getleader`   comparable to list, seldom used in *TeX* (but needs frequent consulting
+---                          like lists; leaders could have been made a dedicated node type) 
+--- `getfield`    generic getter, sufficient for the rest (other field names are
+---                          often shared so a specific getter makes no sense then) 
+--- `getbox`      gets the given box (a list node) 
+--- `getoffsets`  gets the `xoffset` and `yoffset` of a glyph or
+---                          `left` and `right` values of a rule 
 ---\LL
 ---\stoptabulate
 ---
@@ -2285,13 +2284,13 @@
 ---\def\yes{`+`} \def\nop{`-$}
 ---
 ---\def\supported#1#2#3%
---- {\NC \type{#1}
----  \NC \ifx#2\yes\lix{node}       {#1}\fi #2
----  \NC \ifx#3\yes\lix{node.direct}{#1}\fi #3 \NC
+--- { `#1`
+---   \ifx#2\yes\lix{node}       {#1}\fi #2
+---   \ifx#3\yes\lix{node.direct}{#1}\fi #3 
 ---  \NR}
 ---
 ---\starttabulate[|l|c|c|]
----\DB function \BC node \BC direct \NC \NR
+---\DB function \BC node \BC direct 
 ---\TB
 ---\supported {check_discretionaries}   \yes \yes
 ---\supported {check_discretionary}     \yes \yes

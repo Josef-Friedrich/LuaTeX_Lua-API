@@ -69,14 +69,14 @@
 ---
 ---\starttabulate[|l|l|pl|]
 ---\DB primitive             \BC value
----                          \BC explanation \NC \NR
+---                          \BC explanation 
 ---\TB
----\NC `luatexbanner`   \NC \VersionHack{\luatexbanner}
----                          \NC the banner reported on the command line \NC \NR
----\NC `luatexversion`  \NC \the\luatexversion
----                          \NC a combination of major and minor number \NC \NR
----\NC `luatexrevision` \NC \luatexrevision
----                          \NC the revision number, the current value is \NC \NR
+--- `luatexbanner`    \VersionHack{\luatexbanner}
+---                           the banner reported on the command line 
+--- `luatexversion`   \the\luatexversion
+---                           a combination of major and minor number 
+--- `luatexrevision`  \luatexrevision
+---                           the revision number, the current value is 
 ---\LL
 ---\stoptabulate
 ---
@@ -627,17 +627,17 @@
 ---initial values are:
 ---
 ---\starttabulate[|c|c|l|l|]
----\DB catcode \BC character               \BC equivalent \BC category          \NC \NR
+---\DB catcode \BC character               \BC equivalent \BC category          
 ---\TB
----\NC  0 \NC \tttf \letterbackslash       \NC         \NC `escape`       \NC \NR
----\NC  5 \NC \tttf \letterhat\letterhat M \NC return  \NC `car_ret`      \NC \NR
----\NC  9 \NC \tttf \letterhat\letterhat @ \NC null    \NC `ignore`       \NC \NR
----\NC 10 \NC \tttf <space>                \NC space   \NC `spacer`       \NC \NR
----\NC 11 \NC {\tttf a} \endash\ {\tttf z} \NC         \NC `letter`       \NC \NR
----\NC 11 \NC {\tttf A} \endash\ {\tttf Z} \NC         \NC `letter`       \NC \NR
----\NC 12 \NC everything else              \NC         \NC `other`        \NC \NR
----\NC 14 \NC \tttf \letterpercent         \NC         \NC `comment`      \NC \NR
----\NC 15 \NC \tttf \letterhat\letterhat ? \NC delete  \NC `invalid_char` \NC \NR
+---  0  \tttf \letterbackslash                 `escape`       
+---  5  \tttf \letterhat\letterhat M  return   `car_ret`      
+---  9  \tttf \letterhat\letterhat @  null     `ignore`       
+--- 10  \tttf <space>                 space    `spacer`       
+--- 11  {\tttf a} \endash\ {\tttf z}           `letter`       
+--- 11  {\tttf A} \endash\ {\tttf Z}           `letter`       
+--- 12  everything else                        `other`        
+--- 14  \tttf \letterpercent                   `comment`      
+--- 15  \tttf \letterhat\letterhat ?  delete   `invalid_char` 
 ---\LL
 ---\stoptabulate
 ---
@@ -788,12 +788,12 @@
 ---used font id is \fontid\font. Here are some more:
 ---
 ---\starttabulate[|l|c|c|]
----\DB style \BC command \BC font id \NC \NR
+---\DB style \BC command \BC font id 
 ---\TB
----\NC normal      \NC `\tf` \NC \bf \fontid\font \NC \NR
----\NC bold        \NC `\bf` \NC \bf \fontid\font \NC \NR
----\NC italic      \NC `\it` \NC \it \fontid\font \NC \NR
----\NC bold italic \NC `\bi` \NC \bi \fontid\font \NC \NR
+--- normal       `\tf`  \bf \fontid\font 
+--- bold         `\bf`  \bf \fontid\font 
+--- italic       `\it`  \it \fontid\font 
+--- bold italic  `\bi`  \bi \fontid\font 
 ---\LL
 ---\stoptabulate
 ---
@@ -830,13 +830,13 @@
 ---
 ---\stopsubsection
 ---
----\startsubsection[title={\type{\nospaces}}]
+---\startsubsection[title={`\nospaces`}]
 ---
 ---\topicindex {spaces+suppress}
 ---
 ---This new primitive can be used to overrule the usual `spaceskip` related
----heuristics when a space character is seen in a text flow. The value \type{1}
----triggers no injection while \type{2} results in injection of a zero skip. In \in
+---heuristics when a space character is seen in a text flow. The value `1`
+---triggers no injection while `2` results in injection of a zero skip. In \in
 ---{figure} [fig:nospaces] we see the results for four characters separated by a
 ---space.
 ---
@@ -1159,15 +1159,15 @@
 ---should treat them as such and check for the current output mode if applicable.
 ---
 ---\starttabulate[|l|p|]
----\DB command \BC explanation \NC \NR
+---\DB command \BC explanation 
 ---\TB
----\NC `saveboxresource`             \NC save the box as an object to be included later \NC \NR
----\NC `saveimageresource`           \NC save the image as an object to be included later \NC \NR
----\NC `useboxresource`              \NC include the saved box object here (by index) \NC \NR
----\NC `useimageresource`            \NC include the saved image object here (by index) \NC \NR
----\NC `lastsavedboxresourceindex`   \NC the index of the last saved box object \NC \NR
----\NC `lastsavedimageresourceindex` \NC the index of the last saved image object \NC \NR
----\NC `lastsavedimageresourcepages` \NC the number of pages in the last saved image object \NC \NR
+--- `saveboxresource`              save the box as an object to be included later 
+--- `saveimageresource`            save the image as an object to be included later 
+--- `useboxresource`               include the saved box object here (by index) 
+--- `useimageresource`             include the saved image object here (by index) 
+--- `lastsavedboxresourceindex`    the index of the last saved box object 
+--- `lastsavedimageresourceindex`  the index of the last saved image object 
+--- `lastsavedimageresourcepages`  the number of pages in the last saved image object 
 ---\LL
 ---\stoptabulate
 ---
@@ -1258,14 +1258,14 @@
 ---The effective values are never negative. The zero mode is the default.
 ---
 ---\starttabulate[|l|pl|]
----\DB value     \BC effect \NC\NR
+---\DB value     \BC effect \NR
 ---\TB
----\NC `0` \NC the old behaviour: add the offset to the height and only subtract
----                  the offset only from the depth when it is positive \NC \NR
----\NC `1` \NC add the offset to the height and subtract it from the depth \NC \NR
----\NC `2` \NC add the offset to the height and subtract it from the depth but
----                  keep the maxima of the current and previous results \NC \NR
----\NC `3` \NC use the height and depth of the glyph, so no offset is applied \NC \NR
+--- `0`  the old behaviour: add the offset to the height and only subtract
+---                  the offset only from the depth when it is positive 
+--- `1`  add the offset to the height and subtract it from the depth 
+--- `2`  add the offset to the height and subtract it from the depth but
+---                  keep the maxima of the current and previous results 
+--- `3`  use the height and depth of the glyph, so no offset is applied 
 ---\LL
 ---\stoptabulate
 ---
@@ -1292,10 +1292,10 @@
 ---The `outputmode` variable tells *LuaTeX* what it has to produce:
 ---
 ---\starttabulate[|l|l|]
----\DB value \BC output \NC \NR
+---\DB value \BC output 
 ---\TB
----\NC `0` \NC \DVI\ code \NC \NR
----\NC `1` \NC \PDF\ code \NC \NR
+--- `0`  \DVI\ code 
+--- `1`  \PDF\ code 
 ---\LL
 ---\stoptabulate
 ---
@@ -1333,15 +1333,15 @@
 ---extension is that a csname not always makes sense. The zero case is the default.
 ---
 ---\starttabulate[|l|l|]
----\DB value \BC reported \NC \NR
+---\DB value \BC reported 
 ---\TB
----\NC \type{0} \NC \type{\foo xyz} \NC \NR
----\NC \type{1} \NC \type{\foo (bar)} \NC \NR
----\NC \type{2} \NC \type{<bar> xyz} \NC \NR
----\NC \type{3} \NC \type{<bar @ ..pt> xyz} \NC \NR
----\NC \type{4} \NC \type{<id>} \NC \NR
----\NC \type{5} \NC \type{<id: bar>} \NC \NR
----\NC \type{6} \NC \type{<id: bar @ ..pt> xyz} \NC \NR
+--- `0`  `\foo xyz` 
+--- `1`  `\foo (bar)` 
+--- `2`  `<bar> xyz` 
+--- `3`  `<bar @ ..pt> xyz` 
+--- `4`  `<id>` 
+--- `5`  `<id: bar>` 
+--- `6`  `<id: bar @ ..pt> xyz` 
 ---\LL
 ---\stoptabulate
 ---

@@ -376,7 +376,7 @@
 ---
 ---\stopsubsection
 ---
----\startsubsection[title={\type{obj}}]
+---\startsubsection[title={`obj`}]
 ---
 ---\topicindex{\PDF+objects}
 ---
@@ -434,7 +434,7 @@
 ---field is required, the others are optional (within constraints). When `nolength` is set, there will be no `/Length` entry added to the
 ---dictionary.
 ---
----Note: this mode makes \type{obj} look more flexible than it actually is: the
+---Note: this mode makes `obj` look more flexible than it actually is: the
 ---constraints from the separate parameter version still apply, so for example you
 ---can't have both `string` and `file` at the same time.
 ---
@@ -548,7 +548,7 @@
 ---\topicindex{\PDF+objects}
 ---
 ---\topicindex{\PDF+analyze}
----\topicindex{\PDF+\type{pdfe}}
+---\topicindex{\PDF+`pdfe`}
 ---
 ---The `pdfe` library replaces the `epdf` library and provides an
 ---interface to \PDF\ files. It uses the same code as is used for \PDF\ image
@@ -562,17 +562,17 @@
 ---called userdata *Lua* objects.
 ---
 ---\starttabulate
----\BC \PDF          \BC *Lua* \NC \NR
----\NC null          \NC nil \NC \NR
----\NC boolean       \NC boolean \NC \NR
----\NC integer       \NC integer \NC \NR
----\NC float         \NC number \NC \NR
----\NC name          \NC string \NC \NR
----\NC string        \NC string \NC \NR
----\NC array         \NC array userdatum \NC \NR
----\NC dictionary    \NC dictionary userdatum \NC \NR
----\NC stream        \NC stream userdatum (with related dictionary) \NC \NR
----\NC reference     \NC reference userdatum \NC \NR
+---\BC \PDF          \BC *Lua* 
+--- null           nil 
+--- boolean        boolean 
+--- integer        integer 
+--- float          number 
+--- name           string 
+--- string         string 
+--- array          array userdatum 
+--- dictionary     dictionary userdatum 
+--- stream         stream userdatum (with related dictionary) 
+--- reference      reference userdatum 
 ---\stoptabulate
 ---
 ---The regular getters return these *Lua* data types but one can also get more
@@ -611,12 +611,12 @@
 ---The returned codes are:
 ---
 ---\starttabulate[|c|l|]
----\DB value       \BC explanation \NC \NR
+---\DB value       \BC explanation 
 ---\TB
----\NC `-2`  \NC the document failed to open \NC \NR
----\NC `-1`  \NC the document is (still) protected \NC \NR
----\NC `0`   \NC the document is not encrypted \NC \NR
----\NC `2`   \NC the document has been unencrypted \NC \NR
+--- `-2`   the document failed to open 
+--- `-1`   the document is (still) protected 
+--- `0`    the document is not encrypted 
+--- `2`    the document has been unencrypted 
 ---\LL
 ---\stoptabulate
 ---
@@ -629,7 +629,7 @@
 ---
 ---\stopsubsection
 ---
----\startsubsection[title={`getsize`, `getversion`, `getnofobjects`, `getnofpages`, \type{getmemoryusage}}]
+---\startsubsection[title={`getsize`, `getversion`, `getnofobjects`, `getnofpages`, `getmemoryusage`}]
 ---
 ---\libindex {getsize}
 ---\libindex {getversion}
@@ -693,7 +693,7 @@
 ---
 ---\stopsubsection
 ---
----\startsubsection[title={`get[string|integer|number|boolean|name]`, \type{type}}]
+---\startsubsection[title={`get[string|integer|number|boolean|name]`, `type`}]
 ---
 ---\libindex {getstring}
 ---\libindex {getinteger}
@@ -813,18 +813,18 @@
 ---```
 ---
 ---\starttabulate[|c|l|l|l|]
----\DB type       \BC meaning    \BC value            \BC detail \NC \NR
----\NC `0`  \NC none       \NC nil              \NC \NC \NR
----\NC `1`  \NC null       \NC nil              \NC \NC \NR
----\NC `2`  \NC boolean    \NC 1 or 0           \NC \NC \NR
----\NC `3`  \NC integer    \NC integer          \NC \NC \NR
----\NC `4`  \NC number     \NC float            \NC \NC \NR
----\NC `5`  \NC name       \NC string           \NC \NC \NR
----\NC `6`  \NC string     \NC string           \NC hex \NC \NR
----\NC `7`  \NC array      \NC arrayobject      \NC size \NC \NR
----\NC `8`  \NC dictionary \NC dictionaryobject \NC size \NC \NR
----\NC `9`  \NC stream     \NC streamobject     \NC dictionary size \NC \NR
----\NC `10` \NC reference  \NC integer          \NC \NC \NR
+---\DB type       \BC meaning    \BC value            \BC detail 
+--- `0`   none        nil               
+--- `1`   null        nil               
+--- `2`   boolean     1 or 0            
+--- `3`   integer     integer           
+--- `4`   number      float             
+--- `5`   name        string            
+--- `6`   string      string            hex 
+--- `7`   array       arrayobject       size 
+--- `8`   dictionary  dictionaryobject  size 
+--- `9`   stream      streamobject      dictionary size 
+--- `10`  reference   integer           
 ---\LL
 ---\stoptabulate
 ---
@@ -881,15 +881,15 @@
 ---The `pdfe.new` that takes three arguments:
 ---
 ---\starttabulate
----\DB value           \BC explanation      \NC \NR
+---\DB value           \BC explanation      
 ---\TB
----\NC `stream`  \NC this is a (in low level *Lua* speak) light userdata
----                        object, i.e.\ a pointer to a sequence of bytes \NC \NR
----\NC `length`  \NC this is the length of the stream in bytes (the stream can
----                        have embedded zeros) \NC \NR
----\NC `name`    \NC optional, this is a unique identifier that is used for
+--- `stream`   this is a (in low level *Lua* speak) light userdata
+---                        object, i.e.\ a pointer to a sequence of bytes 
+--- `length`   this is the length of the stream in bytes (the stream can
+---                        have embedded zeros) 
+--- `name`     optional, this is a unique identifier that is used for
 ---                        hashing the stream, so that multiple doesn't use more
----                        memory \NC \NR
+---                        memory 
 ---\LL
 ---\stoptabulate
 ---
@@ -1024,16 +1024,16 @@
 ---The list of possible operand types and associated *Lua* value types is:
 ---
 ---\starttabulate[|l|l|]
----\DB types           \BC type      \NC \NR
+---\DB types           \BC type      
 ---\TB
----\NC \type{integer}  \NC <number>  \NC \NR
----\NC \type{real}     \NC <number>  \NC \NR
----\NC \type{boolean}  \NC <boolean> \NC \NR
----\NC \type{name}     \NC <string>  \NC \NR
----\NC \type{operator} \NC <string>  \NC \NR
----\NC \type{string}   \NC <string>  \NC \NR
----\NC \type{array}    \NC <table>   \NC \NR
----\NC \type{dict}     \NC <table>   \NC \NR
+--- `integer`   <number>  
+--- `real`      <number>  
+--- `boolean`   <boolean> 
+--- `name`      <string>  
+--- `operator`  <string>  
+--- `string`    <string>  
+--- `array`     <table>   
+--- `dict`      <table>   
 ---\LL
 ---\stoptabulate
 ---
@@ -1064,16 +1064,16 @@
 ---There are a few more methods defined that you can ask `scanner`:
 ---
 ---\starttabulate[|l|p|]
----\DB method               \BC explanation \NC \NR
+---\DB method               \BC explanation 
 ---\TB
----\NC \type{pop}           \NC see above \NC \NR
----\NC \type{popnumber}     \NC return only the value of a `real` or `integer` \NC \NR
----\NC \type{popname}       \NC return only the value of a `name` \NC \NR
----\NC \type{popstring}     \NC return only the value of a `string` \NC \NR
----\NC \type{poparray}      \NC return only the value of a `array` \NC \NR
----\NC \type{popdictionary} \NC return only the value of a `dict` \NC \NR
----\NC \type{popboolean}    \NC return only the value of a `boolean` \NC \NR
----\NC \type{done}          \NC abort further processing of this `scan()` call \NC \NR
+--- `pop`            see above 
+--- `popnumber`      return only the value of a `real` or `integer` 
+--- `popname`        return only the value of a `name` 
+--- `popstring`      return only the value of a `string` 
+--- `poparray`       return only the value of a `array` 
+--- `popdictionary`  return only the value of a `dict` 
+--- `popboolean`     return only the value of a `boolean` 
+--- `done`           abort further processing of this `scan()` call 
 ---\LL
 ---\stoptabulate
 ---

@@ -87,19 +87,19 @@
 ---commands that relate to then. Here are a few:
 ---
 ---\starttabulate[|l|l|p|]
----\DB command                \BC node          \BC explanation \NC \NR
+---\DB command                \BC node          \BC explanation 
 ---\TB
----\NC `hbox`            \NC `hlist` \NC horizontal box \NC \NR
----\NC `vbox`            \NC `vlist` \NC vertical box with the baseline at the bottom \NC \NR
----\NC `vtop`            \NC `vlist` \NC vertical box with the baseline at the top \NC \NR
----\NC `hskip`           \NC `glue`  \NC horizontal skip with optional stretch and shrink \NC \NR
----\NC `vskip`           \NC `glue`  \NC vertical skip with optional stretch and shrink \NC \NR
----\NC `kern`            \NC `kern`  \NC horizontal or vertical fixed skip \NC \NR
----\NC `discretionary`   \NC `disc`  \NC hyphenation point (pre, post, replace) \NC \NR
----\NC `char`            \NC `glyph` \NC a character \NC \NR
----\NC `hrule`           \NC `rule`  \NC a horizontal rule \NC \NR
----\NC `vrule`           \NC `rule`  \NC a vertical rule \NC \NR
----\NC `textdir(ection)` \NC `dir`   \NC a change in text direction \NC \NR
+--- `hbox`             `hlist`  horizontal box 
+--- `vbox`             `vlist`  vertical box with the baseline at the bottom 
+--- `vtop`             `vlist`  vertical box with the baseline at the top 
+--- `hskip`            `glue`   horizontal skip with optional stretch and shrink 
+--- `vskip`            `glue`   vertical skip with optional stretch and shrink 
+--- `kern`             `kern`   horizontal or vertical fixed skip 
+--- `discretionary`    `disc`   hyphenation point (pre, post, replace) 
+--- `char`             `glyph`  a character 
+--- `hrule`            `rule`   a horizontal rule 
+--- `vrule`            `rule`   a vertical rule 
+--- `textdir(ection)`  `dir`    a change in text direction 
 ---\LL
 ---\stoptabulate
 ---

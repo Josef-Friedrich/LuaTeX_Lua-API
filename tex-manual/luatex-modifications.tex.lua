@@ -295,15 +295,15 @@
 ---[sec:imagedandforms], we now have:
 ---
 ---\starttabulate[|l|l|]
----\DB *LuaTeX* \BC \PDFTEX \NC \NR
+---\DB *LuaTeX* \BC \PDFTEX 
 ---\TB
----\NC `saveboxresource`             \NC \orm {pdfxform}           \NC \NR
----\NC `saveimageresource`           \NC \orm {pdfximage}          \NC \NR
----\NC `useboxresource`              \NC \orm {pdfrefxform}        \NC \NR
----\NC `useimageresource`            \NC \orm {pdfrefximage}       \NC \NR
----\NC `lastsavedboxresourceindex`   \NC \orm {pdflastxform}       \NC \NR
----\NC `lastsavedimageresourceindex` \NC \orm {pdflastximage}      \NC \NR
----\NC `lastsavedimageresourcepages` \NC \orm {pdflastximagepages} \NC \NR
+--- `saveboxresource`              \orm {pdfxform}           
+--- `saveimageresource`            \orm {pdfximage}          
+--- `useboxresource`               \orm {pdfrefxform}        
+--- `useimageresource`             \orm {pdfrefximage}       
+--- `lastsavedboxresourceindex`    \orm {pdflastxform}       
+--- `lastsavedimageresourceindex`  \orm {pdflastximage}      
+--- `lastsavedimageresourcepages`  \orm {pdflastximagepages} 
 ---\LL
 ---\stoptabulate
 ---
@@ -393,7 +393,7 @@
 ---    characters have to be given. The original *TeX* interpretation is still valid
 ---    for the `^^` case but the four and six variants do no backtracking,
 ---    i.e.\ when they are not followed by the right number of hexadecimal digits
----    they issue an error message. Because \type{^^^} is a normal *TeX* case, we
+---    they issue an error message. Because `^^^` is a normal *TeX* case, we
 ---    don't support the odd number of `^^^^^` either.
 ---
 ---
@@ -512,7 +512,7 @@
 ---
 ---\stopsubsection
 ---
----\startsubsection[title={\lpr{pdfextension}, `pdfvariable` and `pdffeedback`},reference=sec:pdfextensions]
+---\startsubsection[title={`pdfextension`, `pdfvariable` and `pdffeedback`},reference=sec:pdfextensions]
 ---
 ---In order for *LuaTeX* to be more than just *TeX* you need to enable primitives. That
 ---has already been the case right from the start. If you want the traditional \PDFTEX\
@@ -1076,21 +1076,21 @@
 ---difference. Watch your spaces.
 ---
 ---\def\ShowSome#1{%
----    \BC \type{#1}
----    \NC \breakafterdirmode\zerocount\hsize\zeropoint#1
----    \NC
----    \NC \breakafterdirmode\plusone\hsize\zeropoint#1
----    \NC
----    \NC \NR
+---    \BC `#1`
+---     \breakafterdirmode\zerocount\hsize\zeropoint#1
+---    
+---     \breakafterdirmode\plusone\hsize\zeropoint#1
+---    
+---    
 ---}
 ---
 ---\starttabulate[|l|Tp(1pt)|w(5em)|Tp(1pt)|w(5em)|]
 ---    \DB
----    \BC \type{0}
----    \NC
----    \BC \type{1}
----    \NC
----    \NC \NR
+---    \BC `0`
+---    
+---    \BC `1`
+---    
+---    
 ---    \TB
 ---    \ShowSome{pre {\textdir TLT xxx} post}
 ---    \ShowSome{pre {\textdir TLT xxx }post}
@@ -1110,12 +1110,12 @@
 ---`shapemode`:
 ---
 ---\starttabulate[|c|l|l|]
----\DB value    \BC `hangindent` \BC `parshape` \NC \NR
+---\DB value    \BC `hangindent` \BC `parshape` 
 ---\TB
----\BC \type{0} \NC  normal             \NC normal            \NC \NR
----\BC \type{1} \NC  mirrored           \NC normal            \NC \NR
----\BC \type{2} \NC  normal             \NC mirrored          \NC \NR
----\BC \type{3} \NC  mirrored           \NC mirrored          \NC \NR
+---\BC `0`   normal              normal            
+---\BC `1`   mirrored            normal            
+---\BC `2`   normal              mirrored          
+---\BC `3`   mirrored            mirrored          
 ---\LL
 ---\stoptabulate
 ---
@@ -1180,12 +1180,12 @@
 ---*LuaTeX* we also have a number based model which sometimes makes more sense.
 ---
 ---\starttabulate[|c|l|l|]
----\DB value     \BC equivalent \NC \NR
+---\DB value     \BC equivalent 
 ---\TB
----\BC `0` \NC TLT \NC \NR
----\BC `1` \NC TRT \NC \NR
----\BC `2` \NC LTL \NC \NR
----\BC `3` \NC RTT \NC \NR
+---\BC `0`  TLT 
+---\BC `1`  TRT 
+---\BC `2`  LTL 
+---\BC `3`  RTT 
 ---\LL
 ---\stoptabulate
 ---

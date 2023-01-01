@@ -1,5 +1,5 @@
 ---@meta
---- https://github.com/TeX-Live/luatex/blob/trunk/manual/luatex-nodes.tex
+
 ---The node library contains functions that facilitate dealing with (lists of) nodes and their values.
 ---They allow you to create, alter, copy, delete, and insert LuaTEX node objects, the core objects
 ---within the typesetter.
@@ -38,90 +38,6 @@
 ---There are statistics available with regards to the allocated node memory, which can be handy
 ---for tracing.
 node = {}
-
--- https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L49
-
----@class Node
----@field next Node|nil # the next node in a list, or nil
----@field prev Node|nil
----@field id number # the node’s type (id) number
----@field subtype number # the node subtype identifier
----@field head? Node
----@field attr Node # list of attributes
-
----@alias RuleNodeSubtype
----|0 # normal
----|1 # box
----|2 # image
----|3 # empty
----|4 # user
----|5 # over
----|6 # under,
----|7 # fraction
----|8 # radical
----|9 # outline
-
----
----Contrary to traditional *TeX*, *LuaTeX* has more `rule` subtypes because we
----also use rules to store reuseable objects and images. User nodes are invisible
----and can be intercepted by a callback.
----
----The `left` and `right` keys are somewhat special (and experimental).
----When rules are auto adapting to the surrounding box width you can enforce a shift
----to the right by setting `left`. The value is also subtracted from the width
----which can be a value set by the engine itself and is not entirely under user
----control. The `right` is also subtracted from the width. It all happens in
----the backend so these are not affecting the calculations in the frontend (actually
----the auto settings also happen in the backend). For a vertical rule `left`
----affects the height and `right` affects the depth. There is no matching
----interface at the *TeX* end (although we can have more keywords for rules it would
----complicate matters and introduce a speed penalty.) However, you can just
----construct a rule node with *Lua* and write it to the *TeX* input. The `outline` subtype is just a convenient variant and the `transform` field
----specifies the width of the outline.
----
----@class RuleNode: Node
----@field subtype RuleNodeSubtype
----@field width integer # the width of the rule where the special value −1073741824 is used for ‘running’ glue dimensions
----@field height integer # the height of the rule (can be negative)
----@field depth integer # the depth of the rule (can be negative)
----@field left integer # shift at the left end (also subtracted from width)
----@field right integer # (subtracted from width)
----@field dir DirectionSpecifier the direction of this rule
----@field index integer # an optional index that can be referred too
----@field transform integer # an private variable (also used to specify outline width)
-
----@class WhatsitNode: Node
----@field type number
----@field user_id number
----@field value number
-
----
----From the pdfTeX manual:
----
----`\pdfcolorstack ⟨stack number⟩ ⟨stack action⟩ ⟨general text⟩`
----
----The command operates on the stack of a given number. If ⟨stack action⟩ is `push` keyword, the
----new value provided as ⟨general text⟩ is inserted into the top of the graphic stack and becomes
----the current stack value. If followed by `pop`, the top value is removed from the stack and the
----new top value becomes the current. `set` keyword replaces the current value with ⟨general text⟩
----without changing the stack size. `current` keyword instructs just to use the current stack value
----without modifying the stack at all.
----
-------
----Source: [pdftex-t.tex#L3954-L3980](https://github.com/tex-mirror/pdftex/blob/6fb2352aa70a23ad3830f1434613170be3f3cd74/doc/manual/pdftex-t.tex#L3954-L3980)
----Source: [luatex-nodes.tex#L1097-L1107](https://github.com/TeX-Live/luatex/blob/e1cb50f34dc1451c9c5319dc953305b52a7a96fd/manual/luatex-nodes.tex#L1097-L1107)
----
----@class PdfColorstackWhatsitNode: WhatsitNode
----@field stack integer # The colorstack id number.
----@field command integer # The command to execute. ⟨stack action⟩ → set (0) | push (1) | pop (2) | current (3) [texnodes.c#L3523-L3545](https://github.com/TeX-Live/luatex/blob/6472bd794fea67de09f01e1a89e9b12141be7474/source/texk/web2c/luatexdir/tex/texnodes.c#L3523-L3545)
----@field data string # General text that is placed on top of the stack, for example `1 0 0 rg 1 0 0 RG`. `rg` only colors filled outlines while the stroke color is set with `RG`. From the [PDF Reference, fourth edition](https://opensource.adobe.com/dc-acrobat-sdk-docs/pdfstandards/pdfreference1.5_v6.pdf), 4.5.7 Color Operators Page 251: `gray G`: Set the stroking color space to DeviceGray. `gray` is a number between 0.0 (black) and 1.0 (white). `gray g`: Same as `G`, but for nonstroking operations. `r g b RG`: Set the stroking color space to DeviceRGB. Each operand must be a number between 0.0 (minimum intensity) and 1.0 (maximum intensity). `r g b rg`: same as `RG`, but for nonstroking operations. `c m y k K`: Set the stroking color space to DeviceCMYK. Each operand must be a number between 0.0 (zero concentration) and 1.0 (maximum concentration). `c m y k k`: Same as `K`, but for nonstroking operations.
-
----@class HlistNode: Node
----@field head Node
----@field glue_set number
----@field glue_sign number
----@field glue_order number
----@field width number
 
 ---*LuaTeX* only understands 4 of the 16 direction specifiers of aleph: `TLT` (latin), `TRT` (arabic), `RTT` (cjk), `LTL` (mongolian). All other direction specifiers generate an error. In addition to a keyword driven model we also provide an integer driven one.
 ---@alias DirectionSpecifier
@@ -182,6 +98,166 @@ node = {}
 ---| "passive"
 ---| "shape"
 
+---A number in the range `[0,4]` indicating the glue order.
+---@alias GlueOrder 0|1|2|3|4
+
+---The calculated glue ratio.
+---@alias GlueSet number
+
+---@alias GlueSign
+---|0 # `normal`,
+---|1 # `stretching`,
+---|2 # `shrinking`
+
+---
+---These are the nodes that comprise actual typesetting commands. A few fields are
+---present in all nodes regardless of their type, these are:
+------
+---Source: [luatex-nodes.tex#L49-L76](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L49-L76)
+---@class Node
+---@field next Node|nil # the next node in a list, or nil
+---@field prev Node|nil # That prev field is always present, but only initialized on explicit request: when the function `node.slide()` is called, it will set up the `prev` fields to be a backwards pointer in the argument node list. By now most of *TeX*'s node processing makes sure that the `prev` nodes are valid but there can be exceptions, especially when the internal magic uses a leading `temp` nodes to temporarily store a state.
+---@field id integer # the node’s type (id) number
+---@field subtype integer # the node subtype identifier. The `subtype` is sometimes just a dummy entry because not all nodes actually use the `subtype`, but this way you can be sure that all nodes accept it as a valid field name, and that is often handy in node list traversal.
+---@field head? Node
+---@field attr Node # list of attributes. almost all nodes also have an `attr` field
+
+---@alias HlistNodeSubtype
+---|0 # unknown
+---|1 # line
+---|2 # box
+---|3 # indent
+---|4 # alignment
+---|5 # cell
+---|6 # equation
+---|7 # equationnumber
+---|8 # math
+---|9 # mathchar
+---|10 # hextensible
+---|11 # vextensible
+---|12 # hdelimiter
+---|13 # vdelimiter
+---|14 # overdelimiter
+---|15 # underdelimiter
+---|16 # numerator
+---|17 # denominator
+---|18 # limits
+---|19 # fraction
+---|20 # nucleus
+---|21 # sup
+---|22 # sub
+---|23 # degree
+---|24 # scripts
+---|25 # over
+---|26 # under
+---|27 # accent
+---|28 # radical
+
+---
+---A warning: never assign a node list to the `head` field unless you are sure
+---its internal link structure is correct, otherwise an error may result.
+---
+---Note: the field name `head` and `list` are both valid. Sometimes it
+---makes more sense to refer to a list by `head`, sometimes `list` makes
+---more sense.
+------
+---Source: [luatex-nodes.tex#L78-L108](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L78-L108)
+---@class HlistNode: Node
+---@field subtype HlistNodeSubtype
+---@field width number # the width of the box
+---@field height number # the height of the box
+---@field depth number # the depth of the box
+---@field shift number # a displacement perpendicular to the character progression direction
+---@field glue_order GlueOrder
+---@field glue_set GlueSet
+---@field glue_sign GlueSign
+---@field head Node # the first node of the body of this list
+---@field list Node # the first node of the body of this list
+---@field dir DirectionSpecifier
+
+---@alias RuleNodeSubtype
+---|0 # normal
+---|1 # box
+---|2 # image
+---|3 # empty
+---|4 # user
+---|5 # over
+---|6 # under,
+---|7 # fraction
+---|8 # radical
+---|9 # outline
+
+---
+---Contrary to traditional *TeX*, *LuaTeX* has more `rule` subtypes because we
+---also use rules to store reuseable objects and images. User nodes are invisible
+---and can be intercepted by a callback.
+---
+---The `left` and `right` keys are somewhat special (and experimental).
+---When rules are auto adapting to the surrounding box width you can enforce a shift
+---to the right by setting `left`. The value is also subtracted from the width
+---which can be a value set by the engine itself and is not entirely under user
+---control. The `right` is also subtracted from the width. It all happens in
+---the backend so these are not affecting the calculations in the frontend (actually
+---the auto settings also happen in the backend). For a vertical rule `left`
+---affects the height and `right` affects the depth. There is no matching
+---interface at the *TeX* end (although we can have more keywords for rules it would
+---complicate matters and introduce a speed penalty.) However, you can just
+---construct a rule node with *Lua* and write it to the *TeX* input. The `outline` subtype is just a convenient variant and the `transform` field
+---specifies the width of the outline.
+------
+---Source: [luatex-nodes.tex#L119-L157](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L119-L157)
+---@class RuleNode: Node
+---@field subtype RuleNodeSubtype
+---@field width integer # the width of the rule where the special value −1073741824 is used for ‘running’ glue dimensions
+---@field height integer # the height of the rule (can be negative)
+---@field depth integer # the depth of the rule (can be negative)
+---@field left integer # shift at the left end (also subtracted from width)
+---@field right integer # (subtracted from width)
+---@field dir DirectionSpecifier the direction of this rule
+---@field index integer # an optional index that can be referred too
+---@field transform integer # an private variable (also used to specify outline width)
+
+---Whatsit nodes come in many subtypes that you can ask for them by running
+---`node.whatsits`.
+---
+---Some of them are generic and independent of the output mode and others are
+---specific to the chosen backend: \DVI\ or \PDF. Here we discuss the generic
+---font-end nodes nodes.
+---
+---Source: [luatex-nodes.tex#L781-L797](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L781-L797)
+---@class WhatsitNode: Node
+
+---User-defined whatsit nodes can only be created and handled from *Lua* code. In
+---effect, they are an extension to the extension mechanism. The *LuaTeX* engine
+---will simply step over such whatsits without ever looking at the contents.
+---
+------
+---Source: [luatex-nodes.tex#L833-L864](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L833-L864)
+---@class UserDefinedWhatsitNode: WhatsitNode
+---@field user_id number # id number
+---@field type 97|100|108|110|115|116 # The `type` can have one of six distinct values. The number is the ASCII value if the first character of the type name (so you can use string.byte("l") instead of `108`): 97 “a” list of attributes (a node list), 100 “d” a *Lua* number, 108 “l” a *Lua* value (table, number, boolean, etc), 110 “n” a node list, 115 “s” a *Lua* string, 116 “t” a *Lua* token list in *Lua* table form (a list of triplets).
+---@field value number|Node|string|table
+
+---
+---From the pdfTeX manual:
+---
+---`\pdfcolorstack ⟨stack number⟩ ⟨stack action⟩ ⟨general text⟩`
+---
+---The command operates on the stack of a given number. If ⟨stack action⟩ is `push` keyword, the
+---new value provided as ⟨general text⟩ is inserted into the top of the graphic stack and becomes
+---the current stack value. If followed by `pop`, the top value is removed from the stack and the
+---new top value becomes the current. `set` keyword replaces the current value with ⟨general text⟩
+---without changing the stack size. `current` keyword instructs just to use the current stack value
+---without modifying the stack at all.
+------
+---Source: [pdftex-t.tex#L3954-L3980](https://github.com/tex-mirror/pdftex/blob/6fb2352aa70a23ad3830f1434613170be3f3cd74/doc/manual/pdftex-t.tex#L3954-L3980)
+---Source: [luatex-nodes.tex#L1097-L1107](https://github.com/TeX-Live/luatex/blob/e1cb50f34dc1451c9c5319dc953305b52a7a96fd/manual/luatex-nodes.tex#L1097-L1107)
+---
+---@class PdfColorstackWhatsitNode: WhatsitNode
+---@field stack integer # The colorstack id number.
+---@field command integer # The command to execute. ⟨stack action⟩ → set (0) | push (1) | pop (2) | current (3) [texnodes.c#L3523-L3545](https://github.com/TeX-Live/luatex/blob/6472bd794fea67de09f01e1a89e9b12141be7474/source/texk/web2c/luatexdir/tex/texnodes.c#L3523-L3545)
+---@field data string # General text that is placed on top of the stack, for example `1 0 0 rg 1 0 0 RG`. `rg` only colors filled outlines while the stroke color is set with `RG`. From the [PDF Reference, fourth edition](https://opensource.adobe.com/dc-acrobat-sdk-docs/pdfstandards/pdfreference1.5_v6.pdf), 4.5.7 Color Operators Page 251: `gray G`: Set the stroking color space to DeviceGray. `gray` is a number between 0.0 (black) and 1.0 (white). `gray g`: Same as `G`, but for nonstroking operations. `r g b RG`: Set the stroking color space to DeviceRGB. Each operand must be a number between 0.0 (minimum intensity) and 1.0 (maximum intensity). `r g b rg`: same as `RG`, but for nonstroking operations. `c m y k K`: Set the stroking color space to DeviceCMYK. Each operand must be a number between 0.0 (zero concentration) and 1.0 (maximum concentration). `c m y k k`: Same as `K`, but for nonstroking operations.
+
 ---
 ---This function returns a number (the internal index of the node) if the argument is a userdata
 ---object of type <node> and false when no node is passed.
@@ -193,6 +269,7 @@ node = {}
 ---@return boolean|integer t
 function node.is_node(item) end
 
+---
 ---This function returns an array that maps node id numbers to node type strings, providing an
 ---overview of the possible top-level `id` types.
 ------
@@ -237,7 +314,7 @@ function node.new(id, subtype) end
 
 ---
 ---This function calculates the natural in-line dimensions of the end of the node list starting
----at node `n`.  The return values are scaled points.
+---at node `n`. The return values are scaled points.
 ---
 ---You need to keep in mind that this is one of the few places in *TeX* where floats
 ---are used, which means that you can get small differences in rounding when you
@@ -251,7 +328,7 @@ function node.new(id, subtype) end
 ---@return integer w # scaled points
 ---@return integer h # scaled points
 ---@return integer d # scaled points
-function node.dimension(n, dir) end
+function node.dimensions(n, dir) end
 
 ---This function calculates the natural in-line dimensions of the node list starting
 ---at node `n` and terminating just before node `t`.
@@ -265,7 +342,7 @@ function node.dimension(n, dir) end
 ---@return integer w # scaled points
 ---@return integer h # scaled points
 ---@return integer d # scaled points
-function node.dimension(n, t, dir) end
+function node.dimensions(n, t, dir) end
 
 ---
 ---This function calculates the natural in-line dimensions of the end of the node list starting
@@ -302,7 +379,7 @@ function node.dimension(n, t, dir) end
 ---@return integer w # scaled points
 ---@return integer h # scaled points
 ---@return integer d # scaled points
-function node.dimension(glue_set, glue_sign, glue_order, n, dir) end
+function node.dimensions(glue_set, glue_sign, glue_order, n, dir) end
 
 ---This function calculates the natural in-line dimensions of the node list starting
 ---at node `n` and terminating just before node `t`.
@@ -322,7 +399,7 @@ function node.dimension(glue_set, glue_sign, glue_order, n, dir) end
 ---@return integer w # scaled points
 ---@return integer h # scaled points
 ---@return integer d # scaled points
-function node.dimension(glue_set, glue_sign, glue_order, n, t, dir) end
+function node.dimensions(glue_set, glue_sign, glue_order, n, t, dir) end
 
 ---
 ---This function removes the node `current` from the list following `head`. It is your responsibility to make sure it is really part of that list.

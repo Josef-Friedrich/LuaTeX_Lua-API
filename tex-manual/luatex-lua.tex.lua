@@ -65,39 +65,39 @@
 ---consequence. The following command-line options are understood:
 ---
 ---\starttabulate[|l|p|]
----\DB commandline argument                \BC explanation \NC \NR
+---\DB commandline argument                \BC explanation 
 ---\TB
----\NC \type{--credits}                    \NC display credits and exit \NC \NR
----\NC \type{--debug-format}               \NC enable format debugging \NC \NR
----\NC \type{--draftmode}                  \NC switch on draft mode i.e.\ generate no output in \PDF\ mode \NC \NR
----\NC \type{--[no-]file-line-error}       \NC disable/enable `file:line:error` style messages \NC \NR
----\NC \type{--[no-]file-line-error-style} \NC aliases of `--[no-]file-line-error` \NC \NR
----\NC \type{--fmt=FORMAT}                 \NC load the format file `FORMAT` \NC\NR
----\NC \type{--halt-on-error}              \NC stop processing at the first error\NC \NR
----\NC \type{--help}                       \NC display help and exit \NC\NR
----\NC \type{--ini}                        \NC be `iniluatex`, for dumping formats \NC\NR
----\NC \type{--interaction=STRING}         \NC set interaction mode: `batchmode`, `nonstopmode`,
----                                            `scrollmode` or `errorstopmode` \NC \NR
----\NC \type{--jobname=STRING}             \NC set the job name to `STRING` \NC \NR
----\NC \type{--kpathsea-debug=NUMBER}      \NC set path searching debugging flags according to the bits of
----                                           `NUMBER` \NC \NR
----\NC \type{--lua=FILE}                   \NC load and execute a *Lua* initialization script \NC\NR
----\NC \type{--[no-]mktex=FMT}             \NC disable/enable `mktexFMT` generation with `FMT` is
----                                            `tex` or `tfm` \NC \NR
----\NC \type{--nosocket}                   \NC disable the *Lua* socket library \NC\NR
----\NC \type{--output-comment=STRING}      \NC use `STRING` for \DVI\ file comment instead of date (no
----                                            effect for \PDF) \NC \NR
----\NC \type{--output-directory=DIR}       \NC use `DIR` as the directory to write files to \NC \NR
----\NC \type{--output-format=FORMAT}       \NC use `FORMAT` for job output; `FORMAT` is `dvi`
----                                            or `pdf` \NC \NR
----\NC \type{--progname=STRING}            \NC set the program name to `STRING` \NC \NR
----\NC \type{--recorder}                   \NC enable filename recorder \NC \NR
----\NC \type{--safer}                      \NC disable easily exploitable *Lua* commands \NC\NR
----\NC \type{--[no-]shell-escape}          \NC disable/enable system calls \NC \NR
----\NC \type{--shell-restricted}           \NC restrict system calls to a list of commands given in `texmf.cnf` \NC \NR
----\NC \type{--synctex=NUMBER}             \NC enable `synctex` \NC \NR
----\NC \type{--utc}                        \NC use utc times when applicable \NC \NR
----\NC \type{--version}                    \NC display version and exit \NC \NR
+--- `--credits`                     display credits and exit 
+--- `--debug-format`                enable format debugging 
+--- `--draftmode`                   switch on draft mode i.e.\ generate no output in \PDF\ mode 
+--- `--[no-]file-line-error`        disable/enable `file:line:error` style messages 
+--- `--[no-]file-line-error-style`  aliases of `--[no-]file-line-error` 
+--- `--fmt=FORMAT`                  load the format file `FORMAT` \NR
+--- `--halt-on-error`               stop processing at the first error
+--- `--help`                        display help and exit \NR
+--- `--ini`                         be `iniluatex`, for dumping formats \NR
+--- `--interaction=STRING`          set interaction mode: `batchmode`, `nonstopmode`,
+---                                            `scrollmode` or `errorstopmode` 
+--- `--jobname=STRING`              set the job name to `STRING` 
+--- `--kpathsea-debug=NUMBER`       set path searching debugging flags according to the bits of
+---                                           `NUMBER` 
+--- `--lua=FILE`                    load and execute a *Lua* initialization script \NR
+--- `--[no-]mktex=FMT`              disable/enable `mktexFMT` generation with `FMT` is
+---                                            `tex` or `tfm` 
+--- `--nosocket`                    disable the *Lua* socket library \NR
+--- `--output-comment=STRING`       use `STRING` for \DVI\ file comment instead of date (no
+---                                            effect for \PDF) 
+--- `--output-directory=DIR`        use `DIR` as the directory to write files to 
+--- `--output-format=FORMAT`        use `FORMAT` for job output; `FORMAT` is `dvi`
+---                                            or `pdf` 
+--- `--progname=STRING`             set the program name to `STRING` 
+--- `--recorder`                    enable filename recorder 
+--- `--safer`                       disable easily exploitable *Lua* commands \NR
+--- `--[no-]shell-escape`           disable/enable system calls 
+--- `--shell-restricted`            restrict system calls to a list of commands given in `texmf.cnf` 
+--- `--synctex=NUMBER`              enable `synctex` 
+--- `--utc`                         use utc times when applicable 
+--- `--version`                     display version and exit 
 ---\LL
 ---\stoptabulate
 ---
@@ -152,13 +152,13 @@
 ---    \blank
 ---
 ---    \starttabulate[|c|l|]
----        \DB library     \BC functions \NC \NR
+---        \DB library     \BC functions 
 ---        \TB
----        \NC `os`  \NC `execute` `exec` `spawn` `setenv`
----                            `rename` `remove` `tmpdir` \NC \NR
----        \NC `io`  \NC `popen` `output` `tmpfile` \NC \NR
----        \NC `lfs` \NC `rmdir` `mkdir` `chdir` `lock`
----                            `touch` \NC \NR
+---         `os`   `execute` `exec` `spawn` `setenv`
+---                            `rename` `remove` `tmpdir` 
+---         `io`   `popen` `output` `tmpfile` 
+---         `lfs`  `rmdir` `mkdir` `chdir` `lock`
+---                            `touch` 
 ---        \LL
 ---    \stoptabulate
 ---
@@ -525,24 +525,24 @@
 ---in addition to the regular `io` library functions.
 ---
 ---\starttabulate
----\NC \type{readcardinal1(f)}         \NC a 1 byte unsigned integer \NC \NR
----\NC \type{readcardinal2(f)}         \NC a 2 byte unsigned integer \NC \NR
----\NC \type{readcardinal3(f)}         \NC a 3 byte unsigned integer \NC \NR
----\NC \type{readcardinal4(f)}         \NC a 4 byte unsigned integer \NC \NR
----\NC \type{readcardinaltable(f,n,b)} \NC `n` cardinals of `b` bytes \NC \NR
----\NC \type{readinteger1(f)}          \NC a 1 byte signed integer \NC \NR
----\NC \type{readinteger2(f)}          \NC a 2 byte signed integer \NC \NR
----\NC \type{readinteger3(f)}          \NC a 3 byte signed integer \NC \NR
----\NC \type{readinteger4(f)}          \NC a 4 byte signed integer \NC \NR
----\NC \type{readintegertable(f,n,b)}  \NC `n` integers of `b` bytes \NC \NR
----\NC \type{readfixed2(f)}            \NC a 2 byte float (used in font files) \NC \NR
----\NC \type{readfixed4(f)}            \NC a 4 byte float (used in font files) \NC \NR
----\NC \type{read2dot14(f)}            \NC a 2 byte float (used in font files) \NC \NR
----\NC \type{setposition(f,p)}         \NC goto position `p` \NC \NR
----\NC \type{getposition(f)}           \NC get the current position \NC \NR
----\NC \type{skipposition(f,n)}        \NC skip `n` positions \NC \NR
----\NC \type{readbytes(f,n)}           \NC `n` bytes \NC \NR
----\NC \type{readbytetable(f,n)}       \NC `n` bytes\NC \NR
+--- `readcardinal1(f)`          a 1 byte unsigned integer 
+--- `readcardinal2(f)`          a 2 byte unsigned integer 
+--- `readcardinal3(f)`          a 3 byte unsigned integer 
+--- `readcardinal4(f)`          a 4 byte unsigned integer 
+--- `readcardinaltable(f,n,b)`  `n` cardinals of `b` bytes 
+--- `readinteger1(f)`           a 1 byte signed integer 
+--- `readinteger2(f)`           a 2 byte signed integer 
+--- `readinteger3(f)`           a 3 byte signed integer 
+--- `readinteger4(f)`           a 4 byte signed integer 
+--- `readintegertable(f,n,b)`   `n` integers of `b` bytes 
+--- `readfixed2(f)`             a 2 byte float (used in font files) 
+--- `readfixed4(f)`             a 4 byte float (used in font files) 
+--- `read2dot14(f)`             a 2 byte float (used in font files) 
+--- `setposition(f,p)`          goto position `p` 
+--- `getposition(f)`            get the current position 
+--- `skipposition(f,n)`         skip `n` positions 
+--- `readbytes(f,n)`            `n` bytes 
+--- `readbytetable(f,n)`        `n` bytes
 ---\stoptabulate
 ---
 ---There are eight additional little endian variants for the `cardinal[1-4]`

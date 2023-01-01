@@ -14,9 +14,9 @@
 ---    \definedfont[Bold*default at 12pt]
 ---
 ---    \starttabulate[|l|l|]
----        \NC copyright \EQ Lua\TeX\ development team \NC \NR
----        \NC more info \EQ www.luatex.org \NC \NR
----        \NC version   \EQ \currentdate \doifsomething{\documentvariable{snapshot}}{(snapshot \documentvariable{snapshot})} \NC \NR
+---         copyright \EQ Lua\TeX\ development team 
+---         more info \EQ www.luatex.org 
+---         version   \EQ \currentdate \doifsomething{\documentvariable{snapshot}}{(snapshot \documentvariable{snapshot})} 
 ---    \stoptabulate
 ---
 ---\stopstandardmakeup

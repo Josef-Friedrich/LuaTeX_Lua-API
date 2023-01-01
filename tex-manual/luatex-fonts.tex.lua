@@ -23,43 +23,43 @@
 ---the table are as follows:
 ---
 ---\starttabulate[|l|c|c|c|l|pl|]
----\DB key                     \BC vf  \BC tfm \BC used \BC value type \BC description \NC \NR
+---\DB key                     \BC vf  \BC tfm \BC used \BC value type \BC description 
 ---\TB
----\NC \type{name}             \NC yes \NC yes \NC yes  \NC string     \NC metric (file) name \NC \NR
----\NC \type{area}             \NC no  \NC yes \NC yes  \NC string     \NC (directory) location, typically empty \NC \NR
----\NC \type{used}             \NC no  \NC yes \NC yes  \NC boolean    \NC indicates usage (initial: false) \NC \NR
----\NC \type{characters}       \NC yes \NC yes \NC yes  \NC table      \NC the defined glyphs of this font \NC \NR
----\NC \type{checksum}         \NC yes \NC yes \NC no   \NC number     \NC default: 0 \NC \NR
----\NC \type{designsize}       \NC no  \NC yes \NC yes  \NC number     \NC expected size (default: 655360 == 10pt) \NC \NR
----\NC \type{direction}        \NC no  \NC yes \NC yes  \NC number     \NC default: 0 \NC \NR
----\NC \type{encodingbytes}    \NC no  \NC no  \NC yes  \NC number     \NC default: depends on `format` \NC \NR
----\NC \type{encodingname}     \NC no  \NC no  \NC yes  \NC string     \NC encoding name \NC \NR
----\NC \type{fonts}            \NC yes \NC no  \NC yes  \NC table      \NC locally used fonts \NC \NR
----\NC \type{psname}           \NC no  \NC no  \NC yes  \NC string     \NC This is the \POSTSCRIPT\ fontname in the incoming font
+--- `name`              yes  yes  yes   string      metric (file) name 
+--- `area`              no   yes  yes   string      (directory) location, typically empty 
+--- `used`              no   yes  yes   boolean     indicates usage (initial: false) 
+--- `characters`        yes  yes  yes   table       the defined glyphs of this font 
+--- `checksum`          yes  yes  no    number      default: 0 
+--- `designsize`        no   yes  yes   number      expected size (default: 655360 == 10pt) 
+--- `direction`         no   yes  yes   number      default: 0 
+--- `encodingbytes`     no   no   yes   number      default: depends on `format` 
+--- `encodingname`      no   no   yes   string      encoding name 
+--- `fonts`             yes  no   yes   table       locally used fonts 
+--- `psname`            no   no   yes   string      This is the \POSTSCRIPT\ fontname in the incoming font
 ---                                                                        source, and it's used as fontname identifier in the \PDF\
 ---                                                                        output. This has to be a valid string, e.g.\ no spaces
 ---                                                                        and such, as the backend will not do a cleanup. This gives
----                                                                        complete control to the loader. \NC \NR
----\NC \type{fullname}         \NC no  \NC no  \NC yes  \NC string     \NC output font name, used as a fallback in the \PDF\ output
----                                                                        if the `psname` is not set \NC \NR
----\NC \type{subfont}          \NC no  \NC no  \NC yes  \NC number     \NC default: 0, index in (`ttc`) font with multiple fonts \NC \NR
----\NC \type{header}           \NC yes \NC no  \NC no   \NC string     \NC header comments, if any \NC \NR
----\NC \type{hyphenchar}       \NC no  \NC no  \NC yes  \NC number     \NC default: *TeX*'s `hyphenchar` \NC \NR
----\NC \type{parameters}       \NC no  \NC yes \NC yes  \NC hash       \NC default: 7 parameters, all zero \NC \NR
----\NC \type{size}             \NC no  \NC yes \NC yes  \NC number     \NC the required scaling (by default the same as designsize) \NC \NR
----\NC \type{skewchar}         \NC no  \NC no  \NC yes  \NC number     \NC default: *TeX*'s `skewchar` \NC \NR
----\NC \type{type}             \NC yes \NC no  \NC yes  \NC string     \NC basic type of this font \NC \NR
----\NC \type{format}           \NC no  \NC no  \NC yes  \NC string     \NC disk format type \NC \NR
----\NC \type{embedding}        \NC no  \NC no  \NC yes  \NC string     \NC \PDF\ inclusion  \NC \NR
----\NC \type{filename}         \NC no  \NC no  \NC yes  \NC string     \NC the name of the font on disk \NC \NR
----\NC \type{tounicode}        \NC no  \NC yes \NC yes  \NC number     \NC When this is set to 1 *LuaTeX* assumes per-glyph
----                                                                        tounicode entries are present in the font. \NC \NR
----\NC \type{stretch}          \NC no  \NC no  \NC yes  \NC number     \NC the “stretch” value from `expandglyphsinfont` \NC \NR
----\NC \type{shrink}           \NC no  \NC no  \NC yes  \NC number     \NC the “shrink” value from `expandglyphsinfont` \NC \NR
----\NC \type{step}             \NC no  \NC no  \NC yes  \NC number     \NC the “step” value from `expandglyphsinfont` \NC \NR
----\NC \type{expansion_factor} \NC no  \NC no  \NC no   \NC number     \NC the actual expansion factor of an expanded font \NC \NR
----\NC \type{attributes}       \NC no  \NC no  \NC yes  \NC string     \NC the \orm {pdffontattr} \NC \NR
----\NC \type{cache}            \NC no  \NC no  \NC yes  \NC string     \NC This key controls caching of the *Lua* table on the
+---                                                                        complete control to the loader. 
+--- `fullname`          no   no   yes   string      output font name, used as a fallback in the \PDF\ output
+---                                                                        if the `psname` is not set 
+--- `subfont`           no   no   yes   number      default: 0, index in (`ttc`) font with multiple fonts 
+--- `header`            yes  no   no    string      header comments, if any 
+--- `hyphenchar`        no   no   yes   number      default: *TeX*'s `hyphenchar` 
+--- `parameters`        no   yes  yes   hash        default: 7 parameters, all zero 
+--- `size`              no   yes  yes   number      the required scaling (by default the same as designsize) 
+--- `skewchar`          no   no   yes   number      default: *TeX*'s `skewchar` 
+--- `type`              yes  no   yes   string      basic type of this font 
+--- `format`            no   no   yes   string      disk format type 
+--- `embedding`         no   no   yes   string      \PDF\ inclusion  
+--- `filename`          no   no   yes   string      the name of the font on disk 
+--- `tounicode`         no   yes  yes   number      When this is set to 1 *LuaTeX* assumes per-glyph
+---                                                                        tounicode entries are present in the font. 
+--- `stretch`           no   no   yes   number      the “stretch” value from `expandglyphsinfont` 
+--- `shrink`            no   no   yes   number      the “shrink” value from `expandglyphsinfont` 
+--- `step`              no   no   yes   number      the “step” value from `expandglyphsinfont` 
+--- `expansion_factor`  no   no   no    number      the actual expansion factor of an expanded font 
+--- `attributes`        no   no   yes   string      the \orm {pdffontattr} 
+--- `cache`             no   no   yes   string      This key controls caching of the *Lua* table on the
 ---                                                                        *TeX* end where `yes` means: use a reference to
 ---                                                                        the table that is passed to *LuaTeX* (this is the
 ---                                                                        default), and `no` means: don't store the
@@ -67,26 +67,26 @@
 ---                                                                        font while `renew` means: don't store the table
 ---                                                                        reference, but save a reference to the table that is
 ---                                                                        created at the first access to one of its fields in the
----                                                                        font. \NC \NR
----\NC \type{nomath}           \NC no  \NC no  \NC yes  \NC boolean    \NC This key allows a minor speedup for text fonts. If it
+---                                                                        font. 
+--- `nomath`            no   no   yes   boolean     This key allows a minor speedup for text fonts. If it
 ---                                                                        is present and true, then *LuaTeX* will not check the
----                                                                        character entries for math-specific keys. \NC \NR
----\NC \type{oldmath}          \NC no  \NC no  \NC yes  \NC boolean    \NC This key flags a font as representing an old school *TeX*
----                                                                        math font and disables the \OPENTYPE\ code path. \NC \NR
----\NC \type{slant}            \NC no  \NC no  \NC yes  \NC number     \NC This parameter will tilt the font and
+---                                                                        character entries for math-specific keys. 
+--- `oldmath`           no   no   yes   boolean     This key flags a font as representing an old school *TeX*
+---                                                                        math font and disables the \OPENTYPE\ code path. 
+--- `slant`             no   no   yes   number      This parameter will tilt the font and
 ---                                                                        does the same as `SlantFont` in the map file for
----                                                                        \TYPEONE\ fonts. \NC \NR
----\NC \type{extend}           \NC no  \NC no  \NC yes  \NC number     \NC This parameter will scale the font horizontally and
+---                                                                        \TYPEONE\ fonts. 
+--- `extend`            no   no   yes   number      This parameter will scale the font horizontally and
 ---                                                                        does the same as `ExtendFont` in the map file for
----                                                                        \TYPEONE\ fonts. \NC \NR
----\NC \type{squeeze}          \NC no  \NC no  \NC yes  \NC number     \NC This parameter will scale the font vertically and has
----                                                                        no equivalent in the map file. \NC \NR
----\NC \type{width}            \NC no  \NC no  \NC yes  \NC number     \NC The backend will inject \PDF\ operators that set the
+---                                                                        \TYPEONE\ fonts. 
+--- `squeeze`           no   no   yes   number      This parameter will scale the font vertically and has
+---                                                                        no equivalent in the map file. 
+--- `width`             no   no   yes   number      The backend will inject \PDF\ operators that set the
 ---                                                                        penwidth. The value is (as usual in *TeX*) divided by 1000.
----                                                                        It works with the `mode` file. \NC \NR
----\NC \type{mode}             \NC no  \NC no  \NC yes  \NC number     \NC The backend will inject \PDF\ operators that relate to the
+---                                                                        It works with the `mode` file. 
+--- `mode`              no   no   yes   number      The backend will inject \PDF\ operators that relate to the
 ---                                                                        drawing mode with 0 being a fill, 1 being an outline,
----                                                                        2 both draw and fill and 3 no painting at all. \NC \NR
+---                                                                        2 both draw and fill and 3 no painting at all. 
 ---\LL
 ---\stoptabulate
 ---
@@ -127,12 +127,12 @@
 ---possibilities:
 ---
 ---\starttabulate[|Tc|c|Tc|c|Tc|c|Tc|c|]
----\DB \# \BC dir \BC \# \BC dir \BC \# \BC dir \BC \# \BC dir \NC \NR
+---\DB \# \BC dir \BC \# \BC dir \BC \# \BC dir \BC \# \BC dir 
 ---\TB
----\NC  0 \NC LT  \NC  4 \NC RT  \NC  8 \NC TT  \NC 12 \NC BT  \NC \NR
----\NC  1 \NC LL  \NC  5 \NC RL  \NC  9 \NC TL  \NC 13 \NC BL  \NC \NR
----\NC  2 \NC LB  \NC  6 \NC RB  \NC 10 \NC TB  \NC 14 \NC BB  \NC \NR
----\NC  3 \NC LR  \NC  7 \NC RR  \NC 11 \NC TR  \NC 15 \NC BR  \NC \NR
+---  0  LT    4  RT    8  TT   12  BT  
+---  1  LL    5  RL    9  TL   13  BL  
+---  2  LB    6  RB   10  TB   14  BB  
+---  3  LR    7  RR   11  TR   15  BR  
 ---\LL
 ---\stoptabulate
 ---
@@ -150,15 +150,15 @@
 ---The names and their internal remapping are:
 ---
 ---\starttabulate[|l|c|]
----\DB name                  \BC remapping \NC \NR
+---\DB name                  \BC remapping 
 ---\TB
----\NC `slant`         \NC 1 \NC \NR
----\NC `space`         \NC 2 \NC \NR
----\NC `space_stretch` \NC 3 \NC \NR
----\NC `space_shrink`  \NC 4 \NC \NR
----\NC `x_height`      \NC 5 \NC \NR
----\NC `quad`          \NC 6 \NC \NR
----\NC `extra_space`   \NC 7 \NC \NR
+--- `slant`          1 
+--- `space`          2 
+--- `space_stretch`  3 
+--- `space_shrink`   4 
+--- `x_height`       5 
+--- `quad`           6 
+--- `extra_space`    7 
 ---\LL
 ---\stoptabulate
 ---
@@ -200,29 +200,29 @@
 ---The following top-level keys can be present inside a character hash:
 ---
 ---\starttabulate[|l|c|c|c|l|p|]
----\DB key                     \BC vf  \BC tfm \BC used  \BC type    \BC description \NC\NR
+---\DB key                     \BC vf  \BC tfm \BC used  \BC type    \BC description \NR
 ---\TB
----\NC \type{width}            \NC yes \NC yes \NC yes   \NC number  \NC character's width, in sp (default 0) \NC\NR
----\NC \type{height}           \NC no  \NC yes \NC yes   \NC number  \NC character's height, in sp (default 0) \NC\NR
----\NC \type{depth}            \NC no  \NC yes \NC yes   \NC number  \NC character's depth, in sp (default 0) \NC\NR
----\NC \type{italic}           \NC no  \NC yes \NC yes   \NC number  \NC character's italic correction, in sp (default zero) \NC\NR
----\NC \type{top_accent}       \NC no  \NC no  \NC maybe \NC number  \NC character's top accent alignment place, in sp (default zero) \NC\NR
----\NC \type{bot_accent}       \NC no  \NC no  \NC maybe \NC number  \NC character's bottom accent alignment place, in sp (default zero) \NC\NR
----\NC \type{left_protruding}  \NC no  \NC no  \NC maybe \NC number  \NC character's `lpcode` \NC\NR
----\NC \type{right_protruding} \NC no  \NC no  \NC maybe \NC number  \NC character's `rpcode` \NC\NR
----\NC \type{expansion_factor} \NC no  \NC no  \NC maybe \NC number  \NC character's `efcode` \NC\NR
----\NC \type{tounicode}        \NC no  \NC no  \NC maybe \NC string  \NC character's \UNICODE\ equivalent(s), in \UTF-16BE hexadecimal format \NC\NR
----\NC \type{next}             \NC no  \NC yes \NC yes   \NC number  \NC the “next larger” character index \NC\NR
----\NC \type{extensible}       \NC no  \NC yes \NC yes   \NC table   \NC the constituent parts of an extensible recipe \NC\NR
----\NC \type{vert_variants}    \NC no  \NC no  \NC yes   \NC table   \NC constituent parts of a vertical variant set \NC \NR
----\NC \type{horiz_variants}   \NC no  \NC no  \NC yes   \NC table   \NC constituent parts of a horizontal variant set \NC \NR
----\NC \type{kerns}            \NC no  \NC yes \NC yes   \NC table   \NC kerning information \NC\NR
----\NC \type{ligatures}        \NC no  \NC yes \NC yes   \NC table   \NC ligaturing information \NC\NR
----\NC \type{commands}         \NC yes \NC no  \NC yes   \NC array   \NC virtual font commands \NC\NR
----\NC \type{name}             \NC no  \NC no  \NC no    \NC string  \NC the character (\POSTSCRIPT) name \NC\NR
----\NC \type{index}            \NC no  \NC no  \NC yes   \NC number  \NC the (\OPENTYPE\ or \TRUETYPE) font glyph index \NC\NR
----\NC \type{used}             \NC no  \NC yes \NC yes   \NC boolean \NC typeset already (default: false) \NC\NR
----\NC \type{mathkern}         \NC no  \NC no  \NC yes   \NC table   \NC math cut-in specifications \NC\NR
+--- `width`             yes  yes  yes    number   character's width, in sp (default 0) \NR
+--- `height`            no   yes  yes    number   character's height, in sp (default 0) \NR
+--- `depth`             no   yes  yes    number   character's depth, in sp (default 0) \NR
+--- `italic`            no   yes  yes    number   character's italic correction, in sp (default zero) \NR
+--- `top_accent`        no   no   maybe  number   character's top accent alignment place, in sp (default zero) \NR
+--- `bot_accent`        no   no   maybe  number   character's bottom accent alignment place, in sp (default zero) \NR
+--- `left_protruding`   no   no   maybe  number   character's `lpcode` \NR
+--- `right_protruding`  no   no   maybe  number   character's `rpcode` \NR
+--- `expansion_factor`  no   no   maybe  number   character's `efcode` \NR
+--- `tounicode`         no   no   maybe  string   character's \UNICODE\ equivalent(s), in \UTF-16BE hexadecimal format \NR
+--- `next`              no   yes  yes    number   the “next larger” character index \NR
+--- `extensible`        no   yes  yes    table    the constituent parts of an extensible recipe \NR
+--- `vert_variants`     no   no   yes    table    constituent parts of a vertical variant set 
+--- `horiz_variants`    no   no   yes    table    constituent parts of a horizontal variant set 
+--- `kerns`             no   yes  yes    table    kerning information \NR
+--- `ligatures`         no   yes  yes    table    ligaturing information \NR
+--- `commands`          yes  no   yes    array    virtual font commands \NR
+--- `name`              no   no   no     string   the character (\POSTSCRIPT) name \NR
+--- `index`             no   no   yes    number   the (\OPENTYPE\ or \TRUETYPE) font glyph index \NR
+--- `used`              no   yes  yes    boolean  typeset already (default: false) \NR
+--- `mathkern`          no   no   yes    table    math cut-in specifications \NR
 ---\LL
 ---\stoptabulate
 ---
@@ -250,12 +250,12 @@
 ---very simple:
 ---
 ---\starttabulate[|l|l|p|]
----\DB key        \BC type   \BC description                \NC\NR
+---\DB key        \BC type   \BC description                \NR
 ---\TB
----\NC \type{top} \NC number \NC top character index        \NC\NR
----\NC \type{mid} \NC number \NC middle character index     \NC\NR
----\NC \type{bot} \NC number \NC bottom character index     \NC\NR
----\NC \type{rep} \NC number \NC repeatable character index \NC\NR
+--- `top`  number  top character index        \NR
+--- `mid`  number  middle character index     \NR
+--- `bot`  number  bottom character index     \NR
+--- `rep`  number  repeatable character index \NR
 ---\LL
 ---\stoptabulate
 ---
@@ -263,15 +263,15 @@
 ---Each of those components is itself a hash of up to five keys:
 ---
 ---\starttabulate[|l|l|p|]
----\DB key             \BC type   \BC explanation \NC \NR
+---\DB key             \BC type   \BC explanation 
 ---\TB
----\NC \type{glyph}    \NC number \NC The character index. Note that this is an encoding number, not a name. \NC \NR
----\NC \type{extender} \NC number \NC One (1) if this part is repeatable, zero (0) otherwise. \NC \NR
----\NC \type{start}    \NC number \NC The maximum overlap at the starting side (in scaled points). \NC \NR
----\NC \type{end}      \NC number \NC The maximum overlap at the ending side (in scaled points). \NC \NR
----\NC \type{advance}  \NC number \NC The total advance width of this item. It can be zero or missing,
+--- `glyph`     number  The character index. Note that this is an encoding number, not a name. 
+--- `extender`  number  One (1) if this part is repeatable, zero (0) otherwise. 
+--- `start`     number  The maximum overlap at the starting side (in scaled points). 
+--- `end`       number  The maximum overlap at the ending side (in scaled points). 
+--- `advance`   number  The total advance width of this item. It can be zero or missing,
 ---                                   then the natural size of the glyph for character `component`
----                                   is used. \NC \NR
+---                                   is used. 
 ---\LL
 ---\stoptabulate
 ---
@@ -284,10 +284,10 @@
 ---two fields:
 ---
 ---\starttabulate[|l|l|p|]
----\DB key         \BC type   \BC description \NC \NR
+---\DB key         \BC type   \BC description 
 ---\TB
----\NC \type{type} \NC number \NC the type of this ligature command, default 0 \NC \NR
----\NC \type{char} \NC number \NC the character index of the resultant ligature \NC \NR
+--- `type`  number  the type of this ligature command, default 0 
+--- `char`  number  the character index of the resultant ligature 
 ---\LL
 ---\stoptabulate
 ---
@@ -301,16 +301,16 @@
 ---“left”.
 ---
 ---\starttabulate[|l|c|l|l|]
----\DB textual (Knuth)       \BC number \BC string        \BC result      \NC\NR
+---\DB textual (Knuth)       \BC number \BC string        \BC result      \NR
 ---\TB
----\NC \type{l + r =: n}     \NC 0      \NC \type{=:}     \NC \type{|n}   \NC\NR
----\NC \type{l + r =:| n}    \NC 1      \NC \type{=:|}    \NC \type{|nr}  \NC\NR
----\NC \type{l + r |=: n}    \NC 2      \NC \type{|=:}    \NC \type{|ln}  \NC\NR
----\NC \type{l + r |=:| n}   \NC 3      \NC \type{|=:|}   \NC \type{|lnr} \NC\NR
----\NC \type{l + r  =:|> n}  \NC 5      \NC \type{=:|>}   \NC \type{n|r}  \NC\NR
----\NC \type{l + r |=:> n}   \NC 6      \NC \type{|=:>}   \NC \type{l|n}  \NC\NR
----\NC \type{l + r |=:|> n}  \NC 7      \NC \type{|=:|>}  \NC \type{l|nr} \NC\NR
----\NC \type{l + r |=:|>> n} \NC 11     \NC \type{|=:|>>} \NC \type{ln|r} \NC\NR
+--- `l + r =: n`      0       `=:`      `|n`   \NR
+--- `l + r =:| n`     1       `=:|`     `|nr`  \NR
+--- `l + r |=: n`     2       `|=:`     `|ln`  \NR
+--- `l + r |=:| n`    3       `|=:|`    `|lnr` \NR
+--- `l + r  =:|> n`   5       `=:|>`    `n|r`  \NR
+--- `l + r |=:> n`    6       `|=:>`    `l|n`  \NR
+--- `l + r |=:|> n`   7       `|=:|>`   `l|nr` \NR
+--- `l + r |=:|>> n`  11      `|=:|>>`  `ln|r` \NR
 ---\LL
 ---\stoptabulate
 ---
@@ -334,10 +334,10 @@
 ---\PDF. Values for `type` are:
 ---
 ---\starttabulate[|l|p|]
----\DB value          \BC description            \NC\NR
+---\DB value          \BC description            \NR
 ---\TB
----\NC \type{real}    \NC this is a base font    \NC\NR
----\NC \type{virtual} \NC this is a virtual font \NC\NR
+--- `real`     this is a base font    \NR
+--- `virtual`  this is a virtual font \NR
 ---\LL
 ---\stoptabulate
 ---
@@ -374,23 +374,23 @@
 ---encoding options.
 ---
 ---\starttabulate[|l|p|]
----\DB value           \BC description                                               \NC \NR
+---\DB value           \BC description                                               
 ---\TB
----\NC \type{type1}    \NC this is a \POSTSCRIPT\ \TYPEONE\ font                     \NC \NR
----\NC \type{type3}    \NC this is a bitmapped (\PK) font                            \NC \NR
----\NC \type{truetype} \NC this is a \TRUETYPE\ or \TRUETYPE-based \OPENTYPE\ font \NC \NR
----\NC \type{opentype} \NC this is a \POSTSCRIPT-based \OPENTYPE\ font             \NC \NR
+--- `type1`     this is a \POSTSCRIPT\ \TYPEONE\ font                     
+--- `type3`     this is a bitmapped (\PK) font                            
+--- `truetype`  this is a \TRUETYPE\ or \TRUETYPE-based \OPENTYPE\ font 
+--- `opentype`  this is a \POSTSCRIPT-based \OPENTYPE\ font             
 ---\LL
 ---\stoptabulate
 ---
 ---Valid values for the `embedding` variable are:
 ---
 ---\starttabulate[|l|p|]
----\DB value         \BC description                             \NC \NR
+---\DB value         \BC description                             
 ---\TB
----\NC \type{no}     \NC don't embed the font at all             \NC \NR
----\NC \type{subset} \NC include and atttempt to subset the font \NC \NR
----\NC \type{full}   \NC include this font in its entirety       \NC \NR
+--- `no`      don't embed the font at all             
+--- `subset`  include and atttempt to subset the font 
+--- `full`    include this font in its entirety       
 ---\LL
 ---\stoptabulate
 ---
@@ -476,29 +476,29 @@
 ---parameters to that command. The allowed commands and their arguments are:
 ---
 ---\starttabulate[|l|l|l|p|]
----\DB command        \BC arguments \BC type      \BC description \NC \NR
+---\DB command        \BC arguments \BC type      \BC description 
 ---\TB
----\NC \type{font}    \NC 1         \NC number    \NC select a new font from the local `fonts` table \NC \NR
----\NC \type{char}    \NC 1         \NC number    \NC typeset this character number from the current font,
----                                                   and move right by the character's width \NC \NR
----\NC \type{node}    \NC 1         \NC node      \NC output this node (list), and move right
----                                                   by the width of this list\NC \NR
----\NC \type{slot}    \NC 2         \NC 2 numbers \NC a shortcut for the combination of a font and char command\NC \NR
----\NC \type{push}    \NC 0         \NC           \NC save current position\NC \NR
----\NC \type{nop}     \NC 0         \NC           \NC do nothing \NC \NR
----\NC \type{pop}     \NC 0         \NC           \NC pop position \NC \NR
----\NC \type{rule}    \NC 2         \NC 2 numbers \NC output a rule `ht*wd`, and move right. \NC \NR
----\NC \type{down}    \NC 1         \NC number    \NC move down on the page \NC \NR
----\NC \type{right}   \NC 1         \NC number    \NC move right on the page \NC \NR
----\NC \type{special} \NC 1         \NC string    \NC output a `special` command \NC \NR
----\NC \type{pdf}     \NC 2         \NC 2 strings \NC output a \PDF\ literal, the first string is one of `origin`,
+--- `font`     1          number     select a new font from the local `fonts` table 
+--- `char`     1          number     typeset this character number from the current font,
+---                                                   and move right by the character's width 
+--- `node`     1          node       output this node (list), and move right
+---                                                   by the width of this list
+--- `slot`     2          2 numbers  a shortcut for the combination of a font and char command
+--- `push`     0                     save current position
+--- `nop`      0                     do nothing 
+--- `pop`      0                     pop position 
+--- `rule`     2          2 numbers  output a rule `ht*wd`, and move right. 
+--- `down`     1          number     move down on the page 
+--- `right`    1          number     move right on the page 
+--- `special`  1          string     output a `special` command 
+--- `pdf`      2          2 strings  output a \PDF\ literal, the first string is one of `origin`,
 ---                                                   `page`, `text`, `font`, `direct` or `raw`; if you
----                                                   have one string only `origin` is assumed \NC \NR
----\NC \type{lua}     \NC 1         \NC string,
----                                     function  \NC execute a *Lua* script when the glyph is embedded; in case of a
----                                                   function it gets the font id and character code passed \NC \NR
----\NC \type{image}   \NC 1         \NC image     \NC output an image (the argument can be either an `<image>` variable or an `image_spec` table) \NC \NR
----\NC \type{comment} \NC any       \NC any       \NC the arguments of this command are ignored \NC \NR
+---                                                   have one string only `origin` is assumed 
+--- `lua`      1          string,
+---                                     function   execute a *Lua* script when the glyph is embedded; in case of a
+---                                                   function it gets the font id and character code passed 
+--- `image`    1          image      output an image (the argument can be either an `<image>` variable or an `image_spec` table) 
+--- `comment`  any        any        the arguments of this command are ignored 
 ---\LL
 ---\stoptabulate
 ---
@@ -515,14 +515,14 @@
 ---from \PDFTEX.
 ---
 ---\starttabulate[|l|p|]
----\DB mode           \BC description \NC \NR
+---\DB mode           \BC description 
 ---\TB
----\NC `origin` \NC enter page mode and set the position \NC \NR
----\NC `page`   \NC enter page mode \NC \NR
----\NC `text`   \NC enter text mode \NC \NR
----\NC `font`   \NC enter font mode (kind of text mode, only in virtual fonts) \NC \NR
----\NC `always` \NC finish the current string and force a transform if needed \NC \NR
----\NC `raw`    \NC finish the current string \NC \NR
+--- `origin`  enter page mode and set the position 
+--- `page`    enter page mode 
+--- `text`    enter text mode 
+--- `font`    enter font mode (kind of text mode, only in virtual fonts) 
+--- `always`  finish the current string and force a transform if needed 
+--- `raw`     finish the current string 
 ---\LL
 ---\stoptabulate
 ---
@@ -832,7 +832,7 @@
 ---table. The indices are listed incrementally, but they do not always form an array
 ---of consecutive numbers: in some cases there can be holes in the sequence.
 ---
----\startsubsection[title={\type{\glyphdimensionsmode}}]
+---\startsubsection[title={`\glyphdimensionsmode`}]
 ---
 ---Already in the early days of *LuaTeX* the decision was made to calculate the
 ---effective height and depth of glyphs in a way that reflected the applied vertical
@@ -842,14 +842,14 @@
 ---The effective values are never negative. The zero mode is the default.
 ---
 ---\starttabulate[|l|pl|]
----\DB value     \BC effect \NC\NR
+---\DB value     \BC effect \NR
 ---\TB
----\NC `0` \NC the old behavior: add the offset to the height and only subtract
----                  the offset only from the depth when it is positive \NC \NR
----\NC `1` \NC add the offset to the height and subtract it from the depth \NC \NR
----\NC `2` \NC add the offset to the height and subtract it from the depth but
----                  keep the maxima of the current and previous results \NC \NR
----\NC `3` \NC use the height and depth of the glyph, so no offset is applied \NC \NR
+--- `0`  the old behavior: add the offset to the height and only subtract
+---                  the offset only from the depth when it is positive 
+--- `1`  add the offset to the height and subtract it from the depth 
+--- `2`  add the offset to the height and subtract it from the depth but
+---                  keep the maxima of the current and previous results 
+--- `3`  use the height and depth of the glyph, so no offset is applied 
 ---\LL
 ---\stoptabulate
 ---
@@ -867,11 +867,11 @@
 ---\hyphenation{xx-f-f-i-xx}
 ---
 ---\starttabulate[|p|p|p|]
----    \DB 0 \BC 1 \BC 2 \NC \NR
+---    \DB 0 \BC 1 \BC 2 
 ---    \TB
----    \NC \ligmodefont \discretionaryligaturemode0 \hsize1pt xxffixx
----    \NC \ligmodefont \discretionaryligaturemode1 \hsize1pt xxffixx
----    \NC \ligmodefont \discretionaryligaturemode2 \hsize1pt xxffixx \NC \NR
+---     \ligmodefont \discretionaryligaturemode0 \hsize1pt xxffixx
+---     \ligmodefont \discretionaryligaturemode1 \hsize1pt xxffixx
+---     \ligmodefont \discretionaryligaturemode2 \hsize1pt xxffixx 
 ---    \LL
 ---\stoptabulate
 ---

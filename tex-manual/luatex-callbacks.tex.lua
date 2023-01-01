@@ -350,17 +350,17 @@
 ---The list of functions is:
 ---
 ---\starttabulate[|l|p|]
----\DB function  \BC usage \NC \NR
+---\DB function  \BC usage 
 ---\TB
----\NC \type{read_font_file}     \NC ofm or tfm files \NC \NR
----\NC \type{read_vf_file}       \NC virtual fonts \NC \NR
----\NC \type{read_map_file}      \NC map files \NC \NR
----\NC \type{read_enc_file}      \NC encoding files \NC \NR
----\NC \type{read_pk_file}       \NC pk bitmap files \NC \NR
----\NC \type{read_data_file}     \NC embedded files (as is possible with \PDF\ objects) \NC \NR
----\NC \type{read_truetype_file} \NC \TRUETYPE\ font files \NC \NR
----\NC \type{read_type1_file}    \NC \TYPEONE\ font files \NC \NR
----\NC \type{read_opentype_file} \NC \OPENTYPE\ font files \NC \NR
+--- `read_font_file`      ofm or tfm files 
+--- `read_vf_file`        virtual fonts 
+--- `read_map_file`       map files 
+--- `read_enc_file`       encoding files 
+--- `read_pk_file`        pk bitmap files 
+--- `read_data_file`      embedded files (as is possible with \PDF\ objects) 
+--- `read_truetype_file`  \TRUETYPE\ font files 
+--- `read_type1_file`     \TYPEONE\ font files 
+--- `read_opentype_file`  \OPENTYPE\ font files 
 ---\LL
 ---\stoptabulate
 ---
@@ -443,12 +443,12 @@
 ---what list you can give a treat.
 ---
 ---\starttabulate[|l|p|]
----\DB value             \BC explanation                                  \NC \NR
+---\DB value             \BC explanation                                  
 ---\TB
----\NC \type{pre_box}    \NC interline material is being added            \NC \NR
----\NC \type{pre_adjust} \NC `vadjust` material is being added       \NC \NR
----\NC \type{box}        \NC a typeset box is being added (always called) \NC \NR
----\NC \type{adjust}     \NC `vadjust` material is being added       \NC \NR
+--- `pre_box`     interline material is being added            
+--- `pre_adjust`  `vadjust` material is being added       
+--- `box`         a typeset box is being added (always called) 
+--- `adjust`      `vadjust` material is being added       
 ---\LL
 ---\stoptabulate
 ---
@@ -470,18 +470,18 @@
 ---\cbk {buildpage_filter} callback are:
 ---
 ---\starttabulate[|l|p|]
----\DB value                  \BC explanation                             \NC \NR
+---\DB value                  \BC explanation                             
 ---\TB
----\NC \type{alignment}       \NC a (partial) alignment is being added    \NC \NR
----\NC \type{after_output}    \NC an output routine has just finished     \NC \NR
----\NC \type{new_graf}        \NC the beginning of a new paragraph        \NC \NR
----\NC \type{vmode_par}       \NC `par` was found in vertical mode   \NC \NR
----\NC \type{hmode_par}       \NC `par` was found in horizontal mode \NC \NR
----\NC \type{insert}          \NC an insert is added                      \NC \NR
----\NC \type{penalty}         \NC a penalty (in vertical mode)            \NC \NR
----\NC \type{before_display}  \NC immediately before a display starts     \NC \NR
----\NC \type{after_display}   \NC a display is finished                   \NC \NR
----\NC \type{end}             \NC *LuaTeX* is terminating (it's all over) \NC \NR
+--- `alignment`        a (partial) alignment is being added    
+--- `after_output`     an output routine has just finished     
+--- `new_graf`         the beginning of a new paragraph        
+--- `vmode_par`        `par` was found in vertical mode   
+--- `hmode_par`        `par` was found in horizontal mode 
+--- `insert`           an insert is added                      
+--- `penalty`          a penalty (in vertical mode)            
+--- `before_display`   immediately before a display starts     
+--- `after_display`    a display is finished                   
+--- `end`              *LuaTeX* is terminating (it's all over) 
 ---\LL
 ---\stoptabulate
 ---
@@ -503,10 +503,10 @@
 ---with
 ---
 ---\starttabulate[|l|p|]
----\DB value    \BC explanation             \NC \NR
+---\DB value    \BC explanation             
 ---\TB
----\NC \type{n} \NC the insert class        \NC \NR
----\NC \type{i} \NC the order of the insert \NC \NR
+--- `n`  the insert class        
+--- `i`  the order of the insert 
 ---\LL
 ---\stoptabulate
 ---
@@ -535,22 +535,22 @@
 ---explained in the next two paragraphs.
 ---
 ---\starttabulate[|l|p|]
----\DB value                \BC explanation                                 \NC \NR
+---\DB value                \BC explanation                                 
 ---\TB
----\NC \type{<empty>}       \NC main vertical list                          \NC \NR
----\NC \type{hbox}          \NC `hbox` in horizontal mode              \NC \NR
----\NC \type{adjusted_hbox} \NC `hbox` in vertical mode                \NC \NR
----\NC \type{vbox}          \NC `vbox`                                 \NC \NR
----\NC \type{vtop}          \NC `vtop`                                 \NC \NR
----\NC \type{align}         \NC `halign` or `valign`              \NC \NR
----\NC \type{disc}          \NC discretionaries                             \NC \NR
----\NC \type{insert}        \NC packaging an insert                         \NC \NR
----\NC \type{vcenter}       \NC `vcenter`                              \NC \NR
----\NC \type{local_box}     \NC `localleftbox` or `localrightbox` \NC \NR
----\NC \type{split_off}     \NC top of a `vsplit`                      \NC \NR
----\NC \type{split_keep}    \NC remainder of a `vsplit`                \NC \NR
----\NC \type{align_set}     \NC alignment cell                              \NC \NR
----\NC \type{fin_row}       \NC alignment row                               \NC \NR
+--- `<empty>`        main vertical list                          
+--- `hbox`           `hbox` in horizontal mode              
+--- `adjusted_hbox`  `hbox` in vertical mode                
+--- `vbox`           `vbox`                                 
+--- `vtop`           `vtop`                                 
+--- `align`          `halign` or `valign`              
+--- `disc`           discretionaries                             
+--- `insert`         packaging an insert                         
+--- `vcenter`        `vcenter`                              
+--- `local_box`      `localleftbox` or `localrightbox` 
+--- `split_off`      top of a `vsplit`                      
+--- `split_keep`     remainder of a `vsplit`                
+--- `align_set`      alignment cell                              
+--- `fin_row`        alignment row                               
 ---\LL
 ---\stoptabulate
 ---
@@ -941,13 +941,13 @@
 ---`(filename` for regular files. The category is a number:
 ---
 ---\starttabulate[|c|l|]
----\DB value  \BC meaning \NC \NR
+---\DB value  \BC meaning 
 ---\TB
----\NC 1 \NC a normal data file, like a *TeX* source \NC \NR
----\NC 2 \NC a font map coupling font names to resources \NC \NR
----\NC 3 \NC an image file (`png`, `pdf`, etc) \NC \NR
----\NC 4 \NC an embedded font subset \NC \NR
----\NC 5 \NC a fully embedded font \NC \NR
+--- 1  a normal data file, like a *TeX* source 
+--- 2  a font map coupling font names to resources 
+--- 3  an image file (`png`, `pdf`, etc) 
+--- 4  an embedded font subset 
+--- 5  a fully embedded font 
 ---\LL
 ---\stoptabulate
 ---

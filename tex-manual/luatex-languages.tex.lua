@@ -135,13 +135,13 @@
 ---Here are some examples (we assume that French patterns are used):
 ---
 ---\starttabulate[||||]
----\NC                                  \NC \type{foobar} \NC \type{foo-bar} \NC \NR
----\NC \type{\hjcode`x=`o}              \NC \type{fxxbar} \NC \type{fxx-bar} \NC \NR
----\NC \type{\lefthyphenmin3}           \NC \type{œdipus} \NC \type{œdi-pus} \NC \NR
----\NC \type{\lefthyphenmin4}           \NC \type{œdipus} \NC \type{œdipus}  \NC \NR
----\NC \type{\hjcode`œ=2}               \NC \type{œdipus} \NC \type{œdi-pus} \NC \NR
----\NC \type{\hjcode`i=32 \hjcode`d=32} \NC \type{œdipus} \NC \type{œdipus}  \NC \NR
----\NC
+---                                   `foobar`  `foo-bar` 
+--- `\hjcode`x=`o`               `fxxbar`  `fxx-bar` 
+--- `\lefthyphenmin3`            `œdipus`  `œdi-pus` 
+--- `\lefthyphenmin4`            `œdipus`  `œdipus`  
+--- `\hjcode`œ=2`                `œdipus`  `œdi-pus` 
+--- `\hjcode`i=32 \hjcode`d=32`  `œdipus`  `œdipus`  
+---
 ---\stoptabulate
 ---
 ---Carrying all this information with each glyph would give too much overhead and
@@ -188,50 +188,50 @@
 ---test by setting `hyphenationbounds` to a non-zero value:
 ---
 ---\starttabulate[|c|l|]
----\DB value    \BC behaviour \NC \NR
+---\DB value    \BC behaviour 
 ---\TB
----\NC \type{0} \NC not strict \NC \NR
----\NC \type{1} \NC strict start \NC \NR
----\NC \type{2} \NC strict end \NC \NR
----\NC \type{3} \NC strict start and strict end \NC \NR
+--- `0`  not strict 
+--- `1`  strict start 
+--- `2`  strict end 
+--- `3`  strict start and strict end 
 ---\LL
 ---\stoptabulate
 ---
 ---The word start is determined as follows:
 ---
 ---\starttabulate[|l|l|]
----\DB node      \BC behaviour \NC \NR
+---\DB node      \BC behaviour 
 ---\TB
----\BC boundary  \NC yes when wordboundary \NC \NR
----\BC hlist     \NC when hyphenationbounds 1 or 3 \NC \NR
----\BC vlist     \NC when hyphenationbounds 1 or 3 \NC \NR
----\BC rule      \NC when hyphenationbounds 1 or 3 \NC \NR
----\BC dir       \NC when hyphenationbounds 1 or 3 \NC \NR
----\BC whatsit   \NC when hyphenationbounds 1 or 3 \NC \NR
----\BC glue      \NC yes \NC \NR
----\BC math      \NC skipped \NC \NR
----\BC glyph     \NC exhyphenchar (one only) : yes (so no -- ---) \NC \NR
----\BC otherwise \NC yes \NC \NR
+---\BC boundary   yes when wordboundary 
+---\BC hlist      when hyphenationbounds 1 or 3 
+---\BC vlist      when hyphenationbounds 1 or 3 
+---\BC rule       when hyphenationbounds 1 or 3 
+---\BC dir        when hyphenationbounds 1 or 3 
+---\BC whatsit    when hyphenationbounds 1 or 3 
+---\BC glue       yes 
+---\BC math       skipped 
+---\BC glyph      exhyphenchar (one only) : yes (so no -- ---) 
+---\BC otherwise  yes 
 ---\LL
 ---\stoptabulate
 ---
 ---The word end is determined as follows:
 ---
 ---\starttabulate[|l|l|]
----\DB node      \BC behaviour \NC \NR
+---\DB node      \BC behaviour 
 ---\TB
----\BC boundary  \NC yes \NC \NR
----\BC glyph     \NC yes when different language \NC \NR
----\BC glue      \NC yes \NC \NR
----\BC penalty   \NC yes \NC \NR
----\BC kern      \NC yes when not italic (for some historic reason) \NC \NR
----\BC hlist     \NC when hyphenationbounds 2 or 3 \NC \NR
----\BC vlist     \NC when hyphenationbounds 2 or 3 \NC \NR
----\BC rule      \NC when hyphenationbounds 2 or 3 \NC \NR
----\BC dir       \NC when hyphenationbounds 2 or 3 \NC \NR
----\BC whatsit   \NC when hyphenationbounds 2 or 3 \NC \NR
----\BC ins       \NC when hyphenationbounds 2 or 3 \NC \NR
----\BC adjust    \NC when hyphenationbounds 2 or 3 \NC \NR
+---\BC boundary   yes 
+---\BC glyph      yes when different language 
+---\BC glue       yes 
+---\BC penalty    yes 
+---\BC kern       yes when not italic (for some historic reason) 
+---\BC hlist      when hyphenationbounds 2 or 3 
+---\BC vlist      when hyphenationbounds 2 or 3 
+---\BC rule       when hyphenationbounds 2 or 3 
+---\BC dir        when hyphenationbounds 2 or 3 
+---\BC whatsit    when hyphenationbounds 2 or 3 
+---\BC ins        when hyphenationbounds 2 or 3 
+---\BC adjust     when hyphenationbounds 2 or 3 
 ---\LL
 ---\stoptabulate
 ---
@@ -253,48 +253,48 @@
 ---       #2
 ---       \par}}}
 ---
----\startplacefigure[reference=hb:1,title={\type{one}}]
+---\startplacefigure[reference=hb:1,title={`one`}]
 ---    \startcombination[4*1]
----        {\SomeTest{0}{one}} {\type{0}}
----        {\SomeTest{1}{one}} {\type{1}}
----        {\SomeTest{2}{one}} {\type{2}}
----        {\SomeTest{3}{one}} {\type{3}}
+---        {\SomeTest{0}{one}} {`0`}
+---        {\SomeTest{1}{one}} {`1`}
+---        {\SomeTest{2}{one}} {`2`}
+---        {\SomeTest{3}{one}} {`3`}
 ---    \stopcombination
 ---\stopplacefigure
 ---
----\startplacefigure[reference=hb:2,title={\type{one\null two}}]
+---\startplacefigure[reference=hb:2,title={`one\null two`}]
 ---    \startcombination[4*1]
----        {\SomeTest{0}{one\null two}} {\type{0}}
----        {\SomeTest{1}{one\null two}} {\type{1}}
----        {\SomeTest{2}{one\null two}} {\type{2}}
----        {\SomeTest{3}{one\null two}} {\type{3}}
+---        {\SomeTest{0}{one\null two}} {`0`}
+---        {\SomeTest{1}{one\null two}} {`1`}
+---        {\SomeTest{2}{one\null two}} {`2`}
+---        {\SomeTest{3}{one\null two}} {`3`}
 ---    \stopcombination
 ---\stopplacefigure
 ---
----\startplacefigure[reference=hb:3,title={\type{\null one\null two}}]
+---\startplacefigure[reference=hb:3,title={`\null one\null two`}]
 ---    \startcombination[4*1]
----        {\SomeTest{0}{\null one\null two}} {\type{0}}
----        {\SomeTest{1}{\null one\null two}} {\type{1}}
----        {\SomeTest{2}{\null one\null two}} {\type{2}}
----        {\SomeTest{3}{\null one\null two}} {\type{3}}
+---        {\SomeTest{0}{\null one\null two}} {`0`}
+---        {\SomeTest{1}{\null one\null two}} {`1`}
+---        {\SomeTest{2}{\null one\null two}} {`2`}
+---        {\SomeTest{3}{\null one\null two}} {`3`}
 ---    \stopcombination
 ---\stopplacefigure
 ---
----\startplacefigure[reference=hb:4,title={\type{one\null two\null}}]
+---\startplacefigure[reference=hb:4,title={`one\null two\null`}]
 ---    \startcombination[4*1]
----        {\SomeTest{0}{one\null two\null}} {\type{0}}
----        {\SomeTest{1}{one\null two\null}} {\type{1}}
----        {\SomeTest{2}{one\null two\null}} {\type{2}}
----        {\SomeTest{3}{one\null two\null}} {\type{3}}
+---        {\SomeTest{0}{one\null two\null}} {`0`}
+---        {\SomeTest{1}{one\null two\null}} {`1`}
+---        {\SomeTest{2}{one\null two\null}} {`2`}
+---        {\SomeTest{3}{one\null two\null}} {`3`}
 ---    \stopcombination
 ---\stopplacefigure
 ---
----\startplacefigure[reference=hb:5,title={\type{\null one\null two\null}}]
+---\startplacefigure[reference=hb:5,title={`\null one\null two\null`}]
 ---    \startcombination[4*1]
----        {\SomeTest{0}{\null one\null two\null}} {\type{0}}
----        {\SomeTest{1}{\null one\null two\null}} {\type{1}}
----        {\SomeTest{2}{\null one\null two\null}} {\type{2}}
----        {\SomeTest{3}{\null one\null two\null}} {\type{3}}
+---        {\SomeTest{0}{\null one\null two\null}} {`0`}
+---        {\SomeTest{1}{\null one\null two\null}} {`1`}
+---        {\SomeTest{2}{\null one\null two\null}} {`2`}
+---        {\SomeTest{3}{\null one\null two\null}} {`3`}
 ---    \stopcombination
 ---\stopplacefigure
 ---
@@ -486,17 +486,17 @@
 ---resulting from an `exhyphenchar`:
 ---
 ---\starttabulate[|c|l|l|]
----\DB mode     \BC automatic disc `-`      \BC explicit disc \prm{-}         \NC \NR
+---\DB mode     \BC automatic disc `-`      \BC explicit disc `-`         
 ---\TB
----\NC \type{0} \NC `exhyphenpenalty`        \NC `exhyphenpenalty`        \NC \NR
----\NC \type{1} \NC `hyphenpenalty`          \NC `hyphenpenalty`          \NC \NR
----\NC \type{2} \NC `exhyphenpenalty`        \NC `hyphenpenalty`          \NC \NR
----\NC \type{3} \NC `hyphenpenalty`          \NC `exhyphenpenalty`        \NC \NR
----\NC \type{4} \NC `automatichyphenpenalty` \NC `explicithyphenpenalty`  \NC \NR
----\NC \type{5} \NC `exhyphenpenalty`        \NC `explicithyphenpenalty`  \NC \NR
----\NC \type{6} \NC `hyphenpenalty`          \NC `explicithyphenpenalty`  \NC \NR
----\NC \type{7} \NC `automatichyphenpenalty` \NC `exhyphenpenalty`        \NC \NR
----\NC \type{8} \NC `automatichyphenpenalty` \NC `hyphenpenalty`          \NC \NR
+--- `0`  `exhyphenpenalty`         `exhyphenpenalty`        
+--- `1`  `hyphenpenalty`           `hyphenpenalty`          
+--- `2`  `exhyphenpenalty`         `hyphenpenalty`          
+--- `3`  `hyphenpenalty`           `exhyphenpenalty`        
+--- `4`  `automatichyphenpenalty`  `explicithyphenpenalty`  
+--- `5`  `exhyphenpenalty`         `explicithyphenpenalty`  
+--- `6`  `hyphenpenalty`           `explicithyphenpenalty`  
+--- `7`  `automatichyphenpenalty`  `exhyphenpenalty`        
+--- `8`  `automatichyphenpenalty`  `hyphenpenalty`          
 ---\LL
 ---\stoptabulate
 ---
@@ -544,10 +544,10 @@
 ---can always be generated from the values. Here are a few examples:
 ---
 ---\starttabulate[|l|l|l|]
----\DB value                  \BC implied key (input) \BC effect \NC\NR
+---\DB value                  \BC implied key (input) \BC effect \NR
 ---\TB
----\NC `ta-ble`         \NC table               \NC `ta\-ble` (`=` `ta\discretionary{-`{}{}ble}) \NC\NR
----\NC `ba{k-`{}{c}ken} \NC backen              \NC `ba\discretionary{k-`{}{c}ken} \NC\NR
+--- `ta-ble`          table                `ta\-ble` (`=` `ta\discretionary{-`{}{}ble}) \NR
+--- `ba{k-`{}{c}ken}  backen               `ba\discretionary{k-`{}{c}ken} \NR
 ---\LL
 ---\stoptabulate
 ---
@@ -591,10 +591,10 @@
 ---   \exceptionpenalty=10000
 ---   \bTABLE[foregroundstyle=type]
 ---     \bTR
----       \bTD[align=middle,nx=4] \type{#1} \eTD
+---       \bTD[align=middle,nx=4] `#1` \eTD
 ---     \eTR
 ---     \bTR
----       \bTD[align=middle] \type{10em} \eTD
+---       \bTD[align=middle] `10em` \eTD
 ---       \bTD[align=middle] `3em` \eTD
 ---       \bTD[align=middle] `0em` \eTD
 ---       \bTD[align=middle] `6em` \eTD
@@ -749,10 +749,10 @@
 ---`f`-`i` type ligatures:
 ---
 ---\starttabulate[|l|l|]
----\NC initial              \NC `{o`{f}{f}{i}{c}{e}}             \NC\NR
----\NC after hyphenation    \NC `{o`{f}{{-},{},{}}{f}{i}{c}{e}}  \NC\NR
----\NC first ligature stage \NC `{o`{{f-},{f},{<ff>}}{i}{c}{e}}  \NC\NR
----\NC final result         \NC `{o`{{f-},{<fi>},{<ffi>}}{c}{e}} \NC\NR
+--- initial               `{o`{f}{f}{i}{c}{e}}             \NR
+--- after hyphenation     `{o`{f}{{-},{},{}}{f}{i}{c}{e}}  \NR
+--- first ligature stage  `{o`{{f-},{f},{<ff>}}{i}{c}{e}}  \NR
+--- final result          `{o`{{f-},{<fi>},{<ffi>}}{c}{e}} \NR
 ---\stoptabulate
 ---
 ---That's bad enough, but let us assume that there is also a hyphenation point
@@ -777,11 +777,11 @@
 ---\testpage[4]
 ---
 ---\starttabulate[|l|c|c|c|c|c|c|]
----\DB         \BC pre           \BC     \BC post      \BC       \BC replace       \BC       \NC \NR
+---\DB         \BC pre           \BC     \BC post      \BC       \BC replace       \BC       
 ---\TB
----\NC topdisc \NC `f-`    \NC (1) \NC           \NC sub 1 \NC               \NC sub 2 \NC \NR
----\NC sub 1   \NC `f-`    \NC (2) \NC `i` \NC (3)   \NC `<fi>`  \NC (4)   \NC \NR
----\NC sub 2   \NC `<ff>-` \NC (5) \NC `i` \NC (6)   \NC `<ffi>` \NC (7)   \NC \NR
+--- topdisc  `f-`     (1)             sub 1                 sub 2 
+--- sub 1    `f-`     (2)  `i`  (3)    `<fi>`   (4)   
+--- sub 2    `<ff>-`  (5)  `i`  (6)    `<ffi>`  (7)   
 ---\LL
 ---\stoptabulate
 ---
@@ -789,14 +789,14 @@
 ---eventually be selected:
 ---
 ---\starttabulate[|l|c|c|]
----\NC `of-f-ice` \NC `f-`    \NC (1) \NC \NR
----\NC                  \NC `f-`    \NC (2) \NC \NR
----\NC                  \NC `i`     \NC (3) \NC \NR
----\NC `of-fice`  \NC `f-`    \NC (1) \NC \NR
----\NC                  \NC `<fi>`  \NC (4) \NC \NR
----\NC `off-ice`  \NC `<ff>-` \NC (5) \NC \NR
----\NC                  \NC `i`     \NC (6) \NC \NR
----\NC `office`   \NC `<ffi>` \NC (7) \NC \NR
+--- `of-f-ice`  `f-`     (1) 
+---                   `f-`     (2) 
+---                   `i`      (3) 
+--- `of-fice`   `f-`     (1) 
+---                   `<fi>`   (4) 
+--- `off-ice`   `<ff>-`  (5) 
+---                   `i`      (6) 
+--- `office`    `<ffi>`  (7) 
 ---\stoptabulate
 ---
 ---The current solution in *LuaTeX* is not able to handle nested discretionaries,
@@ -815,14 +815,14 @@
 ---pair is as follows:
 ---
 ---\starttabulate[|l|c|c|]
----\DB field                 \BC description   \NC       \NC \NR
+---\DB field                 \BC description          
 ---\TB
----\NC `disc1.pre`     \NC `f-`    \NC (1)   \NC \NR
----\NC `disc1.post`    \NC `<fi>`  \NC (4)   \NC \NR
----\NC `disc1.replace` \NC `<ffi>` \NC (7)   \NC \NR
----\NC `disc2.pre`     \NC `f-`    \NC (2)   \NC \NR
----\NC `disc2.post`    \NC `i`     \NC (3,6) \NC \NR
----\NC `disc2.replace` \NC `<ff>-` \NC (5)   \NC \NR
+--- `disc1.pre`      `f-`     (1)   
+--- `disc1.post`     `<fi>`   (4)   
+--- `disc1.replace`  `<ffi>`  (7)   
+--- `disc2.pre`      `f-`     (2)   
+--- `disc2.post`     `i`      (3,6) 
+--- `disc2.replace`  `<ff>-`  (5)   
 ---\LL
 ---\stoptabulate
 ---

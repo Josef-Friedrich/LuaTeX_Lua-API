@@ -46,23 +46,23 @@
 ---The altered *TeX*82 primitives are:
 ---
 ---\starttabulate[|l|l|r|c|l|r|]
----\DB primitive       \BC min \BC max    \BC \kern 2em \BC min \BC max    \NC \NR
+---\DB primitive       \BC min \BC max    \BC \kern 2em \BC min \BC max    
 ---\TB
----\NC `mathcode` \NC 0   \NC 10FFFF \NC =         \NC 0   \NC 8000   \NC \NR
----\NC `delcode`  \NC 0   \NC 10FFFF \NC =         \NC 0   \NC FFFFFF \NC \NR
+--- `mathcode`  0    10FFFF  =          0    8000   
+--- `delcode`   0    10FFFF  =          0    FFFFFF 
 ---\LL
 ---\stoptabulate
 ---
 ---The unaltered ones are:
 ---
 ---\starttabulate[|l|l|r|]
----\DB primitive          \BC min \BC max     \NC \NR
+---\DB primitive          \BC min \BC max     
 ---\TB
----\NC `mathchardef` \NC 0   \NC    8000 \NC \NR
----\NC `mathchar`    \NC 0   \NC    7FFF \NC \NR
----\NC `mathaccent`  \NC 0   \NC    7FFF \NC \NR
----\NC `delimiter`   \NC 0   \NC 7FFFFFF \NC \NR
----\NC `radical`     \NC 0   \NC 7FFFFFF \NC \NR
+--- `mathchardef`  0       8000 
+--- `mathchar`     0       7FFF 
+--- `mathaccent`   0       7FFF 
+--- `delimiter`    0    7FFFFFF 
+--- `radical`      0    7FFFFFF 
 ---\LL
 ---\stoptabulate
 ---
@@ -75,19 +75,19 @@
 ---% somewhat fuzzy:
 ---
 ---\starttabulate[|l|l|r|c|l|r|]
----\DB primitive                             \BC min       \BC max         \BC \kern 2em \BC min       \BC max         \NC \NR
+---\DB primitive                             \BC min       \BC max         \BC \kern 2em \BC min       \BC max         
 ---\TB
----\NC `Umathchardef`                   \NC 0+0+0     \NC 7+FF+10FFFF \NC           \NC           \NC             \NC \NR
----\NC `Umathcharnumdef`\rlap{\high{5}} \NC -80000000 \NC    7FFFFFFF \NC           \NC           \NC             \NC \NR
----\NC `Umathcode`                      \NC 0         \NC      10FFFF \NC =         \NC 0+0+0     \NC 7+FF+10FFFF \NC \NR
----\NC `Udelcode`                       \NC 0         \NC      10FFFF \NC =         \NC 0+0       \NC   FF+10FFFF \NC \NR
----\NC `Umathchar`                      \NC 0+0+0     \NC 7+FF+10FFFF \NC           \NC           \NC             \NC \NR
----\NC `Umathaccent`                    \NC 0+0+0     \NC 7+FF+10FFFF \NC           \NC           \NC             \NC \NR
----\NC `Udelimiter`                     \NC 0+0+0     \NC 7+FF+10FFFF \NC           \NC           \NC             \NC \NR
----\NC `Uradical`                       \NC 0+0       \NC   FF+10FFFF \NC           \NC           \NC             \NC \NR
----\NC `Umathcharnum`                   \NC -80000000 \NC    7FFFFFFF \NC           \NC           \NC             \NC \NR
----\NC `Umathcodenum`                   \NC 0         \NC      10FFFF \NC =         \NC -80000000 \NC    7FFFFFFF \NC \NR
----\NC `Udelcodenum`                    \NC 0         \NC      10FFFF \NC =         \NC -80000000 \NC    7FFFFFFF \NC \NR
+--- `Umathchardef`                    0+0+0      7+FF+10FFFF                                    
+--- `Umathcharnumdef`\rlap{\high{5}}  -80000000     7FFFFFFF                                    
+--- `Umathcode`                       0               10FFFF  =          0+0+0      7+FF+10FFFF 
+--- `Udelcode`                        0               10FFFF  =          0+0          FF+10FFFF 
+--- `Umathchar`                       0+0+0      7+FF+10FFFF                                    
+--- `Umathaccent`                     0+0+0      7+FF+10FFFF                                    
+--- `Udelimiter`                      0+0+0      7+FF+10FFFF                                    
+--- `Uradical`                        0+0          FF+10FFFF                                    
+--- `Umathcharnum`                    -80000000     7FFFFFFF                                    
+--- `Umathcodenum`                    0               10FFFF  =          -80000000     7FFFFFFF 
+--- `Udelcodenum`                     0               10FFFF  =          -80000000     7FFFFFFF 
 ---\LL
 ---\stoptabulate
 ---
@@ -120,13 +120,13 @@
 ---sections:
 ---
 ---\starttabulate[|l|l|]
----\DB primitive                \BC value range (in hex) \NC \NR
+---\DB primitive                \BC value range (in hex) 
 ---\TB
----\NC `Uroot`           \NC 0 + 0--FF + 10FFFF   \NC \NR
----\NC `Uoverdelimiter`  \NC 0 + 0--FF + 10FFFF   \NC \NR
----\NC `Uunderdelimiter` \NC 0 + 0--FF + 10FFFF   \NC \NR
----\NC `Udelimiterover`  \NC 0 + 0--FF + 10FFFF   \NC \NR
----\NC `Udelimiterunder` \NC 0 + 0--FF + 10FFFF   \NC \NR
+--- `Uroot`            0 + 0--FF + 10FFFF   
+--- `Uoverdelimiter`   0 + 0--FF + 10FFFF   
+--- `Uunderdelimiter`  0 + 0--FF + 10FFFF   
+--- `Udelimiterover`   0 + 0--FF + 10FFFF   
+--- `Udelimiterunder`  0 + 0--FF + 10FFFF   
 ---\LL
 ---\stoptabulate
 ---
@@ -308,11 +308,11 @@
 ---
 ---\startbuffer[demo]
 ---\starttabulate
----\DB style         \BC example \NC \NR
+---\DB style         \BC example 
 ---\TB
----\NC default       \NC `b_{x=xx}^{x=xx}` \NC \NR
----\NC script        \NC `b_{\scriptstyle x=xx}^{\scriptstyle x=xx}` \NC \NR
----\NC crampedscript \NC `b_{\crampedscriptstyle x=xx}^{\crampedscriptstyle x=xx}` \NC \NR
+--- default        `b_{x=xx}^{x=xx}` 
+--- script         `b_{\scriptstyle x=xx}^{\scriptstyle x=xx}` 
+--- crampedscript  `b_{\crampedscriptstyle x=xx}^{\crampedscriptstyle x=xx}` 
 ---\LL
 ---\stoptabulate
 ---\stopbuffer
@@ -360,63 +360,63 @@
 ---has resulted in many more parameters than were not accessible before.
 ---
 ---\starttabulate
----\DB primitive name                   \BC description \NC \NR
+---\DB primitive name                   \BC description 
 ---\TB
----\NC `Umathquad`               \NC the width of 18 mu's \NC \NR
----\NC `Umathaxis`               \NC height of the vertical center axis of
----                                         the math formula above the baseline \NC \NR
----\NC `Umathoperatorsize`       \NC minimum size of large operators in display mode \NC \NR
----\NC `Umathoverbarkern`        \NC vertical clearance above the rule \NC \NR
----\NC `Umathoverbarrule`        \NC the width of the rule \NC \NR
----\NC `Umathoverbarvgap`        \NC vertical clearance below the rule \NC \NR
----\NC `Umathunderbarkern`       \NC vertical clearance below the rule \NC \NR
----\NC `Umathunderbarrule`       \NC the width of the rule \NC \NR
----\NC `Umathunderbarvgap`       \NC vertical clearance above the rule \NC \NR
----\NC `Umathradicalkern`        \NC vertical clearance above the rule \NC \NR
----\NC `Umathradicalrule`        \NC the width of the rule \NC \NR
----\NC `Umathradicalvgap`        \NC vertical clearance below the rule \NC \NR
----\NC `Umathradicaldegreebefore`\NC the forward kern that takes place before placement of
----                                       the radical degree \NC \NR
----\NC `Umathradicaldegreeafter` \NC the backward kern that takes place after placement of
----                                       the radical degree \NC \NR
----\NC `Umathradicaldegreeraise` \NC this is the percentage of the total height and depth of
+--- `Umathquad`                the width of 18 mu's 
+--- `Umathaxis`                height of the vertical center axis of
+---                                         the math formula above the baseline 
+--- `Umathoperatorsize`        minimum size of large operators in display mode 
+--- `Umathoverbarkern`         vertical clearance above the rule 
+--- `Umathoverbarrule`         the width of the rule 
+--- `Umathoverbarvgap`         vertical clearance below the rule 
+--- `Umathunderbarkern`        vertical clearance below the rule 
+--- `Umathunderbarrule`        the width of the rule 
+--- `Umathunderbarvgap`        vertical clearance above the rule 
+--- `Umathradicalkern`         vertical clearance above the rule 
+--- `Umathradicalrule`         the width of the rule 
+--- `Umathradicalvgap`         vertical clearance below the rule 
+--- `Umathradicaldegreebefore` the forward kern that takes place before placement of
+---                                       the radical degree 
+--- `Umathradicaldegreeafter`  the backward kern that takes place after placement of
+---                                       the radical degree 
+--- `Umathradicaldegreeraise`  this is the percentage of the total height and depth of
 ---                                       the radical sign that the degree is raised by; it is
 ---                                       expressed in `percents`, so 60\% is expressed as the
----                                       integer `60` \NC \NR
----\NC `Umathstackvgap`          \NC vertical clearance between the two
----                                       elements in a `atop` stack \NC \NR
----\NC `Umathstacknumup`         \NC numerator shift upward in `atop` stack \NC \NR
----\NC `Umathstackdenomdown`     \NC denominator shift downward in `atop` stack \NC \NR
----\NC `Umathfractionrule`       \NC the width of the rule in a `over` \NC \NR
----\NC `Umathfractionnumvgap`    \NC vertical clearance between the numerator and the rule \NC \NR
----\NC `Umathfractionnumup`      \NC numerator shift upward in `over` \NC \NR
----\NC `Umathfractiondenomvgap`  \NC vertical clearance between the denominator and the rule \NC \NR
----\NC `Umathfractiondenomdown`  \NC denominator shift downward in `over` \NC \NR
----\NC `Umathfractiondelsize`    \NC minimum delimiter size for `\...withdelims` \NC \NR
----\NC `Umathlimitabovevgap`     \NC vertical clearance for limits above operators \NC \NR
----\NC `Umathlimitabovebgap`     \NC vertical baseline clearance for limits above operators \NC \NR
----\NC `Umathlimitabovekern`     \NC space reserved at the top of the limit \NC \NR
----\NC `Umathlimitbelowvgap`     \NC vertical clearance for limits below operators \NC \NR
----\NC `Umathlimitbelowbgap`     \NC vertical baseline clearance for limits below operators \NC \NR
----\NC `Umathlimitbelowkern`     \NC space reserved at the bottom of the limit \NC \NR
----\NC `Umathoverdelimitervgap`  \NC vertical clearance for limits above delimiters \NC \NR
----\NC `Umathoverdelimiterbgap`  \NC vertical baseline clearance for limits above delimiters \NC \NR
----\NC `Umathunderdelimitervgap` \NC vertical clearance for limits below delimiters \NC \NR
----\NC `Umathunderdelimiterbgap` \NC vertical baseline clearance for limits below delimiters \NC \NR
----\NC `Umathsubshiftdrop`       \NC subscript drop for boxes and subformulas \NC \NR
----\NC `Umathsubshiftdown`       \NC subscript drop for characters \NC \NR
----\NC `Umathsupshiftdrop`       \NC superscript drop (raise, actually) for boxes and subformulas \NC \NR
----\NC `Umathsupshiftup`         \NC superscript raise for characters \NC \NR
----\NC `Umathsubsupshiftdown`    \NC subscript drop in the presence of a superscript \NC \NR
----\NC `Umathsubtopmax`          \NC the top of standalone subscripts cannot be higher than this
----                                       above the baseline \NC \NR
----\NC `Umathsupbottommin`       \NC the bottom of standalone superscripts cannot be less than
----                                       this above the baseline \NC \NR
----\NC `Umathsupsubbottommax`    \NC the bottom of the superscript of a combined super- and subscript
----                                       be at least as high as this above the baseline \NC \NR
----\NC `Umathsubsupvgap`         \NC vertical clearance between super- and subscript \NC \NR
----\NC `Umathspaceafterscript`   \NC additional space added after a super- or subscript \NC \NR
----\NC `Umathconnectoroverlapmin`\NC minimum overlap between parts in an extensible recipe \NC \NR
+---                                       integer `60` 
+--- `Umathstackvgap`           vertical clearance between the two
+---                                       elements in a `atop` stack 
+--- `Umathstacknumup`          numerator shift upward in `atop` stack 
+--- `Umathstackdenomdown`      denominator shift downward in `atop` stack 
+--- `Umathfractionrule`        the width of the rule in a `over` 
+--- `Umathfractionnumvgap`     vertical clearance between the numerator and the rule 
+--- `Umathfractionnumup`       numerator shift upward in `over` 
+--- `Umathfractiondenomvgap`   vertical clearance between the denominator and the rule 
+--- `Umathfractiondenomdown`   denominator shift downward in `over` 
+--- `Umathfractiondelsize`     minimum delimiter size for `\...withdelims` 
+--- `Umathlimitabovevgap`      vertical clearance for limits above operators 
+--- `Umathlimitabovebgap`      vertical baseline clearance for limits above operators 
+--- `Umathlimitabovekern`      space reserved at the top of the limit 
+--- `Umathlimitbelowvgap`      vertical clearance for limits below operators 
+--- `Umathlimitbelowbgap`      vertical baseline clearance for limits below operators 
+--- `Umathlimitbelowkern`      space reserved at the bottom of the limit 
+--- `Umathoverdelimitervgap`   vertical clearance for limits above delimiters 
+--- `Umathoverdelimiterbgap`   vertical baseline clearance for limits above delimiters 
+--- `Umathunderdelimitervgap`  vertical clearance for limits below delimiters 
+--- `Umathunderdelimiterbgap`  vertical baseline clearance for limits below delimiters 
+--- `Umathsubshiftdrop`        subscript drop for boxes and subformulas 
+--- `Umathsubshiftdown`        subscript drop for characters 
+--- `Umathsupshiftdrop`        superscript drop (raise, actually) for boxes and subformulas 
+--- `Umathsupshiftup`          superscript raise for characters 
+--- `Umathsubsupshiftdown`     subscript drop in the presence of a superscript 
+--- `Umathsubtopmax`           the top of standalone subscripts cannot be higher than this
+---                                       above the baseline 
+--- `Umathsupbottommin`        the bottom of standalone superscripts cannot be less than
+---                                       this above the baseline 
+--- `Umathsupsubbottommax`     the bottom of the superscript of a combined super- and subscript
+---                                       be at least as high as this above the baseline 
+--- `Umathsubsupvgap`          vertical clearance between super- and subscript 
+--- `Umathspaceafterscript`    additional space added after a super- or subscript 
+--- `Umathconnectoroverlapmin` minimum overlap between parts in an extensible recipe 
 ---\LL
 ---\stoptabulate
 ---
@@ -452,11 +452,11 @@
 ---
 ---\def\MathLine#1#2#3#4#5%
 ---  {\TB
----   \NC \llap{\high{\tx #2\enspace}}\ttbf \string #1 \NC \tt #5 \NC \NR
----   \NC \tx #3 \NC \tt #4 \NC \NR}
+---    \llap{\high{\tx #2\enspace}}\ttbf \string #1  \tt #5 
+---    \tx #3  \tt #4 }
 ---
 ---\starttabulate[|l|l|]
----\DB variable / style \BC tfm / opentype \NC \NR
+---\DB variable / style \BC tfm / opentype 
 ---\MathLine{\Umathaxis}               {}   {}                     {AxisHeight}                              {axis_height}
 ---\MathLine{\Umathoperatorsize}       {6}  {D, D'}                {DisplayOperatorMinHeight}                {\emdash}
 ---\MathLine{\Umathfractiondelsize}    {9}  {D, D'}                {FractionDelimiterDisplayStyleSize}       {delim1}
@@ -575,11 +575,11 @@
 ---\start
 ---
 ---\def\OneLiner#1#2%
----  {\NC \type{#1}
----   \NC \dontleavehmode\inframed[align=normal,offset=0pt,frame=off]{\mathsurroundmode#1\relax\hsize 100pt   x`x`x}
----   \NC \dontleavehmode\inframed[align=normal,offset=0pt,frame=off]{\mathsurroundmode#1\relax\hsize 100pt x `x` x}
----   \NC #2
----   \NC \NR}
+---  { `#1`
+---    \dontleavehmode\inframed[align=normal,offset=0pt,frame=off]{\mathsurroundmode#1\relax\hsize 100pt   x`x`x}
+---    \dontleavehmode\inframed[align=normal,offset=0pt,frame=off]{\mathsurroundmode#1\relax\hsize 100pt x `x` x}
+---    #2
+---   }
 ---
 ---\startbuffer
 ---\mathsurround    10pt
@@ -589,7 +589,7 @@
 ---\typebuffer \getbuffer
 ---
 ---\starttabulate[|c|c|c|pl|]
----\DB mode \BC x\`x\`x \BC x \`x\` x \BC effect \NC \NR
+---\DB mode \BC x\`x\`x \BC x \`x\` x \BC effect 
 ---\TB
 ---\OneLiner{0}{obey `mathsurround` when `mathsurroundskip` is 0pt}
 ---\OneLiner{1}{only add skip to the left}
@@ -725,12 +725,12 @@
 ---to fully control spacing. Therefore *LuaTeX* comes with a new directive: `mathdisplayskipmode`. The following values apply:
 ---
 ---\starttabulate[|c|l|]
----\DB value  \BC meaning \NC \NR
+---\DB value  \BC meaning 
 ---\TB
----\NC 0 \NC normal *TeX* behaviour \NC \NR
----\NC 1 \NC always (same as 0) \NC \NR
----\NC 2 \NC only when not zero \NC \NR
----\NC 3 \NC never, not even when not zero \NC \NR
+--- 0  normal *TeX* behaviour 
+--- 1  always (same as 0) 
+--- 2  only when not zero 
+--- 3  never, not even when not zero 
 ---\LL
 ---\stoptabulate
 ---
@@ -753,39 +753,39 @@
 ---kerns assume correction too. Anyway, with this parameter one can control it.
 ---
 ---\starttabulate[|l|ck1|ck1|ck1|ck1|ck1|ck1|]
----    \NC
----        \NC \mathnolimitsmode0    `\displaystyle\int\nolimits^0_1`
----        \NC \mathnolimitsmode1    `\displaystyle\int\nolimits^0_1`
----        \NC \mathnolimitsmode2    `\displaystyle\int\nolimits^0_1`
----        \NC \mathnolimitsmode3    `\displaystyle\int\nolimits^0_1`
----        \NC \mathnolimitsmode4    `\displaystyle\int\nolimits^0_1`
----        \NC \mathnolimitsmode8000 `\displaystyle\int\nolimits^0_1`
----    \NC \NR
+---    
+---         \mathnolimitsmode0    `\displaystyle\int\nolimits^0_1`
+---         \mathnolimitsmode1    `\displaystyle\int\nolimits^0_1`
+---         \mathnolimitsmode2    `\displaystyle\int\nolimits^0_1`
+---         \mathnolimitsmode3    `\displaystyle\int\nolimits^0_1`
+---         \mathnolimitsmode4    `\displaystyle\int\nolimits^0_1`
+---         \mathnolimitsmode8000 `\displaystyle\int\nolimits^0_1`
+---    
 ---    \TB
 ---    \BC mode
----        \NC \tttf 0
----        \NC \tttf 1
----        \NC \tttf 2
----        \NC \tttf 3
----        \NC \tttf 4
----        \NC \tttf 8000
----    \NC \NR
+---         \tttf 0
+---         \tttf 1
+---         \tttf 2
+---         \tttf 3
+---         \tttf 4
+---         \tttf 8000
+---    
 ---    \BC superscript
----        \NC 0
----        \NC font
----        \NC 0
----        \NC 0
----        \NC +ic/2
----        \NC 0
----    \NC \NR
+---         0
+---         font
+---         0
+---         0
+---         +ic/2
+---         0
+---    
 ---    \BC subscript
----        \NC -ic
----        \NC font
----        \NC 0
----        \NC -ic/2
----        \NC -ic/2
----        \NC 8000ic/1000
----    \NC \NR
+---         -ic
+---         font
+---         0
+---         -ic/2
+---         -ic/2
+---         8000ic/1000
+---    
 ---\stoptabulate
 ---
 ---When the mode is set to one, the math parameters are used. This way a macro
@@ -806,13 +806,13 @@
 ---old school font code path for all italics. We show a Cambria example.
 ---
 ---\starttexdefinition Whatever #1
----    \NC \type{\mathitalicsmode = #1}
----    \NC \mathitalicsmode#1\ruledhbox{`\left|T^1\right|`}
----    \NC \mathitalicsmode#1\ruledhbox{`\left|T\right|`}
----    \NC \mathitalicsmode#1\ruledhbox{`T+1`}
----    \NC \mathitalicsmode#1\ruledhbox{`T{1\over2}`}
----    \NC \mathitalicsmode#1\ruledhbox{`T\sqrt{1}`}
----    \NC \NR
+---     `\mathitalicsmode = #1`
+---     \mathitalicsmode#1\ruledhbox{`\left|T^1\right|`}
+---     \mathitalicsmode#1\ruledhbox{`\left|T\right|`}
+---     \mathitalicsmode#1\ruledhbox{`T+1`}
+---     \mathitalicsmode#1\ruledhbox{`T{1\over2}`}
+---     \mathitalicsmode#1\ruledhbox{`T\sqrt{1}`}
+---    
 ---\stoptexdefinition
 ---
 ---\start
@@ -837,12 +837,12 @@
 ---And, as a bonus we also added control over the normal sublist kerning. The `mathscriptboxmode` parameter defaults to 1.
 ---
 ---\starttabulate[|c|l|]
----\DB value     \BC meaning \NC \NR
+---\DB value     \BC meaning 
 ---\TB
----\NC `0` \NC forget about kerning \NC \NR
----\NC `1` \NC kern math sub lists with a valid glyph \NC \NR
----\NC `2` \NC also kern math sub boxes that have a valid glyph \NC \NR
----\NC `2` \NC only kern math sub boxes with a boundary node present\NC \NR
+--- `0`  forget about kerning 
+--- `1`  kern math sub lists with a valid glyph 
+--- `2`  also kern math sub boxes that have a valid glyph 
+--- `2`  only kern math sub boxes with a boundary node present
 ---\LL
 ---\stoptabulate
 ---
@@ -870,13 +870,13 @@
 ---        {\switchtobodyfont[#3]\showfontkerns\showglyphs\mathscriptboxmode#2\relax\inlinebuffer[#1]}}}
 ---
 ---\starttabulate[|lBT|c|c|c|c|c|]
----    \NC          \NC \Show{1}{0}{}         \NC\Show{1}{1}{}         \NC \Show{2}{1}{}         \NC \Show{2}{2}{}         \NC \Show{3}{3}{}         \NC \NR
----    \NC          \NC \Show{1}{0}{-}        \NC\Show{1}{1}{-}        \NC \Show{2}{1}{-}        \NC \Show{2}{2}{-}        \NC \Show{3}{3}{-}        \NC \NR
----    \NC modern   \NC \Show{1}{0}{modern}   \NC\Show{1}{1}{modern}   \NC \Show{2}{1}{modern}   \NC \Show{2}{2}{modern}   \NC \Show{3}{3}{modern}   \NC \NR
----    \NC lucidaot \NC \Show{1}{0}{lucidaot} \NC\Show{1}{1}{lucidaot} \NC \Show{2}{1}{lucidaot} \NC \Show{2}{2}{lucidaot} \NC \Show{3}{3}{lucidaot} \NC \NR
----    \NC pagella  \NC \Show{1}{0}{pagella}  \NC\Show{1}{1}{pagella}  \NC \Show{2}{1}{pagella}  \NC \Show{2}{2}{pagella}  \NC \Show{3}{3}{pagella}  \NC \NR
----    \NC cambria  \NC \Show{1}{0}{cambria}  \NC\Show{1}{1}{cambria}  \NC \Show{2}{1}{cambria}  \NC \Show{2}{2}{cambria}  \NC \Show{3}{3}{cambria}  \NC \NR
----    \NC dejavu   \NC \Show{1}{0}{dejavu}   \NC\Show{1}{1}{dejavu}   \NC \Show{2}{1}{dejavu}   \NC \Show{2}{2}{dejavu}   \NC \Show{3}{3}{dejavu}   \NC \NR
+---               \Show{1}{0}{}         \Show{1}{1}{}          \Show{2}{1}{}          \Show{2}{2}{}          \Show{3}{3}{}         
+---               \Show{1}{0}{-}        \Show{1}{1}{-}         \Show{2}{1}{-}         \Show{2}{2}{-}         \Show{3}{3}{-}        
+---     modern    \Show{1}{0}{modern}   \Show{1}{1}{modern}    \Show{2}{1}{modern}    \Show{2}{2}{modern}    \Show{3}{3}{modern}   
+---     lucidaot  \Show{1}{0}{lucidaot} \Show{1}{1}{lucidaot}  \Show{2}{1}{lucidaot}  \Show{2}{2}{lucidaot}  \Show{3}{3}{lucidaot} 
+---     pagella   \Show{1}{0}{pagella}  \Show{1}{1}{pagella}   \Show{2}{1}{pagella}   \Show{2}{2}{pagella}   \Show{3}{3}{pagella}  
+---     cambria   \Show{1}{0}{cambria}  \Show{1}{1}{cambria}   \Show{2}{1}{cambria}   \Show{2}{2}{cambria}   \Show{3}{3}{cambria}  
+---     dejavu    \Show{1}{0}{dejavu}   \Show{1}{1}{dejavu}    \Show{2}{1}{dejavu}    \Show{2}{2}{dejavu}    \Show{3}{3}{dejavu}   
 ---\stoptabulate
 ---
 ---Kerning between a character subscript is controlled by `mathscriptcharmode`
@@ -889,13 +889,13 @@
 ---control over what one can turn on and off.
 ---
 ---\def\MathSample#1#2#3%
----  {\NC
----   #1 \NC
----   #2 \NC
----   \showglyphdata \switchtobodyfont[#2,17.3pt]`#3T_{f}`         \NC
----   \showglyphdata \switchtobodyfont[#2,17.3pt]`#3\gamma_{e}`    \NC
----   \showglyphdata \switchtobodyfont[#2,17.3pt]`#3\gamma_{ee}`   \NC
----   \showglyphdata \switchtobodyfont[#2,17.3pt]`#3T_{\tf fluff}` \NC
+---  {
+---   #1 
+---   #2 
+---   \showglyphdata \switchtobodyfont[#2,17.3pt]`#3T_{f}`         
+---   \showglyphdata \switchtobodyfont[#2,17.3pt]`#3\gamma_{e}`    
+---   \showglyphdata \switchtobodyfont[#2,17.3pt]`#3\gamma_{ee}`   
+---   \showglyphdata \switchtobodyfont[#2,17.3pt]`#3T_{\tf fluff}` 
 ---   \NR}
 ---
 ---\starttabulate[|Tl|Tl|l|l|l|l|]
@@ -917,10 +917,10 @@
 ---We have three parameters that are used for this fixed anchoring:
 ---
 ---\starttabulate[|c|l|]
----\DB parameter \BC register \NC \NR
----\NC `d` \NC `Umathsubshiftdown`    \NC \NR
----\NC `u` \NC `Umathsupshiftup`      \NC \NR
----\NC `s` \NC `Umathsubsupshiftdown` \NC \NR
+---\DB parameter \BC register 
+--- `d`  `Umathsubshiftdown`    
+--- `u`  `Umathsupshiftup`      
+--- `s`  `Umathsubsupshiftdown` 
 ---\LL
 ---\stoptabulate
 ---
@@ -933,14 +933,14 @@
 ---  {`\mathscriptsmode#1\mathupright CH_2 + CH^+_2 + CH^2_2`}
 ---
 ---\starttabulate[|c|c|c|p|]
----\DB mode \BC down          \BC up            \BC example        \NC \NR
+---\DB mode \BC down          \BC up            \BC example        
 ---\TB
----\NC 0    \NC dynamic       \NC dynamic       \NC \SampleMath{0} \NC \NR
----\NC 1    \NC `d`           \NC `u`           \NC \SampleMath{1} \NC \NR
----\NC 2    \NC `s`           \NC `u`           \NC \SampleMath{2} \NC \NR
----\NC 3    \NC `s`           \NC `u + s - d`   \NC \SampleMath{3} \NC \NR
----\NC 4    \NC `d + (s-d)/2` \NC `u + (s-d)/2` \NC \SampleMath{4} \NC \NR
----\NC 5    \NC `d`           \NC `u + s - d`   \NC \SampleMath{5} \NC \NR
+--- 0     dynamic        dynamic        \SampleMath{0} 
+--- 1     `d`            `u`            \SampleMath{1} 
+--- 2     `s`            `u`            \SampleMath{2} 
+--- 3     `s`            `u + s - d`    \SampleMath{3} 
+--- 4     `d + (s-d)/2`  `u + (s-d)/2`  \SampleMath{4} 
+--- 5     `d`            `u + s - d`    \SampleMath{5} 
 ---\LL
 ---\stoptabulate
 ---
@@ -1004,10 +1004,10 @@
 ---(with `mathitalicsmode` enabled).
 ---
 ---\starttexdefinition Whatever #1
----    \NC \type{\mathdelimitersmode = #1}
----    \NC \mathitalicsmode1\mathdelimitersmode#1\ruledhbox{\showglyphs\showfontkerns\showfontitalics`f(x)`}
----    \NC \mathitalicsmode1\mathdelimitersmode#1\ruledhbox{\showglyphs\showfontkerns\showfontitalics`f\left(x\right)`}
----    \NC \NR
+---     `\mathdelimitersmode = #1`
+---     \mathitalicsmode1\mathdelimitersmode#1\ruledhbox{\showglyphs\showfontkerns\showfontitalics`f(x)`}
+---     \mathitalicsmode1\mathdelimitersmode#1\ruledhbox{\showglyphs\showfontkerns\showfontitalics`f\left(x\right)`}
+---    
 ---\stoptexdefinition
 ---
 ---\start
@@ -1024,13 +1024,13 @@
 ---with in the engine). The full list of flags is given in the next table:
 ---
 ---\starttabulate[|c|l|]
----\DB value  \BC meaning \NC \NR
+---\DB value  \BC meaning 
 ---\TB
----\NC \type{"01} \NC don't apply the usual shift \NC \NR
----\NC \type{"02} \NC apply italic correction when possible \NC \NR
----\NC \type{"04} \NC force an ordinary subformula \NC \NR
----\NC \type{"08} \NC no shift when a base character \NC \NR
----\NC \type{"10} \NC only shift when an extensible \NC \NR
+--- `"01`  don't apply the usual shift 
+--- `"02`  apply italic correction when possible 
+--- `"04`  force an ordinary subformula 
+--- `"08`  no shift when a base character 
+--- `"10`  only shift when an extensible 
 ---\LL
 ---\stoptabulate
 ---
@@ -1265,29 +1265,29 @@
 ---\start
 ---    \switchtobodyfont[modern]
 ---    \starttabulate[||||||]
----        \NC \NC
----            \ShowA{a}{b}{} \NC
----            \ShowA{1}{2}{} \NC
----            \ShowB{a}{b}{} \NC
----            \ShowB{1}{2}{} \NC
+---         
+---            \ShowA{a}{b}{} 
+---            \ShowA{1}{2}{} 
+---            \ShowB{a}{b}{} 
+---            \ShowB{1}{2}{} 
 ---        \NR
----        \NC \type{exact} \NC
----            \ShowA{a}{b}{exact} \NC
----            \ShowA{1}{2}{exact} \NC
----            \ShowB{a}{b}{exact} \NC
----            \ShowB{1}{2}{exact} \NC
+---         `exact` 
+---            \ShowA{a}{b}{exact} 
+---            \ShowA{1}{2}{exact} 
+---            \ShowB{a}{b}{exact} 
+---            \ShowB{1}{2}{exact} 
 ---        \NR
----        \NC \type{noaxis} \NC
----            \ShowA{a}{b}{noaxis} \NC
----            \ShowA{1}{2}{noaxis} \NC
----            \ShowB{a}{b}{noaxis} \NC
----            \ShowB{1}{2}{noaxis} \NC
+---         `noaxis` 
+---            \ShowA{a}{b}{noaxis} 
+---            \ShowA{1}{2}{noaxis} 
+---            \ShowB{a}{b}{noaxis} 
+---            \ShowB{1}{2}{noaxis} 
 ---        \NR
----        \NC \type{exact noaxis} \NC
----            \ShowA{a}{b}{exact noaxis} \NC
----            \ShowA{1}{2}{exact noaxis} \NC
----            \ShowB{a}{b}{exact noaxis} \NC
----            \ShowB{1}{2}{exact noaxis} \NC
+---         `exact noaxis` 
+---            \ShowA{a}{b}{exact noaxis} 
+---            \ShowA{1}{2}{exact noaxis} 
+---            \ShowB{a}{b}{exact noaxis} 
+---            \ShowB{1}{2}{exact noaxis} 
 ---        \NR
 ---    \stoptabulate
 ---\stop
@@ -1295,7 +1295,7 @@
 ---The keyword `norule` will hide the rule with the above variants while
 ---keeping the rule related spacing.
 ---
----\subsection {Delimiters: \type{\Uleft}, `Umiddle` and `Uright`}
+---\subsection {Delimiters: `\Uleft`, `Umiddle` and `Uright`}
 ---
 ---\topicindex {math+delimiters}
 ---
@@ -1407,18 +1407,18 @@
 ---`^`, `_`, ```, and `$``:
 ---
 ---\starttabulate[|l|l|]
----\DB primitive                  \BC explanation \NC \NR
+---\DB primitive                  \BC explanation 
 ---\TB
----\NC `Usuperscript`      \NC duplicates the functionality of `^` \NC \NR
----\NC `Usubscript`        \NC duplicates the functionality of `_` \NC \NR
----\NC `Ustartmath`        \NC duplicates the functionality of ```, % `
----                                   when used in non-math mode. \NC \NR
----\NC `Ustopmath`         \NC duplicates the functionality of ```, % `
----                                   when used in inline math mode. \NC \NR
----\NC `Ustartdisplaymath` \NC duplicates the functionality of ````, % ``
----                                   when used in non-math mode. \NC \NR
----\NC `Ustopdisplaymath`  \NC duplicates the functionality of ````, % ``
----                                   when used in display math mode. \NC \NR
+--- `Usuperscript`       duplicates the functionality of `^` 
+--- `Usubscript`         duplicates the functionality of `_` 
+--- `Ustartmath`         duplicates the functionality of ```, % `
+---                                   when used in non-math mode. 
+--- `Ustopmath`          duplicates the functionality of ```, % `
+---                                   when used in inline math mode. 
+--- `Ustartdisplaymath`  duplicates the functionality of ````, % ``
+---                                   when used in non-math mode. 
+--- `Ustopdisplaymath`   duplicates the functionality of ````, % ``
+---                                   when used in display math mode. 
 ---\LL
 ---\stoptabulate
 ---
@@ -1513,13 +1513,13 @@
 ---mode parameter. The default value is 1.
 ---
 ---\starttabulate[|Tc|c|]
----\DB mode \BC class \NC \NR
+---\DB mode \BC class 
 ---\TB
----\NC  1   \NC ord   \NC \NR
----\NC  2   \NC bin   \NC \NR
----\NC  4   \NC rel   \NC \NR
----\NC  8   \NC punct \NC \NR
----\NC 16   \NC inner \NC \NR
+---  1    ord   
+---  2    bin   
+---  4    rel   
+---  8    punct 
+--- 16    inner 
 ---\LL
 ---\stoptabulate
 ---
@@ -1537,26 +1537,26 @@
 ---*LuaTeX*. The default values are:
 ---
 ---\starttabulate[|l|c|c|]
----\DB                 \BC scanning \BC rendering \NC \NR
+---\DB                 \BC scanning \BC rendering 
 ---\TB
----\NC radical/root    \NC cramped  \NC cramped   \NC \NR
----\NC under delimiter \NC cramped  \NC supstyle  \NC \NR
----\NC over delimiter  \NC cramped  \NC substyle  \NC \NR
----\NC delimiter under \NC cramped  \NC current   \NC \NR
----\NC delimiter over  \NC cramped  \NC current   \NC \NR
+--- radical/root     cramped   cramped   
+--- under delimiter  cramped   supstyle  
+--- over delimiter   cramped   substyle  
+--- delimiter under  cramped   current   
+--- delimiter over   cramped   current   
 ---\LL
 ---\stoptabulate
 ---
 ---When `\mathdefaultsmode` is larger than zero, we have:
 ---
 ---\starttabulate[|l|c|c|]
----\DB                 \BC scanning \BC rendering \NC \NR
+---\DB                 \BC scanning \BC rendering 
 ---\TB
----\NC radical/root    \NC cramped  \NC cramped   \NC \NR
----\NC under delimiter \NC substyle \NC substyle  \NC \NR
----\NC over delimiter  \NC supstyle \NC supstyle  \NC \NR
----\NC delimiter under \NC current  \NC current   \NC \NR
----\NC delimiter over  \NC cramped  \NC cramped   \NC \NR
+--- radical/root     cramped   cramped   
+--- under delimiter  substyle  substyle  
+--- over delimiter   supstyle  supstyle  
+--- delimiter under  current   current   
+--- delimiter over   cramped   cramped   
 ---\LL
 ---\stoptabulate
 ---
@@ -1608,13 +1608,13 @@
 ---%     \switchtobodyfont[modern]
 ---%     \startcombination[nx=2,ny=2,distance=5em]
 ---%         {\mathoption noitaliccompensation 0\relax \mathematics{\getbuffer}}
----%             {\nohyphens\type{0:inline}}
+---%             {\nohyphens`0:inline`}
 ---%         {\mathoption noitaliccompensation 0\relax \mathematics{\displaymath\getbuffer}}
----%             {\nohyphens\type{0:display}}
+---%             {\nohyphens`0:display`}
 ---%         {\mathoption noitaliccompensation 1\relax \mathematics{\getbuffer}}
----%             {\nohyphens\type{1:inline}}
+---%             {\nohyphens`1:inline`}
 ---%         {\mathoption noitaliccompensation 1\relax \mathematics{\displaymath\getbuffer}}
----%             {\nohyphens\type{1:display}}
+---%             {\nohyphens`1:display`}
 ---%     \stopcombination
 ---% \stoplinecorrection
 ---
@@ -1640,13 +1640,13 @@
 ---%     \switchtobodyfont[modern]
 ---%     \startcombination[nx=2,ny=2,distance=5em]
 ---%         {\mathoption nocharitalic 0\relax \mathematics{\getbuffer}}
----%             {\nohyphens\type{0:inline}}
+---%             {\nohyphens`0:inline`}
 ---%         {\mathoption nocharitalic 0\relax \mathematics{\displaymath\getbuffer}}
----%             {\nohyphens\type{0:display}}
+---%             {\nohyphens`0:display`}
 ---%         {\mathoption nocharitalic 1\relax \mathematics{\getbuffer}}
----%             {\nohyphens\type{1:inline}}
+---%             {\nohyphens`1:inline`}
 ---%         {\mathoption nocharitalic 1\relax \mathematics{\displaymath\getbuffer}}
----%             {\nohyphens\type{1:display}}
+---%             {\nohyphens`1:display`}
 ---%     \stopcombination
 ---% \stoplinecorrection
 ---
