@@ -85,7 +85,7 @@
 ---\libindex{getluaname}
 ---
 ---There is an array of 65536 (0--65535) potential chunk names for use with the
----\prm {directlua} and \lpr {latelua} primitives.
+---`directlua` and `latelua` primitives.
 ---
 ---\startfunctioncall
 ---lua.name[<number> n] = <string> s
@@ -175,7 +175,7 @@
 ---\NC \type{luabytecodes}       \NC number of active *Lua* bytecode registers \NC \NR
 ---\NC \type{luastate_bytes}     \NC number of bytes in use by *Lua* interpreters \NC \NR
 ---\NC \type{luatex_engine}      \NC the *LuaTeX* engine identifier \NC \NR
----\NC \type{luatex_hashchars}   \NC length to which *Lua* hashes strings ($2^n$) \NC \NR
+---\NC \type{luatex_hashchars}   \NC length to which *Lua* hashes strings (`2^n`) \NC \NR
 ---\NC \type{luatex_hashtype}    \NC the hash method used (in \LUAJITTEX) \NC \NR
 ---\NC \type{luatex_version}     \NC the *LuaTeX* version number \NC \NR
 ---\NC \type{luatex_revision}    \NC the *LuaTeX* revision string \NC \NR
@@ -189,7 +189,7 @@
 ---\NC \type{node_mem_usage}     \NC a string giving insight into currently used nodes \NC \NR
 ---\NC \type{obj_ptr}            \NC max \PDF\ object pointer \NC \NR
 ---\NC \type{obj_tab_size}       \NC \PDF\ object table size \NC \NR
----\NC \type{output_active}      \NC `true` if the \prm {output} routine is active \NC \NR
+---\NC \type{output_active}      \NC `true` if the `output` routine is active \NC \NR
 ---\NC \type{output_file_name}   \NC name of the \PDF\ or \DVI\ file \NC \NR
 ---\NC \type{param_size}         \NC parameter stack size \NC \NR
 ---\NC \type{pdf_dest_names_ptr} \NC max \PDF\ destination pointer \NC \NR
@@ -232,16 +232,16 @@
 ---The `tex` table contains a large list of virtual internal *TeX*
 ---parameters that are partially writable.
 ---
----The designation \quote {virtual} means that these items are not properly defined
+---The designation “virtual” means that these items are not properly defined
 ---in \LUA, but are only front\-ends that are handled by a metatable that operates
 ---on the actual *TeX* values. As a result, most of the *Lua* table operators (like
 ---`pairs` and `#`) do not work on such items.
 ---
 ---At the moment, it is possible to access almost every parameter that you can use
----after \prm {the}, is a single tokens or is sort of special in \TEX. This excludes
+---after `the`, is a single tokens or is sort of special in \TEX. This excludes
 ---parameters that need extra arguments, like `\the\scriptfont`. The subset
 ---comprising simple integer and dimension registers are writable as well as
----readable (like \prm {tracingcommands} and \prm {parindent}).
+---readable (like `tracingcommands` and `parindent`).
 ---
 ---\stopsubsection
 ---
@@ -508,9 +508,9 @@
 ---\subsubsection{Tokenlist parameters}
 ---
 ---The tokenlist parameters accept and return *Lua* strings. *Lua* strings are
----converted to and from token lists using \prm {the} \prm {toks} style expansion:
+---converted to and from token lists using `the` `toks` style expansion:
 ---all category codes are either space (10) or other (12). It follows that assigning
----to some of these, like \quote {tex.output}, is actually useless, but it feels bad
+---to some of these, like “tex.output”, is actually useless, but it feels bad
 ---to make exceptions in view of a coming extension that will accept full|-|blown
 ---token strings.
 ---
@@ -535,7 +535,7 @@
 ---
 ---\topicindex{convert commands}
 ---
----All \quote {convert} commands are read|-|only and return a *Lua* string. The
+---All “convert” commands are read|-|only and return a *Lua* string. The
 ---supported commands at this moment are:
 ---
 ---\starttwocolumns
@@ -555,7 +555,7 @@
 ---\stoptwocolumns
 ---
 ---If you are wondering why this list looks haphazard; these are all the cases of
----the \quote {convert} internal command that do not require an argument, as well as
+---the “convert” internal command that do not require an argument, as well as
 ---the ones that require only a simple numeric value. The special (\LUA|-|only) case
 ---of `tex.fontidentifier` returns the `csname` string that matches a
 ---font id number (if there is one).
@@ -566,7 +566,7 @@
 ---
 ---\topicindex{last items}
 ---
----All \quote {last item} commands are read|-|only and return a number. The
+---All “last item” commands are read|-|only and return a number. The
 ---supported commands at this moment are:
 ---
 ---\startthreecolumns
@@ -611,8 +611,7 @@
 ---
 ---\libindex{getmark}
 ---
----\TEX's attributes (\lpr {attribute}), counters (\prm {count}), dimensions (\prm
----{dimen}), skips (\prm {skip}, \prm {muskip}) and token (\prm {toks}) registers
+---\TEX's attributes (`attribute`), counters (`count`), dimensions (`dimen`), skips (`skip`, `muskip`) and token (`toks`) registers
 ---can be accessed and written to using two times five virtual sub|-|tables of the
 ---`tex` table:
 ---
@@ -629,8 +628,8 @@
 ---```
 ---\stopthreecolumns
 ---
----It is possible to use the names of relevant \lpr {attributedef}, \prm {countdef},
----\prm {dimendef}, \prm {skipdef}, or \prm {toksdef} control sequences as indices
+---It is possible to use the names of relevant `attributedef`, `countdef`,
+---`dimendef`, `skipdef`, or `toksdef` control sequences as indices
 ---to these tables:
 ---
 ---```
@@ -639,49 +638,48 @@
 ---```
 ---
 ---In this case, *LuaTeX* looks up the value for you on the fly. You have to use a
----valid \prm {countdef} (or \lpr {attributedef}, or \prm {dimendef}, or \prm
----{skipdef}, or \prm {toksdef}), anything else will generate an error (the intent
+---valid `countdef` (or `attributedef`, or `dimendef`, or `skipdef`, or `toksdef`), anything else will generate an error (the intent
 ---is to eventually also allow `<chardef tokens>` and even macros that expand
 ---into a number).
 ---
----\startitemize
+---* ize
 ---
----    \startitem
+---    * 
 ---        The count registers accept and return *Lua* numbers.
----    \stopitem
+---    
 ---
----    \startitem
+---    * 
 ---        The dimension registers accept *Lua* numbers (in scaled points) or
 ---        strings (with an included absolute dimension; `em` and `ex`
 ---        and `px` are forbidden). The result is always a number in scaled
 ---        points.
----    \stopitem
+---    
 ---
----    \startitem
+---    * 
 ---        The token registers accept and return *Lua* strings. *Lua* strings are
----        converted to and from token lists using \prm {the} \prm {toks} style
+---        converted to and from token lists using `the` `toks` style
 ---        expansion: all category codes are either space (10) or other (12).
----    \stopitem
+---    
 ---
----    \startitem
+---    * 
 ---        The skip registers accept and return \nod {glue_spec} userdata node
 ---        objects (see the description of the node interface elsewhere in this
 ---        manual).
----    \stopitem
+---    
 ---
----    \startitem
+---    * 
 ---        The glue registers are just skip registers but instead of userdata
 ---        are verbose.
----    \stopitem
+---    
 ---
----    \startitem
+---    * 
 ---        Like the counts, the attribute registers accept and return *Lua* numbers.
----    \stopitem
+---    
 ---
----\stopitemize
+---
 ---
 ---As an alternative to array addressing, there are also accessor functions defined
----for all cases, for example, here is the set of possibilities for \prm {skip}
+---for all cases, for example, here is the set of possibilities for `skip`
 ---registers:
 ---
 ---\startfunctioncall
@@ -739,8 +737,8 @@
 ---For tokens registers we have an alternative where a catcode table is specified:
 ---
 ---\startfunctioncall
----tex.scantoks(0,3,"$e=mc^2$")
----tex.scantoks("global",0,"$\int\limits^1_2$")
+---tex.scantoks(0,3,"`e=mc^2`")
+---tex.scantoks("global",0,"`\int\limits^1_2`")
 ---\stopfunctioncall
 ---
 ---In the function|-|based interface, it is possible to define values globally by
@@ -767,8 +765,7 @@
 ---\libindex{setdelcodes}   \libindex{getdelcodes}
 ---\libindex{setmathcodes}  \libindex{getmathcodes}
 ---
----\TEX's character code tables (\prm {lccode}, \prm {uccode}, \prm {sfcode}, \prm
----{catcode}, \prm {mathcode}, \prm {delcode}) can be accessed and written to using
+---\TEX's character code tables (`lccode`, `uccode`, `sfcode`, `catcode`, `mathcode`, `delcode`) can be accessed and written to using
 ---six virtual subtables of the `tex` table
 ---
 ---\startthreecolumns
@@ -858,8 +855,8 @@
 ---\stopfunctioncall
 ---
 ---Normally, the third and fourth values in a delimiter code assignment will be zero
----according to \lpr {Udelcode} usage, but the returned table can have values there
----(if the delimiter code was set using \prm {delcode}, for example). Unset `delcode`'s can be recognized because `dval[1]` is $-1$.
+---according to `Udelcode` usage, but the returned table can have values there
+---(if the delimiter code was set using `delcode`, for example). Unset `delcode`'s can be recognized because `dval[1]` is `-1`.
 ---
 ---\stopsubsection
 ---
@@ -871,8 +868,7 @@
 ---\libindex{box}
 ---\libindex{setbox}  \libindex{getbox}
 ---
----It is possible to set and query actual boxes, coming for instance from \prm
----{hbox}, \prm {vbox} or \prm {vtop}, using the node interface as defined in the
+---It is possible to set and query actual boxes, coming for instance from `hbox`, `vbox` or `vtop`, using the node interface as defined in the
 ---`node` library:
 ---
 ---```
@@ -917,7 +913,7 @@
 ---\libindex{getboxresourcedimensions}
 ---
 ---The following function will register a box for reuse (this is modelled after so
----called xforms in \PDF). You can (re)use the box with \lpr {useboxresource} or
+---called xforms in \PDF). You can (re)use the box with `useboxresource` or
 ---by creating a rule node with subtype~2.
 ---
 ---```
@@ -975,7 +971,7 @@
 ---```
 ---
 ---The remainder is kept in the original box and a packaged vlist is returned. This
----operation is comparable to the \prm {vsplit} operation. The mode can be `additional` or `exactly` and concerns the split off box.
+---operation is comparable to the `vsplit` operation. The mode can be `additional` or `exactly` and concerns the split off box.
 ---
 ---\stopsubsection
 ---
@@ -997,8 +993,8 @@
 ---As before an optional first parameter `global` indicates a global
 ---assignment.
 ---
----The first string is the parameter name minus the leading \quote {Umath}, and the
----second string is the style name minus the trailing \quote {style}. Just to be
+---The first string is the parameter name minus the leading “Umath”, and the
+---second string is the style name minus the trailing “style”. Just to be
 ---complete, the values for the math parameter name are:
 ---
 ---```
@@ -1070,7 +1066,7 @@
 ---\NC \type{page_head}           \NC the current page content \NC \NR
 ---%NC \type{temp_head}           \NC \NC \NR
 ---\NC \type{hold_head}           \NC used for held-over items for next page \NC \NR
----\NC \type{adjust_head}         \NC head of the current \prm {vadjust} list \NC \NR
+---\NC \type{adjust_head}         \NC head of the current `vadjust` list \NC \NR
 ---\NC \type{pre_adjust_head}     \NC head of the current `\vadjust pre` list \NC \NR
 ---%NC \type{align_head}          \NC \NC \NR
 ---\NC \type{page_discards_head}  \NC head of the discarded items of a page break \NC \NR
@@ -1125,12 +1121,12 @@
 ---\NC \type{spacefactor} \NC number  \NC hmode \NC the current space factor \NC \NR
 ---\NC \type{dirs}        \NC node    \NC hmode \NC used for temporary storage by the line break algorithm\NC \NR
 ---\NC \type{noad}        \NC node    \NC mmode \NC used for temporary storage of a pending fraction numerator,
----                                                 for \prm {over} etc. \NC \NR
+---                                                 for `over` etc. \NC \NR
 ---\NC \type{delimptr}    \NC node    \NC mmode \NC used for temporary storage of the previous math delimiter,
----                                                 for \prm {middle} \NC \NR
----\NC \type{mathdir}     \NC boolean \NC mmode \NC true when during math processing the \lpr {mathdir} is not
----                                                 the same as the surrounding \lpr {textdir} \NC \NR
----\NC \type{mathstyle}   \NC number  \NC mmode \NC the current \lpr {mathstyle} \NC \NR
+---                                                 for `middle` \NC \NR
+---\NC \type{mathdir}     \NC boolean \NC mmode \NC true when during math processing the `mathdir` is not
+---                                                 the same as the surrounding `textdir` \NC \NR
+---\NC \type{mathstyle}   \NC number  \NC mmode \NC the current `mathstyle` \NC \NR
 ---\LL
 ---\stoptabulate
 ---
@@ -1143,9 +1139,9 @@
 ---The `tex` table also contains the three print functions that are the major
 ---interface from *Lua* scripting to \TEX. The arguments to these three functions
 ---are all stored in an in|-|memory virtual file that is fed to the *TeX* scanner as
----the result of the expansion of \prm {directlua}.
+---the result of the expansion of `directlua`.
 ---
----The total amount of returnable text from a \prm {directlua} command is only
+---The total amount of returnable text from a `directlua` command is only
 ---limited by available system \RAM. However, each separate printed string has to
 ---fit completely in \TEX's input buffer. The result of using these functions from
 ---inside callbacks is undefined at the moment.
@@ -1166,15 +1162,14 @@
 ---of strings to print (the first non-string value will stop the printing process).
 ---
 ---The optional parameter can be used to print the strings using the catcode regime
----defined by \lpr {catcodetable}~`n`. If `n` is $-1$, the currently
----active catcode regime is used. If `n` is $-2$, the resulting catcodes are
----the result of \prm {the} \prm {toks}: all category codes are 12 (other) except for
+---defined by `catcodetable`~`n`. If `n` is `-1`, the currently
+---active catcode regime is used. If `n` is `-2`, the resulting catcodes are
+---the result of `the` `toks`: all category codes are 12 (other) except for
 ---the space character, that has category code 10 (space). Otherwise, if `n`
 ---is not a valid catcode table, then it is ignored, and the currently active
 ---catcode regime is used instead.
 ---
----The very last string of the very last `tex.print` command in a \prm
----{directlua} will not have the \prm {endlinechar} appended, all others do.
+---The very last string of the very last `tex.print` command in a `directlua` will not have the `endlinechar` appended, all others do.
 ---
 ---\subsubsection{`sprint`}
 ---
@@ -1190,15 +1185,15 @@
 ---Each string argument is treated by *TeX* as a special kind of input line that
 ---makes it suitable for use as a partial line input mechanism:
 ---
----\startitemize[packed]
----\startitem
----    *TeX* does not switch to the \quote {new line} state, so that leading spaces
+---
+---* 
+---    *TeX* does not switch to the “new line” state, so that leading spaces
 ---    are not ignored.
----\stopitem
----\startitem
----    No \prm {endlinechar} is inserted.
----\stopitem
----\startitem
+---
+---* 
+---    No `endlinechar` is inserted.
+---
+---* 
 ---    Trailing spaces are not removed. Note that this does not prevent *TeX* itself
 ---    from eating spaces as result of interpreting the line. For example, in
 ---
@@ -1206,10 +1201,9 @@
 ---    before\directlua{tex.sprint("\\relax")tex.sprint(" inbetween")}after
 ---    ```
 ---
----    the space before `in between` will be gobbled as a result of the \quote
----    {normal} scanning of \prm {relax}.
----\stopitem
----\stopitemize
+---    the space before `in between` will be gobbled as a result of the “normal” scanning of `relax`.
+---
+---
 ---
 ---If there is a table argument instead of a list of strings, this has to be a
 ---consecutive array of strings to print (the first non-string value will stop the
@@ -1223,23 +1217,23 @@
 ---tokens, while nodes need to be around when they get injected. Therefore it is
 ---important to realize the following:
 ---
----\startitemize
----\startitem
+---* ize
+---* 
 ---    When you inject a token, you need to pass a valid token userdata object. This
 ---    object will be collected by *Lua* when it no longer is referenced. When it gets
 ---    printed to *TeX* the token itself gets copied so there is no interference with the
 ---    *Lua* garbage collection. You manage the object yourself. Because tokens are
 ---    actually just numbers, there is no real extra overhead at the *TeX* end.
----\stopitem
----\startitem
+---
+---* 
 ---    When you inject a node, you need to pass a valid node userdata object. The
 ---    node related to the object will not be collected by *Lua* when it no longer
 ---    is referenced. It lives on at the *TeX* end in its own memory space. When it
 ---    gets printed to *TeX* the node reference is used assuming that node stays
 ---    around. There is no *Lua* garbage collection involved. Again, you manage the
 ---    object yourself. The node itself is freed when *TeX* is done with it.
----\stopitem
----\stopitemize
+---
+---
 ---
 ---If you consider the last remark you might realize that we have a problem when a
 ---printed mix of strings, tokens and nodes is reused. Inside *TeX* the sequence
@@ -1250,7 +1244,7 @@
 ---goes fine. But now assume that you store the whole lot in a macro: in that case
 ---the tokenized node can be flushed many times. But, after the first such flush the
 ---node is used and its memory freed. You can prevent this by using copies which is
----controlled by setting \lpr {luacopyinputnodes} to a non|-|zero value. This is one
+---controlled by setting `luacopyinputnodes` to a non|-|zero value. This is one
 ---of these fuzzy areas you have to live with if you really mess with these low
 ---level issues.
 ---
@@ -1274,12 +1268,12 @@
 ---input stream.
 ---
 ---\startfunctioncall
----tex.cprint( 1," 1: $&{\\foo}") tex.print("\\par") -- a lot of \bgroup s
----tex.cprint( 2," 2: $&{\\foo}") tex.print("\\par") -- matching \egroup s
----tex.cprint( 9," 9: $&{\\foo}") tex.print("\\par") -- all get ignored
----tex.cprint(10,"10: $&{\\foo}") tex.print("\\par") -- all become spaces
----tex.cprint(11,"11: $&{\\foo}") tex.print("\\par") -- letters
----tex.cprint(12,"12: $&{\\foo}") tex.print("\\par") -- other characters
+---tex.cprint( 1," 1: `&{\\foo}") tex.print("\\par") -- a lot of \bgroup s
+---tex.cprint( 2," 2: `&{\\foo}") tex.print("\\par") -- matching \egroup s
+---tex.cprint( 9," 9: `&{\\foo}") tex.print("\\par") -- all get ignored
+---tex.cprint(10,"10: `&{\\foo}") tex.print("\\par") -- all become spaces
+---tex.cprint(11,"11: `&{\\foo}") tex.print("\\par") -- letters
+---tex.cprint(12,"12: `&{\\foo}") tex.print("\\par") -- other characters
 ---tex.cprint(14,"12: $&{\\foo}") tex.print("\\par") -- comment triggers
 ---\stopfunctioncall
 ---
@@ -1298,11 +1292,10 @@
 ---Each string argument is treated by *TeX* as a special kind of input line that
 ---makes it suitable for use as a quick way to dump information:
 ---
----\startitemize
----\item All catcodes on that line are either \quote{space} (for '~') or \quote
----      {character} (for all others).
----\item There is no \prm {endlinechar} appended.
----\stopitemize
+---* ize
+---\item All catcodes on that line are either \quote{space} (for '~') or “character” (for all others).
+---\item There is no `endlinechar` appended.
+---
 ---
 ---If there is a table argument instead of a list of strings, this has to be a
 ---consecutive array of strings to print (the first non-string value will stop the
@@ -1329,7 +1322,7 @@
 ---
 ---Rounds *Lua* number `o`, and returns a number that is in the range of a
 ---valid *TeX* register value. If the number starts out of range, it generates a
----\quote {number too big} error as well.
+---“number too big” error as well.
 ---
 ---\subsubsection{`scale`}
 ---
@@ -1355,8 +1348,7 @@
 ---\libindex{number}
 ---\libindex{romannumeral}
 ---
----These are the companions to the primitives \prm {number} and \prm
----{romannumeral}. They can be used like:
+---These are the companions to the primitives `number` and `romannumeral`. They can be used like:
 ---
 ---\startfunctioncall
 ---tex.print(tex.romannumeral(123))
@@ -1391,17 +1383,17 @@
 ---input language (this includes generating errors for bad values), expect for the
 ---following:
 ---
----\startitemize[n]
----\startitem
+---* ize[n]
+---* 
 ---    only explicit values are allowed, control sequences are not handled
----\stopitem
----\startitem
+---
+---* 
 ---    infinite dimension units (`fil...`) are forbidden
----\stopitem
----\startitem
+---
+---* 
 ---    `mu` units do not generate an error (but may not be useful either)
----\stopitem
----\stopitemize
+---
+---
 ---
 ---\subsubsection{`tex.getlinenumber` and `tex.setlinenumber`}
 ---
@@ -1438,8 +1430,7 @@
 ---tex.error(<string> s, <table> help)
 ---\stopfunctioncall
 ---
----This creates an error somewhat like the combination of \prm {errhelp} and \prm
----{errmessage} would. During this error, deletions are disabled.
+---This creates an error somewhat like the combination of `errhelp` and `errmessage` would. During this error, deletions are disabled.
 ---
 ---The array part of the `help` table has to contain strings, one for each
 ---line of error help.
@@ -1478,7 +1469,7 @@
 ---tex.runtoks(<lua function>)
 ---\stopfunctioncall
 ---
----When the \prm {tracingnesting} parameter is set to a value larger than~2 some
+---When the `tracingnesting` parameter is set to a value larger than~2 some
 ---information is reported about the state of the local loop.
 ---
 ---This function has two optional arguments in case a token register is passed:
@@ -1555,19 +1546,18 @@
 ---\stopfunctioncall
 ---
 ---This function accepts a prefix string and an array of primitive names. For each
----combination of \quote {prefix} and \quote {name}, the `tex.enableprimitives` first verifies that \quote {name} is an actual primitive
+---combination of “prefix” and “name”, the `tex.enableprimitives` first verifies that “name” is an actual primitive
 ---(it must be returned by one of the `tex.extraprimitives` calls explained
----below, or part of \TEX82, or \prm {directlua}). If it is not, `tex.enableprimitives` does nothing and skips to the next pair.
+---below, or part of \TEX82, or `directlua`). If it is not, `tex.enableprimitives` does nothing and skips to the next pair.
 ---
 ---But if it is, then it will construct a csname variable by concatenating the
----\quote {prefix} and \quote {name}, unless the \quote {prefix} is already the
----actual prefix of \quote {name}. In the latter case, it will discard the \quote
----{prefix}, and just use \quote {name}.
+---“prefix” and “name”, unless the “prefix” is already the
+---actual prefix of “name”. In the latter case, it will discard the “prefix”, and just use “name”.
 ---
 ---Then it will check for the existence of the constructed csname. If the csname is
----currently undefined (note: that is not the same as \prm {relax}), it will
+---currently undefined (note: that is not the same as `relax`), it will
 ---globally define the csname to have the meaning: run code belonging to the
----primitive \quote {name}. If for some reason the csname is already defined, it
+---primitive “name”. If for some reason the csname is already defined, it
 ---does nothing and tries the next pair.
 ---
 ---An example:
@@ -1577,10 +1567,9 @@
 ---```
 ---
 ---will define `\LuaTeXformatname` with the same intrinsic meaning as the
----documented primitive \lpr {formatname}, provided that the control sequences `\LuaTeXformatname` is currently undefined.
+---documented primitive `formatname`, provided that the control sequences `\LuaTeXformatname` is currently undefined.
 ---
----When *LuaTeX* is run with `--ini` only the \TEX82 primitives and \prm
----{directlua} are available, so no extra primitives {\bf at all}.
+---When *LuaTeX* is run with `--ini` only the \TEX82 primitives and `directlua` are available, so no extra primitives {\bf at all}.
 ---
 ---If you want to have all the new functionality available using their default
 ---names, as it is now, you will have to add
@@ -1709,9 +1698,9 @@
 ---\NC \type{doublehyphendemerits} \NC number          \NC \NC \NR
 ---\NC \type{finalhyphendemerits}  \NC number          \NC \NC \NR
 ---\NC \type{hangafter}            \NC number          \NC \NC \NR
----\NC \type{interlinepenalty}     \NC number or table \NC if a table, then it is an array like \prm {interlinepenalties} \NC \NR
----\NC \type{clubpenalty}          \NC number or table \NC if a table, then it is an array like \prm {clubpenalties} \NC \NR
----\NC \type{widowpenalty}         \NC number or table \NC if a table, then it is an array like \prm {widowpenalties} \NC \NR
+---\NC \type{interlinepenalty}     \NC number or table \NC if a table, then it is an array like `interlinepenalties` \NC \NR
+---\NC \type{clubpenalty}          \NC number or table \NC if a table, then it is an array like `clubpenalties` \NC \NR
+---\NC \type{widowpenalty}         \NC number or table \NC if a table, then it is an array like `widowpenalties` \NC \NR
 ---\NC \type{brokenpenalty}        \NC number          \NC \NC \NR
 ---\NC \type{emergencystretch}     \NC number          \NC in scaled points \NC \NR
 ---\NC \type{hangindent}           \NC number          \NC in scaled points \NC \NR
@@ -1722,7 +1711,7 @@
 ---\LL
 ---\stoptabulate
 ---
----Note that there is no interface for \prm {displaywidowpenalties}, you have to
+---Note that there is no interface for `displaywidowpenalties`, you have to
 ---pass the right choice for `widowpenalties` yourself.
 ---
 ---It is your own job to make sure that `listhead` is a proper paragraph list:
@@ -1732,25 +1721,25 @@
 ---callbacks, or when the original list starting at listhead was generated in
 ---horizontal mode):
 ---
----\startitemize
----\startitem
----    add an \quote {indent box} and perhaps a \nod {local_par} node at the start
+---* ize
+---* 
+---    add an “indent box” and perhaps a \nod {local_par} node at the start
 ---    (only if you need them)
----\stopitem
----\startitem
+---
+---* 
 ---    replace any found final glue by an infinite penalty (or add such a penalty,
 ---    if the last node is not a glue)
----\stopitem
----\startitem
----    add a glue node for the \prm {parfillskip} after that penalty node
----\stopitem
----\startitem
+---
+---* 
+---    add a glue node for the `parfillskip` after that penalty node
+---
+---* 
 ---    make sure all the `prev` pointers are OK
----\stopitem
----\stopitemize
+---
+---
 ---
 ---The result is a node list, it still needs to be vpacked if you want to assign it
----to a \prm {vbox}. The returned `info` table contains four values that are
+---to a `vbox`. The returned `info` table contains four values that are
 ---all numbers:
 ---
 ---\starttabulate[|l|p|]
@@ -1996,7 +1985,7 @@
 ---\stopfunctioncall
 ---
 ---Without the `target` argument, writes all given strings to the same
----location(s) *TeX* writes messages to at this moment. If \prm {batchmode} is in
+---location(s) *TeX* writes messages to at this moment. If `batchmode` is in
 ---effect, it writes only to the log, otherwise it writes to the log and the
 ---terminal. The optional `target` can be one of three possibilities: `term`, `log` or `term and log`.
 ---
@@ -2034,7 +2023,7 @@
 ---
 ---\libindex{closeinput}
 ---
----This function that should be used with care. It acts as \prm {endinput} but at
+---This function that should be used with care. It acts as `endinput` but at
 ---the *Lua* end. You can use it to (sort of) force a jump back to \TEX. Normally a
 ---*Lua* will just collect prints and at the end bump an input level and flush these
 ---prints. This function can help you stay at the current level but you need to know
@@ -2136,8 +2125,8 @@
 ---\stoptabulate
 ---
 ---The `\foo` case only gives the meaning, but one can pass an already
----expanded definition (\prm {edef}'d). In the case of the braced variant one can of
----course use the \prm {detokenize} and \prm {unexpanded} primitives since there we
+---expanded definition (`edef`'d). In the case of the braced variant one can of
+---course use the `detokenize` and `unexpanded` primitives since there we
 ---do expand.
 ---
 ---The `scan_word` scanner can be used to implement for instance a number scanner:
@@ -2257,7 +2246,7 @@
 ---local t = token.create("relax")
 ---```
 ---
----This gives back a token object that has the properties of the \prm {relax}
+---This gives back a token object that has the properties of the `relax`
 ---primitive. The possible properties of tokens are:
 ---
 ---\starttabulate[|l|p|]
@@ -2309,8 +2298,7 @@
 ---
 ---Passing weird numbers can give side effects so don't expect too much help with
 ---that. As said, you need to know what you're doing. The best way to explore the
----way these internals work is to just look at how primitives or macros or \prm
----{chardef}'d commands are tokenized. Just create a known one and inspect its
+---way these internals work is to just look at how primitives or macros or `chardef`'d commands are tokenized. Just create a known one and inspect its
 ---fields. A variant that ignores the current catcode table is:
 ---
 ---```
@@ -2371,7 +2359,7 @@
 ---the `get_meaning` function gives the meaning including the argument
 ---specification (as usual in *TeX* separated by `->`).
 ---
----The `set_char` function can be used to do a \prm {chardef} at the
+---The `set_char` function can be used to do a `chardef` at the
 ---*Lua* end, where invalid assignments are silently ignored:
 ---
 ---```
@@ -2388,7 +2376,7 @@
 ---
 ---This creates a token that refers to a *Lua* function with an entry in the table
 ---that you can access with `lua.get_functions_table`. It is the companion
----to \lpr {luadef}.
+---to `luadef`.
 ---
 ---\stopsubsection
 ---
@@ -2513,7 +2501,7 @@
 ---\topicindex{libraries+\type{kpse}}
 ---
 ---This library provides two separate, but nearly identical interfaces to the
----\KPATHSEA\ file search functionality: there is a \quote {normal} procedural
+---\KPATHSEA\ file search functionality: there is a “normal” procedural
 ---interface that shares its kpathsea instance with *LuaTeX* itself, and an object
 ---oriented interface that is completely on its own.
 ---
@@ -2543,7 +2531,7 @@
 ---kpse.set_program_name(<string> name, <string> progname)
 ---\stopfunctioncall
 ---
----The second argument controls the use of the \quote {dotted} values in the `texmf.cnf` configuration file, and defaults to the first argument.
+---The second argument controls the use of the “dotted” values in the `texmf.cnf` configuration file, and defaults to the first argument.
 ---
 ---Third, if you prefer the object oriented interface, you have to call a different
 ---function. It has the same arguments, but it returns a userdata variable.
@@ -2594,7 +2582,7 @@
 ---
 ---Arguments:
 ---
----\startitemize[intro]
+---* ize[intro]
 ---
 ---\sym{filename}
 ---
@@ -2680,7 +2668,7 @@
 ---\sym{dpi}
 ---
 ---This is used for the size argument of the formats `pk`, `gf`, and
----`bitmap font`. \stopitemize
+---`bitmap font`. 
 ---
 ---If `--output-directory` is specified and the value is a relative pathname,
 ---the file is searched first here and if it fails it will be searched in the standard tree.

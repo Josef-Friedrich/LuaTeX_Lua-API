@@ -18,20 +18,31 @@ with open(file_name) as src:
 
 content = re.sub(r"\\type[\n ]+\{([^}]*)\}", r"`\1`", content, flags=re.DOTALL)
 content = re.sub(r"\\typ[\n ]+\{([^}]*)\}", r"`\1`", content, flags=re.DOTALL)
+content = re.sub(r"\\prm[\n ]+\{([^}]*)\}", r"`\1`", content, flags=re.DOTALL)
+content = re.sub(r"\\lpr[\n ]+\{([^}]*)\}", r"`\1`", content, flags=re.DOTALL)
+content = re.sub(r"\\quote[\n ]+\{([^}]*)\}", r"“\1”", content, flags=re.DOTALL)
+content = re.sub(r"\$([^$]+)\$", r"`\1`", content)
 
-content = content.replace('\\TEX\\', '*TeX*')
-content = content.replace('\\CONTEXT\\', '*ConTeXt*')
-content = content.replace('\\LUATEX\\', '*LuaTeX*')
-content = content.replace('\\LUA\\', '*Lua*')
+content = content.replace("\\TEX\\", "*TeX*")
+content = content.replace("\\CONTEXT\\", "*ConTeXt*")
+content = content.replace("\\LUATEX\\", "*LuaTeX*")
+content = content.replace("\\LUA\\", "*Lua*")
 
-content = content.replace('\\starttyping', '```')
-content = content.replace('\\stoptyping', '```')
+content = content.replace("\\starttyping", "```")
+content = content.replace("\\stoptyping", "```")
 
-content = '---' + content.replace('\n', '\n---')
+content = content.replace("\\startitemize[packed]", "")
+content = content.replace("\\stopitemize", "")
 
 
+content = content.replace("\\startitem", "* ")
+content = content.replace("\\stopitem", "")
 
-with open(file_name + '.lua', 'w') as dest:
+
+content = "---" + content.replace("\n", "\n---")
+
+
+with open(file_name + ".lua", "w") as dest:
     dest.write(content)
 
 print(content)
