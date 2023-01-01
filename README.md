@@ -42,6 +42,10 @@ Signature overloads in `tex.sp()`
 
 ![](images/tex.sp.png)
 
+Documentation for the field `data` of the `pdf_colorstack` node:
+
+![](PdfColorstockWhatsitNode.data.png)
+
 ## Documentation
 
 * [LuaTeX Mirror](https://github.com/TeX-Live/luatex)

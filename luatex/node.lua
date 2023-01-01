@@ -96,29 +96,25 @@ node = {}
 ---@field value number
 
 ---
----pdfTEX 1.40.0 comes with color stack support (actually any graphic state stack).
----
----\pdfcolorstackinit [ page ] [ direct ] ⟨general text⟩
---- (expandable)
----
----The primitive initializes a new graphic stack and returns its number. Optional page keyword
----instructs pdfTEX to restore the graphic at the beginning of every new page. Also optional direct
----has the same effect as for \pdfliteral primitive. The primitive was introduced in pdfTEX 1.40.0.
+---From the pdfTeX manual:
 ---
 ---`\pdfcolorstack ⟨stack number⟩ ⟨stack action⟩ ⟨general text⟩`
 ---
----The command operates on the stack of a given number. If ⟨stack action⟩ is push keyword, the
----⟨generalnew value provided as text⟩ is inserted into the top of the graphic stack and becomes
----the current stack value. If followed by pop , the top value is removed from the stack and the
----new top value becomes the current. set keyword replaces the current value with ⟨general text⟩
----without changing the stack size. current keyword instructs just to use the current stack value
----without modifying the stack at all. The primitive was introduced in pdfTEX 1.40.0.
+---The command operates on the stack of a given number. If ⟨stack action⟩ is `push` keyword, the
+---new value provided as ⟨general text⟩ is inserted into the top of the graphic stack and becomes
+---the current stack value. If followed by `pop`, the top value is removed from the stack and the
+---new top value becomes the current. `set` keyword replaces the current value with ⟨general text⟩
+---without changing the stack size. `current` keyword instructs just to use the current stack value
+---without modifying the stack at all.
+---
 ------
 ---Source: [pdftex-t.tex#L3954-L3980](https://github.com/tex-mirror/pdftex/blob/6fb2352aa70a23ad3830f1434613170be3f3cd74/doc/manual/pdftex-t.tex#L3954-L3980)
+---Source: [luatex-nodes.tex#L1097-L1107](https://github.com/TeX-Live/luatex/blob/e1cb50f34dc1451c9c5319dc953305b52a7a96fd/manual/luatex-nodes.tex#L1097-L1107)
+---
 ---@class PdfColorstackWhatsitNode: WhatsitNode
----@field stack integer # colorstack id number
----@field command integer # command to execute. ⟨stack action⟩ → set (0) | push (1) | pop (2) | current (3) [texnodes.c#L3523-L3545](https://github.com/TeX-Live/luatex/blob/6472bd794fea67de09f01e1a89e9b12141be7474/source/texk/web2c/luatexdir/tex/texnodes.c#L3523-L3545)
----@field data string # for example `1 0 0 rg 1 0 0 RG`. `rg` only colors filled outlines while the stroke color is set with `RG`.
+---@field stack integer # The colorstack id number.
+---@field command integer # The command to execute. ⟨stack action⟩ → set (0) | push (1) | pop (2) | current (3) [texnodes.c#L3523-L3545](https://github.com/TeX-Live/luatex/blob/6472bd794fea67de09f01e1a89e9b12141be7474/source/texk/web2c/luatexdir/tex/texnodes.c#L3523-L3545)
+---@field data string # General text that is placed on top of the stack, for example `1 0 0 rg 1 0 0 RG`. `rg` only colors filled outlines while the stroke color is set with `RG`. From the [PDF Reference, fourth edition](https://opensource.adobe.com/dc-acrobat-sdk-docs/pdfstandards/pdfreference1.5_v6.pdf), 4.5.7 Color Operators Page 251: `gray G`: Set the stroking color space to DeviceGray. `gray` is a number between 0.0 (black) and 1.0 (white). `gray g`: Same as `G`, but for nonstroking operations. `r g b RG`: Set the stroking color space to DeviceRGB. Each operand must be a number between 0.0 (minimum intensity) and 1.0 (maximum intensity). `r g b rg`: same as `RG`, but for nonstroking operations. `c m y k K`: Set the stroking color space to DeviceCMYK. Each operand must be a number between 0.0 (zero concentration) and 1.0 (maximum concentration). `c m y k k`: Same as `K`, but for nonstroking operations.
 
 ---@class HlistNode: Node
 ---@field head Node
