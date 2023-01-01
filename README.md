@@ -22,6 +22,26 @@ git clone https://github.com/Josef-Friedrich/luatex-lua-library.git
 }
 ```
 
+Quick info `node.id(type)`
+
+![](images/node.id.png)
+
+Type error in `node.id(type)`
+
+![](images/node.id_wrong-type.png)
+
+`node.id(type)` type definition
+
+![](images/node.id_definition.png)
+
+Quick info `node.write(n)`
+
+![](images/node.write.png)
+
+Signature overloads in `tex.sp()`
+
+![](images/tex.sp.png)
+
 ## Howtos
 
 * [Custom libraries](https://github.com/sumneko/lua-language-server/wiki/Libraries#custom)
