@@ -118,57 +118,58 @@ node = {}
 ---| "passive"
 ---| "shape"
 
---https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1199
-
+---
 ---This function returns a number (the internal index of the node) if the argument is a userdata
 ---object of type <node> and false when no node is passed.
+------
+---Source: [luatex-nodes.tex#L1199-L1211](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1199-L1211)
 ---
 ---@param item any
 ---
 ---@return boolean|integer t
 function node.is_node(item) end
 
---https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1213
-
 ---This function returns an array that maps node id numbers to node type strings, providing an
----overview of the possible top-level id types.
+---overview of the possible top-level `id` types.
+------
+---Source: [luatex-nodes.tex#L1218-L1224](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1218-L1224)
 ---
 ---@return table
 function node.types() end
 
---https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1226
-
+---
 ---TEX’s ‘whatsits’ all have the same id. The various subtypes are defined by their subtype fields.
 ---The function is much like types, except that it provides an array of subtype mappings.
+------
+---Source: [luatex-nodes.tex#L1226-L1233](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1226-L1233)
 ---
 ---@return table
 function node.whatsits() end
 
----https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1235
-
 ---
 ---This converts a single type name to its internal numeric representation.
+------
+---Source: [luatex-nodes.tex#L1235-L1244](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1235-L1244)
 ---
 ---@param type NodeType
 ---
 ---@return integer
 function node.id(type) end
 
---https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1299
-
+---
 ---The `new` function creates a new node. All its fields are initialized to
 ---either zero or `nil` except for `id` and `subtype`. Instead of
 ---numbers you can also use strings (names). If you create a new `whatsit` node
 ---the second argument is required. As with all node functions, this function
 ---creates a node at the *TeX* level.
+------
+---Source: [luatex-nodes.tex#L1299-L1314](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1299-L1314)
 ---
 ---@param id integer|NodeType
 ---@param subtype? integer|string
 ---
 ---@return Node
 function node.new(id, subtype) end
-
---https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1775
 
 ---
 ---This function removes the node `current` from the list following `head`. It is your responsibility to make sure it is really part of that list.
@@ -178,6 +179,8 @@ function node.new(id, subtype) end
 ---no such node). The returned `head` is more important, because if the
 ---function is called with `current` equal to `head`, it will be
 ---changed.
+------
+---Source: [luatex-nodes.tex#L1775-L1791](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1775-L1791)
 ---
 ---@param head Node
 ---@param current Node
@@ -186,13 +189,14 @@ function node.new(id, subtype) end
 ---@return Node current
 function node.remove(head, current) end
 
---https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1793
-
+---
 ---This function inserts the node `new` before `current` into the list
 ---following `head`. It is your responsibility to make sure that `current` is really part of that list. The return values are the (potentially
 ---mutated) `head` and the node `new`, set up to be part of the list
 ---(with correct `next` field). If `head` is initially `nil`, it
 ---will become `new`.
+------
+---Source: [luatex-nodes.tex#L1793-L1807](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1793-L1807)
 ---
 ---@param head Node
 ---@param current Node
@@ -202,12 +206,13 @@ function node.remove(head, current) end
 ---@return Node new
 function node.insert_before(head, current, new) end
 
---https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1809
-
+---
 ---This function inserts the node `new` after `current` into the list
 ---following `head`. It is your responsibility to make sure that `current` is really part of that list. The return values are the `head` and
 ---the node `new`, set up to be part of the list (with correct `next`
 ---field). If `head` is initially `nil`, it will become `new`.
+------
+---Source: [luatex-nodes.tex#L1809-L1822](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1809-L1822)
 ---
 ---@param head Node
 ---@param current Node
@@ -217,12 +222,12 @@ function node.insert_before(head, current, new) end
 ---@return Node new
 function node.insert_after(head, current, new) end
 
---https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1913
-
 ---
 ---This function that will append a node list to *TeX*'s “current list”. The
 ---node list is not deep-copied! There is no error checking either! You mignt need
 ---to enforce horizontal mode in order for this to work as expected.
+------
+---Source: [luatex-nodes.tex#L1913-L1923](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1913-L1923)
 ---
 ---@param n Node
 function node.write(n) end
