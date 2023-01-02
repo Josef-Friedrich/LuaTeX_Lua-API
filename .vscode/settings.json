@@ -1,3 +1,8 @@
 {
-  "python.formatting.provider": "black"
+  "python.formatting.provider": "black",
+  // https://github.com/sumneko/lua-language-server/wiki/Libraries
+  "Lua.workspace.library": [
+    // https://github.com/Josef-Friedrich/LuaTeX_Lua-API
+    "~/repos/tex/lua-api/src"
+  ]
 }
