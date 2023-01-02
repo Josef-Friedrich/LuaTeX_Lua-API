@@ -345,6 +345,14 @@ node.__t.kern = 13
 ---|2 # accentkern
 ---|3 # italiccorrection
 
+---
+---The `kern` command creates such nodes but for instance the font and math
+---machinery can also add them.
+---
+---@class KernNode: Node
+---@field subtype KernNodeSubtype
+---@field kern integer # fixed horizontal or vertical advance
+
 node.__t.penalty = 14
 
 ---@alias PenaltyNodeSubtype
