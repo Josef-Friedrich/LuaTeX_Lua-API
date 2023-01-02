@@ -766,7 +766,27 @@ function node.insert_after(head, current, new) end
 ---node list is not deep-copied! There is no error checking either! You mignt need
 ---to enforce horizontal mode in order for this to work as expected.
 ------
----Source: [luatex-nodes.tex#L1913-L1923](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1913-L1923)
+---Source: [luatex-nodes.tex#L2518-L2521](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L2518-L2521), [luatex-nodes.tex#L1913-L1923](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1913-L1923)
 ---
 ---@param n Node
 function node.write(n) end
+
+---
+---Each node also can have a properties table and you can get properties using the `getproperty` function.
+------
+---Source: [luatex-nodes.tex#L2518-L2521](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L2518-L2521), [lnodelib.c#L8373-L8383](https://github.com/TeX-Live/luatex/blob/3c57eed035fa9cd6a27ed615374ab648f350326a/source/texk/web2c/luatexdir/lua/lnodelib.c#L8373-L8383)
+---
+---@param node Node
+---
+---@return any value
+function node.getproperty(node) end
+
+---
+---Each node also can have a properties table and you can assign values to this table using the
+---`setproperty` function
+------
+---Source: [lnodelib.c#L8397-L8410](https://github.com/TeX-Live/luatex/blob/3c57eed035fa9cd6a27ed615374ab648f350326a/source/texk/web2c/luatexdir/lua/lnodelib.c#L8397-L8410)
+---
+---@param node Node
+---@param value any
+function node.setproperty(node, value) end
