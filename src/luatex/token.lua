@@ -20,10 +20,10 @@ token = {}
 ---@field cmdname any # the type of the command (for instance the catcode in case of a character or the classifier that determines the internal treatment
 ---@field csname string # the associated control sequence (if applicable)
 ---@field id integer # the unique id of the token
----@field tok integer # the full token number as stored in \TEX
+---@field tok integer # the full token number as stored in TeX
 ---@field active boolean # a boolean indicating the active state of the token
 ---@field expandable boolean # a boolean indicating if the token (macro) is expandable
----@field protected boolean # a boolean indicating if the token (macro) is protected
+---@field public protected boolean # a boolean indicating if the token (macro) is protected
 ---@field mode integer|any # a number either representing a character or another entity
 ---@field index integer # a number running from 0x0000 upto 0xFFFF indicating a TeX register index
 
@@ -31,6 +31,7 @@ token = {}
 ---The scanners look for a sequence. When you want to pick up one token from the
 ---input you use `get_next`. This creates a token with the (low level)
 ---properties.
+---
 ---@return Token
 function token.get_next() end
 

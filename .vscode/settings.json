@@ -4,5 +4,8 @@
   "Lua.workspace.library": [
     // https://github.com/Josef-Friedrich/LuaTeX_Lua-API
     "~/repos/tex/lua-api/src"
+  ],
+  "Lua.diagnostics.disable": [
+    "duplicate-set-field"
   ]
 }
