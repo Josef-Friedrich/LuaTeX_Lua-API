@@ -109,6 +109,9 @@ node = {}
 ---|1 # `stretching`,
 ---|2 # `shrinking`
 
+node.__t = {}
+node.__t.Node = 'xxx'
+
 ---
 ---These are the nodes that comprise actual typesetting commands. A few fields are
 ---present in all nodes regardless of their type, these are:
@@ -121,6 +124,8 @@ node = {}
 ---@field subtype integer # the node subtype identifier. The `subtype` is sometimes just a dummy entry because not all nodes actually use the `subtype`, but this way you can be sure that all nodes accept it as a valid field name, and that is often handy in node list traversal.
 ---@field head? Node
 ---@field attr Node # list of attributes. almost all nodes also have an `attr` field
+
+node.__t.hlist = 0
 
 ---@alias HlistNodeSubtype
 ---|0 # unknown
@@ -175,6 +180,15 @@ node = {}
 ---@field list Node # the first node of the body of this list
 ---@field dir DirectionSpecifier
 
+node.__t.vlist = 1
+
+---@alias VlistNodeSubtype
+---|0 # unknown
+---|4 # alignment
+---|5 # cell
+
+node.__t.rule = 2
+
 ---@alias RuleNodeSubtype
 ---|0 # normal
 ---|1 # box
@@ -217,6 +231,224 @@ node = {}
 ---@field index integer # an optional index that can be referred too
 ---@field transform integer # an private variable (also used to specify outline width)
 
+node.__t.ins = 3
+
+node.__t.mark = 4
+
+node.__t.adjust = 5
+
+---@alias AdjustNodeSubtype
+---|0 # normal
+---|1 # pre
+
+node.__t.disc = 7
+
+---@alias DiscNodeSubtype
+---|0 # discretionary
+---|1 # explicit
+---|2 # automatic
+---|3 # regular
+---|4 # first
+---|5 # second
+
+node.__t.math = 11
+
+---@alias MathNodeSubtype
+---|0 # beginmath
+---|1 # endmath
+
+node.__t.glue_spec = 39
+
+---
+---Skips are about the only type of data objects in traditional *TeX* that are not a
+---simple value. They are inserted when *TeX* sees a space in the text flow but also
+---by `hskip` and `vskip`. The structure that represents the glue
+---components of a skip is called a `glue_spec`.
+---
+---The effective width of some glue subtypes depends on the stretch or shrink needed
+---to make the encapsulating box fit its dimensions. For instance, in a paragraph
+---lines normally have glue representing spaces and these stretch or shrink to make
+---the content fit in the available space. The `effective_glue` function that
+---takes a glue node and a parent (hlist or vlist) returns the effective width of
+---that glue item. When you pass `true` as third argument the value will be
+---rounded.
+---
+---A `glue_spec` node is a special kind of node that is used for storing a set
+---of glue values in registers. Originally they were also used to store properties
+---of glue nodes (using a system of reference counts) but we now keep these
+---properties in the glue nodes themselves, which gives a cleaner interface to *Lua*.
+---
+---The indirect spec approach was in fact an optimization in the original *TeX*
+---code. First of all it can save quite some memory because all these spaces that
+---become glue now share the same specification (only the reference count is
+---incremented), and zero testing is also a bit faster because only the pointer has
+---to be checked (this is no longer true for engines that implement for instance
+---protrusion where we really need to ensure that zero is zero when we test for
+---bounds). Another side effect is that glue specifications are read-only, so in
+---the end copies need to be made when they are used from *Lua* (each assignment to
+---a field can result in a new copy). So in the end the advantages of sharing are
+---not that high (and nowadays memory is less an issue, also given that a glue node
+---is only a few memory words larger than a spec).
+---
+---In addition there are the `width`, `stretch` `stretch_order`,
+---`shrink`, and `shrink_order` fields. Note that we use the key `width` in both horizontal and vertical glue. This suits the *TeX* internals well
+---so we decided to stick to that naming.
+---@class GlueSpecNode: Node
+---@field width          integer #  the horizontal or vertical displacement
+---@field stretch        integer #  extra (positive) displacement or stretch amount
+---@field stretch_order  integer #  factor applied to stretch amount
+---@field shrink         integer #  extra (negative) displacement or shrink amount
+---@field shrink_order   integer #  factor applied to shrink amount
+
+node.__t.glue = 12
+
+---@alias GlueNodeSubtype
+---|0 # userskip
+---|1 # lineskip
+---|2 # baselineskip
+---|3 # parskip
+---|4 # abovedisplayskip
+---|5 # belowdisplayskip
+---|6 # abovedisplayshortskip
+---|7 # belowdisplayshortskip
+---|8 # leftskip
+---|9 # rightskip
+---|10 # topskip
+---|11 # splittopskip
+---|12 # tabskip
+---|13 # spaceskip
+---|14 # xspaceskip
+---|15 # parfillskip
+---|16 # mathskip
+---|17 # thinmuskip
+---|18 # medmuskip
+---|19 # thickmuskip
+---|98 # conditionalmathskip
+---|99 # muglue
+---|100 # leaders
+---|101 # cleaders
+---|102 # xleaders
+---|103 # gleaders
+
+---
+---A regular word space also results in a `spaceskip` subtype (this used to be
+---a `userskip` with subtype zero).
+---@class GlueNode: Node
+---@field subtype  GlueNodeSubtype
+---@field leader   Node #    pointer to a box or rule for leaders
+
+node.__t.kern = 13
+
+---@alias KernNodeSubtype
+---|0 # fontkern
+---|1 # userkern
+---|2 # accentkern
+---|3 # italiccorrection
+
+node.__t.penalty = 14
+
+---@alias PenaltyNodeSubtype
+---|0 # userpenalty
+---|1 # linebreakpenalty
+---|2 # linepenalty
+---|3 # wordpenalty
+---|4 # finalpenalty
+---|5 # noadpenalty
+---|6 # beforedisplaypenalty
+---|7 # afterdisplaypenalty
+---|8 # equationnumberpenalty
+
+node.__t.glyph = 29
+
+---@alias GlyphNodeSubtype
+---|1 # ligature
+---|2 # ghost
+---|3 # left
+---|4 # right
+
+node.__t.boundary = 6
+
+---@alias BoundaryNodeSubtype
+---|0 # cancel
+---|1 # user
+---|2 # protrusion
+---|3 # word
+
+node.__t.local_par = 9
+
+node.__t.dir = 10
+
+node.__t.margin_kern = 28
+
+---@alias MarginKernNodeSubtype
+---|0 # left
+---|1 # right
+
+node.__t.math_char = 23
+
+node.__t.math_text_char = 26
+
+node.__t.sub_box = 24
+
+node.__t.sub_mlist = 25
+
+node.__t.delim = 27
+
+node.__t.noad = 18
+
+---@alias NoadNodeSubtype
+---|0 # ord
+---|1 # opdisplaylimits
+---|2 # oplimits
+---|3 # opnolimits
+---|4 # bin
+---|5 # rel
+---|6 # open
+---|7 # close
+---|8 # punct
+---|9 # inner
+---|10 # under
+---|11 # over
+---|12 # vcenter
+
+node.__t.accent = 21
+
+---@alias AccentNodeSubtype
+---|0 # bothflexible
+---|1 # fixedtop
+---|2 # fixedbottom
+---|3 # fixedboth
+
+node.__t.style = 16
+
+node.__t.choice = 17
+
+node.__t.radical = 19
+
+---@alias RadicalNodeSubtype
+---|0 # radical
+---|1 # uradical
+---|2 # uroot
+---|3 # uunderdelimiter
+---|4 # uoverdelimiter
+---|5 # udelimiterunder
+---|6 # udelimiterover
+
+node.__t.fraction = 20
+
+node.__t.fence = 22
+
+---@alias FenceNodeSubtype
+---|0 # unset
+---|1 # left
+---|2 # middle
+---|3 # right
+---|4 # no
+
+node.__t.whatsit = 8
+
+node.__t.__whatsit = {}
+
 ---Whatsit nodes come in many subtypes that you can ask for them by running
 ---`node.whatsits`.
 ---
@@ -226,6 +458,14 @@ node = {}
 ---
 ---Source: [luatex-nodes.tex#L781-L797](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L781-L797)
 ---@class WhatsitNode: Node
+
+node.__t.__whatsit.open = 0
+
+node.__t.__whatsit.write = 1
+
+node.__t.__whatsit.close = 2
+
+node.__t.__whatsit.user_defined = 8
 
 ---User-defined whatsit nodes can only be created and handled from *Lua* code. In
 ---effect, they are an extension to the extension mechanism. The *LuaTeX* engine
@@ -237,6 +477,36 @@ node = {}
 ---@field user_id number # id number
 ---@field type 97|100|108|110|115|116 # The `type` can have one of six distinct values. The number is the ASCII value if the first character of the type name (so you can use string.byte("l") instead of `108`): 97 “a” list of attributes (a node list), 100 “d” a *Lua* number, 108 “l” a *Lua* value (table, number, boolean, etc), 110 “n” a node list, 115 “s” a *Lua* string, 116 “t” a *Lua* token list in *Lua* table form (a list of triplets).
 ---@field value number|Node|string|table
+
+node.__t.__whatsit.save_pos = 6
+
+node.__t.__whatsit.late_lua = 7
+
+node.__t.__whatsit.special = 3
+
+node.__t.__whatsit.pdf_literal = 16
+
+node.__t.__whatsit.pdf_refobj = 17
+
+node.__t.__whatsit.pdf_annot = 18
+
+node.__t.__whatsit.pdf_start_link = 19
+
+node.__t.__whatsit.pdf_end_link = 20
+
+node.__t.__whatsit.pdf_dest = 21
+
+node.__t.__whatsit.pdf_action = 22
+
+node.__t.__whatsit.pdf_thread = 23
+
+node.__t.__whatsit.pdf_start_thread = 24
+
+node.__t.__whatsit.pdf_end_thread = 25
+
+node.__t.__whatsit.pdf_thread_data = 26
+
+node.__t.__whatsit.pdf_colorstack = 28
 
 ---
 ---From the pdfTeX manual:
@@ -257,6 +527,37 @@ node = {}
 ---@field stack integer # The colorstack id number.
 ---@field command integer # The command to execute. ⟨stack action⟩ → set (0) | push (1) | pop (2) | current (3) [texnodes.c#L3523-L3545](https://github.com/TeX-Live/luatex/blob/6472bd794fea67de09f01e1a89e9b12141be7474/source/texk/web2c/luatexdir/tex/texnodes.c#L3523-L3545)
 ---@field data string # General text that is placed on top of the stack, for example `1 0 0 rg 1 0 0 RG`. `rg` only colors filled outlines while the stroke color is set with `RG`. From the [PDF Reference, fourth edition](https://opensource.adobe.com/dc-acrobat-sdk-docs/pdfstandards/pdfreference1.5_v6.pdf), 4.5.7 Color Operators Page 251: `gray G`: Set the stroking color space to DeviceGray. `gray` is a number between 0.0 (black) and 1.0 (white). `gray g`: Same as `G`, but for nonstroking operations. `r g b RG`: Set the stroking color space to DeviceRGB. Each operand must be a number between 0.0 (minimum intensity) and 1.0 (maximum intensity). `r g b rg`: same as `RG`, but for nonstroking operations. `c m y k K`: Set the stroking color space to DeviceCMYK. Each operand must be a number between 0.0 (zero concentration) and 1.0 (maximum concentration). `c m y k k`: Same as `K`, but for nonstroking operations.
+
+node.__t.__whatsit.pdf_setmatrix = 29
+
+node.__t.__whatsit.pdf_save = 30
+
+node.__t.__whatsit.pdf_restore = 31
+
+node.__t.__whatsit.pdf_link_state = 32
+
+node.__t.__whatsit.pdf_link_data = 27
+
+node.__t.unset = 15
+node.__t.align_record = 30
+node.__t.pseudo_file = 31
+node.__t.pseudo_line = 32
+node.__t.page_insert = 33
+node.__t.split_insert = 34
+node.__t.expr_stack = 35
+node.__t.nested_list = 36
+node.__t.span = 37
+node.__t.attribute = 38
+node.__t.attribute_list = 40
+node.__t.temp = 41
+node.__t.align_stack = 42
+node.__t.movement_stack = 43
+node.__t.if_stack = 44
+node.__t.unhyphenated = 45
+node.__t.hyphenated = 46
+node.__t.delta = 47
+node.__t.passive = 48
+node.__t.shape = 49
 
 ---
 ---This function returns a number (the internal index of the node) if the argument is a userdata
