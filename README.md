@@ -1,6 +1,6 @@
-# luatex-lua-library
+# LuaTeX Lua API
 
-Type definitions / Stubs for the Lua interface of LuaTeX
+Type definitions / Stubs for the Lua interface of LuaTeX and related Lua modules.
 
 Install [Visual Studio Code](https://code.visualstudio.com/) and the
 [lua-language-server](https://marketplace.visualstudio.com/items?itemName=sumneko.lua).
@@ -8,7 +8,7 @@ Install [Visual Studio Code](https://code.visualstudio.com/) and the
 [LuaTeX reference manual sources](https://github.com/TeX-Live/luatex/tree/trunk/manual)
 
 ```
-git clone https://github.com/Josef-Friedrich/luatex-lua-library.git
+git clone https://github.com/Josef-Friedrich/LuaTeX_Lua-API.git
 ```
 
 `.vscode/settings.json`:
@@ -16,35 +16,34 @@ git clone https://github.com/Josef-Friedrich/luatex-lua-library.git
 ```json
 {
 "Lua.workspace.library": [
-    // https://github.com/Josef-Friedrich/luatex-lua-library
-    "/path/to/the/lualatex-lua-library/repo"
+    "<repo>/src"
   ]
 }
 ```
 
 Quick info `node.id(type)`
 
-![](images/node.id.png)
+![](resources/images/node.id.png)
 
 Type error in `node.id(type)`
 
-![](images/node.id_wrong-type.png)
+![](resources/images/node.id_wrong-type.png)
 
 `node.id(type)` type definition
 
-![](images/node.id_definition.png)
+![](resources/images/node.id_definition.png)
 
 Quick info `node.write(n)`
 
-![](images/node.write.png)
+![](resources/images/node.write.png)
 
 Signature overloads in `tex.sp()`
 
-![](images/tex.sp.png)
+![](resources/images/tex.sp.png)
 
 Documentation for the field `data` of the `pdf_colorstack` node:
 
-![](images/PdfColorstockWhatsitNode.data.png)
+![](resources/images/PdfColorstockWhatsitNode.data.png)
 
 ## Documentation
 
