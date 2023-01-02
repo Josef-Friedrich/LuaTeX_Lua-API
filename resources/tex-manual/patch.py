@@ -48,7 +48,7 @@ def patch_file(file_name: str):
 
 
 if len(sys.argv) < 2:
-    for file_name in glob.glob(str(Path(__file__).resolve().parent) + "/*.tex"):
+    for file_name in glob.glob(str(Path(__file__).resolve().parent) + "/**/*.tex"):
         patch_file(file_name)
 else:
     patch_file(sys.argv[1])
