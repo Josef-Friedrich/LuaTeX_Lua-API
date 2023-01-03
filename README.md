@@ -16,7 +16,7 @@ git clone https://github.com/Josef-Friedrich/LuaTeX_Lua-API.git
 ```json
 {
 "Lua.workspace.library": [
-    "<repo>/src"
+    "<repo>/library"
   ]
 }
 ```
