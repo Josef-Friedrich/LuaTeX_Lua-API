@@ -8,7 +8,7 @@
 ---
 ---This is the reference manual of *LuaTeX*. We don't claim it is complete and we
 ---assume that the reader knows about *TeX* as described in \quotation {The *TeX*
----Book}, the \quotation {\ETEX\ manual}, the \quotation {\PDFTEX\ manual}, etc.
+---Book}, the \quotation {\ETEX\ manual}, the \quotation {*PDF*TEX\ manual}, etc.
 ---Additional reference material is published in journals of user groups and
 ---*ConTeXt* related documentation.
 ---
@@ -22,16 +22,16 @@
 ---Of course we then can decide to move towards version 2.00 with different
 ---properties.
 ---
----Don't expect *LuaTeX* to behave the same as \PDFTEX ! Although the core
+---Don't expect *LuaTeX* to behave the same as *PDF*TEX ! Although the core
 ---functionality of that 8 bit engine was starting point, it has been combined with
 ---the directional support of \OMEGA\ (\ALEPH). But, *LuaTeX* can behave different
 ---due to its wide (32 bit) characters, many registers and large memory support. The
----\PDF\ code produced differs from \PDFTEX\ but users will normally not notice
+---*PDF* code produced differs from *PDF*TEX\ but users will normally not notice
 ---that. There is native \UTF\ input, support for large (more than 8 bit) fonts, and
 ---the math machinery is tuned for \OPENTYPE\ math. There is support for directional
 ---typesetting too. The log output can differ from other engines and will likely
 ---differ more as we move forward. When you run plain *TeX* for sure *LuaTeX* runs
----slower than \PDFTEX\ but when you run for instance *ConTeXt* \MKIV\ in many cases
+---slower than *PDF*TEX\ but when you run for instance *ConTeXt* \MKIV\ in many cases
 ---it runs faster, especially when you have a bit more complex documents or input.
 ---Anyway, 32 bit all||over combined with more features has a price, but on a modern
 ---machine this is no real problem.
@@ -48,7 +48,7 @@
 ---code in *TeX* engines (especially code that is not needed any longer).
 ---
 --- [unpacked]
----    * We started out with most of \PDFTEX\ version 1.40.9. The code base was
+---    * We started out with most of *PDF*TEX\ version 1.40.9. The code base was
 ---        converted to \CCODE\ and split in modules. Experimental features were
 ---        removed and utility macros are not inherited because their functionality
 ---        can be programmed in *Lua*. The number of backend interface commands has
@@ -57,7 +57,7 @@
 ---        mechanisms like expansion and protrusion can behave different from the
 ---        original due to some cleanup and optimization. Some whatsit based
 ---        functionality (image support and reusable content) is now core
----        functionality. We don't stay in sync with \PDFTEX\ development.
+---        functionality. We don't stay in sync with *PDF*TEX\ development.
 ---    
 ---    * The direction model from \ALEPH\ RC4 (which is derived from \OMEGA) is
 ---        included. The related primitives are part of core *LuaTeX* but at the
@@ -102,7 +102,7 @@
 ---    
 ---    * The versions starting from 1.09 no longer use the poppler library for
 ---        inclusion but a lightweight dedicated one. This removes a dependency but
----        also makes the inclusion code of *LuaTeX* different from \PDFTEX. In fact
+---        also makes the inclusion code of *LuaTeX* different from *PDF*TEX. In fact
 ---        it was already much different due to the *Lua* image interfacing.
 ---    
 ---
@@ -153,10 +153,7 @@
 ---
 ---\starttabulate[|||]
 --- Version  \EQ \currentdate 
---- *LuaTeX*  \EQ \cldcontext{LUATEXENGINE} %
----                 \cldcontext{"\letterpercent 0.2f",LUATEXVERSION} / %
----                 \cldcontext{LUATEXFUNCTIONALITY}
----                 
+--- *LuaTeX*  \EQ \cldcontext{LUATEXENGINE} % \cldcontext{"\letterpercent 0.2f",LUATEXVERSION} / % \cldcontext{LUATEXFUNCTIONALITY} 
 --- *ConTeXt* \EQ MkIV \contextversion 
 ---\stoptabulate
 ---

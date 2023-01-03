@@ -11,7 +11,7 @@
 ---\topicindex {math}
 ---
 ---The handling of mathematics in *LuaTeX* differs quite a bit from how *TeX*82 (and
----therefore \PDFTEX) handles math. First, *LuaTeX* adds primitives and extends some
+---therefore *PDF*TEX) handles math. First, *LuaTeX* adds primitives and extends some
 ---others so that \UNICODE\ input can be used easily. Second, all of *TeX*82's
 ---internal special values (for example for operator spacing) have been made
 ---accessible and changeable via control sequences. Third, there are extensions that
@@ -363,8 +363,7 @@
 ---\DB primitive name                   \BC description 
 ---\TB
 --- `Umathquad`                the width of 18 mu's 
---- `Umathaxis`                height of the vertical center axis of
----                                         the math formula above the baseline 
+--- `Umathaxis`                height of the vertical center axis of the math formula above the baseline 
 --- `Umathoperatorsize`        minimum size of large operators in display mode 
 --- `Umathoverbarkern`         vertical clearance above the rule 
 --- `Umathoverbarrule`         the width of the rule 
@@ -375,16 +374,10 @@
 --- `Umathradicalkern`         vertical clearance above the rule 
 --- `Umathradicalrule`         the width of the rule 
 --- `Umathradicalvgap`         vertical clearance below the rule 
---- `Umathradicaldegreebefore` the forward kern that takes place before placement of
----                                       the radical degree 
---- `Umathradicaldegreeafter`  the backward kern that takes place after placement of
----                                       the radical degree 
---- `Umathradicaldegreeraise`  this is the percentage of the total height and depth of
----                                       the radical sign that the degree is raised by; it is
----                                       expressed in `percents`, so 60\% is expressed as the
----                                       integer `60` 
---- `Umathstackvgap`           vertical clearance between the two
----                                       elements in a `atop` stack 
+--- `Umathradicaldegreebefore` the forward kern that takes place before placement of the radical degree 
+--- `Umathradicaldegreeafter`  the backward kern that takes place after placement of the radical degree 
+--- `Umathradicaldegreeraise`  this is the percentage of the total height and depth of the radical sign that the degree is raised by; it is expressed in `percents`, so 60\% is expressed as the integer `60` 
+--- `Umathstackvgap`           vertical clearance between the two elements in a `atop` stack 
 --- `Umathstacknumup`          numerator shift upward in `atop` stack 
 --- `Umathstackdenomdown`      denominator shift downward in `atop` stack 
 --- `Umathfractionrule`        the width of the rule in a `over` 
@@ -408,12 +401,9 @@
 --- `Umathsupshiftdrop`        superscript drop (raise, actually) for boxes and subformulas 
 --- `Umathsupshiftup`          superscript raise for characters 
 --- `Umathsubsupshiftdown`     subscript drop in the presence of a superscript 
---- `Umathsubtopmax`           the top of standalone subscripts cannot be higher than this
----                                       above the baseline 
---- `Umathsupbottommin`        the bottom of standalone superscripts cannot be less than
----                                       this above the baseline 
---- `Umathsupsubbottommax`     the bottom of the superscript of a combined super- and subscript
----                                       be at least as high as this above the baseline 
+--- `Umathsubtopmax`           the top of standalone subscripts cannot be higher than this above the baseline 
+--- `Umathsupbottommin`        the bottom of standalone superscripts cannot be less than this above the baseline 
+--- `Umathsupsubbottommax`     the bottom of the superscript of a combined super- and subscript be at least as high as this above the baseline 
 --- `Umathsubsupvgap`          vertical clearance between super- and subscript 
 --- `Umathspaceafterscript`    additional space added after a super- or subscript 
 --- `Umathconnectoroverlapmin` minimum overlap between parts in an extensible recipe 
@@ -842,7 +832,7 @@
 --- `0`  forget about kerning 
 --- `1`  kern math sub lists with a valid glyph 
 --- `2`  also kern math sub boxes that have a valid glyph 
---- `2`  only kern math sub boxes with a boundary node present
+---@field 2 only kern math sub boxes with a boundary node # present
 ---\LL
 ---\stoptabulate
 ---
@@ -869,9 +859,7 @@
 ---        {\small\bf\tt mode #2}
 ---        {\switchtobodyfont[#3]\showfontkerns\showglyphs\mathscriptboxmode#2\relax\inlinebuffer[#1]}}}
 ---
----\starttabulate[|lBT|c|c|c|c|c|]
----               \Show{1}{0}{}         \Show{1}{1}{}          \Show{2}{1}{}          \Show{2}{2}{}          \Show{3}{3}{}         
----               \Show{1}{0}{-}        \Show{1}{1}{-}         \Show{2}{1}{-}         \Show{2}{2}{-}         \Show{3}{3}{-}        
+---\starttabulate[|lBT|c|c|c|c|c|] \Show{1}{0}{}         \Show{1}{1}{}          \Show{2}{1}{}          \Show{2}{2}{}          \Show{3}{3}{}          \Show{1}{0}{-}        \Show{1}{1}{-}         \Show{2}{1}{-}         \Show{2}{2}{-}         \Show{3}{3}{-}        
 ---     modern    \Show{1}{0}{modern}   \Show{1}{1}{modern}    \Show{2}{1}{modern}    \Show{2}{2}{modern}    \Show{3}{3}{modern}   
 ---     lucidaot  \Show{1}{0}{lucidaot} \Show{1}{1}{lucidaot}  \Show{2}{1}{lucidaot}  \Show{2}{2}{lucidaot}  \Show{3}{3}{lucidaot} 
 ---     pagella   \Show{1}{0}{pagella}  \Show{1}{1}{pagella}   \Show{2}{1}{pagella}   \Show{2}{2}{pagella}   \Show{3}{3}{pagella}  
@@ -1121,17 +1109,7 @@
 ---        values are the top of the (shifted down) script, and the bottom of the base.
 ---    
 ---    * For each of these two locations:
----        
----            * find the math kern value at this height for the base (for a subscript
----                placement, this is the bottom_right corner, for a superscript
----                placement the top_right corner)
----            
----            * find the math kern value at this height for the script (for a
----                subscript placement, this is the top_left corner, for a superscript
----                placement the bottom_left corner)
----            
----            * add the found values together to get a preliminary result.
----            
+---         * find the math kern value at this height for the base (for a subscript placement, this is the bottom_right corner, for a superscript placement the top_right corner)  * find the math kern value at this height for the script (for a subscript placement, this is the top_left corner, for a superscript placement the bottom_left corner)  * add the found values together to get a preliminary result. 
 ---        
 ---    
 ---    * The horizontal kern to be applied is the smallest of the two results from
@@ -1265,29 +1243,13 @@
 ---\start
 ---    \switchtobodyfont[modern]
 ---    \starttabulate[||||||]
----         
----            \ShowA{a}{b}{} 
----            \ShowA{1}{2}{} 
----            \ShowB{a}{b}{} 
----            \ShowB{1}{2}{} 
+---          \ShowA{a}{b}{}  \ShowA{1}{2}{}  \ShowB{a}{b}{}  \ShowB{1}{2}{} 
 ---        \NR
----         `exact` 
----            \ShowA{a}{b}{exact} 
----            \ShowA{1}{2}{exact} 
----            \ShowB{a}{b}{exact} 
----            \ShowB{1}{2}{exact} 
+---         `exact`  \ShowA{a}{b}{exact}  \ShowA{1}{2}{exact}  \ShowB{a}{b}{exact}  \ShowB{1}{2}{exact} 
 ---        \NR
----         `noaxis` 
----            \ShowA{a}{b}{noaxis} 
----            \ShowA{1}{2}{noaxis} 
----            \ShowB{a}{b}{noaxis} 
----            \ShowB{1}{2}{noaxis} 
+---         `noaxis`  \ShowA{a}{b}{noaxis}  \ShowA{1}{2}{noaxis}  \ShowB{a}{b}{noaxis}  \ShowB{1}{2}{noaxis} 
 ---        \NR
----         `exact noaxis` 
----            \ShowA{a}{b}{exact noaxis} 
----            \ShowA{1}{2}{exact noaxis} 
----            \ShowB{a}{b}{exact noaxis} 
----            \ShowB{1}{2}{exact noaxis} 
+---         `exact noaxis`  \ShowA{a}{b}{exact noaxis}  \ShowA{1}{2}{exact noaxis}  \ShowB{a}{b}{exact noaxis}  \ShowB{1}{2}{exact noaxis} 
 ---        \NR
 ---    \stoptabulate
 ---\stop
@@ -1411,14 +1373,10 @@
 ---\TB
 --- `Usuperscript`       duplicates the functionality of `^` 
 --- `Usubscript`         duplicates the functionality of `_` 
---- `Ustartmath`         duplicates the functionality of ```, % `
----                                   when used in non-math mode. 
---- `Ustopmath`          duplicates the functionality of ```, % `
----                                   when used in inline math mode. 
---- `Ustartdisplaymath`  duplicates the functionality of ````, % ``
----                                   when used in non-math mode. 
---- `Ustopdisplaymath`   duplicates the functionality of ````, % ``
----                                   when used in display math mode. 
+--- `Ustartmath`         duplicates the functionality of ```, % ` when used in non-math mode. 
+--- `Ustopmath`          duplicates the functionality of ```, % ` when used in inline math mode. 
+--- `Ustartdisplaymath`  duplicates the functionality of ````, % `` when used in non-math mode. 
+--- `Ustopdisplaymath`   duplicates the functionality of ````, % `` when used in display math mode. 
 ---\LL
 ---\stoptabulate
 ---

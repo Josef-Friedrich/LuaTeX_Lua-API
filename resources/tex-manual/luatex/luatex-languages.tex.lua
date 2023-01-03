@@ -55,7 +55,7 @@
 ---\topicindex {glyphs}
 ---\topicindex {hyphenation}
 ---
----*TeX*82 (including \PDFTEX) differentiates between `char` nodes and `lig` nodes. The former are simple items that contained nothing but a “character” and a “font” field, and they lived in the same memory as
+---*TeX*82 (including *PDF*TEX) differentiates between `char` nodes and `lig` nodes. The former are simple items that contained nothing but a “character” and a “font” field, and they lived in the same memory as
 ---tokens did. The latter also contained a list of components, and a subtype
 ---indicating whether this ligature was the result of a word boundary, and it was
 ---stored in the same place as other nodes like boxes and kerns and glues.
@@ -134,8 +134,7 @@
 ---
 ---Here are some examples (we assume that French patterns are used):
 ---
----\starttabulate[||||]
----                                   `foobar`  `foo-bar` 
+---\starttabulate[||||] `foobar`  `foo-bar` 
 --- `\hjcode`x=`o`               `fxxbar`  `fxx-bar` 
 --- `\lefthyphenmin3`            `œdipus`  `œdi-pus` 
 --- `\lefthyphenmin4`            `œdipus`  `œdipus`  
@@ -546,7 +545,7 @@
 ---\starttabulate[|l|l|l|]
 ---\DB value                  \BC implied key (input) \BC effect \NR
 ---\TB
---- `ta-ble`          table                `ta\-ble` (`=` `ta\discretionary{-`{}{}ble}) \NR
+---@field ta-ble table # `ta\-ble` (`=` `ta\discretionary{-`{}{}ble}) \NR
 --- `ba{k-`{}{c}ken}  backen               `ba\discretionary{k-`{}{c}ken} \NR
 ---\LL
 ---\stoptabulate
@@ -789,13 +788,9 @@
 ---eventually be selected:
 ---
 ---\starttabulate[|l|c|c|]
---- `of-f-ice`  `f-`     (1) 
----                   `f-`     (2) 
----                   `i`      (3) 
---- `of-fice`   `f-`     (1) 
----                   `<fi>`   (4) 
---- `off-ice`   `<ff>-`  (5) 
----                   `i`      (6) 
+--- `of-f-ice`  `f-`     (1)  `f-`     (2)  `i`      (3) 
+--- `of-fice`   `f-`     (1)  `<fi>`   (4) 
+--- `off-ice`   `<ff>-`  (5)  `i`      (6) 
 --- `office`    `<ffi>`  (7) 
 ---\stoptabulate
 ---

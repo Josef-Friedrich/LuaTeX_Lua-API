@@ -145,8 +145,8 @@
 --- `best_page_break`     the current best break (a node) 
 --- `buf_size`            current allocated size of the line buffer 
 --- `callbacks`           total number of executed callbacks so far 
---- `cs_count`            number of control sequences 
---- `dest_names_size`     \PDF\ destination table size 
+---@field cs_count number # of control sequences 
+--- `dest_names_size`     *PDF* destination table size 
 --- `dvi_gone`            written \DVI\ bytes 
 --- `dvi_ptr`             not yet written \DVI\ bytes 
 --- `dyn_used`            token (multi-word) memory in use  
@@ -154,13 +154,13 @@
 --- `fix_mem_end`         maximum number of used tokens 
 --- `fix_mem_min`         minimum number of allocated words for tokens 
 --- `fix_mem_max`         maximum number of allocated words for tokens 
---- `font_ptr`            number of active fonts 
+---@field font_ptr number # of active fonts 
 --- `hash_extra`          extra allowed hash 
 --- `hash_size`           size of hash 
---- `indirect_callbacks`  number of those that were themselves a result of other callbacks (e.g. file readers) 
+---@field indirect_callbacks number # of those that were themselves a result of other callbacks (e.g. file readers) 
 --- `ini_version`         `true` if this is an \INITEX\ run 
 --- `init_pool_ptr`       \INITEX\ string pool index 
---- `init_str_ptr`        number of \INITEX\ strings 
+---@field init_str_ptr number # of \INITEX\ strings 
 --- `input_ptr`           the level of input we're at 
 --- `inputid`             numeric id of the current input 
 --- `largest_used_mark`   max referenced marks class 
@@ -171,9 +171,9 @@
 --- `lastwarningtag`      last warning string
 --- `linenumber`          location in the current input file 
 --- `log_name`            name of the log file 
---- `luabytecode_bytes`   number of bytes in *Lua* bytecode registers 
---- `luabytecodes`        number of active *Lua* bytecode registers 
---- `luastate_bytes`      number of bytes in use by *Lua* interpreters 
+---@field luabytecode_bytes number # of bytes in *Lua* bytecode registers 
+---@field luabytecodes number # of active *Lua* bytecode registers 
+---@field luastate_bytes number # of bytes in use by *Lua* interpreters 
 --- `luatex_engine`       the *LuaTeX* engine identifier 
 --- `luatex_hashchars`    length to which *Lua* hashes strings (`2^n`) 
 --- `luatex_hashtype`     the hash method used (in *Lua*JITTEX) 
@@ -187,28 +187,28 @@
 --- `max_strings`         maximum allowed strings 
 --- `nest_size`           nesting stack size 
 --- `node_mem_usage`      a string giving insight into currently used nodes 
---- `obj_ptr`             max \PDF\ object pointer 
---- `obj_tab_size`        \PDF\ object table size 
+--- `obj_ptr`             max *PDF* object pointer 
+--- `obj_tab_size`        *PDF* object table size 
 --- `output_active`       `true` if the `output` routine is active 
---- `output_file_name`    name of the \PDF\ or \DVI\ file 
+--- `output_file_name`    name of the *PDF* or \DVI\ file 
 --- `param_size`          parameter stack size 
---- `pdf_dest_names_ptr`  max \PDF\ destination pointer 
---- `pdf_gone`            written \PDF\ bytes 
---- `pdf_mem_ptr`         max \PDF\ memory used 
---- `pdf_mem_size`        \PDF\ memory size 
---- `pdf_os_cntr`         max \PDF\ object stream pointer 
---- `pdf_os_objidx`       \PDF\ object stream index 
---- `pdf_ptr`             not yet written \PDF\ bytes 
---- `pool_ptr`            string pool index 
+--- `pdf_dest_names_ptr`  max *PDF* destination pointer 
+--- `pdf_gone`            written *PDF* bytes 
+--- `pdf_mem_ptr`         max *PDF* memory used 
+--- `pdf_mem_size`        *PDF* memory size 
+--- `pdf_os_cntr`         max *PDF* object stream pointer 
+--- `pdf_os_objidx`       *PDF* object stream index 
+--- `pdf_ptr`             not yet written *PDF* bytes 
+---@field pool_ptr string # pool index 
 --- `pool_size`           current size allocated for string characters 
 --- `save_size`           save stack size 
 --- `shell_escape`        `0` means disabled, `1` means anything is permitted, and `2` is restricted 
 --- `safer_option`        `1` means safer is enforced 
 --- `kpse_used`           `1` means that kpse is used 
 --- `stack_size`          input stack size 
---- `str_ptr`             number of strings 
---- `total_pages`         number of written pages 
---- `var_mem_max`         number of allocated words for nodes 
+---@field str_ptr number # of strings 
+---@field total_pages number # of written pages 
+---@field var_mem_max number # of allocated words for nodes 
 --- `var_used`            variable (one-word) memory in use 
 --- `lc_collate`          the value of `LC_COLLATE`  at startup time (becomes `C` at startup) 
 --- `lc_ctype`            the value of `LC_CTYPE`    at startup time (becomes `C` at startup) 
@@ -907,7 +907,7 @@
 ---\libindex{getboxresourcedimensions}
 ---
 ---The following function will register a box for reuse (this is modelled after so
----called xforms in \PDF). You can (re)use the box with `useboxresource` or
+---called xforms in *PDF*). You can (re)use the box with `useboxresource` or
 ---by creating a rule node with subtype 2.
 ---
 ---```
@@ -1101,26 +1101,18 @@
 ---\starttabulate[|l|l|l|p|]
 ---\DB key                \BC type    \BC modes \BC explanation 
 ---\TB
---- `mode`         number   all    the meaning of these numbers depends on the engine
----                                                 and sometimes even the version; you can use `tex.getmodevalues()` to get the mapping: positive
----                                                 values signal vertical, horizontal and math mode,
----                                                 while negative values indicate inner and inline
----                                                 variants 
---- `modeline`     number   all    source input line where this mode was entered in,
----                                                 negative inside the output routine 
---- `head`         node     all    the head of the current list 
---- `tail`         node     all    the tail of the current list 
---- `prevgraf`     number   vmode  number of lines in the previous paragraph 
---- `prevdepth`    number   vmode  depth of the previous paragraph 
---- `spacefactor`  number   hmode  the current space factor 
---- `dirs`         node     hmode  used for temporary storage by the line break algorithm
---- `noad`         node     mmode  used for temporary storage of a pending fraction numerator,
----                                                 for `over` etc. 
---- `delimptr`     node     mmode  used for temporary storage of the previous math delimiter,
----                                                 for `middle` 
---- `mathdir`      boolean  mmode  true when during math processing the `mathdir` is not
----                                                 the same as the surrounding `textdir` 
---- `mathstyle`    number   mmode  the current `mathstyle` 
+---@field mode number # all    the meaning of these numbers depends on the engine and sometimes even the version; you can use `tex.getmodevalues()` to get the mapping: positive values signal vertical, horizontal and math mode, while negative values indicate inner and inline variants 
+---@field modeline number # all    source input line where this mode was entered in, negative inside the output routine 
+---@field head node # all    the head of the current list 
+---@field tail node # all    the tail of the current list 
+---@field prevgraf number # vmode  number of lines in the previous paragraph 
+---@field prevdepth number # vmode  depth of the previous paragraph 
+---@field spacefactor number # hmode  the current space factor 
+---@field dirs node # hmode  used for temporary storage by the line break algorithm
+---@field noad node # mmode  used for temporary storage of a pending fraction numerator, for `over` etc. 
+---@field delimptr node # mmode  used for temporary storage of the previous math delimiter, for `middle` 
+---@field mathdir boolean # mmode  true when during math processing the `mathdir` is not the same as the surrounding `textdir` 
+---@field mathstyle number # mmode  the current `mathstyle` 
 ---\LL
 ---\stoptabulate
 ---
@@ -1593,9 +1585,7 @@
 ---    table.sort(t)
 ---    for i=1,#t do
 ---        local v = t[i]
----        if v  = ' ' and v  = "/" and v  = "-" then
----            context.type(v)
----            context.space()
+---        if v  = ' ' and v  = "/" and v  = "-" then context.type(v) context.space()
 ---        end
 ---    end
 ---end
@@ -1669,31 +1659,31 @@
 ---\starttabulate[|l|l|p|]
 ---\DB name                        \BC type            \BC explanation 
 ---\TB
---- `pardir`                string           
---- `pretolerance`          number           
---- `tracingparagraphs`     number           
---- `tolerance`             number           
---- `looseness`             number           
---- `hyphenpenalty`         number           
---- `exhyphenpenalty`       number           
---- `pdfadjustspacing`      number           
---- `adjdemerits`           number           
---- `pdfprotrudechars`      number           
---- `linepenalty`           number           
---- `lastlinefit`           number           
---- `doublehyphendemerits`  number           
---- `finalhyphendemerits`   number           
---- `hangafter`             number           
---- `interlinepenalty`      number or table  if a table, then it is an array like `interlinepenalties` 
---- `clubpenalty`           number or table  if a table, then it is an array like `clubpenalties` 
---- `widowpenalty`          number or table  if a table, then it is an array like `widowpenalties` 
---- `brokenpenalty`         number           
---- `emergencystretch`      number           in scaled points 
---- `hangindent`            number           in scaled points 
---- `hsize`                 number           in scaled points 
---- `leftskip`              glue_spec node   
---- `rightskip`             glue_spec node   
---- `parshape`              table            
+---@field pardir string # 
+---@field pretolerance number # 
+---@field tracingparagraphs number # 
+---@field tolerance number # 
+---@field looseness number # 
+---@field hyphenpenalty number # 
+---@field exhyphenpenalty number # 
+---@field pdfadjustspacing number # 
+---@field adjdemerits number # 
+---@field pdfprotrudechars number # 
+---@field linepenalty number # 
+---@field lastlinefit number # 
+---@field doublehyphendemerits number # 
+---@field finalhyphendemerits number # 
+---@field hangafter number # 
+---@field interlinepenalty number # or table  if a table, then it is an array like `interlinepenalties` 
+---@field clubpenalty number # or table  if a table, then it is an array like `clubpenalties` 
+---@field widowpenalty number # or table  if a table, then it is an array like `widowpenalties` 
+---@field brokenpenalty number # 
+---@field emergencystretch number # in scaled points 
+---@field hangindent number # in scaled points 
+---@field hsize number # in scaled points 
+---@field leftskip glue_spec node # 
+---@field rightskip glue_spec node # 
+---@field parshape table # 
 ---\LL
 ---\stoptabulate
 ---
@@ -1812,11 +1802,7 @@
 ---\starttabulate[|l|p|]
 ---\DB name                        \BC explanation 
 ---\TB
---- `set_synctex_mode`      `0` is the default and used normal synctex
----                                    logic, `1` uses the values set by the next
----                                    helpers while `2` also sets these for glyph
----                                    nodes; `3` sets glyphs and glue and `4`
----                                    sets only glyphs 
+--- `set_synctex_mode`      `0` is the default and used normal synctex logic, `1` uses the values set by the next helpers while `2` also sets these for glyph nodes; `3` sets glyphs and glue and `4` sets only glyphs 
 --- `set_synctex_tag`       set the current tag (file) value (obeys save stack) 
 --- `set_synctex_line`      set the current line value (obeys save stack) 
 --- `set_synctex_no_files`  disable synctex file logging 
@@ -1849,7 +1835,7 @@
 ---\starttabulate[|l|l|l|p|]
 ---\DB key                   \BC type     \BC default \BC explanation 
 ---\TB
---- `kpse_init`       boolean   true
+---@field kpse_init boolean # true
 ---
 ---    `false` totally disables \KPATHSEA\ initialisation, and enables
 ---    interpretation of the following numeric key--value pairs. (only ever unset
@@ -1866,49 +1852,49 @@
 ---    required command arguments by using a space, and use the \ASCII\ double quote
 ---    (`"`) for any needed argument or path quoting
 ---
---- `string_vacancies`  number     75000   cf.\ web2c docs 
---- `pool_free`         number      5000   cf.\ web2c docs 
---- `max_strings`       number     15000   cf.\ web2c docs 
---- `strings_free`      number       100   cf.\ web2c docs 
---- `nest_size`         number        50   cf.\ web2c docs 
---- `max_in_open`       number        15   cf.\ web2c docs 
---- `param_size`        number        60   cf.\ web2c docs 
---- `save_size`         number      4000   cf.\ web2c docs 
---- `stack_size`        number       300   cf.\ web2c docs 
---- `dvi_buf_size`      number     16384   cf.\ web2c docs 
---- `error_line`        number        79   cf.\ web2c docs 
---- `half_error_line`   number        50   cf.\ web2c docs 
---- `max_print_line`    number        79   cf.\ web2c docs 
---- `hash_extra`        number         0   cf.\ web2c docs 
---- `pk_dpi`            number        72   cf.\ web2c docs 
---- `trace_file_names`  boolean   true
+---@field string_vacancies number # 75000   cf.\ web2c docs 
+---@field pool_free number # 5000   cf.\ web2c docs 
+---@field max_strings number # 15000   cf.\ web2c docs 
+---@field strings_free number # 100   cf.\ web2c docs 
+---@field nest_size number # 50   cf.\ web2c docs 
+---@field max_in_open number # 15   cf.\ web2c docs 
+---@field param_size number # 60   cf.\ web2c docs 
+---@field save_size number # 4000   cf.\ web2c docs 
+---@field stack_size number # 300   cf.\ web2c docs 
+---@field dvi_buf_size number # 16384   cf.\ web2c docs 
+---@field error_line number # 79   cf.\ web2c docs 
+---@field half_error_line number # 50   cf.\ web2c docs 
+---@field max_print_line number # 79   cf.\ web2c docs 
+---@field hash_extra number # 0   cf.\ web2c docs 
+---@field pk_dpi number # 72   cf.\ web2c docs 
+---@field trace_file_names boolean # true
 ---
 ---    `false` disables *TeX*'s normal file open-close feedback (the
 ---    assumption is that callbacks will take care of that)
 ---
---- `file_line_error`  boolean  false
+---@field file_line_error boolean # false
 ---
 ---    do `file:line` style error messages
 ---
---- `halt_on_error`  boolean  false
+---@field halt_on_error boolean # false
 ---
 ---    abort run on the first encountered error
 ---
---- `formatname`  string 
+---@field formatname string # 
 ---
 ---    if no format name was given on the command line, this key will be tested first
 ---    instead of simply quitting
 ---
---- `jobname`  string 
+---@field jobname string # 
 ---
 ---    if no input file name was given on the command line, this key will be tested
 ---    first instead of simply giving up
 ---
---- `level_chr`  number 
+---@field level_chr number # 
 ---
 ---    character to put in front of traced macros (see next value)
 ---
---- `level_max`  number 
+---@field level_max number # 
 ---
 ---    when larger than zero the input nesting level will be shown when `\tracingmacros` is set; levels above this value will be clipped with
 ---    the level shown up front
@@ -2049,23 +2035,20 @@
 ---\starttabulate[|l|l|p|]
 ---\DB function              \BC argument           \BC result 
 ---\TB
---- `scan_keyword`    string              returns true if the given keyword is gobbled; as with
----                                                     the regular *TeX* keyword scanner this is case insensitive
----                                                     (and \ASCII\ based) 
---- `scan_keywordcs`  string              returns true if the given keyword is gobbled; this variant
----                                                     is case sensitive and also suitable for \UTF8 
+---@field scan_keyword string # returns true if the given keyword is gobbled; as with the regular *TeX* keyword scanner this is case insensitive (and \ASCII\ based) 
+---@field scan_keywordcs string # returns true if the given keyword is gobbled; this variant is case sensitive and also suitable for \UTF8 
 --- `scan_int`                            returns an integer 
 --- `scan_real`                           returns a number from e.g.\ `1`,  `1.1`, `.1` with optional collapsed signs 
 --- `scan_float`                          returns a number from e.g.\ `1`,  `1.1`, `.1`, `1.1E10`, , `.1e-10` with optional collapsed signs 
 --- `scan_dimen`      infinity, mu-units  returns a number representing a dimension and or two numbers being the filler and order 
---- `scan_glue`       mu-units            returns a glue spec node 
+---@field scan_glue mu-units            returns a glue spec node # 
 --- `scan_toks`       definer, expand     returns a table of tokens tokens 
 --- `scan_code`       bitset              returns a character if its category is in the given bitset (representing catcodes) 
 --- `scan_string`                         returns a string given between `{`}, as `\macro` or as sequence of characters with catcode 11 or 12 
---- `scan_argument`   boolean             this one is simular to `scanstring` but also accepts a `\cs` 
+---@field scan_argument boolean # this one is simular to `scanstring` but also accepts a `\cs` 
 --- `scan_word`                           returns a sequence of characters with catcode 11 or 12 as string 
 --- `scan_csname`                         returns `foo` after scanning `\foo` 
---- `scan_list`                           picks up a box specification and returns a `[h|v]list` node 
+---@field scan_list`                           picks up a box specification and returns a `[h|v]list node # 
 ---\LL
 ---\stoptabulate
 ---
@@ -2235,9 +2218,7 @@
 ---\DB name \BC explanation 
 ---\TB
 --- `command`     a number representing the internal command number 
---- `cmdname`     the type of the command (for instance the catcode in case of a
----                           character or the classifier that determines the internal
----                           treatment 
+--- `cmdname`     the type of the command (for instance the catcode in case of a character or the classifier that determines the internal treatment 
 --- `csname`      the associated control sequence (if applicable) 
 --- `id`          the unique id of the token 
 --- `tok`         the full token number as stored in *TeX* 
@@ -2673,19 +2654,17 @@
 ---\starttabulate[|l|l|p|]
 ---\DB key              \BC type     \BC explanation 
 ---\TB
---- `debug`      number    set debugging flags for this lookup     \NR
---- `format`     string    use specific file type (see list above)
---- `dpi`        number    use this resolution for this lookup; default 600
---- `path`       string    search in the given path
---- `all`        boolean   output all matches, not just the first
---- `mustexist`  boolean   search the disk as well as ls-R if necessary
---- `mktexpk`    boolean   disable/enable mktexpk generation for this lookup
---- `mktextex`   boolean   disable/enable mktextex generation for this lookup
---- `mktexmf`    boolean   disable/enable mktexmf generation for this lookup
---- `mktextfm`   boolean   disable/enable mktextfm generation for this lookup
---- `subdir`     string
----                         or table  only output matches whose directory part
----                                      ends with the given string(s) 
+---@field debug number # set debugging flags for this lookup     \NR
+---@field format string # use specific file type (see list above)
+---@field dpi number # use this resolution for this lookup; default 600
+---@field path string # search in the given path
+---@field all boolean # output all matches, not just the first
+---@field mustexist boolean # search the disk as well as ls-R if necessary
+---@field mktexpk boolean # disable/enable mktexpk generation for this lookup
+---@field mktextex boolean # disable/enable mktextex generation for this lookup
+---@field mktexmf boolean # disable/enable mktexmf generation for this lookup
+---@field mktextfm boolean # disable/enable mktextfm generation for this lookup
+--- `subdir`     string or table  only output matches whose directory part ends with the given string(s) 
 ---\LL
 ---\stoptabulate
 ---

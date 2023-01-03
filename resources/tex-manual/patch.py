@@ -14,7 +14,9 @@ def patch_file(file_name: str):
         content = src.read()
 
     content = re.sub(
-        r"\\(type|typ|prm|lpr|nod|syntax|notabene|whs)[\s]*\{([^}]*)\}", r"`\2`", content
+        r"\\(type|typ|prm|lpr|nod|syntax|notabene|whs)[\s]*\{([^}]*)\}",
+        r"`\2`",
+        content,
     )
 
     content = re.sub(r"\\quote\s*\{([^}]*)\}", r"“\1”", content)
@@ -24,6 +26,7 @@ def patch_file(file_name: str):
     content = re.sub(r"\\CONTEXT\\?", "*ConTeXt*", content)
     content = re.sub(r"\\LUATEX\\?", "*LuaTeX*", content)
     content = re.sub(r"\\LUA\\?", "*Lua*", content)
+    content = re.sub(r"\\PDF\\?", "*PDF*", content)
 
     content = re.sub(
         r"\\(starttyping|startfunctioncall|stoptyping|stopfunctioncall)", "```", content
@@ -40,6 +43,12 @@ def patch_file(file_name: str):
     content = content.replace("\\NC", "")
 
     content = "---" + content.replace("\n", "\n---")
+
+    content = re.sub(
+        r"--- `(.*)` +(string|boolean|number|table|.*node) +", r"---@field \1 \2 # ", content
+    )
+
+    content = re.sub(r"\n--- {10,}", r" ", content)
 
     with open(file_name + ".lua", "w") as dest:
         dest.write(content)

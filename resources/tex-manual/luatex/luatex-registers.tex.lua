@@ -12,7 +12,7 @@
 ---
 ---    This register contains the primitives that are mentioned in the manual. There
 ---    are of course many more primitives. The *LuaTeX* primitives are typeset in
----    bold. The primitives from \PDFTEX\ are not supported that way but mentioned
+---    bold. The primitives from *PDF*TEX\ are not supported that way but mentioned
 ---    anyway.
 ---
 ---    \placeregister[primitiveindex][indicator=no]

@@ -64,40 +64,21 @@
 ---    function document.functions.showfields(s)
 ---        local t = string.split(s,',')
 ---        local f = node.fields(t[1],t[2])
----        if f then
----            local d = false
----            for i=1,#f do
----                local fi = f[i]
----                if skipped[fi] then
----                    -- okay
----                elseif d then
----                    context(', {\tttf %s}', fi)
----                else
----                    context('{\tttf %s}', fi)
----                    d = true
----                end
----            end
+---        if f then local d = false for i=1,#f do local fi = f[i] if skipped[fi] then -- okay elseif d then context(', {\tttf %s}', fi) else context('{\tttf %s}', fi) d = true end end
 ---        end
 ---    end
 ---
 ---    function document.functions.showid(s)
 ---        local t = string.split(s,',')
 ---        context('{tttf %s}',node.id(t[1]))
----        if t[2] then
----            context(', {tttf %s}',node.subtype(t[2]))
+---        if t[2] then context(', {tttf %s}',node.subtype(t[2]))
 ---        end
 ---    end
 ---
 ---    function document.functions.showsubtypes(s)
 ---        local s = node.subtypes(s)
 ---        local d = false
----        for k, v in table.sortedhash(s) do
----            if d then
----                context(', %s = {\\tttf %s}',k,v)
----            else
----                context('%s = {\\tttf %s}',k,v)
----                d = true
----            end
+---        for k, v in table.sortedhash(s) do if d then context(', %s = {\\tttf %s}',k,v) else context('%s = {\\tttf %s}',k,v) d = true end
 ---        end
 ---    end
 ---\stopluacode
@@ -188,17 +169,10 @@
 ---
 ---        d := sqrt(2)/4 ; r := 1/4 ; p := r/8 ;
 ---
----        fill fullcircle scaled 1
----            withcolor luaplanetcolor ;
----        draw fullcircle rotated 40.5 scaled (1+r)
----            dashed evenly scaled p
----            withpen pencircle scaled (p/2)
----            withcolor (luaorbitfactor * luaholecolor) ;
----        fill fullcircle scaled r shifted (d+1/8,d+1/8)
----            rotated - luaextraangle
----            withcolor luaplanetcolor ;
----        fill fullcircle scaled r shifted (d-1/8,d-1/8)
----            withcolor luaholecolor   ;
+---        fill fullcircle scaled 1 withcolor luaplanetcolor ;
+---        draw fullcircle rotated 40.5 scaled (1+r) dashed evenly scaled p withpen pencircle scaled (p/2) withcolor (luaorbitfactor * luaholecolor) ;
+---        fill fullcircle scaled r shifted (d+1/8,d+1/8) rotated - luaextraangle withcolor luaplanetcolor ;
+---        fill fullcircle scaled r shifted (d-1/8,d-1/8) withcolor luaholecolor   ;
 ---        luaorbitfactor := .25 ;
 ---    ) enddef ;
 ---
@@ -212,12 +186,7 @@
 ---        luaorbitfactor := 1 ;
 ---
 ---        picture p ; p := lualogo ysized (5*\measure{paperheight}/10) ;
----        draw p
----            shifted - center p
----            shifted (
----                \measure{spreadwidth} - .5*\measure{paperwidth} + \measure{spinewidth},
----                .375*\measure{paperheight}
----            )
+---        draw p shifted - center p shifted ( \measure{spreadwidth} - .5*\measure{paperwidth} + \measure{spinewidth}, .375*\measure{paperheight} )
 ---        ;
 ---
 ---    StopPage ;
@@ -310,8 +279,7 @@
 ---\makesyntaxcodetable
 ---
 ---\unexpanded\def\startsyntax {\begingroup\catcodetable\syntaxcodetable  \dostartsyntax}
----\unexpanded\def`\begingroup\catcodetable\syntaxcodetable  \dosyntax`
----           \let\stopsyntax   \relax
+---\unexpanded\def`\begingroup\catcodetable\syntaxcodetable  \dosyntax` \let\stopsyntax   \relax
 ---
 ---\unexpanded\def\syntaxenvbody#1%
 ---  {\par

@@ -9,9 +9,9 @@
 ---\startsection[title={The `pdf` library}][library=pdf]
 ---
 ---\topicindex{backend}
----\topicindex{\PDF}
+---\topicindex{*PDF*}
 ---
----This library contains variables and functions that are related to the \PDF\
+---This library contains variables and functions that are related to the *PDF*
 ---backend. You can find more details about the expected values to setters in \in
 ---{section} [backendprimitives].
 ---
@@ -26,7 +26,7 @@
 ---```
 ---
 ---These two functions can be used to replace primitives \orm {pdfmapfile} and
----\orm {pdfmapline} inherited from \PDFTEX. They expect a string as only
+---\orm {pdfmapline} inherited from *PDF*TEX. They expect a string as only
 ---parameter and have no return value. The first character in a map line can be
 ---`-`, `+` or `=` which means as much as remove, add or replace
 ---this line. They are not state setters but act immediately.
@@ -35,17 +35,17 @@
 ---
 ---\startsubsection[title={`[set|get][catalog|info|names|trailer]`}]
 ---
----\topicindex{\PDF+trailer}
----\topicindex{\PDF+catalog}
----\topicindex{\PDF+info}
+---\topicindex{*PDF*+trailer}
+---\topicindex{*PDF*+catalog}
+---\topicindex{*PDF*+info}
 ---
 ---\libindex{setcatalog} \libindex{getcatalog}
 ---\libindex{setinfo}    \libindex{getinfo}
 ---\libindex{setnames}   \libindex{getnames}
 ---\libindex{settrailer} \libindex{gettrailer}
 ---
----These functions complement the corresponding \PDF\ backend token lists dealing
----with metadata. The value types are strings and they are written to the \PDF\
+---These functions complement the corresponding *PDF* backend token lists dealing
+---with metadata. The value types are strings and they are written to the *PDF*
 ---file directly after the token registers set at the *TeX* end are written.
 ---
 ---\stopsubsection
@@ -56,12 +56,12 @@
 ---\libindex{setpageresources}   \libindex{getpageresources}
 ---\libindex{setpagesattributes} \libindex{getpagesattributes}
 ---
----\topicindex{\PDF+page attributes}
----\topicindex{\PDF+page resources}
+---\topicindex{*PDF*+page attributes}
+---\topicindex{*PDF*+page resources}
 ---
----These functions complement the corresponding \PDF\ backend token lists dealing
----with page resources. The variables have no interaction with the corresponding \PDF\
----backend token register. They are written to the \PDF\ file directly after the
+---These functions complement the corresponding *PDF* backend token lists dealing
+---with page resources. The variables have no interaction with the corresponding *PDF*
+---backend token register. They are written to the *PDF* file directly after the
 ---token registers set at the *TeX* end are written.
 ---
 ---\stopsubsection
@@ -71,64 +71,64 @@
 ---\libindex{setxformattributes} \libindex{getxformattributes}
 ---\libindex{setxformresources}  \libindex{getxformresources}
 ---
----\topicindex{\PDF+xform attributes}
----\topicindex{\PDF+xform resources}
+---\topicindex{*PDF*+xform attributes}
+---\topicindex{*PDF*+xform resources}
 ---
----These functions complement the corresponding \PDF\ backend token lists dealing
+---These functions complement the corresponding *PDF* backend token lists dealing
 ---with reuseable boxes and images. The variables have no interaction with the
----corresponding \PDF\ backend token register. They are written to the \PDF\
+---corresponding *PDF* backend token register. They are written to the *PDF*
 ---file directly after the token registers set at the *TeX* end are written.
 ---
 ---\stopsubsection
 ---
 ---\startsubsection[title={`[set|get][major|minor]version`}]
 ---
----\topicindex{\PDF+version}
+---\topicindex{*PDF*+version}
 ---
 ---\libindex{getmajorversion} \libindex{setmajorversion}
 ---\libindex{getminorversion} \libindex{setminorversion}
 ---
 ---You can set both the major and minor version of the output. The major version is
 ---normally 1 but when set to 2 some data will not be written to the file in order
----to comply with the standard. What minor version you set depends on what \PDF\
+---to comply with the standard. What minor version you set depends on what *PDF*
 ---features you use. This is out of control of *LuaTeX*.
 ---
 ---One can set the major version number to 2 but we cannot guarantee that the engine
 ---adapts itself correctly, because there is no public and free specification that
 ---we know of. Also, user constructed annotations are not checked and just passed
----to the file. On the other hand, the \PDF\ that the engine generated is rather
+---to the file. On the other hand, the *PDF* that the engine generated is rather
 ---simple and not that version depending.
 ---
 ---\stopsubsection
 ---
 ---\startsubsection[title={`getcreationdate`}]
 ---
----\topicindex{\PDF+date}
+---\topicindex{*PDF*+date}
 ---
 ---\libindex{getcreationdate}
 ---
 ---This function returns a string with the date in the format that ends up in the
----\PDF\ file, in this case it's: {\tttf \cldcontext{pdf.getcreationdate()}}.
+---*PDF* file, in this case it's: {\tttf \cldcontext{pdf.getcreationdate()}}.
 ---
 ---\stopsubsection
 ---
 ---\startsubsection[title={`[set|get]inclusionerrorlevel` and `[set|get]ignoreunknownimages`}]
 ---
----\topicindex{\PDF+options}
+---\topicindex{*PDF*+options}
 ---
 ---\libindex{getinclusionerrorlevel} \libindex{setinclusionerrorlevel}
 ---\libindex{getignoreunknownimages} \libindex{setignoreunknownimages}
 ---
 ---These variable control how error in included image are treated. They are modeled
----after the \PDFTEX\ equivalents.
+---after the *PDF*TEX\ equivalents.
 ---
 ---\stopsubsection
 ---
 ---\startsubsection[title={`[set|get]suppressoptionalinfo`, `[set|get]trailerid`,
 ---`[set|get]omitcidset` and `[set|get]omitinfodict`}]
 ---
----\topicindex{\PDF+options}
----\topicindex{\PDF+trailer}
+---\topicindex{*PDF*+options}
+---\topicindex{*PDF*+trailer}
 ---
 ---\libindex{getsuppressoptionalinfo} \libindex{setsuppressoptionalinfo}
 ---\libindex{gettrailerid}            \libindex{settrailerid}
@@ -139,18 +139,18 @@
 ---The optional info bitset (a number) determines what kind of info gets flushed.
 ---By default we flush all. See \in {section} [sec:pdfextensions] for more details.
 ---
----You can set your own trailer id. This has to be string containing valid \PDF\
+---You can set your own trailer id. This has to be string containing valid *PDF*
 ---array content with checksums.
 ---
 ---The cidset, charset and info flags (numbers) disables inclusion of a so called
 ---`CIDSet` and `CharSet` entries, which can be handy when aiming at
----some of the many \PDF\ substandards.
+---some of the many *PDF* substandards.
 ---
 ---\stopsubsection
 ---
 ---\startsubsection[title={`[set|get][obj|]compresslevel` and `[set|get]recompress`}]
 ---
----\topicindex{\PDF+compression}
+---\topicindex{*PDF*+compression}
 ---
 ---\libindex{getcompresslevel}    \libindex{setcompresslevel}
 ---\libindex{getobjcompresslevel} \libindex{setobjcompresslevel}
@@ -168,29 +168,29 @@
 ---
 ---\startsubsection[title={`[set|get]gentounicode`}]
 ---
----\topicindex{\PDF+unicode}
+---\topicindex{*PDF*+unicode}
 ---
 ---\libindex{getgentounicode} \libindex{setgentounicode}
 ---
----This flag enables tounicode generation (like in \PDFTEX). Normally the values are
+---This flag enables tounicode generation (like in *PDF*TEX). Normally the values are
 ---provided by the font loader.
 ---
 ---\stopsubsection
 ---
 ---\startsubsection[title={`[set|get]decimaldigits`}]
 ---
----\topicindex{\PDF+precision}
+---\topicindex{*PDF*+precision}
 ---
 ---\libindex{getdecimaldigits} \libindex{setdecimaldigits}
 ---
----These two functions set the accuracy of floats written to the \PDF file. You can
+---These two functions set the accuracy of floats written to the *PDF* file. You can
 ---set any value but the backend will not go below 3 and above 6.
 ---
 ---\stopsubsection
 ---
 ---\startsubsection[title={`[set|get]pkresolution`}]
 ---
----\topicindex{\PDF+resolution}
+---\topicindex{*PDF*+resolution}
 ---
 ---\libindex{getpkresolution} \libindex{setpkresolution}
 ---
@@ -201,8 +201,8 @@
 ---
 ---\startsubsection[title={`getlast[obj|link|annot]` and `getretval`}]
 ---
----\topicindex{\PDF+objects}
----\topicindex{\PDF+annotations}
+---\topicindex{*PDF*+objects}
+---\topicindex{*PDF*+annotations}
 ---
 ---\libindex{getlastobj}   \libindex{setlastobj}
 ---\libindex{getlastlink}  \libindex{setlastlink}
@@ -224,14 +224,14 @@
 ---\libindex{getfontsize}
 ---\libindex{getxformname}
 ---
----These introspective helpers are mostly used when you construct \PDF\ objects
+---These introspective helpers are mostly used when you construct *PDF* objects
 ---yourself and need for instance information about a (to be) embedded font.
 ---
 ---\stopsubsection
 ---
 ---\startsubsection[title={`[set|get]origin`}]
 ---
----\topicindex{\PDF+positioning}
+---\topicindex{*PDF*+positioning}
 ---
 ---\libindex{setorigin} \libindex{getorigin}
 ---
@@ -250,7 +250,7 @@
 ---
 ---\startsubsection[title={`[set|get]imageresolution`}]
 ---
----\topicindex{\PDF+resolution}
+---\topicindex{*PDF*+resolution}
 ---
 ---\libindex{setimageresolution} \libindex{getimageresolution}
 ---
@@ -261,7 +261,7 @@
 ---
 ---\startsubsection[title={`[set|get][link|dest|thread|xform]margin`}]
 ---
----\topicindex{\PDF+margins}
+---\topicindex{*PDF*+margins}
 ---
 ---\libindex{getlinkmargin}   \libindex{setlinkmargin}
 ---\libindex{getdestmargin}   \libindex{setdestmargin}
@@ -276,7 +276,7 @@
 ---
 ---\startsubsection[title={`get[pos|hpos|vpos]`}]
 ---
----\topicindex{\PDF+positions}
+---\topicindex{*PDF*+positions}
 ---
 ---\libindex{getpos}
 ---\libindex{gethpos}
@@ -293,7 +293,7 @@
 ---
 ---\startsubsection[title={`[has|get]matrix`}]
 ---
----\topicindex{\PDF+matrix}
+---\topicindex{*PDF*+matrix}
 ---
 ---\libindex{getmatrix} \libindex{hasmatrix}
 ---
@@ -312,11 +312,11 @@
 ---
 ---\startsubsection[title={`print`}]
 ---
----\topicindex{\PDF+print to}
+---\topicindex{*PDF*+print to}
 ---
 ---\libindex{print}
 ---
----You can print a string to the \PDF\ document from within a `latelua` call.
+---You can print a string to the *PDF* document from within a `latelua` call.
 ---This function is not to be used inside `directlua` unless you know {\it
 ---exactly} what you are doing.
 ---
@@ -325,19 +325,19 @@
 ---pdf.print(<string> type, <string> s)
 ---```
 ---
----The optional parameter can be used to mimic the behavior of \PDF\ literals: the
+---The optional parameter can be used to mimic the behavior of *PDF* literals: the
 ---`type` is `direct` or `page`.
 ---
 ---\stopsubsection
 ---
 ---\startsubsection[title={`immediateobj`}]
 ---
----\topicindex{\PDF+objects}
+---\topicindex{*PDF*+objects}
 ---
 ---\libindex{immediateobj}
 ---
----This function creates a \PDF\ object and immediately writes it to the \PDF\ file.
----It is modelled after \PDFTEX's `immediate` \orm {pdfobj} primitives. All
+---This function creates a *PDF* object and immediately writes it to the *PDF* file.
+---It is modelled after *PDF*TEX's `immediate` \orm {pdfobj} primitives. All
 ---function variants return the object number of the newly generated object.
 ---
 ---```
@@ -361,7 +361,7 @@
 ---stream data raw from a file.
 ---
 ---An optional first argument can be given to make the function use a previously
----reserved \PDF\ object.
+---reserved *PDF* object.
 ---
 ---```
 ---<number> n =
@@ -378,15 +378,15 @@
 ---
 ---\startsubsection[title={`obj`}]
 ---
----\topicindex{\PDF+objects}
+---\topicindex{*PDF*+objects}
 ---
 ---\libindex{obj}
 ---
----This function creates a \PDF\ object, which is written to the \PDF\ file only
+---This function creates a *PDF* object, which is written to the *PDF* file only
 ---when referenced, e.g., by `refobj()`.
 ---
 ---All function variants return the object number of the newly generated object, and
----there are two separate calling modes. The first mode is modelled after \PDFTEX's
+---there are two separate calling modes. The first mode is modelled after *PDF*TEX's
 ---\orm {pdfobj} primitive.
 ---
 ---```
@@ -401,7 +401,7 @@
 ---```
 ---
 ---An optional first argument can be given to make the function use a previously
----reserved \PDF\ object.
+---reserved *PDF* object.
 ---
 ---```
 ---<number> n =
@@ -442,12 +442,12 @@
 ---
 ---\startsubsection[title={`refobj`}]
 ---
----\topicindex{\PDF+objects}
+---\topicindex{*PDF*+objects}
 ---
 ---\libindex{refobj}
 ---
 ---This function, the *Lua* version of the \orm {pdfrefobj} primitive, references an
----object by its object number, so that the object will be written to the \PDF\ file.
+---object by its object number, so that the object will be written to the *PDF* file.
 ---
 ---```
 ---pdf.refobj(<integer> n)
@@ -456,7 +456,7 @@
 ---This function works in both the `directlua` and `latelua` environment.
 ---Inside `directlua` a new whatsit node “pdf_refobj” is created, which
 ---will be marked for flushing during page output and the object is then written
----directly after the page, when also the resources objects are written to the \PDF\
+---directly after the page, when also the resources objects are written to the *PDF*
 ---file. Inside `latelua` the object will be marked for flushing.
 ---
 ---This function has no return values.
@@ -465,11 +465,11 @@
 ---
 ---\startsubsection[title={`reserveobj`}]
 ---
----\topicindex{\PDF+objects}
+---\topicindex{*PDF*+objects}
 ---
 ---\libindex{reserveobj}
 ---
----This function creates an empty \PDF\ object and returns its number.
+---This function creates an empty *PDF* object and returns its number.
 ---
 ---```
 ---<number> n = pdf.reserveobj()
@@ -480,7 +480,7 @@
 ---
 ---\startsubsection[title={`getpageref`}]
 ---
----\topicindex{\PDF+pages}
+---\topicindex{*PDF*+pages}
 ---
 ---\libindex{getpageref}
 ---
@@ -495,7 +495,7 @@
 ---
 ---\startsubsection[title={`registerannot`}]
 ---
----\topicindex{\PDF+annotations}
+---\topicindex{*PDF*+annotations}
 ---
 ---\libindex{registerannot}
 ---
@@ -511,7 +511,7 @@
 ---
 ---\startsubsection[title={`newcolorstack`}]
 ---
----\topicindex{\PDF+color stack}
+---\topicindex{*PDF*+color stack}
 ---
 ---\libindex{newcolorstack}
 ---
@@ -526,7 +526,7 @@
 ---
 ---\startsubsection[title={`setfontattributes`}]
 ---
----\topicindex{\PDF+fonts}
+---\topicindex{*PDF*+fonts}
 ---
 ---\libindex{setfontattributes}
 ---
@@ -545,24 +545,24 @@
 ---
 ---\startsubsection[title={Introduction}]
 ---
----\topicindex{\PDF+objects}
+---\topicindex{*PDF*+objects}
 ---
----\topicindex{\PDF+analyze}
----\topicindex{\PDF+`pdfe`}
+---\topicindex{*PDF*+analyze}
+---\topicindex{*PDF*+`pdfe`}
 ---
 ---The `pdfe` library replaces the `epdf` library and provides an
----interface to \PDF\ files. It uses the same code as is used for \PDF\ image
+---interface to *PDF* files. It uses the same code as is used for *PDF* image
 ---inclusion. The `pplib` library by Paweł Jackowski replaces the `poppler` (derived from `xpdf`) library.
 ---
----A \PDF\ file is basically a tree of objects and one descends into the tree via
+---A *PDF* file is basically a tree of objects and one descends into the tree via
 ---dictionaries (key/value) and arrays (index/value). There are a few topmost
 ---dictionaries that start at root that are accessed more directly.
 ---
----Although everything in \PDF\ is basically an object we only wrap a few in so
+---Although everything in *PDF* is basically an object we only wrap a few in so
 ---called userdata *Lua* objects.
 ---
 ---\starttabulate
----\BC \PDF          \BC *Lua* 
+---\BC *PDF*          \BC *Lua* 
 --- null           nil 
 --- boolean        boolean 
 --- integer        integer 
@@ -816,11 +816,11 @@
 ---\DB type       \BC meaning    \BC value            \BC detail 
 --- `0`   none        nil               
 --- `1`   null        nil               
---- `2`   boolean     1 or 0            
+---@field 2 boolean # 1 or 0            
 --- `3`   integer     integer           
---- `4`   number      float             
+---@field 4 number # float             
 --- `5`   name        string            
---- `6`   string      string            hex 
+---@field 6 string # string            hex 
 --- `7`   array       arrayobject       size 
 --- `8`   dictionary  dictionaryobject  size 
 --- `9`   stream      streamobject      dictionary size 
@@ -828,7 +828,7 @@
 ---\LL
 ---\stoptabulate
 ---
----A `hex` string is (in the \PDF\ file) surrounded by `<>` while plain
+---A `hex` string is (in the *PDF* file) surrounded by `<>` while plain
 ---strings are bounded by `<>`.
 ---
 ---\stopsubsection
@@ -874,7 +874,7 @@
 ---
 ---\startsection[title={Memory streams}][library=pdfe]
 ---
----\topicindex{\PDF+memory streams}
+---\topicindex{*PDF*+memory streams}
 ---
 ---\libindex {new}
 ---
@@ -883,13 +883,9 @@
 ---\starttabulate
 ---\DB value           \BC explanation      
 ---\TB
---- `stream`   this is a (in low level *Lua* speak) light userdata
----                        object, i.e.\ a pointer to a sequence of bytes 
---- `length`   this is the length of the stream in bytes (the stream can
----                        have embedded zeros) 
---- `name`     optional, this is a unique identifier that is used for
----                        hashing the stream, so that multiple doesn't use more
----                        memory 
+--- `stream`   this is a (in low level *Lua* speak) light userdata object, i.e.\ a pointer to a sequence of bytes 
+--- `length`   this is the length of the stream in bytes (the stream can have embedded zeros) 
+--- `name`     optional, this is a unique identifier that is used for hashing the stream, so that multiple doesn't use more memory 
 ---\LL
 ---\stoptabulate
 ---
@@ -918,11 +914,11 @@
 ---
 ---\startsection[title={The `pdfscanner` library}][library=pdfscanner]
 ---
----\topicindex{\PDF+scanner}
+---\topicindex{*PDF*+scanner}
 ---
 ---\libindex {scan}
 ---
----The `pdfscanner` library allows interpretation of \PDF\ content streams and
+---The `pdfscanner` library allows interpretation of *PDF* content streams and
 ---`/ToUnicode` (cmap) streams. You can get those streams from the `pdfe` library, as explained in an earlier section. There is only a single
 ---top-level function in this library:
 ---
@@ -934,15 +930,15 @@
 ---
 ---The first argument should be a *Lua* string or a stream or array onject coming
 ---from the `pdfe` library. The second argument, `operatortable`, should
----be a *Lua* table where the keys are \PDF\ operator name strings and the values
+---be a *Lua* table where the keys are *PDF* operator name strings and the values
 ---are *Lua* functions (defined by you) that are used to process those operators.
----The functions are called whenever the scanner finds one of these \PDF\ operators
+---The functions are called whenever the scanner finds one of these *PDF* operators
 ---in the content stream(s). The functions are called with two arguments: the `scanner` object itself, and the `info` table that was passed are the third
 ---argument to `pdfscanner.scan`.
 ---
----Internally, `pdfscanner.scan` loops over the \PDF\ operators in the
----stream(s), collecting operands on an internal stack until it finds a \PDF\
----operator. If that \PDF\ operator's name exists in `operatortable`, then the
+---Internally, `pdfscanner.scan` loops over the *PDF* operators in the
+---stream(s), collecting operands on an internal stack until it finds a *PDF*
+---operator. If that *PDF* operator's name exists in `operatortable`, then the
 ---associated function is executed. After the function has run (or when there is no
 ---function to execute) the internal operand stack is cleared in preparation for the
 ---next operator, and processing continues.
@@ -951,7 +947,7 @@
 ---offers various methods to get the actual operands from the internal operand
 ---stack.
 ---
----A simple example of processing a \PDF's document stream could look like this:
+---A simple example of processing a *PDF*'s document stream could look like this:
 ---
 ---```
 ---local operatortable = { }
@@ -964,12 +960,7 @@
 ---        local xobject = resources.XObject
 ---        print(info.space .. "Uses XObject " .. name)
 ---        local resources = xobject.Resources
----        if resources then
----            local newinfo =  {
----                space     = info.space .. "  ",
----                resources = resources,
----            }
----            pdfscanner.scan(entry, operatortable, newinfo)
+---        if resources then local newinfo =  { space     = info.space .. "  ", resources = resources, } pdfscanner.scan(entry, operatortable, newinfo)
 ---        end
 ---    end
 ---end
@@ -978,15 +969,8 @@
 ---    local doc = pdfe.open(filename)
 ---    if doc then
 ---        local pages = doc.Pages
----        for i=1,#pages do
----            local page = pages[i]
----            local info = {
----              space     = "  " ,
----              resources = page.Resources,
----            }
----            print("Page " .. i)
----         -- pdfscanner.scan(page.Contents,operatortable,info)
----            pdfscanner.scan(page.Contents(),operatortable,info)
+---        for i=1,#pages do local page = pages[i] local info = { space     = "  " , resources = page.Resources, } print("Page " .. i)
+---         -- pdfscanner.scan(page.Contents,operatortable,info) pdfscanner.scan(page.Contents(),operatortable,info)
 ---        end
 ---    end
 ---end
@@ -994,18 +978,18 @@
 ---Analyze("foo.pdf")
 ---```
 ---
----This example iterates over all the actual content in the \PDF, and prints out the
+---This example iterates over all the actual content in the *PDF*, and prints out the
 ---found `XObject` names. While the code demonstrates quite some of the `pdfe` functions, let's focus on the type `pdfscanner` specific code
 ---instead.
 ---
----From the bottom up, the following line runs the scanner with the \PDF\ page's
+---From the bottom up, the following line runs the scanner with the *PDF* page's
 ---top-level content given in the first argument.
 ---
 ---The third argument, `info`, contains two entries: `space` is used to
 ---indent the printed output, and `resources` is needed so that embedded `XForms` can find their own content.
 ---
 ---The second argument, `operatortable` defines a processing function for a
----single \PDF\ operator, `Do`.
+---single *PDF* operator, `Do`.
 ---
 ---The function `Do` prints the name of the current `XObject`, and then
 ---starts a new scanner for that object's content stream, under the condition that
@@ -1040,16 +1024,16 @@
 ---In case of `integer` or `real`, the value is always a *Lua* (floating
 ---point) number. In case of `name`, the leading slash is always stripped.
 ---
----In case of `string`, please bear in mind that \PDF\ actually supports
+---In case of `string`, please bear in mind that *PDF* actually supports
 ---different types of strings (with different encodings) in different parts of the
----\PDF\ document, so you may need to reencode some of the results; `pdfscanner`
+---*PDF* document, so you may need to reencode some of the results; `pdfscanner`
 ---always outputs the byte stream without reencoding anything. `pdfscanner`
 ---does not differentiate between literal strings and hexadecimal strings (the
 ---hexadecimal values are decoded), and it treats the stream data for inline images
 ---as a string that is the single operand for `EI`.
 ---
 ---In case of `array`, the table content is a list of `pop` return
----values and in case of `dict`, the table keys are \PDF\ name strings and the
+---values and in case of `dict`, the table keys are *PDF* name strings and the
 ---values are `pop` return values.
 ---
 ---\libindex{pop}
@@ -1078,9 +1062,9 @@
 ---\stoptabulate
 ---
 ---The `pop*` are convenience functions, and come in handy when you know the
----type of the operands beforehand (which you usually do, in \PDF). For example, the
+---type of the operands beforehand (which you usually do, in *PDF*). For example, the
 ---`Do` function could have used `local name = scanner:popname()`
----instead, because the single operand to the `Do` operator is always a \PDF\
+---instead, because the single operand to the `Do` operator is always a *PDF*
 ---name object.
 ---
 ---The `done` function allows you to abort processing of a stream once you

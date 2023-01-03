@@ -69,27 +69,22 @@
 ---\TB
 --- `--credits`                     display credits and exit 
 --- `--debug-format`                enable format debugging 
---- `--draftmode`                   switch on draft mode i.e.\ generate no output in \PDF\ mode 
+--- `--draftmode`                   switch on draft mode i.e.\ generate no output in *PDF* mode 
 --- `--[no-]file-line-error`        disable/enable `file:line:error` style messages 
 --- `--[no-]file-line-error-style`  aliases of `--[no-]file-line-error` 
 --- `--fmt=FORMAT`                  load the format file `FORMAT` \NR
 --- `--halt-on-error`               stop processing at the first error
 --- `--help`                        display help and exit \NR
 --- `--ini`                         be `iniluatex`, for dumping formats \NR
---- `--interaction=STRING`          set interaction mode: `batchmode`, `nonstopmode`,
----                                            `scrollmode` or `errorstopmode` 
+--- `--interaction=STRING`          set interaction mode: `batchmode`, `nonstopmode`, `scrollmode` or `errorstopmode` 
 --- `--jobname=STRING`              set the job name to `STRING` 
---- `--kpathsea-debug=NUMBER`       set path searching debugging flags according to the bits of
----                                           `NUMBER` 
+--- `--kpathsea-debug=NUMBER`       set path searching debugging flags according to the bits of `NUMBER` 
 --- `--lua=FILE`                    load and execute a *Lua* initialization script \NR
---- `--[no-]mktex=FMT`              disable/enable `mktexFMT` generation with `FMT` is
----                                            `tex` or `tfm` 
+--- `--[no-]mktex=FMT`              disable/enable `mktexFMT` generation with `FMT` is `tex` or `tfm` 
 --- `--nosocket`                    disable the *Lua* socket library \NR
---- `--output-comment=STRING`       use `STRING` for \DVI\ file comment instead of date (no
----                                            effect for \PDF) 
+--- `--output-comment=STRING`       use `STRING` for \DVI\ file comment instead of date (no effect for *PDF*) 
 --- `--output-directory=DIR`        use `DIR` as the directory to write files to 
---- `--output-format=FORMAT`        use `FORMAT` for job output; `FORMAT` is `dvi`
----                                            or `pdf` 
+--- `--output-format=FORMAT`        use `FORMAT` for job output; `FORMAT` is `dvi` or `pdf` 
 --- `--progname=STRING`             set the program name to `STRING` 
 --- `--recorder`                    enable filename recorder 
 --- `--safer`                       disable easily exploitable *Lua* commands \NR
@@ -154,11 +149,9 @@
 ---    \starttabulate[|c|l|]
 ---        \DB library     \BC functions 
 ---        \TB
----         `os`   `execute` `exec` `spawn` `setenv`
----                            `rename` `remove` `tmpdir` 
+---         `os`   `execute` `exec` `spawn` `setenv` `rename` `remove` `tmpdir` 
 ---         `io`   `popen` `output` `tmpfile` 
----         `lfs`  `rmdir` `mkdir` `chdir` `lock`
----                            `touch` 
+---         `lfs`  `rmdir` `mkdir` `chdir` `lock` `touch` 
 ---        \LL
 ---    \stoptabulate
 ---
@@ -181,7 +174,7 @@
 ---    cannot use networking.
 ---
 ---    The switches `--[no-]shell-escape`, `--[enable|disable]-write18`, and
----    `--shell-restricted` have the same effects as in \PDFTEX, and additionally
+---    `--shell-restricted` have the same effects as in *PDF*TEX, and additionally
 ---    make `io.popen()`, `os.execute`, `os.exec` and `os.spawn`
 ---    adhere to the requested option.
 ---
@@ -652,7 +645,7 @@
 ---\startsection[title={Testing}]
 ---
 ---\topicindex {testing}
----\topicindex {\PDF+date}
+---\topicindex {*PDF*+date}
 ---
 ---For development reasons you can influence the used startup date and time. This can
 ---be done in two ways.
@@ -661,7 +654,7 @@
 ---
 ---* By setting the environmment variable `SOURCE_DATE_EPOCH`. This will
 ---    influence the *TeX* parameters `time` and `date`, the random seed,
----    the \PDF\ timestamp and the \PDF\ id that is derived from the time as well. This
+---    the *PDF* timestamp and the *PDF* id that is derived from the time as well. This
 ---    variable is consulted when the \KPSE\ library is enabled. Resolving is
 ---    delegated to this library.
 ---
@@ -680,7 +673,7 @@
 ---complementary entry `use_utc_time` in the `texconfig` table.
 ---
 ---There is some control possible, for instance prevent filename to be written to
----the \PDF\ file. This is discussed elsewhere. In *ConTeXt* we provide the command
+---the *PDF* file. This is discussed elsewhere. In *ConTeXt* we provide the command
 ---line argument `--nodates` that does a bit more disabling of dates.
 ---
 ---\stopsection

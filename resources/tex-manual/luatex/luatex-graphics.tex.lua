@@ -53,14 +53,14 @@
 ---The generated `<image>` userdata object allows access to a set of
 ---user-specified values as well as a set of values that are normally filled in
 ---and updated automatically by *LuaTeX* itself. Some of those are derived from the
----actual image file, others are updated to reflect the \PDF\ output status of the
+---actual image file, others are updated to reflect the *PDF* output status of the
 ---object.
 ---
 ---There is one required user-specified field: the file name (`filename`). It
 ---can optionally be augmented by the requested image dimensions (`width`,
 ---`depth`, `height`), user-specified image attributes (`attr`),
----the requested \PDF\ page identifier (`page`), the requested boundingbox
----(`pagebox`) for \PDF\ inclusion, the requested color space object (`colorspace`).
+---the requested *PDF* page identifier (`page`), the requested boundingbox
+---(`pagebox`) for *PDF* inclusion, the requested color space object (`colorspace`).
 ---
 ---The function `img.new` does not access the actual image file, it just
 ---creates the `<image>` userdata object and initializes some memory
@@ -90,48 +90,36 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field name             \BC type     \BC description 
 ---\TB
---- `attr`             string    the image attributes for *LuaTeX* 
---- `bbox`             table     table with 4 boundingbox dimensions `llx`, `lly`, `urx` and `ury` overruling the `pagebox` entry 
---- `colordepth`       number    the number of bits used by the color space 
---- `colorspace`       number    the color space object number 
---- `depth`            number    the image depth for *LuaTeX* 
---- `filename`         string    the image file name 
---- `filepath`         string    the full (expanded) file name of the image
---- `height`           number    the image height for *LuaTeX* 
---- `imagetype`        string    one of `pdf`, `png`, `jpg`,
----                                            `jp2` or `jbig2` 
---- `index`            number    the \PDF\ image name suffix 
---- `objnum`           number    the \PDF\ image object number 
---- `page`             number    the identifier for the requested image page 
---- `pagebox`          string    the requested bounding box, one of
----                                            `none`, `media`, `crop`,
----                                            `bleed`, `trim`, `art` 
---- `pages`            number    the total number of available pages 
---- `rotation`         number    the image rotation from included \PDF\ file,
----                                            in multiples of 90 deg. 
---- `stream`           string    the raw stream data for an `/Xobject`
----                                            `/Form` object
---- `transform`        number    the image transform, integer number 0..7 
---- `orientation`      number    the (jpeg) image orientation, integer number 1..8
----                                            (0 for unset) 
---- `width`            number    the image width for *LuaTeX* 
---- `xres`             number    the horizontal natural image resolution
----                                            (in \DPI) 
---- `xsize`            number    the natural image width 
---- `yres`             number    the vertical natural image resolution
----                                            (in \DPI) 
---- `ysize`            number    the natural image height 
---- `visiblefilename`  string    when set, this name will find its way in the
----                                            \PDF\ file as `PTEX` specification; when
----                                            an empty string is assigned nothing is written
----                                            to file; otherwise the natural filename is
----                                            taken 
---- `userpassword`    string     the userpassword needed for opening a \PDF\ file 
---- `ownerpassword`   string     the ownerpassword needed for opening a \PDF\ file 
---- `keepopen`        boolean    keep the \PDF\ file open 
---- `nobbox`          boolean    don't add a boundingbox specification for streams 
---- `nolength`        boolean    don't add length key nor compress for streams 
---- `nosize`          boolean    don't add size fields for streams 
+---@field attr string # the image attributes for *LuaTeX* 
+---@field bbox table # table with 4 boundingbox dimensions `llx`, `lly`, `urx` and `ury` overruling the `pagebox` entry 
+---@field colordepth number # the number of bits used by the color space 
+---@field colorspace number # the color space object number 
+---@field depth number # the image depth for *LuaTeX* 
+---@field filename string # the image file name 
+---@field filepath string # the full (expanded) file name of the image
+---@field height number # the image height for *LuaTeX* 
+---@field imagetype string # one of `pdf`, `png`, `jpg`, `jp2` or `jbig2` 
+---@field index number # the *PDF* image name suffix 
+---@field objnum number # the *PDF* image object number 
+---@field page number # the identifier for the requested image page 
+---@field pagebox string # the requested bounding box, one of `none`, `media`, `crop`, `bleed`, `trim`, `art` 
+---@field pages number # the total number of available pages 
+---@field rotation number # the image rotation from included *PDF* file, in multiples of 90 deg. 
+---@field stream string # the raw stream data for an `/Xobject` `/Form` object
+---@field transform number # the image transform, integer number 0..7 
+---@field orientation number # the (jpeg) image orientation, integer number 1..8 (0 for unset) 
+---@field width number # the image width for *LuaTeX* 
+---@field xres number # the horizontal natural image resolution (in \DPI) 
+---@field xsize number # the natural image width 
+---@field yres number # the vertical natural image resolution (in \DPI) 
+---@field ysize number # the natural image height 
+---@field visiblefilename string # when set, this name will find its way in the *PDF* file as `PTEX` specification; when an empty string is assigned nothing is written to file; otherwise the natural filename is taken 
+---@field userpassword string # the userpassword needed for opening a *PDF* file 
+---@field ownerpassword string # the ownerpassword needed for opening a *PDF* file 
+---@field keepopen boolean # keep the *PDF* file open 
+---@field nobbox boolean # don't add a boundingbox specification for streams 
+---@field nolength boolean # don't add length key nor compress for streams 
+---@field nosize boolean # don't add size fields for streams 
 ---\LL
 ---\stoptabulate
 ---
@@ -146,7 +134,7 @@
 ---```
 ---
 ---When writing the image, an `/Xobject` `/Form` object is created, like
----with embedded \PDF\ file writing. The object is written out only once. The `stream` key requires that also the `bbox` table is given. The `stream` key conflicts with the `filename` key. The `transform` key
+---with embedded *PDF* file writing. The object is written out only once. The `stream` key requires that also the `bbox` table is given. The `stream` key conflicts with the `filename` key. The `transform` key
 ---works as usual also with `stream`.
 ---
 ---The `bbox` key needs a table with four boundingbox values, e.g.:
@@ -155,9 +143,9 @@
 ---a.bbox = { "30bp", 0, "225bp", "200bp" }
 ---```
 ---
----This replaces and overrules any given `pagebox` value; with given `bbox` the box dimensions coming with an embedded \PDF\ file are ignored. The
+---This replaces and overrules any given `pagebox` value; with given `bbox` the box dimensions coming with an embedded *PDF* file are ignored. The
 ---`xsize` and `ysize` dimensions are set accordingly, when the image is
----scaled. The `bbox` parameter is ignored for non-\PDF\ images.
+---scaled. The `bbox` parameter is ignored for non-*PDF* images.
 ---
 ---The `transform` allows to mirror and rotate the image in steps of 90 deg.
 ---The default value `0` gives an unmirrored, unrotated image. Values `1-3` give
@@ -165,7 +153,7 @@
 ---`4-7` the image is first mirrored and then rotated counterclockwise by `90`,
 ---`180`, or `270` degrees. The `transform` operation gives the same visual
 ---result as if you would externally preprocess the image by a graphics tool and
----then use it by *LuaTeX*. If a \PDF\ file to be embedded already contains a `/Rotate` specification, the rotation result is the combination of the `/Rotate` rotation followed by the `transform` operation.
+---then use it by *LuaTeX*. If a *PDF* file to be embedded already contains a `/Rotate` specification, the rotation result is the combination of the `/Rotate` rotation followed by the `transform` operation.
 ---
 ---\subsection{`scan`}
 ---
@@ -228,7 +216,7 @@
 ---<image> var = img.write(<table> image_spec)
 ---```
 ---
----By `img.write(a)` a \PDF\ object number is allocated, and a rule node of
+---By `img.write(a)` a *PDF* object number is allocated, and a rule node of
 ---subtype `image` is generated and put into the output list. By this the
 ---image `a` is placed into the page stream, and the image file is written out
 ---into an image stream object after the shipping of the current page is finished.
@@ -242,14 +230,14 @@
 ---The `<image>` variable is returned in case you want it for later
 ---processing. You can also write an object.
 ---
----By `img.immediatewrite(a)` a \PDF\ object number is allocated, and the
----image file for image `a` is written out immediately into the \PDF\ file as
+---By `img.immediatewrite(a)` a *PDF* object number is allocated, and the
+---image file for image `a` is written out immediately into the *PDF* file as
 ---an image stream object (like with `immediate`\orm {pdfximage}). The object
 ---number of the image stream dictionary is then available by the `objnum`
 ---key. No `pdf_refximage` whatsit node is generated. You will need an
 ---`img.write(a)` or `img.node(a)` call to let the image appear on the
 ---page, or reference it by another trick; else you will have a dangling image
----object in the \PDF\ file.
+---object in the *PDF* file.
 ---
 ---```
 ---<image> var = img.immediatewrite(<image> var)
@@ -264,7 +252,7 @@
 ---
 ---The `<image>` variable is returned and you will most likely need it.
 ---
----The next function is kind of special as it copies an object from a (\PDF) image
+---The next function is kind of special as it copies an object from a (*PDF*) image
 ---file. This features is experimental and might disappear.
 ---
 ---```
@@ -281,7 +269,7 @@
 ---<node> n = img.node(<table> image_spec)
 ---```
 ---
----This function allocates a \PDF\ object number and returns a whatsit node of
+---This function allocates a *PDF* object number and returns a whatsit node of
 ---subtype `pdf_refximage`, filled with the image parameters `width`,
 ---`height`, `depth`, and `objnum`. Also here you can do a terse
 ---call like:
@@ -318,26 +306,21 @@
 ---<table> boxes = img.boxes()
 ---```
 ---
----This function returns a list with the supported \PDF\ page box names, currently
+---This function returns a list with the supported *PDF* page box names, currently
 ---these are `media`, `crop`, `bleed`, `trim`, and `art`, all in lowercase.
 ---
----The \PDF\ file is kept open after its properties are determined. After inclusion,
+---The *PDF* file is kept open after its properties are determined. After inclusion,
 ---which happens when the page that references the image is flushed, the file is
 ---closed. This means that when you have thousands of images on one page, your
 ---operating system might decide to abort the run. When you include more than one
----page from a \PDF\ file you can set the `keepopen` flag when you allocate an
+---page from a *PDF* file you can set the `keepopen` flag when you allocate an
 ---image object, or pass the `keepopen` directive when you refer to the image
 ---with `useimageresource`. This only makes sense when you embed many pages.
 ---An `immediate` applied to `saveimageresource` will also force a
 ---close after inclusion.
 ---
 ---```
----\immediate\useimageresource{foo.pdf}%
----          \saveimageresource         \lastsavedimageresourceindex % closed
----          \useimageresource{foo.pdf}%
----          \saveimageresource         \lastsavedimageresourceindex % kept open
----          \useimageresource{foo.pdf}%
----          \saveimageresource keepopen\lastsavedimageresourceindex % kept open
+---\immediate\useimageresource{foo.pdf}% \saveimageresource         \lastsavedimageresourceindex % closed \useimageresource{foo.pdf}% \saveimageresource         \lastsavedimageresourceindex % kept open \useimageresource{foo.pdf}% \saveimageresource keepopen\lastsavedimageresourceindex % kept open
 ---
 ---\directlua{img.write(img.scan{ file = "foo.pdf" })}                  % closed
 ---\directlua{img.write(img.scan{ file = "foo.pdf", keepopen = true })} % kept open
@@ -373,20 +356,12 @@
 ---\starttabulate[|l|l|pl|pl|]
 ---\DB name               \BC type     \BC description              \BC default           
 ---\TB
---- `error_line`   number    error line width          79                
---- `print_line`   number    line length in ps output  100               
---- `random_seed`  number    the initial random seed   variable          
---- `math_mode`    string    the number system to use:
----                                        `scaled`,
----                                        `double` or
----                                      % `binary` or
----                                        `decimal`           `scaled`    
---- `interaction`  string    the interaction mode:
----                                        `batch`,
----                                        `nonstop`,
----                                        `scroll` or
----                                        `errorstop`         `errorstop` 
---- `job_name`     string    `--jobname`         `mpout`     
+---@field error_line number # error line width          79                
+---@field print_line number # line length in ps output  100               
+---@field random_seed number # the initial random seed   variable          
+---@field math_mode string # the number system to use: `scaled`, `double` or % `binary` or `decimal`           `scaled`    
+---@field interaction string # the interaction mode: `batch`, `nonstop`, `scroll` or `errorstop`         `errorstop` 
+---@field job_name string # `--jobname`         `mpout`     
 --- `find_file`    function  a function to find files  only local files  
 ---\LL
 ---\stoptabulate
@@ -408,8 +383,7 @@
 ---\DB name        \BC the requested file 
 ---\TB
 --- `mode`  the file mode: `r` or `w` 
---- `type`  the kind of file, one of: `mp`, `tfm`, `map`,
----                    `pfb`, `enc` 
+--- `type`  the kind of file, one of: `mp`, `tfm`, `map`, `pfb`, `enc` 
 ---\LL
 ---\stoptabulate
 ---
@@ -457,10 +431,10 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field  \BC type \BC explanation 
 ---\TB
---- `main_memory`  number  memory size 
---- `hash_size`    number  hash size
---- `param_size`   number  simultaneous macro parameters
---- `max_in_open`  number  input file nesting levels
+---@field main_memory number # memory size 
+---@field hash_size number # hash size
+---@field param_size number # simultaneous macro parameters
+---@field max_in_open number # input file nesting levels
 ---\LL
 ---\stoptabulate
 ---
@@ -512,16 +486,11 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field  \BC type \BC explanation 
 ---\TB
---- `log`     string  output to the “log” stream 
---- `term`    string  output to the “term” stream 
---- `error`   string  output to the “error” stream
----                                 (only used for “out of memory”) 
---- `status`  number  the return value:
----                                 `0` = good,
----                                 `1` = warning,
----                                 `2` = errors,
----                                 `3` = fatal error 
---- `fig`     table   an array of generated figures (if any) 
+---@field log string # output to the “log” stream 
+---@field term string # output to the “term” stream 
+---@field error string # output to the “error” stream (only used for “out of memory”) 
+---@field status number # the return value: `0` = good, `1` = warning, `2` = errors, `3` = fatal error 
+---@field fig table # an array of generated figures (if any) 
 ---\LL
 ---\stoptabulate
 ---
@@ -535,23 +504,12 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field  \BC type \BC explanation 
 ---\TB
---- `boundingbox`   function  returns the bounding box, as an array of 4
----                                         values 
---- `postscript`    function  returns a string that is the ps output of the
----                                         `fig`. this function accepts two optional
----                                         integer arguments for specifying the values of
----                                         `prologues` (first argument) and `procset` (second argument) 
---- `svg`           function  returns a string that is the svg output of the
----                                         `fig`. This function accepts an optional
----                                         integer argument for specifying the value of
----                                         `prologues` 
---- `objects`       function  returns the actual array of graphic objects in
----                                         this `fig` 
---- `copy_objects`  function  returns a deep copy of the array of graphic
----                                         objects in this `fig` 
---- `filename`      function  the filename this `fig`'s \POSTSCRIPT\
----                                         output would have written to in stand alone
----                                         mode 
+--- `boundingbox`   function  returns the bounding box, as an array of 4 values 
+--- `postscript`    function  returns a string that is the ps output of the `fig`. this function accepts two optional integer arguments for specifying the values of `prologues` (first argument) and `procset` (second argument) 
+--- `svg`           function  returns a string that is the svg output of the `fig`. This function accepts an optional integer argument for specifying the value of `prologues` 
+--- `objects`       function  returns the actual array of graphic objects in this `fig` 
+--- `copy_objects`  function  returns a deep copy of the array of graphic objects in this `fig` 
+--- `filename`      function  the filename this `fig`'s \POSTSCRIPT\ output would have written to in stand alone mode 
 --- `width`         function  the `fontcharwd` value 
 --- `height`        function  the `fontcharht` value 
 --- `depth`         function  the `fontchardp` value 
@@ -585,14 +543,14 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field  \BC type \BC explanation 
 ---\TB
---- `path`        table   the list of knots 
---- `htap`        table   the list of knots for the reversed trajectory 
---- `pen`         table   knots of the pen 
---- `color`       table   the object's color 
---- `linejoin`    number  line join style (bare number)
---- `miterlimit`  number  miterlimit
---- `prescript`   string  the prescript text 
---- `postscript`  string  the postscript text 
+---@field path table # the list of knots 
+---@field htap table # the list of knots for the reversed trajectory 
+---@field pen table # knots of the pen 
+---@field color table # the object's color 
+---@field linejoin number # line join style (bare number)
+---@field miterlimit number # miterlimit
+---@field prescript string # the prescript text 
+---@field postscript string # the postscript text 
 ---\LL
 ---\stoptabulate
 ---
@@ -603,15 +561,15 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field  \BC type \BC explanation 
 ---\TB
---- `path`        table   the list of knots 
---- `pen`         table   knots of the pen 
---- `color`       table   the object's color 
---- `linejoin`    number  line join style (bare number) 
---- `miterlimit`  number  miterlimit 
---- `linecap`     number  line cap style (bare number) 
---- `dash`        table   representation of a dash list 
---- `prescript`   string  the prescript text 
---- `postscript`  string  the postscript text 
+---@field path table # the list of knots 
+---@field pen table # knots of the pen 
+---@field color table # the object's color 
+---@field linejoin number # line join style (bare number) 
+---@field miterlimit number # miterlimit 
+---@field linecap number # line cap style (bare number) 
+---@field dash table # representation of a dash list 
+---@field prescript string # the prescript text 
+---@field postscript string # the postscript text 
 ---\LL
 ---\stoptabulate
 ---
@@ -622,16 +580,16 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field  \BC type \BC explanation 
 ---\TB
---- `text`        string  the text 
---- `font`        string  font tfm name 
---- `dsize`       number  font size 
---- `color`       table   the object's color 
---- `width`       number  
---- `height`      number  
---- `depth`       number  
---- `transform`   table   a text transformation 
---- `prescript`   string  the prescript text 
---- `postscript`  string  the postscript text 
+---@field text string # the text 
+---@field font string # font tfm name 
+---@field dsize number # font size 
+---@field color table # the object's color 
+---@field width number # 
+---@field height number # 
+---@field depth number # 
+---@field transform table # a text transformation 
+---@field prescript string # the prescript text 
+---@field postscript string # the postscript text 
 ---\LL
 ---\stoptabulate
 ---
@@ -640,7 +598,7 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field  \BC type \BC explanation 
 ---\TB
---- `prescript`  string  special text 
+---@field prescript string # special text 
 ---\LL
 ---\stoptabulate
 ---
@@ -649,7 +607,7 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field  \BC type \BC explanation 
 ---\TB
---- `path`  table  the list of knots 
+---@field path table # the list of knots 
 ---\LL
 ---\stoptabulate
 ---
@@ -668,14 +626,14 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field  \BC type \BC explanation 
 ---\TB
---- `left_type`   string  when present: endpoint, but usually absent 
---- `right_type`  string  like `left_type` 
---- `x_coord`     number  X coordinate of this knot 
---- `y_coord`     number  Y coordinate of this knot 
---- `left_x`      number  X coordinate of the precontrol point of this knot 
---- `left_y`      number  Y coordinate of the precontrol point of this knot 
---- `right_x`     number  X coordinate of the postcontrol point of this knot 
---- `right_y`     number  Y coordinate of the postcontrol point of this knot 
+---@field left_type string # when present: endpoint, but usually absent 
+---@field right_type string # like `left_type` 
+---@field x_coord number # X coordinate of this knot 
+---@field y_coord number # Y coordinate of this knot 
+---@field left_x number # X coordinate of the precontrol point of this knot 
+---@field left_y number # Y coordinate of the precontrol point of this knot 
+---@field right_x number # X coordinate of the postcontrol point of this knot 
+---@field right_y number # Y coordinate of the postcontrol point of this knot 
 ---\LL
 ---\stoptabulate
 ---
@@ -707,12 +665,12 @@
 ---\starttabulate[|l|l|p|]
 ---\DB index  \BC type \BC explanation 
 ---\TB
---- `1`  number  represents x  
---- `2`  number  represents y  
---- `3`  number  represents xx 
---- `4`  number  represents yx 
---- `5`  number  represents xy 
---- `6`  number  represents yy 
+---@field 1 number # represents x  
+---@field 2 number # represents y  
+---@field 3 number # represents xx 
+---@field 4 number # represents yx 
+---@field 5 number # represents xy 
+---@field 6 number # represents yy 
 ---\LL
 ---\stoptabulate
 ---
@@ -729,7 +687,7 @@
 ---\DB field  \BC type \BC explanation 
 ---\TB
 --- `dashes`  hash    an array of on-off numbers 
---- `offset`  number  the starting offset value  
+---@field offset number # the starting offset value  
 ---\LL
 ---\stoptabulate
 ---
@@ -743,13 +701,13 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field  \BC type \BC explanation 
 ---\TB
---- `width`  number  width of the pen 
---- `sx`     number  `x` scale        
---- `rx`     number  `xy` multiplier  
---- `ry`     number  `yx` multiplier  
---- `sy`     number  `y` scale        
---- `tx`     number  `x` offset       
---- `ty`     number  `y` offset       
+---@field width number # width of the pen 
+---@field sx number # `x` scale        
+---@field rx number # `xy` multiplier  
+---@field ry number # `yx` multiplier  
+---@field sy number # `y` scale        
+---@field tx number # `x` offset       
+---@field ty number # `y` offset       
 ---\LL
 ---\stoptabulate
 ---
