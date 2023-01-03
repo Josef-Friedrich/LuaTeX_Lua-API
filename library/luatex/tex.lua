@@ -157,3 +157,91 @@ function tex.finish() end
 ------
 ---Source: [luatex-tex.tex#L1472-L1508](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L1472-L1508)
 function tex.runtoks() end
+
+---
+---An example of a (possible error triggering) complication is that *TeX* expects to
+---be in some state, say horizontal mode, and you have to make sure it is when you
+---start feeding back something from *Lua* into *TeX*. Normally a user will not run
+---into issues but when you start writing tokens or nodes or have a nested run there
+---can be situations that you need to run `forcehmode`. There is no recipe for
+---this and intercepting possible cases would weaken *LuaTeX*'s flexibility.
+function tex.forcehmode() end
+
+---
+---Returns a list of names. This can be useful for debugging, but note that this
+---also reports control sequences that may be unreachable at this moment due to
+---local redefinitions: it is strictly a dump of the hash table. You can use `token.create` to inspect properties, for instance when the `command` key
+---in a created table equals `123`, you have the `cmdname` value `undefined_cs`.
+---
+---```
+---for i,v in pairs(tex.hashtokens()) do ... end
+---```
+function tex.hashtokens() end
+
+---
+---Associates `csname` with the internal font number `fontid`. The
+---definition is global if (and only if) `global` is specified and true (the
+---setting of `globaldefs` is not taken into account).
+---
+---@param csname string
+---@param fontid integer
+function tex.definefont(csname, fontid) end
+
+---
+---Associates `csname` with the internal font number `fontid`. The
+---definition is global if (and only if) `global` is specified and true (the
+---setting of `globaldefs` is not taken into account).
+---
+---@param global boolean
+---@param csname string
+---@param fontid integer
+function tex.definefont(global, csname, fontid) end
+
+---
+---
+---This function accepts a prefix string and an array of primitive names. For each
+---combination of “prefix” and “name”, the `tex.enableprimitives` first verifies that “name” is an actual primitive
+---(it must be returned by one of the `tex.extraprimitives` calls explained
+---below, or part of *TeX*82, or `directlua`). If it is not, `tex.enableprimitives` does nothing and skips to the next pair.
+---
+---But if it is, then it will construct a csname variable by concatenating the
+---“prefix” and “name”, unless the “prefix” is already the
+---actual prefix of “name”. In the latter case, it will discard the “prefix”, and just use “name”.
+---
+---Then it will check for the existence of the constructed csname. If the csname is
+---currently undefined (note: that is not the same as `relax`), it will
+---globally define the csname to have the meaning: run code belonging to the
+---primitive “name”. If for some reason the csname is already defined, it
+---does nothing and tries the next pair.
+---
+---An example:
+---
+---```lua
+---tex.enableprimitives('LuaTeX', {'formatname'})
+---```
+---
+---will define `\LuaTeXformatname` with the same intrinsic meaning as the
+---documented primitive `formatname`, provided that the control sequences `\LuaTeXformatname` is currently undefined.
+---
+---When *LuaTeX* is run with `--ini` only the *TeX*82 primitives and `directlua` are available, so no extra primitives {\bf at all}.
+---
+---If you want to have all the new functionality available using their default
+---names, as it is now, you will have to add
+---
+---```tex
+---\ifx\directlua\undefined \else
+---    \directlua {tex.enableprimitives('',tex.extraprimitives ())}
+---\fi
+---```
+---
+---near the beginning of your format generation file. Or you can choose different
+---prefixes for different subsets, as you see fit.
+---
+---Calling some form of `tex.enableprimitives` is highly important though,
+---because if you do not, you will end up with a *TeX*82-lookalike that can run *Lua*
+---code but not do much else. The defined csnames are (of course) saved in the
+---format and will be available at runtime.
+---
+---@param prefix string
+---@param primitive_names table
+function tex.enableprimitives(prefix, primitive_names) end
