@@ -3,7 +3,7 @@
   // https://github.com/sumneko/lua-language-server/wiki/Libraries
   "Lua.workspace.library": [
     // https://github.com/Josef-Friedrich/LuaTeX_Lua-API
-    "~/repos/tex/lua-api/src"
+    "~/repos/tex/lua-api/library",
   ],
   "Lua.diagnostics.disable": [
     "duplicate-set-field"
