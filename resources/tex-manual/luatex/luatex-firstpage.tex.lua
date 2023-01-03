@@ -13,11 +13,11 @@
 ---
 ---    \definedfont[Bold*default at 12pt]
 ---
----    \starttabulate[|l|l|]
+---    
 ---         copyright \EQ Lua\TeX\ development team 
 ---         more info \EQ www.luatex.org 
 ---         version   \EQ \currentdate \doifsomething{\documentvariable{snapshot}}{(snapshot \documentvariable{snapshot})} 
----    \stoptabulate
+---    
 ---
 ---\stopstandardmakeup
 ---

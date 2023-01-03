@@ -4,15 +4,9 @@
 ---
 ---\startcomponent luatex-callbacks
 ---
----\startchapter[reference=callbacks,title={*Lua* callbacks}]
+---# *Lua* callbacks
 ---
----\startsection[title={Registering callbacks}][library=callback]
----
----\topicindex{callbacks}
----
----\libindex{register}
----\libindex{list}
----\libindex{find}
+---# Registering callbacks[library=callback]
 ---
 ---This library has functions that register, find and list callbacks. Callbacks are
 ---*Lua* functions that are called in well defined places. There are two kind of
@@ -66,9 +60,11 @@
 ---
 ---If the callback is not set, `find` returns `nil`.
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[title={File discovery callbacks}][library=callback]
+---# File discovery callbacks[library=callback]
 ---
 ---The behaviour documented in this subsection is considered stable in the sense that
 ---there will not be backward-incompatible changes any more.
@@ -84,8 +80,6 @@
 ---
 ---Arguments:
 ---
----
----
 ---\sym{id_number}
 ---
 ---This number is zero for the log or `input` files. For *TeX*'s `read`
@@ -96,11 +90,7 @@
 ---This is the user-supplied filename, as found by `input`, `openin`
 ---or `openout`.
 ---
----
----
 ---Return value:
----
----
 ---
 ---\sym{actual_name}
 ---
@@ -113,11 +103,7 @@
 ---
 ---You have to return `nil` if the file cannot be found.
 ---
----
----
 ---\subsection{\cbk {find_font_file}}
----
----\topicindex{callbacks+font files}
 ---
 ---Your callback function should have the following conventions:
 ---
@@ -132,8 +118,6 @@
 ---
 ---\subsection{\cbk {find_output_file}}
 ---
----\topicindex{callbacks+output file}
----
 ---Your callback function should have the following conventions:
 ---
 ---```
@@ -144,8 +128,6 @@
 ---The `asked_name` is the *PDF* or \DVI\ file for writing.
 ---
 ---\subsection{\cbk {find_format_file}}
----
----\topicindex{callbacks+format file}
 ---
 ---Your callback function should have the following conventions:
 ---
@@ -159,26 +141,18 @@
 ---
 ---\subsection{\cbk {find_vf_file}}
 ---
----\topicindex{callbacks+font files}
----
 ---Like \cbk {find_font_file}, but for virtual fonts. This applies to both \ALEPH's
 ---\OVF\ files and traditional Knuthian \VF\ files.
 ---
 ---\subsection{\cbk {find_map_file}}
 ---
----\topicindex{callbacks+font files}
----
 ---Like \cbk {find_font_file}, but for map files.
 ---
 ---\subsection{\cbk {find_enc_file}}
 ---
----\topicindex{callbacks+font files}
----
 ---Like \cbk {find_font_file}, but for enc files.
 ---
 ---\subsection{\cbk {find_pk_file}}
----
----\topicindex{callbacks+font files}
 ---
 ---Like \cbk {find_font_file}, but for pk bitmap files. This callback takes two
 ---arguments: `name` and `dpi`. In your callback you can decide to
@@ -193,19 +167,13 @@
 ---
 ---\subsection{\cbk {find_data_file}}
 ---
----\topicindex{callbacks+data files}
----
 ---Like \cbk {find_font_file}, but for embedded files (`\pdfobj file '...'`).
 ---
 ---\subsection{\cbk {find_opentype_file}}
 ---
----\topicindex{callbacks+font files}
----
----Like \cbk {find_font_file}, but for \OPENTYPE\ font files.
+---Like \cbk {find_font_file}, but for *OpenType* font files.
 ---
 ---\subsection{\cbk {find_truetype_file} and \cbk {find_type1_file}}
----
----\topicindex{callbacks+font files}
 ---
 ---Your callback function should have the following conventions:
 ---
@@ -218,12 +186,10 @@
 ---building its internal list of needed font files, so the actual timing may
 ---surprise you. Your return value is later fed back into the matching `read_file` callback.
 ---
----Strangely enough, \cbk {find_type1_file} is also used for \OPENTYPE\ (\OTF)
+---Strangely enough, \cbk {find_type1_file} is also used for *OpenType* (\OTF)
 ---fonts.
 ---
 ---\subsection{\cbk {find_image_file}}
----
----\topicindex{callbacks+image files}
 ---
 ---Your callback function should have the following conventions:
 ---
@@ -236,16 +202,16 @@
 ---from the hard disk, so make sure you return something that is considered the name
 ---of a valid file by your operating system.
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[reference=iocallback,title={File reading callbacks}]
+---# File reading callbacks
 ---
 ---The behavior documented in this subsection is considered stable in the sense that
 ---there will not be backward-incompatible changes any more.
 ---
 ---\subsection{\cbk {open_read_file}}
----
----\topicindex{callbacks+opening files}
 ---
 ---Your callback function should have the following conventions:
 ---
@@ -256,18 +222,12 @@
 ---
 ---Argument:
 ---
----
----
 ---\sym{file_name}
 ---
 ---The filename returned by a previous \cbk {find_read_file} or the return value of
 ---`kpse.find_file()` if there was no such callback defined.
 ---
----
----
 ---Return value:
----
----
 ---
 ---\sym{env}
 ---
@@ -280,11 +240,7 @@
 ---private per-file data. Both the callback functions will receive the table as
 ---their only argument.
 ---
----
----
 ---\subsubsection{`reader`}
----
----\topicindex{callbacks+reader}
 ---
 ---*LuaTeX* will run this function whenever it needs a new input line from the file.
 ---
@@ -300,8 +256,6 @@
 ---
 ---\subsubsection{`close`}
 ---
----\topicindex{callbacks+closing files}
----
 ---*LuaTeX* will run this optional function when it decides to close the file.
 ---
 ---```
@@ -312,8 +266,6 @@
 ---Your function should not return any value.
 ---
 ---\subsection{General file readers}
----
----\topicindex{callbacks+readers}
 ---
 ---There is a set of callbacks for the loading of binary data files. These all use
 ---the same interface:
@@ -326,8 +278,6 @@
 ---
 ---The `name` will normally be a full path name as it is returned by either
 ---one of the file discovery callbacks or the internal version of `kpse.find_file()`.
----
----
 ---
 ---\sym{success}
 ---
@@ -342,35 +292,30 @@
 ---
 ---The length of the `data`, in bytes.
 ---
----
----
 ---Return an empty string and zero if the file was found but there was a
 ---reading problem.
 ---
 ---The list of functions is:
 ---
----\starttabulate[|l|p|]
----\DB function  \BC usage 
----\TB
+--- function   usage 
+---
 --- `read_font_file`      ofm or tfm files 
 --- `read_vf_file`        virtual fonts 
 --- `read_map_file`       map files 
 --- `read_enc_file`       encoding files 
 --- `read_pk_file`        pk bitmap files 
 --- `read_data_file`      embedded files (as is possible with *PDF* objects) 
---- `read_truetype_file`  \TRUETYPE\ font files 
+--- `read_truetype_file`  *TrueType* font files 
 --- `read_type1_file`     \TYPEONE\ font files 
---- `read_opentype_file`  \OPENTYPE\ font files 
----\LL
----\stoptabulate
+--- `read_opentype_file`  *OpenType* font files 
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[title={Data processing callbacks}][library=callback]
+---# Data processing callbacks[library=callback]
 ---
 ---\subsection{\cbk {process_input_buffer}}
----
----\topicindex{callbacks+input buffer}
 ---
 ---This callback allows you to change the contents of the line input buffer just
 ---before *LuaTeX* actually starts looking at it.
@@ -386,8 +331,6 @@
 ---does not replace any internal code.
 ---
 ---\subsection{\cbk {process_output_buffer}}
----
----\topicindex{callbacks+output buffer}
 ---
 ---This callback allows you to change the contents of the line output buffer just
 ---before *LuaTeX* actually starts writing it to a file as the result of a `write` command. It is only called for output to an actual file (that is,
@@ -405,8 +348,6 @@
 ---
 ---\subsection{\cbk {process_jobname}}
 ---
----\topicindex{callbacks+jobname}
----
 ---This callback allows you to change the jobname given by `jobname` in *TeX*
 ---and `tex.jobname` in Lua. It does not affect the internal job name or the
 ---name of the output or log files.
@@ -422,15 +363,15 @@
 ---*LuaTeX* will pretend your callback never happened. This callback does not
 ---replace any internal code.
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[title={Node list processing callbacks}][library=callback]
+---# Node list processing callbacks[library=callback]
 ---
 ---The description of nodes and node lists is in \in{chapter}[nodes].
 ---
 ---\subsection{\cbk {contribute_filter}}
----
----\topicindex{callbacks+contributions}
 ---
 ---This callback is called when *LuaTeX* adds contents to list:
 ---
@@ -442,19 +383,14 @@
 ---The string reports the group code. From this you can deduce from
 ---what list you can give a treat.
 ---
----\starttabulate[|l|p|]
----\DB value             \BC explanation                                  
----\TB
+--- value              explanation                                  
+---
 --- `pre_box`     interline material is being added            
 --- `pre_adjust`  `vadjust` material is being added       
 --- `box`         a typeset box is being added (always called) 
 --- `adjust`      `vadjust` material is being added       
----\LL
----\stoptabulate
 ---
 ---\subsection{\cbk {buildpage_filter}}
----
----\topicindex{callbacks+building pages}
 ---
 ---This callback is called whenever *LuaTeX* is ready to move stuff to the main
 ---vertical list. You can use this callback to do specialized manipulation of the
@@ -469,9 +405,8 @@
 ---state is with respect to the “current page”. The possible values for the
 ---\cbk {buildpage_filter} callback are:
 ---
----\starttabulate[|l|p|]
----\DB value                  \BC explanation                             
----\TB
+--- value                   explanation                             
+---
 --- `alignment`        a (partial) alignment is being added    
 --- `after_output`     an output routine has just finished     
 --- `new_graf`         the beginning of a new paragraph        
@@ -482,12 +417,8 @@
 --- `before_display`   immediately before a display starts     
 --- `after_display`    a display is finished                   
 --- `end`              *LuaTeX* is terminating (it's all over) 
----\LL
----\stoptabulate
 ---
 ---\subsection{\cbk {build_page_insert}}
----
----\topicindex{callbacks+inserts}
 ---
 ---This callback is called when the pagebuilder adds an insert. There is not much
 ---control over this mechanism but this callback permits some last minute
@@ -502,13 +433,10 @@
 ---
 ---with
 ---
----\starttabulate[|l|p|]
----\DB value    \BC explanation             
----\TB
+--- value     explanation             
+---
 --- `n`  the insert class        
 --- `i`  the order of the insert 
----\LL
----\stoptabulate
 ---
 ---The return value is a number indicating the skip register to use for the
 ---prepended spacing. This permits for instance a different top space (when `i` equals one) and intermediate space (when `i` is larger than one). Of
@@ -516,8 +444,6 @@
 ---is happy afterwards.
 ---
 ---\subsection{\cbk {pre_linebreak_filter}}
----
----\topicindex{callbacks+linebreaks}
 ---
 ---This callback is called just before *LuaTeX* starts converting a list of nodes
 ---into a stack of `hbox`es, after the addition of `parfillskip`.
@@ -534,9 +460,8 @@
 ---for the \cbk {hpack_filter} and \cbk {vpack_filter} callbacks that will be
 ---explained in the next two paragraphs.
 ---
----\starttabulate[|l|p|]
----\DB value                \BC explanation                                 
----\TB
+--- value                 explanation                                 
+---
 --- `<empty>`        main vertical list                          
 --- `hbox`           `hbox` in horizontal mode              
 --- `adjusted_hbox`  `hbox` in vertical mode                
@@ -551,12 +476,9 @@
 --- `split_keep`     remainder of a `vsplit`                
 --- `align_set`      alignment cell                              
 --- `fin_row`        alignment row                               
----\LL
----\stoptabulate
 ---
 ---As for all the callbacks that deal with nodes, the return value can be one of
 ---three things:
----
 ---
 ---* boolean `true` signals successful processing
 ---
@@ -566,13 +488,9 @@
 ---* boolean `false` signals that the “head” node list should be
 ---    ignored and flushed from memory
 ---
----
----
 ---This callback does not replace any internal code.
 ---
 ---\subsection{\cbk {linebreak_filter}}
----
----\topicindex{callbacks+linebreaks}
 ---
 ---This callback replaces *LuaTeX*'s line breaking algorithm.
 ---
@@ -597,8 +515,6 @@
 ---
 ---\subsection{`append_to_vlist_filter`}
 ---
----\topicindex{callbacks+contributions}
----
 ---This callback is called whenever *LuaTeX* adds a box to a vertical list:
 ---
 ---```
@@ -614,8 +530,6 @@
 ---
 ---\subsection{\cbk {post_linebreak_filter}}
 ---
----\topicindex{callbacks+linebreaks}
----
 ---This callback is called just after *LuaTeX* has converted a list of nodes into a
 ---stack of `hbox`es.
 ---
@@ -628,8 +542,6 @@
 ---This callback does not replace any internal code.
 ---
 ---\subsection{\cbk {hpack_filter}}
----
----\topicindex{callbacks+packing}
 ---
 ---This callback is called when *TeX* is ready to start boxing some horizontal mode
 ---material. Math items and line boxes are ignored at the moment.
@@ -652,8 +564,6 @@
 ---
 ---\subsection{\cbk {vpack_filter}}
 ---
----\topicindex{callbacks+packing}
----
 ---This callback is called when *TeX* is ready to start boxing some vertical mode
 ---material. Math displays are ignored at the moment.
 ---
@@ -671,8 +581,6 @@
 ---This callback does not replace any internal code.
 ---
 ---\subsection{`hpack_quality`}
----
----\topicindex{callbacks+packing}
 ---
 ---This callback can be used to intercept the overfull messages that can result from
 ---packing a horizontal list (as happens in the par builder). The function takes a
@@ -693,8 +601,6 @@
 ---
 ---\subsection{`vpack_quality`}
 ---
----\topicindex{callbacks+packing}
----
 ---This callback can be used to intercept the overfull messages that can result from
 ---packing a vertical list (as happens in the page builder). The function takes a
 ---few arguments:
@@ -710,16 +616,12 @@
 ---
 ---\subsection{\cbk {process_rule}}
 ---
----\topicindex{callbacks+rules}
----
 ---This is an experimental callback. It can be used with rules of subtype 4
 ---(user). The callback gets three arguments: the node, the width and the
 ---height. The callback can use `pdf.print` to write code to the *PDF*
 ---file but beware of not messing up the final result. No checking is done.
 ---
 ---\subsection{`pre_output_filter`}
----
----\topicindex{callbacks+output}
 ---
 ---This callback is called when *TeX* is ready to start boxing the box 255 for `output`.
 ---
@@ -734,8 +636,6 @@
 ---
 ---\subsection{\cbk {hyphenate}}
 ---
----\topicindex{callbacks+hyphenation}
----
 ---```
 ---function(<node> head, <node> tail)
 ---end
@@ -748,8 +648,6 @@
 ---insertion pass.
 ---
 ---\subsection{\cbk {ligaturing}}
----
----\topicindex{callbacks+ligature building}
 ---
 ---```
 ---function(<node> head, <node> tail)
@@ -777,8 +675,6 @@
 ---and the tail a glue. Messing too much can push *LuaTeX* into panic mode.
 ---
 ---\subsection{\cbk {kerning}}
----
----\topicindex{callbacks+kerning}
 ---
 ---```
 ---function(<node> head, <node> tail)
@@ -809,8 +705,6 @@
 ---
 ---\subsection{\cbk {mlist_to_hlist}}
 ---
----\topicindex{callbacks+math}
----
 ---This callback replaces *LuaTeX*'s math list to node list conversion algorithm.
 ---
 ---```
@@ -827,13 +721,13 @@
 ---Setting this callback to `false` is bad, it will almost certainly result in
 ---an endless loop.
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[title={Information reporting callbacks}][library=callback]
+---# Information reporting callbacks[library=callback]
 ---
 ---\subsection{\cbk {pre_dump}}
----
----\topicindex{callbacks+dump}
 ---
 ---```
 ---function()
@@ -844,8 +738,6 @@
 ---replace any code and there are neither arguments nor return values.
 ---
 ---\subsection{\cbk {start_run}}
----
----\topicindex{callbacks+job run}
 ---
 ---```
 ---function()
@@ -858,8 +750,6 @@
 ---
 ---\subsection{\cbk {stop_run}}
 ---
----\topicindex{callbacks+job run}
----
 ---```
 ---function()
 ---end
@@ -869,8 +759,6 @@
 ---you should not rely on this hook for postprocessing the *PDF* or log file.
 ---
 ---\subsection{\cbk {start_page_number}}
----
----\topicindex{callbacks+pages}
 ---
 ---```
 ---function()
@@ -883,8 +771,6 @@
 ---
 ---\subsection{\cbk {stop_page_number}}
 ---
----\topicindex{callbacks+pages}
----
 ---```
 ---function()
 ---end
@@ -893,8 +779,6 @@
 ---Replaces the code that prints the `]` at the end of `shipout`.
 ---
 ---\subsection{\cbk {show_error_hook}}
----
----\topicindex{callbacks+errors}
 ---
 ---```
 ---function()
@@ -907,8 +791,6 @@
 ---
 ---\subsection{\cbk {show_error_message}}
 ---
----\topicindex{callbacks+errors}
----
 ---```
 ---function()
 ---end
@@ -919,8 +801,6 @@
 ---
 ---\subsection{\cbk {show_lua_error_hook}}
 ---
----\topicindex{callbacks+errors}
----
 ---```
 ---function()
 ---end
@@ -930,8 +810,6 @@
 ---
 ---\subsection{\cbk {start_file}}
 ---
----\topicindex{callbacks+files}
----
 ---```
 ---function(category,filename)
 ---end
@@ -940,20 +818,15 @@
 ---This callback replaces the code that prints *LuaTeX*'s when a file is opened like
 ---`(filename` for regular files. The category is a number:
 ---
----\starttabulate[|c|l|]
----\DB value  \BC meaning 
----\TB
+--- value   meaning 
+---
 --- 1  a normal data file, like a *TeX* source 
 --- 2  a font map coupling font names to resources 
 --- 3  an image file (`png`, `pdf`, etc) 
 --- 4  an embedded font subset 
 --- 5  a fully embedded font 
----\LL
----\stoptabulate
 ---
 ---\subsection{\cbk {stop_file}}
----
----\topicindex{callbacks+files}
 ---
 ---```
 ---function(category)
@@ -964,8 +837,6 @@
 ---the `)` for regular files.
 ---
 ---\subsection{\cbk {call_edit}}
----
----\topicindex{callbacks+editing}
 ---
 ---```
 ---function(filename,linenumber)
@@ -978,26 +849,22 @@
 ---
 ---\subsection{\cbk {finish_synctex}}
 ---
----\topicindex{callbacks+synctex}
----
 ---This callback can be used to wrap up alternative synctex methods. It kicks in
 ---after the normal synctex finalizer (that happens to remove the synctex files
 ---after a run when native synctex is not enabled).
 ---
 ---\subsection{\cbk {wrapup_run}}
 ---
----\topicindex{callbacks+wrapping up}
----
 ---This callback is called after the *PDF* and log files are closed. Use it at your own
 ---risk.
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[title={*PDF* related callbacks}][library=callback]
+---# *PDF* related callbacks[library=callback]
 ---
 ---\subsection{\cbk {finish_pdffile}}
----
----\topicindex{callbacks+*PDF* file}
 ---
 ---```
 ---function()
@@ -1012,8 +879,6 @@
 ---
 ---\subsection{\cbk {finish_pdfpage}}
 ---
----\topicindex{callbacks+*PDF* file}
----
 ---```
 ---function(shippingout)
 ---end
@@ -1023,8 +888,6 @@
 ---the page object gets finalized.
 ---
 ---\subsection{\cbk {page_order_index}}
----
----\topicindex{callbacks+*PDF* file}
 ---
 ---This is one that experts can use to juggle the page tree, a data structure
 ---that determines the order in a *PDF* file:
@@ -1054,8 +917,6 @@
 ---
 ---\subsection{\cbk {process_pdf_image_content}}
 ---
----\topicindex{callbacks+image content}
----
 ---When a page from a *PDF* file is embedded its page stream as well as related
 ---objects are copied to the target file. However, it can be that the page stream
 ---has operators that assume additional resources, for instance marked text. You can
@@ -1074,13 +935,13 @@
 ---You need to explicitly enable recompression because otherwise the content stream
 ---gets just passed on in its original compressed form.
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[title={Font-related callbacks}][library=callback]
+---# Font-related callbacks[library=callback]
 ---
 ---\subsection{\cbk {define_font}}
----
----\topicindex{callbacks+fonts}
 ---
 ---```
 ---function(<string> name, <number> size, <number> id)
@@ -1093,13 +954,10 @@
 ---
 ---The number `size` is a bit special:
 ---
----
 ---* If it is positive, it specifies an “at size” in scaled points.
 ---
 ---* If it is negative, its absolute value represents a “scaled” setting
 ---    relative to the designsize of the font.
----
----
 ---
 ---The `id` is the internal number assigned to the font.
 ---
@@ -1113,8 +971,6 @@
 ---loading completely but will nevertheless generate errors.
 ---
 ---\subsection{\cbk {glyph_not_found} and \cbk {glyph_info}}
----
----\topicindex{callbacks+fonts}
 ---
 ---The `glyph_not_found` callback, when set, kicks in when the backend cannot
 ---insert a glyph. When no callback is defined a message is written to the log.
@@ -1139,7 +995,9 @@
 ---not always that useful, especially when there is no real representation. Keep in
 ---mind that setting this callback can change the log in an incompatible way.
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
 ---\stopchapter
 ---

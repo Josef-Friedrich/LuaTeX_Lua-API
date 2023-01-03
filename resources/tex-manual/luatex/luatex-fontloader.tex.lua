@@ -4,24 +4,18 @@
 ---
 ---\startcomponent luatex-fontloader
 ---
----\startchapter[reference=fontloader,title={The fontloader}]
----
----\topicindex {fonts+loading}
+---# The fontloader
 ---
 ---The fontloader library is sort of independent of the rest in the sense that it
 ---can load font into a *Lua* table that then can be converted into a table suitable
----for *TeX*. The library is an adapted subset of \FONTFORGE\ and as such gives a
+---for *TeX*. The library is an adapted subset of *FontForge* and as such gives a
 ---similar view on a font (which has advantages when you want to debug). We will not
----discuss \OPENTYPE\ in detail here as the \MICROSOFT\ website offers enough
+---discuss *OpenType* in detail here as the *Microsoft* website offers enough
 ---information about it. The tables returned by the loader are not that far from the
 ---standard. We have no plans to extend the loader (it may even become an external
 ---module at some time).
 ---
----\startsection[title={Getting quick information on a font}][library=fontloader]
----
----\topicindex {fonts+information}
----
----\libindex{info}
+---# Getting quick information on a font[library=fontloader]
 ---
 ---When you want to locate font by name you need some basic information that is
 ---hidden in the font files. For that reason we provide an efficient helper that
@@ -34,40 +28,32 @@
 ---```
 ---
 ---This function returns either `nil`, or a `table`, or an array of
----small tables (in the case of a \TRUETYPE\ collection). The returned table(s) will
+---small tables (in the case of a *TrueType* collection). The returned table(s) will
 ---contain some fairly interesting information items from the font(s) defined by the
 ---file:
 ---
----\starttabulate[|l|l|p|]
----\DB key                 \BC type     \BC explanation 
----\TB
----@field fontname string # the \POSTSCRIPT\ name of the font
+--- key                  type      explanation 
+---
+---@field fontname string # the *PostScript* name of the font
 ---@field fullname string # the formal name of the font
 ---@field familyname string # the family name this font belongs to
 ---@field weight string # a string indicating the color value of the font
 ---@field version string # the internal font version
---- `italicangle`   float     the slant angle
----@field units_per_em number # 1000 for \POSTSCRIPT-based fonts, usually 2048 for \TRUETYPE
+---@field italicangle float # the slant angle
+---@field units_per_em number # 1000 for *PostScript*-based fonts, usually 2048 for *TrueType*NC \NR
 ---@field pfminfo table # (see \in{section}[fontloaderpfminfotable])
----\LL
----\stoptabulate
 ---
 ---Getting information through this function is (sometimes much) more efficient than
 ---loading the font properly, and is therefore handy when you want to create a
 ---dictionary of available fonts based on a directory contents.
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[title={Loading an \OPENTYPE\ or \TRUETYPE\ file}][library=fontloader]
+---# Loading an *OpenType* or *TrueType* file[library=fontloader]
 ---
----\topicindex {\OPENTYPE}
----\topicindex {\TRUETYPE}
----
----\libindex{open}
----\libindex{close}
----\libindex{to_table}
----
----If you want to use an \OPENTYPE\ font, you have to get the metric information
+---If you want to use an *OpenType* font, you have to get the metric information
 ---from somewhere. Using the `fontloader` library, the simplest way to get
 ---that information is thus:
 ---
@@ -97,7 +83,7 @@
 ---while opening the font. In normal typesetting, you would probably ignore the
 ---second argument, but it can be useful for debugging purposes.
 ---
----For \TRUETYPE\ collections (when filename ends in 'ttc') and \DFONT\ collections,
+---For *TrueType* collections (when filename ends in 'ttc') and \DFONT\ collections,
 ---you have to use a second string argument to specify which font you want from the
 ---collection. Use the `fontname` strings that are returned by `fontloader.info` for that.
 ---
@@ -118,28 +104,21 @@
 ---by `fontloader.to_table`.
 ---
 ---The font file is parsed and partially interpreted by the font loading routines
----from \FONTFORGE. The file format can be \OPENTYPE, \TRUETYPE, \TRUETYPE\
+---from *FontForge*. The file format can be *OpenType*, *TrueType*, *TrueType*
 ---Collection, \CFF, or \TYPEONE.
 ---
 ---There are a few advantages to this approach compared to reading the actual font
 ---file ourselves:
 ---
----
----
 ---* The font is automatically re-encoded, so that the `metrics` table for
----    \TRUETYPE\ and \OPENTYPE\ fonts is using \UNICODE\ for the character indices.
----
+---    *TrueType* and *OpenType* fonts is using \UNICODE\ for the character indices.
 ---
 ---* Many features are pre-processed into a format that is easier to handle than
 ---    just the bare tables would be.
 ---
----
----* \POSTSCRIPT-based \OPENTYPE\ fonts do not store the character height and
+---* *PostScript*-based *OpenType* fonts do not store the character height and
 ---    depth in the font file, so the character boundingbox has to be calculated in
 ---    some way.
----
----
----
 ---
 ---A loaded font is discarded with:
 ---
@@ -147,11 +126,11 @@
 ---fontloader.close(<userdata> font)
 ---```
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[title={Applying a “feature file”}][library=fontloader]
----
----\libindex{apply_featurefile}
+---# Applying a “feature file”[library=fontloader]
 ---
 ---You can apply a “feature file” to a loaded font:
 ---
@@ -160,7 +139,7 @@
 ---```
 ---
 ---A “feature file” is a textual representation of the features in an
----\OPENTYPE\ font. See
+---*OpenType* font. See
 ---
 ---```
 ---http://www.adobe.com/devnet/opentype/afdko/topic_feature_file_syntax.html
@@ -178,13 +157,11 @@
 ---by fontloader while applying the feature file. On success, `nil` is
 ---returned.
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[title={Applying an “\AFM\ file”}][library=fontloader]
----
----\topicindex {\TYPEONE}
----
----\libindex{apply_afmfile}
+---# Applying an “\AFM\ file”[library=fontloader]
 ---
 ---You can apply an “\AFM\ file” to a loaded font:
 ---
@@ -209,13 +186,11 @@
 ---If the function fails, the return value is a table containing any errors reported
 ---by fontloader while applying the AFM file. On success, `nil` is returned.
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
 ---\startsection[title={Fontloader font tables},reference=fontloadertables][library=fontloader]
----
----\topicindex {fontloader+tables}
----
----\libindex{fields}
 ---
 ---As mentioned earlier, the return value of `fontloader.open` is a userdata
 ---object. One way to have access to the actual metrics is to call `fontloader.to_table` on this object, returning the table structure that is
@@ -226,7 +201,6 @@
 ---It turns out that the result from `fontloader.to_table` sometimes needs
 ---very large amounts of memory (depending on the font's complexity and size) so it
 ---is possible to access the userdata object directly.
----
 ---
 ---* All top-level keys that would be returned by `to_table()`
 ---    can also be accessed directly.
@@ -240,8 +214,6 @@
 ---
 ---* The top-level key “subfonts” returns an {\it actual} array of userdata
 ---    objects, one for each of the subfonts (or nil, if there are no subfonts).
----
----
 ---
 ---A short example may be helpful. This code generates a printout of all
 ---the glyph names in the font `PunkNova.kern.otf`:
@@ -282,32 +254,33 @@
 ---local fields = fontloader.fields(f.glyphs[0])
 ---```
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[title={Table types}][library=fontloader]
+---# Table types[library=fontloader]
 ---
----\startsubsection[title={The main table}]
+---# The main table
 ---
 ---The top-level keys in the returned table are (the explanations in this part of
 ---the documentation are not yet finished):
 ---
----\starttabulate[|l|l|p|]
----\DB key                                 \BC type      explanation 
----\TB
+--- key                                  type      explanation 
+---
 ---@field table_version number # indicates the metrics version (currently 0.3)
----@field fontname string # \POSTSCRIPT\ font name
+---@field fontname string # *PostScript* font name
 ---@field fullname string # official (human-oriented) font name
 ---@field familyname string # family name
 ---@field weight string # weight indicator
 ---@field copyright string # copyright information
 ---@field filename string # the file name
 ---@field version string # font version
---- `italicangle`                   float     slant angle
----@field units_per_em number # 1000 for \POSTSCRIPT-based fonts, usually 2048 for \TRUETYPE
+---@field italicangle float # slant angle
+---@field units_per_em number # 1000 for *PostScript*-based fonts, usually 2048 for *TrueType*NC \NR
 ---@field ascent number # height of ascender in `units_per_em`
 ---@field descent number # depth of descender in `units_per_em`
---- `upos`                          float     
---- `uwidth`                        float     
+---@field upos float # 
+---@field uwidth float # 
 ---@field uniqueid number # 
 --- `glyphs`                        array     
 ---@field glyphcnt number # number of included glyphs
@@ -354,7 +327,7 @@
 ---@field fontstyle_name table # 
 ---%NC `design_range_bottom`           number    
 ---%NC `design_range_top`              number    
---- `strokewidth`                   float     
+---@field strokewidth float # 
 ---@field mark_classes table # 
 ---@field creationtime number # 
 ---@field modificationtime number # 
@@ -364,20 +337,19 @@
 ---@field horiz_base table # 
 ---@field vert_base table # 
 ---@field extrema_bound number # 
----@field truetype boolean # signals a \TRUETYPE\ font 
----\LL
----\stoptabulate
+---@field truetype boolean # signals a *TrueType* font 
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`glyphs`}]
+---# `glyphs`
 ---
 ---The `glyphs` is an array containing the per-character
 ---information (quite a few of these are only present if non-zero).
 ---
----\starttabulate[|l|l|p|]
----\DB key                      \BC type     \BC explanation 
----\TB
+--- key                       type      explanation 
+---
 ---@field name string # the glyph name 
 ---@field unicode number # unicode code point, or -1 
 --- `boundingbox`        array     array of four numbers, see note below 
@@ -402,15 +374,13 @@
 ---@field vert_variants table # 
 ---@field horiz_variants table # 
 ---@field mathkern table # 
----\LL
----\stoptabulate
 ---
----On `boundingbox`: The boundingbox information for \TRUETYPE\ fonts and
----\TRUETYPE-based \OTF\ fonts is read directly from the font file.
----\POSTSCRIPT-based fonts do not have this information, so the boundingbox of
----traditional \POSTSCRIPT\ fonts is generated by interpreting the actual bezier
+---On `boundingbox`: The boundingbox information for *TrueType* fonts and
+---*TrueType*-based \OTF\ fonts is read directly from the font file.
+---*PostScript*-based fonts do not have this information, so the boundingbox of
+---traditional *PostScript* fonts is generated by interpreting the actual bezier
 ---curves to find the exact boundingbox. This can be a slow process, so the
----boundingboxes of \POSTSCRIPT-based \OTF\ fonts (and raw \CFF\ fonts) are
+---boundingboxes of *PostScript*-based \OTF\ fonts (and raw \CFF\ fonts) are
 ---calculated using an approximation of the glyph shape based on the actual glyph
 ---points only, instead of taking the whole curve into account. This means that
 ---glyphs that have missing points at extrema will have a too-tight boundingbox,
@@ -419,34 +389,27 @@
 ---
 ---The `kerns` and `vkerns` are linear arrays of small hashes:
 ---
----\starttabulate[|l|l|p|]
----\DB key           \BC type   \BC explanation 
----\TB
+--- key            type    explanation 
+---
 ---@field char string # 
 ---@field off number # 
 ---@field lookup string # 
----\LL
----\stoptabulate
 ---
 ---The `lookups` is a hash, based on lookup subtable names, with
 ---the value of each key inside that a linear array of small hashes:
 ---
 ---% TODO: fix this description
 ---
----\starttabulate[|l|l|p|]
----\DB key                  \BC type \BC explanation 
----\TB
+--- key                   type  explanation 
+---
 --- `type`           enum  `position`, `pair`, `substitution`, `alternate`, `multiple`, `ligature`, `lcaret`, \cbk {kerning}, `vkerning`, `anchors`, `contextpos`, `contextsub`, `chainpos`, `chainsub`, `reversesub`, `max`, `kernback`, `vkernback` 
 ---@field specification table # extra data 
----\LL
----\stoptabulate
 ---
 ---For the first seven values of `type`, there can be additional
 ---sub-information, stored in the sub-table `specification`:
 ---
----\starttabulate[|l|l|p|]
----\DB value               \BC type     \BC explanation 
----\TB
+--- value                type      explanation 
+---
 ---@field position table # a table of the `offset_specs` type 
 ---@field pair table # one string: `paired`, and an array of one or two `offset_specs` tables: `offsets` 
 ---@field substitution table # one string: `variant` 
@@ -454,51 +417,40 @@
 ---@field multiple table # one string: `components` 
 ---@field ligature table # two strings: `components`, `char` 
 --- `lcaret`        array     linear array of numbers 
----\LL
----\stoptabulate
 ---
 ---Tables for `offset_specs` contain up to four number-valued fields: `x` (a horizontal offset), `y` (a vertical offset), `h` (an advance
 ---width correction) and `v` (an advance height correction).
 ---
 ---The `ligatures` is a linear array of small hashes:
 ---
----\starttabulate[|l|l|p|]
----\DB key               \BC type   \BC explanation 
----\TB
+--- key                type    explanation 
+---
 ---@field lig table # uses the same substructure as a single item in the `lookups` table explained above 
 ---@field char string # 
 --- `components`  array   linear array of named components 
 ---@field ccnt number # 
----\LL
----\stoptabulate
 ---
 ---The `anchor` table is indexed by a string signifying the anchor type, which
 ---is one of:
 ---
----\starttabulate[|l|l|p|]
----\DB key             \BC type  \BC explanation 
----\TB
+--- key              type   explanation 
+---
 ---@field mark table # placement mark 
 ---@field basechar table # mark for attaching combining items to a base char 
 ---@field baselig table # mark for attaching combining items to a ligature 
 ---@field basemark table # generic mark for attaching combining items to connect to 
 ---@field centry table # cursive entry point 
 ---@field cexit table # cursive exit point 
----\LL
----\stoptabulate
 ---
 ---The content of these is a short array of defined anchors, with the
 ---entry keys being the anchor names. For all except `baselig`, the
 ---value is a single table with this definition:
 ---
----\starttabulate[|l|l|p|]
----\DB key                 \BC type   \BC explanation 
----\TB
+--- key                  type    explanation 
+---
 ---@field x number # x location 
 ---@field y number # y location 
 ---@field ttf_pt_index number # truetype point index, only if given 
----\LL
----\stoptabulate
 ---
 ---For `baselig`, the value is a small array of such anchor sets sets, one for
 ---each constituent item of the ligature.
@@ -523,16 +475,17 @@
 ---
 ---Note: The `baselig` table can be sparse!
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`map`}]
+---# `map`
 ---
 ---The top-level map is a list of encoding mappings. Each of those is a table
 ---itself.
 ---
----\starttabulate[|l|l|p|]
----\DB key             \BC type   \BC explanation 
----\TB
+--- key              type    explanation 
+---
 ---@field enccount number # 
 ---@field encmax number # 
 ---@field backmax number # 
@@ -540,30 +493,24 @@
 --- `map`       array   non-linear array of mappings
 --- `backmap`   array   non-linear array of backward mappings
 ---@field enc table # 
----\LL
----\stoptabulate
 ---
 ---The `remap` table is very small:
 ---
----\starttabulate[|l|l|p|]
----\DB key             \BC type   \BC explanation 
----\TB
+--- key              type    explanation 
+---
 ---@field firstenc number # 
 ---@field lastenc number # 
 ---@field infont number # 
----\LL
----\stoptabulate
 ---
 ---The `enc` table is a bit more verbose:
 ---
----\starttabulate[|l|l|p|]
----\DB key                     \BC type   \BC explanation 
----\TB
+--- key                      type    explanation 
+---
 ---@field enc_name string # 
 ---@field char_cnt number # 
 ---@field char_max number # 
 --- `unicode`           array   of \UNICODE\ position numbers
---- `psnames`           array   of \POSTSCRIPT\ glyph names
+--- `psnames`           array   of *PostScript* glyph names
 ---@field builtin number # 
 ---@field hidden number # 
 ---@field only_1byte number # 
@@ -582,39 +529,39 @@
 ---@field high_page number # 
 ---@field iconv_name string # 
 ---@field iso_2022_escape string # 
----\LL
----\stoptabulate
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`private`}]
+---# `private`
 ---
----This is the font's private \POSTSCRIPT\ dictionary, if any. Keys and values are
+---This is the font's private *PostScript* dictionary, if any. Keys and values are
 ---both strings.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`cidinfo`}]
+---# `cidinfo`
 ---
----\starttabulate[|l|l|p|]
----\DB key               \BC type   \BC explanation 
----\TB
+--- key                type    explanation 
+---
 ---@field registry string # 
 ---@field ordering string # 
 ---@field supplement number # 
 ---@field version number # 
----\LL
----\stoptabulate
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[reference=fontloaderpfminfotable,title={`pfminfo`}]
+---# `pfminfo`
 ---
 ---The `pfminfo` table contains most of the OS/2 information:
 ---
----\starttabulate[|l|l|p|]
----\DB key                     \BC type   \BC explanation 
----\TB
+--- key                      type    explanation 
+---
 ---@field pfmset number # 
 ---@field winascent_add number # 
 ---@field windescent_add number # 
@@ -661,16 +608,13 @@
 ---@field codepages table # A two-number array of encoded code pages 
 ---@field unicoderages table # A four-number array of encoded unicode ranges 
 ---@field panose table # 
----\LL
----\stoptabulate
 ---
 ---The `panose` subtable has exactly 10 string keys:
 ---
----\starttabulate[|l|l|p|]
----\DB key                    \BC type    \BC explanation 
----\TB
----@field familytype string # Values as in the \OPENTYPE\ font specification: `Any`, `No Fit`, `Text and Display`, `Script`, `Decorative`, `Pictorial`  \NR
----@field serifstyle string # See the \OPENTYPE\ font specification for values 
+--- key                     type     explanation 
+---
+---@field familytype string # Values as in the *OpenType* font specification: `Any`, `No Fit`, `Text and Display`, `Script`, `Decorative`, `Pictorial`  \NR
+---@field serifstyle string # See the *OpenType* font specification for values 
 ---@field weight string # idem 
 ---@field proportion string # idem 
 ---@field contrast string # idem 
@@ -679,164 +623,143 @@
 ---@field letterform string # idem 
 ---@field midline string # idem 
 ---@field xheight string # idem 
----\LL
----\stoptabulate
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[reference=fontloadernamestable,title={`names`}]
+---# `names`
 ---
 ---Each item has two top-level keys:
 ---
----\starttabulate[|l|l|p|]
----\DB key          \BC type   \BC explanation 
----\TB
+--- key           type    explanation 
+---
 ---@field lang string # language for this entry 
 ---@field names table # 
----\LL
----\stoptabulate
 ---
----The `names` keys are the actual \TRUETYPE\ name strings. The possible keys
+---The `names` keys are the actual *TrueType* name strings. The possible keys
 ---are: `copyright`, `family`, `subfamily`, `uniqueid`,
 ---`fullname`, `version`, `postscriptname`, `trademark`,
 ---`manufacturer`, `designer`, `descriptor`, `venderurl`,
 ---`designerurl`, `license`, `licenseurl`, `idontknow`,
 ---`preffamilyname`, `prefmodifiers`, `compatfull`, `sampletext`, `cidfindfontname`, `wwsfamily` and `wwssubfamily`.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`anchor_classes`}]
+---# `anchor_classes`
 ---
 ---The anchor_classes classes:
 ---
----\starttabulate[|l|l|p|]
----\DB key           \BC type   \BC explanation 
----\TB
+--- key            type    explanation 
+---
 ---@field name string # a descriptive id of this anchor class
 ---@field lookup string # 
 ---@field type string # one of `mark`, `mkmk`, `curs`, `mklg` 
----\LL
----\stoptabulate
 ---
 ---% type is actually a lookup subtype, not a feature name. Officially, these
 ---% strings should be gpos_mark2mark etc.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`gpos`}]
+---# `gpos`
 ---
 ---The `gpos` table has one array entry for each lookup. (The `gpos_`
 ---prefix is somewhat redundant.)
 ---
----\starttabulate[|l|l|p|]
----\DB key              \BC type   \BC explanation 
----\TB
+--- key               type    explanation 
+---
 ---@field type string # one of `gpos_single`, `gpos_pair`, `gpos_cursive`, `gpos_mark2base`,\crlf `gpos_mark2ligature`, `gpos_mark2mark`, `gpos_context`,\crlf `gpos_contextchain` 
 ---@field flags table # 
 ---@field name string # 
 --- `features`   array   
 --- `subtables`  array   
----\LL
----\stoptabulate
 ---
 ---The flags table has a true value for each of the lookup flags that is actually
 ---set:
 ---
----\starttabulate[|l|l|p|]
----\DB key                         \BC type    \BC explanation 
----\TB
+--- key                          type     explanation 
+---
 ---@field r2l boolean # 
 ---@field ignorebaseglyphs boolean # 
 ---@field ignoreligatures boolean # 
 ---@field ignorecombiningmarks boolean # 
 ---@field mark_class string # 
----\LL
----\stoptabulate
 ---
 ---The features subtable items of gpos have:
 ---
----\starttabulate[|l|l|p|]
----\DB key            \BC type   \BC explanation 
----\TB
+--- key             type    explanation 
+---
 ---@field tag string # 
 ---@field scripts table # 
----\LL
----\stoptabulate
 ---
 ---The scripts table within features has:
 ---
----\starttabulate[|l|l|p|]
----\DB key           \BC type             \BC explanation 
----\TB
+--- key            type              explanation 
+---
 ---@field script string # 
 --- `langs`   array of strings  
----\LL
----\stoptabulate
 ---
 ---The subtables table has:
 ---
----\starttabulate[|l|l|p|]
----\DB key                     \BC type   \BC explanation 
----\TB
+--- key                      type    explanation 
+---
 ---@field name string # 
 ---@field suffix string # (only if used) % used by gpos_single to get a default
 ---@field anchor_classes number # (only if used)
 ---@field vertical_kerning number # (only if used)
 ---@field kernclass table # (only if used)
----\LL
----\stoptabulate
 ---
 ---The kernclass with subtables table has:
 ---
----\starttabulate[|l|l|p|]
----\DB key            \BC type             \BC explanation 
----\TB
+--- key             type              explanation 
+---
 --- `firsts`   array of strings  
 --- `seconds`  array of strings  
 ---@field lookup string # or array   associated lookup(s) 
 --- `offsets`  array of numbers  
----\LL
----\stoptabulate
 ---
 ---Note: the kernclass (as far as we can see) always has one entry so it could be one level
 ---deep instead. Also the seconds start at `[2]` which is close to the fontforge
 ---internals so we keep that too.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`gsub`}]
+---# `gsub`
 ---
 ---This has identical layout to the `gpos` table, except for the
 ---type:
 ---
----\starttabulate[|l|l|p|]
----\DB key         \BC type   \BC explanation 
----\TB
+--- key          type    explanation 
+---
 ---@field type string # one of `gsub_single`, `gsub_multiple`, `gsub_alternate`, `gsub_ligature`,\crlf `gsub_context`, `gsub_contextchain`, `gsub_reversecontextchain` 
----\LL
----\stoptabulate
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`ttf_tables` and `ttf_tab_saved`}]
+---# `ttf_tables` and `ttf_tab_saved`
 ---
----\starttabulate[|l|l|p|]
----\DB key           \BC type   \BC explanation 
----\TB
+--- key            type    explanation 
+---
 ---@field tag string # 
 ---@field len number # 
 ---@field maxlen number # 
 ---@field data number # 
----\LL
----\stoptabulate
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`mm`}]
+---# `mm`
 ---
----\starttabulate[|l|l|p|]
----\DB key                   \BC type   \BC explanation 
----\TB
+--- key                    type    explanation 
+---
 ---@field axes table # array of axis names 
 ---@field instance_count number # 
 ---@field positions table # array of instance positions (\#axes * instances )
@@ -844,32 +767,31 @@
 ---@field cdv string # 
 ---@field ndv string # 
 ---@field axismaps table # 
----\LL
----\stoptabulate
 ---
 ---The `axismaps`:
 ---
----\starttabulate[|l|l|p|]
----\DB key            \BC type   \BC explanation 
----\TB
+--- key             type    explanation 
+---
 ---@field blends table # an array of blend points 
 ---@field designs table # an array of design values 
 ---@field min number # 
 ---@field def number # 
 ---@field max number # 
----\LL
----\stoptabulate
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`mark_classes`}]
+---# `mark_classes`
 ---
 ---The keys in this table are mark class names, and the values are a
 ---space-separated string of glyph names in this class.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`math`}]
+---# `math`
 ---
 ---The math table has the variables that are also discussed in the chapter aboout
 ---math: `ScriptPercentScaleDown`, `ScriptScriptPercentScaleDown`, `DelimitedSubFormulaMinHeight`, `DisplayOperatorMinHeight`, `MathLeading`, `AxisHeight`, `AccentBaseHeight`, `FlattenedAccentBaseHeight`, `SubscriptShiftDown`, `SubscriptTopMax`,
@@ -878,150 +800,139 @@
 ---`FractionDenominatorDisplayStyleShiftDown`, `FractionNumeratorGapMin`, `FractionNumeratorDisplayStyleGapMin` `FractionRuleThickness`, `FractionDenominatorGapMin`, `FractionDenominatorDisplayStyleGapMin`, `SkewedFractionHorizontalGap`,
 ---`SkewedFractionVerticalGap`, `OverbarVerticalGap`, `OverbarRuleThickness`, `OverbarExtraAscender`, `UnderbarVerticalGap`, `UnderbarRuleThickness`, `UnderbarExtraDescender`, `RadicalVerticalGap`, `RadicalDisplayStyleVerticalGap`, `RadicalRuleThickness`, `RadicalExtraAscender`, `RadicalKernBeforeDegree`, `RadicalKernAfterDegree`, `RadicalDegreeBottomRaisePercent`, `MinConnectorOverlap`, `FractionDelimiterSize` and `FractionDelimiterDisplayStyleSize`.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`validation_state`}]
+---# `validation_state`
 ---
 ---This is just a bonus table with keys: `bad_ps_fontname`, `bad_glyph_table`, `bad_cff_table`, `bad_metrics_table`, `bad_cmap_table`, `bad_bitmaps_table`, `bad_gx_table`, `bad_ot_table`, `bad_os2_version` and `bad_sfnt_header`.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`horiz_base` and `vert_base`}]
+---# `horiz_base` and `vert_base`
 ---
----\starttabulate[|l|l|p|]
----\DB key            \BC type  \BC explanation 
----\TB
+--- key             type   explanation 
+---
 ---@field tags table # an array of script list tags
 ---@field scripts table # 
----\LL
----\stoptabulate
 ---
 ---The `scripts` subtable:
 ---
----\starttabulate[|l|l|p|]
----\DB key                     \BC type    \BC explanation 
----\TB
+--- key                      type     explanation 
+---
 ---@field baseline table # 
 ---@field default_baseline number # 
 ---@field lang table # 
----\LL
----\stoptabulate
----
 ---
 ---The `lang` subtable:
 ---
----\starttabulate[|l|l|p|]
----\DB key             \BC type   \BC explanation 
----\TB
+--- key              type    explanation 
+---
 ---@field tag string # a script tag 
 ---@field ascent number # 
 ---@field descent number # 
 ---@field features table # 
----\LL
----\stoptabulate
 ---
 ---The `features` points to an array of tables with the same layout except
 ---that in those nested tables, the tag represents a language.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`altuni`}]
+---# `altuni`
 ---
 ---An array of alternate \UNICODE\ values. Inside that array are hashes with:
 ---
----\starttabulate[|l|l|p|]
----\DB key            \BC type   \BC explanation 
----\TB
+--- key             type    explanation 
+---
 ---@field unicode number # this glyph is also used for this unicode 
 ---@field variant number # the alternative is driven by this unicode selector 
----\LL
----\stoptabulate
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`vert_variants` and `horiz_variants`}]
+---# `vert_variants` and `horiz_variants`
 ---
----\starttabulate[|l|l|p|]
----\DB key                      \BC type   \BC explanation 
----\TB
+--- key                       type    explanation 
+---
 ---@field variants string # 
 ---@field italic_correction number # 
 ---@field parts table # 
----\LL
----\stoptabulate
 ---
 ---The `parts` table is an array of smaller tables:
 ---
----\starttabulate[|l|l|p|]
----\DB key              \BC type   \BC explanation 
----\TB
+--- key               type    explanation 
+---
 ---@field component string # 
 ---@field extender number # 
 ---@field start number # 
 ---@field end number # 
 ---@field advance number # 
----\LL
----\stoptabulate
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`mathkern`}]
+---# `mathkern`
 ---
----\starttabulate[|l|l|p|]
----\DB key                 \BC type  \BC explanation 
----\TB
+--- key                  type   explanation 
+---
 ---@field top_right table # 
 ---@field bottom_right table # 
 ---@field top_left table # 
 ---@field bottom_left table # 
----\LL
----\stoptabulate
 ---
 ---Each of the subtables is an array of small hashes with two keys:
 ---
----\starttabulate[|l|l|p|]
----\DB key           \BC type   \BC explanation 
----\TB
+--- key            type    explanation 
+---
 ---@field height number # 
 ---@field kern number # 
----\LL
----\stoptabulate
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`kerns`}]
----
----Substructure is identical to the per-glyph subtable.
----
----\stopsubsection
----
----\startsubsection[title={`vkerns`}]
+---# `kerns`
 ---
 ---Substructure is identical to the per-glyph subtable.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`texdata`}]
+---# `vkerns`
 ---
----\starttabulate[|l|l|p|]
----\DB key           \BC type   \BC explanation 
----\TB
+---Substructure is identical to the per-glyph subtable.
+---
+----------------------------------------------------------------
+
+
+---
+---# `texdata`
+---
+--- key            type    explanation 
+---
 ---@field type string # `unset`, `text`, `math`, `mathext` 
 --- `params`  array   22 font numeric parameters 
----\LL
----\stoptabulate
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`lookups`}]
+---# `lookups`
 ---
 ---Top-level `lookups` is quite different from the ones at character level.
 ---The keys in this hash are strings, the values the actual lookups, represented as
 ---dictionary tables.
 ---
----\starttabulate[|l|l|p|]
----\DB key                  \BC type   \BC explanation 
----\TB
+--- key                   type    explanation 
+---
 ---@field type string # 
 --- `format`         enum    one of `glyphs`, `class`, `coverage`, `reversecoverage` 
 ---@field tag string # 
@@ -1029,70 +940,57 @@
 --- `before_class`   array   
 --- `after_class`    array   
 --- `rules`          array   an array of rule items
----\LL
----\stoptabulate
 ---
 ---Rule items have one common item and one specialized item:
 ---
----\starttabulate[|l|l|p|]
----\DB key                    \BC type  \BC explanation 
----\TB
+--- key                     type   explanation 
+---
 --- `lookups`          array  a linear array of lookup names                         
 --- `glyphs`           array  only if the parent's format is `glyphs`          
 --- `class`            array  only if the parent's format is `class`           
 --- `coverage`         array  only if the parent's format is `coverage`        
 --- `reversecoverage`  array  only if the parent's format is `reversecoverage` 
----\LL
----\stoptabulate
 ---
 ---A glyph table is:
 ---
----\starttabulate[|l|l|p|]
----\DB key          \BC type   \BC explanation 
----\TB
+--- key           type    explanation 
+---
 ---@field names string # 
 ---@field back string # 
 ---@field fore string # 
----\LL
----\stoptabulate
 ---
 ---A class table is:
 ---
----\starttabulate[|l|l|p|]
----\DB key            \BC type  \BC explanation 
----\TB
+--- key             type   explanation 
+---
 --- `current`  array  of numbers  
 --- `before`   array  of numbers  
 --- `after`    array  of numbers  
----\LL
----\stoptabulate
 ---
 ---for coverage:
 ---
----\starttabulate[|l|l|p|]
----\DB key            \BC type  \BC explanation 
----\TB
+--- key             type   explanation 
+---
 --- `current`  array  of strings 
 --- `before`   array  of strings 
 --- `after`    array  of strings 
----\LL
----\stoptabulate
 ---
 ---and for reverse coverage:
 ---
----\starttabulate[|l|l|p|]
----\DB key                 \BC type   \BC explanation 
----\TB
+--- key                  type    explanation 
+---
 --- `current`       array   of strings  
 --- `before`        array   of strings  
 --- `after`         array   of strings  
 ---@field replacements string # 
----\LL
----\stoptabulate
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
 ---\stopchapter
 ---

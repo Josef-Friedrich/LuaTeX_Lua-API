@@ -4,18 +4,14 @@
 ---
 ---\startcomponent luatex-lua
 ---
----\startchapter[reference=lua,title={Using *LuaTeX*}]
+---# Using *LuaTeX*
 ---
 ---\startsection[title={Initialization},reference=init]
 ---
----\startsubsection[title={*LuaTeX* as a *Lua* interpreter}]
----
----\topicindex {initialization}
----\topicindex {*Lua*+interpreter}
+---# *LuaTeX* as a *Lua* interpreter
 ---
 ---There are some situations that make *LuaTeX* behave like a standalone *Lua*
 ---interpreter:
----
 ---
 ---* if a `--luaonly` option is given on the commandline, or
 ---
@@ -23,8 +19,6 @@
 ---
 ---* if the only non-option argument (file) on the commandline has the extension
 ---    `lua` or `luc`.
----
----
 ---
 ---In this mode, it will set *Lua*'s `arg[0]` to the found script name, pushing
 ---preceding options in negative values and the rest of the command line in the
@@ -34,18 +28,16 @@
 ---in effect, a somewhat bulky stand alone *Lua* interpreter with a bunch of extra
 ---preloaded libraries.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={*LuaTeX* as a *Lua* byte compiler}]
----
----\topicindex {*Lua*+byte code}
+---# *LuaTeX* as a *Lua* byte compiler
 ---
 ---There are two situations that make *LuaTeX* behave like the *Lua* byte compiler:
 ---
----
 ---* if a `--luaconly` option is given on the command line, or 
 ---* if the executable is named `texluac` 
----
 ---
 ---In this mode, *LuaTeX* is exactly like `luac` from the stand alone *Lua*
 ---distribution, except that it does not have the `-l` switch, and that it
@@ -53,20 +45,19 @@
 ---can dump bytecode using `string.dump` so we might decide to drop this
 ---version of *LuaTeX*.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={Other commandline processing}]
----
----\topicindex {command line}
+---# Other commandline processing
 ---
 ---When the *LuaTeX* executable starts, it looks for the `--lua` command line
 ---option. If there is no `--lua` option, the command line is interpreted in a
 ---similar fashion as the other *TeX* engines. Some options are accepted but have no
 ---consequence. The following command-line options are understood:
 ---
----\starttabulate[|l|p|]
----\DB commandline argument                \BC explanation 
----\TB
+--- commandline argument                 explanation 
+---
 --- `--credits`                     display credits and exit 
 --- `--debug-format`                enable format debugging 
 --- `--draftmode`                   switch on draft mode i.e.\ generate no output in *PDF* mode 
@@ -93,14 +84,11 @@
 --- `--synctex=NUMBER`              enable `synctex` 
 --- `--utc`                         use utc times when applicable 
 --- `--version`                     display version and exit 
----\LL
----\stoptabulate
 ---
 ---We don't support `write` 18 because `os.execute` can do the same. It
 ---simplifies the code and makes more write targets possible.
 ---
 ---The value to use for `jobname` is decided as follows:
----
 ---
 ---* If `--jobname` is given on the command line, its argument will be the
 ---    value for `jobname`, without any changes. The argument will not be
@@ -115,8 +103,6 @@
 ---    interactive mode (by starting with a command) and there are no files input
 ---    via `everyjob` either, then the `jobname` is set to `texput` as a last resort.
 ---
----
----
 ---The file names for output files that are generated automatically are created by
 ---attaching the proper extension (`log`, `pdf`, etc.) to the found
 ---`jobname`. These files are created in the directory pointed to by `--output-directory`, or in the current directory, if that switch is not present.
@@ -128,17 +114,13 @@
 ---to the standard \WEBC\ programs. In this mode, a small series of actions is taken
 ---in the following order:
 ---
----
----
 ---* First, it will parse the command line as usual, but it will only interpret a
 ---    small subset of the options immediately: `--safer`, `--nosocket`,
 ---    `--[no-]shell-escape`, `--enable-write18`, `--disable-write18`, `--shell-restricted`, `--help`, `--version`, and `--credits`.
 ---
----
 ---* Next *LuaTeX* searches for the requested *Lua* initialization script. If it
 ---    cannot be found using the actual name given on the command line, a second
 ---    attempt is made by prepending the value of the environment variable `LUATEXDIR`, if that variable is defined in the environment.
----
 ---
 ---* Then it checks the various safety switches. You can use those to disable some
 ---    *Lua* commands that can easily be abused by a malicious document. At the
@@ -146,20 +128,19 @@
 ---
 ---    \blank
 ---
----    \starttabulate[|c|l|]
----        \DB library     \BC functions 
----        \TB
+---    
+---         library      functions 
+---        
 ---         `os`   `execute` `exec` `spawn` `setenv` `rename` `remove` `tmpdir` 
 ---         `io`   `popen` `output` `tmpfile` 
 ---         `lfs`  `rmdir` `mkdir` `chdir` `lock` `touch` 
----        \LL
----    \stoptabulate
+---        
+---    
 ---
 ---    \blank
 ---
 ---    Furthermore, it disables loading of compiled *Lua* libraries and it makes
 ---    `io.open()` fail on files that are opened for anything besides reading.
----
 ---
 ---* When *LuaTeX* starts it sets the `locale` to a neutral value. If for
 ---    some reason you use `os.locale`, you need to make sure you `nil`
@@ -178,14 +159,10 @@
 ---    make `io.popen()`, `os.execute`, `os.exec` and `os.spawn`
 ---    adhere to the requested option.
 ---
----
 ---* Next the initialization script is loaded and executed. From within the
 ---    script, the entire command line is available in the *Lua* table `arg`,
 ---    beginning with `arg[0]`, containing the name of the executable. As
 ---    consequence warnings about unrecognized options are suppressed.
----
----
----
 ---
 ---Command line processing happens very early on. So early, in fact, that none of
 ---*TeX*'s initializations have taken place yet. For that reason, the tables that
@@ -218,16 +195,17 @@
 ---*LuaTeX* needs to know the correct program name to use, and for that it needs to
 ---check `--progname`, or `--ini` and `--fmt`, if `--progname` is missing.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[title={*Lua* behaviour}]
+---# *Lua* behaviour
 ---
----\startsubsection[title={The *Lua* version}]
----
----\topicindex {*Lua*+libraries}
----\topicindex {*Lua*+extensions}
+---# The *Lua* version
 ---
 ---We currently use *Lua* 5.3 and will follow developments of the language but
 ---normally with some delay. Therefore the user needs to keep an eye on (subtle)
@@ -241,9 +219,11 @@
 ---output of these serializers also depend on the *Lua* version, so in *Lua* 5.3 you
 ---can get different output than from 5.2.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={Integration in the \TDS\ ecosystem}]
+---# Integration in the \TDS\ ecosystem
 ---
 ---The main *TeX* distributions follow the *TeX* directory structure (\TDS).
 ---*LuaTeX* is able to use the kpathsea library to find `require()`d modules.
@@ -256,9 +236,11 @@
 ---up and the startup script has not set `texconfig.kpse_init` to false), or
 ---explicitly by calling the *Lua* function `kpse.set_program_name()`.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={Loading libraries}]
+---# Loading libraries
 ---
 ---*LuaTeX* is able to use dynamically loadable *Lua* libraries, unless
 ---`--safer` was given as an option on the command line. For this purpose,
@@ -288,9 +270,11 @@
 ---one *Lua* 5.3 inside *LuaTeX*, and another will likely be linked to the \DLL\ file
 ---of the module itself).
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={Executing programs}]
+---# Executing programs
 ---
 ---In keeping with the other *TeX*-like programs in *TeX*LIVE, the two *Lua* functions
 ---`os.execute` and `io.popen`, as well as the two new functions `os.exec` and `os.spawn` that are explained below, take the value of `shell_escape` and/or `shell_escape_commands` in account. Whenever
@@ -309,9 +293,11 @@
 ---pure *Lua* variants. The `shortname` helper is obsolete and now just
 ---returns the name.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={Multibyte `string` functions}]
+---# Multibyte `string` functions
 ---
 ---The `string` library has a few extra functions, for example \libidx
 ---{string} {explode}. This function takes upto two arguments: `string.explode(s[,m])` and returns an array containing the string argument `s` split into sub-strings based on the value of the string argument `m`.
@@ -328,7 +314,6 @@
 ---\libidx {string} {characters}, \libidx {string} {characterpairs}, \libidx
 ---{string} {bytes} and \libidx {string} {bytepairs}.
 ---
----
 ---* `string.utfvalues(s)`: an integer value in the \UNICODE\ range
 ---
 ---* `string.utfcharacters(s)`: a string with a single \UTF-8 token in it
@@ -342,8 +327,6 @@
 ---
 ---* `string.bytepairs(s)`: two byte values or nil instead of a number as
 ---    its second return value if the string length was odd
----
----
 ---
 ---The `string.characterpairs()` and `string.bytepairs()` iterators
 ---are useful especially in the conversion of \UTF16 encoded data into \UTF8.
@@ -368,7 +351,6 @@
 ---similar helpers too: \libidx {string} {utfvalue}, \libidx {string} {utfcharacter}
 ---and \libidx {string} {utflength}.
 ---
----
 ---* `string.utfvalue(s)`: returns the codepoints of the characters in the
 ---    given string
 ---
@@ -377,14 +359,14 @@
 ---
 ---* `string.utflength(s)`: returns the length of the given string
 ---
----
----
 ---These three functions are relative fast and don't do much checking. They can be
 ---used as building blocks for other helpers.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={Extra `os` library functions}]
+---# Extra `os` library functions
 ---
 ---The `os` library has a few extra functions and variables: \libidx {os}
 ---{selfdir}, \libidx {os} {exec}, \libidx {os} {spawn}, \libidx {os} {setenv},
@@ -392,11 +374,8 @@
 ---{os} {tmpdir}, \libidx {os} {type}, \libidx {os} {name} and \libidx {os} {uname},
 ---that we will discuss here.
 ---
----
----
 ---* `os.selfdir` is a variable that holds the directory path of the
 ---    actual executable. For example: `\directlua {tex.sprint(os.selfdir)`}.
----
 ---
 ---* `os.exec(commandline)` is a variation on `os.execute`. Here
 ---    `commandline` can be either a single string or a single table.
@@ -442,33 +421,27 @@
 ---    process before starting the new one, making it especially useful for use in
 ---    *TeX*LUA.
 ---
----
 ---* `os.spawn(commandline)` is a returning version of `os.exec`,
 ---    with otherwise identical calling conventions.
 ---
 ---    If the command ran ok, then the return value is the exit status of the
 ---    command. Otherwise, it will return the two values `nil` and `error`.
 ---
----
 ---* `os.setenv(key,value)` sets a variable in the environment. Passing
 ---    `nil` instead of a value string will remove the variable.
----
 ---
 ---* `os.env` is a hash table containing a dump of the variables and
 ---    values in the process environment at the start of the run. It is writeable,
 ---    but the actual environment is `not` updated automatically.
 ---
----
 ---* `os.gettimeofday()` returns the current “\UNIX\ time”, but as a
 ---    float. This function is not available on the \SUNOS\ platforms, so do not use
 ---    this function for portable documents.
----
 ---
 ---* `os.times()`returns the current process times according to \ the
 ---    \UNIX\ C library function “times”. This function is not available on
 ---    the \MSWINDOWS\ and \SUNOS\ platforms, so do not use this function for
 ---    portable documents.
----
 ---
 ---* `os.tmpdir()` creates a directory in the “current directory”
 ---    with the name `luatex.XXXXXX` where the `X`-es are replaced by a
@@ -476,11 +449,9 @@
 ---    The user is responsible for cleaning up at the end of the run, it does not
 ---    happen automatically.
 ---
----
 ---* `os.type` is a string that gives a global indication of the class of
 ---    operating system. The possible values are currently `windows`, `unix`, and `msdos` (you are unlikely to find this value “in the
 ---    wild”).
----
 ---
 ---* `os.name` is a string that gives a more precise indication of the
 ---    operating system. These possible values are not yet fixed, and for `os.type` values `windows` and `msdos`, the `os.name`
@@ -488,17 +459,15 @@
 ---
 ---    The list for the type `unix` is more precise: `linux`, `freebsd`, `kfreebsd`, `cygwin`, `openbsd`, `solaris`, `sunos` (pre-solaris), `hpux`, `irix`, `macosx`, `gnu` (hurd), `bsd` (unknown, but \BSD-like), `sysv` (unknown, but \SYSV-like), `generic` (unknown).
 ---
----
 ---* `os.uname` returns a table with specific operating system
 ---    information acquired at runtime. The keys in the returned table are all
 ---    string values, and their names are: `sysname`, `machine`, `release`, `version`, and `nodename`.
 ---
+----------------------------------------------------------------
+
+
 ---
----
----
----\stopsubsection
----
----\startsubsection[title={Binary input from files with `fio`}]
+---# Binary input from files with `fio`
 ---
 ---There is a whole set of helpers for reading numbers and strings from a file:
 ---\libidx {fio} {readcardinal1}, \libidx {fio} {readcardinal2}, \libidx {fio}
@@ -536,14 +505,15 @@
 --- `skipposition(f,n)`         skip `n` positions 
 --- `readbytes(f,n)`            `n` bytes 
 --- `readbytetable(f,n)`        `n` bytes
----\stoptabulate
 ---
 ---There are eight additional little endian variants for the `cardinal[1-4]`
 ---and `integer[1-4]` readers: `cardinal[1-4]le` and `integer[1-4]le`.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={Binary input from strings with `sio`}]
+---# Binary input from strings with `sio`
 ---
 ---A similar set of function as in the `fio` library is available in the `sio` library: \libidx {sio} {readcardinal1}, \libidx {sio} {readcardinal2},
 ---\libidx {sio} {readcardinal3}, \libidx {sio} {readcardinal4}, \libidx {sio}
@@ -555,18 +525,22 @@
 ---\libidx {sio} {readbytetable}. Here the first argument is a string instead of a
 ---file handle. More details can be found in the previous section.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={Hashes conform `sha2`}]
+---# Hashes conform `sha2`
 ---
 ---This library is a side effect of the `pdfe` library that needs such
 ---helpers. The \libidx{sha2}{digest256}, \libidx{sha2}{digest384} and
 ---\libidx{sha2}{digest512} functions accept a string and return a string with the
 ---hash.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={Locales}]
+---# Locales
 ---
 ---\index {locales}
 ---
@@ -580,19 +554,18 @@
 ---LC_NUMERIC=C
 ---```
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[title={*Lua* modules}]
----
----\topicindex {*Lua*+libraries}
----\topicindex {*Lua*+modules}
+---# *Lua* modules
 ---
 ---Some modules that are normally external to *Lua* are statically linked in with
 ---*LuaTeX*, because they offer useful functionality:
----
----
 ---
 ---* `lpeg`, by Roberto Ierusalimschy, \hyphenatedurl
 ---    {http://www.inf.puc-rio.br/ roberto/lpeg/lpeg.html}. This library is not
@@ -607,7 +580,6 @@
 ---    totals three. In practice this is no real issue and with some care you can
 ---    deal with \UNICODE\ just fine.
 ---
----
 ---* `slnunicode`, from the `selene` libraries, \hyphenatedurl
 ---    {http://luaforge.net/projects/sln}. This library has been slightly extended
 ---    so that the `unicode.utf8.*` functions also accept the first 256 values
@@ -615,42 +587,31 @@
 ---    explained above. We have no plans to provide more like this because you can
 ---    basically do all that you want in *Lua*.
 ---
----
 ---* `luazip`, from the kepler project, \hyphenatedurl
 ---    {http://www.keplerproject.org/luazip/}.
----
 ---
 ---* `luafilesystem`, also from the kepler project, \hyphenatedurl
 ---    {http://www.keplerproject.org/luafilesystem/}.
 ---
----
 ---* `lzlib`, by Tiago Dionizio, \hyphenatedurl
 ---    {http://luaforge.net/projects/lzlib/}.
 ---
----
 ---* `md5`, by Roberto Ierusalimschy \hyphenatedurl
 ---    {http://www.inf.puc-rio.br/ roberto/md5/md5-5/md5.html}.
----
 ---
 ---* `luasocket`, by Diego Nehab \hyphenatedurl
 ---    {http://w3.impa.br/ diego/software/luasocket/}. The `.lua` support
 ---    modules from `luasocket` are also preloaded inside the executable,
 ---    there are no external file dependencies.
 ---
+----------------------------------------------------------------
+
+
 ---
----
----
----\stopsection
----
----\startsection[title={Testing}]
----
----\topicindex {testing}
----\topicindex {*PDF*+date}
+---# Testing
 ---
 ---For development reasons you can influence the used startup date and time. This can
 ---be done in two ways.
----
----
 ---
 ---* By setting the environmment variable `SOURCE_DATE_EPOCH`. This will
 ---    influence the *TeX* parameters `time` and `date`, the random seed,
@@ -658,15 +619,11 @@
 ---    variable is consulted when the \KPSE\ library is enabled. Resolving is
 ---    delegated to this library.
 ---
----
 ---* By setting the `start_time` variable in the `texconfig` table; as
 ---    with other variables we use the internal name there. For compatibility
 ---    reasons we also honour a `SOURCE_DATE_EPOCH` entry. It should be noted
 ---    that there are no such variables in other engines and this method is only
 ---    relevant in case the while setup happens in *Lua*.
----
----
----
 ---
 ---When Universal Time is needed, you can pass the flag `utc` to the engine. This
 ---property also works when the date and time are set by *LuaTeX* itself. It has a
@@ -676,7 +633,9 @@
 ---the *PDF* file. This is discussed elsewhere. In *ConTeXt* we provide the command
 ---line argument `--nodates` that does a bit more disabling of dates.
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
 ---\stopchapter
 ---

@@ -6,16 +6,11 @@
 ---
 ---\startcomponent luatex-tex
 ---
----\startchapter[reference=tex,title={The *TeX* related libraries}]
+---# The *TeX* related libraries
 ---
----\startsection[title={The `lua` library}][library=lua]
+---# The `lua` library[library=lua]
 ---
----\startsubsection[title={Version information}]
----
----\topicindex{libraries+`lua`}
----\topicindex{version}
----
----\libindex{version}
+---# Version information
 ---
 ---This library contains one read-only item:
 ---
@@ -26,16 +21,11 @@
 ---This returns the *Lua* version identifier string. The value is currently
 ---\directlua {tex.print(lua.version)}.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={Bytecode registers}]
----
----\topicindex{bytecodes}
----\topicindex{registers+bytecodes}
----
----\libindex{bytecode}
----\libindex{setbytecode}
----\libindex{getbytecode}
+---# Bytecode registers
 ---
 ---*Lua* registers can be used to store *Lua* code chunks. The accepted values for
 ---assignments are functions and `nil`. Likewise, the retrieved value is
@@ -76,13 +66,11 @@
 ---information is then contained in the format file as well. This should be kept in
 ---mind when preloading files into a bytecode register in \INITEX.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={Chunk name registers}]
----
----\libindex{name}
----\libindex{setluaname}
----\libindex{getluaname}
+---# Chunk name registers
 ---
 ---There is an array of 65536 (0--65535) potential chunk names for use with the
 ---`directlua` and `latelua` primitives.
@@ -100,28 +88,25 @@
 ---<string> s = lua.getluaname(<number> n)
 ---```
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={Introspection}]
----
----\libindex{getstacktop}
----\libindex{getcalllevel}
+---# Introspection
 ---
 ---The `getstacktop` and`getcalllevel` functions return numbers
 ---indicating how much nesting is going on. They are only of use as breakpoints when
 ---checking some mechanism going haywire.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[title={The `status` library}][library=status]
----
----\topicindex{libraries+`status`}
----
----\libindex{list}
----\libindex{resetmessages}
----\libindex{setexitcode}
+---# The `status` library[library=status]
 ---
 ---This contains a number of run-time configuration items that you may find useful
 ---in message reporting, as well as an iterator function that gets all of the names
@@ -138,9 +123,8 @@
 ---need the full list, you can also ask for a single item by using its name as an
 ---index into `status`. The current list is:
 ---
----\starttabulate[|l|p|]
----\DB key                       \BC explanation 
----\TB
+--- key                        explanation 
+---
 --- `banner`              terminal display banner 
 --- `best_page_break`     the current best break (a node) 
 --- `buf_size`            current allocated size of the line buffer 
@@ -215,19 +199,17 @@
 ---%NC `lc_monetary`         the value of `LC_MONETARY` at startup time 
 --- `lc_numeric`          the value of `LC_NUMERIC`  at startup time 
 ---%NC `lc_time`             the value of `LC_TIME`     at startup time (becomes `C` at startup) 
----\LL
----\stoptabulate
 ---
 ---The error and warning messages can be wiped with the `resetmessages`
 ---function. A return value can be set with `setexitcode`.
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[title={The `tex` library}][library=tex]
+---# The `tex` library[library=tex]
 ---
----\startsubsection[title={Introduction}]
----
----\topicindex{libraries+`tex`}
+---# Introduction
 ---
 ---The `tex` table contains a large list of virtual internal *TeX*
 ---parameters that are partially writable.
@@ -243,14 +225,11 @@
 ---comprising simple integer and dimension registers are writable as well as
 ---readable (like `tracingcommands` and `parindent`).
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={Internal parameter values, `set` and `get`}]
----
----\topicindex{parameters+internal}
----
----\libindex{set}
----\libindex{get}
+---# Internal parameter values, `set` and `get`
 ---
 ---For all the parameters in this section, it is possible to access them directly
 ---using their names as index in the `tex` table, or by using one of the
@@ -529,11 +508,11 @@
 ---```
 ---\stopthreecolumns
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={Convert commands}]
----
----\topicindex{convert commands}
+---# Convert commands
 ---
 ---All “convert” commands are read-only and return a *Lua* string. The
 ---supported commands at this moment are:
@@ -560,11 +539,11 @@
 ---of `tex.fontidentifier` returns the `csname` string that matches a
 ---font id number (if there is one).
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={Last item commands}]
----
----\topicindex{last items}
+---# Last item commands
 ---
 ---All “last item” commands are read-only and return a number. The
 ---supported commands at this moment are:
@@ -590,26 +569,13 @@
 ---```
 ---\stopthreecolumns
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={Accessing registers: `set*`, `get*` and `is*`}]
+---# Accessing registers: `set*`, `get*` and `is*`
 ---
----\topicindex{attributes}
----\topicindex{registers}
----
----\libindex{attribute}  \libindex{setattribute}  \libindex{getattribute}  \libindex{isattribute}
----\libindex{count}      \libindex{setcount}      \libindex{getcount}      \libindex{iscount}
----\libindex{dimen}      \libindex{setdimen}      \libindex{getdimen}      \libindex{isdimen}
----\libindex{skip}       \libindex{setskip}       \libindex{getskip}       \libindex{isskip}
----\libindex{muskip}     \libindex{setmuskip}     \libindex{getmuskip}     \libindex{ismuskip}
----\libindex{glue}       \libindex{setglue}       \libindex{getglue}       \libindex{isglue}
----\libindex{muglue}     \libindex{setmuglue}     \libindex{getmuglue}     \libindex{ismuglue}
----\libindex{toks}       \libindex{settoks}       \libindex{gettoks}       \libindex{istoks}
----\libindex{box}        \libindex{setbox}        \libindex{getbox}        \libindex{isbox}
----
----\libindex{scantoks}
----
----\libindex{getmark}
+---              
 ---
 ---*TeX*'s attributes (`attribute`), counters (`count`), dimensions (`dimen`), skips (`skip`, `muskip`) and token (`toks`) registers
 ---can be accessed and written to using two times five virtual sub-tables of the
@@ -642,8 +608,6 @@
 ---is to eventually also allow `<chardef tokens>` and even macros that expand
 ---into a number).
 ---
----
----
 ---    * The count registers accept and return *Lua* numbers.
 ---    
 ---
@@ -669,8 +633,6 @@
 ---
 ---    * Like the counts, the attribute registers accept and return *Lua* numbers.
 ---    
----
----
 ---
 ---As an alternative to array addressing, there are also accessor functions defined
 ---for all cases, for example, here is the set of possibilities for `skip`
@@ -743,21 +705,21 @@
 ---number. When no arguments are given the current maximum number of classes is
 ---returned.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={Character code registers: `[get|set]*code[s]`}]
+---# Character code registers: `[get|set]*code[s]`
 ---
----\topicindex{characters+codes}
+---        
+---        
+---        
+---      
+---    
+---      
 ---
----\libindex{lccode}    \libindex{setlccode}    \libindex{getlccode}
----\libindex{uccode}    \libindex{setuccode}    \libindex{getuccode}
----\libindex{sfcode}    \libindex{setsfcode}    \libindex{getsfcode}
----\libindex{catcode}   \libindex{setcatcode}   \libindex{getcatcode}
----\libindex{mathcode}  \libindex{setmathcode}  \libindex{getmathcode}
----\libindex{delcode}   \libindex{setdelcode}   \libindex{getdelcode}
----
----\libindex{setdelcodes}   \libindex{getdelcodes}
----\libindex{setmathcodes}  \libindex{getmathcodes}
+---   
+---  
 ---
 ---*TeX*'s character code tables (`lccode`, `uccode`, `sfcode`, `catcode`, `mathcode`, `delcode`) can be accessed and written to using
 ---six virtual subtables of the `tex` table
@@ -852,15 +814,13 @@
 ---according to `Udelcode` usage, but the returned table can have values there
 ---(if the delimiter code was set using `delcode`, for example). Unset `delcode`'s can be recognized because `dval[1]` is `-1`.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={Box registers: `[get|set]box`}]
+---# Box registers: `[get|set]box`
 ---
----\topicindex{registers}
----\topicindex{boxes}
----
----\libindex{box}
----\libindex{setbox}  \libindex{getbox}
+---  
 ---
 ---It is possible to set and query actual boxes, coming for instance from `hbox`, `vbox` or `vtop`, using the node interface as defined in the
 ---`node` library:
@@ -896,15 +856,11 @@
 ---tex.box[0] = node.copy_list(tex.box[2])
 ---```
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={Reusing boxes: `[use|save]boxresource` and `getboxresourcedimensions`}]
----
----\topicindex{boxes+reuse}
----
----\libindex{useboxresource}
----\libindex{saveboxresource}
----\libindex{getboxresourcedimensions}
+---# Reusing boxes: `[use|save]boxresource` and `getboxresourcedimensions`
 ---
 ---The following function will register a box for reuse (this is modelled after so
 ---called xforms in *PDF*). You can (re)use the box with `useboxresource` or
@@ -937,26 +893,22 @@
 ---
 ---This returns the width, height, depth and margin of the resource.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`triggerbuildpage`}]
----
----\topicindex{pages}
----
----\libindex{triggerbuildpage}
+---# `triggerbuildpage`
 ---
 ---You should not expect to much from the `triggerbuildpage` helpers because
 ---often *TeX* doesn't do much if it thinks nothing has to be done, but it might be
 ---useful for some applications. It just does as it says it calls the internal
 ---function that build a page, given that there is something to build.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`splitbox`}]
----
----\topicindex{boxes+split}
----
----\libindex{splitbox}
+---# `splitbox`
 ---
 ---You can split a box:
 ---
@@ -967,15 +919,11 @@
 ---The remainder is kept in the original box and a packaged vlist is returned. This
 ---operation is comparable to the `vsplit` operation. The mode can be `additional` or `exactly` and concerns the split off box.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={Accessing math parameters: `[get|set]math`}]
----
----\topicindex{math+parameters}
----\topicindex{parameters+math}
----
----\libindex{setmath}
----\libindex{getmath}
+---# Accessing math parameters: `[get|set]math`
 ---
 ---It is possible to set and query the internal math parameters using:
 ---
@@ -1039,22 +987,17 @@
 ---node representing a muskip for `ordordspacing` and similar spacing
 ---parameters.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={Special list heads: `[get|set]list`}]
----
----\topicindex{lists}
----
----\libindex{lists}
----\libindex{setlist}
----\libindex{getlist}
+---# Special list heads: `[get|set]list`
 ---
 ---The virtual table `tex.lists` contains the set of internal registers that
 ---keep track of building page lists.
 ---
----\starttabulate[|l|p|]
----\DB field                      \BC explanation 
----\TB
+--- field                       explanation 
+---
 --- `page_ins_head`        circular list of pending insertions 
 --- `contrib_head`         the recent contributions 
 --- `page_head`            the current page content 
@@ -1065,23 +1008,18 @@
 ---%NC `align_head`           
 --- `page_discards_head`   head of the discarded items of a page break 
 --- `split_discards_head`  head of the discarded items in a vsplit 
----\LL
----\stoptabulate
 ---
 ---The getter and setter functions are `getlist` and `setlist`. You have
 ---to be careful with what you set as *TeX* can have expectations with regards to
 ---how a list is constructed or in what state it is.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={Semantic nest levels: `getnest` and `ptr`}]
+---# Semantic nest levels: `getnest` and `ptr`
 ---
----\topicindex{nesting}
----
----\libindex{nest}
----\libindex{ptr}
 ---%libindex{setnest} % only a message
----\libindex{getnest}
 ---
 ---The virtual table `nest` contains the currently active semantic nesting
 ---state. It has two main parts: a zero-based array of userdata for the semantic
@@ -1098,9 +1036,8 @@
 ---
 ---The known fields are:
 ---
----\starttabulate[|l|l|l|p|]
----\DB key                \BC type    \BC modes \BC explanation 
----\TB
+--- key                 type     modes  explanation 
+---
 ---@field mode number # all    the meaning of these numbers depends on the engine and sometimes even the version; you can use `tex.getmodevalues()` to get the mapping: positive values signal vertical, horizontal and math mode, while negative values indicate inner and inline variants 
 ---@field modeline number # all    source input line where this mode was entered in, negative inside the output routine 
 ---@field head node # all    the head of the current list 
@@ -1113,14 +1050,12 @@
 ---@field delimptr node # mmode  used for temporary storage of the previous math delimiter, for `middle` 
 ---@field mathdir boolean # mmode  true when during math processing the `mathdir` is not the same as the surrounding `textdir` 
 ---@field mathstyle number # mmode  the current `mathstyle` 
----\LL
----\stoptabulate
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[reference=sec:luaprint,title={Print functions}]
----
----\topicindex{printing}
+---# Print functions
 ---
 ---The `tex` table also contains the three print functions that are the major
 ---interface from *Lua* scripting to *TeX*. The arguments to these three functions
@@ -1133,8 +1068,6 @@
 ---inside callbacks is undefined at the moment.
 ---
 ---\subsubsection{`print`}
----
----\libindex{print}
 ---
 ---```
 ---tex.print(<string> s, ...)
@@ -1159,8 +1092,6 @@
 ---
 ---\subsubsection{`sprint`}
 ---
----\libindex{sprint}
----
 ---```
 ---tex.sprint(<string> s, ...)
 ---tex.sprint(<number> n, <string> s, ...)
@@ -1170,7 +1101,6 @@
 ---
 ---Each string argument is treated by *TeX* as a special kind of input line that
 ---makes it suitable for use as a partial line input mechanism:
----
 ---
 ---* *TeX* does not switch to the “new line” state, so that leading spaces
 ---    are not ignored.
@@ -1186,8 +1116,6 @@
 ---
 ---    the space before `in between` will be gobbled as a result of the “normal” scanning of `relax`.
 ---
----
----
 ---If there is a table argument instead of a list of strings, this has to be a
 ---consecutive array of strings to print (the first non-string value will stop the
 ---printing process).
@@ -1199,7 +1127,6 @@
 ---userdata objects. These get injected into the stream. Tokens had best be valid
 ---tokens, while nodes need to be around when they get injected. Therefore it is
 ---important to realize the following:
----
 ---
 ---* When you inject a token, you need to pass a valid token userdata object. This
 ---    object will be collected by *Lua* when it no longer is referenced. When it gets
@@ -1213,8 +1140,6 @@
 ---    gets printed to *TeX* the node reference is used assuming that node stays
 ---    around. There is no *Lua* garbage collection involved. Again, you manage the
 ---    object yourself. The node itself is freed when *TeX* is done with it.
----
----
 ---
 ---If you consider the last remark you might realize that we have a problem when a
 ---printed mix of strings, tokens and nodes is reused. Inside *TeX* the sequence
@@ -1231,8 +1156,6 @@
 ---
 ---\subsubsection{`tprint`}
 ---
----\libindex{tprint}
----
 ---```
 ---tex.tprint({<number> n, <string> s, ...}, {...})
 ---```
@@ -1241,8 +1164,6 @@
 ---tables.
 ---
 ---\subsubsection{`cprint`}
----
----\libindex{cprint}
 ---
 ---This function takes a number indicating the to be used catcode, plus either a
 ---table of strings or an argument list of strings that will be pushed into the
@@ -1261,9 +1182,8 @@
 ---% \subsubsection{`write`, `twrite`, `nwrite`}
 ---\subsubsection{`write`}
 ---
----\libindex{write}
----% \libindex{twrite}
----% \libindex{nwrite}
+---% 
+---% 
 ---
 ---```
 ---tex.write(<string> s, ...)
@@ -1273,10 +1193,8 @@
 ---Each string argument is treated by *TeX* as a special kind of input line that
 ---makes it suitable for use as a quick way to dump information:
 ---
----
 ---\item All catcodes on that line are either “space” (for ' ') or “character” (for all others).
 ---\item There is no `endlinechar` appended.
----
 ---
 ---If there is a table argument instead of a list of strings, this has to be a
 ---consecutive array of strings to print (the first non-string value will stop the
@@ -1287,15 +1205,13 @@
 ---% tokenized. You have to make sure that you pass the right data because sometimes
 ---% *TeX* has expectations that need to be met.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={Helper functions}]
+---# Helper functions
 ---
 ---\subsubsection{`round`}
----
----\topicindex {helpers}
----
----\libindex{round}
 ---
 ---```
 ---<number> n = tex.round(<number> o)
@@ -1306,8 +1222,6 @@
 ---“number too big” error as well.
 ---
 ---\subsubsection{`scale`}
----
----\libindex{scale}
 ---
 ---```
 ---<number> n = tex.scale(<number> o, <number> delta)
@@ -1326,9 +1240,6 @@
 ---
 ---\subsubsection{`number` and `romannumeral`}
 ---
----\libindex{number}
----\libindex{romannumeral}
----
 ---These are the companions to the primitives `number` and `romannumeral`. They can be used like:
 ---
 ---```
@@ -1336,9 +1247,6 @@
 ---```
 ---
 ---\subsubsection{`fontidentifier` and `fontname`}
----
----\libindex{fontidentifier}
----\libindex{fontname}
 ---
 ---The first one returns the name only, the second one reports the size too.
 ---
@@ -1348,8 +1256,6 @@
 ---```
 ---
 ---\subsubsection{`sp`}
----
----\libindex{sp}
 ---
 ---```
 ---<number> n = tex.sp(<number> o)
@@ -1364,19 +1270,13 @@
 ---input language (this includes generating errors for bad values), expect for the
 ---following:
 ---
----
 ---* only explicit values are allowed, control sequences are not handled
 ---
 ---* infinite dimension units (`fil...`) are forbidden
 ---
 ---* `mu` units do not generate an error (but may not be useful either)
 ---
----
----
 ---\subsubsection{`tex.getlinenumber` and `tex.setlinenumber`}
----
----\libindex{getlinenumber}
----\libindex{setlinenumber}
 ---
 ---You can mess with the current line number:
 ---
@@ -1398,11 +1298,6 @@
 ---
 ---\subsubsection{`error` and `show_context`}
 ---
----\topicindex{errors}
----
----\libindex{error}
----\libindex{show_context}
----
 ---```
 ---tex.error(<string> s)
 ---tex.error(<string> s, <table> help)
@@ -1417,9 +1312,6 @@
 ---context where we're at (in the expansion).
 ---
 ---\subsubsection{`run`, `finish`}
----
----\libindex{run}
----\libindex{finish}
 ---
 ---These two functions start the interpretations and force its end. A runs normally
 ---boils down to *TeX* entering the so called main loop. A token is fetched and
@@ -1469,8 +1361,6 @@
 ---
 ---\subsubsection{`forcehmode`}
 ---
----\libindex{forcehmode}
----
 ---An example of a (possible error triggering) complication is that *TeX* expects to
 ---be in some state, say horizontal mode, and you have to make sure it is when you
 ---start feeding back something from *Lua* into *TeX*. Normally a user will not run
@@ -1479,10 +1369,6 @@
 ---this and intercepting possible cases would weaken *LuaTeX*'s flexibility.
 ---
 ---\subsubsection{`hashtokens`}
----
----\libindex{hashtokens}
----
----\topicindex{hash}
 ---
 ---```
 ---for i,v in pairs (tex.hashtokens()) do ... end
@@ -1495,10 +1381,6 @@
 ---
 ---\subsubsection{`definefont`}
 ---
----\topicindex{fonts+defining}
----
----\libindex{definefont}
----
 ---```
 ---tex.definefont(<string> csname, <number> fontid)
 ---tex.definefont(<boolean> global, <string> csname, <number> fontid)
@@ -1508,16 +1390,13 @@
 ---definition is global if (and only if) `global` is specified and true (the
 ---setting of `globaldefs` is not taken into account).
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[reference=luaprimitives,title={Functions for dealing with primitives}]
+---# Functions for dealing with primitives
 ---
 ---\subsubsection{`enableprimitives`}
----
----\libindex{enableprimitives}
----
----\topicindex{initialization}
----\topicindex{primitives}
 ---
 ---```
 ---tex.enableprimitives(<string> prefix, <table> primitive names)
@@ -1568,8 +1447,6 @@
 ---
 ---\subsubsection{`extraprimitives`}
 ---
----\libindex{extraprimitives}
----
 ---```
 ---<table> t = tex.extraprimitives(<string> s, ...)
 ---```
@@ -1591,15 +1468,12 @@
 ---end
 ---\stopluacode
 ---
----\starttabulate[|l|pl|]
----\DB name    \BC values 
----\TB
+--- name     values 
+---
 --- tex      \ctxlua{document.showprimitives('tex')    } 
 --- core     \ctxlua{document.showprimitives('core')   } 
 --- etex     \ctxlua{document.showprimitives('etex')   } 
 --- luatex   \ctxlua{document.showprimitives('luatex') } 
----\LL
----\stoptabulate
 ---
 ---Note that `luatex` does not contain `directlua`, as that is
 ---considered to be a core primitive, along with all the *TeX*82 primitives, so it is
@@ -1610,21 +1484,19 @@
 ---
 ---\subsubsection{`primitives`}
 ---
----\libindex{primitives}
----
 ---```
 ---<table> t = tex.primitives()
 ---```
 ---
 ---This function returns a list of all primitives that *LuaTeX* knows about.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={Core functionality interfaces}]
+---# Core functionality interfaces
 ---
 ---\subsubsection{`badness`}
----
----\libindex{badness}
 ---
 ---```
 ---<number> b = tex.badness(<number> t, <number> s)
@@ -1636,18 +1508,10 @@
 ---
 ---\subsubsection{`tex.resetparagraph`}
 ---
----\topicindex {paragraphs+reset}
----
----\libindex{resetparagraph}
----
 ---This function resets the parameters that *TeX* normally resets when a new paragraph
 ---is seen.
 ---
 ---\subsubsection{`linebreak`}
----
----\topicindex {linebreaks}
----
----\libindex{linebreak}
 ---
 ---```
 ---local <node> nodelist, <table> info =
@@ -1656,9 +1520,8 @@
 ---
 ---The understood parameters are as follows:
 ---
----\starttabulate[|l|l|p|]
----\DB name                        \BC type            \BC explanation 
----\TB
+--- name                         type             explanation 
+---
 ---@field pardir string # 
 ---@field pretolerance number # 
 ---@field tracingparagraphs number # 
@@ -1684,8 +1547,6 @@
 ---@field leftskip glue_spec node # 
 ---@field rightskip glue_spec node # 
 ---@field parshape table # 
----\LL
----\stoptabulate
 ---
 ---Note that there is no interface for `displaywidowpenalties`, you have to
 ---pass the right choice for `widowpenalties` yourself.
@@ -1697,7 +1558,6 @@
 ---callbacks, or when the original list starting at listhead was generated in
 ---horizontal mode):
 ---
----
 ---* add an “indent box” and perhaps a `local_par` node at the start
 ---    (only if you need them)
 ---
@@ -1708,21 +1568,16 @@
 ---
 ---* make sure all the `prev` pointers are OK
 ---
----
----
 ---The result is a node list, it still needs to be vpacked if you want to assign it
 ---to a `vbox`. The returned `info` table contains four values that are
 ---all numbers:
 ---
----\starttabulate[|l|p|]
----\DB name      \BC explanation 
----\TB
+--- name       explanation 
+---
 --- prevdepth  depth of the last line in the broken paragraph 
 --- prevgraf   number of lines in the broken paragraph 
 --- looseness  the actual looseness value in the broken paragraph 
 --- demerits   the total demerits of the chosen solution  
----\LL
----\stoptabulate
 ---
 ---Note there are a few things you cannot interface using this function: You cannot
 ---influence font expansion other than via `pdfadjustspacing`, because the
@@ -1732,10 +1587,6 @@
 ---
 ---\subsubsection{`shipout`}
 ---
----\topicindex {shipout}
----
----\libindex{shipout}
----
 ---```
 ---tex.shipout(<number> n)
 ---```
@@ -1744,32 +1595,19 @@
 ---
 ---\subsubsection{`getpagestate`}
 ---
----\topicindex {pages}
----
----\libindex{getpagestate}
----
 ---This helper reports the current page state: `empty`, `box_there` or
 ---`inserts_only` as integer value.
 ---
 ---\subsubsection{`getlocallevel`}
 ---
----\topicindex {nesting}
----
----\libindex{getlocallevel}
----
 ---This integer reports the current level of the local loop. It's only useful for
 ---debugging and the (relative state) numbers can change with the implementation.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={Randomizers}]
----
----\libindex{lua_math_random}
----\libindex{lua_math_randomseed}
----\libindex{init_rand}
----\libindex{normal_rand}
----\libindex{uniform_rand}
----\libindex{uniformdeviate}
+---# Randomizers
 ---
 ---For practical reasons *LuaTeX* has its own random number generator. The original
 ---*Lua* random function is available as `tex.lua_math_random`. You can
@@ -1784,24 +1622,22 @@
 ---
 ---will give a random number between zero and one.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[reference=synctex,title={Functions related to synctex}]
+---# Functions related to synctex
 ---
----\topicindex {synctex}
----
----\libindex{set_synctex_mode}      \libindex{get_synctex_mode}
----\libindex{set_synctex_no_files}
----\libindex{set_synctex_tag}       \libindex{get_synctex_tag}   \libindex{force_synctex_tag}
----\libindex{set_synctex_line}      \libindex{get_synctex_line}  \libindex{force_synctex_line}
+---      
+--- 
+---        
 ---
 ---The next helpers only make sense when you implement your own synctex logic. Keep in
 ---mind that the library used in editors assumes a certain logic and is geared for
 ---plain and \LATEX, so after a decade users expect a certain behaviour.
 ---
----\starttabulate[|l|p|]
----\DB name                        \BC explanation 
----\TB
+--- name                         explanation 
+---
 --- `set_synctex_mode`      `0` is the default and used normal synctex logic, `1` uses the values set by the next helpers while `2` also sets these for glyph nodes; `3` sets glyphs and glue and `4` sets only glyphs 
 --- `set_synctex_tag`       set the current tag (file) value (obeys save stack) 
 --- `set_synctex_line`      set the current line value (obeys save stack) 
@@ -1811,40 +1647,35 @@
 --- `get_synctex_line`      get the currently set value of line 
 --- `force_synctex_tag`     overload the tag (file) value (`0` resets) 
 --- `force_synctex_line`    overload the line value  (`0` resets) 
----\LL
----\stoptabulate
 ---
 ---The last one is somewhat special. Due to the way files are registered in \SYNCTEX\ we need
 ---to explicitly disable that feature if we provide our own alternative if we want to avoid
 ---that overhead. Passing a value of 1 disables registering.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
 ---\startsection[title={The `texconfig` table},reference=texconfig][library=texconfig]
----
----\topicindex{libraries+`texconfig`}
----
----\topicindex {configuration}
 ---
 ---This is a table that is created empty. A startup *Lua* script could
 ---fill this table with a number of settings that are read out by
 ---the executable after loading and executing the startup file.
 ---
----\starttabulate[|l|l|l|p|]
----\DB key                   \BC type     \BC default \BC explanation 
----\TB
+--- key                    type      default  explanation 
+---
 ---@field kpse_init boolean # true
 ---
 ---    `false` totally disables \KPATHSEA\ initialisation, and enables
 ---    interpretation of the following numeric key--value pairs. (only ever unset
 ---    this if you implement {\it all\/} file find callbacks!)
 ---
----
 ---    `shell_escape`  string  `'f'`  Use `'y'` or `'t'` or `'1'` to enable `\write18` unconditionally, `'p'`
 ---    to enable the commands that are listed in `shell_escape_commands`
----
 ---
 ---    shell_escape_commands  string   Comma-separated list of command
 ---    names that may be executed by `\write18` even if `shell_escape`
@@ -1899,9 +1730,6 @@
 ---    when larger than zero the input nesting level will be shown when `\tracingmacros` is set; levels above this value will be clipped with
 ---    the level shown up front
 ---
----\LL
----\stoptabulate
----
 ---Note: the numeric values that match web2c parameters are only used if `kpse_init` is explicitly set to `false`. In all other cases, the normal
 ---values from `texmf.cnf` are used.
 ---
@@ -1933,19 +1761,16 @@
 ---}
 ---```
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[title={The `texio` library}][library=texio]
----
----\topicindex{libraries+`texio`}
----\topicindex{\IO}
+---# The `texio` library[library=texio]
 ---
 ---This library takes care of the low-level I/O interface: writing to the log file
 ---and/or console.
 ---
----\startsubsection[title={`write`}]
----
----\libindex{write}
+---# `write`
 ---
 ---```
 ---texio.write(<string> target, <string> s, ...)
@@ -1961,11 +1786,11 @@
 ---be one of the targets above, the `target` must be specified explicitly to
 ---prevent *Lua* from interpreting the first string as the target.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`write_nl`}]
----
----\libindex{write_nl}
+---# `write_nl`
 ---
 ---```
 ---texio.write_nl(<string> target, <string> s, ...)
@@ -1976,20 +1801,20 @@
 ---strings will appear at the beginning of a new line. You can pass a single empty
 ---string if you only want to move to the next line.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`setescape`}]
----
----\libindex{setescape}
+---# `setescape`
 ---
 ---You can disable `^^` escaping of control characters by passing a value of
 ---zero.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`closeinput`}]
----
----\libindex{closeinput}
+---# `closeinput`
 ---
 ---This function that should be used with care. It acts as `endinput` but at
 ---the *Lua* end. You can use it to (sort of) force a jump back to *TeX*. Normally a
@@ -1997,31 +1822,17 @@
 ---prints. This function can help you stay at the current level but you need to know
 ---what you're doing (or more precise: what *TeX* is doing with input).
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[title={The `token` library}][library=token]
+---# The `token` library[library=token]
 ---
----\startsubsection[title={The scanner}]
----
----\topicindex{libraries+`token`}
----\topicindex{tokens}
----
----\libindex{scan_keyword}
----\libindex{scan_keywordcs}
----\libindex{scan_int}
----\libindex{scan_real}
----\libindex{scan_float}
----\libindex{scan_dimen}
----\libindex{scan_glue}
----\libindex{scan_toks}
----\libindex{scan_code}
----\libindex{scan_string}
----\libindex{scan_argument}
----\libindex{scan_word}
----\libindex{scan_csname}
----\libindex{scan_list}
+---# The scanner
 ---
 ---The token library provides means to intercept the input and deal with it at the
 ---*Lua* level. The library provides a basic scanner infrastructure that can be used
@@ -2032,9 +1843,8 @@
 ---minimal set of tools and no solutions. The scanner functions are probably the
 ---most intriguing.
 ---
----\starttabulate[|l|l|p|]
----\DB function              \BC argument           \BC result 
----\TB
+--- function               argument            result 
+---
 ---@field scan_keyword string # returns true if the given keyword is gobbled; as with the regular *TeX* keyword scanner this is case insensitive (and \ASCII\ based) 
 ---@field scan_keywordcs string # returns true if the given keyword is gobbled; this variant is case sensitive and also suitable for \UTF8 
 --- `scan_int`                            returns an integer 
@@ -2049,8 +1859,6 @@
 --- `scan_word`                           returns a sequence of characters with catcode 11 or 12 as string 
 --- `scan_csname`                         returns `foo` after scanning `\foo` 
 ---@field scan_list`                           picks up a box specification and returns a `[h|v]list node # 
----\LL
----\stoptabulate
 ---
 ---The scanners can be considered stable apart from the one scanning for a token.
 ---The `scan_code` function takes an optional number, the `keyword`
@@ -2080,14 +1888,11 @@
 ---
 ---we get:
 ---
----\starttabulate[|l|Tl|l|]
----\DB name \BC result 
----\TB
+--- name  result 
+---
 --- `\directlua{token.scan_string()`{foo}}  \directlua{context("{\\red\`"..token.scan_string().."`}")} {foo}  full expansion 
 --- `\directlua{token.scan_string()`foo}    \directlua{context("{\\red\`"..token.scan_string().."`}")} foo    letters and others 
 --- `\directlua{token.scan_string()`\foo}   \directlua{context("{\\red\`"..token.scan_string().."`}")}\foo    meaning 
----\LL
----\stoptabulate
 ---
 ---The `\foo` case only gives the meaning, but one can pass an already
 ---expanded definition (`edef`'d). In the case of the braced variant one can of
@@ -2158,13 +1963,11 @@
 ---a bit but for passing strings conversion to and from tokens has to be done anyway
 ---(although we can probably speed up the process in later versions if needed).
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
 ---\startsubsection[title= {Picking up one token}]
----
----\libindex {get_next}
----\libindex {scan_token}
----\libindex {expand}
 ---
 ---The scanners look for a sequence. When you want to pick up one token from the
 ---input you use `get_next`. This creates a token with the (low level)
@@ -2178,32 +1981,11 @@
 ---enough about *TeX* not to be too worried about that. It basically is a call to
 ---the internal expand related function.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={Creating tokens}]
----
----\libindex{create}
----\libindex{new}
----
----\libindex{is_defined}
----\libindex{is_token}
----\libindex{biggest_char}
----
----\libindex{commands}
----\libindex{command_id}
----
----\libindex{get_command}
----\libindex{get_cmdname}
----\libindex{get_csname}
----\libindex{get_id}
----\libindex{get_active}
----\libindex{get_expandable}
----\libindex{get_protected}
----\libindex{get_mode}
----\libindex{get_index}
----\libindex{get_tok}
----
----\libindex{get_next}
+---# Creating tokens
 ---
 ---The creator function can be used as follows:
 ---
@@ -2214,9 +1996,8 @@
 ---This gives back a token object that has the properties of the `relax`
 ---primitive. The possible properties of tokens are:
 ---
----\starttabulate[|l|p|]
----\DB name \BC explanation 
----\TB
+--- name  explanation 
+---
 --- `command`     a number representing the internal command number 
 --- `cmdname`     the type of the command (for instance the catcode in case of a character or the classifier that determines the internal treatment 
 --- `csname`      the associated control sequence (if applicable) 
@@ -2227,8 +2008,6 @@
 --- `protected`   a boolean indicating if the token (macro) is protected 
 --- `mode`        a number either representing a character or another entity 
 --- `index`       a number running from 0x0000 upto 0xFFFF indicating a *TeX* register index 
----\LL
----\stoptabulate
 ---
 ---Alternatively you can use a getter `get_<fieldname>` to access a property
 ---of a token.
@@ -2281,18 +2060,11 @@
 ---The largest character possible is returned by `biggest_char`, just in case you
 ---need to know that boundary condition.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={Macros}]
----
----\topicindex {macros}
----
----\libindex{set_macro}
----\libindex{get_macro}
----\libindex{get_meaning}
----\libindex{set_char}
----\libindex{set_lua}
----\libindex{get_functions_table}
+---# Macros
 ---
 ---The `set_macro` function can get upto 4 arguments:
 ---
@@ -2341,12 +2113,11 @@
 ---that you can access with `lua.get_functions_table`. It is the companion
 ---to `luadef`.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={Pushing back}]
----
----\libindex{get_next}
----\libindex{put_next}
+---# Pushing back
 ---
 ---There is a (for now) experimental putter:
 ---
@@ -2365,9 +2136,11 @@
 ---with tokens or a list of tokens. The `token.expand` function will trigger
 ---expansion but what happens really depends on what you're doing where.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={Nota bene}]
+---# Nota bene
 ---
 ---When scanning for the next token you need to keep in mind that we're not scanning
 ---like *TeX* does: expanding, changing modes and doing things as it goes. When we
@@ -2455,24 +2228,22 @@
 ---that can be used and garbage collected, but it is basically the same one,
 ---representing an undefined control sequence.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[title={The `kpse` library}][library=kpse]
----
----\topicindex{libraries+`kpse`}
+---# The `kpse` library[library=kpse]
 ---
 ---This library provides two separate, but nearly identical interfaces to the
 ---\KPATHSEA\ file search functionality: there is a “normal” procedural
 ---interface that shares its kpathsea instance with *LuaTeX* itself, and an object
 ---oriented interface that is completely on its own.
 ---
----\startsubsection[title={`set_program_name` and `new`}]
----
----\libindex{set_program_name}
----\libindex{default_texmfcnf}
----\libindex{new}
+---# `set_program_name` and `new`
 ---
 ---The way the library looks up variables is driven by the `texmf.cmf` file
 ---where the currently set program name acts as filter. You can check what file is
@@ -2508,14 +2279,11 @@
 ---identical. Depending on the chosen interface, you either call `kpse.find_file` or `kpathsea:find_file`, with identical arguments and
 ---return values.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`record_input_file` and `record_output_file`}]
----
----\topicindex {files+recording}
----
----\libindex{record_input_file}
----\libindex{record_output_file}
+---# `record_input_file` and `record_output_file`
 ---
 ---These two function can be used to register used files. Because callbacks can load
 ---files themselves you might need these helpers (if you use recording at all).
@@ -2525,13 +2293,11 @@
 ---kpse.record_output_file(<string> name)
 ---```
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`find_file`}]
----
----\topicindex {files+finding}
----
----\libindex {find_file}
+---# `find_file`
 ---
 ---The most often used function in the library is `find_file`:
 ---
@@ -2544,8 +2310,6 @@
 ---```
 ---
 ---Arguments:
----
----
 ---
 ---\sym{filename}
 ---
@@ -2636,11 +2400,11 @@
 ---If `--output-directory` is specified and the value is a relative pathname,
 ---the file is searched first here and if it fails it will be searched in the standard tree.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`lookup`}]
----
----\libindex{lookup}
+---# `lookup`
 ---
 ---A more powerful (but slower) generic method for finding files is also available.
 ---It returns a string for each found file.
@@ -2651,9 +2415,8 @@
 ---
 ---The options match commandline arguments from `kpsewhich`:
 ---
----\starttabulate[|l|l|p|]
----\DB key              \BC type     \BC explanation 
----\TB
+--- key               type      explanation 
+---
 ---@field debug number # set debugging flags for this lookup     \NR
 ---@field format string # use specific file type (see list above)
 ---@field dpi number # use this resolution for this lookup; default 600
@@ -2665,20 +2428,15 @@
 ---@field mktexmf boolean # disable/enable mktexmf generation for this lookup
 ---@field mktextfm boolean # disable/enable mktextfm generation for this lookup
 --- `subdir`     string or table  only output matches whose directory part ends with the given string(s) 
----\LL
----\stoptabulate
 ---
 ---If `--output-directory` is specified and the value is a relative pathname,
 ---the file is searched first here and then in the standard tree.
 ---
+----------------------------------------------------------------
+
+
 ---
----\stopsubsection
----
----\startsubsection[title={`init_prog`}]
----
----\topicindex {initialization+bitmaps}
----
----\libindex{init_prog}
+---# `init_prog`
 ---
 ---Extra initialization for programs that need to generate bitmap fonts.
 ---
@@ -2687,11 +2445,11 @@
 ---kpse.init_prog(<string> prefix, <number> base_dpi, <string> mfmode, <string> fallback)
 ---```
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`readable_file`}]
----
----\libindex{readable_file}
+---# `readable_file`
 ---
 ---Test if an (absolute) file name is a readable file.
 ---
@@ -2704,11 +2462,11 @@
 ---system-specific handling under e.g.\ \MSDOS. Returns `nil` if the file
 ---does not exist or is not readable.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`expand_path`}]
----
----\libindex{expand_path}
+---# `expand_path`
 ---
 ---Like kpsewhich's `-expand-path`:
 ---
@@ -2716,11 +2474,11 @@
 ---<string> r = kpse.expand_path(<string> s)
 ---```
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`expand_var`}]
----
----\libindex{expand_var}
+---# `expand_var`
 ---
 ---Like kpsewhich's  `-expand-var`:
 ---
@@ -2728,11 +2486,11 @@
 ---<string> r = kpse.expand_var(<string> s)
 ---```
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`expand_braces`}]
----
----\libindex{expand_braces}
+---# `expand_braces`
 ---
 ---Like kpsewhich's `-expand-braces`:
 ---
@@ -2740,11 +2498,11 @@
 ---<string> r = kpse.expand_braces(<string> s)
 ---```
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`show_path`}]
----
----\libindex{show_path}
+---# `show_path`
 ---
 ---Like kpsewhich's `-show-path`:
 ---
@@ -2752,11 +2510,11 @@
 ---<string> r = kpse.show_path(<string> ftype)
 ---```
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`var_value`}]
----
----\libindex{var_value}
+---# `var_value`
 ---
 ---Like kpsewhich's `-var-value`:
 ---
@@ -2764,11 +2522,11 @@
 ---<string> r = kpse.var_value(<string> s)
 ---```
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`version`}]
----
----\libindex{version}
+---# `version`
 ---
 ---Returns the kpathsea version string.
 ---
@@ -2776,9 +2534,13 @@
 ---<string> r = kpse.version()
 ---```
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
 ---\stopchapter
 ---

@@ -4,9 +4,9 @@
 ---
 ---\startcomponent luatex-statistics
 ---
----\startchapter[title={Statistics}]
+---# Statistics
 ---
----    \topicindex{fonts+used}
+---    
 ---
 ---    The following fonts are used in this document:
 ---

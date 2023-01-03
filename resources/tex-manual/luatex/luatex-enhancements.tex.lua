@@ -4,11 +4,11 @@
 ---
 ---\startcomponent luatex-enhancements
 ---
----\startchapter[reference=enhancements,title={Basic *TeX* enhancements}]
+---# Basic *TeX* enhancements
 ---
----\startsection[title={Introduction}]
+---# Introduction
 ---
----\startsubsection[title={Primitive behaviour}]
+---# Primitive behaviour
 ---
 ---From day one, *LuaTeX* has offered extra features compared to the superset of
 ---*PDF*TEX, which includes \ETEX, and \ALEPH. This has not been limited to the
@@ -49,14 +49,13 @@
 ---from *PDF*TEX\ and \ALEPH\ (\OMEGA). Here we stick to real new ones. In the
 ---chapters on fonts and math we discuss a few more new ones.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={Version information}]
+---# Version information
 ---
----\startsubsubsection[title={`luatexbanner`, `luatexversion` and `luatexrevision`}]
----
----\topicindex{version}
----\topicindex{banner}
+---# `luatexbanner`, `luatexversion` and `luatexrevision`
 ---
 ---There are three new primitives to test the version of *LuaTeX*:
 ---
@@ -67,17 +66,13 @@
 ---     context(string.gsub(banner ,"jit",""))%
 ---  }}
 ---
----\starttabulate[|l|l|pl|]
----\DB primitive             \BC value \BC explanation 
----\TB
+--- primitive              value explanation 
+---
 --- `luatexbanner`    \VersionHack{\luatexbanner} the banner reported on the command line 
 --- `luatexversion`   \the\luatexversion a combination of major and minor number 
 --- `luatexrevision`  \luatexrevision the revision number, the current value is 
----\LL
----\stoptabulate
 ---
 ---The official *LuaTeX* version is defined as follows:
----
 ---
 ---* The major version is the integer result of `luatexversion` divided by
 ---    100. The primitive is an “internal variable”, so you may need to prefix
@@ -91,30 +86,32 @@
 ---* The full version number consists of the major version, minor version and
 ---    revision, separated by dots.
 ---
+----------------------------------------------------------------
+
+
 ---
----
----\stopsubsubsection
----
----\startsubsubsection[title={`formatname`}]
----
----\topicindex{format}
+---# `formatname`
 ---
 ---The `formatname` syntax is identical to `jobname`. In \INITEX, the
 ---expansion is empty. Otherwise, the expansion is the value that `jobname` had
 ---during the \INITEX\ run that dumped the currently loaded format. You can use this
 ---token list to provide your own version info.
 ---
----\stopsubsubsection
+----------------------------------------------------------------
+
+
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[title={\UNICODE\ text support}]
+---# \UNICODE\ text support
 ---
----\startsubsection[title={Extended ranges}]
----
----\topicindex{\UNICODE}
+---# Extended ranges
 ---
 ---Text input and output is now considered to be \UNICODE\ text, so input characters
 ---can use the full range of \UNICODE\ (`2^{20}+2^{16}-1 = \hbox{0x10FFFF}`). Later
@@ -153,18 +150,20 @@
 ---escaping with `texio.setescape(false)` in which case you get the normal
 ---characters on the console.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`Uchar`}]
----
----\topicindex{\UNICODE}
+---# `Uchar`
 ---
 ---The expandable command `Uchar` reads a number between 0 and `1{,}114{,}111`
 ---and expands to the associated \UNICODE\ character.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={Extended tables}]
+---# Extended tables
 ---
 ---All traditional *TeX* and \ETEX\ registers can be 16-bit numbers. The affected
 ---commands are:
@@ -203,15 +202,17 @@
 ---*PDF* file is as efficient as possible, but for instance also expansion and
 ---protrusion no longer use copies as in *PDF*TEX.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[title={Attributes}]
+---# Attributes
 ---
----\startsubsection[title={Nodes}]
----
----\topicindex {nodes}
+---# Nodes
 ---
 ---When *TeX* reads input it will interpret the stream according to the properties
 ---of the characters. Some signal a macro name and trigger expansion, others open
@@ -243,11 +244,11 @@
 ---to these nodes from *Lua* it makes sense to be able to carry more information
 ---with an node and this is where attributes kick in.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={Attribute registers}]
----
----\topicindex {attributes}
+---# Attribute registers
 ---
 ---Attributes are a completely new concept in *LuaTeX*. Syntactically, they behave a
 ---lot like counters: attributes obey *TeX*'s nesting stack and can be used after
@@ -279,12 +280,11 @@
 ---list of currently set attributes. But they are a convenient extension and one of
 ---the first extensions we implemented in *LuaTeX*.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={Box attributes}]
----
----\topicindex {attributes}
----\topicindex {boxes}
+---# Box attributes
 ---
 ---Nodes typically receive the list of attributes that is in effect when they are
 ---created. This moment can be quite asynchronous. For example: in paragraph
@@ -356,13 +356,17 @@
 ---Because some values are not set we need to apply the `tostring` function
 ---here so that we get the word `nil`.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[title={*Lua* related primitives}]
+---# *Lua* related primitives
 ---
----\startsubsection[title={`directlua`}]
+---# `directlua`
 ---
 ---In order to merge *Lua* code with *TeX* input, a few new primitives are needed.
 ---The primitive `directlua` is used to execute *Lua* code immediately. The
@@ -451,9 +455,11 @@
 ---node list interface, you may even end up with assertion errors from within the
 ---*TeX* portion of the executable.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`latelua` and `lateluafunction`}]
+---# `latelua` and `lateluafunction`
 ---
 ---Contrary to `directlua`, `latelua` stores *Lua* code in a whatsit
 ---that will be processed at the time of shipping out. Its intended use is a cross
@@ -475,11 +481,11 @@
 ---
 ---The `lateluafunction` primitive takes a number and is similar to `luafunction` but gets delated to shipout time. It's just there for completeness.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`luaescapestring`}]
----
----\topicindex {escaping}
+---# `luaescapestring`
 ---
 ---This primitive converts a *TeX* token sequence so that it can be safely used as
 ---the contents of a *Lua* string: embedded backslashes, double and single quotes,
@@ -501,9 +507,11 @@
 ---\directlua { dofile('mysetups.lua') }
 ---```
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`luafunction`, `luafunctioncall` and `luadef`}]
+---# `luafunction`, `luafunctioncall` and `luadef`
 ---
 ---The `directlua` commands involves tokenization of its argument (after
 ---picking up an optional name or number specification). The tokenlist is then
@@ -547,9 +555,11 @@
 ---other hand, as we have tested this functionality in relative complex situations
 ---normal usage should not give problems.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`luabytecode` and `luabytecodecall`}]
+---# `luabytecode` and `luabytecodecall`
 ---
 ---Analogue to the function callers discussed in the previous section we have byte
 ---code callers. Again the call variant is unexpandable.
@@ -576,15 +586,17 @@
 ---can be used for diagnostic purposes. The advantage of bytecode registers over
 ---function calls is that they are stored in the format (but without upvalues).
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[title={Catcode tables}]
+---# Catcode tables
 ---
----\startsubsection[title={Catcodes}]
----
----\topicindex {catcodes}
+---# Catcodes
 ---
 ---Catcode tables are a new feature that allows you to switch to a predefined
 ---catcode regime in a single statement. You can have a practically unlimited number
@@ -594,9 +606,11 @@
 ---from any other catcode table, and its contents is stored and retrieved from the
 ---format file.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`catcodetable`}]
+---# `catcodetable`
 ---
 ---\startsyntax
 ---\catcodetable <15-bit number>
@@ -606,9 +620,11 @@
 ---table has to be previously created using one of the two primitives below, or it
 ---has to be zero. Table zero is initialized by \INITEX.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`initcatcodetable`}]
+---# `initcatcodetable`
 ---
 ---\startsyntax
 ---\initcatcodetable <15-bit number>
@@ -620,9 +636,8 @@
 ---number is identical to the currently active table, an error is raised. The
 ---initial values are:
 ---
----\starttabulate[|c|c|l|l|]
----\DB catcode \BC character               \BC equivalent \BC category          
----\TB
+--- catcode  character                equivalent  category          
+---
 ---  0  \tttf \letterbackslash                 `escape`       
 ---  5  \tttf \letterhat\letterhat M  return   `car_ret`      
 ---  9  \tttf \letterhat\letterhat @  null     `ignore`       
@@ -632,12 +647,12 @@
 --- 12  everything else                        `other`        
 --- 14  \tttf \letterpercent                   `comment`      
 --- 15  \tttf \letterhat\letterhat ?  delete   `invalid_char` 
----\LL
----\stoptabulate
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`savecatcodetable`}]
+---# `savecatcodetable`
 ---
 ---\startsyntax
 ---\savecatcodetable <15-bit number>
@@ -651,15 +666,17 @@
 ---has ended. If the supplied number is the currently active table, an error is
 ---raised.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[title={Suppressing errors}]
+---# Suppressing errors
 ---
----\startsubsection[title={`suppressfontnotfounderror`}]
----
----\topicindex {errors}
+---# `suppressfontnotfounderror`
 ---
 ---If this integer parameter is non-zero, then *LuaTeX* will not complain about
 ---font metrics that are not found. Instead it will silently skip the font
@@ -669,11 +686,11 @@
 ---\suppressfontnotfounderror = 1
 ---\stopsyntax
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`suppresslongerror`}]
----
----\topicindex {errors}
+---# `suppresslongerror`
 ---
 ---If this integer parameter is non-zero, then *LuaTeX* will not complain about
 ---`par` commands encountered in contexts where that is normally prohibited
@@ -683,11 +700,11 @@
 ---\suppresslongerror = 1
 ---\stopsyntax
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`suppressifcsnameerror`}]
----
----\topicindex {errors}
+---# `suppressifcsnameerror`
 ---
 ---If this integer parameter is non-zero, then *LuaTeX* will not complain about
 ---non-expandable commands appearing in the middle of a `ifcsname` expansion.
@@ -700,11 +717,11 @@
 ---\suppressifcsnameerror = 1
 ---\stopsyntax
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`suppressoutererror`}]
----
----\topicindex {errors}
+---# `suppressoutererror`
 ---
 ---If this new integer parameter is non-zero, then *LuaTeX* will not complain
 ---about `outer` commands encountered in contexts where that is normally
@@ -714,12 +731,11 @@
 ---\suppressoutererror = 1
 ---\stopsyntax
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`suppressmathparerror`}]
----
----\topicindex {errors}
----\topicindex {math}
+---# `suppressmathparerror`
 ---
 ---The following setting will permit `par` tokens in a math formula:
 ---
@@ -735,12 +751,11 @@
 ---a `
 ---```
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`suppressprimitiveerror`}]
----
----\topicindex {errors}
----\topicindex {primitives}
+---# `suppressprimitiveerror`
 ---
 ---When set to a non-zero value the following command will not issue an error:
 ---
@@ -750,15 +765,17 @@
 ---\primitive\notaprimitive
 ---\stopsyntax
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[title={Fonts}]
+---# Fonts
 ---
----\startsubsection[title={Font syntax}]
----
----\topicindex {fonts}
+---# Font syntax
 ---
 ---*LuaTeX* will accept a braced argument as a font name:
 ---
@@ -769,9 +786,11 @@
 ---This allows for embedded spaces, without the need for double quotes. Macro
 ---expansion takes place inside the argument.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`fontid` and `setfontid`}]
+---# `fontid` and `setfontid`
 ---
 ---\startsyntax
 ---\fontid\font
@@ -781,15 +800,12 @@
 ---prefix with `number` (and using `the` gives an error). The currently
 ---used font id is \fontid\font. Here are some more:
 ---
----\starttabulate[|l|c|c|]
----\DB style \BC command \BC font id 
----\TB
+--- style  command  font id 
+---
 --- normal       `\tf`  \bf \fontid\font 
 --- bold         `\bf`  \bf \fontid\font 
 --- italic       `\it`  \it \fontid\font 
 --- bold italic  `\bi`  \bi \fontid\font 
----\LL
----\stoptabulate
 ---
 ---These numbers depend on the macro package used because each one has its own way
 ---of dealing with fonts. They can also differ per run, as they can depend on the
@@ -800,12 +816,11 @@
 ---The primitive `setfontid` can be used to enable a font with the given id,
 ---which of course needs to be a valid one.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`noligs` and `nokerns`}]
----
----\topicindex {ligatures+suppress}
----\topicindex {kerns+suppress}
+---# `noligs` and `nokerns`
 ---
 ---These primitives prohibit ligature and kerning insertion at the time when the
 ---initial node list is built by *LuaTeX*'s main control loop. You can enable these
@@ -822,11 +837,11 @@
 ---callbacks. Keep in mind that when you define a font (using *Lua*) you can also
 ---omit the kern and ligature tables, which has the same effect as the above.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`\nospaces`}]
----
----\topicindex {spaces+suppress}
+---# `\nospaces`
 ---
 ---This new primitive can be used to overrule the usual `spaceskip` related
 ---heuristics when a space character is seen in a text flow. The value `1`
@@ -845,20 +860,21 @@
 ---\stopcombination
 ---\stopplacefigure
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[title={Tokens, commands and strings}]
+---# Tokens, commands and strings
 ---
----\startsubsection[title={`scantextokens`}]
----
----\topicindex {tokens+scanning}
+---# `scantextokens`
 ---
 ---The syntax of `scantextokens` is identical to `scantokens`. This
 ---primitive is a slightly adapted version of \ETEX's `scantokens`. The
 ---differences are:
----
 ---
 ---* The last (and usually only) line does not have a `endlinechar`
 ---    appended.
@@ -870,9 +886,9 @@
 ---    executed. This allows the expansion to end on a different grouping level or
 ---    while a conditional is still incomplete.
 ---
----
----
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
 ---\startsubsection[title={`toksapp`, `tokspre`, `etoksapp`, `etokspre`,
 ---`gtoksapp`, `gtokspre`, `xtoksapp`,  `xtokspre`}]
@@ -892,9 +908,11 @@
 ---The `pre` variants prepend instead of append, and the `e` variants
 ---expand the passed general text. The `g` and `x` variants are global.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`csstring`, `begincsname` and `lastnamedcs`}]
+---# `csstring`, `begincsname` and `lastnamedcs`
 ---
 ---These are somewhat special. The `csstring` primitive is like
 ---`string` but it omits the leading escape character. This can be
@@ -923,11 +941,11 @@
 ---*LuaTeX* this also involves some \UTF8 juggling), but probably more relevant is
 ---that it saves a few tokens and can make code a bit more readable.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`clearmarks`}]
----
----\topicindex {marks}
+---# `clearmarks`
 ---
 ---This primitive complements the \ETEX\ mark primitives and clears a mark class
 ---completely, resetting all three connected mark texts to empty. It is an
@@ -937,16 +955,20 @@
 ---\clearmarks <16-bit number>
 ---\stopsyntax
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`alignmark` and `aligntab`}]
+---# `alignmark` and `aligntab`
 ---
 ---The primitive `alignmark` duplicates the functionality of `#` inside
 ---alignment preambles, while `aligntab` duplicates the functionality of `&`.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`letcharcode`}]
+---# `letcharcode`
 ---
 ---This primitive can be used to assign a meaning to an active character, as in:
 ---
@@ -957,9 +979,11 @@
 ---This can be a bit nicer than using the uppercase tricks (using the property of
 ---`uppercase` that it treats active characters special).
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`glet`}]
+---# `glet`
 ---
 ---This primitive is similar to:
 ---
@@ -970,11 +994,11 @@
 ---but faster (only measurable with millions of calls) and probably more convenient
 ---(after all we also have `\gdef`).
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`expanded`, `immediateassignment` and `immediateassigned`}]
----
----\topicindex {expansion}
+---# `expanded`, `immediateassignment` and `immediateassigned`
 ---
 ---The `expanded` primitive takes a token list and expands it content which can
 ---come in handy: it avoids a tricky mix of `expandafter` and `noexpand`.
@@ -1067,11 +1091,11 @@
 ---alignments and after the `accent` command. The supported assignments are the
 ---so called prefixed commands (except box assignments).
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`ifcondition`}]
----
----\topicindex {conditions}
+---# `ifcondition`
 ---
 ---This is a somewhat special one. When you write macros conditions need to be
 ---properly balanced in order to let *TeX*'s fast branch skipping work well. This new
@@ -1103,15 +1127,17 @@
 ---If you are familiar with \METAPOST, this is a bit like `vardef` where the macro
 ---has a return value. Here the return value is a test.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[title={Boxes, rules and leaders}]
+---# Boxes, rules and leaders
 ---
----\startsubsection[title={`outputbox`}]
----
----\topicindex {output}
+---# `outputbox`
 ---
 ---This integer parameter allows you to alter the number of the box that will be
 ---used to store the page sent to the output routine. Its default value is 255, and
@@ -1121,24 +1147,28 @@
 ---\outputbox = 12345
 ---\stopsyntax
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`vpack`, `hpack` and `tpack`}]
+---# `vpack`, `hpack` and `tpack`
 ---
 ---These three primitives are like `vbox`, `hbox` and `vtop`
 ---but don't apply the related callbacks.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`vsplit`}]
----
----\topicindex {splitting}
+---# `vsplit`
 ---
 ---The `vsplit` primitive has to be followed by a specification of the required
 ---height. As alternative for the `to` keyword you can use `upto` to get
 ---a split of the given size but result has the natural dimensions then.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
 ---\startsubsection[title={Images and reused box objects},reference=sec:imagedandforms]
 ---
@@ -1152,9 +1182,8 @@
 ---should consider them to be backend specific. This means that a macro package
 ---should treat them as such and check for the current output mode if applicable.
 ---
----\starttabulate[|l|p|]
----\DB command \BC explanation 
----\TB
+--- command  explanation 
+---
 --- `saveboxresource`              save the box as an object to be included later 
 --- `saveimageresource`            save the image as an object to be included later 
 --- `useboxresource`               include the saved box object here (by index) 
@@ -1162,8 +1191,6 @@
 --- `lastsavedboxresourceindex`    the index of the last saved box object 
 --- `lastsavedimageresourceindex`  the index of the last saved image object 
 --- `lastsavedimageresourcepages`  the number of pages in the last saved image object 
----\LL
----\stoptabulate
 ---
 ---*LuaTeX* accepts optional dimension parameters for `\use...resource` in the
 ---same format as for rules. With images, these dimensions are then used instead of
@@ -1183,38 +1210,39 @@
 ---omitted. A value of 1 or 3 still writes a `/BBox`, while 2 or 3 will write
 ---a `/Matrix`.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`nohrule` and `novrule`}]
----
----\topicindex {rules}
+---# `nohrule` and `novrule`
 ---
 ---Because introducing a new keyword can cause incompatibilities, two new primitives
 ---were introduced: `nohrule` and `novrule`. These can be used to
 ---reserve space. This is often more efficient than creating an empty box with fake
 ---dimensions.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`gleaders`}]
----
----\topicindex {leaders}
+---# `gleaders`
 ---
 ---This type of leaders is anchored to the origin of the box to be shipped out. So
 ---they are like normal `leaders` in that they align nicely, except that the
 ---alignment is based on the {\it largest\/} enclosing box instead of the {\it
 ---smallest\/}. The `g` stresses this global nature.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[title={Languages}]
+---# Languages
 ---
----\startsubsection[title={`hyphenationmin`}]
----
----\topicindex {languages}
----\topicindex {hyphenation}
+---# `hyphenationmin`
 ---
 ---This primitive can be used to set the minimal word length, so setting it to a value
 ---of `5` means that only words of 6 characters and more will be hyphenated, of course
@@ -1222,9 +1250,11 @@
 ---values (as stored in the glyph node). This primitive accepts a number and stores
 ---the value with the language.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`boundary`, `noboundary`, `protrusionboundary` and `wordboundary`}]
+---# `boundary`, `noboundary`, `protrusionboundary` and `wordboundary`
 ---
 ---The `noboundary` command is used to inject a whatsit node but now injects a normal
 ---node with type `boundary` and subtype 0. In addition you can say:
@@ -1240,9 +1270,11 @@
 ---are used to control protrusion and word boundaries in hyphenation and have
 ---related primitives.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`glyphdimensionsmode`}]
+---# `glyphdimensionsmode`
 ---
 ---Already in the early days of *LuaTeX* the decision was made to calculate the
 ---effective height and depth of glyphs in a way that reflected the applied vertical
@@ -1251,64 +1283,63 @@
 ---parameter. An offset is added to the height and/or subtracted from the depth.
 ---The effective values are never negative. The zero mode is the default.
 ---
----\starttabulate[|l|pl|]
----\DB value     \BC effect \NR
----\TB
+--- value      effect \NR
+---
 --- `0`  the old behaviour: add the offset to the height and only subtract the offset only from the depth when it is positive 
 --- `1`  add the offset to the height and subtract it from the depth 
 --- `2`  add the offset to the height and subtract it from the depth but keep the maxima of the current and previous results 
 --- `3`  use the height and depth of the glyph, so no offset is applied 
----\LL
----\stoptabulate
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[title={Control and debugging}]
+---# Control and debugging
 ---
----\startsubsection[title={Tracing}]
----
----\topicindex {tracing}
+---# Tracing
 ---
 ---If `tracingonline` is larger than 2, the node list display will also print
 ---the node number of the nodes.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`outputmode`}]
----
----\topicindex {output}
----\topicindex {backend}
+---# `outputmode`
 ---
 ---The `outputmode` variable tells *LuaTeX* what it has to produce:
 ---
----\starttabulate[|l|l|]
----\DB value \BC output 
----\TB
+--- value  output 
+---
 --- `0`  \DVI\ code 
 --- `1`  *PDF* code 
----\LL
----\stoptabulate
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={`draftmode`}]
+---# `draftmode`
 ---
 ---The value of the `draftmode` counter signals the backend if it should output
 ---less. The *PDF* backend accepts a value of 1, while the \DVI\ backend ignores the
 ---value. This is no critical feature so we can remove it in future versions when it
 ---can make the backend cleaner.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[title={Files}]
+---# Files
 ---
----\startsubsection[title={File syntax}]
----
----\topicindex {files+names}
+---# File syntax
 ---
 ---*LuaTeX* will accept a braced argument as a file name:
 ---
@@ -1324,9 +1355,8 @@
 ---been adapted to support variants in reporting the font. The reason for this
 ---extension is that a csname not always makes sense. The zero case is the default.
 ---
----\starttabulate[|l|l|]
----\DB value \BC reported 
----\TB
+--- value  reported 
+---
 --- `0`  `\foo xyz` 
 --- `1`  `\foo (bar)` 
 --- `2`  `<bar> xyz` 
@@ -1334,34 +1364,36 @@
 --- `4`  `<id>` 
 --- `5`  `<id: bar>` 
 --- `6`  `<id: bar @ ..pt> xyz` 
----\LL
----\stoptabulate
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={Writing to file}]
----
----\topicindex {files+writing}
+---# Writing to file
 ---
 ---You can now open upto 127 files with `openout`. When no file is open
 ---writes will go to the console and log. As a consequence a system command is
 ---no longer possible but one can use `os.execute` to do the same.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[title={Math}]
----
----\topicindex {math}
+---# Math
 ---
 ---We will cover math extensions in its own chapter because not only the font
 ---subsystem and spacing model have been enhanced (thereby introducing many new
 ---primitives) but also because some more control has been added to existing
 ---functionality. Much of this relates to the different approaches of traditional
----*TeX* fonts and \OPENTYPE\ math.
+---*TeX* fonts and *OpenType* math.
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
 ---\stopchapter
 ---

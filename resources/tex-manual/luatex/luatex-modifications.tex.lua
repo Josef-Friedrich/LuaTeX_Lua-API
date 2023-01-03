@@ -4,14 +4,11 @@
 ---
 ---\startcomponent luatex-modifications
 ---
----\startchapter[reference=modifications,title={Modifications}]
+---# Modifications
 ---
 ---\startsection[title=The merged engines]
 ---
 ---\startsubsection[title=The need for change]
----
----\topicindex {engines}
----\topicindex {history}
 ---
 ---The first version of *LuaTeX* only had a few extra primitives and it was largely
 ---the same as *PDF*TEX. Then we merged substantial parts of \ALEPH\ into the code
@@ -27,16 +24,14 @@
 ---(conflicting) feature, or, more often than not, a change necessary to clean up
 ---the internal interfaces. These will also be mentioned.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
 ---\startsubsection[title=Changes from *TeX* 3.1415926]
 ---
----\topicindex {*TeX*}
----
 ---Of course it all starts with traditional *TeX*. Even if we started with *PDF*TEX,
 ---most still comes from the original. But we divert a bit.
----
----
 ---
 ---* The current code base is written in \CCODE, not \PASCAL. We use \CWEB\ when
 ---    possible. As a consequence instead of one large file plus change files, we
@@ -47,22 +42,17 @@
 ---    Of course we want to stay as close as possible to the original so that the
 ---    documentation of the fundamentals behind *TeX* by Don Knuth still applies.
 ---
----
 ---* See \in {chapter} [languages] for many small changes related to paragraph
 ---    building, language handling and hyphenation. The most important change is
 ---    that adding a brace group in the middle of a word (like in `of{`fice})
 ---    does not prevent ligature creation.
 ---
----
 ---* There is no pool file, all strings are embedded during compilation.
----
 ---
 ---* The specifier `plus 1 fillll` does not generate an error. The extra
 ---    “l” is simply typeset.
 ---
----
 ---* The upper limit to `endlinechar` and `newlinechar` is 127.
----
 ---
 ---* Magnification (`mag`) is only supported in \DVI\ output mode. You can
 ---    set this parameter and it even works with `true` units till you switch
@@ -76,35 +66,26 @@
 ---    specification is ignored. When you preload a plain format adapted to
 ---    *LuaTeX* it can be that the `mag` parameter already has been set.
 ---
----
----
----
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
 ---\startsubsection[title=Changes from \ETEX\ 2.2]
----
----\topicindex {\ETEX}
 ---
 ---Being the de factor standard extension of course we provide the \ETEX\
 ---functionality, but with a few small adaptations.
 ---
----
----
 ---* The \ETEX\ functionality is always present and enabled so the prepended
 ---    asterisk or `-etex` switch for \INITEX\ is not needed.
----
 ---
 ---* The *TeX*XET\ extension is not present, so the primitives `\TeXXeTstate`, `\beginR`, `\beginL`, `\endR` and `\endL` are missing. Instead we used the \OMEGA/\ALEPH\ approach to
 ---    directionality as starting point.
 ---
----
 ---* Some of the tracing information that is output by \ETEX's `tracingassigns` and `tracingrestores` is not there.
----
 ---
 ---* Register management in *LuaTeX* uses the \OMEGA/\ALEPH\ model, so the maximum
 ---    value is 65535 and the implementation uses a flat array instead of the mixed
 ---    flat & sparse model from \ETEX.
----
 ---
 ---* When kpathsea is used to find files, *LuaTeX* uses the `ofm` file
 ---    format to search for font metrics. In turn, this means that *LuaTeX* looks at
@@ -112,20 +93,16 @@
 ---    of `TFMFONTS` (like *TeX* and *PDF*TEX). Likewise for virtual fonts
 ---    (*LuaTeX* uses the variable `OVFFONTS` instead of `VFFONTS`).
 ---
----
 ---* The primitives that report a stretch or shrink order report a value in a
 ---    convenient range zero upto four. Because some macro packages can break on
 ---    that we also provide `\eTeXgluestretchorder` and `\eTeXglueshrinkorder` which report values compatible with \ETEX. The (new)
 ---    `fi` value is reported as `-1` (so when used in an `\ifcase` test that value makes one end up in the `\else`).
 ---
----
----
----
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
 ---\startsubsection[title=Changes from *PDF*TEX\ 1.40]
----
----\topicindex {*PDF*TEX}
 ---
 ---Because we want to produce *PDF* the most natural starting point was the popular
 ---*PDF*TEX\ program. We inherit the stable features, dropped most of the
@@ -139,20 +116,16 @@
 ---features when needed but don't need to adapt the core engine. The front- and
 ---backend are decoupled as much as possible.
 ---
----
----
 ---* The (experimental) support for snap nodes has been removed, because it is
 ---    much more natural to build this functionality on top of node processing and
 ---    attributes. The associated primitives that are gone are: \orm
 ---    {pdfsnaprefpoint}, \orm {pdfsnapy}, and \orm {pdfsnapycomp}.
----
 ---
 ---* The (experimental) support for specialized spacing around nodes has also been
 ---    removed. The associated primitives that are gone are: \orm
 ---    {pdfadjustinterwordglue}, \orm {pdfprependkern}, and \orm {pdfappendkern}, as
 ---    well as the five supporting primitives \orm {knbscode}, \orm {stbscode}, \orm
 ---    {shbscode}, \orm {knbccode}, and \orm {knaccode}.
----
 ---
 ---* A number of “*PDF*TEX\ primitives” have been removed as they can be
 ---    implemented using *Lua*: \orm {pdfelapsedtime}, \orm {pdfescapehex}, \orm
@@ -163,63 +136,50 @@
 ---    \orm {pdfresettimer}, \orm {pdfshellescape}, \orm {pdfstrcmp} and \orm
 ---    {pdfunescapehex}.
 ---
----
 ---* The version related primitives \orm {pdftexbanner}, \orm {pdftexversion}
 ---    and \orm {pdftexrevision} are no longer present as there is no longer a
 ---    relationship with *PDF*TEX\ development.
----
 ---
 ---* The experimental snapper mechanism has been removed and therefore also the
 ---    primitives \orm {pdfignoreddimen}, \orm {pdffirstlineheight}, \orm
 ---    {pdfeachlineheight}, \orm {pdfeachlinedepth} and \orm {pdflastlinedepth}.
 ---
----
 ---* The experimental primitives `primitive`, `ifprimitive`, `ifabsnum` and `ifabsdim` are promoted to core primitives. The `\pdf*` prefixed originals are not available.
----
 ---
 ---* Because *LuaTeX* has a different subsystem for managing images, more
 ---    diversion from its ancestor happened in the meantime. We don't adapt to
 ---    changes in *PDF*TEX.
 ---
----
 ---* Two extra token lists are provided, \orm {pdfxformresources} and \orm
 ---    {pdfxformattr}, as an alternative to \orm {pdfxform} keywords.
 ---
----
 ---* Image specifications also support `visiblefilename`, `userpassword` and `ownerpassword`. The password options are only
 ---    relevant for encrypted *PDF* files.
----
 ---
 ---* The current version of *LuaTeX* no longer replaces and/or merges fonts in
 ---    embedded *PDF* files with fonts of the enveloping *PDF* document. This
 ---    regression may be temporary, depending on how the rewritten font backend will
 ---    look like.
 ---
----
 ---* The primitives \orm {pdfpagewidth} and \orm {pdfpageheight} have been removed
 ---    because `pagewidth` and `pageheight` have that purpose.
----
 ---
 ---* The primitives \orm {pdfnormaldeviate}, \orm {pdfuniformdeviate}, \orm
 ---    {pdfsetrandomseed} and \orm {pdfrandomseed} have been promoted to core
 ---    primitives without `pdf` prefix so the original commands are no longer
 ---    recognized.
 ---
----
 ---* The primitives `ifincsname`, `expanded` and `quitvmode`
 ---    are now core primitives.
----
 ---
 ---* As the hz and protrusion mechanism are part of the core the related
 ---    primitives `lpcode`, `rpcode`, `efcode`, `leftmarginkern`, `rightmarginkern` are promoted to core primitives. The
 ---    two commands `protrudechars` and `adjustspacing` replace their
 ---    prefixed with `\pdf` originals.
 ---
----
 ---* The hz optimization code has been partially redone so that we no longer need
 ---    to create extra font instances. The front- and backend have been decoupled
 ---    and more efficient (*PDF*) code is generated.
----
 ---
 ---* When `adjustspacing` has value 2, hz optimization will be applied to
 ---    glyphs and kerns. When the value is 3, only glyphs will be treated. A value
@@ -228,60 +188,43 @@
 ---    paragraph into lines. In this case, line breaks are identical to standard
 ---    *TeX* behavior (as with *PDF*TEX).
 ---
----
 ---* The `tagcode` primitive is promoted to core primitive.
----
 ---
 ---* The `letterspacefont` feature is now part of the core but will not be
 ---    changed (improved). We just provide it for legacy use.
 ---
----
 ---* The \orm {pdfnoligatures} primitive is now `ignoreligaturesinfont`.
----
 ---
 ---* The \orm {pdfcopyfont} primitive is now `copyfont`.
 ---
----
 ---* The \orm {pdffontexpand} primitive is now `expandglyphsinfont`.
----
 ---
 ---* Because position tracking is also available in \DVI\ mode the `savepos`,
 ---    `lastxpos` and `lastypos` commands now replace their `pdf`
 ---    prefixed originals.
 ---
----
 ---* The introspective primitives `\pdflastximagecolordepth` and `\pdfximagebbox` have been removed. One can use external applications to
 ---    determine these properties or use the built-in `img` library.
----
 ---
 ---* The initializers \orm {pdfoutput} has been replaced by `outputmode` and
 ---    \orm {pdfdraftmode} is now `draftmode`.
 ---
----
 ---* The pixel multiplier dimension \orm {pdfpxdimen} lost its prefix and is now
 ---    called `pxdimen`.
----
 ---
 ---* An extra \orm {pdfimageaddfilename} option has been added that can be used to
 ---    block writing the filename to the *PDF* file.
 ---
----
 ---* The primitive \orm {pdftracingfonts} is now `tracingfonts` as it
 ---    doesn't relate to the backend.
 ---
----
 ---* The experimental primitive \orm {pdfinsertht} is kept as `insertht`.
 ---
----
 ---* There is some more control over what metadata goes into the *PDF* file.
----
 ---
 ---* The promotion of primitives to core primitives as well as the separation of
 ---    font- and backend means that the initialization namespace `pdftex` is
 ---    gone.
----
----
----
 ---
 ---One change involves the so called xforms and ximages. In *PDF*TEX\ these are
 ---implemented as so called whatsits. But contrary to other whatsits they have
@@ -294,9 +237,8 @@
 ---images are also common. As already mentioned in \in {section}
 ---[sec:imagedandforms], we now have:
 ---
----\starttabulate[|l|l|]
----\DB *LuaTeX* \BC *PDF*TEX 
----\TB
+--- *LuaTeX*  *PDF*TEX 
+---
 --- `saveboxresource`              \orm {pdfxform}           
 --- `saveimageresource`            \orm {pdfximage}          
 --- `useboxresource`               \orm {pdfrefxform}        
@@ -304,8 +246,6 @@
 --- `lastsavedboxresourceindex`    \orm {pdflastxform}       
 --- `lastsavedimageresourceindex`  \orm {pdflastximage}      
 --- `lastsavedimageresourcepages`  \orm {pdflastximagepages} 
----\LL
----\stoptabulate
 ---
 ---There are a few `pdffeedback` features that relate to this but these are
 ---typical backend specific ones. The index that gets returned is to be considered
@@ -314,7 +254,6 @@
 ---
 ---The protrusion detection mechanism is enhanced a bit to enable a bit more complex
 ---situations. When protrusion characters are identified some nodes are skipped:
----
 ---
 ---* zero glue 
 ---* penalties 
@@ -329,7 +268,6 @@
 ---* boundaries 
 ---* whatsits 
 ---
----
 ---Because this can not be enough, you can also use a protrusion boundary node to
 ---make the next node being ignored. When the value is 1 or 3, the next node will be
 ---ignored in the test when locating a left boundary condition. When the value is 2
@@ -341,21 +279,18 @@
 ---\protrusionboundary1\llap{!\quad}«Who needs protrusion?»
 ---```
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
 ---\startsubsection[title=Changes from \ALEPH\ RC4]
----
----\topicindex {\ALEPH}
 ---
 ---Because we wanted proper directional typesetting the \ALEPH\ mechanisms looked
 ---most attractive. These are rather close to the ones provided by \OMEGA, so what
 ---we say next applies to both these programs.
 ---
----
----
 ---* The extended 16-bit math primitives (\orm {omathcode} etc.) have been
 ---    removed.
----
 ---
 ---* The \OCP\ processing has been removed completely and as a consequence, the
 ---    following primitives have been removed: \orm {ocp}, \orm {externalocp}, \orm
@@ -363,11 +298,9 @@
 ---    {addbeforeocplist}, \orm {addafterocplist}, \orm {removebeforeocplist}, \orm
 ---    {removeafterocplist} and \orm {ocptracelevel}.
 ---
----
 ---* *LuaTeX* only understands 4 of the 16 direction specifiers of \ALEPH: `TLT` (latin), `TRT` (arabic), `RTT` (cjk), `LTL` (mongolian).
 ---    All other direction specifiers generate an error. In addition to a keyword
 ---    driven model we also provide an integer driven one.
----
 ---
 ---* The input translations from \ALEPH\ are not implemented, the related
 ---    primitives are not available: \orm {DefaultInputMode}, \orm
@@ -379,14 +312,11 @@
 ---    {noDefaultOutputTranslation}, \orm {noOutputTranslation} and \orm
 ---    {OutputTranslation}.
 ---
----
 ---* Several bugs have been fixed and confusing implementation details have been
 ---    sorted out.
 ---
----
 ---* The scanner for direction specifications now allows an optional space after
 ---    the direction is completely parsed.
----
 ---
 ---* The `^^` notation has been extended: after `^^^^` four
 ---    hexadecimal characters are expected and after `^^^^^^` six hexadecimal
@@ -396,43 +326,35 @@
 ---    they issue an error message. Because `^^^` is a normal *TeX* case, we
 ---    don't support the odd number of `^^^^^` either.
 ---
----
 ---* Glues {\it immediately after} direction change commands are not legal
 ---    breakpoints.
 ---
----
 ---* Several mechanisms that need to be right-to-left aware have been
 ---    improved. For instance placement of formula numbers.
----
 ---
 ---* The page dimension related primitives `pagewidth` and `pageheight`
 ---    have been promoted to core primitives. The `hoffset` and `voffset`
 ---    primitives have been fixed.
 ---
----
 ---* The primitives `\charwd`, `\charht`, `\chardp` and `\charit` have been removed as we have the \ETEX\ variants `\fontchar*`.
 ---
----
 ---* The two dimension registers `pagerightoffset` and `pagebottomoffset` are now core primitives.
----
 ---
 ---* The direction related primitives `pagedir`, `bodydir`, `pardir`, `textdir`, `mathdir` and `boxdir` are now core
 ---    primitives.
 ---
----
 ---* The promotion of primitives to core primitives as well as removing of all
 ---    others means that the initialization namespace `aleph` that early
 ---    versions of *LuaTeX* provided is gone.
----
----
----
 ---
 ---The above let's itself summarize as: we took the 32 bit aspects and much of the
 ---directional mechanisms and merged it into the *PDF*TEX\ code base as starting
 ---point for further development. Then we simplified directionality, fixed it and
 ---opened it up.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
 ---\startsubsection[title=Changes from anywhere]
 ---
@@ -440,31 +362,25 @@
 ---the *PDF*TEX\ change file posted on the implementers list. They are explained in
 ---the *PDF*TEX\ manual and are classified as \ETEX\ extensions.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
 ---\startsubsection[title=Changes from standard \WEBC]
----
----\topicindex {\WEBC}
 ---
 ---The compilation framework is \WEBC\ and we keep using that but without the
 ---\PASCAL\ to \CCODE\ step. This framework also provides some common features that
 ---deal with reading bytes from files and locating files in \TDS. This is what we do
 ---different:
 ---
----
----
 ---* There is no mltex support.
 ---
----
 ---* There is no enctex support.
----
 ---
 ---* The following encoding related command line switches are silently ignored,
 ---    even in non-*Lua* mode: `-8bit`, `-translate-file`, `-mltex`, `-enc` and `-etex`.
 ---
----
 ---* The `openout` whatsits are not written to the log file.
----
 ---
 ---* Some of the so-called \WEBC\ extensions are hard to set up in non-\KPSE\
 ---    mode because `texmf.cnf` is not read: `shell-escape` is off (but
@@ -473,22 +389,19 @@
 ---    easy for a *Lua* script to do this itself by overloading `io.open` and
 ---    alike.
 ---
----
 ---* The “E” option does not do anything useful.
 ---
+----------------------------------------------------------------
+
+
 ---
----
----
----\stopsubsection
----
----\stopsection
+----------------------------------------------------------------
+
+
 ---
 ---\startsection[reference=backendprimitives,title=The backend primitives]
 ---
----\startsubsection[title={Less primitives}]
----
----\topicindex {backend}
----\topicindex {*PDF*+backend}
+---# Less primitives
 ---
 ---In a previous section we mentioned that some *PDF*TEX\ primitives were removed and
 ---others promoted to core *LuaTeX* primitives. That is only part of the story. In
@@ -510,7 +423,9 @@
 ---a (kind of) register and can be read and written, while a feedback is reporting
 ---something (as it comes from the backend it's normally a sequence of tokens).
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
 ---\startsubsection[title={`pdfextension`, `pdfvariable` and `pdffeedback`},reference=sec:pdfextensions]
 ---
@@ -811,9 +726,11 @@
 ---    {tokens}
 ---\stoptexsyntax
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={Defaults}]
+---# Defaults
 ---
 ---The engine sets the following defaults.
 ---
@@ -849,9 +766,11 @@
 ---\pdfxformmargin         0pt
 ---```
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={Backward compatibility}]
+---# Backward compatibility
 ---
 ---If you also want some backward compatibility, you can add:
 ---
@@ -907,17 +826,17 @@
 ---\newdimen\pdfignoreddimen
 ---```
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
 ---\startsection[title=Directions]
 ---
----\topicindex {\OMEGA}
----\topicindex {\ALEPH}
----\topicindex {directions}
----
----\startsubsection[title={Four directions}]
+---# Four directions
 ---
 ---The directional model in *LuaTeX* is inherited from \OMEGA/\ALEPH\ but we tried
 ---to improve it a bit. At some point we played with recovery of modes but that was
@@ -931,9 +850,11 @@
 ---`TLT` (latin), `TRT` (arabic), `RTT` (cjk) and `LTL`
 ---(mongolian).
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={How it works}]
+---# How it works
 ---
 ---The approach is that we again make the list balanced but try to avoid some side
 ---effects. What happens is quite intuitive if we forget about spaces (turned into
@@ -1067,16 +988,18 @@
 ---an box, paragraphs with only an indent and directions are handles as paragraphs
 ---with content.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={Controlling glue with `breakafterdirmode`}]
+---# Controlling glue with `breakafterdirmode`
 ---
 ---Glue after a dir node is ignored in the linebreak decision but you can bypass that
 ---by setting `breakafterdirmode` to `1`. The following table shows the
 ---difference. Watch your spaces.
 ---
 ---\def\ShowSome#1{%
----    \BC `#1`
+---     `#1`
 ---     \breakafterdirmode\zerocount\hsize\zeropoint#1
 ---    
 ---     \breakafterdirmode\plusone\hsize\zeropoint#1
@@ -1084,40 +1007,37 @@
 ---    
 ---}
 ---
----\starttabulate[|l|Tp(1pt)|w(5em)|Tp(1pt)|w(5em)|]
----    \DB
----    \BC `0`
 ---    
----    \BC `1`
+---     `0`
+---    
+---     `1`
 ---    
 ---    
----    \TB
+---    
 ---    \ShowSome{pre {\textdir TLT xxx} post}
 ---    \ShowSome{pre {\textdir TLT xxx }post}
 ---    \ShowSome{pre{ \textdir TLT xxx} post}
 ---    \ShowSome{pre{ \textdir TLT xxx }post}
 ---    \ShowSome{pre { \textdir TLT xxx } post}
 ---    \ShowSome{pre {\textdir TLT\relax\space xxx} post}
----    \LL
----\stoptabulate
+---    
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={Controling parshapes with `shapemode`}]
+---# Controling parshapes with `shapemode`
 ---
 ---Another adaptation to the \ALEPH\ directional model is control over shapes driven
 ---by `hangindent` and `parshape`. This is controlled by a new parameter
 ---`shapemode`:
 ---
----\starttabulate[|c|l|l|]
----\DB value    \BC `hangindent` \BC `parshape` 
----\TB
----\BC `0`   normal              normal            
----\BC `1`   mirrored            normal            
----\BC `2`   normal              mirrored          
----\BC `3`   mirrored            mirrored          
----\LL
----\stoptabulate
+--- value     `hangindent`  `parshape` 
+---
+--- `0`   normal              normal            
+--- `1`   mirrored            normal            
+--- `2`   normal              mirrored          
+--- `3`   mirrored            mirrored          
 ---
 ---The value is reset to zero (like `hangindent` and `parshape`)
 ---after the paragraph is done with. You can use negative values to prevent
@@ -1140,9 +1060,11 @@
 ---    \stopcombination
 ---\stopplacefigure
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\startsubsection[title={Symbols or numbers}]
+---# Symbols or numbers
 ---
 ---Internally the implementation is different from \ALEPH. First of all we use no
 ---whatsits but dedicated nodes, but also we have only 4 directions that are mapped
@@ -1153,30 +1075,29 @@
 ---The symbolic names `TLT`, `TRT`, etc.\ originate in \OMEGA. In
 ---*LuaTeX* we also have a number based model which sometimes makes more sense.
 ---
----\starttabulate[|c|l|l|]
----\DB value     \BC equivalent 
----\TB
----\BC `0`  TLT 
----\BC `1`  TRT 
----\BC `2`  LTL 
----\BC `3`  RTT 
----\LL
----\stoptabulate
+--- value      equivalent 
+---
+--- `0`  TLT 
+--- `1`  TRT 
+--- `2`  LTL 
+--- `3`  RTT 
 ---
 ---We support the \OMEGA\ primitives \orm {textdir}, \orm {pardir}, \orm {pagedir},
 ---\orm {pardir} and \orm {mathdir}. These accept three character keywords. The
 ---primitives that set the direction by number are: `textdirection`, `pardirection`, `pagedirection` and `bodydirection` and `mathdirection`. When specifying a direction for a box you can use `bdir`
 ---instead of `dir`.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
 ---\startsection[title=Implementation notes]
 ---
 ---\startsubsection[title=Memory allocation]
----
----\topicindex {memory}
 ---
 ---The single internal memory heap that traditional *TeX* used for tokens and nodes
 ---is split into two separate arrays. Each of these will grow dynamically when
@@ -1204,7 +1125,9 @@
 ---`texmf.cnf` settings `buf_size` and `pool_size` are silently
 ---ignored.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
 ---\startsubsection[title=Sparse arrays]
 ---
@@ -1226,11 +1149,11 @@
 ---ids can go up to index `2^{21}-1` but these are never accessed directly so again
 ---users will not notice this.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
 ---\startsubsection[title=Simple single-character csnames]
----
----\topicindex {csnames}
 ---
 ---Single-character commands are no longer treated specially in the internals,
 ---they are stored in the hash just like the multiletter csnames.
@@ -1241,11 +1164,11 @@
 ---Active characters are internally implemented as a special type of multi-letter
 ---control sequences that uses a prefix that is otherwise impossible to obtain.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
 ---\startsubsection[title=The compressed format file]
----
----\topicindex {format}
 ---
 ---The format is passed through `zlib`, allowing it to shrink to roughly half
 ---of the size it would have had in uncompressed form. This takes a bit more \CPU\
@@ -1253,11 +1176,11 @@
 ---compression which we found to be the optimal trade-off between filesize and
 ---decompression speed.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
 ---\startsubsection[title=Binary file reading]
----
----\topicindex {files+binary}
 ---
 ---All of the internal code is changed in such a way that if one of the `read_xxx_file` callbacks is not set, then the file is read by a \CCODE\ function
 ---using basically the same convention as the callback: a single read into a buffer
@@ -1265,12 +1188,11 @@
 ---previous code (that mostly used `getc` calls), it can be quite a bit faster
 ---(depending on your \IO\ subsystem).
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
 ---\startsubsection[title=Tabs and spaces]
----
----\topicindex {space}
----\topicindex {newline}
 ---
 ---We conform to the way other *TeX* engines handle trailing tabs and spaces. For
 ---decades trailing tabs and spaces (before a newline) were removed from the input
@@ -1290,9 +1212,13 @@
 ---We still stick to our view that at the log level we can (and might be) more
 ---incompatible. We already expose some more details.
 ---
----\stopsubsection
+----------------------------------------------------------------
+
+
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
 ---\stopchapter
 ---

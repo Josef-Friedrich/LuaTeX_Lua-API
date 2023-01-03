@@ -6,21 +6,15 @@
 ---
 ---\startcomponent luatex-graphics
 ---
----\startchapter[reference=graphics,title={The graphic libraries}]
+---# The graphic libraries
 ---
----\startsection[title={The `img` library}][library=img]
----
----\topicindex {images}
----\topicindex {images+library}
----\topicindex {graphics}
+---# The `img` library[library=img]
 ---
 ---The `img` library can be used as an alternative to \orm {pdfximage} and
 ---\orm {pdfrefximage}, and the associated “satellite” commands like `\pdfximagebbox`. Image objects can also be used within virtual fonts via the
 ---`image` command listed in \in {section} [virtualfonts].
 ---
 ---\subsection{`new`}
----
----\libindex{new}
 ---
 ---```
 ---<image> var = img.new()
@@ -78,8 +72,6 @@
 ---
 ---\subsection{`fields`}
 ---
----\libindex{fields}
----
 ---```
 ---<table> keys = img.fields()
 ---```
@@ -87,9 +79,8 @@
 ---This function returns a list of all the possible `image_spec` keys, both
 ---user-supplied and automatic ones.
 ---
----\starttabulate[|l|l|p|]
----\DB field name             \BC type     \BC description 
----\TB
+--- field name              type      description 
+---
 ---@field attr string # the image attributes for *LuaTeX* 
 ---@field bbox table # table with 4 boundingbox dimensions `llx`, `lly`, `urx` and `ury` overruling the `pagebox` entry 
 ---@field colordepth number # the number of bits used by the color space 
@@ -120,8 +111,6 @@
 ---@field nobbox boolean # don't add a boundingbox specification for streams 
 ---@field nolength boolean # don't add length key nor compress for streams 
 ---@field nosize boolean # don't add size fields for streams 
----\LL
----\stoptabulate
 ---
 ---A running (undefined) dimension in `width`, `height`, or `depth` is represented as `nil` in *Lua*, so if you want to load an image at
 ---its “natural” size, you do not have to specify any of those three fields.
@@ -157,8 +146,6 @@
 ---
 ---\subsection{`scan`}
 ---
----\libindex{scan}
----
 ---```
 ---<image> var = img.scan(<image> var)
 ---<image> var = img.scan(<table> image_spec)
@@ -186,8 +173,6 @@
 ---
 ---\subsection{`copy`}
 ---
----\libindex{copy}
----
 ---```
 ---<image> var = img.copy(<image> var)
 ---<image> var = img.copy(<table> image_spec)
@@ -202,14 +187,6 @@
 ---initial values that were just copies from `a`.
 ---
 ---\subsection{`write`, `immediatewrite`, `immediatewriteobject`}
----
----\topicindex {images+injection}
----\topicindex {images+immediate}
----\topicindex {images+object}
----
----\libindex{write}
----\libindex{immediatewrite}
----\libindex{immediatewriteobject}
 ---
 ---```
 ---<image> var = img.write(<image> var)
@@ -262,8 +239,6 @@
 ---
 ---\subsection{`node`}
 ---
----\libindex{node}
----
 ---```
 ---<node> n = img.node(<image> var)
 ---<node> n = img.node(<table> image_spec)
@@ -286,10 +261,6 @@
 ---
 ---\subsection{`types`}
 ---
----\topicindex {images+types}
----
----\libindex{types}
----
 ---```
 ---<table> types = img.types()
 ---```
@@ -299,8 +270,6 @@
 ---`jbig2`.
 ---
 ---\subsection{`boxes`}
----
----\libindex{boxes}
 ---
 ---```
 ---<table> boxes = img.boxes()
@@ -326,23 +295,16 @@
 ---\directlua{img.write(img.scan{ file = "foo.pdf", keepopen = true })} % kept open
 ---```
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[title={The `mplib` library}][library=mplib]
----
----\topicindex {\METAPOST}
----\topicindex {\METAPOST+mplib}
----\topicindex {images+mplib}
----\topicindex {images+\METAPOST}
----
----\libindex{version}
+---# The `mplib` library[library=mplib]
 ---
 ---The \MP\ library interface registers itself in the table `mplib`. It is
 ---based on \MPLIB\ version \ctxlua {context(mplib.version())}.
 ---
 ---\subsection{`new`}
----
----\libindex{new}
 ---
 ---To create a new \METAPOST\ instance, call
 ---
@@ -353,9 +315,8 @@
 ---This creates the `mp` instance object. The argument hash can have a number
 ---of different fields, as follows:
 ---
----\starttabulate[|l|l|pl|pl|]
----\DB name               \BC type     \BC description              \BC default           
----\TB
+--- name                type      description               default           
+---
 ---@field error_line number # error line width          79                
 ---@field print_line number # line length in ps output  100               
 ---@field random_seed number # the initial random seed   variable          
@@ -363,8 +324,6 @@
 ---@field interaction string # the interaction mode: `batch`, `nonstop`, `scroll` or `errorstop`         `errorstop` 
 ---@field job_name string # `--jobname`         `mpout`     
 --- `find_file`    function  a function to find files  only local files  
----\LL
----\stoptabulate
 ---
 ---The binary mode is no longer available in the *LuaTeX* version of \MPLIB. It
 ---offers no real advantage and brings a ton of extra libraries with platform
@@ -379,13 +338,10 @@
 ---
 ---with:
 ---
----\starttabulate[|l|p|]
----\DB name        \BC the requested file 
----\TB
+--- name         the requested file 
+---
 --- `mode`  the file mode: `r` or `w` 
 --- `type`  the kind of file, one of: `mp`, `tfm`, `map`, `pfb`, `enc` 
----\LL
----\stoptabulate
 ---
 ---Return either the full path name of the found file, or `nil` if the file
 ---cannot be found.
@@ -399,24 +355,19 @@
 ---`texscriptmode` parameter controls how spaces and newlines get honoured.
 ---The default value is 1. Possible values are:
 ---
----\starttabulate[|l|p|]
----\DB name      \BC meaning 
----\TB
+--- name       meaning 
+---
 --- `0`  no newlines 
 --- `1`  newlines in `verbatimtex` 
 --- `2`  newlines in `verbatimtex` and `etex` 
 --- `3`  no leading and trailing strip in `verbatimtex` 
 --- `4`  no leading and trailing strip in `verbatimtex` and `btex` 
----\LL
----\stoptabulate
 ---
 ---That way the *Lua* handler (assigned to `make_text`) can do what it likes.
 ---An `etex` has to be followed by a space or `;` or be at the end of a
 ---line and preceded by a space or at the beginning of a line.
 ---
 ---\subsection{`statistics`}
----
----\libindex{statistics}
 ---
 ---You can request statistics with:
 ---
@@ -428,23 +379,18 @@
 ---four fields, giving the maximum number of used items in each of four allocated
 ---object classes:
 ---
----\starttabulate[|l|l|p|]
----\DB field  \BC type \BC explanation 
----\TB
+--- field   type  explanation 
+---
 ---@field main_memory number # memory size 
 ---@field hash_size number # hash size
 ---@field param_size number # simultaneous macro parameters
 ---@field max_in_open number # input file nesting levels
----\LL
----\stoptabulate
 ---
 ---Note that in the new version of \MPLIB, this is informational only. The objects
 ---are all allocated dynamically, so there is no chance of running out of space
 ---unless the available system memory is exhausted.
 ---
 ---\subsection{`execute`}
----
----\libindex{execute}
 ---
 ---You can ask the \METAPOST\ interpreter to run a chunk of code by calling
 ---
@@ -464,8 +410,6 @@
 ---
 ---\subsection{`finish`}
 ---
----\libindex{finish}
----
 ---```
 ---<table> rettable = finish(mp)
 ---```
@@ -478,21 +422,16 @@
 ---
 ---\subsection{Result table}
 ---
----\libindex {fields}
----
 ---The return value of `execute` and `finish` is a table with a
 ---few possible keys (only `status` is always guaranteed to be present).
 ---
----\starttabulate[|l|l|p|]
----\DB field  \BC type \BC explanation 
----\TB
+--- field   type  explanation 
+---
 ---@field log string # output to the “log” stream 
 ---@field term string # output to the “term” stream 
 ---@field error string # output to the “error” stream (only used for “out of memory”) 
 ---@field status number # the return value: `0` = good, `1` = warning, `2` = errors, `3` = fatal error 
 ---@field fig table # an array of generated figures (if any) 
----\LL
----\stoptabulate
 ---
 ---When `status` equals 3, you should stop using this \MPLIB\ instance
 ---immediately, it is no longer capable of processing input.
@@ -501,22 +440,19 @@
 ---representing a figure object, and each of those has a number of object methods
 ---you can call:
 ---
----\starttabulate[|l|l|p|]
----\DB field  \BC type \BC explanation 
----\TB
+--- field   type  explanation 
+---
 --- `boundingbox`   function  returns the bounding box, as an array of 4 values 
 --- `postscript`    function  returns a string that is the ps output of the `fig`. this function accepts two optional integer arguments for specifying the values of `prologues` (first argument) and `procset` (second argument) 
 --- `svg`           function  returns a string that is the svg output of the `fig`. This function accepts an optional integer argument for specifying the value of `prologues` 
 --- `objects`       function  returns the actual array of graphic objects in this `fig` 
 --- `copy_objects`  function  returns a deep copy of the array of graphic objects in this `fig` 
---- `filename`      function  the filename this `fig`'s \POSTSCRIPT\ output would have written to in stand alone mode 
+--- `filename`      function  the filename this `fig`'s *PostScript* output would have written to in stand alone mode 
 --- `width`         function  the `fontcharwd` value 
 --- `height`        function  the `fontcharht` value 
 --- `depth`         function  the `fontchardp` value 
 --- `italcorr`      function  the `fontcharit` value 
 --- `charcode`      function  the (rounded) `charcode` value 
----\LL
----\stoptabulate
 ---
 ---Note: you can call `fig:objects()` only once for any one `fig`
 ---object!
@@ -535,14 +471,13 @@
 ---
 ---All graphical objects have a field `type` that gives the object type as a
 ---string value; it is not explicit mentioned in the following tables. In the
----following, `number`s are \POSTSCRIPT\ points represented as a floating
+---following, `number`s are *PostScript* points represented as a floating
 ---point number, unless stated otherwise. Field values that are of type `table` are explained in the next section.
 ---
 ---\subsubsection{fill}
 ---
----\starttabulate[|l|l|p|]
----\DB field  \BC type \BC explanation 
----\TB
+--- field   type  explanation 
+---
 ---@field path table # the list of knots 
 ---@field htap table # the list of knots for the reversed trajectory 
 ---@field pen table # knots of the pen 
@@ -551,16 +486,13 @@
 ---@field miterlimit number # miterlimit
 ---@field prescript string # the prescript text 
 ---@field postscript string # the postscript text 
----\LL
----\stoptabulate
 ---
 ---The entries `htap` and `pen` are optional.
 ---
 ---\subsubsection{outline}
 ---
----\starttabulate[|l|l|p|]
----\DB field  \BC type \BC explanation 
----\TB
+--- field   type  explanation 
+---
 ---@field path table # the list of knots 
 ---@field pen table # knots of the pen 
 ---@field color table # the object's color 
@@ -570,16 +502,13 @@
 ---@field dash table # representation of a dash list 
 ---@field prescript string # the prescript text 
 ---@field postscript string # the postscript text 
----\LL
----\stoptabulate
 ---
 ---The entry `dash` is optional.
 ---
 ---\subsubsection{text}
 ---
----\starttabulate[|l|l|p|]
----\DB field  \BC type \BC explanation 
----\TB
+--- field   type  explanation 
+---
 ---@field text string # the text 
 ---@field font string # font tfm name 
 ---@field dsize number # font size 
@@ -590,26 +519,18 @@
 ---@field transform table # a text transformation 
 ---@field prescript string # the prescript text 
 ---@field postscript string # the postscript text 
----\LL
----\stoptabulate
 ---
 ---\subsubsection{special}
 ---
----\starttabulate[|l|l|p|]
----\DB field  \BC type \BC explanation 
----\TB
+--- field   type  explanation 
+---
 ---@field prescript string # special text 
----\LL
----\stoptabulate
 ---
 ---\subsubsection{start_bounds, start_clip}
 ---
----\starttabulate[|l|l|p|]
----\DB field  \BC type \BC explanation 
----\TB
+--- field   type  explanation 
+---
 ---@field path table # the list of knots 
----\LL
----\stoptabulate
 ---
 ---\subsubsection{stop_bounds, stop_clip}
 ---
@@ -623,9 +544,8 @@
 ---concerned) are represented by an array where each entry is a table that
 ---represents a knot.
 ---
----\starttabulate[|l|l|p|]
----\DB field  \BC type \BC explanation 
----\TB
+--- field   type  explanation 
+---
 ---@field left_type string # when present: endpoint, but usually absent 
 ---@field right_type string # like `left_type` 
 ---@field x_coord number # X coordinate of this knot 
@@ -634,8 +554,6 @@
 ---@field left_y number # Y coordinate of the precontrol point of this knot 
 ---@field right_x number # X coordinate of the postcontrol point of this knot 
 ---@field right_y number # Y coordinate of the postcontrol point of this knot 
----\LL
----\stoptabulate
 ---
 ---There is one special case: pens that are (possibly transformed) ellipses have an
 ---extra string-valued key `type` with value `elliptical` besides the
@@ -645,15 +563,12 @@
 ---
 ---A color is an integer array with 0, 1, 3 or 4 values:
 ---
----\starttabulate[|l|l|p|]
----\DB field  \BC type \BC explanation 
----\TB
+--- field   type  explanation 
+---
 --- `0`  marking only  no values                                                     
 --- `1`  greyscale     one value in the range `(0,1)`, “black” is `0`         
 --- `3`  \RGB          three values in the range `(0,1)`, “black” is `0,0,0`  
 --- `4`  \CMYK         four values in the range `(0,1)`, “black” is `0,0,0,1` 
----\LL
----\stoptabulate
 ---
 ---If the color model of the internal object was `uninitialized`, then it was
 ---initialized to the values representing “black” in the colorspace `defaultcolormodel` that was in effect at the time of the `shipout`.
@@ -662,45 +577,36 @@
 ---
 ---Each transform is a six-item array.
 ---
----\starttabulate[|l|l|p|]
----\DB index  \BC type \BC explanation 
----\TB
+--- index   type  explanation 
+---
 ---@field 1 number # represents x  
 ---@field 2 number # represents y  
 ---@field 3 number # represents xx 
 ---@field 4 number # represents yx 
 ---@field 5 number # represents xy 
 ---@field 6 number # represents yy 
----\LL
----\stoptabulate
 ---
 ---Note that the translation (index 1 and 2) comes first. This differs from the
----ordering in \POSTSCRIPT, where the translation comes last.
+---ordering in *PostScript*, where the translation comes last.
 ---
 ---\subsubsection{Dashes}
 ---
----Each `dash` is two-item hash, using the same model as \POSTSCRIPT\ for the
+---Each `dash` is two-item hash, using the same model as *PostScript* for the
 ---representation of the dashlist. `dashes` is an array of “on” and
 ---“off”, values, and `offset` is the phase of the pattern.
 ---
----\starttabulate[|l|l|p|]
----\DB field  \BC type \BC explanation 
----\TB
+--- field   type  explanation 
+---
 --- `dashes`  hash    an array of on-off numbers 
 ---@field offset number # the starting offset value  
----\LL
----\stoptabulate
 ---
 ---\subsection{Pens and `pen_info`}
----
----\libindex{pen_info}
 ---
 ---There is helper function (`pen_info(obj)`) that returns a table containing
 ---a bunch of vital characteristics of the used pen (all values are floats):
 ---
----\starttabulate[|l|l|p|]
----\DB field  \BC type \BC explanation 
----\TB
+--- field   type  explanation 
+---
 ---@field width number # width of the pen 
 ---@field sx number # `x` scale        
 ---@field rx number # `xy` multiplier  
@@ -708,8 +614,6 @@
 ---@field sy number # `y` scale        
 ---@field tx number # `x` offset       
 ---@field ty number # `y` offset       
----\LL
----\stoptabulate
 ---
 ---\subsection{Character size information}
 ---
@@ -719,15 +623,11 @@
 ---
 ---\subsubsection{`char_width`}
 ---
----\libindex{char_width}
----
 ---```
 ---<number> w = char_width(mp,<string> fontname, <number> char)
 ---```
 ---
 ---\subsubsection{`char_height`}
----
----\libindex{char_height}
 ---
 ---```
 ---<number> w = char_height(mp,<string> fontname, <number> char)
@@ -735,18 +635,11 @@
 ---
 ---\subsubsection{`char_depth`}
 ---
----\libindex{char_depth}
----
 ---```
 ---<number> w = char_depth(mp,<string> fontname, <number> char)
 ---```
 ---
 ---\subsubsection{`get_[boolean|numeric|string|path]`}
----
----\libindex{get_boolean}
----\libindex{get_numeric}
----\libindex{get_path}
----\libindex{get_string}
 ---
 ---When a script call brings you from the \METAPOST\ run (temporarily) back to
 ---*Lua* you can access variables, but only if they are known (so for instance
@@ -763,7 +656,9 @@
 ---coordinates of the point, pre- and postcontrol. A `cycle` fields indicates
 ---if a path is cyclic.
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
 ---\stopchapter
 ---

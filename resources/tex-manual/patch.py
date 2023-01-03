@@ -27,6 +27,11 @@ def patch_file(file_name: str):
     content = re.sub(r"\\LUATEX\\?", "*LuaTeX*", content)
     content = re.sub(r"\\LUA\\?", "*Lua*", content)
     content = re.sub(r"\\PDF\\?", "*PDF*", content)
+    content = re.sub(r"\\OPENTYPE\\?", "*OpenType*", content)
+    content = re.sub(r"\\TRUETYPE\\?", "*TrueType*", content)
+    content = re.sub(r"\\MICROSOFT\\?", "*Microsoft*", content)
+    content = re.sub(r"\\FONTFORGE\\?", "*FontForge*", content)
+    content = re.sub(r"\\POSTSCRIPT\\?", "*PostScript*", content)
 
     content = re.sub(
         r"\\(starttyping|startfunctioncall|stoptyping|stopfunctioncall)", "```", content
@@ -40,12 +45,26 @@ def patch_file(file_name: str):
     content = content.replace("|-|", "-")
     content = content.replace("|/|", "/")
     content = content.replace("\\NC \\NR", "")
-    content = content.replace("\\NC", "")
+    content = re.sub(r"\\(NC|DB|BC|LL|TB|stoptabulate)", "", content)
+    content = re.sub(r"\\starttabulate\[.*?\]", "", content)
 
     content = "---" + content.replace("\n", "\n---")
 
+    content = re.sub(r"\\start(sub)*(section|chapter)*\[.*title=\{(.*?)\}\]", r"# \3", content)
+
+    content = re.sub(r"\\(libindex|topicindex)\s*\{[^}]+\}", "", content)
+    content = re.sub(r"---\n(---\n)+", "---\n", content)
+
     content = re.sub(
-        r"--- `(.*)` +(string|boolean|number|table|.*node) +", r"---@field \1 \2 # ", content
+        r"---\\stop(sub)*section",
+        "----------------------------------------------------------------\n\n",
+        content,
+    )
+
+    content = re.sub(
+        r"--- `(.*)` +(float|string|boolean|number|table|.*node) +",
+        r"---@field \1 \2 # ",
+        content,
     )
 
     content = re.sub(r"\n--- {10,}", r" ", content)

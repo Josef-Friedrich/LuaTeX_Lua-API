@@ -28,7 +28,7 @@
 ---due to its wide (32 bit) characters, many registers and large memory support. The
 ---*PDF* code produced differs from *PDF*TEX\ but users will normally not notice
 ---that. There is native \UTF\ input, support for large (more than 8 bit) fonts, and
----the math machinery is tuned for \OPENTYPE\ math. There is support for directional
+---the math machinery is tuned for *OpenType* math. There is support for directional
 ---typesetting too. The log output can differ from other engines and will likely
 ---differ more as we move forward. When you run plain *TeX* for sure *LuaTeX* runs
 ---slower than *PDF*TEX\ but when you run for instance *ConTeXt* \MKIV\ in many cases
@@ -77,11 +77,11 @@
 ---    
 ---    * There are various *TeX* extensions but only those that cannot be done
 ---        using the *Lua* interfaces. The math machinery often has two code paths:
----        one traditional and the other more suitable for wide \OPENTYPE\ fonts. Here
----        we follow the \MICROSOFT\ specifications as much as possible.  Some math
+---        one traditional and the other more suitable for wide *OpenType* fonts. Here
+---        we follow the *Microsoft* specifications as much as possible.  Some math
 ---        functionality has been opened up a bit so that users have more control.
 ---    
----    * The fontloader uses parts of \FONTFORGE\ 2008.11.17 combined with
+---    * The fontloader uses parts of *FontForge* 2008.11.17 combined with
 ---        additional code specific for usage in a *TeX* engine. We try to minimize
 ---        specific font support to what *TeX* needs: character references and
 ---        dimensions and delegate everything else to *Lua*. That way we keep *TeX*
@@ -105,7 +105,6 @@
 ---        also makes the inclusion code of *LuaTeX* different from *PDF*TEX. In fact
 ---        it was already much different due to the *Lua* image interfacing.
 ---    
----
 ---
 ---We try to keep upcoming versions compatible but intermediate releases can contain
 ---experimental features. A general rule is that versions that end up on *TeX*LIVE\
@@ -151,11 +150,9 @@
 ---
 ---\blank[3*big]
 ---
----\starttabulate[|||]
 --- Version  \EQ \currentdate 
 --- *LuaTeX*  \EQ \cldcontext{LUATEXENGINE} % \cldcontext{"\letterpercent 0.2f",LUATEXVERSION} / % \cldcontext{LUATEXFUNCTIONALITY} 
 --- *ConTeXt* \EQ MkIV \contextversion 
----\stoptabulate
 ---
 ---\stopchapter
 ---

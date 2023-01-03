@@ -4,15 +4,9 @@
 ---
 ---\startcomponent luatex-nodes
 ---
----\startchapter[reference=nodes,title={Nodes}]
+---# Nodes
 ---
----\startsection[title={*Lua* node representation}][library=node]
----
----\topicindex {nodes}
----
----\libindex {fields}
----\libindex {subtypes}
----\libindex {values}
+---# *Lua* node representation[library=node]
 ---
 ---*TeX*'s nodes are represented in *Lua* as userdata objects with a variable set of
 ---fields. In the following syntax tables, such as the type of such a userdata object
@@ -43,23 +37,20 @@
 ---list of what numbers matter. For practical reason the `pagestate` values
 ---are also reported with this helper.
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[title={Main text nodes}]
----
----\topicindex {nodes+text}
+---# Main text nodes
 ---
 ---These are the nodes that comprise actual typesetting commands. A few fields are
 ---present in all nodes regardless of their type, these are:
 ---
----\starttabulate[|l|l|p|]
----\DB field          \BC type   \BC explanation 
----\TB
+--- field           type    explanation 
+---
 ---@field next node    the next node # in a list, or nil 
 ---@field id number # the node's type (`id`) number 
 ---@field subtype number # the node `subtype` identifier 
----\LL
----\stoptabulate
 ---
 ---The `subtype` is sometimes just a dummy entry because not all nodes
 ---actually use the `subtype`, but this way you can be sure that all nodes
@@ -76,9 +67,8 @@
 ---
 ---\subsection{`hlist` nodes}
 ---
----\starttabulate[|l|l|p|]
----\DB field             \BC type   \BC explanation 
----\TB
+--- field              type    explanation 
+---
 ---@field subtype number # \showsubtypes{list} 
 ---@field attr node # list of attributes 
 ---@field width number # the width of the box 
@@ -90,11 +80,6 @@
 ---@field glue_sign number # 0 = `normal`, 1 = `stretching`, 2 = `shrinking` 
 ---@field head/list node    the first node # of the body of this list 
 ---@field dir string # the direction of this box, see \in [dirnodes] 
----\LL
----\stoptabulate
----
----\topicindex {nodes+lists}
----\topicindex {lists}
 ---
 ---A warning: never assign a node list to the `head` field unless you are sure
 ---its internal link structure is correct, otherwise an error may result.
@@ -105,25 +90,18 @@
 ---
 ---\subsection{`vlist` nodes}
 ---
----\topicindex {nodes+lists}
----\topicindex {lists}
----
 ---This node is similar to `hlist`, except that “shift” is a displacement
 ---perpendicular to the line progression direction, and “subtype” only has
 ---the values 0, 4, and 5.
 ---
 ---\subsection{`rule` nodes}
 ---
----\topicindex {nodes+rules}
----\topicindex {rules}
----
 ---Contrary to traditional *TeX*, *LuaTeX* has more `rule` subtypes because we
 ---also use rules to store reuseable objects and images. User nodes are invisible
 ---and can be intercepted by a callback.
 ---
----\starttabulate[|l|l|p|]
----\DB field            \BC type   \BC explanation 
----\TB
+--- field             type    explanation 
+---
 ---@field subtype number # \showsubtypes {rule} 
 ---@field attr node # list of attributes 
 ---@field width number # the width of the rule where the special value `-1073741824` is used for “running” glue dimensions 
@@ -134,8 +112,6 @@
 ---@field dir string # the direction of this rule, see \in[dirnodes] 
 ---@field index number # an optional index that can be referred to 
 ---@field transform number # an private variable (also used to specify outline width) 
----\LL
----\stoptabulate
 ---
 ---The `left` and type {right} keys are somewhat special (and experimental).
 ---When rules are auto adapting to the surrounding box width you can enforce a shift
@@ -152,22 +128,16 @@
 ---
 ---\subsection{`ins` nodes}
 ---
----\topicindex {nodes+insertions}
----\topicindex {insertions}
----
 ---This node relates to the `insert` primitive.
 ---
----\starttabulate[|l|l|p|]
----\DB field            \BC type   \BC explanation 
----\TB
+--- field             type    explanation 
+---
 ---@field subtype number # the insertion class 
 ---@field attr node # list of attributes 
 ---@field cost number # the penalty associated with this insert 
 ---@field height number # height of the insert 
 ---@field depth number # depth of the insert 
 ---@field head/list node    the first node # of the body of this insert 
----\LL
----\stoptabulate
 ---
 ---There is a set of extra fields that concern the associated glue: `width`,
 ---`stretch`, `stretch_order`, `shrink` and `shrink_order`.
@@ -180,59 +150,41 @@
 ---
 ---\subsection{`mark` nodes}
 ---
----\topicindex {nodes+marks}
----\topicindex {marks}
----
 ---This one relates to the `mark` primitive.
 ---
----\starttabulate[|l|l|p|]
----\DB field          \BC type   \BC explanation 
----\TB
+--- field           type    explanation 
+---
 ---@field subtype number # unused 
 ---@field attr node # list of attributes 
 ---@field class number # the mark class 
 ---@field mark table # a table representing a token list 
----\LL
----\stoptabulate
 ---
 ---\subsection{`adjust` nodes}
 ---
----\topicindex {nodes+adjust}
----\topicindex {adjust}
----
 ---This node comes from `vadjust` primitive.
 ---
----\starttabulate[|l|l|p|]
----\DB field            \BC type   \BC explanation 
----\TB
+--- field             type    explanation 
+---
 ---@field subtype number # \showsubtypes{adjust} 
 ---@field attr node # list of attributes 
 ---@field head/list node # adjusted material 
----\LL
----\stoptabulate
 ---
 ---A warning: never assign a node list to the `head` field unless you are sure
 ---its internal link structure is correct, otherwise an error may be the result.
 ---
 ---\subsection{`disc` nodes}
 ---
----\topicindex {nodes+discretionaries}
----\topicindex {discretionaries}
----
 ---The `discretionary` and `-`, the `-` character but also the
 ---hyphenation mechanism produces these nodes.
 ---
----\starttabulate[|l|l|p|]
----\DB field          \BC type   \BC explanation 
----\TB
+--- field           type    explanation 
+---
 ---@field subtype number # \showsubtypes{disc} 
 ---@field attr node # list of attributes 
 ---@field pre node # pointer to the pre-break text 
 ---@field post node # pointer to the post-break text 
 ---@field replace node # pointer to the no-break text 
 ---@field penalty number # the penalty associated with the break, normally `hyphenpenalty` or `exhyphenpenalty` 
----\LL
----\stoptabulate
 ---
 ---The subtype numbers 4 and 5 belong to the “of-f-ice” explanation given
 ---elsewhere. These disc nodes are kind of special as at some point they also keep
@@ -259,20 +211,14 @@
 ---
 ---\subsection{`math` nodes}
 ---
----\topicindex {nodes+math}
----\topicindex {math+nodes}
----
 ---Math nodes represent the boundaries of a math formula, normally wrapped into
 ---``` signs.
 ---
----\starttabulate[|l|l|p|]
----\DB field           \BC type   \BC explanation 
----\TB
+--- field            type    explanation 
+---
 ---@field subtype number # \showsubtypes{math} 
 ---@field attr node # list of attributes 
 ---@field surround number # width of the `mathsurround` kern 
----\LL
----\stoptabulate
 ---
 ---There is a set of extra fields that concern the associated glue: `width`,
 ---`stretch`, `stretch_order`, `shrink` and `shrink_order`.
@@ -280,25 +226,19 @@
 ---
 ---\subsection{`glue` nodes}
 ---
----\topicindex {nodes+glue}
----\topicindex {glue}
----
 ---Skips are about the only type of data objects in traditional *TeX* that are not a
 ---simple value. They are inserted when *TeX* sees a space in the text flow but also
 ---by `hskip` and `vskip`. The structure that represents the glue
 ---components of a skip is called a `glue_spec`, and it has the following
 ---accessible fields:
 ---
----\starttabulate[|l|l|p|]
----\DB field                \BC type   \BC explanation 
----\TB
+--- field                 type    explanation 
+---
 ---@field width number # the horizontal or vertical displacement 
 ---@field stretch number # extra (positive) displacement or stretch amount 
 ---@field stretch_order number # factor applied to stretch amount 
 ---@field shrink number # extra (negative) displacement or shrink amount
 ---@field shrink_order number # factor applied to shrink amount 
----\LL
----\stoptabulate
 ---
 ---The effective width of some glue subtypes depends on the stretch or shrink needed
 ---to make the encapsulating box fit its dimensions. For instance, in a paragraph
@@ -325,14 +265,11 @@
 ---not that high (and nowadays memory is less an issue, also given that a glue node
 ---is only a few memory words larger than a spec).
 ---
----\starttabulate[|l|l|p|]
----\DB field          \BC type   \BC explanation 
----\TB
+--- field           type    explanation 
+---
 ---@field subtype number # \showsubtypes{glue} 
 ---@field attr node # list of attributes 
 ---@field leader node # pointer to a box or rule for leaders 
----\LL
----\stoptabulate
 ---
 ---In addition there are the `width`, `stretch` `stretch_order`,
 ---`shrink`, and `shrink_order` fields. Note that we use the key `width` in both horizontal and vertical glue. This suits the *TeX* internals well
@@ -343,36 +280,24 @@
 ---
 ---\subsection{`kern` nodes}
 ---
----\topicindex {nodes+kerns}
----\topicindex {kerns}
----
 ---The `kern` command creates such nodes but for instance the font and math
 ---machinery can also add them.
 ---
----\starttabulate[|l|l|p|]
----\DB field          \BC type   \BC explanation 
----\TB
+--- field           type    explanation 
+---
 ---@field subtype number # \showsubtypes{kern} 
 ---@field attr node # list of attributes 
 ---@field kern number # fixed horizontal or vertical advance 
----\LL
----\stoptabulate
 ---
 ---\subsection{`penalty` nodes}
 ---
----\topicindex {nodes+penalty}
----\topicindex {penalty}
----
 ---The `penalty` command is one that generates these nodes.
 ---
----\starttabulate[|l|l|p|]
----\DB field          \BC type   \BC explanation 
----\TB
+--- field           type    explanation 
+---
 ---@field subtype number # \showsubtypes{penalty} 
 ---@field attr node # list of attributes 
 ---@field penalty number # the penalty value 
----\LL
----\stoptabulate
 ---
 ---The subtypes are just informative and *TeX* itself doesn't use them. When you
 ---run into an `linebreakpenalty` you need to keep in mind that it's a
@@ -380,16 +305,12 @@
 ---
 ---\subsection[glyphnodes]{`glyph` nodes}
 ---
----\topicindex {nodes+glyph}
----\topicindex {glyphs}
----
 ---These are probably the mostly used nodes and although you can push them in the
 ---current list with for instance `char` *TeX* will normally do it for you when
 ---it considers some input to be text.
 ---
----\starttabulate[|l|l|p|]
----\DB field                   \BC type    \BC explanation 
----\TB
+--- field                    type     explanation 
+---
 ---@field subtype number # bit field 
 ---@field attr node # list of attributes 
 ---@field char number # the character index in the font 
@@ -406,8 +327,6 @@
 ---@field depth number # the (original) depth of the character
 ---@field expansion_factor number # the to be applied expansion_factor 
 ---@field data number # a general purpose field for users (we had room for it) 
----\LL
----\stoptabulate
 ---
 ---The `width`, `height` and `depth` values are read-only. The
 ---`expansion_factor` is assigned in the par builder and used in the backend.
@@ -416,16 +335,13 @@
 ---its internal link structure is correct, otherwise an error may be result. Valid
 ---bits for the `subtype` field are:
 ---
----\starttabulate[|c|l|]
----\DB bit \BC meaning   
----\TB
+--- bit  meaning   
+---
 --- 0    character 
 --- 1    ligature  
 --- 2    ghost     
 --- 3    left      
 --- 4    right     
----\LL
----\stoptabulate
 ---
 ---See \in {section} [charsandglyphs] for a detailed description of the `subtype` field.
 ---
@@ -451,31 +367,21 @@
 ---
 ---\subsection{`boundary` nodes}
 ---
----\topicindex {nodes+boundary}
----\topicindex {boundary}
----
 ---This node relates to the `noboundary`, `boundary`, `protrusionboundary` and `wordboundary` primitives.
 ---
----\starttabulate[|l|l|p|]
----\DB field          \BC type   \BC explanation 
----\TB
+--- field           type    explanation 
+---
 ---@field subtype number # \showsubtypes{boundary} 
 ---@field attr node # list of attributes 
 ---@field value number # values 0--255 are reserved 
----\LL
----\stoptabulate
 ---
 ---\subsection{`local_par` nodes}
----
----\topicindex {nodes+paragraphs}
----\topicindex {paragraphs}
 ---
 ---This node is inserted at the start of a paragraph. You should not mess
 ---too much with this one.
 ---
----\starttabulate[|l|l|p|]
----\DB field                  \BC type   \BC explanation 
----\TB
+--- field                   type    explanation 
+---
 ---@field attr node # list of attributes 
 ---@field pen_inter number # local interline penalty (from `localinterlinepenalty`) 
 ---@field pen_broken number # local broken penalty (from `localbrokenpenalty`) 
@@ -484,8 +390,6 @@
 ---@field box_left_width number # width of the `localleftbox` 
 ---@field box_right node # the `localrightbox` 
 ---@field box_right_width number # width of the `localrightbox` 
----\LL
----\stoptabulate
 ---
 ---A warning: never assign a node list to the `box_left` or `box_right`
 ---field unless you are sure its internal link structure is correct, otherwise an
@@ -493,32 +397,23 @@
 ---
 ---\subsection[dirnodes]{`dir` nodes}
 ---
----\topicindex {nodes+direction}
----\topicindex {directions}
----
 ---Direction nodes mark parts of the running text that need a change of direction and \
 ---the `textdir` command generates them.
 ---
----\starttabulate[|l|l|p|]
----\DB field        \BC type   \BC explanation 
----\TB
+--- field         type    explanation 
+---
 ---@field attr node # list of attributes 
 ---@field dir string # the direction (but see below) 
 ---@field level number # nesting level of this direction whatsit 
----\LL
----\stoptabulate
 ---
 ---Direction specifiers are three-letter combinations of `T`, `B`,
 ---`R`, and `L`. These are built up out of three separate items:
----
 ---
 ---* the first  is the direction of the “top”   of paragraphs
 ---
 ---* the second is the direction of the “start” of lines
 ---
 ---* the third  is the direction of the “top”   of glyphs
----
----
 ---
 ---However, only four combinations are accepted: `TLT`, `TRT`, `RTT`, and `LTL`. Inside actual `dir` nodes, the representation of
 ---`dir` is not a three-letter but a combination of numbers. When printed the
@@ -527,28 +422,20 @@
 ---
 ---\subsection{`marginkern` nodes}
 ---
----\topicindex {nodes+paragraphs}
----\topicindex {paragraphs}
----\topicindex {protrusion}
----
 ---Margin kerns result from protrusion.
 ---
----\starttabulate[|l|l|p|]
----\DB field          \BC type   \BC explanation 
----\TB
+--- field           type    explanation 
+---
 ---@field subtype number # \showsubtypes{marginkern} 
 ---@field attr node # list of attributes 
 ---@field width number # the advance of the kern 
 ---@field glyph node # the glyph to be used 
----\LL
----\stoptabulate
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[title={Math noads}]
----
----\topicindex {nodes+math}
----\topicindex {math+nodes}
+---# Math noads
 ---
 ---These are the so||called “noad”s and the nodes that are specifically
 ---associated with math processing. Most of these nodes contain subnodes so that the
@@ -565,14 +452,11 @@
 ---
 ---\subsection{`math_char` and `math_text_char` subnodes}
 ---
----\starttabulate[|l|l|p|]
----\DB field       \BC type   \BC explanation 
----\TB
+--- field        type    explanation 
+---
 ---@field attr node # list of attributes 
 ---@field char number # the character index 
 ---@field fam number # the family number 
----\LL
----\stoptabulate
 ---
 ---The `math_char` is the simplest subnode field, it contains the character
 ---and family for a single glyph object. The `math_text_char` is a special
@@ -581,13 +465,10 @@
 ---
 ---\subsection{`sub_box` and `sub_mlist` subnodes}
 ---
----\starttabulate[|l|l|p|]
----\DB field            \BC type \BC explanation 
----\TB
+--- field             type  explanation 
+---
 ---@field attr node # list of attributes 
 ---@field head/list node # list of nodes 
----\LL
----\stoptabulate
 ---
 ---These two subnode types are used for subsidiary list items. For `sub_box`,
 ---the `head` points to a “normal” vbox or hbox. For `sub_mlist`,
@@ -601,16 +482,13 @@
 ---There is a fifth subnode type that is used exclusively for delimiter fields. As
 ---before, the `next` and `prev` fields are unused.
 ---
----\starttabulate[|l|l|p|]
----\DB field             \BC type   \BC explanation 
----\TB
+--- field              type    explanation 
+---
 ---@field attr node # list of attributes 
 ---@field small_char number # character index of base character 
 ---@field small_fam number # family number of base character 
 ---@field large_char number # character index of next larger character 
 ---@field large_fam number # family number of next larger character 
----\LL
----\stoptabulate
 ---
 ---The fields `large_char` and `large_fam` can be zero, in that case the
 ---font that is set for the `small_fam` is expected to provide the large
@@ -625,9 +503,8 @@
 ---
 ---Some noads have an option field. The values in this bitset are common:
 ---
----\starttabulate[|l|r|]
----\DB meaning         \BC bits                      
----\TB
+--- meaning          bits                      
+---
 --- set                            `0x08` 
 --- internal         `0x00` + `0x08` 
 --- internal         `0x01` + `0x08` 
@@ -640,28 +517,22 @@
 --- no sub script    `0x21` + `0x08` 
 --- no super script  `0x22` + `0x08` 
 --- no script        `0x23` + `0x08` 
----\LL
----\stoptabulate
 ---
 ---\subsection{simple `noad` nodes}
 ---
----\starttabulate[|l|l|p|]
----\DB field          \BC type        \BC explanation 
----\TB
+--- field           type         explanation 
+---
 ---@field subtype number # \showsubtypes{noad} 
 ---@field attr node # list of attributes 
 ---@field nucleus kernel node # base 
 ---@field sub kernel node # subscript 
 ---@field sup kernel node # superscript 
 ---@field options number # bitset of rendering options 
----\LL
----\stoptabulate
 ---
 ---\subsection{`accent` nodes}
 ---
----\starttabulate[|l|l|p|]
----\DB field             \BC type        \BC explanation 
----\TB
+--- field              type         explanation 
+---
 ---@field subtype number # \showsubtypes{accent} 
 ---@field nucleus kernel node # base 
 ---@field sub kernel node # subscript 
@@ -669,17 +540,12 @@
 ---@field accent kernel node # top accent 
 ---@field bot_accent kernel node # bottom accent 
 ---@field fraction number # larger step criterium (divided by 1000) 
----\LL
----\stoptabulate
 ---
 ---\subsection{`style` nodes}
 ---
----\starttabulate[|l|l|p|]
----\DB field        \BC type   \BC explanation    
----\TB
+--- field         type    explanation    
+---
 ---@field style string # contains the style 
----\LL
----\stoptabulate
 ---
 ---There are eight possibilities for the string value: one of `display`,
 ---`text`, `script`, or `scriptscript`. Each of these can have
@@ -687,25 +553,21 @@
 ---
 ---\subsection{`choice` nodes}
 ---
----\starttabulate[|l|l|p|]
----\DB field               \BC type \BC explanation 
----\TB
+--- field                type  explanation 
+---
 ---@field attr node # list of attributes 
 ---@field display node # list of display size alternatives 
 ---@field text node # list of text size alternatives 
 ---@field script node # list of scriptsize alternatives 
 ---@field scriptscript node # list of scriptscriptsize alternatives 
----\LL
----\stoptabulate
 ---
 ---Warning: never assign a node list to the `display`, `text`, `script`, or `scriptscript` field unless you are sure its internal link
 ---structure is correct, otherwise an error can occur.
 ---
 ---\subsection{`radical` nodes}
 ---
----\starttabulate[|l|l|p|]
----\DB field          \BC type           \BC explanation 
----\TB
+--- field           type            explanation 
+---
 ---@field subtype number # \showsubtypes{radical} 
 ---@field attr node # list of attributes 
 ---@field nucleus kernel node # base 
@@ -715,17 +577,14 @@
 ---@field degree kernel node # only set by `Uroot` 
 ---@field width number # required width 
 ---@field options number # bitset of rendering options 
----\LL
----\stoptabulate
 ---
 ---Warning: never assign a node list to the `nucleus`, `sub`, `sup`, `left`, or `degree` field unless you are sure its internal
 ---link structure is correct, otherwise an error can be triggered.
 ---
 ---\subsection{`fraction` nodes}
 ---
----\starttabulate[|l|l|p|]
----\DB field          \BC type           \BC explanation 
----\TB
+--- field           type            explanation 
+---
 ---@field attr node # list of attributes 
 ---@field width number # (optional) width of the fraction 
 ---@field num kernel node # numerator 
@@ -734,8 +593,6 @@
 ---@field right delimiter node # right side symbol 
 ---@field middle delimiter node # middle symbol 
 ---@field options number # bitset of rendering options 
----\LL
----\stoptabulate
 ---
 ---Warning: never assign a node list to the `num`, or `denom` field
 ---unless you are sure its internal link structure is correct, otherwise an error
@@ -743,9 +600,8 @@
 ---
 ---\subsection{`fence` nodes}
 ---
----\starttabulate[|l|l|p|]
----\DB field          \BC type           \BC explanation 
----\TB
+--- field           type            explanation 
+---
 ---@field subtype number # \showsubtypes{fence} 
 ---@field attr node # list of attributes 
 ---@field delim delimiter node # delimiter specification 
@@ -754,15 +610,15 @@
 ---@field depth number # required depth 
 ---@field options number # bitset of rendering options 
 ---@field class number # spacing related class 
----\LL
----\stoptabulate
 ---
 ---Warning: some of these fields are used by the renderer and might get adapted in
 ---the process.
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[title={Front-end whatsits}]
+---# Front-end whatsits
 ---
 ---Whatsit nodes come in many subtypes that you can ask for them by running
 ---`node.whatsits`:
@@ -782,37 +638,28 @@
 ---
 ---\subsection{`open`}
 ---
----\starttabulate[|l|l|p|]
----\DB field         \BC type   \BC explanation 
----\TB
+--- field          type    explanation 
+---
 ---@field attr node # list of attributes 
 ---@field stream number # *TeX*'s stream id number 
 ---@field name string # file name 
 ---@field ext string # file extension 
 ---@field area string # file area (this may become obsolete) 
----\LL
----\stoptabulate
 ---
 ---\subsection{`write`}
 ---
----\starttabulate[|l|l|p|]
----\DB field         \BC type   \BC explanation 
----\TB
+--- field          type    explanation 
+---
 ---@field attr node # list of attributes 
 ---@field stream number # *TeX*'s stream id number 
 ---@field data table # a table representing the token list to be written 
----\LL
----\stoptabulate
 ---
 ---\subsection{`close`}
 ---
----\starttabulate[|l|l|p|]
----\DB field         \BC type   \BC explanation 
----\TB
+--- field          type    explanation 
+---
 ---@field attr node # list of attributes 
 ---@field stream number # *TeX*'s stream id number 
----\LL
----\stoptabulate
 ---
 ---\subsection{`user_defined`}
 ---
@@ -820,52 +667,40 @@
 ---effect, they are an extension to the extension mechanism. The *LuaTeX* engine
 ---will simply step over such whatsits without ever looking at the contents.
 ---
----\starttabulate[|l|l|p|]
----\DB field          \BC type   \BC explanation 
----\TB
+--- field           type    explanation 
+---
 ---@field attr node # list of attributes 
 ---@field user_id number # id number 
 ---@field type number # type of the value 
 ---@field value number # a *Lua* number  node    a node list  string  a *Lua* string  table   a *Lua* table 
----\LL
----\stoptabulate
 ---
 ---The `type` can have one of six distinct values. The number is the \ASCII\
 ---value if the first character of the type name (so you can use string.byte("l")
 ---instead of `108`).
 ---
----\starttabulate[|r|c|p|]
----\DB value \BC meaning \BC explanation 
----\TB
+--- value  meaning  explanation 
+---
 ---   97   a        list of attributes (a node list) 
 ---  100   d        a *Lua* number 
 ---  108   l        a *Lua* value (table, number, boolean, etc) 
 ---  110   n        a node list 
 ---  115   s        a *Lua* string 
 ---  116   t        a *Lua* token list in *Lua* table form (a list of triplets) 
----\LL
----\stoptabulate
 ---
 ---\subsection{`save_pos`}
 ---
----\starttabulate[|l|l|p|]
----\DB field       \BC type \BC explanation 
----\TB
+--- field        type  explanation 
+---
 ---@field attr node # list of attributes 
----\LL
----\stoptabulate
 ---
 ---\subsection{`late_lua`}
 ---
----\starttabulate[|l|l|p|]
----\DB field        \BC type               \BC explanation 
----\TB
+--- field         type                explanation 
+---
 ---@field attr node # list of attributes 
 ---@field data string # or function  the to be written information stored as *Lua* value 
 ---@field token string # the to be written information stored as token list 
 ---@field name string # the name to use for *Lua* error reporting 
----\LL
----\stoptabulate
 ---
 ---The difference between `data` and `string` is that on assignment, the
 ---`data` field is converted to a token list, cf.\ use as `latelua`. The
@@ -874,52 +709,46 @@
 ---When a function is used, it gets called with as first argument the node that triggers
 ---the call.
 ---
+----------------------------------------------------------------
+
+
 ---
----\stopsection
----
----\startsection[title={\DVI\ backend whatsits}]
+---# \DVI\ backend whatsits
 ---
 ---\subsection{`special`}
 ---
 ---There is only one \DVI\ backend whatsit, and it just flushes its content to the
 ---output file.
 ---
----\starttabulate[|l|l|p|]
----\DB field       \BC type   \BC explanation 
----\TB
+--- field        type    explanation 
+---
 ---@field attr node # list of attributes 
 ---@field data string # the `special` information 
----\LL
----\stoptabulate
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[title={*PDF* backend whatsits}]
+---# *PDF* backend whatsits
 ---
 ---\subsection{`pdf_literal`}
 ---
----\starttabulate[|l|l|p|]
----\DB field        \BC type   \BC explanation 
----\TB
+--- field         type    explanation 
+---
 ---@field attr node # list of attributes 
 ---@field mode number # the “mode” setting of this literal 
 ---@field data string # the to be written information stored as *Lua* string 
 ---@field token string # the to be written information stored as token list 
----\LL
----\stoptabulate
 ---
 ---Possible mode values are:
 ---
----\starttabulate[|c|p|]
----\DB value \BC keyword        
----\TB
+--- value  keyword        
+---
 --- 0      `origin`  
 --- 1      `page`    
 --- 2      `direct`  
 --- 3      `raw`     
 --- 4      `text`    
----\LL
----\stoptabulate
 ---
 ---The higher the number, the less checking and the more you can run into trouble.
 ---Especially the `raw` variant can produce bad *PDF* so you can best check
@@ -927,33 +756,26 @@
 ---
 ---\subsection{`pdf_refobj`}
 ---
----\starttabulate[|l|l|p|]
----\DB field         \BC type   \BC explanation 
----\TB
+--- field          type    explanation 
+---
 ---@field attr node # list of attributes 
 ---@field objnum number # the referenced *PDF* object number 
----\LL
----\stoptabulate
 ---
 ---\subsection{`pdf_annot`}
 ---
----\starttabulate[|l|l|p|]
----\DB field         \BC type   \BC explanation 
----\TB
+--- field          type    explanation 
+---
 ---@field attr node # list of attributes 
 ---@field width number # the width (not used in calculations) 
 ---@field height number # the height (not used in calculations) 
 ---@field depth number # the depth (not used in calculations) 
 ---@field objnum number # the referenced *PDF* object number 
 ---@field data string # the annotation data 
----\LL
----\stoptabulate
 ---
 ---\subsection{`pdf_start_link`}
 ---
----\starttabulate[|l|l|p|]
----\DB field            \BC type   \BC explanation 
----\TB
+--- field             type    explanation 
+---
 ---@field attr node # list of attributes 
 ---@field width number # the width (not used in calculations) 
 ---@field height number # the height (not used in calculations) 
@@ -961,23 +783,17 @@
 ---@field objnum number # the referenced *PDF* object number 
 ---@field link_attr table # the link attribute token list 
 ---@field action node # the action to perform 
----\LL
----\stoptabulate
 ---
 ---\subsection{`pdf_end_link`}
 ---
----\starttabulate[|l|l|p|]
----\DB field       \BC type \BC explanation 
----\TB
+--- field        type  explanation 
+---
 ---@field attr node # 
----\LL
----\stoptabulate
 ---
 ---\subsection{`pdf_dest`}
 ---
----\starttabulate[|l|l|p|]
----\DB field              \BC type     \BC explanation 
----\TB
+--- field               type      explanation 
+---
 ---@field attr node # list of attributes 
 ---@field width number # the width (not used in calculations) 
 ---@field height number # the height (not used in calculations) 
@@ -987,17 +803,14 @@
 ---@field dest_type number # type of destination 
 ---@field xyz_zoom number # the zoom factor (times 1000) 
 ---@field objnum number # the *PDF* object number; for structure references the *PDF* object number of the linked structure element 
----\LL
----\stoptabulate
 ---
 ---\subsection{`pdf_action`}
 ---
 ---These are a special kind of items that only appear inside *PDF* start link
 ---objects.
 ---
----\starttabulate[|l|l|p|]
----\DB field              \BC type             \BC explanation 
----\TB
+--- field               type              explanation 
+---
 ---@field action_type number # the kind of action involved 
 ---@field action_id number # or string  token list reference or string 
 ---@field named_id`     number            are `dest_id` and `struct_id string # values? 
@@ -1005,37 +818,28 @@
 ---@field new_window number # the window state of the target 
 ---@field data string # the name of the destination 
 --- `struct_id`    nil               the action does not reference a structure destination  number            id of the referenced structure destination  string            name of the referenced structure destination 
----\LL
----\stoptabulate
 ---
 ---Valid action types are:
 ---
----\starttabulate[|l|l|]
----\DB value \BC meaning       
----\TB
+--- value  meaning       
+---
 --- 0      `page`   
 --- 1      `goto`   
 --- 2      `thread` 
 --- 3      `user`   
----\LL
----\stoptabulate
 ---
 ---Valid window types are:
 ---
----\starttabulate[|l|l|]
----\DB value \BC meaning       
----\TB
+--- value  meaning       
+---
 --- 0      `notset` 
 --- 1      `new`    
 --- 2      `nonew`  
----\LL
----\stoptabulate
 ---
 ---\subsection{`pdf_thread`}
 ---
----\starttabulate[|l|l|p|]
----\DB field              \BC type   \BC explanation 
----\TB
+--- field               type    explanation 
+---
 ---@field attr node # list of attributes 
 ---@field width number # the width (not used in calculations) 
 ---@field height number # the height (not used in calculations) 
@@ -1043,14 +847,11 @@
 ---@field named_id number # is `tread_id` a string value? 
 ---@field tread_id number # the thread id  string  the thread name 
 ---@field thread_attr number # extra thread information 
----\LL
----\stoptabulate
 ---
 ---\subsection{`pdf_start_thread`}
 ---
----\starttabulate[|l|l|p|]
----\DB field              \BC type   \BC explanation 
----\TB
+--- field               type    explanation 
+---
 ---@field attr node # list of attributes 
 ---@field width number # the width (not used in calculations) 
 ---@field height number # the height (not used in calculations) 
@@ -1058,61 +859,46 @@
 ---@field named_id number # is `tread_id` a string value? 
 ---@field tread_id number # the thread id  string  the thread name 
 ---@field thread_attr number # extra thread information 
----\LL
----\stoptabulate
 ---
 ---\subsection{`pdf_end_thread`}
 ---
----\starttabulate[|l|l|p|]
----\DB field       \BC type \BC explanation 
----\TB
+--- field        type  explanation 
+---
 ---@field attr node # 
----\LL
----\stoptabulate
 ---
 ---\subsection{`pdf_colorstack`}
 ---
----\starttabulate[|l|l|p|]
----\DB field          \BC type   \BC explanation 
----\TB
+--- field           type    explanation 
+---
 ---@field attr node # list of attributes 
 ---@field stack number # colorstack id number 
 ---@field command number # command to execute 
 ---@field data string # data 
----\LL
----\stoptabulate
 ---
 ---\subsection{`pdf_setmatrix`}
 ---
----\starttabulate[|l|l|p|]
----\DB field       \BC type   \BC explanation 
----\TB
+--- field        type    explanation 
+---
 ---@field attr node # list of attributes 
 ---@field data string # data 
----\LL
----\stoptabulate
 ---
 ---\subsection{`pdf_save`}
 ---
----\starttabulate[|l|l|p|]
----\DB field       \BC type \BC explanation 
----\TB
+--- field        type  explanation 
+---
 ---@field attr node # list of attributes 
----\LL
----\stoptabulate
 ---
 ---\subsection{`pdf_restore`}
 ---
----\starttabulate[|l|l|p|]
----\DB field       \BC type \BC explanation 
----\TB
+--- field        type  explanation 
+---
 ---@field attr node # list of attributes 
----\LL
----\stoptabulate
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[title={The `node` library}][library=node]
+---# The `node` library[library=node]
 ---
 ---\subsection {Introduction}
 ---
@@ -1126,24 +912,17 @@
 ---
 ---Each node has at least the three fields `next`, `id`, and `subtype`:
 ---
----
----
 ---* The `next` field returns the userdata object for the next node in a
 ---    linked list of nodes, or `nil`, if there is no next node.
----
 ---
 ---* The `id` indicates *TeX*'s “node type”. The field `id` has a
 ---    numeric value for efficiency reasons, but some of the library functions also
 ---    accept a string value instead of `id`.
 ---
----
 ---* The `subtype` is another number. It often gives further information
 ---    about a node of a particular `id`, but it is most important when
 ---    dealing with “whatsits”, because they are differentiated solely based
 ---    on their `subtype`.
----
----
----
 ---
 ---The other available fields depend on the `id` (and for “whatsits”,
 ---the `subtype`) of the node.
@@ -1171,10 +950,6 @@
 ---
 ---\subsection{`is_node`}
 ---
----\topicindex {nodes+functions}
----
----\libindex {is_node}
----
 ---```
 ---<boolean|integer> t =
 ---    node.is_node(<any> item)
@@ -1184,9 +959,6 @@
 ---is a userdata object of type `<node>` and false when no node is passed.
 ---
 ---\subsection{`types` and `whatsits`}
----
----\libindex {types}
----\libindex {whatsits}
 ---
 ---This function returns an array that maps node id numbers to node type strings,
 ---providing an overview of the possible top-level `id` types.
@@ -1207,8 +979,6 @@
 ---
 ---\subsection{`id`}
 ---
----\libindex{id}
----
 ---This converts a single type name to its internal numeric representation.
 ---
 ---```
@@ -1217,9 +987,6 @@
 ---```
 ---
 ---\subsection{`type` and `subtype`}
----
----\libindex {type}
----\libindex {subtype}
 ---
 ---In the argument is a number, then the next function converts an internal numeric
 ---representation to an external string representation. Otherwise, it will return
@@ -1241,8 +1008,6 @@
 ---
 ---\subsection{`fields`}
 ---
----\libindex {fields}
----
 ---This function returns an array of valid field names for a particular type of
 ---node. If you want to get the valid fields for a “whatsit”, you have to
 ---supply the second argument also. In other cases, any given second argument will
@@ -1259,8 +1024,6 @@
 ---
 ---\subsection{`has_field`}
 ---
----\libindex {has_field}
----
 ---This function returns a boolean that is only true if `n` is
 ---actually a node, and it has the field.
 ---
@@ -1270,8 +1033,6 @@
 ---```
 ---
 ---\subsection{`new`}
----
----\libindex{new}
 ---
 ---The `new` function creates a new node. All its fields are initialized to
 ---either zero or `nil` except for `id` and `subtype`. Instead of
@@ -1287,10 +1048,6 @@
 ---```
 ---
 ---\subsection{`free`, `flush_node` and `flush_list`}
----
----\libindex{free}
----\libindex{flush_node}
----\libindex{flush_list}
 ---
 ---The next one the node `n` from *TeX*'s memory. Be careful: no checks are
 ---done on whether this node is still pointed to from a register or some `next` field: it is up to you to make sure that the internal data structures
@@ -1315,9 +1072,6 @@
 ---```
 ---
 ---\subsection{`copy` and `copy_list`}
----
----\libindex{copy}
----\libindex{copy_list}
 ---
 ---This creates a deep copy of node `n`, including all nested lists as in the case
 ---of a hlist or vlist node. Only the `next` field is not copied.
@@ -1344,9 +1098,6 @@
 ---
 ---\subsection{`prev` and `next`}
 ---
----\libindex{prev}
----\libindex{next}
----
 ---These returns the node preceding or following the given node, or `nil` if
 ---there is no such node.
 ---
@@ -1358,8 +1109,6 @@
 ---```
 ---
 ---\subsection{`current_attr`}
----
----\libindex{current_attr}
 ---
 ---This returns the currently active list of attributes, if there is one.
 ---
@@ -1399,8 +1148,6 @@
 ---
 ---\subsection{`hpack`}
 ---
----\libindex {hpack}
----
 ---This function creates a new hlist by packaging the list that begins at node `n` into a horizontal box. With only a single argument, this box is created using
 ---the natural width of its components. In the three argument form, `info`
 ---must be either `additional` or `exactly`, and `w` is the
@@ -1423,8 +1170,6 @@
 ---
 ---\subsection{`vpack`}
 ---
----\libindex {vpack}
----
 ---This function creates a new vlist by packaging the list that begins at node `n` into a vertical box. With only a single argument, this box is created using
 ---the natural height of its components. In the three argument form, `info`
 ---must be either `additional` or `exactly`, and `w` is the
@@ -1444,8 +1189,6 @@
 ---
 ---\subsection{`prepend_prevdepth`}
 ---
----\libindex {prepend_prevdepth}
----
 ---This function is somewhat special in the sense that it is an experimental helper
 ---that adds the interlinespace to a line keeping the baselineskip and lineskip into
 ---account.
@@ -1456,9 +1199,6 @@
 ---```
 ---
 ---\subsection{`dimensions` and `rangedimensions`}
----
----\libindex{dimensions}
----\libindex{rangedimensions}
 ---
 ---```
 ---<number> w, <number> h, <number> d  =
@@ -1525,8 +1265,6 @@
 ---
 ---\subsection{`mlist_to_hlist`}
 ---
----\libindex {mlist_to_hlist}
----
 ---```
 ---<node> h =
 ---    node.mlist_to_hlist(<node> n, <string> display_type, <boolean> penalties)
@@ -1549,8 +1287,6 @@
 ---
 ---\subsection{`tail`}
 ---
----\libindex {tail}
----
 ---```
 ---<node> m =
 ---    node.tail(<node> n)
@@ -1559,9 +1295,6 @@
 ---Returns the last node of the node list that starts at `n`.
 ---
 ---\subsection{`length` and type {count}}
----
----\libindex {length}
----\libindex {count}
 ---
 ---```
 ---<number> i =
@@ -1588,9 +1321,6 @@
 ---
 ---\subsection{`is_char` and `is_glyph`}
 ---
----\libindex {is_char}
----\libindex {is_glyph}
----
 ---The subtype of a glyph node signals if the glyph is already turned into a character reference
 ---or not.
 ---
@@ -1602,8 +1332,6 @@
 ---```
 ---
 ---\subsection{`traverse`}
----
----\libindex {traverse}
 ---
 ---```
 ---<node> t, id, subtype =
@@ -1651,8 +1379,6 @@
 ---
 ---\subsection{`traverse_id`}
 ---
----\libindex {traverse_id}
----
 ---```
 ---<node> t, subtype =
 ---    node.traverse_id(<number> id, <node> n)
@@ -1680,9 +1406,6 @@
 ---
 ---\subsection{`traverse_char` and `traverse_glyph`}
 ---
----\libindex {traverse_char}
----\libindex {traverse_glyph}
----
 ---The `traverse_char` iterator loops over the `glyph` nodes in a list.
 ---Only nodes with a subtype less than 256 are seen.
 ---
@@ -1701,8 +1424,6 @@
 ---
 ---\subsection{`traverse_list`}
 ---
----\libindex {traverse_list}
----
 ---This iterator loops over the `hlist` and `vlist` nodes in a list.
 ---
 ---```
@@ -1716,8 +1437,6 @@
 ---
 ---\subsection{`has_glyph`}
 ---
----\libindex {has_glyph}
----
 ---This function returns the first glyph or disc node in the given list:
 ---
 ---```
@@ -1726,8 +1445,6 @@
 ---```
 ---
 ---\subsection{`end_of_math`}
----
----\libindex {end_of_math}
 ---
 ---```
 ---<node> t =
@@ -1740,8 +1457,6 @@
 ---returned.
 ---
 ---\subsection{`remove`}
----
----\libindex {remove}
 ---
 ---```
 ---<node> head, current =
@@ -1758,8 +1473,6 @@
 ---
 ---\subsection{`insert_before`}
 ---
----\libindex {insert_before}
----
 ---```
 ---<node> head, new =
 ---    node.insert_before(<node> head, <node> current, <node> new)
@@ -1773,8 +1486,6 @@
 ---
 ---\subsection{`insert_after`}
 ---
----\libindex {insert_after}
----
 ---```
 ---<node> head, new =
 ---    node.insert_after(<node> head, <node> current, <node> new)
@@ -1786,8 +1497,6 @@
 ---field). If `head` is initially `nil`, it will become `new`.
 ---
 ---\subsection{`first_glyph`}
----
----\libindex {first_glyph}
 ---
 ---```
 ---<node> n =
@@ -1803,8 +1512,6 @@
 ---
 ---\subsection{`ligaturing`}
 ---
----\libindex {ligaturing}
----
 ---```
 ---<node> h, <node> t, <boolean> success =
 ---    node.ligaturing(<node> n)
@@ -1817,8 +1524,6 @@
 ---tail (both `n` and `m` can change into a new ligature).
 ---
 ---\subsection{`kerning`}
----
----\libindex {kerning}
 ---
 ---```
 ---<node> h, <node> t, <boolean> success =
@@ -1834,9 +1539,6 @@
 ---
 ---\subsection{`unprotect_glyph[s]`}
 ---
----\libindex {unprotect_glyphs}
----\libindex {unprotect_glyph}
----
 ---```
 ---node.unprotect_glyph(<node> n)
 ---node.unprotect_glyphs(<node> n,[<node> n])
@@ -1847,9 +1549,6 @@
 ---processing. The second argument is optional and indicates the end of a range.
 ---
 ---\subsection{`protect_glyph[s]`}
----
----\libindex {protect_glyphs}
----\libindex {protect_glyph}
 ---
 ---```
 ---node.protect_glyph(<node> n)
@@ -1864,8 +1563,6 @@
 ---
 ---\subsection{`last_node`}
 ---
----\libindex {last_node}
----
 ---```
 ---<node> n =
 ---    node.last_node()
@@ -1875,8 +1572,6 @@
 ---that node, or `nil` if the current list is empty.
 ---
 ---\subsection{`write`}
----
----\libindex {write}
 ---
 ---```
 ---node.write(<node> n)
@@ -1888,8 +1583,6 @@
 ---
 ---\subsection{`protrusion_skippable`}
 ---
----\libindex {protrusion_skippable}
----
 ---```
 ---<boolean> skippable =
 ---    node.protrusion_skippable(<node> n)
@@ -1898,13 +1591,13 @@
 ---Returns `true` if, for the purpose of line boundary discovery when
 ---character protrusion is active, this node can be skipped.
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[title={Glue handling}][library=node]
+---# Glue handling[library=node]
 ---
 ---\subsection{`setglue`}
----
----\libindex {setglue}
 ---
 ---You can set the five properties of a glue in one go. Non-numeric values are
 ---equivalent to zero and reset a property.
@@ -1926,8 +1619,6 @@
 ---
 ---\subsection{`getglue`}
 ---
----\libindex {getglue}
----
 ---The next call will return 5 values or nothing when no glue is passed.
 ---
 ---```
@@ -1943,8 +1634,6 @@
 ---
 ---\subsection{`is_zero_glue`}
 ---
----\libindex {is_zero_glue}
----
 ---This function returns `true` when the width, stretch and shrink properties
 ---are zero.
 ---
@@ -1953,13 +1642,13 @@
 ---    node.is_zero_glue(<node> n)
 ---```
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[title={Attribute handling}][library=node]
+---# Attribute handling[library=node]
 ---
 ---\subsection{Attributes}
----
----\topicindex {attributes}
 ---
 ---The newly introduced attribute registers are non-trivial, because the value
 ---that is attached to a node is essentially a sparse array of key-value pairs. It
@@ -1973,17 +1662,12 @@
 ---
 ---\subsection{`attribute_list` nodes}
 ---
----\topicindex {nodes+attributes}
----
 ---An `attribute_list` item is used as a head pointer for a list of attribute
 ---items. It has only one user-visible field:
 ---
----\starttabulate[|l|l|p|]
----\DB field       \BC type \BC explanation 
----\TB
+--- field        type  explanation 
+---
 ---@field next node # pointer to the first attribute 
----\LL
----\stoptabulate
 ---
 ---\subsection{`attr` nodes}
 ---
@@ -1991,22 +1675,17 @@
 ---defined “attribute” item, whose `next` will point to the second
 ---“attribute” item, etc.
 ---
----\starttabulate[|l|l|p|]
----\DB field         \BC type   \BC explanation 
----\TB
+--- field          type    explanation 
+---
 ---@field next node # pointer to the next attribute 
 ---@field number number # the attribute type id 
 ---@field value number # the attribute value 
----\LL
----\stoptabulate
 ---
 ---As mentioned it's better to use the official helpers rather than edit these
 ---fields directly. For instance the `prev` field is used for other purposes
 ---and there is no double linked list.
 ---
 ---\subsection{`has_attribute`}
----
----\libindex {has_attribute}
 ---
 ---```
 ---<number> v =
@@ -2021,8 +1700,6 @@
 ---
 ---\subsection{`get_attribute`}
 ---
----\libindex {get_attribute}
----
 ---```
 ---<number> v =
 ---    node.get_attribute(<node> n, <number> id)
@@ -2034,8 +1711,6 @@
 ---
 ---\subsection{`find_attribute`}
 ---
----\libindex {find_attribute}
----
 ---```
 ---<number> v, <node> n =
 ---    node.find_attribute(<node> n, <number> id)
@@ -2046,8 +1721,6 @@
 ---
 ---\subsection{`set_attribute`}
 ---
----\libindex {set_attribute}
----
 ---```
 ---node.set_attribute(<node> n, <number> id, <number> val)
 ---```
@@ -2056,8 +1729,6 @@
 ---assignments are ignored.
 ---
 ---\subsection{`unset_attribute`}
----
----\libindex {unset_attribute}
 ---
 ---```
 ---<number> v =
@@ -2074,8 +1745,6 @@
 ---`nil`.
 ---
 ---\subsection{`slide`}
----
----\libindex {slide}
 ---
 ---This helper makes sure that the node lists is double linked and returns the found
 ---tail node.
@@ -2094,9 +1763,6 @@
 ---
 ---\subsection{`check_discretionary`, `check_discretionaries`}
 ---
----\libindex{check_discretionary}
----\libindex{check_discretionaries}
----
 ---When you fool around with disc nodes you need to be aware of the fact that they
 ---have a special internal data structure. As long as you reassign the fields when
 ---you have extended the lists it's ok because then the tail pointers get updated,
@@ -2114,8 +1780,6 @@
 ---
 ---\subsection{`flatten_discretionaries`}
 ---
----\libindex {flatten_discretionaries}
----
 ---This function will remove the discretionaries in the list and inject the replace
 ---field when set.
 ---
@@ -2124,8 +1788,6 @@
 ---```
 ---
 ---\subsection{`family_font`}
----
----\libindex {family_font}
 ---
 ---When you pass a proper family identifier the next helper will return the font
 ---currently associated with it. You can normally also access the font with the
@@ -2137,16 +1799,11 @@
 ---    node.family_font(<integer> fam)
 ---```
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[title={Two access models}][library=node]
----
----\topicindex{nodes+direct}
----\topicindex{direct nodes}
----
----\libindex {todirect}
----\libindex {tonode}
----\libindex {tostring}
+---# Two access models[library=node]
 ---
 ---Deep down in *TeX* a node has a number which is a numeric entry in a memory
 ---table. In fact, this model, where *TeX* manages memory is real fast and one of
@@ -2223,15 +1880,14 @@
 ---
 ---Some accessors are used frequently and for these we provide more efficient helpers:
 ---
----\starttabulate[|l|p|]
----\DB function          \BC explanation 
----\TB
+--- function           explanation 
+---
 --- `getnext`     parsing nodelist always involves this one 
 --- `getprev`     used less but a logical companion to `getnext` 
 ---@field getboth returns the next and prev pointer of a node # 
 --- `getid`       consulted a lot 
 --- `getsubtype`  consulted less but also a topper 
---- `getfont`     used a lot in \OPENTYPE\ handling (glyph nodes are consulted a lot) 
+--- `getfont`     used a lot in *OpenType* handling (glyph nodes are consulted a lot) 
 --- `getchar`     idem and also in other places 
 --- `getwhd`      returns the `width`, `height` and `depth` of a list, rule or (unexpanded) glyph as well as glue (its spec is looked at) and unset nodes
 --- `getdisc`     returns the `pre`, `post` and `replace` fields and optionally when true is passed also the tail fields 
@@ -2240,8 +1896,6 @@
 --- `getfield`    generic getter, sufficient for the rest (other field names are often shared so a specific getter makes no sense then) 
 --- `getbox`      gets the given box (a list node) 
 --- `getoffsets`  gets the `xoffset` and `yoffset` of a glyph or `left` and `right` values of a rule 
----\LL
----\stoptabulate
 ---
 ---In the direct namespace there are more such helpers and most of them are
 ---accompanied by setters. The getters and setters are clever enough to see what
@@ -2271,9 +1925,8 @@
 ---   \ifx#3\yes\lix{node.direct}{#1}\fi #3 
 ---  \NR}
 ---
----\starttabulate[|l|c|c|]
----\DB function \BC node \BC direct 
----\TB
+--- function  node  direct 
+---
 ---\supported {check_discretionaries}   \yes \yes
 ---\supported {check_discretionary}     \yes \yes
 ---\supported {copy_list}               \yes \yes
@@ -2407,8 +2060,6 @@
 ---\supported {vpack}                   \yes \yes
 ---\supported {whatsits}                \yes \nop
 ---\supported {write}                   \yes \yes
----\LL
----\stoptabulate
 ---
 ---The `node.next` and `node.prev` functions will stay but for
 ---consistency there are variants called `getnext` and `getprev`. We had
@@ -2451,16 +2102,11 @@
 ---place. Also, the synctex interpreter used in editors is rather peculiar and has
 ---some assumptions (heuristics).
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
----\startsection[title={Properties}][library=node]
----
----\topicindex {nodes+properties}
----\topicindex {properties}
----
----\libindex{flush_properties_table}
----\libindex{get_properties_table}
----\libindex{set_properties_mode}
+---# Properties[library=node]
 ---
 ---Attributes are a convenient way to relate extra information to a node. You can
 ---assign them at the *TeX* end as well as at the *Lua* end and and consult them at
@@ -2614,7 +2260,9 @@
 ---itself but that is complicated by the fact that the register has some limitations
 ---(no numeric keys) and we also don't want to mess with it too much.
 ---
----\stopsection
+----------------------------------------------------------------
+
+
 ---
 ---\stopchapter
 ---

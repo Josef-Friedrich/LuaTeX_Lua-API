@@ -4,11 +4,7 @@
 ---
 ---\startcomponent luatex-preamble
 ---
----\startchapter[reference=preamble,title={Preamble}]
----
----\topicindex{nodes}
----\topicindex{boxes}
----\topicindex{*Lua*}
+---# Preamble
 ---
 ---This is a reference manual, not a tutorial. This means that we discuss changes
 ---relative to traditional *TeX* and also present new functionality. As a consequence
@@ -86,9 +82,8 @@
 ---When you read about nodes in the following chapters it's good to keep in mind their
 ---commands that relate to then. Here are a few:
 ---
----\starttabulate[|l|l|p|]
----\DB command                \BC node          \BC explanation 
----\TB
+--- command                 node           explanation 
+---
 --- `hbox`             `hlist`  horizontal box 
 --- `vbox`             `vlist`  vertical box with the baseline at the bottom 
 --- `vtop`             `vlist`  vertical box with the baseline at the top 
@@ -100,8 +95,6 @@
 --- `hrule`            `rule`   a horizontal rule 
 --- `vrule`            `rule`   a vertical rule 
 --- `textdir(ection)`  `dir`    a change in text direction 
----\LL
----\stoptabulate
 ---
 ---For now this should be enough to enable you to understand the next chapters.
 ---

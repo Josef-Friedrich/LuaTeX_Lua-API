@@ -9,17 +9,14 @@
 ---  [width=\paperwidth,
 ---   height=\paperheight]
 ---
----
 ---\setupbackgrounds
 ---  [page]
 ---  [background=hbpage,
 ---   state=start]
 ---
+---# The HarfBuzz libraries
 ---
----\startchapter[reference=harfbuzz,title={The HarfBuzz libraries}]
----
----
----\startsection[title={The `luaharfbuzz` library}][library=luaharfbuzz]
+---# The `luaharfbuzz` library[library=luaharfbuzz]
 ---
 ---At the moment the documentation of the library is a raw "html-to-pdf" 
 ---rendering of the `index.html` file under `luaharfbuzz/docs` 
@@ -27,22 +24,19 @@
 ---of the file under `luaharfbuzz/examples`.
 ---\page
 ---
----
 ---\dorecurse{17}{%
 ---\setlayer[hbpage][x=0mm,y=0mm,]{\externalfigure[graphics/luaharfbuzz.pdf][page=\recurselevel]}
 ---\blank
 ---\page[empty]
 ---}
 ---
----
----\startsubsection[title={Example}]
+---# Example
 ---
 ---The example is (a small modification of)  the file `core_types.lua`
 ---and it requires the file `harfbuzz.lua`; both are 
 ---under `luaharfbuzz`  folder of the source code.
 ---The fonts `notonastaliq.ttf` and `amiri-regular.ttf'` are under 
 ---`luaharfbuzz/fonts`.
----
 ---
 ---\blank[3*big]
 ---
@@ -139,7 +133,6 @@
 ---The file `harfbuzz.lua`:
 ---\typebuffer[hbmod]
 ---
----
 ---\startbuffer[hbex]
 ---local harfbuzz = require('harfbuzz')
 ---
@@ -148,7 +141,6 @@
 ---
 ----- Shapers available
 ---print("Shapers:", harfbuzz.shapers())
----
 ---
 ----- harfbuzz.Face
 ---local face = harfbuzz.Face.new('notonastaliq.ttf')
@@ -197,7 +189,6 @@
 ---  end 
 ---end 
 ---
----
 ----- shaping '123' with '+numr' (numerators)
 ---print("\nShaping '123' set with Amiri Regular with 'numr' feature turned on")
 ---buf= harfbuzz.Buffer.new()
@@ -215,7 +206,6 @@
 ---
 ---The example:
 ---\typebuffer[hbex]
----
 ---
 ---\startbuffer[hbout]
 ---Harfbuzz API version	2.6.4
@@ -309,9 +299,12 @@
 ---The result:
 ---\typebuffer[hbout]
 ---
----
----\stopsubsection
----\stopsection
+----------------------------------------------------------------
+
+
+----------------------------------------------------------------
+
+
 ---
 ---\stopchapter
 ---\stopcomponent
