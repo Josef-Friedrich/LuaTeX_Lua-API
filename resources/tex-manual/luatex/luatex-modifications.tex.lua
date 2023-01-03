@@ -14,7 +14,7 @@
 ---\topicindex {history}
 ---
 ---The first version of *LuaTeX* only had a few extra primitives and it was largely
----the same as \PDFTEX. Then we merged substantial parts of \ALEPH\ into the code
+---the same as *PDF*TEX. Then we merged substantial parts of \ALEPH\ into the code
 ---and got more primitives. When we got more stable the decision was made to clean
 ---up the rather hybrid nature of the program. This means that some primitives have
 ---been promoted to core primitives, often with a different name, and that others
@@ -33,7 +33,7 @@
 ---
 ---\topicindex {*TeX*}
 ---
----Of course it all starts with traditional *TeX*. Even if we started with \PDFTEX,
+---Of course it all starts with traditional *TeX*. Even if we started with *PDF*TEX,
 ---most still comes from the original. But we divert a bit.
 ---
 ---
@@ -66,13 +66,13 @@
 ---
 ---* Magnification (`mag`) is only supported in \DVI\ output mode. You can
 ---    set this parameter and it even works with `true` units till you switch
----    to \PDF\ output mode. When you use \PDF\ output you can best not touch the
+---    to *PDF* output mode. When you use *PDF* output you can best not touch the
 ---    `mag` variable. This fuzzy behaviour is not much different from using
----    \PDF\ backend related functionality while eventually \DVI\ output is
+---    *PDF* backend related functionality while eventually \DVI\ output is
 ---    required.
 ---
 ---    After the output mode has been frozen (normally that happens when the first
----    page is shipped out) or when \PDF\ output is enabled, the `true`
+---    page is shipped out) or when *PDF* output is enabled, the `true`
 ---    specification is ignored. When you preload a plain format adapted to
 ---    *LuaTeX* it can be that the `mag` parameter already has been set.
 ---
@@ -109,7 +109,7 @@
 ---* When kpathsea is used to find files, *LuaTeX* uses the `ofm` file
 ---    format to search for font metrics. In turn, this means that *LuaTeX* looks at
 ---    the `OFMFONTS` configuration variable (like \OMEGA\ and \ALEPH) instead
----    of `TFMFONTS` (like *TeX* and \PDFTEX). Likewise for virtual fonts
+---    of `TFMFONTS` (like *TeX* and *PDF*TEX). Likewise for virtual fonts
 ---    (*LuaTeX* uses the variable `OVFFONTS` instead of `VFFONTS`).
 ---
 ---
@@ -123,12 +123,12 @@
 ---
 ---\stopsubsection
 ---
----\startsubsection[title=Changes from \PDFTEX\ 1.40]
+---\startsubsection[title=Changes from *PDF*TEX\ 1.40]
 ---
----\topicindex {\PDFTEX}
+---\topicindex {*PDF*TEX}
 ---
----Because we want to produce \PDF\ the most natural starting point was the popular
----\PDFTEX\ program. We inherit the stable features, dropped most of the
+---Because we want to produce *PDF* the most natural starting point was the popular
+---*PDF*TEX\ program. We inherit the stable features, dropped most of the
 ---experimental code and promoted some functionality to core *LuaTeX* functionality
 ---which in turn triggered renaming primitives.
 ---
@@ -154,7 +154,7 @@
 ---    {shbscode}, \orm {knbccode}, and \orm {knaccode}.
 ---
 ---
----* A number of “\PDFTEX\ primitives” have been removed as they can be
+---* A number of “*PDF*TEX\ primitives” have been removed as they can be
 ---    implemented using *Lua*: \orm {pdfelapsedtime}, \orm {pdfescapehex}, \orm
 ---    {pdfescapename}, \orm {pdfescapestring}, \orm {pdffiledump}, \orm
 ---    {pdffilemoddate}, \orm {pdffilesize}, \orm {pdfforcepagebox}, \orm
@@ -166,7 +166,7 @@
 ---
 ---* The version related primitives \orm {pdftexbanner}, \orm {pdftexversion}
 ---    and \orm {pdftexrevision} are no longer present as there is no longer a
----    relationship with \PDFTEX\ development.
+---    relationship with *PDF*TEX\ development.
 ---
 ---
 ---* The experimental snapper mechanism has been removed and therefore also the
@@ -179,7 +179,7 @@
 ---
 ---* Because *LuaTeX* has a different subsystem for managing images, more
 ---    diversion from its ancestor happened in the meantime. We don't adapt to
----    changes in \PDFTEX.
+---    changes in *PDF*TEX.
 ---
 ---
 ---* Two extra token lists are provided, \orm {pdfxformresources} and \orm
@@ -187,11 +187,11 @@
 ---
 ---
 ---* Image specifications also support `visiblefilename`, `userpassword` and `ownerpassword`. The password options are only
----    relevant for encrypted \PDF\ files.
+---    relevant for encrypted *PDF* files.
 ---
 ---
 ---* The current version of *LuaTeX* no longer replaces and/or merges fonts in
----    embedded \PDF\ files with fonts of the enveloping \PDF\ document. This
+---    embedded *PDF* files with fonts of the enveloping *PDF* document. This
 ---    regression may be temporary, depending on how the rewritten font backend will
 ---    look like.
 ---
@@ -218,7 +218,7 @@
 ---
 ---* The hz optimization code has been partially redone so that we no longer need
 ---    to create extra font instances. The front- and backend have been decoupled
----    and more efficient (\PDF) code is generated.
+---    and more efficient (*PDF*) code is generated.
 ---
 ---
 ---* When `adjustspacing` has value 2, hz optimization will be applied to
@@ -226,7 +226,7 @@
 ---    smaller than 2 disables this feature. With value of 1, font expansion is
 ---    applied after *TeX*'s normal paragraph breaking routines have broken the
 ---    paragraph into lines. In this case, line breaks are identical to standard
----    *TeX* behavior (as with \PDFTEX).
+---    *TeX* behavior (as with *PDF*TEX).
 ---
 ---
 ---* The `tagcode` primitive is promoted to core primitive.
@@ -263,7 +263,7 @@
 ---
 ---
 ---* An extra \orm {pdfimageaddfilename} option has been added that can be used to
----    block writing the filename to the \PDF\ file.
+---    block writing the filename to the *PDF* file.
 ---
 ---
 ---* The primitive \orm {pdftracingfonts} is now `tracingfonts` as it
@@ -273,7 +273,7 @@
 ---* The experimental primitive \orm {pdfinsertht} is kept as `insertht`.
 ---
 ---
----* There is some more control over what metadata goes into the \PDF\ file.
+---* There is some more control over what metadata goes into the *PDF* file.
 ---
 ---
 ---* The promotion of primitives to core primitives as well as the separation of
@@ -283,7 +283,7 @@
 ---
 ---
 ---
----One change involves the so called xforms and ximages. In \PDFTEX\ these are
+---One change involves the so called xforms and ximages. In *PDF*TEX\ these are
 ---implemented as so called whatsits. But contrary to other whatsits they have
 ---dimensions that need to be taken into account when for instance calculating
 ---optimal line breaks. In *LuaTeX* these are now promoted to a special type of rule
@@ -295,7 +295,7 @@
 ---[sec:imagedandforms], we now have:
 ---
 ---\starttabulate[|l|l|]
----\DB *LuaTeX* \BC \PDFTEX 
+---\DB *LuaTeX* \BC *PDF*TEX 
 ---\TB
 --- `saveboxresource`              \orm {pdfxform}           
 --- `saveimageresource`            \orm {pdfximage}          
@@ -428,7 +428,7 @@
 ---
 ---
 ---The above let's itself summarize as: we took the 32 bit aspects and much of the
----directional mechanisms and merged it into the \PDFTEX\ code base as starting
+---directional mechanisms and merged it into the *PDF*TEX\ code base as starting
 ---point for further development. Then we simplified directionality, fixed it and
 ---opened it up.
 ---
@@ -437,8 +437,8 @@
 ---\startsubsection[title=Changes from anywhere]
 ---
 ---The `\partokenname` and `\partokencontext` primitives are taken from
----the \PDFTEX\ change file posted on the implementers list. They are explained in
----the \PDFTEX\ manual and are classified as \ETEX\ extensions.
+---the *PDF*TEX\ change file posted on the implementers list. They are explained in
+---the *PDF*TEX\ manual and are classified as \ETEX\ extensions.
 ---
 ---\stopsubsection
 ---
@@ -488,17 +488,17 @@
 ---\startsubsection[title={Less primitives}]
 ---
 ---\topicindex {backend}
----\topicindex {\PDF+backend}
+---\topicindex {*PDF*+backend}
 ---
----In a previous section we mentioned that some \PDFTEX\ primitives were removed and
+---In a previous section we mentioned that some *PDF*TEX\ primitives were removed and
 ---others promoted to core *LuaTeX* primitives. That is only part of the story. In
 ---order to separate the backend specific primitives in de code these commands are
 ---now replaced by only a few. In traditional *TeX* we only had the \DVI\ backend
----but now we have two: \DVI\ and \PDF. Additional functionality is implemented as
+---but now we have two: \DVI\ and *PDF*. Additional functionality is implemented as
 ---“extensions” in *TeX* speak. By separating more strickly we are able to
 ---keep the core (frontend) clean and stable and isolate these extensions. If for
 ---some reason an extra backend option is needed, it can be implemented without
----touching the core. The three \PDF\ backend related primitives are:
+---touching the core. The three *PDF* backend related primitives are:
 ---
 ---```
 ---\pdfextension command [specification]
@@ -515,7 +515,7 @@
 ---\startsubsection[title={`pdfextension`, `pdfvariable` and `pdffeedback`},reference=sec:pdfextensions]
 ---
 ---In order for *LuaTeX* to be more than just *TeX* you need to enable primitives. That
----has already been the case right from the start. If you want the traditional \PDFTEX\
+---has already been the case right from the start. If you want the traditional *PDF*TEX\
 ---primitives (for as far their functionality is still around) you now can do this:
 ---
 ---```
@@ -629,12 +629,12 @@
 ---The `edef` can also be a `def` but it's a bit more efficient to expand
 ---the lookup related register beforehand.
 ---
----The backend is derived from \PDFTEX\ so the same syntax applies. However, the
+---The backend is derived from *PDF*TEX\ so the same syntax applies. However, the
 ---`outline` command accepts a `objnum` followed by a number. No
 ---checking takes place so when this is used it had better be a valid (flushed)
 ---object.
 ---
----In order to be (more or less) compatible with \PDFTEX\ we also support the option
+---In order to be (more or less) compatible with *PDF*TEX\ we also support the option
 ---to suppress some info but we do so via a bitset:
 ---
 ---```
@@ -664,7 +664,7 @@
 ---]}
 ---```
 ---
----Although we started from a merge of \PDFTEX\ and \ALEPH, by now the code base as
+---Although we started from a merge of *PDF*TEX\ and \ALEPH, by now the code base as
 ---well as functionality has diverted from those parents. Here we show the options
 ---that can be passed to the extensions.
 ---
@@ -926,7 +926,7 @@
 ---to directional nodes which in turn can give side effects when a series of dir
 ---changes happens without grouping.
 ---
----When extending the \PDF\ backend to support directions some inconsistencies were
+---When extending the *PDF* backend to support directions some inconsistencies were
 ---found and as a result we decided to support only the four models that make sense
 ---`TLT` (latin), `TRT` (arabic), `RTT` (cjk) and `LTL`
 ---(mongolian).
@@ -1125,43 +1125,17 @@
 ---
 ---\startplacefigure[reference=fig:shapemode,title={The effect of `shapemode`.}]
 ---    \startcombination[2*3]
----        {\ruledvbox \bgroup \setuptolerance[verytolerant]
----            \hsize .45\textwidth \switchtobodyfont[6pt]
----                \pardir TLT \textdir TLT
----                \hangindent 40pt \hangafter -3
----                \leftskip10pt \input tufte \par
+---        {\ruledvbox \bgroup \setuptolerance[verytolerant] \hsize .45\textwidth \switchtobodyfont[6pt] \pardir TLT \textdir TLT \hangindent 40pt \hangafter -3 \leftskip10pt \input tufte \par
 ---         \egroup} {TLT: hangindent}
----        {\ruledvbox \bgroup \setuptolerance[verytolerant]
----            \hsize .45\textwidth \switchtobodyfont[6pt]
----            \pardir TLT \textdir TLT
----            \parshape 4 0pt .8\hsize 10pt .8\hsize 20pt .8\hsize 0pt \hsize
----            \input tufte \par
+---        {\ruledvbox \bgroup \setuptolerance[verytolerant] \hsize .45\textwidth \switchtobodyfont[6pt] \pardir TLT \textdir TLT \parshape 4 0pt .8\hsize 10pt .8\hsize 20pt .8\hsize 0pt \hsize \input tufte \par
 ---         \egroup} {TLT: parshape}
----        {\ruledvbox \bgroup \setuptolerance[verytolerant]
----            \hsize .45\textwidth \switchtobodyfont[6pt]
----            \pardir TRT \textdir TRT
----            \hangindent 40pt \hangafter -3
----            \leftskip10pt \input tufte \par
+---        {\ruledvbox \bgroup \setuptolerance[verytolerant] \hsize .45\textwidth \switchtobodyfont[6pt] \pardir TRT \textdir TRT \hangindent 40pt \hangafter -3 \leftskip10pt \input tufte \par
 ---         \egroup} {TRT: hangindent mode 0}
----        {\ruledvbox \bgroup \setuptolerance[verytolerant]
----            \hsize .45\textwidth \switchtobodyfont[6pt]
----            \pardir TRT \textdir TRT
----            \parshape 4 0pt .8\hsize 10pt .8\hsize 20pt .8\hsize 0pt \hsize
----            \input tufte \par
+---        {\ruledvbox \bgroup \setuptolerance[verytolerant] \hsize .45\textwidth \switchtobodyfont[6pt] \pardir TRT \textdir TRT \parshape 4 0pt .8\hsize 10pt .8\hsize 20pt .8\hsize 0pt \hsize \input tufte \par
 ---         \egroup} {TRT: parshape mode 0}
----        {\ruledvbox \bgroup \setuptolerance[verytolerant]
----            \hsize .45\textwidth \switchtobodyfont[6pt]
----            \shapemode=3
----            \pardir TRT \textdir TRT
----            \hangindent 40pt \hangafter -3
----            \leftskip10pt \input tufte \par
+---        {\ruledvbox \bgroup \setuptolerance[verytolerant] \hsize .45\textwidth \switchtobodyfont[6pt] \shapemode=3 \pardir TRT \textdir TRT \hangindent 40pt \hangafter -3 \leftskip10pt \input tufte \par
 ---         \egroup} {TRT: hangindent mode 1 & 3}
----        {\ruledvbox \bgroup \setuptolerance[verytolerant]
----            \hsize .45\textwidth \switchtobodyfont[6pt]
----            \shapemode=3
----            \pardir TRT \textdir TRT
----            \parshape 4 0pt .8\hsize 10pt .8\hsize 20pt .8\hsize 0pt \hsize
----            \input tufte \par
+---        {\ruledvbox \bgroup \setuptolerance[verytolerant] \hsize .45\textwidth \switchtobodyfont[6pt] \shapemode=3 \pardir TRT \textdir TRT \parshape 4 0pt .8\hsize 10pt .8\hsize 20pt .8\hsize 0pt \hsize \input tufte \par
 ---         \egroup} {TRT: parshape mode 2 & 3}
 ---    \stopcombination
 ---\stopplacefigure

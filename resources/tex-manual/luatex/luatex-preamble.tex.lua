@@ -22,7 +22,7 @@
 ---Reading \quotation {The *TeX* Book} by Donald Knuth is a good investment of time
 ---then also because it's good to know where it all started. A more summarizing
 ---overview is given by \quotation {*TeX* by Topic} by Victor Eijkhout. You might
----want to peek in \quotation {The \ETEX\ manual} and documentation about \PDFTEX.
+---want to peek in \quotation {The \ETEX\ manual} and documentation about *PDF*TEX.
 ---
 ---But \unknown\ if you're here because of *Lua*, then all you need to know is that
 ---you can call it from within a run. The macro package that you use probably will
@@ -67,7 +67,7 @@
 ---and when feasible triggers an output routine that will take the list so far.
 ---Constructing the actual page is not part of *TeX* but done using primitives that
 ---permit manipulation of boxes. The result is handled back to *TeX* and flushed to
----a (often \PDF) file.
+---a (often *PDF*) file.
 ---
 ---The *LuaTeX* engine provides hooks for *Lua* code at nearly every reasonable
 ---point in the process: collecting content, hyphenating, applying font features,

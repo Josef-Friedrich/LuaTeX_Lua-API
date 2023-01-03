@@ -508,11 +508,30 @@ node.__t.__whatsit.pdf_action = 22
 
 node.__t.__whatsit.pdf_thread = 23
 
+---@class PdfThreadWhatsitNode
+---@field attr Node # list of attributes
+---@field width number # the width (not used in calculations)
+---@field height number # the height (not used in calculations)
+---@field depth number # the depth (not used in calculations)
+---@field named_id number # is `tread_id` a string value?
+---@field tread_id number # the thread id  string  the thread name
+---@field thread_attr number # extra thread information
+
 node.__t.__whatsit.pdf_start_thread = 24
+
+---@class PdfStartThreadWhatsitNode
+---@field attr Node # list of attributes
+---@field width number # the width (not used in calculations)
+---@field height number # the height (not used in calculations)
+---@field depth number # the depth (not used in calculations)
+---@field named_id number # is `tread_id` a string value?
+---@field tread_id number # the thread id  string  the thread name
+---@field thread_attr number # extra thread information
 
 node.__t.__whatsit.pdf_end_thread = 25
 
-node.__t.__whatsit.pdf_thread_data = 26
+---@class PdfEndThreadWhatsitNode
+---@field attr Node # list of attributes
 
 node.__t.__whatsit.pdf_colorstack = 28
 
@@ -538,13 +557,25 @@ node.__t.__whatsit.pdf_colorstack = 28
 
 node.__t.__whatsit.pdf_setmatrix = 29
 
+---@class PdfSetmatrixWhatsitNode
+---@field attr Node # list of attributes
+---@field data string # data
+
 node.__t.__whatsit.pdf_save = 30
+
+---@class PdfSaveWhatsitNode
+---@field attr Node # list of attributes
 
 node.__t.__whatsit.pdf_restore = 31
 
-node.__t.__whatsit.pdf_link_state = 32
+---@class PdfRestoreWhatsitNode
+---@field attr Node # list of attributes
+
+node.__t.__whatsit.pdf_thread_data = 26
 
 node.__t.__whatsit.pdf_link_data = 27
+
+node.__t.__whatsit.pdf_link_state = 32
 
 node.__t.unset = 15
 node.__t.align_record = 30

@@ -141,7 +141,7 @@
 ---    function (<string> asked_name)
 ---```
 ---
----The `asked_name` is the \PDF\ or \DVI\ file for writing.
+---The `asked_name` is the *PDF* or \DVI\ file for writing.
 ---
 ---\subsection{\cbk {find_format_file}}
 ---
@@ -357,7 +357,7 @@
 --- `read_map_file`       map files 
 --- `read_enc_file`       encoding files 
 --- `read_pk_file`        pk bitmap files 
---- `read_data_file`      embedded files (as is possible with \PDF\ objects) 
+--- `read_data_file`      embedded files (as is possible with *PDF* objects) 
 --- `read_truetype_file`  \TRUETYPE\ font files 
 --- `read_type1_file`     \TYPEONE\ font files 
 --- `read_opentype_file`  \OPENTYPE\ font files 
@@ -714,7 +714,7 @@
 ---
 ---This is an experimental callback. It can be used with rules of subtype 4
 ---(user). The callback gets three arguments: the node, the width and the
----height. The callback can use `pdf.print` to write code to the \PDF\
+---height. The callback can use `pdf.print` to write code to the *PDF*
 ---file but beware of not messing up the final result. No checking is done.
 ---
 ---\subsection{`pre_output_filter`}
@@ -866,7 +866,7 @@
 ---```
 ---
 ---This callback replaces the code that prints *LuaTeX*'s statistics and “output written to” messages. The engine can still do housekeeping and therefore
----you should not rely on this hook for postprocessing the \PDF\ or log file.
+---you should not rely on this hook for postprocessing the *PDF* or log file.
 ---
 ---\subsection{\cbk {start_page_number}}
 ---
@@ -988,46 +988,46 @@
 ---
 ---\topicindex{callbacks+wrapping up}
 ---
----This callback is called after the \PDF\ and log files are closed. Use it at your own
+---This callback is called after the *PDF* and log files are closed. Use it at your own
 ---risk.
 ---
 ---\stopsection
 ---
----\startsection[title={\PDF\ related callbacks}][library=callback]
+---\startsection[title={*PDF* related callbacks}][library=callback]
 ---
 ---\subsection{\cbk {finish_pdffile}}
 ---
----\topicindex{callbacks+\PDF\ file}
+---\topicindex{callbacks+*PDF* file}
 ---
 ---```
 ---function()
 ---end
 ---```
 ---
----This callback is called when all document pages are already written to the \PDF\
+---This callback is called when all document pages are already written to the *PDF*
 ---file and *LuaTeX* is about to finalize the output document structure. Its
----intended use is final update of \PDF\ dictionaries such as `/Catalog` or
+---intended use is final update of *PDF* dictionaries such as `/Catalog` or
 ---`/Info`. The callback does not replace any code. There are neither
 ---arguments nor return values.
 ---
 ---\subsection{\cbk {finish_pdfpage}}
 ---
----\topicindex{callbacks+\PDF\ file}
+---\topicindex{callbacks+*PDF* file}
 ---
 ---```
 ---function(shippingout)
 ---end
 ---```
 ---
----This callback is called after the \PDF\ page stream has been assembled and before
+---This callback is called after the *PDF* page stream has been assembled and before
 ---the page object gets finalized.
 ---
 ---\subsection{\cbk {page_order_index}}
 ---
----\topicindex{callbacks+\PDF\ file}
+---\topicindex{callbacks+*PDF* file}
 ---
 ---This is one that experts can use to juggle the page tree, a data structure
----that determines the order in a \PDF\ file:
+---that determines the order in a *PDF* file:
 ---
 ---```
 ---function(pagenumber)
@@ -1056,7 +1056,7 @@
 ---
 ---\topicindex{callbacks+image content}
 ---
----When a page from a \PDF\ file is embedded its page stream as well as related
+---When a page from a *PDF* file is embedded its page stream as well as related
 ---objects are copied to the target file. However, it can be that the page stream
 ---has operators that assume additional resources, for instance marked text. You can
 ---decide to filter that for which *LuaTeX* provides a callback. Here is a simple

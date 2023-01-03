@@ -55,9 +55,9 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field          \BC type   \BC explanation 
 ---\TB
---- `next`     node    the next node in a list, or nil 
---- `id`       number  the node's type (`id`) number 
---- `subtype`  number  the node `subtype` identifier 
+---@field next node    the next node # in a list, or nil 
+---@field id number # the node's type (`id`) number 
+---@field subtype number # the node `subtype` identifier 
 ---\LL
 ---\stoptabulate
 ---
@@ -79,20 +79,17 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field             \BC type   \BC explanation 
 ---\TB
---- `subtype`     number  \showsubtypes{list} 
---- `attr`        node    list of attributes 
---- `width`       number  the width of the box 
---- `height`      number  the height of the box 
---- `depth`       number  the depth of the box 
---- `shift`       number  a displacement perpendicular to the character
----                                     progression direction 
---- `glue_order`  number  a number in the range `[0,4]`, indicating the
----                                     glue order 
---- `glue_set`    number  the calculated glue ratio 
---- `glue_sign`   number  0 = `normal`, 1 = `stretching`, 2 =
----                                     `shrinking` 
---- `head/list`   node    the first node of the body of this list 
---- `dir`         string  the direction of this box, see \in [dirnodes] 
+---@field subtype number # \showsubtypes{list} 
+---@field attr node # list of attributes 
+---@field width number # the width of the box 
+---@field height number # the height of the box 
+---@field depth number # the depth of the box 
+---@field shift number # a displacement perpendicular to the character progression direction 
+---@field glue_order number # a number in the range `[0,4]`, indicating the glue order 
+---@field glue_set number # the calculated glue ratio 
+---@field glue_sign number # 0 = `normal`, 1 = `stretching`, 2 = `shrinking` 
+---@field head/list node    the first node # of the body of this list 
+---@field dir string # the direction of this box, see \in [dirnodes] 
 ---\LL
 ---\stoptabulate
 ---
@@ -127,17 +124,16 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field            \BC type   \BC explanation 
 ---\TB
---- `subtype`    number  \showsubtypes {rule} 
---- `attr`       node    list of attributes 
---- `width`      number  the width of the rule where the special value
----                                    `-1073741824` is used for “running” glue dimensions 
---- `height`     number  the height of the rule (can be negative) 
---- `depth`      number  the depth of the rule (can be negative) 
---- `left`       number  shift at the left end (also subtracted from width) 
---- `right`      number  (subtracted from width) 
---- `dir`        string  the direction of this rule, see \in[dirnodes] 
---- `index`      number  an optional index that can be referred to 
---- `transform`  number  an private variable (also used to specify outline width) 
+---@field subtype number # \showsubtypes {rule} 
+---@field attr node # list of attributes 
+---@field width number # the width of the rule where the special value `-1073741824` is used for “running” glue dimensions 
+---@field height number # the height of the rule (can be negative) 
+---@field depth number # the depth of the rule (can be negative) 
+---@field left number # shift at the left end (also subtracted from width) 
+---@field right number # (subtracted from width) 
+---@field dir string # the direction of this rule, see \in[dirnodes] 
+---@field index number # an optional index that can be referred to 
+---@field transform number # an private variable (also used to specify outline width) 
 ---\LL
 ---\stoptabulate
 ---
@@ -164,12 +160,12 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field            \BC type   \BC explanation 
 ---\TB
---- `subtype`    number  the insertion class 
---- `attr`       node    list of attributes 
---- `cost`       number  the penalty associated with this insert 
---- `height`     number  height of the insert 
---- `depth`      number  depth of the insert 
---- `head/list`  node    the first node of the body of this insert 
+---@field subtype number # the insertion class 
+---@field attr node # list of attributes 
+---@field cost number # the penalty associated with this insert 
+---@field height number # height of the insert 
+---@field depth number # depth of the insert 
+---@field head/list node    the first node # of the body of this insert 
 ---\LL
 ---\stoptabulate
 ---
@@ -192,10 +188,10 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field          \BC type   \BC explanation 
 ---\TB
---- `subtype`  number  unused 
---- `attr`     node    list of attributes 
---- `class`    number  the mark class 
---- `mark`     table   a table representing a token list 
+---@field subtype number # unused 
+---@field attr node # list of attributes 
+---@field class number # the mark class 
+---@field mark table # a table representing a token list 
 ---\LL
 ---\stoptabulate
 ---
@@ -209,9 +205,9 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field            \BC type   \BC explanation 
 ---\TB
---- `subtype`    number  \showsubtypes{adjust} 
---- `attr`       node    list of attributes 
---- `head/list`  node    adjusted material 
+---@field subtype number # \showsubtypes{adjust} 
+---@field attr node # list of attributes 
+---@field head/list node # adjusted material 
 ---\LL
 ---\stoptabulate
 ---
@@ -229,13 +225,12 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field          \BC type   \BC explanation 
 ---\TB
---- `subtype`  number  \showsubtypes{disc} 
---- `attr`     node    list of attributes 
---- `pre`      node    pointer to the pre-break text 
---- `post`     node    pointer to the post-break text 
---- `replace`  node    pointer to the no-break text 
---- `penalty`  number  the penalty associated with the break, normally
----                                  `hyphenpenalty` or `exhyphenpenalty` 
+---@field subtype number # \showsubtypes{disc} 
+---@field attr node # list of attributes 
+---@field pre node # pointer to the pre-break text 
+---@field post node # pointer to the post-break text 
+---@field replace node # pointer to the no-break text 
+---@field penalty number # the penalty associated with the break, normally `hyphenpenalty` or `exhyphenpenalty` 
 ---\LL
 ---\stoptabulate
 ---
@@ -273,9 +268,9 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field           \BC type   \BC explanation 
 ---\TB
---- `subtype`   number  \showsubtypes{math} 
---- `attr`      node    list of attributes 
---- `surround`  number  width of the `mathsurround` kern 
+---@field subtype number # \showsubtypes{math} 
+---@field attr node # list of attributes 
+---@field surround number # width of the `mathsurround` kern 
 ---\LL
 ---\stoptabulate
 ---
@@ -297,11 +292,11 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field                \BC type   \BC explanation 
 ---\TB
---- `width`          number  the horizontal or vertical displacement 
---- `stretch`        number  extra (positive) displacement or stretch amount 
---- `stretch_order`  number  factor applied to stretch amount 
---- `shrink`         number  extra (negative) displacement or shrink amount
---- `shrink_order`   number  factor applied to shrink amount 
+---@field width number # the horizontal or vertical displacement 
+---@field stretch number # extra (positive) displacement or stretch amount 
+---@field stretch_order number # factor applied to stretch amount 
+---@field shrink number # extra (negative) displacement or shrink amount
+---@field shrink_order number # factor applied to shrink amount 
 ---\LL
 ---\stoptabulate
 ---
@@ -333,9 +328,9 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field          \BC type   \BC explanation 
 ---\TB
---- `subtype`  number  \showsubtypes{glue} 
---- `attr`     node    list of attributes 
---- `leader`   node    pointer to a box or rule for leaders 
+---@field subtype number # \showsubtypes{glue} 
+---@field attr node # list of attributes 
+---@field leader node # pointer to a box or rule for leaders 
 ---\LL
 ---\stoptabulate
 ---
@@ -357,9 +352,9 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field          \BC type   \BC explanation 
 ---\TB
---- `subtype`  number  \showsubtypes{kern} 
---- `attr`     node    list of attributes 
---- `kern`     number  fixed horizontal or vertical advance 
+---@field subtype number # \showsubtypes{kern} 
+---@field attr node # list of attributes 
+---@field kern number # fixed horizontal or vertical advance 
 ---\LL
 ---\stoptabulate
 ---
@@ -373,9 +368,9 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field          \BC type   \BC explanation 
 ---\TB
---- `subtype`  number  \showsubtypes{penalty} 
---- `attr`     node    list of attributes 
---- `penalty`  number  the penalty value 
+---@field subtype number # \showsubtypes{penalty} 
+---@field attr node # list of attributes 
+---@field penalty number # the penalty value 
 ---\LL
 ---\stoptabulate
 ---
@@ -395,22 +390,22 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field                   \BC type    \BC explanation 
 ---\TB
---- `subtype`           number   bit field 
---- `attr`              node     list of attributes 
---- `char`              number   the character index in the font 
---- `font`              number   the font identifier 
---- `lang`              number   the language identifier 
---- `left`              number   the frozen `\lefthyphenmnin` value 
---- `right`             number   the frozen `\righthyphenmnin` value 
---- `uchyph`            boolean  the frozen `uchyph` value 
---- `components`        node     pointer to ligature components 
---- `xoffset`           number   a virtual displacement in horizontal direction 
---- `yoffset`           number   a virtual displacement in vertical direction 
---- `width`             number   the (original) width of the character 
---- `height`            number   the (original) height of the character
---- `depth`             number   the (original) depth of the character
---- `expansion_factor`  number   the to be applied expansion_factor 
---- `data`              number   a general purpose field for users (we had room for it) 
+---@field subtype number # bit field 
+---@field attr node # list of attributes 
+---@field char number # the character index in the font 
+---@field font number # the font identifier 
+---@field lang number # the language identifier 
+---@field left number # the frozen `\lefthyphenmnin` value 
+---@field right number # the frozen `\righthyphenmnin` value 
+---@field uchyph boolean # the frozen `uchyph` value 
+---@field components node # pointer to ligature components 
+---@field xoffset number # a virtual displacement in horizontal direction 
+---@field yoffset number # a virtual displacement in vertical direction 
+---@field width number # the (original) width of the character 
+---@field height number # the (original) height of the character
+---@field depth number # the (original) depth of the character
+---@field expansion_factor number # the to be applied expansion_factor 
+---@field data number # a general purpose field for users (we had room for it) 
 ---\LL
 ---\stoptabulate
 ---
@@ -438,7 +433,7 @@
 ---between font- and backend. It is the result of extensive experiments with a more
 ---efficient implementation of expansion. Early versions of *LuaTeX* already
 ---replaced multiple instances of fonts in the backend by scaling but contrary to
----\PDFTEX\ in *LuaTeX* we now also got rid of font copies in the frontend and
+---*PDF*TEX\ in *LuaTeX* we now also got rid of font copies in the frontend and
 ---replaced them by expansion factors that travel with glyph nodes. Apart from a
 ---cleaner approach this is also a step towards a better separation between front-
 ---and backend.
@@ -464,9 +459,9 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field          \BC type   \BC explanation 
 ---\TB
---- `subtype`  number  \showsubtypes{boundary} 
---- `attr`     node    list of attributes 
---- `value`    number  values 0--255 are reserved 
+---@field subtype number # \showsubtypes{boundary} 
+---@field attr node # list of attributes 
+---@field value number # values 0--255 are reserved 
 ---\LL
 ---\stoptabulate
 ---
@@ -481,14 +476,14 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field                  \BC type   \BC explanation 
 ---\TB
---- `attr`             node    list of attributes 
---- `pen_inter`        number  local interline penalty (from `localinterlinepenalty`) 
---- `pen_broken`       number  local broken penalty (from `localbrokenpenalty`) 
---- `dir`              string  the direction of this par. see \in [dirnodes] 
---- `box_left`         node    the `localleftbox` 
---- `box_left_width`   number  width of the `localleftbox` 
---- `box_right`        node    the `localrightbox` 
---- `box_right_width`  number  width of the `localrightbox` 
+---@field attr node # list of attributes 
+---@field pen_inter number # local interline penalty (from `localinterlinepenalty`) 
+---@field pen_broken number # local broken penalty (from `localbrokenpenalty`) 
+---@field dir string # the direction of this par. see \in [dirnodes] 
+---@field box_left node # the `localleftbox` 
+---@field box_left_width number # width of the `localleftbox` 
+---@field box_right node # the `localrightbox` 
+---@field box_right_width number # width of the `localrightbox` 
 ---\LL
 ---\stoptabulate
 ---
@@ -507,9 +502,9 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field        \BC type   \BC explanation 
 ---\TB
---- `attr`   node    list of attributes 
---- `dir`    string  the direction (but see below) 
---- `level`  number  nesting level of this direction whatsit 
+---@field attr node # list of attributes 
+---@field dir string # the direction (but see below) 
+---@field level number # nesting level of this direction whatsit 
 ---\LL
 ---\stoptabulate
 ---
@@ -541,10 +536,10 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field          \BC type   \BC explanation 
 ---\TB
---- `subtype`  number  \showsubtypes{marginkern} 
---- `attr`     node    list of attributes 
---- `width`    number  the advance of the kern 
---- `glyph`    node    the glyph to be used 
+---@field subtype number # \showsubtypes{marginkern} 
+---@field attr node # list of attributes 
+---@field width number # the advance of the kern 
+---@field glyph node # the glyph to be used 
 ---\LL
 ---\stoptabulate
 ---
@@ -573,9 +568,9 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field       \BC type   \BC explanation 
 ---\TB
---- `attr`  node    list of attributes 
---- `char`  number  the character index 
---- `fam`   number  the family number 
+---@field attr node # list of attributes 
+---@field char number # the character index 
+---@field fam number # the family number 
 ---\LL
 ---\stoptabulate
 ---
@@ -589,8 +584,8 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field            \BC type \BC explanation 
 ---\TB
---- `attr`       node  list of attributes 
---- `head/list`  node  list of nodes 
+---@field attr node # list of attributes 
+---@field head/list node # list of nodes 
 ---\LL
 ---\stoptabulate
 ---
@@ -609,11 +604,11 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field             \BC type   \BC explanation 
 ---\TB
---- `attr`        node    list of attributes 
---- `small_char`  number  character index of base character 
---- `small_fam`   number  family number of base character 
---- `large_char`  number  character index of next larger character 
---- `large_fam`   number  family number of next larger character 
+---@field attr node # list of attributes 
+---@field small_char number # character index of base character 
+---@field small_fam number # family number of base character 
+---@field large_char number # character index of next larger character 
+---@field large_fam number # family number of next larger character 
 ---\LL
 ---\stoptabulate
 ---
@@ -653,12 +648,12 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field          \BC type        \BC explanation 
 ---\TB
---- `subtype`  number       \showsubtypes{noad} 
---- `attr`     node         list of attributes 
---- `nucleus`  kernel node  base 
---- `sub`      kernel node  subscript 
---- `sup`      kernel node  superscript 
---- `options`  number       bitset of rendering options 
+---@field subtype number # \showsubtypes{noad} 
+---@field attr node # list of attributes 
+---@field nucleus kernel node # base 
+---@field sub kernel node # subscript 
+---@field sup kernel node # superscript 
+---@field options number # bitset of rendering options 
 ---\LL
 ---\stoptabulate
 ---
@@ -667,13 +662,13 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field             \BC type        \BC explanation 
 ---\TB
---- `subtype`     number       \showsubtypes{accent} 
---- `nucleus`     kernel node  base 
---- `sub`         kernel node  subscript 
---- `sup`         kernel node  superscript 
---- `accent`      kernel node  top accent 
---- `bot_accent`  kernel node  bottom accent 
---- `fraction`    number       larger step criterium (divided by 1000) 
+---@field subtype number # \showsubtypes{accent} 
+---@field nucleus kernel node # base 
+---@field sub kernel node # subscript 
+---@field sup kernel node # superscript 
+---@field accent kernel node # top accent 
+---@field bot_accent kernel node # bottom accent 
+---@field fraction number # larger step criterium (divided by 1000) 
 ---\LL
 ---\stoptabulate
 ---
@@ -682,7 +677,7 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field        \BC type   \BC explanation    
 ---\TB
---- `style`  string  contains the style 
+---@field style string # contains the style 
 ---\LL
 ---\stoptabulate
 ---
@@ -695,11 +690,11 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field               \BC type \BC explanation 
 ---\TB
---- `attr`          node  list of attributes 
---- `display`       node  list of display size alternatives 
---- `text`          node  list of text size alternatives 
---- `script`        node  list of scriptsize alternatives 
---- `scriptscript`  node  list of scriptscriptsize alternatives 
+---@field attr node # list of attributes 
+---@field display node # list of display size alternatives 
+---@field text node # list of text size alternatives 
+---@field script node # list of scriptsize alternatives 
+---@field scriptscript node # list of scriptscriptsize alternatives 
 ---\LL
 ---\stoptabulate
 ---
@@ -711,15 +706,15 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field          \BC type           \BC explanation 
 ---\TB
---- `subtype`  number          \showsubtypes{radical} 
---- `attr`     node            list of attributes 
---- `nucleus`  kernel node     base 
---- `sub`      kernel node     subscript 
---- `sup`      kernel node     superscript 
---- `left`     delimiter node  
---- `degree`   kernel node     only set by `Uroot` 
---- `width`    number          required width 
---- `options`  number          bitset of rendering options 
+---@field subtype number # \showsubtypes{radical} 
+---@field attr node # list of attributes 
+---@field nucleus kernel node # base 
+---@field sub kernel node # subscript 
+---@field sup kernel node # superscript 
+---@field left delimiter node # 
+---@field degree kernel node # only set by `Uroot` 
+---@field width number # required width 
+---@field options number # bitset of rendering options 
 ---\LL
 ---\stoptabulate
 ---
@@ -731,14 +726,14 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field          \BC type           \BC explanation 
 ---\TB
---- `attr`     node            list of attributes 
---- `width`    number          (optional) width of the fraction 
---- `num`      kernel node     numerator 
---- `denom`    kernel node     denominator 
---- `left`     delimiter node  left side symbol 
---- `right`    delimiter node  right side symbol 
---- `middle`   delimiter node  middle symbol 
---- `options`  number          bitset of rendering options 
+---@field attr node # list of attributes 
+---@field width number # (optional) width of the fraction 
+---@field num kernel node # numerator 
+---@field denom kernel node # denominator 
+---@field left delimiter node # left side symbol 
+---@field right delimiter node # right side symbol 
+---@field middle delimiter node # middle symbol 
+---@field options number # bitset of rendering options 
 ---\LL
 ---\stoptabulate
 ---
@@ -751,14 +746,14 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field          \BC type           \BC explanation 
 ---\TB
---- `subtype`  number          \showsubtypes{fence} 
---- `attr`     node            list of attributes 
---- `delim`    delimiter node  delimiter specification 
---- `italic`   number          italic correction 
---- `height`   number          required height 
---- `depth`    number          required depth 
---- `options`  number          bitset of rendering options 
---- `class`    number          spacing related class 
+---@field subtype number # \showsubtypes{fence} 
+---@field attr node # list of attributes 
+---@field delim delimiter node # delimiter specification 
+---@field italic number # italic correction 
+---@field height number # required height 
+---@field depth number # required depth 
+---@field options number # bitset of rendering options 
+---@field class number # spacing related class 
 ---\LL
 ---\stoptabulate
 ---
@@ -782,7 +777,7 @@
 ---. % period
 ---
 ---Some of them are generic and independent of the output mode and others are
----specific to the chosen backend: \DVI\ or \PDF. Here we discuss the generic
+---specific to the chosen backend: \DVI\ or *PDF*. Here we discuss the generic
 ---font-end nodes nodes.
 ---
 ---\subsection{`open`}
@@ -790,11 +785,11 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field         \BC type   \BC explanation 
 ---\TB
---- `attr`    node    list of attributes 
---- `stream`  number  *TeX*'s stream id number 
---- `name`    string  file name 
---- `ext`     string  file extension 
---- `area`    string  file area (this may become obsolete) 
+---@field attr node # list of attributes 
+---@field stream number # *TeX*'s stream id number 
+---@field name string # file name 
+---@field ext string # file extension 
+---@field area string # file area (this may become obsolete) 
 ---\LL
 ---\stoptabulate
 ---
@@ -803,9 +798,9 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field         \BC type   \BC explanation 
 ---\TB
---- `attr`    node    list of attributes 
---- `stream`  number  *TeX*'s stream id number 
---- `data`    table   a table representing the token list to be written 
+---@field attr node # list of attributes 
+---@field stream number # *TeX*'s stream id number 
+---@field data table # a table representing the token list to be written 
 ---\LL
 ---\stoptabulate
 ---
@@ -814,8 +809,8 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field         \BC type   \BC explanation 
 ---\TB
---- `attr`    node    list of attributes 
---- `stream`  number  *TeX*'s stream id number 
+---@field attr node # list of attributes 
+---@field stream number # *TeX*'s stream id number 
 ---\LL
 ---\stoptabulate
 ---
@@ -828,13 +823,10 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field          \BC type   \BC explanation 
 ---\TB
---- `attr`     node    list of attributes 
---- `user_id`  number  id number 
---- `type`     number  type of the value 
---- `value`    number  a *Lua* number 
----                 node    a node list 
----                 string  a *Lua* string 
----                 table   a *Lua* table 
+---@field attr node # list of attributes 
+---@field user_id number # id number 
+---@field type number # type of the value 
+---@field value number # a *Lua* number  node    a node list  string  a *Lua* string  table   a *Lua* table 
 ---\LL
 ---\stoptabulate
 ---
@@ -859,7 +851,7 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field       \BC type \BC explanation 
 ---\TB
---- `attr`  node  list of attributes 
+---@field attr node # list of attributes 
 ---\LL
 ---\stoptabulate
 ---
@@ -868,10 +860,10 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field        \BC type               \BC explanation 
 ---\TB
---- `attr`   node                list of attributes 
---- `data`   string or function  the to be written information stored as *Lua* value 
---- `token`  string              the to be written information stored as token list 
---- `name`   string              the name to use for *Lua* error reporting 
+---@field attr node # list of attributes 
+---@field data string # or function  the to be written information stored as *Lua* value 
+---@field token string # the to be written information stored as token list 
+---@field name string # the name to use for *Lua* error reporting 
 ---\LL
 ---\stoptabulate
 ---
@@ -895,24 +887,24 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field       \BC type   \BC explanation 
 ---\TB
---- `attr`  node    list of attributes 
---- `data`  string  the `special` information 
+---@field attr node # list of attributes 
+---@field data string # the `special` information 
 ---\LL
 ---\stoptabulate
 ---
 ---\stopsection
 ---
----\startsection[title={\PDF\ backend whatsits}]
+---\startsection[title={*PDF* backend whatsits}]
 ---
 ---\subsection{`pdf_literal`}
 ---
 ---\starttabulate[|l|l|p|]
 ---\DB field        \BC type   \BC explanation 
 ---\TB
---- `attr`   node    list of attributes 
---- `mode`   number  the “mode” setting of this literal 
---- `data`   string  the to be written information stored as *Lua* string 
---- `token`  string  the to be written information stored as token list 
+---@field attr node # list of attributes 
+---@field mode number # the “mode” setting of this literal 
+---@field data string # the to be written information stored as *Lua* string 
+---@field token string # the to be written information stored as token list 
 ---\LL
 ---\stoptabulate
 ---
@@ -930,7 +922,7 @@
 ---\stoptabulate
 ---
 ---The higher the number, the less checking and the more you can run into trouble.
----Especially the `raw` variant can produce bad \PDF\ so you can best check
+---Especially the `raw` variant can produce bad *PDF* so you can best check
 ---what you generate.
 ---
 ---\subsection{`pdf_refobj`}
@@ -938,8 +930,8 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field         \BC type   \BC explanation 
 ---\TB
---- `attr`    node    list of attributes 
---- `objnum`  number  the referenced \PDF\ object number 
+---@field attr node # list of attributes 
+---@field objnum number # the referenced *PDF* object number 
 ---\LL
 ---\stoptabulate
 ---
@@ -948,12 +940,12 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field         \BC type   \BC explanation 
 ---\TB
---- `attr`    node    list of attributes 
---- `width`   number  the width (not used in calculations) 
---- `height`  number  the height (not used in calculations) 
---- `depth`   number  the depth (not used in calculations) 
---- `objnum`  number  the referenced \PDF\ object number 
---- `data`    string  the annotation data 
+---@field attr node # list of attributes 
+---@field width number # the width (not used in calculations) 
+---@field height number # the height (not used in calculations) 
+---@field depth number # the depth (not used in calculations) 
+---@field objnum number # the referenced *PDF* object number 
+---@field data string # the annotation data 
 ---\LL
 ---\stoptabulate
 ---
@@ -962,13 +954,13 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field            \BC type   \BC explanation 
 ---\TB
---- `attr`       node    list of attributes 
---- `width`      number  the width (not used in calculations) 
---- `height`     number  the height (not used in calculations) 
---- `depth`      number  the depth (not used in calculations) 
---- `objnum`     number  the referenced \PDF\ object number 
---- `link_attr`  table   the link attribute token list 
---- `action`     node    the action to perform 
+---@field attr node # list of attributes 
+---@field width number # the width (not used in calculations) 
+---@field height number # the height (not used in calculations) 
+---@field depth number # the depth (not used in calculations) 
+---@field objnum number # the referenced *PDF* object number 
+---@field link_attr table # the link attribute token list 
+---@field action node # the action to perform 
 ---\LL
 ---\stoptabulate
 ---
@@ -977,7 +969,7 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field       \BC type \BC explanation 
 ---\TB
---- `attr`  node  
+---@field attr node # 
 ---\LL
 ---\stoptabulate
 ---
@@ -986,36 +978,33 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field              \BC type     \BC explanation 
 ---\TB
---- `attr`         node      list of attributes 
---- `width`        number    the width (not used in calculations) 
---- `height`       number    the height (not used in calculations) 
---- `depth`        number    the depth (not used in calculations) 
---- `named_id`     number    is the `dest_id` a string value? 
---- `dest_id`      number    the destination id 
----                     string    the destination name 
---- `dest_type`    number    type of destination 
---- `xyz_zoom`     number    the zoom factor (times 1000) 
---- `objnum`       number    the \PDF\ object number; for structure references the \PDF\ object number of the linked structure element 
+---@field attr node # list of attributes 
+---@field width number # the width (not used in calculations) 
+---@field height number # the height (not used in calculations) 
+---@field depth number # the depth (not used in calculations) 
+---@field named_id number # is the `dest_id` a string value? 
+---@field dest_id number # the destination id  string    the destination name 
+---@field dest_type number # type of destination 
+---@field xyz_zoom number # the zoom factor (times 1000) 
+---@field objnum number # the *PDF* object number; for structure references the *PDF* object number of the linked structure element 
 ---\LL
 ---\stoptabulate
 ---
 ---\subsection{`pdf_action`}
 ---
----These are a special kind of items that only appear inside \PDF\ start link
+---These are a special kind of items that only appear inside *PDF* start link
 ---objects.
 ---
 ---\starttabulate[|l|l|p|]
 ---\DB field              \BC type             \BC explanation 
 ---\TB
---- `action_type`  number            the kind of action involved 
---- `action_id`    number or string  token list reference or string 
---- `named_id`     number            are `dest_id` and `struct_id` string values? 
---- `file`         string            the target filename 
---- `new_window`   number            the window state of the target 
---- `data`         string            the name of the destination 
---- `struct_id`    nil               the action does not reference a structure destination 
----                     number            id of the referenced structure destination 
----                     string            name of the referenced structure destination 
+---@field action_type number # the kind of action involved 
+---@field action_id number # or string  token list reference or string 
+---@field named_id`     number            are `dest_id` and `struct_id string # values? 
+---@field file string # the target filename 
+---@field new_window number # the window state of the target 
+---@field data string # the name of the destination 
+--- `struct_id`    nil               the action does not reference a structure destination  number            id of the referenced structure destination  string            name of the referenced structure destination 
 ---\LL
 ---\stoptabulate
 ---
@@ -1047,14 +1036,13 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field              \BC type   \BC explanation 
 ---\TB
---- `attr`         node    list of attributes 
---- `width`        number  the width (not used in calculations) 
---- `height`       number  the height (not used in calculations) 
---- `depth`        number  the depth (not used in calculations) 
---- `named_id`     number  is `tread_id` a string value? 
---- `tread_id`     number  the thread id 
----                     string  the thread name 
---- `thread_attr`  number  extra thread information 
+---@field attr node # list of attributes 
+---@field width number # the width (not used in calculations) 
+---@field height number # the height (not used in calculations) 
+---@field depth number # the depth (not used in calculations) 
+---@field named_id number # is `tread_id` a string value? 
+---@field tread_id number # the thread id  string  the thread name 
+---@field thread_attr number # extra thread information 
 ---\LL
 ---\stoptabulate
 ---
@@ -1063,14 +1051,13 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field              \BC type   \BC explanation 
 ---\TB
---- `attr`         node    list of attributes 
---- `width`        number  the width (not used in calculations) 
---- `height`       number  the height (not used in calculations) 
---- `depth`        number  the depth (not used in calculations) 
---- `named_id`     number  is `tread_id` a string value? 
---- `tread_id`     number  the thread id 
----                     string  the thread name 
---- `thread_attr`  number  extra thread information 
+---@field attr node # list of attributes 
+---@field width number # the width (not used in calculations) 
+---@field height number # the height (not used in calculations) 
+---@field depth number # the depth (not used in calculations) 
+---@field named_id number # is `tread_id` a string value? 
+---@field tread_id number # the thread id  string  the thread name 
+---@field thread_attr number # extra thread information 
 ---\LL
 ---\stoptabulate
 ---
@@ -1079,7 +1066,7 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field       \BC type \BC explanation 
 ---\TB
---- `attr`  node  
+---@field attr node # 
 ---\LL
 ---\stoptabulate
 ---
@@ -1088,10 +1075,10 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field          \BC type   \BC explanation 
 ---\TB
---- `attr`     node    list of attributes 
---- `stack`    number  colorstack id number 
---- `command`  number  command to execute 
---- `data`     string  data 
+---@field attr node # list of attributes 
+---@field stack number # colorstack id number 
+---@field command number # command to execute 
+---@field data string # data 
 ---\LL
 ---\stoptabulate
 ---
@@ -1100,8 +1087,8 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field       \BC type   \BC explanation 
 ---\TB
---- `attr`  node    list of attributes 
---- `data`  string  data 
+---@field attr node # list of attributes 
+---@field data string # data 
 ---\LL
 ---\stoptabulate
 ---
@@ -1110,7 +1097,7 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field       \BC type \BC explanation 
 ---\TB
---- `attr`  node  list of attributes 
+---@field attr node # list of attributes 
 ---\LL
 ---\stoptabulate
 ---
@@ -1119,7 +1106,7 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field       \BC type \BC explanation 
 ---\TB
---- `attr`  node  list of attributes 
+---@field attr node # list of attributes 
 ---\LL
 ---\stoptabulate
 ---
@@ -1994,7 +1981,7 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field       \BC type \BC explanation 
 ---\TB
---- `next`  node  pointer to the first attribute 
+---@field next node # pointer to the first attribute 
 ---\LL
 ---\stoptabulate
 ---
@@ -2007,9 +1994,9 @@
 ---\starttabulate[|l|l|p|]
 ---\DB field         \BC type   \BC explanation 
 ---\TB
---- `next`    node    pointer to the next attribute 
---- `number`  number  the attribute type id 
---- `value`   number  the attribute value 
+---@field next node # pointer to the next attribute 
+---@field number number # the attribute type id 
+---@field value number # the attribute value 
 ---\LL
 ---\stoptabulate
 ---
@@ -2241,23 +2228,18 @@
 ---\TB
 --- `getnext`     parsing nodelist always involves this one 
 --- `getprev`     used less but a logical companion to `getnext` 
---- `getboth`     returns the next and prev pointer of a node 
+---@field getboth returns the next and prev pointer of a node # 
 --- `getid`       consulted a lot 
 --- `getsubtype`  consulted less but also a topper 
 --- `getfont`     used a lot in \OPENTYPE\ handling (glyph nodes are consulted a lot) 
 --- `getchar`     idem and also in other places 
---- `getwhd`      returns the `width`, `height` and `depth` of a list, rule or
----                          (unexpanded) glyph as well as glue (its spec is looked at) and unset nodes
---- `getdisc`     returns the `pre`, `post` and `replace` fields and
----                          optionally when true is passed also the tail fields 
+--- `getwhd`      returns the `width`, `height` and `depth` of a list, rule or (unexpanded) glyph as well as glue (its spec is looked at) and unset nodes
+--- `getdisc`     returns the `pre`, `post` and `replace` fields and optionally when true is passed also the tail fields 
 --- `getlist`     we often parse nested lists so this is a convenient one too 
---- `getleader`   comparable to list, seldom used in *TeX* (but needs frequent consulting
----                          like lists; leaders could have been made a dedicated node type) 
---- `getfield`    generic getter, sufficient for the rest (other field names are
----                          often shared so a specific getter makes no sense then) 
+--- `getleader`   comparable to list, seldom used in *TeX* (but needs frequent consulting like lists; leaders could have been made a dedicated node type) 
+--- `getfield`    generic getter, sufficient for the rest (other field names are often shared so a specific getter makes no sense then) 
 --- `getbox`      gets the given box (a list node) 
---- `getoffsets`  gets the `xoffset` and `yoffset` of a glyph or
----                          `left` and `right` values of a rule 
+--- `getoffsets`  gets the `xoffset` and `yoffset` of a glyph or `left` and `right` values of a rule 
 ---\LL
 ---\stoptabulate
 ---

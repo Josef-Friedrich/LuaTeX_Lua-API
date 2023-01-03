@@ -25,7 +25,7 @@
 ---\startpreamble
 ---    This document is derived from the original manual. When examples are given,
 ---    they assume processing by *LuaTeX* and therefore will not show up as
----    intended. The \PDF\ version is the real reference.
+---    intended. The *PDF* version is the real reference.
 ---\stoppreamble
 ---
 ---\stopcomponent

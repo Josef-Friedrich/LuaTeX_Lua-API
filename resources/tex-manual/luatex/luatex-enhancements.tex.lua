@@ -11,7 +11,7 @@
 ---\startsubsection[title={Primitive behaviour}]
 ---
 ---From day one, *LuaTeX* has offered extra features compared to the superset of
----\PDFTEX, which includes \ETEX, and \ALEPH. This has not been limited to the
+---*PDF*TEX, which includes \ETEX, and \ALEPH. This has not been limited to the
 ---possibility to execute *Lua* code via `directlua`, but *LuaTeX* also adds
 ---functionality via new *TeX*-side primitives or extensions to existing ones.
 ---
@@ -41,12 +41,12 @@
 ---
 ---The startup behaviour documented above is considered stable in the sense that
 ---there will not be backward-incompatible changes any more. We have promoted some
----rather generic \PDFTEX\ primitives to core *LuaTeX* ones, and the few that we
+---rather generic *PDF*TEX\ primitives to core *LuaTeX* ones, and the few that we
 ---inherited from \ALEPH\ (\OMEGA) are also promoted. Effectively this means that we
 ---now only have the `tex`, `etex` and `luatex` sets left.
 ---
 ---In \in {Chapter} [modifications] we discuss several primitives that are derived
----from \PDFTEX\ and \ALEPH\ (\OMEGA). Here we stick to real new ones. In the
+---from *PDF*TEX\ and \ALEPH\ (\OMEGA). Here we stick to real new ones. In the
 ---chapters on fonts and math we discuss a few more new ones.
 ---
 ---\stopsubsection
@@ -68,15 +68,11 @@
 ---  }}
 ---
 ---\starttabulate[|l|l|pl|]
----\DB primitive             \BC value
----                          \BC explanation 
+---\DB primitive             \BC value \BC explanation 
 ---\TB
---- `luatexbanner`    \VersionHack{\luatexbanner}
----                           the banner reported on the command line 
---- `luatexversion`   \the\luatexversion
----                           a combination of major and minor number 
---- `luatexrevision`  \luatexrevision
----                           the revision number, the current value is 
+--- `luatexbanner`    \VersionHack{\luatexbanner} the banner reported on the command line 
+--- `luatexversion`   \the\luatexversion a combination of major and minor number 
+--- `luatexrevision`  \luatexrevision the revision number, the current value is 
 ---\LL
 ---\stoptabulate
 ---
@@ -204,8 +200,8 @@
 ---Because font memory management has been rewritten, character properties in fonts
 ---are no longer shared among font instances that originate from the same metric
 ---file. Of course we share fonts in the backend when possible so that the resulting
----\PDF\ file is as efficient as possible, but for instance also expansion and
----protrusion no longer use copies as in \PDFTEX.
+---*PDF* file is as efficient as possible, but for instance also expansion and
+---protrusion no longer use copies as in *PDF*TEX.
 ---
 ---\stopsubsection
 ---
@@ -461,9 +457,9 @@
 ---
 ---Contrary to `directlua`, `latelua` stores *Lua* code in a whatsit
 ---that will be processed at the time of shipping out. Its intended use is a cross
----between \PDF\ literals (often available as \orm {pdfliteral}) and the
+---between *PDF* literals (often available as \orm {pdfliteral}) and the
 ---traditional *TeX* extension `write`. Within the *Lua* code you can print
----\PDF\ statements directly to the \PDF\ file via `pdf.print`, or you can
+---*PDF* statements directly to the *PDF* file via `pdf.print`, or you can
 ---write to other output streams via `texio.write` or simply using *Lua* \IO\
 ---routines.
 ---
@@ -473,8 +469,8 @@
 ---\stopsyntax
 ---
 ---Expansion of macros in the final `<general text>` is delayed until just
----before the whatsit is executed (like in `write`). With regard to \PDF\
----output stream `latelua` behaves as \PDF\ page literals. The `name <general text>` and `<16-bit number>` behave in the same way as
+---before the whatsit is executed (like in `write`). With regard to *PDF*
+---output stream `latelua` behaves as *PDF* page literals. The `name <general text>` and `<16-bit number>` behave in the same way as
 ---they do for `directlua`.
 ---
 ---The `lateluafunction` primitive takes a number and is similar to `luafunction` but gets delated to shipout time. It's just there for completeness.
@@ -542,9 +538,7 @@
 ---The `luafunctioncall` primitive does the same but is unexpandable, for
 ---instance in an `edef`. In addition *LuaTeX* provides a definer:
 ---
----```
----                 \luadef\MyFunctionA 1
----          \global\luadef\MyFunctionB 2
+---``` \luadef\MyFunctionA 1 \global\luadef\MyFunctionB 2
 ---\protected\global\luadef\MyFunctionC 3
 ---```
 ---
@@ -1154,7 +1148,7 @@
 ---effect that whenever we need to take content with dimensions into account, when
 ---we look at rule nodes, we automatically also deal with these two types.
 ---
----The syntax of the `\save...resource` is the same as in \PDFTEX\ but you
+---The syntax of the `\save...resource` is the same as in *PDF*TEX\ but you
 ---should consider them to be backend specific. This means that a macro package
 ---should treat them as such and check for the current output mode if applicable.
 ---
@@ -1260,11 +1254,9 @@
 ---\starttabulate[|l|pl|]
 ---\DB value     \BC effect \NR
 ---\TB
---- `0`  the old behaviour: add the offset to the height and only subtract
----                  the offset only from the depth when it is positive 
+--- `0`  the old behaviour: add the offset to the height and only subtract the offset only from the depth when it is positive 
 --- `1`  add the offset to the height and subtract it from the depth 
---- `2`  add the offset to the height and subtract it from the depth but
----                  keep the maxima of the current and previous results 
+--- `2`  add the offset to the height and subtract it from the depth but keep the maxima of the current and previous results 
 --- `3`  use the height and depth of the glyph, so no offset is applied 
 ---\LL
 ---\stoptabulate
@@ -1295,7 +1287,7 @@
 ---\DB value \BC output 
 ---\TB
 --- `0`  \DVI\ code 
---- `1`  \PDF\ code 
+--- `1`  *PDF* code 
 ---\LL
 ---\stoptabulate
 ---
@@ -1304,7 +1296,7 @@
 ---\startsubsection[title={`draftmode`}]
 ---
 ---The value of the `draftmode` counter signals the backend if it should output
----less. The \PDF\ backend accepts a value of 1, while the \DVI\ backend ignores the
+---less. The *PDF* backend accepts a value of 1, while the \DVI\ backend ignores the
 ---value. This is no critical feature so we can remove it in future versions when it
 ---can make the backend cleaner.
 ---
@@ -1328,7 +1320,7 @@
 ---This allows for embedded spaces, without the need for double quotes. Macro
 ---expansion takes place inside the argument.
 ---
----The `tracingfonts` primitive that has been inherited from \PDFTEX\ has
+---The `tracingfonts` primitive that has been inherited from *PDF*TEX\ has
 ---been adapted to support variants in reporting the font. The reason for this
 ---extension is that a csname not always makes sense. The zero case is the default.
 ---

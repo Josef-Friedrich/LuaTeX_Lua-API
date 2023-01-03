@@ -41,14 +41,14 @@
 ---\starttabulate[|l|l|p|]
 ---\DB key                 \BC type     \BC explanation 
 ---\TB
---- `fontname`      string    the \POSTSCRIPT\ name of the font
---- `fullname`      string    the formal name of the font
---- `familyname`    string    the family name this font belongs to
---- `weight`        string    a string indicating the color value of the font
---- `version`       string    the internal font version
+---@field fontname string # the \POSTSCRIPT\ name of the font
+---@field fullname string # the formal name of the font
+---@field familyname string # the family name this font belongs to
+---@field weight string # a string indicating the color value of the font
+---@field version string # the internal font version
 --- `italicangle`   float     the slant angle
---- `units_per_em`  number    1000 for \POSTSCRIPT-based fonts, usually 2048 for \TRUETYPE
---- `pfminfo`       table     (see \in{section}[fontloaderpfminfotable])
+---@field units_per_em number # 1000 for \POSTSCRIPT-based fonts, usually 2048 for \TRUETYPE
+---@field pfminfo table # (see \in{section}[fontloaderpfminfotable])
 ---\LL
 ---\stoptabulate
 ---
@@ -253,8 +253,7 @@
 ---if f.glyphcnt > 0 then
 ---    for i=f.glyphmin,f.glyphmax do
 ---       local g = f.glyphs[i]
----       if g then
----          print(g.name)
+---       if g then print(g.name)
 ---       end
 ---       i = i + 1
 ---    end
@@ -295,80 +294,77 @@
 ---\starttabulate[|l|l|p|]
 ---\DB key                                 \BC type      explanation 
 ---\TB
---- `table_version`                 number    indicates the metrics version (currently 0.3)
---- `fontname`                      string    \POSTSCRIPT\ font name
---- `fullname`                      string    official (human-oriented) font name
---- `familyname`                    string    family name
---- `weight`                        string    weight indicator
---- `copyright`                     string    copyright information
---- `filename`                      string    the file name
---- `version`                       string    font version
+---@field table_version number # indicates the metrics version (currently 0.3)
+---@field fontname string # \POSTSCRIPT\ font name
+---@field fullname string # official (human-oriented) font name
+---@field familyname string # family name
+---@field weight string # weight indicator
+---@field copyright string # copyright information
+---@field filename string # the file name
+---@field version string # font version
 --- `italicangle`                   float     slant angle
---- `units_per_em`                  number    1000 for \POSTSCRIPT-based fonts, usually 2048 for \TRUETYPE
---- `ascent`                        number    height of ascender in `units_per_em`
---- `descent`                       number    depth of descender in `units_per_em`
+---@field units_per_em number # 1000 for \POSTSCRIPT-based fonts, usually 2048 for \TRUETYPE
+---@field ascent number # height of ascender in `units_per_em`
+---@field descent number # depth of descender in `units_per_em`
 --- `upos`                          float     
 --- `uwidth`                        float     
---- `uniqueid`                      number    
+---@field uniqueid number # 
 --- `glyphs`                        array     
---- `glyphcnt`                      number    number of included glyphs
---- `glyphmax`                      number    maximum used index the glyphs array
---- `glyphmin`                      number    minimum used index the glyphs array
---- `notdef_loc`                    number    location of the `.notdef` glyph
----                                                         or `-1` when not present 
---- `hasvmetrics`                   number    
---- `onlybitmaps`                   number    
---- `serifcheck`                    number    
---- `isserif`                       number    
---- `issans`                        number    
---- `encodingchanged`               number    
---- `strokedfont`                   number    
---- `use_typo_metrics`              number    
---- `weight_width_slope_only`       number    
---- `head_optimized_for_cleartype`  number    
---- `uni_interp`                    enum      `unset`, `none`, `adobe`,
----                                                         `greek`, `japanese`, `trad_chinese`,
----                                                         `simp_chinese`, `korean`, `ams`
---- `origname`                      string    the file name, as supplied by the user
---- `map`                           table     
---- `private`                       table     
---- `xuid`                          string    
---- `pfminfo`                       table     
---- `names`                         table     
---- `cidinfo`                       table     
+---@field glyphcnt number # number of included glyphs
+---@field glyphmax number # maximum used index the glyphs array
+---@field glyphmin number # minimum used index the glyphs array
+---@field notdef_loc number # location of the `.notdef` glyph or `-1` when not present 
+---@field hasvmetrics number # 
+---@field onlybitmaps number # 
+---@field serifcheck number # 
+---@field isserif number # 
+---@field issans number # 
+---@field encodingchanged number # 
+---@field strokedfont number # 
+---@field use_typo_metrics number # 
+---@field weight_width_slope_only number # 
+---@field head_optimized_for_cleartype number # 
+--- `uni_interp`                    enum      `unset`, `none`, `adobe`, `greek`, `japanese`, `trad_chinese`, `simp_chinese`, `korean`, `ams`
+---@field origname string # the file name, as supplied by the user
+---@field map table # 
+---@field private table # 
+---@field xuid string # 
+---@field pfminfo table # 
+---@field names table # 
+---@field cidinfo table # 
 --- `subfonts`                      array     
---- `commments`                     string    
---- `fontlog`                       string    
---- `cvt_names`                     string    
---- `anchor_classes`                table     
---- `ttf_tables`                    table     
---- `ttf_tab_saved`                 table     
---- `kerns`                         table     
---- `vkerns`                        table     
---- `texdata`                       table     
---- `lookups`                       table     
---- `gpos`                          table     
---- `gsub`                          table     
---- `mm`                            table     
---- `chosenname`                    string    
---- `macstyle`                      number    
---- `fondname`                      string    
+---@field commments string # 
+---@field fontlog string # 
+---@field cvt_names string # 
+---@field anchor_classes table # 
+---@field ttf_tables table # 
+---@field ttf_tab_saved table # 
+---@field kerns table # 
+---@field vkerns table # 
+---@field texdata table # 
+---@field lookups table # 
+---@field gpos table # 
+---@field gsub table # 
+---@field mm table # 
+---@field chosenname string # 
+---@field macstyle number # 
+---@field fondname string # 
 ---%NC `design_size`                   number    
---- `fontstyle_id`                  number    
---- `fontstyle_name`                table     
+---@field fontstyle_id number # 
+---@field fontstyle_name table # 
 ---%NC `design_range_bottom`           number    
 ---%NC `design_range_top`              number    
 --- `strokewidth`                   float     
---- `mark_classes`                  table     
---- `creationtime`                  number    
---- `modificationtime`              number    
---- `os2_version`                   number    
---- `math`                          table     
---- `validation_state`              table     
---- `horiz_base`                    table     
---- `vert_base`                     table     
---- `extrema_bound`                 number    
---- `truetype`                      boolean   signals a \TRUETYPE\ font 
+---@field mark_classes table # 
+---@field creationtime number # 
+---@field modificationtime number # 
+---@field os2_version number # 
+---@field math table # 
+---@field validation_state table # 
+---@field horiz_base table # 
+---@field vert_base table # 
+---@field extrema_bound number # 
+---@field truetype boolean # signals a \TRUETYPE\ font 
 ---\LL
 ---\stoptabulate
 ---
@@ -382,31 +378,30 @@
 ---\starttabulate[|l|l|p|]
 ---\DB key                      \BC type     \BC explanation 
 ---\TB
---- `name`               string    the glyph name 
---- `unicode`            number    unicode code point, or -1 
+---@field name string # the glyph name 
+---@field unicode number # unicode code point, or -1 
 --- `boundingbox`        array     array of four numbers, see note below 
---- `width`              number    only for horizontal fonts 
---- `vwidth`             number    only for vertical fonts 
---- `tsidebearing`       number    only for vertical ttf/otf fonts, and only if non-zero 
---- `lsidebearing`       number    only if non-zero and not equal to boundingbox[1] 
---- `class`              string    one of "none", "base", "ligature", "mark", "component"
----                                              (if not present, the glyph class is “automatic”) 
+---@field width number # only for horizontal fonts 
+---@field vwidth number # only for vertical fonts 
+---@field tsidebearing number # only for vertical ttf/otf fonts, and only if non-zero 
+---@field lsidebearing number # only if non-zero and not equal to boundingbox[1] 
+---@field class string # one of "none", "base", "ligature", "mark", "component" (if not present, the glyph class is “automatic”) 
 --- `kerns`              array     only for horizontal fonts, if set 
 --- `vkerns`             array     only for vertical fonts, if set 
 --- `dependents`         array     linear array of glyph name strings, only if nonempty
---- `lookups`            table     only if nonempty 
---- `ligatures`          table     only if nonempty 
---- `anchors`            table     only if set 
---- `comment`            string    only if set 
---- `tex_height`         number    only if set 
---- `tex_depth`          number    only if set 
---- `italic_correction`  number    only if set 
---- `top_accent`         number    only if set 
---- `is_extended_shape`  number    only if this character is part of a math extension list 
---- `altuni`             table     alternate \UNICODE\ items 
---- `vert_variants`      table     
---- `horiz_variants`     table     
---- `mathkern`           table     
+---@field lookups table # only if nonempty 
+---@field ligatures table # only if nonempty 
+---@field anchors table # only if set 
+---@field comment string # only if set 
+---@field tex_height number # only if set 
+---@field tex_depth number # only if set 
+---@field italic_correction number # only if set 
+---@field top_accent number # only if set 
+---@field is_extended_shape number # only if this character is part of a math extension list 
+---@field altuni table # alternate \UNICODE\ items 
+---@field vert_variants table # 
+---@field horiz_variants table # 
+---@field mathkern table # 
 ---\LL
 ---\stoptabulate
 ---
@@ -427,9 +422,9 @@
 ---\starttabulate[|l|l|p|]
 ---\DB key           \BC type   \BC explanation 
 ---\TB
---- `char`    string  
---- `off`     number  
---- `lookup`  string  
+---@field char string # 
+---@field off number # 
+---@field lookup string # 
 ---\LL
 ---\stoptabulate
 ---
@@ -441,10 +436,8 @@
 ---\starttabulate[|l|l|p|]
 ---\DB key                  \BC type \BC explanation 
 ---\TB
---- `type`           enum  `position`, `pair`, `substitution`, `alternate`, `multiple`, `ligature`, `lcaret`, \cbk {kerning}, `vkerning`,
----                                      `anchors`, `contextpos`, `contextsub`, `chainpos`, `chainsub`, `reversesub`, `max`, `kernback`, `vkernback`
----                                      
---- `specification`  table  extra data 
+--- `type`           enum  `position`, `pair`, `substitution`, `alternate`, `multiple`, `ligature`, `lcaret`, \cbk {kerning}, `vkerning`, `anchors`, `contextpos`, `contextsub`, `chainpos`, `chainsub`, `reversesub`, `max`, `kernback`, `vkernback` 
+---@field specification table # extra data 
 ---\LL
 ---\stoptabulate
 ---
@@ -454,13 +447,12 @@
 ---\starttabulate[|l|l|p|]
 ---\DB value               \BC type     \BC explanation 
 ---\TB
---- `position`      table     a table of the `offset_specs` type 
---- `pair`          table     one string: `paired`, and an array of one
----                                         or two `offset_specs` tables: `offsets` 
---- `substitution`  table     one string: `variant` 
---- `alternate`     table     one string: `components` 
---- `multiple`      table     one string: `components` 
---- `ligature`      table     two strings: `components`, `char` 
+---@field position table # a table of the `offset_specs` type 
+---@field pair table # one string: `paired`, and an array of one or two `offset_specs` tables: `offsets` 
+---@field substitution table # one string: `variant` 
+---@field alternate table # one string: `components` 
+---@field multiple table # one string: `components` 
+---@field ligature table # two strings: `components`, `char` 
 --- `lcaret`        array     linear array of numbers 
 ---\LL
 ---\stoptabulate
@@ -473,11 +465,10 @@
 ---\starttabulate[|l|l|p|]
 ---\DB key               \BC type   \BC explanation 
 ---\TB
---- `lig`         table   uses the same substructure as a single item in
----                                     the `lookups` table explained above 
---- `char`        string  
+---@field lig table # uses the same substructure as a single item in the `lookups` table explained above 
+---@field char string # 
 --- `components`  array   linear array of named components 
---- `ccnt`        number  
+---@field ccnt number # 
 ---\LL
 ---\stoptabulate
 ---
@@ -487,12 +478,12 @@
 ---\starttabulate[|l|l|p|]
 ---\DB key             \BC type  \BC explanation 
 ---\TB
---- `mark`      table  placement mark 
---- `basechar`  table  mark for attaching combining items to a base char 
---- `baselig`   table  mark for attaching combining items to a ligature 
---- `basemark`  table  generic mark for attaching combining items to connect to 
---- `centry`    table  cursive entry point 
---- `cexit`     table  cursive exit point 
+---@field mark table # placement mark 
+---@field basechar table # mark for attaching combining items to a base char 
+---@field baselig table # mark for attaching combining items to a ligature 
+---@field basemark table # generic mark for attaching combining items to connect to 
+---@field centry table # cursive entry point 
+---@field cexit table # cursive exit point 
 ---\LL
 ---\stoptabulate
 ---
@@ -503,9 +494,9 @@
 ---\starttabulate[|l|l|p|]
 ---\DB key                 \BC type   \BC explanation 
 ---\TB
---- `x`             number  x location 
---- `y`             number  y location 
---- `ttf_pt_index`  number  truetype point index, only if given 
+---@field x number # x location 
+---@field y number # y location 
+---@field ttf_pt_index number # truetype point index, only if given 
 ---\LL
 ---\stoptabulate
 ---
@@ -542,13 +533,13 @@
 ---\starttabulate[|l|l|p|]
 ---\DB key             \BC type   \BC explanation 
 ---\TB
---- `enccount`  number  
---- `encmax`    number  
---- `backmax`   number  
---- `remap`     table   
+---@field enccount number # 
+---@field encmax number # 
+---@field backmax number # 
+---@field remap table # 
 --- `map`       array   non-linear array of mappings
 --- `backmap`   array   non-linear array of backward mappings
---- `enc`       table   
+---@field enc table # 
 ---\LL
 ---\stoptabulate
 ---
@@ -557,9 +548,9 @@
 ---\starttabulate[|l|l|p|]
 ---\DB key             \BC type   \BC explanation 
 ---\TB
---- `firstenc`  number  
---- `lastenc`   number  
---- `infont`    number  
+---@field firstenc number # 
+---@field lastenc number # 
+---@field infont number # 
 ---\LL
 ---\stoptabulate
 ---
@@ -568,29 +559,29 @@
 ---\starttabulate[|l|l|p|]
 ---\DB key                     \BC type   \BC explanation 
 ---\TB
---- `enc_name`          string  
---- `char_cnt`          number  
---- `char_max`          number  
+---@field enc_name string # 
+---@field char_cnt number # 
+---@field char_max number # 
 --- `unicode`           array   of \UNICODE\ position numbers
 --- `psnames`           array   of \POSTSCRIPT\ glyph names
---- `builtin`           number  
---- `hidden`            number  
---- `only_1byte`        number  
---- `has_1byte`         number  
---- `has_2byte`         number  
---- `is_unicodebmp`     number  only if non-zero
---- `is_unicodefull`    number  only if non-zero
---- `is_custom`         number  only if non-zero
---- `is_original`       number  only if non-zero
---- `is_compact`        number  only if non-zero
---- `is_japanese`       number  only if non-zero
---- `is_korean`         number  only if non-zero
---- `is_tradchinese`    number  only if non-zero [name?]
---- `is_simplechinese`  number  only if non-zero
---- `low_page`          number  
---- `high_page`         number  
---- `iconv_name`        string  
---- `iso_2022_escape`   string  
+---@field builtin number # 
+---@field hidden number # 
+---@field only_1byte number # 
+---@field has_1byte number # 
+---@field has_2byte number # 
+---@field is_unicodebmp number # only if non-zero
+---@field is_unicodefull number # only if non-zero
+---@field is_custom number # only if non-zero
+---@field is_original number # only if non-zero
+---@field is_compact number # only if non-zero
+---@field is_japanese number # only if non-zero
+---@field is_korean number # only if non-zero
+---@field is_tradchinese number # only if non-zero [name?]
+---@field is_simplechinese number # only if non-zero
+---@field low_page number # 
+---@field high_page number # 
+---@field iconv_name string # 
+---@field iso_2022_escape string # 
 ---\LL
 ---\stoptabulate
 ---
@@ -608,10 +599,10 @@
 ---\starttabulate[|l|l|p|]
 ---\DB key               \BC type   \BC explanation 
 ---\TB
---- `registry`    string  
---- `ordering`    string  
---- `supplement`  number  
---- `version`     number  
+---@field registry string # 
+---@field ordering string # 
+---@field supplement number # 
+---@field version number # 
 ---\LL
 ---\stoptabulate
 ---
@@ -624,52 +615,52 @@
 ---\starttabulate[|l|l|p|]
 ---\DB key                     \BC type   \BC explanation 
 ---\TB
---- `pfmset`            number  
---- `winascent_add`     number  
---- `windescent_add`    number  
---- `hheadascent_add`   number  
---- `hheaddescent_add`  number  
---- `typoascent_add`    number  
---- `typodescent_add`   number  
---- `subsuper_set`      number  
---- `panose_set`        number  
---- `hheadset`          number  
---- `vheadset`          number  
---- `pfmfamily`         number  
---- `weight`            number  
---- `width`             number  
---- `avgwidth`          number  
---- `firstchar`         number  
---- `lastchar`          number  
---- `fstype`            number  
---- `linegap`           number  
---- `vlinegap`          number  
---- `hhead_ascent`      number  
---- `hhead_descent`     number  
---- `os2_typoascent`    number  
---- `os2_typodescent`   number  
---- `os2_typolinegap`   number  
---- `os2_winascent`     number  
---- `os2_windescent`    number  
---- `os2_subxsize`      number  
---- `os2_subysize`      number  
---- `os2_subxoff`       number  
---- `os2_subyoff`       number  
---- `os2_supxsize`      number  
---- `os2_supysize`      number  
---- `os2_supxoff`       number  
---- `os2_supyoff`       number  
---- `os2_strikeysize`   number  
---- `os2_strikeypos`    number  
---- `os2_family_class`  number  
---- `os2_xheight`       number  
---- `os2_capheight`     number  
---- `os2_defaultchar`   number  
---- `os2_breakchar`     number  
---- `os2_vendor`        string  
---- `codepages`         table   A two-number array of encoded code pages 
---- `unicoderages`      table   A four-number array of encoded unicode ranges 
---- `panose`            table   
+---@field pfmset number # 
+---@field winascent_add number # 
+---@field windescent_add number # 
+---@field hheadascent_add number # 
+---@field hheaddescent_add number # 
+---@field typoascent_add number # 
+---@field typodescent_add number # 
+---@field subsuper_set number # 
+---@field panose_set number # 
+---@field hheadset number # 
+---@field vheadset number # 
+---@field pfmfamily number # 
+---@field weight number # 
+---@field width number # 
+---@field avgwidth number # 
+---@field firstchar number # 
+---@field lastchar number # 
+---@field fstype number # 
+---@field linegap number # 
+---@field vlinegap number # 
+---@field hhead_ascent number # 
+---@field hhead_descent number # 
+---@field os2_typoascent number # 
+---@field os2_typodescent number # 
+---@field os2_typolinegap number # 
+---@field os2_winascent number # 
+---@field os2_windescent number # 
+---@field os2_subxsize number # 
+---@field os2_subysize number # 
+---@field os2_subxoff number # 
+---@field os2_subyoff number # 
+---@field os2_supxsize number # 
+---@field os2_supysize number # 
+---@field os2_supxoff number # 
+---@field os2_supyoff number # 
+---@field os2_strikeysize number # 
+---@field os2_strikeypos number # 
+---@field os2_family_class number # 
+---@field os2_xheight number # 
+---@field os2_capheight number # 
+---@field os2_defaultchar number # 
+---@field os2_breakchar number # 
+---@field os2_vendor string # 
+---@field codepages table # A two-number array of encoded code pages 
+---@field unicoderages table # A four-number array of encoded unicode ranges 
+---@field panose table # 
 ---\LL
 ---\stoptabulate
 ---
@@ -678,21 +669,16 @@
 ---\starttabulate[|l|l|p|]
 ---\DB key                    \BC type    \BC explanation 
 ---\TB
---- `familytype`       string   Values as in the \OPENTYPE\ font
----                                           specification: `Any`, `No Fit`,
----                                           `Text and Display`, `Script`,
----                                           `Decorative`, `Pictorial` 
----                                           \NR
---- `serifstyle`       string   See the \OPENTYPE\ font specification for
----                                           values 
---- `weight`           string   idem 
---- `proportion`       string   idem 
---- `contrast`         string   idem 
---- `strokevariation`  string   idem 
---- `armstyle`         string   idem 
---- `letterform`       string   idem 
---- `midline`          string   idem 
---- `xheight`          string   idem 
+---@field familytype string # Values as in the \OPENTYPE\ font specification: `Any`, `No Fit`, `Text and Display`, `Script`, `Decorative`, `Pictorial`  \NR
+---@field serifstyle string # See the \OPENTYPE\ font specification for values 
+---@field weight string # idem 
+---@field proportion string # idem 
+---@field contrast string # idem 
+---@field strokevariation string # idem 
+---@field armstyle string # idem 
+---@field letterform string # idem 
+---@field midline string # idem 
+---@field xheight string # idem 
 ---\LL
 ---\stoptabulate
 ---
@@ -705,8 +691,8 @@
 ---\starttabulate[|l|l|p|]
 ---\DB key          \BC type   \BC explanation 
 ---\TB
---- `lang`   string  language for this entry 
---- `names`  table   
+---@field lang string # language for this entry 
+---@field names table # 
 ---\LL
 ---\stoptabulate
 ---
@@ -726,9 +712,9 @@
 ---\starttabulate[|l|l|p|]
 ---\DB key           \BC type   \BC explanation 
 ---\TB
---- `name`    string  a descriptive id of this anchor class
---- `lookup`  string  
---- `type`    string  one of `mark`, `mkmk`, `curs`, `mklg` 
+---@field name string # a descriptive id of this anchor class
+---@field lookup string # 
+---@field type string # one of `mark`, `mkmk`, `curs`, `mklg` 
 ---\LL
 ---\stoptabulate
 ---
@@ -745,11 +731,9 @@
 ---\starttabulate[|l|l|p|]
 ---\DB key              \BC type   \BC explanation 
 ---\TB
---- `type`       string  one of `gpos_single`, `gpos_pair`,
----                                    `gpos_cursive`, `gpos_mark2base`,\crlf
----                                    `gpos_mark2ligature`, `gpos_mark2mark`, `gpos_context`,\crlf `gpos_contextchain` 
---- `flags`      table   
---- `name`       string  
+---@field type string # one of `gpos_single`, `gpos_pair`, `gpos_cursive`, `gpos_mark2base`,\crlf `gpos_mark2ligature`, `gpos_mark2mark`, `gpos_context`,\crlf `gpos_contextchain` 
+---@field flags table # 
+---@field name string # 
 --- `features`   array   
 --- `subtables`  array   
 ---\LL
@@ -761,11 +745,11 @@
 ---\starttabulate[|l|l|p|]
 ---\DB key                         \BC type    \BC explanation 
 ---\TB
---- `r2l`                   boolean  
---- `ignorebaseglyphs`      boolean  
---- `ignoreligatures`       boolean  
---- `ignorecombiningmarks`  boolean  
---- `mark_class`            string   
+---@field r2l boolean # 
+---@field ignorebaseglyphs boolean # 
+---@field ignoreligatures boolean # 
+---@field ignorecombiningmarks boolean # 
+---@field mark_class string # 
 ---\LL
 ---\stoptabulate
 ---
@@ -774,8 +758,8 @@
 ---\starttabulate[|l|l|p|]
 ---\DB key            \BC type   \BC explanation 
 ---\TB
---- `tag`      string  
---- `scripts`  table   
+---@field tag string # 
+---@field scripts table # 
 ---\LL
 ---\stoptabulate
 ---
@@ -784,7 +768,7 @@
 ---\starttabulate[|l|l|p|]
 ---\DB key           \BC type             \BC explanation 
 ---\TB
---- `script`  string            
+---@field script string # 
 --- `langs`   array of strings  
 ---\LL
 ---\stoptabulate
@@ -794,11 +778,11 @@
 ---\starttabulate[|l|l|p|]
 ---\DB key                     \BC type   \BC explanation 
 ---\TB
---- `name`              string  
---- `suffix`            string  (only if used) % used by gpos_single to get a default
---- `anchor_classes`    number  (only if used)
---- `vertical_kerning`  number  (only if used)
---- `kernclass`         table   (only if used)
+---@field name string # 
+---@field suffix string # (only if used) % used by gpos_single to get a default
+---@field anchor_classes number # (only if used)
+---@field vertical_kerning number # (only if used)
+---@field kernclass table # (only if used)
 ---\LL
 ---\stoptabulate
 ---
@@ -809,7 +793,7 @@
 ---\TB
 --- `firsts`   array of strings  
 --- `seconds`  array of strings  
---- `lookup`   string or array   associated lookup(s) 
+---@field lookup string # or array   associated lookup(s) 
 --- `offsets`  array of numbers  
 ---\LL
 ---\stoptabulate
@@ -828,10 +812,7 @@
 ---\starttabulate[|l|l|p|]
 ---\DB key         \BC type   \BC explanation 
 ---\TB
---- `type`  string  one of `gsub_single`, `gsub_multiple`,
----                               `gsub_alternate`, `gsub_ligature`,\crlf
----                               `gsub_context`, `gsub_contextchain`,
----                               `gsub_reversecontextchain` 
+---@field type string # one of `gsub_single`, `gsub_multiple`, `gsub_alternate`, `gsub_ligature`,\crlf `gsub_context`, `gsub_contextchain`, `gsub_reversecontextchain` 
 ---\LL
 ---\stoptabulate
 ---
@@ -842,10 +823,10 @@
 ---\starttabulate[|l|l|p|]
 ---\DB key           \BC type   \BC explanation 
 ---\TB
---- `tag`     string  
---- `len`     number  
---- `maxlen`  number  
---- `data`    number  
+---@field tag string # 
+---@field len number # 
+---@field maxlen number # 
+---@field data number # 
 ---\LL
 ---\stoptabulate
 ---
@@ -856,14 +837,13 @@
 ---\starttabulate[|l|l|p|]
 ---\DB key                   \BC type   \BC explanation 
 ---\TB
---- `axes`            table   array of axis names 
---- `instance_count`  number  
---- `positions`       table   array of instance positions
----                                         (\#axes * instances )
---- `defweights`      table   array of default weights for instances 
---- `cdv`             string  
---- `ndv`             string  
---- `axismaps`        table   
+---@field axes table # array of axis names 
+---@field instance_count number # 
+---@field positions table # array of instance positions (\#axes * instances )
+---@field defweights table # array of default weights for instances 
+---@field cdv string # 
+---@field ndv string # 
+---@field axismaps table # 
 ---\LL
 ---\stoptabulate
 ---
@@ -872,11 +852,11 @@
 ---\starttabulate[|l|l|p|]
 ---\DB key            \BC type   \BC explanation 
 ---\TB
---- `blends`   table   an array of blend points 
---- `designs`  table   an array of design values 
---- `min`      number  
---- `def`      number  
---- `max`      number  
+---@field blends table # an array of blend points 
+---@field designs table # an array of design values 
+---@field min number # 
+---@field def number # 
+---@field max number # 
 ---\LL
 ---\stoptabulate
 ---
@@ -911,8 +891,8 @@
 ---\starttabulate[|l|l|p|]
 ---\DB key            \BC type  \BC explanation 
 ---\TB
---- `tags`     table  an array of script list tags
---- `scripts`  table  
+---@field tags table # an array of script list tags
+---@field scripts table # 
 ---\LL
 ---\stoptabulate
 ---
@@ -921,9 +901,9 @@
 ---\starttabulate[|l|l|p|]
 ---\DB key                     \BC type    \BC explanation 
 ---\TB
---- `baseline`          table    
---- `default_baseline`  number   
---- `lang`              table    
+---@field baseline table # 
+---@field default_baseline number # 
+---@field lang table # 
 ---\LL
 ---\stoptabulate
 ---
@@ -933,10 +913,10 @@
 ---\starttabulate[|l|l|p|]
 ---\DB key             \BC type   \BC explanation 
 ---\TB
---- `tag`       string  a script tag 
---- `ascent`    number  
---- `descent`   number  
---- `features`  table   
+---@field tag string # a script tag 
+---@field ascent number # 
+---@field descent number # 
+---@field features table # 
 ---\LL
 ---\stoptabulate
 ---
@@ -952,8 +932,8 @@
 ---\starttabulate[|l|l|p|]
 ---\DB key            \BC type   \BC explanation 
 ---\TB
---- `unicode`  number  this glyph is also used for this unicode 
---- `variant`  number  the alternative is driven by this unicode selector 
+---@field unicode number # this glyph is also used for this unicode 
+---@field variant number # the alternative is driven by this unicode selector 
 ---\LL
 ---\stoptabulate
 ---
@@ -964,9 +944,9 @@
 ---\starttabulate[|l|l|p|]
 ---\DB key                      \BC type   \BC explanation 
 ---\TB
---- `variants`           string  
---- `italic_correction`  number  
---- `parts`              table   
+---@field variants string # 
+---@field italic_correction number # 
+---@field parts table # 
 ---\LL
 ---\stoptabulate
 ---
@@ -975,11 +955,11 @@
 ---\starttabulate[|l|l|p|]
 ---\DB key              \BC type   \BC explanation 
 ---\TB
---- `component`  string  
---- `extender`   number  
---- `start`      number  
---- `end`        number  
---- `advance`    number  
+---@field component string # 
+---@field extender number # 
+---@field start number # 
+---@field end number # 
+---@field advance number # 
 ---\LL
 ---\stoptabulate
 ---
@@ -990,10 +970,10 @@
 ---\starttabulate[|l|l|p|]
 ---\DB key                 \BC type  \BC explanation 
 ---\TB
---- `top_right`     table  
---- `bottom_right`  table  
---- `top_left`      table  
---- `bottom_left`   table  
+---@field top_right table # 
+---@field bottom_right table # 
+---@field top_left table # 
+---@field bottom_left table # 
 ---\LL
 ---\stoptabulate
 ---
@@ -1002,8 +982,8 @@
 ---\starttabulate[|l|l|p|]
 ---\DB key           \BC type   \BC explanation 
 ---\TB
---- `height`  number  
---- `kern`    number  
+---@field height number # 
+---@field kern number # 
 ---\LL
 ---\stoptabulate
 ---
@@ -1026,7 +1006,7 @@
 ---\starttabulate[|l|l|p|]
 ---\DB key           \BC type   \BC explanation 
 ---\TB
---- `type`    string  `unset`, `text`, `math`, `mathext` 
+---@field type string # `unset`, `text`, `math`, `mathext` 
 --- `params`  array   22 font numeric parameters 
 ---\LL
 ---\stoptabulate
@@ -1042,10 +1022,9 @@
 ---\starttabulate[|l|l|p|]
 ---\DB key                  \BC type   \BC explanation 
 ---\TB
---- `type`           string  
---- `format`         enum    one of `glyphs`, `class`, `coverage`,
----                                        `reversecoverage` 
---- `tag`            string  
+---@field type string # 
+--- `format`         enum    one of `glyphs`, `class`, `coverage`, `reversecoverage` 
+---@field tag string # 
 --- `current_class`  array   
 --- `before_class`   array   
 --- `after_class`    array   
@@ -1071,9 +1050,9 @@
 ---\starttabulate[|l|l|p|]
 ---\DB key          \BC type   \BC explanation 
 ---\TB
---- `names`  string  
---- `back`   string  
---- `fore`   string  
+---@field names string # 
+---@field back string # 
+---@field fore string # 
 ---\LL
 ---\stoptabulate
 ---
@@ -1107,7 +1086,7 @@
 --- `current`       array   of strings  
 --- `before`        array   of strings  
 --- `after`         array   of strings  
---- `replacements`  string              
+---@field replacements string # 
 ---\LL
 ---\stoptabulate
 ---
