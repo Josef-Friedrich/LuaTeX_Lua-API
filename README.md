@@ -79,115 +79,6 @@ Documentation for the field `data` of the `pdf_colorstack` node:
 The following listing is generated inside from `LuaTeX` using the small
 script below.
 
-### _G
-
-- `_G.CONTEXTLMTXMODE` (number)
-- `_G.LUAMAJORVERSION` (number)
-- `_G.LUAMINORVERSION` (number)
-- `_G.LUATEXCOREVERSION` (number)
-- `_G.LUATEXENGINE` (string)
-- `_G.LUAVERSION` (number)
-- *`_G._G` (table)*
-- `_G._VERSION` (string)
-- *`_G.arg` (table)*
-- __`_G.assert` (function)__
-- *`_G.bit32` (table)*
-- *`_G.boolean` (table)*
-- *`_G.callback` (table)*
-- __`_G.collectgarbage` (function)__
-- __`_G.combine` (function)__
-- *`_G.config` (table)*
-- *`_G.coroutine` (table)*
-- *`_G.debug` (table)*
-- __`_G.dimen` (function)__
-- *`_G.dir` (table)*
-- __`_G.dofile` (function)__
-- __`_G.error` (function)__
-- *`_G.file` (table)*
-- *`_G.fio` (table)*
-- *`_G.font` (table)*
-- *`_G.fontloader` (table)*
-- *`_G.fonts` (table)*
-- *`_G.functions` (table)*
-- __`_G.getmetatable` (function)__
-- *`_G.gzip` (table)*
-- *`_G.img` (table)*
-- __`_G.inspect` (function)__
-- *`_G.io` (table)*
-- __`_G.ipairs` (function)__
-- *`_G.kpse` (table)*
-- *`_G.lang` (table)*
-- *`_G.lfs` (table)*
-- __`_G.load` (function)__
-- __`_G.loadfile` (function)__
-- __`_G.loadstring` (function)__
-- *`_G.logs` (table)*
-- *`_G.lpeg` (table)*
-- *`_G.ltn12` (table)*
-- *`_G.ltx` (table)*
-- *`_G.lua` (table)*
-- *`_G.luaharfbuzz` (table)*
-- *`_G.lualibs` (table)*
-- *`_G.luaotfload` (table)*
-- *`_G.luatexbase` (table)*
-- *`_G.math` (table)*
-- *`_G.mbox` (table)*
-- *`_G.md5` (table)*
-- *`_G.mime` (table)*
-- __`_G.module` (function)__
-- *`_G.modules` (table)*
-- *`_G.mplib` (table)*
-- __`_G.next` (function)__
-- *`_G.node` (table)*
-- *`_G.nodes` (table)*
-- *`_G.number` (table)*
-- __`_G.optionalrequire` (function)__
-- *`_G.os` (table)*
-- *`_G.package` (table)*
-- __`_G.pairs` (function)__
-- __`_G.pcall` (function)__
-- *`_G.pdf` (table)*
-- *`_G.pdfe` (table)*
-- *`_G.pdfscanner` (table)*
-- __`_G.print` (function)__
-- __`_G.rawequal` (function)__
-- __`_G.rawget` (function)__
-- __`_G.rawlen` (function)__
-- __`_G.rawset` (function)__
-- __`_G.registered` (function)__
-- __`_G.require` (function)__
-- __`_G.select` (function)__
-- *`_G.set` (table)*
-- __`_G.setinspector` (function)__
-- __`_G.setmetatable` (function)__
-- *`_G.sha2` (table)*
-- *`_G.sio` (table)*
-- *`_G.socket` (table)*
-- *`_G.statistics` (table)*
-- *`_G.status` (table)*
-- *`_G.string` (table)*
-- *`_G.table` (table)*
-- *`_G.tex` (table)*
-- *`_G.texconfig` (table)*
-- *`_G.texio` (table)*
-- __`_G.to_nfd_table` (function)__
-- __`_G.toboolean` (function)__
-- *`_G.token` (table)*
-- __`_G.tonumber` (function)__
-- __`_G.tostring` (function)__
-- *`_G.trackers` (table)*
-- __`_G.type` (function)__
-- *`_G.unicode` (table)*
-- __`_G.unpack` (function)__
-- *`_G.url` (table)*
-- *`_G.utf` (table)*
-- *`_G.utf8` (table)*
-- *`_G.utilities` (table)*
-- *`_G.vf` (table)*
-- __`_G.xpcall` (function)__
-- *`_G.xzip` (table)*
-- *`_G.zip` (table)*
-- *`_G.zlib` (table)*
 
 ### arg
 
@@ -209,10 +100,6 @@ script below.
 - __`bit32.rrotate` (function)__
 - __`bit32.rshift` (function)__
 
-### boolean
-
-- __`boolean.tonumber` (function)__
-
 ### callback
 
 - __`callback.find` (function)__
@@ -224,35 +111,6 @@ script below.
 - *`config.actions` (table)*
 - *`config.lualibs` (table)*
 - *`config.luaotfload` (table)*
-
-### coroutine
-
-- __`coroutine.create` (function)__
-- __`coroutine.isyieldable` (function)__
-- __`coroutine.resume` (function)__
-- __`coroutine.running` (function)__
-- __`coroutine.status` (function)__
-- __`coroutine.wrap` (function)__
-- __`coroutine.yield` (function)__
-
-### debug
-
-- __`debug.debug` (function)__
-- __`debug.gethook` (function)__
-- __`debug.getinfo` (function)__
-- __`debug.getlocal` (function)__
-- __`debug.getmetatable` (function)__
-- __`debug.getregistry` (function)__
-- __`debug.getupvalue` (function)__
-- __`debug.getuservalue` (function)__
-- __`debug.sethook` (function)__
-- __`debug.setlocal` (function)__
-- __`debug.setmetatable` (function)__
-- __`debug.setupvalue` (function)__
-- __`debug.setuservalue` (function)__
-- __`debug.traceback` (function)__
-- __`debug.upvalueid` (function)__
-- __`debug.upvaluejoin` (function)__
 
 ### dir
 
@@ -426,40 +284,6 @@ script below.
 - __`img.scan` (function)__
 - __`img.types` (function)__
 - __`img.write` (function)__
-
-### io
-
-- __`io.ask` (function)__
-- __`io.bytes` (function)__
-- __`io.characters` (function)__
-- __`io.close` (function)__
-- __`io.copydata` (function)__
-- __`io.exists` (function)__
-- `io.fileseparator` (string)
-- __`io.flush` (function)__
-- __`io.input` (function)__
-- __`io.lines` (function)__
-- __`io.loadchunk` (function)__
-- __`io.loaddata` (function)__
-- __`io.loadlines` (function)__
-- __`io.noflines` (function)__
-- __`io.open` (function)__
-- __`io.output` (function)__
-- `io.pathseparator` (string)
-- __`io.popen` (function)__
-- __`io.read` (function)__
-- __`io.readall` (function)__
-- __`io.readnumber` (function)__
-- __`io.readstring` (function)__
-- __`io.saved_lines` (function)__
-- __`io.savedata` (function)__
-- __`io.size` (function)__
-- `io.stderr` (userdata)
-- `io.stdin` (userdata)
-- `io.stdout` (userdata)
-- __`io.tmpfile` (function)__
-- __`io.type` (function)__
-- __`io.write` (function)__
 
 ### kpse
 
@@ -701,54 +525,6 @@ script below.
 - __`luatexbase.remove_from_callback` (function)__
 - __`luatexbase.uninstall` (function)__
 
-### math
-
-- __`math.abs` (function)__
-- __`math.acos` (function)__
-- __`math.asin` (function)__
-- __`math.atan` (function)__
-- __`math.atan2` (function)__
-- __`math.ceil` (function)__
-- __`math.ceiling` (function)__
-- __`math.cos` (function)__
-- __`math.cosd` (function)__
-- __`math.cosh` (function)__
-- __`math.deg` (function)__
-- __`math.div` (function)__
-- __`math.even` (function)__
-- __`math.exp` (function)__
-- __`math.floor` (function)__
-- __`math.fmod` (function)__
-- __`math.frexp` (function)__
-- `math.huge` (number)
-- `math.initialseed` (number)
-- __`math.ldexp` (function)__
-- __`math.log` (function)__
-- __`math.log10` (function)__
-- __`math.max` (function)__
-- `math.maxinteger` (number)
-- __`math.min` (function)__
-- `math.mininteger` (number)
-- __`math.mod` (function)__
-- __`math.modf` (function)__
-- __`math.odd` (function)__
-- `math.pi` (number)
-- __`math.pow` (function)__
-- __`math.rad` (function)__
-- __`math.random` (function)__
-- __`math.randomseed` (function)__
-- __`math.round` (function)__
-- __`math.sin` (function)__
-- __`math.sind` (function)__
-- __`math.sinh` (function)__
-- __`math.sqrt` (function)__
-- __`math.tan` (function)__
-- __`math.tand` (function)__
-- __`math.tanh` (function)__
-- __`math.tointeger` (function)__
-- __`math.type` (function)__
-- __`math.ult` (function)__
-
 ### mbox
 
 - __`mbox.parse` (function)__
@@ -989,119 +765,6 @@ script below.
 - __`nodes.simple_font_handler` (function)__
 - __`nodes.tonode` (function)__
 - __`nodes.tonut` (function)__
-
-### number
-
-- __`number.%` (function)__
-- __`number.basepoints` (function)__
-- __`number.bytetodecimal` (function)__
-- __`number.compactfloat` (function)__
-- __`number.decimaltobyte` (function)__
-- *`number.dimenfactors` (table)*
-- __`number.formatted` (function)__
-- __`number.formattedfloat` (function)__
-- __`number.idiv` (function)__
-- `number.maxdimen` (number)
-- __`number.nubasepoints` (function)__
-- __`number.nupoints` (function)__
-- __`number.percent` (function)__
-- __`number.points` (function)__
-- __`number.signed` (function)__
-- __`number.sparseexponent` (function)__
-- __`number.splitdimen` (function)__
-- __`number.to16dot16` (function)__
-- __`number.tobasepoints` (function)__
-- __`number.tobitstring` (function)__
-- __`number.tocentimeters` (function)__
-- __`number.tociceros` (function)__
-- __`number.todidots` (function)__
-- __`number.todimen` (function)__
-- __`number.toevenhex` (function)__
-- __`number.toinches` (function)__
-- __`number.tomillimeters` (function)__
-- __`number.tonumberf` (function)__
-- __`number.tonumberg` (function)__
-- __`number.topicas` (function)__
-- __`number.topoints` (function)__
-- __`number.toscaled` (function)__
-- __`number.toscaledpoints` (function)__
-- __`number.valid` (function)__
-
-### os
-
-- __`os.__getenv__` (function)__
-- __`os.__setenv__` (function)__
-- `os.binsuffix` (string)
-- *`os.binsuffixes` (table)*
-- `os.bits` (number)
-- __`os.clock` (function)__
-- __`os.converttime` (function)__
-- __`os.date` (function)__
-- __`os.difftime` (function)__
-- *`os.env` (table)*
-- __`os.exec` (function)__
-- __`os.execute` (function)__
-- __`os.exit` (function)__
-- __`os.fulltime` (function)__
-- __`os.getenv` (function)__
-- __`os.gettimeofday` (function)__
-- __`os.isleapyear` (function)__
-- __`os.launch` (function)__
-- `os.libsuffix` (string)
-- __`os.localtime` (function)__
-- `os.name` (string)
-- `os.newline` (string)
-- __`os.nofdays` (function)__
-- __`os.now` (function)__
-- __`os.pipeto` (function)__
-- `os.platform` (string)
-- __`os.remove` (function)__
-- __`os.rename` (function)__
-- __`os.resultof` (function)__
-- __`os.runtime` (function)__
-- `os.selfdir` (string)
-- __`os.setenv` (function)__
-- __`os.setexitcode` (function)__
-- __`os.setlocale` (function)__
-- __`os.sleep` (function)__
-- __`os.spawn` (function)__
-- __`os.time` (function)__
-- __`os.times` (function)__
-- __`os.timezone` (function)__
-- __`os.tmpdir` (function)__
-- __`os.tmpname` (function)__
-- __`os.today` (function)__
-- `os.type` (string)
-- __`os.uname` (function)__
-- __`os.uuid` (function)__
-- __`os.validdate` (function)__
-- __`os.weekday` (function)__
-- __`os.where` (function)__
-- __`os.which` (function)__
-
-### package
-
-- `package.config` (string)
-- `package.cpath` (string)
-- __`package.extralibpath` (function)__
-- __`package.extralibpaths` (function)__
-- __`package.extraluapath` (function)__
-- __`package.extraluapaths` (function)__
-- *`package.helpers` (table)*
-- __`package.libpaths` (function)__
-- *`package.loaded` (table)*
-- *`package.loaders` (table)*
-- __`package.loadlib` (function)__
-- __`package.luapaths` (function)__
-- `package.path` (string)
-- __`package.poplibpath` (function)__
-- __`package.popluapath` (function)__
-- *`package.preload` (table)*
-- __`package.pushlibpath` (function)__
-- __`package.pushluapath` (function)__
-- *`package.searchers` (table)*
-- __`package.searchpath` (function)__
-- __`package.seeall` (function)__
 
 ### pdf
 
@@ -1353,163 +1016,6 @@ script below.
 - __`status.list` (function)__
 - __`status.resetmessages` (function)__
 - __`status.setexitcode` (function)__
-
-### string
-
-- __`string.autodouble` (function)__
-- __`string.autosingle` (function)__
-- __`string.booleanstring` (function)__
-- __`string.byte` (function)__
-- __`string.bytepairs` (function)__
-- __`string.bytes` (function)__
-- __`string.bytetable` (function)__
-- __`string.char` (function)__
-- __`string.characterpairs` (function)__
-- __`string.characters` (function)__
-- __`string.checkedsplit` (function)__
-- __`string.collapsespaces` (function)__
-- __`string.containsws` (function)__
-- __`string.count` (function)__
-- __`string.dump` (function)__
-- __`string.escapedpattern` (function)__
-- __`string.escapedquotes` (function)__
-- __`string.explode` (function)__
-- __`string.find` (function)__
-- __`string.format` (function)__
-- __`string.formatter` (function)__
-- *`string.formatters` (table)*
-- __`string.fullstrip` (function)__
-- __`string.gmatch` (function)__
-- __`string.gsub` (function)__
-- __`string.is_boolean` (function)__
-- __`string.is_empty` (function)__
-- __`string.itself` (function)__
-- __`string.len` (function)__
-- __`string.limit` (function)__
-- __`string.longtostring` (function)__
-- __`string.lower` (function)__
-- __`string.match` (function)__
-- __`string.nospaces` (function)__
-- *`string.nspaces` (table)*
-- __`string.optionalquoted` (function)__
-- __`string.pack` (function)__
-- __`string.packsize` (function)__
-- __`string.quote` (function)__
-- __`string.quoted` (function)__
-- __`string.rep` (function)__
-- __`string.replacenewlines` (function)__
-- __`string.reverse` (function)__
-- __`string.split` (function)__
-- __`string.splitlines` (function)__
-- __`string.splitup` (function)__
-- __`string.strip` (function)__
-- __`string.sub` (function)__
-- __`string.texnewlines` (function)__
-- __`string.tformat` (function)__
-- __`string.toHEX` (function)__
-- __`string.toboolean` (function)__
-- __`string.tobytes` (function)__
-- __`string.todec` (function)__
-- __`string.todimen` (function)__
-- __`string.tohex` (function)__
-- __`string.topattern` (function)__
-- __`string.totable` (function)__
-- __`string.toutf` (function)__
-- __`string.tracedchar` (function)__
-- *`string.tracedchars` (table)*
-- __`string.unescapedquotes` (function)__
-- __`string.unpack` (function)__
-- __`string.unquote` (function)__
-- __`string.unquoted` (function)__
-- __`string.upper` (function)__
-- __`string.utfcharacter` (function)__
-- __`string.utfcharacters` (function)__
-- __`string.utflength` (function)__
-- __`string.utfpadd` (function)__
-- __`string.utfpadding` (function)__
-- __`string.utfvalue` (function)__
-- __`string.utfvalues` (function)__
-- __`string.valid` (function)__
-- __`string.wordsplitter` (function)__
-
-### table
-
-- __`table.allkeys` (function)__
-- __`table.append` (function)__
-- __`table.are_equal` (function)__
-- __`table.collapsed` (function)__
-- __`table.collapsedhash` (function)__
-- __`table.combine` (function)__
-- __`table.compact` (function)__
-- __`table.concat` (function)__
-- __`table.contains` (function)__
-- __`table.copy` (function)__
-- __`table.count` (function)__
-- __`table.derive` (function)__
-- __`table.deserialize` (function)__
-- __`table.drop` (function)__
-- __`table.fastcopy` (function)__
-- __`table.fastserialize` (function)__
-- __`table.filtered` (function)__
-- __`table.flattened` (function)__
-- __`table.fromhash` (function)__
-- __`table.getmetatablekey` (function)__
-- __`table.getn` (function)__
-- __`table.has_one_entry` (function)__
-- __`table.hashed` (function)__
-- __`table.identical` (function)__
-- __`table.imerge` (function)__
-- __`table.imerged` (function)__
-- __`table.insert` (function)__
-- __`table.is_empty` (function)__
-- __`table.is_simple_table` (function)__
-- __`table.keys` (function)__
-- __`table.load` (function)__
-- __`table.loweredkeys` (function)__
-- __`table.makeweak` (function)__
-- __`table.merge` (function)__
-- __`table.merged` (function)__
-- __`table.mirrored` (function)__
-- __`table.move` (function)__
-- __`table.ordered` (function)__
-- __`table.orderedhash` (function)__
-- __`table.pack` (function)__
-- __`table.prepend` (function)__
-- __`table.print` (function)__
-- __`table.remove` (function)__
-- __`table.reverse` (function)__
-- __`table.reverse_hash` (function)__
-- __`table.reversed` (function)__
-- __`table.save` (function)__
-- __`table.sequenced` (function)__
-- __`table.serialize` (function)__
-- __`table.setmetatablecall` (function)__
-- __`table.setmetatableindex` (function)__
-- __`table.setmetatableindices` (function)__
-- __`table.setmetatablekey` (function)__
-- __`table.setmetatablenewindex` (function)__
-- __`table.sort` (function)__
-- __`table.sorted` (function)__
-- __`table.sortedhash` (function)__
-- __`table.sortedhashkeys` (function)__
-- __`table.sortedhashonly` (function)__
-- __`table.sortedindexonly` (function)__
-- __`table.sortedkeys` (function)__
-- __`table.sortedpairs` (function)__
-- __`table.sparse` (function)__
-- __`table.strip` (function)__
-- __`table.sub` (function)__
-- __`table.swapped` (function)__
-- __`table.tocsv` (function)__
-- __`table.tofile` (function)__
-- __`table.tohandle` (function)__
-- __`table.tohash` (function)__
-- __`table.toxml` (function)__
-- __`table.twowaymapper` (function)__
-- __`table.unique` (function)__
-- __`table.unnest` (function)__
-- __`table.unpack` (function)__
-- __`table.values` (function)__
 
 ### tex
 
@@ -1766,15 +1272,6 @@ script below.
 - __`utf.values` (function)__
 - __`utf.xstring` (function)__
 
-### utf8
-
-- __`utf8.char` (function)__
-- `utf8.charpattern` (string)
-- __`utf8.codepoint` (function)__
-- __`utf8.codes` (function)__
-- __`utf8.len` (function)__
-- __`utf8.offset` (function)__
-
 ### utilities
 
 - *`utilities.debugger` (table)*
@@ -1835,6 +1332,7 @@ script below.
 - __`zlib.decompressobj` (function)__
 - __`zlib.version` (function)__
 
+
 ```lua
 local function printf(s, ...) print(string.format(s, ...)) end
 
@@ -1859,14 +1357,32 @@ local function print_lib_members(lib_name, lib)
     end
 end
 
+local lua_std = {
+    _G = true,
+    boolean = true,
+    coroutine = true,
+    debug = true,
+    io = true,
+    math = true,
+    number = true,
+    os = true,
+    package = true,
+    string = true,
+    table = true,
+    utf8 = true
+}
+
 return function()
     local env = _ENV
     local lib_names = sort_keys(env)
     for _, lib_name in ipairs(lib_names) do
-        local lib = env[lib_name]
-        if type(lib) == 'table' then
-            printf('\n### %s\n', lib_name)
-            print_lib_members(lib_name, env[lib_name])
+        if not lua_std[lib_name] then
+
+            local lib = env[lib_name]
+            if type(lib) == 'table' then
+                printf('\n### %s\n', lib_name)
+                print_lib_members(lib_name, env[lib_name])
+            end
         end
     end
 end
