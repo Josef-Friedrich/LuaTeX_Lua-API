@@ -1245,16 +1245,33 @@ function node.set_properties_mode() end
 function node.setfield() end
 function node.setglue() end
 function node.slide() end
-function node.subtype() end
+
+---
+---@param type string
+---
+---@return integer number
+function node.subtype(type) end
 function node.subtypes() end
-function node.tail() end
+
+---
+---Returns the last node of the node list that starts at `n`.
+---
+---@param n Node
+---
+---@return Node m
+function node.tail(n) end
 function node.tostring() end
 function node.traverse() end
 function node.traverse_char() end
 function node.traverse_glyph() end
 function node.traverse_id() end
 function node.traverse_list() end
-function node.type() end
+
+---
+---@param n any
+---
+---@return integer type
+function node.type(n) end
 function node.unprotect_glyph() end
 function node.unprotect_glyphs() end
 function node.unset_attribute() end
