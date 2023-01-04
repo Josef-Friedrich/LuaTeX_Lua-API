@@ -1067,12 +1067,20 @@ function node.direct.flush_node() end
 function node.direct.flush_properties_table() end
 function node.direct.free() end
 function node.direct.get_attribute() end
+
+---
+---@return table
 function node.direct.get_properties_table() end
 function node.direct.get_synctex_fields() end
 function node.direct.getattributelist() end
 function node.direct.getboth() end
 function node.direct.getbox() end
-function node.direct.getchar() end
+
+---
+---@param node_id integer
+---
+---@return integer
+function node.direct.getchar(node_id) end
 function node.direct.getcomponents() end
 function node.direct.getdata() end
 function node.direct.getdepth() end
@@ -1164,7 +1172,12 @@ function node.direct.setwhd() end
 function node.direct.setwidth() end
 function node.direct.slide() end
 function node.direct.tail() end
-function node.direct.todirect() end
+
+---
+---@param n Node
+---
+---@return integer d
+function node.direct.todirect(n) end
 function node.direct.tonode() end
 function node.direct.tostring() end
 function node.direct.traverse() end
