@@ -109,8 +109,11 @@ node = {}
 ---|1 # `stretching`,
 ---|2 # `shrinking`
 
-node.__t = {}
-node.__t.Node = 'xxx'
+---A table to better navigate through the code with the help of the outline.
+---`_t`: (Node) Types
+---@private
+node._t = {}
+node._t.Node = true
 
 ---
 ---These are the nodes that comprise actual typesetting commands. A few fields are
@@ -125,7 +128,7 @@ node.__t.Node = 'xxx'
 ---@field head? Node
 ---@field attr Node # list of attributes. almost all nodes also have an `attr` field
 
-node.__t.hlist = 0
+node._t.hlist = 0
 
 ---@alias HlistNodeSubtype
 ---|0 # unknown
@@ -180,14 +183,16 @@ node.__t.hlist = 0
 ---@field list Node # the first node of the body of this list
 ---@field dir DirectionSpecifier
 
-node.__t.vlist = 1
+node._t.vlist = 1
 
 ---@alias VlistNodeSubtype
 ---|0 # unknown
 ---|4 # alignment
 ---|5 # cell
 
-node.__t.rule = 2
+---@class VlistNode: Node
+
+node._t.rule = 2
 
 ---@alias RuleNodeSubtype
 ---|0 # normal
@@ -231,17 +236,38 @@ node.__t.rule = 2
 ---@field index integer # an optional index that can be referred too
 ---@field transform integer # an private variable (also used to specify outline width)
 
-node.__t.ins = 3
+node._t.ins = 3
 
-node.__t.mark = 4
+---@class InsNode: Node
+---@field subtype number # the insertion class
+---@field attr Node # list of attributes
+---@field cost number # the penalty associated with this insert
+---@field height number # height of the insert
+---@field depth number # depth of the insert
+---@field head Node # the first node of the body of this insert
+---@field list Node # the first node of the body of this insert
 
-node.__t.adjust = 5
+node._t.mark = 4
+
+---@class MarkNode: Node
+---@field subtype number # unused
+---@field attr Node # list of attributes
+---@field class number # the mark class
+---@field mark table # a table representing a token list
+
+node._t.adjust = 5
 
 ---@alias AdjustNodeSubtype
 ---|0 # normal
 ---|1 # pre
 
-node.__t.disc = 7
+---@class AdjustNode: Node
+---@field subtype AdjustNodeSubtype
+---@field attr Node # list of attributes
+---@field head Node # adjusted material
+---@field list Node # adjusted material
+
+node._t.disc = 7
 
 ---@alias DiscNodeSubtype
 ---|0 # discretionary
@@ -251,13 +277,26 @@ node.__t.disc = 7
 ---|4 # first
 ---|5 # second
 
-node.__t.math = 11
+---@class DiscNode: Node
+---@field subtype DiscNodeSubtype
+---@field attr Node # list of attributes
+---@field pre Node # pointer to the pre-break text
+---@field post Node # pointer to the post-break text
+---@field replace Node # pointer to the no-break text
+---@field penalty number # the penalty associated with the break, normally `hyphenpenalty` or `exhyphenpenalty`
+
+node._t.math = 11
 
 ---@alias MathNodeSubtype
 ---|0 # beginmath
 ---|1 # endmath
 
-node.__t.glue_spec = 39
+---@class MathNode: Node
+---@field subtype MathNodeSubtype
+---@field attr Node # list of attributes
+---@field surround number # width of the `mathsurround` kern
+
+node._t.glue_spec = 39
 
 ---
 ---Skips are about the only type of data objects in traditional *TeX* that are not a
@@ -300,7 +339,7 @@ node.__t.glue_spec = 39
 ---@field shrink         integer #  extra (negative) displacement or shrink amount
 ---@field shrink_order   integer #  factor applied to shrink amount
 
-node.__t.glue = 12
+node._t.glue = 12
 
 ---@alias GlueNodeSubtype
 ---|0 # userskip
@@ -337,7 +376,7 @@ node.__t.glue = 12
 ---@field subtype  GlueNodeSubtype
 ---@field leader   Node #    pointer to a box or rule for leaders
 
-node.__t.kern = 13
+node._t.kern = 13
 
 ---@alias KernNodeSubtype
 ---|0 # fontkern
@@ -353,7 +392,7 @@ node.__t.kern = 13
 ---@field subtype KernNodeSubtype
 ---@field kern integer # fixed horizontal or vertical advance
 
-node.__t.penalty = 14
+node._t.penalty = 14
 
 ---@alias PenaltyNodeSubtype
 ---|0 # userpenalty
@@ -366,7 +405,12 @@ node.__t.penalty = 14
 ---|7 # afterdisplaypenalty
 ---|8 # equationnumberpenalty
 
-node.__t.glyph = 29
+---@class PenaltyNode: Node
+---@field subtype PenaltyNodeSubtype
+---@field attr Node # list of attributes
+---@field penalty number # the penalty value
+
+node._t.glyph = 29
 
 ---@alias GlyphNodeSubtype
 ---|1 # ligature
@@ -374,7 +418,25 @@ node.__t.glyph = 29
 ---|3 # left
 ---|4 # right
 
-node.__t.boundary = 6
+---@class GlyphNode: Node
+---@field subtype number # bit field
+---@field attr Node # list of attributes
+---@field char number # the character index in the font
+---@field font number # the font identifier
+---@field lang number # the language identifier
+---@field left number # the frozen `\lefthyphenmnin` value
+---@field right number # the frozen `\righthyphenmnin` value
+---@field uchyph boolean # the frozen `uchyph` value
+---@field components Node # pointer to ligature components
+---@field xoffset number # a virtual displacement in horizontal direction
+---@field yoffset number # a virtual displacement in vertical direction
+---@field width number # the (original) width of the character
+---@field height number # the (original) height of the character
+---@field depth number # the (original) depth of the character
+---@field expansion_factor number # the to be applied expansion_factor
+---@field data number # a general purpose field for users (we had room for it)
+
+node._t.boundary = 6
 
 ---@alias BoundaryNodeSubtype
 ---|0 # cancel
@@ -382,27 +444,80 @@ node.__t.boundary = 6
 ---|2 # protrusion
 ---|3 # word
 
-node.__t.local_par = 9
+---@class BoundaryNode: Node
+---@field subtype BoundaryNodeSubtype
+---@field attr Node # list of attributes
+---@field value number # values 0--255 are reserved
 
-node.__t.dir = 10
+node._t.local_par = 9
 
-node.__t.margin_kern = 28
+---@class LocalParNode: Node
+---@field attr Node # list of attributes
+---@field pen_inter number # local interline penalty (from `localinterlinepenalty`)
+---@field pen_broken number # local broken penalty (from `localbrokenpenalty`)
+---@field dir string # the direction of this par. see \in [dirnodes]
+---@field box_left Node # the `localleftbox`
+---@field box_left_width number # width of the `localleftbox`
+---@field box_right Node # the `localrightbox`
+---@field box_right_width number # width of the `localrightbox`
+
+node._t.dir = 10
+
+---@class DirNode: Node
+---@field attr Node # list of attributes
+---@field dir string # the direction (but see below)
+---@field level number # nesting level of this direction whatsit
+
+node._t.margin_kern = 28
 
 ---@alias MarginKernNodeSubtype
 ---|0 # left
 ---|1 # right
 
-node.__t.math_char = 23
+---@class MarginKernNode: Node
+---@field subtype number # \showsubtypes{marginkern}
+---@field attr Node # list of attributes
+---@field width number # the advance of the kern
+---@field glyph Node # the glyph to be used
 
-node.__t.math_text_char = 26
+node._t.math_char = 23
 
-node.__t.sub_box = 24
+---@class MathCharNode: Node
+---@field attr Node # list of attributes
+---@field char number # the character index
+---@field fam number # the family number
 
-node.__t.sub_mlist = 25
+node._t.math_text_char = 26
 
-node.__t.delim = 27
+---@class MathTextCharNode: Node
+---@field attr Node # list of attributes
+---@field char number # the character index
+---@field fam number # the family number
 
-node.__t.noad = 18
+node._t.sub_box = 24
+
+---@class SubBoxNode: Node
+---@field attr Node # list of attributes
+---@field head Node # list of nodes
+---@field list Node # list of nodes
+
+node._t.sub_mlist = 25
+
+---@class SubMlistNode: Node
+---@field attr Node # list of attributes
+---@field head Node # list of nodes
+---@field list Node # list of nodes
+
+node._t.delim = 27
+
+---@class DelimNode: Node
+---@field attr Node # list of attributes
+---@field small_char number # character index of base character
+---@field small_fam number # family number of base character
+---@field large_char number # character index of next larger character
+---@field large_fam number # family number of next larger character
+
+node._t.noad = 18
 
 ---@alias NoadNodeSubtype
 ---|0 # ord
@@ -419,7 +534,15 @@ node.__t.noad = 18
 ---|11 # over
 ---|12 # vcenter
 
-node.__t.accent = 21
+---@class NoadNode: Node
+---@field subtype NoadNodeSubtype
+---@field attr Node # list of attributes
+---@field nucleus Node # base
+---@field sub Node # subscript
+---@field sup Node # superscript
+---@field options number # bitset of rendering options
+
+node._t.accent = 21
 
 ---@alias AccentNodeSubtype
 ---|0 # bothflexible
@@ -427,11 +550,30 @@ node.__t.accent = 21
 ---|2 # fixedbottom
 ---|3 # fixedboth
 
-node.__t.style = 16
+---@class AccentNode: Node
+---@field subtype AccentNodeSubtype
+---@field nucleus Node # base
+---@field sub Node # subscript
+---@field sup Node # superscript
+---@field accent Node # top accent
+---@field bot_accent Node # bottom accent
+---@field fraction number # larger step criterium (divided by 1000)
 
-node.__t.choice = 17
+node._t.style = 16
 
-node.__t.radical = 19
+---@class StyleNode: Node
+---@field style string # contains the style
+
+node._t.choice = 17
+
+---@class ChoiceNode: Node
+---@field attr Node # list of attributes
+---@field display Node # list of display size alternatives
+---@field text Node # list of text size alternatives
+---@field script Node # list of scriptsize alternatives
+---@field scriptscript Node # list of scriptscriptsize alternatives
+
+node._t.radical = 19
 
 ---@alias RadicalNodeSubtype
 ---|0 # radical
@@ -442,9 +584,22 @@ node.__t.radical = 19
 ---|5 # udelimiterunder
 ---|6 # udelimiterover
 
-node.__t.fraction = 20
+---@class RadicalNode: Node
+---@field subtype RadicalNodeSubtype
+---@field attr Node # list of attributes
+---@field nucleus KernNode # base
+---@field sub KernNode # subscript
+---@field sup KernNode # superscript
+---@field left DelimNode
+---@field degree KernNode # only set by `Uroot`
+---@field width number # required width
+---@field options number # bitset of rendering options
 
-node.__t.fence = 22
+node._t.fraction = 20
+
+---@class FractionNode: Node
+
+node._t.fence = 22
 
 ---@alias FenceNodeSubtype
 ---|0 # unset
@@ -453,9 +608,13 @@ node.__t.fence = 22
 ---|3 # right
 ---|4 # no
 
-node.__t.whatsit = 8
+---@class FenceNode: Node
 
-node.__t.__whatsit = {}
+node._t.whatsit = 8
+
+------A table to better navigate through the code with the help of the outline.
+---`__w`: whatsit
+node._t._w = {}
 
 ---Whatsit nodes come in many subtypes that you can ask for them by running
 ---`node.whatsits`.
@@ -467,13 +626,13 @@ node.__t.__whatsit = {}
 ---Source: [luatex-nodes.tex#L781-L797](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L781-L797)
 ---@class WhatsitNode: Node
 
-node.__t.__whatsit.open = 0
+node._t._w.open = 0
 
-node.__t.__whatsit.write = 1
+node._t._w.write = 1
 
-node.__t.__whatsit.close = 2
+node._t._w.close = 2
 
-node.__t.__whatsit.user_defined = 8
+node._t._w.user_defined = 8
 
 ---User-defined whatsit nodes can only be created and handled from *Lua* code. In
 ---effect, they are an extension to the extension mechanism. The *LuaTeX* engine
@@ -486,27 +645,27 @@ node.__t.__whatsit.user_defined = 8
 ---@field type 97|100|108|110|115|116 # The `type` can have one of six distinct values. The number is the ASCII value if the first character of the type name (so you can use string.byte("l") instead of `108`): 97 “a” list of attributes (a node list), 100 “d” a *Lua* number, 108 “l” a *Lua* value (table, number, boolean, etc), 110 “n” a node list, 115 “s” a *Lua* string, 116 “t” a *Lua* token list in *Lua* table form (a list of triplets).
 ---@field value number|Node|string|table
 
-node.__t.__whatsit.save_pos = 6
+node._t._w.save_pos = 6
 
-node.__t.__whatsit.late_lua = 7
+node._t._w.late_lua = 7
 
-node.__t.__whatsit.special = 3
+node._t._w.special = 3
 
-node.__t.__whatsit.pdf_literal = 16
+node._t._w.pdf_literal = 16
 
-node.__t.__whatsit.pdf_refobj = 17
+node._t._w.pdf_refobj = 17
 
-node.__t.__whatsit.pdf_annot = 18
+node._t._w.pdf_annot = 18
 
-node.__t.__whatsit.pdf_start_link = 19
+node._t._w.pdf_start_link = 19
 
-node.__t.__whatsit.pdf_end_link = 20
+node._t._w.pdf_end_link = 20
 
-node.__t.__whatsit.pdf_dest = 21
+node._t._w.pdf_dest = 21
 
-node.__t.__whatsit.pdf_action = 22
+node._t._w.pdf_action = 22
 
-node.__t.__whatsit.pdf_thread = 23
+node._t._w.pdf_thread = 23
 
 ---@class PdfThreadWhatsitNode
 ---@field attr Node # list of attributes
@@ -517,7 +676,7 @@ node.__t.__whatsit.pdf_thread = 23
 ---@field tread_id number # the thread id  string  the thread name
 ---@field thread_attr number # extra thread information
 
-node.__t.__whatsit.pdf_start_thread = 24
+node._t._w.pdf_start_thread = 24
 
 ---@class PdfStartThreadWhatsitNode
 ---@field attr Node # list of attributes
@@ -528,12 +687,12 @@ node.__t.__whatsit.pdf_start_thread = 24
 ---@field tread_id number # the thread id  string  the thread name
 ---@field thread_attr number # extra thread information
 
-node.__t.__whatsit.pdf_end_thread = 25
+node._t._w.pdf_end_thread = 25
 
 ---@class PdfEndThreadWhatsitNode
 ---@field attr Node # list of attributes
 
-node.__t.__whatsit.pdf_colorstack = 28
+node._t._w.pdf_colorstack = 28
 
 ---
 ---From the pdfTeX manual:
@@ -555,48 +714,107 @@ node.__t.__whatsit.pdf_colorstack = 28
 ---@field command integer # The command to execute. ⟨stack action⟩ → set (0) | push (1) | pop (2) | current (3) [texnodes.c#L3523-L3545](https://github.com/TeX-Live/luatex/blob/6472bd794fea67de09f01e1a89e9b12141be7474/source/texk/web2c/luatexdir/tex/texnodes.c#L3523-L3545)
 ---@field data string # General text that is placed on top of the stack, for example `1 0 0 rg 1 0 0 RG`. `rg` only colors filled outlines while the stroke color is set with `RG`. From the [PDF Reference, fourth edition](https://opensource.adobe.com/dc-acrobat-sdk-docs/pdfstandards/pdfreference1.5_v6.pdf), 4.5.7 Color Operators Page 251: `gray G`: Set the stroking color space to DeviceGray. `gray` is a number between 0.0 (black) and 1.0 (white). `gray g`: Same as `G`, but for nonstroking operations. `r g b RG`: Set the stroking color space to DeviceRGB. Each operand must be a number between 0.0 (minimum intensity) and 1.0 (maximum intensity). `r g b rg`: same as `RG`, but for nonstroking operations. `c m y k K`: Set the stroking color space to DeviceCMYK. Each operand must be a number between 0.0 (zero concentration) and 1.0 (maximum concentration). `c m y k k`: Same as `K`, but for nonstroking operations.
 
-node.__t.__whatsit.pdf_setmatrix = 29
+node._t._w.pdf_setmatrix = 29
 
 ---@class PdfSetmatrixWhatsitNode
 ---@field attr Node # list of attributes
 ---@field data string # data
 
-node.__t.__whatsit.pdf_save = 30
+node._t._w.pdf_save = 30
 
 ---@class PdfSaveWhatsitNode
 ---@field attr Node # list of attributes
 
-node.__t.__whatsit.pdf_restore = 31
+node._t._w.pdf_restore = 31
 
 ---@class PdfRestoreWhatsitNode
 ---@field attr Node # list of attributes
 
-node.__t.__whatsit.pdf_thread_data = 26
+node._t._w.pdf_thread_data = 26
 
-node.__t.__whatsit.pdf_link_data = 27
+node._t._w.pdf_link_data = 27
 
-node.__t.__whatsit.pdf_link_state = 32
+node._t._w.pdf_link_state = 32
 
-node.__t.unset = 15
-node.__t.align_record = 30
-node.__t.pseudo_file = 31
-node.__t.pseudo_line = 32
-node.__t.page_insert = 33
-node.__t.split_insert = 34
-node.__t.expr_stack = 35
-node.__t.nested_list = 36
-node.__t.span = 37
-node.__t.attribute = 38
-node.__t.attribute_list = 40
-node.__t.temp = 41
-node.__t.align_stack = 42
-node.__t.movement_stack = 43
-node.__t.if_stack = 44
-node.__t.unhyphenated = 45
-node.__t.hyphenated = 46
-node.__t.delta = 47
-node.__t.passive = 48
-node.__t.shape = 49
+node._t.unset = 15
+
+---@class UnsetNode: Node
+
+node._t.align_record = 30
+
+---@class AlignRecordNode: Node
+
+node._t.pseudo_file = 31
+
+---@class PseudoFileNode: Node
+
+node._t.pseudo_line = 32
+
+---@class PseudoLineNode: Node
+
+node._t.page_insert = 33
+
+---@class PageInsertNode: Node
+
+node._t.split_insert = 34
+
+---@class Split_InsertNode: Node
+
+node._t.expr_stack = 35
+
+---@class ExprStackNode: Node
+
+node._t.nested_list = 36
+
+---@class Nested_ListNode: Node
+
+node._t.span = 37
+
+---@class SpanNode: Node
+
+node._t.attribute = 38
+
+---@class AttributeNode: Node
+
+node._t.attribute_list = 40
+
+---@class AttributeListNode: Node
+
+node._t.temp = 41
+
+---@class TempNode: Node
+
+node._t.align_stack = 42
+
+---@class AlignStackNode: Node
+
+node._t.movement_stack = 43
+
+---@class MovementStackNode: Node
+
+node._t.if_stack = 44
+
+---@class IfStackNode: Node
+
+node._t.unhyphenated = 45
+
+---@class UnhyphenatedNode: Node
+
+node._t.hyphenated = 46
+
+---@class HyphenatedNode: Node
+
+node._t.delta = 47
+
+---@class DeltaNode: Node
+
+node._t.passive = 48
+
+---@class PassiveNode: Node
+
+node._t.shape = 49
+
+---@class ShapeNode: Node
 
 ---
 ---This function returns a number (the internal index of the node) if the argument is a userdata
