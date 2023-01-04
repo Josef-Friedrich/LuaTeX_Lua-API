@@ -1,25 +1,85 @@
 ---@meta
 
+---http://www.inf.puc-rio.br/~roberto/lpeg/
+---http://stevedonovan.github.io/lua-stdlibs/modules/lpeg.html
+
 lpeg = {}
 
-function lpeg.B() end
-function lpeg.C() end
-function lpeg.Carg() end
+---@alias Pattern userdata
+
+---@class Capture
+
+---
+---@param pattern Pattern
+---@param subject string
+---@param init? integer
+---
+---@return integer|Capture
+function lpeg.match(pattern, subject, init) end
+
+---
+---
+---@return nil|string
+function lpeg.type(value) end
+
+---@return string
+function lpeg.version() end
+
+---
+---@param max integer
+function lpeg.setmaxstack(max) end
+
+---@param value Pattern|string|integer|boolean|table|function
+---
+---@return Pattern
+function lpeg.P(value) end
+
+---@param pattern Pattern
+---
+---@return integer|Capture
+function lpeg.B(pattern) end
+
+---@param ... string
+---
+---@return Pattern
+function lpeg.R(...) end
+
+---
+---@param string string
+---
+---@return Pattern
+function lpeg.S(string) end
+
+---@param v string
+---
+---@return Pattern
+function lpeg.V(v) end
+
+function lpeg.locale() end
+
+---@param patt Pattern
+---
+---@return string
+function lpeg.C(patt) end
+
+---@param n integer
+---
+---@return string
+function lpeg.Carg(n) end
 function lpeg.Cb() end
 function lpeg.Cc() end
 function lpeg.Cf() end
-function lpeg.Cg() end
+
+---@param patt Pattern
+function lpeg.Cg(patt) end
 function lpeg.Cmt() end
 function lpeg.Cp() end
 function lpeg.Cs() end
 function lpeg.Ct() end
-function lpeg.P() end
-function lpeg.R() end
-function lpeg.S() end
+
 function lpeg.UP() end
 function lpeg.UR() end
 function lpeg.US() end
-function lpeg.V() end
 function lpeg.afterprefix() end
 function lpeg.anywhere() end
 function lpeg.append() end
@@ -35,15 +95,12 @@ function lpeg.frontstripper() end
 function lpeg.instringchecker() end
 function lpeg.is_lpeg() end
 function lpeg.keeper() end
-function lpeg.locale() end
-function lpeg.match() end
 function lpeg.oneof() end
 function lpeg.pcode() end
 function lpeg.print() end
 function lpeg.ptree() end
 function lpeg.replacer() end
 function lpeg.secondofsplit() end
-function lpeg.setmaxstack() end
 function lpeg.setutfcasers() end
 function lpeg.split() end
 function lpeg.splitat() end
@@ -52,7 +109,5 @@ function lpeg.stripper() end
 function lpeg.times() end
 function lpeg.tsplitat() end
 function lpeg.tsplitter() end
-function lpeg.type() end
 function lpeg.utfchartabletopattern() end
 function lpeg.utfreplacer() end
-function lpeg.version() end
