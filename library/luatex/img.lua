@@ -89,3 +89,5 @@ function img.types() end
 ---
 ---@return table
 function img.boxes() end
+
+function img.keys() end

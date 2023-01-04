@@ -116,3 +116,15 @@ function luatexbase.call_callback(name, ...) end
 ---@param relation DeclareCallbackRuleRelation
 ---@param second string
 function luatexbase.declare_callback_rule(name, first, relation, second) end
+
+function luatexbase.module_error() end
+function luatexbase.module_info() end
+function luatexbase.module_warning() end
+function luatexbase.new_attribute() end
+function luatexbase.new_bytecode() end
+function luatexbase.new_chunkname() end
+function luatexbase.new_luafunction() end
+function luatexbase.new_whatsit() end
+function luatexbase.provides_module() end
+function luatexbase.registernumber() end
+function luatexbase.uninstall() end
