@@ -1,5 +1,4 @@
 ---@meta
-
 ---
 ---# Multibyte `string` functions
 ---
@@ -12,26 +11,6 @@
 ---`m` is not hidden by surrounding braces as it would be if this function was
 ---written in *TeX* macros.
 ---
----The `string` library also has six extra iterators that return strings
----piecemeal: `string.utfvalues`, `string.utfcharacters`,
----`string.characters`, `string.characterpairs`, `string.bytes` and `string.bytepairs`.
----
----* `string.utfvalues(s)`: an integer value in the *Unicode* range
----
----* `string.utfcharacters(s)`: a string with a single *UTF-8* token in it
----
----* `string.characters(s)`: a string containing one byte
----
----* `string.characterpairs(s)`: two strings each containing one byte or an
----    empty second string if the string length was odd
----
----* `string.bytes(s)`: a single byte value
----
----* `string.bytepairs(s)`: two byte values or nil instead of a number as
----    its second return value if the string length was odd
----
----The `string.characterpairs()` and `string.bytepairs()` iterators
----are useful especially in the conversion of *UTF-8*16 encoded data into *UTF-8*.
 ---
 ---There is also a two-argument form of `string.dump()`. The second argument
 ---is a boolean which, if true, strips the symbols from the dumped data. This
@@ -65,3 +44,42 @@
 ---used as building blocks for other helpers.
 ---
 string = {}
+
+---
+---@param s string
+---
+---@return # an integer value in the *Unicode* range
+function string.utfvalues(s) end
+
+---@param s string
+---
+---@return # a string with a single *UTF-8* token in it
+function string.utfcharacters(s) end
+
+---@param s string
+---
+---@return a string containing one byte
+function string.characters(s) end
+
+---
+---The `string.characterpairs()` iterator
+---is useful especially in the conversion of *UTF-8*16 encoded data into *UTF-8*.
+---
+---@param s string
+---
+---@return # two strings each containing one byte or an empty second string if the string length was odd
+function string.characterpairs(s) end
+
+---@param s string
+---
+---@return # a single byte value
+function string.bytes(s) end
+
+---
+---The `string.bytepairs()` iterator
+---is useful especially in the conversion of *UTF-8*16 encoded data into *UTF-8*.
+---
+---@param s string
+---
+---@return # two byte values or nil instead of a number as its second return value if the string length was odd
+function string.bytepairs(s) end
