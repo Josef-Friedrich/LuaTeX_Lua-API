@@ -1,5 +1,7 @@
 ---@meta
 
+--- `md5`, by Roberto Ierusalimschy http://www.inf.puc-rio.br/ roberto/md5/md5-5/md5.html.
+
 md5 = {}
 
 function md5.HEX() end

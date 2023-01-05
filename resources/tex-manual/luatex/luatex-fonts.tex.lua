@@ -172,7 +172,7 @@
 --- `left_protruding`   no   no   maybe  number   character's `lpcode` \NR
 --- `right_protruding`  no   no   maybe  number   character's `rpcode` \NR
 --- `expansion_factor`  no   no   maybe  number   character's `efcode` \NR
---- `tounicode`         no   no   maybe  string   character's \UNICODE\ equivalent(s), in \UTF-16BE hexadecimal format \NR
+--- `tounicode`         no   no   maybe  string   character's *Unicode* equivalent(s), in *UTF-8*-16BE hexadecimal format \NR
 --- `next`              no   yes  yes    number   the “next larger” character index \NR
 --- `extensible`        no   yes  yes    table    the constituent parts of an extensible recipe \NR
 --- `vert_variants`     no   no   yes    table    constituent parts of a vertical variant set 
@@ -193,11 +193,11 @@
 ---
 ---The usage of `tounicode` is this: if this font specifies a `tounicode=1` at the top level, then *LuaTeX* will construct a `/ToUnicode`
 ---entry for the *PDF* font (or font subset) based on the character-level `tounicode` strings, where they are available. If a character does not have a
----sensible \UNICODE\ equivalent, do not provide a string either (no empty strings).
+---sensible *Unicode* equivalent, do not provide a string either (no empty strings).
 ---
 ---If the font level `tounicode` is not set, then *LuaTeX* will build up `/ToUnicode` based on the *TeX* code points you used, and any character-level
 ---`tounicodes` will be ignored. The string format is exactly the format that
----is expected by Adobe \CMAP\ files (\UTF-16BE in hexadecimal encoding), minus the
+---is expected by Adobe \CMAP\ files (*UTF-8*16BE in hexadecimal encoding), minus the
 ---enclosing angle brackets. For instance the `tounicode` for a `fi`
 ---ligature would be `00660069`. When you pass a number the conversion will be
 ---done for you.

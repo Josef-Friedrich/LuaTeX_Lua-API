@@ -374,14 +374,14 @@
 ---    invalidate many old documents and macro packages. A secondary reason is that
 ---    in *TeX*82, `accent` prohibits hyphenation of the current word. Since
 ---    in *LuaTeX* hyphenation only takes place on “character” nodes, it is
----    possible to achieve the same effect. Of course, modern \UNICODE\ aware macro
+---    possible to achieve the same effect. Of course, modern *Unicode* aware macro
 ---    packages will not use the `accent` primitive at all but try to map
 ---    directly on composed characters.
 ---
 ---    This change of meaning did happen with `char`, that now generates
 ---    “glyph” nodes with a character subtype. In traditional *TeX* there was
 ---    a strong relationship between the 8-bit input encoding, hyphenation and
----    glyphs taken from a font. In *LuaTeX* we have \UTF\ input, and in most cases
+---    glyphs taken from a font. In *LuaTeX* we have *UTF-8* input, and in most cases
 ---    this maps directly to a character in a font, apart from glyph replacement in
 ---    the font engine. If you want to access arbitrary glyphs in a font directly
 ---    you can always use *Lua* to do so, because fonts are available as *Lua*
@@ -399,7 +399,7 @@
 ---* Automatic discretionaries are handled differently. *TeX*82 inserts an empty
 ---    discretionary after sensing an input character that matches the `hyphenchar` in the current font. This test is wrong in our opinion: whether
 ---    or not hyphenation takes place should not depend on the current font, it is a
----    language property. \footnote {When *TeX* showed up we didn't have \UNICODE\
+---    language property. \footnote {When *TeX* showed up we didn't have *Unicode*
 ---    yet and being limited to eight bits meant that one sometimes had to
 ---    compromise between supporting character input, glyph rendering, hyphenation.}
 ---
@@ -478,10 +478,10 @@
 ---superior) the implementation of the hyphenation algorithm in *LuaTeX* is quite
 ---different from the one in *TeX*82.
 ---
----After expansion, the argument for `patterns` has to be proper \UTF8 with
+---After expansion, the argument for `patterns` has to be proper *UTF-8* with
 ---individual patterns separated by spaces, no `char` or `chardef`d
 ---commands are allowed. The current implementation is quite strict and will reject
----all non-\UNICODE\ characters. Likewise, the expanded argument for `hyphenation` also has to be proper \UTF8, but here a bit of extra syntax is
+---all non-*Unicode* characters. Likewise, the expanded argument for `hyphenation` also has to be proper *UTF-8*, but here a bit of extra syntax is
 ---provided:
 ---
 ---* Three sets of arguments in curly braces (`{`{}{}}) indicate a desired
@@ -589,7 +589,7 @@
 ---There are a few differences between *LuaTeX* and *TeX*82 that are a direct result
 ---of the implementation:
 ---
----* *LuaTeX* happily hyphenates the full \UNICODE\ character range.
+---* *LuaTeX* happily hyphenates the full *Unicode* character range.
 ---
 ---* Pattern and exception dictionary size is limited by the available memory
 ---    only, all allocations are done dynamically. The trie-related settings in

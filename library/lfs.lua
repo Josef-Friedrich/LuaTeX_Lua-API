@@ -1,5 +1,7 @@
 ---@meta
 
+---`luafilesystem`, also from the kepler project, http://www.keplerproject.org/luafilesystem/.
+
 lfs = {}
 
 function lfs.attributes() end

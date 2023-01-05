@@ -1,5 +1,7 @@
 ---@meta
 
+---`lzlib`, by Tiago Dionizio, http://luaforge.net/projects/lzlib/.
+
 zlib = {}
 
 function zlib.adler32() end

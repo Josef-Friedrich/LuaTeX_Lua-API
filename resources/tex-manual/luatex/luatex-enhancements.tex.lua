@@ -109,12 +109,12 @@
 
 
 ---
----# \UNICODE\ text support
+---# *Unicode* text support
 ---
 ---# Extended ranges
 ---
----Text input and output is now considered to be \UNICODE\ text, so input characters
----can use the full range of \UNICODE\ (`2^{20}+2^{16}-1 = \hbox{0x10FFFF}`). Later
+---Text input and output is now considered to be *Unicode* text, so input characters
+---can use the full range of *Unicode* (`2^{20}+2^{16}-1 = \hbox{0x10FFFF}`). Later
 ---chapters will talk of characters and glyphs. Although these are not
 ---interchangeable, they are closely related. During typesetting, a character is
 ---always converted to a suitable graphic representation of that character in a
@@ -133,14 +133,14 @@
 ---`uccode`, `hjcode`, `catcode`, `sfcode`, `efcode`, `lpcode`, `rpcode`, `chardef`.
 ---
 ---As far as the core engine is concerned, all input and output to text files is
----\UTF-8 encoded. Input files can be pre-processed using the `reader`
+---*UTF-8* encoded. Input files can be pre-processed using the `reader`
 ---callback. This will be explained in \in {section} [iocallback]. Normalization of
----the \UNICODE\ input is on purpose not built-in and can be handled by a macro
+---the *Unicode* input is on purpose not built-in and can be handled by a macro
 ---package during callback processing. We have made some practical choices and the
 ---user has to live with those.
 ---
 ---Output in byte-sized chunks can be achieved by using characters just outside of
----the valid \UNICODE\ range, starting at the value `1{,}114{,}112` (0x110000). When
+---the valid *Unicode* range, starting at the value `1{,}114{,}112` (0x110000). When
 ---the time comes to print a character `c>=1{,}114{,}112`, *LuaTeX* will actually
 ---print the single byte corresponding to `c` minus 1{,}114{,}112.
 ---
@@ -157,7 +157,7 @@
 ---# `Uchar`
 ---
 ---The expandable command `Uchar` reads a number between 0 and `1{,}114{,}111`
----and expands to the associated \UNICODE\ character.
+---and expands to the associated *Unicode* character.
 ---
 ----------------------------------------------------------------
 
@@ -252,7 +252,7 @@
 ---
 ---Attributes are a completely new concept in *LuaTeX*. Syntactically, they behave a
 ---lot like counters: attributes obey *TeX*'s nesting stack and can be used after
----`the` etc.\ just like the normal `count` registers.
+---`the` etc. just like the normal `count` registers.
 ---
 ---\startsyntax
 ---\attribute <16-bit number> <optional equals> <32-bit number>!crlf
@@ -809,7 +809,7 @@
 ---
 ---These numbers depend on the macro package used because each one has its own way
 ---of dealing with fonts. They can also differ per run, as they can depend on the
----order of loading fonts. For instance, when in *ConTeXt* virtual math \UNICODE\
+---order of loading fonts. For instance, when in *ConTeXt* virtual math *Unicode*
 ---fonts are used, we can easily get over a hundred ids in use. Not all ids have to
 ---be bound to a real font, after all it's just a number.
 ---
@@ -938,7 +938,7 @@
 ---```
 ---
 ---This is slightly more efficient than constructing the string twice (deep down in
----*LuaTeX* this also involves some \UTF8 juggling), but probably more relevant is
+---*LuaTeX* this also involves some *UTF-8* juggling), but probably more relevant is
 ---that it saves a few tokens and can make code a bit more readable.
 ---
 ----------------------------------------------------------------

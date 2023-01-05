@@ -111,7 +111,7 @@
 ---file ourselves:
 ---
 ---* The font is automatically re-encoded, so that the `metrics` table for
----    *TrueType* and *OpenType* fonts is using \UNICODE\ for the character indices.
+---    *TrueType* and *OpenType* fonts is using *Unicode* for the character indices.
 ---
 ---* Many features are pre-processed into a format that is easier to handle than
 ---    just the bare tables would be.
@@ -370,7 +370,7 @@
 ---@field italic_correction number # only if set 
 ---@field top_accent number # only if set 
 ---@field is_extended_shape number # only if this character is part of a math extension list 
----@field altuni table # alternate \UNICODE\ items 
+---@field altuni table # alternate *Unicode* items 
 ---@field vert_variants table # 
 ---@field horiz_variants table # 
 ---@field mathkern table # 
@@ -509,7 +509,7 @@
 ---@field enc_name string # 
 ---@field char_cnt number # 
 ---@field char_max number # 
---- `unicode`           array   of \UNICODE\ position numbers
+--- `unicode`           array   of *Unicode* position numbers
 --- `psnames`           array   of *PostScript* glyph names
 ---@field builtin number # 
 ---@field hidden number # 
@@ -845,7 +845,7 @@
 ---
 ---# `altuni`
 ---
----An array of alternate \UNICODE\ values. Inside that array are hashes with:
+---An array of alternate *Unicode* values. Inside that array are hashes with:
 ---
 --- key             type    explanation 
 ---

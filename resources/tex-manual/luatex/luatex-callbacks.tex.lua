@@ -991,7 +991,7 @@
 ---```
 ---
 ---When `nil` is returned the character code is printed, otherwise the
----returned string is used. By default the \UTF\ representation is shown which is
+---returned string is used. By default the *UTF-8* representation is shown which is
 ---not always that useful, especially when there is no real representation. Keep in
 ---mind that setting this callback can change the log in an incompatible way.
 ---

@@ -27,7 +27,7 @@
 ---the directional support of \OMEGA\ (\ALEPH). But, *LuaTeX* can behave different
 ---due to its wide (32 bit) characters, many registers and large memory support. The
 ---*PDF* code produced differs from *PDF*TEX\ but users will normally not notice
----that. There is native \UTF\ input, support for large (more than 8 bit) fonts, and
+---that. There is native *UTF-8* input, support for large (more than 8 bit) fonts, and
 ---the math machinery is tuned for *OpenType* math. There is support for directional
 ---typesetting too. The log output can differ from other engines and will likely
 ---differ more as we move forward. When you run plain *TeX* for sure *LuaTeX* runs

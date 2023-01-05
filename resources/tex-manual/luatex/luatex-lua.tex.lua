@@ -299,8 +299,7 @@
 ---
 ---# Multibyte `string` functions
 ---
----The `string` library has a few extra functions, for example \libidx
----{string} {explode}. This function takes upto two arguments: `string.explode(s[,m])` and returns an array containing the string argument `s` split into sub-strings based on the value of the string argument `m`.
+---The `string` library has a few extra functions, for example `string.explode`. This function takes upto two arguments: `string.explode(s[,m])` and returns an array containing the string argument `s` split into sub-strings based on the value of the string argument `m`.
 ---The second argument is a string that is either empty (this splits the string into
 ---characters), a single character (this splits on each occurrence of that
 ---character, possibly introducing empty strings), or a single character followed by
@@ -310,13 +309,12 @@
 ---written in *TeX* macros.
 ---
 ---The `string` library also has six extra iterators that return strings
----piecemeal: \libidx {string} {utfvalues}, \libidx {string} {utfcharacters},
----\libidx {string} {characters}, \libidx {string} {characterpairs}, \libidx
----{string} {bytes} and \libidx {string} {bytepairs}.
+---piecemeal: `string.utfvalues`, `string.utfcharacters`,
+---`string.characters`, `string.characterpairs`, `string.bytes` and `string.bytepairs`.
 ---
----* `string.utfvalues(s)`: an integer value in the \UNICODE\ range
+---* `string.utfvalues(s)`: an integer value in the *Unicode* range
 ---
----* `string.utfcharacters(s)`: a string with a single \UTF-8 token in it
+---* `string.utfcharacters(s)`: a string with a single *UTF-8* token in it
 ---
 ---* `string.characters(s)`: a string containing one byte
 ---
@@ -329,7 +327,7 @@
 ---    its second return value if the string length was odd
 ---
 ---The `string.characterpairs()` and `string.bytepairs()` iterators
----are useful especially in the conversion of \UTF16 encoded data into \UTF8.
+---are useful especially in the conversion of *UTF-8*16 encoded data into *UTF-8*.
 ---
 ---There is also a two-argument form of `string.dump()`. The second argument
 ---is a boolean which, if true, strips the symbols from the dumped data. This
@@ -337,19 +335,19 @@
 ---gets adapted as *Lua* itself progresses.
 ---
 ---The `string` library functions `len`, `lower`, `sub`
----etc.\ are not \UNICODE-aware. For strings in the \UTF8 encoding, i.e., strings
+---etc. are not *Unicode*-aware. For strings in the *UTF-8* encoding, i.e., strings
 ---containing characters above code point 127, the corresponding functions from the
----`slnunicode` library can be used, e.g., `unicode.utf8.len`, `unicode.utf8.lower` etc.\ The exceptions are `unicode.utf8.find`, that
+---`slnunicode` library can be used, e.g., `unicode.utf8.len`, `unicode.utf8.lower` etc. The exceptions are `unicode.utf8.find`, that
 ---always returns byte positions in a string, and `unicode.utf8.match` and
 ---`unicode.utf8.gmatch`. While the latter two functions in general {\it
----are} \UNICODE-aware, they fall-back to non-\UNICODE-aware behavior when
+---are} *Unicode*-aware, they fall-back to non-*Unicode*-aware behavior when
 ---using the empty capture `()` but other captures work as expected. For the
 ---interpretation of character classes in `unicode.utf8` functions refer to
----the library sources at \hyphenatedurl {http://luaforge.net/projects/sln}.
+---the library sources at http://luaforge.net/projects/sln.
 ---
----Version 5.3 of *Lua* provides some native \UTF8 support but we have added a few
----similar helpers too: \libidx {string} {utfvalue}, \libidx {string} {utfcharacter}
----and \libidx {string} {utflength}.
+---Version 5.3 of *Lua* provides some native *UTF-8* support but we have added a few
+---similar helpers too: `string.utfvalue`, `string.utfcharacter`
+---and `string.utflength`.
 ---
 ---* `string.utfvalue(s)`: returns the codepoints of the characters in the
 ---    given string
@@ -368,10 +366,8 @@
 ---
 ---# Extra `os` library functions
 ---
----The `os` library has a few extra functions and variables: \libidx {os}
----{selfdir}, \libidx {os} {exec}, \libidx {os} {spawn}, \libidx {os} {setenv},
----\libidx {os} {env}, \libidx {os} {gettimeofday}, \libidx {os} {times}, \libidx
----{os} {tmpdir}, \libidx {os} {type}, \libidx {os} {name} and \libidx {os} {uname},
+---The `os` library has a few extra functions and variables: `os.selfdir`, `os.exec`, `os.spawn`, `os.setenv`,
+---`os.env`, `os.gettimeofday`, `os.times`, `os.tmpdir`, `os.type`, `os.name` and `os.uname`,
 ---that we will discuss here.
 ---
 ---* `os.selfdir` is a variable that holds the directory path of the
@@ -470,14 +466,9 @@
 ---# Binary input from files with `fio`
 ---
 ---There is a whole set of helpers for reading numbers and strings from a file:
----\libidx {fio} {readcardinal1}, \libidx {fio} {readcardinal2}, \libidx {fio}
----{readcardinal3}, \libidx {fio} {readcardinal4}, \libidx {fio}
----{readcardinaltable}, \libidx {fio} {readinteger1}, \libidx {fio} {readinteger2},
----\libidx {fio} {readinteger3}, \libidx {fio} {readinteger4}, \libidx {fio}
----{readintegertable}, \libidx {fio} {readfixed2}, \libidx {fio} {readfixed4},
----\libidx {fio} {read2dot14}, \libidx {fio} {setposition}, \libidx {fio}
----{getposition}, \libidx {fio} {skipposition}, \libidx {fio} {readbytes}, \libidx
----{fio} {readbytetable}. They work on normal *Lua* file handles.
+---`fio.readcardinal1`, `fio.readcardinal2`, `fio.readcardinal3`, `fio.readcardinal4`, `fio.readcardinaltable`, `fio.readinteger1`, `fio.readinteger2`,
+---`fio.readinteger3`, `fio.readinteger4`, `fio.readintegertable`, `fio.readfixed2`, `fio.readfixed4`,
+---`fio.read2dot14`, `fio.setposition`, `fio.getposition`, `fio.skipposition`, `fio.readbytes`, `fio.readbytetable`. They work on normal *Lua* file handles.
 ---
 ---%libidx{fio}{readline}
 ---%libidx{fio}{recordfilename}
@@ -515,14 +506,11 @@
 ---
 ---# Binary input from strings with `sio`
 ---
----A similar set of function as in the `fio` library is available in the `sio` library: \libidx {sio} {readcardinal1}, \libidx {sio} {readcardinal2},
----\libidx {sio} {readcardinal3}, \libidx {sio} {readcardinal4}, \libidx {sio}
----{readcardinaltable}, \libidx {sio} {readinteger1}, \libidx {sio} {readinteger2},
----\libidx {sio} {readinteger3}, \libidx {sio} {readinteger4}, \libidx {sio}
----{readintegertable}, \libidx {sio} {readfixed2}, \libidx {sio} {readfixed4},
----\libidx {sio} {read2dot14}, \libidx {sio} {setposition}, \libidx {sio}
----{getposition}, \libidx {sio} {skipposition}, \libidx {sio} {readbytes} and
----\libidx {sio} {readbytetable}. Here the first argument is a string instead of a
+---A similar set of function as in the `fio` library is available in the `sio` library: `sio.readcardinal1`, `sio.readcardinal2`,
+---`sio.readcardinal3`, `sio.readcardinal4`, `sio.readcardinaltable`, `sio.readinteger1`, `sio.readinteger2`,
+---`sio.readinteger3`, `sio.readinteger4`, `sio.readintegertable`, `sio.readfixed2`, `sio.readfixed4`,
+---`sio.read2dot14`, `sio.setposition`, `sio.getposition`, `sio.skipposition`, `sio.readbytes` and
+---`sio.readbytetable`. Here the first argument is a string instead of a
 ---file handle. More details can be found in the previous section.
 ---
 ----------------------------------------------------------------
@@ -532,8 +520,8 @@
 ---# Hashes conform `sha2`
 ---
 ---This library is a side effect of the `pdfe` library that needs such
----helpers. The \libidx{sha2}{digest256}, \libidx{sha2}{digest384} and
----\libidx{sha2}{digest512} functions accept a string and return a string with the
+---helpers. The `sha2.digest256`, `sha2.digest384` and
+---`sha2.digest512` functions accept a string and return a string with the
 ---hash.
 ---
 ----------------------------------------------------------------
@@ -567,10 +555,9 @@
 ---Some modules that are normally external to *Lua* are statically linked in with
 ---*LuaTeX*, because they offer useful functionality:
 ---
----* `lpeg`, by Roberto Ierusalimschy, \hyphenatedurl
----    {http://www.inf.puc-rio.br/ roberto/lpeg/lpeg.html}. This library is not
----    \UNICODE-aware, but interprets strings on a byte-per-byte basis. This
----    mainly means that `lpeg.S` cannot be used with \UTF8 characters encoded
+---* `lpeg`, by Roberto Ierusalimschy, http://www.inf.puc-rio.br/ roberto/lpeg/lpeg.html. This library is not
+---    *Unicode*-aware, but interprets strings on a byte-per-byte basis. This
+---    mainly means that `lpeg.S` cannot be used with *UTF-8* characters encoded
 ---    in more than two bytes, and thus `lpeg.S` will look for one of those
 ---    two bytes when matching, not the combination of the two. The same is true for
 ---    `lpeg.R`, although the latter will display an error message if used
@@ -578,29 +565,23 @@
 ---    message `bad argument #1 to 'R' (range must have two characters)`,
 ---    since to `lpeg`, `ä` is two 'characters' (bytes), so `aä`
 ---    totals three. In practice this is no real issue and with some care you can
----    deal with \UNICODE\ just fine.
+---    deal with *Unicode* just fine.
 ---
----* `slnunicode`, from the `selene` libraries, \hyphenatedurl
----    {http://luaforge.net/projects/sln}. This library has been slightly extended
+---* `slnunicode`, from the `selene` libraries, http://luaforge.net/projects/sln. This library has been slightly extended
 ---    so that the `unicode.utf8.*` functions also accept the first 256 values
 ---    of plane 18. This is the range *LuaTeX* uses for raw binary output, as
 ---    explained above. We have no plans to provide more like this because you can
 ---    basically do all that you want in *Lua*.
 ---
----* `luazip`, from the kepler project, \hyphenatedurl
----    {http://www.keplerproject.org/luazip/}.
+---* `luazip`, from the kepler project, http://www.keplerproject.org/luazip/.
 ---
----* `luafilesystem`, also from the kepler project, \hyphenatedurl
----    {http://www.keplerproject.org/luafilesystem/}.
+---* `luafilesystem`, also from the kepler project, http://www.keplerproject.org/luafilesystem/.
 ---
----* `lzlib`, by Tiago Dionizio, \hyphenatedurl
----    {http://luaforge.net/projects/lzlib/}.
+---* `lzlib`, by Tiago Dionizio, http://luaforge.net/projects/lzlib/.
 ---
----* `md5`, by Roberto Ierusalimschy \hyphenatedurl
----    {http://www.inf.puc-rio.br/ roberto/md5/md5-5/md5.html}.
+---* `md5`, by Roberto Ierusalimschy http://www.inf.puc-rio.br/ roberto/md5/md5-5/md5.html.
 ---
----* `luasocket`, by Diego Nehab \hyphenatedurl
----    {http://w3.impa.br/ diego/software/luasocket/}. The `.lua` support
+---* `luasocket`, by Diego Nehab http://w3.impa.br/ diego/software/luasocket/. The `.lua` support
 ---    modules from `luasocket` are also preloaded inside the executable,
 ---    there are no external file dependencies.
 ---

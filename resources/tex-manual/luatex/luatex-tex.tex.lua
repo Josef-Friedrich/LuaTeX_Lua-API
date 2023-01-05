@@ -1846,7 +1846,7 @@
 --- function               argument            result 
 ---
 ---@field scan_keyword string # returns true if the given keyword is gobbled; as with the regular *TeX* keyword scanner this is case insensitive (and \ASCII\ based) 
----@field scan_keywordcs string # returns true if the given keyword is gobbled; this variant is case sensitive and also suitable for \UTF8 
+---@field scan_keywordcs string # returns true if the given keyword is gobbled; this variant is case sensitive and also suitable for *UTF-8* 
 --- `scan_int`                            returns an integer 
 --- `scan_real`                           returns a number from e.g.\ `1`,  `1.1`, `.1` with optional collapsed signs 
 --- `scan_float`                          returns a number from e.g.\ `1`,  `1.1`, `.1`, `1.1E10`, , `.1e-10` with optional collapsed signs 

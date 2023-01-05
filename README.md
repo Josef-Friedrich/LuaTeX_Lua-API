@@ -1,11 +1,68 @@
 # LuaTeX Lua API
 
-Type definitions / Stubs for the Lua interface of LuaTeX and related Lua modules.
+Type definitions / Stubs for the Lua API / interface of `LuaTeX` and
+related `Lua` modules.
+
+Work in progress! Please contribute!
+
+[LuaTeX](http://luatex.org) has a very large
+[Lua](https://www.lua.org) API. This project tries to make this API
+accessible in the text editor of your choice. This is made possible by
+the
+[lua-language-server](https://github.com/sumneko/lua-language-server) a
+server that implements the [Language Server Protocol
+(LSP)](https://en.wikipedia.org/wiki/Language_Server_Protocol) for the
+Lua language.
+
+Features such as code completion syntax highlighting and marking of
+warnings and errors, should therefore not only be possible in [Visual
+Studio Code](https://code.visualstudio.com), but in a [large number of
+editors](https://langserver.org/#implementations-client) that support
+the LSP.
+
+## Structure of this project / documentation
+
+In the subfolder `library` are files named after the global libraries
+they document. For example, the `library/tex.lua` file contains the
+documentation for the `tex` library. These Lua files don’t contain
+really Lua code. They consist of just function bodies and empty tables.
+The main focus lies in the docstrings.
+
+The API docmentation has to be written in a [well documented annoation
+format](https://github.com/sumneko/lua-language-server/wiki/Annotations#meta)).
+This format is based on the [EmmyLua](https://emmylua.github.io/)
+format. Unfortunately, the Lua community has not yet been able to agree
+on a standarized annotation format. Many Lua project are documented in
+the [LDoc](https://github.com/lunarmodules/LDoc) format. However, the
+differences between these formats are marginal.
+
+The description text can be or was taken from the official [LuaTeX
+reference manual](https://github.com/TeX-Live/luatex/tree/trunk/manual).
+
+
+```lua
+---@meta
+
+tex = {}
+
+---
+---The `tex` table also contains the three print functions that are the major
+---interface from *Lua* scripting to *TeX*.
+---
+---@param ... string # Each string argument is treated by *TeX* as a separate input line.
+function tex.print(...) end
+```
+
+
+
+
+
+
+## Installion / Setup for Visual Studio Code
 
 Install [Visual Studio Code](https://code.visualstudio.com/) and the
 [lua-language-server](https://marketplace.visualstudio.com/items?itemName=sumneko.lua).
 
-[LuaTeX reference manual sources](https://github.com/TeX-Live/luatex/tree/trunk/manual)
 
 ```
 git clone https://github.com/Josef-Friedrich/LuaTeX_Lua-API.git

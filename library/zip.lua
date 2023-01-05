@@ -1,5 +1,8 @@
 ---@meta
 
+---`luazip`, from the kepler project, http://www.keplerproject.org/luazip/.
+---https://github.com/luaforge/luazip
+
 zip = {}
 
 function zip.close() end

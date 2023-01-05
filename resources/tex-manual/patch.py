@@ -19,6 +19,18 @@ def patch_file(file_name: str):
         content,
     )
 
+    content = re.sub(
+        r"\\libidx\s*\{(.*?)\}\s*\{(.*?)\}",
+        r"`\1.\2`",
+        content,
+    )
+
+    content = re.sub(
+        r"\\(hyphenatedurl)[\s]*\{([^}]*)\}",
+        r"\2",
+        content,
+    )
+
     content = re.sub(r"\\quote\s*\{([^}]*)\}", r"“\1”", content)
     content = re.sub(r"\$([^$]+)\$", r"`\1`", content)
 
@@ -32,6 +44,8 @@ def patch_file(file_name: str):
     content = re.sub(r"\\MICROSOFT\\?", "*Microsoft*", content)
     content = re.sub(r"\\FONTFORGE\\?", "*FontForge*", content)
     content = re.sub(r"\\POSTSCRIPT\\?", "*PostScript*", content)
+    content = re.sub(r"\\UTF-?8?\\?", "*UTF-8*", content)
+    content = re.sub(r"\\UNICODE\\?", "*Unicode*", content)
 
     content = re.sub(
         r"\\(starttyping|startfunctioncall|stoptyping|stopfunctioncall)", "```", content
@@ -47,10 +61,15 @@ def patch_file(file_name: str):
     content = content.replace("\\NC \\NR", "")
     content = re.sub(r"\\(NC|DB|BC|LL|TB|stoptabulate)", "", content)
     content = re.sub(r"\\starttabulate\[.*?\]", "", content)
+    content = content.replace("etc.\\", "etc.")
+
+
 
     content = "---" + content.replace("\n", "\n---")
 
-    content = re.sub(r"\\start(sub)*(section|chapter)*\[.*title=\{(.*?)\}\]", r"# \3", content)
+    content = re.sub(
+        r"\\start(sub)*(section|chapter)*\[.*title=\{(.*?)\}\]", r"# \3", content
+    )
 
     content = re.sub(r"\\(libindex|topicindex)\s*\{[^}]+\}", "", content)
     content = re.sub(r"---\n(---\n)+", "---\n", content)

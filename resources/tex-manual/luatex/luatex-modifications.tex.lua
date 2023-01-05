@@ -1072,7 +1072,7 @@
 ---nodes, and therefore has two states. At the *TeX* end we don't see these states
 ---because *TeX* itself will add proper end state nodes if needed.
 ---
----The symbolic names `TLT`, `TRT`, etc.\ originate in \OMEGA. In
+---The symbolic names `TLT`, `TRT`, etc. originate in \OMEGA. In
 ---*LuaTeX* we also have a number based model which sometimes makes more sense.
 ---
 --- value      equivalent 

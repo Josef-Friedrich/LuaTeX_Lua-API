@@ -1,5 +1,17 @@
 ---@meta
 
+---`lpeg`, by Roberto Ierusalimschy, http://www.inf.puc-rio.br/ roberto/lpeg/lpeg.html. This library is not
+---*Unicode*-aware, but interprets strings on a byte-per-byte basis. This
+---mainly means that `lpeg.S` cannot be used with *UTF-8* characters encoded
+---in more than two bytes, and thus `lpeg.S` will look for one of those
+---two bytes when matching, not the combination of the two. The same is true for
+---`lpeg.R`, although the latter will display an error message if used
+---with multibyte characters. Therefore `lpeg.R('aä')` results in the
+---message `bad argument #1 to 'R' (range must have two characters)`,
+---since to `lpeg`, `ä` is two 'characters' (bytes), so `aä`
+---totals three. In practice this is no real issue and with some care you can
+---deal with *Unicode* just fine.
+
 ---http://www.inf.puc-rio.br/~roberto/lpeg/
 ---http://stevedonovan.github.io/lua-stdlibs/modules/lpeg.html
 

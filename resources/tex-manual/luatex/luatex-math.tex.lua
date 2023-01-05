@@ -10,7 +10,7 @@
 ---
 ---The handling of mathematics in *LuaTeX* differs quite a bit from how *TeX*82 (and
 ---therefore *PDF*TEX) handles math. First, *LuaTeX* adds primitives and extends some
----others so that \UNICODE\ input can be used easily. Second, all of *TeX*82's
+---others so that *Unicode* input can be used easily. Second, all of *TeX*82's
 ---internal special values (for example for operator spacing) have been made
 ---accessible and changeable via control sequences. Third, there are extensions that
 ---make it easier to use *OpenType* math fonts. And finally, there are some
@@ -23,7 +23,7 @@
 ---
 ---# Unicode math characters
 ---
----Character handling is now extended up to the full \UNICODE\ range (the `\U`
+---Character handling is now extended up to the full *Unicode* range (the `\U`
 ---prefix), which is compatible with \XETEX.
 ---
 ---The math primitives from *TeX* are kept as they are, except for the ones that

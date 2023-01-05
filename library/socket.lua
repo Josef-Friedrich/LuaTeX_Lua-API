@@ -1,5 +1,9 @@
 ---@meta
 
+---`luasocket`, by Diego Nehab http://w3.impa.br/ diego/software/luasocket/. The `.lua` support
+---modules from `luasocket` are also preloaded inside the executable,
+---there are no external file dependencies.
+
 socket = {}
 
 function socket.__unload() end
