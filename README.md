@@ -36,10 +36,6 @@ on a standarized annotation format. Many Lua project are documented in
 the [LDoc](https://github.com/lunarmodules/LDoc) format. However, the
 differences between these formats are marginal.
 
-The description text can be or was taken from the official [LuaTeX
-reference manual](https://github.com/TeX-Live/luatex/tree/trunk/manual).
-
-
 ```lua
 ---@meta
 
@@ -53,12 +49,14 @@ tex = {}
 function tex.print(...) end
 ```
 
+The description text can be or was taken from the official [LuaTeX
+reference manual](https://github.com/TeX-Live/luatex/tree/trunk/manual).
 
+In the project folder
+[resources/manuals/luatex](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/tree/main/resources/manuals/luatex)
+you will find a slightly edited Lua version of the TeX manual sources.
 
-
-
-
-## Installion / Setup for Visual Studio Code
+## Installation / Setup for Visual Studio Code
 
 Install [Visual Studio Code](https://code.visualstudio.com/) and the
 [lua-language-server](https://marketplace.visualstudio.com/items?itemName=sumneko.lua).
