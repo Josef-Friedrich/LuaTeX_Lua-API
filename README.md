@@ -5,36 +5,35 @@ related `Lua` modules.
 
 Work in progress! Please contribute!
 
-[LuaTeX](http://luatex.org) has a very large
-[Lua](https://www.lua.org) API. This project tries to make this API
-accessible in the text editor of your choice. This is made possible by
-the
-[lua-language-server](https://github.com/sumneko/lua-language-server) a
-server that implements the [Language Server Protocol
+[LuaTeX](http://luatex.org) has a very large [Lua](https://www.lua.org)
+API. This project tries to make this API accessible in the text editor
+of your choice. This is made possible by the
+[lua-language-server](https://github.com/sumneko/lua-language-server) -
+a server that implements the [Language Server Protocol
 (LSP)](https://en.wikipedia.org/wiki/Language_Server_Protocol) for the
-Lua language.
+`Lua` language.
 
 Features such as code completion syntax highlighting and marking of
 warnings and errors, should therefore not only be possible in [Visual
 Studio Code](https://code.visualstudio.com), but in a [large number of
 editors](https://langserver.org/#implementations-client) that support
-the LSP.
+the `LSP`.
 
 ## Structure of this project / documentation
 
 In the subfolder `library` are files named after the global libraries
 they document. For example, the `library/tex.lua` file contains the
-documentation for the `tex` library. These Lua files don’t contain
-really Lua code. They consist of just function bodies and empty tables.
-The main focus lies in the docstrings.
+documentation for the `tex` library. These `Lua` files don’t contain
+really `Lua` code. They consist of just function bodies and empty
+tables. The main focus lies in the docstrings.
 
-The API docmentation has to be written in a [well documented annoation
-format](https://github.com/sumneko/lua-language-server/wiki/Annotations#meta)).
+The API docmentation is written in a [well documented annoation
+format](https://github.com/sumneko/lua-language-server/wiki/Annotations#meta).
 This format is based on the [EmmyLua](https://emmylua.github.io/)
-format. Unfortunately, the Lua community has not yet been able to agree
-on a standarized annotation format. Many Lua project are documented in
-the [LDoc](https://github.com/lunarmodules/LDoc) format. However, the
-differences between these formats are marginal.
+format. Unfortunately, the `Lua` community has not yet been able to
+agree on a standarized annotation format. Many `Lua` project are
+documented in the [LDoc](https://github.com/lunarmodules/LDoc) format.
+However, the differences between these formats are marginal.
 
 ```lua
 ---@meta
@@ -47,14 +46,25 @@ tex = {}
 ---
 ---@param ... string # Each string argument is treated by *TeX* as a separate input line.
 function tex.print(...) end
+
+---Converts a string `s` that represents an explicit
+---dimension into an integer number of scaled points.
+------
+---Source:
+---[luatex-tex.tex#L1386-L1413](https://github.com/TeX-Live/.../manual/luatex-tex.tex#L1386-L1413)
+---
+---@param s string
+---
+---@return integer
+function tex.sp(s) end
 ```
 
 The description text can be or was taken from the official [LuaTeX
 reference manual](https://github.com/TeX-Live/luatex/tree/trunk/manual).
-
 In the project folder
 [resources/manuals/luatex](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/tree/main/resources/manuals/luatex)
-you will find a slightly edited Lua version of the TeX manual sources.
+you will find a slightly edited `Lua` version of the `LuaTeX` manual
+sources.
 
 ## Installation / Setup for Visual Studio Code
 
