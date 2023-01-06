@@ -146,6 +146,10 @@ sources.
 13. [The HarfBuzz libraries](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/resources/manuals/luatex/luatex-harfbuzz.tex.lua)
 14. [The backend libraries](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/resources/manuals/luatex/luatex-backend.tex.lua)
 
+This quick hacked and very ugly Python script
+[resources/manuals/convert-tex-to-lua-docstrings.py](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/resources/manuals/convert-tex-to-lua-docstrings.py)
+was used to convert the source files.
+
 ### Navigation table `_N`
 
 Some Lua files contain a table named `_N`. `_N` stands for `navigation`.
