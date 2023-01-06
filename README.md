@@ -175,17 +175,13 @@ example is taken from the `LuaTeX` manual:
 <number> w, <number> h, <number> d =
   node.dimensions(<node> n, <node> t, <string> dir)
 <number> w, <number> h, <number> d =
-  node.dimensions(<number> glue_set, <number> glue_sign, <number> glue_order,
-<node> n)
+  node.dimensions(<number> glue_set, <number> glue_sign, <number> glue_order, <node> n)
 <number> w, <number> h, <number> d =
-  node.dimensions(<number> glue_set, <number> glue_sign, <number> glue_order,
-<node> n, <string> dir)
+  node.dimensions(<number> glue_set, <number> glue_sign, <number> glue_order, <node> n, <string> dir)
 <number> w, <number> h, <number> d =
-  node.dimensions(<number> glue_set, <number> glue_sign, <number> glue_order,
-<node> n, <node> t)
+  node.dimensions(<number> glue_set, <number> glue_sign, <number> glue_order, <node> n, <node> t)
 <number> w, <number> h, <number> d =
-  node.dimensions(<number> glue_set, <number> glue_sign, <number> glue_order,
-<node> n, <node> t, <string> dir)
+  node.dimensions(<number> glue_set, <number> glue_sign, <number> glue_order, <node> n, <node> t, <string> dir)
 ```
 
 This can easily be done by documenting the function with the same name
