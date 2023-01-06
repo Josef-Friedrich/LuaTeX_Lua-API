@@ -100,6 +100,10 @@ tex = {}
 function tex.sp(s) end
 ```
 
+The docstring above is rendered as follows in Visual Studio Code:
+
+![](resources/images/tex.sp_overload.png)
+
 The description text can be or was taken from the official [LuaTeX
 reference manual](https://github.com/TeX-Live/luatex/tree/trunk/manual).
 In the project folder
@@ -145,7 +149,7 @@ Quick info `node.write(n)`
 
 Signature overloads in `tex.sp()`
 
-![](resources/images/tex.sp.png)
+![](resources/images/tex.sp_overload.png)
 
 Documentation for the field `data` of the `pdf_colorstack` node:
 

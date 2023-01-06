@@ -141,7 +141,7 @@ _N._15_5_sp = 204
 function tex.sp(o) end
 
 ---
----Converts a string `s` that represents an explicit
+---Convert a string `s` that represents an explicit
 ---dimension into an integer number of scaled points.
 ---
 ---For parsing the string, the same scanning and conversion rules are used that
