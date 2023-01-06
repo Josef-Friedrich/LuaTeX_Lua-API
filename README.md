@@ -35,27 +35,68 @@ agree on a standarized annotation format. Many `Lua` project are
 documented in the [LDoc](https://github.com/lunarmodules/LDoc) format.
 However, the differences between these formats are marginal.
 
+## How to contribute.
+
+The preferred method of contributing to the project is via Github pull
+requests. You can also email patches to josef@friedrich.rocks.
+It is ok if you only document the data types of the input parameters.
+
+### Minimal example of `tex.sp()`
+
+```lua
+---
+---@param s string
+function tex.sp(s) end
+```
+
+### Less minimal example of `tex.sp()`
+
+```lua
+---
+---@param s string
+---
+---@return integer
+function tex.sp(s) end
+```
+
+Or if you have more time you can also expand the documentation to this
+level:
+
+### Prime example of `tex.sp()`
+
 ```lua
 ---@meta
 
 tex = {}
 
 ---
----The `tex` table also contains the three print functions that are the major
----interface from *Lua* scripting to *TeX*.
----
----@param ... string # Each string argument is treated by *TeX* as a separate input line.
-function tex.print(...) end
-
----Converts a string `s` that represents an explicit
+---Convert a string `s` that represents an explicit
 ---dimension into an integer number of scaled points.
-------
----Source:
----[luatex-tex.tex#L1386-L1413](https://github.com/TeX-Live/.../manual/luatex-tex.tex#L1386-L1413)
 ---
----@param s string
+---For parsing the string, the same scanning and conversion rules are used that
+---*LuaTeX* would use if it was scanning a dimension specifier in its *TeX*-like
+---input language (this includes generating errors for bad values), expect for the
+---following:
 ---
----@return integer
+---* only explicit values are allowed, control sequences are not handled
+---* infinite dimension units (`fil...`) are forbidden
+---* `mu` units do not generate an error (but may not be useful either)
+---
+---__Example__:
+---
+---```lua
+---local scaled_points = tex.sp('1cm')
+---print(scaled_points) -- 1864679
+---```
+---
+---__Reference__:
+---
+---* `LuaTeX` manual: 10.3.15.5 `sp` page 204
+---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L1386-L1413](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L1386-L1413)
+---
+---@param s string # A string to convert into scaled points.
+---
+---@return integer # The dimension in the scaled points format.
 function tex.sp(s) end
 ```
 

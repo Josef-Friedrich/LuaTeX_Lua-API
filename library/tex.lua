@@ -2,7 +2,66 @@
 
 tex = {}
 
---https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L1161
+_N = {}
+
+_N._5_registers = 194
+
+---
+---see `LuaTeX` manual: 10.3.5 Accessing registers: `set*`, `get*` and `is*`
+---
+---@type table
+tex.attribute = {}
+
+---
+---see `LuaTeX` manual: 10.3.5 Accessing registers: `set*`, `get*` and `is*`
+---
+---@type table
+tex.count = {}
+
+---
+---The dimension registers accept *Lua* numbers (in scaled points) or
+---strings (with an included absolute dimension; `em` and `ex`
+---and `px` are forbidden). The result is always a number in scaled
+---points.
+---
+---see `LuaTeX` manual: 10.3.5 Accessing registers: `set*`, `get*` and `is*`
+---
+---@type table
+tex.dimen = {}
+
+---
+---see `LuaTeX` manual: 10.3.5 Accessing registers: `set*`, `get*` and `is*`
+---
+---@type table
+tex.glue = {}
+
+---
+---see `LuaTeX` manual: 10.3.5 Accessing registers: `set*`, `get*` and `is*`
+---
+---@type table
+tex.muglue = {}
+
+---
+---see `LuaTeX` manual: 10.3.5 Accessing registers: `set*`, `get*` and `is*`
+---
+---@type table
+tex.muskip = {}
+
+---
+---see `LuaTeX` manual: 10.3.5 Accessing registers: `set*`, `get*` and `is*`
+---
+---@type table
+tex.skip = {}
+
+---
+---see `LuaTeX` manual: 10.3.5 Accessing registers: `set*`, `get*` and `is*`
+---
+---@type table
+tex.toks = {}
+
+_N._14_print = 201
+
+_N._14_1_print = 201
 
 ---
 ---The `tex` table also contains the three print functions that are the major
@@ -24,6 +83,8 @@ tex = {}
 ---
 ---The very last string of the very last `tex.print` command in a `directlua` will not have the `endlinechar` appended, all others do.
 ---
+---see `LuaTeX` manual: 10.3.14.1 `print`
+---
 ------
 ---Source: [luatex-tex.tex#L1172-L1196](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L1172-L1196)
 ---
@@ -33,6 +94,9 @@ function tex.print(...) end
 ---
 ---The optional parameter can be used to print the strings using the catcode regime
 ---defined by `catcodetable` `n`.
+---
+---see `LuaTeX` manual: 10.3.14.1 `print`
+---
 ------
 ---Source: [luatex-tex.tex#L1176-L1182](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L1176-L1182)
 ---
@@ -44,6 +108,9 @@ function tex.print(n, ...) end
 ---If there is a
 ---table argument instead of a list of strings, this has to be a consecutive array
 ---of strings to print (the first non-string value will stop the printing process).
+---
+---see `LuaTeX` manual: 10.3.14.1 `print`
+---
 ------
 ---Source: [luatex-tex.tex#L1222-L1224](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L1222-L1224)
 ---
@@ -51,13 +118,20 @@ function tex.print(n, ...) end
 function tex.print(t) end
 
 ---
+---see `LuaTeX` manual: 10.3.14.1 `print`
+---
 ---@param n integer # Print the strings using the catcode regime defined by `catcodetable` `n`.
 ---@param t table
 function tex.print(n, t) end
 
+_N._15_5_sp = 204
+
 ---
 ---Converts the number `o` that represents an explicit
 ---dimension into an integer number of scaled points.
+---
+---see `LuaTeX` manual: 10.3.15.5 `sp`
+---
 ------
 ---Source: [luatex-tex.tex#L1395-L1396](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L1395-L1396)
 ---
@@ -66,6 +140,7 @@ function tex.print(n, t) end
 ---@return integer
 function tex.sp(o) end
 
+---
 ---Converts a string `s` that represents an explicit
 ---dimension into an integer number of scaled points.
 ---
@@ -77,13 +152,25 @@ function tex.sp(o) end
 ---* only explicit values are allowed, control sequences are not handled
 ---* infinite dimension units (`fil...`) are forbidden
 ---* `mu` units do not generate an error (but may not be useful either)
-------
----Source: [luatex-tex.tex#L1386-L1413](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L1386-L1413)
 ---
----@param s string
+---__Example__:
 ---
----@return integer
+---```lua
+---local scaled_points = tex.sp('1cm')
+---print(scaled_points) -- 1864679
+---```
+---
+---__Reference__:
+---
+---* `LuaTeX` manual: 10.3.15.5 `sp` page 204
+---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L1386-L1413](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L1386-L1413)
+---
+---@param s string # A string to convert into scaled points.
+---
+---@return integer # The dimension in the scaled points format.
 function tex.sp(s) end
+
+_N._15_7_error_show_context = 204
 
 ---
 ---This creates an error somewhat like the combination of `\errhelp` and
@@ -91,12 +178,16 @@ function tex.sp(s) end
 ---
 ---In case of an error the `show_context` function will show the current
 ---context where we're at (in the expansion).
+---
+---see `LuaTeX` manual: 10.3.15.5 `sp`
 ------
 ---Source: [luatex-tex.tex#L1438-L1457](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L1438-L1457)
 ---
 ---@param s string # An error message like `\errmessage`.
 ---@param help? table # The array part of the `help` table has to contain strings, one for each line of error help.
 function tex.error(s, help) end
+
+_N._15_8_run_finish = 205
 
 ---
 ---Start the interpretation.
@@ -117,6 +208,8 @@ function tex.run() end
 ------
 ---Source: [luatex-tex.tex#L1464](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L1464)
 function tex.finish() end
+
+_N._15_9_runtoks = 205
 
 ---
 ---Because of the fact that *TeX* is in a complex dance of expanding, dealing with
@@ -158,6 +251,8 @@ function tex.finish() end
 ---Source: [luatex-tex.tex#L1472-L1508](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L1472-L1508)
 function tex.runtoks() end
 
+_N._15_10_forcehmode = 205
+
 ---
 ---An example of a (possible error triggering) complication is that *TeX* expects to
 ---be in some state, say horizontal mode, and you have to make sure it is when you
@@ -167,16 +262,20 @@ function tex.runtoks() end
 ---this and intercepting possible cases would weaken *LuaTeX*'s flexibility.
 function tex.forcehmode() end
 
+_N._15_11_hashtokens = 205
+
 ---
 ---Returns a list of names. This can be useful for debugging, but note that this
 ---also reports control sequences that may be unreachable at this moment due to
 ---local redefinitions: it is strictly a dump of the hash table. You can use `token.create` to inspect properties, for instance when the `command` key
 ---in a created table equals `123`, you have the `cmdname` value `undefined_cs`.
 ---
----```
+---```lua
 ---for i,v in pairs(tex.hashtokens()) do ... end
 ---```
 function tex.hashtokens() end
+
+_N._15_12_definefont = 206
 
 ---
 ---Associates `csname` with the internal font number `fontid`. The
@@ -196,6 +295,10 @@ function tex.definefont(csname, fontid) end
 ---@param csname string
 ---@param fontid integer
 function tex.definefont(global, csname, fontid) end
+
+_N._16_primitives = 206
+
+_N._16_1_enableprimitives = 206
 
 ---
 ---
