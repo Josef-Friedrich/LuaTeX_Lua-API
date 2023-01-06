@@ -9,6 +9,21 @@
 
 socket = {}
 
+---
+---This function is a shortcut that creates and returns a TCP server object
+---bound to a local `address` and `port`, ready to
+---accept client connections. Optionally,
+---user can also specify the `backlog` argument to the
+---`listen`method (defaults to 32).
+---
+---Note: The server object returned will have the option "`reuseaddr`"
+---set to `true`.
+---
+---@param address string
+---@param port integer
+---@param backlog? any
+function socket.bind(address, port, backlog) end
+
 ------------------------------------------------------------------------
 ---Undocumented functions listed in alphabetical order
 ---
@@ -21,12 +36,6 @@ socket = {}
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function socket.__unload() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function socket.bind() end
 
 ---
 ---Warning! Undocumented code!<p>
