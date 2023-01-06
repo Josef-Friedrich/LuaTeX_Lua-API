@@ -4,6 +4,9 @@
 ---modules from `luasocket` are also preloaded inside the executable,
 ---there are no external file dependencies.
 
+---https://github.com/lunarmodules/luasocket
+---https://lunarmodules.github.io/luasocket/socket.html
+
 socket = {}
 
 ------------------------------------------------------------------------
