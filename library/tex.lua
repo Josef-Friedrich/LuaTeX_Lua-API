@@ -2,6 +2,8 @@
 
 tex = {}
 
+---A helper table to better navigate through the documentation using the
+---outline.
 _N = {}
 
 _N._5_registers = 194

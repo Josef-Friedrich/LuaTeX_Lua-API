@@ -131,7 +131,17 @@ In the project folder
 you will find a slightly edited `Lua` version of the `LuaTeX` manual
 sources.
 
-### Documention of function overloading
+### Navigation table `_N`
+
+Some Lua files contain a table named `_N`. `_N` stands for `navigation`.
+With the help of this table and the outline view of the editor, it is
+easier to navigate through the documentation. The name is inspired by
+the global Lua table `_G`. Many parts of the documentation, such as the
+definition of the various `Node` classes, are not shown in the outline.
+If the APIK documentation is published, the `_N` table can be commented
+out.
+
+### Documentation of function overloading
 
 `LuaTeX` makes extensive use of function overloading. The following
 example is taken from the `LuaTeX` manual:
