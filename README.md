@@ -55,7 +55,6 @@ git clone https://github.com/Josef-Friedrich/LuaTeX_Lua-API.git
 }
 ```
 
-<a href="#contribute"></a>
 ## How to contribute
 
 The preferred method of contributing to the project is via Github pull
