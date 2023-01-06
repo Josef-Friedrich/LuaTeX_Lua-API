@@ -128,8 +128,23 @@ The description text can be or was taken from the official [LuaTeX
 reference manual](https://github.com/TeX-Live/luatex/tree/trunk/manual).
 In the project folder
 [resources/manuals/luatex](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/tree/main/resources/manuals/luatex)
-you will find a slightly edited `Lua` version of the `LuaTeX` manual
+you will find slightly edited `Lua` versions of the `LuaTeX` manual
 sources.
+
+1.  [Preamble](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/resources/manuals/luatex/luatex-preamble.tex.lua)
+2.  [Basic TEX enhancements](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/resources/manuals/luatex/luatex-enhancements.tex.lua)
+3.  [Modifications](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/resources/manuals/luatex/luatex-modifications.tex.lua)
+4.  [Using LUATEX](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/resources/manuals/luatex/luatex-lua.tex.lua)
+5.  [Languages, characters, fonts and glyphs](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/resources/manuals/luatex/luatex-languages.tex.lua)
+6.  [Font structure](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/resources/manuals/luatex/luatex-fonts.tex.lua)
+7.  [Math](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/resources/manuals/luatex/luatex-math.tex.lua)
+8.  [Nodes](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/resources/manuals/luatex/luatex-nodes.tex.lua)
+9.  [LUA callbacks](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/resources/manuals/luatex/luatex-callbacks.tex.lua)
+10. [The TEX related libraries](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/resources/manuals/luatex/luatex-tex.tex.lua)
+11. [The graphic libraries](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/resources/manuals/luatex/luatex-graphics.tex.lua)
+12. [The fontloader](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/resources/manuals/luatex/luatex-fontloader.tex.lua)
+13. [The HarfBuzz libraries](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/resources/manuals/luatex/luatex-harfbuzz.tex.lua)
+14. [The backend libraries](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/resources/manuals/luatex/luatex-backend.tex.lua)
 
 ### Navigation table `_N`
 
