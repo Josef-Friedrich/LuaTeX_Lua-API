@@ -131,7 +131,7 @@ In the project folder
 you will find a slightly edited `Lua` version of the `LuaTeX` manual
 sources.
 
-### Documention function overloading.
+### Documention of function overloading
 
 `LuaTeX` makes extensive use of function overloading. The following
 example is taken from the `LuaTeX` manual:
@@ -145,7 +145,6 @@ example is taken from the `LuaTeX` manual:
   node.dimensions(<node> n, <node> t)
 <number> w, <number> h, <number> d =
   node.dimensions(<node> n, <node> t, <string> dir)
-
 <number> w, <number> h, <number> d =
   node.dimensions(<number> glue_set, <number> glue_sign, <number> glue_order,
 <node> n)
