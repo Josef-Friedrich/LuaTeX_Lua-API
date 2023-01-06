@@ -2,6 +2,13 @@
 
 url = {}
 
+------------------------------------------------------------------------
+---Undocumented functions listed in alphabetical order
+---
+---Document them by sliding them up and place them in the order of the
+---official documentation
+------------------------------------------------------------------------
+
 function url.addscheme() end
 function url.barepath() end
 function url.construct() end

@@ -2,6 +2,13 @@
 
 bit32 = {}
 
+------------------------------------------------------------------------
+---Undocumented functions listed in alphabetical order
+---
+---Document them by sliding them up and place them in the order of the
+---official documentation
+------------------------------------------------------------------------
+
 function bit32.arshift() end
 function bit32.band() end
 function bit32.bnot() end

@@ -1040,6 +1040,13 @@ function node.getproperty(node) end
 ---@param value any
 function node.setproperty(node, value) end
 
+------------------------------------------------------------------------
+---Undocumented functions listed in alphabetical order
+---
+---Document them by sliding them up and place them in the order of the
+---official documentation
+------------------------------------------------------------------------
+
 function node.check_discretionaries() end
 function node.check_discretionary() end
 function node.copy() end

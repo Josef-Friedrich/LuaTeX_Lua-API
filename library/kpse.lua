@@ -2,6 +2,13 @@
 
 kpse = {}
 
+------------------------------------------------------------------------
+---Undocumented functions listed in alphabetical order
+---
+---Document them by sliding them up and place them in the order of the
+---official documentation
+------------------------------------------------------------------------
+
 function kpse.check_permission() end
 function kpse.default_texmfcnf() end
 function kpse.expand_braces() end

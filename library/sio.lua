@@ -10,6 +10,13 @@
 ---file handle. More details can be found in the previous section.
 sio = {}
 
+------------------------------------------------------------------------
+---Undocumented functions listed in alphabetical order
+---
+---Document them by sliding them up and place them in the order of the
+---official documentation
+------------------------------------------------------------------------
+
 function sio.read2dot14() end
 function sio.readbytes() end
 function sio.readbytetable() end

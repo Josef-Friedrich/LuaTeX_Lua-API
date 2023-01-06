@@ -4,6 +4,13 @@
 
 md5 = {}
 
+------------------------------------------------------------------------
+---Undocumented functions listed in alphabetical order
+---
+---Document them by sliding them up and place them in the order of the
+---official documentation
+------------------------------------------------------------------------
+
 function md5.HEX() end
 function md5.crypt() end
 function md5.dec() end

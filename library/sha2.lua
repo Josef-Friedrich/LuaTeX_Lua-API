@@ -11,6 +11,13 @@
 
 sha2 = {}
 
+------------------------------------------------------------------------
+---Undocumented functions listed in alphabetical order
+---
+---Document them by sliding them up and place them in the order of the
+---official documentation
+------------------------------------------------------------------------
+
 function sha2.digest256() end
 function sha2.digest384() end
 function sha2.digest512() end

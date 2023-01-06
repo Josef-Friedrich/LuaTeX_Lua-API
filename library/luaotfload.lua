@@ -2,6 +2,13 @@
 
 luaotfload = {}
 
+------------------------------------------------------------------------
+---Undocumented functions listed in alphabetical order
+---
+---Document them by sliding them up and place them in the order of the
+---official documentation
+------------------------------------------------------------------------
+
 function luaotfload.add_colorscheme() end
 function luaotfload.add_fallback() end
 function luaotfload.add_multiscript() end

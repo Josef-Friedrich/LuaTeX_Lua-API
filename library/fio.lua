@@ -2,6 +2,13 @@
 
 fio = {}
 
+------------------------------------------------------------------------
+---Undocumented functions listed in alphabetical order
+---
+---Document them by sliding them up and place them in the order of the
+---official documentation
+------------------------------------------------------------------------
+
 function fio.getposition() end
 function fio.read2dot14() end
 function fio.readbytes() end

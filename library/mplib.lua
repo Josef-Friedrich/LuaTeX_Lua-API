@@ -2,6 +2,13 @@
 
 mplib = {}
 
+------------------------------------------------------------------------
+---Undocumented functions listed in alphabetical order
+---
+---Document them by sliding them up and place them in the order of the
+---official documentation
+------------------------------------------------------------------------
+
 function mplib.char_depth() end
 function mplib.char_height() end
 function mplib.char_width() end

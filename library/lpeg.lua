@@ -84,11 +84,18 @@ function lpeg.Cf() end
 
 ---@param patt Pattern
 function lpeg.Cg(patt) end
+
+------------------------------------------------------------------------
+---Undocumented functions listed in alphabetical order
+---
+---Document them by sliding them up and place them in the order of the
+---official documentation
+------------------------------------------------------------------------
+
 function lpeg.Cmt() end
 function lpeg.Cp() end
 function lpeg.Cs() end
 function lpeg.Ct() end
-
 function lpeg.UP() end
 function lpeg.UR() end
 function lpeg.US() end

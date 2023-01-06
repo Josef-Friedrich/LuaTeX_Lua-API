@@ -4,6 +4,13 @@
 
 lfs = {}
 
+------------------------------------------------------------------------
+---Undocumented functions listed in alphabetical order
+---
+---Document them by sliding them up and place them in the order of the
+---official documentation
+------------------------------------------------------------------------
+
 function lfs.attributes() end
 function lfs.chdir() end
 function lfs.currentdir() end

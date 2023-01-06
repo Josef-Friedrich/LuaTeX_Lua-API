@@ -2,6 +2,13 @@
 
 xzip = {}
 
+------------------------------------------------------------------------
+---Undocumented functions listed in alphabetical order
+---
+---Document them by sliding them up and place them in the order of the
+---official documentation
+------------------------------------------------------------------------
+
 function xzip.adler32() end
 function xzip.compress() end
 function xzip.compressobj() end

@@ -246,6 +246,13 @@ function tex.definefont(global, csname, fontid) end
 ---@param primitive_names table
 function tex.enableprimitives(prefix, primitive_names) end
 
+------------------------------------------------------------------------
+---Undocumented functions listed in alphabetical order
+---
+---Document them by sliding them up and place them in the order of the
+---official documentation
+------------------------------------------------------------------------
+
 function tex.badness() end
 function tex.cprint() end
 function tex.extraprimitives() end

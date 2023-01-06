@@ -2,6 +2,13 @@
 
 mbox = {}
 
+------------------------------------------------------------------------
+---Undocumented functions listed in alphabetical order
+---
+---Document them by sliding them up and place them in the order of the
+---official documentation
+------------------------------------------------------------------------
+
 function mbox.parse() end
 function mbox.parse_from() end
 function mbox.parse_header() end

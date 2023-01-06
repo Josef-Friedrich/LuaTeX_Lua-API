@@ -2,6 +2,13 @@
 
 dir = {}
 
+------------------------------------------------------------------------
+---Undocumented functions listed in alphabetical order
+---
+---Document them by sliding them up and place them in the order of the
+---official documentation
+------------------------------------------------------------------------
+
 function dir.collectpattern() end
 function dir.current() end
 function dir.expandname() end

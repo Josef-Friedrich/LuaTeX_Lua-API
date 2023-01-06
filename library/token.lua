@@ -79,6 +79,13 @@ function token.set_macro(csname, content, global) end
 ---@param global? 'global'
 function token.set_macro(catcodetable, csname, content, global) end
 
+------------------------------------------------------------------------
+---Undocumented functions listed in alphabetical order
+---
+---Document them by sliding them up and place them in the order of the
+---official documentation
+------------------------------------------------------------------------
+
 function token.biggest_char() end
 function token.command_id() end
 function token.commands() end
