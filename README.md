@@ -27,7 +27,7 @@ documentation for the `tex` library. These `Lua` files don’t contain
 really `Lua` code. They consist of just function bodies and empty
 tables. The main focus lies in the docstrings.
 
-The API docmentation is written in a [well documented annoation
+The API docmentation is written in a [well documented annotation
 format](https://github.com/sumneko/lua-language-server/wiki/Annotations#meta).
 This format is based on the [EmmyLua](https://emmylua.github.io/)
 format. Unfortunately, the `Lua` community has not yet been able to
