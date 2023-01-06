@@ -35,6 +35,26 @@ agree on a standarized annotation format. Many `Lua` project are
 documented in the [LDoc](https://github.com/lunarmodules/LDoc) format.
 However, the differences between these formats are marginal.
 
+## Installation / Setup for Visual Studio Code
+
+Install [Visual Studio Code](https://code.visualstudio.com/) and the
+[lua-language-server](https://marketplace.visualstudio.com/items?itemName=sumneko.lua).
+
+
+```
+git clone https://github.com/Josef-Friedrich/LuaTeX_Lua-API.git
+```
+
+`.vscode/settings.json`:
+
+```json
+{
+"Lua.workspace.library": [
+    "<repo>/library"
+  ]
+}
+```
+
 ## How to contribute.
 
 The preferred method of contributing to the project is via Github pull
@@ -102,7 +122,7 @@ function tex.sp(s) end
 
 The docstring above is rendered as follows in Visual Studio Code:
 
-![](resources/images/tex.sp_overload.png)
+![](resources/images/tex.sp.png)
 
 The description text can be or was taken from the official [LuaTeX
 reference manual](https://github.com/TeX-Live/luatex/tree/trunk/manual).
@@ -111,25 +131,43 @@ In the project folder
 you will find a slightly edited `Lua` version of the `LuaTeX` manual
 sources.
 
-## Installation / Setup for Visual Studio Code
+### Documention function overloading.
 
-Install [Visual Studio Code](https://code.visualstudio.com/) and the
-[lua-language-server](https://marketplace.visualstudio.com/items?itemName=sumneko.lua).
-
+`LuaTeX` makes extensive use of function overloading. The following
+example is taken from the `LuaTeX` manual:
 
 ```
-git clone https://github.com/Josef-Friedrich/LuaTeX_Lua-API.git
+<number> w, <number> h, <number> d =
+  node.dimensions(<node> n)
+<number> w, <number> h, <number> d =
+  node.dimensions(<node> n, <string> dir)
+<number> w, <number> h, <number> d =
+  node.dimensions(<node> n, <node> t)
+<number> w, <number> h, <number> d =
+  node.dimensions(<node> n, <node> t, <string> dir)
+
+<number> w, <number> h, <number> d =
+  node.dimensions(<number> glue_set, <number> glue_sign, <number> glue_order,
+<node> n)
+<number> w, <number> h, <number> d =
+  node.dimensions(<number> glue_set, <number> glue_sign, <number> glue_order,
+<node> n, <string> dir)
+<number> w, <number> h, <number> d =
+  node.dimensions(<number> glue_set, <number> glue_sign, <number> glue_order,
+<node> n, <node> t)
+<number> w, <number> h, <number> d =
+  node.dimensions(<number> glue_set, <number> glue_sign, <number> glue_order,
+<node> n, <node> t, <string> dir)
 ```
 
-`.vscode/settings.json`:
+This can easily be done by documenting the function with the same name
+but different signatures multiple times.
 
-```json
-{
-"Lua.workspace.library": [
-    "<repo>/library"
-  ]
-}
-```
+[Issue for further improvement of the function loading](https://github.com/sumneko/lua-language-server/issues/1456)
+
+Function overloading in `tex.sp()`
+
+![](resources/images/tex.sp_overload.png)
 
 Quick info `node.id(type)`
 
@@ -147,9 +185,7 @@ Quick info `node.write(n)`
 
 ![](resources/images/node.write.png)
 
-Signature overloads in `tex.sp()`
 
-![](resources/images/tex.sp_overload.png)
 
 Documentation for the field `data` of the `pdf_colorstack` node:
 
