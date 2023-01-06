@@ -1,10 +1,10 @@
 ---@meta
 
-tex = {}
-
 ---A helper table to better navigate through the documentation using the
----outline.
+---outline: https://github.com/Josef-Friedrich/LuaTeX_Lua-API#navigation-table-_n
 _N = {}
+
+tex = {}
 
 _N._5_registers = 194
 

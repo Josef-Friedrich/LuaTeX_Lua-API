@@ -1,5 +1,9 @@
 ---@meta
 
+---A helper table to better navigate through the documentation using the
+---outline: https://github.com/Josef-Friedrich/LuaTeX_Lua-API#navigation-table-_n
+_N = {}
+
 ---The node library contains functions that facilitate dealing with (lists of) nodes and their values.
 ---They allow you to create, alter, copy, delete, and insert LuaTEX node objects, the core objects
 ---within the typesetter.
@@ -109,11 +113,7 @@ node = {}
 ---|1 # `stretching`,
 ---|2 # `shrinking`
 
----A table to better navigate through the code with the help of the outline.
----`_t`: (Node) Types
----@private
-node._t = {}
-node._t.Node = true
+_N.Node = true
 
 ---
 ---These are the nodes that comprise actual typesetting commands. A few fields are
@@ -128,7 +128,7 @@ node._t.Node = true
 ---@field head? Node
 ---@field attr Node # list of attributes. almost all nodes also have an `attr` field
 
-node._t.hlist = 0
+_N.hlist = 0
 
 ---@alias HlistNodeSubtype
 ---|0 # unknown
@@ -183,7 +183,7 @@ node._t.hlist = 0
 ---@field list Node # the first node of the body of this list
 ---@field dir DirectionSpecifier
 
-node._t.vlist = 1
+_N.vlist = 1
 
 ---@alias VlistNodeSubtype
 ---|0 # unknown
@@ -192,7 +192,7 @@ node._t.vlist = 1
 
 ---@class VlistNode: Node
 
-node._t.rule = 2
+_N.rule = 2
 
 ---@alias RuleNodeSubtype
 ---|0 # normal
@@ -236,7 +236,7 @@ node._t.rule = 2
 ---@field index integer # an optional index that can be referred too
 ---@field transform integer # an private variable (also used to specify outline width)
 
-node._t.ins = 3
+_N.ins = 3
 
 ---@class InsNode: Node
 ---@field subtype number # the insertion class
@@ -247,7 +247,7 @@ node._t.ins = 3
 ---@field head Node # the first node of the body of this insert
 ---@field list Node # the first node of the body of this insert
 
-node._t.mark = 4
+_N.mark = 4
 
 ---@class MarkNode: Node
 ---@field subtype number # unused
@@ -255,7 +255,7 @@ node._t.mark = 4
 ---@field class number # the mark class
 ---@field mark table # a table representing a token list
 
-node._t.adjust = 5
+_N.adjust = 5
 
 ---@alias AdjustNodeSubtype
 ---|0 # normal
@@ -267,7 +267,7 @@ node._t.adjust = 5
 ---@field head Node # adjusted material
 ---@field list Node # adjusted material
 
-node._t.disc = 7
+_N.disc = 7
 
 ---@alias DiscNodeSubtype
 ---|0 # discretionary
@@ -285,7 +285,7 @@ node._t.disc = 7
 ---@field replace Node # pointer to the no-break text
 ---@field penalty number # the penalty associated with the break, normally `hyphenpenalty` or `exhyphenpenalty`
 
-node._t.math = 11
+_N.math = 11
 
 ---@alias MathNodeSubtype
 ---|0 # beginmath
@@ -296,7 +296,7 @@ node._t.math = 11
 ---@field attr Node # list of attributes
 ---@field surround number # width of the `mathsurround` kern
 
-node._t.glue_spec = 39
+_N.glue_spec = 39
 
 ---
 ---Skips are about the only type of data objects in traditional *TeX* that are not a
@@ -339,7 +339,7 @@ node._t.glue_spec = 39
 ---@field shrink         integer #  extra (negative) displacement or shrink amount
 ---@field shrink_order   integer #  factor applied to shrink amount
 
-node._t.glue = 12
+_N.glue = 12
 
 ---@alias GlueNodeSubtype
 ---|0 # userskip
@@ -376,7 +376,7 @@ node._t.glue = 12
 ---@field subtype  GlueNodeSubtype
 ---@field leader   Node #    pointer to a box or rule for leaders
 
-node._t.kern = 13
+_N.kern = 13
 
 ---@alias KernNodeSubtype
 ---|0 # fontkern
@@ -392,7 +392,7 @@ node._t.kern = 13
 ---@field subtype KernNodeSubtype
 ---@field kern integer # fixed horizontal or vertical advance
 
-node._t.penalty = 14
+_N.penalty = 14
 
 ---@alias PenaltyNodeSubtype
 ---|0 # userpenalty
@@ -410,7 +410,7 @@ node._t.penalty = 14
 ---@field attr Node # list of attributes
 ---@field penalty number # the penalty value
 
-node._t.glyph = 29
+_N.glyph = 29
 
 ---@alias GlyphNodeSubtype
 ---|1 # ligature
@@ -436,7 +436,7 @@ node._t.glyph = 29
 ---@field expansion_factor number # the to be applied expansion_factor
 ---@field data number # a general purpose field for users (we had room for it)
 
-node._t.boundary = 6
+_N.boundary = 6
 
 ---@alias BoundaryNodeSubtype
 ---|0 # cancel
@@ -449,7 +449,7 @@ node._t.boundary = 6
 ---@field attr Node # list of attributes
 ---@field value number # values 0--255 are reserved
 
-node._t.local_par = 9
+_N.local_par = 9
 
 ---@class LocalParNode: Node
 ---@field attr Node # list of attributes
@@ -461,14 +461,14 @@ node._t.local_par = 9
 ---@field box_right Node # the `localrightbox`
 ---@field box_right_width number # width of the `localrightbox`
 
-node._t.dir = 10
+_N.dir = 10
 
 ---@class DirNode: Node
 ---@field attr Node # list of attributes
 ---@field dir string # the direction (but see below)
 ---@field level number # nesting level of this direction whatsit
 
-node._t.margin_kern = 28
+_N.margin_kern = 28
 
 ---@alias MarginKernNodeSubtype
 ---|0 # left
@@ -480,35 +480,35 @@ node._t.margin_kern = 28
 ---@field width number # the advance of the kern
 ---@field glyph Node # the glyph to be used
 
-node._t.math_char = 23
+_N.math_char = 23
 
 ---@class MathCharNode: Node
 ---@field attr Node # list of attributes
 ---@field char number # the character index
 ---@field fam number # the family number
 
-node._t.math_text_char = 26
+_N.math_text_char = 26
 
 ---@class MathTextCharNode: Node
 ---@field attr Node # list of attributes
 ---@field char number # the character index
 ---@field fam number # the family number
 
-node._t.sub_box = 24
+_N.sub_box = 24
 
 ---@class SubBoxNode: Node
 ---@field attr Node # list of attributes
 ---@field head Node # list of nodes
 ---@field list Node # list of nodes
 
-node._t.sub_mlist = 25
+_N.sub_mlist = 25
 
 ---@class SubMlistNode: Node
 ---@field attr Node # list of attributes
 ---@field head Node # list of nodes
 ---@field list Node # list of nodes
 
-node._t.delim = 27
+_N.delim = 27
 
 ---@class DelimNode: Node
 ---@field attr Node # list of attributes
@@ -517,7 +517,7 @@ node._t.delim = 27
 ---@field large_char number # character index of next larger character
 ---@field large_fam number # family number of next larger character
 
-node._t.noad = 18
+_N.noad = 18
 
 ---@alias NoadNodeSubtype
 ---|0 # ord
@@ -542,7 +542,7 @@ node._t.noad = 18
 ---@field sup Node # superscript
 ---@field options number # bitset of rendering options
 
-node._t.accent = 21
+_N.accent = 21
 
 ---@alias AccentNodeSubtype
 ---|0 # bothflexible
@@ -559,12 +559,12 @@ node._t.accent = 21
 ---@field bot_accent Node # bottom accent
 ---@field fraction number # larger step criterium (divided by 1000)
 
-node._t.style = 16
+_N.style = 16
 
 ---@class StyleNode: Node
 ---@field style string # contains the style
 
-node._t.choice = 17
+_N.choice = 17
 
 ---@class ChoiceNode: Node
 ---@field attr Node # list of attributes
@@ -573,7 +573,7 @@ node._t.choice = 17
 ---@field script Node # list of scriptsize alternatives
 ---@field scriptscript Node # list of scriptscriptsize alternatives
 
-node._t.radical = 19
+_N.radical = 19
 
 ---@alias RadicalNodeSubtype
 ---|0 # radical
@@ -595,11 +595,11 @@ node._t.radical = 19
 ---@field width number # required width
 ---@field options number # bitset of rendering options
 
-node._t.fraction = 20
+_N.fraction = 20
 
 ---@class FractionNode: Node
 
-node._t.fence = 22
+_N.fence = 22
 
 ---@alias FenceNodeSubtype
 ---|0 # unset
@@ -610,11 +610,9 @@ node._t.fence = 22
 
 ---@class FenceNode: Node
 
-node._t.whatsit = 8
+_N.whatsit = 8
 
-------A table to better navigate through the code with the help of the outline.
----`__w`: whatsit
-node._t._w = {}
+_N._whatsit = {}
 
 ---Whatsit nodes come in many subtypes that you can ask for them by running
 ---`node.whatsits`.
@@ -626,13 +624,13 @@ node._t._w = {}
 ---Source: [luatex-nodes.tex#L781-L797](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L781-L797)
 ---@class WhatsitNode: Node
 
-node._t._w.open = 0
+_N._whatsit.open = 0
 
-node._t._w.write = 1
+_N._whatsit.write = 1
 
-node._t._w.close = 2
+_N._whatsit.close = 2
 
-node._t._w.user_defined = 8
+_N._whatsit.user_defined = 8
 
 ---User-defined whatsit nodes can only be created and handled from *Lua* code. In
 ---effect, they are an extension to the extension mechanism. The *LuaTeX* engine
@@ -645,27 +643,27 @@ node._t._w.user_defined = 8
 ---@field type 97|100|108|110|115|116 # The `type` can have one of six distinct values. The number is the ASCII value if the first character of the type name (so you can use string.byte("l") instead of `108`): 97 “a” list of attributes (a node list), 100 “d” a *Lua* number, 108 “l” a *Lua* value (table, number, boolean, etc), 110 “n” a node list, 115 “s” a *Lua* string, 116 “t” a *Lua* token list in *Lua* table form (a list of triplets).
 ---@field value number|Node|string|table
 
-node._t._w.save_pos = 6
+_N._whatsit.save_pos = 6
 
-node._t._w.late_lua = 7
+_N._whatsit.late_lua = 7
 
-node._t._w.special = 3
+_N._whatsit.special = 3
 
-node._t._w.pdf_literal = 16
+_N._whatsit.pdf_literal = 16
 
-node._t._w.pdf_refobj = 17
+_N._whatsit.pdf_refobj = 17
 
-node._t._w.pdf_annot = 18
+_N._whatsit.pdf_annot = 18
 
-node._t._w.pdf_start_link = 19
+_N._whatsit.pdf_start_link = 19
 
-node._t._w.pdf_end_link = 20
+_N._whatsit.pdf_end_link = 20
 
-node._t._w.pdf_dest = 21
+_N._whatsit.pdf_dest = 21
 
-node._t._w.pdf_action = 22
+_N._whatsit.pdf_action = 22
 
-node._t._w.pdf_thread = 23
+_N._whatsit.pdf_thread = 23
 
 ---@class PdfThreadWhatsitNode
 ---@field attr Node # list of attributes
@@ -676,7 +674,7 @@ node._t._w.pdf_thread = 23
 ---@field tread_id number # the thread id  string  the thread name
 ---@field thread_attr number # extra thread information
 
-node._t._w.pdf_start_thread = 24
+_N._whatsit.pdf_start_thread = 24
 
 ---@class PdfStartThreadWhatsitNode
 ---@field attr Node # list of attributes
@@ -687,12 +685,12 @@ node._t._w.pdf_start_thread = 24
 ---@field tread_id number # the thread id  string  the thread name
 ---@field thread_attr number # extra thread information
 
-node._t._w.pdf_end_thread = 25
+_N._whatsit.pdf_end_thread = 25
 
 ---@class PdfEndThreadWhatsitNode
 ---@field attr Node # list of attributes
 
-node._t._w.pdf_colorstack = 28
+_N._whatsit.pdf_colorstack = 28
 
 ---
 ---From the pdfTeX manual:
@@ -714,107 +712,109 @@ node._t._w.pdf_colorstack = 28
 ---@field command integer # The command to execute. ⟨stack action⟩ → set (0) | push (1) | pop (2) | current (3) [texnodes.c#L3523-L3545](https://github.com/TeX-Live/luatex/blob/6472bd794fea67de09f01e1a89e9b12141be7474/source/texk/web2c/luatexdir/tex/texnodes.c#L3523-L3545)
 ---@field data string # General text that is placed on top of the stack, for example `1 0 0 rg 1 0 0 RG`. `rg` only colors filled outlines while the stroke color is set with `RG`. From the [PDF Reference, fourth edition](https://opensource.adobe.com/dc-acrobat-sdk-docs/pdfstandards/pdfreference1.5_v6.pdf), 4.5.7 Color Operators Page 251: `gray G`: Set the stroking color space to DeviceGray. `gray` is a number between 0.0 (black) and 1.0 (white). `gray g`: Same as `G`, but for nonstroking operations. `r g b RG`: Set the stroking color space to DeviceRGB. Each operand must be a number between 0.0 (minimum intensity) and 1.0 (maximum intensity). `r g b rg`: same as `RG`, but for nonstroking operations. `c m y k K`: Set the stroking color space to DeviceCMYK. Each operand must be a number between 0.0 (zero concentration) and 1.0 (maximum concentration). `c m y k k`: Same as `K`, but for nonstroking operations.
 
-node._t._w.pdf_setmatrix = 29
+_N._whatsit.pdf_setmatrix = 29
 
 ---@class PdfSetmatrixWhatsitNode
 ---@field attr Node # list of attributes
 ---@field data string # data
 
-node._t._w.pdf_save = 30
+_N._whatsit.pdf_save = 30
 
 ---@class PdfSaveWhatsitNode
 ---@field attr Node # list of attributes
 
-node._t._w.pdf_restore = 31
+_N._whatsit.pdf_restore = 31
 
 ---@class PdfRestoreWhatsitNode
 ---@field attr Node # list of attributes
 
-node._t._w.pdf_thread_data = 26
+_N._whatsit.pdf_thread_data = 26
 
-node._t._w.pdf_link_data = 27
+_N._whatsit.pdf_link_data = 27
 
-node._t._w.pdf_link_state = 32
+_N._whatsit.pdf_link_state = 32
 
-node._t.unset = 15
+_N.unset = 15
 
 ---@class UnsetNode: Node
 
-node._t.align_record = 30
+_N.align_record = 30
 
 ---@class AlignRecordNode: Node
 
-node._t.pseudo_file = 31
+_N.pseudo_file = 31
 
 ---@class PseudoFileNode: Node
 
-node._t.pseudo_line = 32
+_N.pseudo_line = 32
 
 ---@class PseudoLineNode: Node
 
-node._t.page_insert = 33
+_N.page_insert = 33
 
 ---@class PageInsertNode: Node
 
-node._t.split_insert = 34
+_N.split_insert = 34
 
 ---@class Split_InsertNode: Node
 
-node._t.expr_stack = 35
+_N.expr_stack = 35
 
 ---@class ExprStackNode: Node
 
-node._t.nested_list = 36
+_N.nested_list = 36
 
 ---@class Nested_ListNode: Node
 
-node._t.span = 37
+_N.span = 37
 
 ---@class SpanNode: Node
 
-node._t.attribute = 38
+_N.attribute = 38
 
 ---@class AttributeNode: Node
 
-node._t.attribute_list = 40
+_N.attribute_list = 40
 
 ---@class AttributeListNode: Node
 
-node._t.temp = 41
+_N.temp = 41
 
 ---@class TempNode: Node
 
-node._t.align_stack = 42
+_N.align_stack = 42
 
 ---@class AlignStackNode: Node
 
-node._t.movement_stack = 43
+_N.movement_stack = 43
 
 ---@class MovementStackNode: Node
 
-node._t.if_stack = 44
+_N.if_stack = 44
 
 ---@class IfStackNode: Node
 
-node._t.unhyphenated = 45
+_N.unhyphenated = 45
 
 ---@class UnhyphenatedNode: Node
 
-node._t.hyphenated = 46
+_N.hyphenated = 46
 
 ---@class HyphenatedNode: Node
 
-node._t.delta = 47
+_N.delta = 47
 
 ---@class DeltaNode: Node
 
-node._t.passive = 48
+_N.passive = 48
 
 ---@class PassiveNode: Node
 
-node._t.shape = 49
+_N.shape = 49
 
 ---@class ShapeNode: Node
+
+_N._7_2_is_node = 145
 
 ---
 ---This function returns a number (the internal index of the node) if the argument is a userdata
@@ -826,6 +826,8 @@ node._t.shape = 49
 ---
 ---@return boolean|integer t
 function node.is_node(item) end
+
+_N._7_3_types_whatsits = 145
 
 ---
 ---This function returns an array that maps node id numbers to node type strings, providing an
@@ -845,6 +847,8 @@ function node.types() end
 ---@return table
 function node.whatsits() end
 
+_N._7_4_id = 145
+
 ---
 ---This converts a single type name to its internal numeric representation.
 ------
@@ -854,6 +858,30 @@ function node.whatsits() end
 ---
 ---@return integer
 function node.id(type) end
+
+_N._7_5_type_subtype = 145
+
+---
+---@param n any
+---
+---@return integer type
+function node.type(n) end
+
+---
+---@param type string
+---
+---@return integer number
+function node.subtype(type) end
+
+_N._7_6_fields = 146
+
+function node.fields() end
+
+_N._7_7_has_field = 146
+
+function node.has_field() end
+
+_N._7_8_new = 146
 
 ---
 ---The `new` function creates a new node. All its fields are initialized to
@@ -869,6 +897,24 @@ function node.id(type) end
 ---
 ---@return Node
 function node.new(id, subtype) end
+
+_N._7_9_free_flush_node_list = 146
+
+function node.free() end
+function node.flush_node() end
+function node.flush_list() end
+
+_N._7_10_copy_copy_list = 147
+
+function node.copy() end
+function node.copy_list() end
+
+_N._7_11_prev_next = 147
+
+function node.prev() end
+function node.next() end
+
+_N._7_16_dimensions_rangedimensions = 149
 
 ---
 ---This function calculates the natural in-line dimensions of the end of the node list starting
@@ -959,6 +1005,18 @@ function node.dimensions(glue_set, glue_sign, glue_order, n, dir) end
 ---@return integer d # scaled points
 function node.dimensions(glue_set, glue_sign, glue_order, n, t, dir) end
 
+_N._7_19_tail = 152
+
+---
+---Returns the last node of the node list that starts at `n`.
+---
+---@param n Node
+---
+---@return Node m
+function node.tail(n) end
+
+_N._7_28_remove = 153
+
 ---
 ---This function removes the node `current` from the list following `head`. It is your responsibility to make sure it is really part of that list.
 ---The return values are the new `head` and `current` nodes. The
@@ -977,6 +1035,8 @@ function node.dimensions(glue_set, glue_sign, glue_order, n, t, dir) end
 ---@return Node current
 function node.remove(head, current) end
 
+_N._7_29_insert_before = 153
+
 ---
 ---This function inserts the node `new` before `current` into the list
 ---following `head`. It is your responsibility to make sure that `current` is really part of that list. The return values are the (potentially
@@ -994,6 +1054,8 @@ function node.remove(head, current) end
 ---@return Node new
 function node.insert_before(head, current, new) end
 
+_N._7_30_insert_after = 153
+
 ---
 ---This function inserts the node `new` after `current` into the list
 ---following `head`. It is your responsibility to make sure that `current` is really part of that list. The return values are the `head` and
@@ -1010,6 +1072,8 @@ function node.insert_before(head, current, new) end
 ---@return Node new
 function node.insert_after(head, current, new) end
 
+_N._7_37_write = 155
+
 ---
 ---This function that will append a node list to *TeX*'s “current list”. The
 ---node list is not deep-copied! There is no error checking either! You mignt need
@@ -1020,40 +1084,21 @@ function node.insert_after(head, current, new) end
 ---@param n Node
 function node.write(n) end
 
----
----Each node also can have a properties table and you can get properties using the `getproperty` function.
-------
----Source: [luatex-nodes.tex#L2518-L2521](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L2518-L2521), [lnodelib.c#L8373-L8383](https://github.com/TeX-Live/luatex/blob/3c57eed035fa9cd6a27ed615374ab648f350326a/source/texk/web2c/luatexdir/lua/lnodelib.c#L8373-L8383)
----
----@param node Node
----
----@return any value
-function node.getproperty(node) end
+_N._10_two_access_models = 159
 
----
----Each node also can have a properties table and you can assign values to this table using the
----`setproperty` function
-------
----Source: [lnodelib.c#L8397-L8410](https://github.com/TeX-Live/luatex/blob/3c57eed035fa9cd6a27ed615374ab648f350326a/source/texk/web2c/luatexdir/lua/lnodelib.c#L8397-L8410)
----
----@param node Node
----@param value any
-function node.setproperty(node, value) end
-
-------------------------------------------------------------------------
----Undocumented functions listed in alphabetical order
----
----Document them by sliding them up and place them in the order of the
----official documentation
-------------------------------------------------------------------------
-
-function node.check_discretionaries() end
-function node.check_discretionary() end
-function node.copy() end
-function node.copy_list() end
-function node.count() end
-function node.current_attr() end
-function node.dimensions() end
+function node.getboth() end
+function node.getchar() end
+function node.getdisc() end
+function node.getfield() end
+function node.getfont() end
+function node.getglue() end
+function node.getid() end
+function node.getleader() end
+function node.getlist() end
+function node.getnext() end
+function node.getprev() end
+function node.getsubtype() end
+function node.getwhd() end
 
 node.direct = {}
 
@@ -1074,10 +1119,6 @@ function node.direct.flush_node() end
 function node.direct.flush_properties_table() end
 function node.direct.free() end
 function node.direct.get_attribute() end
-
----
----@return table
-function node.direct.get_properties_table() end
 function node.direct.get_synctex_fields() end
 function node.direct.getattributelist() end
 function node.direct.getboth() end
@@ -1111,6 +1152,10 @@ function node.direct.getoffsets() end
 function node.direct.getpenalty() end
 function node.direct.getprev() end
 function node.direct.getproperty() end
+
+---
+---@return table
+function node.direct.get_properties_table() end
 function node.direct.getshift() end
 function node.direct.getsub() end
 function node.direct.getsubtype() end
@@ -1200,35 +1245,51 @@ function node.direct.uses_font() end
 function node.direct.vpack() end
 function node.direct.write() end
 
+_N._11_properties = 164
+
+---
+---Each node also can have a properties table and you can assign values to this table using the
+---`setproperty` function
+------
+---Source: [lnodelib.c#L8397-L8410](https://github.com/TeX-Live/luatex/blob/3c57eed035fa9cd6a27ed615374ab648f350326a/source/texk/web2c/luatexdir/lua/lnodelib.c#L8397-L8410)
+---
+---@param node Node
+---@param value any
+function node.setproperty(node, value) end
+
+---
+---Each node also can have a properties table and you can get properties using the `getproperty` function.
+------
+---Source: [luatex-nodes.tex#L2518-L2521](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L2518-L2521), [lnodelib.c#L8373-L8383](https://github.com/TeX-Live/luatex/blob/3c57eed035fa9cd6a27ed615374ab648f350326a/source/texk/web2c/luatexdir/lua/lnodelib.c#L8373-L8383)
+---
+---@param node Node
+---
+---@return any value
+function node.getproperty(node) end
+
+------------------------------------------------------------------------
+---Undocumented functions listed in alphabetical order
+---
+---Document them by sliding them up and place them in the order of the
+---official documentation
+------------------------------------------------------------------------
+
+function node.check_discretionaries() end
+function node.check_discretionary() end
+function node.count() end
+function node.current_attr() end
+function node.dimensions() end
 function node.effective_glue() end
 function node.end_of_math() end
 function node.family_font() end
-function node.fields() end
 function node.find_attribute() end
 function node.first_glyph() end
 function node.fix_node_lists() end
 function node.flatten_discretionaries() end
-function node.flush_list() end
-function node.flush_node() end
 function node.flush_properties_table() end
-function node.free() end
 function node.get_attribute() end
 function node.get_properties_table() end
-function node.getboth() end
-function node.getchar() end
-function node.getdisc() end
-function node.getfield() end
-function node.getfont() end
-function node.getglue() end
-function node.getid() end
-function node.getleader() end
-function node.getlist() end
-function node.getnext() end
-function node.getprev() end
-function node.getsubtype() end
-function node.getwhd() end
 function node.has_attribute() end
-function node.has_field() end
 function node.has_glyph() end
 function node.hpack() end
 function node.hyphenating() end
@@ -1242,7 +1303,6 @@ function node.ligaturing() end
 function node.make_extensible() end
 function node.mlist_to_hlist() end
 function node.prepend_prevdepth() end
-function node.prev() end
 function node.protect_glyph() end
 function node.protect_glyphs() end
 function node.protrusion_skippable() end
@@ -1252,33 +1312,13 @@ function node.set_properties_mode() end
 function node.setfield() end
 function node.setglue() end
 function node.slide() end
-
----
----@param type string
----
----@return integer number
-function node.subtype(type) end
 function node.subtypes() end
-
----
----Returns the last node of the node list that starts at `n`.
----
----@param n Node
----
----@return Node m
-function node.tail(n) end
 function node.tostring() end
 function node.traverse() end
 function node.traverse_char() end
 function node.traverse_glyph() end
 function node.traverse_id() end
 function node.traverse_list() end
-
----
----@param n any
----
----@return integer type
-function node.type(n) end
 function node.unprotect_glyph() end
 function node.unprotect_glyphs() end
 function node.unset_attribute() end
