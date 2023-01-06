@@ -55,7 +55,8 @@ git clone https://github.com/Josef-Friedrich/LuaTeX_Lua-API.git
 }
 ```
 
-## How to contribute.
+<a href="#contribute"></a>
+## How to contribute
 
 The preferred method of contributing to the project is via Github pull
 requests. You can also email patches to josef@friedrich.rocks.
@@ -102,14 +103,14 @@ tex = {}
 ---* infinite dimension units (`fil...`) are forbidden
 ---* `mu` units do not generate an error (but may not be useful either)
 ---
----__Example__:
+---__Example:__
 ---
 ---```lua
 ---local scaled_points = tex.sp('1cm')
 ---print(scaled_points) -- 1864679
 ---```
 ---
----__Reference__:
+---__Reference:__
 ---
 ---* `LuaTeX` manual: 10.3.15.5 `sp` page 204
 ---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L1386-L1413](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L1386-L1413)
