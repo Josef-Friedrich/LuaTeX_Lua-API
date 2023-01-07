@@ -222,3 +222,104 @@ function callback.find(callback_name) end
 ---It is ok to return nothing in which case you also need to flush the box or deal
 ---with it yourself. The prevdepth is also optional. You can pass `nil` instead of a node.
 ---@alias AppendToVlistFilter fun(box: Node, locationcode: AppendToVlistFilterLocationcode, prevdepth: integer, mirrored: boolean)
+
+---
+---# `post_linebreak_filter`
+---
+---This callback is called just after *LuaTeX* has converted a list of nodes into a
+---stack of `\hbox`es.
+---
+---This callback does not replace any internal code.
+---@alias PostLinebreakFilter fun(head: Node, groupcode: string): NodeCallbackReturn
+
+---
+---# `hpack_filter`
+---
+---This callback is called when *TeX* is ready to start boxing some horizontal mode
+---material. Math items and line boxes are ignored at the moment.
+---
+---The `packtype` is either `additional` or `exactly`. If `additional`, then the `size` is a `\hbox spread ...` argument. If
+---`exactly`, then the `size` is a `\hbox to ...`. In both cases,
+---the number is in scaled points.
+---
+---The `direction` is either one of the three-letter direction specifier
+---strings, or `nil`.
+---
+---This callback does not replace any internal code.
+---@alias HpackFilter fun(head: Node, groupcode: string, size: integer, packtype: 'additional'|'exactly', direction?: DirectionSpecifier, attributelist?: Node): NodeCallbackReturn
+
+---
+---# `vpack_filter`
+---
+---This callback is called when *TeX* is ready to start boxing some vertical mode
+---material. Math displays are ignored at the moment.
+---
+---This function is very similar to the `hpack_filter`. Besides the fact
+---that it is called at different moments, there is an extra variable that matches
+---*TeX*'s `maxdepth` setting.
+---
+---This callback does not replace any internal code.
+---@alias VpackFilter fun(head: Node, groupcode: string, size: integer, packtype: 'additional'|'exactly', maxdepth: integer, direction?: DirectionSpecifier, attributelist?: Node): NodeCallbackReturn
+
+---
+---# `hpack_quality`
+---
+---This callback can be used to intercept the overfull messages that can result from
+---packing a horizontal list (as happens in the par builder).
+---
+---The incident is one of `overfull`, `underfull`, `loose` or
+---`tight`. The detail is either the amount of overflow in case of `overfull`, or the badness otherwise. The head is the list that is constructed
+---(when protrusion or expansion is enabled, this is an intermediate list).
+---Optionally you can return a node, for instance an overfull rule indicator. That
+---node will be appended to the list (just like *TeX*'s own rule would).
+---
+---@alias HpackQualityFilter fun(incident: 'overfull'|'underfull'|'loose'|'tight', detail: integer, head: Node, first: integer, last: integer): Node
+
+---
+---# `vpack_quality`
+---
+---This callback can be used to intercept the overfull messages that can result from
+---packing a vertical list (as happens in the page builder). The function takes a
+---few arguments:
+---
+---```
+---function(<string> incident, <number> detail, <node> head, <number> first,
+---         <number> last)
+---end
+---```
+---
+---The incident is one of `overfull`, `underfull`, `loose` or
+---`tight`. The detail is either the amount of overflow in case of `overfull`, or the badness otherwise. The head is the list that is constructed.
+---@alias VpackQualityFilter fun(incident: 'overfull'|'underfull'|'loose'|'tight', detail: integer, head: Node, first: integer, last: integer)
+
+---
+---# `process_rule`
+---
+---This is an experimental callback. It can be used with rules of subtype 4
+---(user). The callback gets three arguments: the node, the width and the
+---height. The callback can use `pdf.print` to write code to the *PDF*
+---file but beware of not messing up the final result. No checking is done.
+---@alias ProcessRuleFilter fun(node: Node, width: integer, height: integer)
+
+---
+---# `pre_output_filter`
+---
+---This callback is called when *TeX* is ready to start boxing the box 255 for `output`.
+---
+---```
+---function(<node> head, <string> groupcode, <number> size, <string> packtype,
+---        <number> maxdepth [, <string> direction])
+---    return true | false | <node> newhead
+---end
+---```
+---
+---This callback does not replace any internal code.
+---
+---@alias PreOutputFilterFilter fun(head: Node, groupcode: string, size: integer, packtype: 'additional'|'exactly', maxdepth: integer, direction?: DirectionSpecifier): NodeCallbackReturn
+
+---
+---# `hyphenate`
+---
+---Setting this callback to `false` will prevent the internal discretionary
+---insertion pass.
+---@alias HyphenateFilter fun(head: Node, tail: Node): false|nil
