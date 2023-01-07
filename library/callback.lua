@@ -165,8 +165,6 @@ function callback.find(callback_name) end
 ---@alias NodeCallbackReturn true|false|Node
 
 ---
----# `pre_linebreak_filter` callback
----
 ---This callback is called just before *LuaTeX* starts converting a list of nodes
 ---into a stack of `hbox`es, after the addition of `parfillskip`.
 ---
@@ -181,8 +179,6 @@ function callback.find(callback_name) end
 ---This callback does not replace any internal code.
 ---@alias PreLinebreakFilter fun(head: Node, groupcode: PreLinebreakFilterGroupCode): NodeCallbackReturn
 
----
----# `linebreak_filter`
 ---
 ---This callback replaces *LuaTeX*'s line breaking algorithm.
 ---
@@ -208,8 +204,6 @@ function callback.find(callback_name) end
 ---| 'post_linebreak'
 
 ---
----# `append_to_vlist_filter`
----
 ---This callback is called whenever *LuaTeX* adds a box to a vertical list:
 ---
 ---```
@@ -224,16 +218,12 @@ function callback.find(callback_name) end
 ---@alias AppendToVlistFilter fun(box: Node, locationcode: AppendToVlistFilterLocationcode, prevdepth: integer, mirrored: boolean)
 
 ---
----# `post_linebreak_filter`
----
 ---This callback is called just after *LuaTeX* has converted a list of nodes into a
 ---stack of `\hbox`es.
 ---
 ---This callback does not replace any internal code.
 ---@alias PostLinebreakFilter fun(head: Node, groupcode: string): NodeCallbackReturn
 
----
----# `hpack_filter`
 ---
 ---This callback is called when *TeX* is ready to start boxing some horizontal mode
 ---material. Math items and line boxes are ignored at the moment.
@@ -249,8 +239,6 @@ function callback.find(callback_name) end
 ---@alias HpackFilter fun(head: Node, groupcode: string, size: integer, packtype: 'additional'|'exactly', direction?: DirectionSpecifier, attributelist?: Node): NodeCallbackReturn
 
 ---
----# `vpack_filter`
----
 ---This callback is called when *TeX* is ready to start boxing some vertical mode
 ---material. Math displays are ignored at the moment.
 ---
@@ -261,8 +249,6 @@ function callback.find(callback_name) end
 ---This callback does not replace any internal code.
 ---@alias VpackFilter fun(head: Node, groupcode: string, size: integer, packtype: 'additional'|'exactly', maxdepth: integer, direction?: DirectionSpecifier, attributelist?: Node): NodeCallbackReturn
 
----
----# `hpack_quality`
 ---
 ---This callback can be used to intercept the overfull messages that can result from
 ---packing a horizontal list (as happens in the par builder).
@@ -276,24 +262,13 @@ function callback.find(callback_name) end
 ---@alias HpackQualityFilter fun(incident: 'overfull'|'underfull'|'loose'|'tight', detail: integer, head: Node, first: integer, last: integer): Node
 
 ---
----# `vpack_quality`
----
 ---This callback can be used to intercept the overfull messages that can result from
----packing a vertical list (as happens in the page builder). The function takes a
----few arguments:
----
----```
----function(<string> incident, <number> detail, <node> head, <number> first,
----         <number> last)
----end
----```
+---packing a vertical list (as happens in the page builder).
 ---
 ---The incident is one of `overfull`, `underfull`, `loose` or
 ---`tight`. The detail is either the amount of overflow in case of `overfull`, or the badness otherwise. The head is the list that is constructed.
 ---@alias VpackQualityFilter fun(incident: 'overfull'|'underfull'|'loose'|'tight', detail: integer, head: Node, first: integer, last: integer)
 
----
----# `process_rule`
 ---
 ---This is an experimental callback. It can be used with rules of subtype 4
 ---(user). The callback gets three arguments: the node, the width and the
@@ -302,23 +277,12 @@ function callback.find(callback_name) end
 ---@alias ProcessRuleFilter fun(node: Node, width: integer, height: integer)
 
 ---
----# `pre_output_filter`
----
 ---This callback is called when *TeX* is ready to start boxing the box 255 for `output`.
----
----```
----function(<node> head, <string> groupcode, <number> size, <string> packtype,
----        <number> maxdepth [, <string> direction])
----    return true | false | <node> newhead
----end
----```
 ---
 ---This callback does not replace any internal code.
 ---
 ---@alias PreOutputFilterFilter fun(head: Node, groupcode: string, size: integer, packtype: 'additional'|'exactly', maxdepth: integer, direction?: DirectionSpecifier): NodeCallbackReturn
 
----
----# `hyphenate`
 ---
 ---Setting this callback to `false` will prevent the internal discretionary
 ---insertion pass.
