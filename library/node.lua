@@ -612,6 +612,58 @@ _N.fence = 22
 
 _N.whatsit = 8
 
+---@alias WhatsitTypeId
+---| 0  # open
+---| 1  # write
+---| 2  # close
+---| 3  # special
+---| 6  # save_pos
+---| 7  # late_lua
+---| 8  # user_defined
+---| 16 # pdf_literal
+---| 17 # pdf_refobj
+---| 18 # pdf_annot
+---| 19 # pdf_start_link
+---| 20 # pdf_end_link
+---| 21 # pdf_dest
+---| 22 # pdf_action
+---| 23 # pdf_thread
+---| 24 # pdf_start_thread
+---| 25 # pdf_end_thread
+---| 26 # pdf_thread_data
+---| 27 # pdf_link_data
+---| 28 # pdf_colorstack
+---| 29 # pdf_setmatrix
+---| 30 # pdf_save
+---| 31 # pdf_restore
+---| 32 # pdf_link_state
+
+---@alias WhatsitTypeName
+---| 'open' # 0
+---| 'write' # 1
+---| 'close' # 2
+---| 'special' # 3
+---| 'save_pos' # 6
+---| 'late_lua' # 7
+---| 'user_defined' # 8
+---| 'pdf_literal' # 16
+---| 'pdf_refobj' # 17
+---| 'pdf_annot' # 18
+---| 'pdf_start_link' # 19
+---| 'pdf_end_link' # 20
+---| 'pdf_dest' # 21
+---| 'pdf_action' # 22
+---| 'pdf_thread' # 23
+---| 'pdf_start_thread' # 24
+---| 'pdf_end_thread' # 25
+---| 'pdf_thread_data' # 26
+---| 'pdf_link_data' # 27
+---| 'pdf_colorstack' # 28
+---| 'pdf_setmatrix' # 29
+---| 'pdf_save' # 30
+---| 'pdf_restore' # 31
+---| 'pdf_link_state' # 32
+
 _N._whatsit = {}
 
 ---Whatsit nodes come in many subtypes that you can ask for them by running
@@ -862,16 +914,37 @@ function node.id(type) end
 _N._7_5_type_subtype = 145
 
 ---
----@param n any
+---Convert an internal numeric node type representation to an external
+---node type string.
 ---
----@return integer type
+---If the argument is a number, then the type function converts an
+---internal numeric representation to an external string representation.
+---Otherwise, it will return the string `node` if the object
+---represents a node, and `nil` otherwise.
+---
+---```lua
+---node.type(29) -- glyph
+---node.type(node.new("glyph")) -- node
+---node.type('xxx') -- nil
+---```
+---
+---@param n integer|Node|any
+---
+---@return 'node'|NodeType|nil
 function node.type(n) end
 
 ---
----@param type string
+---Convert a single whatsit name to its internal numeric representation (subtype).
 ---
----@return integer number
-function node.subtype(type) end
+---```lua
+---node.subtype('pdf_literal') -- 16
+---node.subtype('xxx') -- nil
+---```
+---
+---@param whatsit_type_name WhatsitTypeName
+---
+---@return WhatsitTypeId whatsit_type_id
+function node.subtype(whatsit_type_name) end
 
 _N._7_6_fields = 146
 
