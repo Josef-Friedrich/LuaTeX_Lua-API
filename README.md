@@ -193,6 +193,57 @@ Function overloading in `tex.sp()`
 
 ![](resources/images/tex.sp_overload.png)
 
+### Documentation of nodes
+
+A node (object) can be described by the `@class` annotation and provided
+with some documentation about its attributes using `@field`. There is a base class `Node` for all node type classes.
+
+```lua
+---
+---A node that comprise actual typesetting commands. A few fields are
+---present in all nodes regardless of their type, these are:
+---
+---@class Node
+---@field next Node|nil # the next node in a list, or nil
+---@field prev Node|nil # That prev field is always present, but only initialized on explicit request ...
+```
+
+The `KernNode` class for example inherits from `Node` and represents
+a kern node.
+
+```lua
+---
+---The `kern` command creates such nodes but for instance the font and math
+---machinery can also add them.
+---
+---@class KernNode: Node
+---@field subtype KernNodeSubtype
+---@field kern integer # Fixed horizontal or vertical advance (in scaled points)
+```
+
+```lua
+---@alias KernNodeSubtype
+---|0 # fontkern
+---|1 # userkern
+---|2 # accentkern
+---|3 # italiccorrection
+```
+
+The `@cast` annotation forces a unspecific node to a distinct node type.
+
+```lua
+while n do
+  if n.id == node.id('kern') then
+    ---@cast n KernNode
+    print(n.kern)
+  end
+  n = n.next
+end
+```
+
+![](resources/images/cast.png)
+
+
 ### Documentation of callback functions
 
 How a callback function is documented is shown using the

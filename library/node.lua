@@ -170,8 +170,10 @@ _N.Node = true
 ---
 ---A node that comprise actual typesetting commands. A few fields are
 ---present in all nodes regardless of their type, these are:
-------
----Source: [luatex-nodes.tex#L49-L76](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L49-L76)
+---
+--- __Reference:__
+---
+---* Source code of the `LuaTeX` manual:  [luatex-nodes.tex#L49-L76](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L49-L76)
 ---@class Node
 ---@field next Node|nil # the next node in a list, or nil
 ---@field prev Node|nil # That prev field is always present, but only initialized on explicit request: when the function `node.slide()` is called, it will set up the `prev` fields to be a backwards pointer in the argument node list. By now most of *TeX*'s node processing makes sure that the `prev` nodes are valid but there can be exceptions, especially when the internal magic uses a leading `temp` nodes to temporarily store a state.
@@ -442,7 +444,7 @@ _N.kern = 13
 ---
 ---@class KernNode: Node
 ---@field subtype KernNodeSubtype
----@field kern integer # fixed horizontal or vertical advance
+---@field kern integer # Fixed horizontal or vertical advance (in scaled points)
 
 _N.penalty = 14
 
