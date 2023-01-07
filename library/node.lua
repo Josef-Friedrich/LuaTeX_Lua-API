@@ -168,7 +168,7 @@ node = {}
 _N.Node = true
 
 ---
----These are the nodes that comprise actual typesetting commands. A few fields are
+---A node that comprise actual typesetting commands. A few fields are
 ---present in all nodes regardless of their type, these are:
 ------
 ---Source: [luatex-nodes.tex#L49-L76](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L49-L76)
@@ -954,13 +954,13 @@ function node.whatsits() end
 _N._7_4_id = 145
 
 ---
----This converts a single type name to its internal numeric representation.
+---Convert a single type name to its internal numeric representation.
 ------
 ---Source: [luatex-nodes.tex#L1235-L1244](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1235-L1244)
 ---
 ---@param type NodeTypeName
 ---
----@return integer
+---@return NodeTypeId
 function node.id(type) end
 
 _N._7_5_type_subtype = 145
@@ -980,9 +980,9 @@ _N._7_5_type_subtype = 145
 ---node.type('xxx') -- nil
 ---```
 ---
----@param n NodeTypeId|Node # The numeric node type id.
+---@param n NodeTypeId # The numeric node type id.
 ---
----@return 'node'|NodeTypeName|nil
+---@return NodeTypeName|'node'|nil
 function node.type(n) end
 
 ---
