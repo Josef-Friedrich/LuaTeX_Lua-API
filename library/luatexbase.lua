@@ -13,7 +13,7 @@ luatexbase = { }
 ---
 ---@param callback CallbackName
 ---@param func function
----@param description string
+---@param description string # A textual description of the function.
 function luatexbase.add_to_callback(callback, func, description) end
 
 ---
@@ -27,7 +27,7 @@ function luatexbase.add_to_callback(callback, func, description) end
 ---@param description string
 ---
 ---@return function func
----@return string description
+---@return string description # A textual description of the function.
 function luatexbase.remove_from_callback(callback, description) end
 
 ---
@@ -37,7 +37,7 @@ function luatexbase.remove_from_callback(callback, description) end
 ---Source: [ltluatex.dtx#L363-L366](https://github.com/latex3/latex2e/blob/d7b2594ae58e125dc87b80e7f7e957855c69847b/base/ltluatex.dtx#L363-L366)
 ---
 ---@param callback CallbackName
----@param description string
+---@param description string # A textual description of the function.
 ---
 ---@return boolean
 function luatexbase.in_callback(callback, description) end
@@ -116,6 +116,13 @@ function luatexbase.call_callback(name, ...) end
 ---@param relation DeclareCallbackRuleRelation
 ---@param second string
 function luatexbase.declare_callback_rule(name, first, relation, second) end
+
+------------------------------------------------------------------------
+---Undocumented functions listed in alphabetical order
+---
+---Document them by sliding them up and place them in the order of the
+---official documentation
+------------------------------------------------------------------------
 
 ---
 ---Warning! Undocumented code!<p>
