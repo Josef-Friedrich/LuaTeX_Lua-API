@@ -65,7 +65,7 @@
 ---`prev` nodes are valid but there can be exceptions, especially when the
 ---internal magic uses a leading `temp` nodes to temporarily store a state.
 ---
----\subsection{`hlist` nodes}
+---# `hlist` nodes
 ---
 --- field              type    explanation 
 ---
@@ -88,13 +88,13 @@
 ---makes more sense to refer to a list by `head`, sometimes `list` makes
 ---more sense.
 ---
----\subsection{`vlist` nodes}
+---# `vlist` nodes
 ---
 ---This node is similar to `hlist`, except that “shift” is a displacement
 ---perpendicular to the line progression direction, and “subtype” only has
 ---the values 0, 4, and 5.
 ---
----\subsection{`rule` nodes}
+---# `rule` nodes
 ---
 ---Contrary to traditional *TeX*, *LuaTeX* has more `rule` subtypes because we
 ---also use rules to store reuseable objects and images. User nodes are invisible
@@ -126,7 +126,7 @@
 ---construct a rule node with *Lua* and write it to the *TeX* input. The `outline` subtype is just a convenient variant and the `transform` field
 ---specifies the width of the outline.
 ---
----\subsection{`ins` nodes}
+---# `ins` nodes
 ---
 ---This node relates to the `insert` primitive.
 ---
@@ -148,7 +148,7 @@
 ---`list` instead (often in functions you want to use local variable with similar
 ---names and both names are equally sensible).
 ---
----\subsection{`mark` nodes}
+---# `mark` nodes
 ---
 ---This one relates to the `mark` primitive.
 ---
@@ -159,7 +159,7 @@
 ---@field class number # the mark class 
 ---@field mark table # a table representing a token list 
 ---
----\subsection{`adjust` nodes}
+---# `adjust` nodes
 ---
 ---This node comes from `vadjust` primitive.
 ---
@@ -172,7 +172,7 @@
 ---A warning: never assign a node list to the `head` field unless you are sure
 ---its internal link structure is correct, otherwise an error may be the result.
 ---
----\subsection{`disc` nodes}
+---# `disc` nodes
 ---
 ---The `discretionary` and `-`, the `-` character but also the
 ---hyphenation mechanism produces these nodes.
@@ -209,7 +209,7 @@
 ---only because it is not really a node but part of the disc data structure (so
 ---freeing it again might crash *LuaTeX*).
 ---
----\subsection{`math` nodes}
+---# `math` nodes
 ---
 ---Math nodes represent the boundaries of a math formula, normally wrapped into
 ---``` signs.
@@ -224,7 +224,7 @@
 ---`stretch`, `stretch_order`, `shrink` and `shrink_order`.
 ---These are all numbers.
 ---
----\subsection{`glue` nodes}
+---# `glue` nodes
 ---
 ---Skips are about the only type of data objects in traditional *TeX* that are not a
 ---simple value. They are inserted when *TeX* sees a space in the text flow but also
@@ -278,7 +278,7 @@
 ---A regular word space also results in a `spaceskip` subtype (this used to be
 ---a `userskip` with subtype zero).
 ---
----\subsection{`kern` nodes}
+---# `kern` nodes
 ---
 ---The `kern` command creates such nodes but for instance the font and math
 ---machinery can also add them.
@@ -289,7 +289,7 @@
 ---@field attr node # list of attributes 
 ---@field kern number # fixed horizontal or vertical advance 
 ---
----\subsection{`penalty` nodes}
+---# `penalty` nodes
 ---
 ---The `penalty` command is one that generates these nodes.
 ---
@@ -365,7 +365,7 @@
 ---making more readable tests. The `uses_font` helpers takes a node
 ---and font id and returns true when a glyph or disc node references that font.
 ---
----\subsection{`boundary` nodes}
+---# `boundary` nodes
 ---
 ---This node relates to the `noboundary`, `boundary`, `protrusionboundary` and `wordboundary` primitives.
 ---
@@ -375,7 +375,7 @@
 ---@field attr node # list of attributes 
 ---@field value number # values 0--255 are reserved 
 ---
----\subsection{`local_par` nodes}
+---# `local_par` nodes
 ---
 ---This node is inserted at the start of a paragraph. You should not mess
 ---too much with this one.
@@ -420,7 +420,7 @@
 ---direction is indicated by a `+` or `-`, indicating whether the value
 ---is pushed or popped from the direction stack.
 ---
----\subsection{`marginkern` nodes}
+---# `marginkern` nodes
 ---
 ---Margin kerns result from protrusion.
 ---
@@ -441,7 +441,7 @@
 ---associated with math processing. Most of these nodes contain subnodes so that the
 ---list of possible fields is actually quite small. First, the subnodes:
 ---
----\subsection{Math kernel subnodes}
+---# Math kernel subnodes
 ---
 ---Many object fields in math mode are either simple characters in a specific family
 ---or math lists or node lists. There are four associated subnodes that represent
@@ -450,7 +450,7 @@
 ---
 ---The `next` and `prev` fields for these subnodes are unused.
 ---
----\subsection{`math_char` and `math_text_char` subnodes}
+---# `math_char` and `math_text_char` subnodes
 ---
 --- field        type    explanation 
 ---
@@ -463,7 +463,7 @@
 ---case that you will not normally encounter, it arises temporarily during math list
 ---conversion (its sole function is to suppress a following italic correction).
 ---
----\subsection{`sub_box` and `sub_mlist` subnodes}
+---# `sub_box` and `sub_mlist` subnodes
 ---
 --- field             type  explanation 
 ---
@@ -477,7 +477,7 @@
 ---A warning: never assign a node list to the `head` field unless you are sure
 ---its internal link structure is correct, otherwise an error is triggered.
 ---
----\subsection{`delim` subnodes}
+---# `delim` subnodes
 ---
 ---There is a fifth subnode type that is used exclusively for delimiter fields. As
 ---before, the `next` and `prev` fields are unused.
@@ -494,7 +494,7 @@
 ---font that is set for the `small_fam` is expected to provide the large
 ---version as an extension to the `small_char`.
 ---
----\subsection{Math core nodes}
+---# Math core nodes
 ---
 ---First, there are the objects (the *TeX* book calls them “atoms”) that are
 ---associated with the simple math objects: ord, op, bin, rel, open, close, punct,
@@ -518,7 +518,7 @@
 --- no super script  `0x22` + `0x08` 
 --- no script        `0x23` + `0x08` 
 ---
----\subsection{simple `noad` nodes}
+---# simple `noad` nodes
 ---
 --- field           type         explanation 
 ---
@@ -529,7 +529,7 @@
 ---@field sup kernel node # superscript 
 ---@field options number # bitset of rendering options 
 ---
----\subsection{`accent` nodes}
+---# `accent` nodes
 ---
 --- field              type         explanation 
 ---
@@ -541,7 +541,7 @@
 ---@field bot_accent kernel node # bottom accent 
 ---@field fraction number # larger step criterium (divided by 1000) 
 ---
----\subsection{`style` nodes}
+---# `style` nodes
 ---
 --- field         type    explanation    
 ---
@@ -551,7 +551,7 @@
 ---`text`, `script`, or `scriptscript`. Each of these can have
 ---be prefixed by `cramped`.
 ---
----\subsection{`choice` nodes}
+---# `choice` nodes
 ---
 --- field                type  explanation 
 ---
@@ -564,7 +564,7 @@
 ---Warning: never assign a node list to the `display`, `text`, `script`, or `scriptscript` field unless you are sure its internal link
 ---structure is correct, otherwise an error can occur.
 ---
----\subsection{`radical` nodes}
+---# `radical` nodes
 ---
 --- field           type            explanation 
 ---
@@ -581,7 +581,7 @@
 ---Warning: never assign a node list to the `nucleus`, `sub`, `sup`, `left`, or `degree` field unless you are sure its internal
 ---link structure is correct, otherwise an error can be triggered.
 ---
----\subsection{`fraction` nodes}
+---# `fraction` nodes
 ---
 --- field           type            explanation 
 ---
@@ -598,7 +598,7 @@
 ---unless you are sure its internal link structure is correct, otherwise an error
 ---can result.
 ---
----\subsection{`fence` nodes}
+---# `fence` nodes
 ---
 --- field           type            explanation 
 ---
@@ -636,7 +636,7 @@
 ---specific to the chosen backend: \DVI\ or *PDF*. Here we discuss the generic
 ---font-end nodes nodes.
 ---
----\subsection{`open`}
+---# `open`
 ---
 --- field          type    explanation 
 ---
@@ -646,7 +646,7 @@
 ---@field ext string # file extension 
 ---@field area string # file area (this may become obsolete) 
 ---
----\subsection{`write`}
+---# `write`
 ---
 --- field          type    explanation 
 ---
@@ -654,14 +654,14 @@
 ---@field stream number # *TeX*'s stream id number 
 ---@field data table # a table representing the token list to be written 
 ---
----\subsection{`close`}
+---# `close`
 ---
 --- field          type    explanation 
 ---
 ---@field attr node # list of attributes 
 ---@field stream number # *TeX*'s stream id number 
 ---
----\subsection{`user_defined`}
+---# `user_defined`
 ---
 ---User-defined whatsit nodes can only be created and handled from *Lua* code. In
 ---effect, they are an extension to the extension mechanism. The *LuaTeX* engine
@@ -687,13 +687,13 @@
 ---  115   s        a *Lua* string 
 ---  116   t        a *Lua* token list in *Lua* table form (a list of triplets) 
 ---
----\subsection{`save_pos`}
+---# `save_pos`
 ---
 --- field        type  explanation 
 ---
 ---@field attr node # list of attributes 
 ---
----\subsection{`late_lua`}
+---# `late_lua`
 ---
 --- field         type                explanation 
 ---
@@ -715,7 +715,7 @@
 ---
 ---# \DVI\ backend whatsits
 ---
----\subsection{`special`}
+---# `special`
 ---
 ---There is only one \DVI\ backend whatsit, and it just flushes its content to the
 ---output file.
@@ -731,7 +731,7 @@
 ---
 ---# *PDF* backend whatsits
 ---
----\subsection{`pdf_literal`}
+---# `pdf_literal`
 ---
 --- field         type    explanation 
 ---
@@ -754,14 +754,14 @@
 ---Especially the `raw` variant can produce bad *PDF* so you can best check
 ---what you generate.
 ---
----\subsection{`pdf_refobj`}
+---# `pdf_refobj`
 ---
 --- field          type    explanation 
 ---
 ---@field attr node # list of attributes 
 ---@field objnum number # the referenced *PDF* object number 
 ---
----\subsection{`pdf_annot`}
+---# `pdf_annot`
 ---
 --- field          type    explanation 
 ---
@@ -772,7 +772,7 @@
 ---@field objnum number # the referenced *PDF* object number 
 ---@field data string # the annotation data 
 ---
----\subsection{`pdf_start_link`}
+---# `pdf_start_link`
 ---
 --- field             type    explanation 
 ---
@@ -784,13 +784,13 @@
 ---@field link_attr table # the link attribute token list 
 ---@field action node # the action to perform 
 ---
----\subsection{`pdf_end_link`}
+---# `pdf_end_link`
 ---
 --- field        type  explanation 
 ---
 ---@field attr node # 
 ---
----\subsection{`pdf_dest`}
+---# `pdf_dest`
 ---
 --- field               type      explanation 
 ---
@@ -804,7 +804,7 @@
 ---@field xyz_zoom number # the zoom factor (times 1000) 
 ---@field objnum number # the *PDF* object number; for structure references the *PDF* object number of the linked structure element 
 ---
----\subsection{`pdf_action`}
+---# `pdf_action`
 ---
 ---These are a special kind of items that only appear inside *PDF* start link
 ---objects.
@@ -836,7 +836,7 @@
 --- 1      `new`    
 --- 2      `nonew`  
 ---
----\subsection{`pdf_thread`}
+---# `pdf_thread`
 ---
 --- field               type    explanation 
 ---
@@ -848,7 +848,7 @@
 ---@field tread_id number # the thread id  string  the thread name 
 ---@field thread_attr number # extra thread information 
 ---
----\subsection{`pdf_start_thread`}
+---# `pdf_start_thread`
 ---
 --- field               type    explanation 
 ---
@@ -860,13 +860,13 @@
 ---@field tread_id number # the thread id  string  the thread name 
 ---@field thread_attr number # extra thread information 
 ---
----\subsection{`pdf_end_thread`}
+---# `pdf_end_thread`
 ---
 --- field        type  explanation 
 ---
 ---@field attr node # 
 ---
----\subsection{`pdf_colorstack`}
+---# `pdf_colorstack`
 ---
 --- field           type    explanation 
 ---
@@ -875,20 +875,20 @@
 ---@field command number # command to execute 
 ---@field data string # data 
 ---
----\subsection{`pdf_setmatrix`}
+---# `pdf_setmatrix`
 ---
 --- field        type    explanation 
 ---
 ---@field attr node # list of attributes 
 ---@field data string # data 
 ---
----\subsection{`pdf_save`}
+---# `pdf_save`
 ---
 --- field        type  explanation 
 ---
 ---@field attr node # list of attributes 
 ---
----\subsection{`pdf_restore`}
+---# `pdf_restore`
 ---
 --- field        type  explanation 
 ---
@@ -948,7 +948,7 @@
 ---There are statistics available with regards to the allocated node memory, which
 ---can be handy for tracing.
 ---
----\subsection{`is_node`}
+---# `is_node`
 ---
 ---```
 ---<boolean|integer> t =
@@ -958,7 +958,7 @@
 ---This function returns a number (the internal index of the node) if the argument
 ---is a userdata object of type `<node>` and false when no node is passed.
 ---
----\subsection{`types` and `whatsits`}
+---# `types` and `whatsits`
 ---
 ---This function returns an array that maps node id numbers to node type strings,
 ---providing an overview of the possible top-level `id` types.
@@ -977,7 +977,7 @@
 ---    node.whatsits()
 ---```
 ---
----\subsection{`id`}
+---# `id`
 ---
 ---This converts a single type name to its internal numeric representation.
 ---
@@ -986,7 +986,7 @@
 ---    node.id(<string> type)
 ---```
 ---
----\subsection{`type` and `subtype`}
+---# `type` and `subtype`
 ---
 ---In the argument is a number, then the next function converts an internal numeric
 ---representation to an external string representation. Otherwise, it will return
@@ -1006,7 +1006,7 @@
 ---    node.subtype(<string> type)
 ---```
 ---
----\subsection{`fields`}
+---# `fields`
 ---
 ---This function returns an array of valid field names for a particular type of
 ---node. If you want to get the valid fields for a “whatsit”, you have to
@@ -1022,7 +1022,7 @@
 ---
 ---The function accepts string `id` and `subtype` values as well.
 ---
----\subsection{`has_field`}
+---# `has_field`
 ---
 ---This function returns a boolean that is only true if `n` is
 ---actually a node, and it has the field.
@@ -1032,7 +1032,7 @@
 ---    node.has_field(<node> n, <string> field)
 ---```
 ---
----\subsection{`new`}
+---# `new`
 ---
 ---The `new` function creates a new node. All its fields are initialized to
 ---either zero or `nil` except for `id` and `subtype`. Instead of
@@ -1047,7 +1047,7 @@
 ---    node.new(<number> id, <number> subtype)
 ---```
 ---
----\subsection{`free`, `flush_node` and `flush_list`}
+---# `free`, `flush_node` and `flush_list`
 ---
 ---The next one the node `n` from *TeX*'s memory. Be careful: no checks are
 ---done on whether this node is still pointed to from a register or some `next` field: it is up to you to make sure that the internal data structures
@@ -1071,7 +1071,7 @@
 ---node.flush_list(<node> n)
 ---```
 ---
----\subsection{`copy` and `copy_list`}
+---# `copy` and `copy_list`
 ---
 ---This creates a deep copy of node `n`, including all nested lists as in the case
 ---of a hlist or vlist node. Only the `next` field is not copied.
@@ -1096,7 +1096,7 @@
 ---or make changes to specific attributes, the needed copying and freeing takes
 ---place automatically.
 ---
----\subsection{`prev` and `next`}
+---# `prev` and `next`
 ---
 ---These returns the node preceding or following the given node, or `nil` if
 ---there is no such node.
@@ -1108,7 +1108,7 @@
 ---    node.prev(<node> n)
 ---```
 ---
----\subsection{`current_attr`}
+---# `current_attr`
 ---
 ---This returns the currently active list of attributes, if there is one.
 ---
@@ -1146,7 +1146,7 @@
 ---the list will change these values for all nodes that have the current attribute
 ---list assigned to them.
 ---
----\subsection{`hpack`}
+---# `hpack`
 ---
 ---This function creates a new hlist by packaging the list that begins at node `n` into a horizontal box. With only a single argument, this box is created using
 ---the natural width of its components. In the three argument form, `info`
@@ -1168,7 +1168,7 @@
 ---`h` is the original node list `n`: if you call `node.free(h)`
 ---you will also free the node list itself, unless you explicitly set the `list` field to `nil` beforehand. And in a similar way, calling `node.free(n)` will invalidate `h` as well!
 ---
----\subsection{`vpack`}
+---# `vpack`
 ---
 ---This function creates a new vlist by packaging the list that begins at node `n` into a vertical box. With only a single argument, this box is created using
 ---the natural height of its components. In the three argument form, `info`
@@ -1187,7 +1187,7 @@
 ---The second return value is the badness of the generated box. See the description
 ---of `hpack` for a few memory allocation caveats.
 ---
----\subsection{`prepend_prevdepth`}
+---# `prepend_prevdepth`
 ---
 ---This function is somewhat special in the sense that it is an experimental helper
 ---that adds the interlinespace to a line keeping the baselineskip and lineskip into
@@ -1198,7 +1198,7 @@
 ---    node.prepend_prevdepth(<node> n,<number> prevdepth)
 ---```
 ---
----\subsection{`dimensions` and `rangedimensions`}
+---# `dimensions` and `rangedimensions`
 ---
 ---```
 ---<number> w, <number> h, <number> d  =
@@ -1263,7 +1263,7 @@
 ---    node.rangedimensions(<node> parent, <node> first, <node> last)
 ---```
 ---
----\subsection{`mlist_to_hlist`}
+---# `mlist_to_hlist`
 ---
 ---```
 ---<node> h =
@@ -1274,7 +1274,7 @@
 ---`n` into the horizontal list `h`. The interface is exactly the same
 ---as for the callback `mlist_to_hlist`.
 ---
----\subsection{`slide`}
+---# `slide`
 ---
 ---```
 ---<node> m =
@@ -1285,7 +1285,7 @@
 ---side-effect, it also creates a reverse chain of `prev` pointers between
 ---nodes.
 ---
----\subsection{`tail`}
+---# `tail`
 ---
 ---```
 ---<node> m =
@@ -1294,7 +1294,7 @@
 ---
 ---Returns the last node of the node list that starts at `n`.
 ---
----\subsection{`length` and type {count}}
+---# `length` and type {count}
 ---
 ---```
 ---<number> i =
@@ -1319,7 +1319,7 @@
 ---stops at `m` instead of at the end of the list. The node `m` is not
 ---counted. This function also accept string `id`'s.
 ---
----\subsection{`is_char` and `is_glyph`}
+---# `is_char` and `is_glyph`
 ---
 ---The subtype of a glyph node signals if the glyph is already turned into a character reference
 ---or not.
@@ -1331,7 +1331,7 @@
 ---    node.is_glyph(<node> n)
 ---```
 ---
----\subsection{`traverse`}
+---# `traverse`
 ---
 ---```
 ---<node> t, id, subtype =
@@ -1377,7 +1377,7 @@
 ---If the above is unclear to you, see the section “For Statement” in the
 ---*Lua* Reference Manual.
 ---
----\subsection{`traverse_id`}
+---# `traverse_id`
 ---
 ---```
 ---<node> t, subtype =
@@ -1404,7 +1404,7 @@
 --- end
 ---```
 ---
----\subsection{`traverse_char` and `traverse_glyph`}
+---# `traverse_char` and `traverse_glyph`
 ---
 ---The `traverse_char` iterator loops over the `glyph` nodes in a list.
 ---Only nodes with a subtype less than 256 are seen.
@@ -1422,7 +1422,7 @@
 ---    node.traverse_glyph(<node> n)
 ---```
 ---
----\subsection{`traverse_list`}
+---# `traverse_list`
 ---
 ---This iterator loops over the `hlist` and `vlist` nodes in a list.
 ---
@@ -1435,7 +1435,7 @@
 ---in practice you seldom need them all. So consider it a (side effect of
 ---experimental) convenience.
 ---
----\subsection{`has_glyph`}
+---# `has_glyph`
 ---
 ---This function returns the first glyph or disc node in the given list:
 ---
@@ -1444,7 +1444,7 @@
 ---    node.has_glyph(<node> n)
 ---```
 ---
----\subsection{`end_of_math`}
+---# `end_of_math`
 ---
 ---```
 ---<node> t =
@@ -1456,7 +1456,7 @@
 ---the list and returns the next math endnote. If no such node is found nil is
 ---returned.
 ---
----\subsection{`remove`}
+---# `remove`
 ---
 ---```
 ---<node> head, current =
@@ -1471,7 +1471,7 @@
 ---function is called with `current` equal to `head`, it will be
 ---changed.
 ---
----\subsection{`insert_before`}
+---# `insert_before`
 ---
 ---```
 ---<node> head, new =
@@ -1484,7 +1484,7 @@
 ---(with correct `next` field). If `head` is initially `nil`, it
 ---will become `new`.
 ---
----\subsection{`insert_after`}
+---# `insert_after`
 ---
 ---```
 ---<node> head, new =
@@ -1496,7 +1496,7 @@
 ---the node `new`, set up to be part of the list (with correct `next`
 ---field). If `head` is initially `nil`, it will become `new`.
 ---
----\subsection{`first_glyph`}
+---# `first_glyph`
 ---
 ---```
 ---<node> n =
@@ -1510,7 +1510,7 @@
 ---processing stops at (but including) that node, otherwise processing stops at the
 ---end of the list.
 ---
----\subsection{`ligaturing`}
+---# `ligaturing`
 ---
 ---```
 ---<node> h, <node> t, <boolean> success =
@@ -1523,7 +1523,7 @@
 ---optional. The two returned nodes `h` and `t` are the new head and
 ---tail (both `n` and `m` can change into a new ligature).
 ---
----\subsection{`kerning`}
+---# `kerning`
 ---
 ---```
 ---<node> h, <node> t, <boolean> success =
@@ -1537,7 +1537,7 @@
 ---(either one of these can be an inserted kern node, because special kernings with
 ---word boundaries are possible).
 ---
----\subsection{`unprotect_glyph[s]`}
+---# `unprotect_glyph[s]`
 ---
 ---```
 ---node.unprotect_glyph(<node> n)
@@ -1548,7 +1548,7 @@
 ---helpers to convert from `characters` to `glyphs` during node
 ---processing. The second argument is optional and indicates the end of a range.
 ---
----\subsection{`protect_glyph[s]`}
+---# `protect_glyph[s]`
 ---
 ---```
 ---node.protect_glyph(<node> n)
@@ -1561,7 +1561,7 @@
 ---single character can be marked by the singular call. The second argument is
 ---optional and indicates the end of a range.
 ---
----\subsection{`last_node`}
+---# `last_node`
 ---
 ---```
 ---<node> n =
@@ -1571,7 +1571,7 @@
 ---This function pops the last node from *TeX*'s “current list”. It returns
 ---that node, or `nil` if the current list is empty.
 ---
----\subsection{`write`}
+---# `write`
 ---
 ---```
 ---node.write(<node> n)
@@ -1581,7 +1581,7 @@
 ---node list is not deep-copied! There is no error checking either! You mignt need
 ---to enforce horizontal mode in order for this to work as expected.
 ---
----\subsection{`protrusion_skippable`}
+---# `protrusion_skippable`
 ---
 ---```
 ---<boolean> skippable =
@@ -1597,7 +1597,7 @@
 ---
 ---# Glue handling[library=node]
 ---
----\subsection{`setglue`}
+---# `setglue`
 ---
 ---You can set the five properties of a glue in one go. Non-numeric values are
 ---equivalent to zero and reset a property.
@@ -1617,7 +1617,7 @@
 ---
 ---When a list node is passed, you set the glue, order and sign instead.
 ---
----\subsection{`getglue`}
+---# `getglue`
 ---
 ---The next call will return 5 values or nothing when no glue is passed.
 ---
@@ -1632,7 +1632,7 @@
 ---When a list node is passed, you get back the glue that is set, the order of that
 ---glue and the sign.
 ---
----\subsection{`is_zero_glue`}
+---# `is_zero_glue`
 ---
 ---This function returns `true` when the width, stretch and shrink properties
 ---are zero.
@@ -1648,7 +1648,7 @@
 ---
 ---# Attribute handling[library=node]
 ---
----\subsection{Attributes}
+---# Attributes
 ---
 ---The newly introduced attribute registers are non-trivial, because the value
 ---that is attached to a node is essentially a sparse array of key-value pairs. It
@@ -1660,7 +1660,7 @@
 ---individual nodes. They can be handled individually, but it is much safer and more
 ---efficient to use the dedicated functions associated with them.
 ---
----\subsection{`attribute_list` nodes}
+---# `attribute_list` nodes
 ---
 ---An `attribute_list` item is used as a head pointer for a list of attribute
 ---items. It has only one user-visible field:
@@ -1669,7 +1669,7 @@
 ---
 ---@field next node # pointer to the first attribute 
 ---
----\subsection{`attr` nodes}
+---# `attr` nodes
 ---
 ---A normal node's attribute field will point to an item of type `attribute_list`, and the `next` field in that item will point to the first
 ---defined “attribute” item, whose `next` will point to the second
@@ -1685,7 +1685,7 @@
 ---fields directly. For instance the `prev` field is used for other purposes
 ---and there is no double linked list.
 ---
----\subsection{`has_attribute`}
+---# `has_attribute`
 ---
 ---```
 ---<number> v =
@@ -1698,7 +1698,7 @@
 ---also supplied, also tests if the value matches `val`. It returns the value,
 ---or, if no match is found, `nil`.
 ---
----\subsection{`get_attribute`}
+---# `get_attribute`
 ---
 ---```
 ---<number> v =
@@ -1709,7 +1709,7 @@
 ---value, or, if no match is found, `nil`. If no `id` is given then the
 ---zero attributes is assumed.
 ---
----\subsection{`find_attribute`}
+---# `find_attribute`
 ---
 ---```
 ---<number> v, <node> n =
@@ -1719,7 +1719,7 @@
 ---Finds the first node that has attribute with number `id` set. It returns
 ---the value and the node if there is a match and otherwise nothing.
 ---
----\subsection{`set_attribute`}
+---# `set_attribute`
 ---
 ---```
 ---node.set_attribute(<node> n, <number> id, <number> val)
@@ -1728,7 +1728,7 @@
 ---Sets the attribute with number `id` to the value `val`. Duplicate
 ---assignments are ignored.
 ---
----\subsection{`unset_attribute`}
+---# `unset_attribute`
 ---
 ---```
 ---<number> v =
@@ -1744,7 +1744,7 @@
 ---If the attribute was actually deleted, returns its old value. Otherwise, returns
 ---`nil`.
 ---
----\subsection{`slide`}
+---# `slide`
 ---
 ---This helper makes sure that the node lists is double linked and returns the found
 ---tail node.
@@ -1761,7 +1761,7 @@
 ---Future versions of *LuaTeX* can add more checking but this will not influence
 ---usage.
 ---
----\subsection{`check_discretionary`, `check_discretionaries`}
+---# `check_discretionary`, `check_discretionaries`
 ---
 ---When you fool around with disc nodes you need to be aware of the fact that they
 ---have a special internal data structure. As long as you reassign the fields when
@@ -1778,7 +1778,7 @@
 ---The plural variant runs over all disc nodes in a list, the singular variant
 ---checks one node only (it also checks if the node is a disc node).
 ---
----\subsection{`flatten_discretionaries`}
+---# `flatten_discretionaries`
 ---
 ---This function will remove the discretionaries in the list and inject the replace
 ---field when set.
@@ -1787,7 +1787,7 @@
 ---<node> head, count = node.flatten_discretionaries(<node> n)
 ---```
 ---
----\subsection{`family_font`}
+---# `family_font`
 ---
 ---When you pass a proper family identifier the next helper will return the font
 ---currently associated with it. You can normally also access the font with the

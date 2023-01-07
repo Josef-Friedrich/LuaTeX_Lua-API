@@ -14,7 +14,7 @@
 ---\orm {pdfrefximage}, and the associated “satellite” commands like `\pdfximagebbox`. Image objects can also be used within virtual fonts via the
 ---`image` command listed in \in {section} [virtualfonts].
 ---
----\subsection{`new`}
+---# `new`
 ---
 ---```
 ---<image> var = img.new()
@@ -70,7 +70,7 @@
 ---still included when requested. No special flags are set. A proper workflow will
 ---not rely in such a catch but make sure that images are valid.
 ---
----\subsection{`fields`}
+---# `fields`
 ---
 ---```
 ---<table> keys = img.fields()
@@ -144,7 +144,7 @@
 ---result as if you would externally preprocess the image by a graphics tool and
 ---then use it by *LuaTeX*. If a *PDF* file to be embedded already contains a `/Rotate` specification, the rotation result is the combination of the `/Rotate` rotation followed by the `transform` operation.
 ---
----\subsection{`scan`}
+---# `scan`
 ---
 ---```
 ---<image> var = img.scan(<image> var)
@@ -171,7 +171,7 @@
 ---again by saying `a=nil`. In that case no image object will be reserved in
 ---the PDF, and the used memory will be cleaned up automatically.
 ---
----\subsection{`copy`}
+---# `copy`
 ---
 ---```
 ---<image> var = img.copy(<image> var)
@@ -186,7 +186,7 @@
 ---dictionary, but the dimensions for `b` can now be changed from their
 ---initial values that were just copies from `a`.
 ---
----\subsection{`write`, `immediatewrite`, `immediatewriteobject`}
+---# `write`, `immediatewrite`, `immediatewriteobject`
 ---
 ---```
 ---<image> var = img.write(<image> var)
@@ -237,7 +237,7 @@
 ---<integer> objnum = img.immediatewriteobject(<table> image_spec, <integer> objnum)
 ---```
 ---
----\subsection{`node`}
+---# `node`
 ---
 ---```
 ---<node> n = img.node(<image> var)
@@ -259,7 +259,7 @@
 ---node.write(img.node{filename="foo.png"})
 ---```
 ---
----\subsection{`types`}
+---# `types`
 ---
 ---```
 ---<table> types = img.types()
@@ -269,7 +269,7 @@
 ---these are `pdf`, `png`, `jpg`, `jp2` (JPEG 2000), and
 ---`jbig2`.
 ---
----\subsection{`boxes`}
+---# `boxes`
 ---
 ---```
 ---<table> boxes = img.boxes()
@@ -304,7 +304,7 @@
 ---The \MP\ library interface registers itself in the table `mplib`. It is
 ---based on \MPLIB\ version \ctxlua {context(mplib.version())}.
 ---
----\subsection{`new`}
+---# `new`
 ---
 ---To create a new \METAPOST\ instance, call
 ---
@@ -367,7 +367,7 @@
 ---An `etex` has to be followed by a space or `;` or be at the end of a
 ---line and preceded by a space or at the beginning of a line.
 ---
----\subsection{`statistics`}
+---# `statistics`
 ---
 ---You can request statistics with:
 ---
@@ -390,7 +390,7 @@
 ---are all allocated dynamically, so there is no chance of running out of space
 ---unless the available system memory is exhausted.
 ---
----\subsection{`execute`}
+---# `execute`
 ---
 ---You can ask the \METAPOST\ interpreter to run a chunk of code by calling
 ---
@@ -408,7 +408,7 @@
 ---In contrast with the normal stand alone `mpost` command, there is
 ---`no` implied “input” at the start of the first chunk.
 ---
----\subsection{`finish`}
+---# `finish`
 ---
 ---```
 ---<table> rettable = finish(mp)
@@ -420,7 +420,7 @@
 ---an explicit `finish` is the only way to capture the final part of the
 ---output streams.
 ---
----\subsection{Result table}
+---# Result table
 ---
 ---The return value of `execute` and `finish` is a table with a
 ---few possible keys (only `status` is always guaranteed to be present).
@@ -474,7 +474,7 @@
 ---following, `number`s are *PostScript* points represented as a floating
 ---point number, unless stated otherwise. Field values that are of type `table` are explained in the next section.
 ---
----\subsubsection{fill}
+---# fill
 ---
 --- field   type  explanation 
 ---
@@ -489,7 +489,7 @@
 ---
 ---The entries `htap` and `pen` are optional.
 ---
----\subsubsection{outline}
+---# outline
 ---
 --- field   type  explanation 
 ---
@@ -505,7 +505,7 @@
 ---
 ---The entry `dash` is optional.
 ---
----\subsubsection{text}
+---# text
 ---
 --- field   type  explanation 
 ---
@@ -520,25 +520,25 @@
 ---@field prescript string # the prescript text 
 ---@field postscript string # the postscript text 
 ---
----\subsubsection{special}
+---# special
 ---
 --- field   type  explanation 
 ---
 ---@field prescript string # special text 
 ---
----\subsubsection{start_bounds, start_clip}
+---# start_bounds, start_clip
 ---
 --- field   type  explanation 
 ---
 ---@field path table # the list of knots 
 ---
----\subsubsection{stop_bounds, stop_clip}
+---# stop_bounds, stop_clip
 ---
 ---Here are no fields available.
 ---
----\subsection{Subsidiary table formats}
+---# Subsidiary table formats
 ---
----\subsubsection{Paths and pens}
+---# Paths and pens
 ---
 ---Paths and pens (that are really just a special type of paths as far as \MPLIB\ is
 ---concerned) are represented by an array where each entry is a table that
@@ -559,7 +559,7 @@
 ---extra string-valued key `type` with value `elliptical` besides the
 ---array part containing the knot list.
 ---
----\subsubsection{Colors}
+---# Colors
 ---
 ---A color is an integer array with 0, 1, 3 or 4 values:
 ---
@@ -573,7 +573,7 @@
 ---If the color model of the internal object was `uninitialized`, then it was
 ---initialized to the values representing “black” in the colorspace `defaultcolormodel` that was in effect at the time of the `shipout`.
 ---
----\subsubsection{Transforms}
+---# Transforms
 ---
 ---Each transform is a six-item array.
 ---
@@ -589,7 +589,7 @@
 ---Note that the translation (index 1 and 2) comes first. This differs from the
 ---ordering in *PostScript*, where the translation comes last.
 ---
----\subsubsection{Dashes}
+---# Dashes
 ---
 ---Each `dash` is two-item hash, using the same model as *PostScript* for the
 ---representation of the dashlist. `dashes` is an array of “on” and
@@ -600,7 +600,7 @@
 --- `dashes`  hash    an array of on-off numbers 
 ---@field offset number # the starting offset value  
 ---
----\subsection{Pens and `pen_info`}
+---# Pens and `pen_info`
 ---
 ---There is helper function (`pen_info(obj)`) that returns a table containing
 ---a bunch of vital characteristics of the used pen (all values are floats):
@@ -615,31 +615,31 @@
 ---@field tx number # `x` offset       
 ---@field ty number # `y` offset       
 ---
----\subsection{Character size information}
+---# Character size information
 ---
 ---These functions find the size of a glyph in a defined font. The `fontname`
 ---is the same name as the argument to `infont`; the `char` is a glyph
 ---id in the range 0 to 255; the returned `w` is in AFM units.
 ---
----\subsubsection{`char_width`}
+---# `char_width`
 ---
 ---```
 ---<number> w = char_width(mp,<string> fontname, <number> char)
 ---```
 ---
----\subsubsection{`char_height`}
+---# `char_height`
 ---
 ---```
 ---<number> w = char_height(mp,<string> fontname, <number> char)
 ---```
 ---
----\subsubsection{`char_depth`}
+---# `char_depth`
 ---
 ---```
 ---<number> w = char_depth(mp,<string> fontname, <number> char)
 ---```
 ---
----\subsubsection{`get_[boolean|numeric|string|path]`}
+---# `get_[boolean|numeric|string|path]`
 ---
 ---When a script call brings you from the \METAPOST\ run (temporarily) back to
 ---*Lua* you can access variables, but only if they are known (so for instance

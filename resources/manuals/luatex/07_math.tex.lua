@@ -121,7 +121,7 @@
 ---
 ---# Math styles
 ---
----\subsection{`mathstyle`}
+---# `mathstyle`
 ---
 ---It is possible to discover the math style that will be used for a formula in an
 ---expandable fashion (while the math list is still being read). To make this
@@ -232,7 +232,7 @@
 ---importance of grouping. In fact, the math choice style being effective afterwards
 ---has advantages. It would be hard to get it otherwise.
 ---
----\subsection{`Ustack`}
+---# `Ustack`
 ---
 ---There are a few math commands in *TeX* where the style that will be used is not
 ---known straight from the start. These commands (`over`, `atop`,
@@ -247,7 +247,7 @@
 ---The `Ustack` command will scan the next brace and start a new math group
 ---with the correct (numerator) math style.
 ---
----\subsection{Cramped math styles}
+---# Cramped math styles
 ---
 ---*LuaTeX* has four new primitives to set the cramped math styles directly:
 ---
@@ -392,7 +392,7 @@
 ---they obey grouping, and you can use `\the\Umathquad\displaystyle` if
 ---needed.
 ---
----\subsection{Font-based math parameters}
+---# Font-based math parameters
 ---
 ---While it is nice to have these math parameters available for tweaking, it would
 ---be tedious to have to set each of them by hand. For this reason, *LuaTeX*
@@ -520,7 +520,7 @@
 ---
 ---# Math spacing
 ---
----\subsection{Inline surrounding space}
+---# Inline surrounding space
 ---
 ---Inline math is surrounded by (optional) `mathsurround` spacing but that is a fixed
 ---dimension. There is now an additional parameter `mathsurroundskip`. When set to a
@@ -572,7 +572,7 @@
 ---fields in a node when applicable in the first occasion that checks them
 ---(linebreaking or packaging).
 ---
----\subsection{Pairwise spacing}
+---# Pairwise spacing
 ---
 ---Besides the parameters mentioned in the previous sections, there are also 64 new
 ---primitives to control the math spacing table (as explained in Chapter 18 of the
@@ -668,7 +668,7 @@
 ---combinations of atoms cannot actually happen, but it seemed better not to break
 ---orthogonality. They are initialized to zero.
 ---
----\subsection{Skips around display math}
+---# Skips around display math
 ---
 ---The injection of `abovedisplayskip` and `belowdisplayskip` is not
 ---symmetrical. An above one is always inserted, also when zero, but the below is
@@ -842,7 +842,7 @@
 ---    \MathSample{}      {lucidaot}{\mb}
 ---    
 ---
----\subsection{Fixed scripts}
+---# Fixed scripts
 ---
 ---We have three parameters that are used for this fixed anchoring:
 ---
@@ -873,7 +873,7 @@
 ---
 ---% if needed we can put the value in stylenodes but maybe more should go there
 ---
----\subsection{Penalties: `mathpenaltiesmode`}
+---# Penalties: `mathpenaltiesmode`
 ---
 ---Only in inline math penalties will be added in a math list. You can force
 ---penalties (also in display math) by setting:
@@ -895,7 +895,7 @@
 ---They default to inifinite which signals that they don't need to be inserted. When
 ---set they are injected before a binop or rel noad. This is an experimental feature.
 ---
----\subsection{Equation spacing: `matheqnogapstep`}
+---# Equation spacing: `matheqnogapstep`
 ---
 ---By default *TeX* will add one quad between the equation and the number. This is
 ---hard coded. A new primitive can control this:
@@ -998,7 +998,7 @@
 ---`overlay` location. It also works for the other locations but then it
 ---concerns the width.
 ---
----\subsection{Radical extensions}
+---# Radical extensions
 ---
 ---The new primitive `Uroot` allows the construction of a radical noad
 ---including a degree field. Its syntax is an extension of `Uradical`:
@@ -1010,7 +1010,7 @@
 ---
 ---The placement of the degree is controlled by the math parameters `Umathradicaldegreebefore`, `Umathradicaldegreeafter`, and `Umathradicaldegreeraise`. The degree will be typeset in `scriptscriptstyle`.
 ---
----\subsection{Super- and subscripts}
+---# Super- and subscripts
 ---
 ---The character fields in a *Lua*-loaded *OpenType* math font can have a “mathkern” table. The format of this table is the same as the “mathkern”
 ---table that is returned by the `fontloader` library, except that all height
@@ -1047,7 +1047,7 @@
 ---value high enough in the character), or simply zero (if the character has no math kern
 ---pairs at all).
 ---
----\subsection{Scripts on extensibles}
+---# Scripts on extensibles
 ---
 ---The primitives `Uunderdelimiter` and `Uoverdelimiter` allow the
 ---placement of a subscript or superscript on an automatically extensible item and
@@ -1127,7 +1127,7 @@
 ---width and the two numbers become limit operators. As said, it's not pretty but it
 ---works.
 ---
----\subsection{Fractions}
+---# Fractions
 ---
 ---The `abovewithdelims` command accepts a keyword `exact`. When issued
 ---the extra space relative to the rule thickness is not added. One can of course
@@ -1221,7 +1221,7 @@
 ---
 ---# Extracting values
 ---
----\subsection{Codes}
+---# Codes
 ---
 ---You can extract the components of a math character. Say that we have defined:
 ---
@@ -1296,7 +1296,7 @@
 ---math mode is the correct one (inline vs.\ displayed), but you can freely intermix
 ---the four mathon/mathoff commands with explicit dollar sign(s).
 ---
----\subsection{Script commands `Unosuperscript` and `Unosubscript`}
+---# Script commands `Unosuperscript` and `Unosubscript`
 ---
 ---These two commands result in super- and subscripts but with the current style (at the
 ---time of rendering). So,
@@ -1314,7 +1314,7 @@
 ---
 ---results in \inlinebuffer[script].
 ---
----\subsection{Allowed math commands in non-math modes}
+---# Allowed math commands in non-math modes
 ---
 ---The commands `mathchar`, and `Umathchar` and control sequences that are
 ---the result of `mathchardef` or `Umathchardef` are also acceptable in

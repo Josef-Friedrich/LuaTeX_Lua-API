@@ -355,7 +355,7 @@
 ---
 ---# Virtual fonts
 ---
----\subsection{The structure}
+---# The structure
 ---
 ---You have to take the following steps if you want *LuaTeX* to treat the returned
 ---table from `define_font` as a virtual font:
@@ -482,7 +482,7 @@
 ---`pdf:direct:` or  `pdf:raw:` prefix. When you have to concatenate
 ---strings using the `pdf` command might be more efficient.
 ---
----\subsection{Artificial fonts}
+---# Artificial fonts
 ---
 ---Even in a “real” font, there can be virtual characters. When *LuaTeX*
 ---encounters a `commands` field inside a character when it becomes time to
@@ -497,7 +497,7 @@
 ---font re-encoding either; you need a truly virtual font for that (because
 ---characters that are already present cannot be altered).
 ---
----\subsection{Example virtual font}
+---# Example virtual font
 ---
 ---Finally, here is a plain *TeX* input file with a virtual font demonstration:
 ---
@@ -550,7 +550,7 @@
 ---formats. Other font loading functionality is provided by the `fontloader`
 ---library that will be discussed in the next section.
 ---
----\subsection{Loading a \TFM\ file}
+---# Loading a \TFM\ file
 ---
 ---The behaviour documented in this subsection is considered stable in the sense that
 ---there will not be backward-incompatible changes any more.
@@ -567,7 +567,7 @@
 ---* If it is negative, its absolute value represents a “scaled”
 ---    setting relative to the designsize of the font.
 ---
----\subsection{Loading a \VF\ file}
+---# Loading a \VF\ file
 ---
 ---The behavior documented in this subsection is considered stable in the sense that
 ---there will not be backward-incompatible changes any more.
@@ -580,7 +580,7 @@
 ---The meaning of the number `s` and the format of the returned table are
 ---similar to the ones in the `read_tfm` function.
 ---
----\subsection{The fonts array}
+---# The fonts array
 ---
 ---The whole table of *TeX* fonts is accessible from *Lua* using a virtual array.
 ---
@@ -618,7 +618,7 @@
 ---definition. This limits the usability of the write access to `font.fonts`
 ---quite a lot, a less stringent ruleset will likely be implemented later.
 ---
----\subsection{Checking a font's status}
+---# Checking a font's status
 ---
 ---You can test for the status of a font by calling this function:
 ---
@@ -630,7 +630,7 @@
 ---The return value is one of `true` (unassignable), `false` (can be
 ---changed) or `nil` (not a valid font at all).
 ---
----\subsection{Defining a font directly}
+---# Defining a font directly
 ---
 ---You can define your own font into `font.fonts` by calling this function:
 ---
@@ -650,7 +650,7 @@
 ---
 ---Where the first argument is a reserved font id (see below).
 ---
----\subsection{Extending a font}
+---# Extending a font
 ---
 ---Within reasonable bounds you can extend a font after it has been defined. Because
 ---some properties are best left unchanged this is limited to adding characters.
@@ -667,7 +667,7 @@
 ---restrictions we expect the user to be careful. (The `setfont` helper is
 ---a more drastic replacer.)
 ---
----\subsection{Projected next font id}
+---# Projected next font id
 ---
 ---```
 ---<number> i =
@@ -685,7 +685,7 @@
 ---    font.nextid(true)
 ---```
 ---
----\subsection{Font ids}
+---# Font ids
 ---
 ---```
 ---<number> i =
@@ -708,7 +708,7 @@
 ---
 ---This gets or sets the currently used font number.
 ---
----\subsection{Iterating over all fonts}
+---# Iterating over all fonts
 ---
 ---```
 ---for i,v in font.each() do

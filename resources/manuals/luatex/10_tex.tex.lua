@@ -253,7 +253,7 @@
 ---you pass `true` to `get` you get 5 values returned for a glue and
 ---when you pass `false` you only get the width returned.
 ---
----\subsubsection{Integer parameters}
+---# Integer parameters
 ---
 ---The integer parameters accept and return *Lua* numbers. These are read-write:
 ---
@@ -345,7 +345,7 @@
 ---```
 ---\stopthreecolumns
 ---
----\subsubsection{Dimension parameters}
+---# Dimension parameters
 ---
 ---The dimension parameters accept *Lua* numbers (signifying scaled points) or
 ---strings (with included dimension). The result is always a number in scaled
@@ -434,7 +434,7 @@
 ---the `tex` tables, you get and set the values at the top of the nesting
 ---stack.
 ---
----\subsubsection{Direction parameters}
+---# Direction parameters
 ---
 ---The direction parameters are read-only and return a *Lua* string.
 ---
@@ -448,7 +448,7 @@
 ---```
 ---\stopthreecolumns
 ---
----\subsubsection{Glue parameters}
+---# Glue parameters
 ---
 ---The glue parameters accept and return a userdata object that represents a `glue_spec` node.
 ---
@@ -472,7 +472,7 @@
 ---```
 ---\stopthreecolumns
 ---
----\subsubsection{Muglue parameters}
+---# Muglue parameters
 ---
 ---All muglue parameters are to be used read-only and return a *Lua* string.
 ---
@@ -484,7 +484,7 @@
 ---```
 ---\stopthreecolumns
 ---
----\subsubsection{Tokenlist parameters}
+---# Tokenlist parameters
 ---
 ---The tokenlist parameters accept and return *Lua* strings. *Lua* strings are
 ---converted to and from token lists using `the` `toks` style expansion:
@@ -1067,7 +1067,7 @@
 ---fit completely in *TeX*'s input buffer. The result of using these functions from
 ---inside callbacks is undefined at the moment.
 ---
----\subsubsection{`print`}
+---# `print`
 ---
 ---```
 ---tex.print(<string> s, ...)
@@ -1090,7 +1090,7 @@
 ---
 ---The very last string of the very last `tex.print` command in a `directlua` will not have the `endlinechar` appended, all others do.
 ---
----\subsubsection{`sprint`}
+---# `sprint`
 ---
 ---```
 ---tex.sprint(<string> s, ...)
@@ -1154,7 +1154,7 @@
 ---of these fuzzy areas you have to live with if you really mess with these low
 ---level issues.
 ---
----\subsubsection{`tprint`}
+---# `tprint`
 ---
 ---```
 ---tex.tprint({<number> n, <string> s, ...}, {...})
@@ -1163,7 +1163,7 @@
 ---This function is basically a shortcut for repeated calls to `tex.sprint(<number> n, <string> s, ...)`, once for each of the supplied argument
 ---tables.
 ---
----\subsubsection{`cprint`}
+---# `cprint`
 ---
 ---This function takes a number indicating the to be used catcode, plus either a
 ---table of strings or an argument list of strings that will be pushed into the
@@ -1179,8 +1179,8 @@
 ---tex.cprint(14,"12: $&{\\foo}") tex.print("\\par") -- comment triggers
 ---```
 ---
----% \subsubsection{`write`, `twrite`, `nwrite`}
----\subsubsection{`write`}
+---% # `write`, `twrite`, `nwrite`
+---# `write`
 ---
 ---% 
 ---% 
@@ -1211,7 +1211,7 @@
 ---
 ---# Helper functions
 ---
----\subsubsection{`round`}
+---# `round`
 ---
 ---```
 ---<number> n = tex.round(<number> o)
@@ -1221,7 +1221,7 @@
 ---valid *TeX* register value. If the number starts out of range, it generates a
 ---“number too big” error as well.
 ---
----\subsubsection{`scale`}
+---# `scale`
 ---
 ---```
 ---<number> n = tex.scale(<number> o, <number> delta)
@@ -1238,7 +1238,7 @@
 ---architecture and operating system, so use with care! An interface to *LuaTeX*'s
 ---internal, 100\% portable scale function will be added at a later date.
 ---
----\subsubsection{`number` and `romannumeral`}
+---# `number` and `romannumeral`
 ---
 ---These are the companions to the primitives `number` and `romannumeral`. They can be used like:
 ---
@@ -1246,7 +1246,7 @@
 ---tex.print(tex.romannumeral(123))
 ---```
 ---
----\subsubsection{`fontidentifier` and `fontname`}
+---# `fontidentifier` and `fontname`
 ---
 ---The first one returns the name only, the second one reports the size too.
 ---
@@ -1255,7 +1255,7 @@
 ---tex.print(tex.fontname(tex.fontidentidier))
 ---```
 ---
----\subsubsection{`sp`}
+---# `sp`
 ---
 ---```
 ---<number> n = tex.sp(<number> o)
@@ -1276,7 +1276,7 @@
 ---
 ---* `mu` units do not generate an error (but may not be useful either)
 ---
----\subsubsection{`tex.getlinenumber` and `tex.setlinenumber`}
+---# `tex.getlinenumber` and `tex.setlinenumber`
 ---
 ---You can mess with the current line number:
 ---
@@ -1296,7 +1296,7 @@
 ---to the original line). Interference with *TeX*'s internal handling of numbers is
 ---of course possible.
 ---
----\subsubsection{`error` and `show_context`}
+---# `error` and `show_context`
 ---
 ---```
 ---tex.error(<string> s)
@@ -1311,7 +1311,7 @@
 ---In case of an error the `show_context` function will show the current
 ---context where we're at (in the expansion).
 ---
----\subsubsection{`run`, `finish`}
+---# `run`, `finish`
 ---
 ---These two functions start the interpretations and force its end. A runs normally
 ---boils down to *TeX* entering the so called main loop. A token is fetched and
@@ -1321,7 +1321,7 @@
 ---pushing and popping input states, but in the end after all the action is done
 ---returns to the main loop.
 ---
----\subsubsection{`runtoks`}
+---# `runtoks`
 ---
 ---Because of the fact that *TeX* is in a complex dance of expanding, dealing with
 ---fonts, typesetting paragraphs, messing around with boxes, building pages, and so
@@ -1359,7 +1359,7 @@
 ---end that can mean that you arrive at the main level in which case an extra end
 ---will trigger a redundancy warning (not an abort!).
 ---
----\subsubsection{`forcehmode`}
+---# `forcehmode`
 ---
 ---An example of a (possible error triggering) complication is that *TeX* expects to
 ---be in some state, say horizontal mode, and you have to make sure it is when you
@@ -1368,7 +1368,7 @@
 ---can be situations that you need to run `forcehmode`. There is no recipe for
 ---this and intercepting possible cases would weaken *LuaTeX*'s flexibility.
 ---
----\subsubsection{`hashtokens`}
+---# `hashtokens`
 ---
 ---```
 ---for i,v in pairs (tex.hashtokens()) do ... end
@@ -1379,7 +1379,7 @@
 ---local redefinitions: it is strictly a dump of the hash table. You can use `token.create` to inspect properties, for instance when the `command` key
 ---in a created table equals `123`, you have the `cmdname` value `undefined_cs`.
 ---
----\subsubsection{`definefont`}
+---# `definefont`
 ---
 ---```
 ---tex.definefont(<string> csname, <number> fontid)
@@ -1396,7 +1396,7 @@
 ---
 ---# Functions for dealing with primitives
 ---
----\subsubsection{`enableprimitives`}
+---# `enableprimitives`
 ---
 ---```
 ---tex.enableprimitives(<string> prefix, <table> primitive names)
@@ -1445,7 +1445,7 @@
 ---code but not do much else. The defined csnames are (of course) saved in the
 ---format and will be available at runtime.
 ---
----\subsubsection{`extraprimitives`}
+---# `extraprimitives`
 ---
 ---```
 ---<table> t = tex.extraprimitives(<string> s, ...)
@@ -1482,7 +1482,7 @@
 ---Running `tex.extraprimitives` will give you the complete list of
 ---primitives `-ini` startup. It is exactly equivalent to `tex.extraprimitives("etex","luatex")`.
 ---
----\subsubsection{`primitives`}
+---# `primitives`
 ---
 ---```
 ---<table> t = tex.primitives()
@@ -1496,7 +1496,7 @@
 ---
 ---# Core functionality interfaces
 ---
----\subsubsection{`badness`}
+---# `badness`
 ---
 ---```
 ---<number> b = tex.badness(<number> t, <number> s)
@@ -1506,12 +1506,12 @@
 ---is supposed to be made from amounts that sum to `s`. The returned number is
 ---a reasonable approximation of \mathematics {100(t/s)^3};
 ---
----\subsubsection{`tex.resetparagraph`}
+---# `tex.resetparagraph`
 ---
 ---This function resets the parameters that *TeX* normally resets when a new paragraph
 ---is seen.
 ---
----\subsubsection{`linebreak`}
+---# `linebreak`
 ---
 ---```
 ---local <node> nodelist, <table> info =
@@ -1585,7 +1585,7 @@
 ---etc. All these are in the `hpack` routine, and that fetches its own
 ---variables via globals.
 ---
----\subsubsection{`shipout`}
+---# `shipout`
 ---
 ---```
 ---tex.shipout(<number> n)
@@ -1593,12 +1593,12 @@
 ---
 ---Ships out box number `n` to the output file, and clears the box register.
 ---
----\subsubsection{`getpagestate`}
+---# `getpagestate`
 ---
 ---This helper reports the current page state: `empty`, `box_there` or
 ---`inserts_only` as integer value.
 ---
----\subsubsection{`getlocallevel`}
+---# `getlocallevel`
 ---
 ---This integer reports the current level of the local loop. It's only useful for
 ---debugging and the (relative state) numbers can change with the implementation.

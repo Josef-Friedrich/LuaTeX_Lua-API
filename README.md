@@ -255,7 +255,7 @@ local kern = node.new('kern') --[[@as KernNode]]
 How a callback function is documented is shown using the
 `pre_linebreak_filter` as an example.
 
-#### @alias `PreLinebreakFilterCallbackGroupCode`
+#### @alias `PreLinebreakFilterGroupCode`
 
 ```lua
 ---
@@ -264,7 +264,7 @@ How a callback function is documented is shown using the
 ---not all of those can actually appear in `pre_linebreak_filter`, some are
 ---for the `hpack_filter` and `vpack_filter` callbacks that will be
 ---explained in the next two paragraphs.
----@alias PreLinebreakFilterCallbackGroupCode
+---@alias PreLinebreakFilterGroupCode
 ---|'' # main vertical list
 ---|'hbox' # hbox` in horizontal mode
 ---|'adjusted_hbox' #hbox` in vertical mode
@@ -297,7 +297,7 @@ How a callback function is documented is shown using the
 ---@alias NodeCallbackReturn true|false|Node
 ```
 
-#### @alias `PreLinebreakFilterCallback`
+#### @alias `PreLinebreakFilter`
 
 ```lua
 ---
@@ -307,7 +307,7 @@ How a callback function is documented is shown using the
 ---into a stack of `hbox`es, after the addition of `parfillskip`.
 ---
 ---```lua
-------@type PreLinebreakFilterCallback
+------@type PreLinebreakFilter
 ---function(head, groupcode)
 ---  --- true|false|node
 ---  return true
@@ -315,13 +315,13 @@ How a callback function is documented is shown using the
 ---```
 ---
 ---This callback does not replace any internal code.
----@alias PreLinebreakFilterCallback fun(head: Node, groupcode: PreLinebreakFilterCallbackGroupCode): NodeCallbackReturn
+---@alias PreLinebreakFilter fun(head: Node, groupcode: PreLinebreakFilterGroupCode): NodeCallbackReturn
 ```
 
 Annotation your custom callback function with `@type`.
 
 ```lua
----@type PreLinebreakFilterCallback
+---@type PreLinebreakFilter
 local function visit_nodes(head, group)
   return true
 end
@@ -329,7 +329,7 @@ end
 luatexbase.add_to_callback('pre_linebreak_filter', visit_nodes, 'visit nodes')
 ```
 
-![](resources/images/PreLinebreakFilterCallback.png)
+![](resources/images/PreLinebreakFilter.png)
 
 Quick info `node.id(type)`
 

@@ -69,7 +69,7 @@
 ---The behaviour documented in this subsection is considered stable in the sense that
 ---there will not be backward-incompatible changes any more.
 ---
----\subsection{`find_read_file` and `find_write_file`}
+---# `find_read_file` and `find_write_file`
 ---
 ---Your callback function should have the following conventions:
 ---
@@ -103,7 +103,7 @@
 ---
 ---You have to return `nil` if the file cannot be found.
 ---
----\subsection{`find_font_file`}
+---# `find_font_file`
 ---
 ---Your callback function should have the following conventions:
 ---
@@ -116,7 +116,7 @@
 ---
 ---Return `nil` if the file cannot be found.
 ---
----\subsection{`find_output_file`}
+---# `find_output_file`
 ---
 ---Your callback function should have the following conventions:
 ---
@@ -127,7 +127,7 @@
 ---
 ---The `asked_name` is the *PDF* or \DVI\ file for writing.
 ---
----\subsection{`find_format_file`}
+---# `find_format_file`
 ---
 ---Your callback function should have the following conventions:
 ---
@@ -139,20 +139,20 @@
 ---The `asked_name` is a format file for reading (the format file for writing
 ---is always opened in the current directory).
 ---
----\subsection{`find_vf_file`}
+---# `find_vf_file`
 ---
 ---Like `find_font_file`, but for virtual fonts. This applies to both \ALEPH's
 ---\OVF\ files and traditional Knuthian \VF\ files.
 ---
----\subsection{`find_map_file`}
+---# `find_map_file`
 ---
 ---Like `find_font_file`, but for map files.
 ---
----\subsection{`find_enc_file`}
+---# `find_enc_file`
 ---
 ---Like `find_font_file`, but for enc files.
 ---
----\subsection{`find_pk_file`}
+---# `find_pk_file`
 ---
 ---Like `find_font_file`, but for pk bitmap files. This callback takes two
 ---arguments: `name` and `dpi`. In your callback you can decide to
@@ -165,15 +165,15 @@
 ---but other strategies are possible. It is up to you to find a “reasonable”
 ---bitmap file to go with that specification.
 ---
----\subsection{`find_data_file`}
+---# `find_data_file`
 ---
 ---Like `find_font_file`, but for embedded files (`\pdfobj file '...'`).
 ---
----\subsection{`find_opentype_file`}
+---# `find_opentype_file`
 ---
 ---Like `find_font_file`, but for *OpenType* font files.
 ---
----\subsection{`find_truetype_file` and `find_type1_file`}
+---# `find_truetype_file` and `find_type1_file`
 ---
 ---Your callback function should have the following conventions:
 ---
@@ -189,7 +189,7 @@
 ---Strangely enough, `find_type1_file` is also used for *OpenType* (\OTF)
 ---fonts.
 ---
----\subsection{`find_image_file`}
+---# `find_image_file`
 ---
 ---Your callback function should have the following conventions:
 ---
@@ -211,7 +211,7 @@
 ---The behavior documented in this subsection is considered stable in the sense that
 ---there will not be backward-incompatible changes any more.
 ---
----\subsection{`open_read_file`}
+---# `open_read_file`
 ---
 ---Your callback function should have the following conventions:
 ---
@@ -240,7 +240,7 @@
 ---private per-file data. Both the callback functions will receive the table as
 ---their only argument.
 ---
----\subsubsection{`reader`}
+---# `reader`
 ---
 ---*LuaTeX* will run this function whenever it needs a new input line from the file.
 ---
@@ -254,7 +254,7 @@
 ---signals that the end of file has occurred, and will make *TeX* call the optional
 ---`close` function next.
 ---
----\subsubsection{`close`}
+---# `close`
 ---
 ---*LuaTeX* will run this optional function when it decides to close the file.
 ---
@@ -265,7 +265,7 @@
 ---
 ---Your function should not return any value.
 ---
----\subsection{General file readers}
+---# General file readers
 ---
 ---There is a set of callbacks for the loading of binary data files. These all use
 ---the same interface:
@@ -315,7 +315,7 @@
 ---
 ---# Data processing callbacks[library=callback]
 ---
----\subsection{`process_input_buffer`}
+---# `process_input_buffer`
 ---
 ---This callback allows you to change the contents of the line input buffer just
 ---before *LuaTeX* actually starts looking at it.
@@ -330,7 +330,7 @@
 ---happened. You can gain a small amount of processing time from that. This callback
 ---does not replace any internal code.
 ---
----\subsection{`process_output_buffer`}
+---# `process_output_buffer`
 ---
 ---This callback allows you to change the contents of the line output buffer just
 ---before *LuaTeX* actually starts writing it to a file as the result of a `write` command. It is only called for output to an actual file (that is,
@@ -346,7 +346,7 @@
 ---happened. You can gain a small amount of processing time from that. This callback
 ---does not replace any internal code.
 ---
----\subsection{`process_jobname`}
+---# `process_jobname`
 ---
 ---This callback allows you to change the jobname given by `jobname` in *TeX*
 ---and `tex.jobname` in Lua. It does not affect the internal job name or the
@@ -371,7 +371,7 @@
 ---
 ---The description of nodes and node lists is in \in{chapter}[nodes].
 ---
----\subsection{`contribute_filter`}
+---# `contribute_filter`
 ---
 ---This callback is called when *LuaTeX* adds contents to list:
 ---
@@ -390,7 +390,7 @@
 --- `box`         a typeset box is being added (always called) 
 --- `adjust`      `vadjust` material is being added       
 ---
----\subsection{`buildpage_filter`}
+---# `buildpage_filter`
 ---
 ---This callback is called whenever *LuaTeX* is ready to move stuff to the main
 ---vertical list. You can use this callback to do specialized manipulation of the
@@ -418,7 +418,7 @@
 --- `after_display`    a display is finished                   
 --- `end`              *LuaTeX* is terminating (it's all over) 
 ---
----\subsection{`build_page_insert`}
+---# `build_page_insert`
 ---
 ---This callback is called when the pagebuilder adds an insert. There is not much
 ---control over this mechanism but this callback permits some last minute
@@ -443,7 +443,7 @@
 ---course you can mess with the insert box but you need to make sure that *LuaTeX*
 ---is happy afterwards.
 ---
----\subsection{`pre_linebreak_filter`}
+---# `pre_linebreak_filter`
 ---
 ---This callback is called just before *LuaTeX* starts converting a list of nodes
 ---into a stack of `hbox`es, after the addition of `parfillskip`.
@@ -490,7 +490,7 @@
 ---
 ---This callback does not replace any internal code.
 ---
----\subsection{`linebreak_filter`}
+---# `linebreak_filter`
 ---
 ---This callback replaces *LuaTeX*'s line breaking algorithm.
 ---
@@ -513,7 +513,7 @@
 ---Setting this callback to `false` is possible, but dangerous, because it is
 ---possible you will end up in an unfixable “deadcycles loop”.
 ---
----\subsection{`append_to_vlist_filter`}
+---# `append_to_vlist_filter`
 ---
 ---This callback is called whenever *LuaTeX* adds a box to a vertical list:
 ---
@@ -528,7 +528,7 @@
 ---with it yourself. The prevdepth is also optional. Locations are `box`,
 ---`alignment`, `equation`, `equation_number` and `post_linebreak`. You can pass `nil` instead of a node.
 ---
----\subsection{`post_linebreak_filter`}
+---# `post_linebreak_filter`
 ---
 ---This callback is called just after *LuaTeX* has converted a list of nodes into a
 ---stack of `hbox`es.
@@ -541,7 +541,7 @@
 ---
 ---This callback does not replace any internal code.
 ---
----\subsection{`hpack_filter`}
+---# `hpack_filter`
 ---
 ---This callback is called when *TeX* is ready to start boxing some horizontal mode
 ---material. Math items and line boxes are ignored at the moment.
@@ -562,7 +562,7 @@
 ---
 ---This callback does not replace any internal code.
 ---
----\subsection{`vpack_filter`}
+---# `vpack_filter`
 ---
 ---This callback is called when *TeX* is ready to start boxing some vertical mode
 ---material. Math displays are ignored at the moment.
@@ -580,7 +580,7 @@
 ---
 ---This callback does not replace any internal code.
 ---
----\subsection{`hpack_quality`}
+---# `hpack_quality`
 ---
 ---This callback can be used to intercept the overfull messages that can result from
 ---packing a horizontal list (as happens in the par builder). The function takes a
@@ -599,7 +599,7 @@
 ---Optionally you can return a node, for instance an overfull rule indicator. That
 ---node will be appended to the list (just like *TeX*'s own rule would).
 ---
----\subsection{`vpack_quality`}
+---# `vpack_quality`
 ---
 ---This callback can be used to intercept the overfull messages that can result from
 ---packing a vertical list (as happens in the page builder). The function takes a
@@ -614,14 +614,14 @@
 ---The incident is one of `overfull`, `underfull`, `loose` or
 ---`tight`. The detail is either the amount of overflow in case of `overfull`, or the badness otherwise. The head is the list that is constructed.
 ---
----\subsection{`process_rule`}
+---# `process_rule`
 ---
 ---This is an experimental callback. It can be used with rules of subtype 4
 ---(user). The callback gets three arguments: the node, the width and the
 ---height. The callback can use `pdf.print` to write code to the *PDF*
 ---file but beware of not messing up the final result. No checking is done.
 ---
----\subsection{`pre_output_filter`}
+---# `pre_output_filter`
 ---
 ---This callback is called when *TeX* is ready to start boxing the box 255 for `output`.
 ---
@@ -634,7 +634,7 @@
 ---
 ---This callback does not replace any internal code.
 ---
----\subsection{`hyphenate`}
+---# `hyphenate`
 ---
 ---```
 ---function(<node> head, <node> tail)
@@ -647,7 +647,7 @@
 ---Setting this callback to `false` will prevent the internal discretionary
 ---insertion pass.
 ---
----\subsection{`ligaturing`}
+---# `ligaturing`
 ---
 ---```
 ---function(<node> head, <node> tail)
@@ -674,7 +674,7 @@
 ---You must not ruin the node list. For instance, the head normally is a local par node,
 ---and the tail a glue. Messing too much can push *LuaTeX* into panic mode.
 ---
----\subsection{`kerning`}
+---# `kerning`
 ---
 ---```
 ---function(<node> head, <node> tail)
@@ -690,7 +690,7 @@
 ---You must not ruin the node list. For instance, the head normally is a local par node,
 ---and the tail a glue. Messing too much can push *LuaTeX* into panic mode.
 ---
----\subsection{`insert_local_par`}
+---# `insert_local_par`
 ---
 ---Each paragraph starts with a local par node that keeps track of for instance
 ---the direction. You can hook a callback into the creator:
@@ -703,7 +703,7 @@
 ---There is no return value and you should make sure that the node stays valid
 ---as otherwise *TeX* can get confused.
 ---
----\subsection{`mlist_to_hlist`}
+---# `mlist_to_hlist`
 ---
 ---This callback replaces *LuaTeX*'s math list to node list conversion algorithm.
 ---
@@ -727,7 +727,7 @@
 ---
 ---# Information reporting callbacks[library=callback]
 ---
----\subsection{`pre_dump`}
+---# `pre_dump`
 ---
 ---```
 ---function()
@@ -737,7 +737,7 @@
 ---This function is called just before dumping to a format file starts. It does not
 ---replace any code and there are neither arguments nor return values.
 ---
----\subsection{`start_run`}
+---# `start_run`
 ---
 ---```
 ---function()
@@ -748,7 +748,7 @@
 ---successful use, this callback has to be set in the *Lua* initialization script,
 ---otherwise it will be seen only after the run has already started.
 ---
----\subsection{`stop_run`}
+---# `stop_run`
 ---
 ---```
 ---function()
@@ -758,7 +758,7 @@
 ---This callback replaces the code that prints *LuaTeX*'s statistics and “output written to” messages. The engine can still do housekeeping and therefore
 ---you should not rely on this hook for postprocessing the *PDF* or log file.
 ---
----\subsection{`start_page_number`}
+---# `start_page_number`
 ---
 ---```
 ---function()
@@ -769,7 +769,7 @@
 ---`shipout`. This callback will also override the printing of box information
 ---that normally takes place when `tracingoutput` is positive.
 ---
----\subsection{`stop_page_number`}
+---# `stop_page_number`
 ---
 ---```
 ---function()
@@ -778,7 +778,7 @@
 ---
 ---Replaces the code that prints the `]` at the end of `shipout`.
 ---
----\subsection{`show_error_hook`}
+---# `show_error_hook`
 ---
 ---```
 ---function()
@@ -789,7 +789,7 @@
 ---allow you to do some extra reporting on top of what *TeX* already does (none of
 ---the normal actions are removed). You may find some of the values in the `status` table useful. This callback does not replace any internal code.
 ---
----\subsection{`show_error_message`}
+---# `show_error_message`
 ---
 ---```
 ---function()
@@ -799,7 +799,7 @@
 ---This callback replaces the code that prints the error message. The usual
 ---interaction after the message is not affected.
 ---
----\subsection{`show_lua_error_hook`}
+---# `show_lua_error_hook`
 ---
 ---```
 ---function()
@@ -808,7 +808,7 @@
 ---
 ---This callback replaces the code that prints the extra *Lua* error message.
 ---
----\subsection{`start_file`}
+---# `start_file`
 ---
 ---```
 ---function(category,filename)
@@ -826,7 +826,7 @@
 --- 4  an embedded font subset 
 --- 5  a fully embedded font 
 ---
----\subsection{`stop_file`}
+---# `stop_file`
 ---
 ---```
 ---function(category)
@@ -836,7 +836,7 @@
 ---This callback replaces the code that prints *LuaTeX*'s when a file is closed like
 ---the `)` for regular files.
 ---
----\subsection{`call_edit`}
+---# `call_edit`
 ---
 ---```
 ---function(filename,linenumber)
@@ -847,13 +847,13 @@
 ---in reply to an error message. Processing will end immediately after the callback
 ---returns control to the main program.
 ---
----\subsection{`finish_synctex`}
+---# `finish_synctex`
 ---
 ---This callback can be used to wrap up alternative synctex methods. It kicks in
 ---after the normal synctex finalizer (that happens to remove the synctex files
 ---after a run when native synctex is not enabled).
 ---
----\subsection{`wrapup_run`}
+---# `wrapup_run`
 ---
 ---This callback is called after the *PDF* and log files are closed. Use it at your own
 ---risk.
@@ -864,7 +864,7 @@
 ---
 ---# *PDF* related callbacks[library=callback]
 ---
----\subsection{`finish_pdffile`}
+---# `finish_pdffile`
 ---
 ---```
 ---function()
@@ -877,7 +877,7 @@
 ---`/Info`. The callback does not replace any code. There are neither
 ---arguments nor return values.
 ---
----\subsection{`finish_pdfpage`}
+---# `finish_pdfpage`
 ---
 ---```
 ---function(shippingout)
@@ -887,7 +887,7 @@
 ---This callback is called after the *PDF* page stream has been assembled and before
 ---the page object gets finalized.
 ---
----\subsection{`page_order_index`}
+---# `page_order_index`
 ---
 ---This is one that experts can use to juggle the page tree, a data structure
 ---that determines the order in a *PDF* file:
@@ -915,7 +915,7 @@
 ---pages which is a side effect of the implementation. When you mess things up
 ---\unknown\ don't complain.
 ---
----\subsection{`process_pdf_image_content`}
+---# `process_pdf_image_content`
 ---
 ---When a page from a *PDF* file is embedded its page stream as well as related
 ---objects are copied to the target file. However, it can be that the page stream
@@ -941,7 +941,7 @@
 ---
 ---# Font-related callbacks[library=callback]
 ---
----\subsection{`define_font`}
+---# `define_font`
 ---
 ---```
 ---function(<string> name, <number> size, <number> id)
@@ -970,7 +970,7 @@
 ---Setting this callback to `false` is pointless as it will prevent font
 ---loading completely but will nevertheless generate errors.
 ---
----\subsection{`glyph_not_found` and `glyph_info`}
+---# `glyph_not_found` and `glyph_info`
 ---
 ---The `glyph_not_found` callback, when set, kicks in when the backend cannot
 ---insert a glyph. When no callback is defined a message is written to the log.

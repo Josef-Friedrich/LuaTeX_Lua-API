@@ -137,7 +137,7 @@ function callback.find(callback_name) end
 ---not all of those can actually appear in `pre_linebreak_filter`, some are
 ---for the `hpack_filter` and `vpack_filter` callbacks that will be
 ---explained in the next two paragraphs.
----@alias PreLinebreakFilterCallbackGroupCode
+---@alias PreLinebreakFilterGroupCode
 ---|'' # main vertical list
 ---|'hbox' # hbox` in horizontal mode
 ---|'adjusted_hbox' #hbox` in vertical mode
@@ -171,7 +171,7 @@ function callback.find(callback_name) end
 ---into a stack of `hbox`es, after the addition of `parfillskip`.
 ---
 ---```lua
-------@type PreLinebreakFilterCallback
+------@type PreLinebreakFilter
 ---function(head, groupcode)
 ---  --- true|false|node
 ---  return true
@@ -179,4 +179,46 @@ function callback.find(callback_name) end
 ---```
 ---
 ---This callback does not replace any internal code.
----@alias PreLinebreakFilterCallback fun(head: Node, groupcode: PreLinebreakFilterCallbackGroupCode): NodeCallbackReturn
+---@alias PreLinebreakFilter fun(head: Node, groupcode: PreLinebreakFilterGroupCode): NodeCallbackReturn
+
+---
+---# `linebreak_filter`
+---
+---This callback replaces *LuaTeX*'s line breaking algorithm.
+---
+---The returned node is the head of the list that will be added to the main vertical
+---list, the boolean argument is true if this paragraph is interrupted by a
+---following math display.
+---
+---If you return something that is not a `<node>`, *LuaTeX* will apply the
+---internal linebreak algorithm on the list that starts at `<head>`.
+---Otherwise, the `<node>` you return is supposed to be the head of a list of
+---nodes that are all allowed in vertical mode, and at least one of those has to
+---represent a hbox. Failure to do so will result in a fatal error.
+---
+---Setting this callback to `false` is possible, but dangerous, because it is
+---possible you will end up in an unfixable “deadcycles loop”.
+---@alias LinebreakFilter fun(head: Node, is_display: boolean): NodeCallbackReturn
+
+---@alias AppendToVlistFilterLocationcode
+---| 'box'
+---| 'alignment'
+---| 'equation'
+---| 'equation_number'
+---| 'post_linebreak'
+
+---
+---# `append_to_vlist_filter`
+---
+---This callback is called whenever *LuaTeX* adds a box to a vertical list:
+---
+---```
+---function(<node> box, <string> locationcode, <number prevdepth>,
+---    <boolean> mirrored)
+---    return list, prevdepth
+---end
+---```
+---
+---It is ok to return nothing in which case you also need to flush the box or deal
+---with it yourself. The prevdepth is also optional. You can pass `nil` instead of a node.
+---@alias AppendToVlistFilter fun(box: Node, locationcode: AppendToVlistFilterLocationcode, prevdepth: integer, mirrored: boolean)

@@ -70,7 +70,9 @@ def patch_file(file_name: str):
     content = re.sub(
         r"\\start(sub)*(section|chapter)*\[.*title=\{(.*?)\}\]", r"# \3", content
     )
-
+    content = re.sub(
+        r"\\(sub)*section\{(.*?)\}", r"# \2", content
+    )
     content = re.sub(r"\\(libindex|topicindex)\s*\{[^}]+\}", "", content)
     content = re.sub(r"---\n(---\n)+", "---\n", content)
 
