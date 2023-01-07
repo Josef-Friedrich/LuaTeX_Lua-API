@@ -14,7 +14,7 @@ def patch_file(file_name: str):
         content = src.read()
 
     content = re.sub(
-        r"\\(type|typ|prm|lpr|nod|syntax|notabene|whs)[\s]*\{([^}]*)\}",
+        r"\\(type|typ|prm|lpr|nod|syntax|notabene|whs|cbk)[\s]*\{([^}]*)\}",
         r"`\2`",
         content,
     )

@@ -10,9 +10,9 @@
 ---
 ---All *TeX* fonts are represented to *Lua* code as tables, and internally as
 ---\CCODE structures. All keys in the table below are saved in the internal font
----structure if they are present in the table returned by the \cbk {define_font}
+---structure if they are present in the table returned by the `define_font`
 ---callback, or if they result from the normal \TFM/\VF\ reading routines if there
----is no \cbk {define_font} callback defined.
+---is no `define_font` callback defined.
 ---
 ---The column “\VF” means that this key will be created by the `font.read_vf()` routine, “\TFM” means that the key will be created by the
 ---`font.read_tfm()` routine, and “used” means whether or not the
@@ -358,7 +358,7 @@
 ---\subsection{The structure}
 ---
 ---You have to take the following steps if you want *LuaTeX* to treat the returned
----table from \cbk {define_font} as a virtual font:
+---table from `define_font` as a virtual font:
 ---
 ---* Set the top-level key `type` to `virtual`. In most cases it's
 ---    optional because we look at the `commands` entry anyway.

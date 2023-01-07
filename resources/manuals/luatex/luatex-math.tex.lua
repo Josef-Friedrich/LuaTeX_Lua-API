@@ -883,7 +883,7 @@
 ---```
 ---
 ---This primnitive is not really needed in *LuaTeX* because you can use the callback
----\cbk {mlist_to_hlist} to force penalties by just calling the regular routine
+---`mlist_to_hlist` to force penalties by just calling the regular routine
 ---with forced penalties. However, as part of opening up and control this primitive
 ---makes sense. As a bonus we also provide two extra penalties:
 ---

@@ -1272,7 +1272,7 @@
 ---
 ---This runs the internal mlist to hlist conversion, converting the math list in
 ---`n` into the horizontal list `h`. The interface is exactly the same
----as for the callback \cbk {mlist_to_hlist}.
+---as for the callback `mlist_to_hlist`.
 ---
 ---\subsection{`slide`}
 ---

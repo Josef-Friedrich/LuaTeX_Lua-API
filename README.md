@@ -193,6 +193,87 @@ Function overloading in `tex.sp()`
 
 ![](resources/images/tex.sp_overload.png)
 
+### Documentation of callback functions
+
+How a callback function is documented is shown using the
+`pre_linebreak_filter` as an example.
+
+#### @alias `PreLinebreakFilterCallbackGroupCode`
+
+```lua
+---
+---The string called `groupcode` identifies the nodelist's context within
+---*TeX*'s processing. The range of possibilities is given in the table below, but
+---not all of those can actually appear in `pre_linebreak_filter`, some are
+---for the `hpack_filter` and `vpack_filter` callbacks that will be
+---explained in the next two paragraphs.
+---@alias PreLinebreakFilterCallbackGroupCode
+---|'' # main vertical list
+---|'hbox' # hbox` in horizontal mode
+---|'adjusted_hbox' #hbox` in vertical mode
+---|'vbox' # vbox`
+---|'vtop' # vtop' #
+---|'align' # halign` or `valign`
+---|'disc' # discretionaries
+---|'insert' # packaging an insert
+---|'vcenter' # vcenter`
+---|'local_box' # localleftbox` or `localrightbox`
+---|'split_off' # top of a `vsplit`
+---|'split_keep' # remainder of a `vsplit`
+---|'align_set' # alignment cell
+---|'fin_row' # alignment row
+```
+
+#### @alias `NodeCallbackReturn`
+
+
+```lua
+---
+---As for all the callbacks that deal with nodes, the return value can be one of
+---three things:
+---
+---* boolean `true` signals successful processing
+---* `<node>` signals that the “head” node should be replaced by the
+---  returned node
+---* boolean `false` signals that the “head” node list should be
+---  ignored and flushed from memory
+---@alias NodeCallbackReturn true|false|Node
+```
+
+#### @alias `PreLinebreakFilterCallback`
+
+```lua
+---
+---# `pre_linebreak_filter` callback
+---
+---This callback is called just before *LuaTeX* starts converting a list of nodes
+---into a stack of `hbox`es, after the addition of `parfillskip`.
+---
+---```lua
+------@type PreLinebreakFilterCallback
+---function(head, groupcode)
+---  --- true|false|node
+---  return true
+---end
+---```
+---
+---This callback does not replace any internal code.
+---@alias PreLinebreakFilterCallback fun(head: Node, groupcode: PreLinebreakFilterCallbackGroupCode): NodeCallbackReturn
+```
+
+Annotation your custom callback function with `@type`.
+
+```lua
+---@type PreLinebreakFilterCallback
+local function visit_nodes(head, group)
+  return true
+end
+
+luatexbase.add_to_callback('pre_linebreak_filter', visit_nodes, 'visit nodes')
+```
+
+![](resources/images/PreLinebreakFilterCallback.png)
+
 Quick info `node.id(type)`
 
 ![](resources/images/node.id.png)
@@ -208,8 +289,6 @@ Type error in `node.id(type)`
 Quick info `node.write(n)`
 
 ![](resources/images/node.write.png)
-
-
 
 Documentation for the field `data` of the `pdf_colorstack` node:
 

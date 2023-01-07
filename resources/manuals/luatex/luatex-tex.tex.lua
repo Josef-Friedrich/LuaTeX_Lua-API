@@ -1554,7 +1554,7 @@
 ---It is your own job to make sure that `listhead` is a proper paragraph list:
 ---this function does not add any nodes to it. To be exact, if you want to replace
 ---the core line breaking, you may have to do the following (when you are not
----actually working in the \cbk {pre_linebreak_filter} or \cbk {linebreak_filter}
+---actually working in the `pre_linebreak_filter` or `linebreak_filter`
 ---callbacks, or when the original list starting at listhead was generated in
 ---horizontal mode):
 ---

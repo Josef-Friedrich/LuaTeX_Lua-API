@@ -402,7 +402,7 @@
 ---
 --- key                   type  explanation 
 ---
---- `type`           enum  `position`, `pair`, `substitution`, `alternate`, `multiple`, `ligature`, `lcaret`, \cbk {kerning}, `vkerning`, `anchors`, `contextpos`, `contextsub`, `chainpos`, `chainsub`, `reversesub`, `max`, `kernback`, `vkernback` 
+--- `type`           enum  `position`, `pair`, `substitution`, `alternate`, `multiple`, `ligature`, `lcaret`, `kerning`, `vkerning`, `anchors`, `contextpos`, `contextsub`, `chainpos`, `chainsub`, `reversesub`, `max`, `kernback`, `vkernback` 
 ---@field specification table # extra data 
 ---
 ---For the first seven values of `type`, there can be additional
