@@ -50,57 +50,109 @@ node = {}
 ---| "RTT" # cjk
 ---| "LTL" # mongolian
 
----@alias NodeType
----| "hlist"
----| "vlist"
----| "rule"
----| "ins"
----| "mark"
----| "adjust"
----| "boundary"
----| "disc"
----| "whatsit"
----| "local_par"
----| "dir"
----| "math"
----| "glue"
----| "kern"
----| "penalty"
----| "unset"
----| "style"
----| "choice"
----| "noad"
----| "radical"
----| "fraction
----| "accent"
----| "fence"
----| "math_char"
----| "sub_box"
----| "sub_mlist"
----| "math_text_char
----| "delim"
----| "margin_kern"
----| "glyph"
----| "align_record"
----| "pseudo_file"
----| "pseudo_line"
----| "page_insert"
----| "split_insert"
----| "expr_stack"
----| "nested_list"
----| "span
----| "attribute"
----| "glue_spec"
----| "attribute_list"
----| "temp"
----| "align_stack"
----| "movement_stack"
----| "if_stack"
----| "unhyphenated"
----| "hyphenated"
----| "delta"
----| "passive"
----| "shape"
+---@alias NodeTypeName
+---| 'hlist' # 0
+---| 'vlist' # 1
+---| 'rule' # 2
+---| 'ins' # 3
+---| 'mark' # 4
+---| 'adjust' # 5
+---| 'boundary' # 6
+---| 'disc' # 7
+---| 'whatsit' # 8
+---| 'local_par' # 9
+---| 'dir' # 10
+---| 'math' # 11
+---| 'glue' # 12
+---| 'kern' # 13
+---| 'penalty' # 14
+---| 'unset' # 15
+---| 'style' # 16
+---| 'choice' # 17
+---| 'noad' # 18
+---| 'radical' # 19
+---| 'fraction' # 20
+---| 'accent' # 21
+---| 'fence' # 22
+---| 'math_char' # 23
+---| 'sub_box' # 24
+---| 'sub_mlist' # 25
+---| 'math_text_char' # 26
+---| 'delim' # 27
+---| 'margin_kern' # 28
+---| 'glyph' # 29
+---| 'align_record' # 30
+---| 'pseudo_file' # 31
+---| 'pseudo_line' # 32
+---| 'page_insert' # 33
+---| 'split_insert' # 34
+---| 'expr_stack' # 35
+---| 'nested_list' # 36
+---| 'span' # 37
+---| 'attribute' # 38
+---| 'glue_spec' # 39
+---| 'attribute_list' # 40
+---| 'temp' # 41
+---| 'align_stack' # 42
+---| 'movement_stack' # 43
+---| 'if_stack' # 44
+---| 'unhyphenated' # 45
+---| 'hyphenated' # 46
+---| 'delta' # 47
+---| 'passive' # 48
+---| 'shape' # 49
+
+---@alias NodeTypeId
+---| 0  # hlist
+---| 1  # vlist
+---| 2  # rule
+---| 3  # ins
+---| 4  # mark
+---| 5  # adjust
+---| 6  # boundary
+---| 7  # disc
+---| 8  # whatsit
+---| 9  # local_par
+---| 10 # dir
+---| 11 # math
+---| 12 # glue
+---| 13 # kern
+---| 14 # penalty
+---| 15 # unset
+---| 16 # style
+---| 17 # choice
+---| 18 # noad
+---| 19 # radical
+---| 20 # fraction
+---| 21 # accent
+---| 22 # fence
+---| 23 # math_char
+---| 24 # sub_box
+---| 25 # sub_mlist
+---| 26 # math_text_char
+---| 27 # delim
+---| 28 # margin_kern
+---| 29 # glyph
+---| 30 # align_record
+---| 31 # pseudo_file
+---| 32 # pseudo_line
+---| 33 # page_insert
+---| 34 # split_insert
+---| 35 # expr_stack
+---| 36 # nested_list
+---| 37 # span
+---| 38 # attribute
+---| 39 # glue_spec
+---| 40 # attribute_list
+---| 41 # temp
+---| 42 # align_stack
+---| 43 # movement_stack
+---| 44 # if_stack
+---| 45 # unhyphenated
+---| 46 # hyphenated
+---| 47 # delta
+---| 48 # passive
+---| 49 # shape
 
 ---A number in the range `[0,4]` indicating the glue order.
 ---@alias GlueOrder 0|1|2|3|4
@@ -906,7 +958,7 @@ _N._7_4_id = 145
 ------
 ---Source: [luatex-nodes.tex#L1235-L1244](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1235-L1244)
 ---
----@param type NodeType
+---@param type NodeTypeName
 ---
 ---@return integer
 function node.id(type) end
@@ -928,9 +980,9 @@ _N._7_5_type_subtype = 145
 ---node.type('xxx') -- nil
 ---```
 ---
----@param n integer|Node|any
+---@param n NodeTypeId|Node # The numeric node type id.
 ---
----@return 'node'|NodeType|nil
+---@return 'node'|NodeTypeName|nil
 function node.type(n) end
 
 ---
@@ -965,7 +1017,7 @@ _N._7_8_new = 146
 ------
 ---Source: [luatex-nodes.tex#L1299-L1314](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1299-L1314)
 ---
----@param id integer|NodeType
+---@param id integer|NodeTypeName
 ---@param subtype? integer|string
 ---
 ---@return Node
