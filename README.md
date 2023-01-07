@@ -241,6 +241,12 @@ while n do
 end
 ```
 
+Use `--[[@as <node type>]]` to force a node type onto an expression.
+
+```lua
+local kern = node.new('kern') --[[@as KernNode]]
+```
+
 ![](resources/images/cast.png)
 
 

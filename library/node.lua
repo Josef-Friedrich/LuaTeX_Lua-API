@@ -1,5 +1,4 @@
 ---@meta
-
 ---A helper table to better navigate through the documentation using the
 ---outline: https://github.com/Josef-Friedrich/LuaTeX_Lua-API#navigation-table-_n
 _N = {}
@@ -387,11 +386,11 @@ _N.glue_spec = 39
 ---`shrink`, and `shrink_order` fields. Note that we use the key `width` in both horizontal and vertical glue. This suits the *TeX* internals well
 ---so we decided to stick to that naming.
 ---@class GlueSpecNode: Node
----@field width          integer #  the horizontal or vertical displacement
----@field stretch        integer #  extra (positive) displacement or stretch amount
----@field stretch_order  integer #  factor applied to stretch amount
----@field shrink         integer #  extra (negative) displacement or shrink amount
----@field shrink_order   integer #  factor applied to shrink amount
+---@field width          integer # the horizontal or vertical displacement
+---@field stretch        integer # extra (positive) displacement or stretch amount
+---@field stretch_order  integer # factor applied to stretch amount
+---@field shrink         integer # extra (negative) displacement or shrink amount
+---@field shrink_order   integer # factor applied to shrink amount
 
 _N.glue = 12
 
@@ -426,9 +425,15 @@ _N.glue = 12
 ---
 ---A regular word space also results in a `spaceskip` subtype (this used to be
 ---a `userskip` with subtype zero).
+---
 ---@class GlueNode: Node
----@field subtype  GlueNodeSubtype
----@field leader   Node #    pointer to a box or rule for leaders
+---@field subtype GlueNodeSubtype
+---@field leader Node # pointer to a box or rule for leaders
+---@field width integer # the horizontal or vertical displacement
+---@field stretch integer # extra (positive) displacement or stretch amount
+---@field stretch_order integer # factor applied to stretch amount
+---@field shrink integer # extra (negative) displacement or shrink amount
+---@field shrink_order integer # factor applied to shrink amount
 
 _N.kern = 13
 
@@ -1002,7 +1007,19 @@ function node.subtype(whatsit_type_name) end
 
 _N._7_6_fields = 146
 
-function node.fields() end
+---
+---Return an array of valid field names for a particular type of
+---node.
+---
+---If you want to get the valid fields for a “whatsit”, you have to
+---supply the second argument also. In other cases, any given second argument will
+---be silently ignored.
+---
+---@param id NodeTypeId
+---@param subtype? number
+---
+---@return {[number]: string}
+function node.fields(id, subtype) end
 
 _N._7_7_has_field = 146
 
