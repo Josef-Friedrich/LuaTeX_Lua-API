@@ -1,3 +1,7 @@
+---A helper table to better navigate through the documentation using the
+---outline: https://github.com/Josef-Friedrich/LuaTeX_Lua-API#navigation-table-_n
+_N = {}
+
 ---@meta
 ---
 ---The fontloader library is sort of independent of the rest in the sense that it
@@ -81,10 +85,116 @@ function fontloader.apply_featurefile(font, filename) end
 ---@return table errors
 function fontloader.apply_afmfile(font, filename) end
 
+_N._main_table = 'FontloaderField'
+
+---@class FontloaderField
+---@field table_version number # indicates the metrics version (currently 0.3)
+---@field fontname string # *PostScript* font name
+---@field fullname string # official (human-oriented) font name
+---@field familyname string # family name
+---@field weight string # weight indicator
+---@field copyright string # copyright information
+---@field filename string # the file name
+---@field version string # font version
+---@field italicangle number # slant angle
+---@field units_per_em integer # 1000 for *PostScript*-based fonts, usually 2048 for *TrueType*
+---@field ascent integer # height of ascender in `units_per_em`
+---@field descent integer # depth of descender in `units_per_em`
+---@field upos number #
+---@field uwidth number #
+---@field uniqueid integer #
+---@field glyphs Glyph[]
+---@field glyphcnt integer # number of included glyphs
+---@field glyphmax integer # maximum used index the glyphs array
+---@field glyphmin integer # minimum used index the glyphs array
+---@field notdef_loc integer # location of the `.notdef` glyph or `-1` when not present
+---@field hasvmetrics integer #
+---@field onlybitmaps integer #
+---@field serifcheck integer #
+---@field isserif integer #
+---@field issans integer #
+---@field encodingchanged integer #
+---@field strokedfont integer #
+---@field use_typo_metrics integer #
+---@field weight_width_slope_only integer #
+---@field head_optimized_for_cleartype integer #
+---@field uni_interp `unset`|`none`|`adobe`|`greek`|`japanese`|`trad_chinese`|`simp_chinese`|`korean`|`ams`
+---@field origname string # the file name, as supplied by the user
+---@field map table #
+---@field public private number #
+---@field xuid string #
+---@field pfminfo table #
+---@field names table #
+---@field cidinfo table #
+---@field subfonts table
+---@field commments string #
+---@field fontlog string #
+---@field cvt_names string #
+---@field anchor_classes table #
+---@field ttf_tables table #
+---@field ttf_tab_saved table #
+---@field kerns table #
+---@field vkerns table #
+---@field texdata table #
+---@field lookups table #
+---@field gpos table #
+---@field gsub table #
+---@field mm table #
+---@field chosenname string #
+---@field macstyle integer #
+---@field fondname string #
+---@field design_size number
+---@field fontstyle_id integer #
+---@field fontstyle_name table #
+---@field design_range_bottom number
+---@field design_range_top number
+---@field strokewidth number #
+---@field mark_classes table #
+---@field creationtime integer #
+---@field modificationtime integer #
+---@field os2_version integer #
+---@field math table #
+---@field validation_state table #
+---@field horiz_base table #
+---@field vert_base table #
+---@field extrema_bound integer #
+---@field truetype integer # signals a *TrueType* font
+
+_N._glyphs = 'Glyph'
+
+---
+---The `glyphs` is an array containing the per-character
+---information (quite a few of these are only present if non-zero).
+---@class Glyph
+---@field name string # the glyph name
+---@field unicode number # unicode code point, or -1
+---@field boundingbox integer[] array of four numbers, see note below
+---@field width number # only for horizontal fonts
+---@field vwidth number # only for vertical fonts
+---@field tsidebearing number # only for vertical ttf/otf fonts, and only if non-zero
+---@field lsidebearing number # only if non-zero and not equal to boundingbox[1]
+---@field class string # one of "none", "base", "ligature", "mark", "component" (if not present, the glyph class is “automatic”)
+---@field kerns table only for horizontal fonts, if set
+---@field vkerns table only for vertical fonts, if set
+---@field dependents string[] linear array of glyph name strings, only if nonempty
+---@field lookups table # only if nonempty
+---@field ligatures table # only if nonempty
+---@field anchors table # only if set
+---@field comment string # only if set
+---@field tex_height number # only if set
+---@field tex_depth number # only if set
+---@field italic_correction number # only if set
+---@field top_accent number # only if set
+---@field is_extended_shape number # only if this character is part of a math extension list
+---@field altuni table # alternate *Unicode* items
+---@field vert_variants table #
+---@field horiz_variants table #
+---@field mathkern table #
+
 ---
 ---@param font userdata
 ---
----@return table fields
+---@return table FontloaderField
 function fontloader.fields(font) end
 
 ---
