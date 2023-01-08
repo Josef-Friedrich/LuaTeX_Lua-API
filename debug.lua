@@ -1,1 +1,1 @@
-print(tex.sp('1cm'))
+print(md5.dec('lol'))

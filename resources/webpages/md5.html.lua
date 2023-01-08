@@ -1,0 +1,123 @@
+---
+---Cryptographic Library for Lua 5.0
+---
+---
+---This library offers basic cryptographic facilities for Lua 5.0:
+---a hash (digest) function, an a pair crypt/decrypt.
+---(download)
+---
+---
+---Lua API
+---
+---All functions are registered inside a table `md5`.
+---
+---
+---
+---* `md5.sum (message)`
+---
+---Computes the MD5 message-digest of the string `message`.
+---This function takes as input a message of arbitrary length and content
+---and returns as output a 128-bit "fingerprint" (or "message digest")
+---of the input.
+---The output is formated as a binary string with 16 characters.
+---It is conjectured that it is computationally infeasible to produce
+---two messages having the same message digest, or to produce any
+---message having a given pre-specified target message digest.
+---(see 
+---RFC 1321)
+---
+---
+---* `md5.sumhexa (message)`
+---
+---Similar to `md5.sum`,
+---but returns its value as a string of 32 hexadecimal digits.
+---
+---* `md5.crypt (message, key [,seed])`
+---
+---Encrypts a string, using MD5 in CFB (Cipher-feedback mode).
+---`message` is an arbitrary binary string to be encrypted.
+---`key` is an arbitrary binary string to be used as a key.
+---`seed` is an arbitrary binary string to be used as a seed;
+---Returns the cyphertext (as a binary string).
+---
+---
+---If no seed is provided,
+---the function uses the result of `os.time()` as a seed.
+---It is recommended that you use different seeds for each message;
+---the seed itself is not private, and should contain no private data,
+---because it goes plain in the beginning of the encrypted message.
+---
+---
+---The length of the cyphertext is the length of the message plus the
+---length of the seed plus one.
+---
+---
+---* `md5.decrypt (message, key)`
+---
+---Decrypts a string.
+---The input `message` must be the result of a previous call
+---to `crypt`.
+---For any `msg`, `key`,
+---and `seed`, we have that
+---```
+---  md5.decrypt(md5.crypt(msg, key, seed), key) == msg
+---```
+---
+---
+---* `md5.exor (s1, s2)`
+---
+---Does a bit-a-bit exclusive or of strings `s1` and `s2`.
+---Both strings must have the same length,
+---which will be also the length of the resulting string.
+---
+---
+---
+---
+---
+---C API
+---
+---The following functions are declared in `md5.h`
+---
+---
+---* `int luaopen_md5 (lua_State *L);`
+---
+---Opens the library:
+---Registers the above Lua functions in the given state.
+---
+---
+---* `void md5 (const char *message, long len, char *output);`
+---
+---Computes the MD5 message-digest of `message`.
+---`len` is the length of `message`.
+---`output` is a buffer that receives the result;
+---it must have at least 16 bytes (128 bits).
+---
+---
+---
+---
+---INSTALL
+---
+---The following instructions assume that your Lua installation has a dynamic
+---linking facility (function `loadlib`):
+---
+---
+---
+---* Build a shared library (`.so`, `.dll`, etc.)
+---with files `md5.c` and `md5lib.c`.
+---(There is a `makefile` for Linux and similar systems.)
+---
+---* Put the shared library somewhere,
+---and edit file `md5.lua` to point to it.
+---
+---* Put the file `md5.lua` in a directory of your
+---`LUA_PATH`.
+---
+---
+---
+---
+---$Id: md5.html,v 1.4 2003/04/28 16:40:42 roberto Exp $
+---
+---
+---
+---
+---
