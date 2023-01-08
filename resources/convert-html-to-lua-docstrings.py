@@ -1,7 +1,6 @@
 #! /usr/bin/python
 
 import re
-import sys
 import glob
 
 from pathlib import Path
@@ -14,7 +13,7 @@ def patch_file(file_name: str):
         content = src.read()
 
     content = re.sub(
-        r"</?tt>",
+        r"</?(tt|code)>",
         "`",
         content,
     )
@@ -37,8 +36,5 @@ def patch_file(file_name: str):
     print(content)
 
 
-if len(sys.argv) < 2:
-    for file_name in glob.glob(str(Path(__file__).resolve().parent) + "/**/*.html"):
-        patch_file(file_name)
-else:
-    patch_file(sys.argv[1])
+for file_name in glob.glob(str(Path(__file__).resolve().parent) + "/**/*.html"):
+    patch_file(file_name)
