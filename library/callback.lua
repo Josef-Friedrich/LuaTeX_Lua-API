@@ -1,5 +1,9 @@
 ---@meta
 
+---A helper table to better navigate through the documentation using the
+---outline: https://github.com/Josef-Friedrich/LuaTeX_Lua-API#navigation-table-_n
+_N = {}
+
 ---
 ---This library has functions that register, find and list callbacks. Callbacks are
 ---*Lua* functions that are called in well defined places. There are two kind of
@@ -131,6 +135,8 @@ function callback.list() end
 ---@return function|nil f
 function callback.find(callback_name) end
 
+_N.pre_linebreak_filter = true
+
 ---
 ---The string called `groupcode` identifies the nodelist's context within
 ---*TeX*'s processing. The range of possibilities is given in the table below, but
@@ -179,6 +185,8 @@ function callback.find(callback_name) end
 ---This callback does not replace any internal code.
 ---@alias PreLinebreakFilter fun(head: Node, groupcode: PreLinebreakFilterGroupCode): NodeCallbackReturn
 
+_N.linebreak_filter = true
+
 ---
 ---This callback replaces *LuaTeX*'s line breaking algorithm.
 ---
@@ -203,6 +211,8 @@ function callback.find(callback_name) end
 ---| 'equation_number'
 ---| 'post_linebreak'
 
+_N.append_to_vlist_filter = true
+
 ---
 ---This callback is called whenever *LuaTeX* adds a box to a vertical list:
 ---
@@ -217,12 +227,16 @@ function callback.find(callback_name) end
 ---with it yourself. The prevdepth is also optional. You can pass `nil` instead of a node.
 ---@alias AppendToVlistFilter fun(box: Node, locationcode: AppendToVlistFilterLocationcode, prevdepth: integer, mirrored: boolean)
 
+_N.post_linebreak_filter = true
+
 ---
 ---This callback is called just after *LuaTeX* has converted a list of nodes into a
 ---stack of `\hbox`es.
 ---
 ---This callback does not replace any internal code.
 ---@alias PostLinebreakFilter fun(head: Node, groupcode: string): NodeCallbackReturn
+
+_N.hpack_filter = true
 
 ---
 ---This callback is called when *TeX* is ready to start boxing some horizontal mode
@@ -238,6 +252,8 @@ function callback.find(callback_name) end
 ---This callback does not replace any internal code.
 ---@alias HpackFilter fun(head: Node, groupcode: string, size: integer, packtype: 'additional'|'exactly', direction?: DirectionSpecifier, attributelist?: Node): NodeCallbackReturn
 
+_N.vpack_filter = true
+
 ---
 ---This callback is called when *TeX* is ready to start boxing some vertical mode
 ---material. Math displays are ignored at the moment.
@@ -248,6 +264,8 @@ function callback.find(callback_name) end
 ---
 ---This callback does not replace any internal code.
 ---@alias VpackFilter fun(head: Node, groupcode: string, size: integer, packtype: 'additional'|'exactly', maxdepth: integer, direction?: DirectionSpecifier, attributelist?: Node): NodeCallbackReturn
+
+_N.hpack_quality_filter = true
 
 ---
 ---This callback can be used to intercept the overfull messages that can result from
@@ -261,6 +279,8 @@ function callback.find(callback_name) end
 ---
 ---@alias HpackQualityFilter fun(incident: 'overfull'|'underfull'|'loose'|'tight', detail: integer, head: Node, first: integer, last: integer): Node
 
+_N.vpack_quality_filter = true
+
 ---
 ---This callback can be used to intercept the overfull messages that can result from
 ---packing a vertical list (as happens in the page builder).
@@ -269,6 +289,8 @@ function callback.find(callback_name) end
 ---`tight`. The detail is either the amount of overflow in case of `overfull`, or the badness otherwise. The head is the list that is constructed.
 ---@alias VpackQualityFilter fun(incident: 'overfull'|'underfull'|'loose'|'tight', detail: integer, head: Node, first: integer, last: integer)
 
+_N.process_rule_filter = true
+
 ---
 ---This is an experimental callback. It can be used with rules of subtype 4
 ---(user). The callback gets three arguments: the node, the width and the
@@ -276,12 +298,16 @@ function callback.find(callback_name) end
 ---file but beware of not messing up the final result. No checking is done.
 ---@alias ProcessRuleFilter fun(node: Node, width: integer, height: integer)
 
+_N.pre_output_filter = true
+
 ---
 ---This callback is called when *TeX* is ready to start boxing the box 255 for `output`.
 ---
 ---This callback does not replace any internal code.
 ---
----@alias PreOutputFilterFilter fun(head: Node, groupcode: string, size: integer, packtype: 'additional'|'exactly', maxdepth: integer, direction?: DirectionSpecifier): NodeCallbackReturn
+---@alias PreOutputFilter fun(head: Node, groupcode: string, size: integer, packtype: 'additional'|'exactly', maxdepth: integer, direction?: DirectionSpecifier): NodeCallbackReturn
+
+_N.hyphenate_filter = true
 
 ---
 ---Setting this callback to `false` will prevent the internal discretionary
