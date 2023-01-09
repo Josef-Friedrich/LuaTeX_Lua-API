@@ -8,8 +8,10 @@ luatexbase = { }
 ---Registers the `function` into the `callback` with a textual
 ---`description` of the function. Functions are inserted into the callback
 ---in the order loaded.
-------
----Source: [ltluatex.dtx#L348-L353](https://github.com/latex3/latex2e/blob/3a5cd1d84fd4474d57a8cb22cb882173f9268ce4/base/ltluatex.dtx#L348-L353)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [ltluatex.dtx#L348-L353](https://github.com/latex3/latex2e/blob/3a5cd1d84fd4474d57a8cb22cb882173f9268ce4/base/ltluatex.dtx#L348-L353)
 ---
 ---@param callback CallbackName
 ---@param func function
@@ -20,8 +22,10 @@ function luatexbase.add_to_callback(callback, func, description) end
 ---Removes the callback function with `description` from the `callback`.
 ---The removed function and its description
 ---are returned as the results of this function.
-------
----Source: [ltluatex.dtx#L356-L360](https://github.com/latex3/latex2e/blob/d7b2594ae58e125dc87b80e7f7e957855c69847b/base/ltluatex.dtx#L356-L360)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [ltluatex.dtx#L356-L360](https://github.com/latex3/latex2e/blob/d7b2594ae58e125dc87b80e7f7e957855c69847b/base/ltluatex.dtx#L356-L360)
 ---
 ---@param callback CallbackName
 ---@param description string
@@ -33,8 +37,10 @@ function luatexbase.remove_from_callback(callback, description) end
 ---
 ---Checks if the `description` matches one of the functions added
 ---to the list for the `callback`, returning a boolean value.
-------
----Source: [ltluatex.dtx#L363-L366](https://github.com/latex3/latex2e/blob/d7b2594ae58e125dc87b80e7f7e957855c69847b/base/ltluatex.dtx#L363-L366)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [ltluatex.dtx#L363-L366](https://github.com/latex3/latex2e/blob/d7b2594ae58e125dc87b80e7f7e957855c69847b/base/ltluatex.dtx#L363-L366)
 ---
 ---@param callback CallbackName
 ---@param description string # A textual description of the function.
@@ -47,8 +53,10 @@ function luatexbase.in_callback(callback, description) end
 ---manual for the underlying \texttt{callback.register} built-in. Callbacks
 ---will only be set to false (and thus be skipped entirely) if there are
 ---no functions registered using the callback.
-------
----Source: [ltluatex.dtx#L369-L374](https://github.com/latex3/latex2e/blob/d7b2594ae58e125dc87b80e7f7e957855c69847b/base/ltluatex.dtx#L369-L374)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [ltluatex.dtx#L369-L374](https://github.com/latex3/latex2e/blob/d7b2594ae58e125dc87b80e7f7e957855c69847b/base/ltluatex.dtx#L369-L374)
 ---
 ---@param callback CallbackName
 function luatexbase.disable_callback(callback) end
@@ -56,8 +64,10 @@ function luatexbase.disable_callback(callback) end
 ---
 ---A list of the descriptions of functions registered to the specified
 ---callback is returned. `{}` is returned if there are no functions registered.
-------
----Source: [](https://github.com/latex3/latex2e/blob/d7b2594ae58e125dc87b80e7f7e957855c69847b/base/ltluatex.dtx#L377-L379)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [](https://github.com/latex3/latex2e/blob/d7b2594ae58e125dc87b80e7f7e957855c69847b/base/ltluatex.dtx#L377-L379)
 ---
 ---@param callback CallbackName
 ---
@@ -69,8 +79,10 @@ function luatexbase.callback_descriptions(callback) end
 ---
 ---Defines a user defined callback. The last argument is a default
 ---function or false.
-------
----Source: [ltluatex.dtx#L382-L385](https://github.com/latex3/latex2e/blob/d7b2594ae58e125dc87b80e7f7e957855c69847b/base/ltluatex.dtx#L382-L385)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [ltluatex.dtx#L382-L385](https://github.com/latex3/latex2e/blob/d7b2594ae58e125dc87b80e7f7e957855c69847b/base/ltluatex.dtx#L382-L385)
 ---
 ---@param name string
 ---@param type CallbackType
@@ -79,8 +91,10 @@ function luatexbase.create_callback(name, type, default) end
 
 ---
 ---Calls a user defined callback with the supplied arguments.
-------
----Source: [ltluatex.dtx#L388-L390](https://github.com/latex3/latex2e/blob/d7b2594ae58e125dc87b80e7f7e957855c69847b/base/ltluatex.dtx#L388-L390)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [ltluatex.dtx#L388-L390](https://github.com/latex3/latex2e/blob/d7b2594ae58e125dc87b80e7f7e957855c69847b/base/ltluatex.dtx#L388-L390)
 ---
 ---
 ---@param name CallbackName|string
@@ -108,8 +122,10 @@ function luatexbase.call_callback(name, ...) end
 ---The callback functions do not have to be registered yet when the functions is called.
 ---Ony the constraints for which both callback descriptions refer to callbacks
 ---registered at the time the callback is called will have an effect.
-------
----Source: [ltluatex.dtx#L393-L418](https://github.com/latex3/latex2e/blob/d7b2594ae58e125dc87b80e7f7e957855c69847b/base/ltluatex.dtx#L393-L418)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [ltluatex.dtx#L393-L418](https://github.com/latex3/latex2e/blob/d7b2594ae58e125dc87b80e7f7e957855c69847b/base/ltluatex.dtx#L393-L418)
 ---
 ---@param name CallbackName|string
 ---@param first string

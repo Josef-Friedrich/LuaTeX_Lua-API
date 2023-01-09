@@ -12,8 +12,10 @@ _N = {}
 ---they can benefit from this as the main principle behind LuaTeX is to provide a
 ---minimal set of tools and no solutions. The scanner functions are probably the
 ---most intriguing.
-------
----Source: [luatex-tex.tex#L2091-L2098](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L2091-L2098)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L2091-L2098](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L2091-L2098)
 ---
 token = {}
 
@@ -110,8 +112,10 @@ _N._1_picking_one_token = 218
 ---The scanners look for a sequence. When you want to pick up one token from the
 ---input you use `get_next`. This creates a token with the (low level)
 ---properties. This token is just the next one.
-------
----Source: [luatex-tex.tex#L2237-L2239](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L2237-L2239)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L2237-L2239](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L2237-L2239)
 ---
 ---@return Token
 function token.get_next() end
@@ -142,8 +146,10 @@ _N._3_creating = 218
 ---numbers and names are used consistently but are not frozen. So, when you use them
 ---for comparing you can best query a known primitive or character first to see the
 ---values.
-------
----Source: [luatex-tex.tex#L2285-L2310](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L2285-L2310)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L2285-L2310](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L2285-L2310)
 ---
 ---@class Token
 ---@field command integer # a number representing the internal command number
@@ -273,8 +279,10 @@ function token.biggest_char() end
 
 _N._4_macros = 219
 
-------
----Source: [luatex-tex.tex#L2368-L2382](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L2368-L2382)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L2368-L2382](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L2368-L2382)
 ---
 ---@param csname string
 ---@param content? string
@@ -284,8 +292,10 @@ function token.set_macro(csname, content, global) end
 ---
 ---The `set_macro` function can get upto 4 arguments.
 ---You can pass a catcodetable identifier as first argument.
-------
----Source: [luatex-tex.tex#L2368-L2382](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L2368-L2382)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L2368-L2382](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L2368-L2382)
 ---
 ---@param catcodetable any
 ---@param csname string
@@ -311,8 +321,10 @@ _N._5_pushing_back = 220
 ---There is a (for now) experimental putter.
 ---
 ---@param ... Token
-------
----Source: [luatex-tex.tex#L2422-L2433](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L2422-L2433)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L2422-L2433](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L2422-L2433)
 ---
 function token.put_next(...) end
 

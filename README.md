@@ -369,14 +369,18 @@ Documentation for the field `data` of the `pdf_colorstack` node:
 
 
 ```lua
-------
----Source: [luatex-nodes.tex#L1199-L1211](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1199-L1211)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L1199-L1211](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1199-L1211)
 ---
 ```
 
 ```lua
-------
----Source: []()
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: []()
 ---
 ```
 

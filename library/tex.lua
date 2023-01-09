@@ -87,8 +87,10 @@ _N._14_1_print = 201
 ---
 ---see `LuaTeX` manual: 10.3.14.1 `print`
 ---
-------
----Source: [luatex-tex.tex#L1172-L1196](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L1172-L1196)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L1172-L1196](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L1172-L1196)
 ---
 ---@param ... string # Each string argument is treated by *TeX* as a separate input line.
 function tex.print(...) end
@@ -99,8 +101,10 @@ function tex.print(...) end
 ---
 ---see `LuaTeX` manual: 10.3.14.1 `print`
 ---
-------
----Source: [luatex-tex.tex#L1176-L1182](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L1176-L1182)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L1176-L1182](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L1176-L1182)
 ---
 ---@param n integer If `n` is `-1`, the currently active catcode regime is used. If `n` is `-2`, the resulting catcodes are the result of `the` `toks`: all category codes are 12 (other) except for the space character, that has category code 10 (space). Otherwise, if `n` is not a valid catcode table, then it is ignored, and the currently active catcode regime is used instead.
 ---@param ... string
@@ -113,8 +117,10 @@ function tex.print(n, ...) end
 ---
 ---see `LuaTeX` manual: 10.3.14.1 `print`
 ---
-------
----Source: [luatex-tex.tex#L1222-L1224](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L1222-L1224)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L1222-L1224](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L1222-L1224)
 ---
 ---@param t table
 function tex.print(t) end
@@ -134,8 +140,10 @@ _N._15_5_sp = 204
 ---
 ---see `LuaTeX` manual: 10.3.15.5 `sp`
 ---
-------
----Source: [luatex-tex.tex#L1395-L1396](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L1395-L1396)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L1395-L1396](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L1395-L1396)
 ---
 ---@param o integer
 ---
@@ -182,8 +190,10 @@ _N._15_7_error_show_context = 204
 ---context where we're at (in the expansion).
 ---
 ---see `LuaTeX` manual: 10.3.15.5 `sp`
-------
----Source: [luatex-tex.tex#L1438-L1457](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L1438-L1457)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L1438-L1457](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L1438-L1457)
 ---
 ---@param s string # An error message like `\errmessage`.
 ---@param help? table # The array part of the `help` table has to contain strings, one for each line of error help.
@@ -201,14 +211,18 @@ _N._15_8_run_finish = 205
 ---pushed back into the input. This all means that the *TeX* scanner is constantly
 ---pushing and popping input states, but in the end after all the action is done
 ---returns to the main loop.
-------
----Source: [L1459-L1470](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L1459-L1470)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [L1459-L1470](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L1459-L1470)
 function tex.run() end
 
 ---
 ---Force the end of a interpretation.
-------
----Source: [luatex-tex.tex#L1464](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L1464)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L1464](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L1464)
 function tex.finish() end
 
 _N._15_9_runtoks = 205
@@ -249,8 +263,10 @@ _N._15_9_runtoks = 205
 ---with `tex.quittoks`. In that case you end one level up! Of course in the
 ---end that can mean that you arrive at the main level in which case an extra end
 ---will trigger a redundancy warning (not an abort!).
-------
----Source: [luatex-tex.tex#L1472-L1508](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L1472-L1508)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L1472-L1508](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L1472-L1508)
 function tex.runtoks() end
 
 _N._15_10_forcehmode = 205

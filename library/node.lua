@@ -221,8 +221,10 @@ _N.hlist = 0
 ---Note: the field name `head` and `list` are both valid. Sometimes it
 ---makes more sense to refer to a list by `head`, sometimes `list` makes
 ---more sense.
-------
----Source: [luatex-nodes.tex#L78-L108](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L78-L108)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L78-L108](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L78-L108)
 ---@class HlistNode: Node
 ---@field subtype HlistNodeSubtype
 ---@field width number # the width of the box
@@ -276,8 +278,10 @@ _N.rule = 2
 ---complicate matters and introduce a speed penalty.) However, you can just
 ---construct a rule node with *Lua* and write it to the *TeX* input. The `outline` subtype is just a convenient variant and the `transform` field
 ---specifies the width of the outline.
-------
----Source: [luatex-nodes.tex#L119-L157](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L119-L157)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L119-L157](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L119-L157)
 ---@class RuleNode: Node
 ---@field subtype RuleNodeSubtype
 ---@field width integer # the width of the rule where the special value −1073741824 is used for ‘running’ glue dimensions
@@ -747,8 +751,10 @@ _N._whatsit.user_defined = 8
 ---effect, they are an extension to the extension mechanism. The *LuaTeX* engine
 ---will simply step over such whatsits without ever looking at the contents.
 ---
-------
----Source: [luatex-nodes.tex#L833-L864](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L833-L864)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L833-L864](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L833-L864)
 ---@class UserDefinedWhatsitNode: WhatsitNode
 ---@field user_id number # id number
 ---@field type 97|100|108|110|115|116 # The `type` can have one of six distinct values. The number is the ASCII value if the first character of the type name (so you can use string.byte("l") instead of `108`): 97 “a” list of attributes (a node list), 100 “d” a *Lua* number, 108 “l” a *Lua* value (table, number, boolean, etc), 110 “n” a node list, 115 “s” a *Lua* string, 116 “t” a *Lua* token list in *Lua* table form (a list of triplets).
@@ -814,8 +820,10 @@ _N._whatsit.pdf_colorstack = 28
 ---new top value becomes the current. `set` keyword replaces the current value with ⟨general text⟩
 ---without changing the stack size. `current` keyword instructs just to use the current stack value
 ---without modifying the stack at all.
-------
----Source: [pdftex-t.tex#L3954-L3980](https://github.com/tex-mirror/pdftex/blob/6fb2352aa70a23ad3830f1434613170be3f3cd74/doc/manual/pdftex-t.tex#L3954-L3980)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [pdftex-t.tex#L3954-L3980](https://github.com/tex-mirror/pdftex/blob/6fb2352aa70a23ad3830f1434613170be3f3cd74/doc/manual/pdftex-t.tex#L3954-L3980)
 ---Source: [luatex-nodes.tex#L1097-L1107](https://github.com/TeX-Live/luatex/blob/e1cb50f34dc1451c9c5319dc953305b52a7a96fd/manual/luatex-nodes.tex#L1097-L1107)
 ---
 ---@class PdfColorstackWhatsitNode: WhatsitNode
@@ -930,8 +938,10 @@ _N._7_2_is_node = 145
 ---
 ---This function returns a number (the internal index of the node) if the argument is a userdata
 ---object of type <node> and false when no node is passed.
-------
----Source: [luatex-nodes.tex#L1199-L1211](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1199-L1211)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L1199-L1211](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1199-L1211)
 ---
 ---@param item any
 ---
@@ -943,8 +953,10 @@ _N._7_3_types_whatsits = 145
 ---
 ---This function returns an array that maps node id numbers to node type strings, providing an
 ---overview of the possible top-level `id` types.
-------
----Source: [luatex-nodes.tex#L1218-L1224](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1218-L1224)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L1218-L1224](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1218-L1224)
 ---
 ---@return table
 function node.types() end
@@ -952,8 +964,10 @@ function node.types() end
 ---
 ---TEX’s ‘whatsits’ all have the same id. The various subtypes are defined by their subtype fields.
 ---The function is much like types, except that it provides an array of subtype mappings.
-------
----Source: [luatex-nodes.tex#L1226-L1233](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1226-L1233)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L1226-L1233](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1226-L1233)
 ---
 ---@return table
 function node.whatsits() end
@@ -962,8 +976,10 @@ _N._7_4_id = 145
 
 ---
 ---Convert a single type name to its internal numeric representation.
-------
----Source: [luatex-nodes.tex#L1235-L1244](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1235-L1244)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L1235-L1244](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1235-L1244)
 ---
 ---@param type NodeTypeName
 ---
@@ -1033,8 +1049,10 @@ _N._7_8_new = 146
 ---numbers you can also use strings (names). If you create a new `whatsit` node
 ---the second argument is required. As with all node functions, this function
 ---creates a node at the *TeX* level.
-------
----Source: [luatex-nodes.tex#L1299-L1314](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1299-L1314)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L1299-L1314](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1299-L1314)
 ---
 ---@param id integer|NodeTypeName
 ---@param subtype? integer|string
@@ -1194,21 +1212,26 @@ function node.tail(n) end
 _N._7_28_remove = 153
 
 ---
----This function removes the node `current` from the list following `head`. It is your responsibility to make sure it is really part of that list.
+---Remove the node `current` from the list following `head`.
+---
+---It is your responsibility to make sure it is really part of that list.
 ---The return values are the new `head` and `current` nodes. The
 ---returned `current` is the node following the `current` in the calling
 ---argument, and is only passed back as a convenience (or `nil`, if there is
 ---no such node). The returned `head` is more important, because if the
 ---function is called with `current` equal to `head`, it will be
 ---changed.
-------
----Source: [luatex-nodes.tex#L1775-L1791](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1775-L1791)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L1775-L1791](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1775-L1791)
 ---
 ---@param head Node
----@param current Node
+---@param current Node # A node following the list `head`.
 ---
----@return Node head
----@return Node current
+---@return Node head # The new `head`
+---@return Node|nil current # The node following the `current` in the calling
+---argument.
 function node.remove(head, current) end
 
 _N._7_29_insert_before = 153
@@ -1219,8 +1242,10 @@ _N._7_29_insert_before = 153
 ---mutated) `head` and the node `new`, set up to be part of the list
 ---(with correct `next` field). If `head` is initially `nil`, it
 ---will become `new`.
-------
----Source: [luatex-nodes.tex#L1793-L1807](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1793-L1807)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L1793-L1807](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1793-L1807)
 ---
 ---@param head Node
 ---@param current Node
@@ -1237,8 +1262,10 @@ _N._7_30_insert_after = 153
 ---following `head`. It is your responsibility to make sure that `current` is really part of that list. The return values are the `head` and
 ---the node `new`, set up to be part of the list (with correct `next`
 ---field). If `head` is initially `nil`, it will become `new`.
-------
----Source: [luatex-nodes.tex#L1809-L1822](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1809-L1822)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L1809-L1822](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1809-L1822)
 ---
 ---@param head Node
 ---@param current Node
@@ -1254,8 +1281,10 @@ _N._7_37_write = 155
 ---This function that will append a node list to *TeX*'s “current list”. The
 ---node list is not deep-copied! There is no error checking either! You mignt need
 ---to enforce horizontal mode in order for this to work as expected.
-------
----Source: [luatex-nodes.tex#L2518-L2521](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L2518-L2521), [luatex-nodes.tex#L1913-L1923](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1913-L1923)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L2518-L2521](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L2518-L2521), [luatex-nodes.tex#L1913-L1923](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L1913-L1923)
 ---
 ---@param n Node
 function node.write(n) end
@@ -2119,8 +2148,10 @@ _N._11_properties = 164
 ---
 ---Each node also can have a properties table and you can assign values to this table using the
 ---`setproperty` function
-------
----Source: [lnodelib.c#L8397-L8410](https://github.com/TeX-Live/luatex/blob/3c57eed035fa9cd6a27ed615374ab648f350326a/source/texk/web2c/luatexdir/lua/lnodelib.c#L8397-L8410)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [lnodelib.c#L8397-L8410](https://github.com/TeX-Live/luatex/blob/3c57eed035fa9cd6a27ed615374ab648f350326a/source/texk/web2c/luatexdir/lua/lnodelib.c#L8397-L8410)
 ---
 ---@param node Node
 ---@param value any
@@ -2128,8 +2159,10 @@ function node.setproperty(node, value) end
 
 ---
 ---Each node also can have a properties table and you can get properties using the `getproperty` function.
-------
----Source: [luatex-nodes.tex#L2518-L2521](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L2518-L2521), [lnodelib.c#L8373-L8383](https://github.com/TeX-Live/luatex/blob/3c57eed035fa9cd6a27ed615374ab648f350326a/source/texk/web2c/luatexdir/lua/lnodelib.c#L8373-L8383)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L2518-L2521](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-nodes.tex#L2518-L2521), [lnodelib.c#L8373-L8383](https://github.com/TeX-Live/luatex/blob/3c57eed035fa9cd6a27ed615374ab648f350326a/source/texk/web2c/luatexdir/lua/lnodelib.c#L8373-L8383)
 ---
 ---@param node Node
 ---

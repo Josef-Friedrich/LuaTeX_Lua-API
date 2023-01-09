@@ -15,8 +15,10 @@ _N = {}
 ---valid and is (normally) used for constructing a paragraph. Another function can
 ---replace the ligature builder and/or kerner. Doing something else is possible
 ---but in the end might not give the user the expected outcome.
-------
----Source: [luatex-callbacks.tex#L17-L26](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-callbacks.tex#L17-L26)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-callbacks.tex#L17-L26](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-callbacks.tex#L17-L26)
 ---
 callback = {}
 
@@ -106,8 +108,10 @@ callback = {}
 ---non-file related callbacks, doing so will prevent *LuaTeX* from executing
 ---whatever it would execute by default (when no callback function is registered at
 ---all). Be warned: this may cause all sorts of grief unless you know `exactly` what you are doing!
-------
----Source: [luatex-callbacks.tex#L28-L54](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-callbacks.tex#L28-L54)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-callbacks.tex#L28-L54](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-callbacks.tex#L28-L54)
 ---
 ---@param callback_name CallbackName
 ---@param func function|nil|false
@@ -119,16 +123,20 @@ function callback.register(callback_name, func) end
 ---
 ---The keys in the table are the known callback names, the value is a boolean where
 ---`true` means that the callback is currently set (active).
-------
----Source: [luatex-callbacks.tex#L56-L62](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-callbacks.tex#L56-L62)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-callbacks.tex#L56-L62](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-callbacks.tex#L56-L62)
 ---
 ---@return table info
 function callback.list() end
 
 ---
 ---If the callback is not set, `find` returns `nil`.
-------
----Source: [luatex-callbacks.tex#L64-L68](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-callbacks.tex#L64-L68)
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-callbacks.tex#L64-L68](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-callbacks.tex#L64-L68)
 ---
 ---@param callback_name CallbackName
 ---
