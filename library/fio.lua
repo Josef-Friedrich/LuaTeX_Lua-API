@@ -1,172 +1,220 @@
 ---@meta
 
+---
+---# Binary input from files with `fio`
+---
+---There is a whole set of helpers for reading numbers and strings from a file:
+---`fio.readcardinal1`, `fio.readcardinal2`, `fio.readcardinal3`, `fio.readcardinal4`, `fio.readcardinaltable`, `fio.readinteger1`, `fio.readinteger2`,
+---`fio.readinteger3`, `fio.readinteger4`, `fio.readintegertable`, `fio.readfixed2`, `fio.readfixed4`,
+---`fio.read2dot14`, `fio.setposition`, `fio.getposition`, `fio.skipposition`, `fio.readbytes`, `fio.readbytetable`. They work on normal *Lua* file handles.
+---
+---
+---This library provides a set of functions for reading numbers from a file and
+---in addition to the regular `io` library functions.
+---
+---|                            |                           |
+---|----------------------------|---------------------------|
+---| `readcardinal1(f)`         | a 1 byte unsigned integer |
+---| `readcardinal2(f)`         | a 2 byte unsigned integer |
+---| `readcardinal3(f)`         | a 3 byte unsigned integer |
+---| `readcardinal4(f)`         | a 4 byte unsigned integer |
+---| `readcardinaltable(f,n,b)` | `n` cardinals of `b` bytes |
+---| `readinteger1(f)`          | a 1 byte signed integer |
+---| `readinteger2(f)`          | a 2 byte signed integer |
+---| `readinteger3(f)`          | a 3 byte signed integer |
+---| `readinteger4(f)`          | a 4 byte signed integer |
+---| `readintegertable(f,n,b)`  | `n` integers of `b` bytes |
+---| `readfixed2(f)`            | a 2 byte float (used in font files) |
+---| `readfixed4(f)`            | a 4 byte float (used in font files) |
+---| `read2dot14(f)`            | a 2 byte float (used in font files) |
+---| `setposition(f,p)`         | goto position `p` |
+---| `getposition(f)`           | get the current position |
+---| `skipposition(f,n)`        | skip `n` positions |
+---| `readbytes(f,n)`           | `n` bytes |
+---| `readbytetable(f,n)`       | `n` bytes |
+---
+---There are eight additional little endian variants for the `cardinal[1-4]`
+---and `integer[1-4]` readers: `cardinal[1-4]le` and `integer[1-4]le`.
+---
+--- https://github.com/TeX-Live/luatex/blob/eee644d052c295920d378ef579a96fcca497af9a/source/texk/web2c/luatexdir/lua/liolibext.c
 fio = {}
 
-------------------------------------------------------------------------
----Undocumented functions listed in alphabetical order
 ---
----Document them by sliding them up and place them in the order of the
----official documentation
-------------------------------------------------------------------------
+---@param f file*
+---
+---@return integer # a 1 byte unsigned integer
+function fio.readcardinal1(f) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function fio.getposition() end
+---@param f file*
+---
+---@return integer # a 2 byte unsigned integer
+function fio.readcardinal2(f) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function fio.read2dot14() end
+---@param f file*
+---
+---@return integer # a 3 byte unsigned integer
+function fio.readcardinal3(f) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function fio.readbytes() end
+---@param f file*
+---
+---@return integer # a 4 byte unsigned integer
+function fio.readcardinal4(f) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function fio.readbytetable() end
+---@param f file*
+---@param n integer
+---@param b integer
+---
+---@return table<integer, integer>
+function fio.readcardinaltable(f, n, b) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function fio.readcardinal1() end
+---little endian variant
+---
+---@param f file*
+---
+---@return integer
+function fio.readcardinal1le(f) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function fio.readcardinal1le() end
+---little endian variant
+---
+---@param f file*
+---
+---@return integer
+function fio.readcardinal2le(f) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function fio.readcardinal2() end
+---little endian variant
+---
+---@param f file*
+---
+---@return integer
+function fio.readcardinal3le(f) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function fio.readcardinal2le() end
+---little endian variant
+---
+---@param f file*
+---
+---@return integer
+function fio.readcardinal4le(f) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function fio.readcardinal3() end
+---@param f file*
+---
+---@return integer # a 1 byte signed integer
+function fio.readinteger1(f) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function fio.readcardinal3le() end
+---@param f file*
+---
+---@return integer # a 2 byte signed integer
+function fio.readinteger2(f) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function fio.readcardinal4() end
+---@param f file*
+---
+---@return integer # a 3 byte signed integer
+function fio.readinteger3(f) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function fio.readcardinal4le() end
+---@param f file*
+---
+---@return integer # a 4 byte signed integer
+function fio.readinteger4(f) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function fio.readcardinaltable() end
+---@param f file*
+---@param n integer
+---@param b integer
+---
+---@return table<integer, integer>
+function fio.readintegertable(f, n, b) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function fio.readfixed2() end
+---little endian variant
+---
+---@param f file*
+---
+---@return integer
+function fio.readinteger1le(f) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function fio.readfixed4() end
+---little endian variant
+---
+---@param f file*
+---
+---@return integer
+function fio.readinteger2le(f) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function fio.readinteger1() end
+---little endian variant
+---
+---@param f file*
+---
+---@return integer
+function fio.readinteger3le(f) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function fio.readinteger1le() end
+---little endian variant
+---
+---@param f file*
+---
+---@return integer
+function fio.readinteger4le(f) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function fio.readinteger2() end
+---@param f file*
+---
+---@return number
+function fio.readfixed2(f) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function fio.readinteger2le() end
+---@param f file*
+---
+---@return number
+function fio.readfixed4(f) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function fio.readinteger3() end
+---@param f file*
+---
+---@return number
+function fio.read2dot14(f) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function fio.readinteger3le() end
+---@param f file*
+---@param p integer
+function fio.setposition(f, p) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function fio.readinteger4() end
+---@param f file*
+function fio.getposition(f) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function fio.readinteger4le() end
+---@param f file*
+---@param n integer
+function fio.skipposition(f, n) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function fio.readintegertable() end
+---@param f file*
+---@param n integer
+---
+---@return integer ...
+function fio.readbytes(f, n) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function fio.readline() end
+---@param f file*
+---@param n integer
+---
+---@return table<integer, integer>
+function fio.readbytetable(f, n) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function fio.setposition() end
-
+---@param f file*
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function fio.skipposition() end
+---@return string
+function fio.readline(f) end

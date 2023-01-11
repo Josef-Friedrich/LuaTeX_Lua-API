@@ -1,2 +1,7 @@
-local inspect = require('inspect')
-print(inspect(os.selfdir))
+inspect = require('inspect')
+f = io.open("config.lua", "r")
+
+print(fio.readline(f,5))
+print(fio.readline(f,5))
+print(fio.readline(f,5))
+print(fio.readline(f,5))
