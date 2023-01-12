@@ -45,47 +45,136 @@ function img.fields() end
 ---@field nolength boolean # don't add length key nor compress for streams
 ---@field nosize boolean # don't add size fields for streams
 
+---When you say `img.scan(a)` for a new image, the file is scanned, and
+---variables such as `xsize`, `ysize`, image `type`, number of
+---`pages`, and the resolution are extracted. Each of the `width`, `height`, `depth` fields are set up according to the image dimensions, if
+---they were not given an explicit value already. An image file will never be
+---scanned more than once for a given image variable. With all subsequent `img.scan(a)` calls only the dimensions are again set up (if they have been
+---changed by the user in the meantime).
 ---
----@param image Image|table
+---For ease of use, you can do right-away a
+---
+---```lua
+---<image> a = img.scan { filename = "foo.png" }
+---```
+---
+---without a prior `img.new`.
+---
+---Nothing is written yet at this point, so you can do `a=img.scan`, retrieve
+---the available info like image width and height, and then throw away `a`
+---again by saying `a=nil`. In that case no image object will be reserved in
+---the PDF, and the used memory will be cleaned up automatically.
+---
+---@param image Image|ImageSpec
 ---
 ---@return Image
 function img.scan(image) end
 
+---If you say `a = b`, then both variables point to the same `<image>`
+---object. if you want to write out an image with different sizes, you can do
+---`b = img.copy(a)`.
 ---
----@param image Image|table
+---Afterwards, `a` and `b` still reference the same actual image
+---dictionary, but the dimensions for `b` can now be changed from their
+---initial values that were just copies from `a`.
+---
+---@param image Image|ImageSpec
 ---
 ---@return Image
 function img.copy(image) end
 
 ---
----@param image Image|table
+---By `img.write(a)` a *PDF* object number is allocated, and a rule node of
+---subtype `image` is generated and put into the output list. By this the
+---image `a` is placed into the page stream, and the image file is written out
+---into an image stream object after the shipping of the current page is finished.
+---
+---Again you can do a terse call like
+---
+---```
+---img.write { filename = "foo.png" }
+---```
+---
+---The `<image>` variable is returned in case you want it for later
+---processing. You can also write an object.
+---
+---@param image Image|ImageSpec
 ---
 ---@return Image
 function img.write(image) end
 
 ---
----@param image Image|table
+---By `img.immediatewrite(a)` a *PDF* object number is allocated, and the
+---image file for image `a` is written out immediately into the *PDF* file as
+---an image stream object (like with `immediate``\pdfximage`). The object
+---number of the image stream dictionary is then available by the `objnum`
+---key. No `pdf_refximage` whatsit node is generated. You will need an
+---`img.write(a)` or `img.node(a)` call to let the image appear on the
+---page, or reference it by another trick; else you will have a dangling image
+---object in the *PDF* file.
+---
+---Also here you can do a terse call like
+---
+---```
+---a = img.immediatewrite { filename = "foo.png" }
+---```
+---
+---The `<image>` variable is returned and you will most likely need it.
+---
+---@param image Image|ImageSpec
 ---
 ---@return Image
 function img.immediatewrite(image) end
 
 ---
----@param image Image|table
+---The next function is kind of special as it copies an object from a (*PDF*) image
+---file. This features is experimental and might disappear.
+---
+---@param image Image|ImageSpec
 ---@param objnum integer
 ---
 ---@return Image
 function img.immediatewriteobject(image, objnum) end
 
+---This function allocates a *PDF* object number and returns a whatsit node of
+---subtype `pdf_refximage`, filled with the image parameters `width`,
+---`height`, `depth`, and `objnum`. Also here you can do a terse
+---call like:
 ---
----@param image Image|table
+---```
+---n = img.node ({ filename = "foo.png" })
+---```
+---
+---This example outputs an image:
+---
+---```
+---node.write(img.node{filename="foo.png"})
+---```
+---
+---@param image Image|ImageSpec
 ---
 ---@return Node
 function img.node(image) end
 
 ---
+---This function returns a list with the supported image file type names, currently
+---these are `pdf`, `png`, `jpg`, `jp2` (JPEG 2000), and
+---`jbig2`.
+---
+---```lua
+---types = img.types()
+---```
+---
 ---@return table
 function img.types() end
 
+---
+---This function returns a list with the supported *PDF* page box names, currently
+---these are `media`, `crop`, `bleed`, `trim`, and `art`, all in lowercase.
+---
+---```lua
+---boxes = img.boxes()
+---```
 ---
 ---@return table
 function img.boxes() end
