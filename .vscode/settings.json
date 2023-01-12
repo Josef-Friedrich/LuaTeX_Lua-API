@@ -6,6 +6,7 @@
     "~/repos/tex/lua-api/library",
   ],
   "Lua.diagnostics.disable": [
-    "duplicate-set-field"
+    "duplicate-set-field",
+    "param-type-mismatch"
   ]
 }
