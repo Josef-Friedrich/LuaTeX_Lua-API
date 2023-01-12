@@ -1,6 +1,89 @@
 ---@meta
 
+---This library contains variables and functions that are related to the *PDF*
+---backend.
+---
 pdf = {}
+
+---
+---This function can be used to replace the primitive `\pdfmapfile` inherited from *pdfTeX*. It expects a string as only
+---parameter and has no return value. The first character in a map file can be
+---`-`, `+` or `=` which means as much as remove, add or replace
+---this line. It is not a state setter but acts immediately.
+---
+---@param map_file string
+function pdf.mapfile(map_file) end
+
+---
+---This function can be used to replace primitive `\pdfmapline` inherited from *pdfTeX*. It expects a string as only
+---parameter and has no return value. The first character in a map line can be
+---`-`, `+` or `=` which means as much as remove, add or replace
+---this line. It is not a state setter but acts immediately.
+---
+---@param map_line string
+function pdf.mapline(map_line) end
+
+---
+---
+---This function complements to the corresponding *PDF* token list backend that deals with metadata. The data type of the metadata is a string and is written to the *PDF*
+---file directly after the token registers are set at the *TeX* end.
+---
+---@param catalog string
+function pdf.setcatalog(catalog) end
+
+---
+---This function complements to the corresponding *PDF* token list backend that deals with metadata. The data type of the metadata is a string and is written to the *PDF*
+---file directly after the token registers are set at the *TeX* end.
+---
+---@return string
+function pdf.getcatalog() end
+
+---
+---This function complements to the corresponding *PDF* token list backend that deals with metadata. The data type of the metadata is a string and is written to the *PDF*
+---file directly after the token registers are set at the *TeX* end.
+---
+---@param info string
+function pdf.setinfo(info) end
+
+---
+---This function complements to the corresponding *PDF* token list backend that deals with metadata. The data type of the metadata is a string and is written to the *PDF*
+---file directly after the token registers are set at the *TeX* end.
+---
+---@return string
+function pdf.getinfo() end
+
+---
+---This function complements to the corresponding *PDF* token list backend that deals with metadata. The data type of the metadata is a string and is written to the *PDF*
+---file directly after the token registers are set at the *TeX* end.
+---
+---@param names string
+---
+---@return string
+function pdf.setnames(names) end
+---
+
+---
+---This function complements to the corresponding *PDF* token list backend that deals with metadata. The data type of the metadata is a string and is written to the *PDF*
+---file directly after the token registers are set at the *TeX* end.
+---
+---@return string
+function pdf.getnames() end
+
+---
+---This function complements to the corresponding *PDF* token list backend that deals with metadata. The data type of the metadata is a string and is written to the *PDF*
+---file directly after the token registers are set at the *TeX* end.
+---
+---@param trailer string
+---
+---@return string
+function pdf.settrailer(trailer) end
+
+---
+---This function complements to the corresponding *PDF* token list backend that deals with metadata. The data type of the metadata is a string and is written to the *PDF*
+---file directly after the token registers are set at the *TeX* end.
+---
+---@return string
+function pdf.gettrailer() end
 
 ------------------------------------------------------------------------
 ---Undocumented functions listed in alphabetical order
@@ -26,12 +109,6 @@ function pdf.fontobjnum() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.fontsize() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.getcatalog() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -109,12 +186,6 @@ function pdf.getinclusionerrorlevel() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.getinfo() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.getlastannot() end
 
 ---
@@ -158,12 +229,6 @@ function pdf.getmaxobjnum() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.getminorversion() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.getnames() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -265,12 +330,6 @@ function pdf.getthreadmargin() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.gettrailer() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.gettrailerid() end
 
 ---
@@ -337,18 +396,6 @@ function pdf.includeimage() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.mapfile() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.mapline() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.maxobjnum() end
 
 ---
@@ -398,12 +445,6 @@ function pdf.registerannot() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.reserveobj() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.setcatalog() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -463,12 +504,6 @@ function pdf.setinclusionerrorlevel() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.setinfo() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.setlinkmargin() end
 
 ---
@@ -482,12 +517,6 @@ function pdf.setmajorversion() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.setminorversion() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.setnames() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -554,12 +583,6 @@ function pdf.setsuppressoptionalinfo() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.setthreadmargin() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.settrailer() end
 
 ---
 ---Warning! Undocumented code!<p>
