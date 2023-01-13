@@ -4,6 +4,7 @@
 ---outline: https://github.com/Josef-Friedrich/LuaTeX_Lua-API#navigation-table-_n
 _N = {}
 
+---
 ---The token library provides means to intercept the input and deal with it at the
 ---Lua level. The library provides a basic scanner infrastructure that can be used
 ---to write macros that accept a wide range of arguments. This interface is on
@@ -222,12 +223,6 @@ function token.get_meaning() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function token.get_mode() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function token.get_next() end
 
 ---
 ---Warning! Undocumented code!<p>
