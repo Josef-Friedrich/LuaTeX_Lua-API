@@ -8,5 +8,8 @@
   "Lua.diagnostics.disable": [
     "duplicate-set-field",
     "param-type-mismatch"
+  ],
+  "Lua.diagnostics.globals": [
+    "bit"
   ]
 }

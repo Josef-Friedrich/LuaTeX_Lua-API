@@ -10,4 +10,4 @@ grep \
   --recursive \
   --line-number \
   --colour \
-  "$*" "$HOME/repos/github/TeX-mailing-lists" /usr/local/texlive
+  "$*" "$HOME/repos/github/TeX-mailing-lists" /usr/local/texlive .

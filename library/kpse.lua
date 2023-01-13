@@ -12,13 +12,17 @@ kpse = {}
 ---where the currently set program name acts as filter. You can check what file is
 ---used by with `default_texmfcnf`.
 ---
+---@return string # returns the value of the C preprocessor macro DEFAULT_TEXMFCNF without initializing anything else from kpathsea, for example `{$SELFAUTOLOC,$SELFAUTOLOC/share/texmf-local/web2c,...}`
+function kpse.default_texmfcnf() end
+
+---
 ---Before the search library can be used at all, its database has to be initialized.
 ---There are three possibilities, two of which belong to the procedural interface.
 ---
 ---First, when *LuaTeX* is used to typeset documents, this initialization happens
 ---automatically and the `kpathsea` executable and program names are set to `luatex` (that is, unless explicitly prohibited by the user's startup script.
 ---
----Second, in *TeX*LUA\ mode, the initialization has to be done explicitly via the
+---Second, in *TeX*LUA mode, the initialization has to be done explicitly via the
 ---`kpse.set_program_name` function, which sets the `kpathsea` executable
 ---(and optionally program) name.
 ---
@@ -214,7 +218,12 @@ function kpse.init_prog(prefix, base_dpi, mfmode, fallback) end
 function kpse.readable_file(name) end
 
 ---
----Like `kpsewhich`’s `-expand-path`
+---Output the complete expansion of string, with each element separated by the usual path separator on the current system (`;` on Windows, `:` otherwise). This may be useful to construct a custom search path for a format not otherwise supported.
+---Like `kpsewhich`’s `-expand-path`.
+---
+---__References:__
+---
+---* [kpathsea manual](https://www.tug.org/texinfohtml/kpathsea.html#index-_002d_002dexpand_002dpath_003dstring)
 ---
 ---@param s string
 ---
@@ -222,7 +231,12 @@ function kpse.readable_file(name) end
 function kpse.expand_path(s) end
 
 ---
+---Output the variable and tilde expansion of string. For example, with the usual texmf.cnf, `kpse.expand_var('$TEXMF')` returns the TeX system hierarchy root(s). The specified string can contain anything, though, not just variable references. This calls kpse_var_expand (see Programming with config files).
 ---Like `kpsewhich`’s  `-expand-var`:
+---
+---__References:__
+---
+---* [kpathsea manual](https://www.tug.org/texinfohtml/kpathsea.html#index-_002d_002dexpand_002dvar_003dstring)
 ---
 ---@param s string
 ---
@@ -230,7 +244,11 @@ function kpse.expand_path(s) end
 function kpse.expand_var(s) end
 
 ---
----Like `kpsewhich`’s `-expand-braces`
+---Output variable, tilde, and brace expansion of string, which is assumed to be a single path element. Like `kpsewhich`’s `-expand-braces`
+---
+---__References:__
+---
+---* [kpathsea manual](https://www.tug.org/texinfohtml/kpathsea.html#index-_002d_002dexpand_002dbraces_003dstring)
 ---
 ---@param s string
 ---
@@ -238,7 +256,12 @@ function kpse.expand_var(s) end
 function kpse.expand_braces(s) end
 
 ---
+---Show the path that would be used for file lookups of file type name. Either a filename extension (`pk`, `.vf`, etc.) or an integer can be used, just as with `--format`, described in the previous section.
 ---Like `kpsewhich`’s `-show-path`
+---
+---__References:__
+---
+---* [kpathsea manual](https://www.tug.org/texinfohtml/kpathsea.html#index-_002d_002dshow_002dpath_003dname)
 ---
 ---@param s string
 ---
@@ -246,7 +269,12 @@ function kpse.expand_braces(s) end
 function kpse.show_path(s) end
 
 ---
----Like `kpsewhich`’s `-var-value`
+---Outputs the value of variable (a simple identifier like `TEXMFDIST`, with no `$` or other constructs), expanding `$` (see Variable expansion) and `~` (see Tilde expansion) constructs in the value. ‘~` expansion happens at the beginning of the overall value and at the beginning of a variable expansion, but not arbitrarily within the string. Braces are not expanded.
+---Like `kpsewhich’`s `-var-value`
+---
+---__References:__
+---
+---* [kpathsea manual](https://www.tug.org/texinfohtml/kpathsea.html#index-_002d_002dvar_002dvalue_003dvariable)
 ---
 ---@param s string
 ---
@@ -256,17 +284,20 @@ function kpse.var_value(s) end
 ---
 ---Returns the kpathsea version string.
 ---
----@return string r
+---@return string r # For example `kpathsea version 6.3.4`
 function kpse.version() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function kpse.check_permission() end
-
+---```lua
+---local okay, found = kpse.check_permission(name)
+---if okay and found then
+---  return io.popen(found,...)
+---end
+---```
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function kpse.default_texmfcnf() end
+---https://github.com/TeX-Live/luatex/blob/07e7721c24e3562457d624482b64b64c835c1bd0/source/texk/web2c/luatexdir/lua/lkpselib.c#L943-L980
+---@param name string
+---
+---@return boolean okay
+---@return string found
+function kpse.check_permission(name) end
