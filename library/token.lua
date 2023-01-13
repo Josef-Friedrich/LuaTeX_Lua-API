@@ -24,87 +24,62 @@ token = {}
 _N._1_scanner = 215
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function token.scan_keyword() end
+---returns true if the given keyword is gobbled; as with the regular *TeX* keyword scanner this is case insensitive (and ASCII based)
+---
+---@param keyword string
+function token.scan_keyword(keyword) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function token.scan_keyword_cs() end
+---returns true if the given keyword is gobbled; this variant is case sensitive and also suitable for *UTF-8*
+---@param keyword string
+function token.scan_keyword_cs(keyword) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---returns an integer
 function token.scan_int() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---returns a number from e.g.\ `1`,  `1.1`, `.1` with optional collapsed signs
 function token.scan_real() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---returns a number from e.g.\ `1`,  `1.1`, `.1`, `1.1E10`, , `.1e-10` with optional collapsed signs
 function token.scan_float() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---returns a number representing a dimension and or two numbers being the filler and order
 function token.scan_dimen() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---returns a glue spec node
 function token.scan_glue() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---returns a table of tokens tokens
 function token.scan_toks() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---returns a character if its category is in the given bitset (representing catcodes)
 function token.scan_code() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---returns a string given between `{` `}`, as `\macro` or as sequence of characters with catcode 11 or 12
 function token.scan_string() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---this one is simular to `scanstring` but also accepts a `\cs`
 function token.scan_argument() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---returns a sequence of characters with catcode 11 or 12 as string
 function token.scan_word() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---returns `foo` after scanning `\foo`
 function token.scan_csname() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---picks up a box specification and returns a `[h|v]list` node
 function token.scan_list() end
 
 _N._1_picking_one_token = 218
