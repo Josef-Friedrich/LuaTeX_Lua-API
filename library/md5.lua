@@ -27,21 +27,21 @@ md5 = {}
 function md5.sum(message) end
 
 ---
----Similar to `md5.sum`,
----but returns its value as a string of 32 hexadecimal (lower case letters).
+---Similar to `md5.sum()`,
+---but returns its value as a string of 32 hexadecimal digits (lower case letters).
 ---
 ---@param message string
 ---
----@return string # for example `9cdfb439c7876e703e307864c9167a15`
+---@return string # for example `098f6bcd4621d373cade4e832627b4f6`
 function md5.sumhexa(message) end
 
 ---
----Similar to `md5.sum`
----but returns its value as a string of 32 hexadecimal digits (upper case letters)..
+---Similar to `md5.sum()`
+---but returns its value as a string of 32 hexadecimal digits (upper case letters).
 ---
 ---@param message string
 ---
----@return string # for example `9CDFB439C7876E703E307864C9167A15`
+---@return string # for example `098F6BCD4621D373CADE4E832627B4F6`
 function md5.sumHEXA(message) end
 
 ---
@@ -60,9 +60,20 @@ function md5.sumHEXA(message) end
 ---The length of the cyphertext is the length of the message plus the
 ---length of the seed plus one.
 ---
----@param message string # arbitrary binary string to be encrypted.
----@param key string # arbitrary binary string to be used as a key.
----@param seed? any # optional arbitrary binary string to be used as a seed. if no seed is provided, the function uses the result of `time()` as a seed.
+---@param message string # An arbitrary binary string to be encrypted.
+---@param key string # An arbitrary binary string to be used as a key.
+---@param seed? string # An optional arbitrary binary string to be used as a seed. If no seed is provided, the function uses the result of `time()` as a seed.
+------
+---__Example:__
+---
+---```lua
+---function convert_to_hex(str)
+---return (str:gsub('.', function (c)
+---    return string.format('%02X', string.byte(c))
+---end))
+---end
+---tex.print(convert_to_hex(md5.crypt('secret', '123')))
+---```
 ---
 ---@return string # The cyphertext (as a binary string).
 function md5.crypt(message, key, seed) end
@@ -75,10 +86,11 @@ function md5.crypt(message, key, seed) end
 ---and `seed`, we have that
 ---
 ---```lua
----  md5.decrypt(md5.crypt(msg, key, seed), key) == msg
+---md5.decrypt(md5.crypt(msg, key, seed), key) == msg
+---md5.decrypt(md5.crypt('secret', '123', 'seed'), '123') == 'secret'
 ---```
 ---
----@param message string #  message to be decrypted (this must be the result of a previous call to `crypt`).
+---@param message string # message to be decrypted (this must be the result of a previous call to `crypt`).
 ---@param key string # arbitrary binary string to be used as a key.
 ---
 ---@return string # The plaintext.

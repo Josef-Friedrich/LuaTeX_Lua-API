@@ -1,0 +1,5 @@
+\documentclass{article}
+
+\begin{document}
+\directlua{tex.print(md5.decrypt(md5.crypt('secret', '123', 'seed'), '123'))}
+\end{document}

@@ -1,0 +1,13 @@
+\documentclass{article}
+\usepackage{luacode}
+\begin{document}
+
+\begin{luacode}
+function convert_to_hex(str)
+    return (str:gsub('.', function (c)
+        return string.format('%02X', string.byte(c))
+    end))
+end
+tex.print(convert_to_hex(md5.crypt('secret', '123', '123')))
+\end{luacode}
+\end{document}
