@@ -1,0 +1,10 @@
+Method node.type()
+
+\directlua{
+  local hlist_node = node.new(node.id('hlist'), 1)
+  print()
+  print(node.type(hlist_node))
+  print(node.type(hlist_node.id))
+}
+
+\bye

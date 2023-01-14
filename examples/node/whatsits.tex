@@ -1,0 +1,11 @@
+\documentclass{article}
+
+\begin{document}
+\catcode`_=12
+\directlua{
+  for id, name in pairs(node.whatsits()) do
+    tex.print(id)
+    tex.print(name)
+  end
+}
+\end{document}

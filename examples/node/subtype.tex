@@ -1,0 +1,15 @@
+Whatsits subtypes
+
+\directlua{
+  local function print_subtype(name)
+    print(name, node.subtype(name))
+  end
+
+  print()
+  print_subtype('open')
+  print_subtype('write')
+  print_subtype('close')
+  print_subtype('special')
+}
+
+\bye

@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{fontspec}
+
+\begin{document}
+
+\fontspec{FiraSans}
+
+That is FiraSans
+
+\fontspec{Cabin}
+
+That is Cabin
+
+\directlua{
+
+  for font_id,font in font.each() do
+    tex.print(font_id)
+    tex.print(font.name)
+    tex.print('\string\\par')
+  end
+
+  tex.definefont('FiraSans', 31)
+}
+
+\fontspec{FiraSans}
+
+That is FiraSans
+
+\FiraSans
+
+That is FiraSans
+
+\end{document}

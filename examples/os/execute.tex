@@ -1,0 +1,12 @@
+%!TEX program = luatex
+
+% To compile the file run:
+% luatex --shell-escape os.execute.tex
+
+\directlua{
+  os.execute('luatex example.tex')
+}
+
+lol
+
+\bye

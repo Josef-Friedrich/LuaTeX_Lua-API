@@ -1,8 +1,6 @@
 {
   "examples": {
-    "prefix": [
-      "example"
-    ],
+    "prefix": ["example"],
     "body": [
       "---",
       "---__Example:__",
@@ -13,5 +11,11 @@
       "---"
     ],
     "description": "An code example."
+  },
+
+  "for-example": {
+    "prefix": ["fexample", "forexample"],
+    "body": [", for example `$0`."],
+    "description": "Inline code example"
   }
 }

@@ -1,0 +1,15 @@
+\documentclass{article}
+
+\begin{document}
+\catcode`\_=12
+\directlua{
+	for type_id, type in pairs(node.types()) do
+		tex.print('\string\\par' .. type_id .. ' ' .. type)
+		if type_id < 8 or type_id > 8 then
+			for field_id, field in pairs(node.fields(type_id)) do
+				tex.print('field: ' .. field_id .. ' ' .. field)
+			end
+		end
+	end
+}
+\end{document}

@@ -1,0 +1,15 @@
+Node ids
+
+\directlua{
+  local function print_id(name)
+    print(name, node.id(name))
+  end
+
+  print()
+  print_id('hlist')
+  print_id('vlist')
+  print_id('rule')
+  print_id('ins')
+}
+
+\bye
