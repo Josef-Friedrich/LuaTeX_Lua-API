@@ -1,0 +1,16 @@
+\documentclass{article}
+
+\begin{document}
+\section{token.commands()}
+
+\catcode`_=12
+
+\setlength{\parindent}{0pt}
+
+\directlua{
+  for index, value in pairs(token.commands()) do
+    tex.print(index .. ' ' .. value .. '\string\\par')
+  end
+}
+
+\end{document}

@@ -11,5 +11,13 @@
   ],
   "Lua.diagnostics.globals": [
     "bit"
-  ]
+  ],
+  "files.exclude": {
+    "**/*.log": true,
+    "**/*.pdf": true,
+    "**/*.aux": true,
+    "**/*.fdb_latexmk": true,
+    "**/*.fls": true,
+    "**/*.synctex*": true
+  }
 }

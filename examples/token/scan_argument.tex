@@ -1,0 +1,26 @@
+\documentclass{article}
+
+\begin{document}
+
+\def\scanner{I haved scanned this argument: \directlua{
+  local argument = token.scan_argument(false)
+  tex.print(argument)
+}}
+
+\def\foo{bar}
+
+\scanner { \textbf{text} }
+
+\scanner c
+
+\scanner \foo
+
+\scanner
+
+\scanner {
+Multiline
+
+text}
+
+This text is unchanged
+\end{document}

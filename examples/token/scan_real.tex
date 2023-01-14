@@ -1,0 +1,31 @@
+\documentclass{article}
+
+\begin{document}
+
+\def\scanner{
+  I haved scanned this real>
+  \directlua{
+    real = token.scan_real()
+    tex.print(real)
+    tex.sprint('<end ')
+  }
+}
+
+\scanner 1
+
+\scanner 1.1
+
+\scanner .1
+
+\scanner - .1
+
+\scanner -1
+
+\scanner - 1
+
+\scanner 1234567890
+
+% Does not scan E10
+\scanner 1E10
+
+\end{document}

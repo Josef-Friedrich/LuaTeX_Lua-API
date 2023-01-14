@@ -1,0 +1,29 @@
+\documentclass{article}
+
+\begin{document}
+
+\def\scanner{
+  I haved scanned this integer>
+  \directlua{
+    int = token.scan_int()
+    tex.print(int)
+    tex.sprint('<end ')
+  }
+}
+
+\scanner 1
+
+% Scans only 1 not .1
+\scanner 1.1
+
+\scanner -1
+
+\scanner 1234567890
+
+Missing number, treated as zero
+% \scanner string
+
+Number to big
+% \scanner 12345678901
+
+\end{document}

@@ -1,0 +1,30 @@
+\documentclass{article}
+
+\begin{document}
+
+\def\scanner{
+  I haved scanned this float>
+  \directlua{
+    float = token.scan_float()
+    tex.print(float)
+    tex.sprint('<end ')
+  }
+}
+
+\scanner 1
+
+\scanner 1.1
+
+\scanner .1
+
+\scanner - .1
+
+\scanner -1
+
+\scanner - 1
+
+\scanner 1E10
+
+\scanner .1e-10
+
+\end{document}

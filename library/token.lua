@@ -26,56 +26,145 @@ _N._1_scanner = 215
 ---
 ---returns true if the given keyword is gobbled; as with the regular *TeX* keyword scanner this is case insensitive (and ASCII based)
 ---
+---__Reference:__
+---
+---* Corresponding C source code: [lnewtokenlib.c#L304-L318](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L304-L318)
+---
 ---@param keyword string
 function token.scan_keyword(keyword) end
 
 ---
 ---returns true if the given keyword is gobbled; this variant is case sensitive and also suitable for *UTF-8*
+--
+---__Reference:__
+---
+---* Corresponding C source code: [lnewtokenlib.c#L320-L334](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L320-L334)
+---
 ---@param keyword string
 function token.scan_keyword_cs(keyword) end
 
 ---
 ---returns an integer
+---
+---__Reference:__
+---
+---* Corresponding C source code: [lnewtokenlib.c#L356-L366](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L356-L366)
+---
+---@return integer
 function token.scan_int() end
 
 ---
----returns a number from e.g.\ `1`,  `1.1`, `.1` with optional collapsed signs
+---returns a number from e.g. `1`,  `1.1`, `.1` with optional collapsed signs
+---
+---__Reference:__
+---
+---* Corresponding C source code: [lnewtokenlib.c#L495-L498](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L495-L498)
+---
+---@return number
 function token.scan_real() end
 
 ---
----returns a number from e.g.\ `1`,  `1.1`, `.1`, `1.1E10`, , `.1e-10` with optional collapsed signs
+---returns a number from e.g. `1`,  `1.1`, `.1`, `1.1E10`, `.1e-10` with optional collapsed signs
+---
+---__Reference:__
+---
+---* Corresponding C source code: [lnewtokenlib.c#L490-L493](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L490-L493)
+---
+---@return number
 function token.scan_float() end
 
 ---
 ---returns a number representing a dimension and or two numbers being the filler and order
-function token.scan_dimen() end
+---
+---__Example:__
+---
+---Parameter `inf`:
+---
+---```tex
+---\directlua{token.scan_dimen(true)}1fi % 1
+---\directlua{token.scan_dimen(true)}1fil % 2
+---\directlua{token.scan_dimen(true)}1fill % 3
+---\directlua{token.scan_dimen(true)}1filll % 4
+---
+---```
+---
+---Parameter `mu`:
+---
+---```tex
+---\directlua{token.scan_dimen(false, true)}1mu % 65536
+---\directlua{token.scan_dimen(false, true)}1cm % Illegal unit of measure (mu inserted).
+---```
+---__Reference:__
+---
+---* Corresponding C source code: [lnewtokenlib.c#L500-L522](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L500-L522)
+---
+---@param inf? boolean # inf values allowed
+---@param mu? boolean # mu (math units) units required
+---
+---@return integer
+function token.scan_dimen(inf, mu) end
 
 ---
 ---returns a glue spec node
-function token.scan_glue() end
+---
+---__Reference:__
+---
+---* Corresponding C source code: [lnewtokenlib.c#L524-L538](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L524-L538)
+---
+function token.scan_glue(mu_units) end
 
 ---
 ---returns a table of tokens tokens
-function token.scan_toks() end
+---
+---__Reference:__
+---
+---* Corresponding C source code: [lnewtokenlib.c#L540-L567](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L540-L567)
+---
+function token.scan_toks(definer, expand) end
 
 ---
 ---returns a character if its category is in the given bitset (representing catcodes)
-function token.scan_code() end
+---
+---__Reference:__
+---
+---* Corresponding C source code: [lnewtokenlib.c#L695-L721](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L695-L721)
+---
+function token.scan_code(bitset) end
 
 ---
 ---returns a string given between `{` `}`, as `\macro` or as sequence of characters with catcode 11 or 12
+---
+---__Reference:__
+---
+---* Corresponding C source code: [lnewtokenlib.c#L569-L606](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L569-L606)
+---
 function token.scan_string() end
 
 ---
 ---this one is simular to `scanstring` but also accepts a `\cs`
-function token.scan_argument() end
+---
+---__Reference:__
+---
+---* Corresponding C source code: [lnewtokenlib.c#L608-L667](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L608-L667)
+---
+function token.scan_argument(boolean) end
 
 ---
 ---returns a sequence of characters with catcode 11 or 12 as string
+---
+---__Reference:__
+---
+---* Corresponding C source code: [lnewtokenlib.c#L669-L693](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L669-L693)
+---
 function token.scan_word() end
 
 ---
 ---returns `foo` after scanning `\foo`
+---
+---__Reference:__
+---
+---* Corresponding C source code: [lnewtokenlib.c#L336-L354](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L336-L354)
+---
 function token.scan_csname() end
 
 ---

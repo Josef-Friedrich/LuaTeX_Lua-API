@@ -1,0 +1,28 @@
+\documentclass{article}
+
+% source/texk/web2c/luatexdir/lua/lnewtokenlib.c
+
+\begin{document}
+
+\def\scanner{
+  I haved scanned a string>
+  \directlua{
+    tex.print(token.scan_string())
+    tex.sprint('<end ')
+  }
+}
+
+\def\bar{bar}
+\def\foo{\bar}
+
+\scanner {A String}
+
+\scanner A String
+
+\scanner \foo
+
+\scanner {\foo}
+
+\scanner Word
+
+\end{document}

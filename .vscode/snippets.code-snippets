@@ -1,0 +1,17 @@
+{
+  "examples": {
+    "prefix": [
+      "example"
+    ],
+    "body": [
+      "---",
+      "---__Example:__",
+      "---",
+      "---```${1:lua}",
+      "---$0",
+      "---```",
+      "---"
+    ],
+    "description": "An code example."
+  }
+}

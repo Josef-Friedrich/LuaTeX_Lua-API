@@ -1,0 +1,17 @@
+\documentclass{article}
+
+\begin{document}
+
+token.set\_lua
+
+\directlua{
+  local t = lua.get_functions_table()
+  t[1] = function(slot)
+    tex.print(slot)
+  end
+  token.set_lua("mycode",1)
+}
+
+\mycode
+
+\end{document}
