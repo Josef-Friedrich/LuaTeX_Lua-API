@@ -35,6 +35,25 @@ agree on a standarized annotation format. Many `Lua` project are
 documented in the [LDoc](https://github.com/lunarmodules/LDoc) format.
 However, the differences between these formats are marginal.
 
+### `library`
+
+The actual definitions are located in the directory `library`. This
+directory is divided into further subdirectories. In the folder `luatex`
+you will find the definitions that the engine `LuaTeX` provides. The
+folder `lualibs` documents the extension library of the same name. If
+you use `lualatex`, you may be interested in the folder of the same
+name.
+
+### `resources`
+
+The folder resources contains TeX manuals and HTML online documentation
+converted into Lua docstrings.
+
+### `examples`
+
+The `example` folder contains TeX files for demonstrating and testing
+the documented Lua API.
+
 ## Installation / Setup for Visual Studio Code
 
 Install [Visual Studio Code](https://code.visualstudio.com/) and the
