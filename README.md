@@ -372,7 +372,7 @@ Documentation for the field `data` of the `pdf_colorstack` node:
 
 ## Documentation
 
-* [LuaTeX Mirror](https://github.com/TeX-Live/luatex)
+* [LuaTeX Repo](https://gitlab.lisn.upsaclay.fr/texlive/luatex/) [LuaTeX Mirror](https://github.com/TeX-Live/luatex)
 * [pdfTeX Mirror](https://github.com/tex-mirror/pdftex)
 
 ## Howtos
