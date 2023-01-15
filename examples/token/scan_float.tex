@@ -1,13 +1,11 @@
-\documentclass{article}
 
-\begin{document}
 
 \def\scanner{
-  I haved scanned this float>
+  I haved scanned this float:
   \directlua{
     float = token.scan_float()
     tex.print(float)
-    tex.sprint('<end ')
+    tex.sprint(':end ')
   }
 }
 
@@ -27,4 +25,4 @@
 
 \scanner .1e-10
 
-\end{document}
+\bye

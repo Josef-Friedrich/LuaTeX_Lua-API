@@ -1,11 +1,4 @@
-\documentclass{article}
-
-\begin{document}
-\section{token.commands()}
-
 \catcode`_=12
-
-\setlength{\parindent}{0pt}
 
 \directlua{
   for index, value in pairs(token.commands()) do
@@ -13,4 +6,4 @@
   end
 }
 
-\end{document}
+\bye

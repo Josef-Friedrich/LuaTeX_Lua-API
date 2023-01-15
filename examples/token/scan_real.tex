@@ -1,13 +1,9 @@
-\documentclass{article}
-
-\begin{document}
-
 \def\scanner{
-  I haved scanned this real>
+  I haved scanned this real:
   \directlua{
     real = token.scan_real()
     tex.print(real)
-    tex.sprint('<end ')
+    tex.sprint(':end ')
   }
 }
 
@@ -28,4 +24,4 @@
 % Does not scan E10
 \scanner 1E10
 
-\end{document}
+\bye

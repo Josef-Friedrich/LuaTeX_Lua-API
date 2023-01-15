@@ -1,11 +1,9 @@
-\documentclass{article}
-
-\begin{document}
 \catcode`_=12
 \directlua{
   for id, name in pairs(node.whatsits()) do
     tex.print(id)
-    tex.print(name)
+    tex.print(name:gsub('_', '\string\\_'))
   end
 }
-\end{document}
+
+\bye

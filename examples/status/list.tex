@@ -1,5 +1,3 @@
-\documentclass{article}
-\begin{document}
 \catcode`_=12
 
 \directlua{
@@ -8,4 +6,5 @@
     tex.print('"' .. key .. '": '.. tostring(value), '\string\\par')
   end
 }
-\end{document}
+
+\bye

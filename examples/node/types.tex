@@ -1,6 +1,4 @@
-\documentclass{article}
 
-\begin{document}
 \catcode`\_=12
 \directlua{
   for id, type in pairs(node.types()) do
@@ -8,4 +6,5 @@
     tex.print(type)
   end
 }
-\end{document}
+
+\bye
