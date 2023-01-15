@@ -5,4 +5,7 @@ convert_tex_to_lua:
 debug:
 	luatex --luaonly debug.lua
 
+print_namespace:
+	luatex resources/print-namespace.tex
+
 .PHONY: convert_tex_to_lua debug

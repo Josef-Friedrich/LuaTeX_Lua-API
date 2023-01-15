@@ -211,31 +211,31 @@ function utf.utf32_to_utf8_le_t() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function utf.utf32_to_utf8_t() end
+function utf.utf32_to_utf8_t(t, endian) end
 
 ---
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function utf.utf8_to_utf16() end
+function utf.utf8_to_utf16(str, littleendian, nobom) end
 
 ---
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function utf.utf8_to_utf16_be() end
+function utf.utf8_to_utf16_be(str, nobom) end
 
 ---
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function utf.utf8_to_utf16_le() end
+function utf.utf8_to_utf16_le(str, nobom) end
 
 ---
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function utf.utf8_to_utf8_t() end
+function utf.utf8_to_utf8_t(t) end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -247,4 +247,38 @@ function utf.values() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function utf.xstring() end
+function utf.xstring(s) end
+
+---https://github.com/latex3/lualibs/blob/main/lualibs-unicode.lua
+
+function utf.byte() end
+function utf.char() end
+function utf.characters() end
+function utf.chrlen(u) end
+function utf.count(str, what) end
+function utf.filetype(data) end
+function utf.is_valid(str) end
+function utf.len() end
+function utf.length() end
+function utf.magic(f) end
+function utf.remapper(mapping, option, action) end
+function utf.replacer(t) end
+function utf.split(str, ignorewhitespace) end
+function utf.splitlines(str) end
+function utf.sub(str, start, stop) end
+function utf.subtituter(t) end
+function utf.tocodes(str, separator) end
+function utf.toeight(str) end
+function utf.toentities(str) end
+function utf.totable(str) end
+function utf.toutf32string(n) end
+function utf.ustring(s) end
+function utf.utf16_to_utf8_be(s) end
+function utf.utf16_to_utf8_be_t(t) end
+function utf.utf16_to_utf8_le(s) end
+function utf.utf16_to_utf8_le_t(t) end
+function utf.utf16_to_utf8_t(t, endian) end
+function utf.utf32_to_utf8_be(s) end
+function utf.utf32_to_utf8_be_t(t) end
+function utf.utf32_to_utf8_le(s) end
+function utf.utf32_to_utf8_le_t(t) end

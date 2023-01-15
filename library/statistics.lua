@@ -110,3 +110,23 @@ function statistics.timed() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function statistics.tracefunction() end
+
+---https://github.com/latex3/lualibs/blob/main/lualibs-trac-inf.lua
+
+function statistics.benchmarktimer(instance) end
+function statistics.currenttime(instance) end
+function statistics.elapsed(instance) end
+function statistics.elapsedindeed(instance) end
+function statistics.elapsedseconds(instance, rest) end
+function statistics.elapsedtime(instance) end
+function statistics.formatruntime(runtime) end
+function statistics.hastiming(instance) end
+function statistics.memused() end
+function statistics.register(tag, fnc) end
+function statistics.resettiming(instance) end
+function statistics.runtime() end
+function statistics.show() end
+function statistics.starttiming(instance, reset) end
+function statistics.stoptiming(instance) end
+function statistics.timed(action, all) end
+function statistics.tracefunction(base, tag) end

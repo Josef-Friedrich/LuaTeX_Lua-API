@@ -1,4 +1,5 @@
 local inspect = require('inspect')
+require('lualibs')
 
 ---Print and inspect
 ---@param args any
@@ -7,7 +8,7 @@ local function printi(args) print(inspect(args)) end
 ---https://stackoverflow.com/a/29246308
 ---
 ---@param fun function
----@return table
+---@return string
 local function get_function_args(fun)
     local args = {}
     local hook = debug.gethook()
@@ -30,9 +31,7 @@ local function get_function_args(fun)
     debug.sethook(arg_hook, "c")
     pcall(fun)
 
-    for key, value in pairs(args) do print(key, value) end
-
-    return args
+    return table.concat(args, ', ')
 end
 
 ---
@@ -70,8 +69,8 @@ local function print_lib_members(lib_name, lib, as_lua)
             end
         else
             if member_type == 'function' then
-                printf('function %s.%s() end', lib_name, member, member_type)
-                get_function_args(lib[member])
+                local args = get_function_args(lib[member])
+                printf('function %s.%s(%s) end', lib_name, member, args)
             end
         end
 
@@ -110,5 +109,5 @@ end
 
 return function()
     print_global_namespace()
-    print_lib_members('node.direct', _ENV.node.direct, true)
+    print_lib_members('io', _ENV.io, true)
 end

@@ -128,3 +128,11 @@ function lua.setbytecode() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function lua.setluaname() end
+
+---https://github.com/latex3/lualibs/blob/main/lualibs-lua.lua
+
+function setinspector(kind, inspector) end
+function inspect(...) end
+
+function optionalrequire(...) end
+function load(first, ...) end

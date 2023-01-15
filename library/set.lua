@@ -1,5 +1,7 @@
 ---@meta
 
+---https://github.com/latex3/lualibs/blob/main/lualibs-set.lua
+
 set = {}
 
 ------------------------------------------------------------------------
@@ -13,28 +15,28 @@ set = {}
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function set.contains() end
+function set.contains(n, s) end
 
 ---
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function set.create() end
+function set.create(t, value) end
 
 ---
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function set.tolist() end
+function set.tolist(n) end
 
 ---
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function set.tonumber() end
+function set.tonumber(t) end
 
 ---
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function set.totable() end
+function set.totable(n) end
