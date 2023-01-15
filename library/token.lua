@@ -240,7 +240,6 @@ function token.get_cmdname() end
 ---
 ---
 ---* Corresponding C source code: [lnewtokenlib.c#L835-L845](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L835-L845)
----
 function token.get_command() end
 
 ---
