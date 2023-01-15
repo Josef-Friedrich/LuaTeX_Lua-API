@@ -1,9 +1,7 @@
-\catcode`_=12
-
 \directlua{
   info = status.list()
   for key, value in pairs(info) do
-    tex.print('"' .. key .. '": '.. tostring(value), '\string\\par')
+    print(key, value)
   end
 }
 

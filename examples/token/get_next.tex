@@ -1,20 +1,6 @@
-\bf
-
 \directlua{
-  local t1 = token.get_next()
-  local t2 = token.get_next()
-  token.put_next(t2)
-  token.put_next(t1)
-}[key=value]
-
-\directlua{
-  print(utf8.char(string.byte('a')))
-  for i=1,10 do
-    local t = token.get_next()
-    print(t.index)
-    print(utf8.char(t.index))
-    tex.sprint('[' .. utf8.char(t.index) .. ']')
-  end
-}01234567890
+  print(token.get_next())
+  print(token.get_next())
+}12
 
 \bye

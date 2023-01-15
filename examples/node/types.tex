@@ -1,9 +1,6 @@
-
-\catcode`\_=12
 \directlua{
   for id, type in pairs(node.types()) do
-    tex.print(id)
-    tex.print(type)
+    print(id, type)
   end
 }
 

@@ -1,11 +1,9 @@
 \def\foo{bar}
 \def\fooArgs #1 {bar with args #1}
 
-\catcode`#=12
-
 \directlua{
-  tex.print(token.get_macro('foo'))
-  tex.print(token.get_macro('fooArgs'))
+  print(token.get_macro('foo'))
+  print(token.get_macro('fooArgs'))
 }
 
 \bye

@@ -1,8 +1,6 @@
-\catcode`_=12
-
 \directlua{
   for index, value in pairs(token.commands()) do
-    tex.print(index .. ' ' .. value .. '\string\\par')
+    print(index, value)
   end
 }
 

@@ -1,8 +1,6 @@
-\catcode`_=12
 \directlua{
   for id, name in pairs(node.whatsits()) do
-    tex.print(id)
-    tex.print(name:gsub('_', '\string\\_'))
+    print(id, name)
   end
 }
 
