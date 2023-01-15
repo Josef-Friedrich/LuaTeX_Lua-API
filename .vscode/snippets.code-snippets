@@ -2,7 +2,7 @@
   "examples": {
     "prefix": ["example"],
     "body": [
-      "---",
+      "\n---",
       "---__Example:__",
       "---",
       "---```${1:lua}",
@@ -17,5 +17,45 @@
     "prefix": ["fexample", "forexample"],
     "body": [", for example `$0`."],
     "description": "Inline code example"
+  },
+
+  "references": {
+    "prefix": ["reference"],
+    "body": ["", "---", "---__Reference:__", "---", "---* [$2]($1)", "---$0"],
+    "description": "Reference heading"
+  },
+
+  "referenceLuaTeXManual": {
+    "prefix": ["manual"],
+    "body": [
+      "",
+      "---* `LuaTeX` manual: ${1:chapter} “${2:title}” page ${3:page}",
+      "---$0"
+    ],
+    "description": "* `LuaTeX` manual: "
+  },
+
+  "referenceSourceLuaTeXManual": {
+    "prefix": ["source"],
+    "body": ["", "---* Source code of the `LuaTeX` manual: [$2]($1)", "---$0"],
+    "description": "* Source code of the `LuaTeX` manual"
+  },
+
+  "referenceC": {
+    "prefix": ["ccode"],
+    "body": ["", "---* Corresponding C source code: [$2]($1)", "---$0"],
+    "description": "* Corresponding C source code: "
+  },
+
+  "return": {
+    "prefix": ["return"],
+    "body": ["", "---", "---@return $0"],
+    "description": "@return"
+  },
+
+  "param": {
+    "prefix": ["param"],
+    "body": ["", "---", "---@param $0"],
+    "description": "@param"
   }
 }
