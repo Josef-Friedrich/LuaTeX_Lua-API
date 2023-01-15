@@ -1,12 +1,8 @@
-\documentclass{article}
-
-\begin{document}
-
 \def\scanner{
-  I haved scanned a string>
+  I haved scanned a string:
   \directlua{
     tex.print(token.scan_string())
-    tex.sprint('<end ')
+    tex.sprint(':end ')
   }
 }
 
@@ -23,4 +19,4 @@
 
 \scanner Word
 
-\end{document}
+\bye

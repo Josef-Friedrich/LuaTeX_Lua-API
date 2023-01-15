@@ -1,13 +1,9 @@
-\documentclass{article}
-
-\begin{document}
-
 \def\scanner{
-  I haved scanned this integer>
+  I haved scanned this integer:
   \directlua{
     int = token.scan_int()
     tex.print(int)
-    tex.sprint('<end ')
+    tex.sprint(':end ')
   }
 }
 
@@ -25,5 +21,4 @@ Missing number, treated as zero
 
 Number to big
 % \scanner 12345678901
-
-\end{document}
+\bye

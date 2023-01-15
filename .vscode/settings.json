@@ -3,15 +3,10 @@
   // https://github.com/sumneko/lua-language-server/wiki/Libraries
   "Lua.workspace.library": [
     // https://github.com/Josef-Friedrich/LuaTeX_Lua-API
-    "~/repos/tex/lua-api/library",
+    "~/repos/tex/lua-api/library"
   ],
-  "Lua.diagnostics.disable": [
-    "duplicate-set-field",
-    "param-type-mismatch"
-  ],
-  "Lua.diagnostics.globals": [
-    "bit"
-  ],
+  "Lua.diagnostics.disable": ["duplicate-set-field", "param-type-mismatch"],
+  "Lua.diagnostics.globals": ["bit"],
   "files.exclude": {
     "**/*.log": true,
     "**/*.pdf": true,
@@ -19,5 +14,26 @@
     "**/*.fdb_latexmk": true,
     "**/*.fls": true,
     "**/*.synctex*": true
-  }
+  },
+
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "luatex",
+      "tools": ["luatex"]
+    }
+  ],
+
+  "latex-workshop.latex.tools": [
+    {
+      "name": "luatex",
+      "command": "luatex",
+      "args": [
+        "--synctex=1",
+        "--interaction=nonstopmode",
+        "--file-line-error",
+        "%DOC%"
+      ],
+      "env": {}
+    }
+  ]
 }

@@ -1,6 +1,3 @@
-\documentclass{article}
-
-\begin{document}
 \def\foo{bar}
 \def\fooArgs #1 {bar with args #1}
 
@@ -10,4 +7,5 @@
   tex.print(token.get_macro('foo'))
   tex.print(token.get_macro('fooArgs'))
 }
-\end{document}
+
+\bye

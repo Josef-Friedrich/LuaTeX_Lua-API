@@ -1,21 +1,15 @@
-\documentclass{article}
-
-\begin{document}
-
 \def\scanner{
-  I haved scanned this dimension>
+  I haved scanned this dimension:
   \directlua{
-    tex.print(token.scan_dimen(true))
-    tex.sprint('<end ')
+    tex.print(token.scan_dimen())
+    tex.sprint(':end ')
     tex.print('\string\\par')
-  }
+  }%
 }
 
 \scanner 1cm
 \scanner 1pt
 \scanner 1em
-
-\scanner 1filll
 
 % Illegal unit of measure (pt inserted).
 % \scanner 1
@@ -34,4 +28,4 @@
 % Illegal unit of measure (mu inserted).
 % \directlua{tex.print(token.scan_dimen(false, true))}1cm
 
-\end{document}
+\bye
