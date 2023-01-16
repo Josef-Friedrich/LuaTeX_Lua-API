@@ -6,18 +6,97 @@
 font = {}
 
 ---
----The number is a bit special:
+---Load a TFM (`TeX` font metric) file.
 ---
----* If it is positive, it specifies an “at size” in scaled points.
+---__Example:__
 ---
----* If it is negative, its absolute value represents a “scaled”
----    setting relative to the designsize of the font.
+---```lua
+---font.read_tfm('cmr10', tex.sp('10pt'))
+---```
 ---
 ---@param name string
----@param s number
+---@param s integer # If `s` is positive, it specifies an “at size” in scaled points. If `s` is negative, its absolute value represents a “scaled” setting relative to the designsize of the font.
 ---
 ---@return table
 function font.read_tfm(name, s) end
+
+---
+---Load a VF (virtual font) file.
+---
+---__Example:__
+---
+---```lua
+---font.read_vf('ptmr8t', tex.sp('8pt'))
+---```
+---
+---The meaning of the number `s` and the format of the returned table are
+---similar to the ones in the `read_tfm` function.
+---@param s integer # If `s` is positive, it specifies an “at size” in scaled points. If `s` is negative, its absolute value represents a “scaled” setting relative to the designsize of the font.
+function font.read_vf(name, s) end
+
+---
+---The whole table of *TeX* fonts is accessible from *Lua* using a virtual array.
+---Because this is a virtual array, you cannot call `pairs` on it, but see
+---below for the `font.each` iterator.
+font.fonts = {}
+
+---
+---@param n integer
+---@param f table
+function font.setfont(n, f) end
+
+---
+---Note that at the moment, each access to the `font.fonts` or call to `font.getfont` creates a *Lua* table for the whole font unless you cached it.
+---@param n integer
+---
+---@return table f
+function font.getfont(n) end
+
+---
+---Copy the internal data of a font.
+---
+---@param n integer
+---
+---@return table f
+function font.getcopy(n) end
+
+---
+---Return a table of the parameters as known to *TeX*. These can be
+---different from the ones in the cached table.
+---
+---@param n integer
+---
+---@return table p
+function font.getparameters(n) end
+
+---
+---Test for the status of a font
+---
+---The return value is one of `true` (unassignable), `false` (can be
+---changed) or `nil` (not a valid font at all).
+---@param n integer
+---
+---@return boolean|nil
+function font.frozen(n) end
+
+---
+---Define a font into `font.fonts`.
+---
+---@param f table
+---
+---@return integer i
+function font.define(f) end
+
+---
+---An alternative call is:
+---
+---Where the first argument is a reserved font id (see below).
+---
+---@param n integer
+---@param f table
+---
+---@return integer i
+function font.define(n, f) end
 
 ---
 ---The table passed can have the fields `characters` which is a (sub)table
@@ -79,38 +158,6 @@ function font.each() end
 ---official documentation
 ------------------------------------------------------------------------
 
-
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function font.define() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function font.frozen() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function font.getcopy() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function font.getfont() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function font.getparameters() end
-
 ---
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
@@ -121,16 +168,4 @@ function font.originaleach() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function font.read_vf() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function font.setexpansion() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function font.setfont() end

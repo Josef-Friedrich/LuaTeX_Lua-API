@@ -1,15 +1,10 @@
-\documentclass{article}
-
-\begin{document}
-
-\textbf{bold}
-\textit{italic}
+\bf bold
+\it italic
 
 \directlua{
   for font_id,font in font.each() do
-    tex.print(font_id)
-    tex.print(font.name)
-    tex.print('\string\\par')
+    print(font_id, font)
   end
 }
-\end{document}
+
+\bye
