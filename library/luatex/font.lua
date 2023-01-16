@@ -19,6 +19,50 @@ font = {}
 ---@return table
 function font.read_tfm(name, s) end
 
+
+---
+---Return the font id number that would be returned by a `font.define`
+---call if it was executed at this spot in the code flow.
+---
+---This is useful for virtual
+---fonts that need to reference themselves. If you pass `true` as argument,
+---the id gets reserved and you can pass to `font.define` as first argument.
+---This can be handy when you create complex virtual fonts.
+---
+---@return integer i
+function font.nextid() end
+
+---
+---Return the font id associated with `csname`, or `-1` if `csname` is not defined.
+---
+---@param csname string
+---
+---@return integer i
+function font.id(csname) end
+
+---
+---Get the largest used index in `font.fonts`.
+---
+---@return integer i # The largest used index in `font.fonts`.
+function font.max() end
+
+---
+---Get or set the currently used font number.
+---
+---@param i? integer
+---
+---@return number i
+function font.current(i) end
+
+---
+---Iterate over all fonts.
+---
+---This is an iterator over each of the defined *TeX* fonts. The first returned
+---value is the index in `font.fonts`, the second the font itself, as a *Lua*
+---table. The indices are listed incrementally, but they do not always form an array
+---of consecutive numbers: in some cases there can be holes in the sequence.
+function font.each() end
+
 ------------------------------------------------------------------------
 ---Undocumented functions listed in alphabetical order
 ---
@@ -36,19 +80,7 @@ function font.addcharacters() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function font.current() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function font.define() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function font.each() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -74,23 +106,6 @@ function font.getfont() end
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function font.getparameters() end
 
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function font.id() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function font.max() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function font.nextid() end
 
 ---
 ---Warning! Undocumented code!<p>
