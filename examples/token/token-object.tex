@@ -1,15 +1,12 @@
 \def\scan{
   \directlua{
-    local function print_token(key, value)
-      tex.print(key .. ': ' .. tostring(value) .. '\string\\par')
-    end
-
     local t = token.get_next()
 
-    tex.print('\string\\bigskip')
+    print()
+    print('Token:')
 
     for _, value in ipairs({'command', 'cmdname', 'csname', 'id', 'tok', 'active', 'expandable', 'protected', 'mode', 'index'}) do
-      print_token(value, t[value])
+      print(value, t[value])
     end
   }% <- to get no spacer
 }

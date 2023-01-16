@@ -200,8 +200,169 @@ function token.expand() end
 _N._3_creating = 218
 
 ---
+---* Corresponding C source code: [luatoken.c#L191-L349](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/luatoken.c#L191-L349)
+---@alias TokenCommandName
+---| 'relax'
+---| 'left_brace'
+---| 'right_brace'
+---| 'math_shift'
+---| 'tab_mark'
+---| 'car_ret'
+---| 'mac_param'
+---| 'sup_mark'
+---| 'sub_mark'
+---| 'endv'
+---| 'spacer'
+---| 'letter'
+---| 'other_char'
+---| 'par_end'
+---| 'stop'
+---| 'delim_num'
+---| 'char_num'
+---| 'math_char_num'
+---| 'mark'
+---| 'node'
+---| 'xray'
+---| 'make_box'
+---| 'hmove'
+---| 'vmove'
+---| 'un_hbox'
+---| 'un_vbox'
+---| 'remove_item'
+---| 'hskip'
+---| 'vskip'
+---| 'mskip'
+---| 'kern'
+---| 'mkern'
+---| 'leader_ship'
+---| 'halign'
+---| 'valign'
+---| 'no_align'
+---| 'vrule'
+---| 'hrule'
+---| 'novrule'
+---| 'nohrule'
+---| 'insert'
+---| 'vadjust'
+---| 'ignore_spaces'
+---| 'after_assignment'
+---| 'after_group'
+---| 'partoken_name'
+---| 'break_penalty'
+---| 'start_par'
+---| 'ital_corr'
+---| 'accent'
+---| 'math_accent'
+---| 'discretionary'
+---| 'eq_no'
+---| 'left_right'
+---| 'math_comp'
+---| 'limit_switch'
+---| 'above'
+---| 'math_style'
+---| 'math_choice'
+---| 'non_script'
+---| 'vcenter'
+---| 'case_shift'
+---| 'message'
+---| 'normal'
+---| 'extension'
+---| 'option'
+---| 'lua_function_call'
+---| 'lua_bytecode_call'
+---| 'lua_call'
+---| 'in_stream'
+---| 'begin_group'
+---| 'end_group'
+---| 'omit'
+---| 'ex_space'
+---| 'boundary'
+---| 'radical'
+---| 'super_sub_script'
+---| 'no_super_sub_script'
+---| 'math_shift_cs'
+---| 'end_cs_name'
+---| 'char_ghost'
+---| 'assign_local_box'
+---| 'char_given'
+---| 'math_given'
+---| 'xmath_given'
+---| 'last_item'
+---| 'toks_register'
+---| 'assign_toks'
+---| 'assign_int'
+---| 'assign_attr'
+---| 'assign_dimen'
+---| 'assign_glue'
+---| 'assign_mu_glue'
+---| 'assign_font_dimen'
+---| 'assign_font_int'
+---| 'assign_hang_indent'
+---| 'set_aux'
+---| 'set_prev_graf'
+---| 'set_page_dimen'
+---| 'set_page_int'
+---| 'set_box_dimen'
+---| 'set_tex_shape'
+---| 'set_etex_shape'
+---| 'def_char_code'
+---| 'def_del_code'
+---| 'extdef_math_code'
+---| 'extdef_del_code'
+---| 'def_family'
+---| 'set_math_param'
+---| 'set_font'
+---| 'def_font'
+---| 'def_lua_call'
+---| 'register'
+---| 'assign_box_direction'
+---| 'assign_box_dir'
+---| 'assign_direction'
+---| 'assign_dir'
+---| 'combinetoks'
+---| 'advance'
+---| 'multiply'
+---| 'divide'
+---| 'prefix'
+---| 'let'
+---| 'shorthand_def'
+---| 'read_to_cs'
+---| 'def'
+---| 'set_box'
+---| 'hyph_data'
+---| 'set_interaction'
+---| 'letterspace_font'
+---| 'expand_font'
+---| 'copy_font'
+---| 'set_font_id'
+---| 'undefined_cs'
+---| 'expand_after'
+---| 'no_expand'
+---| 'input'
+---| 'lua_expandable_call'
+---| 'lua_local_call'
+---| 'if_test'
+---| 'fi_or_else'
+---| 'cs_name'
+---| 'convert'
+---| 'variable'
+---| 'feedback'
+---| 'the'
+---| 'top_bot_mark'
+---| 'call'
+---| 'long_call'
+---| 'outer_call'
+---| 'long_outer_call'
+---| 'end_template'
+---| 'dont_expand'
+---| 'glue_ref'
+---| 'shape_ref'
+---| 'box_ref'
+---| 'data'
+
+---
 ---A token object has the properties of the `relax`
----primitive. The possible properties of tokens are:
+---primitive.
 ---
 ---Alternatively you can use a getter `get_<fieldname>` to access a property
 ---of a token.
@@ -217,77 +378,113 @@ _N._3_creating = 218
 ---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L2285-L2310](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L2285-L2310)
 ---
 ---@class Token
----@field command integer # a number representing the internal command number
----@field cmdname any # the type of the command (for instance the catcode in case of a character or the classifier that determines the internal treatment
----@field csname string # the associated control sequence (if applicable)
----@field id integer # the unique id of the token
----@field tok integer # the full token number as stored in TeX
----@field active boolean # a boolean indicating the active state of the token
----@field expandable boolean # a boolean indicating if the token (macro) is expandable
----@field public protected boolean # a boolean indicating if the token (macro) is protected
----@field mode integer|any # a number either representing a character or another entity
----@field index integer # a number running from 0x0000 upto 0xFFFF indicating a TeX register index
+---@field command integer # A number representing the internal command number, for example `147`.
+---@field cmdname TokenCommandName # The type of the command (for instance the catcode in case of a character or the classifier that determines the internal treatment, for example `letter`.
+---@field csname string|nil # The associated control sequence (if applicable), for example `bigskip`.
+---@field id integer # The unique id of the token, for example `6876`.
+---@field tok integer # The full token number as stored in TeX, for example `536883863`.
+---@field active boolean # A boolean indicating the active state of the token, for example `true`.
+---@field expandable boolean # A boolean indicating if the token (macro) is expandable, for example `true`.
+---@field public protected boolean # A boolean indicating if the token (macro) is protected, for example `false`.
+---@field mode integer # A number either representing a character or another entity, for example `1007`.
+---@field index integer # A number running from 0x0000 upto 0xFFFF indicating a TeX register index, for example `1007`.
 
 ---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lnewtokenlib.c#L835-L845](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L835-L845)
-function token.get_command() end
+---
+---@param t Token
+---
+---@return integer command # A number representing the internal command number, for example `147`.
+function token.get_command(t) end
 
 ---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lnewtokenlib.c#L901-L908](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L901-L908)
 ---
 ---@param t Token
+---
+---@return TokenCommandName cmdname # The type of the command (for instance the catcode in case of a character or the classifier that determines the internal treatment, for example `letter`.
 function token.get_cmdname(t) end
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lnewtokenlib.c#L910-L924](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L910-L924)
 ---
 ---@param t Token
+---
+---@return string|nil csname # The associated control sequence (if applicable), for example `bigskip`.
 function token.get_csname(t) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---__Reference:__
+---
+---* Corresponding C source code: [lnewtokenlib.c#L926-L931](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L926-L931)
 ---
 ---@param t Token
+---
+---@return integer id # The unique id of the token, for example `6876`.
 function token.get_id(t) end
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lnewtokenlib.c#L933-L939](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L933-L939)
 ---
 ---@param t Token
+---
+---@return integer tok # The full token number as stored in TeX, for example `536883863`.
 function token.get_tok(t) end
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lnewtokenlib.c#L941-L956](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L941-L956)
 ---
 ---@param t Token
+---
+---@return boolean active # A boolean indicating the active state of the token, for example `true`.
 function token.get_active(t) end
 
 ---
 ---* Corresponding C source code: [lnewtokenlib.c#L958-L969](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L958-L969)
 ---
 ---@param t Token
+---
+---@return boolean expandable # A boolean indicating if the token (macro) is expandable, for example `true`.
 function token.get_expandable(t) end
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lnewtokenlib.c#L971-L987](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L971-L987)
 ---
 ---@param t Token
+---
+---@return boolean protected # A boolean indicating if the token (macro) is protected, for example `false`.
 function token.get_protected(t) end
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lnewtokenlib.c#L889-L899](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L889-L899)
 ---
 ---@param t Token
+---
+---@return integer mode # A number either representing a character or another entity, for example `1007`.
 function token.get_mode(t) end
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lnewtokenlib.c#L847-L887](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L847-L887)
 ---
 ---@param t Token
+---
+---@return integer index # A number running from 0x0000 upto 0xFFFF indicating a TeX register index, for example `1007`.
 function token.get_index(t) end
 
 ---

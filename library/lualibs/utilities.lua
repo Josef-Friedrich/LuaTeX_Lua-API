@@ -2,6 +2,7 @@
 utilities = {}
 
 ---https://github.com/latex3/lualibs/blob/main/lualibs-util-deb.lua
+utilities.debugger = {}
 
 function utilities.debugger.disable() end
 function utilities.debugger.enable() end
@@ -10,6 +11,7 @@ function utilities.debugger.showstats(printer, threshold) end
 function utilities.debugger.showtraceback(rep) end
 
 ---https://github.com/latex3/lualibs/blob/main/lualibs-util-fil.lua
+utilities.files = {}
 
 function utilities.files.close(f) end
 function utilities.files.getposition() end
@@ -55,6 +57,7 @@ function utilities.files.writecardinal4(f, n) end
 function utilities.files.writestring(f, s) end
 
 ---https://github.com/latex3/lualibs/blob/main/lualibs-util-jsn.lua
+utilities.json = {}
 
 function utilities.json.load(filename) end
 function utilities.json.tojson(value) end
@@ -62,6 +65,7 @@ function utilities.json.tolua(str) end
 function utilities.json.tostring(value, pretty) end
 
 ---https://github.com/latex3/lualibs/blob/main/lualibs-util-lua.lua
+utilities.lua = {}
 
 function utilities.lua.checkmemory(previous, threshold, trace) end
 function utilities.lua.compile(luafile, lucfile, cleanup, strip, fallback) end
@@ -72,6 +76,7 @@ function utilities.lua.registerfinalizer(f) end
 function utilities.lua.strippedloadstring(code, name, forcestrip) end
 
 ---https://github.com/latex3/lualibs/blob/main/lualibs-util-prs.lua
+utilities.parsers = {}
 
 function utilities.parsers.add_settings_to_array(t, str) end
 function utilities.parsers.arguments_to_table(str) end
@@ -109,6 +114,7 @@ function utilities.parsers.unittotex(str, textmode) end
 function utilities.parsers.unittoxml(str) end
 
 ---https://github.com/latex3/lualibs/blob/main/lualibs-util-sac.lua
+utilities.streams = {}
 
 function utilities.streams.close() end
 function utilities.streams.getposition(f) end
@@ -161,10 +167,12 @@ function utilities.streams.tocardinal4(n) end
 function utilities.streams.tocardinal4le(n) end
 
 ---https://github.com/latex3/lualibs/blob/main/lualibs-util-sta.lua
+utilities.stacker = {}
 
 function utilities.stacker.new(name) end
 
 ---https://github.com/latex3/lualibs/blob/main/lualibs-util-sto.lua
+utilities.storage = {}
 
 function utilities.storage.allocate(t) end
 function utilities.storage.checked(t) end
@@ -174,7 +182,6 @@ function utilities.storage.setinitializer(data, initialize) end
 function utilities.storage.sparse(t) end
 
 ---https://github.com/latex3/lualibs/blob/main/lualibs-util-str.lua
-
 utilities.strings = {}
 
 function utilities.strings.collapse(str) end
@@ -186,9 +193,8 @@ function utilities.strings.striplines(str, how) end
 function utilities.strings.striplong(str, how) end
 function utilities.strings.tabtospace(str, tab) end
 
-utilities.templates = {}
-
 -- https://github.com/latex3/lualibs/blob/main/lualibs-util-tpl.lua
+utilities.templates = {}
 
 function utilities.templates.load(filename, mapping, how, recurse) end
 function utilities.templates.replace(str, mapping, how, recurse) end
