@@ -695,7 +695,7 @@
 ---    font.max()
 ---```
 ---
----This is the largest used index in `font.fonts`.
+---
 ---
 ---```
 ---<number> i = font.current()
@@ -704,7 +704,7 @@
 ---
 ---This gets or sets the currently used font number.
 ---
----# Iterating over all fonts
+---#
 ---
 ---```
 ---for i,v in font.each() do

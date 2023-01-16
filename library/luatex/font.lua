@@ -19,6 +19,15 @@ font = {}
 ---@return table
 function font.read_tfm(name, s) end
 
+---
+---The table passed can have the fields `characters` which is a (sub)table
+---like the one used in define, and for virtual fonts a `fonts` table can be
+---added. The characters defined in the `characters` table are added (when not
+---yet present) or replace an existing entry. Keep in mind that replacing can have
+---side effects because a character already can have been used. Instead of posing
+---restrictions we expect the user to be careful. (The `setfont` helper is
+---a more drastic replacer.)
+function font.addcharacters(n, t) end
 
 ---
 ---Return the font id number that would be returned by a `font.define`
@@ -70,11 +79,7 @@ function font.each() end
 ---official documentation
 ------------------------------------------------------------------------
 
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function font.addcharacters() end
+
 
 ---
 ---Warning! Undocumented code!<p>
@@ -105,7 +110,6 @@ function font.getfont() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function font.getparameters() end
-
 
 ---
 ---Warning! Undocumented code!<p>
