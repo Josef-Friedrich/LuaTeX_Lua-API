@@ -9,6 +9,7 @@ grep \
   --line-number \
   --colour \
   "$*" \
+  /usr/local/src/luatex \
   "$HOME/repos/tex/mailing_lists" \
   /usr/local/texlive \
   .
