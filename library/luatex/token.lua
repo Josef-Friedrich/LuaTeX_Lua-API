@@ -24,13 +24,28 @@ token = {}
 _N._1_scanner = 215
 
 ---
----returns true if the given keyword is gobbled; as with the regular *TeX* keyword scanner this is case insensitive (and ASCII based)
+---Scan and gobble a given keyword.
+---
+---As with the regular *TeX* keyword scanner this is case insensitive (and ASCII based).
+---
+---__Example:__
+---
+---```latex
+---\def\scanner{\directlua{
+---  print(token.scan_keyword('keyword'))
+---}}
+---\scanner keyword % true
+---\scanner KEYWORD % true
+---\scanner not the keyword % false
+---```
 ---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnewtokenlib.c#L304-L318](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L304-L318)
 ---
----@param keyword string
+---@param keyword string # An ASCII based keyword to scan for.
+---
+---@return boolean # True if the keyword could be gobbled up otherwise false.
 function token.scan_keyword(keyword) end
 
 ---
