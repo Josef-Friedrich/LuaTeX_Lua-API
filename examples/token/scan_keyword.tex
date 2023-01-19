@@ -1,0 +1,7 @@
+\def\scanner{\directlua{
+  print(token.scan_keyword('keyword'))
+}}
+\scanner keyword % true
+\scanner KEYWORD % true
+\scanner not the keyword % false
+\bye
