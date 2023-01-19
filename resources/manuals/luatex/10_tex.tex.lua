@@ -1807,8 +1807,7 @@
 ---
 ---# `setescape`
 ---
----You can disable `^^` escaping of control characters by passing a value of
----zero.
+
 ---
 ----------------------------------------------------------------
 
@@ -1816,11 +1815,7 @@
 ---
 ---# `closeinput`
 ---
----This function that should be used with care. It acts as `endinput` but at
----the *Lua* end. You can use it to (sort of) force a jump back to *TeX*. Normally a
----*Lua* will just collect prints and at the end bump an input level and flush these
----prints. This function can help you stay at the current level but you need to know
----what you're doing (or more precise: what *TeX* is doing with input).
+
 ---
 ----------------------------------------------------------------
 
