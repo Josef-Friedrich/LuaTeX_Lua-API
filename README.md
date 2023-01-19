@@ -80,6 +80,8 @@ The preferred method of contributing to the project is via Github pull
 requests. You can also email patches to josef@friedrich.rocks.
 It is ok if you only document the data types of the input parameters.
 
+Use imperative mood for the first line: https://peps.python.org/pep-0257/
+
 ### Minimal example of `tex.sp()`
 
 ```lua
