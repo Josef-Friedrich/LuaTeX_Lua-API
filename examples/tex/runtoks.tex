@@ -1,0 +1,5 @@
+\toks0{\def\innermacro{inner}}
+\edef\outermacro{outer\directlua{tex.runtoks(0)}}
+\show\outermacro
+
+\bye
