@@ -49,17 +49,43 @@ _N._1_scanner = 215
 function token.scan_keyword(keyword) end
 
 ---
----returns true if the given keyword is gobbled; this variant is case sensitive and also suitable for *UTF-8*
---
+--- Scan and gobble a given case sensitive and *UTF-8* based keyword.
+---
+---__Example:__
+---
+---```tex
+---\def\scanner{\directlua{
+---  print(token.scan_keyword_cs('Keyword'))
+---}}
+---\scanner Keyword % true
+---\scanner keyword % false
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnewtokenlib.c#L320-L334](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L320-L334)
 ---
----@param keyword string
+---@param keyword string # A case sensitive and *UTF-8* based keyword
+---
+---@return boolean # True if the case sensitive and *UTF-8* based keyword could be gobbled up otherwise false.
 function token.scan_keyword_cs(keyword) end
 
 ---
----returns an integer
+---Scan and gobble a given integer.
+---
+---__Example:__
+---
+---```latex
+---\def\scanner{\directlua{
+---  print(token.scan_int())
+---}}
+---\scanner 1 % 1
+---\scanner 1.1 % 1 (Scans only 1 not 1.1)
+---\scanner -1 % -1
+---\scanner 1234567890 % 1234567890
+---\scanner string % Missing number, treated as zero
+---\scanner 12345678901 % Number to big
+---```
 ---
 ---__Reference:__
 ---
