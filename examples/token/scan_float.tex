@@ -1,28 +1,12 @@
-
-
-\def\scanner{
-  I haved scanned this float:
-  \directlua{
-    float = token.scan_float()
-    tex.print(float)
-    tex.sprint(':end ')
-  }
-}
-
-\scanner 1
-
-\scanner 1.1
-
-\scanner .1
-
-\scanner - .1
-
-\scanner -1
-
-\scanner - 1
-
-\scanner 1E10
-
-\scanner .1e-10
-
+\def\scan{\directlua{
+  print(token.scan_float())
+}}
+\scan 1 % 1.0
+\scan 1.1 % 1.1
+\scan .1 % 0.1
+\scan - .1 % -0.1
+\scan -1 % -1.0
+\scan - 1 % -1.0
+\scan 1E10 % 10000000000.0
+\scan .1e-10 % 1e-11
 \bye

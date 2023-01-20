@@ -1,22 +1,11 @@
-\def\scanner{
-  I haved scanned a string:
-  \directlua{
-    tex.print(token.scan_string())
-    tex.sprint(':end ')
-  }
-}
-
+\def\scan{\directlua{
+  print(token.scan_string())
+}}
 \def\bar{bar}
 \def\foo{\bar}
-
-\scanner {A String}
-
-\scanner A String
-
-\scanner \foo
-
-\scanner {\foo}
-
-\scanner Word
-
+\scan \foo % bar
+\scan {\foo} % bar
+\scan {A string} % A string
+\scan A string % A
+\scan Word1 Word2 % Word1
 \bye

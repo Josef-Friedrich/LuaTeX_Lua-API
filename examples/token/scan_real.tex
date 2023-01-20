@@ -1,27 +1,12 @@
-\def\scanner{
-  I haved scanned this real:
-  \directlua{
-    real = token.scan_real()
-    tex.print(real)
-    tex.sprint(':end ')
-  }
-}
-
-\scanner 1
-
-\scanner 1.1
-
-\scanner .1
-
-\scanner - .1
-
-\scanner -1
-
-\scanner - 1
-
-\scanner 1234567890
-
-% Does not scan E10
-\scanner 1E10
-
+\def\scan{\directlua{
+  print(token.scan_real())
+}}
+\scan 1 % 1.0
+\scan 1.1 % 1.1
+\scan .1 % 0.1
+\scan - .1 % -0.1
+\scan -1 % -1.0
+\scan - 1 % -1.0
+\scan 1234567890 % 1234567890.0
+\scan 1E10 % 1.0 Does not scan “E10“
 \bye

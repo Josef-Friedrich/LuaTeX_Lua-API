@@ -95,7 +95,23 @@ function token.scan_keyword_cs(keyword) end
 function token.scan_int() end
 
 ---
----returns a number from e.g. `1`,  `1.1`, `.1` with optional collapsed signs
+---Scan and gobble a floating point number that cannot have an exponent (`1E10` is scanned as `1.0`).
+---
+---__Example:__
+---
+---```tex
+---\def\scan{\directlua{
+---  print(token.scan_real())
+---}}
+---\scan 1E10 % 1.0 Does not scan “E10“
+---\scan 1 % 1.0
+---\scan 1.1 % 1.1
+---\scan .1 % 0.1
+---\scan - .1 % -0.1
+---\scan -1 % -1.0
+---\scan - 1 % -1.0
+---\scan 1234567890 % 1234567890.0
+---```
 ---
 ---__Reference:__
 ---
@@ -105,7 +121,23 @@ function token.scan_int() end
 function token.scan_real() end
 
 ---
----returns a number from e.g. `1`,  `1.1`, `.1`, `1.1E10`, `.1e-10` with optional collapsed signs
+---Scan and gobble a floating point number that can be provided with an exponent (e. g. `1E10`).
+---
+---__Example:__
+---
+---```tex
+---\def\scan{\directlua{
+---  print(token.scan_float())
+---}}
+---\scan 1E10 % 10000000000.0
+---\scan .1e-10 % 1e-11
+---\scan 1 % 1.0
+---\scan 1.1 % 1.1
+---\scan .1 % 0.1
+---\scan - .1 % -0.1
+---\scan -1 % -1.0
+---\scan - 1 % -1.0
+---```
 ---
 ---__Reference:__
 ---
@@ -148,10 +180,36 @@ function token.scan_dimen(inf, mu) end
 ---
 ---returns a glue spec node
 ---
+---__Example:__
+---
+---```tex
+---\def\scan{\directlua{
+---  local node = token.scan_glue()
+---  print(node.width, node.stretch, node.stretch_order, node.shrink, node.shrink_order)
+---}}
+---\def\scanMu{\directlua{
+---  local node = token.scan_glue(true)
+---  print(node.width, node.stretch, node.stretch_order, node.shrink, node.shrink_order)
+---}}
+---\scan 1pt % 65536 0 0 0 0
+---\scan 1pt plus 2pt % 65536 131072 0 0 0
+---\scan 1pt minus 3pt % 65536 0 0 196608 0
+---\scan 1pt plus 2pt minus 3pt % 65536 131072 0 196608 0
+---\scan 1pt plus 2fi minus 3fi % 65536 131072 1 196608 1
+---\scan 1pt plus 2fil minus 3fil % 65536 131072 2 196608 2
+---\scan 1pt plus 2fill minus 3fill % 65536 131072 3 196608 3
+---\scan 1pt plus 2filll minus 3filll % 65536 131072 4 196608 4
+---\scan string % Missing number, treated as zero.
+---\scanMu 3mu % 196608 0 0 0 0
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnewtokenlib.c#L524-L538](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L524-L538)
 ---
+---@param mu_units boolean
+---
+---@return GlueSpecNode
 function token.scan_glue(mu_units) end
 
 ---
@@ -173,22 +231,68 @@ function token.scan_toks(definer, expand) end
 function token.scan_code(bitset) end
 
 ---
----returns a string given between `{` `}`, as `\macro` or as sequence of characters with catcode 11 or 12
+---Scan and gobble a string.
+---
+---The string scanner scans for something between curly braces and expands on the
+---way, or when it sees a control sequence it will return its meaning. Otherwise it
+---will scan characters with catcode `letter` or `other`.
+---
+---__Example:__
+---
+---```tex
+---\def\scan{\directlua{
+---  print(token.scan_string())
+---}}
+---\def\bar{bar}
+---\def\foo{\bar}
+---\scan \foo % bar
+---\scan {\foo} % bar
+---\scan {A string} % A string
+---\scan A string % A
+---\scan Word1 Word2 % Word1
+---```
 ---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnewtokenlib.c#L569-L606](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L569-L606)
 ---
+---@return string # A string given between `{` `}`, as `\macro` or as sequence of characters with catcode 11 or 12
 function token.scan_string() end
 
 ---
----this one is simular to `scanstring` but also accepts a `\cs`
+---Scan and gobble an argument.
+---
+---This function is simular to `token.scan_string` but also accepts a `\cs`.
+---It expands the given argument. When a braced
+---argument is scanned, expansion can be prohibited by passing `false`
+---(default is `true`). In case of a control sequence passing `false`
+---will result in a one-level expansion (the meaning of the macro).
+---
+---__Example:__
+---
+---```latex
+---\def\scan{\directlua{
+---  print(token.scan_argument(true))
+---}}
+---\def\scanNoExpand{\directlua{
+---  print(token.scan_argument(false))
+---}}
+---\def\foo{bar}
+---\scan \foo % bar
+---\scan { {\bf text} } % {\fam \bffam \tenbf text}
+---\scanNoExpand { {\bf text} } % {\bf text}
+---\scan c % c
+---\scan \bf % \fam \bffam \tenbf
+---```
 ---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnewtokenlib.c#L608-L667](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L608-L667)
 ---
-function token.scan_argument(boolean) end
+---@param expand? boolean # When a braced argument is scanned, expansion can be prohibited by passing `false` (default is `true`)
+---
+---@return string
+function token.scan_argument(expand) end
 
 ---
 ---returns a sequence of characters with catcode 11 or 12 as string

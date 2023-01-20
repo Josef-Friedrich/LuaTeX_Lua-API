@@ -1,22 +1,13 @@
-\def\scanner{I haved scanned this argument: \directlua{
-  local argument = token.scan_argument(false)
-  print(argument)
+\def\scan{\directlua{
+  print(token.scan_argument(true))
 }}
-
+\def\scanNoExpand{\directlua{
+  print(token.scan_argument(false))
+}}
 \def\foo{bar}
-
-\scanner { {\bf text} }
-
-\scanner c
-
-\scanner \foo
-
-\scanner
-
-\scanner {
-Multiline
-
-text}
-
-This text is unchanged
+\scan \foo % bar
+\scan { {\bf text} } % {\fam \bffam \tenbf text}
+\scanNoExpand { {\bf text} } % {\bf text}
+\scan c % c
+\scan \bf % \fam \bffam \tenbf
 \bye
