@@ -283,7 +283,9 @@ function tex.forcehmode() end
 _N._15_11_hashtokens = 205
 
 ---
----Returns a list of names. This can be useful for debugging, but note that this
+---Return a list of names.
+---
+---This can be useful for debugging, but note that this
 ---also reports control sequences that may be unreachable at this moment due to
 ---local redefinitions: it is strictly a dump of the hash table. You can use `token.create` to inspect properties, for instance when the `command` key
 ---in a created table equals `123`, you have the `cmdname` value `undefined_cs`.
@@ -291,6 +293,11 @@ _N._15_11_hashtokens = 205
 ---```lua
 ---for i,v in pairs(tex.hashtokens()) do ... end
 ---```
+---
+---__Reference:__
+---
+---* Corresponding C source code: [ltexlib.c#L2662-L2690](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/ltexlib.c#L2662-L2690)
+---
 function tex.hashtokens() end
 
 _N._15_12_definefont = 206
@@ -613,12 +620,6 @@ function tex.gettoks() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.getuccode() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.hashtokens() end
 
 ---
 ---Warning! Undocumented code!<p>

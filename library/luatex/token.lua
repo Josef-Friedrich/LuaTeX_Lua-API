@@ -633,7 +633,7 @@ function token.get_mode(t) end
 function token.get_index(t) end
 
 ---
----The `get_macro` function can be used to get the content of a macro
+---Get the content of a macro.
 ---
 ---__Reference:__
 ---
@@ -645,7 +645,7 @@ function token.get_index(t) end
 function token.get_macro(name) end
 
 ---
----The `get_meaning` function gives the meaning including the argument
+---Get the meaning of a macro including the argument
 ---specification (as usual in *TeX* separated by `->`).
 ---
 ---__Reference:__
@@ -670,27 +670,53 @@ function token.commands() end
 function token.command_id() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function token.create() end
+---* Corresponding C source code: [lnewtokenlib.c#L791-L810](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L791-L810)
+---
+---@param chr integer
+---@param cmd integer
+---
+---@return Token
+function token.create(chr, cmd) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function token.new() end
+--- A variant that ignores the current catcode table is:
+---* Corresponding C source code: [lnewtokenlib.c#L812-L819](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L812-L819)
+---
+---@param chr integer
+---@param cmd integer
+---
+---@return Token
+function token.new(chr, cmd) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function token.is_defined() end
+---__Example:__
+---
+---```lua
+---\def\foo{bar}
+---\directlua{
+---  print(token.is_defined('foo')) % true
+---  print(token.is_defined('nofoo')) % false
+---  print(token.is_defined('bf')) % true
+---}
+---```
+---
+---* Corresponding C source code: [lnewtokenlib.c#L772-L789](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L772-L789)
+---
+---@param cs string
+---
+---@return boolean
+function token.is_defined(cs) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---__Example:__
+---
+---```lua
+---print(token.biggest_char()) % 1114111
+---```
+---
+---* Corresponding C source code: [lnewtokenlib.c#L150-L154](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L150-L154)
+---
+---@return integer
 function token.biggest_char() end
 
 _N._4_macros = 219
