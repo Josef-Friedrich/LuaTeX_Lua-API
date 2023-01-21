@@ -143,6 +143,27 @@ function callback.list() end
 ---@return function|nil f
 function callback.find(callback_name) end
 
+_N._2_1_find_read_file  = nil
+_N._2_1_find_write_file = nil
+_N._2_2_find_font_file = nil
+_N._2_3_find_output_file = nil
+_N._2_4_find_format_file = nil
+_N._2_5_find_vf_file = nil
+_N._2_6_find_map_file = nil
+_N._2_7_find_enc_file = nil
+_N._2_8_find_pk_file = nil
+_N._2_9_find_data_file = nil
+_N._2_0_find_opentype_file = nil
+_N._2_1_find_truetype_file   = nil
+_N._2_1_find_type1_file = nil
+_N._2_2_find_image_file = nil
+
+_N._3_1_open_read_file = nil
+
+_N._4_1_process_input_buffer = nil
+_N._4_2_process_output_buffer = nil
+_N._4_3_process_jobname = nil
+
 _N._5_1_contribute_filter = nil
 _N._5_2_buildpage_filter = nil
 _N._5_3_build_page_insert = nil
@@ -330,18 +351,31 @@ _N._5_16_kerning = nil
 _N._5_17_insert_local_par = nil
 _N._5_18_mlist_to_hlist = nil
 
-_N._6_1_pre_dump = nil
-_N._6_2_start_run = nil
-_N._6_3_stop_run = nil
-_N._6_4_start_page_number = nil
-_N._6_5_stop_page_number = nil
-_N._6_6_show_error_hook = nil
-_N._6_7_show_error_message = nil
-_N._6_8_show_lua_error_hook = nil
-_N._6_9_start_file = nil
-_N._6_10_stop_file = nil
-_N._6_11_call_edit = nil
-_N._6_12_finish_synctex = nil
-_N._6_13_wrapup_run = nil
+_N._6__ = 180
 
-_N._7__ = nil
+_N._6_1_pre_dump = 180
+_N._6_2_start_run = 181
+_N._6_3_stop_run = 181
+_N._6_4_start_page_number = 181
+_N._6_5_stop_page_number = 181
+_N._6_6_show_error_hook = 181
+_N._6_7_show_error_message = 182
+_N._6_8_show_lua_error_hook = 182
+_N._6_9_start_file = 182
+_N._6_10_stop_file = 182
+_N._6_11_call_edit = 182
+_N._6_12_finish_synctex = 183
+_N._6_13_wrapup_run = 183
+
+_N._7__ = 183
+
+_N._7_1_finish_pdffile = 183
+_N._7_2_finish_pdfpage = 183
+_N._7_3_page_order_index = 183
+_N._7_4_process_pdf_image_content = 184
+
+_N._8__ = 184
+
+_N._8_1_define_font = 184
+_N._8_2_glyph_info = 184
+_N._8_2_glyph_not_found = 184
