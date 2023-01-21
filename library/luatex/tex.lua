@@ -344,39 +344,39 @@ tex.year = 0
 
 _N._2_1_integer_parameters_read_only = 191
 
----A readable only integer parameter that returns Lua numbers.
+---A read-only integer parameter that returns  a Lua number.
 ---@type integer
 tex.deadcycles = 0
 
----A readable only integer parameter that returns Lua numbers.
+---A read-only integer parameter that returns  a Lua number.
 ---@type integer
 tex.insertpenalties = 0
 
----A readable only integer parameter that returns Lua numbers.
+---A read-only integer parameter that returns  a Lua number.
 ---@type integer
 tex.parshape = 0
 
----A readable only integer parameter that returns Lua numbers.
+---A read-only integer parameter that returns  a Lua number.
 ---@type integer
 tex.interlinepenalties = 0
 
----A readable only integer parameter that returns Lua numbers.
+---A read-only integer parameter that returns  a Lua number.
 ---@type integer
 tex.clubpenalties = 0
 
----A readable only integer parameter that returns Lua numbers.
+---A read-only integer parameter that returns  a Lua number.
 ---@type integer
 tex.widowpenalties = 0
 
----A readable only integer parameter that returns Lua numbers.
+---A read-only integer parameter that returns  a Lua number.
 ---@type integer
 tex.displaywidowpenalties = 0
 
----A readable only integer parameter that returns Lua numbers.
+---A read-only integer parameter that returns  a Lua number.
 ---@type integer
 tex.prevgraf = 0
 
----A readable only integer parameter that returns Lua numbers.
+---A read-only integer parameter that returns  a Lua number.
 ---@type integer
 tex.spacefactor = 0
 
@@ -603,6 +603,266 @@ tex.pagestretch = 0
 ---A read only dimension parameter. The result is always a number in scaled points.
 ---@type integer
 tex.pagetotal = 0
+
+_N._2_3_direction_parameters = 192
+
+---
+---A read-only direction parameter that returns a *Lua* string.
+---@type string
+tex.bodydir = ''
+
+---
+---A read-only direction parameter that returns a *Lua* string.
+---@type string
+tex.mathdir = ''
+
+---
+---A read-only direction parameter that returns a *Lua* string.
+---@type string
+tex.pagedir = ''
+
+---
+---A read-only direction parameter that returns a *Lua* string.
+---@type string
+tex.pardir = ''
+
+---
+---A read-only direction parameter that returns a *Lua* string.
+---@type string
+tex.textdir = ''
+
+---
+---A read-only direction parameter that returns a *Lua* string.
+---@type string
+
+_N._2_4_glue_parameters = 193
+
+---
+---A readable and writeable glue parameter that accepts and returns
+---a userdata object which in turn represents a `glue_spec` node.
+---
+---@type GlueSpecNode
+tex.abovedisplayshortskip = nil
+
+---
+---A readable and writeable glue parameter that accepts and returns
+---a userdata object which in turn represents a `glue_spec` node.
+---
+---@type GlueSpecNode
+tex.abovedisplayskip = nil
+
+---
+---A readable and writeable glue parameter that accepts and returns
+---a userdata object which in turn represents a `glue_spec` node.
+---
+---@type GlueSpecNode
+tex.baselineskip = nil
+
+---
+---A readable and writeable glue parameter that accepts and returns
+---a userdata object which in turn represents a `glue_spec` node.
+---
+---@type GlueSpecNode
+tex.belowdisplayshortskip = nil
+
+---
+---A readable and writeable glue parameter that accepts and returns
+---a userdata object which in turn represents a `glue_spec` node.
+---
+---@type GlueSpecNode
+tex.belowdisplayskip = nil
+
+---
+---A readable and writeable glue parameter that accepts and returns
+---a userdata object which in turn represents a `glue_spec` node.
+---
+---@type GlueSpecNode
+tex.leftskip = nil
+
+---
+---A readable and writeable glue parameter that accepts and returns
+---a userdata object which in turn represents a `glue_spec` node.
+---
+---@type GlueSpecNode
+tex.lineskip = nil
+
+---
+---A readable and writeable glue parameter that accepts and returns
+---a userdata object which in turn represents a `glue_spec` node.
+---
+---@type GlueSpecNode
+tex.parfillskip = nil
+
+---
+---A readable and writeable glue parameter that accepts and returns
+---a userdata object which in turn represents a `glue_spec` node.
+---
+---@type GlueSpecNode
+tex.parskip = nil
+
+---
+---A readable and writeable glue parameter that accepts and returns
+---a userdata object which in turn represents a `glue_spec` node.
+---
+---@type GlueSpecNode
+tex.rightskip = nil
+
+---
+---A readable and writeable glue parameter that accepts and returns
+---a userdata object which in turn represents a `glue_spec` node.
+---
+---@type GlueSpecNode
+tex.spaceskip = nil
+
+---
+---A readable and writeable glue parameter that accepts and returns
+---a userdata object which in turn represents a `glue_spec` node.
+---
+---@type GlueSpecNode
+tex.splittopskip = nil
+
+---
+---A readable and writeable glue parameter that accepts and returns
+---a userdata object which in turn represents a `glue_spec` node.
+---
+---@type GlueSpecNode
+tex.tabskip = nil
+
+---
+---A readable and writeable glue parameter that accepts and returns
+---a userdata object which in turn represents a `glue_spec` node.
+---
+---@type GlueSpecNode
+tex.topskip = nil
+
+---
+---A readable and writeable glue parameter that accepts and returns
+---a userdata object which in turn represents a `glue_spec` node.
+---
+---@type GlueSpecNode
+tex.xspaceskip = nil
+
+_N._2_5_muglue_parameters = 193
+
+---
+---A read-only `muglue` parameter that returns a *Lua* string.
+---
+---@type string
+tex.medmuskip = ''
+
+---
+---A read-only `muglue` parameter that returns a *Lua* string.
+---
+---@type string
+tex.thickmuskip = ''
+
+---
+---A read-only `muglue` parameter that returns a *Lua* string.
+---
+---@type string
+tex.thinmuskip = ''
+
+_N._2_6_tokenlist_parameters = 193
+
+---
+---A `tokenlist` parameters that accepts and returns a *Lua* string.
+---
+---The *Lua* string is
+---converted to and from a token list using `the` `toks` style expansion:
+---all category codes are either space (10) or other (12).
+---
+---@type string
+tex.errhelp = ''
+
+---
+---A `tokenlist` parameters that accepts and returns a *Lua* string.
+---
+---The *Lua* string is
+---converted to and from a token list using `the` `toks` style expansion:
+---all category codes are either space (10) or other (12).
+---
+---@type string
+tex.everycr = ''
+
+---
+---A `tokenlist` parameters that accepts and returns a *Lua* string.
+---
+---The *Lua* string is
+---converted to and from a token list using `the` `toks` style expansion:
+---all category codes are either space (10) or other (12).
+---
+---@type string
+tex.everydisplay = ''
+
+---
+---A `tokenlist` parameters that accepts and returns a *Lua* string.
+---
+---The *Lua* string is
+---converted to and from a token list using `the` `toks` style expansion:
+---all category codes are either space (10) or other (12).
+---
+---@type string
+tex.everyeof = ''
+
+---
+---A `tokenlist` parameters that accepts and returns a *Lua* string.
+---
+---The *Lua* string is
+---converted to and from a token list using `the` `toks` style expansion:
+---all category codes are either space (10) or other (12).
+---
+---@type string
+tex.everyhbox = ''
+
+---
+---A `tokenlist` parameters that accepts and returns a *Lua* string.
+---
+---The *Lua* string is
+---converted to and from a token list using `the` `toks` style expansion:
+---all category codes are either space (10) or other (12).
+---
+---@type string
+tex.everyjob = ''
+
+---
+---A `tokenlist` parameters that accepts and returns a *Lua* string.
+---
+---The *Lua* string is
+---converted to and from a token list using `the` `toks` style expansion:
+---all category codes are either space (10) or other (12).
+---
+---@type string
+tex.everymath = ''
+
+---
+---A `tokenlist` parameters that accepts and returns a *Lua* string.
+---
+---The *Lua* string is
+---converted to and from a token list using `the` `toks` style expansion:
+---all category codes are either space (10) or other (12).
+---
+---@type string
+tex.everypar = ''
+
+---
+---A `tokenlist` parameters that accepts and returns a *Lua* string.
+---
+---The *Lua* string is
+---converted to and from a token list using `the` `toks` style expansion:
+---all category codes are either space (10) or other (12).
+---
+---@type string
+tex.everyvbox = ''
+
+---
+---A `tokenlist` parameters that accepts and returns a *Lua* string.
+---
+---The *Lua* string is
+---converted to and from a token list using `the` `toks` style expansion:
+---all category codes are either space (10) or other (12).
+---
+---@type string
+tex.output = ''
 
 _N._5_registers = 194
 
