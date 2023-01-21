@@ -1,10 +1,608 @@
 ---@meta
-
 ---A helper table to better navigate through the documentation using the
 ---outline: https://github.com/Josef-Friedrich/LuaTeX_Lua-API#navigation-table-_n
 _N = {}
 
 tex = {}
+
+_N._2_1_integer_parameters_read_write = 190
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.adjdemerits = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.binoppenalty = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.brokenpenalty = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.catcodetable = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.clubpenalty = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.day = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.defaulthyphenchar = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.defaultskewchar = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.delimiterfactor = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.displaywidowpenalty = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.doublehyphendemerits = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.endlinechar = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.errorcontextlines = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.escapechar = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.exhyphenpenalty = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.fam = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.finalhyphendemerits = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.floatingpenalty = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.globaldefs = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.hangafter = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.hbadness = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.holdinginserts = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.hyphenpenalty = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.interlinepenalty = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.language = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.lastlinefit = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.lefthyphenmin = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.linepenalty = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.localbrokenpenalty = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.localinterlinepenalty = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.looseness = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.mag = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.maxdeadcycles = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.month = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.newlinechar = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.outputpenalty = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.pausing = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.postdisplaypenalty = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.predisplaydirection = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.predisplaypenalty = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.pretolerance = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.relpenalty = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.righthyphenmin = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.savinghyphcodes = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.savingvdiscards = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.showboxbreadth = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.showboxdepth = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.time = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.tolerance = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.tracingassigns = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.tracingcommands = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.tracinggroups = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.tracingifs = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.tracinglostchars = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.tracingmacros = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.tracingnesting = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.tracingonline = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.tracingoutput = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.tracingpages = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.tracingparagraphs = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.tracingrestores = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.tracingscantokens = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.tracingstats = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.uchyph = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.vbadness = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.widowpenalty = 0
+
+---A readable and writable integer parameter that accepts and returns
+---Lua numbers.
+---@type integer
+tex.year = 0
+
+_N._2_1_integer_parameters_read_only = 191
+
+---A readable only integer parameter that returns Lua numbers.
+---@type integer
+tex.deadcycles = 0
+
+---A readable only integer parameter that returns Lua numbers.
+---@type integer
+tex.insertpenalties = 0
+
+---A readable only integer parameter that returns Lua numbers.
+---@type integer
+tex.parshape = 0
+
+---A readable only integer parameter that returns Lua numbers.
+---@type integer
+tex.interlinepenalties = 0
+
+---A readable only integer parameter that returns Lua numbers.
+---@type integer
+tex.clubpenalties = 0
+
+---A readable only integer parameter that returns Lua numbers.
+---@type integer
+tex.widowpenalties = 0
+
+---A readable only integer parameter that returns Lua numbers.
+---@type integer
+tex.displaywidowpenalties = 0
+
+---A readable only integer parameter that returns Lua numbers.
+---@type integer
+tex.prevgraf = 0
+
+---A readable only integer parameter that returns Lua numbers.
+---@type integer
+tex.spacefactor = 0
+
+_N._2_2_dimension_parameters_read_write = 191
+
+---A readable and writable dimension parameter that accepts a Lua number
+---(signifying scaled points) or a string (with included dimension).
+---The result is always a number in scaled points.
+---@type integer
+tex.boxmaxdepth = 0
+
+---A readable and writable dimension parameter that accepts a Lua number
+---(signifying scaled points) or a string (with included dimension).
+---The result is always a number in scaled points.
+---@type integer
+tex.delimitershortfall = 0
+
+---A readable and writable dimension parameter that accepts a Lua number
+---(signifying scaled points) or a string (with included dimension).
+---The result is always a number in scaled points.
+---@type integer
+tex.displayindent = 0
+
+---A readable and writable dimension parameter that accepts a Lua number
+---(signifying scaled points) or a string (with included dimension).
+---The result is always a number in scaled points.
+---@type integer
+tex.displaywidth = 0
+
+---A readable and writable dimension parameter that accepts a Lua number
+---(signifying scaled points) or a string (with included dimension).
+---The result is always a number in scaled points.
+---@type integer
+tex.emergencystretch = 0
+
+---A readable and writable dimension parameter that accepts a Lua number
+---(signifying scaled points) or a string (with included dimension).
+---The result is always a number in scaled points.
+---@type integer
+tex.hangindent = 0
+
+---A readable and writable dimension parameter that accepts a Lua number
+---(signifying scaled points) or a string (with included dimension).
+---The result is always a number in scaled points.
+---@type integer
+tex.hfuzz = 0
+
+---A readable and writable dimension parameter that accepts a Lua number
+---(signifying scaled points) or a string (with included dimension).
+---The result is always a number in scaled points.
+---@type integer
+tex.hoffset = 0
+
+---A readable and writable dimension parameter that accepts a Lua number
+---(signifying scaled points) or a string (with included dimension).
+---The result is always a number in scaled points.
+---@type integer
+tex.hsize = 0
+
+---A readable and writable dimension parameter that accepts a Lua number
+---(signifying scaled points) or a string (with included dimension).
+---The result is always a number in scaled points.
+---@type integer
+tex.lineskiplimit = 0
+
+---A readable and writable dimension parameter that accepts a Lua number
+---(signifying scaled points) or a string (with included dimension).
+---The result is always a number in scaled points.
+---@type integer
+tex.mathsurround = 0
+
+---A readable and writable dimension parameter that accepts a Lua number
+---(signifying scaled points) or a string (with included dimension).
+---The result is always a number in scaled points.
+---@type integer
+tex.maxdepth = 0
+
+---A readable and writable dimension parameter that accepts a Lua number
+---(signifying scaled points) or a string (with included dimension).
+---The result is always a number in scaled points.
+---@type integer
+tex.nulldelimiterspace = 0
+
+---A readable and writable dimension parameter that accepts a Lua number
+---(signifying scaled points) or a string (with included dimension).
+---The result is always a number in scaled points.
+---@type integer
+tex.overfullrule = 0
+
+---A readable and writable dimension parameter that accepts a Lua number
+---(signifying scaled points) or a string (with included dimension).
+---The result is always a number in scaled points.
+---@type integer
+tex.pagebottomoffset = 0
+
+---A readable and writable dimension parameter that accepts a Lua number
+---(signifying scaled points) or a string (with included dimension).
+---The result is always a number in scaled points.
+---@type integer
+tex.pageheight = 0
+
+---A readable and writable dimension parameter that accepts a Lua number
+---(signifying scaled points) or a string (with included dimension).
+---The result is always a number in scaled points.
+---@type integer
+tex.pageleftoffset = 0
+
+---A readable and writable dimension parameter that accepts a Lua number
+---(signifying scaled points) or a string (with included dimension).
+---The result is always a number in scaled points.
+---@type integer
+tex.pagerightoffset = 0
+
+---A readable and writable dimension parameter that accepts a Lua number
+---(signifying scaled points) or a string (with included dimension).
+---The result is always a number in scaled points.
+---@type integer
+tex.pagetopoffset = 0
+
+---A readable and writable dimension parameter that accepts a Lua number
+---(signifying scaled points) or a string (with included dimension).
+---The result is always a number in scaled points.
+---@type integer
+tex.pagewidth = 0
+
+---A readable and writable dimension parameter that accepts a Lua number
+---(signifying scaled points) or a string (with included dimension).
+---The result is always a number in scaled points.
+---@type integer
+tex.parindent = 0
+
+---A readable and writable dimension parameter that accepts a Lua number
+---(signifying scaled points) or a string (with included dimension).
+---The result is always a number in scaled points.
+---@type integer
+tex.predisplaysize = 0
+
+---A readable and writable dimension parameter that accepts a Lua number
+---(signifying scaled points) or a string (with included dimension).
+---The result is always a number in scaled points.
+---@type integer
+tex.scriptspace = 0
+
+---A readable and writable dimension parameter that accepts a Lua number
+---(signifying scaled points) or a string (with included dimension).
+---The result is always a number in scaled points.
+---@type integer
+tex.splitmaxdepth = 0
+
+---A readable and writable dimension parameter that accepts a Lua number
+---(signifying scaled points) or a string (with included dimension).
+---The result is always a number in scaled points.
+---@type integer
+tex.vfuzz = 0
+
+---A readable and writable dimension parameter that accepts a Lua number
+---(signifying scaled points) or a string (with included dimension).
+---The result is always a number in scaled points.
+---@type integer
+tex.voffset = 0
+
+---A readable and writable dimension parameter that accepts a Lua number
+---(signifying scaled points) or a string (with included dimension).
+---The result is always a number in scaled points.
+---@type integer
+tex.vsize = 0
+
+---A readable and writable dimension parameter that accepts a Lua number
+---(signifying scaled points) or a string (with included dimension).
+---The result is always a number in scaled points.
+---@type integer
+tex.prevdepth = 0
+
+---A readable and writable dimension parameter that accepts a Lua number
+---(signifying scaled points) or a string (with included dimension).
+---The result is always a number in scaled points.
+---@type integer
+tex.prevgraf = 0
+
+---A readable and writable dimension parameter that accepts a Lua number
+---(signifying scaled points) or a string (with included dimension).
+---The result is always a number in scaled points.
+---@type integer
+tex.spacefactor = 0
+
+_N._2_2_dimension_parameters_read_only = 191
+
+---
+---A read only dimension parameter. The result is always a number in scaled points.
+---@type integer
+tex.pagedepth = 0
+
+---
+---A read only dimension parameter. The result is always a number in scaled points.
+---@type integer
+tex.pagefilllstretch = 0
+
+---
+---A read only dimension parameter. The result is always a number in scaled points.
+---@type integer
+tex.pagefillstretch = 0
+
+---
+---A read only dimension parameter. The result is always a number in scaled points.
+---@type integer
+tex.pagefilstretch = 0
+
+---
+---A read only dimension parameter. The result is always a number in scaled points.
+---@type integer
+tex.pagegoal = 0
+
+---
+---A read only dimension parameter. The result is always a number in scaled points.
+---@type integer
+tex.pageshrink = 0
+
+---
+---A read only dimension parameter. The result is always a number in scaled points.
+---@type integer
+tex.pagestretch = 0
+
+---
+---A read only dimension parameter. The result is always a number in scaled points.
+---@type integer
+tex.pagetotal = 0
 
 _N._5_registers = 194
 
@@ -239,35 +837,47 @@ _N._15_9_runtoks = 205
 ---*TeX* itself (and probably also harm performance) so this simple local expansion
 ---loop has to do.
 ---
----```
----tex.runtoks(<token register>)
----tex.runtoks(<lua function>)
----```
----
 ---When the `tracingnesting` parameter is set to a value larger than 2 some
 ---information is reported about the state of the local loop.
 ---
----This function has two optional arguments in case a token register is passed:
----
----```
----tex.runtoks(<token register>,force,grouped)
----```
 ---
 ---Inside for instance an `\edef` the `runtoks` function behaves (at
 ---least tries to) like it were an `\the`. This prevents unwanted side
 ---effects: normally in such an definition tokens remain tokens and (for instance)
----characters don't become nodes. With the second argument you can force the local
----main loop, no matter what. The third argument adds a level of grouping.
+---characters don't become nodes.
 ---
 ---You can quit the local loop with `\endlocalcontrol` or from the *Lua* end
 ---with `tex.quittoks`. In that case you end one level up! Of course in the
 ---end that can mean that you arrive at the main level in which case an extra end
 ---will trigger a redundancy warning (not an abort!).
 ---
+---__Example:__
+---
+---```lua
+---\toks0{\setbox0\hbox{one}}
+---\toks1{\setbox0\hbox{first}}
+---\directlua {
+---  tex.forcehmode(true)
+---  tex.runtoks(0)
+---  print(tex.getbox(0).width)
+---  tex.runtoks(1)
+---  print(tex.getbox(0).width)
+---}
+---```
+---
 ---__Reference:__
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L1472-L1508](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L1472-L1508)
-function tex.runtoks() end
+---* Corresponding C source code: [ltexlib.c#L3464-L3536](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/ltexlib.c#L3464-L3536)
+---
+---@param token_register integer
+---@param force? boolean # force the local main loop
+---@param grouped? boolean # adds a level of grouping.
+function tex.runtoks(token_register, force, grouped) end
+
+---
+---@param func function
+function tex.runtoks(func) end
 
 _N._15_10_forcehmode = 205
 
@@ -398,12 +1008,6 @@ function tex.cprint() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.extraprimitives() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.finish() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -740,18 +1344,6 @@ function tex.romannumeral() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.round() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.run() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.runtoks() end
 
 ---
 ---Warning! Undocumented code!<p>

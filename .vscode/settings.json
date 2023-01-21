@@ -6,10 +6,6 @@
     "~/repos/tex/lua-api/library"
   ],
   "Lua.diagnostics.disable": ["duplicate-set-field", "param-type-mismatch"],
-  "Lua.diagnostics.globals": [
-    "bit",
-    "log"
-  ],
   "files.exclude": {
     "**/*.log": true,
     "**/*.pdf": true,
