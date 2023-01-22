@@ -1,10 +1,10 @@
 \directlua{
-  local t = token.get_next()
-  while t do
+  repeat
     t = token.get_next()
     print(t)
     print(t.csname)
-  end
+  until (t.csname == 'relax')
 } Some text
 
+\relax
 \bye

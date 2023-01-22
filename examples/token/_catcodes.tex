@@ -1,0 +1,21 @@
+\directlua{
+  repeat
+    t = token.get_next()
+    print(t.command, t.cmdname, t.index)
+  until (t.csname == 'relax')
+}
+{% 1 left_brace
+}% 2 right_brace
+$% 3 math_shift
+&% 4 tab_mark
+#% 6 mac_param
+^% 7 sup_mark
+_% 8 sub_mark
+~ % 10 spacer
+a% 11 letter
+ä%
++% 12 other
+Ǝ% 11 letter 398
+
+\relax
+\bye

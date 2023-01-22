@@ -1,0 +1,13 @@
+\directlua{
+  repeat
+    t = token.get_next()
+    print(t)
+    print(t.command)
+    print(t.cmdname)
+    print(t.csname)
+  until (t.csname == 'par')
+}par1
+
+par2
+
+\bye

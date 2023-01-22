@@ -533,8 +533,8 @@ _N._3_creating = 218
 ---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L2285-L2310](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L2285-L2310)
 ---
 ---@class Token
----@field command integer # A number representing the internal command number, for example `147`.
----@field cmdname TokenCommandName # The type of the command (for instance the catcode in case of a character or the classifier that determines the internal treatment, for example `letter`.
+---@field command integer # A number representing the internal command number (catcode in case of a character), for example: `1` (`left_brace`), `2` (`right_brace`), `3` (`math_shift`), `4` (`tab_mark`), `6` (`mac_param`), `7` (`sup_mark`), `8` (`sub_mark`), `10 ` (`spacer`), `11 ` (`letter`), `12 ` (`other`), `147` (`call`).
+---@field cmdname TokenCommandName # The type of the command, for example `letter`.
 ---@field csname string|nil # The associated control sequence (if applicable), for example `bigskip`.
 ---@field id integer # The unique id of the token, for example `6876`.
 ---@field tok integer # The full token number as stored in TeX, for example `536883863`.
@@ -542,7 +542,7 @@ _N._3_creating = 218
 ---@field expandable boolean # A boolean indicating if the token (macro) is expandable, for example `true`.
 ---@field public protected boolean # A boolean indicating if the token (macro) is protected, for example `false`.
 ---@field mode integer # A number either representing a character or another entity, for example `1007`.
----@field index integer # A number running from 0x0000 upto 0xFFFF indicating a TeX register index, for example `1007`.
+---@field index integer|nil # A number running from 0x0000 upto 0xFFFF indicating a `TeX` register index. In case of letters the unicode code point, for example `398` = `Ǝ`.
 
 ---
 ---__Reference:__
