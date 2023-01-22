@@ -109,5 +109,5 @@ end
 
 return function()
     print_global_namespace()
-    print_lib_members('io', _ENV.io, true)
+    print_lib_members('trackers', _ENV.trackers, true)
 end

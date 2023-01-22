@@ -4,7 +4,7 @@
 ---there are no external file dependencies.
 ---https://github.com/lunarmodules/luasocket
 ---https://lunarmodules.github.io/luasocket/socket.html
----
+---https://github.com/TeX-Live/luatex/blob/trunk/source/texk/web2c/luatexdir/luasocket/src/socket.lua
 ---The socket namespace
 ---
 ---The `socket` namespace contains the core functionality of LuaSocket.
