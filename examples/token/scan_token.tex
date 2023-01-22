@@ -1,0 +1,10 @@
+\directlua{
+  local t = token.scan_token()
+  while t do
+    t = token.scan_token()
+    print(t)
+    print(t.csname)
+  end
+} Some text
+
+\bye

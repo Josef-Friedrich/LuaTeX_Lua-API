@@ -1,0 +1,8 @@
+
+\def\foo{bar}
+\directlua{
+  local t = token.expand()
+  print(t)
+}{\foo}
+
+\bye

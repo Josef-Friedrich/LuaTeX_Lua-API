@@ -319,27 +319,37 @@ function token.scan_list() end
 _N._1_picking_one_token = 218
 
 ---
----The scanners look for a sequence. When you want to pick up one token from the
----input you use `get_next`. This creates a token with the (low level)
----properties. This token is just the next one.
+---Scan and gobble the next token.
+---
+---The different scanner functions of the `token` library look for a
+---sequence of tokens. This function scans just the next token.
 ---
 ---__Reference:__
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L2237-L2239](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L2237-L2239)
+---* Corresponding C source code: [lnewtokenlib.c#L196-L204](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L196-L204)
+---
 ---
 ---@return Token
 function token.get_next() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---If you want to
+---enforce expansion first you can use `scan_token`.
+---
+---* Corresponding C source code: [lnewtokenlib.c#L1055-L1063](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L1055-L1063)
+---
+---
+---@return Token
 function token.scan_token() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---The `expand` function will trigger expansion of the next token in the
+---input. This can be quite unpredictable but when you call it you probably know
+---enough about *TeX* not to be too worried about that. It basically is a call to
+---the internal expand related function.
+---
+---* Corresponding C source code: [lnewtokenlib.c#L729-L734](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L729-L734)
 function token.expand() end
 
 _N._3_creating = 218
@@ -660,6 +670,8 @@ function token.get_meaning(name) end
 ---
 ---You can ask for a list of commands:
 ---
+---* Corresponding C source code: [lnewtokenlib.c#L1338-L1347](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L1338-L1347)
+---
 ---@return table
 function token.commands() end
 
@@ -725,6 +737,8 @@ _N._4_macros = 219
 ---__Reference:__
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L2368-L2382](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L2368-L2382)
+---* Corresponding C source code: [lnewtokenlib.c#L1183-L1307](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L1183-L1307)
+---
 ---
 ---@param csname string
 ---@param content? string
@@ -738,6 +752,7 @@ function token.set_macro(csname, content, global) end
 ---__Reference:__
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L2368-L2382](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L2368-L2382)
+---* Corresponding C source code: [lnewtokenlib.c#L1183-L1307](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L1183-L1307)
 ---
 ---@param catcodetable any
 ---@param csname string
@@ -762,29 +777,48 @@ _N._5_pushing_back = 220
 ---
 ---There is a (for now) experimental putter.
 ---
----@param ... Token
----
 ---__Reference:__
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L2422-L2433](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L2422-L2433)
+---* Corresponding C source code: [lnewtokenlib.c#L227-L302](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L227-L302)
 ---
+---@param ... Token
 function token.put_next(...) end
 
-------------------------------------------------------------------------
----Undocumented functions listed in alphabetical order
 ---
----Document them by sliding them up and place them in the order of the
----official documentation
-------------------------------------------------------------------------
+---__Example:__
+---
+---```tex
+---\directlua{
+---  local t = token.get_next()
+---  print(token.is_token(t)) % true
+---  print(token.is_token('text')) % false
+---  print(token.is_token(true)) % false
+---}Token
+---```
+---
+---* Corresponding C source code: [lnewtokenlib.c#L723-L727](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L723-L727)
+---
+---@param t any
+---
+---@return boolean
+function token.is_token(t) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function token.is_token() end
-
+---__Example:__
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function token.type() end
+---```tex
+---\directlua{
+---  local t = token.get_next()
+---  print(token.type(t)) % 'token'
+---  print(token.type('text')) % nil
+---  print(token.type(true)) % nil
+---}Token
+---```
+---
+---* Corresponding C source code: [lnewtokenlib.c#L1045-L1053](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L1045-L1053)
+---
+---@param t any
+---
+---@return 'token'|nil
+function token.type(t) end
