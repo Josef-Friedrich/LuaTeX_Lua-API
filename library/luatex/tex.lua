@@ -990,6 +990,164 @@ function tex.print(t) end
 ---@param t table
 function tex.print(n, t) end
 
+---
+---Each string argument is treated by *TeX* as a special kind of input line that
+---makes it suitable for use as a partial line input mechanism:
+---
+---* *TeX* does not switch to the “new line” state, so that leading spaces
+---    are not ignored.
+---
+---* No `endlinechar` is inserted.
+---
+---* Trailing spaces are not removed. Note that this does not prevent *TeX* itself
+---    from eating spaces as result of interpreting the line. For example, in
+---
+---```tex
+---before\directlua{tex.sprint("\\relax")tex.sprint(" inbetween")}after
+---```
+---
+---    the space before `in between` will be gobbled as a result of the “normal” scanning of `relax`.
+---
+---If there is a table argument instead of a list of strings, this has to be a
+---consecutive array of strings to print (the first non-string value will stop the
+---printing process).
+---
+---The optional argument sets the catcode regime, as with `tex.print`. This
+---influences the string arguments (or numbers turned into strings).
+---
+---Although this needs to be used with care, you can also pass token or node
+---userdata objects. These get injected into the stream. Tokens had best be valid
+---tokens, while nodes need to be around when they get injected. Therefore it is
+---important to realize the following:
+---
+---* When you inject a token, you need to pass a valid token userdata object. This
+---    object will be collected by *Lua* when it no longer is referenced. When it gets
+---    printed to *TeX* the token itself gets copied so there is no interference with the
+---    *Lua* garbage collection. You manage the object yourself. Because tokens are
+---    actually just numbers, there is no real extra overhead at the *TeX* end.
+---
+---* When you inject a node, you need to pass a valid node userdata object. The
+---    node related to the object will not be collected by *Lua* when it no longer
+---    is referenced. It lives on at the *TeX* end in its own memory space. When it
+---    gets printed to *TeX* the node reference is used assuming that node stays
+---    around. There is no *Lua* garbage collection involved. Again, you manage the
+---    object yourself. The node itself is freed when *TeX* is done with it.
+---
+---If you consider the last remark you might realize that we have a problem when a
+---printed mix of strings, tokens and nodes is reused. Inside *TeX* the sequence
+---becomes a linked list of input buffers. So, `"123"` or `"\foo{123`"}
+---gets read and parsed on the fly, while `<token userdata>` already is
+---tokenized and effectively is a token list now. A `<node userdata>` is also
+---tokenized into a token list but it has a reference to a real node. Normally this
+---goes fine. But now assume that you store the whole lot in a macro: in that case
+---the tokenized node can be flushed many times. But, after the first such flush the
+---node is used and its memory freed. You can prevent this by using copies which is
+---controlled by setting `luacopyinputnodes` to a non-zero value. This is one
+---of these fuzzy areas you have to live with if you really mess with these low
+---level issues.
+---@param ... string
+function tex.sprint(...) end
+
+---
+---@param n integer
+---@param ... string
+function tex.sprint(n, ...) end
+
+---
+---@param t table
+function tex.sprint(t) end
+
+---
+---@param n integer # Print the strings using the catcode regime defined by `catcodetable` `n`.
+---@param t table
+function tex.sprint(n, t) end
+
+---
+---This function is basically a shortcut for repeated calls to `tex.sprint(<number> n, <string> s, ...)`, once for each of the supplied argument
+---tables.
+---@param ... table
+function tex.tprint(...) end
+
+---
+---This function takes a number indicating the to be used catcode, plus either a
+---table of strings or an argument list of strings that will be pushed into the
+---input stream.
+---
+---```tex
+---tex.cprint( 1," 1: `&{\\foo}") tex.print("\\par") -- a lot of \bgroup s
+---tex.cprint( 2," 2: `&{\\foo}") tex.print("\\par") -- matching \egroup s
+---tex.cprint( 9," 9: `&{\\foo}") tex.print("\\par") -- all get ignored
+---tex.cprint(10,"10: `&{\\foo}") tex.print("\\par") -- all become spaces
+---tex.cprint(11,"11: `&{\\foo}") tex.print("\\par") -- letters
+---tex.cprint(12,"12: `&{\\foo}") tex.print("\\par") -- other characters
+---tex.cprint(14,"12: $&{\\foo}") tex.print("\\par") -- comment triggers
+---```
+---@param n integer
+---@param ... string|table
+function tex.cprint(n, ...) end
+
+---
+---Each string argument is treated by *TeX* as a special kind of input line that
+---makes it suitable for use as a quick way to dump information:
+---
+---* All catcodes on that line are either “space” (for ' ') or “character” (for all others).
+---* There is no `endlinechar` appended.
+---
+---If there is a table argument instead of a list of strings, this has to be a
+---consecutive array of strings to print (the first non-string value will stop the
+---printing process).
+---@param ... string
+function tex.write(...) end
+
+---@param t table
+function tex.write(t) end
+
+---
+---Rounds *Lua* number `o`, and returns a number that is in the range of a
+---valid *TeX* register value. If the number starts out of range, it generates a
+---“number too big” error as well.
+---
+---@param o number
+---
+---@return integer
+function tex.round(o) end
+
+---
+---Multiplies the *Lua* numbers `o` and `delta`, and returns a rounded
+---number that is in the range of a valid *TeX* register value. In the table
+---version, it creates a copy of the table with all numeric top-level values scaled
+---in that manner. If the multiplied number(s) are of range, it generates
+---“number too big” error(s) as well.
+---
+---Note: the precision of the output of this function will depend on your computer's
+---architecture and operating system, so use with care! An interface to *LuaTeX*'s
+---internal, 100% portable scale function will be added at a later date.
+---
+---@param o number
+---@param delta number
+---
+---@return number
+function tex.scale(o, delta) end
+
+---
+---@param o table
+---@param delta number
+---
+---@return table
+function tex.scale(o, delta) end
+
+---
+---@param n integer
+---
+---@return integer
+function tex.number(n) end
+
+---
+---@param n integer
+---
+---@return string
+function tex.romannumeral(n) end
+
 _N._15_5_sp = 204
 
 ---
@@ -1256,12 +1414,6 @@ function tex.enableprimitives(prefix, primitive_names) end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.badness() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.cprint() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -1573,12 +1725,6 @@ function tex.normal_rand() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.number() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.primitives() end
 
 ---
@@ -1597,25 +1743,7 @@ function tex.resetparagraph() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.romannumeral() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.round() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.saveboxresource() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.scale() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -1783,18 +1911,6 @@ function tex.splitbox() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.sprint() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.tprint() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.triggerbuildpage() end
 
 ---
@@ -1814,9 +1930,3 @@ function tex.uniformdeviate() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.useboxresource() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.write() end
