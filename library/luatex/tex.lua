@@ -1148,6 +1148,24 @@ function tex.number(n) end
 ---@return string
 function tex.romannumeral(n) end
 
+---returns the `csname` string that matches a
+---font id number (if there is one).
+---
+---* Corresponding C source code: [L2047-L2050](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/ltexlib.c#L2047-L2050)
+---@param font_id integer
+---
+---@return string # for example `\tenrm`.
+function tex.fontidentifier(font_id) end
+
+---
+---The first one returns the name only, the second one reports the size too.
+---
+---* Corresponding C source code: [L2042-L2045](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/ltexlib.c#L2042-L2045)
+---@param font_id integer
+---
+---@return string # for example `cmr10`.
+function tex.fontname(font_id) end
+
 _N._15_5_sp = 204
 
 ---
@@ -1420,18 +1438,6 @@ function tex.badness() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.extraprimitives() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.fontidentifier() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.fontname() end
 
 ---
 ---Warning! Undocumented code!<p>
