@@ -1420,6 +1420,176 @@ _N._16_1_enableprimitives = 206
 ---@param primitive_names table
 function tex.enableprimitives(prefix, primitive_names) end
 
+---
+---This helper function is useful during linebreak calculations. `t` and `s` are scaled values; the function returns the badness for when total `t`
+---is supposed to be made from amounts that sum to `s`. The returned number is
+---a reasonable approximation of `100(t/s)^3`.
+function tex.badness() end
+
+
+---
+---This function resets the parameters that *TeX* normally resets when a new paragraph
+---is seen.
+function tex.resetparagraph() end
+
+---@class LinebreakParameters
+---@field pardir string
+---@field pretolerance integer
+---@field tracingparagraphs integer
+---@field tolerance integer
+---@field looseness integer
+---@field hyphenpenalty integer
+---@field exhyphenpenalty integer
+---@field pdfadjustspacing integer
+---@field adjdemerits integer
+---@field pdfprotrudechars integer
+---@field linepenalty integer
+---@field lastlinefit integer
+---@field doublehyphendemerits integer
+---@field finalhyphendemerits integer
+---@field hangafter integer
+---@field interlinepenalty integer|table # or table  if a table, then it is an array like `interlinepenalties`
+---@field clubpenalty integer|table # or table  if a table, then it is an array like `clubpenalties`
+---@field widowpenalty integer|table # or table  if a table, then it is an array like `widowpenalties`
+---@field brokenpenalty integer
+---@field emergencystretch integer # in scaled points
+---@field hangindent integer # in scaled points
+---@field hsize integer # in scaled points
+---@field leftskip GlueSpecNode
+---@field rightskip GlueSpecNode
+---@field parshape table
+---
+
+---
+---Note that there is no interface for `displaywidowpenalties`, you have to
+---pass the right choice for `widowpenalties` yourself.
+---
+---It is your own job to make sure that `listhead` is a proper paragraph list:
+---this function does not add any nodes to it. To be exact, if you want to replace
+---the core line breaking, you may have to do the following (when you are not
+---actually working in the `pre_linebreak_filter` or `linebreak_filter`
+---callbacks, or when the original list starting at listhead was generated in
+---horizontal mode):
+---
+---* add an “indent box” and perhaps a `local_par` node at the start
+---    (only if you need them)
+---
+---* replace any found final glue by an infinite penalty (or add such a penalty,
+---    if the last node is not a glue)
+---
+---* add a glue node for the `parfillskip` after that penalty node
+---
+---* make sure all the `prev` pointers are OK
+---
+---The result is a node list, it still needs to be vpacked if you want to assign it
+---to a `vbox`. The returned `info` table contains four values that are
+---all numbers:
+---
+--- name       explanation
+---
+--- prevdepth  depth of the last line in the broken paragraph
+--- prevgraf   number of lines in the broken paragraph
+--- looseness  the actual looseness value in the broken paragraph
+--- demerits   the total demerits of the chosen solution
+---
+---Note there are a few things you cannot interface using this function: You cannot
+---influence font expansion other than via `pdfadjustspacing`, because the
+---settings for that take place elsewhere. The same is true for hbadness and hfuzz
+---etc. All these are in the `hpack` routine, and that fetches its own
+---variables via globals.
+---
+---@param listhead Node
+---@param parameters LinebreakParameters
+---
+---@return Node
+---@return table
+function tex.linebreak(listhead, parameters) end
+
+---
+---Ships out box number `n` to the output file, and clears the box register.
+function tex.shipout() end
+
+---
+---This helper reports the current page state: `empty`, `box_there` or
+---`inserts_only` as integer value.
+function tex.getpagestate() end
+
+---
+---This integer reports the current level of the local loop. It's only useful for
+---debugging and the (relative state) numbers can change with the implementation.
+function tex.getlocallevel() end
+
+---
+---For practical reasons *LuaTeX* has its own random number generator. The original
+---*Lua* random function is available as `tex.lua_math_random`.
+function tex.lua_math_random() end
+
+---
+---You can
+---initialize with a new seed with `init_rand` (`lua_math_randomseed` is
+---equivalent to this one.)
+function tex.init_rand() end
+
+---
+---You can
+---initialize with a new seed with `lua_math_randomseed` (`init_rand` is
+---equivalent to this one.)
+function tex.lua_math_randomseed() end
+
+---
+---no argument is used
+function tex.normal_rand() end
+
+---
+---takes a number that will get rounded before being used
+function tex.uniform_rand() end
+
+---
+--- which behaves like the primitive and expects a scaled integer, so
+---
+---```
+---tex.print(tex.uniformdeviate(65536)/65536)
+---```
+---
+---will give a random number between zero and one.
+function tex.uniformdeviate() end
+
+---
+---`0` is the default and used normal synctex logic, `1` uses the values set by the next helpers while `2` also sets these for glyph nodes; `3` sets glyphs and glue and `4` sets only glyphs
+function tex.set_synctex_mode() end
+
+---
+---set the current tag (file) value (obeys save stack)
+function tex.set_synctex_tag() end
+
+---
+---set the current line value (obeys save stack)
+function tex.set_synctex_line() end
+
+---
+---disable synctex file logging
+function tex.set_synctex_no_files() end
+
+---
+---returns the current mode (for values see above)
+function tex.get_synctex_mode() end
+
+---
+---get the currently set value of tag (file)
+function tex.get_synctex_tag() end
+
+---
+---get the currently set value of line
+function tex.get_synctex_line() end
+
+---
+---overload the tag (file) value (`0` resets)
+function tex.force_synctex_line() end
+
+---
+---overload the line value  (`0` resets)
+function tex.force_synctex_tag() end
+
 ------------------------------------------------------------------------
 ---Undocumented functions listed in alphabetical order
 ---
@@ -1427,29 +1597,12 @@ function tex.enableprimitives(prefix, primitive_names) end
 ---official documentation
 ------------------------------------------------------------------------
 
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.badness() end
 
 ---
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.extraprimitives() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.force_synctex_line() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.force_synctex_tag() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -1462,24 +1615,6 @@ function tex.forcehmode() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.get() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.get_synctex_line() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.get_synctex_mode() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.get_synctex_tag() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -1563,12 +1698,6 @@ function tex.getlist() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.getlocallevel() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.getmark() end
 
 ---
@@ -1617,12 +1746,6 @@ function tex.getnest() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.getpagestate() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.getsfcode() end
 
 ---
@@ -1642,12 +1765,6 @@ function tex.gettoks() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.getuccode() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.init_rand() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -1707,30 +1824,6 @@ function tex.istoks() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.linebreak() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.lua_math_random() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.lua_math_randomseed() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.normal_rand() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.primitives() end
 
 ---
@@ -1739,11 +1832,7 @@ function tex.primitives() end
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.quittoks() end
 
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.resetparagraph() end
+
 
 ---
 ---Warning! Undocumented code!<p>
@@ -1762,30 +1851,6 @@ function tex.scantoks() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.set() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.set_synctex_line() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.set_synctex_mode() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.set_synctex_no_files() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.set_synctex_tag() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -1899,12 +1964,6 @@ function tex.setuccode() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.shipout() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.show_context() end
 
 ---
@@ -1918,18 +1977,6 @@ function tex.splitbox() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.triggerbuildpage() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.uniform_rand() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.uniformdeviate() end
 
 ---
 ---Warning! Undocumented code!<p>
