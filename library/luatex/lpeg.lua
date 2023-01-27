@@ -1,5 +1,4 @@
 ---@meta
-
 ---`lpeg`, by Roberto Ierusalimschy, http://www.inf.puc-rio.br/ roberto/lpeg/lpeg.html. This library is not
 ---*Unicode*-aware, but interprets strings on a byte-per-byte basis. This
 ---mainly means that `lpeg.S` cannot be used with *UTF-8* characters encoded
@@ -11,10 +10,8 @@
 ---since to `lpeg`, `ä` is two 'characters' (bytes), so `aä`
 ---totals three. In practice this is no real issue and with some care you can
 ---deal with *Unicode* just fine.
-
 ---http://www.inf.puc-rio.br/~roberto/lpeg/
 ---http://stevedonovan.github.io/lua-stdlibs/modules/lpeg.html
-
 lpeg = {}
 
 ---@alias Pattern userdata
@@ -137,9 +134,9 @@ function lpeg.B(pattern) end
 ---
 ---Returns a pattern that matches any single character
 ---belonging to one of the given ranges.
----Each `range` is a string xyof length 2,
+---Each `range` is a string `xy` of length 2,
 ---representing all characters with code
----between the codes of xand y
+---between the codes of `x` and `y`
 ---(both inclusive).
 ---
 ---As an example, the pattern
@@ -176,7 +173,6 @@ function lpeg.S(string) end
 ---for a grammar.
 ---The created non-terminal refers to the rule indexed by `v`
 ---in the enclosing grammar.
----(See Grammarsfor details.)
 ---@param v string
 ---
 ---@return Pattern
@@ -246,8 +242,53 @@ function lpeg.Cc(values) end
 
 ---
 ---a folding of the captures from `patt`
+---
+---Creates a fold capture.
+---If `patt` produces a list of captures
+---C1 C2 ... Cn,
+---this capture will produce the value
+---`func(...func(func(C1, C2), C3)...,Cn)`,
+---that is, it will fold
+---(or accumulate, or reduce)
+---the captures from `patt` using function `func`.
+---
+---This capture assumes that `patt` should produce
+---at least one capture with at least one value (of any type),
+---which becomes the initial value of an accumulator.
+---(If you need a specific initial value,
+---you may prefix a constant captureto `patt`.)
+---For each subsequent capture,
+---LPeg calls `func`
+---with this accumulator as the first argument and all values produced
+---by the capture as extra arguments;
+---the first result from this call
+---becomes the new value for the accumulator.
+---The final value of the accumulator becomes the captured value.
+---
+---
+---
+---__Example:__
+---
+---```lua
+----- matches a numeral and captures its numerical value
+---number = lpeg.R"09"^1 / tonumber
+---
+----- matches a list of numbers, capturing their values
+---list = number * ("," * number)^0
+---
+----- auxiliary function to add two numbers
+---function add (acc, newvalue) return acc + newvalue end
+---
+----- folds the list of numbers adding them
+---sum = lpeg.Cf(list, add)
+---
+----- example of use
+---print(sum:match("10,30,43"))   --> 83
+---```
+---
 ---@param patt Pattern
-function lpeg.Cf(patt) end
+---@param func fun(acc, newvalue)
+function lpeg.Cf(patt, func) end
 
 ---    the values produced by `patt`,
 ---        optionally tagged with `name`
