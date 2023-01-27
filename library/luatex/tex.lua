@@ -864,6 +864,104 @@ tex.everyvbox = ''
 ---@type string
 tex.output = ''
 
+---@type string # for example `2.2`.
+tex.eTeXVersion = ''
+
+---@type string # for example `2.2`.
+tex.eTeXrevision = ''
+
+---@type string # for example `luatex`.
+tex.formatname = ''
+
+---@type string
+tex.jobname = ''
+
+---@type string # for example `This is LuaTeX, Version 1.15.1 (TeX Live 2023/dev)`.
+tex.luatexbanner = ''
+
+---@type string # for example `1`.
+tex.luatexrevision = ''
+
+---
+---All “last item” commands are read-only and return a number.
+---@type integer
+tex.lastpenalty = 0
+
+---
+---All “last item” commands are read-only and return a number.
+---@type integer
+tex.lastkern = 0
+
+---
+---All “last item” commands are read-only and return a number.
+---@type integer
+tex.lastskip = 0
+
+---
+---All “last item” commands are read-only and return a number.
+---@type integer
+tex.lastnodetype = 0
+
+---
+---All “last item” commands are read-only and return a number.
+---@type integer
+tex.inputlineno = 0
+
+---
+---All “last item” commands are read-only and return a number.
+---@type integer
+tex.lastxpos = 0
+
+---
+---All “last item” commands are read-only and return a number.
+---@type integer
+tex.lastypos = 0
+
+---
+---All “last item” commands are read-only and return a number.
+---@type integer
+tex.randomseed = 0
+
+---
+---All “last item” commands are read-only and return a number.
+---@type integer
+tex.luatexversion = 0
+
+---
+---All “last item” commands are read-only and return a number.
+---@type integer
+tex.eTeXminorversion = 0
+
+---
+---All “last item” commands are read-only and return a number.
+---@type integer
+tex.eTeXversion = 0
+
+---
+---All “last item” commands are read-only and return a number.
+---@type integer
+tex.currentgrouplevel = 0
+
+---
+---All “last item” commands are read-only and return a number.
+---@type integer
+tex.currentgrouptype = 0
+
+---
+---All “last item” commands are read-only and return a number.
+---@type integer
+tex.currentiflevel = 0
+
+---
+---All “last item” commands are read-only and return a number.
+---@type integer
+tex.currentiftype = 0
+
+---
+---All “last item” commands are read-only and return a number.
+---@type integer
+tex.currentifbranch = 0
+
 _N._5_registers = 194
 
 ---
@@ -1426,7 +1524,6 @@ function tex.enableprimitives(prefix, primitive_names) end
 ---a reasonable approximation of `100(t/s)^3`.
 function tex.badness() end
 
-
 ---
 ---This function resets the parameters that *TeX* normally resets when a new paragraph
 ---is seen.
@@ -1596,7 +1693,6 @@ function tex.force_synctex_tag() end
 ---Document them by sliding them up and place them in the order of the
 ---official documentation
 ------------------------------------------------------------------------
-
 
 ---
 ---Warning! Undocumented code!<p>
@@ -1831,8 +1927,6 @@ function tex.primitives() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.quittoks() end
-
-
 
 ---
 ---Warning! Undocumented code!<p>
