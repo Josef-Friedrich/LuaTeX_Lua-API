@@ -123,82 +123,82 @@
 ---need the full list, you can also ask for a single item by using its name as an
 ---index into `status`. The current list is:
 ---
---- key                        explanation
+--- key                        explanation 
 ---
---- `banner`              terminal display banner
---- `best_page_break`     the current best break (a node)
---- `buf_size`            current allocated size of the line buffer
---- `callbacks`           total number of executed callbacks so far
----@field cs_count number # of control sequences
---- `dest_names_size`     *PDF* destination table size
---- `dvi_gone`            written \DVI\ bytes
---- `dvi_ptr`             not yet written \DVI\ bytes
---- `dyn_used`            token (multi-word) memory in use
---- `filename`            name of the current input file
---- `fix_mem_end`         maximum number of used tokens
---- `fix_mem_min`         minimum number of allocated words for tokens
---- `fix_mem_max`         maximum number of allocated words for tokens
----@field font_ptr number # of active fonts
---- `hash_extra`          extra allowed hash
---- `hash_size`           size of hash
----@field indirect_callbacks number # of those that were themselves a result of other callbacks (e.g. file readers)
---- `ini_version`         `true` if this is an \INITEX\ run
---- `init_pool_ptr`       \INITEX\ string pool index
----@field init_str_ptr number # of \INITEX\ strings
---- `input_ptr`           the level of input we're at
---- `inputid`             numeric id of the current input
---- `largest_used_mark`   max referenced marks class
---- `lasterrorcontext`    last error context string (with newlines)
---- `lasterrorstring`     last *TeX* error string
---- `lastluaerrorstring`  last *Lua* error string
+--- `banner`              terminal display banner 
+--- `best_page_break`     the current best break (a node) 
+--- `buf_size`            current allocated size of the line buffer 
+--- `callbacks`           total number of executed callbacks so far 
+---@field cs_count number # of control sequences 
+--- `dest_names_size`     *PDF* destination table size 
+--- `dvi_gone`            written \DVI\ bytes 
+--- `dvi_ptr`             not yet written \DVI\ bytes 
+--- `dyn_used`            token (multi-word) memory in use  
+--- `filename`            name of the current input file 
+--- `fix_mem_end`         maximum number of used tokens 
+--- `fix_mem_min`         minimum number of allocated words for tokens 
+--- `fix_mem_max`         maximum number of allocated words for tokens 
+---@field font_ptr number # of active fonts 
+--- `hash_extra`          extra allowed hash 
+--- `hash_size`           size of hash 
+---@field indirect_callbacks number # of those that were themselves a result of other callbacks (e.g. file readers) 
+--- `ini_version`         `true` if this is an \INITEX\ run 
+--- `init_pool_ptr`       \INITEX\ string pool index 
+---@field init_str_ptr number # of \INITEX\ strings 
+--- `input_ptr`           the level of input we're at 
+--- `inputid`             numeric id of the current input 
+--- `largest_used_mark`   max referenced marks class 
+--- `lasterrorcontext`    last error context string (with newlines) 
+--- `lasterrorstring`     last *TeX* error string 
+--- `lastluaerrorstring`  last *Lua* error string 
 --- `lastwarningstring`   last warning tag, normally an indication of in what part
 --- `lastwarningtag`      last warning string
---- `linenumber`          location in the current input file
---- `log_name`            name of the log file
----@field luabytecode_bytes number # of bytes in *Lua* bytecode registers
----@field luabytecodes number # of active *Lua* bytecode registers
----@field luastate_bytes number # of bytes in use by *Lua* interpreters
---- `luatex_engine`       the *LuaTeX* engine identifier
---- `luatex_hashchars`    length to which *Lua* hashes strings (`2^n`)
---- `luatex_hashtype`     the hash method used (in *Lua*JITTEX)
---- `luatex_version`      the *LuaTeX* version number
---- `luatex_revision`     the *LuaTeX* revision string
---- `max_buf_stack`       max used buffer position
---- `max_in_stack`        max used input stack entries
---- `max_nest_stack`      max used nesting stack entries
---- `max_param_stack`     max used parameter stack entries
---- `max_save_stack`      max used save stack entries
---- `max_strings`         maximum allowed strings
---- `nest_size`           nesting stack size
---- `node_mem_usage`      a string giving insight into currently used nodes
---- `obj_ptr`             max *PDF* object pointer
---- `obj_tab_size`        *PDF* object table size
---- `output_active`       `true` if the `output` routine is active
---- `output_file_name`    name of the *PDF* or \DVI\ file
---- `param_size`          parameter stack size
---- `pdf_dest_names_ptr`  max *PDF* destination pointer
---- `pdf_gone`            written *PDF* bytes
---- `pdf_mem_ptr`         max *PDF* memory used
---- `pdf_mem_size`        *PDF* memory size
---- `pdf_os_cntr`         max *PDF* object stream pointer
---- `pdf_os_objidx`       *PDF* object stream index
---- `pdf_ptr`             not yet written *PDF* bytes
----@field pool_ptr string # pool index
---- `pool_size`           current size allocated for string characters
---- `save_size`           save stack size
---- `shell_escape`        `0` means disabled, `1` means anything is permitted, and `2` is restricted
---- `safer_option`        `1` means safer is enforced
---- `kpse_used`           `1` means that kpse is used
---- `stack_size`          input stack size
----@field str_ptr number # of strings
----@field total_pages number # of written pages
----@field var_mem_max number # of allocated words for nodes
---- `var_used`            variable (one-word) memory in use
---- `lc_collate`          the value of `LC_COLLATE`  at startup time (becomes `C` at startup)
---- `lc_ctype`            the value of `LC_CTYPE`    at startup time (becomes `C` at startup)
----%NC `lc_monetary`         the value of `LC_MONETARY` at startup time
---- `lc_numeric`          the value of `LC_NUMERIC`  at startup time
----%NC `lc_time`             the value of `LC_TIME`     at startup time (becomes `C` at startup)
+--- `linenumber`          location in the current input file 
+--- `log_name`            name of the log file 
+---@field luabytecode_bytes number # of bytes in *Lua* bytecode registers 
+---@field luabytecodes number # of active *Lua* bytecode registers 
+---@field luastate_bytes number # of bytes in use by *Lua* interpreters 
+--- `luatex_engine`       the *LuaTeX* engine identifier 
+--- `luatex_hashchars`    length to which *Lua* hashes strings (`2^n`) 
+--- `luatex_hashtype`     the hash method used (in *Lua*JITTEX) 
+--- `luatex_version`      the *LuaTeX* version number 
+--- `luatex_revision`     the *LuaTeX* revision string 
+--- `max_buf_stack`       max used buffer position 
+--- `max_in_stack`        max used input stack entries 
+--- `max_nest_stack`      max used nesting stack entries 
+--- `max_param_stack`     max used parameter stack entries 
+--- `max_save_stack`      max used save stack entries 
+--- `max_strings`         maximum allowed strings 
+--- `nest_size`           nesting stack size 
+--- `node_mem_usage`      a string giving insight into currently used nodes 
+--- `obj_ptr`             max *PDF* object pointer 
+--- `obj_tab_size`        *PDF* object table size 
+--- `output_active`       `true` if the `output` routine is active 
+--- `output_file_name`    name of the *PDF* or \DVI\ file 
+--- `param_size`          parameter stack size 
+--- `pdf_dest_names_ptr`  max *PDF* destination pointer 
+--- `pdf_gone`            written *PDF* bytes 
+--- `pdf_mem_ptr`         max *PDF* memory used 
+--- `pdf_mem_size`        *PDF* memory size 
+--- `pdf_os_cntr`         max *PDF* object stream pointer 
+--- `pdf_os_objidx`       *PDF* object stream index 
+--- `pdf_ptr`             not yet written *PDF* bytes 
+---@field pool_ptr string # pool index 
+--- `pool_size`           current size allocated for string characters 
+--- `save_size`           save stack size 
+--- `shell_escape`        `0` means disabled, `1` means anything is permitted, and `2` is restricted 
+--- `safer_option`        `1` means safer is enforced 
+--- `kpse_used`           `1` means that kpse is used 
+--- `stack_size`          input stack size 
+---@field str_ptr number # of strings 
+---@field total_pages number # of written pages 
+---@field var_mem_max number # of allocated words for nodes 
+--- `var_used`            variable (one-word) memory in use 
+--- `lc_collate`          the value of `LC_COLLATE`  at startup time (becomes `C` at startup) 
+--- `lc_ctype`            the value of `LC_CTYPE`    at startup time (becomes `C` at startup) 
+---%NC `lc_monetary`         the value of `LC_MONETARY` at startup time 
+--- `lc_numeric`          the value of `LC_NUMERIC`  at startup time 
+---%NC `lc_time`             the value of `LC_TIME`     at startup time (becomes `C` at startup) 
 ---
 ---The error and warning messages can be wiped with the `resetmessages`
 ---function. A return value can be set with `setexitcode`.
@@ -575,7 +575,7 @@
 ---
 ---# Accessing registers: `set*`, `get*` and `is*`
 ---
----
+---              
 ---
 ---*TeX*'s attributes (`attribute`), counters (`count`), dimensions (`dimen`), skips (`skip`, `muskip`) and token (`toks`) registers
 ---can be accessed and written to using two times five virtual sub-tables of the
@@ -609,30 +609,30 @@
 ---into a number).
 ---
 ---    * The count registers accept and return *Lua* numbers.
----
+---    
 ---
 ---    * The dimension registers accept *Lua* numbers (in scaled points) or
 ---        strings (with an included absolute dimension; `em` and `ex`
 ---        and `px` are forbidden). The result is always a number in scaled
 ---        points.
----
+---    
 ---
 ---    * The token registers accept and return *Lua* strings. *Lua* strings are
 ---        converted to and from token lists using `the` `toks` style
 ---        expansion: all category codes are either space (10) or other (12).
----
+---    
 ---
 ---    * The skip registers accept and return `glue_spec` userdata node
 ---        objects (see the description of the node interface elsewhere in this
 ---        manual).
----
+---    
 ---
 ---    * The glue registers are just skip registers but instead of userdata
 ---        are verbose.
----
+---    
 ---
 ---    * Like the counts, the attribute registers accept and return *Lua* numbers.
----
+---    
 ---
 ---As an alternative to array addressing, there are also accessor functions defined
 ---for all cases, for example, here is the set of possibilities for `skip`
@@ -711,15 +711,15 @@
 ---
 ---# Character code registers: `[get|set]*code[s]`
 ---
+---        
+---        
+---        
+---      
+---    
+---      
 ---
----
----
----
----
----
----
----
----
+---   
+---  
 ---
 ---*TeX*'s character code tables (`lccode`, `uccode`, `sfcode`, `catcode`, `mathcode`, `delcode`) can be accessed and written to using
 ---six virtual subtables of the `tex` table
@@ -820,7 +820,7 @@
 ---
 ---# Box registers: `[get|set]box`
 ---
----
+---  
 ---
 ---It is possible to set and query actual boxes, coming for instance from `hbox`, `vbox` or `vtop`, using the node interface as defined in the
 ---`node` library:
@@ -996,18 +996,18 @@
 ---The virtual table `tex.lists` contains the set of internal registers that
 ---keep track of building page lists.
 ---
---- field                       explanation
+--- field                       explanation 
 ---
---- `page_ins_head`        circular list of pending insertions
---- `contrib_head`         the recent contributions
---- `page_head`            the current page content
----%NC `temp_head`
---- `hold_head`            used for held-over items for next page
---- `adjust_head`          head of the current `vadjust` list
---- `pre_adjust_head`      head of the current `\vadjust pre` list
----%NC `align_head`
---- `page_discards_head`   head of the discarded items of a page break
---- `split_discards_head`  head of the discarded items in a vsplit
+--- `page_ins_head`        circular list of pending insertions 
+--- `contrib_head`         the recent contributions 
+--- `page_head`            the current page content 
+---%NC `temp_head`            
+--- `hold_head`            used for held-over items for next page 
+--- `adjust_head`          head of the current `vadjust` list 
+--- `pre_adjust_head`      head of the current `\vadjust pre` list 
+---%NC `align_head`           
+--- `page_discards_head`   head of the discarded items of a page break 
+--- `split_discards_head`  head of the discarded items in a vsplit 
 ---
 ---The getter and setter functions are `getlist` and `setlist`. You have
 ---to be careful with what you set as *TeX* can have expectations with regards to
@@ -1036,20 +1036,20 @@
 ---
 ---The known fields are:
 ---
---- key                 type     modes  explanation
+--- key                 type     modes  explanation 
 ---
----@field mode number # all    the meaning of these numbers depends on the engine and sometimes even the version; you can use `tex.getmodevalues()` to get the mapping: positive values signal vertical, horizontal and math mode, while negative values indicate inner and inline variants
----@field modeline number # all    source input line where this mode was entered in, negative inside the output routine
----@field head node # all    the head of the current list
----@field tail node # all    the tail of the current list
----@field prevgraf number # vmode  number of lines in the previous paragraph
----@field prevdepth number # vmode  depth of the previous paragraph
----@field spacefactor number # hmode  the current space factor
+---@field mode number # all    the meaning of these numbers depends on the engine and sometimes even the version; you can use `tex.getmodevalues()` to get the mapping: positive values signal vertical, horizontal and math mode, while negative values indicate inner and inline variants 
+---@field modeline number # all    source input line where this mode was entered in, negative inside the output routine 
+---@field head node # all    the head of the current list 
+---@field tail node # all    the tail of the current list 
+---@field prevgraf number # vmode  number of lines in the previous paragraph 
+---@field prevdepth number # vmode  depth of the previous paragraph 
+---@field spacefactor number # hmode  the current space factor 
 ---@field dirs node # hmode  used for temporary storage by the line break algorithm
----@field noad node # mmode  used for temporary storage of a pending fraction numerator, for `over` etc.
----@field delimptr node # mmode  used for temporary storage of the previous math delimiter, for `middle`
----@field mathdir boolean # mmode  true when during math processing the `mathdir` is not the same as the surrounding `textdir`
----@field mathstyle number # mmode  the current `mathstyle`
+---@field noad node # mmode  used for temporary storage of a pending fraction numerator, for `over` etc. 
+---@field delimptr node # mmode  used for temporary storage of the previous math delimiter, for `middle` 
+---@field mathdir boolean # mmode  true when during math processing the `mathdir` is not the same as the surrounding `textdir` 
+---@field mathstyle number # mmode  the current `mathstyle` 
 ---
 ----------------------------------------------------------------
 
@@ -1182,8 +1182,8 @@
 ---% # `write`, `twrite`, `nwrite`
 ---# `write`
 ---
----%
----%
+---% 
+---% 
 ---
 ---```
 ---tex.write(<string> s, ...)
@@ -1468,12 +1468,12 @@
 ---end
 ---\stopluacode
 ---
---- name     values
+--- name     values 
 ---
---- tex      \ctxlua{document.showprimitives('tex')    }
---- core     \ctxlua{document.showprimitives('core')   }
---- etex     \ctxlua{document.showprimitives('etex')   }
---- luatex   \ctxlua{document.showprimitives('luatex') }
+--- tex      \ctxlua{document.showprimitives('tex')    } 
+--- core     \ctxlua{document.showprimitives('core')   } 
+--- etex     \ctxlua{document.showprimitives('etex')   } 
+--- luatex   \ctxlua{document.showprimitives('luatex') } 
 ---
 ---Note that `luatex` does not contain `directlua`, as that is
 ---considered to be a core primitive, along with all the *TeX*82 primitives, so it is
@@ -1520,33 +1520,33 @@
 ---
 ---The understood parameters are as follows:
 ---
---- name                         type             explanation
+--- name                         type             explanation 
 ---
----@field pardir string #
----@field pretolerance number #
----@field tracingparagraphs number #
----@field tolerance number #
----@field looseness number #
----@field hyphenpenalty number #
----@field exhyphenpenalty number #
----@field pdfadjustspacing number #
----@field adjdemerits number #
----@field pdfprotrudechars number #
----@field linepenalty number #
----@field lastlinefit number #
----@field doublehyphendemerits number #
----@field finalhyphendemerits number #
----@field hangafter number #
----@field interlinepenalty number # or table  if a table, then it is an array like `interlinepenalties`
----@field clubpenalty number # or table  if a table, then it is an array like `clubpenalties`
----@field widowpenalty number # or table  if a table, then it is an array like `widowpenalties`
----@field brokenpenalty number #
----@field emergencystretch number # in scaled points
----@field hangindent number # in scaled points
----@field hsize number # in scaled points
----@field leftskip glue_spec node #
----@field rightskip glue_spec node #
----@field parshape table #
+---@field pardir string # 
+---@field pretolerance number # 
+---@field tracingparagraphs number # 
+---@field tolerance number # 
+---@field looseness number # 
+---@field hyphenpenalty number # 
+---@field exhyphenpenalty number # 
+---@field pdfadjustspacing number # 
+---@field adjdemerits number # 
+---@field pdfprotrudechars number # 
+---@field linepenalty number # 
+---@field lastlinefit number # 
+---@field doublehyphendemerits number # 
+---@field finalhyphendemerits number # 
+---@field hangafter number # 
+---@field interlinepenalty number # or table  if a table, then it is an array like `interlinepenalties` 
+---@field clubpenalty number # or table  if a table, then it is an array like `clubpenalties` 
+---@field widowpenalty number # or table  if a table, then it is an array like `widowpenalties` 
+---@field brokenpenalty number # 
+---@field emergencystretch number # in scaled points 
+---@field hangindent number # in scaled points 
+---@field hsize number # in scaled points 
+---@field leftskip glue_spec node # 
+---@field rightskip glue_spec node # 
+---@field parshape table # 
 ---
 ---Note that there is no interface for `displaywidowpenalties`, you have to
 ---pass the right choice for `widowpenalties` yourself.
@@ -1572,12 +1572,12 @@
 ---to a `vbox`. The returned `info` table contains four values that are
 ---all numbers:
 ---
---- name       explanation
+--- name       explanation 
 ---
---- prevdepth  depth of the last line in the broken paragraph
---- prevgraf   number of lines in the broken paragraph
---- looseness  the actual looseness value in the broken paragraph
---- demerits   the total demerits of the chosen solution
+--- prevdepth  depth of the last line in the broken paragraph 
+--- prevgraf   number of lines in the broken paragraph 
+--- looseness  the actual looseness value in the broken paragraph 
+--- demerits   the total demerits of the chosen solution  
 ---
 ---Note there are a few things you cannot interface using this function: You cannot
 ---influence font expansion other than via `pdfadjustspacing`, because the
@@ -1628,25 +1628,25 @@
 ---
 ---# Functions related to synctex
 ---
----
----
----
+---      
+--- 
+---        
 ---
 ---The next helpers only make sense when you implement your own synctex logic. Keep in
 ---mind that the library used in editors assumes a certain logic and is geared for
 ---plain and \LATEX, so after a decade users expect a certain behaviour.
 ---
---- name                         explanation
+--- name                         explanation 
 ---
---- `set_synctex_mode`      `0` is the default and used normal synctex logic, `1` uses the values set by the next helpers while `2` also sets these for glyph nodes; `3` sets glyphs and glue and `4` sets only glyphs
---- `set_synctex_tag`       set the current tag (file) value (obeys save stack)
---- `set_synctex_line`      set the current line value (obeys save stack)
---- `set_synctex_no_files`  disable synctex file logging
---- `get_synctex_mode`      returns the current mode (for values see above)
---- `get_synctex_tag`       get the currently set value of tag (file)
---- `get_synctex_line`      get the currently set value of line
---- `force_synctex_tag`     overload the tag (file) value (`0` resets)
---- `force_synctex_line`    overload the line value  (`0` resets)
+--- `set_synctex_mode`      `0` is the default and used normal synctex logic, `1` uses the values set by the next helpers while `2` also sets these for glyph nodes; `3` sets glyphs and glue and `4` sets only glyphs 
+--- `set_synctex_tag`       set the current tag (file) value (obeys save stack) 
+--- `set_synctex_line`      set the current line value (obeys save stack) 
+--- `set_synctex_no_files`  disable synctex file logging 
+--- `get_synctex_mode`      returns the current mode (for values see above) 
+--- `get_synctex_tag`       get the currently set value of tag (file) 
+--- `get_synctex_line`      get the currently set value of line 
+--- `force_synctex_tag`     overload the tag (file) value (`0` resets) 
+--- `force_synctex_line`    overload the line value  (`0` resets) 
 ---
 ---The last one is somewhat special. Due to the way files are registered in \SYNCTEX\ we need
 ---to explicitly disable that feature if we provide our own alternative if we want to avoid
@@ -1666,11 +1666,11 @@
 ---fill this table with a number of settings that are read out by
 ---the executable after loading and executing the startup file.
 ---
---- key                    type      default  explanation
+--- key                    type      default  explanation 
 ---
 ---@field kpse_init boolean # true
 ---
----    `false` totally disables `kpathsea` initialisation, and enables
+---    `false` totally disables \KPATHSEA\ initialisation, and enables
 ---    interpretation of the following numeric key--value pairs. (only ever unset
 ---    this if you implement {\it all\/} file find callbacks!)
 ---
@@ -1683,21 +1683,21 @@
 ---    required command arguments by using a space, and use the \ASCII\ double quote
 ---    (`"`) for any needed argument or path quoting
 ---
----@field string_vacancies number # 75000   cf.\ web2c docs
----@field pool_free number # 5000   cf.\ web2c docs
----@field max_strings number # 15000   cf.\ web2c docs
----@field strings_free number # 100   cf.\ web2c docs
----@field nest_size number # 50   cf.\ web2c docs
----@field max_in_open number # 15   cf.\ web2c docs
----@field param_size number # 60   cf.\ web2c docs
----@field save_size number # 4000   cf.\ web2c docs
----@field stack_size number # 300   cf.\ web2c docs
----@field dvi_buf_size number # 16384   cf.\ web2c docs
----@field error_line number # 79   cf.\ web2c docs
----@field half_error_line number # 50   cf.\ web2c docs
----@field max_print_line number # 79   cf.\ web2c docs
----@field hash_extra number # 0   cf.\ web2c docs
----@field pk_dpi number # 72   cf.\ web2c docs
+---@field string_vacancies number # 75000   cf.\ web2c docs 
+---@field pool_free number # 5000   cf.\ web2c docs 
+---@field max_strings number # 15000   cf.\ web2c docs 
+---@field strings_free number # 100   cf.\ web2c docs 
+---@field nest_size number # 50   cf.\ web2c docs 
+---@field max_in_open number # 15   cf.\ web2c docs 
+---@field param_size number # 60   cf.\ web2c docs 
+---@field save_size number # 4000   cf.\ web2c docs 
+---@field stack_size number # 300   cf.\ web2c docs 
+---@field dvi_buf_size number # 16384   cf.\ web2c docs 
+---@field error_line number # 79   cf.\ web2c docs 
+---@field half_error_line number # 50   cf.\ web2c docs 
+---@field max_print_line number # 79   cf.\ web2c docs 
+---@field hash_extra number # 0   cf.\ web2c docs 
+---@field pk_dpi number # 72   cf.\ web2c docs 
 ---@field trace_file_names boolean # true
 ---
 ---    `false` disables *TeX*'s normal file open-close feedback (the
@@ -1711,21 +1711,21 @@
 ---
 ---    abort run on the first encountered error
 ---
----@field formatname string #
+---@field formatname string # 
 ---
 ---    if no format name was given on the command line, this key will be tested first
 ---    instead of simply quitting
 ---
----@field jobname string #
+---@field jobname string # 
 ---
 ---    if no input file name was given on the command line, this key will be tested
 ---    first instead of simply giving up
 ---
----@field level_chr number #
+---@field level_chr number # 
 ---
 ---    character to put in front of traced macros (see next value)
 ---
----@field level_max number #
+---@field level_max number # 
 ---
 ---    when larger than zero the input nesting level will be shown when `\tracingmacros` is set; levels above this value will be clipped with
 ---    the level shown up front
@@ -1807,7 +1807,8 @@
 ---
 ---# `setescape`
 ---
-
+---You can disable `^^` escaping of control characters by passing a value of
+---zero.
 ---
 ----------------------------------------------------------------
 
@@ -1815,7 +1816,11 @@
 ---
 ---# `closeinput`
 ---
-
+---This function that should be used with care. It acts as `endinput` but at
+---the *Lua* end. You can use it to (sort of) force a jump back to *TeX*. Normally a
+---*Lua* will just collect prints and at the end bump an input level and flush these
+---prints. This function can help you stay at the current level but you need to know
+---what you're doing (or more precise: what *TeX* is doing with input).
 ---
 ----------------------------------------------------------------
 
@@ -1838,22 +1843,22 @@
 ---minimal set of tools and no solutions. The scanner functions are probably the
 ---most intriguing.
 ---
---- function               argument            result
+--- function               argument            result 
 ---
----@field scan_keyword string # returns true if the given keyword is gobbled; as with the regular *TeX* keyword scanner this is case insensitive (and \ASCII\ based)
----@field scan_keywordcs string # returns true if the given keyword is gobbled; this variant is case sensitive and also suitable for *UTF-8*
---- `scan_int`                            returns an integer
---- `scan_real`                           returns a number from e.g.\ `1`,  `1.1`, `.1` with optional collapsed signs
---- `scan_float`                          returns a number from e.g.\ `1`,  `1.1`, `.1`, `1.1E10`, , `.1e-10` with optional collapsed signs
---- `scan_dimen`      infinity, mu-units  returns a number representing a dimension and or two numbers being the filler and order
----@field scan_glue mu-units            returns a glue spec node #
---- `scan_toks`       definer, expand     returns a table of tokens tokens
---- `scan_code`       bitset              returns a character if its category is in the given bitset (representing catcodes)
---- `scan_string`                         returns a string given between `{`}, as `\macro` or as sequence of characters with catcode 11 or 12
----@field scan_argument boolean # this one is simular to `scanstring` but also accepts a `\cs`
---- `scan_word`                           returns a sequence of characters with catcode 11 or 12 as string
---- `scan_csname`                         returns `foo` after scanning `\foo`
----@field scan_list`                           picks up a box specification and returns a `[h|v]list node #
+---@field scan_keyword string # returns true if the given keyword is gobbled; as with the regular *TeX* keyword scanner this is case insensitive (and \ASCII\ based) 
+---@field scan_keywordcs string # returns true if the given keyword is gobbled; this variant is case sensitive and also suitable for *UTF-8* 
+--- `scan_int`                            returns an integer 
+--- `scan_real`                           returns a number from e.g.\ `1`,  `1.1`, `.1` with optional collapsed signs 
+--- `scan_float`                          returns a number from e.g.\ `1`,  `1.1`, `.1`, `1.1E10`, , `.1e-10` with optional collapsed signs 
+--- `scan_dimen`      infinity, mu-units  returns a number representing a dimension and or two numbers being the filler and order 
+---@field scan_glue mu-units            returns a glue spec node # 
+--- `scan_toks`       definer, expand     returns a table of tokens tokens 
+--- `scan_code`       bitset              returns a character if its category is in the given bitset (representing catcodes) 
+--- `scan_string`                         returns a string given between `{`}, as `\macro` or as sequence of characters with catcode 11 or 12 
+---@field scan_argument boolean # this one is simular to `scanstring` but also accepts a `\cs` 
+--- `scan_word`                           returns a sequence of characters with catcode 11 or 12 as string 
+--- `scan_csname`                         returns `foo` after scanning `\foo` 
+---@field scan_list`                           picks up a box specification and returns a `[h|v]list node # 
 ---
 ---The scanners can be considered stable apart from the one scanning for a token.
 ---The `scan_code` function takes an optional number, the `keyword`
@@ -1883,11 +1888,11 @@
 ---
 ---we get:
 ---
---- name  result
+--- name  result 
 ---
---- `\directlua{token.scan_string()`{foo}}  \directlua{context("{\\red\`"..token.scan_string().."`}")} {foo}  full expansion
---- `\directlua{token.scan_string()`foo}    \directlua{context("{\\red\`"..token.scan_string().."`}")} foo    letters and others
---- `\directlua{token.scan_string()`\foo}   \directlua{context("{\\red\`"..token.scan_string().."`}")}\foo    meaning
+--- `\directlua{token.scan_string()`{foo}}  \directlua{context("{\\red\`"..token.scan_string().."`}")} {foo}  full expansion 
+--- `\directlua{token.scan_string()`foo}    \directlua{context("{\\red\`"..token.scan_string().."`}")} foo    letters and others 
+--- `\directlua{token.scan_string()`\foo}   \directlua{context("{\\red\`"..token.scan_string().."`}")}\foo    meaning 
 ---
 ---The `\foo` case only gives the meaning, but one can pass an already
 ---expanded definition (`edef`'d). In the case of the braced variant one can of
@@ -1991,18 +1996,18 @@
 ---This gives back a token object that has the properties of the `relax`
 ---primitive. The possible properties of tokens are:
 ---
---- name  explanation
+--- name  explanation 
 ---
---- `command`     a number representing the internal command number
---- `cmdname`     the type of the command (for instance the catcode in case of a character or the classifier that determines the internal treatment
---- `csname`      the associated control sequence (if applicable)
---- `id`          the unique id of the token
---- `tok`         the full token number as stored in *TeX*
---- `active`      a boolean indicating the active state of the token
---- `expandable`  a boolean indicating if the token (macro) is expandable
---- `protected`   a boolean indicating if the token (macro) is protected
---- `mode`        a number either representing a character or another entity
---- `index`       a number running from 0x0000 upto 0xFFFF indicating a *TeX* register index
+--- `command`     a number representing the internal command number 
+--- `cmdname`     the type of the command (for instance the catcode in case of a character or the classifier that determines the internal treatment 
+--- `csname`      the associated control sequence (if applicable) 
+--- `id`          the unique id of the token 
+--- `tok`         the full token number as stored in *TeX* 
+--- `active`      a boolean indicating the active state of the token 
+--- `expandable`  a boolean indicating if the token (macro) is expandable 
+--- `protected`   a boolean indicating if the token (macro) is protected 
+--- `mode`        a number either representing a character or another entity 
+--- `index`       a number running from 0x0000 upto 0xFFFF indicating a *TeX* register index 
 ---
 ---Alternatively you can use a getter `get_<fieldname>` to access a property
 ---of a token.
@@ -2234,7 +2239,7 @@
 ---# The `kpse` library[library=kpse]
 ---
 ---This library provides two separate, but nearly identical interfaces to the
----`kpathsea` file search functionality: there is a “normal” procedural
+---\KPATHSEA\ file search functionality: there is a “normal” procedural
 ---interface that shares its kpathsea instance with *LuaTeX* itself, and an object
 ---oriented interface that is completely on its own.
 ---
@@ -2248,11 +2253,11 @@
 ---There are three possibilities, two of which belong to the procedural interface.
 ---
 ---First, when *LuaTeX* is used to typeset documents, this initialization happens
----automatically and the `kpathsea` executable and program names are set to `luatex` (that is, unless explicitly prohibited by the user's startup script.
+---automatically and the \KPATHSEA\ executable and program names are set to `luatex` (that is, unless explicitly prohibited by the user's startup script.
 ---See \in {section} [init] for more details).
 ---
 ---Second, in *TeX*LUA\ mode, the initialization has to be done explicitly via the
----`kpse.set_program_name` function, which sets the `kpathsea` executable
+---`kpse.set_program_name` function, which sets the \KPATHSEA\ executable
 ---(and optionally program) name.
 ---
 ---```
@@ -2390,7 +2395,7 @@
 ---\sym{dpi}
 ---
 ---This is used for the size argument of the formats `pk`, `gf`, and
----`bitmap font`.
+---`bitmap font`. 
 ---
 ---If `--output-directory` is specified and the value is a relative pathname,
 ---the file is searched first here and if it fails it will be searched in the standard tree.
@@ -2410,7 +2415,7 @@
 ---
 ---The options match commandline arguments from `kpsewhich`:
 ---
---- key               type      explanation
+--- key               type      explanation 
 ---
 ---@field debug number # set debugging flags for this lookup     \NR
 ---@field format string # use specific file type (see list above)
@@ -2422,7 +2427,7 @@
 ---@field mktextex boolean # disable/enable mktextex generation for this lookup
 ---@field mktexmf boolean # disable/enable mktexmf generation for this lookup
 ---@field mktextfm boolean # disable/enable mktextfm generation for this lookup
---- `subdir`     string or table  only output matches whose directory part ends with the given string(s)
+--- `subdir`     string or table  only output matches whose directory part ends with the given string(s) 
 ---
 ---If `--output-directory` is specified and the value is a relative pathname,
 ---the file is searched first here and then in the standard tree.

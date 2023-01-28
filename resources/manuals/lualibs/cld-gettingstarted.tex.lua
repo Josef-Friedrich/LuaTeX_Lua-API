@@ -1,0 +1,442 @@
+---% language=uk
+---
+---\startcomponent cld-gettingstarted
+---
+---\environment cld-environment
+---
+---\startchapter[title=Getting started]
+---
+---\startsection[title=Some basics]
+---
+---\index{processing}
+---
+---I assume that you have either the so called *ConTeXt* standalone (formerly known
+---as minimals) installed or *TeX*LIVE. You only need *LuaTeX* and can forget about
+---installing *PDF*TEX\ or \XETEX, which saves you some megabytes and hassle. Now,
+---from the users perspective a *ConTeXt* run goes like:
+---
+---```
+---context yourfile
+---```
+---
+---and by default a file with suffix `tex`, `mkvi` or `mkvi` will
+---be processed. There are however a few other options:
+---
+---```
+---context yourfile.xml
+---context yourfile.rlx --forcexml
+---context yourfile.lua
+---context yourfile.pqr --forcelua
+---context yourfile.cld
+---context yourfile.xyz --forcecld
+---context yourfile.mp
+---context yourfile.xyz --forcemp
+---```
+---
+---When processing a *Lua* file the given file is loaded and just processed. This
+---options will seldom be used as it is way more efficient to let `mtxrun`
+---process that file. However, the last two variants are what we will discuss here.
+---The suffix `cld` is a shortcut for *ConTeXt* *Lua* Document.
+---
+---A simple `cld` file looks like this:
+---
+---```
+---context.starttext()
+---context.chapter("Hello There!")
+---context.stoptext()
+---```
+---
+---So yes, you need to know the *ConTeXt* commands in order to use this mechanism.
+---In spite of what you might expect, the codebase involved in this interface is not
+---that large. If you know *ConTeXt*, and if you know how to call commands, you
+---basically can use this *Lua* method.
+---
+---The examples that I will give are either (sort of) standalone, i.e.\ they are
+---dealt with from *Lua*, or they are run within this document. Therefore you will
+---see two patterns. If you want to make your own documentation, then you can use
+---this variant:
+---
+---```
+---\startbuffer
+---context("See this!")
+---\stopbuffer
+---
+---\typebuffer \ctxluabuffer
+---```
+---
+---I use anonymous buffers here but you can also use named ones. The other variant
+---is:
+---
+---```
+---\startluacode
+---context("See this!")
+---\stopluacode
+---```
+---
+---This will process the code directly. Of course we could have encoded this
+---document completely in *Lua* but that is not much fun for a manual.
+---
+----------------------------------------------------------------
+
+
+---
+---\startsection[title=The main command]
+---
+---There are a few rules that you need to be aware of. First of all no syntax
+---checking is done. Second you need to know what the given commands expects in
+---terms of arguments. Third, the type of your arguments matters:
+---
+--- `nothing` \EQ just the command, no arguments 
+--- `string`  \EQ an argument with curly braces 
+--- `array`   \EQ a list between square backets (sometimes optional) 
+--- `hash`    \EQ an assignment list between square brackets 
+--- `boolean` \EQ when `true` a newline is inserted  \EQ when `false`, omit braces for the next argument 
+---
+---In the code above you have seen examples of this but here are some more:
+---
+---```
+---context.chapter("Some title")
+---context.chapter({ "first" }, "Some title")
+---context.startchapter({ title = "Some title", label = "first" })
+---```
+---
+---This blob of code is equivalent to:
+---
+---```
+---\chapter{Some title}
+---\chapter[first]{Some title}
+---\startchapter[title={Some title},label=first]
+---```
+---
+---You can simplify the third line of the *Lua* code to:
+---
+---```
+---context.startchapter { title = "Some title", label = "first" }
+---```
+---
+---In case you wonder what the distinction is between square brackets and curly
+---braces: the first category of arguments concerns settings or lists of options or
+---names of instances while the second category normally concerns some text to be
+---typeset.
+---
+---Strings are interpreted as *TeX* input, so:
+---
+---```
+---context.mathematics("\\sqrt{2^3}")
+---```
+---
+---and if you don't want to escape:
+---
+---```
+---context.mathematics([[\sqrt{2^3}]])
+---```
+---
+---are both correct. As *TeX* math is a language in its own and a de-facto standard
+---way of inputting math this is quite natural, even at the *Lua* end.
+---
+----------------------------------------------------------------
+
+
+---
+---\startsection[title=Spaces and Lines]
+---
+---\index{spaces}
+---\index{lines}
+---
+---In a regular *TeX* file, spaces and newline characters are collapsed into one
+---space. At the *Lua* end the same happens. Compare the following examples. First
+---we omit spaces:
+---
+---\startbuffer
+---context("left")
+---context("middle")
+---context("right")
+---\stopbuffer
+---
+---\typebuffer \ctxluabuffer
+---
+---Next we add spaces:
+---
+---\startbuffer
+---context("left")
+---context(" middle ")
+---context("right")
+---\stopbuffer
+---
+---\typebuffer \ctxluabuffer
+---
+---We can also add more spaces:
+---
+---\startbuffer
+---context("left ")
+---context(" middle ")
+---context(" right")
+---\stopbuffer
+---
+---\typebuffer \ctxluabuffer
+---
+---In principle all content becomes a stream and after that the *TeX* parser will do
+---its normal work: collapse spaces unless configured to do otherwise. Now take the
+---following code:
+---
+---\startbuffer
+---context("before")
+---context("word 1")
+---context("word 2")
+---context("word 3")
+---context("after")
+---\stopbuffer
+---
+---\typebuffer \ctxluabuffer
+---
+---Here we get no spaces between the words at all, which is what we expect. So, how
+---do we get lines (or paragraphs)?
+---
+---\startbuffer
+---context("before")
+---context.startlines()
+---context("line 1")
+---context("line 2")
+---context("line 3")
+---context.stoplines()
+---context("after")
+---\stopbuffer
+---
+---\typebuffer \ctxluabuffer
+---
+---This does not work out well, as again there are no lines seen at the *TeX* end.
+---Newline tokens are injected by passing `true` to the `context`
+---command:
+---
+---\startbuffer
+---context("before")
+---context.startlines()
+---context("line 1") context(true)
+---context("line 2") context(true)
+---context("line 3") context(true)
+---context.stoplines()
+---context("after")
+---\stopbuffer
+---
+---\typebuffer \ctxluabuffer
+---
+---Don't confuse this with:
+---
+---\startbuffer
+---context("before") context.par()
+---context("line 1") context.par()
+---context("line 2") context.par()
+---context("line 3") context.par()
+---context("after")  context.par()
+---\stopbuffer
+---
+---\typebuffer \ctxluabuffer
+---
+---There we use the regular `\par` command to finish the current paragraph and
+---normally you will use that method. In that case, when set, whitespace will be
+---added between paragraphs.
+---
+---This newline issue is a somewhat unfortunate inheritance of traditional *TeX*,
+---where `\n` and `\r` mean something different. I'm still not sure if
+---the \CLD\ do the right thing as dealing with these tokens also depends on the
+---intended effect. Catcodes as well as the *LuaTeX* input parser also play a role.
+---Anyway, the following also works:
+---
+---\startbuffer
+---context.startlines()
+---context("line 1\n")
+---context("line 2\n")
+---context("line 3\n")
+---context.stoplines()
+---\stopbuffer
+---
+---\typebuffer
+---
+----------------------------------------------------------------
+
+
+---
+---\startsection[title=Direct output]
+---
+---\index{direct output}
+---\index{verbose}
+---
+---The *ConTeXt* user interface is rather consistent and the use of special input
+---syntaxes is discouraged. Therefore, the *Lua* interface using tables and strings
+---works quite well. However, imagine that you need to support some weird macro (or
+---a primitive) that does not expect its argument between curly braces or brackets.
+---The way out is to precede an argument by another one with the value `false`. We call this the direct interface. This is demonstrated in the following
+---example.
+---
+---\startbuffer
+---\unexpanded\def\bla#1{[#1]}
+---
+---\startluacode
+---context.bla(false,"***")
+---context.par()
+---context.bla("***")
+---\stopluacode
+---\stopbuffer
+---
+---\typebuffer
+---
+---This results in:
+---
+---\getbuffer
+---
+---Here, the first call results in three `*` being passed, and `#1`
+---picks up the first token. The second call to `bla` gets `{***`}
+---passed so here `#1` gets the triplet. In practice you will seldom need the
+---direct interface.
+---
+---In *ConTeXt* for historical reasons, combinations accept the following syntax:
+---
+---```
+---\startcombination % optional specification, like [2*3]
+---  {\framed{content one}} {caption one}
+---  {\framed{content two}} {caption two}
+---\stopcombination
+---```
+---
+---You can also say:
+---
+---```
+---\startcombination
+---  \combination {\framed{content one}} {caption one}
+---  \combination {\framed{content two}} {caption two}
+---\stopcombination
+---```
+---
+---When coded in *Lua*, we can feed the first variant as follows:
+---
+---\startbuffer
+---context.startcombination()
+---  context.direct("one","two")
+---  context.direct("one","two")
+---context.stopcombination()
+---\stopbuffer
+---
+---\typebuffer
+---
+---To give you an idea what this looks like, we render it:
+---
+---\startlinecorrection[blank]
+---\ctxluabuffer
+---\stoplinecorrection
+---
+---So, the `direct` function is basically a no-op and results in nothing by
+---itself. Only arguments are passed. An equivalent but bit more ugly looking is:
+---
+---```
+---context.startcombination()
+---  context(false,"one","two")
+---  context(false,"one","two")
+---context.stopcombination()
+---```
+---
+----------------------------------------------------------------
+
+
+---
+---\startsection[title=Catcodes]
+---
+---\index{catcodes}
+---
+---If you are familiar with the inner working of *TeX*, you will know that characters
+---can have special meanings. This meaning is determined by their catcodes.
+---
+---\startbuffer
+---context("`x=1`")
+---\stopbuffer
+---
+---\typebuffer
+---
+---This gives: \ctxluabuffer\ because the dollar tokens trigger inline math mode. If
+---you think that this is annoying, you can do the following:
+---
+---\startbuffer
+---context.pushcatcodes("text")
+---context("`x=1`")
+---context.popcatcodes()
+---\stopbuffer
+---
+---\typebuffer
+---
+---Now we get: \ctxluabuffer. There are several catcode regimes of
+---which only a few make sense in the perspective of the cld
+---interface.
+---
+--- ctx, ctxcatcodes, context    the normal *ConTeXt* catcode regime 
+--- prt, prtcatcodes, protect    the *ConTeXt* protected regime, used for modules 
+--- tex, texcatcodes, plain      the traditional (plain) *TeX* regime 
+--- txt, txtcatcodes, text       the *ConTeXt* regime but with less special characters 
+--- vrb, vrbcatcodes, verbatim   a regime specially meant for verbatim 
+--- xml, xmlcatcodes             a regime specially meant for \XML\ processing 
+---
+---In the second case you can still get math:
+---
+---```
+---context.pushcatcodes("text")
+---context.mathematics("x=1")
+---context.popcatcodes()
+---```
+---
+---When entering a lot of math you can also consider this:
+---
+---```
+---context.startimath()
+---context("x")
+---context("=")
+---context("1")
+---context.stopimath()
+---```
+---
+---Module writers of course can use `unprotect` and `protect` as they do
+---at the *TeX* end.
+---
+---As we've seen, a function call to `context` acts like a print, as in:
+---
+---\startbuffer
+---context("test ")
+---context.bold("me")
+---context(" first")
+---\stopbuffer
+---
+---\typebuffer \ctxluabuffer
+---
+---When more than one argument is given, the first argument is considered a format
+---conforming the `string.format` function.
+---
+---\startbuffer
+---context.startimath()
+---context("%s = %0.5f",utf.char(0x03C0),math.pi)
+---context.stopimath()
+---\stopbuffer
+---
+---\typebuffer \ctxluabuffer
+---
+---This means that when you say:
+---
+---```
+---context(a,b,c,d,e,f)
+---```
+---
+---the variables `b` till `f` are passed to the format and when the
+---format does not use them, they will not end up in your output.
+---
+---```
+---context("%s %s %s",1,2,3)
+---context(1,2,3)
+---```
+---
+---The first line results in the three numbers being typeset, but in the second case
+---only the number 1 is typeset.
+---
+----------------------------------------------------------------
+
+
+---
+---\stopchapter
+---
+---\stopcomponent
+---

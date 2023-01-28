@@ -6,6 +6,7 @@
 ---    <link rel="stylesheet"
 ---          href="http://www.inf.puc-rio.br/~roberto/lpeg/doc.css"
 ---          type="text/css"/>
+---	
 ---
 ---
 ---
@@ -14,16 +15,15 @@
 ---
 ---
 ---
+---  
+---    
+---    
 ---
----
----
----
----
----
+---  
 ---  LPeg
----
+---  
 ---     Parsing Expression Grammars For Lua, version 1.0
----
+---  
 ---
 ---
 ---
@@ -33,7 +33,7 @@
 ---
 ---
 ---  * Home
----
+---  
 ---    * Introduction
 ---    * Functions
 ---    * Basic Constructions
@@ -43,8 +43,8 @@
 ---    * The `re` Module
 ---    * Download
 ---    * License
----
----
+---  
+---  
 ---
 ---
 ---
@@ -227,22 +227,22 @@
 ---
 ---
 ---
----*
+---* 
 ---If the argument is a pattern,
 ---it is returned unmodified.
 ---
 ---
----*
+---* 
 ---If the argument is a string,
 ---it is translated to a pattern that matches the string literally.
 ---
 ---
----*
+---* 
 ---If the argument is a non-negative number n,
 ---the result is a pattern that matches exactly ncharacters.
 ---
 ---
----*
+---* 
 ---If the argument is a negative number -n,
 ---the result is a pattern that
 ---succeeds only if the input string has less than ncharacters left:
@@ -251,20 +251,20 @@
 ---(see the  unary minus operation).
 ---
 ---
----*
+---* 
 ---If the argument is a boolean,
 ---the result is a pattern that always succeeds or always fails
 ---(according to the boolean value),
 ---without consuming any input.
 ---
 ---
----*
+---* 
 ---If the argument is a table,
 ---it is interpreted as a grammar
 ---(see Grammars).
 ---
 ---
----*
+---* 
 ---If the argument is a function,
 ---returns a pattern equivalent to a
 ---match-time captureover the empty string.
@@ -604,7 +604,7 @@
 ---`lpeg.Cc(values)`
 ---    the given values (matches the empty string)
 ---`lpeg.Cf(patt, func)`
----  a folding of the captures from `patt`
+---  a foldingof the captures from `patt`
 ---`lpeg.Cg(patt [, name])`
 ---    the values produced by `patt`,
 ---        optionally tagged with `name`

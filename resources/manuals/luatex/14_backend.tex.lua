@@ -27,13 +27,14 @@
 ---
 ----------------------------------------------------------------
 
+
 ---
 ---# `[set|get][catalog|info|names|trailer]`
 ---
----
----
----
----
+--- 
+---    
+---   
+--- 
 ---
 ---These functions complement the corresponding *PDF* backend token lists dealing
 ---with metadata. The value types are strings and they are written to the *PDF*
@@ -41,12 +42,13 @@
 ---
 ----------------------------------------------------------------
 
+
 ---
 ---# `[set|get][pageattributes|pageresources|pagesattributes]`
 ---
----
----
----
+---  
+---   
+--- 
 ---
 ---These functions complement the corresponding *PDF* backend token lists dealing
 ---with page resources. The variables have no interaction with the corresponding *PDF*
@@ -55,11 +57,12 @@
 ---
 ----------------------------------------------------------------
 
+
 ---
 ---# `[set|get][xformattributes|xformresources]`
 ---
----
----
+--- 
+---  
 ---
 ---These functions complement the corresponding *PDF* backend token lists dealing
 ---with reuseable boxes and images. The variables have no interaction with the
@@ -68,11 +71,12 @@
 ---
 ----------------------------------------------------------------
 
+
 ---
 ---# `[set|get][major|minor]version`
 ---
----
----
+--- 
+--- 
 ---
 ---You can set both the major and minor version of the output. The major version is
 ---normally 1 but when set to 2 some data will not be written to the file in order
@@ -87,6 +91,7 @@
 ---
 ----------------------------------------------------------------
 
+
 ---
 ---# `getcreationdate`
 ---
@@ -95,23 +100,25 @@
 ---
 ----------------------------------------------------------------
 
+
 ---
 ---# `[set|get]inclusionerrorlevel` and `[set|get]ignoreunknownimages`
 ---
----
----
+--- 
+--- 
 ---
 ---These variable control how error in included image are treated. They are modeled
 ---after the *PDF*TEX\ equivalents.
 ---
 ----------------------------------------------------------------
 
+
 ---
 ---\startsubsection[title={`[set|get]suppressoptionalinfo`, `[set|get]trailerid`,
 ---`[set|get]omitcidset` and `[set|get]omitinfodict`}]
 ---
----
----
+---    
+---         
 ---
 ---The optional info bitset (a number) determines what kind of info gets flushed.
 ---By default we flush all. See \in {section} [sec:pdfextensions] for more details.
@@ -125,12 +132,13 @@
 ---
 ----------------------------------------------------------------
 
+
 ---
 ---# `[set|get][obj|]compresslevel` and `[set|get]recompress`
 ---
----
----
----
+---    
+--- 
+---       
 ---
 ---These functions set the level stream compression. When object compression is
 ---enabled multiple objects will be packed in a compressed stream which saves space.
@@ -142,47 +150,52 @@
 ---
 ----------------------------------------------------------------
 
+
 ---
 ---# `[set|get]gentounicode`
 ---
----
+--- 
 ---
 ---This flag enables tounicode generation (like in *PDF*TEX). Normally the values are
 ---provided by the font loader.
 ---
 ----------------------------------------------------------------
 
+
 ---
 ---# `[set|get]decimaldigits`
 ---
----
+--- 
 ---
 ---These two functions set the accuracy of floats written to the *PDF* file. You can
 ---set any value but the backend will not go below 3 and above 6.
 ---
 ----------------------------------------------------------------
 
+
 ---
 ---# `[set|get]pkresolution`
 ---
----
+--- 
 ---
 ---These setter takes two arguments: the resolution and an optional zero or one that
 ---indicates if this is a fixed one. The getter returns these two values.
 ---
 ----------------------------------------------------------------
 
+
 ---
 ---# `getlast[obj|link|annot]` and `getretval`
 ---
----
----
----
+---   
+---  
+--- 
 ---
 ---These status variables are similar to the ones traditionally used in the backend
 ---interface at the *TeX* end.
 ---
 ----------------------------------------------------------------
+
 
 ---
 ---\startsubsection[title={`getmaxobjnum` and `getobjtype`, `getfontname`,
@@ -193,10 +206,11 @@
 ---
 ----------------------------------------------------------------
 
+
 ---
 ---# `[set|get]origin`
 ---
----
+--- 
 ---
 ---This one is used to set the horizonal and/or vertical offset, a traditional
 ---backend property.
@@ -211,29 +225,32 @@
 ---
 ----------------------------------------------------------------
 
+
 ---
 ---# `[set|get]imageresolution`
 ---
----
+--- 
 ---
 ---These two functions relate to the imageresolution that is used when the image
 ---itself doesn't provide a non-zero x or y resolution.
 ---
 ----------------------------------------------------------------
 
+
 ---
 ---# `[set|get][link|dest|thread|xform]margin`
 ---
----
----
----
----
----
+---   
+---   
+--- 
+---  
+--- 
 ---
 ---These functions can be used to set and retrieve the margins that are added to the
 ---natural bounding boxes of the respective objects.
 ---
 ----------------------------------------------------------------
+
 
 ---
 ---# `get[pos|hpos|vpos]`
@@ -247,10 +264,11 @@
 ---
 ----------------------------------------------------------------
 
+
 ---
 ---# `[has|get]matrix`
 ---
----
+--- 
 ---
 ---The current matrix transformation is available via the `getmatrix` command,
 ---which returns 6 values: `sx`, `rx`, `ry`, `sy`, `tx`, and `ty`. The `hasmatrix` function returns `true` when a
@@ -264,6 +282,7 @@
 ---```
 ---
 ----------------------------------------------------------------
+
 
 ---
 ---# `print`
@@ -281,6 +300,7 @@
 ---`type` is `direct` or `page`.
 ---
 ----------------------------------------------------------------
+
 
 ---
 ---# `immediateobj`
@@ -324,6 +344,7 @@
 ---```
 ---
 ----------------------------------------------------------------
+
 
 ---
 ---# `obj`
@@ -386,6 +407,7 @@
 ---
 ----------------------------------------------------------------
 
+
 ---
 ---# `refobj`
 ---
@@ -406,6 +428,7 @@
 ---
 ----------------------------------------------------------------
 
+
 ---
 ---# `reserveobj`
 ---
@@ -418,6 +441,7 @@
 ---
 ----------------------------------------------------------------
 
+
 ---
 ---# `getpageref`
 ---
@@ -429,6 +453,7 @@
 ---```
 ---
 ----------------------------------------------------------------
+
 
 ---
 ---# `registerannot`
@@ -443,6 +468,7 @@
 ---
 ----------------------------------------------------------------
 
+
 ---
 ---# `newcolorstack`
 ---
@@ -454,6 +480,7 @@
 ---```
 ---
 ----------------------------------------------------------------
+
 
 ---
 ---# `setfontattributes`
@@ -467,8 +494,10 @@
 ---
 ----------------------------------------------------------------
 
+
 ---
 ----------------------------------------------------------------
+
 
 ---
 ---# The `pdfe` library[library=pdfe]
@@ -487,22 +516,23 @@
 ---called userdata *Lua* objects.
 ---
 ---\starttabulate
---- *PDF*           *Lua*
---- null           nil
---- boolean        boolean
---- integer        integer
---- float          number
---- name           string
---- string         string
---- array          array userdatum
---- dictionary     dictionary userdatum
---- stream         stream userdatum (with related dictionary)
---- reference      reference userdatum
+--- *PDF*           *Lua* 
+--- null           nil 
+--- boolean        boolean 
+--- integer        integer 
+--- float          number 
+--- name           string 
+--- string         string 
+--- array          array userdatum 
+--- dictionary     dictionary userdatum 
+--- stream         stream userdatum (with related dictionary) 
+--- reference      reference userdatum 
 ---
 ---The regular getters return these *Lua* data types but one can also get more
 ---detailed information.
 ---
 ----------------------------------------------------------------
+
 
 ---
 ---# `open`, `new`, `getstatus`, `close`, `unencrypt`
@@ -528,12 +558,12 @@
 ---
 ---The returned codes are:
 ---
---- value        explanation
+--- value        explanation 
 ---
---- `-2`   the document failed to open
---- `-1`   the document is (still) protected
---- `0`    the document is not encrypted
---- `2`    the document has been unencrypted
+--- `-2`   the document failed to open 
+--- `-1`   the document is (still) protected 
+--- `0`    the document is not encrypted 
+--- `2`    the document has been unencrypted 
 ---
 ---An encrypted document can be unencrypted by the next command where instead of
 ---either password you can give `nil`:
@@ -543,6 +573,7 @@
 ---```
 ---
 ----------------------------------------------------------------
+
 
 ---
 ---# `getsize`, `getversion`, `getnofobjects`, `getnofpages`, `getmemoryusage`
@@ -558,6 +589,7 @@
 ---```
 ---
 ----------------------------------------------------------------
+
 
 ---
 ---# `get[catalog|trailer|info]`
@@ -578,6 +610,7 @@
 ---
 ----------------------------------------------------------------
 
+
 ---
 ---# `getpage`, `getbox`
 ---
@@ -597,6 +630,7 @@
 ---```
 ---
 ----------------------------------------------------------------
+
 
 ---
 ---# `get[string|integer|number|boolean|name]`, `type`
@@ -629,12 +663,13 @@
 ---
 ----------------------------------------------------------------
 
+
 ---
 ---# `get[from][dictionary|array|stream]`
 ---
----
----
----
+--- 
+---      
+---     
 ---
 ---Normally you will use an index in an array and key in a dictionary but dictionaries
 ---also accept an index. The size of an array or dictionary is available with the
@@ -666,6 +701,7 @@
 ---
 ----------------------------------------------------------------
 
+
 ---
 ---# `[open|close|readfrom|whole|]stream`
 ---
@@ -695,6 +731,7 @@
 ---
 ----------------------------------------------------------------
 
+
 ---
 ---# `getfrom[dictionary|array]`
 ---
@@ -706,23 +743,24 @@
 ---type, value, detail = getfromarray(<pdfe array>,index)
 ---```
 ---
---- type        meaning     value             detail
---- `0`   none        nil
---- `1`   null        nil
----@field 2 boolean # 1 or 0
---- `3`   integer     integer
----@field 4 number # float
---- `5`   name        string
----@field 6 string # string            hex
---- `7`   array       arrayobject       size
---- `8`   dictionary  dictionaryobject  size
---- `9`   stream      streamobject      dictionary size
---- `10`  reference   integer
+--- type        meaning     value             detail 
+--- `0`   none        nil               
+--- `1`   null        nil               
+---@field 2 boolean # 1 or 0            
+--- `3`   integer     integer           
+---@field 4 number # float             
+--- `5`   name        string            
+---@field 6 string # string            hex 
+--- `7`   array       arrayobject       size 
+--- `8`   dictionary  dictionaryobject  size 
+--- `9`   stream      streamobject      dictionary size 
+--- `10`  reference   integer           
 ---
 ---A `hex` string is (in the *PDF* file) surrounded by `<>` while plain
 ---strings are bounded by `<>`.
 ---
 ----------------------------------------------------------------
+
 
 ---
 ---# `[dictionary|array]totable`
@@ -743,6 +781,7 @@
 ---
 ----------------------------------------------------------------
 
+
 ---
 ---# `getfromreference`
 ---
@@ -758,8 +797,10 @@
 ---
 ----------------------------------------------------------------
 
+
 ---
 ----------------------------------------------------------------
+
 
 ---
 ---# Memory streams[library=pdfe]
@@ -767,11 +808,11 @@
 ---The `pdfe.new` that takes three arguments:
 ---
 ---\starttabulate
---- value            explanation
+--- value            explanation      
 ---
---- `stream`   this is a (in low level *Lua* speak) light userdata object, i.e.\ a pointer to a sequence of bytes
---- `length`   this is the length of the stream in bytes (the stream can have embedded zeros)
---- `name`     optional, this is a unique identifier that is used for hashing the stream, so that multiple doesn't use more memory
+--- `stream`   this is a (in low level *Lua* speak) light userdata object, i.e.\ a pointer to a sequence of bytes 
+--- `length`   this is the length of the stream in bytes (the stream can have embedded zeros) 
+--- `name`     optional, this is a unique identifier that is used for hashing the stream, so that multiple doesn't use more memory 
 ---
 ---The third argument is optional. When it is not given the function will return an
 ---`pdfe` document object as with a regular file, otherwise it will return a
@@ -795,6 +836,7 @@
 ---meant for production and we might come up with a better implementation.
 ---
 ----------------------------------------------------------------
+
 
 ---
 ---# The `pdfscanner` library[library=pdfscanner]
@@ -888,16 +930,16 @@
 ---
 ---The list of possible operand types and associated *Lua* value types is:
 ---
---- types            type
+--- types            type      
 ---
---- `integer`   <number>
---- `real`      <number>
---- `boolean`   <boolean>
---- `name`      <string>
---- `operator`  <string>
---- `string`    <string>
---- `array`     <table>
---- `dict`      <table>
+--- `integer`   <number>  
+--- `real`      <number>  
+--- `boolean`   <boolean> 
+--- `name`      <string>  
+--- `operator`  <string>  
+--- `string`    <string>  
+--- `array`     <table>   
+--- `dict`      <table>   
 ---
 ---In case of `integer` or `real`, the value is always a *Lua* (floating
 ---point) number. In case of `name`, the leading slash is always stripped.
@@ -916,16 +958,16 @@
 ---
 ---There are a few more methods defined that you can ask `scanner`:
 ---
---- method                explanation
+--- method                explanation 
 ---
---- `pop`            see above
---- `popnumber`      return only the value of a `real` or `integer`
---- `popname`        return only the value of a `name`
---- `popstring`      return only the value of a `string`
---- `poparray`       return only the value of a `array`
---- `popdictionary`  return only the value of a `dict`
---- `popboolean`     return only the value of a `boolean`
---- `done`           abort further processing of this `scan()` call
+--- `pop`            see above 
+--- `popnumber`      return only the value of a `real` or `integer` 
+--- `popname`        return only the value of a `name` 
+--- `popstring`      return only the value of a `string` 
+--- `poparray`       return only the value of a `array` 
+--- `popdictionary`  return only the value of a `dict` 
+--- `popboolean`     return only the value of a `boolean` 
+--- `done`           abort further processing of this `scan()` call 
 ---
 ---The `pop*` are convenience functions, and come in handy when you know the
 ---type of the operands beforehand (which you usually do, in *PDF*). For example, the
@@ -942,6 +984,7 @@
 ---{\em We keep the older names `popNumber`, `popName`, `popString`, `popArray`, `popDict` and `popBool` around.}
 ---
 ----------------------------------------------------------------
+
 
 ---
 ---\stopchapter

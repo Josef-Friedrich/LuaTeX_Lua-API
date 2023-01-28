@@ -96,5 +96,6 @@ def patch_file(file_name: str):
 
 
 
-for file_name in glob.glob(str(Path(__file__).resolve().parent) + "/**/*.tex"):
+for file_name in glob.glob(str(Path(__file__).resolve().parent) + "/manuals/**/*.tex"):
+    print(file_name)
     patch_file(file_name)

@@ -1,0 +1,15 @@
+---\startcomponent cld-titlepage
+---
+---\environment cld-environment
+---
+---% \cldprocessfile{cld-mkiv-titlepage.cld}
+---
+---\startTEXpage
+---    \externalfigure[cld-mkiv-titlepage.pdf]%
+---\stopTEXpage % faster during writing
+---
+---\startstandardmakeup[doublesided=no,page=no]
+---\stopstandardmakeup
+---
+---\stopcomponent
+---

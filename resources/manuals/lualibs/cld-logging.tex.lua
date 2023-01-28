@@ -1,0 +1,92 @@
+---% language=uk
+---
+---% maybe this will become a section instead
+---
+---\startcomponent cld-logging
+---
+---\environment cld-environment
+---
+---# Logging
+---
+---Logging and localized messages have always been rather standardized in *ConTeXt*,
+---so upgrading the related mechanism had been quite doable. In \MKIV\ for a while
+---we had two systems in parallel: the old one, mostly targeted at messages at the
+---*TeX* end, and a new one used at the *Lua* end. But when more and more hybrid
+---code showed up, integrating both systems made sense.
+---
+---Most logging concerns tracing and can be turned on and off on demand. This kind
+---of control is now possible for all messages. Given that the right interfaces are
+---used, you can turn off all messages:
+---
+---```
+---context --silent
+---```
+---
+---This was already possible in \MKII, but there *TeX*'s own messages still were
+---visible. More important is that we have control:
+---
+---```
+---context --silent=structure*,resolve*,font*
+---```
+---
+---This will disable all reporting for these three categories. It is also possible
+---to only disable messages to the console:
+---
+---```
+---context --noconsole
+---```
+---
+---In *ConTeXt* you can use directives:
+---
+---```
+---\enabledirectives[logs.blocked=structure*,resolve*,font*]
+---\enabledirectives[logs.target=file]
+---```
+---
+---As all logging is under *Lua* control and because this (and other) kind of
+---control has to kick in early in the initialization the code might look somewhat
+---tricky. Users won't notice this because they only deal with the formal interface.
+---Here we will only discuss the *Lua* interfaces.
+---
+---Messages related to tracing are done as follows:
+---
+---```
+---local report_whatever = logs.reporter("modules","whatever")
+---
+---report_whatever("not found: %s","this or that")
+---```
+---
+---The first line defined a logger in the category `modules`. You can give a
+---second argument as well, the subcategory. Both will be shown as part of the
+---message, of which an example is given in the second line.
+---
+---These messages are shown directly, that is, when the function is called. However,
+---when you generate *TeX* code, as we discuss in this document, you need to make
+---sure that the message is synchronized with that code. This can be done with a
+---messenger instead of a reporter.
+---
+---```
+---local report_numbers = logs.reporter("numbers","check")
+---local status_numbers = logs.messenger("numbers","check")
+---
+---status_numbers("number 1: %s, number 2: %s",123,456)
+---report_numbers("number 1: %s, number 2: %s",456,123)
+---```
+---
+---Both reporters and messages are localized when the pattern given as first
+---argument can be found in the `patterns` subtable of the interface messages.
+---Categories and subcategories are also translated, but these are looked up in the
+---`translations` subtable. So in the case of
+---
+---```
+---report_whatever("found: %s",filename)
+---report_whatever("not found: %s",filename)
+---```
+---
+---you should not be surprised if it gets translated. Of course the category and
+---subcategory provide some contextual information.
+---
+---\stopchapter
+---
+---\stopcomponent
+---

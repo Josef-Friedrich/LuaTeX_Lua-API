@@ -1,0 +1,344 @@
+---% language=uk
+---
+---\startcomponent cld-moreonfunctions
+---
+---\environment cld-environment
+---
+---\startchapter[title=More on functions]
+---
+---\startsection[title=Why we need them]
+---
+---\index{functions}
+---
+---In a previous chapter we introduced functions as arguments. At first sight this
+---feature looks strange but you need to keep in mind that a call to a `context` function has no direct consequences. It generates *TeX* code that is
+---executed after the current *Lua* chunk ends and control is passed back to *TeX*.
+---Take the following code:
+---
+---\startbuffer
+---context.framed( {
+---    frame = "on",
+---    offset = "5mm",
+---    align = "middle"
+---  },
+---  context.input("knuth")
+---)
+---\stopbuffer
+---
+---\typebuffer
+---
+---We call the function `framed` but before the function body is executed, the
+---arguments get evaluated. This means that `input` gets processed before
+---`framed` gets done. As a result there is no second argument to `framed` and no content gets passed: an error is reported. This is why we need
+---the indirect call:
+---
+---\startbuffer
+---context.framed( {
+---    frame = "on",
+---    align = "middle"
+---  },
+---  function() context.input("knuth") end
+---)
+---\stopbuffer
+---
+---\typebuffer
+---
+---This way we get what we want:
+---
+---\startlinecorrection
+---\ctxluabuffer
+---\stoplinecorrection
+---
+---The function is delayed till the `framed` command is executed. If your
+---applications use such calls a lot, you can of course encapsulate this ugliness:
+---
+---```
+---mycommands = mycommands or { }
+---
+---function mycommands.framed_input(filename)
+---  context.framed( {
+---    frame = "on",
+---    align = "middle"
+---  },
+---  function() context.input(filename) end
+---end
+---
+---mycommands.framed_input("knuth")
+---```
+---
+---Of course you can nest function calls:
+---
+---```
+---context.placefigure(
+---  "caption",
+---  function()
+---    context.framed( {
+---      frame = "on",
+---      align = "middle"
+---    },
+---      function() context.input("knuth") end
+---    )
+---  end
+---)
+---```
+---
+---Or you can use a more indirect method:
+---
+---```
+---function text()
+---  context.framed( {
+---      frame = "on",
+---      align = "middle"
+---    },
+---    function() context.input("knuth") end
+---  )
+---end
+---
+---context.placefigure(
+---  "none",
+---  function() text() end
+---)
+---```
+---
+---You can develop your own style and libraries just like you do with regular *Lua*
+---code. Browsing the already written code can give you some ideas.
+---
+----------------------------------------------------------------
+
+
+---
+---\startsection[title=How we can avoid them]
+---
+---\index{delaying}
+---\index{nesting}
+---
+---As many nested functions can obscure the code rather quickly, there is an
+---alternative. In the following examples we use `test`:
+---
+---\startbuffer
+---\def\test#1{[#1]}
+---\stopbuffer
+---
+---\typebuffer \getbuffer
+---
+---\startbuffer
+---context.test("test 1 ",context("test 2a")," test 3")
+---\stopbuffer
+---
+---\typebuffer
+---
+---This gives: \ctxluabuffer. As you can see, the second argument is executed before
+---the encapsulating call to `test`. So, we should have packed it into a
+---function but here is an alternative:
+---
+---\startbuffer
+---context.test("test 1 ",context.delayed("test 2a")," test 3")
+---\stopbuffer
+---
+---\typebuffer
+---
+---Now we get: \ctxluabuffer. We can also delay functions themselves,
+---look at this:
+---
+---\startbuffer
+---context.test("test 1 ",context.delayed.test("test 2b")," test 3")
+---\stopbuffer
+---
+---\typebuffer
+---
+---The result is: \ctxluabuffer. This feature also conveniently permits the use of
+---temporary variables, as in:
+---
+---```
+---local f = context.delayed.test("test 2c")
+---context("before ",f," after")
+---```
+---
+---Of course you can limit the amount of keystrokes even more by
+---creating a shortcut:
+---
+---```
+---local delayed = context.delayed
+---
+---context.test("test 1 ",delayed.test("test 2")," test 3")
+---context.test("test 4 ",delayed.test("test 5")," test 6")
+---```
+---
+---So, if you want you can produce rather readable code and readability of code is
+---one of the reasons why *Lua* was chosen in the first place. This is a good
+---example of why coding in *TeX* makes sense as it looks more intuitive:
+---
+---```
+---\test{test 1 \test{test 2} test 3}
+---\test{test 4 \test{test 5} test 6}
+---```
+---
+---The `context.nested` variant is now an alias to `context.delayed` and
+---no longer builds a string representation.
+---
+---% There is also another mechanism available. In the next example the second
+---% argument is actually a string.
+---%
+---% ```
+---% local nested = context.nested
+---%
+---% context.test("test 8",nested.test("test 9"),"test 10")
+---% ```
+---%
+---% There is a pitfall here: a nested context command needs to be flushed explicitly,
+---% so in the case of:
+---%
+---% ```
+---% context.nested.test("test 9")
+---% ```
+---%
+---% a string is created but nothing ends up at the *TeX* end. Flushing is up to you.
+---% Beware: `nested` only works with the regular *ConTeXt* catcode regime.
+---
+----------------------------------------------------------------
+
+
+---
+---\startsection[title=Trial typesetting]
+---
+---\index {prerolls}
+---\index {trial typesetting}
+---
+---Some typesetting mechanisms demand a preroll. For instance, when determining the
+---most optimal way to analyse and therefore typeset a table, it is necessary to
+---typeset the content of cells first. Inside *ConTeXt* there is a state tagged
+---“trial typesetting” which signals other mechanisms that for instance
+---counters should not be incremented more than once.
+---
+---Normally you don't need to worry about these issues, but when writing the code
+---that implements the *Lua* interface to *ConTeXt*, it definitely had to be taken
+---into account as we either or not can free cached (nested) functions.
+---
+---You can influence this caching to some extend. If you say
+---
+---```
+---function()
+---  context("whatever")
+---end
+---```
+---
+---the function will be removed from the cache when *ConTeXt* is not in the trial
+---typesetting state. You can prevent removal of a function by returning `true`, as in:
+---
+---```
+---function()
+---  context("whatever")
+---  return true
+---end
+---```
+---
+---Whenever you run into a situation that you don't get the outcome that you expect,
+---you can consider returning `true`. However, keep in mind that it will take
+---more memory, something that only matters on big runs. You can force flushing the
+---whole cache by:
+---
+---```
+---context.restart()
+---```
+---
+---An example of an occasion where you need to keep the function available is in
+---repeated content, for instance in headers and footers.
+---
+---```
+---context.setupheadertexts {
+---  function()
+---    context.pagenumber()
+---    return true
+---  end
+---}
+---```
+---
+---Of course it is not needed when you use the following method:
+---
+---```
+---context.pagenumber("pagenumber")
+---```
+---
+---Because here *ConTeXt* itself deals with the content driven by the keyword `pagenumber`.
+---
+----------------------------------------------------------------
+
+
+---
+---\startsection[title=Steppers]
+---
+---The `context` commands are accumulated within a `\ctxlua` call and
+---only after the call is finished, control is back at the *TeX* end. Sometimes you
+---want (in your *Lua* code) to go on and pretend that you jump out to *TeX* for a
+---moment, but come back to where you left. The stepper mechanism permits this.
+---
+---A not so practical but nevertheless illustrative example is the following:
+---
+---\startbuffer
+---\startluacode
+---  context.stepwise (function()
+---    context.startitemize()
+---       context.startitem()
+---         context.step("BEFORE 1")
+---       context.stopitem()
+---       context.step("\\setbox0\\hbox{!!!!}")
+---       context.startitem()
+---         context.step("%p",tex.getbox(0).width)
+---       context.stopitem()
+---       context.startitem()
+---         context.step("BEFORE 2")
+---       context.stopitem()
+---       context.step("\\setbox2\\hbox{????}")
+---       context.startitem()
+---         context.step("%p",tex.getbox(2).width)
+---       context.startitem()
+---         context.step("BEFORE 3")
+---       context.stopitem()
+---       context.startitem()
+---         context.step("\\copy0\\copy2")
+---       context.stopitem()
+---       context.startitem()
+---         context.step("BEFORE 4")
+---         context.startitemize() context.stepwise (function() context.step("\\bgroup") context.step("\\setbox0\\hbox{>>>>}") context.startitem() context.step("%p",tex.getbox(0).width) context.stopitem() context.step("\\setbox2\\hbox{<<<<}") context.startitem() context.step("%p",tex.getbox(2).width) context.stopitem() context.startitem() context.step("\\copy0\\copy2") context.stopitem() context.startitem() context.step("\\copy0\\copy2") context.stopitem() context.step("\\egroup") end)
+---         context.stopitemize()
+---       context.stopitem()
+---       context.startitem()
+---         context.step("AFTER 1\\par")
+---       context.stopitem()
+---       context.startitem()
+---         context.step("\\copy0\\copy2\\par")
+---       context.stopitem()
+---       context.startitem()
+---         context.step("\\copy0\\copy2\\par")
+---       context.stopitem()
+---       context.startitem()
+---         context.step("AFTER 2\\par")
+---       context.stopitem()
+---       context.startitem()
+---         context.step("\\copy0\\copy2\\par")
+---       context.stopitem()
+---       context.startitem()
+---         context.step("\\copy0\\copy2\\par")
+---       context.stopitem()
+---     context.stopitemize()
+---end)
+---\stopluacode
+---\stopbuffer
+---
+---\typebuffer
+---
+---This gives an (ugly) itemize with a nested one:
+---
+---\getbuffer
+---
+---As you can see in the code, the `step` call accepts multiple arguments, but
+---when more than one argument is given the first one is treated as a formatter.
+---
+----------------------------------------------------------------
+
+
+---
+---\stopchapter
+---
+---\stopcomponent
+---

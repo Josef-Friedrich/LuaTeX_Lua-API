@@ -1,0 +1,474 @@
+---% language=uk
+---
+---\startcomponent cld-verbatim
+---
+---\environment cld-environment
+---
+---\startchapter[title=Verbatim]
+---
+---\startsection[title=Introduction]
+---
+---\index{verbatim}
+---
+---If you are familiar with traditional *TeX*, you know that some characters have
+---special meanings. For instance a ``` starts and ends inline math mode:
+---
+---```
+---`e=mc^2`
+---```
+---
+---If we want to typeset math from the *Lua* end, we can say:
+---
+---```
+---context.mathematics("e=mc^2")
+---```
+---
+---This is in fact:
+---
+---```
+---\mathematics{e=mc^2}
+---```
+---
+---However, if we want to typeset a dollar and use the `ctxcatcodes` regime,
+---we need to explicitly access that character using `\char` or use a command
+---that expands into the character with catcode other.
+---
+---One step further is that we typeset all characters as they are and this is called
+---verbatim. In that mode all characters are tokens without any special meaning.
+---
+----------------------------------------------------------------
+
+
+---
+---\startsection[title=Special treatment]
+---
+---The formula in the introduction can be typeset verbatim as follows:
+---
+---\startbuffer
+---context.verbatim("`e=mc^2`")
+---\stopbuffer
+---
+---\typebuffer
+---
+---This gives:
+---
+---\ctxluabuffer
+---
+---You can also do things like this:
+---
+---\startbuffer
+---context.verbatim.bold("`e=mc^2`")
+---\stopbuffer
+---
+---\typebuffer
+---
+---Which gives:
+---
+---\ctxluabuffer
+---
+---So, within the `verbatim` namespace, each command gets its arguments
+---verbatim.
+---
+---\startbuffer
+---context.verbatim.inframed({ offset = "0pt" }, "`e=mc^2$")
+---\stopbuffer
+---
+---\typebuffer
+---
+---Here we get: \ctxluabuffer. So, settings and alike are processed as if the user
+---had used a regular `context.inframed` but the content comes out verbose.
+---
+---If you wonder why verbatim is needed as we also have the `type` function
+---(macro) the answer is that it is faster, easier to key in, and sometimes the only
+---way to get the desired result.
+---
+----------------------------------------------------------------
+
+
+---
+---\startsection[title=Multiple lines]
+---
+---Currently we have to deal with linebreaks in a special way. This is due to the
+---way *TeX* deals with linebreaks. In fact, when we print something to *TeX*, the
+---text after a `\n` is simply ignored.
+---
+---For this reason we have a few helpers. If you want to put something in a buffer,
+---you cannot use the regular buffer functions unless you make sure that they are
+---not overwritten while you're still at the *Lua* end.
+---
+---```
+---context.tobuffer("temp",str)
+---context.getbuffer("temp")
+---```
+---
+---Another helper is the following. It splits the string into lines and feeds them
+---piecewise using the `context` function and in the process adds a space at
+---the end of the line (as this is what *TeX* normally does.
+---
+---```
+---context.tolines(str)
+---```
+---
+---Catcodes can get in the way when you pipe something to *TeX* that itself changes
+---the catcodes. This happens for instance when you write buffers that themselves
+---have buffers or have code that changes the line endings as with `startlines`. In that case you need to feed back the content as if it were a
+---file. This is done with:
+---
+---```
+---context.viafile(str)
+---```
+---
+---The string can contain newlines. The string is written to a virtual file that is
+---input. Currently names looks like `virtual://virtualfile.1` but future
+---versions might have a different name part, so best use the variable instead.
+---After all, you don't know the current number in advance anyway.
+---
+----------------------------------------------------------------
+
+
+---
+---\startsection[title=Pretty printing]
+---
+---In *ConTeXt* \MKII\ there have always been pretty printing options. We needed it
+---for manuals and it was also handy to print sources in the same colors as the
+---editor uses. Most of those pretty printers work in a line-by-line basis, but
+---some are more complex, especially when comments or strings can span multiple
+---lines.
+---
+---When the first versions of *LuaTeX* showed up, rewriting the \MKII\ code to use
+---*Lua* was a nice exercise and the code was not that bad, but when \LPEG\ showed
+---up, I put it on the agenda to reimplement them again.
+---
+---We only ship a few pretty printers. Users normally have their own preferences and
+---it's not easy to make general purpose pretty printers. This is why the new
+---framework is a bit more flexible and permits users to kick in their own code.
+---
+---Pretty printing involves more than coloring some characters or words:
+---
+---* spaces should honoured and can be visualized 
+---* newlines and empty lins need to be honoured as well 
+---* optionally lines have to be numbered but 
+---* wrapped around lines should not be numbered 
+---
+---It's not much fun to deal with these matters each time that you write a pretty
+---printer. This is why we can start with an existing one like the default pretty
+---printer. We show several variants of doing the same. We start with a simple clone
+---of the default parser. \footnote {In the meantime the lexer of the \SCITE\ editor
+---that I used also provides a mechanism for using \LPEG\ based lexers. Although in
+---the pretty printing code we need a more liberal one I might backport the lexers I
+---wrote for editing *TeX*, \METAPOST, *Lua*, \CLD, \XML\ and *PDF* as a variant for
+---the ones we use in \MKIV\ now. That way we get similar colorschemes which might
+---be handy sometimes.}
+---
+---\startbuffer
+---local P, V = lpeg.P, lpeg.V
+---
+---local grammar = visualizers.newgrammar("default", {
+---  pattern    = V("default:pattern"),
+---  visualizer = V("pattern")^1
+---} )
+---
+---local parser = P(grammar)
+---
+---visualizers.register("test-0", { parser = parser })
+---\stopbuffer
+---
+---\typebuffer \ctxluabuffer
+---
+---We distinguish between grammars (tables with rules), parsers (a grammar turned
+---into an \LPEG\ expression), and handlers (collections of functions that can be
+---applied. All three are registered under a name and the verbatim commands can
+---refer to that name.
+---
+---\startbuffer
+---```[option=test-0,color=]
+---Test 123,
+---test 456 and
+---test 789!
+---```
+---\stopbuffer
+---
+---\typebuffer
+---
+---Nothing special happens here. We just get straightforward verbatim.
+---
+---\getbuffer
+---
+---Next we are going to color digits. We collect as many as possible in a row, so
+---that we minimize the calls to the colorizer.
+---
+---\startbuffer
+---local patterns, P, V = lpeg.patterns, lpeg.P, lpeg.V
+---
+---local function colorize(s)
+---  context.color{"darkred"}
+---  visualizers.writeargument(s)
+---end
+---
+---local grammar = visualizers.newgrammar("default", {
+---  digit      = patterns.digit^1 / colorize,
+---  pattern    = V("digit") + V("default:pattern"),
+---  visualizer = V("pattern")^1
+---} )
+---
+---local parser = P(grammar)
+---
+---visualizers.register("test-1", { parser = parser })
+---\stopbuffer
+---
+---\typebuffer \ctxluabuffer
+---
+---Watch how we define a new rule for the digits and overload the pattern rule. We
+---can refer to the default rule by using a prefix. This is needed when we define a
+---rule with the same name.
+---
+---\startbuffer
+---```[option=test-1,color=]
+---Test 123,
+---test 456 and
+---test 789!
+---```
+---\stopbuffer
+---
+---\typebuffer
+---
+---This time the digits get colored.
+---
+---\getbuffer
+---
+---In a similar way we can colorize letters. As with the previous example, we use
+---*ConTeXt* commands at the *Lua* end.
+---
+---\startluacode
+---local patterns, P, V = lpeg.patterns, lpeg.P, lpeg.V
+---
+---local function colorize_lowercase(s)
+---  context.color{"darkgreen"}
+---  visualizers.writeargument(s)
+---end
+---local function colorize_uppercase(s)
+---  context.color{"darkblue"}
+---  visualizers.writeargument(s)
+---end
+---
+---local grammar = visualizers.newgrammar("default", {
+---
+---  lowercase = patterns.lowercase^1 / colorize_lowercase,
+---  uppercase = patterns.uppercase^1 / colorize_uppercase,
+---
+---  pattern =
+---      V("lowercase")
+---    + V("uppercase")
+---    + V("default:pattern"),
+---
+---  visualizer = V("pattern")^1
+---
+---} )
+---
+---local parser = P(grammar)
+---
+---visualizers.register("test-2", { parser = parser })
+---\stopluacode
+---
+---\startbuffer
+---```[option=test-2,color=]
+---Test 123,
+---test 456 and
+---test 789!
+---```
+---\stopbuffer
+---
+---\typebuffer
+---
+---Again we get some coloring.
+---
+---\getbuffer
+---
+---It will be clear that the amount of rules and functions is larger when we use a
+---more complex parser. It is for this reason that we can group functions in
+---handlers. We can also make a pretty printer configurable by defining handlers at
+---the *TeX* end.
+---
+---\startbuffer
+---\definestartstop
+---  [MyDigit]
+---  [style=bold,color=darkred]
+---
+---\definestartstop
+---  [MyLowercase]
+---  [style=bold,color=darkgreen]
+---
+---\definestartstop
+---  [MyUppercase]
+---  [style=bold,color=darkblue]
+---\stopbuffer
+---
+---\typebuffer \getbuffer
+---
+---The *Lua* code now looks different. Watch out: we need an indirect call to for
+---instance `MyDigit` because a second argument can be passed: the settings
+---for this environment and you don't want that get passed to `MyDigit` and
+---friends.
+---
+---\startluacode
+---local patterns, P, V = lpeg.patterns, lpeg.P, lpeg.V
+---local pattern = visualizers.pattern
+---local verbatim = context.verbatim
+---
+---local MyDigit     = verbatim.MyDigit
+---local MyLowercase = verbatim.MyLowercase
+---local MyUppercase = verbatim.MyUppercase
+---
+----- local handler = newhandler("default, {
+-----   digit     = function(s) MyDigit    (s) end,
+-----   lowercase = function(s) MyLowercase(s) end,
+-----   uppercase = function(s) MyUppercase(s) end,
+----- } )
+---
+---local handler = {
+---  digit     = function(s) MyDigit    (s) end,
+---  lowercase = function(s) MyLowercase(s) end,
+---  uppercase = function(s) MyUppercase(s) end,
+---}
+---
+---local grammar = visualizers.newgrammar("default", {
+---
+---  digit     = pattern(handler,"digit",     patterns.digit    ^1),
+---  lowercase = pattern(handler,"lowercase", patterns.lowercase^1),
+---  uppercase = pattern(handler,"uppercase", patterns.uppercase^1),
+---
+---  pattern =
+---      V("lowercase")
+---    + V("uppercase")
+---    + V("digit")
+---    + V("default:pattern"),
+---
+---  visualizer = V("pattern")^1
+---
+---} )
+---
+---local parser = P(grammar)
+---
+---visualizers.register("test-3", { parser = parser, handler = handler })
+---\stopluacode
+---
+---\startbuffer
+---```[option=test-3,color=]
+---Test 123,
+---test 456 and
+---test 789!
+---```
+---\stopbuffer
+---
+---\typebuffer
+---
+---We get digits, upper- and lowercase characters colored:
+---
+---\getbuffer
+---
+---You can also use parsers that don't use \LPEG:
+---
+---\startbuffer
+---local function parser(s)
+---  visualizers.write("["..s.."]")
+---end
+---
+---visualizers.register("test-4", { parser = parser })
+---\stopbuffer
+---
+---\typebuffer \ctxluabuffer
+---
+---\startbuffer
+---```[option=test-4,space=on,color=darkred]
+---Test 123,
+---test 456 and
+---test 789!
+---```
+---\stopbuffer
+---
+---\typebuffer
+---
+---The function `visualizer.write` takes care of spaces and newlines.
+---
+---\getbuffer
+---
+---We have a few more helpers:
+---
+--- `visualizers.write`           interprets the argument and applies methods 
+--- `visualizers.writenewline`    goes to the next line (similar to `\par` 
+--- `visualizers.writeemptyline`  inserts an empty line (similer to `\blank` 
+--- `visualizers.writespace`      inserts a (visible) space 
+--- `visualizers.writedefault`    writes the argument verbatim without interpretation 
+---
+---These mechanism have quite some overhead in terms of function calls. In the worst
+---case each token needs a (nested) call. However, doing all this at the *TeX* end
+---also comes at a price. So, in practice this approach is more flexible but without
+---too large a penalty.
+---
+---In all these examples we typeset the text verbose: what is keyed in normally
+---comes out (either or not with colors), so spaces stay spaces and linebreaks are
+---kept.
+---
+---\startbuffer
+---local function parser(s)
+---  local s = string.gsub(s,"show","demonstrate")
+---  local s = string.gsub(s,"'re"," are")
+---  context(s)
+---end
+---
+---visualizers.register("test-5", { parser = parser })
+---\stopbuffer
+---
+---\typebuffer \ctxluabuffer
+---
+---\startbuffer
+---```[option=test-5,color=darkred,style=]
+---This is just some text to show what we can do with this mechanism. In
+---spite of what you might think we're not bound to verbose text.
+---```
+---\stopbuffer
+---
+---We can apply this visualizer as follows:
+---
+---\typebuffer
+---
+---This time the text gets properly aligned:
+---
+---\getbuffer
+---
+---It often makes sense to use a buffer:
+---
+---\startbuffer
+---\startbuffer[demo]
+---This is just some text to show what we can do with this mechanism. In
+---spite of what you might think we're not bound to verbose text.
+---\stopbuffer
+---\stopbuffer
+---
+---\typebuffer \getbuffer
+---
+---Instead of processing the buffer in verbatim mode you can then
+---process it directly:
+---
+---\startbuffer
+---\setuptyping[file][option=test-5,color=darkred,style=]
+---\ctxluabuffer[demo]
+---\stopbuffer
+---
+---\typebuffer
+---
+---Which gives:
+---
+---\start \getbuffer \stop
+---
+---In this case, the space is a normal space and not the fixed verbatim space, which
+---looks better.
+---
+----------------------------------------------------------------
+
+
+---
+---\stopchapter
+---
+---\stopcomponent
+---
