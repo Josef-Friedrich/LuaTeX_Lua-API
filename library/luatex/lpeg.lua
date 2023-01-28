@@ -14,10 +14,17 @@
 ---http://stevedonovan.github.io/lua-stdlibs/modules/lpeg.html
 lpeg = {}
 
----@alias Pattern userdata
+---@class Pattern
+---@operator add(Pattern): Pattern
+---@operator mul(Pattern): Pattern
+---@operator mul(Capture): Pattern
+---@operator pow(Pattern): Pattern
 
 ---@class Capture
-
+---@operator add(Capture): Pattern
+---@operator mul(Capture): Pattern
+---@operator mul(Pattern): Pattern
+---@operator pow(Capture): Pattern
 ---
 ---The matching function.
 ---It attempts to match the given pattern against the subject string.
@@ -32,7 +39,7 @@ lpeg = {}
 ---a negative value counts from the end.
 ---
 ---Unlike typical pattern-matching functions,
----`match` works only in anchoredmode;
+---`match` works only in anchored mode;
 ---that is, it tries to match the pattern with a prefix of
 ---the given subject string (at position `init`),
 ---not with an arbitrary substring of the subject.
@@ -40,7 +47,6 @@ lpeg = {}
 ---we must either write a loop in Lua or write a pattern that
 ---matches anywhere.
 ---This second approach is easy and quite efficient;
----see examples.
 ---@param pattern Pattern
 ---@param subject string
 ---@param init? integer
@@ -110,6 +116,8 @@ function lpeg.setmaxstack(max) end
 ---returns a pattern equivalent to a
 ---match-time captureover the empty string.
 ---@param value Pattern|string|integer|boolean|table|function
+---
+---@return Pattern
 function lpeg.P(value) end
 
 ---
@@ -125,6 +133,8 @@ function lpeg.P(value) end
 ---independently of success or failure.
 ---
 ---@param pattern Pattern
+---
+---@return Pattern
 function lpeg.B(pattern) end
 
 ---
@@ -140,6 +150,8 @@ function lpeg.B(pattern) end
 ---and `lpeg.R("az", "AZ")` matches any ASCII letter.
 ---
 ---@param ... string
+---
+---@return Pattern
 function lpeg.R(...) end
 
 ---
@@ -158,6 +170,8 @@ function lpeg.R(...) end
 ---are patterns that always fail.
 ---
 ---@param string string
+---
+---@return Pattern
 function lpeg.S(string) end
 
 ---
@@ -166,6 +180,8 @@ function lpeg.S(string) end
 ---The created non-terminal refers to the rule indexed by `v`
 ---in the enclosing grammar.
 ---@param v string
+---
+---@return Pattern
 function lpeg.V(v) end
 
 ---@class Locale
@@ -213,7 +229,7 @@ function lpeg.locale(tab) end
 ---their values are returned after this one.
 ---@param patt Pattern
 ---
----@return string
+---@return Capture
 function lpeg.C(patt) end
 
 ---Creates an argument capture.
@@ -222,6 +238,8 @@ function lpeg.C(patt) end
 ---argument given in the call to `lpeg.match`.
 ---
 ---@param n integer
+---
+---@return Capture
 function lpeg.Carg(n) end
 
 ---
@@ -246,6 +264,8 @@ function lpeg.Carg(n) end
 ---or re-evaluates them.
 ---
 ---@param name any
+---
+---@return Capture
 function lpeg.Cb(name) end
 
 ---
@@ -254,6 +274,8 @@ function lpeg.Cb(name) end
 ---produces all given values as its captured values.
 ---
 ---@param ... any
+---
+---@return Capture
 function lpeg.Cc(...) end
 
 ---
@@ -300,6 +322,8 @@ function lpeg.Cc(...) end
 ---
 ---@param patt Pattern
 ---@param func fun(acc, newvalue)
+---
+---@return Capture
 function lpeg.Cf(patt, func) end
 
 ---
@@ -312,6 +336,8 @@ function lpeg.Cf(patt, func) end
 ---
 ---@param patt Pattern
 ---@param name? string
+---
+---@return Capture
 function lpeg.Cg(patt, name) end
 
 ---
@@ -319,6 +345,8 @@ function lpeg.Cg(patt, name) end
 ---It matches the empty string and
 ---captures the position in the subject where the match occurs.
 ---The captured value is a number.
+---
+---@return Capture
 function lpeg.Cp() end
 
 ---
@@ -329,7 +357,11 @@ function lpeg.Cp() end
 ---the substring that matched the capture is replaced by the capture value
 ---(which should be a string).
 ---The final captured value is the string resulting from
----all replacements.---@param patt Pattern
+---all replacements.
+---
+---@param patt Pattern
+---
+---@return Capture
 function lpeg.Cs(patt) end
 
 ---
@@ -344,6 +376,8 @@ function lpeg.Cs(patt) end
 ---The captured value is only the table.
 ---
 ---@param patt Pattern
+---
+---@return Capture
 function lpeg.Ct(patt) end
 
 ---
@@ -376,6 +410,8 @@ function lpeg.Ct(patt) end
 ---
 ---@param patt Pattern
 ---@param fn function
+---
+---@return Capture
 function lpeg.Cmt(patt, fn) end
 
 return lpeg
