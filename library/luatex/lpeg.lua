@@ -110,8 +110,6 @@ function lpeg.setmaxstack(max) end
 ---returns a pattern equivalent to a
 ---match-time captureover the empty string.
 ---@param value Pattern|string|integer|boolean|table|function
----
----@return Pattern
 function lpeg.P(value) end
 
 ---
@@ -127,8 +125,6 @@ function lpeg.P(value) end
 ---independently of success or failure.
 ---
 ---@param pattern Pattern
----
----@return integer|Capture
 function lpeg.B(pattern) end
 
 ---
@@ -144,8 +140,6 @@ function lpeg.B(pattern) end
 ---and `lpeg.R("az", "AZ")` matches any ASCII letter.
 ---
 ---@param ... string
----
----@return Pattern
 function lpeg.R(...) end
 
 ---
@@ -164,8 +158,6 @@ function lpeg.R(...) end
 ---are patterns that always fail.
 ---
 ---@param string string
----
----@return Pattern
 function lpeg.S(string) end
 
 ---
@@ -174,8 +166,6 @@ function lpeg.S(string) end
 ---The created non-terminal refers to the rule indexed by `v`
 ---in the enclosing grammar.
 ---@param v string
----
----@return Pattern
 function lpeg.V(v) end
 
 ---@class Locale
@@ -216,32 +206,56 @@ function lpeg.V(v) end
 ---@return Locale
 function lpeg.locale(tab) end
 
----  the match for `patt` plus all captures
----      made by `patt`
+---Creates a simple capture,
+---which captures the substring of the subject that matches `patt`.
+---The captured value is a string.
+---If `patt` has other captures,
+---their values are returned after this one.
 ---@param patt Pattern
 ---
 ---@return string
 function lpeg.C(patt) end
 
----    the value of the nth extra argument to
----        `lpeg.match` (matches the empty string)
----@param n integer
+---Creates an argument capture.
+---This pattern matches the empty string and
+---produces the value given as the nth extra
+---argument given in the call to `lpeg.match`.
 ---
----@return string
+---@param n integer
 function lpeg.Carg(n) end
 
 ---
----    the values produced by the previous
----        group capture named `name`
----        (matches the empty string)
+---Creates a back capture.
+---This pattern matches the empty string and
+---produces the values produced by the most recent
+---group capture named `name`
+---(where `name` can be any Lua value).
+---
+---Most recent means the last
+---complete
+---outermost
+---group capture with the given name.
+---A Complete capture means that the entire pattern
+---corresponding to the capture has matched.
+---An Outermost capture means that the capture is not inside
+---another complete capture.
+---
+---In the same way that LPeg does not specify when it evaluates captures,
+---it does not specify whether it reuses
+---values previously produced by the group
+---or re-evaluates them.
+---
+---@param name any
 function lpeg.Cb(name) end
 
 ---
----the given values (matches the empty string)
-function lpeg.Cc(values) end
-
+---Creates a constant capture.
+---This pattern matches the empty string and
+---produces all given values as its captured values.
 ---
----a folding of the captures from `patt`
+---@param ... any
+function lpeg.Cc(...) end
+
 ---
 ---Creates a fold capture.
 ---If `patt` produces a list of captures
@@ -264,8 +278,6 @@ function lpeg.Cc(values) end
 ---the first result from this call
 ---becomes the new value for the accumulator.
 ---The final value of the accumulator becomes the captured value.
----
----
 ---
 ---__Example:__
 ---
@@ -290,30 +302,78 @@ function lpeg.Cc(values) end
 ---@param func fun(acc, newvalue)
 function lpeg.Cf(patt, func) end
 
----    the values produced by `patt`,
----        optionally tagged with `name`
+---
+---Creates a group capture.
+---It groups all values returned by `patt`
+---into a single capture.
+---The group may be anonymous (if no name is given)
+---or named with the given name
+---(which can be any non-nil Lua value).
+---
 ---@param patt Pattern
----@param name string
+---@param name? string
 function lpeg.Cg(patt, name) end
 
 ---
----the returns of `function` applied to the captures
----      of `patt`; the application is done at match time
----@param patt Pattern
----@param fn function
-function lpeg.Cmt(patt, fn) end
-
----
----the current position (matches the empty string)
+---Creates a position capture.
+---It matches the empty string and
+---captures the position in the subject where the match occurs.
+---The captured value is a number.
 function lpeg.Cp() end
 
 ---
----the match for `patt`
----      with the values from nested captures replacing their matches
----@param patt Pattern
+---Creates a substitution capture,
+---which captures the substring of the subject that matches `patt`,
+---with substitutions.
+---For any capture inside `patt` with a value,
+---the substring that matched the capture is replaced by the capture value
+---(which should be a string).
+---The final captured value is the string resulting from
+---all replacements.---@param patt Pattern
 function lpeg.Cs(patt) end
 
 ---
----a table with all captures from `patt`
+---Creates a table capture.
+---This capture returns a table with all values from all anonymous captures
+---made by `patt` inside this table in successive integer keys,
+---starting at 1.
+---Moreover,
+---for each named capture group created by `patt`,
+---the first value of the group is put into the table
+---with the group name as its key.
+---The captured value is only the table.
+---
 ---@param patt Pattern
 function lpeg.Ct(patt) end
+
+---
+---Creates a match-time capture.
+---Unlike all other captures,
+---this one is evaluated immediately when a match occurs
+---(even if it is part of a larger pattern that fails later).
+---It forces the immediate evaluation of all its nested captures
+---and then calls `function`.
+---
+---The given function gets as arguments the entire subject,
+---the current position (after the match of `patt`),
+---plus any capture values produced by `patt`.
+---
+---The first value returned by `function`
+---defines how the match happens.
+---If the call returns a number,
+---the match succeeds
+---and the returned number becomes the new current position.
+---(Assuming a subject sand current position i,
+---the returned number must be in the range [i, len(s) + 1].)
+---If the call returns true,
+---the match succeeds without consuming any input.
+---(So, to return trueis equivalent to return i.)
+---If the call returns false, nil, or no value,
+---the match fails.
+---
+---Any extra values returned by the function become the
+---values produced by the capture.
+---
+---@param patt Pattern
+---@param fn function
+function lpeg.Cmt(patt, fn) end
