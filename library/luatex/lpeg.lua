@@ -222,6 +222,9 @@ function lpeg.V(v) end
 ---@return Locale
 function lpeg.locale(tab) end
 
+---
+---Create a simple capture.
+---
 ---Creates a simple capture,
 ---which captures the substring of the subject that matches `patt`.
 ---The captured value is a string.
@@ -232,7 +235,9 @@ function lpeg.locale(tab) end
 ---@return Capture
 function lpeg.C(patt) end
 
----Creates an argument capture.
+---
+---Create an argument capture.
+---
 ---This pattern matches the empty string and
 ---produces the value given as the nth extra
 ---argument given in the call to `lpeg.match`.
@@ -243,7 +248,8 @@ function lpeg.C(patt) end
 function lpeg.Carg(n) end
 
 ---
----Creates a back capture.
+---Create a back capture.
+---
 ---This pattern matches the empty string and
 ---produces the values produced by the most recent
 ---group capture named `name`
@@ -269,7 +275,8 @@ function lpeg.Carg(n) end
 function lpeg.Cb(name) end
 
 ---
----Creates a constant capture.
+---Create a constant capture.
+---
 ---This pattern matches the empty string and
 ---produces all given values as its captured values.
 ---
@@ -279,7 +286,8 @@ function lpeg.Cb(name) end
 function lpeg.Cc(...) end
 
 ---
----Creates a fold capture.
+---Create a fold capture.
+---
 ---If `patt` produces a list of captures
 ---C1 C2 ... Cn,
 ---this capture will produce the value
@@ -327,7 +335,8 @@ function lpeg.Cc(...) end
 function lpeg.Cf(patt, func) end
 
 ---
----Creates a group capture.
+---Create a group capture.
+---
 ---It groups all values returned by `patt`
 ---into a single capture.
 ---The group may be anonymous (if no name is given)
@@ -341,7 +350,8 @@ function lpeg.Cf(patt, func) end
 function lpeg.Cg(patt, name) end
 
 ---
----Creates a position capture.
+---Create a position capture.
+---
 ---It matches the empty string and
 ---captures the position in the subject where the match occurs.
 ---The captured value is a number.
@@ -349,6 +359,8 @@ function lpeg.Cg(patt, name) end
 ---@return Capture
 function lpeg.Cp() end
 
+---
+---Creates a substitution capture.
 ---
 ---Creates a substitution capture,
 ---which captures the substring of the subject that matches `patt`,
@@ -365,7 +377,8 @@ function lpeg.Cp() end
 function lpeg.Cs(patt) end
 
 ---
----Creates a table capture.
+---Create a table capture.
+---
 ---This capture returns a table with all values from all anonymous captures
 ---made by `patt` inside this table in successive integer keys,
 ---starting at 1.
@@ -375,13 +388,14 @@ function lpeg.Cs(patt) end
 ---with the group name as its key.
 ---The captured value is only the table.
 ---
----@param patt Pattern
+---@param patt Pattern|''
 ---
 ---@return Capture
 function lpeg.Ct(patt) end
 
 ---
----Creates a match-time capture.
+---Create a match-time capture.
+---
 ---Unlike all other captures,
 ---this one is evaluated immediately when a match occurs
 ---(even if it is part of a larger pattern that fails later).
