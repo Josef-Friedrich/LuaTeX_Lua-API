@@ -19,6 +19,7 @@ lpeg = {}
 ---@operator mul(Pattern): Pattern
 ---@operator mul(Capture): Pattern
 ---@operator pow(Pattern): Pattern
+---@field match fun(p: Pattern, s: string)
 
 ---@class Capture
 ---@operator add(Capture): Pattern
