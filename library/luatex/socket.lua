@@ -304,3 +304,5 @@ function socket.udp4() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function socket.udp6() end
+
+return socket

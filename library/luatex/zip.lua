@@ -178,3 +178,5 @@ function zfile:lines() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function zip.close() end
+
+return zip

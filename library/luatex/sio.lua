@@ -154,3 +154,5 @@ function sio.readinteger4le() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function sio.readintegertable() end
+
+return sio

@@ -377,3 +377,5 @@ function lpeg.Ct(patt) end
 ---@param patt Pattern
 ---@param fn function
 function lpeg.Cmt(patt, fn) end
+
+return lpeg

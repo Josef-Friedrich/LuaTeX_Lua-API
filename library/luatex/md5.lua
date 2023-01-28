@@ -106,3 +106,5 @@ function md5.decrypt(message, key) end
 ---
 ---@return string # a binary string with same length as s1 and s2, where each bit is the exclusive-or of the corresponding bits in s1-s2.
 function md5.exor(s1, s2) end
+
+return md5

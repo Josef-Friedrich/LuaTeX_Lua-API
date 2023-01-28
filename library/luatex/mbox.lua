@@ -56,3 +56,5 @@ function mbox.split_mbox(mbox_s) end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function mbox.split_message(message_s) end
+
+return mbox

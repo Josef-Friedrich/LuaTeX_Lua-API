@@ -72,3 +72,5 @@ function sha2.digest384(data) end
 ---
 ---@return string # binary string
 function sha2.digest512(data) end
+
+return sha2
