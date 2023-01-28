@@ -1044,7 +1044,9 @@ function node.has_field() end
 _N._7_8_new = 146
 
 ---
----The `new` function creates a new node. All its fields are initialized to
+---Create a new node.
+---
+---All its fields are initialized to
 ---either zero or `nil` except for `id` and `subtype`. Instead of
 ---numbers you can also use strings (names). If you create a new `whatsit` node
 ---the second argument is required. As with all node functions, this function

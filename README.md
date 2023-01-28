@@ -3,6 +3,8 @@
 Type definitions / Stubs for the Lua API / interface of `LuaTeX` and
 related `Lua` modules.
 
+![](resources/screencasts/node.new.gif)
+
 Work in progress! Please contribute!
 
 [LuaTeX](http://luatex.org) has a very large [Lua](https://www.lua.org)
