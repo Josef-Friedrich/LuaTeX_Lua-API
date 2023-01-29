@@ -20,7 +20,7 @@ lua.version = ''
 ---called. The overhead is rather small but when you have millions of calls it can
 ---have some impact. For this reason there is a variant call available: `\luafunction`. This command is used as follows:
 ---
----```
+---```tex
 ---\directlua {
 ---    local t = lua.get_functions_table()
 ---    t[1] = function() tex.print("!") end
@@ -37,7 +37,7 @@ lua.version = ''
 ---no gain. The function, when called in fact gets one argument, being the index, so
 ---in the following example the number `8` gets typeset.
 ---
----```
+---```tex
 ---\directlua {
 ---    local t = lua.get_functions_table()
 ---    t[8] = function(slot) tex.print(slot) end
@@ -59,7 +59,7 @@ lua.version = ''
 ---* `LuaTeX` manual: 2.4.4 `\luafunction`, `\luafunctioncall` and `\luadef`
 ---* `LuaTeX` manual: 10.6.4 Macros
 ---
----@return {[integer]: function}
+---@return {[integer]: fun(slot: integer)}
 function lua.get_functions_table() end
 
 ---

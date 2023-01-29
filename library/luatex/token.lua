@@ -1,5 +1,4 @@
 ---@meta
-
 ---A helper table to better navigate through the documentation using the
 ---outline: https://github.com/Josef-Friedrich/LuaTeX_Lua-API#navigation-table-_n
 _N = {}
@@ -761,16 +760,28 @@ function token.set_macro(csname, content, global) end
 function token.set_macro(catcodetable, csname, content, global) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function token.set_char() end
+---The `set_char` function can be used to do a `chardef` at the
+---*Lua* end, where invalid assignments are silently ignored:
+---
+---* Corresponding C source code: [lnewtokenlib.c#L1309-L1336](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L1309-L1336)
+---
+---@param csname string
+---@param number integer
+---@param global? 'global'
+function token.set_char(csname, number, global) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function token.set_lua() end
+---This creates a token that refers to a *Lua* function with an entry in the table
+---that you can access with `lua.get_functions_table`. It is the companion
+---to `luadef`.
+---
+---* Corresponding C source code: [lnewtokenlib.c#L1133-L1181](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L1133-L1181)
+---
+---@param name string
+---@param id integer
+---@param global? 'global'
+---@param protected? 'protected'
+function token.set_lua(name, id, global, protected) end
 
 _N._5_pushing_back = 220
 

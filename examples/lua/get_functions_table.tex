@@ -1,7 +1,13 @@
 \directlua{
   local t = lua.get_functions_table()
 
-  t[1] = function () end
+  t[1] = function (slot)
+    print(slot)
+  end
+
+  t[2] = function (slot)
+    print(slot)
+  end
 
   local index = 1
   while t[index] do
@@ -11,9 +17,10 @@
   t[index] = function(slot)
     print(slot)
   end
-  token.set_lua('mycode', index, 'protected', 'global')
 }
 
-\mycode
+\luafunction 1
+\luafunction 2
+\luafunction 3
 
 \bye
