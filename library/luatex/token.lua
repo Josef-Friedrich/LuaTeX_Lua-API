@@ -779,9 +779,8 @@ function token.set_char(csname, number, global) end
 ---
 ---@param name string
 ---@param id integer
----@param global? 'global'
----@param protected? 'protected'
-function token.set_lua(name, id, global, protected) end
+---@param ... 'global'|'protected'
+function token.set_lua(name, id, ...) end
 
 _N._5_pushing_back = 220
 
