@@ -5,6 +5,7 @@
 ---language, and the associated functions.
 lang = {}
 
+---
 ---The language object is the first argument to most of the other functions in the `lang` library.
 ---@class Language
 
@@ -109,7 +110,6 @@ function lang.hyphenate() end
 ---* Corresponding C source code: [llanglib.c#L183-L197](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/llanglib.c#L183-L197)
 function lang.postexhyphenchar() end
 
----
 ---
 ---* Corresponding C source code: [llanglib.c#L138-L152](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/llanglib.c#L138-L152)
 function lang.preexhyphenchar() end

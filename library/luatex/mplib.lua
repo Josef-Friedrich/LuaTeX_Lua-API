@@ -1,6 +1,29 @@
 ---@meta
 mplib = {}
 
+_N._11_2_The_mplib_library = 0
+_N._11_2_1_new = 0
+_N._11_2_2_statistics = 0
+_N._11_2_3_execute = 0
+_N._11_2_4_finish = 0
+_N._11_2_5_Result_table = 0
+_N._11_2_5_1_fill = 0
+_N._11_2_5_2_outline = 0
+_N._11_2_5_3_text = 0
+_N._11_2_5_4_special = 0
+_N._11_2_5_6_stop_bounds_stop_clip = 0
+_N._11_2_6_Subsidiary_table_formats = 0
+_N._11_2_6_1_Paths_and_pens = 0
+_N._11_2_6_2_Colors = 0
+_N._11_2_6_3_Transforms = 0
+_N._11_2_6_4_Dashes = 0
+_N._11_2_7_Pens_and_pen_info = 0
+_N._11_2_8_Character_size_information = 0
+_N._11_2_8_1_char_width = 0
+_N._11_2_8_2_char_height = 0
+_N._11_2_8_3_char_depth = 0
+_N._11_2_8_4_get_boolean_numeric_string_path = 0
+
 ---
 ---* Corresponding C source code: [lmplib.c#L532-L627](https://github.com/TeX-Live/luatex/blob/3c57eed035fa9cd6a27ed615374ab648f350326a/source/texk/web2c/mplibdir/lmplib.c#L532-L627)
 function mplib.new() end

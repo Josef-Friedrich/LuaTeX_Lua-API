@@ -26,7 +26,6 @@ function kpse.default_texmfcnf() end
 ---`kpse.set_program_name` function, which sets the `kpathsea` executable
 ---(and optionally program) name.
 ---
----
 ---The second argument controls the use of the “dotted” values in the `texmf.cnf` configuration file, and defaults to the first argument.
 ---
 ---Third, if you prefer the object oriented interface, you have to call a different

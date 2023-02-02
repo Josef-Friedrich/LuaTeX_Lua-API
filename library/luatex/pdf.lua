@@ -1,9 +1,40 @@
 ---@meta
 
+---
 ---This library contains variables and functions that are related to the *PDF*
 ---backend.
 ---
 pdf = {}
+
+_N._14_1_The_pdf_library = 0
+_N._14_1_1_mapfile_mapline = 0
+_N._14_1_2_set_get_catalog_info_names_trailer = 0
+_N._14_1_3_set_get_pageattributes_pageresources_pagesattributes = 0
+_N._14_1_4_set_get_xformattributes_xformresources = 0
+_N._14_1_5_set_get_major_minor_version = 0
+_N._14_1_6_getcreationdate = 0
+_N._14_1_7_set_get_inclusionerrorlevel_and_set_get_ignoreunknownimages = 0
+_N._14_1_8_set_get_suppressoptionalinfo_set_get_trailerid_set_get_omitcidset_set_get_omitinfodict_and_set_get_omitmediabox = 0
+_N._14_1_9_set_get_obj_compresslevel_and_set_get_recompress = 0
+_N._14_1_10_set_get_gentounicode = 0
+_N._14_1_11_set_get_decimaldigits = 0
+_N._14_1_12_set_get_pkresolution = 0
+_N._14_1_13_getlast_obj_link_annot_and_getretval = 0
+_N._14_1_14_getmaxobjnum_and_getobjtype_getfontname_getfontobjnum_getfontsize_getxformname = 0
+_N._14_1_15_set_get_origin = 0
+_N._14_1_16_set_get_imageresolution = 0
+_N._14_1_17_set_get_link_dest_thread_xform_margin = 0
+_N._14_1_18_get_pos_hpos_vpos = 0
+_N._14_1_19_has_get_matrix = 0
+_N._14_1_20_print = 0
+_N._14_1_21_immediateobj = 0
+_N._14_1_22_obj = 0
+_N._14_1_23_refobj = 0
+_N._14_1_24_reserveobj = 0
+_N._14_1_25_getpageref = 0
+_N._14_1_26_registerannot = 0
+_N._14_1_27_newcolorstack = 0
+_N._14_1_28_setfontattributes = 0
 
 ---
 ---This function can be used to replace the primitive `\pdfmapfile` inherited from *pdfTeX*. It expects a string as only
@@ -23,7 +54,6 @@ function pdf.mapfile(map_file) end
 ---@param map_line string
 function pdf.mapline(map_line) end
 
----
 ---
 ---This function complements to the corresponding *PDF* token list backend that deals with metadata. The data type of the metadata is a string and is written to the *PDF*
 ---file directly after the token registers are set at the *TeX* end.
@@ -85,6 +115,7 @@ function pdf.settrailer(trailer) end
 ---@return string
 function pdf.gettrailer() end
 
+---
 ------------------------------------------------------------------------
 ---Undocumented functions listed in alphabetical order
 ---

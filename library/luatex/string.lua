@@ -53,11 +53,13 @@ function string.utflength(s) end
 ---@return function # an integer value in the *Unicode* range
 function string.utfvalues(s) end
 
+---
 ---@param s string
 ---
 ---@return function # a string with a single *UTF-8* token in it
 function string.utfcharacters(s) end
 
+---
 ---@param s string
 ---
 ---@return function # a string containing one byte
@@ -72,6 +74,7 @@ function string.characters(s) end
 ---@return function # two strings each containing one byte or an empty second string if the string length was odd
 function string.characterpairs(s) end
 
+---
 ---@param s string
 ---
 ---@return function # a single byte value

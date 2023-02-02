@@ -21,6 +21,7 @@ _N = {}
 ---
 callback = {}
 
+---
 ---Source: `callback.list()`
 ---@alias CallbackName
 ---|"append_to_vlist_filter"
@@ -167,6 +168,7 @@ _N._4 = nil
 
 _N._4_1_process_input_buffer = nil
 
+---
 ---This callback allows you to change the contents of the line input buffer just
 ---before *LuaTeX* actually starts looking at it.
 ---
@@ -177,6 +179,7 @@ _N._4_1_process_input_buffer = nil
 
 _N._4_2_process_output_buffer = nil
 
+---
 ---This callback allows you to change the contents of the line output buffer just
 ---before *LuaTeX* actually starts writing it to a file as the result of a `write` command. It is only called for output to an actual file (that is,
 ---excluding the log, the terminal, and so called `write` 18 calls).
@@ -188,6 +191,7 @@ _N._4_2_process_output_buffer = nil
 
 _N._4_3_process_jobname = nil
 
+---
 ---This callback allows you to change the jobname given by `jobname` in *TeX*
 ---and `tex.jobname` in Lua. It does not affect the internal job name or the
 ---name of the output or log files.
@@ -202,12 +206,14 @@ _N._5 = nil
 
 _N._5_1_contribute_filter = nil
 
+---
 ---@alias ContributeFilterExtrainfo
 ---|'pre_box'# interline material is being added
 ---|'pre_adjust' # `vadjust` material is being added
 ---|'box' # a typeset box is being added (always called)
 ---|'adjust'# `vadjust` material is being added
 
+---
 ---This callback is called when *LuaTeX* adds contents to list:
 ---
 ---The string reports the group code. From this you can deduce from
@@ -216,6 +222,7 @@ _N._5_1_contribute_filter = nil
 
 _N._5_2_buildpage_filter = nil
 
+---
 ---@alias BuildpageFilterExtrainfo
 ---|'alignment' # a (partial) alignment is being added
 ---|'after_output' # an output routine has just finished
@@ -228,10 +235,10 @@ _N._5_2_buildpage_filter = nil
 ---|'after_display' # a display is finished
 ---|'end' # *LuaTeX* is terminating (it's all over)
 
+---
 ---This callback is called whenever *LuaTeX* is ready to move stuff to the main
 ---vertical list. You can use this callback to do specialized manipulation of the
 ---page building stage like imposition or column balancing.
----
 ---
 ---The string `extrainfo` gives some additional information about what *TeX*'s
 ---state is with respect to the “current page”.
@@ -239,6 +246,7 @@ _N._5_2_buildpage_filter = nil
 
 _N._5_3_build_page_insert = nil
 
+---
 ---This callback is called when the pagebuilder adds an insert. There is not much
 ---control over this mechanism but this callback permits some last minute
 ---manipulations of the spacing before an insert, something that might be handy when
@@ -322,6 +330,7 @@ _N._5_5_linebreak_filter = nil
 ---possible you will end up in an unfixable “deadcycles loop”.
 ---@alias LinebreakFilter fun(head: Node, is_display: boolean): NodeCallbackReturn
 
+---
 ---@alias AppendToVlistFilterLocationcode
 ---| 'box'
 ---| 'alignment'

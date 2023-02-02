@@ -67,7 +67,6 @@ function sha2.digest384(data) end
 --- -- ee26b0dd ... (length 128)
 ---```
 ---
----
 ---@param data string
 ---
 ---@return string # binary string

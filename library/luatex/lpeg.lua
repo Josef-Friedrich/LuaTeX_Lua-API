@@ -14,6 +14,7 @@
 ---http://stevedonovan.github.io/lua-stdlibs/modules/lpeg.html
 lpeg = {}
 
+---
 ---@class Pattern
 ---@operator add(Pattern): Pattern
 ---@operator mul(Pattern): Pattern
@@ -21,6 +22,7 @@ lpeg = {}
 ---@operator pow(Pattern): Pattern
 ---@field match fun(p: Pattern, s: string)
 
+---
 ---@class Capture
 ---@operator add(Capture): Pattern
 ---@operator mul(Capture): Pattern
@@ -185,6 +187,7 @@ function lpeg.S(string) end
 ---@return Pattern
 function lpeg.V(v) end
 
+---
 ---@class Locale
 ---@field alnum userdata
 ---@field alpha userdata
@@ -198,6 +201,7 @@ function lpeg.V(v) end
 ---@field upper userdata
 ---@field xdigit userdata
 
+---
 ---Returns a table with patterns for matching some character classes
 ---according to the current locale.
 ---The table has fields named

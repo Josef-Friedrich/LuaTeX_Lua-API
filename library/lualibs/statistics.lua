@@ -1,8 +1,10 @@
 ---@meta
 
+---
 ---https://github.com/latex3/lualibs/blob/main/lualibs-trac-inf.lua
 statistics = {}
 
+---
 ------------------------------------------------------------------------
 ---Undocumented functions listed in alphabetical order
 ---

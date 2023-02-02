@@ -3,6 +3,7 @@
 ---outline: https://github.com/Josef-Friedrich/LuaTeX_Lua-API#navigation-table-_n
 _N = {}
 
+---
 ---The node library contains functions that facilitate dealing with (lists of) nodes and their values.
 ---They allow you to create, alter, copy, delete, and insert LuaTEX node objects, the core objects
 ---within the typesetter.
@@ -42,6 +43,7 @@ _N = {}
 ---for tracing.
 node = {}
 
+---
 ---*LuaTeX* only understands 4 of the 16 direction specifiers of aleph: `TLT` (latin), `TRT` (arabic), `RTT` (cjk), `LTL` (mongolian). All other direction specifiers generate an error. In addition to a keyword driven model we also provide an integer driven one.
 ---@alias DirectionSpecifier
 ---| "TLT" # latin
@@ -49,6 +51,7 @@ node = {}
 ---| "RTT" # cjk
 ---| "LTL" # mongolian
 
+---
 ---@alias NodeTypeName
 ---| 'hlist' # 0
 ---| 'vlist' # 1
@@ -101,6 +104,7 @@ node = {}
 ---| 'passive' # 48
 ---| 'shape' # 49
 
+---
 ---@alias NodeTypeId
 ---| 0  # hlist
 ---| 1  # vlist
@@ -153,12 +157,15 @@ node = {}
 ---| 48 # passive
 ---| 49 # shape
 
+---
 ---A number in the range `[0,4]` indicating the glue order.
 ---@alias GlueOrder 0|1|2|3|4
 
+---
 ---The calculated glue ratio.
 ---@alias GlueSet number
 
+---
 ---@alias GlueSign
 ---|0 # `normal`,
 ---|1 # `stretching`,
@@ -183,6 +190,7 @@ _N.Node = true
 
 _N.hlist = 0
 
+---
 ---@alias HlistNodeSubtype
 ---|0 # unknown
 ---|1 # line
@@ -240,15 +248,18 @@ _N.hlist = 0
 
 _N.vlist = 1
 
+---
 ---@alias VlistNodeSubtype
 ---|0 # unknown
 ---|4 # alignment
 ---|5 # cell
 
+---
 ---@class VlistNode: Node
 
 _N.rule = 2
 
+---
 ---@alias RuleNodeSubtype
 ---|0 # normal
 ---|1 # box
@@ -295,6 +306,7 @@ _N.rule = 2
 
 _N.ins = 3
 
+---
 ---@class InsNode: Node
 ---@field subtype number # the insertion class
 ---@field attr Node # list of attributes
@@ -306,6 +318,7 @@ _N.ins = 3
 
 _N.mark = 4
 
+---
 ---@class MarkNode: Node
 ---@field subtype number # unused
 ---@field attr Node # list of attributes
@@ -314,10 +327,12 @@ _N.mark = 4
 
 _N.adjust = 5
 
+---
 ---@alias AdjustNodeSubtype
 ---|0 # normal
 ---|1 # pre
 
+---
 ---@class AdjustNode: Node
 ---@field subtype AdjustNodeSubtype
 ---@field attr Node # list of attributes
@@ -326,6 +341,7 @@ _N.adjust = 5
 
 _N.disc = 7
 
+---
 ---@alias DiscNodeSubtype
 ---|0 # discretionary
 ---|1 # explicit
@@ -334,6 +350,7 @@ _N.disc = 7
 ---|4 # first
 ---|5 # second
 
+---
 ---@class DiscNode: Node
 ---@field subtype DiscNodeSubtype
 ---@field attr Node # list of attributes
@@ -344,10 +361,12 @@ _N.disc = 7
 
 _N.math = 11
 
+---
 ---@alias MathNodeSubtype
 ---|0 # beginmath
 ---|1 # endmath
 
+---
 ---@class MathNode: Node
 ---@field subtype MathNodeSubtype
 ---@field attr Node # list of attributes
@@ -398,6 +417,7 @@ _N.glue_spec = 39
 
 _N.glue = 12
 
+---
 ---@alias GlueNodeSubtype
 ---|0 # userskip
 ---|1 # lineskip
@@ -441,6 +461,7 @@ _N.glue = 12
 
 _N.kern = 13
 
+---
 ---@alias KernNodeSubtype
 ---|0 # fontkern
 ---|1 # userkern
@@ -457,6 +478,7 @@ _N.kern = 13
 
 _N.penalty = 14
 
+---
 ---@alias PenaltyNodeSubtype
 ---|0 # userpenalty
 ---|1 # linebreakpenalty
@@ -468,6 +490,7 @@ _N.penalty = 14
 ---|7 # afterdisplaypenalty
 ---|8 # equationnumberpenalty
 
+---
 ---@class PenaltyNode: Node
 ---@field subtype PenaltyNodeSubtype
 ---@field attr Node # list of attributes
@@ -475,12 +498,14 @@ _N.penalty = 14
 
 _N.glyph = 29
 
+---
 ---@alias GlyphNodeSubtype
 ---|1 # ligature
 ---|2 # ghost
 ---|3 # left
 ---|4 # right
 
+---
 ---@class GlyphNode: Node
 ---@field subtype number # bit field
 ---@field attr Node # list of attributes
@@ -501,12 +526,14 @@ _N.glyph = 29
 
 _N.boundary = 6
 
+---
 ---@alias BoundaryNodeSubtype
 ---|0 # cancel
 ---|1 # user
 ---|2 # protrusion
 ---|3 # word
 
+---
 ---@class BoundaryNode: Node
 ---@field subtype BoundaryNodeSubtype
 ---@field attr Node # list of attributes
@@ -514,6 +541,7 @@ _N.boundary = 6
 
 _N.local_par = 9
 
+---
 ---@class LocalParNode: Node
 ---@field attr Node # list of attributes
 ---@field pen_inter number # local interline penalty (from `localinterlinepenalty`)
@@ -526,6 +554,7 @@ _N.local_par = 9
 
 _N.dir = 10
 
+---
 ---@class DirNode: Node
 ---@field attr Node # list of attributes
 ---@field dir string # the direction (but see below)
@@ -533,10 +562,12 @@ _N.dir = 10
 
 _N.margin_kern = 28
 
+---
 ---@alias MarginKernNodeSubtype
 ---|0 # left
 ---|1 # right
 
+---
 ---@class MarginKernNode: Node
 ---@field subtype number # \showsubtypes{marginkern}
 ---@field attr Node # list of attributes
@@ -545,6 +576,7 @@ _N.margin_kern = 28
 
 _N.math_char = 23
 
+---
 ---@class MathCharNode: Node
 ---@field attr Node # list of attributes
 ---@field char number # the character index
@@ -552,6 +584,7 @@ _N.math_char = 23
 
 _N.math_text_char = 26
 
+---
 ---@class MathTextCharNode: Node
 ---@field attr Node # list of attributes
 ---@field char number # the character index
@@ -559,6 +592,7 @@ _N.math_text_char = 26
 
 _N.sub_box = 24
 
+---
 ---@class SubBoxNode: Node
 ---@field attr Node # list of attributes
 ---@field head Node # list of nodes
@@ -566,6 +600,7 @@ _N.sub_box = 24
 
 _N.sub_mlist = 25
 
+---
 ---@class SubMlistNode: Node
 ---@field attr Node # list of attributes
 ---@field head Node # list of nodes
@@ -573,6 +608,7 @@ _N.sub_mlist = 25
 
 _N.delim = 27
 
+---
 ---@class DelimNode: Node
 ---@field attr Node # list of attributes
 ---@field small_char number # character index of base character
@@ -582,6 +618,7 @@ _N.delim = 27
 
 _N.noad = 18
 
+---
 ---@alias NoadNodeSubtype
 ---|0 # ord
 ---|1 # opdisplaylimits
@@ -597,6 +634,7 @@ _N.noad = 18
 ---|11 # over
 ---|12 # vcenter
 
+---
 ---@class NoadNode: Node
 ---@field subtype NoadNodeSubtype
 ---@field attr Node # list of attributes
@@ -607,12 +645,14 @@ _N.noad = 18
 
 _N.accent = 21
 
+---
 ---@alias AccentNodeSubtype
 ---|0 # bothflexible
 ---|1 # fixedtop
 ---|2 # fixedbottom
 ---|3 # fixedboth
 
+---
 ---@class AccentNode: Node
 ---@field subtype AccentNodeSubtype
 ---@field nucleus Node # base
@@ -624,11 +664,13 @@ _N.accent = 21
 
 _N.style = 16
 
+---
 ---@class StyleNode: Node
 ---@field style string # contains the style
 
 _N.choice = 17
 
+---
 ---@class ChoiceNode: Node
 ---@field attr Node # list of attributes
 ---@field display Node # list of display size alternatives
@@ -638,6 +680,7 @@ _N.choice = 17
 
 _N.radical = 19
 
+---
 ---@alias RadicalNodeSubtype
 ---|0 # radical
 ---|1 # uradical
@@ -647,6 +690,7 @@ _N.radical = 19
 ---|5 # udelimiterunder
 ---|6 # udelimiterover
 
+---
 ---@class RadicalNode: Node
 ---@field subtype RadicalNodeSubtype
 ---@field attr Node # list of attributes
@@ -660,10 +704,12 @@ _N.radical = 19
 
 _N.fraction = 20
 
+---
 ---@class FractionNode: Node
 
 _N.fence = 22
 
+---
 ---@alias FenceNodeSubtype
 ---|0 # unset
 ---|1 # left
@@ -671,10 +717,12 @@ _N.fence = 22
 ---|3 # right
 ---|4 # no
 
+---
 ---@class FenceNode: Node
 
 _N.whatsit = 8
 
+---
 ---@alias WhatsitTypeId
 ---| 0  # open
 ---| 1  # write
@@ -701,6 +749,7 @@ _N.whatsit = 8
 ---| 31 # pdf_restore
 ---| 32 # pdf_link_state
 
+---
 ---@alias WhatsitTypeName
 ---| 'open' # 0
 ---| 'write' # 1
@@ -729,6 +778,7 @@ _N.whatsit = 8
 
 _N._whatsit = {}
 
+---
 ---Whatsit nodes come in many subtypes that you can ask for them by running
 ---`node.whatsits`.
 ---
@@ -741,16 +791,35 @@ _N._whatsit = {}
 
 _N._whatsit.open = 0
 
+---
+---@class OpenWhatsitNode: Node
+---@field attr Node # list of attributes
+---@field stream integer # *TeX*'s stream id number
+---@field name string # file name
+---@field ext string # file extension
+---@field area string # file area (this may become obsolete)
+
 _N._whatsit.write = 1
+
+---
+---@class WriteWhatsitNode: Node
+---@field attr Node # list of attributes
+---@field stream number # *TeX*'s stream id number
+---@field data table # a table representing the token list to be written
 
 _N._whatsit.close = 2
 
+---
+---@class CloseWhatsitNode: Node
+---@field attr Node # list of attributes
+---@field stream number # *TeX*'s stream id number
+
 _N._whatsit.user_defined = 8
 
+---
 ---User-defined whatsit nodes can only be created and handled from *Lua* code. In
 ---effect, they are an extension to the extension mechanism. The *LuaTeX* engine
 ---will simply step over such whatsits without ever looking at the contents.
----
 ---
 ---__Reference:__
 ---
@@ -762,26 +831,124 @@ _N._whatsit.user_defined = 8
 
 _N._whatsit.save_pos = 6
 
+---
+---@class SavePosWhatsitNode: WhatsitNode
+---@field attr Node # list of attributes
+
 _N._whatsit.late_lua = 7
+
+---
+---The difference between `data` and `string` is that on assignment, the
+---`data` field is converted to a token list, cf. use as `latelua`. The
+---`string` version is treated as a literal string.
+---
+---When a function is used, it gets called with as first argument the node that triggers
+---the call.
+---
+---@class LateLuaWhatsitNode: WhatsitNode
+---@field attr Node # list of attributes
+---@field data string # or function  the to be written information stored as *Lua* value
+---@field token string # the to be written information stored as token list
+---@field name string # the name to use for *Lua* error reporting
 
 _N._whatsit.special = 3
 
+---
+---There is only one DVI backend whatsit, and it just flushes its content to the
+---output file.
+---
+---@class SpecialWhatsitNode: WhatsitNode
+---@field attr Node # list of attributes
+---@field data string # the `special` information
+
 _N._whatsit.pdf_literal = 16
+
+---
+---Possible mode values are:
+---
+--- value  keyword
+---
+--- 0      `origin`
+--- 1      `page`
+--- 2      `direct`
+--- 3      `raw`
+--- 4      `text`
+---
+---The higher the number, the less checking and the more you can run into trouble.
+---Especially the `raw` variant can produce bad *PDF* so you can best check
+---what you generate.
+---@class PdfLiteralWhatsitNode: WhatsitNode
+---@field attr Node # list of attributes
+---@field mode number # the “mode” setting of this literal
+---@field data string # the to be written information stored as *Lua* string
+---@field token string # the to be written information stored as token list
 
 _N._whatsit.pdf_refobj = 17
 
+---
+---@class PdfRefobjWhatsitNode: WhatsitNode
+---@field attr Node # list of attributes
+---@field objnum number # the referenced *PDF* object number
+
 _N._whatsit.pdf_annot = 18
+
+---
+---@class PdfAnnotWhatsitNode: WhatsitNode
+---@field attr Node # list of attributes
+---@field width number # the width (not used in calculations)
+---@field height number # the height (not used in calculations)
+---@field depth number # the depth (not used in calculations)
+---@field objnum number # the referenced *PDF* object number
+---@field data string # the annotation data
 
 _N._whatsit.pdf_start_link = 19
 
+---
+---@class PdfStartLinkWhatsitNode: WhatsitNode
+---@field attr Node # list of attributes
+---@field width number # the width (not used in calculations)
+---@field height number # the height (not used in calculations)
+---@field depth number # the depth (not used in calculations)
+---@field objnum number # the referenced *PDF* object number
+---@field link_attr table # the link attribute token list
+---@field action Node # the action to perform
+
 _N._whatsit.pdf_end_link = 20
+
+---
+---@class PdfEndLinkWhatsitNode: WhatsitNode
+---@field attr Node # list of attributes
 
 _N._whatsit.pdf_dest = 21
 
+---
+---@class PdfDestWhatsitNode: WhatsitNode
+---@field attr Node # list of attributes
+---@field width number # the width (not used in calculations)
+---@field height number # the height (not used in calculations)
+---@field depth number # the depth (not used in calculations)
+---@field named_id number # is the `dest_id` a string value?
+---@field dest_id number # the destination id  string    the destination name
+---@field dest_type number # type of destination
+---@field xyz_zoom number # the zoom factor (times 1000)
+---@field objnum number # the *PDF* object number; for structure references the *PDF* object number of the linked structure element
+
 _N._whatsit.pdf_action = 22
+
+---
+---@class PdfActionWhatsitNode: WhatsitNode
+---@field action_type number # the kind of action involved
+---@field action_id number # or string  token list reference or string
+---@field named_id number # are `dest_id` and `struct_id string  values?
+---@field file string # the target filename
+---@field new_window number # the window state of the target
+---@field data string # the name of the destination
+---@field struct_id nil # the action does not reference a structure
+---@field destination number|string id of the referenced structure or name of the referenced structure destination
 
 _N._whatsit.pdf_thread = 23
 
+---
 ---@class PdfThreadWhatsitNode
 ---@field attr Node # list of attributes
 ---@field width number # the width (not used in calculations)
@@ -793,6 +960,7 @@ _N._whatsit.pdf_thread = 23
 
 _N._whatsit.pdf_start_thread = 24
 
+---
 ---@class PdfStartThreadWhatsitNode
 ---@field attr Node # list of attributes
 ---@field width number # the width (not used in calculations)
@@ -804,6 +972,7 @@ _N._whatsit.pdf_start_thread = 24
 
 _N._whatsit.pdf_end_thread = 25
 
+---
 ---@class PdfEndThreadWhatsitNode
 ---@field attr Node # list of attributes
 
@@ -833,17 +1002,20 @@ _N._whatsit.pdf_colorstack = 28
 
 _N._whatsit.pdf_setmatrix = 29
 
+---
 ---@class PdfSetmatrixWhatsitNode
 ---@field attr Node # list of attributes
 ---@field data string # data
 
 _N._whatsit.pdf_save = 30
 
+---
 ---@class PdfSaveWhatsitNode
 ---@field attr Node # list of attributes
 
 _N._whatsit.pdf_restore = 31
 
+---
 ---@class PdfRestoreWhatsitNode
 ---@field attr Node # list of attributes
 
@@ -855,82 +1027,102 @@ _N._whatsit.pdf_link_state = 32
 
 _N.unset = 15
 
+---
 ---@class UnsetNode: Node
 
 _N.align_record = 30
 
+---
 ---@class AlignRecordNode: Node
 
 _N.pseudo_file = 31
 
+---
 ---@class PseudoFileNode: Node
 
 _N.pseudo_line = 32
 
+---
 ---@class PseudoLineNode: Node
 
 _N.page_insert = 33
 
+---
 ---@class PageInsertNode: Node
 
 _N.split_insert = 34
 
+---
 ---@class Split_InsertNode: Node
 
 _N.expr_stack = 35
 
+---
 ---@class ExprStackNode: Node
 
 _N.nested_list = 36
 
+---
 ---@class Nested_ListNode: Node
 
 _N.span = 37
 
+---
 ---@class SpanNode: Node
 
 _N.attribute = 38
 
+---
 ---@class AttributeNode: Node
 
 _N.attribute_list = 40
 
+---
 ---@class AttributeListNode: Node
 
 _N.temp = 41
 
+---
 ---@class TempNode: Node
 
 _N.align_stack = 42
 
+---
 ---@class AlignStackNode: Node
 
 _N.movement_stack = 43
 
+---
 ---@class MovementStackNode: Node
 
 _N.if_stack = 44
 
+---
 ---@class IfStackNode: Node
 
 _N.unhyphenated = 45
 
+---
 ---@class UnhyphenatedNode: Node
 
 _N.hyphenated = 46
 
+---
 ---@class HyphenatedNode: Node
 
 _N.delta = 47
 
+---
 ---@class DeltaNode: Node
 
 _N.passive = 48
 
+---
 ---@class PassiveNode: Node
 
 _N.shape = 49
 
+---
 ---@class ShapeNode: Node
 
 _N._7_2_is_node = 145
@@ -1065,50 +1257,159 @@ function node.new(id, subtype) end
 _N._7_9_free_flush_node_list = 146
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.free() end
+---The next one the node `n` from *TeX*'s memory. Be careful: no checks are
+---done on whether this node is still pointed to from a register or some `next` field: it is up to you to make sure that the internal data structures
+---remain correct.
+---
+---```
+---<node> next =
+---    node.free(<node> n)
+---flush_node(<node> n)
+---```
+---
+---The `free` function returns the next field of the freed node
+---
+---@param n Node
+---@return Node next
+function node.free(n) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.flush_node() end
+---while the
+---`flush_node` alternative returns nothing.
+---@param n Node
+function node.flush_node(n) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.flush_list() end
+---A list starting with node `n` can be flushed from *TeX*'s memory too. Be
+---careful: no checks are done on whether any of these nodes is still pointed to
+---from a register or some `next` field: it is up to you to make sure that the
+---internal data structures remain correct.
+---@param n Node
+function node.flush_list(n) end
 
 _N._7_10_copy_copy_list = 147
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.copy() end
+---This creates a deep copy of node `n`, including all nested lists as in the case
+---of a hlist or vlist node. Only the `next` field is not copied.
+---@param n Node
+---@return Node m
+function node.copy(n) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.copy_list() end
+---A deep copy of the node list that starts at `n` can be created too. If
+---`m` is also given, the copy stops just before node `m`.
+---
+---Note that you cannot copy attribute lists this way. However, there is normally no
+---need to copy attribute lists as when you do assignments to the `attr` field
+---or make changes to specific attributes, the needed copying and freeing takes
+---place automatically.
+---@param n Node
+---@param m? Node
+---@return Node m
+function node.copy_list(n, m) end
 
 _N._7_11_prev_next = 147
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.prev() end
+---These returns the node preceding the given node, or `nil` if
+---there is no such node.
+---@param n Node
+---@return Node m
+function node.prev(n) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.next() end
+---These returns the node following the given node, or `nil` if
+---there is no such node.
+---@param n Node
+---@return Node m
+function node.next(n) end
+
+_N._7_12_current_attr = 0
+
+---
+---This returns the currently active list of attributes, if there is one.
+---
+---The intended usage of `current_attr` is as follows:
+---
+---```
+---local x1 = node.new("glyph")
+---x1.attr = node.current_attr()
+---local x2 = node.new("glyph")
+---x2.attr = node.current_attr()
+---```
+---
+---or:
+---
+---```
+---local x1 = node.new("glyph")
+---local x2 = node.new("glyph")
+---local ca = node.current_attr()
+---x1.attr = ca
+---x2.attr = ca
+---```
+---
+---The attribute lists are ref counted and the assignment takes care of incrementing
+---the refcount. You cannot expect the value `ca` to be valid any more when
+---you assign attributes (using `tex.setattribute`) or when control has been
+---passed back to *TeX*.
+---
+---Note: this function is somewhat experimental, and it returns the {\it actual}
+---attribute list, not a copy thereof. Therefore, changing any of the attributes in
+---the list will change these values for all nodes that have the current attribute
+---list assigned to them.
+---@return Node m
+function node.current_attr() end
+
+_N._7_13_hpack = 0
+
+---
+---This function creates a new hlist by packaging the list that begins at node `n` into a horizontal box. With only a single argument, this box is created using
+---the natural width of its components. In the three argument form, `info`
+---must be either `additional` or `exactly`, and `w` is the
+---additional (`\hbox spread`) or exact (`\hbox to`) width to be used.
+---The second return value is the badness of the generated box.
+---
+---Caveat: there can be unexpected side-effects to this function, like updating
+---some of the `marks` and `\inserts`. Also note that the content of
+---`h` is the original node list `n`: if you call `node.free(h)`
+---you will also free the node list itself, unless you explicitly set the `list` field to `nil` beforehand. And in a similar way, calling `node.free(n)` will invalidate `h` as well!
+---
+---@param n Node
+---@param w? integer
+---@param info? string
+---@param dir? string
+---@return Node n
+---@return integer b
+function node.hpack(n, w, info, dir) end
+
+_N._7_14_vpack = 0
+
+---
+---This function creates a new vlist by packaging the list that begins at node `n` into a vertical box. With only a single argument, this box is created using
+---the natural height of its components. In the three argument form, `info`
+---must be either `additional` or `exactly`, and `w` is the
+---
+---The second return value is the badness of the generated box. See the description
+---of `hpack` for a few memory allocation caveats.
+---@param n Node
+---@param w? integer
+---@param info? string
+---@param dir? string
+---@return Node n
+---@return integer b
+function node.vpack(n, w, info, dir) end
+
+_N._7_15_prepend_prevdepth = 0
+
+---
+---This function is somewhat special in the sense that it is an experimental helper
+---that adds the interlinespace to a line keeping the baselineskip and lineskip into
+---account.
+---
+---@param n Node
+---@param prevdepth integer
+function node.prepend_prevdepth(n, prevdepth) end
 
 _N._7_16_dimensions_rangedimensions = 149
 
@@ -1130,6 +1431,7 @@ _N._7_16_dimensions_rangedimensions = 149
 ---@return integer d # scaled points
 function node.dimensions(n, dir) end
 
+---
 ---This function calculates the natural in-line dimensions of the node list starting
 ---at node `n` and terminating just before node `t`.
 ------
@@ -1181,6 +1483,7 @@ function node.dimensions(n, t, dir) end
 ---@return integer d # scaled points
 function node.dimensions(glue_set, glue_sign, glue_order, n, dir) end
 
+---
 ---This function calculates the natural in-line dimensions of the node list starting
 ---at node `n` and terminating just before node `t`.
 ---
@@ -1201,6 +1504,36 @@ function node.dimensions(glue_set, glue_sign, glue_order, n, dir) end
 ---@return integer d # scaled points
 function node.dimensions(glue_set, glue_sign, glue_order, n, t, dir) end
 
+---
+---The second alternative saves a few lookups and can be more convenient in some
+---cases:
+---
+---@param parent Node
+---@param first Node
+---@param last? Node
+---@return integer w # scaled points
+---@return integer h # scaled points
+---@return integer d # scaled points
+function node.rangedimensions(parent, first, last) end
+
+_N._7_17_mlist_to_hlist = 0
+
+---
+---This runs the internal mlist to hlist conversion, converting the math list in
+---`n` into the horizontal list `h`. The interface is exactly the same
+---as for the callback `mlist_to_hlist`.
+---
+---@param n Node
+---@param display_type string
+---@param penalties boolean
+---@return Node h
+function node.mlist_to_hlist(n, display_type, penalties) end
+
+_N._7_18_slide = 0
+
+---
+---see _N._9_9
+
 _N._7_19_tail = 152
 
 ---
@@ -1210,6 +1543,195 @@ _N._7_19_tail = 152
 ---
 ---@return Node m
 function node.tail(n) end
+
+_N._7_20_length_and_count = 0
+
+---
+---Returns the number of nodes contained in the node list that starts at `n`.
+---If `m` is also supplied it stops at `m` instead of at the end of the
+---list. The node `m` is not counted.
+---
+---@param n Node
+---@param m? Node
+---@return integer i
+function node.length( n, m) end
+
+---
+---Returns the number of nodes contained in the node list that starts at `n`
+---that have a matching `id` field. If `m` is also supplied, counting
+---stops at `m` instead of at the end of the list. The node `m` is not
+---counted. This function also accept string `id`'s.
+---@param id integer
+---@param n Node
+---@param m? Node
+---@return integer i
+function node.count(id, n, m) end
+
+_N._7_21_is_char_and_is_glyph = 0
+
+---
+---The subtype of a glyph node signals if the glyph is already turned into a character reference
+---or not.
+---@param n Node
+---@return boolean b
+function node.is_char(n) end
+
+---
+---The subtype of a glyph node signals if the glyph is already turned into a character reference
+---or not.
+---@param n Node
+---@return boolean b
+function node.is_glyph(n) end
+
+_N._7_22_traverse = 0
+
+---
+---```
+---<node> t, id, subtype =
+---    node.traverse(<node> n)
+---```
+---
+---This is a *Lua* iterator that loops over the node list that starts at `n`.
+---Typically code looks like this:
+---
+---```lua
+---for n in node.traverse(head) do
+---   ...
+---end
+---```
+---
+---is functionally equivalent to:
+---
+---```lua
+---do
+---  local n
+---  local function f (head,var)
+---    local t
+---    if var == nil then
+---       t = head
+---    else
+---       t = var.next
+---    end
+---    return t
+---  end
+---  while true do
+---    n = f (head, n)
+---    if n == nil then break end
+---    ...
+---  end
+---end
+---```
+---
+---It should be clear from the definition of the function `f` that even though
+---it is possible to add or remove nodes from the node list while traversing, you
+---have to take great care to make sure all the `next` (and `prev`)
+---pointers remain valid.
+---
+---If the above is unclear to you, see the section “For Statement” in the
+---*Lua* Reference Manual.
+---@param n Node
+---@return Node t
+---@return integer id
+---@return integer subtype
+function node.traverse(n) end
+
+---
+
+_N._7_23_traverse_id = 0
+
+---
+---```
+---<node> t, subtype =
+---    node.traverse_id(<number> id, <node> n)
+---```
+---
+---This is an iterator that loops over all the nodes in the list that starts at
+---`n` that have a matching `id` field.
+---
+---See the previous section for details. The change is in the local function `f`, which now does an extra while loop checking against the upvalue `id`:
+---
+---```
+--- local function f(head,var)
+---   local t
+---   if var == nil then
+---      t = head
+---   else
+---      t = var.next
+---   end
+---   while not t.id == id do
+---      t = t.next
+---   end
+---   return t
+--- end
+---```
+---@param id integer
+---@param n Node
+---@return Node t
+---@return integer subtype
+function node.traverse_id(id, n) end
+
+_N._7_24_traverse_char_and_traverse_glyph = 0
+
+---
+---The `traverse_char` iterator loops over the `glyph` nodes in a list.
+---Only nodes with a subtype less than 256 are seen.
+---
+---```
+---<node> n, font, char =
+---    node.traverse_char(<node> n)
+---```
+function node.traverse_char() end
+
+---
+---The `traverse_glyph` iterator loops over a list and returns the list and
+---filters all glyphs:
+---
+---```
+---<node> n, font, char =
+---    node.traverse_glyph(<node> n)
+---```
+---
+function node.traverse_glyph() end
+
+_N._7_25_traverse_list = 0
+
+---
+---This iterator loops over the `hlist` and `vlist` nodes in a list.
+---
+---```
+---<node> n, id, subtype, list =
+---    node.traverse_list(<node> n)
+---```
+---
+---The four return values can save some time compared to fetching these fields but
+---in practice you seldom need them all. So consider it a (side effect of
+---experimental) convenience.
+function node.traverse_list() end
+
+_N._7_26_has_glyph = 0
+
+---
+---This function returns the first glyph or disc node in the given list:
+---
+---```
+---<node> n =
+---    node.has_glyph(<node> n)
+---```
+function node.has_glyph() end
+
+_N._7_27_end_of_math = 0
+
+---
+---```
+---<node> t =
+---    node.end_of_math(<node> start)
+---```
+---
+---Looks for and returns the next `math_node` following the `start`. If
+---the given node is a math end node this helper returns that node, else it follows
+---the list and returns the next math endnote. If no such node is found nil is
+---returned.
+function node.end_of_math() end
 
 _N._7_28_remove = 153
 
@@ -1277,6 +1799,117 @@ _N._7_30_insert_after = 153
 ---@return Node new
 function node.insert_after(head, current, new) end
 
+_N._7_31_first_glyph = 154
+
+---
+---```
+---<node> n =
+---    node.first_glyph(<node> n)
+---<node> n =
+---    node.first_glyph(<node> n, <node> m)
+---```
+---
+---Returns the first node in the list starting at `n` that is a glyph node
+---with a subtype indicating it is a glyph, or `nil`. If `m` is given,
+---processing stops at (but including) that node, otherwise processing stops at the
+---end of the list.
+function node.first_glyph() end
+
+_N._7_32_ligaturing = 154
+
+---
+---```
+---<node> h, <node> t, <boolean> success =
+---    node.ligaturing(<node> n)
+---<node> h, <node> t, <boolean> success =
+---    node.ligaturing(<node> n, <node> m)
+---```
+---
+---Apply *TeX*-style ligaturing to the specified nodelist. The tail node `m` is
+---optional. The two returned nodes `h` and `t` are the new head and
+---tail (both `n` and `m` can change into a new ligature).
+function node.ligaturing() end
+
+_N._7_33_kerning = 154
+
+---
+---```
+---<node> h, <node> t, <boolean> success =
+---    node.kerning(<node> n)
+---<node> h, <node> t, <boolean> success =
+---    node.kerning(<node> n, <node> m)
+---```
+---
+---Apply *TeX*-style kerning to the specified node list. The tail node `m` is
+---optional. The two returned nodes `h` and `t` are the head and tail
+---(either one of these can be an inserted kern node, because special kernings with
+---word boundaries are possible).
+function node.kerning() end
+
+_N._7_34_unprotect_glyphs = 155
+
+---
+---```
+---node.unprotect_glyph(<node> n)
+---node.unprotect_glyphs(<node> n,[<node> n])
+---```
+---
+---Subtracts 256 from all glyph node subtypes. This and the next function are
+---helpers to convert from `characters` to `glyphs` during node
+---processing. The second argument is optional and indicates the end of a range.
+function node.unprotect_glyphs() end
+
+---
+---```
+---node.unprotect_glyph(<node> n)
+---node.unprotect_glyphs(<node> n,[<node> n])
+---```
+---
+---Subtracts 256 from all glyph node subtypes. This and the next function are
+---helpers to convert from `characters` to `glyphs` during node
+---processing. The second argument is optional and indicates the end of a range.
+function node.unprotect_glyph() end
+
+_N._7_35_protect_glyphs = 155
+
+---
+---```
+---node.protect_glyph(<node> n)
+---node.protect_glyphs(<node> n,[<node> n])
+---```
+---
+---Adds 256 to all glyph node subtypes in the node list starting at `n`,
+---except that if the value is 1, it adds only 255. The special handling of 1 means
+---that `characters` will become `glyphs` after subtraction of 256. A
+---single character can be marked by the singular call. The second argument is
+---optional and indicates the end of a range.
+function node.protect_glyph() end
+
+---
+---```
+---node.protect_glyph(<node> n)
+---node.protect_glyphs(<node> n,[<node> n])
+---```
+---
+---Adds 256 to all glyph node subtypes in the node list starting at `n`,
+---except that if the value is 1, it adds only 255. The special handling of 1 means
+---that `characters` will become `glyphs` after subtraction of 256. A
+---single character can be marked by the singular call. The second argument is
+---optional and indicates the end of a range.
+function node.protect_glyphs() end
+
+_N._7_36_last_node = 155
+
+---
+---```
+---<node> n =
+---    node.last_node()
+---```
+---
+---This function pops the last node from *TeX*'s “current list”. It returns
+---that node, or `nil` if the current list is empty.
+function node.last_node() end
+
 _N._7_37_write = 155
 
 ---
@@ -1290,6 +1923,226 @@ _N._7_37_write = 155
 ---
 ---@param n Node
 function node.write(n) end
+
+_N._7_38_protrusion_skippable = 155
+
+---
+---```
+---<boolean> skippable =
+---    node.protrusion_skippable(<node> n)
+---```
+---
+---Returns `true` if, for the purpose of line boundary discovery when
+---character protrusion is active, this node can be skipped.
+function node.protrusion_skippable() end
+
+_N._8_glue = 155
+
+_N._8_1_setglue = 155
+
+---
+---You can set the five properties of a glue in one go. Non-numeric values are
+---equivalent to zero and reset a property.
+---
+---```
+---node.setglue(<node> n)
+---node.setglue(<node> n,width,stretch,shrink,stretch_order,shrink_order)
+---```
+---
+---When you pass values, only arguments that are numbers are assigned so
+---
+---```
+---node.setglue(n,655360,false,65536)
+---```
+---
+---will only adapt the width and shrink.
+---
+---When a list node is passed, you set the glue, order and sign instead.
+function node.setglue() end
+
+_N._8_2_getglue = 155
+
+---
+---The next call will return 5 values or nothing when no glue is passed.
+---
+---```
+---<integer> width, <integer> stretch, <integer> shrink, <integer> stretch_order,
+---    <integer> shrink_order = node.getglue(<node> n)
+---```
+---
+---When the second argument is false, only the width is returned (this is consistent
+---with `tex.get`).
+---
+---When a list node is passed, you get back the glue that is set, the order of that
+---glue and the sign.
+---
+function node.getglue() end
+
+_N._8_3_is_zero_glue = 156
+
+---
+---This function returns `true` when the width, stretch and shrink properties
+---are zero.
+---
+---```
+---<boolean> isglue =
+---    node.is_zero_glue(<node> n)
+---```
+function node.is_zero_glue() end
+
+_N._9_attribute_handling = 156
+_N._9_1_attributes = 156
+_N._9_2_attribute_list_nodes = 156
+_N._9_3_attr_nodes = 157
+_N._9_4_has_attribute = 157
+
+---
+---```
+---<number> v =
+---    node.has_attribute(<node> n, <number> id)
+---<number> v =
+---    node.has_attribute(<node> n, <number> id, <number> val)
+---```
+---
+---Tests if a node has the attribute with number `id` set. If `val` is
+---also supplied, also tests if the value matches `val`. It returns the value,
+---or, if no match is found, `nil`.
+function node.has_attribute() end
+
+_N._9_5_get_attribute = 157
+
+---
+---```
+---<number> v =
+---    node.get_attribute(<node> n, <number> id)
+---```
+---
+---Tests if a node has an attribute with number `id` set. It returns the
+---value, or, if no match is found, `nil`. If no `id` is given then the
+---zero attributes is assumed.
+function node.get_attribute() end
+
+_N._9_6_find_attribute = 157
+
+---
+---```
+---<number> v, <node> n =
+---    node.find_attribute(<node> n, <number> id)
+---```
+---
+---Finds the first node that has attribute with number `id` set. It returns
+---the value and the node if there is a match and otherwise nothing.
+function node.find_attribute() end
+
+_N._9_7_set_attribute = 157
+
+---
+---```
+---node.set_attribute(<node> n, <number> id, <number> val)
+---```
+---
+---Sets the attribute with number `id` to the value `val`. Duplicate
+---assignments are ignored.
+function node.set_attribute() end
+
+_N._9_8_unset_attribute = 158
+
+---
+---```
+---<number> v =
+---    node.unset_attribute(<node> n, <number> id)
+---<number> v =
+---    node.unset_attribute(<node> n, <number> id, <number> val)
+---```
+---
+---Unsets the attribute with number `id`. If `val` is also supplied, it
+---will only perform this operation if the value matches `val`. Missing
+---attributes or attribute-value pairs are ignored.
+---
+---If the attribute was actually deleted, returns its old value. Otherwise, returns
+---`nil`.
+---
+function node.unset_attribute() end
+
+_N._9_9_slide = 158
+
+---
+---This helper makes sure that the node lists is double linked and returns the found
+---tail node.
+---
+---```
+---<node> tail =
+---    node.slide(<node> n)
+---```
+---
+---After some callbacks automatic sliding takes place. This feature can be turned
+---off with `node.fix_node_lists(false)` but you better make sure then that
+---you don't mess up lists. In most cases *TeX* itself only uses `next`
+---pointers but your other callbacks might expect proper `prev` pointers too.
+---Future versions of *LuaTeX* can add more checking but this will not influence
+---usage.
+function node.slide() end
+
+_N._9_10_check_discretionaries = 158
+
+---
+---When you fool around with disc nodes you need to be aware of the fact that they
+---have a special internal data structure. As long as you reassign the fields when
+---you have extended the lists it's ok because then the tail pointers get updated,
+---but when you add to list without reassigning you might end up in trouble when
+---the linebreak routine kicks in. You can call this function to check the list for
+---issues with disc nodes.
+---
+---```
+---node.check_discretionary(<node> n)
+---node.check_discretionaries(<node> head)
+---```
+---
+---The plural variant runs over all disc nodes in a list, the singular variant
+---checks one node only (it also checks if the node is a disc node).
+function node.check_discretionaries() end
+
+---
+---When you fool around with disc nodes you need to be aware of the fact that they
+---have a special internal data structure. As long as you reassign the fields when
+---you have extended the lists it's ok because then the tail pointers get updated,
+---but when you add to list without reassigning you might end up in trouble when
+---the linebreak routine kicks in. You can call this function to check the list for
+---issues with disc nodes.
+---
+---```
+---node.check_discretionary(<node> n)
+---node.check_discretionaries(<node> head)
+---```
+---
+---The plural variant runs over all disc nodes in a list, the singular variant
+---checks one node only (it also checks if the node is a disc node).
+function node.check_discretionary() end
+
+_N._9_11_flatten_discretionaries = 158
+
+---
+---This function will remove the discretionaries in the list and inject the replace
+---field when set.
+---
+---```
+---<node> head, count = node.flatten_discretionaries(<node> n)
+---```
+function node.flatten_discretionaries() end
+
+_N._9_12_family_font = 158
+
+---
+---When you pass a proper family identifier the next helper will return the font
+---currently associated with it. You can normally also access the font with the
+---normal font field or getter because it will resolve the family automatically for
+---noads.
+---
+---```
+---<integer> id =
+---    node.family_font(<integer> fam)
+---```
+function node.family_font() end
 
 _N._10_two_access_models = 159
 
@@ -1322,12 +2175,6 @@ function node.getfield() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function node.getfont() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.getglue() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -2171,36 +3018,19 @@ function node.setproperty(node, value) end
 ---@return any value
 function node.getproperty(node) end
 
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function node.set_properties_mode() end
+
+---
 ------------------------------------------------------------------------
 ---Undocumented functions listed in alphabetical order
 ---
 ---Document them by sliding them up and place them in the order of the
 ---official documentation
 ------------------------------------------------------------------------
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.check_discretionaries() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.check_discretionary() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.count() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.current_attr() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -2218,37 +3048,7 @@ function node.effective_glue() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.end_of_math() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.family_font() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.find_attribute() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.first_glyph() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function node.fix_node_lists() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.flatten_discretionaries() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -2260,31 +3060,7 @@ function node.flush_properties_table() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.get_attribute() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function node.get_properties_table() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.has_attribute() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.has_glyph() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.hpack() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -2296,115 +3072,13 @@ function node.hyphenating() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.is_char() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.is_glyph() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.is_zero_glue() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.kerning() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.last_node() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.length() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.ligaturing() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function node.make_extensible() end
 
 ---
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.mlist_to_hlist() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.prepend_prevdepth() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.protect_glyph() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.protect_glyphs() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.protrusion_skippable() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.rangedimensions() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.set_attribute() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.set_properties_mode() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function node.setfield() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.setglue() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.slide() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -2417,54 +3091,6 @@ function node.subtypes() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function node.tostring() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.traverse() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.traverse_char() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.traverse_glyph() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.traverse_id() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.traverse_list() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.unprotect_glyph() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.unprotect_glyphs() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.unset_attribute() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -2483,9 +3109,3 @@ function node.uses_font() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function node.values() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.vpack() end

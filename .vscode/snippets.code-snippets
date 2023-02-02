@@ -41,10 +41,36 @@
     "description": "* Source code of the `LuaTeX` manual"
   },
 
+  "link": {
+    "prefix": ["link"],
+    "body": ["", "---* [$2]($1)", "---$0"],
+    "description": "* item and markdown link"
+  },
+
   "referenceC": {
     "prefix": ["ccode"],
     "body": ["", "---* Corresponding C source code: [$2]($1)", "---$0"],
     "description": "* Corresponding C source code: "
+  },
+
+  "referenceWikibooks": {
+    "prefix": ["wikibook"],
+    "body": [
+      "",
+      "---* [Wikibook/TeX](https://en.wikibooks.org/wiki/TeX/$1)",
+      "---$0"
+    ],
+    "description": "Link to Wikibooks / TeX"
+  },
+
+  "referenceTeXbyTopic": {
+    "prefix": ["texbytopic"],
+    "body": [
+      "",
+      "---* [TeX by Topic, page $1](http://mirrors.ctan.org/info/texbytopic/TeXbyTopic.pdf)",
+      "---$0"
+    ],
+    "description": "Link to CTAN version of TeX by Topic"
   },
 
   "return": {

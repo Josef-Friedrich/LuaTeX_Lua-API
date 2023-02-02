@@ -1,5 +1,6 @@
 ---@meta
 
+---
 ---The Lua source file is location in `texmf-dist/tex/latex/base/ltluatex.lua`
 
 luatexbase = { }
@@ -74,6 +75,7 @@ function luatexbase.disable_callback(callback) end
 ---@return table
 function luatexbase.callback_descriptions(callback) end
 
+---
 ---@alias CallbackType "list"|"data"|"exclusive"|"simple"|"reverselist"
 
 ---
@@ -96,13 +98,13 @@ function luatexbase.create_callback(name, type, default) end
 ---
 ---* Source code of the `LuaTeX` manual: [ltluatex.dtx#L388-L390](https://github.com/latex3/latex2e/blob/d7b2594ae58e125dc87b80e7f7e957855c69847b/base/ltluatex.dtx#L388-L390)
 ---
----
 ---@param name CallbackName|string
 ---@param ... any
 ---
 ---@return any ...
 function luatexbase.call_callback(name, ...) end
 
+---
 ---@alias DeclareCallbackRuleRelation
 ---|"before" # The callback function with description `first` will be executed before the function with description `second`.
 ---|"after" # The callback function with description `first` will be executed after the function with description `second`.
@@ -133,6 +135,7 @@ function luatexbase.call_callback(name, ...) end
 ---@param second string
 function luatexbase.declare_callback_rule(name, first, relation, second) end
 
+---
 ------------------------------------------------------------------------
 ---Undocumented functions listed in alphabetical order
 ---

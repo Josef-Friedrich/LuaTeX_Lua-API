@@ -1,10 +1,12 @@
 ---@meta
 
+---
 ---This is a specialized library. You can split an url into its components. An URL is constructed like this:
 ---https://github.com/latex3/lualibs/blob/main/lualibs-url.lua
 
 url = {}
 
+---
 ---Example `foo://example.com:2010/alpha/beta?gamma=delta#epsilon`
 ---@class Url
 ---@field scheme string # for example `foo`.
@@ -18,6 +20,7 @@ url = {}
 ---@field original string # for example `foo://example.com:2010/alpha/beta?gamma=delta#epsilon"`.
 ---@field noscheme boolean # for example `false`.
 
+---
 ---A string is split into a hash table with these keys using the following function:
 ---The hash variant is more tolerant than the split. In the hash there is also a key `original` that holds
 ---the original URL and and the boolean noscheme indicates if there is a scheme at all.
@@ -32,6 +35,7 @@ function url.hashed(str) end
 ---@return string[]
 function url.split(str) end
 
+---
 ------------------------------------------------------------------------
 ---Undocumented functions listed in alphabetical order
 ---

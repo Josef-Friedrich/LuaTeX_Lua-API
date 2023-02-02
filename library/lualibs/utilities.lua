@@ -1,6 +1,7 @@
 ---@meta
 utilities = {}
 
+---
 ---https://github.com/latex3/lualibs/blob/main/lualibs-util-deb.lua
 utilities.debugger = {}
 
@@ -10,6 +11,7 @@ function utilities.debugger.savestats(filename, threshold) end
 function utilities.debugger.showstats(printer, threshold) end
 function utilities.debugger.showtraceback(rep) end
 
+---
 ---https://github.com/latex3/lualibs/blob/main/lualibs-util-fil.lua
 utilities.files = {}
 
@@ -56,6 +58,7 @@ function utilities.files.writecardinal2(f, n) end
 function utilities.files.writecardinal4(f, n) end
 function utilities.files.writestring(f, s) end
 
+---
 ---https://github.com/latex3/lualibs/blob/main/lualibs-util-jsn.lua
 utilities.json = {}
 
@@ -64,6 +67,7 @@ function utilities.json.tojson(value) end
 function utilities.json.tolua(str) end
 function utilities.json.tostring(value, pretty) end
 
+---
 ---https://github.com/latex3/lualibs/blob/main/lualibs-util-lua.lua
 utilities.lua = {}
 
@@ -75,6 +79,7 @@ function utilities.lua.loadstripped() end
 function utilities.lua.registerfinalizer(f) end
 function utilities.lua.strippedloadstring(code, name, forcestrip) end
 
+---
 ---https://github.com/latex3/lualibs/blob/main/lualibs-util-prs.lua
 utilities.parsers = {}
 
@@ -113,6 +118,7 @@ function utilities.parsers.totime(str) end
 function utilities.parsers.unittotex(str, textmode) end
 function utilities.parsers.unittoxml(str) end
 
+---
 ---https://github.com/latex3/lualibs/blob/main/lualibs-util-sac.lua
 utilities.streams = {}
 
@@ -166,11 +172,13 @@ function utilities.streams.tocardinal3le(n) end
 function utilities.streams.tocardinal4(n) end
 function utilities.streams.tocardinal4le(n) end
 
+---
 ---https://github.com/latex3/lualibs/blob/main/lualibs-util-sta.lua
 utilities.stacker = {}
 
 function utilities.stacker.new(name) end
 
+---
 ---https://github.com/latex3/lualibs/blob/main/lualibs-util-sto.lua
 utilities.storage = {}
 
@@ -181,6 +189,7 @@ function utilities.storage.marked(t) end
 function utilities.storage.setinitializer(data, initialize) end
 function utilities.storage.sparse(t) end
 
+---
 ---https://github.com/latex3/lualibs/blob/main/lualibs-util-str.lua
 utilities.strings = {}
 

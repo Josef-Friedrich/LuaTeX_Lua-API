@@ -2,6 +2,7 @@
 ---outline: https://github.com/Josef-Friedrich/LuaTeX_Lua-API#navigation-table-_n
 _N = {}
 
+---
 ---@meta
 ---
 ---The fontloader library is sort of independent of the rest in the sense that it
@@ -10,6 +11,37 @@ _N = {}
 ---similar view on a font (which has advantages when you want to debug).
 fontloader = {}
 
+_N._12_The_fontloader = 0
+_N._12_1_Getting_quick_information_on_a_font = 0
+_N._12_2_Loading_an_OPENTYPE_or_TRUETYPE_file = 0
+_N._12_3_Applying_a_feature_file = 0
+_N._12_4_Applying_an_AFM_file = 0
+_N._12_5_Fontloader_font_tables = 0
+_N._12_6_Table_types = 0
+_N._12_6_2_glyphs = 0
+_N._12_6_3_map = 0
+_N._12_6_4_private = 0
+_N._12_6_5_cidinfo = 0
+_N._12_6_6_pfminfo = 0
+_N._12_6_7_names = 0
+_N._12_6_8_anchor_classes = 0
+_N._12_6_9_gpos = 0
+_N._12_6_10_gsub = 0
+_N._12_6_11_ttf_tables_and_ttf_tab_saved = 0
+_N._12_6_12_mm = 0
+_N._12_6_13_mark_classes = 0
+_N._12_6_14_math = 0
+_N._12_6_15_validation_state = 0
+_N._12_6_16_horiz_base_and_vert_base = 0
+_N._12_6_17_altuni = 0
+_N._12_6_18_vert_variants_and_horiz_variants = 0
+_N._12_6_19_mathkern = 0
+_N._12_6_20_kerns = 0
+_N._12_6_21_vkerns = 0
+_N._12_6_22_texdata = 0
+_N._12_6_23_lookups = 0
+
+---
 ---@class FontInfo
 ---@field fontname string # the *PostScript* name of the font
 ---@field fullname string # the formal name of the font
@@ -87,6 +119,7 @@ function fontloader.apply_afmfile(font, filename) end
 
 _N._main_table = 'FontloaderField'
 
+---
 ---@class FontloaderField
 ---@field table_version number # indicates the metrics version (currently 0.3)
 ---@field fontname string # *PostScript* font name

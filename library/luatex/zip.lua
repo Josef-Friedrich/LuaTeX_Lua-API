@@ -93,6 +93,7 @@ function zip.open(filename) end
 ---@return Zfile
 function zip.openfile(filename) end
 
+---
 ---@class Zfile
 zfile = {}
 

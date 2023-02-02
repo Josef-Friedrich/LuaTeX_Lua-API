@@ -151,6 +151,7 @@ function font.current(i) end
 ---of consecutive numbers: in some cases there can be holes in the sequence.
 function font.each() end
 
+---
 ------------------------------------------------------------------------
 ---Undocumented functions listed in alphabetical order
 ---

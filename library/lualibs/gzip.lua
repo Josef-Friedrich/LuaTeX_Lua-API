@@ -1,9 +1,11 @@
 ---@meta
 
+---
 ---https://github.com/latex3/lualibs/blob/main/lualibs-util-zip.lua
 
 gzip = {}
 
+---
 ------------------------------------------------------------------------
 ---Undocumented functions listed in alphabetical order
 ---

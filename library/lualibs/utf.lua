@@ -1,5 +1,6 @@
 ---@meta
 
+---
 ---https://github.com/latex3/lualibs/blob/main/lualibs-unicode.lua
 
 function utf.byte() end

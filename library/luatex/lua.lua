@@ -86,6 +86,7 @@ function lua.getstacktop() end
 ---@return integer
 function lua.getcalllevel() end
 
+---
 ------------------------------------------------------------------------
 ---Undocumented functions listed in alphabetical order
 ---

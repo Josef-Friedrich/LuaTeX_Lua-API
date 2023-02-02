@@ -1,13 +1,16 @@
 ---@meta
 
+---
 ---`luafilesystem`, also from the kepler project, http://www.keplerproject.org/luafilesystem/.
 
 -- https://github.com/sumneko/lua-language-server/blob/8132f4c9da02858c23813d15c2cb6ded6df57ea1/meta/3rd/lfs/library/lfs.lua
 
+---
 ---@class LuaFileSystem.Attributes
 ---@field [LuaFileSystem.AttributeName] any
 ---@field ['mode'] LuaFileSystem.AttributeMode
 
+---
 ---@alias LuaFileSystem.AttributeMode
 ---|'file'
 ---|'directory'
@@ -17,6 +20,7 @@
 ---|"block device"
 ---|"named pipe"
 
+---
 ---@alias LuaFileSystem.AttributeName
 ---|'dev' -- on Unix systems, this represents the device that the inode resides on. On Windows systems, represents the drive number of the disk containing the file
 ---|'ino' -- on Unix systems, this represents the inode number. On Windows systems this has no meaning
@@ -33,6 +37,7 @@
 ---|'blocks' -- block allocated for file; (Unix only)
 ---|'blksize' -- optimal file system I/O blocksize; (Unix only)
 
+---
 ---@class LuaFileSystem
 local lfs = {}
 
@@ -218,6 +223,7 @@ function lfs.touch(filepath, atime, mtime) end
 ---@return boolean, string
 function lfs.unlock(filehandle, start, length) end
 
+---
 ------------------------------------------------------------------------
 ---Undocumented functions listed in alphabetical order
 ---

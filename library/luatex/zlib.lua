@@ -1,9 +1,11 @@
 ---@meta
 
+---
 ---`lzlib`, by Tiago Dionizio, http://luaforge.net/projects/lzlib/.
 
 zlib = {}
 
+---
 ------------------------------------------------------------------------
 ---Undocumented functions listed in alphabetical order
 ---

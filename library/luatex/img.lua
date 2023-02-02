@@ -1,6 +1,10 @@
 ---@meta
 img = {}
 
+_N._11_1_The_img_library = 0
+_N._11_1_1_new = 0
+
+---
 ---@class Image
 
 ---
@@ -9,10 +13,13 @@ img = {}
 ---@return Image
 function img.new(image_spec) end
 
+_N._11_1_2_fields = 0
+
 ---
 ---@return ImageSpec keys
 function img.fields() end
 
+---
 ---@class ImageSpec
 ---@field attr string # the image attributes for *LuaTeX*
 ---@field bbox table # table with 4 boundingbox dimensions `llx`, `lly`, `urx` and `ury` overruling the `pagebox` entry
@@ -45,6 +52,9 @@ function img.fields() end
 ---@field nolength boolean # don't add length key nor compress for streams
 ---@field nosize boolean # don't add size fields for streams
 
+_N._11_1_3_scan = 0
+
+---
 ---When you say `img.scan(a)` for a new image, the file is scanned, and
 ---variables such as `xsize`, `ysize`, image `type`, number of
 ---`pages`, and the resolution are extracted. Each of the `width`, `height`, `depth` fields are set up according to the image dimensions, if
@@ -70,6 +80,9 @@ function img.fields() end
 ---@return Image
 function img.scan(image) end
 
+_N._11_1_4_copy = 0
+
+---
 ---If you say `a = b`, then both variables point to the same `<image>`
 ---object. if you want to write out an image with different sizes, you can do
 ---`b = img.copy(a)`.
@@ -82,6 +95,8 @@ function img.scan(image) end
 ---
 ---@return Image
 function img.copy(image) end
+
+_N._11_1_5_write_immediatewrite_immediatewriteobject = 0
 
 ---
 ---By `img.write(a)` a *PDF* object number is allocated, and a rule node of
@@ -136,6 +151,9 @@ function img.immediatewrite(image) end
 ---@return Image
 function img.immediatewriteobject(image, objnum) end
 
+_N._11_1_6_node = 0
+
+---
 ---This function allocates a *PDF* object number and returns a whatsit node of
 ---subtype `pdf_refximage`, filled with the image parameters `width`,
 ---`height`, `depth`, and `objnum`. Also here you can do a terse
@@ -156,6 +174,8 @@ function img.immediatewriteobject(image, objnum) end
 ---@return Node
 function img.node(image) end
 
+_N._11_1_7_types = 0
+
 ---
 ---This function returns a list with the supported image file type names, currently
 ---these are `pdf`, `png`, `jpg`, `jp2` (JPEG 2000), and
@@ -167,6 +187,8 @@ function img.node(image) end
 ---
 ---@return table
 function img.types() end
+
+_N._11_1_8_boxes = 0
 
 ---
 ---This function returns a list with the supported *PDF* page box names, currently

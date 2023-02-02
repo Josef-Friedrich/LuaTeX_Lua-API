@@ -1,5 +1,6 @@
 ---@meta
 
+---
 ---The `texio` library takes care of the low-level I/O interface: writing to the log file
 ---and/or console.
 texio = {}

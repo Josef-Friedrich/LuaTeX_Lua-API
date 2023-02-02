@@ -19,6 +19,7 @@ _N = {}
 ---
 token = {}
 
+---
 ---10.6 The token library
 _N._1_scanner = 215
 
@@ -328,7 +329,6 @@ _N._1_picking_one_token = 218
 ---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L2237-L2239](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L2237-L2239)
 ---* Corresponding C source code: [lnewtokenlib.c#L196-L204](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L196-L204)
 ---
----
 ---@return Token
 function token.get_next() end
 
@@ -337,7 +337,6 @@ function token.get_next() end
 ---enforce expansion first you can use `scan_token`.
 ---
 ---* Corresponding C source code: [lnewtokenlib.c#L1055-L1063](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L1055-L1063)
----
 ---
 ---@return Token
 function token.scan_token() end
@@ -737,7 +736,6 @@ _N._4_macros = 219
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L2368-L2382](https://github.com/TeX-Live/luatex/blob/3f14129c06359e1a06dd2f305c8334a2964149d3/manual/luatex-tex.tex#L2368-L2382)
 ---* Corresponding C source code: [lnewtokenlib.c#L1183-L1307](https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L1183-L1307)
----
 ---
 ---@param csname string
 ---@param content? string
