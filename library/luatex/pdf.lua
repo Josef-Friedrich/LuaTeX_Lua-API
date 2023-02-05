@@ -8,33 +8,6 @@ pdf = {}
 
 _N._14_1_The_pdf_library = 0
 _N._14_1_1_mapfile_mapline = 0
-_N._14_1_2_set_get_catalog_info_names_trailer = 0
-_N._14_1_3_set_get_pageattributes_pageresources_pagesattributes = 0
-_N._14_1_4_set_get_xformattributes_xformresources = 0
-_N._14_1_5_set_get_major_minor_version = 0
-_N._14_1_6_getcreationdate = 0
-_N._14_1_7_set_get_inclusionerrorlevel_and_set_get_ignoreunknownimages = 0
-_N._14_1_8_set_get_suppressoptionalinfo_set_get_trailerid_set_get_omitcidset_set_get_omitinfodict_and_set_get_omitmediabox = 0
-_N._14_1_9_set_get_obj_compresslevel_and_set_get_recompress = 0
-_N._14_1_10_set_get_gentounicode = 0
-_N._14_1_11_set_get_decimaldigits = 0
-_N._14_1_12_set_get_pkresolution = 0
-_N._14_1_13_getlast_obj_link_annot_and_getretval = 0
-_N._14_1_14_getmaxobjnum_and_getobjtype_getfontname_getfontobjnum_getfontsize_getxformname = 0
-_N._14_1_15_set_get_origin = 0
-_N._14_1_16_set_get_imageresolution = 0
-_N._14_1_17_set_get_link_dest_thread_xform_margin = 0
-_N._14_1_18_get_pos_hpos_vpos = 0
-_N._14_1_19_has_get_matrix = 0
-_N._14_1_20_print = 0
-_N._14_1_21_immediateobj = 0
-_N._14_1_22_obj = 0
-_N._14_1_23_refobj = 0
-_N._14_1_24_reserveobj = 0
-_N._14_1_25_getpageref = 0
-_N._14_1_26_registerannot = 0
-_N._14_1_27_newcolorstack = 0
-_N._14_1_28_setfontattributes = 0
 
 ---
 ---This function can be used to replace the primitive `\pdfmapfile` inherited from *pdfTeX*. It expects a string as only
@@ -53,6 +26,8 @@ function pdf.mapfile(map_file) end
 ---
 ---@param map_line string
 function pdf.mapline(map_line) end
+
+_N._14_1_2_set_get_catalog_info_names_trailer = 0
 
 ---
 ---This function complements to the corresponding *PDF* token list backend that deals with metadata. The data type of the metadata is a string and is written to the *PDF*
@@ -90,7 +65,6 @@ function pdf.getinfo() end
 ---
 ---@return string
 function pdf.setnames(names) end
----
 
 ---
 ---This function complements to the corresponding *PDF* token list backend that deals with metadata. The data type of the metadata is a string and is written to the *PDF*
@@ -114,6 +88,252 @@ function pdf.settrailer(trailer) end
 ---
 ---@return string
 function pdf.gettrailer() end
+
+_N._14_1_3_set_get_pageattributes_pageresources_pagesattributes = 281
+
+---
+---This function complements the corresponding *PDF* backend token lists dealing
+---with page resources. The variables have no interaction with the corresponding *PDF*
+---backend token register. They are written to the *PDF* file directly after the
+---token registers set at the *TeX* end are written.
+function pdf.setpageattributes() end
+
+---
+---This function complements the corresponding *PDF* backend token lists dealing
+---with page resources. The variables have no interaction with the corresponding *PDF*
+---backend token register. They are written to the *PDF* file directly after the
+---token registers set at the *TeX* end are written.
+function pdf.getpageattributes() end
+
+---
+---This function complements the corresponding *PDF* backend token lists dealing
+---with page resources. The variables have no interaction with the corresponding *PDF*
+---backend token register. They are written to the *PDF* file directly after the
+---token registers set at the *TeX* end are written.
+function pdf.setpageresources() end
+
+---
+---This function complements the corresponding *PDF* backend token lists dealing
+---with page resources. The variables have no interaction with the corresponding *PDF*
+---backend token register. They are written to the *PDF* file directly after the
+---token registers set at the *TeX* end are written.
+function pdf.getpageresources() end
+
+---
+---This function complements the corresponding *PDF* backend token lists dealing
+---with page resources. The variables have no interaction with the corresponding *PDF*
+---backend token register. They are written to the *PDF* file directly after the
+---token registers set at the *TeX* end are written.
+function pdf.setpagesattributes() end
+
+---
+---This function complements the corresponding *PDF* backend token lists dealing
+---with page resources. The variables have no interaction with the corresponding *PDF*
+---backend token register. They are written to the *PDF* file directly after the
+---token registers set at the *TeX* end are written.
+function pdf.getpagesattributes() end
+
+_N._14_1_4_set_get_xformattributes_xformresources = 281
+
+---
+---This function complements the corresponding *PDF* backend token lists dealing
+---with reuseable boxes and images. The variables have no interaction with the
+---corresponding *PDF* backend token register. They are written to the *PDF*
+---file directly after the token registers set at the *TeX* end are written.
+function pdf.setxformattributes() end
+
+---
+---This function complements the corresponding *PDF* backend token lists dealing
+---with reuseable boxes and images. The variables have no interaction with the
+---corresponding *PDF* backend token register. They are written to the *PDF*
+---file directly after the token registers set at the *TeX* end are written.
+function pdf.getxformattributes() end
+
+---
+---This function complements the corresponding *PDF* backend token lists dealing
+---with reuseable boxes and images. The variables have no interaction with the
+---corresponding *PDF* backend token register. They are written to the *PDF*
+---file directly after the token registers set at the *TeX* end are written.
+function pdf.setxformresources() end
+
+---
+---This function complements the corresponding *PDF* backend token lists dealing
+---with reuseable boxes and images. The variables have no interaction with the
+---corresponding *PDF* backend token register. They are written to the *PDF*
+---file directly after the token registers set at the *TeX* end are written.
+function pdf.getxformresources() end
+
+_N._14_1_5_set_get_major_minor_version = 281
+
+---
+---You can set both the major and minor version of the output. The major version is
+---normally 1 but when set to 2 some data will not be written to the file in order
+---to comply with the standard. What minor version you set depends on what *PDF*
+---features you use. This is out of control of *LuaTeX*.
+---
+---One can set the major version number to 2 but we cannot guarantee that the engine
+---adapts itself correctly, because there is no public and free specification that
+---we know of. Also, user constructed annotations are not checked and just passed
+---to the file. On the other hand, the *PDF* that the engine generated is rather
+---simple and not that version depending.
+function pdf.setmajorversion() end
+
+---
+---You can set both the major and minor version of the output. The major version is
+---normally 1 but when set to 2 some data will not be written to the file in order
+---to comply with the standard. What minor version you set depends on what *PDF*
+---features you use. This is out of control of *LuaTeX*.
+---
+---One can set the major version number to 2 but we cannot guarantee that the engine
+---adapts itself correctly, because there is no public and free specification that
+---we know of. Also, user constructed annotations are not checked and just passed
+---to the file. On the other hand, the *PDF* that the engine generated is rather
+---simple and not that version depending.
+function pdf.getmajorversion() end
+
+---
+---You can set both the major and minor version of the output. The major version is
+---normally 1 but when set to 2 some data will not be written to the file in order
+---to comply with the standard. What minor version you set depends on what *PDF*
+---features you use. This is out of control of *LuaTeX*.
+---
+---One can set the major version number to 2 but we cannot guarantee that the engine
+---adapts itself correctly, because there is no public and free specification that
+---we know of. Also, user constructed annotations are not checked and just passed
+---to the file. On the other hand, the *PDF* that the engine generated is rather
+---simple and not that version depending.
+function pdf.setminorversion() end
+
+---
+---You can set both the major and minor version of the output. The major version is
+---normally 1 but when set to 2 some data will not be written to the file in order
+---to comply with the standard. What minor version you set depends on what *PDF*
+---features you use. This is out of control of *LuaTeX*.
+---
+---One can set the major version number to 2 but we cannot guarantee that the engine
+---adapts itself correctly, because there is no public and free specification that
+---we know of. Also, user constructed annotations are not checked and just passed
+---to the file. On the other hand, the *PDF* that the engine generated is rather
+---simple and not that version depending.
+function pdf.getminorversion() end
+
+_N._14_1_6_getcreationdate = 282
+
+---
+---This function returns a string with the date in the format that ends up in the
+---*PDF* file.
+---
+---@return string
+function pdf.getcreationdate() end
+
+_N._14_1_7_set_get_inclusionerrorlevel_ignoreunknownimages = 0
+
+---
+---These functions controls how errors in included image are treated. It is modeled
+---after the *PDFTeX* equivalent.
+---
+---This controls the behavior of `pdfTEX` when a pdf file is included which has a newer
+---pdf version than the one specified by `\pdfmajorversion` and `\pdfminorversion`. If
+---`\pdfinclusionerrorlevel` is set to `0` (the default), pdfTEX gives only a warning; if `1`, pdfTEX
+---raises an error; if negative, no diagnostic at all is given.
+---It was originally a shortened synonym of `\pdfoptionpdfinclusionerrorlevel`, which is
+---now obsolete. The primitive was introduced in `pdfTEX` 1.30.0.
+---
+---__Reference:__
+---
+---* [pdftex manual page 35](http://mirrors.ctan.org/systems/doc/pdftex/manual/pdftex-a.pdf)
+---
+---@param level integer
+function pdf.setinclusionerrorlevel(level) end
+
+---
+---These functions controls how errors in included image are treated. It is modeled
+---after the *PDFTeX* equivalent.
+---
+---This controls the behavior of `pdfTEX` when a pdf file is included which has a newer
+---pdf version than the one specified by `\pdfmajorversion` and `\pdfminorversion`. If
+---`\pdfinclusionerrorlevel` is set to `0` (the default), pdfTEX gives only a warning; if `1`, pdfTEX
+---raises an error; if negative, no diagnostic at all is given.
+---It was originally a shortened synonym of `\pdfoptionpdfinclusionerrorlevel`, which is
+---now obsolete. The primitive was introduced in `pdfTEX` 1.30.0.
+---
+---__Reference:__
+---
+---* [pdftex manual page 35](http://mirrors.ctan.org/systems/doc/pdftex/manual/pdftex-a.pdf)
+---
+---@return integer
+function pdf.getinclusionerrorlevel() end
+
+---
+---These functions controls how errors in included image are treated. It is modeled
+---after the *PDFTeX* equivalent.
+---
+---@param level integer
+function pdf.setignoreunknownimages(level) end
+
+---
+---These functions controls how errors in included image are treated. It is modeled
+---after the *PDFTeX* equivalent.
+---
+---@return integer
+function pdf.getignoreunknownimages() end
+
+_N._14_1_8_set_get_suppressoptionalinfo_set_get_trailerid_set_get_omitcidset_set_get_omitinfodict_and_set_get_omitmediabox = 0
+_N._14_1_9_set_get_obj_compresslevel_and_set_get_recompress = 0
+_N._14_1_10_set_get_gentounicode = 0
+_N._14_1_11_set_get_decimaldigits = 0
+_N._14_1_12_set_get_pkresolution = 0
+_N._14_1_13_getlast_obj_link_annot_and_getretval = 0
+_N._14_1_14_getmaxobjnum_and_getobjtype_getfontname_getfontobjnum_getfontsize_getxformname = 0
+_N._14_1_15_set_get_origin = 0
+_N._14_1_16_set_get_imageresolution = 0
+_N._14_1_17_set_get_link_dest_thread_xform_margin = 0
+_N._14_1_18_get_pos_hpos_vpos = 0
+_N._14_1_19_has_get_matrix = 0
+_N._14_1_20_print = 0
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function pdf.print() end
+
+_N._14_1_21_immediateobj = 0
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function pdf.immediateobj() end
+
+_N._14_1_22_obj = 0
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function pdf.obj() end
+
+_N._14_1_23_refobj = 0
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function pdf.refobj() end
+
+_N._14_1_24_reserveobj = 0
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function pdf.reserveobj() end
+
+_N._14_1_25_getpageref = 0
+_N._14_1_26_registerannot = 0
+_N._14_1_27_newcolorstack = 0
+_N._14_1_28_setfontattributes = 0
 
 ---
 ------------------------------------------------------------------------
@@ -146,12 +366,6 @@ function pdf.fontsize() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.getcompresslevel() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.getcreationdate() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -199,19 +413,7 @@ function pdf.gethpos() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.getignoreunknownimages() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.getimageresolution() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.getinclusionerrorlevel() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -241,12 +443,6 @@ function pdf.getlinkmargin() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.getmajorversion() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.getmatrix() end
 
 ---
@@ -254,12 +450,6 @@ function pdf.getmatrix() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.getmaxobjnum() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.getminorversion() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -301,25 +491,7 @@ function pdf.getorigin() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.getpageattributes() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.getpageref() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.getpageresources() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.getpagesattributes() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -373,12 +545,6 @@ function pdf.getvpos() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.getxformattributes() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.getxformmargin() end
 
 ---
@@ -391,19 +557,7 @@ function pdf.getxformname() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.getxformresources() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.hasmatrix() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.immediateobj() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -439,12 +593,6 @@ function pdf.newcolorstack() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.obj() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.objtype() end
 
 ---
@@ -457,25 +605,7 @@ function pdf.pageref() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.print() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.refobj() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.registerannot() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.reserveobj() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -517,37 +647,13 @@ function pdf.setgentounicode() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.setignoreunknownimages() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.setimageresolution() end
 
 ---
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.setinclusionerrorlevel() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.setlinkmargin() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.setmajorversion() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.setminorversion() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -572,24 +678,6 @@ function pdf.setomitcidset() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.setorigin() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.setpageattributes() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.setpageresources() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.setpagesattributes() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -631,19 +719,7 @@ function pdf.settypeonewidemode() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.setxformattributes() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.setxformmargin() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.setxformresources() end
 
 ---
 ---Warning! Undocumented code!<p>
