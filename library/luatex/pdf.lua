@@ -278,8 +278,45 @@ function pdf.setignoreunknownimages(level) end
 ---@return integer
 function pdf.getignoreunknownimages() end
 
-_N._14_1_8_set_get_suppressoptionalinfo_set_get_trailerid_set_get_omitcidset_set_get_omitinfodict_and_set_get_omitmediabox = 0
-_N._14_1_9_set_get_obj_compresslevel_and_set_get_recompress = 0
+_N._14_1_8_set_get_suppressoptionalinfo_trailerid_omitcidset_omitinfodict = 0
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function pdf.setsuppressoptionalinfo() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function pdf.getsuppressoptionalinfo() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function pdf.settrailerid() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function pdf.gettrailerid() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function pdf.setomitcidset() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function pdf.getomitcidset() end
+
+_N._14_1_9_set_get_obj_compresslevel_recompress = 0
 _N._14_1_10_set_get_gentounicode = 0
 _N._14_1_11_set_get_decimaldigits = 0
 _N._14_1_12_set_get_pkresolution = 0
@@ -479,12 +516,6 @@ function pdf.getomitcharset() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.getomitcidset() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.getorigin() end
 
 ---
@@ -521,19 +552,7 @@ function pdf.getretval() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.getsuppressoptionalinfo() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.getthreadmargin() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.gettrailerid() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -671,12 +690,6 @@ function pdf.setomitcharset() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.setomitcidset() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.setorigin() end
 
 ---
@@ -695,19 +708,7 @@ function pdf.setrecompress() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.setsuppressoptionalinfo() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.setthreadmargin() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.settrailerid() end
 
 ---
 ---Warning! Undocumented code!<p>
