@@ -422,7 +422,7 @@ function pdf.getlastannot() end
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.getretval() end
 
-_N._14_1_14_getmaxobjnum_and_getobjtype_getfontname_getfontobjnum_getfontsize_getxformname = 0
+_N._14_1_14_getmaxobjnum_getobjtype_getfontname_getfontobjnum_getfontsize_getxformname = 0
 
 ---
 ---Warning! Undocumented code!<p>
@@ -430,9 +430,114 @@ _N._14_1_14_getmaxobjnum_and_getobjtype_getfontname_getfontobjnum_getfontsize_ge
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.getmaxobjnum() end
 
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function pdf.getobjtype() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function pdf.getfontname() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function pdf.getfontobjnum() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function pdf.getfontsize() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function pdf.getxformname() end
+
 _N._14_1_15_set_get_origin = 0
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function pdf.setorigin() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function pdf.getorigin() end
+
 _N._14_1_16_set_get_imageresolution = 0
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function pdf.setimageresolution() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function pdf.getimageresolution() end
+
 _N._14_1_17_set_get_link_dest_thread_xform_margin = 0
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function pdf.setlinkmargin() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function pdf.getlinkmargin() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function pdf.setdestmargin() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function pdf.getdestmargin() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function pdf.setthreadmargin() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function pdf.getthreadmargin() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function pdf.setxformmargin() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function pdf.getxformmargin() end
+
 _N._14_1_18_get_pos_hpos_vpos = 0
 _N._14_1_19_has_get_matrix = 0
 _N._14_1_20_print = 0
@@ -510,43 +615,7 @@ function pdf.fontsize() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.getdestmargin() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.getfontname() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.getfontobjnum() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.getfontsize() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.gethpos() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.getimageresolution() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.getlinkmargin() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -564,19 +633,7 @@ function pdf.getnofobjects() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.getobjtype() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.getomitcharset() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.getorigin() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -594,25 +651,7 @@ function pdf.getpos() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.getthreadmargin() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.getvpos() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.getxformmargin() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.getxformname() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -672,12 +711,6 @@ function pdf.registerannot() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.setdestmargin() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.setfontattributes() end
 
 ---
@@ -690,43 +723,13 @@ function pdf.setforcefile() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.setimageresolution() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.setlinkmargin() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.setomitcharset() end
 
 ---
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.setorigin() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.setthreadmargin() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.settypeonewidemode() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.setxformmargin() end
 
 ---
 ---Warning! Undocumented code!<p>
