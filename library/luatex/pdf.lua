@@ -6,8 +6,8 @@
 ---
 pdf = {}
 
-_N._14_1_The_pdf_library = 0
-_N._14_1_1_mapfile_mapline = 0
+_N._14_1_The_pdf_library = 281
+_N._14_1_1_mapfile_mapline = 281
 
 ---
 ---This function can be used to replace the primitive `\pdfmapfile` inherited from *pdfTeX*. It expects a string as only
@@ -27,7 +27,7 @@ function pdf.mapfile(map_file) end
 ---@param map_line string
 function pdf.mapline(map_line) end
 
-_N._14_1_2_set_get_catalog_info_names_trailer = 0
+_N._14_1_2_set_get_catalog_info_names_trailer = 281
 
 ---
 ---This function complements to the corresponding *PDF* token list backend that deals with metadata. The data type of the metadata is a string and is written to the *PDF*
@@ -226,7 +226,7 @@ _N._14_1_6_getcreationdate = 282
 ---@return string
 function pdf.getcreationdate() end
 
-_N._14_1_7_set_get_inclusionerrorlevel_ignoreunknownimages = 0
+_N._14_1_7_set_get_inclusionerrorlevel_ignoreunknownimages = 282
 
 ---
 ---These functions controls how errors in included image are treated. It is modeled
@@ -278,7 +278,7 @@ function pdf.setignoreunknownimages(level) end
 ---@return integer
 function pdf.getignoreunknownimages() end
 
-_N._14_1_8_set_get_suppressoptionalinfo_trailerid_omitcidset_omitinfodict = 0
+_N._14_1_8_set_get_suppressoptionalinfo_trailerid_omitcidset_omitinfodict = 282
 
 ---
 ---Warning! Undocumented code!<p>
@@ -316,7 +316,7 @@ function pdf.setomitcidset() end
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.getomitcidset() end
 
-_N._14_1_9_set_get_obj_compresslevel_recompress = 0
+_N._14_1_9_set_get_obj_compresslevel_recompress = 282
 
 ---
 ---Warning! Undocumented code!<p>
@@ -354,7 +354,7 @@ function pdf.setrecompress() end
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.getrecompress() end
 
-_N._14_1_10_set_get_gentounicode = 0
+_N._14_1_10_set_get_gentounicode = 282
 
 ---
 ---Warning! Undocumented code!<p>
@@ -368,7 +368,7 @@ function pdf.setgentounicode() end
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.getgentounicode() end
 
-_N._14_1_11_set_get_decimaldigits = 0
+_N._14_1_11_set_get_decimaldigits = 282
 
 ---
 ---Warning! Undocumented code!<p>
@@ -382,7 +382,7 @@ function pdf.setdecimaldigits() end
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.getdecimaldigits() end
 
-_N._14_1_12_set_get_pkresolution = 0
+_N._14_1_12_set_get_pkresolution = 283
 
 ---
 ---Warning! Undocumented code!<p>
@@ -396,7 +396,7 @@ function pdf.setpkresolution() end
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.getpkresolution() end
 
-_N._14_1_13_getlast_obj_link_annot_and_getretval = 0
+_N._14_1_13_getlast_obj_link_annot_and_getretval = 283
 
 ---
 ---Warning! Undocumented code!<p>
@@ -422,7 +422,7 @@ function pdf.getlastannot() end
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.getretval() end
 
-_N._14_1_14_getmaxobjnum_getobjtype_getfontname_getfontobjnum_getfontsize_getxformname = 0
+_N._14_1_14_getmaxobjnum_getobjtype_getfontname_getfontobjnum_getfontsize_getxformname = 283
 
 ---
 ---Warning! Undocumented code!<p>
@@ -460,7 +460,7 @@ function pdf.getfontsize() end
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.getxformname() end
 
-_N._14_1_15_set_get_origin = 0
+_N._14_1_15_set_get_origin = 283
 
 ---
 ---Warning! Undocumented code!<p>
@@ -474,7 +474,7 @@ function pdf.setorigin() end
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.getorigin() end
 
-_N._14_1_16_set_get_imageresolution = 0
+_N._14_1_16_set_get_imageresolution = 283
 
 ---
 ---Warning! Undocumented code!<p>
@@ -488,7 +488,7 @@ function pdf.setimageresolution() end
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.getimageresolution() end
 
-_N._14_1_17_set_get_link_dest_thread_xform_margin = 0
+_N._14_1_17_set_get_link_dest_thread_xform_margin = 283
 
 ---
 ---Warning! Undocumented code!<p>
@@ -538,9 +538,9 @@ function pdf.setxformmargin() end
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.getxformmargin() end
 
-_N._14_1_18_get_pos_hpos_vpos = 0
-_N._14_1_19_has_get_matrix = 0
-_N._14_1_20_print = 0
+_N._14_1_18_get_pos_hpos_vpos = 283
+_N._14_1_19_has_get_matrix = 283
+_N._14_1_20_print = 284
 
 ---
 ---Warning! Undocumented code!<p>
@@ -548,7 +548,7 @@ _N._14_1_20_print = 0
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.print() end
 
-_N._14_1_21_immediateobj = 0
+_N._14_1_21_immediateobj = 283
 
 ---
 ---Warning! Undocumented code!<p>
@@ -556,7 +556,7 @@ _N._14_1_21_immediateobj = 0
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.immediateobj() end
 
-_N._14_1_22_obj = 0
+_N._14_1_22_obj = 285
 
 ---
 ---Warning! Undocumented code!<p>
@@ -564,7 +564,7 @@ _N._14_1_22_obj = 0
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.obj() end
 
-_N._14_1_23_refobj = 0
+_N._14_1_23_refobj = 286
 
 ---
 ---Warning! Undocumented code!<p>
@@ -572,7 +572,7 @@ _N._14_1_23_refobj = 0
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.refobj() end
 
-_N._14_1_24_reserveobj = 0
+_N._14_1_24_reserveobj = 286
 
 ---
 ---Warning! Undocumented code!<p>
@@ -580,10 +580,37 @@ _N._14_1_24_reserveobj = 0
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.reserveobj() end
 
-_N._14_1_25_getpageref = 0
-_N._14_1_26_registerannot = 0
-_N._14_1_27_newcolorstack = 0
-_N._14_1_28_setfontattributes = 0
+_N._14_1_25_getpageref = 286
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function pdf.getpageref() end
+
+_N._14_1_26_registerannot = 286
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function pdf.registerannot() end
+
+_N._14_1_27_newcolorstack = 286
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function pdf.newcolorstack() end
+
+_N._14_1_28_setfontattributes = 286
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function pdf.setfontattributes() end
 
 ---
 ------------------------------------------------------------------------
@@ -635,11 +662,6 @@ function pdf.getnofobjects() end
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.getomitcharset() end
 
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.getpageref() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -687,12 +709,6 @@ function pdf.maxobjnum() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.newcolorstack() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.objtype() end
 
 ---
@@ -700,18 +716,6 @@ function pdf.objtype() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.pageref() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.registerannot() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.setfontattributes() end
 
 ---
 ---Warning! Undocumented code!<p>
