@@ -662,7 +662,6 @@ function pdf.getnofobjects() end
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.getomitcharset() end
 
-
 ---
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
