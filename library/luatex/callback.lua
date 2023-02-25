@@ -148,6 +148,7 @@ _N._9_2_file_discovery_callbacks = 169
 _N._9_2_1_find_read_file = 170
 _N._9_2_1_find_write_file = 170
 
+---
 ---Your callback function should have the following conventions:
 ---
 ---```
@@ -224,15 +225,18 @@ _N._9_2_4_find_format_file = 170
 
 _N._9_2_5_find_vf_file = 171
 
+---
 ---Like `find_font_file`, but for virtual fonts. This applies to both \ALEPH's
 ---\OVF\ files and traditional Knuthian \VF\ files.
 
 _N._9_2_6_find_map_file = 171
 
+---
 ---Like `find_font_file`, but for map files.
 
 _N._9_2_7_find_enc_file = 171
 
+---
 ---Like `find_font_file`, but for enc files.
 
 _N._9_2_8_find_pk_file = 171
@@ -252,10 +256,12 @@ _N._9_2_8_find_pk_file = 171
 
 _N._9_2_9_find_data_file = 171
 
+---
 ---Like `find_font_file`, but for embedded files (`\pdfobj file '...'`).
 
 _N._9_2_0_find_opentype_file = 171
 
+---
 ---Like `find_font_file`, but for *OpenType* font files.
 
 _N._9_2_1_find_truetype_file = 171
@@ -737,6 +743,7 @@ _N._9_5_16_kerning = nil
 
 _N._9_5_17_insert_local_par = nil
 
+---
 ---Each paragraph starts with a local par node that keeps track of for instance
 ---the direction. You can hook a callback into the creator:
 ---
@@ -750,6 +757,7 @@ _N._9_5_17_insert_local_par = nil
 
 _N._9_5_18_mlist_to_hlist = nil
 
+---
 ---This callback replaces *LuaTeX*'s math list to node list conversion algorithm.
 ---
 ---```
@@ -831,6 +839,7 @@ _N._9_6_5_stop_page_number = 181
 
 _N._9_6_6_show_error_hook = 181
 
+---
 ---```
 ---function()
 ---end
@@ -896,6 +905,7 @@ _N._9_6_10_stop_file = 182
 
 _N._9_6_11_call_edit = 182
 
+---
 ---```
 ---function(filename,linenumber)
 ---end
@@ -907,12 +917,14 @@ _N._9_6_11_call_edit = 182
 
 _N._9_6_12_finish_synctex = 183
 
+---
 ---This callback can be used to wrap up alternative synctex methods. It kicks in
 ---after the normal synctex finalizer (that happens to remove the synctex files
 ---after a run when native synctex is not enabled).
 
 _N._9_6_13_wrapup_run = 183
 
+---
 ---This callback is called after the *PDF* and log files are closed. Use it at your own
 ---risk.
 
@@ -1030,6 +1042,7 @@ _N._9_8_1_define_font = 184
 
 _N._9_8_2_glyph_not_found = 184
 
+---
 ---The `glyph_not_found` callback, when set, kicks in when the backend cannot
 ---insert a glyph. When no callback is defined a message is written to the log.
 ---
@@ -1041,6 +1054,7 @@ _N._9_8_2_glyph_not_found = 184
 
 _N._9_8_2_glyph_info = 184
 
+---
 ---The `glyph_info` callback can be set to report a useful representation of a
 ---glyph.
 ---

@@ -10,6 +10,7 @@
 ---`sio.readbytetable`. Here the first argument is a string instead of a
 ---file handle. More details can be found in the previous section.
 
+---
 ---|                            |                                     |
 ---|----------------------------|-------------------------------------|
 ---| `readcardinal1(s)`         | a 1 byte unsigned integer           |

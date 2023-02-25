@@ -5,6 +5,7 @@ _N._11_2_mplib_library = 0
 
 _N._11_2_1_new = 232
 
+---
 ---To create a new \METAPOST\ instance, call
 ---
 ---```
@@ -66,6 +67,7 @@ function mplib.new() end
 
 _N._11_2_2_statistics = 233
 
+---
 ---You can request statistics with:
 ---
 ---```
@@ -92,6 +94,7 @@ function mplib.statistics() end
 
 _N._11_2_3_execute = 233
 
+---
 ---You can ask the \METAPOST\ interpreter to run a chunk of code by calling
 ---
 ---```
@@ -114,6 +117,7 @@ function mplib.execute() end
 
 _N._11_2_4_finish = 233
 
+---
 ---```
 ---<table> rettable = finish(mp)
 ---```
@@ -130,6 +134,7 @@ function mplib.finish() end
 
 _N._11_2_5_result_table = 233
 
+---
 ---The return value of `execute` and `finish` is a table with a
 ---few possible keys (only `status` is always guaranteed to be present).
 ---
@@ -147,6 +152,7 @@ _N._11_2_5_result_table = 233
 ---representing a figure object, and each of those has a number of object methods
 ---you can call:
 
+---
 ---@class MpFig
 ---@field boundingbox   function  returns the bounding box, as an array of 4 values
 ---@field postscript    function  returns a string that is the ps output of the `fig`. this function accepts two optional integer arguments for specifying the values of `prologues` (first argument) and `procset` (second argument)
@@ -168,6 +174,7 @@ _N._11_2_5_result_table = 233
 
 _N._11_2_5_1_fill = 234
 
+---
 ---There is a helper function (`mplib.fields(obj)`) to get the list of
 ---accessible values for a particular object, but you can just as easily use the
 ---tables given below.
@@ -182,6 +189,7 @@ _N._11_2_5_1_fill = 234
 ---* Corresponding C source code: [lmplib.c#L1548-L1591](https://github.com/TeX-Live/luatex/blob/3c57eed035fa9cd6a27ed615374ab648f350326a/source/texk/web2c/mplibdir/lmplib.c#L1548-L1591)
 function mplib.fields(obj) end
 
+---
 ---@class MpFill
 ---@field path table # the list of knots
 ---@field htap table # the list of knots for the reversed trajectory
@@ -194,6 +202,7 @@ function mplib.fields(obj) end
 
 _N._11_2_5_2_outline = 234
 
+---
 ---@class MpOutline
 ---@field path table # the list of knots
 ---@field pen table # knots of the pen
@@ -207,6 +216,7 @@ _N._11_2_5_2_outline = 234
 
 _N._11_2_5_3_text = 234
 
+---
 ---@class MpText
 ---@field text string # the text
 ---@field font string # font tfm name
@@ -221,11 +231,13 @@ _N._11_2_5_3_text = 234
 
 _N._11_2_5_4_special = 236
 
+---
 ---@class MpSpecial
 ---@field prescript string # special text
 
 _N._11_2_5_5_start_bounds_start_clip = 236
 
+---
 ---@class MpStartBoundsClip
 ---@field path table # the list of knots
 
@@ -234,6 +246,7 @@ _N._11_2_5_6_stop_bounds_stop_clip = 236
 _N._11_2_6_subsidiary_table_formats = 236
 _N._11_2_6_1_paths_pens = 236
 
+---
 ---Paths and pens (that are really just a special type of paths as far as mplib is
 ---concerned) are represented by an array where each entry is a table that
 ---represents a knot.
@@ -255,6 +268,7 @@ _N._11_2_6_1_paths_pens = 236
 
 _N._11_2_6_2_Colors = 236
 
+---
 ---A color is an integer array with 0, 1, 3 or 4 values:
 ---
 --- field   type  explanation
@@ -271,6 +285,7 @@ _N._11_2_6_2_Colors = 236
 
 _N._11_2_6_3_Transforms = 237
 
+---
 ---Each transform is a six-item array.
 ---
 ---@class MPTransform
@@ -286,6 +301,7 @@ _N._11_2_6_3_Transforms = 237
 
 _N._11_2_6_4_Dashes = 237
 
+---
 ---Each `dash` is two-item hash, using the same model as *PostScript* for the
 ---representation of the dashlist. `dashes` is an array of “on” and
 ---“off”, values, and `offset` is the phase of the pattern.
@@ -298,6 +314,7 @@ _N._11_2_6_4_Dashes = 237
 
 _N._11_2_7_Pens_and_pen_info = 237
 
+---
 ---There is helper function (`pen_info(obj)`) that returns a table containing
 ---a bunch of vital characteristics of the used pen (all values are floats):
 ---
@@ -310,7 +327,6 @@ _N._11_2_7_Pens_and_pen_info = 237
 ---@field tx integer # `x` offset
 ---@field ty integer # `y` offset
 ---
----
 ---* Corresponding C source code: [lmplib.c#L1474-L1539](https://github.com/TeX-Live/luatex/blob/3c57eed035fa9cd6a27ed615374ab648f350326a/source/texk/web2c/mplibdir/lmplib.c#L1474-L1539)
 ---@return PenInfo
 function mplib.pen_info() end
@@ -318,10 +334,10 @@ function mplib.pen_info() end
 _N._11_2_8_Character_size_information = 238
 _N._11_2_8_1_char_width = 238
 
+---
 ---These functions find the size of a glyph in a defined font. The `fontname`
 ---is the same name as the argument to `infont`; the `char` is a glyph
 ---id in the range 0 to 255; the returned `w` is in AFM units.
----
 ---
 ---```
 ---<number> w = char_width(mp,<string> fontname, <number> char)
@@ -332,21 +348,21 @@ function mplib.char_width() end
 
 _N._11_2_8_2_char_height = 238
 
+---
 ---These functions find the size of a glyph in a defined font. The `fontname`
 ---is the same name as the argument to `infont`; the `char` is a glyph
 ---id in the range 0 to 255; the returned `w` is in AFM units.
 ---
----
 ---```
 ---<number> w = char_height(mp,<string> fontname, <number> char)
 ---```
----
 ---
 ---* Corresponding C source code: [lmplib.c#L758-L761](https://github.com/TeX-Live/luatex/blob/3c57eed035fa9cd6a27ed615374ab648f350326a/source/texk/web2c/mplibdir/lmplib.c#L758-L761)
 function mplib.char_height() end
 
 _N._11_2_8_3_char_depth = 238
 
+---
 ---These functions find the size of a glyph in a defined font. The `fontname`
 ---is the same name as the argument to `infont`; the `char` is a glyph
 ---id in the range 0 to 255; the returned `w` is in AFM units.
@@ -360,6 +376,7 @@ function mplib.char_depth() end
 
 _N._11_2_8_4_get_boolean_numeric_string_path = 238
 
+---
 ---```
 ---<boolean> w = get_boolean(mp,<string> name)
 ---```
@@ -371,6 +388,7 @@ function mplib.get_boolean() end
 ---Not documented alias for get_numeric
 ---function mplib.get_number() end
 
+---
 ---```
 ---<number>  n = get_numeric(mp,<string> name)
 ---```
@@ -378,6 +396,7 @@ function mplib.get_boolean() end
 ---* Corresponding C source code: [lmplib.c#L482-L495](https://github.com/TeX-Live/luatex/blob/3c57eed035fa9cd6a27ed615374ab648f350326a/source/texk/web2c/mplibdir/lmplib.c#L482-L495)
 function mplib.get_numeric() end
 
+---
 ---```
 ---<string>  s = get_string (mp,<string> name)
 ---```
@@ -385,6 +404,7 @@ function mplib.get_numeric() end
 ---* Corresponding C source code: [lmplib.c#L512-L528](https://github.com/TeX-Live/luatex/blob/3c57eed035fa9cd6a27ed615374ab648f350326a/source/texk/web2c/mplibdir/lmplib.c#L512-L528)
 function mplib.get_string() end
 
+---
 ---```
 ---<table>   p = get_path   (mp,<string> name)
 ---```
