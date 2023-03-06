@@ -2,7 +2,8 @@
 
 ---
 ---`lzlib`, by Tiago Dionizio, http://luaforge.net/projects/lzlib/.
-
+---https://luarocks.org/modules/hisham/lzlib
+---https://github.com/LuaDist/lzlib
 zlib = {}
 
 ---
