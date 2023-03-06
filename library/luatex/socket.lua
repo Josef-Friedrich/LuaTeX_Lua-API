@@ -1,4 +1,5 @@
 ---@meta
+---https://github.com/LuaCATS/luasocket/blob/main/library/socket.lua
 ---`luasocket`, by Diego Nehab http://w3.impa.br/diego/software/luasocket/. The `.lua` support
 ---modules from `luasocket` are also preloaded inside the executable,
 ---there are no external file dependencies.

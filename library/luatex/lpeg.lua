@@ -1,4 +1,6 @@
 ---@meta
+---https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua
+---
 ---`lpeg`, by Roberto Ierusalimschy, http://www.inf.puc-rio.br/ roberto/lpeg/lpeg.html. This library is not
 ---*Unicode*-aware, but interprets strings on a byte-per-byte basis. This
 ---mainly means that `lpeg.S` cannot be used with *UTF-8* characters encoded
