@@ -5,24 +5,9 @@ _N._11_2_mplib_library = 0
 
 _N._11_2_1_new = 232
 
----
----To create a new \METAPOST\ instance, call
----
----```
----<mpinstance> mp = mplib.new({...})
----```
----
----This creates the `mp` instance object. The argument hash can have a number
+---The argument hash can have a number
 ---of different fields, as follows:
 ---
----@class MpInstance
----@field error_line integer # error line width, default 79
----@field print_line integer # line length in ps output  100
----@field random_seed integer # the initial random seed   variable
----@field math_mode `scaled`|`double`|`binary`|`decimal` # the number system to use, default `scaled`
----@field interaction `batch`|`nonstop`|`scroll`|`errorstop` # the interaction mode, default `errorstop`
----@field job_name string # `--jobname`, default `mpout`
----@field find_file MpFindFileFunc  a function to find files only local files
 ---
 ---The binary mode is no longer available in the *LuaTeX* version of *mplib*. It
 ---offers no real advantage and brings a ton of extra libraries with platform
@@ -40,13 +25,32 @@ _N._11_2_1_new = 232
 ---
 ---Return either the full path name of the found file, or `nil` if the file
 ---cannot be found.
+---@class MpArguments
+---@field error_line integer # error line width, default 79
+---@field print_line integer # line length in ps output  100
+---@field random_seed integer # the initial random seed   variable
+---@field math_mode `scaled`|`double`|`binary`|`decimal` # the number system to use, default `scaled`
+---@field interaction `batch`|`nonstop`|`scroll`|`errorstop` # the interaction mode, default `errorstop`
+---@field job_name string # `--jobname`, default `mpout`
+---@field find_file MpFindFileFunc  a function to find files only local files
+
+---@class MpInstance
+
 ---
----Note that the new version of \MPLIB\ no longer uses binary mem files, so the way
+---To create a new *METAPOST* instance, call
+---
+---```
+---<mpinstance> mp = mplib.new({...})
+---```
+---
+---This creates the `mp` instance object.
+---
+---Note that the new version of *MPlib* no longer uses binary mem files, so the way
 ---to preload a set of macros is simply to start off with an `input` command
 ---in the first `execute` call.
 ---
 ---When you are processing a snippet of text starting with `btex` and
----ending with either `etex` or `verbatimtex`, the \METAPOST\
+---ending with either `etex` or `verbatimtex`, the *METAPOST*
 ---`texscriptmode` parameter controls how spaces and newlines get honoured.
 ---The default value is 1. Possible values are:
 ---
@@ -63,7 +67,11 @@ _N._11_2_1_new = 232
 ---line and preceded by a space or at the beginning of a line.
 ---
 ---* Corresponding C source code: [lmplib.c#L532-L627](https://github.com/TeX-Live/luatex/blob/3c57eed035fa9cd6a27ed615374ab648f350326a/source/texk/web2c/mplibdir/lmplib.c#L532-L627)
-function mplib.new() end
+---
+---@param args MpArguments
+---
+---@return MpInstance
+function mplib.new(args) end
 
 _N._11_2_2_statistics = 233
 
@@ -74,7 +82,7 @@ _N._11_2_2_statistics = 233
 ---<table> stats = mp:statistics()
 ---```
 ---
----This function returns the vital statistics for an \MPLIB\ instance. There are
+---This function returns the vital statistics for an *MPlib* instance. There are
 ---four fields, giving the maximum number of used items in each of four allocated
 ---object classes:
 ---
@@ -84,7 +92,7 @@ _N._11_2_2_statistics = 233
 ---@field param_size integer # simultaneous macro parameters
 ---@field max_in_open integer # input file nesting levels
 ---
----Note that in the new version of \MPLIB, this is informational only. The objects
+---Note that in the new version of *MPlib*, this is informational only. The objects
 ---are all allocated dynamically, so there is no chance of running out of space
 ---unless the available system memory is exhausted.
 ---
@@ -95,14 +103,14 @@ function mplib.statistics() end
 _N._11_2_3_execute = 233
 
 ---
----You can ask the \METAPOST\ interpreter to run a chunk of code by calling
+---You can ask the *MetaPost* interpreter to run a chunk of code by calling
 ---
 ---```
 ---<table> rettable = execute(mp,"metapost code")
 ---```
 ---
----for various bits of \METAPOST\ language input. Be sure to check the `rettable.status` (see below) because when a fatal \METAPOST\ error occurs the
----\MPLIB\ instance will become unusable thereafter.
+---for various bits of *MetaPost* language input. Be sure to check the `rettable.status` (see below) because when a fatal *MetaPost* error occurs the
+---*MPlib* instance will become unusable thereafter.
 ---
 ---Generally speaking, it is best to keep your chunks small, but beware that all
 ---chunks have to obey proper syntax, like each of them is a small file. For
@@ -112,8 +120,12 @@ _N._11_2_3_execute = 233
 ---`no` implied “input” at the start of the first chunk.
 ---
 ---* Corresponding C source code: [lmplib.c#L692-L711](https://github.com/TeX-Live/luatex/blob/3c57eed035fa9cd6a27ed615374ab648f350326a/source/texk/web2c/mplibdir/lmplib.c#L692-L711)
+---
+---@param mp MpInstance
+---@param code string
+---
 ---@return MpResult
-function mplib.execute() end
+function mplib.execute(mp, code) end
 
 _N._11_2_4_finish = 233
 
@@ -122,15 +134,18 @@ _N._11_2_4_finish = 233
 ---<table> rettable = finish(mp)
 ---```
 ---
----If for some reason you want to stop using an \MPLIB\ instance while processing is
+---If for some reason you want to stop using an *MPlib* instance while processing is
 ---not yet actually done, you can call `finish`. Eventually, used memory
 ---will be freed and open files will be closed by the *Lua* garbage collector, but
 ---an explicit `finish` is the only way to capture the final part of the
 ---output streams.
 ---
 ---* Corresponding C source code: [lmplib.c#L713-L728](https://github.com/TeX-Live/luatex/blob/3c57eed035fa9cd6a27ed615374ab648f350326a/source/texk/web2c/mplibdir/lmplib.c#L713-L728)
+---
+---@param mp MpInstance
+---
 ---@return MpResult
-function mplib.finish() end
+function mplib.finish(mp) end
 
 _N._11_2_5_result_table = 233
 
@@ -145,7 +160,7 @@ _N._11_2_5_result_table = 233
 ---@field status number # the return value: `0` = good, `1` = warning, `2` = errors, `3` = fatal error
 ---@field fig? MpFig # an array of generated figures (if any)
 ---
----When `status` equals 3, you should stop using this \MPLIB\ instance
+---When `status` equals 3, you should stop using this *MPlib* instance
 ---immediately, it is no longer capable of processing input.
 ---
 ---If it is present, each of the entries in the `fig` array is a userdata
