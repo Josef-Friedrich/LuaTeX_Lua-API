@@ -1,9 +1,11 @@
 ---@meta
 
+---
 ---https://github.com/LuaCATS/luasocket/blob/main/library/mime.lua
 ---https://github.com/TeX-Live/luatex/blob/trunk/source/texk/web2c/luatexdir/luasocket/src/mime.lua
 mime = {}
 
+---
 --- https://lunarmodules.github.io/luasocket/mime.html
 ---https://github.com/TeX-Live/luatex/blob/trunk/source/texk/web2c/luatexdir/luasocket/src/mime.lua
 ---
@@ -31,6 +33,7 @@ mime = {}
 ---```
 local mime = {}
 
+---
 ---Returns a filter that decodes data from a given transfer content
 ---encoding.
 ---
@@ -41,6 +44,7 @@ local mime = {}
 ---@param name 'base64'|'quoted-printable'
 function mime.decode(name) end
 
+---
 ---Returns a filter that encodes data according to a given transfer content
 ---encoding.
 ---
@@ -52,6 +56,7 @@ function mime.decode(name) end
 ---@param mode? 'text'|'binary'
 function mime.encode(name, mode) end
 
+---
 ---Converts most common end-of-line markers to a specific given marker.
 ---
 ---`Marker` is the new marker. It defaults to CRLF, the canonic
@@ -68,6 +73,7 @@ function mime.encode(name, mode) end
 ---guarantee that the number of empty lines will be correct.
 function mime.normalize(marker) end
 
+---
 ---Creates and returns a filter that performs stuffing of SMTP messages.
 ---
 ---Note: The `smtp.send`function
@@ -256,6 +262,7 @@ function mime.unb64(C, D) end
 ---```
 function mime.unqp() end
 
+---
 ---A, m = mime.wrp(n [, B, length])
 ---
 ---Low-level filter to break text into lines with CRLF marker.
@@ -270,6 +277,5 @@ function mime.unqp() end
 ---Note: This function only breaks lines that are bigger than
 ---`length` bytes. The resulting line length does not include the CRLF
 ---marker.
----
 ---
 function mime.wrp() end

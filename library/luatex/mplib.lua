@@ -5,9 +5,9 @@ _N._11_2_mplib_library = 0
 
 _N._11_2_1_new = 232
 
+---
 ---The argument hash can have a number
 ---of different fields, as follows:
----
 ---
 ---The binary mode is no longer available in the *LuaTeX* version of *mplib*. It
 ---offers no real advantage and brings a ton of extra libraries with platform
@@ -34,6 +34,7 @@ _N._11_2_1_new = 232
 ---@field job_name string # `--jobname`, default `mpout`
 ---@field find_file MpFindFileFunc  a function to find files only local files
 
+---
 ---@class MpInstance
 
 ---
