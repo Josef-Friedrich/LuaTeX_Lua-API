@@ -1,19 +1,44 @@
+---https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luapeg/lpeg.c
+---Changes to upstream: global lpeg table
+
 ---@meta
----https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua
+---The definitions are developed in this repository: https://github.com/LuaCATS/lpeg
+
 ---
----`lpeg`, by Roberto Ierusalimschy, http://www.inf.puc-rio.br/ roberto/lpeg/lpeg.html. This library is not
----*Unicode*-aware, but interprets strings on a byte-per-byte basis. This
----mainly means that `lpeg.S` cannot be used with *UTF-8* characters encoded
----in more than two bytes, and thus `lpeg.S` will look for one of those
----two bytes when matching, not the combination of the two. The same is true for
----`lpeg.R`, although the latter will display an error message if used
----with multibyte characters. Therefore `lpeg.R('aä')` results in the
----message `bad argument #1 to 'R' (range must have two characters)`,
----since to `lpeg`, `ä` is two 'characters' (bytes), so `aä`
----totals three. In practice this is no real issue and with some care you can
----deal with *Unicode* just fine.
----http://www.inf.puc-rio.br/~roberto/lpeg/
----http://stevedonovan.github.io/lua-stdlibs/modules/lpeg.html
+---This type definition is based on the [HTML documentation](http://www.inf.puc-rio.br/~roberto/lpeg/) of the LPeg library. A different HTML documentation can be found at http://stevedonovan.github.io/lua-stdlibs/modules/lpeg.html.
+---
+---*LPeg* is a new pattern-matching library for Lua,
+---based on
+---[Parsing Expression Grammars](https://bford.info/packrat/) (PEGs).
+---This text is a reference manual for the library.
+---For a more formal treatment of LPeg,
+---as well as some discussion about its implementation,
+---see
+---[A Text Pattern-Matching Tool based on Parsing Expression Grammars](http://www.inf.puc-rio.br/~roberto/docs/peg.pdf).
+---(You may also be interested in my
+---[talk about LPeg](https://vimeo.com/1485123)
+---given at the III Lua Workshop.)
+---
+---Following the Snobol tradition,
+---LPeg defines patterns as first-class objects.
+---That is, patterns are regular Lua values
+---(represented by userdata).
+---The library offers several functions to create
+---and compose patterns.
+---With the use of metamethods,
+---several of these functions are provided as infix or prefix
+---operators.
+---On the one hand,
+---the result is usually much more verbose than the typical
+---encoding of patterns using the so called
+---*regular expressions*
+---(which typically are not regular expressions in the formal sense).
+---On the other hand,
+---first-class patterns allow much better documentation
+---(as it is easy to comment the code,
+---to break complex definitions in smaller parts, etc.)
+---and are extensible,
+---as we can define new functions to create and compose patterns.
 lpeg = {}
 
 ---
@@ -21,7 +46,11 @@ lpeg = {}
 ---@operator add(Pattern): Pattern
 ---@operator mul(Pattern): Pattern
 ---@operator mul(Capture): Pattern
----@operator pow(Pattern): Pattern
+---@operator div(string): Capture
+---@operator div(number): Capture
+---@operator div(table): Capture
+---@operator div(function): Capture
+---@operator pow(number): Pattern
 ---@field match fun(p: Pattern, s: string)
 
 ---
@@ -29,7 +58,11 @@ lpeg = {}
 ---@operator add(Capture): Pattern
 ---@operator mul(Capture): Pattern
 ---@operator mul(Pattern): Pattern
----@operator pow(Capture): Pattern
+---@operator div(string): Capture
+---@operator div(number): Capture
+---@operator div(table): Capture
+---@operator div(function): Capture
+---@operator pow(number): Pattern
 ---
 ---The matching function.
 ---It attempts to match the given pattern against the subject string.
