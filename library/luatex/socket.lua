@@ -1,11 +1,12 @@
----@meta
----https://github.com/LuaCATS/luasocket/blob/main/library/socket.lua
----`luasocket`, by Diego Nehab http://w3.impa.br/diego/software/luasocket/. The `.lua` support
----modules from `luasocket` are also preloaded inside the executable,
----there are no external file dependencies.
----https://github.com/lunarmodules/luasocket
----https://lunarmodules.github.io/luasocket/socket.html
 ---https://github.com/TeX-Live/luatex/blob/trunk/source/texk/web2c/luatexdir/luasocket/src/socket.lua
+---Changes to upstream: global socket table
+
+---@meta
+---The definitions are developed in this repository: https://github.com/LuaCATS/luasocket
+
+---
+---https://lunarmodules.github.io/luasocket/socket.html
+---
 ---The socket namespace
 ---
 ---The `socket` namespace contains the core functionality of LuaSocket.
@@ -171,8 +172,6 @@ function socket.newtry(finalizer) end
 function socket.protect(func) end
 
 ---
-
----
 ---Waits for a number of sockets to change status.
 ---
 --- `Recvt` and `sendt` can also
@@ -219,90 +218,118 @@ function socket.protect(func) end
 ---function to block indefinitely.
 function socket.select(recvt, sendt, timeout) end
 
----
-------------------------------------------------------------------------
----Undocumented functions listed in alphabetical order
----
----Document them by sliding them up and place them in the order of the
----official documentation
-------------------------------------------------------------------------
+--- The maximum number of sockets that the select function can handle.
+---@type integer
+socket._SETSIZE = 0
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function socket.try() end
+---Creates an
+---LTN12
+---sink from a stream socket object.
+---
+---`Mode` defines the behavior of the sink. The following
+---options are available:
+---
+---* `"http-chunked"`: sends data through socket after applying the
+---chunked transfer coding, closing the socket when done;
+---* `"close-when-done"`: sends all received data through the
+---socket, closing the socket when done;
+---* `"keep-open"`: sends all received data through the
+---socket, leaving it open when done.
+---
+---`Socket` is the stream socket object used to send the data.
+---
+---The function returns a sink with the appropriate behavior.
+---
+---@param mode 'http-chunked'|'close-when-done'|'keep-open'
+---@param socket any
+function socket.sink(mode, socket) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function socket.__unload() end
+---Drops a number of arguments and returns the remaining.
+---
+---`D` is the number of arguments to drop. `Ret1` to
+---`retN` are the arguments.
+---
+---The function returns `retd+1` to `retN`.
+---
+---Note: This function is useful to avoid creation of dummy variables:
+---
+---
+---```
+----- get the status code and separator from SMTP server reply
+---local code, sep = socket.skip(2, string.find(line, "^(%d%d%d)(.?)"))
+---```
+---
+---@param d integer
+---@param ... any
+function socket.skip(d, ...) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function socket.choose() end
+---Freezes the program execution during a given amount of time.
+---
+---`Time` is the number of seconds to sleep for. If
+---`time` is negative, the function returns immediately.
+---
+---@param time integer
+function socket.sleep(time) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function socket.sink() end
+---Creates an
+---LTN12
+---source from a stream socket object.
+---
+---`Mode` defines the behavior of the source. The following
+---options are available:
+---
+---* `"http-chunked"`: receives data from socket and removes the
+---chunked transfer codingbefore returning the data;
+---* `"by-length"`: receives a fixed number of bytes from the
+---socket. This mode requires the extra argument `length`;
+---* `"until-closed"`: receives data from a socket until the other
+---side closes the connection.
+---
+---`Socket` is the stream socket object used to receive the data.
+---
+---The function returns a source with the appropriate behavior.
+---
+---@param mode 'http-chunked'|'by-length'|'until-closed'
+---@param socket any
+---@param timeout integer
+function socket.source(mode, socket, timeout) end
+
+---The OS value for an invalid socket. This can be used with
+---`tcp:getfd`and `tcp:setfd`methods.
+---@type any
+socket._SOCKETINVALID = nil
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function socket.skip() end
+---
+---Throws an exception in case `ret1` is falsy, using
+---`ret2` as the error message. The exception is supposed to be caught
+---by a `protect`ed function only.
+---
+---`Ret1` to `retN` can be arbitrary
+---arguments, but are usually the return values of a function call
+---nested with `try`.
+---
+---The function returns `ret`1 to `ret`N if
+---`ret`1 is not `nil` or `false`.
+---Otherwise, it calls `error` passing `ret`2 wrapped
+---in a table with metatable used by `protect`to
+---distinguish exceptions from runtime errors.
+---
+---```lua
+----- connects or throws an exception with the appropriate error message
+---c = socket.try(socket.connect("localhost", 80))
+---```
+---
+---@param ... any
+function socket.try(...) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function socket.sleep() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function socket.source() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function socket.tcp() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function socket.tcp4() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function socket.tcp6() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function socket.udp() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function socket.udp4() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function socket.udp6() end
+---This constant has a string describing the current LuaSocket version.
+---@type string
+socket._VERSION = ""
 
 return socket
