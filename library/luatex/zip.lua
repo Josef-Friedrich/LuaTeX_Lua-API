@@ -1,66 +1,21 @@
----@meta
----`luazip`, from the kepler project, http://www.keplerproject.org/luazip/.
----https://github.com/luaforge/luazip
----
 ---https://github.com/TeX-Live/luatex/tree/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/luazip
----
----Suppose we have the following file hierarchy:
----
----```
----/a
----    /b
----        c.zip
----/a2
----    b2.ext2
----/a3.ext3
----/luazip.zip
----```
----
----c.zip contains the file 'd.txt'
----b2.ext2 is a zip file containing the file 'c2/d2.txt'
----a3.ext3 is a zip file containing the file 'b3/c3/d3.txt'
----luazip.zip contains the files 'luazip.h', 'luazip.c', 'Makefile', 'README'
----
----Below is a small sample code displaying the basic use of the library.
----
----```lua
----require "zip"
----
----local zfile, err = zip.open('luazip.zip')
----
------ print the filenames of the files inside the zip
----for file in zfile:files() do
----	print(file.filename)
----end
----
------ open README and print it
----local f1, err = zfile:open('README')
----local s1 = f1:read("*a")
----print(s1)
----
----f1:close()
----zfile:close()
----
------ open d.txt inside c.zip
----local d, err = zip.openfile('a/b/c/d.txt')
----assert(d, err)
----d:close()
----
------ open d2.txt inside b2.ext2
----local d2, err = zip.openfile('a2/b2/c2/d2.txt', "ext2")
----assert(d2, err)
----d2:close()
----
------ open d3.txt inside a3.ext3
----local d3, err = zip.openfile('a3/b3/c3/d3.txt', {"ext2", "ext3"})
----assert(d3, err)
----d3:close()
----```
----
-zip = {}
+---Changes to upstream: global zip table
+
+---@meta
+---The definitions are developed in this repository: https://github.com/LuaCATS/luazip
 
 ---
----https://github.com/TeX-Live/luatex/blob/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/luazip/src/luazip.c#L198-L206
+---History:
+---
+---* keplerproject.org (link not accessible): http://www.keplerproject.org/luazip
+---* luaforge.net (link not accessible): http://luaforge.net/projects/luazip
+---* Forked from the CVS repository on luaforge.net on Jan. 20, 2010: https://github.com/luaforge/luazip
+---* Most active fork: https://github.com/mpeterv/luazip
+---
+---Project on luarocks: https://luarocks.org/modules/mpeterv/luazip
+---HTML documentation: http://mpeterv.github.io/luazip
+zip = {}
+
 ---
 ---@return nil|"closed zip file"|"zip file"
 function zip.type() end
@@ -134,10 +89,10 @@ function zfile:open(filename) end
 ---* `number`: reads a string with up to that number of characters, returning nil
 ---on end of file.
 ---
----@param format1 '*a'|'*l'|'number'
+---@param ... '*a'|'*l'|integer
 ---
 ---@return string|nil
-function zfile:read(format1) end
+function zfile:read(...) end
 
 ---
 ---Unlike the standard I/O read, the format `"*n"` is not supported.
@@ -173,11 +128,5 @@ function zfile:close() end
 ---
 ---will iterate over all lines of the file.
 function zfile:lines() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function zip.close() end
 
 return zip
