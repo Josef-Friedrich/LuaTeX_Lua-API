@@ -1554,7 +1554,7 @@ _N._7_20_length_and_count = 0
 ---@param n Node
 ---@param m? Node
 ---@return integer i
-function node.length( n, m) end
+function node.length(n, m) end
 
 ---
 ---Returns the number of nodes contained in the node list that starts at `n`
@@ -1802,112 +1802,97 @@ function node.insert_after(head, current, new) end
 _N._7_31_first_glyph = 154
 
 ---
----```
----<node> n =
----    node.first_glyph(<node> n)
----<node> n =
----    node.first_glyph(<node> n, <node> m)
----```
----
 ---Returns the first node in the list starting at `n` that is a glyph node
 ---with a subtype indicating it is a glyph, or `nil`. If `m` is given,
 ---processing stops at (but including) that node, otherwise processing stops at the
 ---end of the list.
-function node.first_glyph() end
+---
+---@param n Node
+---@param m? Node
+---
+---@return Node n
+function node.first_glyph(n, m) end
 
 _N._7_32_ligaturing = 154
 
 ---
----```
----<node> h, <node> t, <boolean> success =
----    node.ligaturing(<node> n)
----<node> h, <node> t, <boolean> success =
----    node.ligaturing(<node> n, <node> m)
----```
----
 ---Apply *TeX*-style ligaturing to the specified nodelist. The tail node `m` is
 ---optional. The two returned nodes `h` and `t` are the new head and
 ---tail (both `n` and `m` can change into a new ligature).
-function node.ligaturing() end
+---
+---@param n Node
+---@param m? Node
+---
+---@return Node h
+---@return Node t
+---@return boolean success
+function node.ligaturing(n, m) end
 
 _N._7_33_kerning = 154
 
----
----```
----<node> h, <node> t, <boolean> success =
----    node.kerning(<node> n)
----<node> h, <node> t, <boolean> success =
----    node.kerning(<node> n, <node> m)
----```
 ---
 ---Apply *TeX*-style kerning to the specified node list. The tail node `m` is
 ---optional. The two returned nodes `h` and `t` are the head and tail
 ---(either one of these can be an inserted kern node, because special kernings with
 ---word boundaries are possible).
-function node.kerning() end
+---
+---@param n Node
+---@param m? Node
+---
+---@return Node h
+---@return Node t
+---@return boolean success
+function node.kerning(n, m) end
 
 _N._7_34_unprotect_glyphs = 155
 
 ---
----```
----node.unprotect_glyph(<node> n)
----node.unprotect_glyphs(<node> n,[<node> n])
----```
----
 ---Subtracts 256 from all glyph node subtypes. This and the next function are
 ---helpers to convert from `characters` to `glyphs` during node
 ---processing. The second argument is optional and indicates the end of a range.
-function node.unprotect_glyphs() end
+---@param n Node
+function node.unprotect_glyph(n) end
 
 ---
----```
----node.unprotect_glyph(<node> n)
----node.unprotect_glyphs(<node> n,[<node> n])
----```
----
 ---Subtracts 256 from all glyph node subtypes. This and the next function are
 ---helpers to convert from `characters` to `glyphs` during node
 ---processing. The second argument is optional and indicates the end of a range.
-function node.unprotect_glyph() end
+---
+---@param n Node
+---@param m? Node
+function node.unprotect_glyphs(n, m) end
 
 _N._7_35_protect_glyphs = 155
 
 ---
----```
----node.protect_glyph(<node> n)
----node.protect_glyphs(<node> n,[<node> n])
----```
----
 ---Adds 256 to all glyph node subtypes in the node list starting at `n`,
 ---except that if the value is 1, it adds only 255. The special handling of 1 means
 ---that `characters` will become `glyphs` after subtraction of 256. A
 ---single character can be marked by the singular call. The second argument is
 ---optional and indicates the end of a range.
-function node.protect_glyph() end
+---
+---@param n Node
+function node.protect_glyph(n) end
 
 ---
----```
----node.protect_glyph(<node> n)
----node.protect_glyphs(<node> n,[<node> n])
----```
 ---
 ---Adds 256 to all glyph node subtypes in the node list starting at `n`,
 ---except that if the value is 1, it adds only 255. The special handling of 1 means
 ---that `characters` will become `glyphs` after subtraction of 256. A
 ---single character can be marked by the singular call. The second argument is
 ---optional and indicates the end of a range.
-function node.protect_glyphs() end
+---
+---@param n Node
+---@param m? Node
+function node.protect_glyphs(n, m) end
 
 _N._7_36_last_node = 155
 
 ---
----```
----<node> n =
----    node.last_node()
----```
----
 ---This function pops the last node from *TeX*'s “current list”. It returns
 ---that node, or `nil` if the current list is empty.
+---
+---@return Node n
 function node.last_node() end
 
 _N._7_37_write = 155
@@ -1927,14 +1912,13 @@ function node.write(n) end
 _N._7_38_protrusion_skippable = 155
 
 ---
----```
----<boolean> skippable =
----    node.protrusion_skippable(<node> n)
----```
----
 ---Returns `true` if, for the purpose of line boundary discovery when
 ---character protrusion is active, this node can be skipped.
-function node.protrusion_skippable() end
+---
+---@param n Node
+---
+---@return boolean skippable
+function node.protrusion_skippable(n) end
 
 _N._8_glue = 155
 
@@ -1943,11 +1927,6 @@ _N._8_1_setglue = 155
 ---
 ---You can set the five properties of a glue in one go. Non-numeric values are
 ---equivalent to zero and reset a property.
----
----```
----node.setglue(<node> n)
----node.setglue(<node> n,width,stretch,shrink,stretch_order,shrink_order)
----```
 ---
 ---When you pass values, only arguments that are numbers are assigned so
 ---
@@ -1958,17 +1937,19 @@ _N._8_1_setglue = 155
 ---will only adapt the width and shrink.
 ---
 ---When a list node is passed, you set the glue, order and sign instead.
-function node.setglue() end
+---
+---@param n Node
+---@param width integer|any
+---@param stretch integer|any
+---@param shrink integer|any
+---@param stretch_order integer|any
+---@param shrink_order integer|any
+function node.setglue(n, width, stretch, shrink, stretch_order, shrink_order) end
 
 _N._8_2_getglue = 155
 
 ---
 ---The next call will return 5 values or nothing when no glue is passed.
----
----```
----<integer> width, <integer> stretch, <integer> shrink, <integer> stretch_order,
----    <integer> shrink_order = node.getglue(<node> n)
----```
 ---
 ---When the second argument is false, only the width is returned (this is consistent
 ---with `tex.get`).
@@ -1976,7 +1957,15 @@ _N._8_2_getglue = 155
 ---When a list node is passed, you get back the glue that is set, the order of that
 ---glue and the sign.
 ---
-function node.getglue() end
+---
+---@param n Node
+---
+---@return integer|nil width
+---@return integer|nil stretch
+---@return integer|nil shrink
+---@return integer|nil stretch_order
+---@return integer|nil shrink_order
+function node.getglue(n) end
 
 _N._8_3_is_zero_glue = 156
 
@@ -1984,11 +1973,10 @@ _N._8_3_is_zero_glue = 156
 ---This function returns `true` when the width, stretch and shrink properties
 ---are zero.
 ---
----```
----<boolean> isglue =
----    node.is_zero_glue(<node> n)
----```
-function node.is_zero_glue() end
+---@param n Node
+---
+---@return boolean isglue
+function node.is_zero_glue(n) end
 
 _N._9_attribute_handling = 156
 _N._9_1_attributes = 156
@@ -1997,63 +1985,57 @@ _N._9_3_attr_nodes = 157
 _N._9_4_has_attribute = 157
 
 ---
----```
----<number> v =
----    node.has_attribute(<node> n, <number> id)
----<number> v =
----    node.has_attribute(<node> n, <number> id, <number> val)
----```
----
 ---Tests if a node has the attribute with number `id` set. If `val` is
 ---also supplied, also tests if the value matches `val`. It returns the value,
 ---or, if no match is found, `nil`.
-function node.has_attribute() end
+---
+---@param n Node
+---@param id integer
+---@param val? integer
+---
+---@return integer v
+function node.has_attribute(n, id, val) end
 
 _N._9_5_get_attribute = 157
 
 ---
----```
----<number> v =
----    node.get_attribute(<node> n, <number> id)
----```
 ---
 ---Tests if a node has an attribute with number `id` set. It returns the
 ---value, or, if no match is found, `nil`. If no `id` is given then the
 ---zero attributes is assumed.
-function node.get_attribute() end
+---
+---@param n Node
+---@param id integer
+---
+---@return integer v
+function node.get_attribute(n, id) end
 
 _N._9_6_find_attribute = 157
 
 ---
----```
----<number> v, <node> n =
----    node.find_attribute(<node> n, <number> id)
----```
----
 ---Finds the first node that has attribute with number `id` set. It returns
 ---the value and the node if there is a match and otherwise nothing.
-function node.find_attribute() end
+---
+---@param n Node
+---@param id integer
+---
+---@return integer v
+---@return Node n
+function node.find_attribute(n, id) end
 
 _N._9_7_set_attribute = 157
 
 ---
----```
----node.set_attribute(<node> n, <number> id, <number> val)
----```
----
 ---Sets the attribute with number `id` to the value `val`. Duplicate
 ---assignments are ignored.
-function node.set_attribute() end
+---
+---@param n Node
+---@param id integer
+---@param val? integer
+function node.set_attribute(n, id, val) end
 
 _N._9_8_unset_attribute = 158
 
----
----```
----<number> v =
----    node.unset_attribute(<node> n, <number> id)
----<number> v =
----    node.unset_attribute(<node> n, <number> id, <number> val)
----```
 ---
 ---Unsets the attribute with number `id`. If `val` is also supplied, it
 ---will only perform this operation if the value matches `val`. Missing
@@ -2062,7 +2044,12 @@ _N._9_8_unset_attribute = 158
 ---If the attribute was actually deleted, returns its old value. Otherwise, returns
 ---`nil`.
 ---
-function node.unset_attribute() end
+---@param n Node
+---@param id integer
+---@param val? integer
+---
+---@return integer v
+function node.unset_attribute(n, id, val) end
 
 _N._9_9_slide = 158
 
@@ -2070,18 +2057,17 @@ _N._9_9_slide = 158
 ---This helper makes sure that the node lists is double linked and returns the found
 ---tail node.
 ---
----```
----<node> tail =
----    node.slide(<node> n)
----```
----
 ---After some callbacks automatic sliding takes place. This feature can be turned
 ---off with `node.fix_node_lists(false)` but you better make sure then that
 ---you don't mess up lists. In most cases *TeX* itself only uses `next`
 ---pointers but your other callbacks might expect proper `prev` pointers too.
 ---Future versions of *LuaTeX* can add more checking but this will not influence
 ---usage.
-function node.slide() end
+---
+---@param n Node
+---
+---@return Node tail
+function node.slide(n) end
 
 _N._9_10_check_discretionaries = 158
 
@@ -2093,14 +2079,11 @@ _N._9_10_check_discretionaries = 158
 ---the linebreak routine kicks in. You can call this function to check the list for
 ---issues with disc nodes.
 ---
----```
----node.check_discretionary(<node> n)
----node.check_discretionaries(<node> head)
----```
----
 ---The plural variant runs over all disc nodes in a list, the singular variant
 ---checks one node only (it also checks if the node is a disc node).
-function node.check_discretionaries() end
+---
+---@param head Node
+function node.check_discretionaries(head) end
 
 ---
 ---When you fool around with disc nodes you need to be aware of the fact that they
@@ -2110,14 +2093,8 @@ function node.check_discretionaries() end
 ---the linebreak routine kicks in. You can call this function to check the list for
 ---issues with disc nodes.
 ---
----```
----node.check_discretionary(<node> n)
----node.check_discretionaries(<node> head)
----```
----
----The plural variant runs over all disc nodes in a list, the singular variant
----checks one node only (it also checks if the node is a disc node).
-function node.check_discretionary() end
+---@param n Node
+function node.check_discretionary(n) end
 
 _N._9_11_flatten_discretionaries = 158
 
@@ -2125,10 +2102,11 @@ _N._9_11_flatten_discretionaries = 158
 ---This function will remove the discretionaries in the list and inject the replace
 ---field when set.
 ---
----```
----<node> head, count = node.flatten_discretionaries(<node> n)
----```
-function node.flatten_discretionaries() end
+---@param n Node
+---
+---@return Node head
+---@return integer count
+function node.flatten_discretionaries(n) end
 
 _N._9_12_family_font = 158
 
@@ -2138,11 +2116,10 @@ _N._9_12_family_font = 158
 ---normal font field or getter because it will resolve the family automatically for
 ---noads.
 ---
----```
----<integer> id =
----    node.family_font(<integer> fam)
----```
-function node.family_font() end
+---@param fam integer
+---
+---@return integer id
+function node.family_font(fam) end
 
 _N._10_two_access_models = 159
 
