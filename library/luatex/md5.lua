@@ -1,10 +1,16 @@
----@meta
-
----
---- `md5`, by Roberto Ierusalimschy http://www.inf.puc-rio.br/~roberto/md5/md5-5/md5.html.
----https://github.com/latex3/lualibs/blob/main/lualibs-md5.lua
 ---https://github.com/TeX-Live/luatex/tree/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/luamd5
 ---https://github.com/TeX-Live/luatex/blob/517487384d3b0b4b003fb3180ea415f52eeb5f5f/source/texk/web2c/luatexdir/lua/luatex-core.lua#L220-L241
+---Changes to upstream:
+---* local md5 table
+---* additional function md5.sumHEXA()
+
+---@meta
+---The definitions are developed in this repository: https://github.com/LuaCATS/md5
+
+---
+---`md5`, by Roberto Ierusalimschy http://www.inf.puc-rio.br/~roberto/md5/md5-5/md5.html.
+---
+---This library offers basic cryptographic facilities for Lua 5.0: a hash (digest) function, an a pair crypt/decrypt.
 ---
 ---All functions are registered inside a table `md5`.
 md5 = {}
@@ -64,7 +70,7 @@ function md5.sumHEXA(message) end
 ---@param message string # An arbitrary binary string to be encrypted.
 ---@param key string # An arbitrary binary string to be used as a key.
 ---@param seed? string # An optional arbitrary binary string to be used as a seed. If no seed is provided, the function uses the result of `time()` as a seed.
-------
+---
 ---__Example:__
 ---
 ---```lua
