@@ -1,1 +1,1 @@
-https://github.com/TeX-Live/luatex/commit/3f14129c06359e1a06dd2f305c8334a2964149d3
+https://github.com/TeX-Live/luatex/commit/f52b099f3e01d53dc03b315e1909245c3d5418d3

@@ -35,7 +35,7 @@
 ---There are eight additional little endian variants for the `cardinal[1-4]`
 ---and `integer[1-4]` readers: `cardinal[1-4]le` and `integer[1-4]le`.
 ---
---- https://github.com/TeX-Live/luatex/blob/eee644d052c295920d378ef579a96fcca497af9a/source/texk/web2c/luatexdir/lua/liolibext.c
+--- https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c
 fio = {}
 
 ---
