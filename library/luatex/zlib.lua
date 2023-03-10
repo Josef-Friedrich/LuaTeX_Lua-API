@@ -56,6 +56,7 @@ function zlib.compress(buffer, level, method, windowBits, memLevel, strategy) en
 ---@return string
 function zlib.decompress(buffer, windowBits) end
 
+---
 ---@class Sink
 local Sink = {}
 

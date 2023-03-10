@@ -1,6 +1,7 @@
 ---https://github.com/TeX-Live/luatex/blob/trunk/source/texk/web2c/luatexdir/luasocket/src/socket.lua
 ---Changes to upstream: global socket table
 
+---
 ---@meta
 ---The definitions are developed in this repository: https://github.com/LuaCATS/luasocket
 
@@ -218,6 +219,7 @@ function socket.protect(func) end
 ---function to block indefinitely.
 function socket.select(recvt, sendt, timeout) end
 
+---
 --- The maximum number of sockets that the select function can handle.
 ---@type integer
 socket._SETSIZE = 0
@@ -254,7 +256,6 @@ function socket.sink(mode, socket) end
 ---The function returns `retd+1` to `retN`.
 ---
 ---Note: This function is useful to avoid creation of dummy variables:
----
 ---
 ---```
 ----- get the status code and separator from SMTP server reply
@@ -298,12 +299,12 @@ function socket.sleep(time) end
 ---@param timeout integer
 function socket.source(mode, socket, timeout) end
 
+---
 ---The OS value for an invalid socket. This can be used with
 ---`tcp:getfd`and `tcp:setfd`methods.
 ---@type any
 socket._SOCKETINVALID = nil
 
----
 ---
 ---Throws an exception in case `ret1` is falsy, using
 ---`ret2` as the error message. The exception is supposed to be caught

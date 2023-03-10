@@ -1,6 +1,7 @@
 ---https://github.com/TeX-Live/luatex/tree/16f2f7c88eeef85ce988cbe595481fa714f5dfc9/source/texk/web2c/luatexdir/luazip
 ---Changes to upstream: global zip table
 
+---
 ---@meta
 ---The definitions are developed in this repository: https://github.com/LuaCATS/luazip
 

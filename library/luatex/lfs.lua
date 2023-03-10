@@ -2,12 +2,15 @@
 ---https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafilesystem/src/lfs.c
 ---Changes to upstream: global lfs table
 
+---
 ---@meta
 
+---
 ---@class LuaFileSystem.Attributes
 ---@field [LuaFileSystem.AttributeName] any
 ---@field ['mode'] LuaFileSystem.AttributeMode
 
+---
 ---@alias LuaFileSystem.AttributeMode
 ---|'file'
 ---|'directory'
@@ -17,6 +20,7 @@
 ---|"block device"
 ---|"named pipe"
 
+---
 ---@alias LuaFileSystem.AttributeName
 ---|'dev' -- on Unix systems, this represents the device that the inode resides on. On Windows systems, represents the drive number of the disk containing the file
 ---|'ino' -- on Unix systems, this represents the inode number. On Windows systems this has no meaning
@@ -33,6 +37,7 @@
 ---|'blocks' -- block allocated for file; (Unix only)
 ---|'blksize' -- optimal file system I/O blocksize; (Unix only)
 
+---
 ---@class LuaFileSystem
 lfs = {}
 
@@ -63,6 +68,7 @@ In case of any errors it returns nil and the error message. In particular, if th
 ---@return boolean, string
 function lfs.lock_dir(path, seconds_stale) end
 
+---
 ---Returns a string with the current working directory or nil plus an error string.
 ---@return string
 function lfs.currentdir() end
