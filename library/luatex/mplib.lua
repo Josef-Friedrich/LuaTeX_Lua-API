@@ -98,17 +98,14 @@ _N._11_2_2_statistics = 233
 ---unless the available system memory is exhausted.
 ---
 ---* Corresponding C source code: [lmplib.c#L771-L792](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L771-L792)
+---
 ---@return MpStats
 function mplib.statistics() end
 
 _N._11_2_3_execute = 233
 
 ---
----You can ask the *MetaPost* interpreter to run a chunk of code by calling
----
----```
----<table> rettable = execute(mp,"metapost code")
----```
+---You can ask the *MetaPost* interpreter to run a chunk of code by calling mp.execute()
 ---
 ---for various bits of *MetaPost* language input. Be sure to check the `rettable.status` (see below) because when a fatal *MetaPost* error occurs the
 ---*MPlib* instance will become unusable thereafter.
@@ -130,10 +127,6 @@ function mplib.execute(mp, code) end
 
 _N._11_2_4_finish = 233
 
----
----```
----<table> rettable = finish(mp)
----```
 ---
 ---If for some reason you want to stop using an *MPlib* instance while processing is
 ---not yet actually done, you can call `finish`. Eventually, used memory
@@ -344,6 +337,7 @@ _N._11_2_7_Pens_and_pen_info = 237
 ---@field ty integer # `y` offset
 ---
 ---* Corresponding C source code: [lmplib.c#L1474-L1539](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L1474-L1539)
+---
 ---@return PenInfo
 function mplib.pen_info() end
 
@@ -360,7 +354,13 @@ _N._11_2_8_1_char_width = 238
 ---```
 ---
 ---* Corresponding C source code: [lmplib.c#L748-L751](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L748-L751)
-function mplib.char_width() end
+---
+---@param mp MpInstance
+---@param fontname string
+---@param char string
+---
+---@return number w
+function mplib.char_width(mp, fontname, char) end
 
 _N._11_2_8_2_char_height = 238
 
@@ -369,12 +369,14 @@ _N._11_2_8_2_char_height = 238
 ---is the same name as the argument to `infont`; the `char` is a glyph
 ---id in the range 0 to 255; the returned `w` is in AFM units.
 ---
----```
----<number> w = char_height(mp,<string> fontname, <number> char)
----```
----
 ---* Corresponding C source code: [lmplib.c#L758-L761](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L758-L761)
-function mplib.char_height() end
+---
+---@param mp MpInstance
+---@param fontname string
+---@param char string
+---
+---@return number w
+function mplib.char_height(mp, fontname, char) end
 
 _N._11_2_8_3_char_depth = 238
 
@@ -383,50 +385,56 @@ _N._11_2_8_3_char_depth = 238
 ---is the same name as the argument to `infont`; the `char` is a glyph
 ---id in the range 0 to 255; the returned `w` is in AFM units.
 ---
----```
----<number> w = char_depth(mp,<string> fontname, <number> char)
----```
----
 ---* Corresponding C source code: [lmplib.c#L753-L756](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L753-L756)
-function mplib.char_depth() end
+---
+---@param mp MpInstance
+---@param fontname string
+---@param char string
+---
+---@return number w
+function mplib.char_depth(mp, fontname, char) end
 
 _N._11_2_8_4_get_boolean_numeric_string_path = 238
 
 ---
----```
----<boolean> w = get_boolean(mp,<string> name)
----```
----
 ---* Corresponding C source code: [lmplib.c#L497-L510](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L497-L510)
-function mplib.get_boolean() end
+---
+---@param mp MpInstance
+---@param name string
+---
+---@return boolean w
+function mplib.get_boolean(mp, name) end
 
 ---
 ---Not documented alias for get_numeric
 ---function mplib.get_number() end
 
 ---
----```
----<number>  n = get_numeric(mp,<string> name)
----```
----
 ---* Corresponding C source code: [lmplib.c#L482-L495](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L482-L495)
-function mplib.get_numeric() end
-
 ---
----```
----<string>  s = get_string (mp,<string> name)
----```
+---@param mp MpInstance
+---@param name string
+---
+---@return integer n
+function mplib.get_numeric(mp, name) end
+
 ---
 ---* Corresponding C source code: [lmplib.c#L512-L528](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L512-L528)
-function mplib.get_string() end
+---
+---@param mp MpInstance
+---@param name string
+---
+---@return string s
+function mplib.get_string(mp, name) end
 
 ---
----```
----<table>   p = get_path   (mp,<string> name)
----```
----
 ---* Corresponding C source code: [lmplib.c#L1649-L1693](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L1649-L1693)
-function mplib.get_path() end
+---
+---@param mp MpInstance
+---@param name string
+---
+---@return table p
+function mplib.get_path(mp, name) end
 
 ---
 ---* Corresponding C source code: [lmplib.c#L763-L769](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L763-L769)

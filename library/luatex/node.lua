@@ -1358,6 +1358,7 @@ _N._7_12_current_attr = 0
 ---attribute list, not a copy thereof. Therefore, changing any of the attributes in
 ---the list will change these values for all nodes that have the current attribute
 ---list assigned to them.
+---
 ---@return Node m
 function node.current_attr() end
 
@@ -1379,6 +1380,7 @@ _N._7_13_hpack = 0
 ---@param w? integer
 ---@param info? string
 ---@param dir? string
+---
 ---@return Node n
 ---@return integer b
 function node.hpack(n, w, info, dir) end
@@ -1392,10 +1394,12 @@ _N._7_14_vpack = 0
 ---
 ---The second return value is the badness of the generated box. See the description
 ---of `hpack` for a few memory allocation caveats.
+---
 ---@param n Node
 ---@param w? integer
 ---@param info? string
 ---@param dir? string
+---
 ---@return Node n
 ---@return integer b
 function node.vpack(n, w, info, dir) end
@@ -1511,6 +1515,7 @@ function node.dimensions(glue_set, glue_sign, glue_order, n, t, dir) end
 ---@param parent Node
 ---@param first Node
 ---@param last? Node
+---
 ---@return integer w # scaled points
 ---@return integer h # scaled points
 ---@return integer d # scaled points
@@ -1526,6 +1531,7 @@ _N._7_17_mlist_to_hlist = 0
 ---@param n Node
 ---@param display_type string
 ---@param penalties boolean
+---
 ---@return Node h
 function node.mlist_to_hlist(n, display_type, penalties) end
 
@@ -1553,6 +1559,7 @@ _N._7_20_length_and_count = 0
 ---
 ---@param n Node
 ---@param m? Node
+---
 ---@return integer i
 function node.length(n, m) end
 
@@ -1561,9 +1568,11 @@ function node.length(n, m) end
 ---that have a matching `id` field. If `m` is also supplied, counting
 ---stops at `m` instead of at the end of the list. The node `m` is not
 ---counted. This function also accept string `id`'s.
+---
 ---@param id integer
 ---@param n Node
 ---@param m? Node
+---
 ---@return integer i
 function node.count(id, n, m) end
 
@@ -1579,7 +1588,9 @@ function node.is_char(n) end
 ---
 ---The subtype of a glyph node signals if the glyph is already turned into a character reference
 ---or not.
+---
 ---@param n Node
+---
 ---@return boolean b
 function node.is_glyph(n) end
 
@@ -1629,7 +1640,9 @@ _N._7_22_traverse = 0
 ---
 ---If the above is unclear to you, see the section “For Statement” in the
 ---*Lua* Reference Manual.
+---
 ---@param n Node
+---
 ---@return Node t
 ---@return integer id
 ---@return integer subtype
@@ -1664,8 +1677,10 @@ _N._7_23_traverse_id = 0
 ---   return t
 --- end
 ---```
+---
 ---@param id integer
 ---@param n Node
+---
 ---@return Node t
 ---@return integer subtype
 function node.traverse_id(id, n) end
@@ -1676,62 +1691,63 @@ _N._7_24_traverse_char_and_traverse_glyph = 0
 ---The `traverse_char` iterator loops over the `glyph` nodes in a list.
 ---Only nodes with a subtype less than 256 are seen.
 ---
----```
----<node> n, font, char =
----    node.traverse_char(<node> n)
----```
-function node.traverse_char() end
+---@param n Node
+---
+---@return Node n
+---@return integer font
+---@return integer char
+function node.traverse_char(n) end
 
 ---
 ---The `traverse_glyph` iterator loops over a list and returns the list and
 ---filters all glyphs:
 ---
----```
----<node> n, font, char =
----    node.traverse_glyph(<node> n)
----```
+---@param n Node
 ---
-function node.traverse_glyph() end
+---@return Node n
+---@return integer font
+---@return integer char
+function node.traverse_glyph(n) end
 
 _N._7_25_traverse_list = 0
 
 ---
 ---This iterator loops over the `hlist` and `vlist` nodes in a list.
 ---
----```
----<node> n, id, subtype, list =
----    node.traverse_list(<node> n)
----```
----
 ---The four return values can save some time compared to fetching these fields but
 ---in practice you seldom need them all. So consider it a (side effect of
 ---experimental) convenience.
-function node.traverse_list() end
+---
+---@param n Node
+---
+---@return Node n
+---@return integer id
+---@return integer subtype
+---@return Node list
+function node.traverse_list(n) end
 
 _N._7_26_has_glyph = 0
 
 ---
----This function returns the first glyph or disc node in the given list:
+---This function returns the first glyph or disc node in the given list.
 ---
----```
----<node> n =
----    node.has_glyph(<node> n)
----```
-function node.has_glyph() end
+---@param n Node
+---
+---@return Node n
+function node.has_glyph(n) end
 
 _N._7_27_end_of_math = 0
 
----
----```
----<node> t =
----    node.end_of_math(<node> start)
----```
 ---
 ---Looks for and returns the next `math_node` following the `start`. If
 ---the given node is a math end node this helper returns that node, else it follows
 ---the list and returns the next math endnote. If no such node is found nil is
 ---returned.
-function node.end_of_math() end
+---
+---@param n Node
+---
+---@return Node t
+function node.end_of_math(n) end
 
 _N._7_28_remove = 153
 
