@@ -21,4 +21,7 @@ dist: fix_lua_docstrings
 	resources/remove-navigation-table.py
 	rsync -av --delete dist/luatex/ $(HOME)/repos/lua/luatex/library/
 
+test:
+	 luatex --luaonly examples/unicode/all.lua
+
 .PHONY: all fix_lua_docstrings convert_tex_to_lua debug print_namespace generate_doc
