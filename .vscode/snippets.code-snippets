@@ -83,5 +83,11 @@
     "prefix": ["param"],
     "body": ["", "---", "---@param $0"],
     "description": "@param"
+  },
+
+  "direct": {
+    "prefix": ["direct"],
+    "body": ["node.direct.$0 = node.$0"],
+    "description": "node.direct.xxx = node.xxx"
   }
 }

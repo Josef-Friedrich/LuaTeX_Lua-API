@@ -43,6 +43,23 @@ _N = {}
 ---for tracing.
 node = {}
 
+---Deep down in TEX a node has a number which is a numeric entry in a memory table. In fact, this
+---model, where TEX manages memory is real fast and one of the reasons why plugging in callbacks
+---that operate on nodes is quite fast too. Each node gets a number that is in fact an index in the
+---memory table and that number often is reported when you print node related information. You
+---go from userdata nodes and there numeric references and back with:
+---
+---```
+---<integer> d = node.todirect(<node> n)
+---<node> n = node.tonode(<integer> d)
+---```
+---
+---The userdata model is rather robust as it is a virtual interface with some additional checking
+---while the more direct access which uses the node numbers directly. However, even with userdata
+---you can get into troubles when you free nodes that are no longer allocated or mess up lists. if
+---you apply tostring to a node you see its internal (direct) number and id.
+node.direct = {}
+
 ---
 ---*LuaTeX* only understands 4 of the 16 direction specifiers of aleph: `TLT` (latin), `TRT` (arabic), `RTT` (cjk), `LTL` (mongolian). All other direction specifiers generate an error. In addition to a keyword driven model we also provide an integer driven one.
 ---@alias DirectionSpecifier
@@ -458,6 +475,19 @@ _N.glue = 12
 ---@field stretch_order integer # factor applied to stretch amount
 ---@field shrink integer # extra (negative) displacement or shrink amount
 ---@field shrink_order integer # factor applied to shrink amount
+
+---
+---The effective_glue function that takes a glue node and a parent (hlist or vlist) returns the
+---effective width of that glue item. When you pass true as third argument the value will be
+---rounded.
+---
+---@param glue GlyphNode
+---@param parent HlistNode|VlistNode
+---@param round? boolean
+---
+---@return integer
+function node.effective_glue(glue, parent, round) end
+node.direct.effective_glue = node.effective_glue
 
 _N.kern = 13
 
@@ -1270,31 +1300,40 @@ _N._7_9_free_flush_node_list = 146
 ---The `free` function returns the next field of the freed node
 ---
 ---@param n Node
+---
 ---@return Node next
 function node.free(n) end
+node.direct.free = node.free
 
 ---
 ---while the
 ---`flush_node` alternative returns nothing.
+---
 ---@param n Node
 function node.flush_node(n) end
+node.direct.flush_node = node.flush_node
 
 ---
 ---A list starting with node `n` can be flushed from *TeX*'s memory too. Be
 ---careful: no checks are done on whether any of these nodes is still pointed to
 ---from a register or some `next` field: it is up to you to make sure that the
 ---internal data structures remain correct.
+---
 ---@param n Node
 function node.flush_list(n) end
+node.direct.flush_list = node.flush_list
 
 _N._7_10_copy_copy_list = 147
 
 ---
 ---This creates a deep copy of node `n`, including all nested lists as in the case
 ---of a hlist or vlist node. Only the `next` field is not copied.
+---
 ---@param n Node
+---
 ---@return Node m
 function node.copy(n) end
+node.direct.copy = node.copy
 
 ---
 ---A deep copy of the node list that starts at `n` can be created too. If
@@ -1304,24 +1343,31 @@ function node.copy(n) end
 ---need to copy attribute lists as when you do assignments to the `attr` field
 ---or make changes to specific attributes, the needed copying and freeing takes
 ---place automatically.
+---
 ---@param n Node
 ---@param m? Node
+---
 ---@return Node m
 function node.copy_list(n, m) end
+node.direct.copy_list = node.copy_list
 
 _N._7_11_prev_next = 147
 
 ---
 ---These returns the node preceding the given node, or `nil` if
 ---there is no such node.
+---
 ---@param n Node
+---
 ---@return Node m
 function node.prev(n) end
 
 ---
 ---These returns the node following the given node, or `nil` if
 ---there is no such node.
+---
 ---@param n Node
+---
 ---@return Node m
 function node.next(n) end
 
@@ -1361,6 +1407,7 @@ _N._7_12_current_attr = 0
 ---
 ---@return Node m
 function node.current_attr() end
+node.direct.current_attr = node.current_attr
 
 _N._7_13_hpack = 0
 
@@ -1434,6 +1481,7 @@ _N._7_16_dimensions_rangedimensions = 149
 ---@return integer h # scaled points
 ---@return integer d # scaled points
 function node.dimensions(n, dir) end
+node.direct.dimensions = node.dimensions
 
 ---
 ---This function calculates the natural in-line dimensions of the node list starting
@@ -1575,6 +1623,7 @@ function node.length(n, m) end
 ---
 ---@return integer i
 function node.count(id, n, m) end
+node.direct.count = node.count
 
 _N._7_21_is_char_and_is_glyph = 0
 
@@ -1748,6 +1797,7 @@ _N._7_27_end_of_math = 0
 ---
 ---@return Node t
 function node.end_of_math(n) end
+node.direct.end_of_math = node.end_of_math
 
 _N._7_28_remove = 153
 
@@ -1828,6 +1878,7 @@ _N._7_31_first_glyph = 154
 ---
 ---@return Node n
 function node.first_glyph(n, m) end
+node.direct.first_glyph = node.first_glyph
 
 _N._7_32_ligaturing = 154
 
@@ -2025,6 +2076,7 @@ _N._9_5_get_attribute = 157
 ---
 ---@return integer v
 function node.get_attribute(n, id) end
+node.direct.get_attribute = node.get_attribute
 
 _N._9_6_find_attribute = 157
 
@@ -2038,6 +2090,7 @@ _N._9_6_find_attribute = 157
 ---@return integer v
 ---@return Node n
 function node.find_attribute(n, id) end
+node.direct.find_attribute = node.find_attribute
 
 _N._9_7_set_attribute = 157
 
@@ -2100,6 +2153,7 @@ _N._9_10_check_discretionaries = 158
 ---
 ---@param head Node
 function node.check_discretionaries(head) end
+node.direct.check_discretionaries = node.check_discretionaries
 
 ---
 ---When you fool around with disc nodes you need to be aware of the fact that they
@@ -2111,6 +2165,7 @@ function node.check_discretionaries(head) end
 ---
 ---@param n Node
 function node.check_discretionary(n) end
+node.direct.check_discretionary = node.check_discretionary
 
 _N._9_11_flatten_discretionaries = 158
 
@@ -2123,6 +2178,7 @@ _N._9_11_flatten_discretionaries = 158
 ---@return Node head
 ---@return integer count
 function node.flatten_discretionaries(n) end
+node.direct.flatten_discretionaries = node.flatten_discretionaries
 
 _N._9_12_family_font = 158
 
@@ -2211,92 +2267,6 @@ function node.getsubtype() end
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function node.getwhd() end
 
-node.direct = {}
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.check_discretionaries() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.check_discretionary() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.copy() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.copy_list() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.count() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.current_attr() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.dimensions() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.effective_glue() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.end_of_math() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.find_attribute() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.first_glyph() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.flatten_discretionaries() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.flush_list() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.flush_node() end
-
 ---
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
@@ -2304,28 +2274,27 @@ function node.direct.flush_node() end
 function node.direct.flush_properties_table() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.free() end
+---You can set and query the syncTeX fields, a file number aka tag and a line
+---number, for a glue, kern, hlist, vlist, rule and math nodes as well as glyph
+---nodes (although this last one is not used in native syncTeX).
+---
+---Of course you need to know what you're doing as no checking on sane values takes
+---place. Also, the synctex interpreter used in editors is rather peculiar and has
+---some assumptions (heuristics).
+
+---@param n Node
+---
+---@return integer f
+---@return integer l
+function node.direct.get_synctex_fields(n) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.get_attribute() end
-
+---* Corresponding C source code: [lnodelib.c#L817-L826](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L817-L826)
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.get_synctex_fields() end
-
+---@param n Node
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.getattributelist() end
+---@return integer
+function node.direct.getattributelist(n) end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -2674,16 +2643,24 @@ function node.direct.set_attribute() end
 function node.direct.set_properties_mode() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.set_synctex_fields() end
+---You can set and query the syncTeX fields, a file number aka tag and a line
+---number, for a glue, kern, hlist, vlist, rule and math nodes as well as glyph
+---nodes (although this last one is not used in native syncTeX).
+---
+---Of course you need to know what you're doing as no checking on sane values takes
+---place. Also, the synctex interpreter used in editors is rather peculiar and has
+---some assumptions (heuristics).
+---
+---@param f integer
+---@param l integer
+function node.direct.set_synctex_fields(f, l) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.setattributelist() end
+---* Corresponding C source code: [lnodelib.c#L828-L854](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L828-L854)
+---
+---@param n Node
+---@param attr_list integer
+function node.direct.setattributelist(n, attr_list) end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -3024,18 +3001,6 @@ function node.set_properties_mode() end
 ---Document them by sliding them up and place them in the order of the
 ---official documentation
 ------------------------------------------------------------------------
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.dimensions() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.effective_glue() end
 
 ---
 ---Warning! Undocumented code!<p>
