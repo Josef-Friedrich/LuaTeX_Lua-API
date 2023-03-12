@@ -1170,6 +1170,7 @@ _N._7_2_is_node = 145
 ---
 ---@return boolean|integer t
 function node.is_node(item) end
+node.direct.is_node = node.is_node
 
 _N._7_3_types_whatsits = 145
 
@@ -1262,7 +1263,15 @@ function node.fields(id, subtype) end
 
 _N._7_7_has_field = 146
 
-function node.has_field() end
+---
+---This function returns a boolean that is only true if `n` is actually a node, and it has the field.
+---
+---@param n Node
+---@param field string
+---
+---@return boolean t
+function node.has_field(n, field) end
+node.direct.has_field = node.has_field
 
 _N._7_8_new = 146
 
@@ -1284,6 +1293,7 @@ _N._7_8_new = 146
 ---
 ---@return Node
 function node.new(id, subtype) end
+node.direct.new = node.new
 
 _N._7_9_free_flush_node_list = 146
 
@@ -1432,6 +1442,7 @@ _N._7_13_hpack = 0
 ---@return Node n
 ---@return integer b
 function node.hpack(n, w, info, dir) end
+node.direct.hpack = node.hpack
 
 _N._7_14_vpack = 0
 
@@ -1569,6 +1580,7 @@ function node.dimensions(glue_set, glue_sign, glue_order, n, t, dir) end
 ---@return integer h # scaled points
 ---@return integer d # scaled points
 function node.rangedimensions(parent, first, last) end
+node.direct.rangedimensions = node.rangedimensions
 
 _N._7_17_mlist_to_hlist = 0
 
@@ -1598,6 +1610,7 @@ _N._7_19_tail = 152
 ---
 ---@return Node m
 function node.tail(n) end
+node.direct.tail = node.tail
 
 _N._7_20_length_and_count = 0
 
@@ -1611,6 +1624,7 @@ _N._7_20_length_and_count = 0
 ---
 ---@return integer i
 function node.length(n, m) end
+node.direct.length = node.length
 
 ---
 ---Returns the number of nodes contained in the node list that starts at `n`
@@ -1634,6 +1648,7 @@ _N._7_21_is_char_and_is_glyph = 0
 ---@param n Node
 ---@return boolean b
 function node.is_char(n) end
+node.direct.is_char = node.is_char
 
 ---
 ---The subtype of a glyph node signals if the glyph is already turned into a character reference
@@ -1643,14 +1658,10 @@ function node.is_char(n) end
 ---
 ---@return boolean b
 function node.is_glyph(n) end
+node.direct.is_glyph = node.is_glyph
 
 _N._7_22_traverse = 0
 
----
----```
----<node> t, id, subtype =
----    node.traverse(<node> n)
----```
 ---
 ---This is a *Lua* iterator that loops over the node list that starts at `n`.
 ---Typically code looks like this:
@@ -1697,16 +1708,10 @@ _N._7_22_traverse = 0
 ---@return integer id
 ---@return integer subtype
 function node.traverse(n) end
-
----
+node.direct.traverse = node.traverse
 
 _N._7_23_traverse_id = 0
 
----
----```
----<node> t, subtype =
----    node.traverse_id(<number> id, <node> n)
----```
 ---
 ---This is an iterator that loops over all the nodes in the list that starts at
 ---`n` that have a matching `id` field.
@@ -1734,6 +1739,7 @@ _N._7_23_traverse_id = 0
 ---@return Node t
 ---@return integer subtype
 function node.traverse_id(id, n) end
+node.direct.traverse_id = node.traverse_id
 
 _N._7_24_traverse_char_and_traverse_glyph = 0
 
@@ -1747,6 +1753,7 @@ _N._7_24_traverse_char_and_traverse_glyph = 0
 ---@return integer font
 ---@return integer char
 function node.traverse_char(n) end
+node.direct.traverse_char = node.traverse_char
 
 ---
 ---The `traverse_glyph` iterator loops over a list and returns the list and
@@ -1758,6 +1765,7 @@ function node.traverse_char(n) end
 ---@return integer font
 ---@return integer char
 function node.traverse_glyph(n) end
+node.direct.traverse_glyph = node.traverse_glyph
 
 _N._7_25_traverse_list = 0
 
@@ -1785,6 +1793,7 @@ _N._7_26_has_glyph = 0
 ---
 ---@return Node n
 function node.has_glyph(n) end
+node.direct.has_glyph = node.has_glyph
 
 _N._7_27_end_of_math = 0
 
@@ -1824,6 +1833,7 @@ _N._7_28_remove = 153
 ---@return Node|nil current # The node following the `current` in the calling
 ---argument.
 function node.remove(head, current) end
+node.direct.remove = node.remove
 
 _N._7_29_insert_before = 153
 
@@ -1845,6 +1855,7 @@ _N._7_29_insert_before = 153
 ---@return Node head
 ---@return Node new
 function node.insert_before(head, current, new) end
+node.direct.insert_before = node.insert_before
 
 _N._7_30_insert_after = 153
 
@@ -1865,6 +1876,7 @@ _N._7_30_insert_after = 153
 ---@return Node head
 ---@return Node new
 function node.insert_after(head, current, new) end
+node.direct.insert_after = node.insert_after
 
 _N._7_31_first_glyph = 154
 
@@ -1895,6 +1907,7 @@ _N._7_32_ligaturing = 154
 ---@return Node t
 ---@return boolean success
 function node.ligaturing(n, m) end
+node.direct.ligaturing = node.ligaturing
 
 _N._7_33_kerning = 154
 
@@ -1911,6 +1924,7 @@ _N._7_33_kerning = 154
 ---@return Node t
 ---@return boolean success
 function node.kerning(n, m) end
+node.direct.kerning = node.kerning
 
 _N._7_34_unprotect_glyphs = 155
 
@@ -1920,6 +1934,7 @@ _N._7_34_unprotect_glyphs = 155
 ---processing. The second argument is optional and indicates the end of a range.
 ---@param n Node
 function node.unprotect_glyph(n) end
+node.direct.unprotect_glyph = node.unprotect_glyph
 
 ---
 ---Subtracts 256 from all glyph node subtypes. This and the next function are
@@ -1929,6 +1944,7 @@ function node.unprotect_glyph(n) end
 ---@param n Node
 ---@param m? Node
 function node.unprotect_glyphs(n, m) end
+node.direct.unprotect_glyphs = node.unprotect_glyphs
 
 _N._7_35_protect_glyphs = 155
 
@@ -1941,6 +1957,7 @@ _N._7_35_protect_glyphs = 155
 ---
 ---@param n Node
 function node.protect_glyph(n) end
+node.direct.protect_glyph = node.protect_glyph
 
 ---
 ---Adds 256 to all glyph node subtypes in the node list starting at `n`,
@@ -1952,6 +1969,7 @@ function node.protect_glyph(n) end
 ---@param n Node
 ---@param m? Node
 function node.protect_glyphs(n, m) end
+node.direct.protect_glyphs = node.protect_glyphs
 
 _N._7_36_last_node = 155
 
@@ -1959,8 +1977,9 @@ _N._7_36_last_node = 155
 ---This function pops the last node from *TeX*'s “current list”. It returns
 ---that node, or `nil` if the current list is empty.
 ---
----@return Node n
+---@return Node|nil n
 function node.last_node() end
+node.direct.last_node = node.last_node
 
 _N._7_37_write = 155
 
@@ -1986,6 +2005,7 @@ _N._7_38_protrusion_skippable = 155
 ---
 ---@return boolean skippable
 function node.protrusion_skippable(n) end
+node.direct.protrusion_skippable = node.protrusion_skippable
 
 _N._8_glue = 155
 
@@ -2012,6 +2032,7 @@ _N._8_1_setglue = 155
 ---@param stretch_order integer|any
 ---@param shrink_order integer|any
 function node.setglue(n, width, stretch, shrink, stretch_order, shrink_order) end
+node.direct.setglue = node.setglue
 
 _N._8_2_getglue = 155
 
@@ -2043,6 +2064,7 @@ _N._8_3_is_zero_glue = 156
 ---
 ---@return boolean isglue
 function node.is_zero_glue(n) end
+node.direct.is_zero_glue = node.is_zero_glue
 
 _N._9_attribute_handling = 156
 _N._9_1_attributes = 156
@@ -2061,6 +2083,7 @@ _N._9_4_has_attribute = 157
 ---
 ---@return integer v
 function node.has_attribute(n, id, val) end
+node.direct.has_attribute = node.has_attribute
 
 _N._9_5_get_attribute = 157
 
@@ -2100,6 +2123,7 @@ _N._9_7_set_attribute = 157
 ---@param id integer
 ---@param val? integer
 function node.set_attribute(n, id, val) end
+node.direct.set_attribute = node.set_attribute
 
 _N._9_8_unset_attribute = 158
 
@@ -2117,6 +2141,7 @@ _N._9_8_unset_attribute = 158
 ---
 ---@return integer v
 function node.unset_attribute(n, id, val) end
+node.direct.unset_attribute = node.unset_attribute
 
 _N._9_9_slide = 158
 
@@ -2135,6 +2160,7 @@ _N._9_9_slide = 158
 ---
 ---@return Node tail
 function node.slide(n) end
+node.direct.slide = node.slide
 
 _N._9_10_check_discretionaries = 158
 
@@ -2193,6 +2219,20 @@ function node.family_font(fam) end
 
 _N._10_two_access_models = 159
 
+---
+---@param n Node
+---
+---@return integer d
+function node.todirect(n) end
+node.direct.todirect = node.todirect
+
+---
+---@param d integer
+---
+---@return Node n
+function node.tonode(d) end
+node.direct.tonode = node.tonode
+
 _N._10_two_access_models_page_2 = 160
 
 ---
@@ -2219,6 +2259,7 @@ function node.getprev(n) end
 ---@return Node|nil next
 ---@return Node|nil prev
 function node.getboth(n) end
+node.direct.getboth = node.getboth
 
 ---
 ---consulted a lot
@@ -2251,6 +2292,7 @@ function node.getfont(n) end
 ---
 ---@return integer|nil char
 function node.getchar(n) end
+node.direct.getchar = node.getchar
 
 ---
 ---returns the `width`, `height` and `depth` of a list, rule or (unexpanded) glyph as well as glue (its spec is looked at) and unset nodes
@@ -2313,22 +2355,12 @@ function node.direct.get_synctex_fields(n) end
 function node.direct.getattributelist(n) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.getboth() end
-
+---gets the given box (a list node)
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.getbox() end
-
+---@param box integer
 ---
----@param node_id integer
----
----@return integer
-function node.direct.getchar(node_id) end
+---@return Node node_list
+function node.direct.getbox(box) end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -2512,49 +2544,7 @@ function node.direct.getwidth() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.has_attribute() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.has_field() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.has_glyph() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.hpack() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function node.direct.hyphenating() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.insert_after() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.insert_before() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.is_char() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -2566,91 +2556,7 @@ function node.direct.is_direct() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.is_glyph() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.is_node() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.is_zero_glue() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.kerning() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.last_node() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.length() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.ligaturing() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.new() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function node.direct.prepend_prevdepth() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.protect_glyph() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.protect_glyphs() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.protrusion_skippable() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.rangedimensions() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.remove() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.set_attribute() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -2748,19 +2654,7 @@ function node.direct.setfam() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.setfield() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function node.direct.setfont() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.setglue() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -2832,12 +2726,6 @@ function node.direct.setprev() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.setproperty() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function node.direct.setshift() end
 
 ---
@@ -2880,79 +2768,13 @@ function node.direct.setwidth() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.slide() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.tail() end
-
----
----@param n Node
----
----@return integer d
-function node.direct.todirect(n) end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.tonode() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function node.direct.tostring() end
 
 ---
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.traverse() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.traverse_char() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.traverse_glyph() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.traverse_id() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function node.direct.traverse_list() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.unprotect_glyph() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.unprotect_glyphs() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.unset_attribute() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -2991,6 +2813,7 @@ _N._11_properties = 164
 ---@param node Node
 ---@param value any
 function node.setproperty(node, value) end
+node.direct.setproperty = node.setproperty
 
 ---
 ---Each node also can have a properties table and you can get properties using the `getproperty` function.
@@ -3053,6 +2876,7 @@ function node.make_extensible() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function node.setfield() end
+node.direct.setfield = node.setfield
 
 ---
 ---Warning! Undocumented code!<p>
