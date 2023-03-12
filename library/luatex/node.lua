@@ -2195,77 +2195,94 @@ function node.family_font(fam) end
 
 _N._10_two_access_models = 159
 
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.getboth() end
+_N._10_two_access_models_page_2 = 160
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.getchar() end
+---parsing nodelist always involves this one
+---
+---@param n Node
+---
+---@return Node|nil next
+function node.getnext(n) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.getdisc() end
+---used less but a logical companion to `getnext`
+---
+---@param n Node
+---
+---@return Node|nil prev
+function node.getprev(n) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.getfield() end
+---returns the next and prev pointer of a node
+---
+---@param n Node
+---
+---@return Node|nil next
+---@return Node|nil prev
+function node.getboth(n) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.getfont() end
+---consulted a lot
+---
+---@param n Node
+---
+---@return integer id
+function node.getid(n) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.getid() end
+---consulted less but also a topper
+---
+---@param n Node
+---
+---@return integer subtype
+function node.getsubtype(n) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.getleader() end
+---used a lot in OpenType handling (glyph nodes are consulted a lot)
+---
+---@param n Node
+---
+---@return integer font
+function node.getfont(n) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.getlist() end
+---idem and also in other places
+---
+---@param n Node
+---
+---@return integer|nil char
+function node.getchar(n) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.getnext() end
+---returns the `width`, `height` and `depth` of a list, rule or (unexpanded) glyph as well as glue (its spec is looked at) and unset nodes
+---
+---@param n Node
+function node.getwhd(n) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.getprev() end
+---returns the `pre`, `post` and `replace` fields and optionally when true is passed also the tail fields
+---
+---@param n Node
+function node.getdisc(n) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.getsubtype() end
+---we often parse nested lists so this is a convenient one too
+---
+---@param n Node
+function node.getlist(n) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.getwhd() end
+---comparable to list, seldom used in TEX (but needs frequent consulting like lists; leaders could have been made a dedicated node type)
+---
+---@param n Node
+function node.getleader(n) end
+
+---
+---generic getter, sufficient for the rest (other field names are often shared so a specific getter makes no sense then)
+---
+---@param n Node
+function node.getfield(n) end
 
 ---
 ---Warning! Undocumented code!<p>

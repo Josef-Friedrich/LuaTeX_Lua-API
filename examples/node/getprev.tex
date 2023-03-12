@@ -1,0 +1,9 @@
+\directlua{
+  callback.register('post_linebreak_filter', function(head)
+    print(node.getprev(head.head.next))
+  end)
+}
+
+Lorem ipsum
+
+\bye
