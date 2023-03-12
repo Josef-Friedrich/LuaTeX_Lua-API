@@ -1457,6 +1457,7 @@ tex.currentifbranch = 0
 
 _N._5_registers = 194
 
+---
 ---the attribute registers accept and return Lua numbers.
 ---see `LuaTeX` manual: 10.3.5 Accessing registers: `set*`, `get*` and `is*`
 ---
@@ -1464,12 +1465,10 @@ _N._5_registers = 194
 tex.attribute = {}
 
 ---
----
 ---* Corresponding C source code: [ltexlib.c#L1087-L1102](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1087-L1102)
 ---
 function tex.setattribute() end
 
----
 ---
 ---* Corresponding C source code: [ltexlib.c#L1104-L1114](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1104-L1114)
 ---

@@ -43,6 +43,7 @@ _N = {}
 ---for tracing.
 node = {}
 
+---
 ---Deep down in TEX a node has a number which is a numeric entry in a memory table. In fact, this
 ---model, where TEX manages memory is real fast and one of the reasons why plugging in callbacks
 ---that operate on nodes is quite fast too. Each node gets a number that is in fact an index in the
@@ -1942,7 +1943,6 @@ _N._7_35_protect_glyphs = 155
 function node.protect_glyph(n) end
 
 ---
----
 ---Adds 256 to all glyph node subtypes in the node list starting at `n`,
 ---except that if the value is 1, it adds only 255. The special handling of 1 means
 ---that `characters` will become `glyphs` after subtraction of 256. A
@@ -2024,7 +2024,6 @@ _N._8_2_getglue = 155
 ---When a list node is passed, you get back the glue that is set, the order of that
 ---glue and the sign.
 ---
----
 ---@param n Node
 ---
 ---@return integer|nil width
@@ -2065,7 +2064,6 @@ function node.has_attribute(n, id, val) end
 
 _N._9_5_get_attribute = 157
 
----
 ---
 ---Tests if a node has an attribute with number `id` set. It returns the
 ---value, or, if no match is found, `nil`. If no `id` is given then the
@@ -2299,6 +2297,7 @@ function node.direct.flush_properties_table() end
 ---place. Also, the synctex interpreter used in editors is rather peculiar and has
 ---some assumptions (heuristics).
 
+---
 ---@param n Node
 ---
 ---@return integer f

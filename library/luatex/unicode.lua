@@ -7,6 +7,7 @@
 ---
 ---Changes to the upstream project: global unicode table
 
+---
 ---@meta
 ---The definitions are developed in this repository: https://github.com/LuaCATS/slnunicode
 
