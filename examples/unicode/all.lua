@@ -99,6 +99,15 @@ end)
 -- ---@return any ...
 -- function unicode.utf8.match(s, pattern, init) end
 
+it('unicode.xxx.match', function()
+  assert.is.equal(unicode.ascii.match('Test', 'e', 3), nil)
+
+  assert.is.equal(unicode.ascii.match('Test', 'e'), 'e')
+  assert.is.equal(unicode.latin1.match('Test', 'e'), 'e')
+  assert.is.equal(unicode.grapheme.match('Test', 'e'), 'e')
+  assert.is.equal(unicode.utf8.match('Test', 'e'), 'e')
+end)
+
 -- ---
 -- ---Returns a string that is the concatenation of `n` copies of the string `s`.
 -- ---
