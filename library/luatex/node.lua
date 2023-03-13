@@ -555,6 +555,16 @@ _N.glyph = 29
 ---@field expansion_factor number # the to be applied expansion_factor
 ---@field data number # a general purpose field for users (we had room for it)
 
+---
+---The `uses_font` helpers takes a node and font id and returns `true` when a glyph or disc node references that font.
+---
+---@param n Node
+---@param font integer
+---
+---@return boolean
+function node.uses_font(n, font) end
+node.direct.uses_font = node.uses_font
+
 _N.boundary = 6
 
 ---
@@ -1994,6 +2004,7 @@ _N._7_37_write = 155
 ---
 ---@param n Node
 function node.write(n) end
+node.direct.write = node.write
 
 _N._7_38_protrusion_skippable = 155
 
@@ -2223,15 +2234,13 @@ _N._10_two_access_models = 159
 ---@param n Node
 ---
 ---@return integer d
-function node.todirect(n) end
-node.direct.todirect = node.todirect
+function node.direct.todirect(n) end
 
 ---
 ---@param d integer
 ---
 ---@return Node n
-function node.tonode(d) end
-node.direct.tonode = node.tonode
+function node.direct.tonode(d) end
 
 _N._10_two_access_models_page_2 = 160
 
@@ -2768,37 +2777,13 @@ function node.direct.setwidth() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.tostring() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function node.direct.traverse_list() end
 
 ---
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.usedlist() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.uses_font() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function node.direct.vpack() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.write() end
 
 _N._11_properties = 164
 
@@ -2889,18 +2874,12 @@ function node.subtypes() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function node.tostring() end
-
+node.direct.tostring = node.tostring
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---* Corresponding C source code: [lnodelib.c#L6471-L6476](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6471-L6476)
+---
 function node.usedlist() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.uses_font() end
+node.direct.usedlist  = node.usedlist
 
 ---
 ---Warning! Undocumented code!<p>
