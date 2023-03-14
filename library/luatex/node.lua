@@ -1472,6 +1472,7 @@ _N._7_14_vpack = 0
 ---@return Node n
 ---@return integer b
 function node.vpack(n, w, info, dir) end
+node.direct.vpack = node.vpack
 
 _N._7_15_prepend_prevdepth = 0
 
@@ -1483,6 +1484,7 @@ _N._7_15_prepend_prevdepth = 0
 ---@param n Node
 ---@param prevdepth integer
 function node.prepend_prevdepth(n, prevdepth) end
+node.direct.prepend_prevdepth = node.prepend_prevdepth
 
 _N._7_16_dimensions_rangedimensions = 149
 
@@ -1793,6 +1795,7 @@ _N._7_25_traverse_list = 0
 ---@return integer subtype
 ---@return Node list
 function node.traverse_list(n) end
+node.direct.traverse_list = node.traverse_list
 
 _N._7_26_has_glyph = 0
 
@@ -2348,12 +2351,6 @@ function node.getfield(n, field) end
 node.direct.getfile = node.getfile
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.flush_properties_table() end
-
----
 ---You can set and query the syncTeX fields, a file number aka tag and a line
 ---number, for a glue, kern, hlist, vlist, rule and math nodes as well as glyph
 ---nodes (although this last one is not used in native syncTeX).
@@ -2386,134 +2383,75 @@ function node.direct.getattributelist(n) end
 function node.direct.getbox(box) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.getcomponents() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.getcomponents(d) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.getdata() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.getdata(d) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.getdepth() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.getdepth(d) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.getdir() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.getdir(d) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.getdirection() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.getdirection(d) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.getexpansion() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.getexpansion(d) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.getfam() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.getfam(d) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.getheight() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.getheight(d) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.getkern() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.getkern(d) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.getlang() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.getlang(d) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.getnucleus() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.getnucleus(d) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.getoffsets() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.getoffsets(d) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.getpenalty() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.getpenalty(d) end
 
 ---
----@return table
-function node.direct.get_properties_table() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.getshift(d) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.getshift() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.getsub(d) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.getsub() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.getsup(d) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.getsup() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.getwidth(d) end
 
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.getwidth() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.hyphenating() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.is_direct() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.prepend_prevdepth() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.set_properties_mode() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.is_direct(d) end
 
 ---
 ---You can set and query the syncTeX fields, a file number aka tag and a line
@@ -2531,201 +2469,156 @@ function node.direct.set_synctex_fields(f, l) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L828-L854](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L828-L854)
 ---
----@param n Node
+---@param d integer # The index number of the node in the memory table for direct access.
 ---@param attr_list integer
-function node.direct.setattributelist(n, attr_list) end
+function node.direct.setattributelist(d, attr_list) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.setboth() end
+---* Corresponding C source code: [lnodelib.c#L1864-L1880](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1864-L1880)
+---
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.setboth(d) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.setbox() end
+---Set the field char on glyph, math_char, math_text_char or delim nodes.
+---
+---* Corresponding C source code: [lnodelib.c#L702-L717](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L702-L717)
+---
+---@param d integer # The index number of the node in the memory table for direct access.
+---@param char integer
+function node.direct.setchar(d, char) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.setchar() end
+---The components on glyph nodes.
+---
+---* Corresponding C source code: [lnodelib.c#L774-L785](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L774-L785)
+---
+---@param d integer # The index number of the node in the memory table for direct access.
+---@param components integer
+function node.direct.setcomponents(d, components) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.setcomponents() end
+---* Corresponding C source code: [lnodelib.c#L1716-L1751](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1716-L1751)
+---
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.setdata(d) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.setdata() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.setdepth(d) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.setdepth() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.setdir(d) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.setdir() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.setdirection(d) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.setdirection() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.setdisc(d) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.setdisc() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.setexpansion(d) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.setexpansion() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.setfam(d) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.setfam() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.setfont(d) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.setfont() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.setheight(d) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.setheight() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.setkern(d) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.setkern() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.setlang(d) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.setlang() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.setleader(d) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.setleader() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.setlink(d) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.setlink() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.setlist(d) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.setlist() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.setnext(d) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.setnext() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.setnucleus(d) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.setnucleus() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.setoffsets(d) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.setoffsets() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.setpenalty(d) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.setpenalty() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.setprev(d) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.setprev() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.setshift(d) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.setshift() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.setsplit(d) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.setsplit() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.setsub(d) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.setsub() end
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.setsubtype(d) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.setsubtype() end
+---Set the `sup` field on simple_noad, accent_noad or radical_noad nodes.
+---
+---* Corresponding C source code: [lnodelib.c#L976-L990](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L976-L990)
+---
+---@param d integer # The index number of the node in the memory table for direct access.
+---@param sup number # Rounded to an integer
+function node.direct.setsup(d, sup) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.setsup() end
+---Set the `width`, `height` and `depth` fields of hlist, vlist, rule or unset nodes.
+---
+---* Corresponding C source code: [lnodelib.c#L1307-L1346](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1307-L1346)
+---
+---@param d integer # The index number of the node in the memory table for direct access.
+---@param width number # Rounded to an integer
+---@param height number # Rounded to an integer
+---@param depth number # Rounded to an integer
+function node.direct.setwhd(d, width, height, depth) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.setwhd() end
-
+---Set the width on hlist, vlist, rule, glue, glue_spec, math, kern, margin_kern, ins, unset, fraction_noad or radical_noad nodes.
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.setwidth() end
-
+---* Corresponding C source code: [lnodelib.c#L3641-L3657](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3641-L3657)
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.traverse_list() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.vpack() end
+---@param d integer # The index number of the node in the memory table for direct access.
+---@param width number # Rounded to an integer
+function node.direct.setwidth(d, width) end
 
 _N._11_properties = 164
 
@@ -2760,6 +2653,7 @@ node.direct.getproperty = node.getproperty
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function node.set_properties_mode() end
+node.direct.set_properties_mode = node.set_properties_mode
 
 ---
 ------------------------------------------------------------------------
@@ -2780,18 +2674,19 @@ function node.fix_node_lists() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function node.flush_properties_table() end
+node.direct.flush_properties_table = node.flush_properties_table
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---@return table
 function node.get_properties_table() end
+node.direct.get_properties_table = node.get_properties_table
 
 ---
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function node.hyphenating() end
+node.direct.hyphenating = node.hyphenating
 
 ---
 ---Warning! Undocumented code!<p>
@@ -2806,23 +2701,33 @@ function node.make_extensible() end
 function node.setfield(n, field, value) end
 
 ---
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---@param field string
 ---@param value any
 function node.direct.setfield(d, field, value) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.subtypes() end
+---* Corresponding C source code: [lnodelib.c#L3153-L3222](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3153-L3222)
+---
+---@param subtype string|integer
+---
+---@return string[]
+function node.subtypes(subtype) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.tostring() end
-node.direct.tostring = node.tostring
+---* Corresponding C source code: [lnodelib.c#L5913-L5918](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L5913-L5918)
+---
+---@param n Node
+---@return string # For example `<node    nil <    234 >    nil : glyph 0>`
+function node.tostring(n) end
+
+---
+---* Corresponding C source code: [lnodelib.c#L5922-L5931](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L5922-L5931)
+---@param d integer # The index number of the node in the memory table for direct access.
+---
+---@return string # For example `<direct    nil <    234 >    nil : glyph 0>`
+function node.direct.tostring(d) end
+
 ---
 ---* Corresponding C source code: [lnodelib.c#L6471-L6476](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6471-L6476)
 ---

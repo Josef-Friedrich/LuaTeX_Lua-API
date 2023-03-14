@@ -49,7 +49,7 @@
 
   "referenceC": {
     "prefix": ["ccode"],
-    "body": ["", "---* Corresponding C source code: [$2]($1)", "---$0"],
+    "body": ["", "---", "---* Corresponding C source code: [$2]($1)", "---$0"],
     "description": "* Corresponding C source code: "
   },
 

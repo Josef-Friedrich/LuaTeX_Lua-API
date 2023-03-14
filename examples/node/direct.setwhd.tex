@@ -1,0 +1,10 @@
+\directlua{
+  local n = node.new("hlist")
+  local d = node.direct.todirect(n)
+  node.direct.setwhd(d, 1, 2, 3)
+  print(n.width)
+  print(n.height)
+  print(n.depth)
+}
+
+\bye
