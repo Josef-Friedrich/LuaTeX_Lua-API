@@ -2064,6 +2064,7 @@ _N._8_2_getglue = 155
 ---@return integer|nil stretch_order
 ---@return integer|nil shrink_order
 function node.getglue(n) end
+node.direct.getglue = node.getglue
 
 _N._8_3_is_zero_glue = 156
 
@@ -2251,6 +2252,7 @@ _N._10_two_access_models_page_2 = 160
 ---
 ---@return Node|nil next
 function node.getnext(n) end
+node.direct.getnext = node.getnext
 
 ---
 ---used less but a logical companion to `getnext`
@@ -2259,6 +2261,7 @@ function node.getnext(n) end
 ---
 ---@return Node|nil prev
 function node.getprev(n) end
+node.direct.getprev = node.getprev
 
 ---
 ---returns the next and prev pointer of a node
@@ -2277,6 +2280,7 @@ node.direct.getboth = node.getboth
 ---
 ---@return integer id
 function node.getid(n) end
+node.direct.getid = node.getid
 
 ---
 ---consulted less but also a topper
@@ -2285,6 +2289,7 @@ function node.getid(n) end
 ---
 ---@return integer subtype
 function node.getsubtype(n) end
+node.direct.getsubtype = node.getsubtype
 
 ---
 ---used a lot in OpenType handling (glyph nodes are consulted a lot)
@@ -2293,6 +2298,7 @@ function node.getsubtype(n) end
 ---
 ---@return integer font
 function node.getfont(n) end
+node.direct.getfont = node.getfont
 
 ---
 ---idem and also in other places
@@ -2314,24 +2320,31 @@ function node.getwhd(n) end
 ---
 ---@param n Node
 function node.getdisc(n) end
+node.direct.getdisc = node.getdisc
 
 ---
 ---we often parse nested lists so this is a convenient one too
 ---
 ---@param n Node
 function node.getlist(n) end
+node.direct.getlist = node.getlist
 
 ---
 ---comparable to list, seldom used in TEX (but needs frequent consulting like lists; leaders could have been made a dedicated node type)
 ---
 ---@param n Node
 function node.getleader(n) end
+node.direct.getleader = node.getleader
 
 ---
 ---generic getter, sufficient for the rest (other field names are often shared so a specific getter makes no sense then)
 ---
 ---@param n Node
-function node.getfield(n) end
+---@param field string
+---
+---@return any|nil
+function node.getfield(n, field) end
+node.direct.getfile = node.getfile
 
 ---
 ---Warning! Undocumented code!<p>
@@ -2405,12 +2418,6 @@ function node.direct.getdirection() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.getdisc() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function node.direct.getexpansion() end
 
 ---
@@ -2423,31 +2430,7 @@ function node.direct.getfam() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.getfield() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.getfont() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.getglue() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function node.direct.getheight() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.getid() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -2460,24 +2443,6 @@ function node.direct.getkern() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function node.direct.getlang() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.getleader() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.getlist() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.getnext() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -2498,18 +2463,6 @@ function node.direct.getoffsets() end
 function node.direct.getpenalty() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.getprev() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.getproperty() end
-
----
 ---@return table
 function node.direct.get_properties_table() end
 
@@ -2524,12 +2477,6 @@ function node.direct.getshift() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function node.direct.getsub() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.getsubtype() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -2811,6 +2758,7 @@ node.direct.setproperty = node.setproperty
 ---
 ---@return any value
 function node.getproperty(node) end
+node.direct.getproperty = node.getproperty
 
 ---
 ---Warning! Undocumented code!<p>
@@ -2857,11 +2805,16 @@ function node.hyphenating() end
 function node.make_extensible() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.setfield() end
-node.direct.setfield = node.setfield
+---@param n Node
+---@param field string
+---@param value any
+function node.setfield(n, field, value) end
+
+---
+---@param d integer
+---@param field string
+---@param value any
+function node.direct.setfield(d, field, value) end
 
 ---
 ---Warning! Undocumented code!<p>

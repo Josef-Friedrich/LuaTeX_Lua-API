@@ -1,0 +1,7 @@
+\directlua{
+  local n = node.new('glyph')
+  local d = node.direct.todirect(n)
+  print(node.getfield(n, 'char'))
+  print(node.direct.getfield(d, 'char'))
+}
+\bye
