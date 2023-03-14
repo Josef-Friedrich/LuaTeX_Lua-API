@@ -2314,6 +2314,7 @@ node.direct.getchar = node.getchar
 ---
 ---@param n Node
 function node.getwhd(n) end
+node.direct.getwhd = node.getwhd
 
 ---
 ---returns the `pre`, `post` and `replace` fields and optionally when true is passed also the tail fields
@@ -2483,12 +2484,6 @@ function node.direct.getsub() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function node.direct.getsup() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.direct.getwhd() end
 
 ---
 ---Warning! Undocumented code!<p>
