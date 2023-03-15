@@ -1175,12 +1175,20 @@ _N._7_2_is_node = 145
 ---__Reference:__
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L1199-L1211](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L1199-L1211)
+---* Corresponding C source code: [lnodelib.c#L8295-L8303](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L8295-L8303)
 ---
 ---@param item any
 ---
----@return boolean|integer t
+---@return false|integer t
 function node.is_node(item) end
-node.direct.is_node = node.is_node
+
+---
+---* Corresponding C source code: [lnodelib.c#L8326-L8343](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L8326-L8343)
+---
+---@param item any
+---
+---@return false|integer t
+function node.direct.is_node(item) end
 
 _N._7_3_types_whatsits = 145
 
@@ -1281,7 +1289,17 @@ _N._7_7_has_field = 146
 ---
 ---@return boolean t
 function node.has_field(n, field) end
-node.direct.has_field = node.has_field
+
+---
+---This function returns a boolean that is only true if `d` is a valid index number in the memory table of nodes, and it has the field.
+---
+---* Corresponding C source code: [lnodelib.c#L3041-L3049](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3041-L3049)
+---
+---@param d integer
+---@param field string
+---
+---@return boolean t
+function node.direct.has_field(d, field) end
 
 _N._7_8_new = 146
 
@@ -1297,67 +1315,146 @@ _N._7_8_new = 146
 ---__Reference:__
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L1299-L1314](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L1299-L1314)
+---* Corresponding C source code: [lnodelib.c#L2055-L2060](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2055-L2060)
+---
 ---
 ---@param id integer|NodeTypeName
 ---@param subtype? integer|string
 ---
 ---@return Node
 function node.new(id, subtype) end
-node.direct.new = node.new
+
+---
+---Create a new node.
+---
+---All its fields are initialized to
+---either zero or `nil` except for `id` and `subtype`. Instead of
+---numbers you can also use strings (names). If you create a new `whatsit` node
+---the second argument is required. As with all node functions, this function
+---creates a node at the *TeX* level.
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L1299-L1314](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L1299-L1314)
+---* Corresponding C source code: [lnodelib.c#L2064-L2069](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2064-L2069)
+---
+---
+---@param id integer|NodeTypeName
+---@param subtype? integer|string
+---
+---@return integer d
+function node.direct.new(id, subtype) end
 
 _N._7_9_free_flush_node_list = 146
 
 ---
----The next one the node `n` from *TeX*'s memory. Be careful: no checks are
+---Free the *TeX* memory allocated for node `n`.
+---
+---Be careful: no checks are
 ---done on whether this node is still pointed to from a register or some `next` field: it is up to you to make sure that the internal data structures
 ---remain correct.
 ---
----```
----<node> next =
----    node.free(<node> n)
----flush_node(<node> n)
----```
----
 ---The `free` function returns the next field of the freed node
+---
+---* Corresponding C source code: [lnodelib.c#L2073-L2090](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2073-L2090)
 ---
 ---@param n Node
 ---
 ---@return Node next
-function node.free(n) end
-node.direct.free = node.free
+function node.direct.free(n) end
 
 ---
----while the
----`flush_node` alternative returns nothing.
+---Free the *TeX* memory allocated for the specified node.
+---
+---Be careful: no checks are
+---done on whether this node is still pointed to from a register or some `next` field: it is up to you to make sure that the internal data structures
+---remain correct.
+---
+---The `free` function returns the next field of the freed node
+---
+---* Corresponding C source code: [lnodelib.c#L2094-L2109](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2094-L2109)
+---
+---@param d integer
+---
+---@return integer next
+function node.direct.free(d) end
+
+---
+---Free the *TeX* memory allocated for the specified node.
+---and return nothing.
+---
+---* Corresponding C source code: [lnodelib.c#L2113-L2122](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2113-L2122)
 ---
 ---@param n Node
 function node.flush_node(n) end
-node.direct.flush_node = node.flush_node
 
 ---
----A list starting with node `n` can be flushed from *TeX*'s memory too. Be
+---Free the *TeX* memory allocated for the specified node.
+---and return nothing.
+---
+---* Corresponding C source code: [lnodelib.c#L2126-L2133](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2126-L2133)
+---
+---
+---@param d integer
+function node.direct.flush_node(d) end
+
+---
+---Free the *TeX* memory allocated for a list of nodes.
+---
+---Be
 ---careful: no checks are done on whether any of these nodes is still pointed to
 ---from a register or some `next` field: it is up to you to make sure that the
 ---internal data structures remain correct.
 ---
+---* Corresponding C source code: [lnodelib.c#L2137-L2146](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2137-L2146)
+---
 ---@param n Node
 function node.flush_list(n) end
-node.direct.flush_list = node.flush_list
+
+---
+---Free the *TeX* memory allocated for a list of nodes.
+---
+---Be
+---careful: no checks are done on whether any of these nodes is still pointed to
+---from a register or some `next` field: it is up to you to make sure that the
+---internal data structures remain correct.
+---
+---* Corresponding C source code: [lnodelib.c#L2150-L2157](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2150-L2157)
+---
+---
+---@param d integer
+function node.direct.flush_list(d) end
 
 _N._7_10_copy_copy_list = 147
 
 ---
----This creates a deep copy of node `n`, including all nested lists as in the case
----of a hlist or vlist node. Only the `next` field is not copied.
+---Create a deep copy of node `n`, including all nested lists as in the case
+---of a `hlist` or `vlist` node. Only the `next` field is not copied.
+---
+---* Corresponding C source code: [lnodelib.c#L2476-L2485](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2476-L2485)
+---
 ---
 ---@param n Node
 ---
 ---@return Node m
 function node.copy(n) end
-node.direct.copy = node.copy
 
 ---
----A deep copy of the node list that starts at `n` can be created too. If
+---Create a deep copy of node `n`, including all nested lists as in the case
+---of a `hlist` or `vlist` node. Only the `next` field is not copied.
+---
+---* Corresponding C source code: [lnodelib.c#L2489-L2500](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2489-L2500)
+---
+---
+---@param d integer
+---
+---@return integer e
+function node.direct.copy(d) end
+
+---
+---Create a deep copy of the node list that starts at node `n`.
+---
+---If
 ---`m` is also given, the copy stops just before node `m`.
 ---
 ---Note that you cannot copy attribute lists this way. However, there is normally no
@@ -1365,37 +1462,65 @@ node.direct.copy = node.copy
 ---or make changes to specific attributes, the needed copying and freeing takes
 ---place automatically.
 ---
+---* Corresponding C source code: [lnodelib.c#L2440-L2452](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2440-L2452)
+---
+---
 ---@param n Node
 ---@param m? Node
 ---
 ---@return Node m
 function node.copy_list(n, m) end
-node.direct.copy_list = node.copy_list
+
+---
+---Create a deep copy of the node list that starts at node `d`.
+---
+---If
+---`e` is also given, the copy stops just before node `e`.
+---
+---Note that you cannot copy attribute lists this way. However, there is normally no
+---need to copy attribute lists as when you do assignments to the `attr` field
+---or make changes to specific attributes, the needed copying and freeing takes
+---place automatically.
+---
+---* Corresponding C source code: [lnodelib.c#L2456-L2472](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2456-L2472)
+---
+---
+---@param d integer
+---@param e? integer
+---
+---@return integer e
+function node.direct.copy_list(d, e) end
 
 _N._7_11_prev_next = 147
 
 ---
----These returns the node preceding the given node, or `nil` if
+---Return the node preceding the given node, or `nil` if
 ---there is no such node.
+---
+---* Corresponding C source code: [lnodelib.c#L379-L388](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L379-L388)
+---
 ---
 ---@param n Node
 ---
----@return Node m
+---@return Node|nil m
 function node.prev(n) end
 
 ---
----These returns the node following the given node, or `nil` if
+---Return the node following the given node, or `nil` if
 ---there is no such node.
+---
+---* Corresponding C source code: [lnodelib.c#L390-L399](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L390-L399)
+---
 ---
 ---@param n Node
 ---
----@return Node m
+---@return Node|nil m
 function node.next(n) end
 
 _N._7_12_current_attr = 0
 
 ---
----This returns the currently active list of attributes, if there is one.
+---Return the currently active list of attributes, if there is one.
 ---
 ---The intended usage of `current_attr` is as follows:
 ---
@@ -1421,14 +1546,25 @@ _N._7_12_current_attr = 0
 ---you assign attributes (using `tex.setattribute`) or when control has been
 ---passed back to *TeX*.
 ---
----Note: this function is somewhat experimental, and it returns the {\it actual}
+---Note: this function is somewhat experimental, and it returns the *actual*
 ---attribute list, not a copy thereof. Therefore, changing any of the attributes in
 ---the list will change these values for all nodes that have the current attribute
 ---list assigned to them.
 ---
----@return Node m
+---* Corresponding C source code: [lnodelib.c#L6511-L6532](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6511-L6532)
+---
+---
+---@return Node|nil m
 function node.current_attr() end
-node.direct.current_attr = node.current_attr
+
+---
+---Return the currently active list of attributes, if there is one.
+---
+---* Corresponding C source code: [lnodelib.c#L6511-L6532](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6511-L6532)
+---
+---
+---@return integer|nil e
+function node.direct.current_attr() end
 
 _N._7_13_hpack = 0
 
