@@ -2450,6 +2450,7 @@ function node.direct.getsup(d) end
 ---@param d integer # The index number of the node in the memory table for direct access.
 function node.direct.getwidth(d) end
 
+---
 ---@param d integer # The index number of the node in the memory table for direct access.
 function node.direct.is_direct(d) end
 
