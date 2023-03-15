@@ -3,7 +3,7 @@
 ---
 ---The Lua source file is location in `texmf-dist/tex/latex/base/ltluatex.lua`
 
-luatexbase = { }
+luatexbase = {}
 
 ---
 ---Registers the `function` into the `callback` with a textual

@@ -195,14 +195,14 @@ texconfig.halt_on_error = false
 ---if no format name was given on the command line, this key will be tested first
 ---instead of simply quitting
 ---@type string
-texconfig.formatname = ''
+texconfig.formatname = ""
 
 ---
 ---if no input file name was given on the command line, this key will be tested
 ---first instead of simply giving up
 ---
 ---@type string
-texconfig.jobname = ''
+texconfig.jobname = ""
 
 ---
 ---character to put in front of traced macros (see next value)

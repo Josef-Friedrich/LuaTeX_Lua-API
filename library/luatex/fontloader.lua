@@ -117,7 +117,7 @@ function fontloader.apply_featurefile(font, filename) end
 ---@return table errors
 function fontloader.apply_afmfile(font, filename) end
 
-_N._main_table = 'FontloaderField'
+_N._main_table = "FontloaderField"
 
 ---
 ---@class FontloaderField
@@ -193,7 +193,7 @@ _N._main_table = 'FontloaderField'
 ---@field extrema_bound integer #
 ---@field truetype integer # signals a *TrueType* font
 
-_N._glyphs = 'Glyph'
+_N._glyphs = "Glyph"
 
 ---
 ---The `glyphs` is an array containing the per-character

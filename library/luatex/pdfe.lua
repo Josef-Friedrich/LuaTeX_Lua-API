@@ -122,8 +122,7 @@ function pdfe.gettrailer(doc) end
 ---@return PdfeDictionary info # Info of the pdf.
 ---
 ---* Corresponding C source code: [lpdfelib.c#L481-L487](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfelib.c#L481-L487)
-function pdfe.getinfo(doc)
-end
+function pdfe.getinfo(doc) end
 
 _N._14_2_5_getpage_getbox = 288
 

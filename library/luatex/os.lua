@@ -15,7 +15,7 @@ os = {}
 ---
 ---For example `/usr/local/texlive/bin/x86_64-linux`
 ---@string
-os.selfdir = ''
+os.selfdir = ""
 
 ---
 ---`os.exec(commandline)` is a variation on `os.execute`. Here

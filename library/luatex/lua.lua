@@ -11,7 +11,7 @@ lua = {}
 ---This returns the *Lua* version identifier string.
 ---
 ---@type string
-lua.version = ''
+lua.version = ""
 
 ---
 ---The `\directlua` commands involves tokenization of its argument (after

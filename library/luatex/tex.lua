@@ -1043,23 +1043,23 @@ _N._2_3_direction_parameters = 192
 
 ---
 ---@type string A read-only direction parameter that returns a *Lua* string.
-tex.bodydir = ''
+tex.bodydir = ""
 
 ---
 ---@type string A read-only direction parameter that returns a *Lua* string.
-tex.mathdir = ''
+tex.mathdir = ""
 
 ---
 ---@type string A read-only direction parameter that returns a *Lua* string.
-tex.pagedir = ''
+tex.pagedir = ""
 
 ---
 ---@type string A read-only direction parameter that returns a *Lua* string.
-tex.pardir = ''
+tex.pardir = ""
 
 ---
 ---@type string A read-only direction parameter that returns a *Lua* string.
-tex.textdir = ''
+tex.textdir = ""
 
 _N._2_4_glue_parameters = 193
 
@@ -1223,7 +1223,7 @@ _N._2_5_muglue_parameters = 193
 ---* [TeX by Topic, page 201](http://mirrors.ctan.org/info/texbytopic/TeXbyTopic.pdf)
 ---
 ---@type string # A read-only `muglue` parameter that returns a *Lua* string.
-tex.medmuskip = ''
+tex.medmuskip = ""
 
 ---
 ---`\thickmuskip` Large amount of mu glue.
@@ -1233,7 +1233,7 @@ tex.medmuskip = ''
 ---* [TeX by Topic, page 210](http://mirrors.ctan.org/info/texbytopic/TeXbyTopic.pdf)
 ---
 ---@type string # A read-only `muglue` parameter that returns a *Lua* string.
-tex.thickmuskip = ''
+tex.thickmuskip = ""
 
 ---
 ---`\thinmuskip` Small amount of mu glue.
@@ -1243,7 +1243,7 @@ tex.thickmuskip = ''
 ---* [TeX by Topic, page 201](http://mirrors.ctan.org/info/texbytopic/TeXbyTopic.pdf)
 ---
 ---@type string # A read-only `muglue` parameter that returns a *Lua* string.
-tex.thinmuskip = ''
+tex.thinmuskip = ""
 
 _N._2_6_tokenlist_parameters = 193
 
@@ -1255,7 +1255,7 @@ _N._2_6_tokenlist_parameters = 193
 ---all category codes are either space (10) or other (12).
 ---
 ---@type string
-tex.errhelp = ''
+tex.errhelp = ""
 
 ---
 ---A `tokenlist` parameters that accepts and returns a *Lua* string.
@@ -1265,7 +1265,7 @@ tex.errhelp = ''
 ---all category codes are either space (10) or other (12).
 ---
 ---@type string
-tex.everycr = ''
+tex.everycr = ""
 
 ---
 ---A `tokenlist` parameters that accepts and returns a *Lua* string.
@@ -1275,7 +1275,7 @@ tex.everycr = ''
 ---all category codes are either space (10) or other (12).
 ---
 ---@type string
-tex.everydisplay = ''
+tex.everydisplay = ""
 
 ---
 ---A `tokenlist` parameters that accepts and returns a *Lua* string.
@@ -1285,7 +1285,7 @@ tex.everydisplay = ''
 ---all category codes are either space (10) or other (12).
 ---
 ---@type string
-tex.everyeof = ''
+tex.everyeof = ""
 
 ---
 ---A `tokenlist` parameters that accepts and returns a *Lua* string.
@@ -1295,7 +1295,7 @@ tex.everyeof = ''
 ---all category codes are either space (10) or other (12).
 ---
 ---@type string
-tex.everyhbox = ''
+tex.everyhbox = ""
 
 ---
 ---A `tokenlist` parameters that accepts and returns a *Lua* string.
@@ -1305,7 +1305,7 @@ tex.everyhbox = ''
 ---all category codes are either space (10) or other (12).
 ---
 ---@type string
-tex.everyjob = ''
+tex.everyjob = ""
 
 ---
 ---A `tokenlist` parameters that accepts and returns a *Lua* string.
@@ -1315,7 +1315,7 @@ tex.everyjob = ''
 ---all category codes are either space (10) or other (12).
 ---
 ---@type string
-tex.everymath = ''
+tex.everymath = ""
 
 ---
 ---A `tokenlist` parameters that accepts and returns a *Lua* string.
@@ -1325,7 +1325,7 @@ tex.everymath = ''
 ---all category codes are either space (10) or other (12).
 ---
 ---@type string
-tex.everypar = ''
+tex.everypar = ""
 
 ---
 ---A `tokenlist` parameters that accepts and returns a *Lua* string.
@@ -1335,7 +1335,7 @@ tex.everypar = ''
 ---all category codes are either space (10) or other (12).
 ---
 ---@type string
-tex.everyvbox = ''
+tex.everyvbox = ""
 
 ---
 ---A `tokenlist` parameters that accepts and returns a *Lua* string.
@@ -1345,33 +1345,33 @@ tex.everyvbox = ''
 ---all category codes are either space (10) or other (12).
 ---
 ---@type string
-tex.output = ''
+tex.output = ""
 
 _N._3_convert_commands = 193
 
 ---
 ---@type string # for example `2.2`.
-tex.eTeXVersion = ''
+tex.eTeXVersion = ""
 
 ---
 ---@type string # for example `2.2`.
-tex.eTeXrevision = ''
+tex.eTeXrevision = ""
 
 ---
 ---@type string # for example `luatex`.
-tex.formatname = ''
+tex.formatname = ""
 
 ---
 ---@type string
-tex.jobname = ''
+tex.jobname = ""
 
 ---
 ---@type string # for example `This is LuaTeX, Version 1.15.1 (TeX Live 2023/dev)`.
-tex.luatexbanner = ''
+tex.luatexbanner = ""
 
 ---
 ---@type string # for example `1`.
-tex.luatexrevision = ''
+tex.luatexrevision = ""
 
 _N._3_last_item_commands = 194
 
