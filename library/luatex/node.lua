@@ -2641,33 +2641,47 @@ node.direct.setproperty = node.setproperty
 ---
 ---__Reference:__
 ---
----* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L2518-L2521](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L2518-L2521), [lnodelib.c#L8373-L8383](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L8373-L8383)
+---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L2520-L2523](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L2520-L2523)
+---* Corresponding C source code: [lnodelib.c#L8379-L8389](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L8379-L8389)
 ---
 ---@param node Node
 ---
 ---@return any value
 function node.getproperty(node) end
-node.direct.getproperty = node.getproperty
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.set_properties_mode() end
-node.direct.set_properties_mode = node.set_properties_mode
+---Each node also can have a properties table and you can get properties using the `getproperty` function.
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L2520-L2523](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L2520-L2523)
+---* Corresponding C source code: [lnodelib.c#L8391-L8401](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L8391-L8401)
+---
+---@param d integer
+---
+---@return any value
+function node.direct.getproperty(d) end
 
 ---
-------------------------------------------------------------------------
----Undocumented functions listed in alphabetical order
+---Managing properties in the node (de)allocator functions is disabled by default and is enabled by:
 ---
----Document them by sliding them up and place them in the order of the
----official documentation
-------------------------------------------------------------------------
+---* Corresponding C source code: [lnodelib.c#L8351-L8360](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L8351-L8360)
+---
+---@param enable boolean
+---@param use_metatable? boolean
+function node.set_properties_mode(enable, use_metatable) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---Managing properties in the node (de)allocator functions is disabled by default and is enabled by:
+---
+---* Corresponding C source code: [lnodelib.c#L8351-L8360](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L8351-L8360)
+---
+---@param enable boolean
+---@param use_metatable? boolean
+function node.direct.set_properties_mode(enable, use_metatable) end
+
+---
+---* Corresponding C source code: [lnodelib.c#L366-L374](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L366-L374)
 function node.fix_node_lists() end
 
 ---
@@ -2683,17 +2697,29 @@ function node.get_properties_table() end
 node.direct.get_properties_table = node.get_properties_table
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.hyphenating() end
-node.direct.hyphenating = node.hyphenating
+---* Corresponding C source code: [lnodelib.c#L6104-L6122](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6104-L6122)
+---
+---@param n Node
+---@param m? Node
+function node.hyphenating(n, m) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.make_extensible() end
+---* Corresponding C source code: [lnodelib.c#L6124-L6142](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6124-L6142)
+---
+---@param d integer
+---@param e? integer
+function node.direct.hyphenating(d, e) end
+
+---
+---* Corresponding C source code: [lnodelib.c#L8842-L8868](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L8842-L8868)
+---
+---@param fnt integer
+---@param chr integer
+---@param size integer
+---@param overlap? integer
+---@param horizontal? boolean
+---@param attlist? Node
+function node.make_extensible(fnt, chr, size, overlap, horizontal, attlist) end
 
 ---
 ---@param n Node
@@ -2732,11 +2758,20 @@ function node.direct.tostring(d) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L6471-L6476](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6471-L6476)
 ---
+---@return Node n
 function node.usedlist() end
-node.direct.usedlist  = node.usedlist
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function node.values() end
+---* Corresponding C source code: [lnodelib.c#L6480-L6484](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6480-L6484)
+---
+---@return integer d
+function node.direct.usedlist() end
+
+---
+---* Corresponding C source code: [lnodelib.c#L3117-L3151](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3117-L3151)
+---
+---
+---@param type 'dir'|'direction'|'glue'|'pdf_literal'|'pdf_action'|'pdf_window'|'color_stack'|'pagestate'
+---
+---@return string[]
+function node.values(type) end
