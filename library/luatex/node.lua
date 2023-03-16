@@ -1974,50 +1974,124 @@ function node.direct.tail(d) end
 _N._7_20_length_and_count = 0
 
 ---
----Returns the number of nodes contained in the node list that starts at `n`.
+---Return the number of nodes contained in the node list that starts at `n`.
+---
 ---If `m` is also supplied it stops at `m` instead of at the end of the
 ---list. The node `m` is not counted.
+---
+---* Corresponding C source code: [lnodelib.c#L4374-L4386](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L4374-L4386)
+---
 ---
 ---@param n Node
 ---@param m? Node
 ---
 ---@return integer i
 function node.length(n, m) end
-node.direct.length = node.length
 
 ---
----Returns the number of nodes contained in the node list that starts at `n`
----that have a matching `id` field. If `m` is also supplied, counting
----stops at `m` instead of at the end of the list. The node `m` is not
----counted. This function also accept string `id`'s.
+---Return the number of nodes contained in the node list that starts at `d`.
 ---
----@param id integer
+---If `e` is also supplied it stops at `e` instead of at the end of the
+---list. The node `d` is not counted.
+---
+---* Corresponding C source code: [lnodelib.c#L4350-L4360](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L4350-L4360)
+---
+---
+---@param d integer
+---@param e? Node
+---
+---@return integer i
+function node.direct.length(d, e) end
+
+---
+---Return the number of nodes contained in the node list that starts at `n`
+---that have a matching `id` field.
+---
+---If `m` is also supplied, counting
+---stops at `m` instead of at the end of the list. The node `m` is not
+---counted. This function also accept string `id`’s.
+---
+---* Corresponding C source code: [lnodelib.c#L4388-L4401](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L4388-L4401)
+---
+---
+---@param id integer|string
 ---@param n Node
 ---@param m? Node
 ---
 ---@return integer i
 function node.count(id, n, m) end
-node.direct.count = node.count
+
+---
+---Return the number of nodes contained in the node list that starts at `d`
+---that have a matching `id` field.
+---
+---If `e` is also supplied, counting
+---stops at `e` instead of at the end of the list. The node `d` is not
+---counted. This function also accept string `id`’s.
+---
+---* Corresponding C source code: [lnodelib.c#L4362-L4369](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L4362-L4369)
+---
+---
+---@param id integer|string
+---@param d integer
+---@param e? Node
+---
+---@return integer i
+function node.direct.count(id, d, e) end
 
 _N._7_21_is_char_and_is_glyph = 0
 
 ---
 ---The subtype of a glyph node signals if the glyph is already turned into a character reference
 ---or not.
+---
+---* Corresponding C source code: [lnodelib.c#L3004-L3024](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3004-L3024)
+---
 ---@param n Node
----@return boolean b
-function node.is_char(n) end
-node.direct.is_char = node.is_char
+---@param font? integer
+---
+---@return boolean|integer|nil
+---@return integer|nil
+function node.is_char(n, font) end
 
 ---
 ---The subtype of a glyph node signals if the glyph is already turned into a character reference
 ---or not.
 ---
+---* Corresponding C source code: [lnodelib.c#L7572-L7592](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L7572-L7592)
+---
+---@param d integer
+---@param font? integer
+---
+---@return boolean|integer|nil
+---@return integer|nil
+function node.direct.is_char(d, font) end
+
+---
+---The subtype of a glyph node signals if the glyph is already turned into a character reference
+---or not.
+---
+---* Corresponding C source code: [lnodelib.c#L3026-L3037](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3026-L3037)
+---
+---
 ---@param n Node
 ---
----@return boolean b
+---@return boolean|integer character
+---@return integer font
 function node.is_glyph(n) end
-node.direct.is_glyph = node.is_glyph
+
+---
+---The subtype of a glyph node signals if the glyph is already turned into a character reference
+---or not.
+---
+---* Corresponding C source code: [lnodelib.c#L7594-L7605](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L7594-L7605)
+---
+---
+---@param n Node
+---
+---@return boolean|integer character
+---@return integer font
+function node.direct.is_glyph(n) end
 
 _N._7_22_traverse = 0
 
@@ -2103,7 +2177,8 @@ node.direct.traverse_id = node.traverse_id
 _N._7_24_traverse_char_and_traverse_glyph = 0
 
 ---
----The `traverse_char` iterator loops over the `glyph` nodes in a list.
+---Loop over the `glyph` nodes in a list.
+---
 ---Only nodes with a subtype less than 256 are seen.
 ---
 ---@param n Node
@@ -2115,8 +2190,8 @@ function node.traverse_char(n) end
 node.direct.traverse_char = node.traverse_char
 
 ---
----The `traverse_glyph` iterator loops over a list and returns the list and
----filters all glyphs:
+---Loop over a list and return the list and
+---filter all glyphs.
 ---
 ---@param n Node
 ---
@@ -2129,7 +2204,7 @@ node.direct.traverse_glyph = node.traverse_glyph
 _N._7_25_traverse_list = 0
 
 ---
----This iterator loops over the `hlist` and `vlist` nodes in a list.
+---Loop over the `hlist` and `vlist` nodes in a list.
 ---
 ---The four return values can save some time compared to fetching these fields but
 ---in practice you seldom need them all. So consider it a (side effect of
@@ -2147,7 +2222,7 @@ node.direct.traverse_list = node.traverse_list
 _N._7_26_has_glyph = 0
 
 ---
----This function returns the first glyph or disc node in the given list.
+---Return the first glyph or disc node in the given list.
 ---
 ---@param n Node
 ---
@@ -2158,9 +2233,11 @@ node.direct.has_glyph = node.has_glyph
 _N._7_27_end_of_math = 0
 
 ---
----Looks for and returns the next `math_node` following the `start`. If
+---Look for and return the next `math_node` following the `start`.
+---
+---If
 ---the given node is a math end node this helper returns that node, else it follows
----the list and returns the next math endnote. If no such node is found nil is
+---the list and returns the next math endnote. If no such node is found `nil` is
 ---returned.
 ---
 ---@param n Node
@@ -2198,8 +2275,10 @@ node.direct.remove = node.remove
 _N._7_29_insert_before = 153
 
 ---
----This function inserts the node `new` before `current` into the list
----following `head`. It is your responsibility to make sure that `current` is really part of that list. The return values are the (potentially
+---Insert the node `new` before `current` into the list
+---following `head`.
+---
+---It is your responsibility to make sure that `current` is really part of that list. The return values are the (potentially
 ---mutated) `head` and the node `new`, set up to be part of the list
 ---(with correct `next` field). If `head` is initially `nil`, it
 ---will become `new`.
@@ -2220,8 +2299,10 @@ node.direct.insert_before = node.insert_before
 _N._7_30_insert_after = 153
 
 ---
----This function inserts the node `new` after `current` into the list
----following `head`. It is your responsibility to make sure that `current` is really part of that list. The return values are the `head` and
+---Insert the node `new` after `current` into the list
+---following `head`.
+---
+---It is your responsibility to make sure that `current` is really part of that list. The return values are the `head` and
 ---the node `new`, set up to be part of the list (with correct `next`
 ---field). If `head` is initially `nil`, it will become `new`.
 ---
@@ -2241,8 +2322,10 @@ node.direct.insert_after = node.insert_after
 _N._7_31_first_glyph = 154
 
 ---
----Returns the first node in the list starting at `n` that is a glyph node
----with a subtype indicating it is a glyph, or `nil`. If `m` is given,
+---Return the first node in the list starting at `n` that is a glyph node
+---with a subtype indicating it is a glyph, or `nil`.
+---
+---If `m` is given,
 ---processing stops at (but including) that node, otherwise processing stops at the
 ---end of the list.
 ---
@@ -2256,7 +2339,9 @@ node.direct.first_glyph = node.first_glyph
 _N._7_32_ligaturing = 154
 
 ---
----Apply *TeX*-style ligaturing to the specified nodelist. The tail node `m` is
+---Apply *TeX*-style ligaturing to the specified nodelist.
+---
+---The tail node `m` is
 ---optional. The two returned nodes `h` and `t` are the new head and
 ---tail (both `n` and `m` can change into a new ligature).
 ---
@@ -2272,7 +2357,9 @@ node.direct.ligaturing = node.ligaturing
 _N._7_33_kerning = 154
 
 ---
----Apply *TeX*-style kerning to the specified node list. The tail node `m` is
+---Apply *TeX*-style kerning to the specified node list.
+---
+---The tail node `m` is
 ---optional. The two returned nodes `h` and `t` are the head and tail
 ---(either one of these can be an inserted kern node, because special kernings with
 ---word boundaries are possible).
@@ -2289,7 +2376,9 @@ node.direct.kerning = node.kerning
 _N._7_34_unprotect_glyphs = 155
 
 ---
----Subtracts 256 from all glyph node subtypes. This and the next function are
+---Subtract 256 from all glyph node subtypes.
+---
+---This and the next function are
 ---helpers to convert from `characters` to `glyphs` during node
 ---processing. The second argument is optional and indicates the end of a range.
 ---@param n Node
@@ -2297,7 +2386,9 @@ function node.unprotect_glyph(n) end
 node.direct.unprotect_glyph = node.unprotect_glyph
 
 ---
----Subtracts 256 from all glyph node subtypes. This and the next function are
+---Subtract 256 from all glyph node subtypes.
+---
+---This and the next function are
 ---helpers to convert from `characters` to `glyphs` during node
 ---processing. The second argument is optional and indicates the end of a range.
 ---
@@ -2309,8 +2400,10 @@ node.direct.unprotect_glyphs = node.unprotect_glyphs
 _N._7_35_protect_glyphs = 155
 
 ---
----Adds 256 to all glyph node subtypes in the node list starting at `n`,
----except that if the value is 1, it adds only 255. The special handling of 1 means
+---Add 256 to all glyph node subtypes in the node list starting at `n`,
+---except that if the value is 1, it adds only 255.
+---
+---The special handling of 1 means
 ---that `characters` will become `glyphs` after subtraction of 256. A
 ---single character can be marked by the singular call. The second argument is
 ---optional and indicates the end of a range.
@@ -2320,8 +2413,10 @@ function node.protect_glyph(n) end
 node.direct.protect_glyph = node.protect_glyph
 
 ---
----Adds 256 to all glyph node subtypes in the node list starting at `n`,
----except that if the value is 1, it adds only 255. The special handling of 1 means
+---Add 256 to all glyph node subtypes in the node list starting at `n`,
+---except that if the value is 1, it adds only 255.
+---
+---The special handling of 1 means
 ---that `characters` will become `glyphs` after subtraction of 256. A
 ---single character can be marked by the singular call. The second argument is
 ---optional and indicates the end of a range.
@@ -2334,7 +2429,9 @@ node.direct.protect_glyphs = node.protect_glyphs
 _N._7_36_last_node = 155
 
 ---
----This function pops the last node from *TeX*'s “current list”. It returns
+---Pop the last node from *TeX*'s “current list”.
+---
+---It returns
 ---that node, or `nil` if the current list is empty.
 ---
 ---@return Node|nil n
@@ -2344,7 +2441,9 @@ node.direct.last_node = node.last_node
 _N._7_37_write = 155
 
 ---
----This function that will append a node list to *TeX*'s “current list”. The
+---Append a node list to *TeX*'s “current list”.
+---
+---The
 ---node list is not deep-copied! There is no error checking either! You mignt need
 ---to enforce horizontal mode in order for this to work as expected.
 ---
@@ -2359,7 +2458,7 @@ node.direct.write = node.write
 _N._7_38_protrusion_skippable = 155
 
 ---
----Returns `true` if, for the purpose of line boundary discovery when
+---Return `true` if, for the purpose of line boundary discovery when
 ---character protrusion is active, this node can be skipped.
 ---
 ---@param n Node
@@ -2373,7 +2472,9 @@ _N._8_glue = 155
 _N._8_1_setglue = 155
 
 ---
----You can set the five properties of a glue in one go. Non-numeric values are
+---Set the five properties of a glue in one go.
+---
+---Non-numeric values are
 ---equivalent to zero and reset a property.
 ---
 ---When you pass values, only arguments that are numbers are assigned so
@@ -2398,7 +2499,7 @@ node.direct.setglue = node.setglue
 _N._8_2_getglue = 155
 
 ---
----The next call will return 5 values or nothing when no glue is passed.
+---Return 5 values or nothing when no glue is passed.
 ---
 ---When the second argument is false, only the width is returned (this is consistent
 ---with `tex.get`).
@@ -2419,7 +2520,7 @@ node.direct.getglue = node.getglue
 _N._8_3_is_zero_glue = 156
 
 ---
----This function returns `true` when the width, stretch and shrink properties
+---Return `true` when the width, stretch and shrink properties
 ---are zero.
 ---
 ---@param n Node
@@ -2435,7 +2536,9 @@ _N._9_3_attr_nodes = 157
 _N._9_4_has_attribute = 157
 
 ---
----Tests if a node has the attribute with number `id` set. If `val` is
+---Test if a node has the attribute with number `id` set.
+---
+---If `val` is
 ---also supplied, also tests if the value matches `val`. It returns the value,
 ---or, if no match is found, `nil`.
 ---
@@ -2443,7 +2546,7 @@ _N._9_4_has_attribute = 157
 ---@param id integer
 ---@param val? integer
 ---
----@return integer v
+---@return integer|nil v
 function node.has_attribute(n, id, val) end
 node.direct.has_attribute = node.has_attribute
 
@@ -2457,7 +2560,7 @@ _N._9_5_get_attribute = 157
 ---@param n Node
 ---@param id integer
 ---
----@return integer v
+---@return integer|nil v
 function node.get_attribute(n, id) end
 node.direct.get_attribute = node.get_attribute
 

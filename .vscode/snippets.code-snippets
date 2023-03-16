@@ -48,7 +48,7 @@
   },
 
   "referenceC": {
-    "prefix": ["ccode"],
+    "prefix": ["c", "ccode"],
     "body": ["", "---", "---* Corresponding C source code: [$2]($1)", "---$0"],
     "description": "* Corresponding C source code: "
   },
@@ -89,5 +89,12 @@
     "prefix": ["direct"],
     "body": ["node.direct.$0 = node.$0"],
     "description": "node.direct.xxx = node.xxx"
+  },
+
+
+  "linebreak": {
+    "prefix": ["-"],
+    "body": ["", "---", "---"],
+    "description": "---"
   }
 }
