@@ -2833,23 +2833,50 @@ function node.direct.getattributelist(n) end
 function node.direct.getbox(box) end
 
 ---
+---
+---* Corresponding C source code: [lnodelib.c#L763-L772](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L763-L772)
+---
 ---@param d integer # The index number of the node in the memory table for direct access.
+---
+---@return integer|nil
 function node.direct.getcomponents(d) end
 
 ---
+---
+---* Corresponding C source code: [lnodelib.c#L1678-L1714](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1678-L1714)
+---
 ---@param d integer # The index number of the node in the memory table for direct access.
+---
+---@return any
 function node.direct.getdata(d) end
 
 ---
+---
+---* Corresponding C source code: [lnodelib.c#L3699-L3719](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3699-L3719)
+---
 ---@param d integer # The index number of the node in the memory table for direct access.
+---
+---@return integer|nil
 function node.direct.getdepth(d) end
 
 ---
----@param d integer # The index number of the node in the memory table for direct access.
-function node.direct.getdir(d) end
-
+---Get the direction  of `dir`, `hlist`, `vlist`, `rule` and `local_par` nodes as an string.
+---
+---
+---* Corresponding C source code: [lnodelib.c#L1047-L1067](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1047-L1067)
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
+---
+---@return DirectionSpecifier
+function node.direct.getdir(d) end
+
+---Get the direction of `dir`, `hlist`, `vlist`, `rule` and `local_par` nodes as an integer.
+---
+---* Corresponding C source code: [lnodelib.c#LL1070-L1092](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#LL1070-L1092)
+---
+---@param d integer # The index number of the node in the memory table for direct access.
+---
+---@return integer
 function node.direct.getdirection(d) end
 
 ---
@@ -2869,10 +2896,13 @@ function node.direct.getheight(d) end
 function node.direct.getkern(d) end
 
 ---
+---* Corresponding C source code: [lnodelib.c#L790-L799](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L790-L799)
+---
 ---@param d integer # The index number of the node in the memory table for direct access.
+---
+---@return integer
 function node.direct.getlang(d) end
 
----
 ---@param d integer # The index number of the node in the memory table for direct access.
 function node.direct.getnucleus(d) end
 
@@ -2959,12 +2989,22 @@ function node.direct.setdata(d) end
 function node.direct.setdepth(d) end
 
 ---
----@param d integer # The index number of the node in the memory table for direct access.
-function node.direct.setdir(d) end
-
+---Set the direction of `dir`, `hlist`, `vlist`, `rule` and `local_par` nodes as a string.
+---
+---
+---* Corresponding C source code: [lnodelib.c#L1093-L1109](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1093-L1109)
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
-function node.direct.setdirection(d) end
+---@param dir DirectionSpecifier
+function node.direct.setdir(d, dir) end
+
+------Set the direction of `dir`, `hlist`, `vlist`, `rule` and `local_par` nodes as a integer.
+---
+---* Corresponding C source code: [lnodelib.c#L1111-L1134](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1111-L1134)
+---
+---@param d integer # The index number of the node in the memory table for direct access.
+---@param dir integer
+function node.direct.setdirection(d, dir) end
 
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
@@ -2974,9 +3014,13 @@ function node.direct.setdisc(d) end
 ---@param d integer # The index number of the node in the memory table for direct access.
 function node.direct.setexpansion(d) end
 
+---Set the the family number of `math_char`, `math_text_char`, `delim`, `fraction_noad`, `simple_noad` nodes.
+---
+---* Corresponding C source code: [lnodelib.c#L719-L735](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L719-L735)
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
-function node.direct.setfam(d) end
+---@param fam integer
+function node.direct.setfam(d, fam) end
 
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
