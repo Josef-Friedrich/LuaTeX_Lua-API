@@ -1569,9 +1569,11 @@ function node.direct.current_attr() end
 _N._7_13_hpack = 0
 
 ---
----This function creates a new hlist by packaging the list that begins at node `n` into a horizontal box. With only a single argument, this box is created using
+---Create a new `hlist` by packaging the list that begins at node `n` into a horizontal box.
+---
+---With only a single argument, this box is created using
 ---the natural width of its components. In the three argument form, `info`
----must be either `additional` or `exactly`, and `w` is the
+---must be either `additional` or `exactly`, and `width` is the
 ---additional (`\hbox spread`) or exact (`\hbox to`) width to be used.
 ---The second return value is the badness of the generated box.
 ---
@@ -1580,86 +1582,193 @@ _N._7_13_hpack = 0
 ---`h` is the original node list `n`: if you call `node.free(h)`
 ---you will also free the node list itself, unless you explicitly set the `list` field to `nil` beforehand. And in a similar way, calling `node.free(n)` will invalidate `h` as well!
 ---
+---* Corresponding C source code: [lnodelib.c#L2576-L2619](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2576-L2619)
+---
 ---@param n Node
----@param w? integer
+---@param width? integer
 ---@param info? string
 ---@param dir? string
 ---
 ---@return Node n
----@return integer b
-function node.hpack(n, w, info, dir) end
-node.direct.hpack = node.hpack
+---@return integer badness
+function node.hpack(n, width, info, dir) end
+
+---
+---Create a new `hlist` by packaging the list that begins at node `d` into a horizontal box.
+---
+---With only a single argument, this box is created using
+---the natural width of its components. In the three argument form, `info`
+---must be either `additional` or `exactly`, and `width` is the
+---additional (`\hbox spread`) or exact (`\hbox to`) width to be used.
+---The second return value is the badness of the generated box.
+---
+---Caveat: there can be unexpected side-effects to this function, like updating
+---some of the `marks` and `\inserts`. Also note that the content of
+---`h` is the original node list `n`: if you call `node.free(h)`
+---you will also free the node list itself, unless you explicitly set the `list` field to `nil` beforehand. And in a similar way, calling `node.free(n)` will invalidate `h` as well!
+---
+---* Corresponding C source code: [lnodelib.c#L2576-L2619](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2576-L2619)
+---
+---@param d integer
+---@param width? integer
+---@param info? string
+---@param dir? string
+---
+---@return integer d
+---@return integer badness
+function node.direct.hpack(d, width, info, dir) end
 
 _N._7_14_vpack = 0
 
 ---
----This function creates a new vlist by packaging the list that begins at node `n` into a vertical box. With only a single argument, this box is created using
+---Create a new `vlist` by packaging the list that begins at node `n` into a vertical box.
+---
+---With only a single argument, this box is created using
 ---the natural height of its components. In the three argument form, `info`
 ---must be either `additional` or `exactly`, and `w` is the
 ---
 ---The second return value is the badness of the generated box. See the description
 ---of `hpack` for a few memory allocation caveats.
 ---
+---* Corresponding C source code: [lnodelib.c#L2673-L2716](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2673-L2716)
+---
 ---@param n Node
----@param w? integer
+---@param width? integer
 ---@param info? string
 ---@param dir? string
 ---
 ---@return Node n
----@return integer b
-function node.vpack(n, w, info, dir) end
-node.direct.vpack = node.vpack
+---@return integer badness
+function node.vpack(n, width, info, dir) end
+
+---
+---Create a new `vlist` by packaging the list that begins at node `n` into a vertical box.
+---
+---With only a single argument, this box is created using
+---the natural height of its components. In the three argument form, `info`
+---must be either `additional` or `exactly`, and `w` is the
+---
+---The second return value is the badness of the generated box. See the description
+---of `hpack` for a few memory allocation caveats.
+---
+---* Corresponding C source code: [lnodelib.c#L2720-L2763](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2720-L2763)
+---
+---@param d integer
+---@param width? integer
+---@param info? string
+---@param dir? string
+---
+---@return integer d
+---@return integer badness
+function node.direct.vpack(d, width, info, dir) end
 
 _N._7_15_prepend_prevdepth = 0
 
 ---
----This function is somewhat special in the sense that it is an experimental helper
----that adds the interlinespace to a line keeping the baselineskip and lineskip into
+---Add the interlinespace to a line keeping the baselineskip and lineskip into
 ---account.
 ---
----@param n Node
+---* Corresponding C source code: [lnodelib.c#L8763-L8801](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L8763-L8801)
+---
+---
+---@param n Node # vlist or hlist
 ---@param prevdepth integer
+---
+---@return integer new_prevdepth
 function node.prepend_prevdepth(n, prevdepth) end
-node.direct.prepend_prevdepth = node.prepend_prevdepth
+
+---
+---Add the interlinespace to a line keeping the baselineskip and lineskip into
+---account.
+---
+---* Corresponding C source code: [lnodelib.c#L8803-L8840](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L8803-L8840)
+---
+---@param d integer
+---@param prevdepth integer
+---
+---@return integer new_prevdepth
+function node.direct.prepend_prevdepth(d, prevdepth) end
 
 _N._7_16_dimensions_rangedimensions = 149
 
 ---
----This function calculates the natural in-line dimensions of the end of the node list starting
----at node `n`. The return values are scaled points.
+---Calculate the natural in-line dimensions of the end of the node list starting
+---at node `n`.
+---
+---The return values are scaled points.
 ---
 ---You need to keep in mind that this is one of the few places in *TeX* where floats
 ---are used, which means that you can get small differences in rounding when you
 ---compare the width reported by `hpack` with `dimensions`.
 ------
 ---[Source: luatex-nodes.tex#L1490-L1546](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L1490-L1546)
+---* Corresponding C source code: [lnodelib.c#L2767-L2812](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2767-L2812)
+---
 ---
 ---@param n Node
 ---@param dir? DirectionSpecifier
 ---
----@return integer w # scaled points
----@return integer h # scaled points
----@return integer d # scaled points
+---@return integer width # scaled points
+---@return integer height # scaled points
+---@return integer depth # scaled points
 function node.dimensions(n, dir) end
-node.direct.dimensions = node.dimensions
 
 ---
----This function calculates the natural in-line dimensions of the node list starting
+---Calculate the natural in-line dimensions of the end of the node list starting
+---at node `n`.
+---
+---The return values are scaled points.
+---
+---You need to keep in mind that this is one of the few places in *TeX* where floats
+---are used, which means that you can get small differences in rounding when you
+---compare the width reported by `hpack` with `dimensions`.
+------
+---[Source: luatex-nodes.tex#L1490-L1546](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L1490-L1546)
+---* Corresponding C source code: [lnodelib.c#L2838-L2880](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2838-L2880)
+---
+---
+---@param d integer
+---@param dir? DirectionSpecifier
+---
+---@return integer width # scaled points
+---@return integer height # scaled points
+---@return integer depth # scaled points
+function node.direct.dimensions(d, dir) end
+
+---
+---Calculate the natural in-line dimensions of the node list starting
 ---at node `n` and terminating just before node `t`.
 ------
 ---[Source: luatex-nodes.tex#L1490-L1546](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L1490-L1546)
+---* Corresponding C source code: [lnodelib.c#L2767-L2812](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2767-L2812)
 ---
 ---@param n Node
 ---@param t Node # terminating node
 ---@param dir? DirectionSpecifier
 ---
----@return integer w # scaled points
----@return integer h # scaled points
----@return integer d # scaled points
+---@return integer width # scaled points
+---@return integer height # scaled points
+---@return integer depth # scaled points
 function node.dimensions(n, t, dir) end
 
 ---
----This function calculates the natural in-line dimensions of the end of the node list starting
+---Calculate the natural in-line dimensions of the node list starting
+---at node `n` and terminating just before node `t`.
+------
+---[Source: luatex-nodes.tex#L1490-L1546](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L1490-L1546)
+---* Corresponding C source code: [lnodelib.c#L2838-L2880](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2838-L2880)
+---
+---@param d integer
+---@param t integer # terminating node
+---@param dir? DirectionSpecifier
+---
+---@return integer width # scaled points
+---@return integer height # scaled points
+---@return integer depth # scaled points
+function node.direct.dimensions(d, t, dir) end
+
+---
+---Calculates the natural in-line dimensions of the end of the node list starting
 ---at node `n`.
 ---
 ---This is an
@@ -1683,6 +1792,7 @@ function node.dimensions(n, t, dir) end
 ---```
 ------
 ---[Source: luatex-nodes.tex#L1490-L1546](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L1490-L1546)
+---* Corresponding C source code: [lnodelib.c#L2838-L2880](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2838-L2880)
 ---
 ---@param glue_set integer
 ---@param glue_sign integer
@@ -1690,19 +1800,80 @@ function node.dimensions(n, t, dir) end
 ---@param n Node
 ---@param dir? DirectionSpecifier
 ---
----@return integer w # scaled points
----@return integer h # scaled points
----@return integer d # scaled points
+---@return integer width # scaled points
+---@return integer height # scaled points
+---@return integer depth # scaled points
 function node.dimensions(glue_set, glue_sign, glue_order, n, dir) end
 
 ---
----This function calculates the natural in-line dimensions of the node list starting
+---Calculates the natural in-line dimensions of the end of the node list starting
+---at node `n`.
+---
+---This is an
+---alternative format that starts with glue parameters as the first three arguments.
+---
+---This calling method takes glue settings into account and is especially useful for
+---finding the actual width of a sublist of nodes that are already boxed, for
+---example in code like this, which prints the width of the space in between the
+---`a` and `b` as it would be if `\box0` was used as-is:
+---
+---```
+---\setbox0 = \hbox to 20pt {a b}
+---
+---\directlua{print (node.dimensions(
+---    tex.box[0].glue_set,
+---    tex.box[0].glue_sign,
+---    tex.box[0].glue_order,
+---    tex.box[0].head.next,
+---    node.tail(tex.box[0].head)
+---)) }
+---```
+------
+---[Source: luatex-nodes.tex#L1490-L1546](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L1490-L1546)
+---* Corresponding C source code: [lnodelib.c#L2838-L2880](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2838-L2880)
+---
+---@param glue_set integer
+---@param glue_sign integer
+---@param glue_order integer
+---@param d integer
+---@param dir? DirectionSpecifier
+---
+---@return integer width # scaled points
+---@return integer height # scaled points
+---@return integer depth # scaled points
+function node.direct.dimensions(glue_set, glue_sign, glue_order, d, dir) end
+
+---
+---Calculate the natural in-line dimensions of the node list starting
 ---at node `n` and terminating just before node `t`.
 ---
 ---This is an
 ---alternative format that starts with glue parameters as the first three arguments.
 ------
 ---[Source: luatex-nodes.tex#L1490-L1546](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L1490-L1546)
+---* Corresponding C source code: [lnodelib.c#L2767-L2812](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2767-L2812)
+---
+---@param glue_set integer
+---@param glue_sign integer
+---@param glue_order integer
+---@param d integer
+---@param t integer # terminating node
+---@param dir? DirectionSpecifier
+---
+---@return integer width # scaled points
+---@return integer height # scaled points
+---@return integer depth # scaled points
+function node.dimensions(glue_set, glue_sign, glue_order, d, t, dir) end
+
+---
+---Calculate the natural in-line dimensions of the node list starting
+---at node `n` and terminating just before node `t`.
+---
+---This is an
+---alternative format that starts with glue parameters as the first three arguments.
+---
+---[Source: luatex-nodes.tex#L1490-L1546](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L1490-L1546)
+---* Corresponding C source code: [lnodelib.c#L2838-L2880](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2838-L2880)
 ---
 ---@param glue_set integer
 ---@param glue_sign integer
@@ -1711,31 +1882,58 @@ function node.dimensions(glue_set, glue_sign, glue_order, n, dir) end
 ---@param t Node # terminating node
 ---@param dir? DirectionSpecifier
 ---
----@return integer w # scaled points
----@return integer h # scaled points
----@return integer d # scaled points
-function node.dimensions(glue_set, glue_sign, glue_order, n, t, dir) end
+---@return integer width # scaled points
+---@return integer height # scaled points
+---@return integer depth # scaled points
+function node.direct.dimensions(glue_set, glue_sign, glue_order, n, t, dir) end
 
 ---
----The second alternative saves a few lookups and can be more convenient in some
----cases:
+---Calculate the natural in-line dimensions of the node list `parent` starting
+---at node `first` and terminating just before node `last`.
+---
+---This functions saves a few lookups in comparison to `node.dimensions()` and can be more convenient in some
+---cases.
+---
+---* Corresponding C source code: [lnodelib.c#L2814-L2834](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2814-L2834)
 ---
 ---@param parent Node
 ---@param first Node
 ---@param last? Node
 ---
----@return integer w # scaled points
----@return integer h # scaled points
----@return integer d # scaled points
+---@return integer width # scaled points
+---@return integer height # scaled points
+---@return integer depth # scaled points
 function node.rangedimensions(parent, first, last) end
-node.direct.rangedimensions = node.rangedimensions
+
+---
+---Calculate the natural in-line dimensions of the node list `parent` starting
+---at node `first` and terminating just before node `last`.
+---
+---This functions saves a few lookups in comparison to `node.dimensions()` and can be more convenient in some
+---cases.
+---
+---* Corresponding C source code: [lnodelib.c#L2882-L2902](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2882-L2902)
+---
+---@param parent integer
+---@param first integer
+---@param last? integer
+---
+---@return integer width # scaled points
+---@return integer height # scaled points
+---@return integer depth # scaled points
+function node.direct.rangedimensions(parent, first, last) end
 
 _N._7_17_mlist_to_hlist = 0
 
 ---
----This runs the internal mlist to hlist conversion, converting the math list in
----`n` into the horizontal list `h`. The interface is exactly the same
+---Run the internal `mlist` to `hlist` conversion, converting the math list in
+---`n` into the horizontal list `h`.
+---
+---The interface is exactly the same
 ---as for the callback `mlist_to_hlist`.
+---
+---* Corresponding C source code: [lnodelib.c#L2906-L2918](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2906-L2918)
+---
 ---
 ---@param n Node
 ---@param display_type string
@@ -1752,13 +1950,26 @@ _N._7_18_slide = 0
 _N._7_19_tail = 152
 
 ---
----Returns the last node of the node list that starts at `n`.
+---Return the last node of the node list that starts at `n`.
+---
+---* Corresponding C source code: [lnodelib.c#L3262-L3274](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3262-L3274)
+---
 ---
 ---@param n Node
 ---
 ---@return Node m
 function node.tail(n) end
-node.direct.tail = node.tail
+
+---
+---Return the last node of the node list that starts at `d`.
+---
+---* Corresponding C source code: [lnodelib.c#L3278-L3289](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3278-L3289)
+---
+---
+---@param d integer
+---
+---@return integer e
+function node.direct.tail(d) end
 
 _N._7_20_length_and_count = 0
 
