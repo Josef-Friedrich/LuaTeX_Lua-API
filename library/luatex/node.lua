@@ -2680,18 +2680,30 @@ _N._7_38_protrusion_skippable = 155
 ---Return `true` if, for the purpose of line boundary discovery when
 ---character protrusion is active, this node can be skipped.
 ---
+---* Corresponding C source code: [lnodelib.c#L6488-L6493](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6488-L6493)
+---
 ---@param n Node
 ---
 ---@return boolean skippable
 function node.protrusion_skippable(n) end
-node.direct.protrusion_skippable = node.protrusion_skippable
+
+---
+---Return `true` if, for the purpose of line boundary discovery when
+---character protrusion is active, this node can be skipped.
+---
+---* Corresponding C source code: [lnodelib.c#L6497-L6506](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6497-L6506)
+---
+---@param d integer
+---
+---@return boolean skippable
+function node.direct.protrusion_skippable(d) end
 
 _N._8_glue = 155
 
 _N._8_1_setglue = 155
 
 ---
----Set the five properties of a glue in one go.
+---Set the five properties of a `glue` node in one go.
 ---
 ---Non-numeric values are
 ---equivalent to zero and reset a property.
@@ -2706,6 +2718,8 @@ _N._8_1_setglue = 155
 ---
 ---When a list node is passed, you set the glue, order and sign instead.
 ---
+---* Corresponding C source code: [lnodelib.c#L3862-L3883](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3862-L3883)
+---
 ---@param n Node
 ---@param width integer|any
 ---@param stretch integer|any
@@ -2713,7 +2727,33 @@ _N._8_1_setglue = 155
 ---@param stretch_order integer|any
 ---@param shrink_order integer|any
 function node.setglue(n, width, stretch, shrink, stretch_order, shrink_order) end
-node.direct.setglue = node.setglue
+
+---
+---Set the five properties of a `glue` node in one go.
+---
+---Non-numeric values are
+---equivalent to zero and reset a property.
+---
+---When you pass values, only arguments that are numbers are assigned so
+---
+---```
+---node.direct.setglue(n,655360,false,65536)
+---```
+---
+---will only adapt the width and shrink.
+---
+---When a list node is passed, you set the glue, order and sign instead.
+---
+---* Corresponding C source code: [lnodelib.c#L3798-L3818](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3798-L3818)
+---
+---@param d integer
+---@param width integer|any
+---@param stretch integer|any
+---@param shrink integer|any
+---@param stretch_order integer|any
+---@param shrink_order integer|any
+function node.direct.setglue(d, width, stretch, shrink, stretch_order,
+                             shrink_order) end
 
 _N._8_2_getglue = 155
 
@@ -2723,18 +2763,33 @@ _N._8_2_getglue = 155
 ---When the second argument is false, only the width is returned (this is consistent
 ---with `tex.get`).
 ---
----When a list node is passed, you get back the glue that is set, the order of that
----glue and the sign.
+---* Corresponding C source code: [lnodelib.c#L3840-L3860](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3840-L3860)
 ---
 ---@param n Node
 ---
----@return integer|nil width
----@return integer|nil stretch
----@return integer|nil shrink
+---@return integer|number|nil width_or_glue_set # When a list node (`vlist` or `hlist`) is passed, than the glue set is returned.
+---@return integer|nil stretch_or_glue_order # When a list node (`vlist` or `hlist`) is passed, than the glue order is returned.
+---@return integer|nil shrink_or_glue_sign # When a list node (`vlist` or `hlist`) is passed, than the glue sign is returned.
 ---@return integer|nil stretch_order
 ---@return integer|nil shrink_order
 function node.getglue(n) end
-node.direct.getglue = node.getglue
+
+---
+---Return 5 values or nothing when no glue is passed.
+---
+---When the second argument is false, only the width is returned (this is consistent
+---with `tex.get`).
+---
+---* Corresponding C source code: [lnodelib.c#L3776-L3796](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3776-L3796)
+---
+---@param d integer
+---
+---@return integer|number|nil width_or_glue_set # When a list node (`vlist` or `hlist`) is passed, than the glue set is returned.
+---@return integer|nil stretch_or_glue_order # When a list node (`vlist` or `hlist`) is passed, than the glue order is returned.
+---@return integer|nil shrink_or_glue_sign # When a list node (`vlist` or `hlist`) is passed, than the glue sign is returned.
+---@return integer|nil stretch_order
+---@return integer|nil shrink_order
+function node.direct.getglue(d) end
 
 _N._8_3_is_zero_glue = 156
 
@@ -2742,11 +2797,23 @@ _N._8_3_is_zero_glue = 156
 ---Return `true` when the width, stretch and shrink properties
 ---are zero.
 ---
+---* Corresponding C source code: [lnodelib.c#L3885-L3899](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3885-L3899)
+---
 ---@param n Node
 ---
 ---@return boolean isglue
 function node.is_zero_glue(n) end
-node.direct.is_zero_glue = node.is_zero_glue
+
+---
+---Return `true` when the width, stretch and shrink properties
+---are zero.
+---
+---* Corresponding C source code: [lnodelib.c#L3820-L3834](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3820-L3834)
+---
+---@param d integer
+---
+---@return boolean isglue
+function node.direct.is_zero_glue(d) end
 
 _N._9_attribute_handling = 156
 _N._9_1_attributes = 156
