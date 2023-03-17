@@ -2753,44 +2753,119 @@ function node.getdisc(n) end
 node.direct.getdisc = node.getdisc
 
 ---
----we often parse nested lists so this is a convenient one too
+---Set child node lists to parent `hlist`, `vlist`, `sub_box`, `sub_mlist`, `ins`, or `adjust` nodes.
+---
+---* Corresponding C source code: [lnodelib.c#L1404-L1436](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1404-L1436)
+---
+---@param d integer # The index number of the node in the memory table for direct access.
+---@param list integer
+function node.direct.setlist(d, list) end
+
+---
+---Get child node lists of parent `hlist`, `vlist`, `sub_box`, `sub_mlist`, `ins`, or `adjust` nodes.
+---
+---* Corresponding C source code: [lnodelib.c#L1440-L1458](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1440-L1458)
 ---
 ---@param n Node
+---
+---@return Node|nil list
 function node.getlist(n) end
-node.direct.getlist = node.getlist
 
 ---
----comparable to list, seldom used in TEX (but needs frequent consulting like lists; leaders could have been made a dedicated node type)
+---Get child node lists of parent `hlist`, `vlist`, `sub_box`, `sub_mlist`, `ins`, or `adjust` nodes.
+---
+---@param d integer # The index number of the node in the memory table for direct access.
+---
+---@return integer|nil list
+function node.direct.getlist(d) end
+
+---Set the leaders to `glue` nodes.
+---
+---* Corresponding C source code: [lnodelib.c#L1474-L1485](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1474-L1485)
+---
+---@param d integer # The index number of the node in the memory table for direct access.
+---@param leader integer
+function node.direct.setleader(d, leader) end
+
+---
+---Get the leaders of `glue` nodes.
+---
+---* Corresponding C source code: [lnodelib.c#L1489-L1501](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1489-L1501)
 ---
 ---@param n Node
+---
+---@return Node|nil leaders
 function node.getleader(n) end
-node.direct.getleader = node.getleader
 
 ---
----generic getter, sufficient for the rest (other field names are often shared so a specific getter makes no sense then)
+---Get the leaders of `glue` nodes.
+---
+---* Corresponding C source code: [lnodelib.c#L1463-L1472](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1463-L1472)
+---
+---@param d integer # The index number of the node in the memory table for direct access.
+---
+---@return integer|nil leaders
+function node.direct.getleader(d) end
+
+---
+---Get the value of a generic node field.
+---
+---Other field names are often shared so a specific getter makes no sense.
+---
+---* Corresponding C source code: [lnodelib.c#L5189-L5207](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L5189-L5207)
+---
 ---
 ---@param n Node
 ---@param field string
 ---
 ---@return any|nil
 function node.getfield(n, field) end
-node.direct.getfile = node.getfile
 
 ---
----You can set and query the syncTeX fields, a file number aka tag and a line
+---Get the value of a generic node field.
+---
+---Other field names are often shared so a specific getter makes no sense.
+---
+---* Corresponding C source code: [lnodelib.c#L5402-L5891](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L5402-L5891)
+---
+---@param d integer # The index number of the node in the memory table for direct access.
+---@param field string
+---
+---@return any|nil
+function node.direct.getfield(d, field) end
+
+---
+---Set the SyncTeX fields, a file number aka tag and a line
 ---number, for a glue, kern, hlist, vlist, rule and math nodes as well as glyph
----nodes (although this last one is not used in native syncTeX).
+---nodes (although this last one is not used in native SyncTeX).
 ---
 ---Of course you need to know what you're doing as no checking on sane values takes
----place. Also, the synctex interpreter used in editors is rather peculiar and has
+---place. Also, the SyncTeX interpreter used in editors is rather peculiar and has
 ---some assumptions (heuristics).
+---
+---* Corresponding C source code: [lnodelib.c#L8683-L8719](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L8683-L8719)
+---
+---@param d integer # The index number of the node in the memory table for direct access.
+---@param tag integer
+---@param line integer
+function node.direct.set_synctex_fields(d, tag, line) end
 
 ---
----@param n Node
+---Query the SyncTeX fields, a file number aka tag and a line
+---number, for a glue, kern, hlist, vlist, rule and math nodes as well as glyph
+---nodes (although this last one is not used in native SyncTeX).
 ---
----@return integer f
----@return integer l
-function node.direct.get_synctex_fields(n) end
+---Of course you need to know what you're doing as no checking on sane values takes
+---place. Also, the SyncTeX interpreter used in editors is rather peculiar and has
+---some assumptions (heuristics).
+---
+---* Corresponding C source code: [lnodelib.c#L8721-L8759](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L8721-L8759)
+---
+---@param d integer # The index number of the node in the memory table for direct access.
+---
+---@return integer tag
+---@return integer line
+function node.direct.get_synctex_fields(d) end
 
 ---
 ---* Corresponding C source code: [lnodelib.c#L828-L854](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L828-L854)
@@ -2993,19 +3068,6 @@ function node.direct.getwidth(d) end
 function node.direct.is_direct(d) end
 
 ---
----You can set and query the syncTeX fields, a file number aka tag and a line
----number, for a glue, kern, hlist, vlist, rule and math nodes as well as glyph
----nodes (although this last one is not used in native syncTeX).
----
----Of course you need to know what you're doing as no checking on sane values takes
----place. Also, the synctex interpreter used in editors is rather peculiar and has
----some assumptions (heuristics).
----
----@param f integer
----@param l integer
-function node.direct.set_synctex_fields(f, l) end
-
----
 ---* Corresponding C source code: [lnodelib.c#L1864-L1880](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1864-L1880)
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
@@ -3045,15 +3107,7 @@ function node.direct.setfont(d) end
 
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
-function node.direct.setleader(d) end
-
----
----@param d integer # The index number of the node in the memory table for direct access.
 function node.direct.setlink(d) end
-
----
----@param d integer # The index number of the node in the memory table for direct access.
-function node.direct.setlist(d) end
 
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.

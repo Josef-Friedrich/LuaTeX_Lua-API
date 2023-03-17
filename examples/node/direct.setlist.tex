@@ -1,0 +1,14 @@
+\directlua{
+  callback.register('post_linebreak_filter', function(head)
+    local d = node.direct.todirect(head)
+    local n = node.new('glyph')
+    local list = node.direct.todirect(n)
+    node.direct.setlist(d, list)
+    print(node.direct.getlist(d))
+    assert(node.direct.getlist(d) == list2)
+  end)
+}
+
+Lorem ipsum
+
+\bye
