@@ -1317,7 +1317,6 @@ _N._7_8_new = 146
 ---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L1299-L1314](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L1299-L1314)
 ---* Corresponding C source code: [lnodelib.c#L2055-L2060](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2055-L2060)
 ---
----
 ---@param id integer|NodeTypeName
 ---@param subtype? integer|string
 ---
@@ -1337,7 +1336,6 @@ function node.new(id, subtype) end
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L1299-L1314](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L1299-L1314)
 ---* Corresponding C source code: [lnodelib.c#L2064-L2069](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2064-L2069)
----
 ---
 ---@param id integer|NodeTypeName
 ---@param subtype? integer|string
@@ -1394,7 +1392,6 @@ function node.flush_node(n) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L2126-L2133](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2126-L2133)
 ---
----
 ---@param d integer
 function node.direct.flush_node(d) end
 
@@ -1421,7 +1418,6 @@ function node.flush_list(n) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L2150-L2157](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2150-L2157)
 ---
----
 ---@param d integer
 function node.direct.flush_list(d) end
 
@@ -1433,7 +1429,6 @@ _N._7_10_copy_copy_list = 147
 ---
 ---* Corresponding C source code: [lnodelib.c#L2476-L2485](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2476-L2485)
 ---
----
 ---@param n Node
 ---
 ---@return Node m
@@ -1444,7 +1439,6 @@ function node.copy(n) end
 ---of a `hlist` or `vlist` node. Only the `next` field is not copied.
 ---
 ---* Corresponding C source code: [lnodelib.c#L2489-L2500](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2489-L2500)
----
 ---
 ---@param d integer
 ---
@@ -1463,7 +1457,6 @@ function node.direct.copy(d) end
 ---place automatically.
 ---
 ---* Corresponding C source code: [lnodelib.c#L2440-L2452](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2440-L2452)
----
 ---
 ---@param n Node
 ---@param m? Node
@@ -1484,7 +1477,6 @@ function node.copy_list(n, m) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L2456-L2472](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2456-L2472)
 ---
----
 ---@param d integer
 ---@param e? integer
 ---
@@ -1499,7 +1491,6 @@ _N._7_11_prev_next = 147
 ---
 ---* Corresponding C source code: [lnodelib.c#L379-L388](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L379-L388)
 ---
----
 ---@param n Node
 ---
 ---@return Node|nil m
@@ -1510,7 +1501,6 @@ function node.prev(n) end
 ---there is no such node.
 ---
 ---* Corresponding C source code: [lnodelib.c#L390-L399](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L390-L399)
----
 ---
 ---@param n Node
 ---
@@ -1553,7 +1543,6 @@ _N._7_12_current_attr = 0
 ---
 ---* Corresponding C source code: [lnodelib.c#L6511-L6532](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6511-L6532)
 ---
----
 ---@return Node|nil m
 function node.current_attr() end
 
@@ -1561,7 +1550,6 @@ function node.current_attr() end
 ---Return the currently active list of attributes, if there is one.
 ---
 ---* Corresponding C source code: [lnodelib.c#L6511-L6532](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6511-L6532)
----
 ---
 ---@return integer|nil e
 function node.direct.current_attr() end
@@ -1670,7 +1658,6 @@ _N._7_15_prepend_prevdepth = 0
 ---
 ---* Corresponding C source code: [lnodelib.c#L8763-L8801](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L8763-L8801)
 ---
----
 ---@param n Node # vlist or hlist
 ---@param prevdepth integer
 ---
@@ -1704,7 +1691,6 @@ _N._7_16_dimensions_rangedimensions = 149
 ---[Source: luatex-nodes.tex#L1490-L1546](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L1490-L1546)
 ---* Corresponding C source code: [lnodelib.c#L2767-L2812](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2767-L2812)
 ---
----
 ---@param n Node
 ---@param dir? DirectionSpecifier
 ---
@@ -1725,7 +1711,6 @@ function node.dimensions(n, dir) end
 ------
 ---[Source: luatex-nodes.tex#L1490-L1546](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L1490-L1546)
 ---* Corresponding C source code: [lnodelib.c#L2838-L2880](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2838-L2880)
----
 ---
 ---@param d integer
 ---@param dir? DirectionSpecifier
@@ -1934,7 +1919,6 @@ _N._7_17_mlist_to_hlist = 0
 ---
 ---* Corresponding C source code: [lnodelib.c#L2906-L2918](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2906-L2918)
 ---
----
 ---@param n Node
 ---@param display_type string
 ---@param penalties boolean
@@ -1954,7 +1938,6 @@ _N._7_19_tail = 152
 ---
 ---* Corresponding C source code: [lnodelib.c#L3262-L3274](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3262-L3274)
 ---
----
 ---@param n Node
 ---
 ---@return Node m
@@ -1964,7 +1947,6 @@ function node.tail(n) end
 ---Return the last node of the node list that starts at `d`.
 ---
 ---* Corresponding C source code: [lnodelib.c#L3278-L3289](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3278-L3289)
----
 ---
 ---@param d integer
 ---
@@ -1981,7 +1963,6 @@ _N._7_20_length_and_count = 0
 ---
 ---* Corresponding C source code: [lnodelib.c#L4374-L4386](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L4374-L4386)
 ---
----
 ---@param n Node
 ---@param m? Node
 ---
@@ -1995,7 +1976,6 @@ function node.length(n, m) end
 ---list. The node `d` is not counted.
 ---
 ---* Corresponding C source code: [lnodelib.c#L4350-L4360](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L4350-L4360)
----
 ---
 ---@param d integer
 ---@param e? Node
@@ -2013,7 +1993,6 @@ function node.direct.length(d, e) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L4388-L4401](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L4388-L4401)
 ---
----
 ---@param id integer|string
 ---@param n Node
 ---@param m? Node
@@ -2030,7 +2009,6 @@ function node.count(id, n, m) end
 ---counted. This function also accept string `id`’s.
 ---
 ---* Corresponding C source code: [lnodelib.c#L4362-L4369](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L4362-L4369)
----
 ---
 ---@param id integer|string
 ---@param d integer
@@ -2073,7 +2051,6 @@ function node.direct.is_char(d, font) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L3026-L3037](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3026-L3037)
 ---
----
 ---@param n Node
 ---
 ---@return boolean|integer character
@@ -2085,7 +2062,6 @@ function node.is_glyph(n) end
 ---or not.
 ---
 ---* Corresponding C source code: [lnodelib.c#L7594-L7605](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L7594-L7605)
----
 ---
 ---@param n Node
 ---
@@ -2817,6 +2793,13 @@ node.direct.getfile = node.getfile
 function node.direct.get_synctex_fields(n) end
 
 ---
+---* Corresponding C source code: [lnodelib.c#L828-L854](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L828-L854)
+---
+---@param d integer # The index number of the node in the memory table for direct access.
+---@param attr_list integer
+function node.direct.setattributelist(d, attr_list) end
+
+---
 ---* Corresponding C source code: [lnodelib.c#L817-L826](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L817-L826)
 ---
 ---@param n Node
@@ -2833,7 +2816,6 @@ function node.direct.getattributelist(n) end
 function node.direct.getbox(box) end
 
 ---
----
 ---* Corresponding C source code: [lnodelib.c#L763-L772](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L763-L772)
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
@@ -2841,7 +2823,6 @@ function node.direct.getbox(box) end
 ---@return integer|nil
 function node.direct.getcomponents(d) end
 
----
 ---
 ---* Corresponding C source code: [lnodelib.c#L1678-L1714](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1678-L1714)
 ---
@@ -2851,6 +2832,9 @@ function node.direct.getcomponents(d) end
 function node.direct.getdata(d) end
 
 ---
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.setdepth(d) end
+
 ---
 ---* Corresponding C source code: [lnodelib.c#L3699-L3719](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3699-L3719)
 ---
@@ -2860,8 +2844,16 @@ function node.direct.getdata(d) end
 function node.direct.getdepth(d) end
 
 ---
----Get the direction  of `dir`, `hlist`, `vlist`, `rule` and `local_par` nodes as an string.
+---Set the direction of `dir`, `hlist`, `vlist`, `rule` and `local_par` nodes as a string.
 ---
+---* Corresponding C source code: [lnodelib.c#L1093-L1109](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1093-L1109)
+---
+---@param d integer # The index number of the node in the memory table for direct access.
+---@param dir DirectionSpecifier
+function node.direct.setdir(d, dir) end
+
+---
+---Get the direction  of `dir`, `hlist`, `vlist`, `rule` and `local_par` nodes as an string.
 ---
 ---* Corresponding C source code: [lnodelib.c#L1047-L1067](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1047-L1067)
 ---
@@ -2870,6 +2862,16 @@ function node.direct.getdepth(d) end
 ---@return DirectionSpecifier
 function node.direct.getdir(d) end
 
+---
+---Set the direction of `dir`, `hlist`, `vlist`, `rule` and `local_par` nodes as a integer.
+---
+---* Corresponding C source code: [lnodelib.c#L1111-L1134](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1111-L1134)
+---
+---@param d integer # The index number of the node in the memory table for direct access.
+---@param dir integer
+function node.direct.setdirection(d, dir) end
+
+---
 ---Get the direction of `dir`, `hlist`, `vlist`, `rule` and `local_par` nodes as an integer.
 ---
 ---* Corresponding C source code: [lnodelib.c#LL1070-L1092](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#LL1070-L1092)
@@ -2881,7 +2883,20 @@ function node.direct.getdirection(d) end
 
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.setexpansion(d) end
+
+---
+---@param d integer # The index number of the node in the memory table for direct access.
 function node.direct.getexpansion(d) end
+
+---
+---Set the the family number of `math_char`, `math_text_char`, `delim`, `fraction_noad`, `simple_noad` nodes.
+---
+---* Corresponding C source code: [lnodelib.c#L719-L735](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L719-L735)
+---
+---@param d integer # The index number of the node in the memory table for direct access.
+---@param fam integer
+function node.direct.setfam(d, fam) end
 
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
@@ -2889,11 +2904,23 @@ function node.direct.getfam(d) end
 
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.setheight(d) end
+
+---
+---@param d integer # The index number of the node in the memory table for direct access.
 function node.direct.getheight(d) end
 
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.setkern(d) end
+
+---
+---@param d integer # The index number of the node in the memory table for direct access.
 function node.direct.getkern(d) end
+
+---
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.setlang(d) end
 
 ---
 ---* Corresponding C source code: [lnodelib.c#L790-L799](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L790-L799)
@@ -2903,8 +2930,17 @@ function node.direct.getkern(d) end
 ---@return integer
 function node.direct.getlang(d) end
 
+---
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.setnucleus(d) end
+
+---
 ---@param d integer # The index number of the node in the memory table for direct access.
 function node.direct.getnucleus(d) end
+
+---
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.setoffsets(d) end
 
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
@@ -2920,11 +2956,33 @@ function node.direct.getshift(d) end
 
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.setsub(d) end
+
+---
+---@param d integer # The index number of the node in the memory table for direct access.
 function node.direct.getsub(d) end
+
+---
+---Set the `sup` field on `simple_noad`, `accent_noad` or `radical_noad` nodes.
+---
+---* Corresponding C source code: [lnodelib.c#L976-L990](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L976-L990)
+---
+---@param d integer # The index number of the node in the memory table for direct access.
+---@param sup number # Rounded to an integer
+function node.direct.setsup(d, sup) end
 
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
 function node.direct.getsup(d) end
+
+---
+---Set the width on `hlist`, `vlist`, `rule`, `glue`, `glue_spec`, `math`, `kern`, `margin_kern`, `ins`, `unset`, `fraction_noad` or `radical_noad` nodes.
+---
+---* Corresponding C source code: [lnodelib.c#L3641-L3657](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3641-L3657)
+---
+---@param d integer # The index number of the node in the memory table for direct access.
+---@param width number # Rounded to an integer
+function node.direct.setwidth(d, width) end
 
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
@@ -2946,13 +3004,6 @@ function node.direct.is_direct(d) end
 ---@param f integer
 ---@param l integer
 function node.direct.set_synctex_fields(f, l) end
-
----
----* Corresponding C source code: [lnodelib.c#L828-L854](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L828-L854)
----
----@param d integer # The index number of the node in the memory table for direct access.
----@param attr_list integer
-function node.direct.setattributelist(d, attr_list) end
 
 ---
 ---* Corresponding C source code: [lnodelib.c#L1864-L1880](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1864-L1880)
@@ -2986,57 +3037,11 @@ function node.direct.setdata(d) end
 
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
-function node.direct.setdepth(d) end
-
----
----Set the direction of `dir`, `hlist`, `vlist`, `rule` and `local_par` nodes as a string.
----
----
----* Corresponding C source code: [lnodelib.c#L1093-L1109](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1093-L1109)
----
----@param d integer # The index number of the node in the memory table for direct access.
----@param dir DirectionSpecifier
-function node.direct.setdir(d, dir) end
-
-------Set the direction of `dir`, `hlist`, `vlist`, `rule` and `local_par` nodes as a integer.
----
----* Corresponding C source code: [lnodelib.c#L1111-L1134](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1111-L1134)
----
----@param d integer # The index number of the node in the memory table for direct access.
----@param dir integer
-function node.direct.setdirection(d, dir) end
-
----
----@param d integer # The index number of the node in the memory table for direct access.
 function node.direct.setdisc(d) end
 
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
-function node.direct.setexpansion(d) end
-
----Set the the family number of `math_char`, `math_text_char`, `delim`, `fraction_noad`, `simple_noad` nodes.
----
----* Corresponding C source code: [lnodelib.c#L719-L735](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L719-L735)
----
----@param d integer # The index number of the node in the memory table for direct access.
----@param fam integer
-function node.direct.setfam(d, fam) end
-
----
----@param d integer # The index number of the node in the memory table for direct access.
 function node.direct.setfont(d) end
-
----
----@param d integer # The index number of the node in the memory table for direct access.
-function node.direct.setheight(d) end
-
----
----@param d integer # The index number of the node in the memory table for direct access.
-function node.direct.setkern(d) end
-
----
----@param d integer # The index number of the node in the memory table for direct access.
-function node.direct.setlang(d) end
 
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
@@ -3056,14 +3061,6 @@ function node.direct.setnext(d) end
 
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
-function node.direct.setnucleus(d) end
-
----
----@param d integer # The index number of the node in the memory table for direct access.
-function node.direct.setoffsets(d) end
-
----
----@param d integer # The index number of the node in the memory table for direct access.
 function node.direct.setpenalty(d) end
 
 ---
@@ -3080,20 +3077,7 @@ function node.direct.setsplit(d) end
 
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
-function node.direct.setsub(d) end
-
----
----@param d integer # The index number of the node in the memory table for direct access.
 function node.direct.setsubtype(d) end
-
----
----Set the `sup` field on simple_noad, accent_noad or radical_noad nodes.
----
----* Corresponding C source code: [lnodelib.c#L976-L990](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L976-L990)
----
----@param d integer # The index number of the node in the memory table for direct access.
----@param sup number # Rounded to an integer
-function node.direct.setsup(d, sup) end
 
 ---
 ---Set the `width`, `height` and `depth` fields of hlist, vlist, rule or unset nodes.
@@ -3105,15 +3089,6 @@ function node.direct.setsup(d, sup) end
 ---@param height number # Rounded to an integer
 ---@param depth number # Rounded to an integer
 function node.direct.setwhd(d, width, height, depth) end
-
----
----Set the width on hlist, vlist, rule, glue, glue_spec, math, kern, margin_kern, ins, unset, fraction_noad or radical_noad nodes.
----
----* Corresponding C source code: [lnodelib.c#L3641-L3657](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3641-L3657)
----
----@param d integer # The index number of the node in the memory table for direct access.
----@param width number # Rounded to an integer
-function node.direct.setwidth(d, width) end
 
 _N._11_properties = 164
 
