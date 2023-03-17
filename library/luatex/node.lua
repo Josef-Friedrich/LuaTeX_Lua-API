@@ -3216,6 +3216,22 @@ function node.getleader(n) end
 function node.direct.getleader(d) end
 
 ---
+---* Corresponding C source code: [lnodelib.c#L7348-L7364](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L7348-L7364)
+---
+---@param n Node
+---@param field string
+---@param value any
+function node.setfield(n, field, value) end
+
+---
+---* Corresponding C source code: [lnodelib.c#L7660-L8188](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L7660-L8188)
+---
+---@param d integer # The index number of the node in the memory table for direct access.
+---@param field string
+---@param value any
+function node.direct.setfield(d, field, value) end
+
+---
 ---Get the value of a generic node field.
 ---
 ---Other field names are often shared so a specific getter makes no sense.
@@ -3601,16 +3617,26 @@ function node.direct.set_properties_mode(enable, use_metatable) end
 function node.fix_node_lists() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---* Corresponding C source code: [lnodelib.c#L8364-L8375](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L8364-L8375)
+---
 function node.flush_properties_table() end
-node.direct.flush_properties_table = node.flush_properties_table
 
+---
+---* Corresponding C source code: [lnodelib.c#L8364-L8375](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L8364-L8375)
+---
+function node.direct.flush_properties_table() end
+
+---
+---* Corresponding C source code: [lnodelib.c#L8439-L8443](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L8439-L8443)
 ---
 ---@return table
 function node.get_properties_table() end
-node.direct.get_properties_table = node.get_properties_table
+
+---
+---* Corresponding C source code: [lnodelib.c#L8433-L8437](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L8433-L8437)
+---
+---@return table
+function node.direct.get_properties_table() end
 
 ---
 ---* Corresponding C source code: [lnodelib.c#L6104-L6122](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6104-L6122)
@@ -3636,18 +3662,6 @@ function node.direct.hyphenating(d, e) end
 ---@param horizontal? boolean
 ---@param attlist? Node
 function node.make_extensible(fnt, chr, size, overlap, horizontal, attlist) end
-
----
----@param n Node
----@param field string
----@param value any
-function node.setfield(n, field, value) end
-
----
----@param d integer # The index number of the node in the memory table for direct access.
----@param field string
----@param value any
-function node.direct.setfield(d, field, value) end
 
 ---
 ---* Corresponding C source code: [lnodelib.c#L3153-L3222](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3153-L3222)
