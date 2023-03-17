@@ -905,22 +905,27 @@ _N._whatsit.special = 3
 _N._whatsit.pdf_literal = 16
 
 ---
----Possible mode values are:
+---* Corresponding C source code: [texnodes.c#L1082-L1088](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L1082-L1088)
 ---
---- value  keyword
----
---- 0      `origin`
---- 1      `page`
---- 2      `direct`
---- 3      `raw`
---- 4      `text`
+---@alias PdfLiteralModes
+---|0 `origin`
+---|1 `page`
+---|2 `direct`
+---|3 `raw`
+---|4 `text`
+---|5 `font`
+---|6 `special`
+
 ---
 ---The higher the number, the less checking and the more you can run into trouble.
 ---Especially the `raw` variant can produce bad *PDF* so you can best check
 ---what you generate.
+---
+---* Corresponding C source code: [texnodes.c#L1148-L1151](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L1148-L1151)
+---
 ---@class PdfLiteralWhatsitNode: WhatsitNode
 ---@field attr Node # list of attributes
----@field mode number # the “mode” setting of this literal
+---@field mode PdfLiteralModes # the “mode” setting of this literal
 ---@field data string # the to be written information stored as *Lua* string
 ---@field token string # the to be written information stored as token list
 
@@ -969,26 +974,47 @@ _N._whatsit.pdf_dest = 21
 ---@field height number # the height (not used in calculations)
 ---@field depth number # the depth (not used in calculations)
 ---@field named_id number # is the `dest_id` a string value?
----@field dest_id number # the destination id  string    the destination name
+---@field dest_id number # the destination id string the destination name
 ---@field dest_type number # type of destination
 ---@field xyz_zoom number # the zoom factor (times 1000)
 ---@field objnum number # the *PDF* object number; for structure references the *PDF* object number of the linked structure element
 
 _N._whatsit.pdf_action = 22
+_N._8_6_7_pdf_action = 142
 
 ---
+---* Corresponding C source code: [texnodes.c#L1090-L1093](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L1090-L1093)
+---
+---@alias PdfActionTypes
+---|0 'page'
+---|1 'goto'
+---|2 'thread'
+---|3 'user'
+
+---
+---* Corresponding C source code: [texnodes.c#L1095-L1097](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L1095-L1097)
+---
+---@alias PdfWindowTypes
+---|0 'notset'
+---|1 'new'
+---|2 'nonew'
+
+---
+---* Corresponding C source code: [texnodes.c#L1104-L1111](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L1104-L1111)
+---
 ---@class PdfActionWhatsitNode: WhatsitNode
----@field action_type number # the kind of action involved
----@field action_id number # or string  token list reference or string
----@field named_id number # are `dest_id` and `struct_id string  values?
+---@field action_type PdfActionTypes # the kind of action involved
+---@field named_id number # are `dest_id` and `struct_id` string values?
+---@field action_id number|string # token list reference or string
 ---@field file string # the target filename
----@field new_window number # the window state of the target
+---@field new_window PdfWindowTypes # the window state of the target
+---@field struct_id nil|number|string # `nil`: the action does not reference a structure; `number`: id of the referenced structure; `string`: name of the referenced structure destination
 ---@field data string # the name of the destination
----@field struct_id nil # the action does not reference a structure
----@field destination number|string id of the referenced structure or name of the referenced structure destination
 
 _N._whatsit.pdf_thread = 23
 
+---
+------* Corresponding C source code: [texnodes.c#L1185-L1192](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L1185-L1192)
 ---
 ---@class PdfThreadWhatsitNode
 ---@field attr Node # list of attributes
@@ -1002,6 +1028,8 @@ _N._whatsit.pdf_thread = 23
 _N._whatsit.pdf_start_thread = 24
 
 ---
+---* Corresponding C source code: [texnodes.c#L1176-L1183](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L1176-L1183)
+---
 ---@class PdfStartThreadWhatsitNode
 ---@field attr Node # list of attributes
 ---@field width number # the width (not used in calculations)
@@ -1013,6 +1041,8 @@ _N._whatsit.pdf_start_thread = 24
 
 _N._whatsit.pdf_end_thread = 25
 
+---
+---* Corresponding C source code: [texnodes.c#L1145-L1146](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L1145-L1146)
 ---
 ---@class PdfEndThreadWhatsitNode
 ---@field attr Node # list of attributes
@@ -2505,67 +2535,112 @@ function node.direct.kerning(head, tail) end
 _N._7_34_unprotect_glyphs = 155
 
 ---
----Subtract 256 from all glyph node subtypes.
+---Convert from `characters` to `glyphs` during node
+---processing by subtracting `256` from all glyph node subtypes.
 ---
----This and the next function are
----helpers to convert from `characters` to `glyphs` during node
----processing. The second argument is optional and indicates the end of a range.
+---* Corresponding C source code: [lnodelib.c#L6217-L6223](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6217-L6223)
+---
 ---@param n Node
 function node.unprotect_glyph(n) end
-node.direct.unprotect_glyph = node.unprotect_glyph
 
 ---
----Subtract 256 from all glyph node subtypes.
+---Convert from `characters` to `glyphs` during node
+---processing by subtracting `256` from the glyph node subtype.
 ---
----This and the next function are
----helpers to convert from `characters` to `glyphs` during node
----processing. The second argument is optional and indicates the end of a range.
+---* Corresponding C source code: [lnodelib.c#L6272-L6278](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6272-L6278)
 ---
----@param n Node
----@param m? Node
-function node.unprotect_glyphs(n, m) end
-node.direct.unprotect_glyphs = node.unprotect_glyphs
+---@param d integer
+function node.direct.unprotect_glyph(d) end
+
+---
+---Convert from `characters` to `glyphs` during node
+---processing by subtracting `256` from the glyph node subtype.
+---
+---* Corresponding C source code: [lnodelib.c#L6243-L6259](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6243-L6259)
+---
+---@param head Node
+---@param tail? Node
+function node.unprotect_glyphs(head, tail) end
+
+---
+---Convert from `characters` to `glyphs` during node
+---processing by subtracting `256` from all glyph node subtypes.
+---
+---* Corresponding C source code: [lnodelib.c#L6295-L6308](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6295-L6308)
+---
+---@param head integer
+---@param tail? integer
+function node.direct.unprotect_glyphs(head, tail) end
 
 _N._7_35_protect_glyphs = 155
 
 ---
----Add 256 to all glyph node subtypes in the node list starting at `n`,
----except that if the value is 1, it adds only 255.
+---Add `256` to the `glyph` node subtype
+---except that if the value is `1`, add only `255`.
 ---
----The special handling of 1 means
----that `characters` will become `glyphs` after subtraction of 256. A
----single character can be marked by the singular call. The second argument is
----optional and indicates the end of a range.
+---The special handling of `1` means
+---that `characters` will become `glyphs` after subtraction of `256`.
+---
+---* Corresponding C source code: [lnodelib.c#L6209-L6215](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6209-L6215)
 ---
 ---@param n Node
 function node.protect_glyph(n) end
-node.direct.protect_glyph = node.protect_glyph
 
 ---
----Add 256 to all glyph node subtypes in the node list starting at `n`,
----except that if the value is 1, it adds only 255.
+---Add `256` to the `glyph` node subtype
+---except that if the value is `1`, add only `255`.
 ---
----The special handling of 1 means
----that `characters` will become `glyphs` after subtraction of 256. A
----single character can be marked by the singular call. The second argument is
----optional and indicates the end of a range.
+---The special handling of `1` means
+---that `characters` will become `glyphs` after subtraction of `256`.
 ---
----@param n Node
----@param m? Node
-function node.protect_glyphs(n, m) end
-node.direct.protect_glyphs = node.protect_glyphs
+---* Corresponding C source code: [lnodelib.c#L6264-L6270](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6264-L6270)
+---
+---@param d integer
+function node.direct.protect_glyph(d) end
+
+---
+---Add `256` to all `glyph` node subtypes in the node list starting at `head`,
+---except that if the value is `1`, add only `255`.
+---
+---The special handling of `1` means
+---that `characters` will become `glyphs` after subtraction of `256`.
+---
+---* Corresponding C source code: [lnodelib.c#L6225-L6241](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6225-L6241)
+---
+---@param head Node
+---@param tail? Node
+function node.protect_glyphs(head, tail) end
+
+---
+---Add `256` to all `glyph` node subtypes in the node list starting at `head`,
+---except that if the value is `1`, add only `255`.
+---
+---The special handling of `1` means
+---that `characters` will become `glyphs` after subtraction of `256`.
+---
+---* Corresponding C source code: [lnodelib.c#L6280-L6293](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6280-L6293)
+---
+---@param head integer
+---@param tail? integer
+function node.direct.protect_glyphs(head, tail) end
 
 _N._7_36_last_node = 155
 
 ---
 ---Pop the last node from *TeX*'s “current list”.
 ---
----It returns
----that node, or `nil` if the current list is empty.
+---* Corresponding C source code: [lnodelib.c#L2556-L2563](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2556-L2563)
 ---
 ---@return Node|nil n
 function node.last_node() end
-node.direct.last_node = node.last_node
+
+---
+---Pop the last node from *TeX*'s “current list”.
+---
+---* Corresponding C source code: [lnodelib.c#L2567-L2572](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2567-L2572)
+---
+---@return integer|nil n
+function node.direct.last_node() end
 
 _N._7_37_write = 155
 
@@ -2579,10 +2654,25 @@ _N._7_37_write = 155
 ---__Reference:__
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L2518-L2521](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L2518-L2521), [luatex-nodes.tex#L1913-L1923](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L1913-L1923)
+---* Corresponding C source code: [lnodelib.c#L2505-L2525](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2505-L2525)
 ---
 ---@param n Node
 function node.write(n) end
-node.direct.write = node.write
+
+---
+---Append a node list to *TeX*'s “current list”.
+---
+---The
+---node list is not deep-copied! There is no error checking either! You mignt need
+---to enforce horizontal mode in order for this to work as expected.
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L2518-L2521](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L2518-L2521), [luatex-nodes.tex#L1913-L1923](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L1913-L1923)
+---* Corresponding C source code: [lnodelib.c#L2529-L2552](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2529-L2552)
+---
+---@param d integer
+function node.direct.write(d) end
 
 _N._7_38_protrusion_skippable = 155
 
