@@ -1,0 +1,9 @@
+\directlua{
+  callback.register('post_linebreak_filter', function(head)
+    for n, type, subtype in node.traverse(head.head) do
+      print(n, type, subtype)
+    end
+  end)
+}
+test
+\bye

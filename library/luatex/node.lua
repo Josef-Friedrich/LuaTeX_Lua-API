@@ -2072,34 +2072,13 @@ function node.direct.is_glyph(n) end
 _N._7_22_traverse = 0
 
 ---
----This is a *Lua* iterator that loops over the node list that starts at `n`.
----Typically code looks like this:
+---Return a *Lua* iterator that loops over the node list that starts at `n`.
+---
+---__Example:__
 ---
 ---```lua
 ---for n in node.traverse(head) do
 ---   ...
----end
----```
----
----is functionally equivalent to:
----
----```lua
----do
----  local n
----  local function f (head,var)
----    local t
----    if var == nil then
----       t = head
----    else
----       t = var.next
----    end
----    return t
----  end
----  while true do
----    n = f (head, n)
----    if n == nil then break end
----    ...
----  end
 ---end
 ---```
 ---
@@ -2108,47 +2087,61 @@ _N._7_22_traverse = 0
 ---have to take great care to make sure all the `next` (and `prev`)
 ---pointers remain valid.
 ---
----If the above is unclear to you, see the section “For Statement” in the
----*Lua* Reference Manual.
+---* Corresponding C source code: [lnodelib.c#L4156-L4168](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L4156-L4168)
 ---
 ---@param n Node
 ---
----@return Node t
----@return integer id
----@return integer subtype
+---@return fun(): t: Node, id: integer, subtype: integer
 function node.traverse(n) end
-node.direct.traverse = node.traverse
+
+---
+---Return a *Lua* iterator that loops over the node list that starts at `d`.
+---
+---__Example:__
+---
+---```lua
+---for d in node.traverse(head) do
+---   ...
+---end
+---```
+---
+---It should be clear from the definition of the function `f` that even though
+---it is possible to add or remove nodes from the node list while traversing, you
+---have to take great care to make sure all the `next` (and `prev`)
+---pointers remain valid.
+---
+---* Corresponding C source code: [lnodelib.c#L3937-L3953](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3937-L3953)
+---
+---@param d integer
+---
+---@return fun(): t: integer, id: integer, subtype: integer
+function node.direct.traverse(d) end
 
 _N._7_23_traverse_id = 0
 
 ---
----This is an iterator that loops over all the nodes in the list that starts at
+---Return an iterator that loops over all the nodes in the list that starts at
 ---`n` that have a matching `id` field.
 ---
----See the previous section for details. The change is in the local function `f`, which now does an extra while loop checking against the upvalue `id`:
----
----```
---- local function f(head,var)
----   local t
----   if var == nil then
----      t = head
----   else
----      t = var.next
----   end
----   while not t.id == id do
----      t = t.next
----   end
----   return t
---- end
----```
+---* Corresponding C source code: []()
 ---
 ---@param id integer
 ---@param n Node
 ---
----@return Node t
----@return integer subtype
+---@return fun(): t: Node, subtype: integer
 function node.traverse_id(id, n) end
-node.direct.traverse_id = node.traverse_id
+
+---
+---Return an iterator that loops over all the nodes in the list that starts at
+---`d` that have a matching `id` field.
+---
+---* Corresponding C source code: [lnodelib.c#L3980-L3995](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3980-L3995)
+---
+---@param id integer
+---@param d integer
+---
+---@return fun(): t: integer, subtype: integer
+function node.direct.traverse_id(id, d) end
 
 _N._7_24_traverse_char_and_traverse_glyph = 0
 
@@ -2157,70 +2150,126 @@ _N._7_24_traverse_char_and_traverse_glyph = 0
 ---
 ---Only nodes with a subtype less than 256 are seen.
 ---
+---* Corresponding C source code: [lnodelib.c#L4237-L4249](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L4237-L4249)
+---
 ---@param n Node
 ---
----@return Node n
----@return integer font
----@return integer char
+---@return fun(): n: Node, font: integer, char: integer
 function node.traverse_char(n) end
-node.direct.traverse_char = node.traverse_char
+
+---
+---Loop over the `glyph` nodes in a list.
+---
+---Only nodes with a subtype less than 256 are seen.
+---
+---* Corresponding C source code: [lnodelib.c#L4022-L4038](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L4022-L4038)
+---
+---@param d integer
+---
+---@return fun(): d: integer, font: integer, char: integer
+function node.direct.traverse_char(d) end
 
 ---
 ---Loop over a list and return the list and
 ---filter all glyphs.
 ---
+---* Corresponding C source code: [lnodelib.c#L4277-L4289](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L4277-L4289)
+---
 ---@param n Node
 ---
----@return Node n
----@return integer font
----@return integer char
+---@return fun(): n: Node, font: integer, char: integer
 function node.traverse_glyph(n) end
-node.direct.traverse_glyph = node.traverse_glyph
+
+---
+---Loop over a list and return the list and
+---filter all glyphs.
+---
+---* Corresponding C source code: [lnodelib.c#L4065-L4081](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L4065-L4081)
+---
+---@param d integer
+---
+---@return fun(): d: integer, font: integer, char: integer
+function node.direct.traverse_glyph(d) end
 
 _N._7_25_traverse_list = 0
 
 ---
 ---Loop over the `hlist` and `vlist` nodes in a list.
 ---
----The four return values can save some time compared to fetching these fields but
----in practice you seldom need them all. So consider it a (side effect of
----experimental) convenience.
+---The four return values can save some time compared to fetching these fields.
+---
+---* Corresponding C source code: [lnodelib.c#L4318-L4330](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L4318-L4330)
 ---
 ---@param n Node
 ---
----@return Node n
----@return integer id
----@return integer subtype
----@return Node list
+---@return fun(): n: Node, id: integer, subtype: integer, list: Node
 function node.traverse_list(n) end
-node.direct.traverse_list = node.traverse_list
+
+---
+---Loop over the `hlist` and `vlist` nodes in a list.
+---
+---The four return values can save some time compared to fetching these fields.
+---
+---* Corresponding C source code: [lnodelib.c#L4318-L4330](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L4318-L4330)
+---
+---@param d integer
+---
+---@return fun(): d: integer, id: integer, subtype: integer, list: Node
+function node.direct.traverse_list(d) end
 
 _N._7_26_has_glyph = 0
 
 ---
----Return the first glyph or disc node in the given list.
+---Return the first `glyph` or `disc` node in the given list.
+---
+---* Corresponding C source code: [lnodelib.c#L6368-L6382](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6368-L6382)
 ---
 ---@param n Node
 ---
----@return Node n
+---@return Node|nil n
 function node.has_glyph(n) end
-node.direct.has_glyph = node.has_glyph
+
+---
+---Return the first `glyph` or `disc` node in the given list.
+---
+---* Corresponding C source code: [lnodelib.c#L6368-L6382](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6368-L6382)
+---
+---@param d integer
+---
+---@return integer|nil d
+function node.direct.has_glyph(d) end
 
 _N._7_27_end_of_math = 0
 
 ---
----Look for and return the next `math_node` following the `start`.
+---Look for and return the next `math` node following the start node `n`.
 ---
 ---If
 ---the given node is a math end node this helper returns that node, else it follows
 ---the list and returns the next math endnote. If no such node is found `nil` is
 ---returned.
 ---
+---* Corresponding C source code: [lnodelib.c#L3293-L3313](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3293-L3313)
+---
 ---@param n Node
 ---
----@return Node t
+---@return Node|nil t
 function node.end_of_math(n) end
-node.direct.end_of_math = node.end_of_math
+
+---
+---Look for and return the next `math` node following the start node `d`.
+---
+---If
+---the given node is a math end node this helper returns that node, else it follows
+---the list and returns the next math endnote. If no such node is found `nil` is
+---returned.
+---
+---* Corresponding C source code: [lnodelib.c#L3317-L3334](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3317-L3334)
+---
+---@param d integer
+---
+---@return integer|nil t
+function node.direct.end_of_math(d) end
 
 _N._7_28_remove = 153
 
@@ -2238,6 +2287,8 @@ _N._7_28_remove = 153
 ---__Reference:__
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L1775-L1791](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L1775-L1791)
+---* Corresponding C source code: [lnodelib.c#L2176-L2215](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2176-L2215)
+---
 ---
 ---@param head Node
 ---@param current Node # A node following the list `head`.
@@ -2246,7 +2297,30 @@ _N._7_28_remove = 153
 ---@return Node|nil current # The node following the `current` in the calling
 ---argument.
 function node.remove(head, current) end
-node.direct.remove = node.remove
+
+---Remove the node `current` from the list following `head`.
+---
+---It is your responsibility to make sure it is really part of that list.
+---The return values are the new `head` and `current` nodes. The
+---returned `current` is the node following the `current` in the calling
+---argument, and is only passed back as a convenience (or `nil`, if there is
+---no such node). The returned `head` is more important, because if the
+---function is called with `current` equal to `head`, it will be
+---changed.
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L1775-L1791](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L1775-L1791)
+---* Corresponding C source code: [lnodelib.c#L2219-L2267](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2219-L2267)
+---
+---
+---@param head integer
+---@param current integer # A node following the list `head`.
+---
+---@return integer|nil head # The new `head`
+---@return integer|nil current # The node following the `current` in the calling
+---argument.
+function node.direct.remove(head, current) end
 
 _N._7_29_insert_before = 153
 
@@ -2779,6 +2853,7 @@ function node.getlist(n) end
 ---@return integer|nil list
 function node.direct.getlist(d) end
 
+---
 ---Set the leaders to `glue` nodes.
 ---
 ---* Corresponding C source code: [lnodelib.c#L1474-L1485](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1474-L1485)
@@ -2813,7 +2888,6 @@ function node.direct.getleader(d) end
 ---Other field names are often shared so a specific getter makes no sense.
 ---
 ---* Corresponding C source code: [lnodelib.c#L5189-L5207](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L5189-L5207)
----
 ---
 ---@param n Node
 ---@param field string
