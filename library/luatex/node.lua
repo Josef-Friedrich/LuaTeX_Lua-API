@@ -2289,7 +2289,6 @@ _N._7_28_remove = 153
 ---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L1775-L1791](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L1775-L1791)
 ---* Corresponding C source code: [lnodelib.c#L2176-L2215](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2176-L2215)
 ---
----
 ---@param head Node
 ---@param current Node # A node following the list `head`.
 ---
@@ -2298,6 +2297,7 @@ _N._7_28_remove = 153
 ---argument.
 function node.remove(head, current) end
 
+---
 ---Remove the node `current` from the list following `head`.
 ---
 ---It is your responsibility to make sure it is really part of that list.
@@ -2312,7 +2312,6 @@ function node.remove(head, current) end
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L1775-L1791](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L1775-L1791)
 ---* Corresponding C source code: [lnodelib.c#L2219-L2267](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2219-L2267)
----
 ---
 ---@param head integer
 ---@param current integer # A node following the list `head`.
@@ -2336,6 +2335,7 @@ _N._7_29_insert_before = 153
 ---__Reference:__
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L1793-L1807](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L1793-L1807)
+---* Corresponding C source code: [lnodelib.c#L2271-L2315](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2271-L2315)
 ---
 ---@param head Node
 ---@param current Node
@@ -2344,7 +2344,28 @@ _N._7_29_insert_before = 153
 ---@return Node head
 ---@return Node new
 function node.insert_before(head, current, new) end
-node.direct.insert_before = node.insert_before
+
+---
+---Insert the node `new` before `current` into the list
+---following `head`.
+---
+---It is your responsibility to make sure that `current` is really part of that list. The return values are the (potentially
+---mutated) `head` and the node `new`, set up to be part of the list
+---(with correct `next` field). If `head` is initially `nil`, it
+---will become `new`.
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L1793-L1807](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L1793-L1807)
+---* Corresponding C source code: [lnodelib.c#L2319-L2357](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2319-L2357)
+---
+---@param head integer
+---@param current integer
+---@param new integer
+---
+---@return integer head
+---@return integer new
+function node.direct.insert_before(head, current, new) end
 
 _N._7_30_insert_after = 153
 
@@ -2359,6 +2380,7 @@ _N._7_30_insert_after = 153
 ---__Reference:__
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L1809-L1822](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L1809-L1822)
+---* Corresponding C source code: [lnodelib.c#L2361-L2395](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2361-L2395)
 ---
 ---@param head Node
 ---@param current Node
@@ -2367,7 +2389,27 @@ _N._7_30_insert_after = 153
 ---@return Node head
 ---@return Node new
 function node.insert_after(head, current, new) end
-node.direct.insert_after = node.insert_after
+
+---
+---Insert the node `new` after `current` into the list
+---following `head`.
+---
+---It is your responsibility to make sure that `current` is really part of that list. The return values are the `head` and
+---the node `new`, set up to be part of the list (with correct `next`
+---field). If `head` is initially `nil`, it will become `new`.
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L1809-L1822](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L1809-L1822)
+---* Corresponding C source code: [lnodelib.c#L2399-L2430](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2399-L2430)
+---
+---@param head integer
+---@param current integer
+---@param new integer
+---
+---@return integer head
+---@return integer new
+function node.direct.insert_after(head, current, new) end
 
 _N._7_31_first_glyph = 154
 
@@ -2379,49 +2421,86 @@ _N._7_31_first_glyph = 154
 ---processing stops at (but including) that node, otherwise processing stops at the
 ---end of the list.
 ---
+---* Corresponding C source code: [lnodelib.c#L6312-L6337](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6312-L6337)
+---
 ---@param n Node
 ---@param m? Node
 ---
----@return Node n
+---@return Node|nil n
+---@return boolean success
 function node.first_glyph(n, m) end
-node.direct.first_glyph = node.first_glyph
+
+---
+---Return the first node in the list starting at `d` that is a glyph node
+---with a subtype indicating it is a glyph, or `nil`.
+---
+---If `e` is given,
+---processing stops at (but including) that node, otherwise processing stops at the
+---end of the list.
+---
+---* Corresponding C source code: [lnodelib.c#L6341-L6362](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6341-L6362)
+---
+---@param d integer
+---@param e? integer
+---
+---@return integer|nil d
+function node.direct.first_glyph(d, e) end
 
 _N._7_32_ligaturing = 154
 
 ---
 ---Apply *TeX*-style ligaturing to the specified nodelist.
 ---
----The tail node `m` is
----optional. The two returned nodes `h` and `t` are the new head and
----tail (both `n` and `m` can change into a new ligature).
+---* Corresponding C source code: [lnodelib.c#L5945-L5984](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L5945-L5984)
 ---
----@param n Node
----@param m? Node
+---@param head Node
+---@param tail? Node
 ---
----@return Node h
----@return Node t
+---@return Node head # the new head
+---@return Node tail # the new tail (both `head` and `tail` can change into a new ligature)
 ---@return boolean success
-function node.ligaturing(n, m) end
-node.direct.ligaturing = node.ligaturing
+function node.ligaturing(head, tail) end
+
+---
+---Apply *TeX*-style ligaturing to the specified nodelist.
+---
+---* Corresponding C source code: [lnodelib.c#L5986-L6017](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L5986-L6017)
+---
+---@param head integer
+---@param tail? integer
+---
+---@return integer head # the new head
+---@return integer tail # the new tail (both `head` and `tail` can change into a new ligature)
+---@return boolean success
+function node.direct.ligaturing(head, tail) end
 
 _N._7_33_kerning = 154
 
 ---
 ---Apply *TeX*-style kerning to the specified node list.
 ---
----The tail node `m` is
----optional. The two returned nodes `h` and `t` are the head and tail
----(either one of these can be an inserted kern node, because special kernings with
----word boundaries are possible).
+---* Corresponding C source code: [lnodelib.c#L6021-L6060](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6021-L6060)
 ---
----@param n Node
----@param m? Node
+---@param head Node
+---@param tail? Node
 ---
----@return Node h
----@return Node t
+---@return Node head  # the new head (can be an inserted kern node, because special kernings with word boundaries are possible).
+---@return Node tail # the new tail (can be an inserted kern node, because special kernings with word boundaries are possible).
 ---@return boolean success
-function node.kerning(n, m) end
-node.direct.kerning = node.kerning
+function node.kerning(head, tail) end
+
+---
+---Apply *TeX*-style kerning to the specified node list.
+---
+---* Corresponding C source code: [lnodelib.c#L6062-L6097](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6062-L6097)
+---
+---@param head integer
+---@param tail? integer
+---
+---@return integer head  # the new head (can be an inserted kern node, because special kernings with word boundaries are possible).
+---@return integer tail # the new tail (can be an inserted kern node, because special kernings with word boundaries are possible).
+---@return boolean success
+function node.direct.kerning(head, tail) end
 
 _N._7_34_unprotect_glyphs = 155
 
@@ -2592,6 +2671,8 @@ _N._9_4_has_attribute = 157
 ---also supplied, also tests if the value matches `val`. It returns the value,
 ---or, if no match is found, `nil`.
 ---
+---* Corresponding C source code: [lnodelib.c#L3339-L3353](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3339-L3353)
+---
 ---@param n Node
 ---@param id integer
 ---@param val? integer
@@ -2607,6 +2688,8 @@ _N._9_5_get_attribute = 157
 ---value, or, if no match is found, `nil`. If no `id` is given then the
 ---zero attributes is assumed.
 ---
+---* Corresponding C source code: [lnodelib.c#L3375-L3406](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3375-L3406)
+---
 ---@param n Node
 ---@param id integer
 ---
@@ -2619,6 +2702,8 @@ _N._9_6_find_attribute = 157
 ---
 ---Finds the first node that has attribute with number `id` set. It returns
 ---the value and the node if there is a match and otherwise nothing.
+---
+---* Corresponding C source code: [lnodelib.c#L3408-L3443](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3408-L3443)
 ---
 ---@param n Node
 ---@param id integer
@@ -2633,6 +2718,8 @@ _N._9_7_set_attribute = 157
 ---
 ---Sets the attribute with number `id` to the value `val`. Duplicate
 ---assignments are ignored.
+---
+---* Corresponding C source code: [lnodelib.c#L3563-L3578](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3563-L3578)
 ---
 ---@param n Node
 ---@param id integer
@@ -2649,6 +2736,8 @@ _N._9_8_unset_attribute = 158
 ---
 ---If the attribute was actually deleted, returns its old value. Otherwise, returns
 ---`nil`.
+---
+---* Corresponding C source code: [](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3580-L3596)
 ---
 ---@param n Node
 ---@param id integer
@@ -2671,6 +2760,8 @@ _N._9_9_slide = 158
 ---Future versions of *LuaTeX* can add more checking but this will not influence
 ---usage.
 ---
+---* Corresponding C source code: [lnodelib.c#L3226-L3241](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3226-L3241)
+---
 ---@param n Node
 ---
 ---@return Node tail
@@ -2690,6 +2781,8 @@ _N._9_10_check_discretionaries = 158
 ---The plural variant runs over all disc nodes in a list, the singular variant
 ---checks one node only (it also checks if the node is a disc node).
 ---
+---* Corresponding C source code: [lnodelib.c#L8615-L8627](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L8615-L8627)
+---
 ---@param head Node
 function node.check_discretionaries(head) end
 node.direct.check_discretionaries = node.check_discretionaries
@@ -2702,6 +2795,7 @@ node.direct.check_discretionaries = node.check_discretionaries
 ---the linebreak routine kicks in. You can call this function to check the list for
 ---issues with disc nodes.
 ---
+---* Corresponding C source code: [lnodelib.c#L8629-L8638](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L8629-L8638)
 ---@param n Node
 function node.check_discretionary(n) end
 node.direct.check_discretionary = node.check_discretionary
@@ -2711,6 +2805,8 @@ _N._9_11_flatten_discretionaries = 158
 ---
 ---This function will remove the discretionaries in the list and inject the replace
 ---field when set.
+---
+---* Corresponding C source code: [lnodelib.c#L8640-L8679](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L8640-L8679)
 ---
 ---@param n Node
 ---
@@ -2727,6 +2823,8 @@ _N._9_12_family_font = 158
 ---normal font field or getter because it will resolve the family automatically for
 ---noads.
 ---
+---* Corresponding C source code: [lnodelib.c#L2922-L2932](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2922-L2932)
+---
 ---@param fam integer
 ---
 ---@return integer id
@@ -2735,11 +2833,15 @@ function node.family_font(fam) end
 _N._10_two_access_models = 159
 
 ---
+---* Corresponding C source code: [lnodelib.c#L6552-L6565](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6552-L6565)
+---
 ---@param n Node
 ---
 ---@return integer d
 function node.direct.todirect(n) end
 
+---
+---* Corresponding C source code: [lnodelib.c#L6570-L6581](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6570-L6581)
 ---
 ---@param d integer
 ---
@@ -2751,6 +2853,8 @@ _N._10_two_access_models_page_2 = 160
 ---
 ---parsing nodelist always involves this one
 ---
+---* Corresponding C source code: [lnodelib.c#L1782-L1800](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1782-L1800)
+---
 ---@param n Node
 ---
 ---@return Node|nil next
@@ -2760,6 +2864,8 @@ node.direct.getnext = node.getnext
 ---
 ---used less but a logical companion to `getnext`
 ---
+---* Corresponding C source code: [lnodelib.c#L1831-L1846](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1831-L1846)
+---
 ---@param n Node
 ---
 ---@return Node|nil prev
@@ -2767,41 +2873,111 @@ function node.getprev(n) end
 node.direct.getprev = node.getprev
 
 ---
----returns the next and prev pointer of a node
+---* Corresponding C source code: [lnodelib.c#L1864-L1880](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1864-L1880)
+---
+---@param d integer # The index number of the node in the memory table for direct access.
+function node.direct.setboth(d) end
+
+---
+---Return the next and prev pointer of a node.
+---
+---* Corresponding C source code: [lnodelib.c#L1884-L1902](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1884-L1902)
 ---
 ---@param n Node
 ---
 ---@return Node|nil next
 ---@return Node|nil prev
 function node.getboth(n) end
-node.direct.getboth = node.getboth
 
 ---
----consulted a lot
+---Return the next and prev pointer of a node.
+---
+---* Corresponding C source code: [lnodelib.c#L1851-L1862](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1851-L1862)
+---
+---@param d integer # The index number of the node in the memory table for direct access.
+---
+---@return integer|nil next
+---@return integer|nil prev
+function node.direct.getboth(d) end
+
+---
+---Return the `id` (type) of a node.
+---
+---* Corresponding C source code: [lnodelib.c#L487-L496](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L487-L496)
 ---
 ---@param n Node
 ---
 ---@return integer id
 function node.getid(n) end
-node.direct.getid = node.getid
 
 ---
----consulted less but also a topper
+---Return the `id` (type) of a node.
+---
+---* Corresponding C source code: [lnodelib.c#L500-L517](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L500-L517)
+---
+---@param d integer # The index number of the node in the memory table for direct access.
+---
+---@return integer id
+function node.direct.getid(d) end
+
+---
+---Set the `subtype` of a node.
+---
+---* Corresponding C source code: [lnodelib.c#L533-L540](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L533-L540)
+---
+---@param d integer # The index number of the node in the memory table for direct access.
+---@param subtype integer
+function node.direct.setsubtype(d, subtype) end
+
+---
+---Return the `subtype` of a node.
+---
+---* Corresponding C source code: [lnodelib.c#L544-L558](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L544-L558)
 ---
 ---@param n Node
 ---
 ---@return integer subtype
 function node.getsubtype(n) end
-node.direct.getsubtype = node.getsubtype
 
 ---
----used a lot in OpenType handling (glyph nodes are consulted a lot)
+---Return the `subtype` of a node.
+---
+---* Corresponding C source code: [lnodelib.c#L522-L531](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L522-L531)
+---
+---@param d integer # The index number of the node in the memory table for direct access.
+---
+---@return integer subtype
+function node.direct.getsubtype(d) end
+
+---
+---Set the font identifier on a `glyph` node.
+---
+---* Corresponding C source code: [lnodelib.c#L621-L632](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L621-L632)
+---
+---@param d integer # The index number of the node in the memory table for direct access.
+---
+---@param font integer
+function node.direct.setfont(d, font) end
+
+---
+---Return the font identifier of a `glyph`, `math_char`, `math_text_char` or `delim` node.
+---
+---* Corresponding C source code: [lnodelib.c#L636-L654](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L636-L654)
 ---
 ---@param n Node
 ---
----@return integer font
+---@return integer|nil font
 function node.getfont(n) end
-node.direct.getfont = node.getfont
+
+---
+---Return the font identifier of a `glyph`, `math_char`, `math_text_char` or `delim` node.
+---
+---* Corresponding C source code: [lnodelib.c#L601-L619](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L601-L619)
+---
+---@param d integer # The index number of the node in the memory table for direct access.
+---
+---@return integer|nil font
+function node.direct.getfont(d) end
 
 ---
 ---idem and also in other places
@@ -3142,12 +3318,6 @@ function node.direct.getwidth(d) end
 function node.direct.is_direct(d) end
 
 ---
----* Corresponding C source code: [lnodelib.c#L1864-L1880](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1864-L1880)
----
----@param d integer # The index number of the node in the memory table for direct access.
-function node.direct.setboth(d) end
-
----
 ---Set the field char on glyph, math_char, math_text_char or delim nodes.
 ---
 ---* Corresponding C source code: [lnodelib.c#L702-L717](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L702-L717)
@@ -3177,10 +3347,6 @@ function node.direct.setdisc(d) end
 
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
-function node.direct.setfont(d) end
-
----
----@param d integer # The index number of the node in the memory table for direct access.
 function node.direct.setlink(d) end
 
 ---
@@ -3202,10 +3368,6 @@ function node.direct.setshift(d) end
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
 function node.direct.setsplit(d) end
-
----
----@param d integer # The index number of the node in the memory table for direct access.
-function node.direct.setsubtype(d) end
 
 ---
 ---Set the `width`, `height` and `depth` fields of hlist, vlist, rule or unset nodes.
