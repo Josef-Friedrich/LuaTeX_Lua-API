@@ -3142,12 +3142,16 @@ function node.direct.tonode(d) end
 
 _N._10_two_access_models_page_2 = 160
 
+---Set the next node of the current node.
+---
+---* Corresponding C source code: [lnodelib.c#L1767-L1778](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1767-L1778)
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
-function node.direct.setnext(d) end
+---@param next integer
+function node.direct.setnext(d, next) end
 
 ---
----parsing nodelist always involves this one
+---Return the next node of the current node.
 ---
 ---* Corresponding C source code: [lnodelib.c#L1782-L1800](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1782-L1800)
 ---
@@ -3155,10 +3159,19 @@ function node.direct.setnext(d) end
 ---
 ---@return Node|nil next
 function node.getnext(n) end
-node.direct.getnext = node.getnext
 
 ---
----Set the previous node of a node.
+---Return the next node of the current node.
+---
+---* Corresponding C source code: [lnodelib.c#L1756-L1765](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1756-L1765)
+---
+---@param d integer # The index number of the node in the memory table for direct access.
+---
+---@return integer|nil next
+function node.direct.getnext(d) end
+
+---
+---Set the previous node of the current node.
 ---
 ---* Corresponding C source code: [lnodelib.c#L1816-L1827](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1816-L1827)
 ---
@@ -3167,7 +3180,7 @@ node.direct.getnext = node.getnext
 function node.direct.setprev(d, prev) end
 
 ---
----Return the previous node of a node.
+---Return the previous node of the current node.
 ---
 ---* Corresponding C source code: [lnodelib.c#L1831-L1846](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1831-L1846)
 ---
@@ -3362,11 +3375,50 @@ function node.getwhd(n, get_ex) end
 function node.direct.getwhd(d, get_ex) end
 
 ---
----returns the `pre`, `post` and `replace` fields and optionally when true is passed also the tail fields
+---
+---* Corresponding C source code: [lnodelib.c#L1201-L1232](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1201-L1232)
+---
+---@param d integer # The index number of the node in the memory table for direct access.
+---@param pre integer
+---@param post? integer
+---@param replace? integer
+---@param subtype? integer
+---@param penalty? integer
+function node.direct.setdisc(d, pre, post, replace, subtype, penalty) end
+
+---
+---Return the `pre`, `post` and `replace` fields and optionally when true is passed also the tail fields.
+---
+---* Corresponding C source code: [lnodelib.c#L1236-L1253](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1236-L1253)
+---
 ---
 ---@param n Node
-function node.getdisc(n) end
-node.direct.getdisc = node.getdisc
+---@param get_tail? boolean
+---
+---@return Node pre
+---@return Node post
+---@return Node replace
+---@return Node|nil pre_tail
+---@return Node|nil post_tail
+---@return Node|nil replace_tail
+function node.getdisc(n, get_tail) end
+
+---
+---Return the `pre`, `post` and `replace` fields and optionally when true is passed also the tail fields.
+---
+---* Corresponding C source code: [lnodelib.c#L1182-L1199](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1182-L1199)
+---
+---
+---@param d integer # The index number of the node in the memory table for direct access.
+---@param get_tail? boolean
+---
+---@return integer pre
+---@return integer post
+---@return integer replace
+---@return integer|nil pre_tail
+---@return integer|nil post_tail
+---@return integer|nil replace_tail
+function node.direct.getdisc(d, get_tail) end
 
 ---
 ---Set child node lists to parent `hlist`, `vlist`, `sub_box`, `sub_mlist`, `ins`, or `adjust` nodes.
@@ -3713,10 +3765,6 @@ function node.direct.setcomponents(d, components) end
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
 function node.direct.setdata(d) end
-
----
----@param d integer # The index number of the node in the memory table for direct access.
-function node.direct.setdisc(d) end
 
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
