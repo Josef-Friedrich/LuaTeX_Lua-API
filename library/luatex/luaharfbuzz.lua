@@ -39,7 +39,6 @@ function luaharfbuzz.version() end
 ---@author Deepak Jois <<deepak.jois@gmail.com>>
 ---@copyright 2016
 ---@license MIT
----@module harfbuzz
 
 ---Wraps `hb_version`
 function version() end
@@ -62,6 +61,7 @@ function shape(font, buffer, options) end
 ---Lua wrapper for `hb_blob_t` type
 ---@class Blob
 local Blob = {}
+luaharfbuzz.Blob = Blob
 
 ---Wraps `hb_blob_create`.
 ---Initializes a new `hb_blob_t`.
@@ -82,22 +82,23 @@ function Blob:get_data() end
 ---Lua wrapper for `hb_face_t` type
 ---@class Face
 local Face = {}
+luaharfbuzz.Face = Face
 
 ---Wraps `hb_face_create`.
 ---Initializes a new `hb_face_t` from a `Blob` object.
 ---@param blob Blob # `Blob` to read the font from.
----@param[opt=0] font_index index of font to read.
-function Face.new_from_blob(blob) end
+---@param font_index? integer # index of font to read.
+function Face.new_from_blob(blob, font_index) end
 
 ---Create a new `Face` from a file.
 ---Makes a call to `Face:new_from_blob` after creating a `Blob` from the
 ---file contents.
 ---@param file string # path to font file.
----@param[opt=0] font_index index of font to read.
-function Face.new(file) end
+---@param font_index? integer # index of font to read.
+function Face.new(file, font_index) end
 
 ---Wraps `hb_face_collect_unicodes`.
----@return table of codepoints supported by the face.
+---@return table # of codepoints supported by the face.
 function Face:collect_unicodes() end
 
 ---Wraps `hb_face_get_glyph_count`.
@@ -105,7 +106,7 @@ function Face:get_glyph_count() end
 
 ---Wraps `hb_face_reference_table`.
 ---@param tag Tag # `Tag` object of the table.
----@return # `Blob` object for the face table of `tag`.
+---@return Blob # `Blob` object for the face table of `tag`.
 function Face:get_table(tag) end
 
 ---Wraps `hb_face_get_table_tags`.
@@ -154,6 +155,7 @@ function Face:ot_layout_find_feature() end
 ---Lua wrapper for `hb_font_t` type
 ---@class Font
 local Font = {}
+luaharfbuzz.Font = Font
 
 ---Wraps `hb_font_create`, and sets up some defaults for scale and shaping functions.
 ---Initializes a new `hb_font_t` from a `Face` object. Sets the default scale
@@ -227,6 +229,7 @@ function Font:ot_color_glyph_get_png() end
 ---Lua wrapper for `hb_buffer_t` type.
 ---@class Buffer
 local Buffer = {}
+luaharfbuzz.Buffer = Buffer
 
 ---Wraps `hb_buffer_create`.
 function Buffer.new() end
@@ -244,19 +247,19 @@ function Buffer:add_utf8() end
 function Buffer:add_codepoints() end
 
 ---Wraps `hb_buffer_set_direction`.
----@param dir  A `Direction` object.
-function Buffer:set_direction() end
+---@param dir Direction # A `Direction` object.
+function Buffer:set_direction(dir) end
 
 ---Wraps `hb_buffer_get_direction`.
----@return # A `Direction` object.
+---@return Direction # A `Direction` object.
 function Buffer:get_direction() end
 
 ---Wraps `hb_buffer_set_script`.
----@param script  A `Script` object.
-function Buffer:set_script() end
+---@param script Script # A `Script` object.
+function Buffer:set_script(script) end
 
 ---Wraps `hb_buffer_get_script`.
----@return # A `Script` object.
+---@return Script # A `Script` object.
 function Buffer:get_script() end
 
 ---Wraps `hb_buffer_set_language`.
@@ -264,7 +267,7 @@ function Buffer:get_script() end
 function Buffer:set_language(lang) end
 
 ---Wraps `hb_buffer_get_language`.
----@return # A `Language` object
+---@return Language # A `Language` object
 function Buffer:get_language() end
 
 ---Wraps `hb_buffer_reverse`.
@@ -274,11 +277,11 @@ function Buffer:reverse() end
 function Buffer:get_length() end
 
 ---Wraps `hb_buffer_get_cluster_level`.
----@return # see [Cluster Levels](#Cluster_Levels)
+---@return # see Cluster Levels
 function Buffer:get_cluster_level() end
 
 ---Wraps `hb_buffer_set_cluster_level`.
----@param level see [Cluster Levels](#Cluster_Levels)
+---@param level # see Cluster Levels
 function Buffer:set_cluster_level() end
 
 ---Wraps `hb_buffer_guess_segment_properties`.
@@ -325,6 +328,7 @@ function Buffer:get_glyphs() end
 ---Lua wrapper for `hb_feature_t` type
 ---@class Feature
 local Feature = {}
+luaharfbuzz.Feature = Feature
 
 ---Wraps `hb_feature_from_string`
 ---@param feature_string See [feature string syntax reference](https://github.com/ufytex/luaharfbuzz/wiki/Feature-Strings)
@@ -337,6 +341,7 @@ function Feature:__tostring() end
 ---Lua wrapper for `hb_tag_t` type.
 ---@class Tag
 local Tag = {}
+luaharfbuzz.Tag = Tag
 
 ---Wraps `hb_tag_from_string`.
 ---@param string to be converted to a `Tag` object.
@@ -354,6 +359,7 @@ function Tag:__eq() end
 ---Lua wrapper for `hb_script_t` type.
 ---@class Script
 local Script = {}
+luaharfbuzz.Script = Script
 
 ---Wraps `hb_script_from_string`.
 ---@param script string # 4-letter script code according to the [ISO 15924 standard](http://www.unicode.org/iso15924/iso15924-num.html).
@@ -395,6 +401,7 @@ function Script:__eq() end
 ---Lua wrapper for `hb_direction_t` type.
 ---@class Direction
 local Direction = {}
+luaharfbuzz.Direction = Direction
 
 ---Wraps `hb_direction_from_string`.
 ---@param dir `ltr`|`rtl`|`ttb`|`btt`|`invalid` # can be one of `ltr`, `rtl`, `ttb`, `btt` or `invalid`.
@@ -448,6 +455,7 @@ function Direction:is_backward() end
 ---Lua wrapper for `hb_language_t` type.
 ---@class Language
 local Language = {}
+luaharfbuzz.Language = Language
 
 ---Wraps `hb_language_from_string`.
 ---@param lang string [three-letter language tag](http://www.microsoft.com/typography/otspec/languagetags.htm) to be converted to a `Language` object.
@@ -468,6 +476,7 @@ Language.INVALID = true
 ---Unicode functions.
 ---@class unicode
 local unicode = {}
+luaharfbuzz.unicode = unicode
 
 ---Wraps `hb_unicode_script`
 ---@param char integer # Unicode codepoint
@@ -507,3 +516,5 @@ function unicode.script(char) end
 ---@field LAYOUT_NO_FEATURE_INDEX string # Wraps `HB_OT_LAYOUT_NO_FEATURE_INDEX`
 ---@field LAYOUT_DEFAULT_LANGUAGE_INDEX string # Wraps `HB_OT_LAYOUT_DEFAULT_LANGUAGE_INDEX`
 ---@field LAYOUT_NO_VARIATIONS_INDEX string # Wraps `HB_OT_LAYOUT_NO_VARIATIONS_INDEX`
+local ot = {}
+luaharfbuzz.ot = ot
