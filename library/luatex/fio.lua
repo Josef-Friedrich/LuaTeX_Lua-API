@@ -127,6 +127,8 @@ function fio.readcardinal4le(f) end
 function fio.readinteger1(f) end
 
 ---
+---* Corresponding C source code: [liolibext.c#L460-L471](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L460-L471)
+---
 ---@param f file* # A file handle.
 ---
 ---@return integer # a 2 byte signed integer

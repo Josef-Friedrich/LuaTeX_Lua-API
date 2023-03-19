@@ -1199,8 +1199,8 @@ _N.shape = 49
 _N._7_2_is_node = 145
 
 ---
----This function returns a number (the internal index of the node) if the argument is a userdata
----object of type <node> and false when no node is passed.
+---Return a number (the internal index of the node) if the argument is a userdata
+---object of type `node` and `false` when no node is passed.
 ---
 ---__Reference:__
 ---
@@ -1212,6 +1212,9 @@ _N._7_2_is_node = 145
 ---@return false|integer t
 function node.is_node(item) end
 
+---
+---Return a number (the internal index of the node) if the argument is a userdata
+---object of type `node` and `false` when no node is passed.
 ---
 ---__Reference:__
 ---
@@ -1225,7 +1228,7 @@ function node.direct.is_node(item) end
 _N._7_3_types_whatsits = 145
 
 ---
----This function returns an array that maps node id numbers to node type strings, providing an
+---Return a table that maps node id numbers to node type strings, providing an
 ---overview of the possible top-level `id` types.
 ---
 ---__Reference:__
@@ -1237,8 +1240,10 @@ _N._7_3_types_whatsits = 145
 function node.types() end
 
 ---
+---Provides a table of subtype mappings.
+---
 ---TEX’s ‘whatsits’ all have the same id. The various subtypes are defined by their subtype fields.
----The function is much like types, except that it provides an array of subtype mappings.
+
 ---
 ---__Reference:__
 ---
@@ -1290,7 +1295,7 @@ _N._7_5_type_subtype = 145
 function node.type(n) end
 
 ---
----Convert a single whatsit name to its internal numeric representation (subtype).
+---Convert a single `whatsit` name to its internal numeric representation (subtype).
 ---
 ---```lua
 ---node.subtype('pdf_literal') -- 16
@@ -1329,7 +1334,7 @@ function node.fields(id, subtype) end
 _N._7_7_has_field = 146
 
 ---
----This function returns a boolean that is only true if `n` is actually a node, and it has the field.
+---Return a boolean that is only `true` if `n` is actually a node, and it has the field.
 ---
 ---__Reference:__
 ---
@@ -1342,7 +1347,7 @@ _N._7_7_has_field = 146
 function node.has_field(n, field) end
 
 ---
----This function returns a boolean that is only true if `d` is a valid index number in the memory table of nodes, and it has the field.
+---Return a boolean that is only `true` if `d` is actually a node, and it has the field.
 ---
 ---__Reference:__
 ---
@@ -2150,8 +2155,8 @@ function node.direct.count(id, d, e) end
 _N._7_21_is_char_and_is_glyph = 0
 
 ---
----The subtype of a glyph node signals if the glyph is already turned into a character reference
----or not.
+---Signal if the glyph is already turned into a character reference
+---or not by examining the subtype.
 ---
 ---__Reference:__
 ---
@@ -2165,8 +2170,8 @@ _N._7_21_is_char_and_is_glyph = 0
 function node.is_char(n, font) end
 
 ---
----The subtype of a glyph node signals if the glyph is already turned into a character reference
----or not.
+---Signal if the glyph is already turned into a character reference
+---or not by examining the subtype.
 ---
 ---__Reference:__
 ---
@@ -2180,8 +2185,8 @@ function node.is_char(n, font) end
 function node.direct.is_char(d, font) end
 
 ---
----The subtype of a glyph node signals if the glyph is already turned into a character reference
----or not.
+---Signal if the glyph is already turned into a character reference
+---or not by examining the subtype.
 ---
 ---__Reference:__
 ---
@@ -2194,8 +2199,8 @@ function node.direct.is_char(d, font) end
 function node.is_glyph(n) end
 
 ---
----The subtype of a glyph node signals if the glyph is already turned into a character reference
----or not.
+---Signal if the glyph is already turned into a character reference
+---or not by examining the subtype.
 ---
 ---__Reference:__
 ---
@@ -3330,8 +3335,10 @@ function node.direct.flatten_discretionaries(d) end
 _N._9_12_family_font = 158
 
 ---
----When you pass a proper family identifier the next helper will return the font
----currently associated with it. You can normally also access the font with the
+---Return the font
+---currently associated with the node.
+---
+---You can normally also access the font with the
 ---normal font field or getter because it will resolve the family automatically for
 ---noads.
 ---
@@ -3339,13 +3346,15 @@ _N._9_12_family_font = 158
 ---
 ---* Corresponding C source code: [lnodelib.c#L2922-L2932](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2922-L2932)
 ---
----@param fam integer
+---@param fam integer # family identifier
 ---
 ---@return integer id
 function node.family_font(fam) end
 
 _N._10_two_access_models = 159
 
+---
+---Convert a userdata node into its numeric reference in the memory table.
 ---
 ---__Reference:__
 ---
@@ -3356,6 +3365,8 @@ _N._10_two_access_models = 159
 ---@return integer d
 function node.direct.todirect(n) end
 
+---
+---Convert numeric reference in the memory table of a node into a userdata node.
 ---
 ---__Reference:__
 ---
@@ -3439,15 +3450,19 @@ function node.getprev(n) end
 function node.direct.getprev(n) end
 
 ---
+---Set the previous and next pointers at once.
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L1864-L1880](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1864-L1880)
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
-function node.direct.setboth(d) end
+---@param prev integer
+---@param next integer
+function node.direct.setboth(d,  prev, next) end
 
 ---
----Return the next and prev pointer of a node.
+---Return the previous and next pointer of a node.
 ---
 ---__Reference:__
 ---
@@ -3455,12 +3470,12 @@ function node.direct.setboth(d) end
 ---
 ---@param n Node
 ---
----@return Node|nil next
 ---@return Node|nil prev
+---@return Node|nil next
 function node.getboth(n) end
 
 ---
----Return the `next` and `prev` pointer of a node.
+---Return the previous and next pointer of a node.
 ---
 ---__Reference:__
 ---
@@ -3648,6 +3663,7 @@ function node.getwhd(n, get_ex) end
 function node.direct.getwhd(d, get_ex) end
 
 ---
+---Set the `pre`, `post`, `replace`, `subtype` and `penalty` on a `disc` node.
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L1201-L1232](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1201-L1232)
@@ -3767,6 +3783,8 @@ function node.getleader(n) end
 function node.direct.getleader(d) end
 
 ---
+---Set the value of a generic node field.
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L7348-L7364](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L7348-L7364)
@@ -3776,6 +3794,8 @@ function node.direct.getleader(d) end
 ---@param value any
 function node.setfield(n, field, value) end
 
+---
+---Set the value of a generic node field.
 ---
 ---__Reference:__
 ---
@@ -3854,14 +3874,21 @@ function node.direct.set_synctex_fields(d, tag, line) end
 function node.direct.get_synctex_fields(d) end
 
 ---
+---Set the attribute list on a node.
+---
+---When the second argument of setattributelist is
+---`true` the current attribute list is assumed.
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L828-L854](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L828-L854)
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
----@param attr_list integer
+---@param attr_list integer|true
 function node.direct.setattributelist(d, attr_list) end
 
+---
+---Return the attribute list on a node.
 ---
 ---__Reference:__
 ---
@@ -3869,11 +3896,11 @@ function node.direct.setattributelist(d, attr_list) end
 ---
 ---@param n Node
 ---
----@return integer
+---@return integer|nil
 function node.direct.getattributelist(n) end
 
 ---
----gets the given box (a list node)
+---Return the node list of the given box.
 ---
 ---__Reference:__
 ---
@@ -3881,11 +3908,11 @@ function node.direct.getattributelist(n) end
 ---
 ---@param box integer
 ---
----@return integer node
+---@return integer|nil node
 function node.direct.getbox(box) end
 
 ---
----The components on glyph nodes.
+---Set the field `components` (ligature components) on `glyph` nodes.
 ---
 ---__Reference:__
 ---
@@ -3895,6 +3922,8 @@ function node.direct.getbox(box) end
 ---@param components integer
 function node.direct.setcomponents(d, components) end
 
+---
+---Return the field `components` (ligature components) of `glyph` nodes.
 ---
 ---__Reference:__
 ---
@@ -3906,6 +3935,8 @@ function node.direct.setcomponents(d, components) end
 function node.direct.getcomponents(d) end
 
 ---
+---Set the `data` field on `glyph`, `boundary`, `user_defined`, `pdf_literal`, `pdf_late_literal`, `late_lua`, `pdf_setmatrix`, `special`, `late_special` and `write` nodes.
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L1716-L1751](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1716-L1751)
@@ -3914,13 +3945,15 @@ function node.direct.getcomponents(d) end
 function node.direct.setdata(d) end
 
 ---
+---Return the `data` field off `glyph`, `boundary`, `user_defined`, `pdf_literal`, `pdf_late_literal`, `late_lua`, `pdf_setmatrix`, `special`, `late_special` and `write` nodes.
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L1678-L1714](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1678-L1714)
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---
----@return any
+---@return any|nil
 function node.direct.getdata(d) end
 
 ---
