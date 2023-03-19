@@ -3968,7 +3968,7 @@ function node.direct.getdata(d) end
 function node.direct.setdir(d, dir) end
 
 ---
----Get the direction  of `dir`, `hlist`, `vlist`, `rule` and `local_par` nodes as an string.
+---Get the direction  of `dir`, `hlist`, `vlist`, `rule` and `local_par` nodes as a string.
 ---
 ---__Reference:__
 ---
@@ -3980,7 +3980,7 @@ function node.direct.setdir(d, dir) end
 function node.direct.getdir(d) end
 
 ---
----Set the direction of `dir`, `hlist`, `vlist`, `rule` and `local_par` nodes as a integer.
+---Set the direction of `dir`, `hlist`, `vlist`, `rule` and `local_par` nodes as an integer.
 ---
 ---__Reference:__
 ---
