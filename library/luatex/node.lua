@@ -4073,29 +4073,40 @@ function node.direct.setdepth(d, depth) end
 function node.direct.getdepth(d) end
 
 ---
+---Set the kerning on `kern` (kern), `margin_kern` (width) and `math` (surround) nodes.
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L1019-L1042](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1019-L1042)
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
-function node.direct.setkern(d) end
+---@param kern integer
+function node.direct.setkern(d, kern) end
 
+---
+---Return the kerning of `kern` (kern), `margin_kern` (width) and `math` (surround) nodes.
 ---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L995-L1017](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L995-L1017)
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
+---@return integer|nil kern
 function node.direct.getkern(d) end
 
+---
+---Set the `lang` (the language identifier) field on `glyph` nodes.
 ---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L801-L812](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L801-L812)
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
-function node.direct.setlang(d) end
+---@param lang integer
+function node.direct.setlang(d, lang) end
 
+---
+---Return the `lang` (the language identifier) field of `glyph` nodes.
 ---
 ---__Reference:__
 ---
@@ -4103,41 +4114,60 @@ function node.direct.setlang(d) end
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---
----@return integer
+---@return integer|nil lang
 function node.direct.getlang(d) end
 
+---
+---Set the `nucleus` (base) field an `simple_noad`, `accent_noad` and `radical_noad` nodes.
 ---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L916-L930](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L916-L930)
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
-function node.direct.setnucleus(d) end
+---@param nucleus integer
+function node.direct.setnucleus(d, nucleus) end
 
+---
+---Return the `nucleus` (base) field of `simple_noad`, `accent_noad` and `radical_noad` nodes.
 ---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L902-L914](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L902-L914)
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
+---
+---@return integer|nil nucleus
 function node.direct.getnucleus(d) end
 
+---
+---Set offsets on `glyph` (`xoffset`: a virtual displacement in horizontal direction and
+---`yoffset`: a virtual displacement in vertical direction) and `rule` (`left`: shift at the left end (also subtracted from width) and `right`: subtracted from width) nodes.
 ---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L1156-L1177](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1156-L1177)
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
-function node.direct.setoffsets(d) end
+---@param a integer # `xoffset` or `left`
+---@param b integer # `yoffset` or `right`
+function node.direct.setoffsets(d, a, b) end
 
+---
+---Set the `penalty` field on `glyph` and `rule` nodes.
 ---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L1139-L1154](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1139-L1154)
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
+---
+---@return integer|nil a # `xoffset` or `left`
+---@return integer|nil b # `yoffset` or `right`
 function node.direct.getoffsets(d) end
 
+---
+---Set the `penalty` field on `penalty` and `disc` nodes.
 ---
 ---__Reference:__
 ---
@@ -4147,62 +4177,83 @@ function node.direct.getoffsets(d) end
 function node.direct.setpenalty(d) end
 
 ---
+---Return the `penalty` field of `penalty` and `disc` nodes.
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L858-L874](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L858-L874)
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
+---
+---@return integer|nil penalty
 function node.direct.getpenalty(d) end
 
 ---
+---Set the `shift` (a displacement perpendicular to the character progression direction) field on `vlist` and `hlist` nodes.
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L3756-L3770](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3756-L3770)
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
-function node.direct.setshift(d) end
+---@param shift integer
+function node.direct.setshift(d, shift) end
 
+---
+---Return the `shift` (a displacement perpendicular to the character progression direction) field off `vlist` and `hlist` nodes.
 ---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L3742-L3754](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3742-L3754)
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
+---
+---@return integer|nil shift
 function node.direct.getshift(d) end
 
+---
+---Set the `sub` (subscript) field on `simple_noad`, `accent_noad` and `radical_noad` nodes.
 ---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L946-L960](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L946-L960)
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
-function node.direct.setsub(d) end
+---@param sub integer
+function node.direct.setsub(d, sub) end
 
+---
+---Return the `sub` (subscript) field of `simple_noad`, `accent_noad` and `radical_noad` nodes.
 ---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L932-L944](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L932-L944)
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
+---
+---@return integer|nil sub
 function node.direct.getsub(d) end
 
 ---
----Set the `sup` field on `simple_noad`, `accent_noad` or `radical_noad` nodes.
+---Set the `sup` (superscript) field on `simple_noad`, `accent_noad` and `radical_noad` nodes.
 ---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L976-L990](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L976-L990)
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
----@param sup number # Rounded to an integer
+---@param sup number
 function node.direct.setsup(d, sup) end
 
+---
+---Return the `sup` (superscript) field of `simple_noad`, `accent_noad` and `radical_noad` nodes.
 ---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L962-L974](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L962-L974)
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
+---
+---@return integer|nil sup
 function node.direct.getsup(d) end
 
 ---
