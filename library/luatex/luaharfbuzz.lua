@@ -4,6 +4,7 @@ luaharfbuzz = {}
 ---
 ---https://github.com/ufyTeX/luaharfbuzz/blob/master/src/harfbuzz.luadoc
 
+---
 ---@class LuaHarfBuzzOptions
 ---@field direction Direction # A `Direction` object representing the object.
 ---@field script Script # A `Script` object representing the script.
@@ -22,7 +23,6 @@ luaharfbuzz = {}
 function luaharfbuzz.shape_full(font, buffer, features, shapers) end
 
 ---
----
 ---* Corresponding C source code: [luaharfbuzz.c#L58-L67](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.c#L58-L67)
 ---
 ---@return string ...  # for example: graphite2	ot	fallback
@@ -31,13 +31,11 @@ function luaharfbuzz.shapers() end
 ---
 ---Wraps `hb_version`
 ---
----
 ---* Corresponding C source code: [luaharfbuzz.c#L53-L56](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.c#L53-L56)
 function luaharfbuzz.version() end
 
 ---
 ---Wraps `hb_shape`.
----
 ---
 ---@param font Font # `Font` to use for shaping
 ---@param buffer Buffer # `Buffer` to shape
@@ -46,7 +44,6 @@ function luaharfbuzz.shape(font, buffer, options) end
 
 ---
 ---Lua wrapper for `hb_blob_t` type
----
 ---
 ---@class Blob
 local Blob = {}
@@ -84,7 +81,6 @@ luaharfbuzz.Face = Face
 ---Wraps `hb_face_create`.
 ---Initializes a new `hb_face_t` from a `Blob` object.
 ---
----
 ---@param blob Blob # `Blob` to read the font from.
 ---@param font_index? integer # index of font to read.
 function Face.new_from_blob(blob, font_index) end
@@ -94,14 +90,12 @@ function Face.new_from_blob(blob, font_index) end
 ---Makes a call to `Face:new_from_blob` after creating a `Blob` from the
 ---file contents.
 ---
----
 ---@param file string # path to font file.
 ---@param font_index? integer # index of font to read.
 function Face.new(file, font_index) end
 
 ---
 ---Wraps `hb_face_collect_unicodes`.
----
 ---
 ---@return table # of codepoints supported by the face.
 function Face:collect_unicodes() end
@@ -113,16 +107,13 @@ function Face:get_glyph_count() end
 ---
 ---Wraps `hb_face_reference_table`.
 ---
----
 ---@param tag Tag # `Tag` object of the table.
----
 ---
 ---@return Blob # `Blob` object for the face table of `tag`.
 function Face:get_table(tag) end
 
 ---
 ---Wraps `hb_face_get_table_tags`.
----
 ---
 ---@return Tag[] # table of `Tag`s representing face table tags.
 function Face:get_table_tags() end
@@ -182,7 +173,6 @@ function Face:ot_layout_find_feature() end
 ---
 ---Lua wrapper for `hb_font_t` type
 ---
----
 ---@class Font
 local Font = {}
 luaharfbuzz.Font = Font
@@ -193,13 +183,11 @@ luaharfbuzz.Font = Font
 ---to the face’s upem value, and sets the font shaping functions by
 ---calling `hb_ot_font_set_funcs` on it.
 ---
----
 ---@param face Face # `Face` object.
 function Font.new(face) end
 
 ---
 ---Wraps `hb_font_get_scale`.
----
 ---
 ---@return # two values for the x-scale and y-scale of the font.
 function Font:get_scale() end
@@ -207,14 +195,12 @@ function Font:get_scale() end
 ---
 ---Wraps `hb_font_set_scale`.
 ---
----
 ---@param x_scale number # desired x-scale of font.
 ---@param y_scale number # desired y-scale of font.
 function Font:set_scale(x_scale, y_scale) end
 
 ---
 ---Wraps `hb_font_get_h_extents`.
----
 ---
 ---@return # font extents table for horizontal direction, contains the following
 ---or `nil` if HarfBuzz fails to load font extents:
@@ -227,7 +213,6 @@ function Font:get_h_extents() end
 ---
 ---Wraps `hb_font_get_v_extents`.
 ---
----
 ---@return # font extents table for vertical direction, similar to
 ---`Font:get_h_extents`, or `nil` if HarfBuzz fails to load font extents:
 function Font:get_v_extents() end
@@ -235,9 +220,7 @@ function Font:get_v_extents() end
 ---
 ---Wraps `hb_font_get_glyph_extents`.
 ---
----
 ---@param glyph integer # index inside the font.
----
 ---
 ---@return # extents table contains the following or `nil` if HarfBuzz fails to
 ---load glyph extents:
@@ -251,9 +234,7 @@ function Font:get_glyph_extents(glyph) end
 ---
 ---Wraps `hb_font_get_glyph_name`.
 ---
----
 ---@param glyph integer # index inside the font.
----
 ---
 ---@return # name of the glyph or nil.
 function Font:get_glyph_name(glyph) end
@@ -261,9 +242,7 @@ function Font:get_glyph_name(glyph) end
 ---
 ---Wraps `hb_font_get_glyph_from_name`.
 ---
----
 ---@param name string # name of the glyph.
----
 ---
 ---@return # glyph index inside the font or nil.
 function Font:get_glyph_from_name(name) end
@@ -271,9 +250,7 @@ function Font:get_glyph_from_name(name) end
 ---
 ---Wraps `hb_font_get_glyph_h_advance`.
 ---
----
 ---@param glyph integer # glyph index inside the font.
----
 ---
 ---@return # advance glyph advance of the glyph in horizontal direction.
 function Font:get_glyph_h_advance(glyph) end
@@ -281,9 +258,7 @@ function Font:get_glyph_h_advance(glyph) end
 ---
 ---Wraps `hb_font_get_glyph_v_advance`.
 ---
----
 ---@param glyph integer # glyph index inside the font.
----
 ---
 ---@return # advance glyph advance of the glyph in vertical direction.
 function Font:get_glyph_v_advance(glyph) end
@@ -291,9 +266,7 @@ function Font:get_glyph_v_advance(glyph) end
 ---
 ---Wraps `hb_font_get_nominal_glyph`.
 ---
----
 ---@param codepoint integer
----
 ---
 ---@return # glyph index or `nil` if `codepoint` is not supported by the font.
 function Font:get_nominal_glyph(codepoint) end
@@ -315,7 +288,6 @@ function Buffer.new() end
 ---
 ---Wraps `hb_buffer_add_utf8`.
 ---
----
 ---@param text UTF8 encoded string.
 ---@param[opt=0] item_offset 0-indexed offset in `text`, from where to start adding.
 ---@param[opt=-1] item_length length to add from `item_offset`. `-1` adds till end of `text`.
@@ -323,7 +295,6 @@ function Buffer:add_utf8() end
 
 ---
 ---Wraps `hb_buffer_add_codepoints`.
----
 ---
 ---@param text table with codepoints as lua numbers.
 ---@param[opt=0] item_offset 0-indexed offset in `text`, from where to start adding.
@@ -333,13 +304,11 @@ function Buffer:add_codepoints() end
 ---
 ---Wraps `hb_buffer_set_direction`.
 ---
----
 ---@param dir Direction # A `Direction` object.
 function Buffer:set_direction(dir) end
 
 ---
 ---Wraps `hb_buffer_get_direction`.
----
 ---
 ---@return Direction # A `Direction` object.
 function Buffer:get_direction() end
@@ -347,13 +316,11 @@ function Buffer:get_direction() end
 ---
 ---Wraps `hb_buffer_set_script`.
 ---
----
 ---@param script Script # A `Script` object.
 function Buffer:set_script(script) end
 
 ---
 ---Wraps `hb_buffer_get_script`.
----
 ---
 ---@return Script # A `Script` object.
 function Buffer:get_script() end
@@ -361,13 +328,11 @@ function Buffer:get_script() end
 ---
 ---Wraps `hb_buffer_set_language`.
 ---
----
 ---@param lang Language A `Language` object
 function Buffer:set_language(lang) end
 
 ---
 ---Wraps `hb_buffer_get_language`.
----
 ---
 ---@return Language # A `Language` object
 function Buffer:get_language() end
@@ -473,7 +438,6 @@ luaharfbuzz.Tag = Tag
 ---
 ---@param s string # to be converted to a `Tag` object.
 ---
----
 ---@return Tag # a `Tag` object.
 function Tag.new(s) end
 
@@ -500,7 +464,6 @@ luaharfbuzz.Script = Script
 ---Wraps `hb_script_from_string`.
 ---
 ---@param script string # 4-letter script code according to the [ISO 15924 standard](http://www.unicode.org/iso15924/iso15924-num.html).
----
 ---
 ---@return Script # a `Script` object.
 function Script.new(script) end
@@ -571,13 +534,11 @@ luaharfbuzz.Direction = Direction
 ---Wraps `hb_direction_from_string`.
 ---@param dir `ltr`|`rtl`|`ttb`|`btt`|`invalid` # can be one of `ltr`, `rtl`, `ttb`, `btt` or `invalid`.
 ---
----
 ---@return Direction # a `Direction` object.
 function Direction.new(dir) end
 
 ---
 ---Wraps `hb_direction_to_string`. Enable nice output with `tostring(…)`.
----
 ---
 ---@return string # Returns a string representation for direction.
 function Direction:__to_string() end
@@ -585,13 +546,11 @@ function Direction:__to_string() end
 ---
 ---Enables equality comparisions with `==` between two directions.
 ---
----
 ---@return boolean # `true` or `false` depending on whether the two tags are equal.
 function Direction:__eq() end
 
 ---
 ---Wraps `HB_DIRECTION_IS_VALID`.
----
 ---
 ---@return boolean # a boolean value
 function Direction:is_valid() end
@@ -599,13 +558,11 @@ function Direction:is_valid() end
 ---
 ---Wraps `HB_DIRECTION_IS_HORIZONTAL`.
 ---
----
 ---@return boolean # a boolean value
 function Direction:is_horizontal() end
 
 ---
 ---Wraps `HB_DIRECTION_IS_VERTICAL`.
----
 ---
 ---@return boolean # a boolean value
 function Direction:is_vertical() end
@@ -613,13 +570,11 @@ function Direction:is_vertical() end
 ---
 ---Wraps `HB_DIRECTION_IS_FORWARD`.
 ---
----
 ---@return boolean # a boolean value
 function Direction:is_forward() end
 
 ---
 ---Wraps `HB_DIRECTION_IS_BACKWARD`.
----
 ---
 ---@return boolean # a boolean value
 function Direction:is_backward() end
