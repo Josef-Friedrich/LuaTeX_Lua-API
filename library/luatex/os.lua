@@ -10,15 +10,23 @@
 os = {}
 
 ---
----`os.selfdir` is a variable that holds the directory path of the
----actual executable. For example: `\directlua {tex.sprint(os.selfdir)`}.
+---A variable that holds the directory path of the
+---actual executable.
+---
+---For example: `\directlua {tex.sprint(os.selfdir)`}.
+---
+---__Reference:__
+---
+---* Corresponding C source code: [luainit.c#L169-L186](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/luainit.c#L169-L186)
 ---
 ---For example `/usr/local/texlive/bin/x86_64-linux`
 ---@string
 os.selfdir = ""
 
 ---
----`os.exec(commandline)` is a variation on `os.execute`. Here
+---A variation on `os.execute`.
+---
+---Here
 ---`commandline` can be either a single string or a single table.
 ---
 ---* If the argument is a table *LuaTeX* first checks if there is a value at
@@ -54,30 +62,51 @@ os.selfdir = ""
 ---process before starting the new one, making it especially useful for use in
 ---*TeX*LUA.
 ---
+---__Reference:__
+---
+---* Corresponding C source code: [loslibext.c#L429-L501](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L429-L501)
+---
 ---@param commandline string|table
 function os.exec(commandline) end
 
 ---
----`os.spawn(commandline)` is a returning version of `os.exec`,
+---A returning version of `os.exec`,
 ---with otherwise identical calling conventions.
 ---
 ---If the command ran ok, then the return value is the exit status of the
 ---command. Otherwise, it will return the two values `nil` and `error`.
+---
+---__Reference:__
+---
+---* Corresponding C source code: [loslibext.c#L510-L596](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L510-L596)
+---
 ---@param commandline string|table
 function os.spawn(commandline) end
 
 ---
----`os.setenv(key,value)` sets a variable in the environment. Passing
+---Set a variable in the environment.
+---
+---Passing
 ---`nil` instead of a value string will remove the variable.
+---
+---__Reference:__
+---
+---* Corresponding C source code: [loslibext.c#L600-L627](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L600-L627)
 ---
 ---@param key string
 ---@param value string|nil
 function os.setenv(key, value) end
 
 ---
----`os.env` is a hash table containing a dump of the variables and
----values in the process environment at the start of the run. It is writeable,
+---A hash table containing a dump of the variables and
+---values in the process environment at the start of the run.
+---
+---It is writeable,
 ---but the actual environment is `not` updated automatically.
+---
+---__Reference:__
+---
+---* Corresponding C source code: [loslibext.c#L630-L661](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L630-L661)
 ---
 ---```lua
 ---{
@@ -95,56 +124,97 @@ function os.setenv(key, value) end
 ---  ...
 ---}
 ---```
----@type table
+---@type table<string, string>
 os.env = {}
 
 ---
----`os.gettimeofday()` returns the current “UNIX time”, but as a
----float. This function is not available on the SUNOS platforms, so do not use
+---Return the current “UNIX time”, but as a
+---float.
+---
+---This function is not available on the *SunOS* platforms, so do not use
 ---this function for portable documents.
+---
+---__Reference:__
+---
+---* Corresponding C source code: [loslibext.c#L905-L927](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L905-L927)
 ---
 ---@return number # for example `1673390071.0893`
 function os.gettimeofday() end
 
 ---
----`os.times()`returns the current process times according to the
----UNIX C library function “times”. This function is not available on
----the MS Windows and SUNOS platforms, so do not use this function for
+---@class Times
+---@field cstime number # system time of children
+---@field cutime number # user time of children
+---@field stime number # system time
+---@field utime number # user time
+
+---
+---Return the current process times according to the
+---UNIX C library function “times”.
+---
+---This function is not available on
+---the MS Windows and *SunOS* platforms, so do not use this function for
 ---portable documents.
 ---
 ---```lua
 ---{
 ---  cstime = 0.0,
 ---  cutime = 0.0,
----  stime = 0.0,
----  utime = 0.0
+---  stime = 0.01,
+---  utime = 0.12
 ---}
 ---```
+---
+---__Reference:__
+---
+---* Corresponding C source code: [loslibext.c#L872-L894](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L872-L894)
+---
+---@return Times
 function os.times() end
 
 ---
----`os.tmpdir()` creates a directory in the “current directory”
+---Create a directory in the “current directory”
 ---with the name `luatex.XXXXXX` where the `X`-es are replaced by a
----unique string. The function also returns this string, so you can `lfs.chdir()` into it, or `nil` if it failed to create the directory.
+---unique string.
+---
+---The function also returns this string, so you can `lfs.chdir()` into it, or `nil` if it failed to create the directory.
 ---The user is responsible for cleaning up at the end of the run, it does not
 ---happen automatically.
+---
+---__Reference:__
+---
+---* Corresponding C source code: [loslibext.c#L971-L997](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L971-L997)
 ---
 ---@return string
 function os.tmpdir() end
 
 ---
----`os.type` is a string that gives a global indication of the class of
----operating system. The possible values are currently `windows`, `unix`, and `msdos` (you are unlikely to find this value “in the
+---A string that gives a global indication of the class of
+---operating system.
+---
+---The possible values are currently `windows`, `unix`, and `msdos` (you are unlikely to find this value “in the
 ---wild”).
+---
+---__Reference:__
+---
+---* Corresponding C source code: [loslibext.c#L40-L91](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L40-L91)
+---
 ---@type string
 os.type = ""
 
 ---
----`os.name` is a string that gives a more precise indication of the
----operating system. These possible values are not yet fixed, and for `os.type` values `windows` and `msdos`, the `os.name`
+---A string that gives a more precise indication of the
+---operating system.
+---
+---These possible values are not yet fixed, and for `os.type` values `windows` and `msdos`, the `os.name`
 ---values are simply `windows` and `msdos`
 ---
 ---The list for the type `unix` is more precise: `linux`, `freebsd`, `kfreebsd`, `cygwin`, `openbsd`, `solaris`, `sunos` (pre-solaris), `hpux`, `irix`, `macosx`, `gnu` (hurd), `bsd` (unknown, but BSD-like), `sysv` (unknown, but SYSV-like), `generic` (unknown).
+---
+---__Reference:__
+---
+---* Corresponding C source code: [loslibext.c#L40-L91](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L40-L91)
+---
 ---@type string
 os.name = ""
 
@@ -157,9 +227,15 @@ os.name = ""
 ---@field nodename string # for example `mypc`
 
 ---
----`os.uname` returns a table with specific operating system
----information acquired at runtime. The keys in the returned table are all
+---Return a table with specific operating system
+---information acquired at runtime.
+---
+---The keys in the returned table are all
 ---string values, and their names are: `sysname`, `machine`, `release`, `version`, and `nodename`.
+---
+---__Reference:__
+---
+---* Corresponding C source code: [loslibext.c#L849-L868](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L849-L868)
 ---
 ---```lua
 ---{
@@ -172,5 +248,4 @@ os.name = ""
 ---```
 ---
 ---@return Uname
----
 function os.uname() end

@@ -39,11 +39,15 @@
 fio = {}
 
 ---
+---* Corresponding C source code: [liolibext.c#L114-L122](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L114-L122)
+---
 ---@param f file* # A file handle.
 ---
 ---@return integer # a 1 byte unsigned integer
 function fio.readcardinal1(f) end
 
+---
+---* Corresponding C source code: [liolibext.c#L137-L147](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L137-L147)
 ---
 ---@param f file* # A file handle.
 ---
@@ -51,11 +55,15 @@ function fio.readcardinal1(f) end
 function fio.readcardinal2(f) end
 
 ---
+---* Corresponding C source code: [liolibext.c#L187-L198](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L187-L198)
+---
 ---@param f file* # A file handle.
 ---
 ---@return integer # a 3 byte unsigned integer
 function fio.readcardinal3(f) end
 
+---
+---* Corresponding C source code: [liolibext.c#L241-L253](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L241-L253)
 ---
 ---@param f file* # A file handle.
 ---
@@ -71,6 +79,8 @@ function fio.readcardinal4(f) end
 function fio.readcardinaltable(f, n, b) end
 
 ---
+---* Corresponding C source code: [liolibext.c#L137-L147](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L137-L147)
+---
 ---little endian variant
 ---
 ---@param f file* # A file handle.
@@ -78,6 +88,8 @@ function fio.readcardinaltable(f, n, b) end
 ---@return integer
 function fio.readcardinal1le(f) end
 
+---
+---* Corresponding C source code: [liolibext.c#L148-L158](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L148-L158)
 ---
 ---little endian variant
 ---
@@ -87,6 +99,8 @@ function fio.readcardinal1le(f) end
 function fio.readcardinal2le(f) end
 
 ---
+---* Corresponding C source code: [liolibext.c#L199-L210](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L199-L210)
+---
 ---little endian variant
 ---
 ---@param f file*
@@ -94,6 +108,8 @@ function fio.readcardinal2le(f) end
 ---@return integer
 function fio.readcardinal3le(f) end
 
+---
+---* Corresponding C source code: [liolibext.c#L254-L266](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L254-L266)
 ---
 ---little endian variant
 ---
@@ -103,11 +119,15 @@ function fio.readcardinal3le(f) end
 function fio.readcardinal4le(f) end
 
 ---
+---* Corresponding C source code: [liolibext.c#L432-L442](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L432-L442)
+---
 ---@param f file* # A file handle.
 ---
 ---@return integer # a 1 byte signed integer
 function fio.readinteger1(f) end
 
+---
+---* Corresponding C source code: [liolibext.c#L460-L471](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L460-L471)
 ---
 ---@param f file* # A file handle.
 ---
@@ -134,6 +154,8 @@ function fio.readinteger4(f) end
 ---@return table<integer, integer>
 function fio.readintegertable(f, n, b) end
 
+---
+------* Corresponding C source code: [liolibext.c#L432-L442](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L432-L442)
 ---
 ---little endian variant
 ---

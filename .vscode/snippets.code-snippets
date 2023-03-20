@@ -53,6 +53,13 @@
     "description": "* Corresponding C source code: "
   },
 
+
+  "referenceHarfBuzz": {
+    "prefix": ["h", "harf"],
+    "body": ["", "---", "---* HarfBuzz online documentation: [$2]($1)", "---$0"],
+    "description": "* HarfBuzz online documentation: "
+  },
+
   "referenceWikibooks": {
     "prefix": ["wikibook"],
     "body": [

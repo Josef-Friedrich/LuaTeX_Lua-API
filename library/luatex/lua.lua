@@ -10,6 +10,10 @@ lua = {}
 ---
 ---This returns the *Lua* version identifier string.
 ---
+---__Reference:__
+---
+---* Corresponding C source code: [llualib.c#L416-L417](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L416-L417)
+---
 ---@type string
 lua.version = ""
 
@@ -58,26 +62,32 @@ lua.version = ""
 ---
 ---* `LuaTeX` manual: 2.4.4 `\luafunction`, `\luafunctioncall` and `\luadef`
 ---* `LuaTeX` manual: 10.6.4 Macros
+---* Corresponding C source code: [llualib.c#L356-L360](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L356-L360)
 ---
 ---@return {[integer]: fun(slot: integer)}
 function lua.get_functions_table() end
 
 ---
----The `getstacktop` function returns a number indicating
----how much nesting is going on. It is only of use as a breakpoint when
+---Returns a number indicating
+---how much nesting is going on.
+---
+---It is only of use as a breakpoint when
 ---checking some mechanism going haywire.
 ---
 ---__Reference:__
 ---
 ---* `LuaTeX` manual: 10.1.4 Introspection
+---* Corresponding C source code: [llualib.c#L370-L374](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L370-L374)
 ---
 ---@return integer
 function lua.getstacktop() end
 
 ---
----The `getcalllevel` function returns a number indicating
+---Return a number indicating
 ---how much nesting is going on. It is only of use as a breakpoint when
 ---checking some mechanism going haywire.
+---
+---* Corresponding C source code: [llualib.c#L376-L380](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L376-L380)
 ---
 ---__Reference:__
 ---
@@ -87,45 +97,37 @@ function lua.getstacktop() end
 function lua.getcalllevel() end
 
 ---
-------------------------------------------------------------------------
----Undocumented functions listed in alphabetical order
+---__Reference:__
 ---
----Document them by sliding them up and place them in the order of the
----official documentation
-------------------------------------------------------------------------
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function lua.getbytecode() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function lua.getcodepage() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function lua.getluaname() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function lua.newtable() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---* Corresponding C source code: [llualib.c#L249-L315](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L249-L315)
 function lua.setbytecode() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---__Reference:__
+---
+---* Corresponding C source code: [llualib.c#L187-L212](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L187-L212)
+function lua.getbytecode() end
+
+---
+---__Reference:__
+---
+---* Corresponding C source code: [llualib.c#L382-L392](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L382-L392)
+function lua.getcodepage() end
+
+---
+---__Reference:__
+---
+---* Corresponding C source code: [llualib.c#L318-L339](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L318-L339)
 function lua.setluaname() end
+
+---
+---__Reference:__
+---
+---* Corresponding C source code: [llualib.c#L341-L354](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L341-L354)
+function lua.getluaname() end
+
+---
+---__Reference:__
+---
+---* Corresponding C source code: [llualib.c#L362-L368](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L362-L368)
+function lua.newtable() end
