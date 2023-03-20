@@ -69,7 +69,7 @@ function os.spawn(commandline) end
 ---
 ---`os.setenv(key,value)` sets a variable in the environment. Passing
 ---`nil` instead of a value string will remove the variable.
----comment
+---
 ---@param key string
 ---@param value string|nil
 function os.setenv(key, value) end

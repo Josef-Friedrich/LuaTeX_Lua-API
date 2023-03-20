@@ -50,7 +50,7 @@ function mime.decode(name) end
 ---In the Quoted-Printable case, the user can specify whether the data is
 ---textual or binary, by passing the `mode` strings "`text`" or
 ---"`binary`". `Mode` defaults to "`text`".
----comment
+---
 ---@param name 'base64'|'quoted-printable'
 ---@param mode? 'text'|'binary'
 function mime.encode(name, mode) end
