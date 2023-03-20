@@ -25,7 +25,7 @@ function luaharfbuzz.shape_full(font, buffer, features, shapers) end
 ---
 ---* Corresponding C source code: [luaharfbuzz.c#L58-L67](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.c#L58-L67)
 ---
----@return string ...  # for example: graphite2	ot	fallback
+---@return string ...  # for example: `graphite2 ot fallback`
 function luaharfbuzz.shapers() end
 
 ---
@@ -199,36 +199,41 @@ function Font:get_scale() end
 ---@param y_scale number # desired y-scale of font.
 function Font:set_scale(x_scale, y_scale) end
 
+---@class FontExtens
+---@field ascender integer # typographic ascender.
+---@field descender integer # typographic descender.
+---@field line_gap integer # line spacing gap.
+
 ---
 ---Wraps `hb_font_get_h_extents`.
 ---
----@return # font extents table for horizontal direction, contains the following
----or `nil` if HarfBuzz fails to load font extents:
---
----* `ascender`: typographic ascender.
----* `descender`: typographic descender.
----* `line_gap`: line spacing gap.
-function Font:get_h_extents() end
+---@param glyph integer # index inside the font.
+---
+---@return FontExtens|nil # font extents table for horizontal direction, contains the following or `nil` if HarfBuzz fails to load font extents:
+function Font:get_h_extents(glyph) end
 
 ---
 ---Wraps `hb_font_get_v_extents`.
 ---
----@return # font extents table for vertical direction, similar to
----`Font:get_h_extents`, or `nil` if HarfBuzz fails to load font extents:
-function Font:get_v_extents() end
+---
+---@param glyph integer # index inside the font.
+---
+---@return FontExtens|nil # font extents table for vertical direction, similar to `Font:get_h_extents`, or `nil` if HarfBuzz fails to load font extents:
+function Font:get_v_extents(glyph) end
+
+---@class GlyphExtens
+---@field x_bearing integer # left side of glyph from origin.
+---@field y_bearing integer # top side of glyph from origin.
+---@field width integer # distance from left to right side.
+---@field height integer # distance from top to bottom side.
 
 ---
 ---Wraps `hb_font_get_glyph_extents`.
 ---
 ---@param glyph integer # index inside the font.
 ---
----@return # extents table contains the following or `nil` if HarfBuzz fails to
----load glyph extents:
---
----* `x_bearing`: left side of glyph from origin.
----* `y_bearing`: top side of glyph from origin.
----* `width`: distance from left to right side.
----* `height`: distance from top to bottom side.
+---@return GlyphExtens|nil # extents table contains the following or `nil` if HarfBuzz fails to
+---load glyph extents
 function Font:get_glyph_extents(glyph) end
 
 ---
@@ -236,7 +241,7 @@ function Font:get_glyph_extents(glyph) end
 ---
 ---@param glyph integer # index inside the font.
 ---
----@return # name of the glyph or nil.
+---@return string # name of the glyph or nil.
 function Font:get_glyph_name(glyph) end
 
 ---
@@ -244,7 +249,7 @@ function Font:get_glyph_name(glyph) end
 ---
 ---@param name string # name of the glyph.
 ---
----@return # glyph index inside the font or nil.
+---@return integer # glyph index inside the font or nil.
 function Font:get_glyph_from_name(name) end
 
 ---
@@ -252,7 +257,7 @@ function Font:get_glyph_from_name(name) end
 ---
 ---@param glyph integer # glyph index inside the font.
 ---
----@return # advance glyph advance of the glyph in horizontal direction.
+---@return integer # advance glyph advance of the glyph in horizontal direction.
 function Font:get_glyph_h_advance(glyph) end
 
 ---
@@ -260,7 +265,7 @@ function Font:get_glyph_h_advance(glyph) end
 ---
 ---@param glyph integer # glyph index inside the font.
 ---
----@return # advance glyph advance of the glyph in vertical direction.
+---@return integer # advance glyph advance of the glyph in vertical direction.
 function Font:get_glyph_v_advance(glyph) end
 
 ---
@@ -268,7 +273,7 @@ function Font:get_glyph_v_advance(glyph) end
 ---
 ---@param codepoint integer
 ---
----@return # glyph index or `nil` if `codepoint` is not supported by the font.
+---@return integer|nil # glyph index or `nil` if `codepoint` is not supported by the font.
 function Font:get_nominal_glyph(codepoint) end
 
 ---
@@ -298,7 +303,7 @@ function Buffer:add_utf8() end
 ---
 ---@param text table with codepoints as lua numbers.
 ---@param[opt=0] item_offset 0-indexed offset in `text`, from where to start adding.
----@param[opt=-1] item_length length to add from `item_offset`. `-1` adds till end of&nbsp;`text`.
+---@param[opt=-1] item_length length to add from `item_offset`. `-1` adds till end of `text`.
 function Buffer:add_codepoints() end
 
 ---
