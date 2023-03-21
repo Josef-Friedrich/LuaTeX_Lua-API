@@ -1,5 +1,6 @@
 ---Changes to upstream: global luaharfbuzz table
 
+---
 ---@meta
 ---The definitions are developed in this repository: https://github.com/LuaCATS/luaharfbuzz
 
@@ -27,7 +28,7 @@ luaharfbuzz = {}
 function luaharfbuzz.shape_full(font, buffer, features, shapers) end
 
 ---
----* Corresponding C source code: [luaharfbuzz.c#L58-L67](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.c#L58-L67)
+---* Corresponding C source code: [luaharfbuzz.c#L44-L53](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/luaharfbuzz.c#L44-L53)
 ---
 ---@return string ...  # for example: `graphite2 ot fallback`
 function luaharfbuzz.shapers() end
@@ -35,11 +36,13 @@ function luaharfbuzz.shapers() end
 ---
 ---Wraps `hb_version`
 ---
----* Corresponding C source code: [luaharfbuzz.c#L53-L56](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.c#L53-L56)
+---* Corresponding C source code: [luaharfbuzz.c#L39-L42](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/luaharfbuzz.c#L39-L42)
 function luaharfbuzz.version() end
 
 ---
 ---Wraps `hb_shape`.
+---
+---* Corresponding C source code: [harfbuzz.lua#L22-L53](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/harfbuzz.lua#L22-L53)
 ---
 ---@param font Font # `Font` to use for shaping
 ---@param buffer Buffer # `Buffer` to shape
@@ -57,22 +60,38 @@ luaharfbuzz.Blob = Blob
 ---Wraps `hb_blob_create`.
 ---Initializes a new `hb_blob_t`.
 ---
+---* Corresponding C source code: [blob.c#L3-L14](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/blob.c#L3-L14)
+---
 ---@param data string # lua string containing binary or character data.
+---
+---@return Blob
 function Blob.new(data) end
 
 ---
 ---Wraps `hb_blob_create_from_file`.
 ---Initializes a new `hb_blob_t`.
 ---
+---* Corresponding C source code: [blob.c#L16-L26](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/blob.c#L16-L26)
+---
 ---@param filename string # lua string.
+---
+---@return Blob
 function Blob.new_from_file(filename) end
 
 ---
 ---Wraps `hb_blob_get_length`.
+---
+---* Corresponding C source code: [blob.c#L28-L33](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/blob.c#L28-L33)
+---
+---@return integer
 function Blob:get_length() end
 
 ---
 ---Wraps `hb_blob_get_data`.
+---
+---* Corresponding C source code: [blob.c#L35-L44](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/blob.c#L35-L44)
+---
+---@return string
 function Blob:get_data() end
 
 ---
@@ -85,8 +104,12 @@ luaharfbuzz.Face = Face
 ---Wraps `hb_face_create`.
 ---Initializes a new `hb_face_t` from a `Blob` object.
 ---
+---* Corresponding C source code: [face.c#L28-L45](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L28-L45)
+---
 ---@param blob Blob # `Blob` to read the font from.
 ---@param font_index? integer # index of font to read.
+---
+---@return Face|nil
 function Face.new_from_blob(blob, font_index) end
 
 ---
@@ -94,12 +117,18 @@ function Face.new_from_blob(blob, font_index) end
 ---Makes a call to `Face:new_from_blob` after creating a `Blob` from the
 ---file contents.
 ---
+---* Corresponding C source code: [face.c#L7-L26](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L7-L26)
+---
 ---@param file string # path to font file.
 ---@param font_index? integer # index of font to read.
+---
+---@return Face|nil
 function Face.new(file, font_index) end
 
 ---
 ---Wraps `hb_face_collect_unicodes`.
+---
+---* Corresponding C source code: [face.c#L264-L284](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L264-L284)
 ---
 ---@return table # of codepoints supported by the face.
 function Face:collect_unicodes() end
@@ -124,12 +153,17 @@ function Face:get_table_tags() end
 
 ---
 ---Wraps `hb_face_get_upem`.
+---
+---* Corresponding C source code: [face.c#L286-L291](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L286-L291)
+---
+---@return integer
 function Face:get_upem() end
 
 ---
 ---Wraps `hb_ot_color_has_palettes`.
 ---
 ---* Corresponding C source code: [face.c#L293-L298](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L293-L298)
+---
 ---@return boolean
 function Face:ot_color_has_palettes() end
 
