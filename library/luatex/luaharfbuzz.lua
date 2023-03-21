@@ -1,4 +1,8 @@
+---Changes to upstream: global luaharfbuzz table
+
 ---@meta
+---The definitions are developed in this repository: https://github.com/LuaCATS/luaharfbuzz
+
 luaharfbuzz = {}
 
 ---
@@ -747,3 +751,5 @@ function unicode.script(char) end
 ---@field LAYOUT_NO_VARIATIONS_INDEX string # Wraps `HB_OT_LAYOUT_NO_VARIATIONS_INDEX`
 local ot = {}
 luaharfbuzz.ot = ot
+
+return luaharfbuzz
