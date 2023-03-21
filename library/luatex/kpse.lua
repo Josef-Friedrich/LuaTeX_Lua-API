@@ -20,7 +20,7 @@ function kpse.default_texmfcnf() end
 ---There are three possibilities, two of which belong to the procedural interface.
 ---
 ---First, when *LuaTeX* is used to typeset documents, this initialization happens
----automatically and the `kpathsea` executable and program names are set to `luatex` (that is, unless explicitly prohibited by the user's startup script.
+---automatically and the `kpathsea` executable and program names are set to `luatex` (that is, unless explicitly prohibited by the user's startup script.)
 ---
 ---Second, in *TeX*LUA mode, the initialization has to be done explicitly via the
 ---`kpse.set_program_name` function, which sets the `kpathsea` executable
@@ -39,6 +39,9 @@ function kpse.set_program_name(name, progname) end
 ---Third, if you prefer the object oriented interface, you have to call a different
 ---function. It has the same arguments, but it returns a userdata variable.
 ---
+---* Corresponding C source code: [lkpselib.c#L908-L921](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lkpselib.c#L908-L921)
+---
+---
 ---@param name string
 ---@param progname? string
 ---
@@ -51,6 +54,9 @@ function kpse.new(name, progname) end
 ---Because callbacks can load
 ---files themselves you might need these helpers (if you use recording at all).
 ---
+---* Corresponding C source code: [lkpselib.c#L923-L930](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lkpselib.c#L923-L930)
+---
+---
 ---@param name string
 function kpse.record_input_file(name) end
 
@@ -59,6 +65,9 @@ function kpse.record_input_file(name) end
 ---
 ---Because callbacks can load
 ---files themselves you might need these helpers (if you use recording at all).
+---
+---* Corresponding C source code: [lkpselib.c#L932-L939](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lkpselib.c#L932-L939)
+---
 ---
 ---@param name string
 function kpse.record_output_file(name) end
@@ -274,6 +283,8 @@ function kpse.show_path(s) end
 ---__References:__
 ---
 ---* [kpathsea manual](https://www.tug.org/texinfohtml/kpathsea.html#index-_002d_002dvar_002dvalue_003dvariable)
+---* Corresponding C source code: [lkpselib.c#L395-L401](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lkpselib.c#L395-L401)
+---
 ---
 ---@param s string
 ---
@@ -282,6 +293,9 @@ function kpse.var_value(s) end
 
 ---
 ---Returns the kpathsea version string.
+---
+---* Corresponding C source code: [lkpselib.c#L876-L880](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lkpselib.c#L876-L880)
+---
 ---
 ---@return string r # For example `kpathsea version 6.3.4`
 function kpse.version() end
@@ -294,7 +308,10 @@ function kpse.version() end
 ---end
 ---```
 ---
----https://github.com/TeX-Live/luatex/blob/07e7721c24e3562457d624482b64b64c835c1bd0/source/texk/web2c/luatexdir/lua/lkpselib.c#L943-L980
+---
+---
+---* Corresponding C source code: [lkpselib.c#L943-L980](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lkpselib.c#L943-L980)
+---
 ---@param name string
 ---
 ---@return boolean okay
