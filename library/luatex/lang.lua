@@ -254,7 +254,7 @@ function lang.hyphenate(head, tail) end
 ---@param l Language
 ---@param char integer
 ---@param usedchar integer
-function lang.sethjcode(l, char,  usedchar) end
+function lang.sethjcode(l, char, usedchar) end
 
 ---
 ---Query hj codes.

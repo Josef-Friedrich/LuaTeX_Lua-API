@@ -9,7 +9,6 @@ pdf = {}
 _N._14_1_The_pdf_library = 281
 _N._14_1_1_mapfile_mapline = 281
 
-
 ---
 ---Modify the map-file.
 ---This function modifies the map-file by adding, replacing, or removing all entries (lines) of <map_file>.
@@ -22,7 +21,6 @@ _N._14_1_1_mapfile_mapline = 281
 ---@param map_file string
 function pdf.mapfile(map_file) end
 
-
 ---
 ---Modify the map-file.
 ---This function modifies the map-file by adding, replacing, or removing exactly one entry (line).
@@ -34,45 +32,37 @@ function pdf.mapfile(map_file) end
 --- * `''`   Flush map file first, then insert new entry.
 function pdf.mapline(map_line) end
 
-
 _N._14_1_2_set_get_catalog_info_names_trailer = 281
-
 
 ---
 ---Insert string <catalog> into the `/Catalog` dictionary.
 ---@param catalog string # String.
 function pdf.setcatalog(catalog) end
 
-
 ---
 ---Return string <catalog> that was set by `pdf.setcatalog()`.
 ---@return string | nil catalog # String.
 function pdf.getcatalog() end
-
 
 ---
 ---Insert string <info> into the `/Info` dictionary.
 ---@param info string # String.
 function pdf.setinfo(info) end
 
-
 ---
 ---Return string <info> that was set by `pdf.setinfo()`.
 ---@return string | nil info # String.
 function pdf.getinfo() end
-
 
 ---
 ---Insert string <names> into the `/Names` dictionary of the `/Catalog`.
 ---@param names string # String.
 function pdf.setnames(names) end
 
-
 ---
 ---Return string <names> that was set by `pdf.setnames()`.
 ---@return string | nil names # String.
 function pdf.getnames() end
-
 
 ---
 ---Insert string <trailer> into the `trailer` dictionary.
@@ -80,51 +70,42 @@ function pdf.getnames() end
 ---FIXME: pdf.settrailer() not working. Bug?
 function pdf.settrailer(trailer) end
 
-
 ---
 ---Return string <trailer> that was set by `pdf.settrailer()`.
 ---@return string | nil trailer # String.
 function pdf.gettrailer() end
 
-
 _N._14_1_3_set_get_pageattributes_pageresources_pagesattributes = 281
-
 
 ---
 ---Insert string <attributes> into the current `/Page` dictionary.
 ---@param attributes string # String.
 function pdf.setpageattributes(attributes) end
 
-
 ---
 ---Return string <attributes> that was set by `pdf.setpageattributes()`.
 ---@return string | nil attributes # String.
 function pdf.getpageattributes() end
-
 
 ---
 ---Insert string <resources> into the `/Resources` dictionary of the current page.
 ---@param resources string # String.
 function pdf.setpageresources(resources) end
 
-
 ---
 ---Return string <resources> that was set by `pdf.setpageresources()`.
 ---@return string | nil resources # String.
 function pdf.getpageresources() end
-
 
 ---
 ---Insert string <attributes> into the `/Pages` dictionary of the `/Catalog`.
 ---@param attributes string # String.
 function pdf.setpagesattributes(attributes) end
 
-
 ---
 ---Return string <attributes> that was set by `pdf.setpageattributes()`.
 ---@return string | nil attributes # String.
 function pdf.getpagesattributes() end
-
 
 _N._14_1_4_set_get_xformattributes_xformresources = 281
 
@@ -152,9 +133,7 @@ function pdf.setxformresources() end
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.getxformresources() end
 
-
 _N._14_1_5_set_get_major_minor_version = 281
-
 
 ---
 ---Set major version number of the PDF file format.
@@ -163,13 +142,11 @@ _N._14_1_5_set_get_major_minor_version = 281
 ---@param n integer # Major version number.
 function pdf.setmajorversion(n) end
 
-
 ---
 ---Return major version number of the PDF file format.
 ---@see pdf.setmajorversion()
 ---@return integer n # Major version number.
 function pdf.getmajorversion() end
-
 
 ---
 ---Set minor version number of the PDF file format.
@@ -178,16 +155,13 @@ function pdf.getmajorversion() end
 ---@param n integer # Minor version number.
 function pdf.setminorversion() end
 
-
 ---
 ---Return minor version number of the PDF file format.
 ---@see pdf.setminorversion()
 ---@return integer n # Minor version number.
 function pdf.getminorversion() end
 
-
 _N._14_1_6_getcreationdate = 282
-
 
 ---
 ---Return the `/CreationDate` string of the `/Info` dictionary.
@@ -195,9 +169,7 @@ _N._14_1_6_getcreationdate = 282
 ---@return string
 function pdf.getcreationdate() end
 
-
 _N._14_1_7_set_get_inclusionerrorlevel_ignoreunknownimages = 282
-
 
 ---
 ---Set error level for inserting *PDF* files.
@@ -207,13 +179,11 @@ _N._14_1_7_set_get_inclusionerrorlevel_ignoreunknownimages = 282
 ---@param level integer
 function pdf.setinclusionerrorlevel(level) end
 
-
 ---
 ---Return value set by `pdf.setinclusionerrorlevel()`.
 ---@return integer level # Error level.
 ---@see pdf.setinclusionerrorlevel
 function pdf.getinclusionerrorlevel() end
-
 
 ---
 ---Set <ignore> status for inserting images.
@@ -223,16 +193,13 @@ function pdf.getinclusionerrorlevel() end
 ---@param ignore integer # Ignore image.
 function pdf.setignoreunknownimages(ignore) end
 
-
 ---
 ---Return <ignore> status.
 ---@return integer ignore # Ignor image.
 ---@see pdf.setignoreunknownimages
 function pdf.getignoreunknownimages() end
 
-
 _N._14_1_8_set_get_suppressoptionalinfo_trailerid_omitcidset_omitinfodict = 282
-
 
 ---
 ---Set bit field suppressing certain informational keys in the *PDF* file.
@@ -265,12 +232,10 @@ function pdf.getsuppressoptionalinfo() end
 ---@param id string # Trailer ID.
 function pdf.settrailerid(id) end
 
-
 ---
 ---Return `/ID` of the trailer.
 ---@return string id # Trailer ID.
 function pdf.gettrailerid() end
-
 
 ---
 ---Add or remove `/CIDSet` entry in `/FontDescriptor`.
@@ -279,13 +244,11 @@ function pdf.gettrailerid() end
 ---@param n integer
 function pdf.setomitcidset(n) end
 
-
 ---
 ---Return <flag> set by `pdf.setomitcidset()`.
 ---@return integer flag
 ---@see pdf.setomitcidset
 function pdf.getomitcidset() end
-
 
 ---
 ---Add or remove `/CharSet` entry in `/FontDescriptor`.
@@ -294,13 +257,11 @@ function pdf.getomitcidset() end
 ---@param n integer
 function pdf.setomitcharset(n) end
 
-
 ---
 ---Return value set by `pdf.setomitcharset()`.
 ---@return integer n
 ---@see pdf.setomitcharset
 function pdf.getomitcharset() end
-
 
 _N._14_1_9_set_get_obj_compresslevel_recompress = 282
 
@@ -324,22 +285,18 @@ function pdf.setobjcompresslevel(level) end
 ---@return integer level # Compression level.
 function pdf.getobjcompresslevel() end
 
-
 ---
 ---Switch for recompressing streams of `/XObject`s.
 ---@param switch integer # 0: don't recompress, 1: do recompress.
 ---FIXME: pdf.setrecompress() not working. Bug?
 function pdf.setrecompress(switch) end
 
-
 ---
 ---Return value set by `pdf.setrecompress()`.
 ---@return integer switch # 0: don't recompress, 1: do recompress.
 function pdf.getrecompress() end
 
-
 _N._14_1_10_set_get_gentounicode = 282
-
 
 ---
 ---Add or remove `/ToUnicode` entry in a font dictionary.
@@ -349,22 +306,18 @@ _N._14_1_10_set_get_gentounicode = 282
 --- Note: Use `\pdfextension glyphtounicode` to add a CMap mapping from character codes to Unicode values.
 function pdf.setgentounicode(n) end
 
-
 ---
 ---Return value set by `pdf.setgentounicode()`.
 ---@return integer n
 ---@see pdf.setgentounicode
 function pdf.getgentounicode() end
 
-
 _N._14_1_11_set_get_decimaldigits = 282
-
 
 ---
 ---Set number of decimal digits used for writing numbers (floats) in the *PDF* file.
 ---@param ndigits integer # Number of decimal digits.
 function pdf.setdecimaldigits(ndigits) end
-
 
 ---
 ---Return value set by `pdf.setdecimaldigits()`.
@@ -372,9 +325,7 @@ function pdf.setdecimaldigits(ndigits) end
 ---@see pdf.setdecimaldigits
 function pdf.getdecimaldigits() end
 
-
 _N._14_1_12_set_get_pkresolution = 283
-
 
 ---
 ---Set resolution of PK fonts.
@@ -382,16 +333,13 @@ _N._14_1_12_set_get_pkresolution = 283
 ---@param fixed_dpi integer
 function pdf.setpkresolution(resolution, fixed_dpi) end
 
-
 ---
 ---Return resolution of PK fonts.
 ---@return integer resolution
 ---@return integer fixed_dpi
 function pdf.getpkresolution() end
 
-
 _N._14_1_13_getlast_obj_link_annot_and_getretval = 283
-
 
 ---
 ---Return object number of latest created objects.
@@ -414,21 +362,17 @@ function pdf.getlastannot() end
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.getretval() end
 
-
 _N._14_1_14_getmaxobjnum_getobjtype_getfontname_getfontobjnum_getfontsize_getxformname = 283
-
 
 ---
 ---Return the object number of the latest created pdf object.
 ---@return integer objnum # Object number.
 function pdf.getmaxobjnum() end
 
-
 ---
 ---Return a string describing the object type.
 ---@param objnum integer # Object number.
 function pdf.getobjtype(objnum) end
-
 
 ---
 ---Return the number of the font resource name.
@@ -445,13 +389,11 @@ function pdf.getfontname(id) end
 ---@return integer objnum # Object number.
 function pdf.getfontobjnum(id) end
 
-
 ---
 ---Return the font size in scaled points.
 ---@param id integer # Font ID.
 ---@return integer # Font size.
 function pdf.getfontsize(id) end
-
 
 ---
 ---Warning! Undocumented code!<p>
@@ -459,9 +401,7 @@ function pdf.getfontsize(id) end
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.getxformname() end
 
-
 _N._14_1_15_set_get_origin = 283
-
 
 ---
 ---Set horizontal and vertical offset from the top left corner of the page.
@@ -476,9 +416,7 @@ function pdf.setorigin(h, v) end
 ---@see pdf.setorigin
 function pdf.getorigin() end
 
-
 _N._14_1_16_set_get_imageresolution = 283
-
 
 ---
 ---Set default resolution of a bitmap image.
@@ -490,22 +428,18 @@ _N._14_1_16_set_get_imageresolution = 283
 --- 4. If (3) is missing, it uses a resolution of 72 dpi.
 function pdf.setimageresolution(dpi) end
 
-
 ---
 ---Return value set by `pdf.setimageresolution()`.
 ---@return integer dpi # Resolution.
 ---@see pdf.setimageresolution
 function pdf.getimageresolution() end
 
-
 _N._14_1_17_set_get_link_dest_thread_xform_margin = 283
-
 
 ---
 ---Set margin size of hyperlinks.
 ---@param margin integer # Margin in scaled points.
 function pdf.setlinkmargin(margin) end
-
 
 ---
 ---Return value set by `pdf.setlinkmargin()`.
@@ -513,13 +447,11 @@ function pdf.setlinkmargin(margin) end
 ---@see pdf.setlinkmargin
 function pdf.getlinkmargin() end
 
-
 ---
 ---Set margin size of destination.
 ---@param margin integer # Margin in scaled points.
 ---FIXME pdf.setdestmargin() is not working. Bug?
 function pdf.setdestmargin(margin) end
-
 
 ---
 ---Return value set by `pdf.setdestmargin()`.
@@ -527,12 +459,10 @@ function pdf.setdestmargin(margin) end
 ---@see pdf.setdestmargin
 function pdf.getdestmargin() end
 
-
 ---
 ---Set size of margin for threads.
 ---@param margin integer # Margin in scaled points.
 function pdf.setthreadmargin(margin) end
-
 
 ---
 ---Return value set by `pdf.setthreadmargin()`.
@@ -540,13 +470,11 @@ function pdf.setthreadmargin(margin) end
 ---@see pdf.setthreadmargin
 function pdf.getthreadmargin() end
 
-
 ---
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.setxformmargin() end
-
 
 ---
 ---Warning! Undocumented code!<p>
@@ -554,9 +482,7 @@ function pdf.setxformmargin() end
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.getxformmargin() end
 
-
 _N._14_1_18_get_pos_hpos_vpos = 283
-
 
 ---
 ---Return coordinates of the current position. The origin of the coordinate system is at the lower left corner of the page.
@@ -565,13 +491,11 @@ _N._14_1_18_get_pos_hpos_vpos = 283
 ---Note: This function is mainly used inside `\latelua` calls.
 function pdf.getpos() end
 
-
 ---
 ---Return horizontal coordinate of the current position. The origin of the coordinate system is at the lower left corner of the page.
 ---@return integer h # Horizontal position in scaled points.
 ---Note: This function is mainly used inside `\latelua` calls.
 function pdf.gethpos() end
-
 
 ---
 ---Return vertical coordinate of the current position. The origin of the coordinate system is at the lower left corner of the page.
@@ -579,16 +503,13 @@ function pdf.gethpos() end
 ---Note: This function is mainly used inside `\latelua` calls.
 function pdf.getvpos() end
 
-
 _N._14_1_19_has_get_matrix = 283
-
 
 ---
 ---Returns `true` is a CTM is currently used.
 ---@return boolean
 ---Note: This function is mainly used inside `\latelua` calls.
 function pdf.hasmatrix() end
-
 
 ---
 ---Return the CTM (current transformation matrix) at the current position.
@@ -606,9 +527,7 @@ function pdf.hasmatrix() end
 ---Note: This function is mainly used inside `\latelua` calls.
 function pdf.getmatrix() end
 
-
 _N._14_1_20_print = 284
-
 
 ---
 ---Write a string into the contents stream of the current page. If LuaTeX is currently inside a text block (**BT**...**ET**), close the text block first.
@@ -616,7 +535,6 @@ _N._14_1_20_print = 284
 ---@param str string # String.
 ---Note: This function is mainly used inside `\latelua` calls.
 function pdf.print(str) end
-
 
 ---
 ---Write a string into the contents stream of the current page.
@@ -631,7 +549,6 @@ function pdf.print(str) end
 ----Note: This function is mainly used inside `\latelua` calls.
 function pdf.print(type, str) end
 
-
 _N._14_1_21_immediateobj = 283
 
 ---
@@ -645,7 +562,6 @@ _N._14_1_21_immediateobj = 283
 ---@return integer objnum # Object number.
 function pdf.immediateobj(str) end
 
-
 ---
 ---Create an object and write it immediately to the pdf file.
 ---The created object looks like this:
@@ -657,7 +573,6 @@ function pdf.immediateobj(str) end
 ---@param filename string # File name.
 ---@return integer objnum # Object number.
 function pdf.immediateobj(objnum, file, filename) end
-
 
 ---
 ---Create an object and write it immediately to the pdf file.
@@ -677,7 +592,6 @@ function pdf.immediateobj(objnum, file, filename) end
 ---@return integer objnum # Object number.
 function pdf.immediateobj(stream, streamcontents, streamdict) end
 
-
 ---
 ---Create an object and write it immediately to the pdf file.
 ---The created object looks like this:
@@ -696,9 +610,7 @@ function pdf.immediateobj(stream, streamcontents, streamdict) end
 ---@return integer objnum # Object number.
 function pdf.immediateobj(streamfile, filename, streamdict) end
 
-
 _N._14_1_22_obj = 285
-
 
 ---
 ---Create an object. This object is written to the pdf file only if it is referenced later by `pdf.refobj()`
@@ -711,7 +623,6 @@ _N._14_1_22_obj = 285
 ---@return integer objnum # Object number.
 function pdf.obj(str) end
 
-
 ---
 ---Create an object. This object is written to the pdf file only if it is referenced later by `pdf.refobj()`
 ---The created object looks like this:
@@ -723,7 +634,6 @@ function pdf.obj(str) end
 ---@param filename string # File name.
 ---@return integer objnum # Object number.
 function pdf.obj(objnum, file, filename) end
-
 
 ---
 ---Create an object. This object is written to the pdf file only if it is referenced later by `pdf.refobj()`
@@ -742,7 +652,6 @@ function pdf.obj(objnum, file, filename) end
 ---@param streamdict string # Stream dictionary.
 ---@return integer objnum # Object number.
 function pdf.obj(stream, streamcontents, streamdict) end
-
 
 ---
 ---Create an object. This object is written to the pdf file only if it is referenced later by `pdf.refobj()`
@@ -781,7 +690,6 @@ function pdf.obj(streamfile, filename, streamdict) end
 ---@return integer objnum # Object number.
 function pdf.obj(keyvals) end
 
-
 _N._14_1_23_refobj = 286
 
 ---
@@ -789,9 +697,7 @@ _N._14_1_23_refobj = 286
 ---@param objnum integer # Object number.
 function pdf.refobj(objnum) end
 
-
 _N._14_1_24_reserveobj = 286
-
 
 ---
 ---Create an empty object.
@@ -801,8 +707,6 @@ _N._14_1_24_reserveobj = 286
 ---@see pdf.immediateobj
 function pdf.reserveobj() end
 
-
-
 ---
 ---Create a annotation object.
 ---Annotation object are not written to file directly but must be registered with `pdf.registerannot()`.
@@ -810,7 +714,6 @@ function pdf.reserveobj() end
 ---@return integer objnum # Object number.
 ---@see pdf.registerannot
 function pdf.reserveobj(annot) end
-
 
 _N._14_1_25_getpageref = 286
 
@@ -821,15 +724,12 @@ _N._14_1_25_getpageref = 286
 ---@return integer objnum # Object number.
 function pdf.getpageref(pagenum) end
 
-
 _N._14_1_26_registerannot = 286
-
 
 ---
 ---Add an `/Annot` object to the `/Annots` dictionary.
 ---@param objnum integer # Object number of `/Annot` object.
 function pdf.registerannot(objnum) end
-
 
 _N._14_1_27_newcolorstack = 286
 
@@ -841,38 +741,32 @@ function pdf.newcolorstack() end
 
 _N._14_1_28_setfontattributes = 286
 
-
 ---
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.setfontattributes() end
 
-
 ---
 ---@deprecated
 ---@see pdf.getfontname
 function pdf.fontname() end
-
 
 ---
 ---@deprecated
 ---@see pdf.getpdffontsize
 function pdf.fontsize() end
 
-
 ---
 ---Return how many objects were created so far.
 ---@return integer n # Number of objects.
 function pdf.maxobjnum() end
-
 
 ---
 ---Return number of object that are written or not yet written to file.
 ---@return integer written_obj # Object written to file.
 ---@return integer not_written_obj # Object not yet written to file.
 function pdf.getnofobjects() end
-
 
 ---
 ---Warning! Undocumented code!<p>
@@ -892,18 +786,15 @@ function pdf.includefont() end
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.includeimage() end
 
-
 ---
 ---@deprecated
 ---@see pdf.getobjtype
 function pdf.objtype() end
 
-
 ---
 ---@deprecated
 ---@see pdf.getpageref
 function pdf.pageref() end
-
 
 ---
 ---Warning! Undocumented code!<p>
@@ -911,13 +802,11 @@ function pdf.pageref() end
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.setforcefile() end
 
-
 ---
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function pdf.settypeonewidemode() end
-
 
 ---
 ---@deprecated

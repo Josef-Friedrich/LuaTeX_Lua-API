@@ -606,25 +606,25 @@ function Script:__eq() end
 ---Wraps `HB_SCRIPT_COMMON`.
 ---
 ---* [HarfBuzz online documentation](https://harfbuzz.github.io/harfbuzz-hb-common.html#HB-SCRIPT-COMMON:CAPS)
-Script.COMMON = 'Zyyy'
+Script.COMMON = "Zyyy"
 
 ---
 ---Wraps `HB_SCRIPT_INHERITED`.
 ---
 ---* [HarfBuzz online documentation](https://harfbuzz.github.io/harfbuzz-hb-common.html#HB-SCRIPT-INHERITED:CAPS)
-Script.INHERITED = 'Zinh'
+Script.INHERITED = "Zinh"
 
 ---
 ---Wraps `HB_SCRIPT_UNKNOWN`.
 ---
 ---* [HarfBuzz online documentation](https://harfbuzz.github.io/harfbuzz-hb-common.html#HB-SCRIPT-UNKNOWN:CAPS)
-Script.UNKNOWN = 'Zzzz'
+Script.UNKNOWN = "Zzzz"
 
 ---
 ---Wraps `HB_SCRIPT_INVALID`.
 ---
 ---* [HarfBuzz online documentation](https://harfbuzz.github.io/harfbuzz-hb-common.html#HB-SCRIPT-INVALID:CAPS)
-Script.INVALID = 'No script set'
+Script.INVALID = "No script set"
 
 ---
 ---Lua wrapper for `hb_direction_t` type.
