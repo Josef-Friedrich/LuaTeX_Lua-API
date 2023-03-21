@@ -124,50 +124,105 @@ function Face:get_upem() end
 
 ---
 ---Wraps `hb_ot_color_has_palettes`.
+---
+---* Corresponding C source code: [face.c#L293-L298](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L293-L298)
+---@return boolean
 function Face:ot_color_has_palettes() end
 
 ---
 ---Wraps `hb_ot_color_palette_get_count`.
+---
+---* Corresponding C source code: [face.c#L300-L305](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L300-L305)
+---
+---@return integer
 function Face:ot_color_palette_get_count() end
 
 ---
+---@class LuaHarfBuzzColor
+---@field red integer
+---@field green integer
+---@field blue integer
+---@field alpha integer
+
+---
 ---Wraps `hb_ot_color_palette_get_colors`.
+---
+---* Corresponding C source code: [face.c#L307-L347](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L307-L347)
+---
+---@return LuaHarfBuzzColor[]
 function Face:ot_color_palette_get_colors() end
 
 ---
 ---Wraps `hb_ot_color_has_layers`.
+---
+---* Corresponding C source code: [face.c#L349-L354](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L349-L354)
+---@return boolean
 function Face:ot_color_has_layers() end
 
 ---
 ---Wraps `hb_ot_color_glyph_get_layers`.
+---
+---* Corresponding C source code: [face.c#L356-L392](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L356-L392)
+---
 function Face:ot_color_glyph_get_layers() end
 
 ---
 ---Wraps `hb_ot_color_has_png`.
+---
+---* Corresponding C source code: [face.c#L394-L399](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L394-L399)
+---
+---@return boolean
 function Face:ot_color_has_png() end
 
 ---
 ---Wraps `hb_ot_layout_table_get_script_tags`.
+---
+---* Corresponding C source code: [face.c#L126-L156](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L126-L156)
+---
+---@return Tag[]
 function Face:ot_layout_get_script_tags() end
 
 ---
 ---Wraps `hb_ot_layout_script_get_language_tags`.
+---
+---* Corresponding C source code: [face.c#L158-L189](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L158-L189)
+---
+---@return Tag[]
 function Face:ot_layout_get_language_tags() end
 
 ---
 ---Wraps `hb_ot_layout_language_get_feature_tags`.
+---
+---* Corresponding C source code: [face.c#L191-L223](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L191-L223)
+---
+---@return Tag[]
 function Face:ot_layout_get_feature_tags() end
 
 ---
 ---Wraps `hb_ot_layout_table_find_script`.
+---
+---* Corresponding C source code: [face.c#L225-L235](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L225-L235)
+---
+---@return boolean found
+---@return integer index
 function Face:ot_layout_find_script() end
 
 ---
 ---Wraps `hb_ot_layout_script_find_language`.
+---
+---* Corresponding C source code: [face.c#L237-L248](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L237-L248)
+---
+---@return boolean found
+---@return integer index
 function Face:ot_layout_find_language() end
 
 ---
 ---Wraps `hb_ot_layout_language_find_feature`.
+---
+---* Corresponding C source code: [face.c#L250-L262](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L250-L262)
+---
+---@return boolean found
+---@return integer index
 function Face:ot_layout_find_feature() end
 
 ---
@@ -189,16 +244,22 @@ function Font.new(face) end
 ---
 ---Wraps `hb_font_get_scale`.
 ---
----@return # two values for the x-scale and y-scale of the font.
+---* Corresponding C source code: [font.c#L31-L40](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/font.c#L31-L40)
+---
+---@return integer # x-scale of the font.
+---@return integer # y-scale of the font.
 function Font:get_scale() end
 
 ---
 ---Wraps `hb_font_set_scale`.
 ---
----@param x_scale number # desired x-scale of font.
----@param y_scale number # desired y-scale of font.
+---* Corresponding C source code: [font.c#L22-L29](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/font.c#L22-L29)
+---
+---@param x_scale integer # desired x-scale of font.
+---@param y_scale integer # desired y-scale of font.
 function Font:set_scale(x_scale, y_scale) end
 
+---
 ---@class FontExtens
 ---@field ascender integer # typographic ascender.
 ---@field descender integer # typographic descender.
@@ -215,12 +276,12 @@ function Font:get_h_extents(glyph) end
 ---
 ---Wraps `hb_font_get_v_extents`.
 ---
----
 ---@param glyph integer # index inside the font.
 ---
 ---@return FontExtens|nil # font extents table for vertical direction, similar to `Font:get_h_extents`, or `nil` if HarfBuzz fails to load font extents:
 function Font:get_v_extents(glyph) end
 
+---
 ---@class GlyphExtens
 ---@field x_bearing integer # left side of glyph from origin.
 ---@field y_bearing integer # top side of glyph from origin.
@@ -293,18 +354,16 @@ function Buffer.new() end
 ---
 ---Wraps `hb_buffer_add_utf8`.
 ---
----@param text UTF8 encoded string.
----@param[opt=0] item_offset 0-indexed offset in `text`, from where to start adding.
----@param[opt=-1] item_length length to add from `item_offset`. `-1` adds till end of `text`.
-function Buffer:add_utf8() end
+---@param text string # UTF8 encoded string.
+---@param opt? integer [opt=0] item_offset 0-indexed offset in `text`, from where to start adding. [opt=-1] item_length length to add from `item_offset`. `-1` adds till end of `text`.
+function Buffer:add_utf8(text, opt) end
 
 ---
 ---Wraps `hb_buffer_add_codepoints`.
 ---
----@param text table with codepoints as lua numbers.
----@param[opt=0] item_offset 0-indexed offset in `text`, from where to start adding.
----@param[opt=-1] item_length length to add from `item_offset`. `-1` adds till end of `text`.
-function Buffer:add_codepoints() end
+---@param text integer[] # with codepoints as lua numbers.
+---@param opt? integer [opt=0] item_offset 0-indexed offset in `text`, from where to start adding. [opt=-1] item_length length to add from `item_offset`. `-1` adds till end of `text`.
+function Buffer:add_codepoints(text, opt) end
 
 ---
 ---Wraps `hb_buffer_set_direction`.
@@ -585,25 +644,32 @@ function Direction:is_forward() end
 function Direction:is_backward() end
 
 ---
----Predefined directions.
----Predefined directions that correspond to their original definitions in Harfbuzz.
----@section
-
----
 ---Wraps `HB_DIRECTION_LTR`.
----@field Direction.LTR
+---
+---Predefined directions that correspond to their original definitions in Harfbuzz.
+---@type integer|nil
+luaharfbuzz.Direction.LTR = 4
 
 ---
 ---Wraps `HB_DIRECTION_RTL`.
----@field Direction.RTL
+---
+---Predefined directions that correspond to their original definitions in Harfbuzz.
+---@type integer|nil
+luaharfbuzz.Direction.RTL = 0
 
 ---
 ---Wraps `HB_DIRECTION_TTB`.
----@field Direction.TTB
+---
+---Predefined directions that correspond to their original definitions in Harfbuzz.
+---@type integer|nil
+luaharfbuzz.Direction.TTB = 0
 
 ---
 ---Wraps `HB_DIRECTION_LTR`.
----@field Direction.BTT
+---
+---Predefined directions that correspond to their original definitions in Harfbuzz.
+---@type integer|nil
+luaharfbuzz.Direction.BTT = 0
 
 ---
 ---Lua wrapper for `hb_language_t` type.
