@@ -1,7 +1,5 @@
 ---https://github.com/TeX-Live/luatex/blob/trunk/source/texk/web2c/luatexdir/luasocket/src/mime.lua
 ---Changes to upstream: global mime table
-
----
 ---@meta
 ---The definitions are developed in this repository: https://github.com/LuaCATS/luasocket
 
@@ -70,6 +68,8 @@ function mime.encode(name, mode) end
 ---or the DOS (CRLF) conventions. Even if the data has mixed end-of-line
 ---markers, the function will still work well, although it doesn't
 ---guarantee that the number of empty lines will be correct.
+---
+---@param marker string
 function mime.normalize(marker) end
 
 ---
@@ -164,31 +164,21 @@ function mime.dot(m, B) end
 ---context the function receives besides the chunk.  An updated version of
 ---the context is returned after each new chunk.
 ---
----`A` is the translated version of `D`. `C` is the
----ASCII value of the last character of the previous chunk, if it was a
----candidate for line break, or 0 otherwise.
----`B` is the same as `C`, but for the current
----chunk. `Marker` gives the new end-of-line marker and defaults to CRLF.
----
 ---```
 ----- translates the end-of-line marker to UNIX
 ---unix = mime.eol(0, dos, "\n")
 ---```
-function mime.eol() end
+---
+---@param C integer # `C` is the ASCII value of the last character of the previous chunk, if it was a candidate for line break, or 0 otherwise.
+---@param D? string
+---@param marker string `Marker` gives the new end-of-line marker and defaults to CRLF.
+---
+---@return string A # `A` is the translated version of `D`.
+---@return string B # `B` is the same as `C`, but for the current chunk.
+function mime.eol(C, D, marker) end
 
 ---
----A, B = mime.qp(C [, D, marker])
----
 ---Low-level filter to perform Quoted-Printable encoding.
----
----`A` is the encoded version of the largest prefix of
----`C..D`
----that can be encoded unambiguously. `B` has the remaining bytes of
----`C..D`, beforeencoding.
----If `D` is `nil`, `A` is padded with
----the encoding of the remaining bytes of `C`.
----Throughout encoding, occurrences of CRLF are replaced by the
----`marker`, which itself defaults to CRLF.
 ---
 ---Note: The simplest use of this function is to encode a string into it's
 ---Quoted-Printable transfer content encoding.
@@ -198,23 +188,29 @@ function mime.eol() end
 ---print((mime.qp("ma��")))
 -----&gt; ma=E7=E3=
 ---```
-function mime.qp() end
+---
+---@param C string
+---@param D? string If `D` is `nil`, `A` is padded with the encoding of the remaining bytes of `C`.
+---@param marker string Throughout encoding, occurrences of CRLF are replaced by the `marker`, which itself defaults to CRLF.
+---
+---@return string A # `A` is the encoded version of the largest prefix of `C..D` that can be encoded unambiguously.
+---@return string B # `B` has the remaining bytes of `C..D`, before decoding.
+function mime.qp(C, D, marker) end
 
 ---
----A, m = mime.qpwrp(n [, B, length])
----
 ---Low-level filter to break Quoted-Printable text into lines.
----
----`A` is a copy of `B`, broken into lines of at most
----`length` bytes (defaults to 76).
----'`n`' should tell how many bytes are left for the first
----line of `B` and '`m`' returns the number of bytes
----left in the last line of `A`.
 ---
 ---Note: Besides breaking text into lines, this function makes sure the line
 ---breaks don't fall in the middle of an escaped character combination. Also,
 ---this function only breaks lines that are bigger than `length` bytes.
-function mime.qpwrp() end
+---
+---@param n integer `n` should tell how many bytes are left for the first line of `B`
+---@param B? string
+---@param length? any # broken into lines of at most `length` bytes (defaults to 76).
+---
+---@return string A # `A` is a copy of `B`, broken into lines of at most `length` bytes (defaults to 76).
+---@return integer m # returns the number of bytes left in the last line of `A`.
+function mime.qpwrp(n, B, length) end
 
 ---
 ---Low-level filter to perform Base64 decoding.
@@ -234,22 +230,13 @@ function mime.qpwrp() end
 ---@param C string
 ---@param D? string
 ---
----@return string A - `A` is the decoded version of the largest prefix of `C..D` that can be decoded unambiguously.
----@return string B - `B` has the remaining bytes of `C..D`, before decoding.
+---@return string A # `A` is the decoded version of the largest prefix of `C..D` that can be decoded unambiguously.
+---@return string B # `B` has the remaining bytes of `C..D`, before decoding.
 function mime.unb64(C, D) end
 
 ---
----A, B = mime.unqp(C [, D])
----
 ---Low-level filter to remove the Quoted-Printable transfer content encoding
 ---from data.
----
----`A` is the decoded version of the largest prefix of
----`C..D`
----that can be decoded unambiguously. `B` has the remaining bytes of
----`C..D`, beforedecoding.
----If `D` is `nil`, `A` is augmented with
----the encoding of the remaining bytes of `C`.
 ---
 ---Note: The simplest use of this function is to decode a string from it's
 ---Quoted-Printable transfer content encoding.
@@ -259,24 +246,28 @@ function mime.unb64(C, D) end
 ---print((mime.qp("ma=E7=E3=")))
 -----&gt; ma��
 ---```
-function mime.unqp() end
+---
+---@param C string
+---@param D? string
+---
+---@return string A # `A` is the decoded version of the largest prefix of `C..D` that can be decoded unambiguously. If `D` is `nil`, `A` is augmented with the encoding of the remaining bytes of `C`.
+---@return string B # `B` has the remaining bytes of `C..D`, before decoding.
+function mime.unqp(C, D) end
 
 ---
----A, m = mime.wrp(n [, B, length])
----
 ---Low-level filter to break text into lines with CRLF marker.
----Text is assumed to be in the `normalize`form.
----
----`A` is a copy of `B`, broken into lines of at most
----`length` bytes (defaults to 76).
----'`n`' should tell how many bytes are left for the first
----line of `B` and '`m`' returns the number of bytes
----left in the last line of `A`.
+---Text is assumed to be in the `normalize` form.
 ---
 ---Note: This function only breaks lines that are bigger than
 ---`length` bytes. The resulting line length does not include the CRLF
 ---marker.
 ---
-function mime.wrp() end
+---@param n integer `n` should tell how many bytes are left for the first line of `B`
+---@param B? string
+---@param length? any # broken into lines of at most `length` bytes (defaults to 76).
+---
+---@return string A # `A` is a copy of `B`, broken into lines of at most `length` bytes (defaults to 76).
+---@return integer m # returns the number of bytes left in the last line of `A`.
+function mime.wrp(n, B, length) end
 
 return mime
