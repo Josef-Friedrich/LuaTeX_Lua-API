@@ -147,7 +147,7 @@ function token.scan_real() end
 function token.scan_float() end
 
 ---
----returns a number representing a dimension and or two numbers being the filler and order
+---Returns a number representing a dimension and or two numbers being the filler and order
 ---
 ---__Example:__
 ---
@@ -295,7 +295,7 @@ function token.scan_string() end
 function token.scan_argument(expand) end
 
 ---
----returns a sequence of characters with catcode 11 or 12 as string
+---Return a sequence of characters with catcode 11 or 12 as string.
 ---
 ---__Reference:__
 ---
@@ -304,7 +304,7 @@ function token.scan_argument(expand) end
 function token.scan_word() end
 
 ---
----returns `foo` after scanning `\foo`
+---Return `foo` after scanning `\foo`.
 ---
 ---__Reference:__
 ---
@@ -313,7 +313,7 @@ function token.scan_word() end
 function token.scan_csname() end
 
 ---
----picks up a box specification and returns a `[h|v]list` node
+---Pick up a box specification and return a `[h|v]list` node.
 function token.scan_list() end
 
 _N._1_picking_one_token = 218
@@ -333,8 +333,9 @@ _N._1_picking_one_token = 218
 function token.get_next() end
 
 ---
----If you want to
----enforce expansion first you can use `scan_token`.
+---Use `scan_token`
+---if you want to
+---enforce expansion first you can.
 ---
 ---* Corresponding C source code: [lnewtokenlib.c#L1055-L1063](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L1055-L1063)
 ---
@@ -342,8 +343,10 @@ function token.get_next() end
 function token.scan_token() end
 
 ---
----The `expand` function will trigger expansion of the next token in the
----input. This can be quite unpredictable but when you call it you probably know
+---Trigger expansion of the next token in the
+---input.
+---
+---This can be quite unpredictable but when you call it you probably know
 ---enough about *TeX* not to be too worried about that. It basically is a call to
 ---the internal expand related function.
 ---
@@ -543,6 +546,8 @@ _N._3_creating = 218
 ---@field index integer|nil # A number running from 0x0000 upto 0xFFFF indicating a `TeX` register index. In case of letters the unicode code point, for example `398` = `Ǝ`.
 
 ---
+---Return a command number representing the internal command number.
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnewtokenlib.c#L835-L845](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L835-L845)
@@ -552,6 +557,9 @@ _N._3_creating = 218
 ---@return integer command # A number representing the internal command number, for example `147`.
 function token.get_command(t) end
 
+---
+---Return the type of the command (for instance the catcode in case of a character or the classifier that determines the internal treatment, for example `letter`.
+---
 ---
 ---__Reference:__
 ---
@@ -563,6 +571,10 @@ function token.get_command(t) end
 function token.get_cmdname(t) end
 
 ---
+---
+---Return the associated control sequence (if applicable), for example `bigskip`.
+---
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnewtokenlib.c#L910-L924](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L910-L924)
@@ -572,6 +584,8 @@ function token.get_cmdname(t) end
 ---@return string|nil csname # The associated control sequence (if applicable), for example `bigskip`.
 function token.get_csname(t) end
 
+---
+---Return the unique id of the token.
 ---
 ---__Reference:__
 ---
@@ -583,6 +597,8 @@ function token.get_csname(t) end
 function token.get_id(t) end
 
 ---
+---Return the full token number as stored in TeX.
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnewtokenlib.c#L933-L939](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L933-L939)
@@ -592,6 +608,9 @@ function token.get_id(t) end
 ---@return integer tok # The full token number as stored in TeX, for example `536883863`.
 function token.get_tok(t) end
 
+---
+---Return a boolean indicating the active state of the token, for example `true`.
+---
 ---
 ---__Reference:__
 ---
@@ -603,6 +622,9 @@ function token.get_tok(t) end
 function token.get_active(t) end
 
 ---
+---Return a boolean indicating if the token (macro) is expandable.
+---
+---
 ---* Corresponding C source code: [lnewtokenlib.c#L958-L969](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L958-L969)
 ---
 ---@param t Token
@@ -610,6 +632,8 @@ function token.get_active(t) end
 ---@return boolean expandable # A boolean indicating if the token (macro) is expandable, for example `true`.
 function token.get_expandable(t) end
 
+---Return a boolean indicating if the token (macro) is protected.
+---
 ---
 ---__Reference:__
 ---
@@ -621,6 +645,9 @@ function token.get_expandable(t) end
 function token.get_protected(t) end
 
 ---
+---Return a number either representing a character or another entity.
+---
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnewtokenlib.c#L889-L899](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L889-L899)
@@ -630,6 +657,7 @@ function token.get_protected(t) end
 ---@return integer mode # A number either representing a character or another entity, for example `1007`.
 function token.get_mode(t) end
 
+---Return a number running from 0x0000 upto 0xFFFF indicating a TeX register index.
 ---
 ---__Reference:__
 ---
@@ -666,7 +694,7 @@ function token.get_macro(name) end
 function token.get_meaning(name) end
 
 ---
----You can ask for a list of commands:
+---Ask for a list of commands.
 ---
 ---* Corresponding C source code: [lnewtokenlib.c#L1338-L1347](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L1338-L1347)
 ---
@@ -674,7 +702,7 @@ function token.get_meaning(name) end
 function token.commands() end
 
 ---
----The id of a token class can be queried as follows:
+---Return the id of a token class.
 ---
 ---* Corresponding C source code: [lnewtokenlib.c#L926-L931](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L926-L931)
 function token.command_id() end
@@ -758,8 +786,8 @@ function token.set_macro(csname, content, global) end
 function token.set_macro(catcodetable, csname, content, global) end
 
 ---
----The `set_char` function can be used to do a `chardef` at the
----*Lua* end, where invalid assignments are silently ignored:
+---Do a `chardef` at the
+---*Lua* end, where invalid assignments are silently ignored.
 ---
 ---* Corresponding C source code: [lnewtokenlib.c#L1309-L1336](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L1309-L1336)
 ---
