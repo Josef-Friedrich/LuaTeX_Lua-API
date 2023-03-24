@@ -303,7 +303,6 @@ function kpse.version() end
 ---end
 ---```
 ---
----
 ---* Corresponding C source code: [lkpselib.c#L943-L980](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lkpselib.c#L943-L980)
 ---
 ---@param name string
