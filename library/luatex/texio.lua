@@ -25,7 +25,6 @@ function texio.write(target, ...) end
 ---
 ---* Corresponding C source code: [ltexiolib.c#L119-L126](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexiolib.c#L119-L126)
 ---
----
 ---@param ... string
 function texio.write(...) end
 
@@ -36,7 +35,6 @@ function texio.write(...) end
 ---strings will appear at the beginning of a new line.
 ---
 ---* Corresponding C source code: [ltexiolib.c#L128-L135](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexiolib.c#L128-L135)
----
 ---
 ---@param target 'term'|'log'|'term and log' # The optional `target` can be one of three possibilities: `term`, `log` or `term and log`.
 ---@param ... string
@@ -60,7 +58,6 @@ function texio.write_nl(...) end
 ---Disable `^^` escaping of control characters.
 ---
 ---* Corresponding C source code: [ltexiolib.c#L148-L156](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexiolib.c#L148-L156)
----
 ---
 ---@param escape_controls boolean
 function texio.setescape(escape_controls) end
