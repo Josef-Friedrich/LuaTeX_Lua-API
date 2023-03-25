@@ -560,7 +560,6 @@ function token.get_command(t) end
 ---
 ---Return the type of the command (for instance the catcode in case of a character or the classifier that determines the internal treatment, for example `letter`.
 ---
----
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnewtokenlib.c#L901-L908](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L901-L908)
@@ -571,9 +570,7 @@ function token.get_command(t) end
 function token.get_cmdname(t) end
 
 ---
----
 ---Return the associated control sequence (if applicable), for example `bigskip`.
----
 ---
 ---__Reference:__
 ---
@@ -611,7 +608,6 @@ function token.get_tok(t) end
 ---
 ---Return a boolean indicating the active state of the token, for example `true`.
 ---
----
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnewtokenlib.c#L941-L956](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L941-L956)
@@ -624,7 +620,6 @@ function token.get_active(t) end
 ---
 ---Return a boolean indicating if the token (macro) is expandable.
 ---
----
 ---* Corresponding C source code: [lnewtokenlib.c#L958-L969](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L958-L969)
 ---
 ---@param t Token
@@ -632,8 +627,8 @@ function token.get_active(t) end
 ---@return boolean expandable # A boolean indicating if the token (macro) is expandable, for example `true`.
 function token.get_expandable(t) end
 
----Return a boolean indicating if the token (macro) is protected.
 ---
+---Return a boolean indicating if the token (macro) is protected.
 ---
 ---__Reference:__
 ---
@@ -647,7 +642,6 @@ function token.get_protected(t) end
 ---
 ---Return a number either representing a character or another entity.
 ---
----
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnewtokenlib.c#L889-L899](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L889-L899)
@@ -657,6 +651,7 @@ function token.get_protected(t) end
 ---@return integer mode # A number either representing a character or another entity, for example `1007`.
 function token.get_mode(t) end
 
+---
 ---Return a number running from 0x0000 upto 0xFFFF indicating a TeX register index.
 ---
 ---__Reference:__
@@ -707,6 +702,8 @@ function token.commands() end
 ---* Corresponding C source code: [lnewtokenlib.c#L926-L931](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L926-L931)
 function token.command_id() end
 
+---
+---Create a token.
 ---
 ---* Corresponding C source code: [lnewtokenlib.c#L791-L810](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L791-L810)
 ---
