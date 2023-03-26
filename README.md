@@ -21,6 +21,36 @@ Studio Code](https://code.visualstudio.com), but in a [large number of
 editors](https://langserver.org/#implementations-client) that support
 the `LSP`.
 
+## Related projects
+
+* [Visual Studio Code LuaTeX Extension](https://github.com/Josef-Friedrich/vscode_LuaTeX_Lua-API)
+
+
+### Subprojects (upstream / pull) detached from this repository
+
+* [LuaCats: lpeg](https://github.com/LuaCATS/lpeg)
+  [library/luatex/lpeg.lua](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lpeg.lua)
+* [LuaCats: luaharfbuzz](https://github.com/LuaCATS/luaharfbuzz)
+  [library/luatex/luaharfbuzz.lua](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/luaharfbuzz.lua)
+* [LuaCats: luasocket](https://github.com/LuaCATS/luasocket)
+  [library/luatex/socket.lua](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/socket.lua)
+  [library/luatex/mime.lua](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mime.lua)
+* [LuaCats: luazip](https://github.com/LuaCATS/luazip)
+  [library/luatex/zip.lua](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/zip.lua)
+* [LuaCats: lzlib](https://github.com/LuaCATS/lzlib)
+  [library/luatex/zlib.lua](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/zlib.lua)
+* [LuaCats: md5](https://github.com/LuaCATS/md5)
+  [library/luatex/md5.lua](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/md5.lua)
+* [LuaCats: slnunicode](https://github.com/LuaCATS/slnunicode)
+  [library/luatex/unicode.lua](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/unicode.lua)
+
+### Subprojects (push) detached from this repository
+
+* [LuaCats: tex-luatex](https://github.com/LuaCATS/tex-luatex)
+  [library/luatex](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/tree/main/library/luatex)
+* [LuaCats: tex-lualatex](https://github.com/LuaCATS/tex-lualatex)
+  [library/luatex](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/tree/main/library/luatex)
+
 ## Structure of this project / documentation
 
 In the subfolder `library` are files named after the global libraries
