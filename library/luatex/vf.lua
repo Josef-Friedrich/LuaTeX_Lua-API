@@ -24,7 +24,9 @@ function vf.down() end
 
 ---
 ---* Corresponding C source code: [lfontlib.c#L369-L376](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L369-L376)
-function vf.fontid() end
+---
+---@param fontid integer
+function vf.fontid(fontid) end
 
 ---
 ---output an image (the argument can be either an `image` variable or an `image_spec` table)
@@ -33,8 +35,8 @@ function vf.fontid() end
 function vf.image() end
 
 ---
----output this node (list), and move right by the width of
----this list
+---Output this node (list), and move right by the width of
+---this list.
 ---
 ---* Corresponding C source code: [lfontlib.c#L389-L398](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L389-L398)
 function vf.node() end
@@ -52,7 +54,7 @@ function vf.nop() end
 function vf.pop() end
 
 ---
----save current position
+---Save the current position.
 ---
 ---* Corresponding C source code: [lfontlib.c#L422-L435](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L422-L435)
 function vf.push() end
