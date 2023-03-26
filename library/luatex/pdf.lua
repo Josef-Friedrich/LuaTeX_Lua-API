@@ -144,7 +144,7 @@ function pdf.setmajorversion(n) end
 
 ---
 ---Return major version number of the PDF file format.
----@see pdf.setmajorversion()
+---@see pdf.setmajorversion
 ---@return integer n # Major version number.
 function pdf.getmajorversion() end
 
@@ -157,7 +157,7 @@ function pdf.setminorversion() end
 
 ---
 ---Return minor version number of the PDF file format.
----@see pdf.setminorversion()
+---@see pdf.setminorversion
 ---@return integer n # Minor version number.
 function pdf.getminorversion() end
 
