@@ -125,9 +125,14 @@ function lua.setbytecode(n, f) end
 function lua.getbytecode() end
 
 ---
+---Return two numbers, one for the command handler and one for the graphical user interface (on Microsoft Windows).
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [llualib.c#L382-L392](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L382-L392)
+---
+---@return integer # command handler
+---@return integer # graphical user interface
 function lua.getcodepage() end
 
 ---
