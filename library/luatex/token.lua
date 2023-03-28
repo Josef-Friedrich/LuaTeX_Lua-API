@@ -757,10 +757,12 @@ function token.biggest_char() end
 _N._4_macros = 219
 
 ---
+---Create a macro.
+---
 ---__Reference:__
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L2368-L2382](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L2368-L2382)
----* Corresponding C source code: [lnewtokenlib.c#L1183-L1307](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L1183-L1307)
+---* Corresponding C source code: [lnewtokenlib.c#L1218-L1342](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L1218-L1342)
 ---
 ---@param csname string
 ---@param content? string
@@ -768,15 +770,14 @@ _N._4_macros = 219
 function token.set_macro(csname, content, global) end
 
 ---
----The `set_macro` function can get upto 4 arguments.
----You can pass a catcodetable identifier as first argument.
+---Create a macro.
 ---
 ---__Reference:__
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L2368-L2382](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L2368-L2382)
----* Corresponding C source code: [lnewtokenlib.c#L1183-L1307](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L1183-L1307)
+---* Corresponding C source code: [lnewtokenlib.c#L1218-L1342](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L1218-L1342)
 ---
----@param catcodetable any
+---@param catcodetable integer # A catcodetable identifier.
 ---@param csname string
 ---@param content? string
 ---@param global? 'global'
@@ -794,7 +795,7 @@ function token.set_macro(catcodetable, csname, content, global) end
 function token.set_char(csname, number, global) end
 
 ---
----This creates a token that refers to a *Lua* function with an entry in the table
+---Create a token that refers to a *Lua* function with an entry in the table
 ---that you can access with `lua.get_functions_table`. It is the companion
 ---to `luadef`.
 ---
@@ -808,16 +809,32 @@ function token.set_lua(name, id, ...) end
 _N._5_pushing_back = 220
 
 ---
----There is a (for now) experimental putter.
+---Put the next token back in the input.
+---
+---__Example:__
+---
+---```lua
+---local t1 = token.get_next()
+---local t2 = token.get_next()
+---local t3 = token.get_next()
+---local t4 = token.get_next()
+----- watch out, we flush in sequence
+---token.put_next { t1, t2 }
+----- but this one gets pushed in front
+---token.put_next ( t3, t4 )
+----- so when we get wxyz we put yzwx!
+---```
 ---
 ---__Reference:__
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L2422-L2433](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L2422-L2433)
----* Corresponding C source code: [lnewtokenlib.c#L227-L302](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L227-L302)
+---* Corresponding C source code: [lnewtokenlib.c#L262-L337](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L262-L337)
 ---
 ---@param ... Token
 function token.put_next(...) end
 
+---
+---Check if the given argument is a token.
 ---
 ---__Example:__
 ---
@@ -830,13 +847,15 @@ function token.put_next(...) end
 ---}Token
 ---```
 ---
----* Corresponding C source code: [lnewtokenlib.c#L723-L727](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L723-L727)
+---* Corresponding C source code: [lnewtokenlib.c#L758-L762](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L758-L762)
 ---
 ---@param t any
 ---
 ---@return boolean
 function token.is_token(t) end
 
+---
+---Return the string `token` if the given parameter is a token else `nil`.
 ---
 ---__Example:__
 ---
@@ -849,7 +868,7 @@ function token.is_token(t) end
 ---}Token
 ---```
 ---
----* Corresponding C source code: [lnewtokenlib.c#L1045-L1053](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L1045-L1053)
+---* Corresponding C source code: [lnewtokenlib.c#L1080-L1088](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L1080-L1088)
 ---
 ---@param t any
 ---
