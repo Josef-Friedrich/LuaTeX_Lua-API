@@ -22,6 +22,8 @@ _N = {}
 callback = {}
 
 ---
+---* Corresponding C source code: [lcallbacklib.c#L33-L90](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lcallbacklib.c#L33-L90)
+---
 ---Source: `callback.list()`
 ---@alias CallbackName
 ---|"append_to_vlist_filter"
@@ -112,6 +114,7 @@ callback = {}
 ---__Reference:__
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-callbacks.tex#L28-L54](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-callbacks.tex#L28-L54)
+---* Corresponding C source code: [lcallbacklib.c#L517-L557](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lcallbacklib.c#L517-L557)
 ---
 ---@param callback_name CallbackName
 ---@param func function|nil|false
@@ -127,8 +130,9 @@ function callback.register(callback_name, func) end
 ---__Reference:__
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-callbacks.tex#L56-L62](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-callbacks.tex#L56-L62)
+---* Corresponding C source code: [lcallbacklib.c#L584-L599](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lcallbacklib.c#L584-L599)
 ---
----@return table info
+---@return table<string, boolean> info
 function callback.list() end
 
 ---
@@ -137,6 +141,7 @@ function callback.list() end
 ---__Reference:__
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-callbacks.tex#L64-L68](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-callbacks.tex#L64-L68)
+---* Corresponding C source code: [lcallbacklib.c#L559-L582](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lcallbacklib.c#L559-L582)
 ---
 ---@param callback_name CallbackName
 ---
@@ -180,7 +185,10 @@ _N._9_2_1_find_write_file = 170
 ---names depend on the jobname.
 ---
 ---You have to return `nil` if the file cannot be found.
+---@alias FindReadFile fun(id_number: integer, asked_name: string): actual_name: string|nil
+
 ---
+---@alias FindWriteFile fun(id_number: integer, asked_name: string): actual_name: string|nil
 
 _N._9_2_2_find_font_file = 170
 
@@ -192,10 +200,11 @@ _N._9_2_2_find_font_file = 170
 ---    function (<string> asked_name)
 ---```
 ---
----The `asked_name` is an \OTF\ or \TFM\ font metrics file.
+---The `asked_name` is an *OTF* or *TFM* font metrics file.
 ---
 ---Return `nil` if the file cannot be found.
 ---
+---@alias FindFontFile fun(asked_name: string): actual_name: string|nil
 
 _N._9_2_3_find_output_file = 170
 
@@ -207,7 +216,8 @@ _N._9_2_3_find_output_file = 170
 ---    function (<string> asked_name)
 ---```
 ---
----The `asked_name` is the *PDF* or \DVI\ file for writing.
+---The `asked_name` is the *PDF* or *DVI* file for writing.
+---@alias FindOutputFile fun(asked_name: string): actual_name: string|nil
 
 _N._9_2_4_find_format_file = 170
 
@@ -222,22 +232,26 @@ _N._9_2_4_find_format_file = 170
 ---The `asked_name` is a format file for reading (the format file for writing
 ---is always opened in the current directory).
 ---
+---@alias FindFormatFile fun(asked_name: string): actual_name: string|nil
 
 _N._9_2_5_find_vf_file = 171
 
 ---
----Like `find_font_file`, but for virtual fonts. This applies to both \ALEPH's
----\OVF\ files and traditional Knuthian \VF\ files.
+---Like `find_font_file`, but for virtual fonts. This applies to both *ALEPH's
+---*OVF* files and traditional Knuthian *VF* files.
+---@alias FindVfFile fun(asked_name: string): actual_name: string|nil
 
 _N._9_2_6_find_map_file = 171
 
 ---
 ---Like `find_font_file`, but for map files.
+---@alias FindMapFile fun(asked_name: string): actual_name: string|nil
 
 _N._9_2_7_find_enc_file = 171
 
 ---
 ---Like `find_font_file`, but for enc files.
+---@alias FindEncFile fun(asked_name: string): actual_name: string|nil
 
 _N._9_2_8_find_pk_file = 171
 
@@ -253,16 +267,19 @@ _N._9_2_8_find_pk_file = 171
 ---but other strategies are possible. It is up to you to find a “reasonable”
 ---bitmap file to go with that specification.
 ---
+---@alias FindPkFile fun(asked_name: string, dpi: integer): actual_name: string|nil
 
 _N._9_2_9_find_data_file = 171
 
 ---
 ---Like `find_font_file`, but for embedded files (`\pdfobj file '...'`).
+---@alias FindDataFile fun(asked_name: string): actual_name: string|nil
 
 _N._9_2_0_find_opentype_file = 171
 
 ---
 ---Like `find_font_file`, but for *OpenType* font files.
+---@alias FindOpentypeFile fun(asked_name: string): actual_name: string|nil
 
 _N._9_2_1_find_truetype_file = 171
 
@@ -278,9 +295,10 @@ _N._9_2_1_find_truetype_file = 171
 ---building its internal list of needed font files, so the actual timing may
 ---surprise you. Your return value is later fed back into the matching `read_file` callback.
 ---
----Strangely enough, `find_type1_file` is also used for *OpenType* (\OTF)
+---Strangely enough, `find_type1_file` is also used for *OpenType* (OTF)
 ---fonts.
 ---
+---@alias FindTruetypeFile fun(asked_name: string): actual_name: string|nil
 
 _N._9_2_1_find_type1_file = 171
 
@@ -296,9 +314,10 @@ _N._9_2_1_find_type1_file = 171
 ---building its internal list of needed font files, so the actual timing may
 ---surprise you. Your return value is later fed back into the matching `read_file` callback.
 ---
----Strangely enough, `find_type1_file` is also used for *OpenType* (\OTF)
+---Strangely enough, `find_type1_file` is also used for *OpenType* (OTF)
 ---fonts.
 ---
+---@alias FindType1File fun(asked_name: string): actual_name: string|nil
 
 _N._9_2_2_find_image_file = 172
 
@@ -314,6 +333,7 @@ _N._9_2_2_find_image_file = 172
 ---from the hard disk, so make sure you return something that is considered the name
 ---of a valid file by your operating system.
 ---
+---@alias FindImageFile fun(asked_name: string): actual_name: string|nil
 
 _N._9_3 = 172
 
