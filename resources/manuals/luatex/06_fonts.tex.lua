@@ -9,7 +9,7 @@
 ---# The font tables
 ---
 ---All *TeX* fonts are represented to *Lua* code as tables, and internally as
----\CCODE structures. All keys in the table below are saved in the internal font
+---*C code* structures. All keys in the table below are saved in the internal font
 ---structure if they are present in the table returned by the `define_font`
 ---callback, or if they result from the normal \TFM/\VF\ reading routines if there
 ---is no `define_font` callback defined.

@@ -12,7 +12,7 @@
 \topicindex {fonts+tables}
 
 All \TEX\ fonts are represented to \LUA\ code as tables, and internally as
-\CCODE~structures. All keys in the table below are saved in the internal font
+*C code*~structures. All keys in the table below are saved in the internal font
 structure if they are present in the table returned by the \cbk {define_font}
 callback, or if they result from the normal \TFM|/|\VF\ reading routines if there
 is no \cbk {define_font} callback defined.

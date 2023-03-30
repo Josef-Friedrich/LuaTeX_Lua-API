@@ -96,6 +96,21 @@ callback = {}
 ---|"wrapup_run
 
 ---
+---* Corresponding C source code: [](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lcallbacklib.c#L198-L208)
+---
+-- #define CALLBACK_BOOLEAN        'b'
+-- #define CALLBACK_INTEGER        'd'
+-- #define CALLBACK_FLOAT          'f'
+-- #define CALLBACK_LINE           'l'
+-- #define CALLBACK_STRNUMBER      's'
+-- #define CALLBACK_STRING         'S'
+-- #define CALLBACK_RESULT         'R' /* a string but nil is also ok */
+-- #define CALLBACK_CHARNUM        'c'
+-- #define CALLBACK_LSTRING        'L'
+-- #define CALLBACK_NODE           'N'
+-- #define CALLBACK_DIR            'D'
+
+-- ---
 ---The first thing you need to do is registering a callback:
 ---
 ---Here the `callback_name` is a predefined callback name, see below.
@@ -836,61 +851,53 @@ _N._9_6_3_stop_run = 181
 _N._9_6_4_start_page_number = 181
 
 ---
----```
----function()
----end
----```
----
 ---Replaces the code that prints the `[` and the page number at the begin of
 ---`shipout`. This callback will also override the printing of box information
 ---that normally takes place when `tracingoutput` is positive.
 ---
+---* Corresponding C source code: [pdfshipout.c#L61](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/pdf/pdfshipout.c#L61)
+---
+---@alias StartPageNumberCallback fun()
 
 _N._9_6_5_stop_page_number = 181
 
 ---
----```
----function()
----end
----```
----
 ---Replaces the code that prints the `]` at the end of `shipout`.
 ---
+---* Corresponding C source code: [pdfshipout.c#L62](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/pdf/pdfshipout.c#L62)
+---
+---@alias StopPageNumberCallback fun()
 
 _N._9_6_6_show_error_hook = 181
 
----
----```
----function()
----end
----```
 ---
 ---This callback is run from inside the *TeX* error function, and the idea is to
 ---allow you to do some extra reporting on top of what *TeX* already does (none of
 ---the normal actions are removed). You may find some of the values in the `status` table useful. This callback does not replace any internal code.
 ---
+---* Corresponding C source code: [filename.c#L282](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/filename.c#L282)
+---* Corresponding C source code: [errors.c#L430](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/errors.c#L430)
+---
+---@alias ShowErrorHookCallback fun()
 
 _N._9_6_7_show_error_message = 182
 
 ---
----```
----function()
----end
----```
----
 ---This callback replaces the code that prints the error message. The usual
 ---interaction after the message is not affected.
+---
+---* Corresponding C source code: [errors.c#L105](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/errors.c#L105)
+---
+---@alias ShowErrorMessageCallback fun()
 
 _N._9_6_8_show_lua_error_hook = 182
 
 ---
----```
----function()
----end
----```
----
 ---This callback replaces the code that prints the extra *Lua* error message.
 ---
+---* Corresponding C source code: [errors.c#L995](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/errors.c#L995)
+---
+---@alias ShowLuaErrorHookCallback fun()
 
 _N._9_6_9_start_file = 182
 
@@ -911,29 +918,30 @@ _N._9_6_9_start_file = 182
 --- 4  an embedded font subset
 --- 5  a fully embedded font
 ---
+---* Corresponding C source code: [luatexcallbackids.h#L127](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luatexcallbackids.h#L127)
+---
+---@alias StartFileCallback fun(category: integer, filename: string)
 
 _N._9_6_10_stop_file = 182
 
 ---
----```
----function(category)
----end
----```
----
 ---This callback replaces the code that prints *LuaTeX*'s when a file is closed like
 ---the `)` for regular files.
+---
+---* Corresponding C source code: [luatexcallbackids.h#L150](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luatexcallbackids.h#L150)
+---
+---@alias StopFileCallback fun(category: integer)
 
 _N._9_6_11_call_edit = 182
 
 ---
----```
----function(filename,linenumber)
----end
----```
----
 ---This callback replaces the call to an external editor when “E” is pressed
 ---in reply to an error message. Processing will end immediately after the callback
 ---returns control to the main program.
+---
+---* Corresponding C source code: [errors.c#L531](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/errors.c#L531)
+---
+---@alias CallEditCallback fun(filename: string, linenumber: integer)
 
 _N._9_6_12_finish_synctex = 183
 
@@ -941,12 +949,20 @@ _N._9_6_12_finish_synctex = 183
 ---This callback can be used to wrap up alternative synctex methods. It kicks in
 ---after the normal synctex finalizer (that happens to remove the synctex files
 ---after a run when native synctex is not enabled).
+---
+---* Corresponding C source code: [mainbody.c#L668](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/mainbody.c#L668)
+---
+---@alias FinishSynctexCallback fun()
 
 _N._9_6_13_wrapup_run = 183
 
 ---
 ---This callback is called after the *PDF* and log files are closed. Use it at your own
 ---risk.
+---
+---* Corresponding C source code: [mainbody.c#L687](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/mainbody.c#L687)
+---
+---@alias WrapupRunCallback fun()
 
 _N._9_7_pdf_related = 183
 
@@ -976,18 +992,15 @@ _N._9_7_2_finish_pdfpage = 183
 ---This callback is called after the *PDF* page stream has been assembled and before
 ---the page object gets finalized.
 ---
+---* Corresponding C source code: [pdfgen.c#L1788](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/pdf/pdfgen.c#L1788)
+---
+---@alias FinishPdfpageCallback fun(shippingout: string)
 
 _N._9_7_3_page_order_index = 183
 
 ---
 ---This is one that experts can use to juggle the page tree, a data structure
 ---that determines the order in a *PDF* file:
----
----```
----function(pagenumber)
----  return pagenumber
----end
----```
 ---
 ---Say that we have 12 pages, then we can do this:
 ---
@@ -1005,6 +1018,10 @@ _N._9_7_3_page_order_index = 183
 ---This will swap the first two and last two pages. You need to know the number of
 ---pages which is a side effect of the implementation. When you mess things up
 ---\unknown\ don't complain.
+---
+---* Corresponding C source code: [pdfgen.c#L1793](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/pdf/pdfgen.c#L1793)
+---
+---@alias PageOrderIndexCallback fun(pagenumber: integer): pagenumber: string
 
 _N._9_7_4_process_pdf_image_content = 184
 
@@ -1026,6 +1043,10 @@ _N._9_7_4_process_pdf_image_content = 184
 ---
 ---You need to explicitly enable recompression because otherwise the content stream
 ---gets just passed on in its original compressed form.
+---
+---* Corresponding C source code: [pdftoepdf.c#L440](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/image/pdftoepdf.c#L440)
+---
+---@alias ProcessPdfImageContentCallback fun(s: string): string
 
 _N._9_8_font_related = 184
 

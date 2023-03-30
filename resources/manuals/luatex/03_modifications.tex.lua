@@ -33,10 +33,10 @@
 ---Of course it all starts with traditional *TeX*. Even if we started with *PDF*TEX,
 ---most still comes from the original. But we divert a bit.
 ---
----* The current code base is written in \CCODE, not \PASCAL. We use \CWEB\ when
+---* The current code base is written in *C code*, not \PASCAL. We use \CWEB\ when
 ---    possible. As a consequence instead of one large file plus change files, we
 ---    now have multiple files organized in categories like `tex`, `pdf`, `lang`, `font`, `lua`, etc. There are some artifacts
----    of the conversion to \CCODE, but in due time we will clean up the source code
+---    of the conversion to *C code*, but in due time we will clean up the source code
 ---    and make sure that the documentation is done right. Many files are in the
 ---    \CWEB\ format, but others, like those interfacing to *Lua*, are *C code* files.
 ---    Of course we want to stay as close as possible to the original so that the
@@ -1133,7 +1133,7 @@
 ---
 ---The `mathcode`, `delcode`, `catcode`, `sfcode`, `lccode`
 ---and `uccode` (and the new `hjcode`) tables are now sparse arrays that
----are implemented in \CCODE. They are no longer part of the *TeX* “equivalence table” and because each had 1.1 million entries with a few memory
+---are implemented in *C code*. They are no longer part of the *TeX* “equivalence table” and because each had 1.1 million entries with a few memory
 ---words each, this makes a major difference in memory usage. Performance is not
 ---really hurt by this.
 ---
