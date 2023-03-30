@@ -5,6 +5,29 @@
 ---library that will be discussed in the next section.
 font = {}
 
+---@class Character
+---@field width number character's width, in sp (default 0)
+---@field height number character's height, in sp (default 0)
+---@field depth number character's depth, in sp (default 0)
+---@field italic number character's italic correction, in sp (default zero)
+---@field top_accent number character's top accent alignment place, in sp (default zero)
+---@field bot_accent number character's bottom accent alignment place, in sp (default zero)
+---@field left_protruding number character's `lpcode`
+---@field right_protruding number character's `rpcode`
+---@field expansion_factor number character's `efcode`
+---@field tounicode string character's *Unicode* equivalent(s), in *UTF-8*-16BE hexadecimal format
+---@field next number the “next larger” character index
+---@field extensible table the constituent parts of an extensible recipe
+---@field vert_variants table constituent parts of a vertical variant set
+---@field horiz_variants table constituent parts of a horizontal variant set
+---@field kerns table kerning information
+---@field ligatures table ligaturing information
+---@field commands table virtual font commands
+---@field name string the character (*PostScript*) name
+---@field index number the (*OpenType* or *TrueType*) font glyph index
+---@field used boolean typeset already (default: false)
+---@field mathkern table math cut-in specifications
+
 ---
 ---# The font tables
 ---
@@ -18,7 +41,7 @@ font = {}
 ---@field name string # metric (file) name
 ---@field area string # (directory) location, typically empty
 ---@field used boolean # indicates usage (initial: false)
----@field characters table # the defined glyphs of this font
+---@field characters table<integer, Character> # the defined glyphs of this font
 ---@field checksum number # default: 0
 ---@field designsize number # expected size (default: 655360 == 10pt)
 ---@field direction number # default: 0
@@ -56,7 +79,7 @@ font = {}
 ---
 ---@class VfFont
 ---@field name string # metric (file) name
----@field characters table # the defined glyphs of this font
+---@field characters table<integer, Character> # the defined glyphs of this font
 ---@field checksum number # default: 0
 ---@field fonts table # locally used fonts
 ---@field header string # header comments, if any
@@ -67,7 +90,7 @@ font = {}
 ---@field name string # metric (file) name
 ---@field area string # (directory) location, typically empty
 ---@field used boolean # indicates usage (initial: false)
----@field characters table # the defined glyphs of this font
+---@field characters table<integer, Character> # the defined glyphs of this font
 ---@field checksum number # default: 0
 ---@field designsize number # expected size (default: 655360 == 10pt)
 ---@field direction number # default: 0
@@ -87,9 +110,9 @@ font = {}
 ---* Corresponding C source code: [lfontlib.c#L38-L64](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L38-L64)
 ---
 ---@param name string
----@param at_size integer # If `s` is positive, it specifies an “at size” in scaled points. If `s` is negative, its absolute value represents a “scaled” setting relative to the designsize of the font.
+---@param at_size integer # If `at_size` is positive, it specifies an “at size” in scaled points. If `at_size` is negative, its absolute value represents a “scaled” setting relative to the designsize of the font.
 ---
----@return table
+---@return TfmFont
 function font.read_tfm(name, at_size) end
 
 ---
@@ -101,12 +124,14 @@ function font.read_tfm(name, at_size) end
 ---font.read_vf('ptmr8t', tex.sp('8pt'))
 ---```
 ---
----The meaning of the number `s` and the format of the returned table are
+---The meaning of the number `at_size` and the format of the returned table are
 ---similar to the ones in the `read_tfm` function.
 ---
 ---* Corresponding C source code: [lfontlib.c#L67-L83](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L67-L83)
 ---
----@param at_size integer # If `s` is positive, it specifies an “at size” in scaled points. If `s` is negative, its absolute value represents a “scaled” setting relative to the designsize of the font.
+---@param at_size integer # If `s` is positive, it specifies an “at size” in scaled points. If `at_size` is negative, its absolute value represents a “scaled” setting relative to the designsize of the font.
+---
+---@return VfFont
 function font.read_vf(name, at_size) end
 
 ---
