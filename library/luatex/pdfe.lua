@@ -50,9 +50,11 @@ function pdfe.close(doc) end
 ---
 ---Unencrypt a pdfe document.
 ---@param doc PdfeDocument # Pdfe document.
+---@param userpassword string|nil # User password.
+---@param ownerpassword string|nil # Owner password.
 ---
 ---* Corresponding C source code: [lpdfelib.c#L963-L991](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfelib.c#L963-L991)
-function pdfe.unencrypt(doc) end
+function pdfe.unencrypt(doc, userpassword, ownerpassword) end
 
 _N._14_2_3_getsize_getversion_getnofobjects_getnofpages_getmemoryusage = 288
 
@@ -297,7 +299,7 @@ _N._14_2_8_open_close_readfrom_whole_stream = 289
 ---
 ---Open a stream.
 ---@param stream PdfeStream # Pdfe stream object.
----@param decode boolean # `True`, if stream should be decompressed.
+---@param decode? boolean # `True`, if stream should be decompressed.
 ---@return boolean okay # `True`, if reading the stream was successful.
 ---
 ---* Corresponding C source code: [lpdfelib.c#L764-L778](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfelib.c#L764-L778)
