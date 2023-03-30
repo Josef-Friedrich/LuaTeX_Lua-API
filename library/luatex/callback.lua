@@ -185,10 +185,10 @@ _N._9_2_1_find_write_file = 170
 ---names depend on the jobname.
 ---
 ---You have to return `nil` if the file cannot be found.
----@alias FindReadFile fun(id_number: integer, asked_name: string): actual_name: string|nil
+---@alias FindReadFileCallback fun(id_number: integer, asked_name: string): actual_name: string|nil
 
 ---
----@alias FindWriteFile fun(id_number: integer, asked_name: string): actual_name: string|nil
+---@alias FindWriteFileCallback fun(id_number: integer, asked_name: string): actual_name: string|nil
 
 _N._9_2_2_find_font_file = 170
 
@@ -204,7 +204,7 @@ _N._9_2_2_find_font_file = 170
 ---
 ---Return `nil` if the file cannot be found.
 ---
----@alias FindFontFile fun(asked_name: string): actual_name: string|nil
+---@alias FindFontFileCallback fun(asked_name: string): actual_name: string|nil
 
 _N._9_2_3_find_output_file = 170
 
@@ -217,7 +217,7 @@ _N._9_2_3_find_output_file = 170
 ---```
 ---
 ---The `asked_name` is the *PDF* or *DVI* file for writing.
----@alias FindOutputFile fun(asked_name: string): actual_name: string|nil
+---@alias FindOutputFileCallback fun(asked_name: string): actual_name: string|nil
 
 _N._9_2_4_find_format_file = 170
 
@@ -232,26 +232,26 @@ _N._9_2_4_find_format_file = 170
 ---The `asked_name` is a format file for reading (the format file for writing
 ---is always opened in the current directory).
 ---
----@alias FindFormatFile fun(asked_name: string): actual_name: string|nil
+---@alias FindFormatFileCallback fun(asked_name: string): actual_name: string|nil
 
 _N._9_2_5_find_vf_file = 171
 
 ---
 ---Like `find_font_file`, but for virtual fonts. This applies to both *ALEPH's
 ---*OVF* files and traditional Knuthian *VF* files.
----@alias FindVfFile fun(asked_name: string): actual_name: string|nil
+---@alias FindVfFileCallback fun(asked_name: string): actual_name: string|nil
 
 _N._9_2_6_find_map_file = 171
 
 ---
 ---Like `find_font_file`, but for map files.
----@alias FindMapFile fun(asked_name: string): actual_name: string|nil
+---@alias FindMapFileCallback fun(asked_name: string): actual_name: string|nil
 
 _N._9_2_7_find_enc_file = 171
 
 ---
 ---Like `find_font_file`, but for enc files.
----@alias FindEncFile fun(asked_name: string): actual_name: string|nil
+---@alias FindEncFileCallback fun(asked_name: string): actual_name: string|nil
 
 _N._9_2_8_find_pk_file = 171
 
@@ -267,19 +267,19 @@ _N._9_2_8_find_pk_file = 171
 ---but other strategies are possible. It is up to you to find a “reasonable”
 ---bitmap file to go with that specification.
 ---
----@alias FindPkFile fun(asked_name: string, dpi: integer): actual_name: string|nil
+---@alias FindPkFileCallback fun(asked_name: string, dpi: integer): actual_name: string|nil
 
 _N._9_2_9_find_data_file = 171
 
 ---
 ---Like `find_font_file`, but for embedded files (`\pdfobj file '...'`).
----@alias FindDataFile fun(asked_name: string): actual_name: string|nil
+---@alias FindDataFileCallback fun(asked_name: string): actual_name: string|nil
 
 _N._9_2_0_find_opentype_file = 171
 
 ---
 ---Like `find_font_file`, but for *OpenType* font files.
----@alias FindOpentypeFile fun(asked_name: string): actual_name: string|nil
+---@alias FindOpentypeFileCallback fun(asked_name: string): actual_name: string|nil
 
 _N._9_2_1_find_truetype_file = 171
 
@@ -298,7 +298,7 @@ _N._9_2_1_find_truetype_file = 171
 ---Strangely enough, `find_type1_file` is also used for *OpenType* (OTF)
 ---fonts.
 ---
----@alias FindTruetypeFile fun(asked_name: string): actual_name: string|nil
+---@alias FindTruetypeFileCallback fun(asked_name: string): actual_name: string|nil
 
 _N._9_2_1_find_type1_file = 171
 
@@ -317,7 +317,7 @@ _N._9_2_1_find_type1_file = 171
 ---Strangely enough, `find_type1_file` is also used for *OpenType* (OTF)
 ---fonts.
 ---
----@alias FindType1File fun(asked_name: string): actual_name: string|nil
+---@alias FindType1FileCallback fun(asked_name: string): actual_name: string|nil
 
 _N._9_2_2_find_image_file = 172
 
@@ -333,7 +333,7 @@ _N._9_2_2_find_image_file = 172
 ---from the hard disk, so make sure you return something that is considered the name
 ---of a valid file by your operating system.
 ---
----@alias FindImageFile fun(asked_name: string): actual_name: string|nil
+---@alias FindImageFileCallback fun(asked_name: string): actual_name: string|nil
 
 _N._9_3 = 172
 
@@ -448,7 +448,7 @@ _N._9_4_1_process_input_buffer = nil
 ---If you return `nil`, *LuaTeX* will pretend like your callback never
 ---happened. You can gain a small amount of processing time from that. This callback
 ---does not replace any internal code.
----@alias ProcessInputBuffer fun(buffer: string): string|nil
+---@alias ProcessInputBufferCallback fun(buffer: string): string|nil
 
 _N._9_4_2_process_output_buffer = nil
 
@@ -460,7 +460,7 @@ _N._9_4_2_process_output_buffer = nil
 ---If you return `nil`, *LuaTeX* will pretend like your callback never
 ---happened. You can gain a small amount of processing time from that. This callback
 ---does not replace any internal code.
----@alias ProcessOutputBuffer fun(buffer: string): string|nil
+---@alias ProcessOutputBufferCallback fun(buffer: string): string|nil
 
 _N._9_4_3_process_jobname = nil
 
@@ -473,7 +473,7 @@ _N._9_4_3_process_jobname = nil
 ---inside this function or infinite recursion may occur. If you return `nil`,
 ---*LuaTeX* will pretend your callback never happened. This callback does not
 ---replace any internal code.
----@alias ProcessJobname fun(jobname: string): string|nil
+---@alias ProcessJobnameCallback fun(jobname: string): string|nil
 
 _N._9_5 = nil
 
@@ -491,7 +491,7 @@ _N._9_5_1_contribute_filter = nil
 ---
 ---The string reports the group code. From this you can deduce from
 ---what list you can give a treat.
----@alias ContributeFilter fun(extrainfo: ContributeFilterExtrainfo)
+---@alias ContributeFilterCallback fun(extrainfo: ContributeFilterExtrainfo)
 
 _N._9_5_2_buildpage_filter = nil
 
@@ -515,7 +515,7 @@ _N._9_5_2_buildpage_filter = nil
 ---
 ---The string `extrainfo` gives some additional information about what *TeX*'s
 ---state is with respect to the “current page”.
----@alias BuildpageFilter fun(extrainfo: ContributeFilterExtrainfo)
+---@alias BuildpageFilterCallback fun(extrainfo: ContributeFilterExtrainfo)
 
 _N._9_5_3_build_page_insert = nil
 
@@ -532,7 +532,7 @@ _N._9_5_3_build_page_insert = nil
 ---prepended spacing. This permits for instance a different top space (when `i` equals one) and intermediate space (when `i` is larger than one). Of
 ---course you can mess with the insert box but you need to make sure that *LuaTeX*
 ---is happy afterwards.
----@alias BuildPageInsert fun(n: integer, i: integer): integer
+---@alias BuildPageInsertCallback fun(n: integer, i: integer): integer
 
 _N._9_5_4_pre_linebreak_filter = nil
 
@@ -582,7 +582,7 @@ _N._9_5_4_pre_linebreak_filter = nil
 ---```
 ---
 ---This callback does not replace any internal code.
----@alias PreLinebreakFilter fun(head: Node, groupcode: PreLinebreakFilterGroupCode): NodeCallbackReturn
+---@alias PreLinebreakFilterCallback fun(head: Node, groupcode: PreLinebreakFilterGroupCode): NodeCallbackReturn
 
 _N._9_5_5_linebreak_filter = nil
 
@@ -601,7 +601,7 @@ _N._9_5_5_linebreak_filter = nil
 ---
 ---Setting this callback to `false` is possible, but dangerous, because it is
 ---possible you will end up in an unfixable “deadcycles loop”.
----@alias LinebreakFilter fun(head: Node, is_display: boolean): NodeCallbackReturn
+---@alias LinebreakFilterCallback fun(head: Node, is_display: boolean): NodeCallbackReturn
 
 ---
 ---@alias AppendToVlistFilterLocationcode
@@ -625,7 +625,7 @@ _N._9_5_5_append_to_vlist_filter = nil
 ---
 ---It is ok to return nothing in which case you also need to flush the box or deal
 ---with it yourself. The prevdepth is also optional. You can pass `nil` instead of a node.
----@alias AppendToVlistFilter fun(box: Node, locationcode: AppendToVlistFilterLocationcode, prevdepth: integer, mirrored: boolean)
+---@alias AppendToVlistFilterCallback fun(box: Node, locationcode: AppendToVlistFilterLocationcode, prevdepth: integer, mirrored: boolean)
 
 _N._9_5_7_post_linebreak_filter = nil
 
@@ -634,7 +634,7 @@ _N._9_5_7_post_linebreak_filter = nil
 ---stack of `\hbox`es.
 ---
 ---This callback does not replace any internal code.
----@alias PostLinebreakFilter fun(head: Node, groupcode: string): NodeCallbackReturn
+---@alias PostLinebreakFilterCallback fun(head: Node, groupcode: string): NodeCallbackReturn
 
 _N._9_5_8_hpack_filter = nil
 
@@ -650,7 +650,7 @@ _N._9_5_8_hpack_filter = nil
 ---strings, or `nil`.
 ---
 ---This callback does not replace any internal code.
----@alias HpackFilter fun(head: Node, groupcode: string, size: integer, packtype: 'additional'|'exactly', direction?: DirectionSpecifier, attributelist?: Node): NodeCallbackReturn
+---@alias HpackFilterCallback fun(head: Node, groupcode: string, size: integer, packtype: 'additional'|'exactly', direction?: DirectionSpecifier, attributelist?: Node): NodeCallbackReturn
 
 _N._9_5_9_vpack_filter = nil
 
@@ -663,7 +663,7 @@ _N._9_5_9_vpack_filter = nil
 ---*TeX*'s `maxdepth` setting.
 ---
 ---This callback does not replace any internal code.
----@alias VpackFilter fun(head: Node, groupcode: string, size: integer, packtype: 'additional'|'exactly', maxdepth: integer, direction?: DirectionSpecifier, attributelist?: Node): NodeCallbackReturn
+---@alias VpackFilterCallback fun(head: Node, groupcode: string, size: integer, packtype: 'additional'|'exactly', maxdepth: integer, direction?: DirectionSpecifier, attributelist?: Node): NodeCallbackReturn
 
 _N._9_5_10_hpack_quality_filter = nil
 
@@ -677,7 +677,7 @@ _N._9_5_10_hpack_quality_filter = nil
 ---Optionally you can return a node, for instance an overfull rule indicator. That
 ---node will be appended to the list (just like *TeX*'s own rule would).
 ---
----@alias HpackQualityFilter fun(incident: 'overfull'|'underfull'|'loose'|'tight', detail: integer, head: Node, first: integer, last: integer): Node
+---@alias HpackQualityFilterCallback fun(incident: 'overfull'|'underfull'|'loose'|'tight', detail: integer, head: Node, first: integer, last: integer): Node
 
 _N._9_5_11_vpack_quality_filter = nil
 
@@ -687,7 +687,7 @@ _N._9_5_11_vpack_quality_filter = nil
 ---
 ---The incident is one of `overfull`, `underfull`, `loose` or
 ---`tight`. The detail is either the amount of overflow in case of `overfull`, or the badness otherwise. The head is the list that is constructed.
----@alias VpackQualityFilter fun(incident: 'overfull'|'underfull'|'loose'|'tight', detail: integer, head: Node, first: integer, last: integer)
+---@alias VpackQualityFilterCallback fun(incident: 'overfull'|'underfull'|'loose'|'tight', detail: integer, head: Node, first: integer, last: integer)
 
 _N._9_5_12_process_rule_filter = nil
 
@@ -696,7 +696,7 @@ _N._9_5_12_process_rule_filter = nil
 ---(user). The callback gets three arguments: the node, the width and the
 ---height. The callback can use `pdf.print` to write code to the *PDF*
 ---file but beware of not messing up the final result. No checking is done.
----@alias ProcessRuleFilter fun(node: Node, width: integer, height: integer)
+---@alias ProcessRuleFilterCallback fun(node: Node, width: integer, height: integer)
 
 _N._9_5_13_pre_output_filter = nil
 
@@ -705,14 +705,14 @@ _N._9_5_13_pre_output_filter = nil
 ---
 ---This callback does not replace any internal code.
 ---
----@alias PreOutputFilter fun(head: Node, groupcode: string, size: integer, packtype: 'additional'|'exactly', maxdepth: integer, direction?: DirectionSpecifier): NodeCallbackReturn
+---@alias PreOutputFilterCallback fun(head: Node, groupcode: string, size: integer, packtype: 'additional'|'exactly', maxdepth: integer, direction?: DirectionSpecifier): NodeCallbackReturn
 
 _N._9_5_14_hyphenate_filter = nil
 
 ---
 ---Setting this callback to `false` will prevent the internal discretionary
 ---insertion pass.
----@alias HyphenateFilter fun(head: Node, tail: Node): false|nil
+---@alias HyphenateFilterCallback fun(head: Node, tail: Node): false|nil
 
 _N._9_5_15_ligaturing = 179
 
@@ -1032,12 +1032,6 @@ _N._9_8_font_related = 184
 _N._9_8_1_define_font = 184
 
 ---
----```
----function(<string> name, <number> size, <number> id)
----    return <table> font | <number> id
----end
----```
----
 ---The string `name` is the filename part of the font specification, as given
 ---by the user.
 ---
@@ -1051,7 +1045,7 @@ _N._9_8_1_define_font = 184
 ---The `id` is the internal number assigned to the font.
 ---
 ---The internal structure of the `font` table that is to be returned is
----explained in \in {chapter} [fonts]. That table is saved internally, so you can
+---explained in chapter fonts. That table is saved internally, so you can
 ---put extra fields in the table for your later *Lua* code to use. In alternative,
 ---`retval` can be a previously defined fontid. This is useful if a previous
 ---definition can be reused instead of creating a whole new font structure.
@@ -1059,6 +1053,7 @@ _N._9_8_1_define_font = 184
 ---Setting this callback to `false` is pointless as it will prevent font
 ---loading completely but will nevertheless generate errors.
 ---
+---@alias DefineFontCallback fun(name: string, size: number, id: number): Font|integer
 
 _N._9_8_2_glyph_not_found = 184
 
@@ -1066,11 +1061,9 @@ _N._9_8_2_glyph_not_found = 184
 ---The `glyph_not_found` callback, when set, kicks in when the backend cannot
 ---insert a glyph. When no callback is defined a message is written to the log.
 ---
----```
----function(<number> id, <number> char)
----    -- do something with font id and char code
----end
----```
+---* Corresponding C source code: [texfont.c#L364](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/font/texfont.c#L364)
+---
+---@alias GlyphNotFoundCallback fun(id: number, char: number)
 
 _N._9_8_2_glyph_info = 184
 
@@ -1078,13 +1071,10 @@ _N._9_8_2_glyph_info = 184
 ---The `glyph_info` callback can be set to report a useful representation of a
 ---glyph.
 ---
----```
----function(<node> g)
----    -- return a string or nil
----end
----```
----
 ---When `nil` is returned the character code is printed, otherwise the
 ---returned string is used. By default the *UTF-8* representation is shown which is
 ---not always that useful, especially when there is no real representation. Keep in
 ---mind that setting this callback can change the log in an incompatible way.
+---
+---* Corresponding C source code: [printing.c#L1036](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/printing.c#L1036)
+---@alias GlyphInfoCallback fun(g: Node): string|nil

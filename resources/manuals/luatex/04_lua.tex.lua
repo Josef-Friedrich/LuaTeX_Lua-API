@@ -285,7 +285,7 @@
 ---requested system command. In “script interpreter” runs of *LuaTeX*, these
 ---settings have no effect, and all four functions have their original meaning.
 ---
----Some libraries have a few more functions, either coded in \CCODE\ or in *Lua*. For
+---Some libraries have a few more functions, either coded in *C code* or in *Lua*. For
 ---instance, when we started with *LuaTeX* we added some helpers to the `luafilesystem` namespace `lfs`. The two boolean functions `lfs.isdir` and `lfs.isfile` were speedy and better variants of what could
 ---be done with `lfs.attributes`. The additional function `lfs.shortname` takes a file name and returns its short name on `win32`
 ---platforms. Finally, for non-`win32` platforms only, we provided `lfs.readlink` that takes an existing symbolic link as argument and returns its

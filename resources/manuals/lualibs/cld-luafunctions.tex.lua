@@ -717,7 +717,7 @@
 ---
 ---The `format` function takes a template as first argument and one or more
 ---additional arguments depending on the format. The template is similar to the one
----used in \CCODE\ but it has some extensions.
+---used in *C code* but it has some extensions.
 ---
 ---```
 ---local s = format(format, str, ...)

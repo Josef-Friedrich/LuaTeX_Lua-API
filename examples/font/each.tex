@@ -2,8 +2,9 @@
 \it italic
 
 \directlua{
-  for font_id,font in font.each() do
-    print(font_id, font)
+  local inspect = require('inspect')
+  for font_id, font in font.each() do
+    print(font_id, inspect(font))
   end
 }
 

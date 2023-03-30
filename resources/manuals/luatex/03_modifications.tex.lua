@@ -38,7 +38,7 @@
 ---    now have multiple files organized in categories like `tex`, `pdf`, `lang`, `font`, `lua`, etc. There are some artifacts
 ---    of the conversion to \CCODE, but in due time we will clean up the source code
 ---    and make sure that the documentation is done right. Many files are in the
----    \CWEB\ format, but others, like those interfacing to *Lua*, are \CCODE\ files.
+---    \CWEB\ format, but others, like those interfacing to *Lua*, are *C code* files.
 ---    Of course we want to stay as close as possible to the original so that the
 ---    documentation of the fundamentals behind *TeX* by Don Knuth still applies.
 ---
@@ -369,7 +369,7 @@
 ---\startsubsection[title=Changes from standard \WEBC]
 ---
 ---The compilation framework is \WEBC\ and we keep using that but without the
----\PASCAL\ to \CCODE\ step. This framework also provides some common features that
+---\PASCAL\ to *C code* step. This framework also provides some common features that
 ---deal with reading bytes from files and locating files in \TDS. This is what we do
 ---different:
 ---
@@ -1182,7 +1182,7 @@
 ---
 ---\startsubsection[title=Binary file reading]
 ---
----All of the internal code is changed in such a way that if one of the `read_xxx_file` callbacks is not set, then the file is read by a \CCODE\ function
+---All of the internal code is changed in such a way that if one of the `read_xxx_file` callbacks is not set, then the file is read by a *C code* function
 ---using basically the same convention as the callback: a single read into a buffer
 ---big enough to hold the entire file contents. While this uses more memory than the
 ---previous code (that mostly used `getc` calls), it can be quite a bit faster
