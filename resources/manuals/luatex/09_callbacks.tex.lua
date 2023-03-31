@@ -297,17 +297,17 @@
 ---
 ---The list of functions is:
 ---
---- function   usage
+--- function   usage 
 ---
---- `read_font_file`      ofm or tfm files
---- `read_vf_file`        virtual fonts
---- `read_map_file`       map files
---- `read_enc_file`       encoding files
---- `read_pk_file`        pk bitmap files
---- `read_data_file`      embedded files (as is possible with *PDF* objects)
---- `read_truetype_file`  *TrueType* font files
---- `read_type1_file`     *Type1* font files
---- `read_opentype_file`  *OpenType* font files
+--- `read_font_file`      ofm or tfm files 
+--- `read_vf_file`        virtual fonts 
+--- `read_map_file`       map files 
+--- `read_enc_file`       encoding files 
+--- `read_pk_file`        pk bitmap files 
+--- `read_data_file`      embedded files (as is possible with *PDF* objects) 
+--- `read_truetype_file`  *TrueType* font files 
+--- `read_type1_file`     *Type1* font files 
+--- `read_opentype_file`  *OpenType* font files 
 ---
 ----------------------------------------------------------------
 
@@ -383,12 +383,12 @@
 ---The string reports the group code. From this you can deduce from
 ---what list you can give a treat.
 ---
---- value              explanation
+--- value              explanation                                  
 ---
---- `pre_box`     interline material is being added
---- `pre_adjust`  `vadjust` material is being added
---- `box`         a typeset box is being added (always called)
---- `adjust`      `vadjust` material is being added
+--- `pre_box`     interline material is being added            
+--- `pre_adjust`  `vadjust` material is being added       
+--- `box`         a typeset box is being added (always called) 
+--- `adjust`      `vadjust` material is being added       
 ---
 ---# `buildpage_filter`
 ---
@@ -405,18 +405,18 @@
 ---state is with respect to the “current page”. The possible values for the
 ---`buildpage_filter` callback are:
 ---
---- value                   explanation
+--- value                   explanation                             
 ---
---- `alignment`        a (partial) alignment is being added
---- `after_output`     an output routine has just finished
---- `new_graf`         the beginning of a new paragraph
---- `vmode_par`        `par` was found in vertical mode
---- `hmode_par`        `par` was found in horizontal mode
---- `insert`           an insert is added
---- `penalty`          a penalty (in vertical mode)
---- `before_display`   immediately before a display starts
---- `after_display`    a display is finished
---- `end`              *LuaTeX* is terminating (it's all over)
+--- `alignment`        a (partial) alignment is being added    
+--- `after_output`     an output routine has just finished     
+--- `new_graf`         the beginning of a new paragraph        
+--- `vmode_par`        `par` was found in vertical mode   
+--- `hmode_par`        `par` was found in horizontal mode 
+--- `insert`           an insert is added                      
+--- `penalty`          a penalty (in vertical mode)            
+--- `before_display`   immediately before a display starts     
+--- `after_display`    a display is finished                   
+--- `end`              *LuaTeX* is terminating (it's all over) 
 ---
 ---# `build_page_insert`
 ---
@@ -433,10 +433,10 @@
 ---
 ---with
 ---
---- value     explanation
+--- value     explanation             
 ---
---- `n`  the insert class
---- `i`  the order of the insert
+--- `n`  the insert class        
+--- `i`  the order of the insert 
 ---
 ---The return value is a number indicating the skip register to use for the
 ---prepended spacing. This permits for instance a different top space (when `i` equals one) and intermediate space (when `i` is larger than one). Of
@@ -460,22 +460,22 @@
 ---for the `hpack_filter` and `vpack_filter` callbacks that will be
 ---explained in the next two paragraphs.
 ---
---- value                 explanation
+--- value                 explanation                                 
 ---
---- `<empty>`        main vertical list
---- `hbox`           `hbox` in horizontal mode
---- `adjusted_hbox`  `hbox` in vertical mode
---- `vbox`           `vbox`
---- `vtop`           `vtop`
---- `align`          `halign` or `valign`
---- `disc`           discretionaries
---- `insert`         packaging an insert
---- `vcenter`        `vcenter`
---- `local_box`      `localleftbox` or `localrightbox`
---- `split_off`      top of a `vsplit`
---- `split_keep`     remainder of a `vsplit`
---- `align_set`      alignment cell
---- `fin_row`        alignment row
+--- `<empty>`        main vertical list                          
+--- `hbox`           `hbox` in horizontal mode              
+--- `adjusted_hbox`  `hbox` in vertical mode                
+--- `vbox`           `vbox`                                 
+--- `vtop`           `vtop`                                 
+--- `align`          `halign` or `valign`              
+--- `disc`           discretionaries                             
+--- `insert`         packaging an insert                         
+--- `vcenter`        `vcenter`                              
+--- `local_box`      `localleftbox` or `localrightbox` 
+--- `split_off`      top of a `vsplit`                      
+--- `split_keep`     remainder of a `vsplit`                
+--- `align_set`      alignment cell                              
+--- `fin_row`        alignment row                               
 ---
 ---As for all the callbacks that deal with nodes, the return value can be one of
 ---three things:
@@ -818,13 +818,13 @@
 ---This callback replaces the code that prints *LuaTeX*'s when a file is opened like
 ---`(filename` for regular files. The category is a number:
 ---
---- value   meaning
+--- value   meaning 
 ---
---- 1  a normal data file, like a *TeX* source
---- 2  a font map coupling font names to resources
---- 3  an image file (`png`, `pdf`, etc)
---- 4  an embedded font subset
---- 5  a fully embedded font
+--- 1  a normal data file, like a *TeX* source 
+--- 2  a font map coupling font names to resources 
+--- 3  an image file (`png`, `pdf`, etc) 
+--- 4  an embedded font subset 
+--- 5  a fully embedded font 
 ---
 ---# `stop_file`
 ---

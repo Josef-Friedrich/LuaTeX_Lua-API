@@ -270,17 +270,41 @@ function font.define(f) end
 function font.define(font_id, f) end
 
 ---
+---Add characters to a font.
+---
 ---The table passed can have the fields `characters` which is a (sub)table
----like the one used in define, and for virtual fonts a `fonts` table can be
+---like the one used in `font.define()`, and for virtual fonts a `fonts` table can be
 ---added. The characters defined in the `characters` table are added (when not
 ---yet present) or replace an existing entry. Keep in mind that replacing can have
 ---side effects because a character already can have been used. Instead of posing
 ---restrictions we expect the user to be careful. (The `setfont` helper is
 ---a more drastic replacer.)
 ---
+---__Example:__
+---
+---```lua
+---local newcharacters = {}
+---for gid = 0, #glyphs do
+---  local glyph = glyphs[gid]
+---  if glyph.used then
+---    local character = characters[gid + gid_offset]
+---    newcharacters[gid + gid_offset] = character
+---    local unicode = nominals[gid]
+---    if unicode then
+---      newcharacters[unicode] = character
+---    end
+---    character.tounicode = glyph.tounicode or unicode or "FFFD"
+---    character.used = true
+---  end
+---end
+---font.addcharacters(font_id, { characters = newcharacters })
+---```
+---
 ---* Corresponding C source code: [lfontlib.c#L175-L188](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L175-L188)
 ---
-function font.addcharacters(n, t) end
+---@param font_id integer
+---@param f Font
+function font.addcharacters(font_id, f) end
 
 ---
 ---Return the font id number that would be returned by a `font.define`

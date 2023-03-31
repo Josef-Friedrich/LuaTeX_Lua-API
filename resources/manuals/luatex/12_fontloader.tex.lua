@@ -32,7 +32,7 @@
 ---contain some fairly interesting information items from the font(s) defined by the
 ---file:
 ---
---- key                  type      explanation
+--- key                  type      explanation 
 ---
 ---@field fontname string # the *PostScript* name of the font
 ---@field fullname string # the formal name of the font
@@ -265,7 +265,7 @@
 ---The top-level keys in the returned table are (the explanations in this part of
 ---the documentation are not yet finished):
 ---
---- key                                  type      explanation
+--- key                                  type      explanation 
 ---
 ---@field table_version number # indicates the metrics version (currently 0.3)
 ---@field fontname string # *PostScript* font name
@@ -279,65 +279,65 @@
 ---@field units_per_em number # 1000 for *PostScript*-based fonts, usually 2048 for *TrueType*NC \NR
 ---@field ascent number # height of ascender in `units_per_em`
 ---@field descent number # depth of descender in `units_per_em`
----@field upos float #
----@field uwidth float #
----@field uniqueid number #
---- `glyphs`                        array
+---@field upos float # 
+---@field uwidth float # 
+---@field uniqueid number # 
+--- `glyphs`                        array     
 ---@field glyphcnt number # number of included glyphs
 ---@field glyphmax number # maximum used index the glyphs array
 ---@field glyphmin number # minimum used index the glyphs array
----@field notdef_loc number # location of the `.notdef` glyph or `-1` when not present
----@field hasvmetrics number #
----@field onlybitmaps number #
----@field serifcheck number #
----@field isserif number #
----@field issans number #
----@field encodingchanged number #
----@field strokedfont number #
----@field use_typo_metrics number #
----@field weight_width_slope_only number #
----@field head_optimized_for_cleartype number #
+---@field notdef_loc number # location of the `.notdef` glyph or `-1` when not present 
+---@field hasvmetrics number # 
+---@field onlybitmaps number # 
+---@field serifcheck number # 
+---@field isserif number # 
+---@field issans number # 
+---@field encodingchanged number # 
+---@field strokedfont number # 
+---@field use_typo_metrics number # 
+---@field weight_width_slope_only number # 
+---@field head_optimized_for_cleartype number # 
 --- `uni_interp`                    enum      `unset`, `none`, `adobe`, `greek`, `japanese`, `trad_chinese`, `simp_chinese`, `korean`, `ams`
 ---@field origname string # the file name, as supplied by the user
----@field map table #
----@field private table #
----@field xuid string #
----@field pfminfo table #
----@field names table #
----@field cidinfo table #
---- `subfonts`                      array
----@field commments string #
----@field fontlog string #
----@field cvt_names string #
----@field anchor_classes table #
----@field ttf_tables table #
----@field ttf_tab_saved table #
----@field kerns table #
----@field vkerns table #
----@field texdata table #
----@field lookups table #
----@field gpos table #
----@field gsub table #
----@field mm table #
----@field chosenname string #
----@field macstyle number #
----@field fondname string #
----%NC `design_size`                   number
----@field fontstyle_id number #
----@field fontstyle_name table #
----%NC `design_range_bottom`           number
----%NC `design_range_top`              number
----@field strokewidth float #
----@field mark_classes table #
----@field creationtime number #
----@field modificationtime number #
----@field os2_version number #
----@field math table #
----@field validation_state table #
----@field horiz_base table #
----@field vert_base table #
----@field extrema_bound number #
----@field truetype boolean # signals a *TrueType* font
+---@field map table # 
+---@field private table # 
+---@field xuid string # 
+---@field pfminfo table # 
+---@field names table # 
+---@field cidinfo table # 
+--- `subfonts`                      array     
+---@field commments string # 
+---@field fontlog string # 
+---@field cvt_names string # 
+---@field anchor_classes table # 
+---@field ttf_tables table # 
+---@field ttf_tab_saved table # 
+---@field kerns table # 
+---@field vkerns table # 
+---@field texdata table # 
+---@field lookups table # 
+---@field gpos table # 
+---@field gsub table # 
+---@field mm table # 
+---@field chosenname string # 
+---@field macstyle number # 
+---@field fondname string # 
+---%NC `design_size`                   number    
+---@field fontstyle_id number # 
+---@field fontstyle_name table # 
+---%NC `design_range_bottom`           number    
+---%NC `design_range_top`              number    
+---@field strokewidth float # 
+---@field mark_classes table # 
+---@field creationtime number # 
+---@field modificationtime number # 
+---@field os2_version number # 
+---@field math table # 
+---@field validation_state table # 
+---@field horiz_base table # 
+---@field vert_base table # 
+---@field extrema_bound number # 
+---@field truetype boolean # signals a *TrueType* font 
 ---
 ----------------------------------------------------------------
 
@@ -348,32 +348,32 @@
 ---The `glyphs` is an array containing the per-character
 ---information (quite a few of these are only present if non-zero).
 ---
---- key                       type      explanation
+--- key                       type      explanation 
 ---
----@field name string # the glyph name
----@field unicode number # unicode code point, or -1
---- `boundingbox`        array     array of four numbers, see note below
----@field width number # only for horizontal fonts
----@field vwidth number # only for vertical fonts
----@field tsidebearing number # only for vertical ttf/otf fonts, and only if non-zero
----@field lsidebearing number # only if non-zero and not equal to boundingbox[1]
----@field class string # one of "none", "base", "ligature", "mark", "component" (if not present, the glyph class is “automatic”)
---- `kerns`              array     only for horizontal fonts, if set
---- `vkerns`             array     only for vertical fonts, if set
+---@field name string # the glyph name 
+---@field unicode number # unicode code point, or -1 
+--- `boundingbox`        array     array of four numbers, see note below 
+---@field width number # only for horizontal fonts 
+---@field vwidth number # only for vertical fonts 
+---@field tsidebearing number # only for vertical ttf/otf fonts, and only if non-zero 
+---@field lsidebearing number # only if non-zero and not equal to boundingbox[1] 
+---@field class string # one of "none", "base", "ligature", "mark", "component" (if not present, the glyph class is “automatic”) 
+--- `kerns`              array     only for horizontal fonts, if set 
+--- `vkerns`             array     only for vertical fonts, if set 
 --- `dependents`         array     linear array of glyph name strings, only if nonempty
----@field lookups table # only if nonempty
----@field ligatures table # only if nonempty
----@field anchors table # only if set
----@field comment string # only if set
----@field tex_height number # only if set
----@field tex_depth number # only if set
----@field italic_correction number # only if set
----@field top_accent number # only if set
----@field is_extended_shape number # only if this character is part of a math extension list
----@field altuni table # alternate *Unicode* items
----@field vert_variants table #
----@field horiz_variants table #
----@field mathkern table #
+---@field lookups table # only if nonempty 
+---@field ligatures table # only if nonempty 
+---@field anchors table # only if set 
+---@field comment string # only if set 
+---@field tex_height number # only if set 
+---@field tex_depth number # only if set 
+---@field italic_correction number # only if set 
+---@field top_accent number # only if set 
+---@field is_extended_shape number # only if this character is part of a math extension list 
+---@field altuni table # alternate *Unicode* items 
+---@field vert_variants table # 
+---@field horiz_variants table # 
+---@field mathkern table # 
 ---
 ---On `boundingbox`: The boundingbox information for *TrueType* fonts and
 ---*TrueType*-based \OTF\ fonts is read directly from the font file.
@@ -389,68 +389,68 @@
 ---
 ---The `kerns` and `vkerns` are linear arrays of small hashes:
 ---
---- key            type    explanation
+--- key            type    explanation 
 ---
----@field char string #
----@field off number #
----@field lookup string #
+---@field char string # 
+---@field off number # 
+---@field lookup string # 
 ---
 ---The `lookups` is a hash, based on lookup subtable names, with
 ---the value of each key inside that a linear array of small hashes:
 ---
 ---% TODO: fix this description
 ---
---- key                   type  explanation
+--- key                   type  explanation 
 ---
---- `type`           enum  `position`, `pair`, `substitution`, `alternate`, `multiple`, `ligature`, `lcaret`, `kerning`, `vkerning`, `anchors`, `contextpos`, `contextsub`, `chainpos`, `chainsub`, `reversesub`, `max`, `kernback`, `vkernback`
----@field specification table # extra data
+--- `type`           enum  `position`, `pair`, `substitution`, `alternate`, `multiple`, `ligature`, `lcaret`, `kerning`, `vkerning`, `anchors`, `contextpos`, `contextsub`, `chainpos`, `chainsub`, `reversesub`, `max`, `kernback`, `vkernback` 
+---@field specification table # extra data 
 ---
 ---For the first seven values of `type`, there can be additional
 ---sub-information, stored in the sub-table `specification`:
 ---
---- value                type      explanation
+--- value                type      explanation 
 ---
----@field position table # a table of the `offset_specs` type
----@field pair table # one string: `paired`, and an array of one or two `offset_specs` tables: `offsets`
----@field substitution table # one string: `variant`
----@field alternate table # one string: `components`
----@field multiple table # one string: `components`
----@field ligature table # two strings: `components`, `char`
---- `lcaret`        array     linear array of numbers
+---@field position table # a table of the `offset_specs` type 
+---@field pair table # one string: `paired`, and an array of one or two `offset_specs` tables: `offsets` 
+---@field substitution table # one string: `variant` 
+---@field alternate table # one string: `components` 
+---@field multiple table # one string: `components` 
+---@field ligature table # two strings: `components`, `char` 
+--- `lcaret`        array     linear array of numbers 
 ---
 ---Tables for `offset_specs` contain up to four number-valued fields: `x` (a horizontal offset), `y` (a vertical offset), `h` (an advance
 ---width correction) and `v` (an advance height correction).
 ---
 ---The `ligatures` is a linear array of small hashes:
 ---
---- key                type    explanation
+--- key                type    explanation 
 ---
----@field lig table # uses the same substructure as a single item in the `lookups` table explained above
----@field char string #
---- `components`  array   linear array of named components
----@field ccnt number #
+---@field lig table # uses the same substructure as a single item in the `lookups` table explained above 
+---@field char string # 
+--- `components`  array   linear array of named components 
+---@field ccnt number # 
 ---
 ---The `anchor` table is indexed by a string signifying the anchor type, which
 ---is one of:
 ---
---- key              type   explanation
+--- key              type   explanation 
 ---
----@field mark table # placement mark
----@field basechar table # mark for attaching combining items to a base char
----@field baselig table # mark for attaching combining items to a ligature
----@field basemark table # generic mark for attaching combining items to connect to
----@field centry table # cursive entry point
----@field cexit table # cursive exit point
+---@field mark table # placement mark 
+---@field basechar table # mark for attaching combining items to a base char 
+---@field baselig table # mark for attaching combining items to a ligature 
+---@field basemark table # generic mark for attaching combining items to connect to 
+---@field centry table # cursive entry point 
+---@field cexit table # cursive exit point 
 ---
 ---The content of these is a short array of defined anchors, with the
 ---entry keys being the anchor names. For all except `baselig`, the
 ---value is a single table with this definition:
 ---
---- key                  type    explanation
+--- key                  type    explanation 
 ---
----@field x number # x location
----@field y number # y location
----@field ttf_pt_index number # truetype point index, only if given
+---@field x number # x location 
+---@field y number # y location 
+---@field ttf_pt_index number # truetype point index, only if given 
 ---
 ---For `baselig`, the value is a small array of such anchor sets sets, one for
 ---each constituent item of the ligature.
@@ -484,38 +484,38 @@
 ---The top-level map is a list of encoding mappings. Each of those is a table
 ---itself.
 ---
---- key              type    explanation
+--- key              type    explanation 
 ---
----@field enccount number #
----@field encmax number #
----@field backmax number #
----@field remap table #
+---@field enccount number # 
+---@field encmax number # 
+---@field backmax number # 
+---@field remap table # 
 --- `map`       array   non-linear array of mappings
 --- `backmap`   array   non-linear array of backward mappings
----@field enc table #
+---@field enc table # 
 ---
 ---The `remap` table is very small:
 ---
---- key              type    explanation
+--- key              type    explanation 
 ---
----@field firstenc number #
----@field lastenc number #
----@field infont number #
+---@field firstenc number # 
+---@field lastenc number # 
+---@field infont number # 
 ---
 ---The `enc` table is a bit more verbose:
 ---
---- key                      type    explanation
+--- key                      type    explanation 
 ---
----@field enc_name string #
----@field char_cnt number #
----@field char_max number #
+---@field enc_name string # 
+---@field char_cnt number # 
+---@field char_max number # 
 --- `unicode`           array   of *Unicode* position numbers
 --- `psnames`           array   of *PostScript* glyph names
----@field builtin number #
----@field hidden number #
----@field only_1byte number #
----@field has_1byte number #
----@field has_2byte number #
+---@field builtin number # 
+---@field hidden number # 
+---@field only_1byte number # 
+---@field has_1byte number # 
+---@field has_2byte number # 
 ---@field is_unicodebmp number # only if non-zero
 ---@field is_unicodefull number # only if non-zero
 ---@field is_custom number # only if non-zero
@@ -525,10 +525,10 @@
 ---@field is_korean number # only if non-zero
 ---@field is_tradchinese number # only if non-zero [name?]
 ---@field is_simplechinese number # only if non-zero
----@field low_page number #
----@field high_page number #
----@field iconv_name string #
----@field iso_2022_escape string #
+---@field low_page number # 
+---@field high_page number # 
+---@field iconv_name string # 
+---@field iso_2022_escape string # 
 ---
 ----------------------------------------------------------------
 
@@ -545,12 +545,12 @@
 ---
 ---# `cidinfo`
 ---
---- key                type    explanation
+--- key                type    explanation 
 ---
----@field registry string #
----@field ordering string #
----@field supplement number #
----@field version number #
+---@field registry string # 
+---@field ordering string # 
+---@field supplement number # 
+---@field version number # 
 ---
 ----------------------------------------------------------------
 
@@ -560,69 +560,69 @@
 ---
 ---The `pfminfo` table contains most of the OS/2 information:
 ---
---- key                      type    explanation
+--- key                      type    explanation 
 ---
----@field pfmset number #
----@field winascent_add number #
----@field windescent_add number #
----@field hheadascent_add number #
----@field hheaddescent_add number #
----@field typoascent_add number #
----@field typodescent_add number #
----@field subsuper_set number #
----@field panose_set number #
----@field hheadset number #
----@field vheadset number #
----@field pfmfamily number #
----@field weight number #
----@field width number #
----@field avgwidth number #
----@field firstchar number #
----@field lastchar number #
----@field fstype number #
----@field linegap number #
----@field vlinegap number #
----@field hhead_ascent number #
----@field hhead_descent number #
----@field os2_typoascent number #
----@field os2_typodescent number #
----@field os2_typolinegap number #
----@field os2_winascent number #
----@field os2_windescent number #
----@field os2_subxsize number #
----@field os2_subysize number #
----@field os2_subxoff number #
----@field os2_subyoff number #
----@field os2_supxsize number #
----@field os2_supysize number #
----@field os2_supxoff number #
----@field os2_supyoff number #
----@field os2_strikeysize number #
----@field os2_strikeypos number #
----@field os2_family_class number #
----@field os2_xheight number #
----@field os2_capheight number #
----@field os2_defaultchar number #
----@field os2_breakchar number #
----@field os2_vendor string #
----@field codepages table # A two-number array of encoded code pages
----@field unicoderages table # A four-number array of encoded unicode ranges
----@field panose table #
+---@field pfmset number # 
+---@field winascent_add number # 
+---@field windescent_add number # 
+---@field hheadascent_add number # 
+---@field hheaddescent_add number # 
+---@field typoascent_add number # 
+---@field typodescent_add number # 
+---@field subsuper_set number # 
+---@field panose_set number # 
+---@field hheadset number # 
+---@field vheadset number # 
+---@field pfmfamily number # 
+---@field weight number # 
+---@field width number # 
+---@field avgwidth number # 
+---@field firstchar number # 
+---@field lastchar number # 
+---@field fstype number # 
+---@field linegap number # 
+---@field vlinegap number # 
+---@field hhead_ascent number # 
+---@field hhead_descent number # 
+---@field os2_typoascent number # 
+---@field os2_typodescent number # 
+---@field os2_typolinegap number # 
+---@field os2_winascent number # 
+---@field os2_windescent number # 
+---@field os2_subxsize number # 
+---@field os2_subysize number # 
+---@field os2_subxoff number # 
+---@field os2_subyoff number # 
+---@field os2_supxsize number # 
+---@field os2_supysize number # 
+---@field os2_supxoff number # 
+---@field os2_supyoff number # 
+---@field os2_strikeysize number # 
+---@field os2_strikeypos number # 
+---@field os2_family_class number # 
+---@field os2_xheight number # 
+---@field os2_capheight number # 
+---@field os2_defaultchar number # 
+---@field os2_breakchar number # 
+---@field os2_vendor string # 
+---@field codepages table # A two-number array of encoded code pages 
+---@field unicoderages table # A four-number array of encoded unicode ranges 
+---@field panose table # 
 ---
 ---The `panose` subtable has exactly 10 string keys:
 ---
---- key                     type     explanation
+--- key                     type     explanation 
 ---
 ---@field familytype string # Values as in the *OpenType* font specification: `Any`, `No Fit`, `Text and Display`, `Script`, `Decorative`, `Pictorial`  \NR
----@field serifstyle string # See the *OpenType* font specification for values
----@field weight string # idem
----@field proportion string # idem
----@field contrast string # idem
----@field strokevariation string # idem
----@field armstyle string # idem
----@field letterform string # idem
----@field midline string # idem
----@field xheight string # idem
+---@field serifstyle string # See the *OpenType* font specification for values 
+---@field weight string # idem 
+---@field proportion string # idem 
+---@field contrast string # idem 
+---@field strokevariation string # idem 
+---@field armstyle string # idem 
+---@field letterform string # idem 
+---@field midline string # idem 
+---@field xheight string # idem 
 ---
 ----------------------------------------------------------------
 
@@ -632,10 +632,10 @@
 ---
 ---Each item has two top-level keys:
 ---
---- key           type    explanation
+--- key           type    explanation 
 ---
----@field lang string # language for this entry
----@field names table #
+---@field lang string # language for this entry 
+---@field names table # 
 ---
 ---The `names` keys are the actual *TrueType* name strings. The possible keys
 ---are: `copyright`, `family`, `subfamily`, `uniqueid`,
@@ -652,11 +652,11 @@
 ---
 ---The anchor_classes classes:
 ---
---- key            type    explanation
+--- key            type    explanation 
 ---
 ---@field name string # a descriptive id of this anchor class
----@field lookup string #
----@field type string # one of `mark`, `mkmk`, `curs`, `mklg`
+---@field lookup string # 
+---@field type string # one of `mark`, `mkmk`, `curs`, `mklg` 
 ---
 ---% type is actually a lookup subtype, not a feature name. Officially, these
 ---% strings should be gpos_mark2mark etc.
@@ -670,44 +670,44 @@
 ---The `gpos` table has one array entry for each lookup. (The `gpos_`
 ---prefix is somewhat redundant.)
 ---
---- key               type    explanation
+--- key               type    explanation 
 ---
----@field type string # one of `gpos_single`, `gpos_pair`, `gpos_cursive`, `gpos_mark2base`,\crlf `gpos_mark2ligature`, `gpos_mark2mark`, `gpos_context`,\crlf `gpos_contextchain`
----@field flags table #
----@field name string #
---- `features`   array
---- `subtables`  array
+---@field type string # one of `gpos_single`, `gpos_pair`, `gpos_cursive`, `gpos_mark2base`,\crlf `gpos_mark2ligature`, `gpos_mark2mark`, `gpos_context`,\crlf `gpos_contextchain` 
+---@field flags table # 
+---@field name string # 
+--- `features`   array   
+--- `subtables`  array   
 ---
 ---The flags table has a true value for each of the lookup flags that is actually
 ---set:
 ---
---- key                          type     explanation
+--- key                          type     explanation 
 ---
----@field r2l boolean #
----@field ignorebaseglyphs boolean #
----@field ignoreligatures boolean #
----@field ignorecombiningmarks boolean #
----@field mark_class string #
+---@field r2l boolean # 
+---@field ignorebaseglyphs boolean # 
+---@field ignoreligatures boolean # 
+---@field ignorecombiningmarks boolean # 
+---@field mark_class string # 
 ---
 ---The features subtable items of gpos have:
 ---
---- key             type    explanation
+--- key             type    explanation 
 ---
----@field tag string #
----@field scripts table #
+---@field tag string # 
+---@field scripts table # 
 ---
 ---The scripts table within features has:
 ---
---- key            type              explanation
+--- key            type              explanation 
 ---
----@field script string #
---- `langs`   array of strings
+---@field script string # 
+--- `langs`   array of strings  
 ---
 ---The subtables table has:
 ---
---- key                      type    explanation
+--- key                      type    explanation 
 ---
----@field name string #
+---@field name string # 
 ---@field suffix string # (only if used) % used by gpos_single to get a default
 ---@field anchor_classes number # (only if used)
 ---@field vertical_kerning number # (only if used)
@@ -715,12 +715,12 @@
 ---
 ---The kernclass with subtables table has:
 ---
---- key             type              explanation
+--- key             type              explanation 
 ---
---- `firsts`   array of strings
---- `seconds`  array of strings
----@field lookup string # or array   associated lookup(s)
---- `offsets`  array of numbers
+--- `firsts`   array of strings  
+--- `seconds`  array of strings  
+---@field lookup string # or array   associated lookup(s) 
+--- `offsets`  array of numbers  
 ---
 ---Note: the kernclass (as far as we can see) always has one entry so it could be one level
 ---deep instead. Also the seconds start at `[2]` which is close to the fontforge
@@ -735,9 +735,9 @@
 ---This has identical layout to the `gpos` table, except for the
 ---type:
 ---
---- key          type    explanation
+--- key          type    explanation 
 ---
----@field type string # one of `gsub_single`, `gsub_multiple`, `gsub_alternate`, `gsub_ligature`,\crlf `gsub_context`, `gsub_contextchain`, `gsub_reversecontextchain`
+---@field type string # one of `gsub_single`, `gsub_multiple`, `gsub_alternate`, `gsub_ligature`,\crlf `gsub_context`, `gsub_contextchain`, `gsub_reversecontextchain` 
 ---
 ----------------------------------------------------------------
 
@@ -745,12 +745,12 @@
 ---
 ---# `ttf_tables` and `ttf_tab_saved`
 ---
---- key            type    explanation
+--- key            type    explanation 
 ---
----@field tag string #
----@field len number #
----@field maxlen number #
----@field data number #
+---@field tag string # 
+---@field len number # 
+---@field maxlen number # 
+---@field data number # 
 ---
 ----------------------------------------------------------------
 
@@ -758,25 +758,25 @@
 ---
 ---# `mm`
 ---
---- key                    type    explanation
+--- key                    type    explanation 
 ---
----@field axes table # array of axis names
----@field instance_count number #
+---@field axes table # array of axis names 
+---@field instance_count number # 
 ---@field positions table # array of instance positions (\#axes * instances )
----@field defweights table # array of default weights for instances
----@field cdv string #
----@field ndv string #
----@field axismaps table #
+---@field defweights table # array of default weights for instances 
+---@field cdv string # 
+---@field ndv string # 
+---@field axismaps table # 
 ---
 ---The `axismaps`:
 ---
---- key             type    explanation
+--- key             type    explanation 
 ---
----@field blends table # an array of blend points
----@field designs table # an array of design values
----@field min number #
----@field def number #
----@field max number #
+---@field blends table # an array of blend points 
+---@field designs table # an array of design values 
+---@field min number # 
+---@field def number # 
+---@field max number # 
 ---
 ----------------------------------------------------------------
 
@@ -814,27 +814,27 @@
 ---
 ---# `horiz_base` and `vert_base`
 ---
---- key             type   explanation
+--- key             type   explanation 
 ---
 ---@field tags table # an array of script list tags
----@field scripts table #
+---@field scripts table # 
 ---
 ---The `scripts` subtable:
 ---
---- key                      type     explanation
+--- key                      type     explanation 
 ---
----@field baseline table #
----@field default_baseline number #
----@field lang table #
+---@field baseline table # 
+---@field default_baseline number # 
+---@field lang table # 
 ---
 ---The `lang` subtable:
 ---
---- key              type    explanation
+--- key              type    explanation 
 ---
----@field tag string # a script tag
----@field ascent number #
----@field descent number #
----@field features table #
+---@field tag string # a script tag 
+---@field ascent number # 
+---@field descent number # 
+---@field features table # 
 ---
 ---The `features` points to an array of tables with the same layout except
 ---that in those nested tables, the tag represents a language.
@@ -847,10 +847,10 @@
 ---
 ---An array of alternate *Unicode* values. Inside that array are hashes with:
 ---
---- key             type    explanation
+--- key             type    explanation 
 ---
----@field unicode number # this glyph is also used for this unicode
----@field variant number # the alternative is driven by this unicode selector
+---@field unicode number # this glyph is also used for this unicode 
+---@field variant number # the alternative is driven by this unicode selector 
 ---
 ----------------------------------------------------------------
 
@@ -858,21 +858,21 @@
 ---
 ---# `vert_variants` and `horiz_variants`
 ---
---- key                       type    explanation
+--- key                       type    explanation 
 ---
----@field variants string #
----@field italic_correction number #
----@field parts table #
+---@field variants string # 
+---@field italic_correction number # 
+---@field parts table # 
 ---
 ---The `parts` table is an array of smaller tables:
 ---
---- key               type    explanation
+--- key               type    explanation 
 ---
----@field component string #
----@field extender number #
----@field start number #
----@field end number #
----@field advance number #
+---@field component string # 
+---@field extender number # 
+---@field start number # 
+---@field end number # 
+---@field advance number # 
 ---
 ----------------------------------------------------------------
 
@@ -880,19 +880,19 @@
 ---
 ---# `mathkern`
 ---
---- key                  type   explanation
+--- key                  type   explanation 
 ---
----@field top_right table #
----@field bottom_right table #
----@field top_left table #
----@field bottom_left table #
+---@field top_right table # 
+---@field bottom_right table # 
+---@field top_left table # 
+---@field bottom_left table # 
 ---
 ---Each of the subtables is an array of small hashes with two keys:
 ---
---- key            type    explanation
+--- key            type    explanation 
 ---
----@field height number #
----@field kern number #
+---@field height number # 
+---@field kern number # 
 ---
 ----------------------------------------------------------------
 
@@ -916,10 +916,10 @@
 ---
 ---# `texdata`
 ---
---- key            type    explanation
+--- key            type    explanation 
 ---
----@field type string # `unset`, `text`, `math`, `mathext`
---- `params`  array   22 font numeric parameters
+---@field type string # `unset`, `text`, `math`, `mathext` 
+--- `params`  array   22 font numeric parameters 
 ---
 ----------------------------------------------------------------
 
@@ -931,58 +931,58 @@
 ---The keys in this hash are strings, the values the actual lookups, represented as
 ---dictionary tables.
 ---
---- key                   type    explanation
+--- key                   type    explanation 
 ---
----@field type string #
---- `format`         enum    one of `glyphs`, `class`, `coverage`, `reversecoverage`
----@field tag string #
---- `current_class`  array
---- `before_class`   array
---- `after_class`    array
+---@field type string # 
+--- `format`         enum    one of `glyphs`, `class`, `coverage`, `reversecoverage` 
+---@field tag string # 
+--- `current_class`  array   
+--- `before_class`   array   
+--- `after_class`    array   
 --- `rules`          array   an array of rule items
 ---
 ---Rule items have one common item and one specialized item:
 ---
---- key                     type   explanation
+--- key                     type   explanation 
 ---
---- `lookups`          array  a linear array of lookup names
---- `glyphs`           array  only if the parent's format is `glyphs`
---- `class`            array  only if the parent's format is `class`
---- `coverage`         array  only if the parent's format is `coverage`
---- `reversecoverage`  array  only if the parent's format is `reversecoverage`
+--- `lookups`          array  a linear array of lookup names                         
+--- `glyphs`           array  only if the parent's format is `glyphs`          
+--- `class`            array  only if the parent's format is `class`           
+--- `coverage`         array  only if the parent's format is `coverage`        
+--- `reversecoverage`  array  only if the parent's format is `reversecoverage` 
 ---
 ---A glyph table is:
 ---
---- key           type    explanation
+--- key           type    explanation 
 ---
----@field names string #
----@field back string #
----@field fore string #
+---@field names string # 
+---@field back string # 
+---@field fore string # 
 ---
 ---A class table is:
 ---
---- key             type   explanation
+--- key             type   explanation 
 ---
---- `current`  array  of numbers
---- `before`   array  of numbers
---- `after`    array  of numbers
+--- `current`  array  of numbers  
+--- `before`   array  of numbers  
+--- `after`    array  of numbers  
 ---
 ---for coverage:
 ---
---- key             type   explanation
+--- key             type   explanation 
 ---
---- `current`  array  of strings
---- `before`   array  of strings
---- `after`    array  of strings
+--- `current`  array  of strings 
+--- `before`   array  of strings 
+--- `after`    array  of strings 
 ---
 ---and for reverse coverage:
 ---
---- key                  type    explanation
+--- key                  type    explanation 
 ---
---- `current`       array   of strings
---- `before`        array   of strings
---- `after`         array   of strings
----@field replacements string #
+--- `current`       array   of strings  
+--- `before`        array   of strings  
+--- `after`         array   of strings  
+---@field replacements string # 
 ---
 ----------------------------------------------------------------
 

@@ -42,20 +42,20 @@
 ---
 ---The altered *TeX*82 primitives are:
 ---
---- primitive        min  max     \kern 2em  min  max
+--- primitive        min  max     \kern 2em  min  max    
 ---
---- `mathcode`  0    10FFFF  =          0    8000
---- `delcode`   0    10FFFF  =          0    FFFFFF
+--- `mathcode`  0    10FFFF  =          0    8000   
+--- `delcode`   0    10FFFF  =          0    FFFFFF 
 ---
 ---The unaltered ones are:
 ---
---- primitive           min  max
+--- primitive           min  max     
 ---
---- `mathchardef`  0       8000
---- `mathchar`     0       7FFF
---- `mathaccent`   0       7FFF
---- `delimiter`    0    7FFFFFF
---- `radical`      0    7FFFFFF
+--- `mathchardef`  0       8000 
+--- `mathchar`     0       7FFF 
+--- `mathaccent`   0       7FFF 
+--- `delimiter`    0    7FFFFFF 
+--- `radical`      0    7FFFFFF 
 ---
 ---For practical reasons `mathchardef` will silently accept values larger
 ---that `0x8000` and interpret it as `Umathcharnumdef`. This is needed
@@ -65,19 +65,19 @@
 ---
 ---% somewhat fuzzy:
 ---
---- primitive                              min        max          \kern 2em  min        max
+--- primitive                              min        max          \kern 2em  min        max         
 ---
---- `Umathchardef`                    0+0+0      7+FF+10FFFF
---- `Umathcharnumdef`\rlap{\high{5}}  -80000000     7FFFFFFF
---- `Umathcode`                       0               10FFFF  =          0+0+0      7+FF+10FFFF
---- `Udelcode`                        0               10FFFF  =          0+0          FF+10FFFF
---- `Umathchar`                       0+0+0      7+FF+10FFFF
---- `Umathaccent`                     0+0+0      7+FF+10FFFF
---- `Udelimiter`                      0+0+0      7+FF+10FFFF
---- `Uradical`                        0+0          FF+10FFFF
---- `Umathcharnum`                    -80000000     7FFFFFFF
---- `Umathcodenum`                    0               10FFFF  =          -80000000     7FFFFFFF
---- `Udelcodenum`                     0               10FFFF  =          -80000000     7FFFFFFF
+--- `Umathchardef`                    0+0+0      7+FF+10FFFF                                    
+--- `Umathcharnumdef`\rlap{\high{5}}  -80000000     7FFFFFFF                                    
+--- `Umathcode`                       0               10FFFF  =          0+0+0      7+FF+10FFFF 
+--- `Udelcode`                        0               10FFFF  =          0+0          FF+10FFFF 
+--- `Umathchar`                       0+0+0      7+FF+10FFFF                                    
+--- `Umathaccent`                     0+0+0      7+FF+10FFFF                                    
+--- `Udelimiter`                      0+0+0      7+FF+10FFFF                                    
+--- `Uradical`                        0+0          FF+10FFFF                                    
+--- `Umathcharnum`                    -80000000     7FFFFFFF                                    
+--- `Umathcodenum`                    0               10FFFF  =          -80000000     7FFFFFFF 
+--- `Udelcodenum`                     0               10FFFF  =          -80000000     7FFFFFFF 
 ---
 ---Specifications typically look like:
 ---
@@ -107,13 +107,13 @@
 ---There are more new primitives and all of these will be explained in following
 ---sections:
 ---
---- primitive                 value range (in hex)
+--- primitive                 value range (in hex) 
 ---
---- `Uroot`            0 + 0--FF + 10FFFF
---- `Uoverdelimiter`   0 + 0--FF + 10FFFF
---- `Uunderdelimiter`  0 + 0--FF + 10FFFF
---- `Udelimiterover`   0 + 0--FF + 10FFFF
---- `Udelimiterunder`  0 + 0--FF + 10FFFF
+--- `Uroot`            0 + 0--FF + 10FFFF   
+--- `Uoverdelimiter`   0 + 0--FF + 10FFFF   
+--- `Uunderdelimiter`  0 + 0--FF + 10FFFF   
+--- `Udelimiterover`   0 + 0--FF + 10FFFF   
+--- `Udelimiterunder`  0 + 0--FF + 10FFFF   
 ---
 ----------------------------------------------------------------
 
@@ -284,11 +284,11 @@
 ---
 ---\startbuffer[demo]
 ---\starttabulate
---- style          example
+--- style          example 
 ---
---- default        `b_{x=xx}^{x=xx}`
---- script         `b_{\scriptstyle x=xx}^{\scriptstyle x=xx}`
---- crampedscript  `b_{\crampedscriptstyle x=xx}^{\crampedscriptstyle x=xx}`
+--- default        `b_{x=xx}^{x=xx}` 
+--- script         `b_{\scriptstyle x=xx}^{\scriptstyle x=xx}` 
+--- crampedscript  `b_{\crampedscriptstyle x=xx}^{\crampedscriptstyle x=xx}` 
 ---
 ---\stopbuffer
 ---
@@ -335,53 +335,53 @@
 ---has resulted in many more parameters than were not accessible before.
 ---
 ---\starttabulate
---- primitive name                    description
+--- primitive name                    description 
 ---
---- `Umathquad`                the width of 18 mu's
---- `Umathaxis`                height of the vertical center axis of the math formula above the baseline
---- `Umathoperatorsize`        minimum size of large operators in display mode
---- `Umathoverbarkern`         vertical clearance above the rule
---- `Umathoverbarrule`         the width of the rule
---- `Umathoverbarvgap`         vertical clearance below the rule
---- `Umathunderbarkern`        vertical clearance below the rule
---- `Umathunderbarrule`        the width of the rule
---- `Umathunderbarvgap`        vertical clearance above the rule
---- `Umathradicalkern`         vertical clearance above the rule
---- `Umathradicalrule`         the width of the rule
---- `Umathradicalvgap`         vertical clearance below the rule
---- `Umathradicaldegreebefore` the forward kern that takes place before placement of the radical degree
---- `Umathradicaldegreeafter`  the backward kern that takes place after placement of the radical degree
---- `Umathradicaldegreeraise`  this is the percentage of the total height and depth of the radical sign that the degree is raised by; it is expressed in `percents`, so 60\% is expressed as the integer `60`
---- `Umathstackvgap`           vertical clearance between the two elements in a `atop` stack
---- `Umathstacknumup`          numerator shift upward in `atop` stack
---- `Umathstackdenomdown`      denominator shift downward in `atop` stack
---- `Umathfractionrule`        the width of the rule in a `over`
---- `Umathfractionnumvgap`     vertical clearance between the numerator and the rule
---- `Umathfractionnumup`       numerator shift upward in `over`
---- `Umathfractiondenomvgap`   vertical clearance between the denominator and the rule
---- `Umathfractiondenomdown`   denominator shift downward in `over`
---- `Umathfractiondelsize`     minimum delimiter size for `\...withdelims`
---- `Umathlimitabovevgap`      vertical clearance for limits above operators
---- `Umathlimitabovebgap`      vertical baseline clearance for limits above operators
---- `Umathlimitabovekern`      space reserved at the top of the limit
---- `Umathlimitbelowvgap`      vertical clearance for limits below operators
---- `Umathlimitbelowbgap`      vertical baseline clearance for limits below operators
---- `Umathlimitbelowkern`      space reserved at the bottom of the limit
---- `Umathoverdelimitervgap`   vertical clearance for limits above delimiters
---- `Umathoverdelimiterbgap`   vertical baseline clearance for limits above delimiters
---- `Umathunderdelimitervgap`  vertical clearance for limits below delimiters
---- `Umathunderdelimiterbgap`  vertical baseline clearance for limits below delimiters
---- `Umathsubshiftdrop`        subscript drop for boxes and subformulas
---- `Umathsubshiftdown`        subscript drop for characters
---- `Umathsupshiftdrop`        superscript drop (raise, actually) for boxes and subformulas
---- `Umathsupshiftup`          superscript raise for characters
---- `Umathsubsupshiftdown`     subscript drop in the presence of a superscript
---- `Umathsubtopmax`           the top of standalone subscripts cannot be higher than this above the baseline
---- `Umathsupbottommin`        the bottom of standalone superscripts cannot be less than this above the baseline
---- `Umathsupsubbottommax`     the bottom of the superscript of a combined super- and subscript be at least as high as this above the baseline
---- `Umathsubsupvgap`          vertical clearance between super- and subscript
---- `Umathspaceafterscript`    additional space added after a super- or subscript
---- `Umathconnectoroverlapmin` minimum overlap between parts in an extensible recipe
+--- `Umathquad`                the width of 18 mu's 
+--- `Umathaxis`                height of the vertical center axis of the math formula above the baseline 
+--- `Umathoperatorsize`        minimum size of large operators in display mode 
+--- `Umathoverbarkern`         vertical clearance above the rule 
+--- `Umathoverbarrule`         the width of the rule 
+--- `Umathoverbarvgap`         vertical clearance below the rule 
+--- `Umathunderbarkern`        vertical clearance below the rule 
+--- `Umathunderbarrule`        the width of the rule 
+--- `Umathunderbarvgap`        vertical clearance above the rule 
+--- `Umathradicalkern`         vertical clearance above the rule 
+--- `Umathradicalrule`         the width of the rule 
+--- `Umathradicalvgap`         vertical clearance below the rule 
+--- `Umathradicaldegreebefore` the forward kern that takes place before placement of the radical degree 
+--- `Umathradicaldegreeafter`  the backward kern that takes place after placement of the radical degree 
+--- `Umathradicaldegreeraise`  this is the percentage of the total height and depth of the radical sign that the degree is raised by; it is expressed in `percents`, so 60\% is expressed as the integer `60` 
+--- `Umathstackvgap`           vertical clearance between the two elements in a `atop` stack 
+--- `Umathstacknumup`          numerator shift upward in `atop` stack 
+--- `Umathstackdenomdown`      denominator shift downward in `atop` stack 
+--- `Umathfractionrule`        the width of the rule in a `over` 
+--- `Umathfractionnumvgap`     vertical clearance between the numerator and the rule 
+--- `Umathfractionnumup`       numerator shift upward in `over` 
+--- `Umathfractiondenomvgap`   vertical clearance between the denominator and the rule 
+--- `Umathfractiondenomdown`   denominator shift downward in `over` 
+--- `Umathfractiondelsize`     minimum delimiter size for `\...withdelims` 
+--- `Umathlimitabovevgap`      vertical clearance for limits above operators 
+--- `Umathlimitabovebgap`      vertical baseline clearance for limits above operators 
+--- `Umathlimitabovekern`      space reserved at the top of the limit 
+--- `Umathlimitbelowvgap`      vertical clearance for limits below operators 
+--- `Umathlimitbelowbgap`      vertical baseline clearance for limits below operators 
+--- `Umathlimitbelowkern`      space reserved at the bottom of the limit 
+--- `Umathoverdelimitervgap`   vertical clearance for limits above delimiters 
+--- `Umathoverdelimiterbgap`   vertical baseline clearance for limits above delimiters 
+--- `Umathunderdelimitervgap`  vertical clearance for limits below delimiters 
+--- `Umathunderdelimiterbgap`  vertical baseline clearance for limits below delimiters 
+--- `Umathsubshiftdrop`        subscript drop for boxes and subformulas 
+--- `Umathsubshiftdown`        subscript drop for characters 
+--- `Umathsupshiftdrop`        superscript drop (raise, actually) for boxes and subformulas 
+--- `Umathsupshiftup`          superscript raise for characters 
+--- `Umathsubsupshiftdown`     subscript drop in the presence of a superscript 
+--- `Umathsubtopmax`           the top of standalone subscripts cannot be higher than this above the baseline 
+--- `Umathsupbottommin`        the bottom of standalone superscripts cannot be less than this above the baseline 
+--- `Umathsupsubbottommax`     the bottom of the superscript of a combined super- and subscript be at least as high as this above the baseline 
+--- `Umathsubsupvgap`          vertical clearance between super- and subscript 
+--- `Umathspaceafterscript`    additional space added after a super- or subscript 
+--- `Umathconnectoroverlapmin` minimum overlap between parts in an extensible recipe 
 ---
 ---Each of the parameters in this section can be set by a command like this:
 ---
@@ -413,10 +413,10 @@
 ---
 ---\def\MathLine#1#2#3#4#5%
 ---  {
----    \llap{\high{\tx #2\enspace}}\ttbf \string #1  \tt #5
+---    \llap{\high{\tx #2\enspace}}\ttbf \string #1  \tt #5 
 ---    \tx #3  \tt #4 }
 ---
---- variable / style  tfm / opentype
+--- variable / style  tfm / opentype 
 ---\MathLine{\Umathaxis}               {}   {}                     {AxisHeight}                              {axis_height}
 ---\MathLine{\Umathoperatorsize}       {6}  {D, D'}                {DisplayOperatorMinHeight}                {\emdash}
 ---\MathLine{\Umathfractiondelsize}    {9}  {D, D'}                {FractionDelimiterDisplayStyleSize}       {delim1}
@@ -546,7 +546,7 @@
 ---
 ---\typebuffer \getbuffer
 ---
---- mode  x\`x\`x  x \`x\` x  effect
+--- mode  x\`x\`x  x \`x\` x  effect 
 ---
 ---\OneLiner{0}{obey `mathsurround` when `mathsurroundskip` is 0pt}
 ---\OneLiner{1}{only add skip to the left}
@@ -675,12 +675,12 @@
 ---only inserted when larger than zero. Especially the latter makes it sometimes hard
 ---to fully control spacing. Therefore *LuaTeX* comes with a new directive: `mathdisplayskipmode`. The following values apply:
 ---
---- value   meaning
+--- value   meaning 
 ---
---- 0  normal *TeX* behaviour
---- 1  always (same as 0)
---- 2  only when not zero
---- 3  never, not even when not zero
+--- 0  normal *TeX* behaviour 
+--- 1  always (same as 0) 
+--- 2  only when not zero 
+--- 3  never, not even when not zero 
 ---
 ---By default the short skip detection is not adapted to r2l typesetting and that
 ---hasn't been the case since the start of the project. Changing it could break
@@ -698,15 +698,15 @@
 ---right end. The question is: how often is this implemented, and if so, do the
 ---kerns assume correction too. Anyway, with this parameter one can control it.
 ---
----
+---    
 ---         \mathnolimitsmode0    `\displaystyle\int\nolimits^0_1`
 ---         \mathnolimitsmode1    `\displaystyle\int\nolimits^0_1`
 ---         \mathnolimitsmode2    `\displaystyle\int\nolimits^0_1`
 ---         \mathnolimitsmode3    `\displaystyle\int\nolimits^0_1`
 ---         \mathnolimitsmode4    `\displaystyle\int\nolimits^0_1`
 ---         \mathnolimitsmode8000 `\displaystyle\int\nolimits^0_1`
----
----
+---    
+---    
 ---     mode
 ---         \tttf 0
 ---         \tttf 1
@@ -714,7 +714,7 @@
 ---         \tttf 3
 ---         \tttf 4
 ---         \tttf 8000
----
+---    
 ---     superscript
 ---         0
 ---         font
@@ -722,7 +722,7 @@
 ---         0
 ---         +ic/2
 ---         0
----
+---    
 ---     subscript
 ---         -ic
 ---         font
@@ -730,7 +730,7 @@
 ---         -ic/2
 ---         -ic/2
 ---         8000ic/1000
----
+---    
 ---
 ---When the mode is set to one, the math parameters are used. This way a macro
 ---package writer can decide what looks best. Given the current state of fonts in
@@ -754,15 +754,15 @@
 ---     \mathitalicsmode#1\ruledhbox{`T+1`}
 ---     \mathitalicsmode#1\ruledhbox{`T{1\over2}`}
 ---     \mathitalicsmode#1\ruledhbox{`T\sqrt{1}`}
----
+---    
 ---\stoptexdefinition
 ---
 ---\start
 ---    \switchtobodyfont[cambria]
----
+---    
 ---        \Whatever{0}%
 ---        \Whatever{1}%
----
+---    
 ---\stop
 ---
 ---This kind of parameters relate to the fact that italic correction in *OpenType*
@@ -775,11 +775,11 @@
 ---that the first glyph ends up in a `hbox` we have some control over this.
 ---And, as a bonus we also added control over the normal sublist kerning. The `mathscriptboxmode` parameter defaults to 1.
 ---
---- value      meaning
+--- value      meaning 
 ---
---- `0`  forget about kerning
---- `1`  kern math sub lists with a valid glyph
---- `2`  also kern math sub boxes that have a valid glyph
+--- `0`  forget about kerning 
+--- `1`  kern math sub lists with a valid glyph 
+--- `2`  also kern math sub boxes that have a valid glyph 
 ---@field 2 only kern math sub boxes with a boundary node # present
 ---
 ---Here we show some examples. Of course this doesn't solve all our problems, if
@@ -804,12 +804,12 @@
 ---     {\doifelse{#3}{-}
 ---        {\small\bf\tt mode #2}
 ---        {\switchtobodyfont[#3]\showfontkerns\showglyphs\mathscriptboxmode#2\relax\inlinebuffer[#1]}}}
---- \Show{1}{0}{}         \Show{1}{1}{}          \Show{2}{1}{}          \Show{2}{2}{}          \Show{3}{3}{}          \Show{1}{0}{-}        \Show{1}{1}{-}         \Show{2}{1}{-}         \Show{2}{2}{-}         \Show{3}{3}{-}
----     modern    \Show{1}{0}{modern}   \Show{1}{1}{modern}    \Show{2}{1}{modern}    \Show{2}{2}{modern}    \Show{3}{3}{modern}
----     lucidaot  \Show{1}{0}{lucidaot} \Show{1}{1}{lucidaot}  \Show{2}{1}{lucidaot}  \Show{2}{2}{lucidaot}  \Show{3}{3}{lucidaot}
----     pagella   \Show{1}{0}{pagella}  \Show{1}{1}{pagella}   \Show{2}{1}{pagella}   \Show{2}{2}{pagella}   \Show{3}{3}{pagella}
----     cambria   \Show{1}{0}{cambria}  \Show{1}{1}{cambria}   \Show{2}{1}{cambria}   \Show{2}{2}{cambria}   \Show{3}{3}{cambria}
----     dejavu    \Show{1}{0}{dejavu}   \Show{1}{1}{dejavu}    \Show{2}{1}{dejavu}    \Show{2}{2}{dejavu}    \Show{3}{3}{dejavu}
+--- \Show{1}{0}{}         \Show{1}{1}{}          \Show{2}{1}{}          \Show{2}{2}{}          \Show{3}{3}{}          \Show{1}{0}{-}        \Show{1}{1}{-}         \Show{2}{1}{-}         \Show{2}{2}{-}         \Show{3}{3}{-}        
+---     modern    \Show{1}{0}{modern}   \Show{1}{1}{modern}    \Show{2}{1}{modern}    \Show{2}{2}{modern}    \Show{3}{3}{modern}   
+---     lucidaot  \Show{1}{0}{lucidaot} \Show{1}{1}{lucidaot}  \Show{2}{1}{lucidaot}  \Show{2}{2}{lucidaot}  \Show{3}{3}{lucidaot} 
+---     pagella   \Show{1}{0}{pagella}  \Show{1}{1}{pagella}   \Show{2}{1}{pagella}   \Show{2}{2}{pagella}   \Show{3}{3}{pagella}  
+---     cambria   \Show{1}{0}{cambria}  \Show{1}{1}{cambria}   \Show{2}{1}{cambria}   \Show{2}{2}{cambria}   \Show{3}{3}{cambria}  
+---     dejavu    \Show{1}{0}{dejavu}   \Show{1}{1}{dejavu}    \Show{2}{1}{dejavu}    \Show{2}{2}{dejavu}    \Show{3}{3}{dejavu}   
 ---
 ---Kerning between a character subscript is controlled by `mathscriptcharmode`
 ---which also defaults to 1.
@@ -822,12 +822,12 @@
 ---
 ---\def\MathSample#1#2#3%
 ---  {
----   #1
----   #2
----   \showglyphdata \switchtobodyfont[#2,17.3pt]`#3T_{f}`
----   \showglyphdata \switchtobodyfont[#2,17.3pt]`#3\gamma_{e}`
----   \showglyphdata \switchtobodyfont[#2,17.3pt]`#3\gamma_{ee}`
----   \showglyphdata \switchtobodyfont[#2,17.3pt]`#3T_{\tf fluff}`
+---   #1 
+---   #2 
+---   \showglyphdata \switchtobodyfont[#2,17.3pt]`#3T_{f}`         
+---   \showglyphdata \switchtobodyfont[#2,17.3pt]`#3\gamma_{e}`    
+---   \showglyphdata \switchtobodyfont[#2,17.3pt]`#3\gamma_{ee}`   
+---   \showglyphdata \switchtobodyfont[#2,17.3pt]`#3T_{\tf fluff}` 
 ---   \NR}
 ---
 ---    \FL
@@ -840,16 +840,16 @@
 ---    \MathSample{}      {pagella} {\mb}
 ---    \MathSample{}      {cambria} {\mb}
 ---    \MathSample{}      {lucidaot}{\mb}
----
+---    
 ---
 ---# Fixed scripts
 ---
 ---We have three parameters that are used for this fixed anchoring:
 ---
---- parameter  register
---- `d`  `Umathsubshiftdown`
---- `u`  `Umathsupshiftup`
---- `s`  `Umathsubsupshiftdown`
+--- parameter  register 
+--- `d`  `Umathsubshiftdown`    
+--- `u`  `Umathsupshiftup`      
+--- `s`  `Umathsubsupshiftdown` 
 ---
 ---When we set `mathscriptsmode` to a value other than zero these are used
 ---for calculating fixed positions. This is something that is needed for instance
@@ -859,14 +859,14 @@
 ---\def\SampleMath#1%
 ---  {`\mathscriptsmode#1\mathupright CH_2 + CH^+_2 + CH^2_2`}
 ---
---- mode  down           up             example
+--- mode  down           up             example        
 ---
---- 0     dynamic        dynamic        \SampleMath{0}
---- 1     `d`            `u`            \SampleMath{1}
---- 2     `s`            `u`            \SampleMath{2}
---- 3     `s`            `u + s - d`    \SampleMath{3}
---- 4     `d + (s-d)/2`  `u + (s-d)/2`  \SampleMath{4}
---- 5     `d`            `u + s - d`    \SampleMath{5}
+--- 0     dynamic        dynamic        \SampleMath{0} 
+--- 1     `d`            `u`            \SampleMath{1} 
+--- 2     `s`            `u`            \SampleMath{2} 
+--- 3     `s`            `u + s - d`    \SampleMath{3} 
+--- 4     `d + (s-d)/2`  `u + (s-d)/2`  \SampleMath{4} 
+--- 5     `d`            `u + s - d`    \SampleMath{5} 
 ---
 ---The value of this parameter obeys grouping but applies to the whole current
 ---formula.
@@ -929,15 +929,15 @@
 ---     `\mathdelimitersmode = #1`
 ---     \mathitalicsmode1\mathdelimitersmode#1\ruledhbox{\showglyphs\showfontkerns\showfontitalics`f(x)`}
 ---     \mathitalicsmode1\mathdelimitersmode#1\ruledhbox{\showglyphs\showfontkerns\showfontitalics`f\left(x\right)`}
----
+---    
 ---\stoptexdefinition
 ---
 ---\start
 ---    \switchtobodyfont[cambria]
----
+---    
 ---        \Whatever{0}\Whatever{1}\Whatever{2}\Whatever{3}%
 ---        \Whatever{4}\Whatever{5}\Whatever{6}\Whatever{7}%
----
+---    
 ---\stop
 ---
 ---So, when set to 7 fenced subformulas with unscaled delimiters come out the same
@@ -945,13 +945,13 @@
 ---experimental feature (which somehow fits in the exceptional way fences are dealt
 ---with in the engine). The full list of flags is given in the next table:
 ---
---- value   meaning
+--- value   meaning 
 ---
---- `"01`  don't apply the usual shift
---- `"02`  apply italic correction when possible
---- `"04`  force an ordinary subformula
---- `"08`  no shift when a base character
---- `"10`  only shift when an extensible
+--- `"01`  don't apply the usual shift 
+--- `"02`  apply italic correction when possible 
+--- `"04`  force an ordinary subformula 
+--- `"08`  no shift when a base character 
+--- `"10`  only shift when an extensible 
 ---
 ---The effect can depend on the font (and for Cambria one can use for instance `"16`).
 ---
@@ -1025,22 +1025,22 @@
 ---This works as follows:
 ---
 ---    * The vertical position of the script is calculated.
----
+---    
 ---    * The default horizontal position is flat next to the base character.
----
+---    
 ---    * For superscripts, the italic correction of the base character is added.
----
+---    
 ---    * For a superscript, two vertical values are calculated: the bottom of the
 ---        script (after shifting up), and the top of the base. For a subscript, the two
 ---        values are the top of the (shifted down) script, and the bottom of the base.
----
+---    
 ---    * For each of these two locations:
----         * find the math kern value at this height for the base (for a subscript placement, this is the bottom_right corner, for a superscript placement the top_right corner)  * find the math kern value at this height for the script (for a subscript placement, this is the top_left corner, for a superscript placement the bottom_left corner)  * add the found values together to get a preliminary result.
----
----
+---         * find the math kern value at this height for the base (for a subscript placement, this is the bottom_right corner, for a superscript placement the top_right corner)  * find the math kern value at this height for the script (for a subscript placement, this is the top_left corner, for a superscript placement the bottom_left corner)  * add the found values together to get a preliminary result. 
+---        
+---    
 ---    * The horizontal kern to be applied is the smallest of the two results from
 ---        previous step.
----
+---    
 ---
 ---The math kern value at a specific height is the kern value that is specified by the
 ---next higher height and kern pair, or the highest one in the character (if there is no
@@ -1161,16 +1161,16 @@
 ---
 ---\start
 ---    \switchtobodyfont[modern]
----
----          \ShowA{a}{b}{}  \ShowA{1}{2}{}  \ShowB{a}{b}{}  \ShowB{1}{2}{}
+---    
+---          \ShowA{a}{b}{}  \ShowA{1}{2}{}  \ShowB{a}{b}{}  \ShowB{1}{2}{} 
 ---        \NR
----         `exact`  \ShowA{a}{b}{exact}  \ShowA{1}{2}{exact}  \ShowB{a}{b}{exact}  \ShowB{1}{2}{exact}
+---         `exact`  \ShowA{a}{b}{exact}  \ShowA{1}{2}{exact}  \ShowB{a}{b}{exact}  \ShowB{1}{2}{exact} 
 ---        \NR
----         `noaxis`  \ShowA{a}{b}{noaxis}  \ShowA{1}{2}{noaxis}  \ShowB{a}{b}{noaxis}  \ShowB{1}{2}{noaxis}
+---         `noaxis`  \ShowA{a}{b}{noaxis}  \ShowA{1}{2}{noaxis}  \ShowB{a}{b}{noaxis}  \ShowB{1}{2}{noaxis} 
 ---        \NR
----         `exact noaxis`  \ShowA{a}{b}{exact noaxis}  \ShowA{1}{2}{exact noaxis}  \ShowB{a}{b}{exact noaxis}  \ShowB{1}{2}{exact noaxis}
+---         `exact noaxis`  \ShowA{a}{b}{exact noaxis}  \ShowA{1}{2}{exact noaxis}  \ShowB{a}{b}{exact noaxis}  \ShowB{1}{2}{exact noaxis} 
 ---        \NR
----
+---    
 ---\stop
 ---
 ---The keyword `norule` will hide the rule with the above variants while
@@ -1283,14 +1283,14 @@
 ---*LuaTeX* defines six new primitives that have the same function as
 ---`^`, `_`, ```, and `$``:
 ---
---- primitive                   explanation
+--- primitive                   explanation 
 ---
---- `Usuperscript`       duplicates the functionality of `^`
---- `Usubscript`         duplicates the functionality of `_`
---- `Ustartmath`         duplicates the functionality of ```, % ` when used in non-math mode.
---- `Ustopmath`          duplicates the functionality of ```, % ` when used in inline math mode.
---- `Ustartdisplaymath`  duplicates the functionality of ````, % `` when used in non-math mode.
---- `Ustopdisplaymath`   duplicates the functionality of ````, % `` when used in display math mode.
+--- `Usuperscript`       duplicates the functionality of `^` 
+--- `Usubscript`         duplicates the functionality of `_` 
+--- `Ustartmath`         duplicates the functionality of ```, % ` when used in non-math mode. 
+--- `Ustopmath`          duplicates the functionality of ```, % ` when used in inline math mode. 
+--- `Ustartdisplaymath`  duplicates the functionality of ````, % `` when used in non-math mode. 
+--- `Ustopdisplaymath`   duplicates the functionality of ````, % `` when used in display math mode. 
 ---
 ---The `Ustopmath` and `Ustopdisplaymath` primitives check if the current
 ---math mode is the correct one (inline vs.\ displayed), but you can freely intermix
@@ -1325,18 +1325,18 @@
 ---%
 ---% The following items are still todo.
 ---%
----%
+---% 
 ---% * %     Pre-scripts.
----%
+---% 
 ---% * %     Multi-story stacks.
----%
+---% 
 ---% * %     Flattened accents for high characters (maybe).
----%
+---% 
 ---% * %     Better control over the spacing around displays and handling of equation numbers.
----%
+---% 
 ---% * %     Support for multi-line displays using \MATHML\ style alignment points.
----%
----%
+---% 
+---% 
 ---%
 ---% \stopsection
 ---
@@ -1376,13 +1376,13 @@
 ---You can influence flattening by adding the appropriate number to the value of the
 ---mode parameter. The default value is 1.
 ---
---- mode  class
+--- mode  class 
 ---
----  1    ord
----  2    bin
----  4    rel
----  8    punct
---- 16    inner
+---  1    ord   
+---  2    bin   
+---  4    rel   
+---  8    punct 
+--- 16    inner 
 ---
 ---\subsection {Less Tracing}
 ---
@@ -1394,22 +1394,22 @@
 ---This option has been introduced because \LATEX\ developers wanted some of the
 ---defaults to be different from the ones that were set in stone when we froze
 ---*LuaTeX*. The default values are:
---- scanning  rendering
+--- scanning  rendering 
 ---
---- radical/root     cramped   cramped
---- under delimiter  cramped   supstyle
---- over delimiter   cramped   substyle
---- delimiter under  cramped   current
---- delimiter over   cramped   current
+--- radical/root     cramped   cramped   
+--- under delimiter  cramped   supstyle  
+--- over delimiter   cramped   substyle  
+--- delimiter under  cramped   current   
+--- delimiter over   cramped   current   
 ---
 ---When `\mathdefaultsmode` is larger than zero, we have:
---- scanning  rendering
+--- scanning  rendering 
 ---
---- radical/root     cramped   cramped
---- under delimiter  substyle  substyle
---- over delimiter   supstyle  supstyle
---- delimiter under  current   current
---- delimiter over   cramped   cramped
+--- radical/root     cramped   cramped   
+--- under delimiter  substyle  substyle  
+--- over delimiter   supstyle  supstyle  
+--- delimiter under  current   current   
+--- delimiter over   cramped   cramped   
 ---
 ---It is outside the scope of this manual to discuss the rationale behind these
 ---defaults. The zero values date back from the early times. If needed you can
