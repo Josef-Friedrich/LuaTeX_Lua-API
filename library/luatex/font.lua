@@ -47,27 +47,48 @@ font = {}
 
 ---
 ---@class Character
----@field width number # The character's width, in sp (default 0)
----@field height number # The character's height, in sp (default 0)
----@field depth number # The character's depth, in sp (default 0)
----@field italic number # The character's italic correction, in sp (default zero)
----@field top_accent number # The character's top accent alignment place, in sp (default zero)
----@field bot_accent number # The character's bottom accent alignment place, in sp (default zero)
----@field left_protruding number # The character's `lpcode`
----@field right_protruding number # The character's `rpcode`
----@field expansion_factor number # The character's `efcode`
+---@field width integer # The character's width, in sp (default 0)
+---@field height integer # The character's height, in sp (default 0)
+---@field depth integer # The character's depth, in sp (default 0)
+---@field italic integer # The character's italic correction, in sp (default zero)
+---@field top_accent integer # The character's top accent alignment place, in sp (default zero)
+---@field bot_accent integer # The character's bottom accent alignment place, in sp (default zero)
+---@field left_protruding integer # The character's `lpcode`
+---@field right_protruding integer # The character's `rpcode`
+---@field expansion_factor integer # The character's `efcode`
 ---@field tounicode string # The character's *Unicode* equivalent(s), in *UTF-8*-16BE hexadecimal format
----@field next number # The “next larger” character index
----@field extensible table # The constituent parts of an extensible recipe
----@field vert_variants table # The constituent parts of a vertical variant set
----@field horiz_variants table # The constituent parts of a horizontal variant set
----@field kerns table # The kerning information
----@field ligatures table # lThe igaturing information
+---@field next integer # The “next larger” character index
+---@field extensible CharacterExtensible # The constituent parts of an extensible recipe
+---@field vert_variants CharacterComponent[] # The constituent parts of a vertical variant set
+---@field horiz_variants CharacterComponent[] # The constituent parts of a horizontal variant set
+---@field kerns table # The kerning information. The `kerns` table is a hash indexed by character index (and “character index” is defined as either a non-negative integer or the string value `right_boundary`), with the values of the kerning to be applied, in scaled points.
+---@field ligatures table<integer|'right_boundary', CharacterLigature> # The ligaturing information. The `ligatures` table is a hash indexed by character index (and “character index” is defined as either a non-negative integer or the string value `right_boundary`), with the values being yet another small hash.
 ---@field commands Commands # The virtual font commands
 ---@field name string # The character (*PostScript*) name
----@field index number # The (*OpenType* or *TrueType*) font glyph index
+---@field index integer # The (*OpenType* or *TrueType*) font glyph index
 ---@field used boolean # Already typeset (default: false)
 ---@field mathkern table # The math cut-in specifications
+
+---
+---@class CharacterLigature
+---@field type integer # the type of this ligature command, default 0
+---@field char integer # the character index of the resultant ligature
+
+---
+---@class CharacterExtensible
+---@field top integer # The top character index.
+---@field mid integer # The middle character index.
+---@field bot integer # The bottom character index.
+---@field rep integer # The repeatable character index.
+
+---
+---@class CharacterComponent
+---@field glyph integer # The character index. Note that this is an encoding number, not a name.
+---@field extender integer # One (1) if this part is repeatable, zero (0) otherwise.
+---@field start integer # The maximum overlap at the starting side (in scaled points).
+---@field end integer # The maximum overlap at the ending side (in scaled points).
+---@field advance integer # The total advance width of this item. It can be zero or missing, then the natural size of the glyph for character `component` is used.
+---
 
 ---
 ---@alias FontType
@@ -147,45 +168,45 @@ font = {}
 ---@field area string # (directory) location, typically empty
 ---@field used boolean # Indicates usage (initial: false). The key `used` is set by the engine when a font is actively in use. This makes sure that the font's definition is written to the output file (*DVI* or *PDF*). The *tfm* reader sets it to false.
 ---@field characters table<integer, Character> # the defined glyphs of this font
----@field checksum number # default: 0
----@field designsize number # expected size (default: 655360 == 10pt)
+---@field checksum integer # default: 0
+---@field designsize integer # expected size (default: 655360 == 10pt)
 ---@field direction FontDirection # default: 0
----@field encodingbytes number # default: depends on `format`
+---@field encodingbytes integer # default: depends on `format`
 ---@field encodingname string # encoding name
 ---@field fonts table # locally used fonts
 ---@field psname string # This is the *PostScript* fontname in the incoming font source, and it's used as fontname identifier in the *PDF* output. This has to be a valid string, e.g.\ no spaces and such, as the backend will not do a cleanup. This gives complete control to the loader.
 ---@field fullname string # output font name, used as a fallback in the *PDF* output if the `psname` is not set
----@field subfont number # default: 0, index in (`ttc`) font with multiple fonts
+---@field subfont number # default: 0, index in (`ttc`) font with multiple fonts. The `subfont` parameter can be used to specify the subfont in a `ttc` font. When given, it is used instead of the `psname` and `fullname` combination. The first subfont has number 1. A zero value signals using the names as lookup.
 ---@field header string # header comments, if any
----@field hyphenchar number # default: *TeX*'s `hyphenchar`
+---@field hyphenchar integer # default: *TeX*'s `hyphenchar`
 ---@field parameters FontParameters # default: 7 parameters, all zero
----@field size number # the required scaling (by default the same as designsize)
----@field skewchar number # default: *TeX*'s `skewchar`
+---@field size integer # the required scaling (by default the same as designsize)
+---@field skewchar integer # default: *TeX*'s `skewchar`
 ---@field type FontType # basic type of this font
 ---@field format FontFormat # disk format type
 ---@field embedding FontEmbedding # *PDF* inclusion
 ---@field filename string # the name of the font on disk
----@field tounicode number # When this is set to 1 *LuaTeX* assumes per-glyph tounicode entries are present in the font.
----@field stretch number # the “stretch” value from `expandglyphsinfont`
----@field shrink number # the “shrink” value from `expandglyphsinfont`
----@field step number # the “step” value from `expandglyphsinfont`
----@field expansion_factor number # the actual expansion factor of an expanded font
+---@field tounicode integer # When this is set to 1 *LuaTeX* assumes per-glyph tounicode entries are present in the font.
+---@field stretch integer # the “stretch” value from `expandglyphsinfont`
+---@field shrink integer # the “shrink” value from `expandglyphsinfont`
+---@field step integer # the “step” value from `expandglyphsinfont`
+---@field expansion_factor integer # the actual expansion factor of an expanded font
 ---@field attributes string # the `pdffontattr`. The key `attributes` can be used to set font attributes in the *PDF* file.
 ---@field cache string # This key controls caching of the *Lua* table on the *TeX* end where `yes` means: use a reference to the table that is passed to *LuaTeX* (this is the default), and `no` means: don't store the table reference, don't cache any *Lua* data for this font while `renew` means: don't store the table reference, but save a reference to the table that is created at the first access to one of its fields in the font.
 ---@field nomath boolean # This key allows a minor speedup for text fonts. If it is present and true, then *LuaTeX* will not check the character entries for math-specific keys.
 ---@field oldmath boolean # This key flags a font as representing an old school *TeX* math font and disables the *OpenType* code path.
----@field slant number # This parameter will tilt the font and does the same as `SlantFont` in the map file for *Type1* fonts.
----@field extend number # This parameter will scale the font horizontally and does the same as `ExtendFont` in the map file for *Type1* fonts.
----@field squeeze number # This parameter will scale the font vertically and has no equivalent in the map file.
----@field width number # The backend will inject *PDF* operators that set the penwidth. The value is (as usual in *TeX*) divided by 1000. It works with the `mode` file.
----@field mode number # The backend will inject *PDF* operators that relate to the drawing mode with 0 being a fill, 1 being an outline, 2 both draw and fill and 3 no painting at all.
+---@field slant integer # This parameter will tilt the font and does the same as `SlantFont` in the map file for *Type1* fonts.
+---@field extend integer # This parameter will scale the font horizontally and does the same as `ExtendFont` in the map file for *Type1* fonts.
+---@field squeeze integer # This parameter will scale the font vertically and has no equivalent in the map file.
+---@field width integer # The backend will inject *PDF* operators that set the penwidth. The value is (as usual in *TeX*) divided by 1000. It works with the `mode` file.
+---@field mode integer # The backend will inject *PDF* operators that relate to the drawing mode with 0 being a fill, 1 being an outline, 2 both draw and fill and 3 no painting at all.
 ---
 
 ---
 ---@class VfFont
 ---@field name string # metric (file) name
 ---@field characters table<integer, Character> # the defined glyphs of this font
----@field checksum number # default: 0
+---@field checksum integer # default: 0
 ---@field fonts table # locally used fonts
 ---@field header string # header comments, if any
 ---@field type string # basic type of this font
@@ -196,12 +217,12 @@ font = {}
 ---@field area string # (directory) location, typically empty
 ---@field used boolean # Indicates usage (initial: false). The key `used` is set by the engine when a font is actively in use. This makes sure that the font's definition is written to the output file (*DVI* or *PDF*). The *tfm* reader sets it to false.
 ---@field characters table<integer, Character> # the defined glyphs of this font
----@field checksum number # default: 0
----@field designsize number # expected size (default: 655360 == 10pt)
+---@field checksum integer # default: 0
+---@field designsize integer # expected size (default: 655360 == 10pt)
 ---@field direction FontDirection # default: 0
 ---@field parameters FontParameters # default: 7 parameters, all zero
----@field size number # the required scaling (by default the same as designsize)
----@field tounicode number # When this is set to 1 *LuaTeX* assumes per-glyph tounicode entries are present in the font.
+---@field size integer # the required scaling (by default the same as designsize)
+---@field tounicode integer # When this is set to 1 *LuaTeX* assumes per-glyph tounicode entries are present in the font.
 
 ---
 ---Load a TFM (`TeX` font metric) file.
