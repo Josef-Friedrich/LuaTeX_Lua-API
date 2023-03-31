@@ -448,7 +448,7 @@ _N._9_3_1_open_read_file = 172
 --- `read_pk_file`        pk bitmap files
 --- `read_data_file`      embedded files (as is possible with *PDF* objects)
 --- `read_truetype_file`  *TrueType* font files
---- `read_type1_file`     \TYPEONE\ font files
+--- `read_type1_file`     *Type1* font files
 --- `read_opentype_file`  *OpenType* font files
 ---
 

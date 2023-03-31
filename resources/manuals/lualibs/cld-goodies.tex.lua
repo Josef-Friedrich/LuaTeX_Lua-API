@@ -16,7 +16,7 @@
 ---and *LuaTeX* provides quite some. In *ConTeXt* we support basic functionality,
 ---like *OpenType* features, as well as some extra functionality. We also have a
 ---mechanism for making virtual fonts which is mostly used for the transition from
----\TYPEONE\ math fonts to *OpenType* math fonts. Instead of hard coding specific
+---*Type1* math fonts to *OpenType* math fonts. Instead of hard coding specific
 ---details in the core *Lua* code, we use so called *Lua* Font Goodies to control
 ---them. These goodies are collected in tables and live in files. When a font is
 ---loaded, one or more such goodie files can be loaded alongside.
@@ -58,7 +58,7 @@
 ---
 ---\startsection[title=Virtual math fonts]
 ---
----A virtual font is defined using the `virtuals` entry in the `mathematics` subtable. As \TYPEONE\ fonts are used, an additional table `mapfiles` is needed to specify the files that map filenames onto real files.
+---A virtual font is defined using the `virtuals` entry in the `mathematics` subtable. As *Type1* fonts are used, an additional table `mapfiles` is needed to specify the files that map filenames onto real files.
 ---
 ---\startsmalltyping
 ---return {
@@ -286,7 +286,7 @@
 ---
 ---\startsection[title=Unicoding]
 ---
----We still have to deal with existing \TYPEONE\ fonts, and some of them have an
+---We still have to deal with existing *Type1* fonts, and some of them have an
 ---encoding that is hard to map onto *Unicode* without additional information. The
 ---following goodie does that. The keys in the `unicodes` table are the glyph
 ---names. Keep in mind that this only works with simple fonts. The *ConTeXt* code
@@ -556,7 +556,7 @@
 ---\startsection[title=Composition]
 ---
 ---The `compose` features extends a font with additional (virtual) shapes.
----This is mostly used with \TYPEONE\ fonts that lack support for eastern european
+---This is mostly used with *Type1* fonts that lack support for eastern european
 ---languages. The type {compositions} subtable is used to control placement of
 ---accents. This can be done per font.
 ---

@@ -892,7 +892,7 @@ tex.scriptspace = 0
 tex.splitmaxdepth = 0
 
 ---
----`\vfuzz`: Excess size that TEX tolerates before it considers a vertical box overfull.
+---`*vf*uzz`: Excess size that TEX tolerates before it considers a vertical box overfull.
 ---
 ---__Reference:__
 ---

@@ -127,7 +127,7 @@ Your callback function should have the following conventions:
     function (<string> asked_name)
 \stopfunctioncall
 
-The \type {asked_name} is an \OTF\ or \TFM\ font metrics file.
+The \type {asked_name} is an \OTF\ or *tfm* font metrics file.
 
 Return \type {nil} if the file cannot be found.
 
@@ -163,7 +163,7 @@ is always opened in the current directory).
 \topicindex{callbacks+font files}
 
 Like \cbk {find_font_file}, but for virtual fonts. This applies to both \ALEPH's
-\OVF\ files and traditional Knuthian \VF\ files.
+\OVF\ files and traditional Knuthian *vf* files.
 
 \subsection{\cbk {find_map_file}}
 
@@ -362,7 +362,7 @@ The list of functions is:
 \NC \type{read_pk_file}       \NC pk bitmap files \NC \NR
 \NC \type{read_data_file}     \NC embedded files (as is possible with \PDF\ objects) \NC \NR
 \NC \type{read_truetype_file} \NC \TRUETYPE\ font files \NC \NR
-\NC \type{read_type1_file}    \NC \TYPEONE\ font files \NC \NR
+\NC \type{read_type1_file}    \NC *Type1* font files \NC \NR
 \NC \type{read_opentype_file} \NC \OPENTYPE\ font files \NC \NR
 \LL
 \stoptabulate

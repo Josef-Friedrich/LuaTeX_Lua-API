@@ -121,7 +121,7 @@ by \type {fontloader.to_table}.
 
 The font file is parsed and partially interpreted by the font loading routines
 from \FONTFORGE. The file format can be \OPENTYPE, \TRUETYPE, \TRUETYPE\
-Collection, \CFF, or \TYPEONE.
+Collection, \CFF, or *Type1*.
 
 There are a few advantages to this approach compared to reading the actual font
 file ourselves:
@@ -187,7 +187,7 @@ returned.
 
 \startsection[title={Applying an \quote{\AFM\ file}}][library=fontloader]
 
-\topicindex {\TYPEONE}
+\topicindex {*Type1*}
 
 \libindex{apply_afmfile}
 
@@ -198,7 +198,7 @@ You can apply an \quote {\AFM\ file} to a loaded font:
 \stopfunctioncall
 
 An \AFM\ file is a textual representation of (some of) the meta information
-in a \TYPEONE\ font. See
+in a *Type1* font. See
 
 \starttyping
 ftp://ftp.math.utah.edu/u/ma/hohn/linux/postscript/5004.AFM_Spec.pdf
@@ -206,7 +206,7 @@ ftp://ftp.math.utah.edu/u/ma/hohn/linux/postscript/5004.AFM_Spec.pdf
 
 for more information about \AFM\ files.
 
-Note: If you \type {fontloader.open} a \TYPEONE\ file named \type {font.pfb},
+Note: If you \type {fontloader.open} a *Type1* file named \type {font.pfb},
 the library will automatically search for and apply \type {font.afm} if it exists
 in the same directory as the file \type {font.pfb}. In that case, there is no
 need for an explicit call to \type {apply_afmfile()}.

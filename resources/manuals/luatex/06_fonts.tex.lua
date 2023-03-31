@@ -11,52 +11,52 @@
 ---All *TeX* fonts are represented to *Lua* code as tables, and internally as
 ---*C code* structures. All keys in the table below are saved in the internal font
 ---structure if they are present in the table returned by the `define_font`
----callback, or if they result from the normal \TFM/\VF\ reading routines if there
+---callback, or if they result from the normal *tfm*/*vf* reading routines if there
 ---is no `define_font` callback defined.
 ---
----The column “\VF” means that this key will be created by the `font.read_vf()` routine, “\TFM” means that the key will be created by the
+---The column “*vf*” means that this key will be created by the `font.read_vf()` routine, “*tfm*” means that the key will be created by the
 ---`font.read_tfm()` routine, and “used” means whether or not the
 ---*LuaTeX* engine itself will do something with the key. The top-level keys in
 ---the table are as follows:
 ---
---- key                      vf   tfm  used  value type  description 
+--- key                      vf   tfm  used  value type  description
 ---
---- `name`              yes  yes  yes   string      metric (file) name 
---- `area`              no   yes  yes   string      (directory) location, typically empty 
---- `used`              no   yes  yes   boolean     indicates usage (initial: false) 
---- `characters`        yes  yes  yes   table       the defined glyphs of this font 
---- `checksum`          yes  yes  no    number      default: 0 
---- `designsize`        no   yes  yes   number      expected size (default: 655360 == 10pt) 
---- `direction`         no   yes  yes   number      default: 0 
---- `encodingbytes`     no   no   yes   number      default: depends on `format` 
---- `encodingname`      no   no   yes   string      encoding name 
---- `fonts`             yes  no   yes   table       locally used fonts 
---- `psname`            no   no   yes   string      This is the *PostScript* fontname in the incoming font source, and it's used as fontname identifier in the *PDF* output. This has to be a valid string, e.g.\ no spaces and such, as the backend will not do a cleanup. This gives complete control to the loader. 
---- `fullname`          no   no   yes   string      output font name, used as a fallback in the *PDF* output if the `psname` is not set 
---- `subfont`           no   no   yes   number      default: 0, index in (`ttc`) font with multiple fonts 
---- `header`            yes  no   no    string      header comments, if any 
---- `hyphenchar`        no   no   yes   number      default: *TeX*'s `hyphenchar` 
---- `parameters`        no   yes  yes   hash        default: 7 parameters, all zero 
---- `size`              no   yes  yes   number      the required scaling (by default the same as designsize) 
---- `skewchar`          no   no   yes   number      default: *TeX*'s `skewchar` 
---- `type`              yes  no   yes   string      basic type of this font 
---- `format`            no   no   yes   string      disk format type 
---- `embedding`         no   no   yes   string      *PDF* inclusion  
---- `filename`          no   no   yes   string      the name of the font on disk 
---- `tounicode`         no   yes  yes   number      When this is set to 1 *LuaTeX* assumes per-glyph tounicode entries are present in the font. 
---- `stretch`           no   no   yes   number      the “stretch” value from `expandglyphsinfont` 
---- `shrink`            no   no   yes   number      the “shrink” value from `expandglyphsinfont` 
---- `step`              no   no   yes   number      the “step” value from `expandglyphsinfont` 
---- `expansion_factor`  no   no   no    number      the actual expansion factor of an expanded font 
---- `attributes`        no   no   yes   string      the \orm {pdffontattr} 
---- `cache`             no   no   yes   string      This key controls caching of the *Lua* table on the *TeX* end where `yes` means: use a reference to the table that is passed to *LuaTeX* (this is the default), and `no` means: don't store the table reference, don't cache any *Lua* data for this font while `renew` means: don't store the table reference, but save a reference to the table that is created at the first access to one of its fields in the font. 
---- `nomath`            no   no   yes   boolean     This key allows a minor speedup for text fonts. If it is present and true, then *LuaTeX* will not check the character entries for math-specific keys. 
---- `oldmath`           no   no   yes   boolean     This key flags a font as representing an old school *TeX* math font and disables the *OpenType* code path. 
---- `slant`             no   no   yes   number      This parameter will tilt the font and does the same as `SlantFont` in the map file for \TYPEONE\ fonts. 
---- `extend`            no   no   yes   number      This parameter will scale the font horizontally and does the same as `ExtendFont` in the map file for \TYPEONE\ fonts. 
---- `squeeze`           no   no   yes   number      This parameter will scale the font vertically and has no equivalent in the map file. 
---- `width`             no   no   yes   number      The backend will inject *PDF* operators that set the penwidth. The value is (as usual in *TeX*) divided by 1000. It works with the `mode` file. 
---- `mode`              no   no   yes   number      The backend will inject *PDF* operators that relate to the drawing mode with 0 being a fill, 1 being an outline, 2 both draw and fill and 3 no painting at all. 
+--- `name`              yes  yes  yes   string      metric (file) name
+--- `area`              no   yes  yes   string      (directory) location, typically empty
+--- `used`              no   yes  yes   boolean     indicates usage (initial: false)
+--- `characters`        yes  yes  yes   table       the defined glyphs of this font
+--- `checksum`          yes  yes  no    number      default: 0
+--- `designsize`        no   yes  yes   number      expected size (default: 655360 == 10pt)
+--- `direction`         no   yes  yes   number      default: 0
+--- `encodingbytes`     no   no   yes   number      default: depends on `format`
+--- `encodingname`      no   no   yes   string      encoding name
+--- `fonts`             yes  no   yes   table       locally used fonts
+--- `psname`            no   no   yes   string      This is the *PostScript* fontname in the incoming font source, and it's used as fontname identifier in the *PDF* output. This has to be a valid string, e.g.\ no spaces and such, as the backend will not do a cleanup. This gives complete control to the loader.
+--- `fullname`          no   no   yes   string      output font name, used as a fallback in the *PDF* output if the `psname` is not set
+--- `subfont`           no   no   yes   number      default: 0, index in (`ttc`) font with multiple fonts
+--- `header`            yes  no   no    string      header comments, if any
+--- `hyphenchar`        no   no   yes   number      default: *TeX*'s `hyphenchar`
+--- `parameters`        no   yes  yes   hash        default: 7 parameters, all zero
+--- `size`              no   yes  yes   number      the required scaling (by default the same as designsize)
+--- `skewchar`          no   no   yes   number      default: *TeX*'s `skewchar`
+--- `type`              yes  no   yes   string      basic type of this font
+--- `format`            no   no   yes   string      disk format type
+--- `embedding`         no   no   yes   string      *PDF* inclusion
+--- `filename`          no   no   yes   string      the name of the font on disk
+--- `tounicode`         no   yes  yes   number      When this is set to 1 *LuaTeX* assumes per-glyph tounicode entries are present in the font.
+--- `stretch`           no   no   yes   number      the “stretch” value from `expandglyphsinfont`
+--- `shrink`            no   no   yes   number      the “shrink” value from `expandglyphsinfont`
+--- `step`              no   no   yes   number      the “step” value from `expandglyphsinfont`
+--- `expansion_factor`  no   no   no    number      the actual expansion factor of an expanded font
+--- `attributes`        no   no   yes   string      the \orm {pdffontattr}
+--- `cache`             no   no   yes   string      This key controls caching of the *Lua* table on the *TeX* end where `yes` means: use a reference to the table that is passed to *LuaTeX* (this is the default), and `no` means: don't store the table reference, don't cache any *Lua* data for this font while `renew` means: don't store the table reference, but save a reference to the table that is created at the first access to one of its fields in the font.
+--- `nomath`            no   no   yes   boolean     This key allows a minor speedup for text fonts. If it is present and true, then *LuaTeX* will not check the character entries for math-specific keys.
+--- `oldmath`           no   no   yes   boolean     This key flags a font as representing an old school *TeX* math font and disables the *OpenType* code path.
+--- `slant`             no   no   yes   number      This parameter will tilt the font and does the same as `SlantFont` in the map file for *Type1* fonts.
+--- `extend`            no   no   yes   number      This parameter will scale the font horizontally and does the same as `ExtendFont` in the map file for *Type1* fonts.
+--- `squeeze`           no   no   yes   number      This parameter will scale the font vertically and has no equivalent in the map file.
+--- `width`             no   no   yes   number      The backend will inject *PDF* operators that set the penwidth. The value is (as usual in *TeX*) divided by 1000. It works with the `mode` file.
+--- `mode`              no   no   yes   number      The backend will inject *PDF* operators that relate to the drawing mode with 0 being a fill, 1 being an outline, 2 both draw and fill and 3 no painting at all.
 ---
 ---The saved reference in the `cache` option is thread-local, so be careful
 ---when you are using coroutines: an error will be thrown if the table has been
@@ -90,16 +90,16 @@
 ---The key `attributes` can be used to set font attributes in the *PDF* file.
 ---The key `used` is set by the engine when a font is actively in use, this
 ---makes sure that the font's definition is written to the output file (\DVI\ or
----*PDF*). The \TFM\ reader sets it to false. The `direction` is a number
+---*PDF*). The *tfm* reader sets it to false. The `direction` is a number
 ---signalling the “normal” direction for this font. There are sixteen
 ---possibilities:
 ---
---- \#  dir  \#  dir  \#  dir  \#  dir 
+--- \#  dir  \#  dir  \#  dir  \#  dir
 ---
----  0  LT    4  RT    8  TT   12  BT  
----  1  LL    5  RL    9  TL   13  BL  
----  2  LB    6  RB   10  TB   14  BB  
----  3  LR    7  RR   11  TR   15  BR  
+---  0  LT    4  RT    8  TT   12  BT
+---  1  LL    5  RL    9  TL   13  BL
+---  2  LB    6  RB   10  TB   14  BB
+---  3  LR    7  RR   11  TR   15  BR
 ---
 ---These are \OMEGA-style direction abbreviations: the first character indicates
 ---the “first” edge of the character glyphs (the edge that is seen first in
@@ -114,15 +114,15 @@
 ---
 ---The names and their internal remapping are:
 ---
---- name                   remapping 
+--- name                   remapping
 ---
---- `slant`          1 
---- `space`          2 
---- `space_stretch`  3 
---- `space_shrink`   4 
---- `x_height`       5 
---- `quad`           6 
---- `extra_space`    7 
+--- `slant`          1
+--- `space`          2
+--- `space_stretch`  3
+--- `space_shrink`   4
+--- `x_height`       5
+--- `quad`           6
+--- `extra_space`    7
 ---
 ---The keys `type`, `format`, `embedding`, `fullname` and
 ---`filename` are used to embed *OpenType* fonts in the result *PDF*.
@@ -175,8 +175,8 @@
 --- `tounicode`         no   no   maybe  string   character's *Unicode* equivalent(s), in *UTF-8*-16BE hexadecimal format \NR
 --- `next`              no   yes  yes    number   the “next larger” character index \NR
 --- `extensible`        no   yes  yes    table    the constituent parts of an extensible recipe \NR
---- `vert_variants`     no   no   yes    table    constituent parts of a vertical variant set 
---- `horiz_variants`    no   no   yes    table    constituent parts of a horizontal variant set 
+--- `vert_variants`     no   no   yes    table    constituent parts of a vertical variant set
+--- `horiz_variants`    no   no   yes    table    constituent parts of a horizontal variant set
 --- `kerns`             no   yes  yes    table    kerning information \NR
 --- `ligatures`         no   yes  yes    table    ligaturing information \NR
 --- `commands`          yes  no   yes    array    virtual font commands \NR
@@ -218,13 +218,13 @@
 ---The `horiz_variants` and `vert_variants` are arrays of components.
 ---Each of those components is itself a hash of up to five keys:
 ---
---- key              type    explanation 
+--- key              type    explanation
 ---
----@field glyph number # The character index. Note that this is an encoding number, not a name. 
----@field extender number # One (1) if this part is repeatable, zero (0) otherwise. 
----@field start number # The maximum overlap at the starting side (in scaled points). 
----@field end number # The maximum overlap at the ending side (in scaled points). 
----@field advance number # The total advance width of this item. It can be zero or missing, then the natural size of the glyph for character `component` is used. 
+---@field glyph number # The character index. Note that this is an encoding number, not a name.
+---@field extender number # One (1) if this part is repeatable, zero (0) otherwise.
+---@field start number # The maximum overlap at the starting side (in scaled points).
+---@field end number # The maximum overlap at the ending side (in scaled points).
+---@field advance number # The total advance width of this item. It can be zero or missing, then the natural size of the glyph for character `component` is used.
 ---
 ---The `kerns` table is a hash indexed by character index (and “character index” is defined as either a non-negative integer or the string
 ---value `right_boundary`), with the values of the kerning to be applied, in
@@ -234,10 +234,10 @@
 ---value `right_boundary`), with the values being yet another small hash, with
 ---two fields:
 ---
---- key          type    description 
+--- key          type    description
 ---
----@field type number # the type of this ligature command, default 0 
----@field char number # the character index of the resultant ligature 
+---@field type number # the type of this ligature command, default 0
+---@field char number # the character index of the resultant ligature
 ---
 ---The `char` field in a ligature is required. The `type` field inside a
 ---ligature is the numerical or string value of one of the eight possible ligature
@@ -285,10 +285,10 @@
 ---The actions to be taken depend on a number of different variables:
 ---
 ---* Whether the used font fits in an 8-bit encoding scheme or not. This is true for
----    traditional *TeX* fonts that communicate via \TFM\ files.
+---    traditional *TeX* fonts that communicate via *tfm* files.
 ---
 ---* The type of the disk font file, for instance a bitmap file or an outline
----    \TYPEONE, *TrueType* or *OpenType* font.
+---    *Type1*, *TrueType* or *OpenType* font.
 ---
 ---* The level of embedding requested, although in most cases a subset of
 ---    characters is embedded. The times when nothing got embedded are (in our
@@ -297,8 +297,8 @@
 ---A font that uses anything other than an 8-bit encoding vector has to be written
 ---to the *PDF* in a different way. When the font table has `encodingbytes`
 ---set to 2, then it is a wide font, in all other cases it isn't. The value 2 is the
----default for *OpenType* and *TrueType* fonts loaded via *Lua*. For \TYPEONE\ fonts,
----you have to set `encodingbytes` to 2 explicitly. For \PK\ bitmap fonts,
+---default for *OpenType* and *TrueType* fonts loaded via *Lua*. For *Type1* fonts,
+---you have to set `encodingbytes` to 2 explicitly. For *pk* bitmap fonts,
 ---wide font encoding is not supported at all.
 ---
 ---If no special care is needed, *LuaTeX* falls back to the mapfile-based solution
@@ -311,20 +311,20 @@
 ---are provided for backward compatibility only, and do not support the new wide
 ---encoding options.
 ---
---- value            description                                               
+--- value            description
 ---
---- `type1`     this is a *PostScript* \TYPEONE\ font                     
---- `type3`     this is a bitmapped (\PK) font                            
---- `truetype`  this is a *TrueType* or *TrueType*-based *OpenType* font 
---- `opentype`  this is a *PostScript*-based *OpenType* font             
+--- `type1`     this is a *PostScript* *Type1* font
+--- `type3`     this is a bitmapped (*pk*) font
+--- `truetype`  this is a *TrueType* or *TrueType*-based *OpenType* font
+--- `opentype`  this is a *PostScript*-based *OpenType* font
 ---
 ---Valid values for the `embedding` variable are:
 ---
---- value          description                             
+--- value          description
 ---
---- `no`      don't embed the font at all             
---- `subset`  include and atttempt to subset the font 
---- `full`    include this font in its entirety       
+--- `no`      don't embed the font at all
+--- `subset`  include and atttempt to subset the font
+--- `full`    include this font in its entirety
 ---
 ---The other fields are used as follows. The `fullname` will be the
 ---*PostScript*/*PDF* font name. The `cidinfo` will be used as the character
@@ -342,7 +342,7 @@
 ---the `index` key in the character information as value. The overall effect
 ---is like having an encoding based on numbers instead of traditional (*PostScript*)
 ---name-based reencoding. One way to get the correct `index` numbers for
----\TYPEONE\ fonts is by loading the font via `fontloader.open` and use the
+---*Type1* fonts is by loading the font via `fontloader.open` and use the
 ---table indices as `index` fields.
 ---
 ---In order to make sure that cut and paste of the final document works okay you can
@@ -378,7 +378,7 @@
 ---you are absolutely certain that a font is not a virtual font, assigning the value
 ---`real` to `type` will inhibit *LuaTeX* from looking for a virtual
 ---font file, thereby saving you a disk search. This only matters when we load a
----\TFM\ file.
+---*tfm* file.
 ---
 ---The `fonts` is an (indexed) *Lua* table. The values are one- or two-key
 ---hashes themselves, each entry indicating one of the base fonts in a virtual font.
@@ -404,23 +404,23 @@
 ---with the first entry representing a command and the extra items being the
 ---parameters to that command. The allowed commands and their arguments are:
 ---
---- command         arguments  type       description 
+--- command         arguments  type       description
 ---
----@field font`     1          number     select a new font from the local `fonts table # 
---- `char`     1          number     typeset this character number from the current font, and move right by the character's width 
+---@field font`     1          number     select a new font from the local `fonts table #
+--- `char`     1          number     typeset this character number from the current font, and move right by the character's width
 ---@field node 1          node       output this node # (list), and move right by the width of this list
 --- `slot`     2          2 numbers  a shortcut for the combination of a font and char command
 --- `push`     0                     save current position
---- `nop`      0                     do nothing 
---- `pop`      0                     pop position 
---- `rule`     2          2 numbers  output a rule `ht*wd`, and move right. 
---- `down`     1          number     move down on the page 
---- `right`    1          number     move right on the page 
---- `special`  1          string     output a `special` command 
---- `pdf`      2          2 strings  output a *PDF* literal, the first string is one of `origin`, `page`, `text`, `font`, `direct` or `raw`; if you have one string only `origin` is assumed 
---- `lua`      1          string, function   execute a *Lua* script when the glyph is embedded; in case of a function it gets the font id and character code passed 
---- `image`    1          image      output an image (the argument can be either an `<image>` variable or an `image_spec` table) 
---- `comment`  any        any        the arguments of this command are ignored 
+--- `nop`      0                     do nothing
+--- `pop`      0                     pop position
+--- `rule`     2          2 numbers  output a rule `ht*wd`, and move right.
+--- `down`     1          number     move down on the page
+--- `right`    1          number     move right on the page
+--- `special`  1          string     output a `special` command
+--- `pdf`      2          2 strings  output a *PDF* literal, the first string is one of `origin`, `page`, `text`, `font`, `direct` or `raw`; if you have one string only `origin` is assumed
+--- `lua`      1          string, function   execute a *Lua* script when the glyph is embedded; in case of a function it gets the font id and character code passed
+--- `image`    1          image      output an image (the argument can be either an `<image>` variable or an `image_spec` table)
+--- `comment`  any        any        the arguments of this command are ignored
 ---
 ---When a font id is set to 0 then it will be replaced by the currently assigned
 ---font id. This prevents the need for hackery with future id's. Normally one could
@@ -434,14 +434,14 @@
 ---makes sense in virtual fonts. Modes are somewhat fuzzy and partially inherited
 ---from *PDF*TEX.
 ---
---- mode            description 
+--- mode            description
 ---
---- `origin`  enter page mode and set the position 
---- `page`    enter page mode 
---- `text`    enter text mode 
---- `font`    enter font mode (kind of text mode, only in virtual fonts) 
---- `always`  finish the current string and force a transform if needed 
---- `raw`     finish the current string 
+--- `origin`  enter page mode and set the position
+--- `page`    enter page mode
+--- `text`    enter text mode
+--- `font`    enter font mode (kind of text mode, only in virtual fonts)
+--- `always`  finish the current string and force a transform if needed
+--- `raw`     finish the current string
 ---
 ---You always need to check what *PDF* code is generated because there can be all
 ---kind of interferences with optimization in the backend and fonts are complicated
@@ -550,7 +550,7 @@
 ---formats. Other font loading functionality is provided by the `fontloader`
 ---library that will be discussed in the next section.
 ---
----# Loading a \TFM\ file
+---# Loading a *tfm* file
 ---
 ---The behaviour documented in this subsection is considered stable in the sense that
 ---there will not be backward-incompatible changes any more.
@@ -567,7 +567,7 @@
 ---* If it is negative, its absolute value represents a “scaled”
 ---    setting relative to the designsize of the font.
 ---
----# Loading a \VF\ file
+---# Loading a *vf* file
 ---
 ---The behavior documented in this subsection is considered stable in the sense that
 ---there will not be backward-incompatible changes any more.
@@ -732,10 +732,10 @@
 ---
 --- value      effect \NR
 ---
---- `0`  the old behavior: add the offset to the height and only subtract the offset only from the depth when it is positive 
---- `1`  add the offset to the height and subtract it from the depth 
---- `2`  add the offset to the height and subtract it from the depth but keep the maxima of the current and previous results 
---- `3`  use the height and depth of the glyph, so no offset is applied 
+--- `0`  the old behavior: add the offset to the height and only subtract the offset only from the depth when it is positive
+--- `1`  add the offset to the height and subtract it from the depth
+--- `2`  add the offset to the height and subtract it from the depth but keep the maxima of the current and previous results
+--- `3`  use the height and depth of the glyph, so no offset is applied
 ---
 ----------------------------------------------------------------
 
@@ -752,12 +752,12 @@
 ---
 ---\hyphenation{xx-f-f-i-xx}
 ---
----     0  1  2 
----    
+---     0  1  2
+---
 ---     \ligmodefont \discretionaryligaturemode0 \hsize1pt xxffixx
 ---     \ligmodefont \discretionaryligaturemode1 \hsize1pt xxffixx
----     \ligmodefont \discretionaryligaturemode2 \hsize1pt xxffixx 
----    
+---     \ligmodefont \discretionaryligaturemode2 \hsize1pt xxffixx
+---
 ---
 ----------------------------------------------------------------
 

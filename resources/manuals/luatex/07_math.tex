@@ -444,7 +444,7 @@ While it is nice to have these math parameters available for tweaking, it would
 be tedious to have to set each of them by hand. For this reason, \LUATEX\
 initializes a bunch of these parameters whenever you assign a font identifier to
 a math family based on either the traditional math font dimensions in the font
-(for assignments to math family~2 and~3 using \TFM|-|based fonts like \type
+(for assignments to math family~2 and~3 using *tfm*|-|based fonts like \type
 {cmsy} and \type {cmex}), or based on the named values in a potential \type
 {MathConstants} table when the font is loaded via Lua. If there is a \type
 {MathConstants} table, this takes precedence over font dimensions, and in that
@@ -456,7 +456,7 @@ dimension names match those used in the \TeX book. Assignments to \prm
 {textfont} set the values for the cramped and uncramped display and text styles,
 \prm {scriptfont} sets the script styles, and \prm {scriptscriptfont} sets the
 scriptscript styles, so we have eight parameters for three font sizes. In the
-\TFM\ case, assignments only happen in family~2 and family~3 (and of course only
+*tfm* case, assignments only happen in family~2 and family~3 (and of course only
 for the parameters for which there are font dimensions).
 
 Besides the parameters below, \LUATEX\ also looks at the \quote {space} font
@@ -534,7 +534,7 @@ Note 1: \OPENTYPE\ fonts set \lpr {Umathlimitabovekern} and \lpr
 {Umathlimitbelowkern} to zero and set \lpr {Umathquad} to the font size of the
 used font, because these are not supported in the \type {MATH} table,
 
-Note 2: Traditional \TFM\ fonts do not set \lpr {Umathradicalrule} because
+Note 2: Traditional *tfm* fonts do not set \lpr {Umathradicalrule} because
 \TEX82\ uses the height of the radical instead. When this parameter is indeed not
 set when \LUATEX\ has to typeset a radical, a backward compatibility mode will
 kick in that assumes that an oldstyle \TEX\ font is used. Also, they do not set
@@ -542,23 +542,23 @@ kick in that assumes that an oldstyle \TEX\ font is used. Also, they do not set
 {Umathradicaldegreeraise}. These are then automatically initialized to
 $5/18$quad, $-10/18$quad, and 60.
 
-Note 3: If \TFM\ fonts are used, then the \lpr {Umathradicalvgap} is not set
+Note 3: If *tfm* fonts are used, then the \lpr {Umathradicalvgap} is not set
 until the first time \LUATEX\ has to typeset a formula because this needs
 parameters from both family~2 and family~3. This provides a partial backward
 compatibility with \TEX82, but that compatibility is only partial: once the \lpr
 {Umathradicalvgap} is set, it will not be recalculated any more.
 
-Note 4: When \TFM\ fonts are used a similar situation arises with respect to \lpr
+Note 4: When *tfm* fonts are used a similar situation arises with respect to \lpr
 {Umathspaceafterscript}: it is not set until the first time \LUATEX\ has to
 typeset a formula. This provides some backward compatibility with \TEX82. But
 once the \lpr {Umathspaceafterscript} is set, \prm {scriptspace} will never be
 looked at again.
 
-Note 5: Traditional \TFM\ fonts set \lpr {Umathconnectoroverlapmin} to zero
+Note 5: Traditional *tfm* fonts set \lpr {Umathconnectoroverlapmin} to zero
 because \TEX82\ always stacks extensibles without any overlap.
 
 Note 6: The \lpr {Umathoperatorsize} is only used in \prm {displaystyle}, and is
-only set in \OPENTYPE\ fonts. In \TFM\ font mode, it is artificially set to one
+only set in \OPENTYPE\ fonts. In *tfm* font mode, it is artificially set to one
 scaled point more than the initial attempt's size, so that always the \quote
 {first next} will be tried, just like in \TEX82.
 
@@ -1243,7 +1243,7 @@ $\Uhextensible width 1pt middle 0 "2194$
 \blank \startnarrower \getbuffer \stopnarrower \blank
 
 \LUATEX\ internally uses a structure that supports \OPENTYPE\ \quote
-{MathVariants} as well as \TFM\ \quote {extensible recipes}. In most cases where
+{MathVariants} as well as *tfm* \quote {extensible recipes}. In most cases where
 font metrics are involved we have a different code path for traditional fonts end
 \OPENTYPE\ fonts.
 

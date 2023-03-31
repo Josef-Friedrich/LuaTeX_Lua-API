@@ -5,36 +5,94 @@
 ---library that will be discussed in the next section.
 font = {}
 
----@class Character
----@field width number character's width, in sp (default 0)
----@field height number character's height, in sp (default 0)
----@field depth number character's depth, in sp (default 0)
----@field italic number character's italic correction, in sp (default zero)
----@field top_accent number character's top accent alignment place, in sp (default zero)
----@field bot_accent number character's bottom accent alignment place, in sp (default zero)
----@field left_protruding number character's `lpcode`
----@field right_protruding number character's `rpcode`
----@field expansion_factor number character's `efcode`
----@field tounicode string character's *Unicode* equivalent(s), in *UTF-8*-16BE hexadecimal format
----@field next number the “next larger” character index
----@field extensible table the constituent parts of an extensible recipe
----@field vert_variants table constituent parts of a vertical variant set
----@field horiz_variants table constituent parts of a horizontal variant set
----@field kerns table kerning information
----@field ligatures table ligaturing information
----@field commands table virtual font commands
----@field name string the character (*PostScript*) name
----@field index number the (*OpenType* or *TrueType*) font glyph index
----@field used boolean typeset already (default: false)
----@field mathkern table math cut-in specifications
+---
+---|  command  | arguments | type             | description |
+---|-----------|-----------|------------------|-------------|
+---| `font`    | 1         | number           | select a new font from the local `fonts table |
+---| `char`    | 1         | number           | typeset this character number from the current font, and move right by the character's width |
+---| `node`    | 1         | node             | output this node # (list), and move right by the width of this list |
+---| `slot`    | 2         | 2 numbers        | a shortcut for the combination of a font and char command |
+---| `push`    | 0         |                  | save current position |
+---| `nop`     | 0         |                  | do nothing |
+---| `pop`     | 0         |                  | pop position |
+---| `rule`    | 2         | 2 numbers        | output a rule `ht*wd`, and move right. |
+---| `down`    | 1         | number           | move down on the page |
+---| `right`   | 1         | number           | move right on the page |
+---| `special` | 1         | string           | output a `special` command |
+---| `pdf`     | 2         | 2 strings        | output a *PDF* literal, the first string is one of `origin`, `page`, `text`, `font`, `direct` or `raw`; if you have one string only `origin` is assumed |
+---| `lua`     | 1         | string, function | execute a *Lua* script when the glyph is embedded; in case of a function it gets the font id and character code passed |
+---| `image`   | 1         | image            | output an image (the argument can be either an `<image>` variable or an `image_spec` table) |
+---| `comment` | any       | any              | the arguments of this command are ignored |
+---
+---__Example:__
+---
+---```lua
+---commands = {
+---    { "push" },                     -- remember where we are
+---    { "right", 5000 },              -- move right about 0.08pt
+---    { "font", 3 },                  -- select the fonts[3] entry
+---    { "char", 97 },                 -- place character 97 (ASCII 'a')
+--- -- { "slot", 2, 97 },              -- an alternative for the previous two
+---    { "pop" },                      -- go all the way back
+---    { "down", -200000 },            -- move upwards by about 3pt
+---    { "special", "pdf: 1 0 0 rg" }  -- switch to red color
+--- -- { "pdf", "origin", "1 0 0 rg" } -- switch to red color (alternative)
+---    { "rule", 500000, 20000 }       -- draw a bar
+---    { "special", "pdf: 0 g" }       -- back to black
+--- -- { "pdf", "origin", "0 g" }      -- back to black (alternative)
+---}
+---```
+---
+---@alias Commands any[]
 
 ---
----# The font tables
+---@class Character
+---@field width number # The character's width, in sp (default 0)
+---@field height number # The character's height, in sp (default 0)
+---@field depth number # The character's depth, in sp (default 0)
+---@field italic number # The character's italic correction, in sp (default zero)
+---@field top_accent number # The character's top accent alignment place, in sp (default zero)
+---@field bot_accent number # The character's bottom accent alignment place, in sp (default zero)
+---@field left_protruding number # The character's `lpcode`
+---@field right_protruding number # The character's `rpcode`
+---@field expansion_factor number # The character's `efcode`
+---@field tounicode string # The character's *Unicode* equivalent(s), in *UTF-8*-16BE hexadecimal format
+---@field next number # The “next larger” character index
+---@field extensible table # The constituent parts of an extensible recipe
+---@field vert_variants table # The constituent parts of a vertical variant set
+---@field horiz_variants table # The constituent parts of a horizontal variant set
+---@field kerns table # The kerning information
+---@field ligatures table # lThe igaturing information
+---@field commands Commands # The virtual font commands
+---@field name string # The character (*PostScript*) name
+---@field index number # The (*OpenType* or *TrueType*) font glyph index
+---@field used boolean # Already typeset (default: false)
+---@field mathkern table # The math cut-in specifications
+
+---
+---@alias FontType
+---|`real` # this is a base font
+---|`virtual` # this is a virtual font
+
+---
+---@alias FontFormat
+---|`type1` # this is a *PostScript* *Type1* font
+---|`type3` # this is a bitmapped (*pk*) font
+---|`truetype` # this is a *TrueType* or *TrueType*-based *OpenType* font
+---|`opentype` # this is a *PostScript*-based *OpenType* font
+---
+
+---
+---@alias FontEmbedding
+---|`no` # don't embed the font at all
+---|`subset` # include and atttempt to subset the font
+---|`full` # include this font in its entirety
+
 ---
 ---All *TeX* fonts are represented to *Lua* code as tables, and internally as
 ---*C code* structures. All keys in the table below are saved in the internal font
 ---structure if they are present in the table returned by the `define_font`
----callback, or if they result from the normal \TFM/\VF\ reading routines if there
+---callback, or if they result from the normal *tfm*/*vf* reading routines if there
 ---is no `define_font` callback defined.
 ---
 ---@class Font
@@ -56,9 +114,9 @@ font = {}
 ---@field parameters table # default: 7 parameters, all zero
 ---@field size number # the required scaling (by default the same as designsize)
 ---@field skewchar number # default: *TeX*'s `skewchar`
----@field type string # basic type of this font
----@field format string # disk format type
----@field embedding string # *PDF* inclusion
+---@field type FontType # basic type of this font
+---@field format FontFormat # disk format type
+---@field embedding FontEmbedding # *PDF* inclusion
 ---@field filename string # the name of the font on disk
 ---@field tounicode number # When this is set to 1 *LuaTeX* assumes per-glyph tounicode entries are present in the font.
 ---@field stretch number # the “stretch” value from `expandglyphsinfont`
@@ -69,8 +127,8 @@ font = {}
 ---@field cache string # This key controls caching of the *Lua* table on the *TeX* end where `yes` means: use a reference to the table that is passed to *LuaTeX* (this is the default), and `no` means: don't store the table reference, don't cache any *Lua* data for this font while `renew` means: don't store the table reference, but save a reference to the table that is created at the first access to one of its fields in the font.
 ---@field nomath boolean # This key allows a minor speedup for text fonts. If it is present and true, then *LuaTeX* will not check the character entries for math-specific keys.
 ---@field oldmath boolean # This key flags a font as representing an old school *TeX* math font and disables the *OpenType* code path.
----@field slant number # This parameter will tilt the font and does the same as `SlantFont` in the map file for \TYPEONE\ fonts.
----@field extend number # This parameter will scale the font horizontally and does the same as `ExtendFont` in the map file for \TYPEONE\ fonts.
+---@field slant number # This parameter will tilt the font and does the same as `SlantFont` in the map file for *Type1* fonts.
+---@field extend number # This parameter will scale the font horizontally and does the same as `ExtendFont` in the map file for *Type1* fonts.
 ---@field squeeze number # This parameter will scale the font vertically and has no equivalent in the map file.
 ---@field width number # The backend will inject *PDF* operators that set the penwidth. The value is (as usual in *TeX*) divided by 1000. It works with the `mode` file.
 ---@field mode number # The backend will inject *PDF* operators that relate to the drawing mode with 0 being a fill, 1 being an outline, 2 both draw and fill and 3 no painting at all.
