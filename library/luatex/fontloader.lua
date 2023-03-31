@@ -12,34 +12,8 @@ _N = {}
 fontloader = {}
 
 _N._12_the_fontloader = 0
-_N._12_1_getting_quick_information_on_a_font = 0
-_N._12_2_loading_an_opentype_or_truetype_file = 0
-_N._12_3_applying_a_feature_file = 0
-_N._12_4_applying_an_afm_file = 0
-_N._12_5_fontloader_font_tables = 0
-_N._12_6_Table_types = 0
-_N._12_6_2_glyphs = 0
-_N._12_6_3_map = 0
-_N._12_6_4_private = 0
-_N._12_6_5_cidinfo = 0
-_N._12_6_6_pfminfo = 0
-_N._12_6_7_names = 0
-_N._12_6_8_anchor_classes = 0
-_N._12_6_9_gpos = 0
-_N._12_6_10_gsub = 0
-_N._12_6_11_ttf_tables_and_ttf_tab_saved = 0
-_N._12_6_12_mm = 0
-_N._12_6_13_mark_classes = 0
-_N._12_6_14_math = 0
-_N._12_6_15_validation_state = 0
-_N._12_6_16_horiz_base_and_vert_base = 0
-_N._12_6_17_altuni = 0
-_N._12_6_18_vert_variants_and_horiz_variants = 0
-_N._12_6_19_mathkern = 0
-_N._12_6_20_kerns = 0
-_N._12_6_21_vkerns = 0
-_N._12_6_22_texdata = 0
-_N._12_6_23_lookups = 0
+
+_N._12_1_getting_quick_information_on_a_font = 239
 
 ---
 ---@class FontInfo
@@ -66,6 +40,8 @@ _N._12_6_23_lookups = 0
 ---
 ---@return FontInfo
 function fontloader.info(filename) end
+
+_N._12_2_loading_an_opentype_or_truetype_file = 0
 
 ---
 ---If you want to use an *OpenType* font, you have to get the metric information
@@ -103,6 +79,8 @@ function fontloader.to_table(font) end
 ---@param font userdata
 function fontloader.close(font) end
 
+_N._12_3_applying_a_feature_file = 241
+
 ---
 ---@param font userdata
 ---@param filename string
@@ -110,12 +88,30 @@ function fontloader.close(font) end
 ---@return table errors
 function fontloader.apply_featurefile(font, filename) end
 
+_N._12_4_applying_an_afm_file = 241
+
 ---
 ---@param font userdata
 ---@param filename string
 ---
 ---@return table errors
 function fontloader.apply_afmfile(font, filename) end
+
+_N._12_5_fontloader_font_tables = 241
+
+---
+---@param font userdata
+---
+---@return table FontloaderField
+function fontloader.fields(font) end
+
+---
+---@param font_glyph userdata
+---
+---@return table fields
+function fontloader.fields(font_glyph) end
+
+_N._12_6_Table_types = 0
 
 _N._main_table = "FontloaderField"
 
@@ -136,7 +132,7 @@ _N._main_table = "FontloaderField"
 ---@field upos number #
 ---@field uwidth number #
 ---@field uniqueid integer #
----@field glyphs Glyph[]
+---@field glyphs FontloaderGlyph[] # The `glyphs` is an array containing the per-character information (quite a few of these are only present if non-zero).
 ---@field glyphcnt integer # number of included glyphs
 ---@field glyphmax integer # maximum used index the glyphs array
 ---@field glyphmin integer # minimum used index the glyphs array
@@ -193,12 +189,12 @@ _N._main_table = "FontloaderField"
 ---@field extrema_bound integer #
 ---@field truetype integer # signals a *TrueType* font
 
+_N._12_6_2_glyphs = 244
+
 _N._glyphs = "Glyph"
 
 ---
----The `glyphs` is an array containing the per-character
----information (quite a few of these are only present if non-zero).
----@class Glyph
+---@class FontloaderGlyph
 ---@field name string # the glyph name
 ---@field unicode number # unicode code point, or -1
 ---@field boundingbox integer[] array of four numbers, see note below
@@ -224,14 +220,68 @@ _N._glyphs = "Glyph"
 ---@field horiz_variants table #
 ---@field mathkern table #
 
+_N._12_6_3_map = 247
+_N._12_6_4_private = 248
+_N._12_6_5_cidinfo = 248
+_N._12_6_6_pfminfo = 248
+_N._12_6_7_names = 249
+_N._12_6_8_anchor_classes = 250
+_N._12_6_9_gpos = 250
+_N._12_6_10_gsub = 251
+_N._12_6_11_ttf_tables_and_ttf_tab_saved = 251
+_N._12_6_12_mm = 251
+_N._12_6_13_mark_classes = 252
+_N._12_6_14_math = 252
+_N._12_6_15_validation_state = 253
+_N._12_6_16_horiz_base_and_vert_base = 253
+_N._12_6_17_altuni = 253
+_N._12_6_18_vert_variants_and_horiz_variants = 253
+_N._12_6_19_mathkern = 254
+_N._12_6_20_kerns = 254
+_N._12_6_21_vkerns = 254
+_N._12_6_22_texdata = 254
+_N._12_6_23_lookups = 254
+
+--
+---Top-level `lookups` is quite different from the ones at character level.
+---The keys in this hash are strings, the values the actual lookups, represented as
+---dictionary tables.
 ---
----@param font userdata
----
----@return table FontloaderField
-function fontloader.fields(font) end
+---@class FontloaderLockup
+---@field type string #
+---@field format `glyphs`|`class`|`coverage`|`reversecoverage`
+---@field tag string #
+---@field current_class  array
+---@field before_class   array
+---@field after_class    array
+---@field rules FontloaderLockupRule[] # an array of rule items
 
 ---
----@param font_glyph userdata
+---Rule items have one common item and one specialized item:
 ---
----@return table fields
-function fontloader.fields(font_glyph) end
+---@class FontloaderLockupRule
+---@field lookups         string[]  a linear array of lookup names
+---@field glyphs           FontloaderLockupGlyph[]  only if the parent's format is `glyphs`
+---@field class            FontloaderLockupClass[]  only if the parent's format is `class`
+---@field coverage         FontloaderLockupsCoverage[]  only if the parent's format is `coverage`
+---@field reversecoverage  FontloaderLockupReverseCoverage[]  only if the parent's format is `reversecoverage`
+
+---@class FontloaderLockupGlyph
+---@field names string #
+---@field back string #
+---@field fore string #
+
+---@class FontloaderLockupClass
+---@field before number[]
+---@field after number[]
+
+---@class FontloaderLockupsCoverage
+---@field current string[]
+---@field before string[]
+---@field after string[]
+
+---@class FontloaderLockupReverseCoverage
+---@field current string[]
+---@field before string[]
+---@field after string[]
+---@field replacements string #
