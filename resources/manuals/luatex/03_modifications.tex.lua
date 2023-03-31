@@ -54,11 +54,11 @@
 ---
 ---* The upper limit to `endlinechar` and `newlinechar` is 127.
 ---
----* Magnification (`mag`) is only supported in \DVI\ output mode. You can
+---* Magnification (`mag`) is only supported in *DVI* output mode. You can
 ---    set this parameter and it even works with `true` units till you switch
 ---    to *PDF* output mode. When you use *PDF* output you can best not touch the
 ---    `mag` variable. This fuzzy behaviour is not much different from using
----    *PDF* backend related functionality while eventually \DVI\ output is
+---    *PDF* backend related functionality while eventually *DVI* output is
 ---    required.
 ---
 ---    After the output mode has been frozen (normally that happens when the first
@@ -78,18 +78,18 @@
 ---* The \ETEX\ functionality is always present and enabled so the prepended
 ---    asterisk or `-etex` switch for \INITEX\ is not needed.
 ---
----* The *TeX*XET\ extension is not present, so the primitives `\TeXXeTstate`, `\beginR`, `\beginL`, `\endR` and `\endL` are missing. Instead we used the \OMEGA/\ALEPH\ approach to
+---* The *TeX*XET\ extension is not present, so the primitives `\TeXXeTstate`, `\beginR`, `\beginL`, `\endR` and `\endL` are missing. Instead we used the *Omega*/\ALEPH\ approach to
 ---    directionality as starting point.
 ---
 ---* Some of the tracing information that is output by \ETEX's `tracingassigns` and `tracingrestores` is not there.
 ---
----* Register management in *LuaTeX* uses the \OMEGA/\ALEPH\ model, so the maximum
+---* Register management in *LuaTeX* uses the *Omega*/\ALEPH\ model, so the maximum
 ---    value is 65535 and the implementation uses a flat array instead of the mixed
 ---    flat & sparse model from \ETEX.
 ---
 ---* When kpathsea is used to find files, *LuaTeX* uses the `ofm` file
 ---    format to search for font metrics. In turn, this means that *LuaTeX* looks at
----    the `OFMFONTS` configuration variable (like \OMEGA\ and \ALEPH) instead
+---    the `OFMFONTS` configuration variable (like *Omega* and \ALEPH) instead
 ---    of `TFMFONTS` (like *TeX* and *PDF*TEX). Likewise for virtual fonts
 ---    (*LuaTeX* uses the variable `OVFFONTS` instead of `VFFONTS`).
 ---
@@ -199,7 +199,7 @@
 ---
 ---* The \orm {pdffontexpand} primitive is now `expandglyphsinfont`.
 ---
----* Because position tracking is also available in \DVI\ mode the `savepos`,
+---* Because position tracking is also available in *DVI* mode the `savepos`,
 ---    `lastxpos` and `lastypos` commands now replace their `pdf`
 ---    prefixed originals.
 ---
@@ -286,7 +286,7 @@
 ---\startsubsection[title=Changes from \ALEPH\ RC4]
 ---
 ---Because we wanted proper directional typesetting the \ALEPH\ mechanisms looked
----most attractive. These are rather close to the ones provided by \OMEGA, so what
+---most attractive. These are rather close to the ones provided by *Omega*, so what
 ---we say next applies to both these programs.
 ---
 ---* The extended 16-bit math primitives (\orm {omathcode} etc.) have been
@@ -406,8 +406,8 @@
 ---In a previous section we mentioned that some *PDF*TEX\ primitives were removed and
 ---others promoted to core *LuaTeX* primitives. That is only part of the story. In
 ---order to separate the backend specific primitives in de code these commands are
----now replaced by only a few. In traditional *TeX* we only had the \DVI\ backend
----but now we have two: \DVI\ and *PDF*. Additional functionality is implemented as
+---now replaced by only a few. In traditional *TeX* we only had the *DVI* backend
+---but now we have two: *DVI* and *PDF*. Additional functionality is implemented as
 ---“extensions” in *TeX* speak. By separating more strickly we are able to
 ---keep the core (frontend) clean and stable and isolate these extensions. If for
 ---some reason an extra backend option is needed, it can be implemented without
@@ -838,7 +838,7 @@
 ---
 ---# Four directions
 ---
----The directional model in *LuaTeX* is inherited from \OMEGA/\ALEPH\ but we tried
+---The directional model in *LuaTeX* is inherited from *Omega*/\ALEPH\ but we tried
 ---to improve it a bit. At some point we played with recovery of modes but that was
 ---disabled later on when we found that it interfered with nested directions. That
 ---itself had as side effect that the node list was no longer balanced with respect
@@ -1072,7 +1072,7 @@
 ---nodes, and therefore has two states. At the *TeX* end we don't see these states
 ---because *TeX* itself will add proper end state nodes if needed.
 ---
----The symbolic names `TLT`, `TRT`, etc. originate in \OMEGA. In
+---The symbolic names `TLT`, `TRT`, etc. originate in *Omega*. In
 ---*LuaTeX* we also have a number based model which sometimes makes more sense.
 ---
 --- value      equivalent 
@@ -1082,7 +1082,7 @@
 --- `2`  LTL 
 --- `3`  RTT 
 ---
----We support the \OMEGA\ primitives \orm {textdir}, \orm {pardir}, \orm {pagedir},
+---We support the *Omega* primitives \orm {textdir}, \orm {pardir}, \orm {pagedir},
 ---\orm {pardir} and \orm {mathdir}. These accept three character keywords. The
 ---primitives that set the direction by number are: `textdirection`, `pardirection`, `pagedirection` and `bodydirection` and `mathdirection`. When specifying a direction for a box you can use `bdir`
 ---instead of `dir`.

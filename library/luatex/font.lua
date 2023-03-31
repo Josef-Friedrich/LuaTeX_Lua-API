@@ -89,6 +89,53 @@ font = {}
 ---|`full` # include this font in its entirety
 
 ---
+---The `direction` is a number
+---signalling the “normal” direction for this font. There are sixteen
+---possibilities.
+---
+---These are *Omega*-style direction abbreviations: the first character indicates
+---the “first” edge of the character glyphs (the edge that is seen first in
+---the writing direction), the second the “top” side. Keep in mind that
+---*LuaTeX* has a bit different directional model so these values are not used for
+---anything.
+---@alias FontDirection
+---|0 # LT
+---|1 # LL
+---|2 # LB
+---|3 # LR
+---|4 # RT
+---|5 # RL
+---|6 # RB
+---|7 # RR
+---|8 # TT
+---|9 # TL
+---|10 # TB
+---|11 # TR
+---|12 # BT
+---|13 # BL
+---|14 # BB
+---|15 # BR
+
+---
+---The `parameters` is a hash with mixed key types. There are seven possible
+---string keys, as well as a number of integer indices (these start from 8 up). The
+---seven strings are actually used instead of the bottom seven indices, because that
+---gives a nicer user interface.
+---
+---The names and their internal remapping are:
+---@alias FontParameterKey
+---|`slant` # 1
+---|`space` # 2
+---|`space_stretch` # 3
+---|`space_shrink` # 4
+---|`x_height` # 5
+---|`quad` # 6
+---|`extra_space` # 7
+
+---
+---@alias FontParameters table<FontParameterKey|integer, any>
+
+---
 ---All *TeX* fonts are represented to *Lua* code as tables, and internally as
 ---*C code* structures. All keys in the table below are saved in the internal font
 ---structure if they are present in the table returned by the `define_font`
@@ -98,11 +145,11 @@ font = {}
 ---@class Font
 ---@field name string # metric (file) name
 ---@field area string # (directory) location, typically empty
----@field used boolean # indicates usage (initial: false)
+---@field used boolean # Indicates usage (initial: false). The key `used` is set by the engine when a font is actively in use. This makes sure that the font's definition is written to the output file (*DVI* or *PDF*). The *tfm* reader sets it to false.
 ---@field characters table<integer, Character> # the defined glyphs of this font
 ---@field checksum number # default: 0
 ---@field designsize number # expected size (default: 655360 == 10pt)
----@field direction number # default: 0
+---@field direction FontDirection # default: 0
 ---@field encodingbytes number # default: depends on `format`
 ---@field encodingname string # encoding name
 ---@field fonts table # locally used fonts
@@ -111,7 +158,7 @@ font = {}
 ---@field subfont number # default: 0, index in (`ttc`) font with multiple fonts
 ---@field header string # header comments, if any
 ---@field hyphenchar number # default: *TeX*'s `hyphenchar`
----@field parameters table # default: 7 parameters, all zero
+---@field parameters FontParameters # default: 7 parameters, all zero
 ---@field size number # the required scaling (by default the same as designsize)
 ---@field skewchar number # default: *TeX*'s `skewchar`
 ---@field type FontType # basic type of this font
@@ -123,7 +170,7 @@ font = {}
 ---@field shrink number # the “shrink” value from `expandglyphsinfont`
 ---@field step number # the “step” value from `expandglyphsinfont`
 ---@field expansion_factor number # the actual expansion factor of an expanded font
----@field attributes string # the `pdffontattr`
+---@field attributes string # the `pdffontattr`. The key `attributes` can be used to set font attributes in the *PDF* file.
 ---@field cache string # This key controls caching of the *Lua* table on the *TeX* end where `yes` means: use a reference to the table that is passed to *LuaTeX* (this is the default), and `no` means: don't store the table reference, don't cache any *Lua* data for this font while `renew` means: don't store the table reference, but save a reference to the table that is created at the first access to one of its fields in the font.
 ---@field nomath boolean # This key allows a minor speedup for text fonts. If it is present and true, then *LuaTeX* will not check the character entries for math-specific keys.
 ---@field oldmath boolean # This key flags a font as representing an old school *TeX* math font and disables the *OpenType* code path.
@@ -147,12 +194,12 @@ font = {}
 ---@class TfmFont
 ---@field name string # metric (file) name
 ---@field area string # (directory) location, typically empty
----@field used boolean # indicates usage (initial: false)
+---@field used boolean # Indicates usage (initial: false). The key `used` is set by the engine when a font is actively in use. This makes sure that the font's definition is written to the output file (*DVI* or *PDF*). The *tfm* reader sets it to false.
 ---@field characters table<integer, Character> # the defined glyphs of this font
 ---@field checksum number # default: 0
 ---@field designsize number # expected size (default: 655360 == 10pt)
----@field direction number # default: 0
----@field parameters table # default: 7 parameters, all zero
+---@field direction FontDirection # default: 0
+---@field parameters FontParameters # default: 7 parameters, all zero
 ---@field size number # the required scaling (by default the same as designsize)
 ---@field tounicode number # When this is set to 1 *LuaTeX* assumes per-glyph tounicode entries are present in the font.
 
@@ -376,6 +423,17 @@ function font.current(font_id) end
 ---@return fun(): font_id: integer, font: Font
 function font.each() end
 
+---
+---Because we store the actual state of expansion with each glyph and don't have
+---special font instances, we can change some font related parameters before lines
+---are constructed, like:
+---
+---```
+---font.setexpansion(font.current(),100,100,20)
+---```
+---
+---This is mostly meant for experiments (or an optimizing routing written in *Lua*)
+---so there is no primitive.
 ---
 ---* Corresponding C source code: [lfontlib.c#L190-L204](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L190-L204)
 ---

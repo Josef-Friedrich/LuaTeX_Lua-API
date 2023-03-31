@@ -125,7 +125,7 @@
 ---    function (<string> asked_name)
 ---```
 ---
----The `asked_name` is the *PDF* or \DVI\ file for writing.
+---The `asked_name` is the *PDF* or *DVI* file for writing.
 ---
 ---# `find_format_file`
 ---

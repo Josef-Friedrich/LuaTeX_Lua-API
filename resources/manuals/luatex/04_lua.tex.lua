@@ -73,7 +73,7 @@
 --- `--lua=FILE`                    load and execute a *Lua* initialization script \NR
 --- `--[no-]mktex=FMT`              disable/enable `mktexFMT` generation with `FMT` is `tex` or `tfm` 
 --- `--nosocket`                    disable the *Lua* socket library \NR
---- `--output-comment=STRING`       use `STRING` for \DVI\ file comment instead of date (no effect for *PDF*) 
+--- `--output-comment=STRING`       use `STRING` for *DVI* file comment instead of date (no effect for *PDF*) 
 --- `--output-directory=DIR`        use `DIR` as the directory to write files to 
 --- `--output-format=FORMAT`        use `FORMAT` for job output; `FORMAT` is `dvi` or `pdf` 
 --- `--progname=STRING`             set the program name to `STRING` 

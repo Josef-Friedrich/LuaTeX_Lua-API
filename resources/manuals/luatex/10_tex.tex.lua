@@ -131,8 +131,8 @@
 --- `callbacks`           total number of executed callbacks so far 
 ---@field cs_count number # of control sequences 
 --- `dest_names_size`     *PDF* destination table size 
---- `dvi_gone`            written \DVI\ bytes 
---- `dvi_ptr`             not yet written \DVI\ bytes 
+--- `dvi_gone`            written *DVI* bytes 
+--- `dvi_ptr`             not yet written *DVI* bytes 
 --- `dyn_used`            token (multi-word) memory in use  
 --- `filename`            name of the current input file 
 --- `fix_mem_end`         maximum number of used tokens 
@@ -174,7 +174,7 @@
 --- `obj_ptr`             max *PDF* object pointer 
 --- `obj_tab_size`        *PDF* object table size 
 --- `output_active`       `true` if the `output` routine is active 
---- `output_file_name`    name of the *PDF* or \DVI\ file 
+--- `output_file_name`    name of the *PDF* or *DVI* file 
 --- `param_size`          parameter stack size 
 --- `pdf_dest_names_ptr`  max *PDF* destination pointer 
 --- `pdf_gone`            written *PDF* bytes 

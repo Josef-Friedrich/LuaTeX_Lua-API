@@ -633,7 +633,7 @@
 ---. % period
 ---
 ---Some of them are generic and independent of the output mode and others are
----specific to the chosen backend: \DVI\ or *PDF*. Here we discuss the generic
+---specific to the chosen backend: *DVI* or *PDF*. Here we discuss the generic
 ---font-end nodes nodes.
 ---
 ---# `open`
@@ -713,11 +713,11 @@
 
 
 ---
----# \DVI\ backend whatsits
+---# *DVI* backend whatsits
 ---
 ---# `special`
 ---
----There is only one \DVI\ backend whatsit, and it just flushes its content to the
+---There is only one *DVI* backend whatsit, and it just flushes its content to the
 ---output file.
 ---
 --- field        type    explanation 

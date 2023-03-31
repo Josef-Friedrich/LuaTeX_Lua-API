@@ -42,11 +42,11 @@
 ---The startup behaviour documented above is considered stable in the sense that
 ---there will not be backward-incompatible changes any more. We have promoted some
 ---rather generic *PDF*TEX\ primitives to core *LuaTeX* ones, and the few that we
----inherited from \ALEPH\ (\OMEGA) are also promoted. Effectively this means that we
+---inherited from \ALEPH\ (*Omega*) are also promoted. Effectively this means that we
 ---now only have the `tex`, `etex` and `luatex` sets left.
 ---
 ---In \in {Chapter} [modifications] we discuss several primitives that are derived
----from *PDF*TEX\ and \ALEPH\ (\OMEGA). Here we stick to real new ones. In the
+---from *PDF*TEX\ and \ALEPH\ (*Omega*). Here we stick to real new ones. In the
 ---chapters on fonts and math we discuss a few more new ones.
 ---
 ----------------------------------------------------------------
@@ -1315,7 +1315,7 @@
 ---
 --- value  output 
 ---
---- `0`  \DVI\ code 
+--- `0`  *DVI* code 
 --- `1`  *PDF* code 
 ---
 ----------------------------------------------------------------
@@ -1325,7 +1325,7 @@
 ---# `draftmode`
 ---
 ---The value of the `draftmode` counter signals the backend if it should output
----less. The *PDF* backend accepts a value of 1, while the \DVI\ backend ignores the
+---less. The *PDF* backend accepts a value of 1, while the *DVI* backend ignores the
 ---value. This is no critical feature so we can remove it in future versions when it
 ---can make the backend cleaner.
 ---

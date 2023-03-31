@@ -824,7 +824,7 @@ _N._whatsit = {}
 ---`node.whatsits`.
 ---
 ---Some of them are generic and independent of the output mode and others are
----specific to the chosen backend: \DVI\ or \PDF. Here we discuss the generic
+---specific to the chosen backend: *DVI* or \PDF. Here we discuss the generic
 ---font-end nodes nodes.
 ---
 ---Source: [luatex-nodes.tex#L781-L797](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L781-L797)

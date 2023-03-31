@@ -124,7 +124,7 @@ so there is no primitive.
 
 The key \type {attributes} can be used to set font attributes in the \PDF\ file.
 The key \type {used} is set by the engine when a font is actively in use, this
-makes sure that the font's definition is written to the output file (\DVI\ or
+makes sure that the font's definition is written to the output file (*DVI* or
 \PDF). The *tfm* reader sets it to false. The \type {direction} is a number
 signalling the \quote {normal} direction for this font. There are sixteen
 possibilities:
@@ -139,7 +139,7 @@ possibilities:
 \LL
 \stoptabulate
 
-These are \OMEGA|-|style direction abbreviations: the first character indicates
+These are *Omega*|-|style direction abbreviations: the first character indicates
 the \quote {first} edge of the character glyphs (the edge that is seen first in
 the writing direction), the second the \quote {top} side. Keep in mind that
 \LUATEX\ has a bit different directional model so these values are not used for
@@ -377,7 +377,7 @@ you have to set \type {encodingbytes} to~2 explicitly. For *pk* bitmap fonts,
 wide font encoding is not supported at all.
 
 If no special care is needed, \LUATEX\ falls back to the mapfile|-|based solution
-used by \PDFTEX\ and \DVIPS, so that legacy fonts are supported transparently. If
+used by \PDFTEX\ and *DVI*PS, so that legacy fonts are supported transparently. If
 a \quote {wide} font is used, the new subsystem kicks in, and some extra fields
 have to be present in the font structure. In this case, \LUATEX\ does not use a
 map file at all. These extra fields are: \type {format}, \type {embedding}, \type

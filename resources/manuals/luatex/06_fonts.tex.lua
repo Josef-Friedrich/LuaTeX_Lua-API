@@ -89,7 +89,7 @@
 ---
 ---The key `attributes` can be used to set font attributes in the *PDF* file.
 ---The key `used` is set by the engine when a font is actively in use, this
----makes sure that the font's definition is written to the output file (\DVI\ or
+---makes sure that the font's definition is written to the output file (*DVI* or
 ---*PDF*). The *tfm* reader sets it to false. The `direction` is a number
 ---signalling the “normal” direction for this font. There are sixteen
 ---possibilities:
@@ -101,7 +101,7 @@
 ---  2  LB    6  RB   10  TB   14  BB  
 ---  3  LR    7  RR   11  TR   15  BR  
 ---
----These are \OMEGA-style direction abbreviations: the first character indicates
+---These are *Omega*-style direction abbreviations: the first character indicates
 ---the “first” edge of the character glyphs (the edge that is seen first in
 ---the writing direction), the second the “top” side. Keep in mind that
 ---*LuaTeX* has a bit different directional model so these values are not used for
@@ -302,7 +302,7 @@
 ---wide font encoding is not supported at all.
 ---
 ---If no special care is needed, *LuaTeX* falls back to the mapfile-based solution
----used by *PDF*TEX\ and \DVIPS, so that legacy fonts are supported transparently. If
+---used by *PDF*TEX\ and *DVI*PS, so that legacy fonts are supported transparently. If
 ---a “wide” font is used, the new subsystem kicks in, and some extra fields
 ---have to be present in the font structure. In this case, *LuaTeX* does not use a
 ---map file at all. These extra fields are: `format`, `embedding`, `fullname`, `cidinfo` (as explained above), `filename`, and the `index` key in the separate characters.
