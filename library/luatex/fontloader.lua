@@ -11,12 +11,12 @@ _N = {}
 ---similar view on a font (which has advantages when you want to debug).
 fontloader = {}
 
-_N._12_The_fontloader = 0
-_N._12_1_Getting_quick_information_on_a_font = 0
-_N._12_2_Loading_an_OPENTYPE_or_TRUETYPE_file = 0
-_N._12_3_Applying_a_feature_file = 0
-_N._12_4_Applying_an_AFM_file = 0
-_N._12_5_Fontloader_font_tables = 0
+_N._12_the_fontloader = 0
+_N._12_1_getting_quick_information_on_a_font = 0
+_N._12_2_loading_an_opentype_or_truetype_file = 0
+_N._12_3_applying_a_feature_file = 0
+_N._12_4_applying_an_afm_file = 0
+_N._12_5_fontloader_font_tables = 0
 _N._12_6_Table_types = 0
 _N._12_6_2_glyphs = 0
 _N._12_6_3_map = 0
