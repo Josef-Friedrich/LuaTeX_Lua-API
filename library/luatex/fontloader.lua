@@ -16,15 +16,16 @@ _N._12_the_fontloader = 0
 _N._12_1_getting_quick_information_on_a_font = 239
 
 ---
+---* Corresponding C source code: [luafflib.c#L2257-L2284](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2257-L2284)^
 ---@class FontInfo
----@field fontname string # the *PostScript* name of the font
----@field fullname string # the formal name of the font
----@field familyname string # the family name this font belongs to
----@field weight string # a string indicating the color value of the font
----@field version string # the internal font version
----@field italicangle number # the slant angle
+---@field fontname string # The *PostScript* name of the font
+---@field fullname string # The formal name of the font
+---@field familyname string # The family name this font belongs to
+---@field weight string # A string indicating the color value of the font
+---@field version string # The internal font version
+---@field italicangle number # The slant angle
 ---@field units_per_em number # 1000 for *PostScript*-based fonts, usually 2048 for *TrueType*NC \NR
----@field pfminfo table # see fontloaderpfminfotable
+---@field pfminfo FontloaderPfminfo #
 
 ---
 ---This function returns either `nil`, or a `table`, or an array of
@@ -35,6 +36,8 @@ _N._12_1_getting_quick_information_on_a_font = 239
 ---Getting information through this function is (sometimes much) more efficient than
 ---loading the font properly, and is therefore handy when you want to create a
 ---dictionary of available fonts based on a directory contents.
+---
+---* Corresponding C source code: [luafflib.c#L2257-L2284](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2257-L2284)
 ---
 ---@param filename string
 ---
@@ -64,6 +67,8 @@ _N._12_2_loading_an_opentype_or_truetype_file = 0
 ---myfont = load_font('/opt/tex/texmf/fonts/data/arial.ttf')
 ---```
 ---
+---* Corresponding C source code: [luafflib.c#L198-L263](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L198-L263)
+---
 ---@param filename string
 ---@param fontname? string
 ---
@@ -72,17 +77,23 @@ _N._12_2_loading_an_opentype_or_truetype_file = 0
 function fontloader.open(filename, fontname) end
 
 ---
+---* Corresponding C source code: [luafflib.c#L2244-L2255](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2244-L2255)
+---
 ---@param font userdata
 ---
 ---@return FontloaderField f
 function fontloader.to_table(font) end
 
 ---
+---* Corresponding C source code: [luafflib.c#L265-L280](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L265-L280)
+---
 ---@param font userdata
 function fontloader.close(font) end
 
 _N._12_3_applying_a_feature_file = 241
 
+---
+---* Corresponding C source code: [luafflib.c#L313-L334](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L313-L334)
 ---
 ---@param font userdata
 ---@param filename string
@@ -93,6 +104,8 @@ function fontloader.apply_featurefile(font, filename) end
 _N._12_4_applying_an_afm_file = 241
 
 ---
+---* Corresponding C source code: [luafflib.c#L336-L355](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L336-L355)
+---
 ---@param font userdata
 ---@param filename string
 ---
@@ -102,11 +115,15 @@ function fontloader.apply_afmfile(font, filename) end
 _N._12_5_fontloader_font_tables = 241
 
 ---
+---* Corresponding C source code: [luafflib.c#L2491-L2511](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2491-L2511)
+---
 ---@param font userdata
 ---
 ---@return table FontloaderField
 function fontloader.fields(font) end
 
+---
+---* Corresponding C source code: [luafflib.c#L2491-L2511](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2491-L2511)
 ---
 ---@param font_glyph userdata
 ---
@@ -117,6 +134,8 @@ _N._12_6_Table_types = 0
 
 _N._main_table = "FontloaderField"
 
+---
+---* Corresponding C source code: [luafflib.c#L1900-L2242](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1900-L2242)
 ---
 ---@class FontloaderField
 ---@field table_version number # indicates the metrics version (currently 0.3)
@@ -152,7 +171,7 @@ _N._main_table = "FontloaderField"
 ---@field uni_interp `unset`|`none`|`adobe`|`greek`|`japanese`|`trad_chinese`|`simp_chinese`|`korean`|`ams`
 ---@field origname string # the file name, as supplied by the user
 ---@field map FontloaderMap #
----@field public private number #
+---@field public private FontloaderPrivate #
 ---@field xuid string #
 ---@field pfminfo FontloaderPfminfo #
 ---@field names FontloaderLangNames #
@@ -195,6 +214,8 @@ _N._12_6_2_glyphs = 244
 
 _N._glyphs = "Glyph"
 
+---
+---* Corresponding C source code: [luafflib.c#L959-L1120](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L959-L1120)
 ---
 ---@class FontloaderGlyph
 ---@field name string # the glyph name
@@ -279,14 +300,16 @@ _N._12_6_3_map = 247
 _N._12_6_4_private = 248
 
 ---
----# `private`
----
 ---This is the font's private *PostScript* dictionary, if any. Keys and values are
 ---both strings.
 ---
+---* Corresponding C source code: [luafflib.c#L2035-L2039](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2035-L2039)
+---@alias FontloaderPrivate string<string, string>
 
 _N._12_6_5_cidinfo = 248
 
+---
+---* Corresponding C source code: [luafflib.c#L2053-L2058](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2053-L2058)
 ---
 ---@class FontloaderCidinfo
 ---@field registry string #
@@ -300,7 +323,6 @@ _N._12_6_6_pfminfo = 248
 ---The `pfminfo` table contains most of the OS/2 information.
 ---
 ---* Corresponding C source code: [luafflib.c#L1200-L1281](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1200-L1281)
----
 ---
 ---@class FontloaderPfminfo
 ---@field pfmset integer #
@@ -351,7 +373,6 @@ _N._12_6_6_pfminfo = 248
 ---@field panose table #
 
 ---
----
 ---* Corresponding C source code: [luafflib.c#L1222-L1232](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1222-L1232)
 ---
 ---@class FontloaderPanose
@@ -370,14 +391,12 @@ _N._12_6_6_pfminfo = 248
 _N._12_6_7_names = 249
 
 ---
----
 ---* Corresponding C source code: [luafflib.c#L1418-L1416](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1418-L1416)
 ---
 ---@class FontloaderLangNames
 ---@field lang string # language for this entry
 ---@field names FontloaderNamesTrueType # The `names` keys are the actual *TrueType* name strings.
 
----
 ---
 ---* Corresponding C source code: [luafflib.c#L108-L115](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L108-L115)
 ---
@@ -409,7 +428,6 @@ _N._12_6_7_names = 249
 _N._12_6_8_anchor_classes = 250
 
 ---
----
 ---* Corresponding C source code: [luafflib.c#L1448-L1452](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1448-L1452)
 ---
 ---@class FontloaderAnchorClasses
@@ -419,7 +437,6 @@ _N._12_6_8_anchor_classes = 250
 
 _N._12_6_9_gpos = 250
 
----
 ---
 ---* Corresponding C source code: [luafflib.c#L580-L643](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L580-L643)
 ---
@@ -435,19 +452,16 @@ _N._12_6_9_gpos = 250
 ---
 ---* Corresponding C source code: [luafflib.c#L74-L76](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L74-L76)
 ---
----
 ---@class FontloaderGpos: FontloaderGposSub
 ---@field type `gpos_single`|`gpos_pair`|`gpos_cursive`|`gpos_mark2base`|`gpos_mark2ligature`|`gpos_mark2mark`|`gpos_context`|`gpos_contextchain`
 
 ---
----
 
+---
 ---The flags table has a true value for each of the lookup flags that is actually
 ---set:
 ---
----
 ---* Corresponding C source code: [luafflib.c#L587-L612](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L587-L612)
----
 ---
 ---@class FontloaderGposFlags
 ---@field r2l boolean #
@@ -462,7 +476,6 @@ _N._12_6_9_gpos = 250
 ---
 ---* Corresponding C source code: [luafflib.c#L523-L531](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L523-L531)
 ---
----
 ---@class FontloaderGposFeatures
 ---@field tag string #
 ---@field scripts FontloaderGposFeaturesScripts #
@@ -471,7 +484,6 @@ _N._12_6_9_gpos = 250
 ---The scripts table within features has:
 ---
 ---* Corresponding C source code: [luafflib.c#L492-L515](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L492-L515)
----
 ---
 ---@class FontloaderGposFeaturesScripts
 ---@field script string #
@@ -482,7 +494,6 @@ _N._12_6_9_gpos = 250
 ---The subtables table has:
 ---
 ---* Corresponding C source code: [luafflib.c#L541-L572](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L541-L572)
----
 ---
 ---@class FontloaderGposSubtables
 ---@field name string #
@@ -507,7 +518,6 @@ _N._12_6_9_gpos = 250
 
 _N._12_6_10_gsub = 251
 
----
 ---
 ---This has identical layout to the `gpos` table, except for the
 ---type:
@@ -635,7 +645,6 @@ _N._12_6_14_math = 252
 _N._12_6_15_validation_state = 253
 
 ---
----
 ---* Corresponding C source code: [luafflib.c#L2183-L2229](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2183-L2229)
 ---
 ---@class FontloaderValidationState
@@ -653,20 +662,19 @@ _N._12_6_15_validation_state = 253
 _N._12_6_16_horiz_base_and_vert_base = 253
 
 ---
----
 ---* Corresponding C source code: [luafflib.c#L1785-L1818](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1785-L1818)
 ---
 ---@class FontloaderHorizVertBase
 ---@field tags table # an array of script list tags
 ---@field scripts FontloaderScripts #
 
+---
 ---* Corresponding C source code: [luafflib.c#L1785-L1818](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1785-L1818)
 ---@class FontloaderScripts
 ---@field baseline table #
 ---@field default_baseline number #
 ---@field lang FontloaderLang #
 
----
 ---
 ---* Corresponding C source code: [luafflib.c#L1769-L1777](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1769-L1777)
 ---
@@ -679,7 +687,6 @@ _N._12_6_16_horiz_base_and_vert_base = 253
 _N._12_6_17_altuni = 253
 
 ---
----
 ---* Corresponding C source code: [luafflib.c#L692-L714](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L692-L714)
 ---
 ---An array of alternate *Unicode* values. Inside that array are hashes with:
@@ -690,7 +697,6 @@ _N._12_6_17_altuni = 253
 _N._12_6_18_vert_variants_and_horiz_variants = 253
 
 ---
----
 ---* Corresponding C source code: [luafflib.c#L914-L930](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L914-L930)
 ---
 ---@class FontloaderVertHorizVariants
@@ -698,6 +704,7 @@ _N._12_6_18_vert_variants_and_horiz_variants = 253
 ---@field italic_correction number #
 ---@field parts FontloaderParts[] # The `parts` table is an array of smaller tables.
 
+---
 ---* Corresponding C source code: [luafflib.c#L914-L930](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L914-L930)
 ---
 ---@class FontloaderParts
@@ -710,7 +717,6 @@ _N._12_6_18_vert_variants_and_horiz_variants = 253
 _N._12_6_19_mathkern = 254
 
 ---
----
 ---* Corresponding C source code: [luafflib.c#L943-L957](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L943-L957)
 ---
 ---@class FontloaderMathkern
@@ -719,7 +725,6 @@ _N._12_6_19_mathkern = 254
 ---@field top_left FontloaderMathkernSubtable #
 ---@field bottom_left FontloaderMathkernSubtable #
 
----
 ---
 ---* Corresponding C source code: [luafflib.c#L932-L941](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L932-L941)
 ---
