@@ -127,12 +127,12 @@ _N._main_table = "FontloaderField"
 ---@field copyright string # copyright information
 ---@field filename string # the file name
 ---@field version string # font version
----@field italicangle number # slant angle
+---@field italicangle integer # slant angle
 ---@field units_per_em integer # 1000 for *PostScript*-based fonts, usually 2048 for *TrueType*
 ---@field ascent integer # height of ascender in `units_per_em`
 ---@field descent integer # depth of descender in `units_per_em`
----@field upos number #
----@field uwidth number #
+---@field upos integer #
+---@field uwidth integer #
 ---@field uniqueid integer #
 ---@field glyphs FontloaderGlyph[] # The `glyphs` is an array containing the per-character information (quite a few of these are only present if non-zero).
 ---@field glyphcnt integer # number of included glyphs
@@ -161,33 +161,33 @@ _N._main_table = "FontloaderField"
 ---@field commments string #
 ---@field fontlog string #
 ---@field cvt_names string #
----@field anchor_classes table #
+---@field anchor_classes FontloaderAnchorClasses #
 ---@field ttf_tables FontloaderTtfTables #
 ---@field ttf_tab_saved FontloaderTtfTables #
----@field kerns table #
----@field vkerns table #
----@field texdata table #
----@field lookups table #
+---@field kerns FontloaderGlyph[] #
+---@field vkerns FontloaderGlyph[] #
+---@field texdata FontloaderTexdata #
+---@field lookups FontloaderLockup #
 ---@field gpos FontloaderGpos #
 ---@field gsub FontloaderGsub #
 ---@field mm FontloaderMm #
 ---@field chosenname string #
 ---@field macstyle integer #
 ---@field fondname string #
----@field design_size number
+---@field design_size integer
 ---@field fontstyle_id integer #
 ---@field fontstyle_name table #
----@field design_range_bottom number
----@field design_range_top number
----@field strokewidth number #
----@field mark_classes table #
+---@field design_range_bottom integer
+---@field design_range_top integer
+---@field strokewidth integer #
+---@field mark_classes FontloaderMarkClasses #
 ---@field creationtime integer #
 ---@field modificationtime integer #
 ---@field os2_version integer #
 ---@field math table #
 ---@field validation_state table #
----@field horiz_base table #
----@field vert_base table #
+---@field horiz_base FontloaderHorizVertBase #
+---@field vert_base FontloaderHorizVertBase #
 ---@field extrema_bound integer #
 ---@field truetype integer # signals a *TrueType* font
 
@@ -198,12 +198,12 @@ _N._glyphs = "Glyph"
 ---
 ---@class FontloaderGlyph
 ---@field name string # the glyph name
----@field unicode number # unicode code point, or -1
+---@field unicode integer # unicode code point, or -1
 ---@field boundingbox integer[] array of four numbers, see note below
----@field width number # only for horizontal fonts
----@field vwidth number # only for vertical fonts
----@field tsidebearing number # only for vertical ttf/otf fonts, and only if non-zero
----@field lsidebearing number # only if non-zero and not equal to boundingbox[1]
+---@field width integer # only for horizontal fonts
+---@field vwidth integer # only for vertical fonts
+---@field tsidebearing integer # only for vertical ttf/otf fonts, and only if non-zero
+---@field lsidebearing integer # only if non-zero and not equal to boundingbox[1]
 ---@field class string # one of "none", "base", "ligature", "mark", "component" (if not present, the glyph class is “automatic”)
 ---@field kerns table only for horizontal fonts, if set
 ---@field vkerns table only for vertical fonts, if set
@@ -212,15 +212,15 @@ _N._glyphs = "Glyph"
 ---@field ligatures table # only if nonempty
 ---@field anchors table # only if set
 ---@field comment string # only if set
----@field tex_height number # only if set
----@field tex_depth number # only if set
----@field italic_correction number # only if set
----@field top_accent number # only if set
----@field is_extended_shape number # only if this character is part of a math extension list
+---@field tex_height integer # only if set
+---@field tex_depth integer # only if set
+---@field italic_correction integer # only if set
+---@field top_accent integer # only if set
+---@field is_extended_shape integer # only if this character is part of a math extension list
 ---@field altuni table # alternate *Unicode* items
----@field vert_variants table #
----@field horiz_variants table #
----@field mathkern table #
+---@field vert_variants FontloaderVertHorizVariants #
+---@field horiz_variants FontloaderVertHorizVariants #
+---@field mathkern FontloaderMathkern #
 
 _N._12_6_3_map = 247
 
@@ -291,7 +291,7 @@ _N._12_6_5_cidinfo = 248
 ---@class FontloaderCidinfo
 ---@field registry string #
 ---@field ordering string #
----@field supplement number #
+---@field supplement integer #
 ---@field version number #
 
 _N._12_6_6_pfminfo = 248
@@ -300,48 +300,48 @@ _N._12_6_6_pfminfo = 248
 ---The `pfminfo` table contains most of the OS/2 information:
 ---
 ---@class FontloaderPfminfo
----@field pfmset number #
----@field winascent_add number #
----@field windescent_add number #
----@field hheadascent_add number #
----@field hheaddescent_add number #
----@field typoascent_add number #
----@field typodescent_add number #
----@field subsuper_set number #
----@field panose_set number #
----@field hheadset number #
----@field vheadset number #
----@field pfmfamily number #
----@field weight number #
----@field width number #
----@field avgwidth number #
----@field firstchar number #
----@field lastchar number #
----@field fstype number #
----@field linegap number #
----@field vlinegap number #
----@field hhead_ascent number #
+---@field pfmset integer #
+---@field winascent_add integer #
+---@field windescent_add integer #
+---@field hheadascent_add integer #
+---@field hheaddescent_add integer #
+---@field typoascent_add integer #
+---@field typodescent_add integer #
+---@field subsuper_set integer #
+---@field panose_set integer #
+---@field hheadset integer #
+---@field vheadset integer #
+---@field pfmfamily integer #
+---@field weight integer #
+---@field width integer #
+---@field avgwidth integer #
+---@field firstchar integer #
+---@field lastchar integer #
+---@field fstype integer #
+---@field linegap integer #
+---@field vlinegap integer #
+---@field hhead_ascent integer #
 ---@field hhead_descent number #
----@field os2_typoascent number #
----@field os2_typodescent number #
----@field os2_typolinegap number #
----@field os2_winascent number #
----@field os2_windescent number #
----@field os2_subxsize number #
----@field os2_subysize number #
----@field os2_subxoff number #
----@field os2_subyoff number #
----@field os2_supxsize number #
----@field os2_supysize number #
----@field os2_supxoff number #
----@field os2_supyoff number #
----@field os2_strikeysize number #
----@field os2_strikeypos number #
----@field os2_family_class number #
----@field os2_xheight number #
----@field os2_capheight number #
----@field os2_defaultchar number #
----@field os2_breakchar number #
+---@field os2_typoascent integer #
+---@field os2_typodescent integer #
+---@field os2_typolinegap integer #
+---@field os2_winascent integer #
+---@field os2_windescent integer #
+---@field os2_subxsize integer #
+---@field os2_subysize integer #
+---@field os2_subxoff integer #
+---@field os2_subyoff integer #
+---@field os2_supxsize integer #
+---@field os2_supysize integer #
+---@field os2_supxoff integer #
+---@field os2_supyoff integer #
+---@field os2_strikeysize integer #
+---@field os2_strikeypos integer #
+---@field os2_family_class integer #
+---@field os2_xheight integer #
+---@field os2_capheight integer #
+---@field os2_defaultchar integer #
+---@field os2_breakchar integer #
 ---@field os2_vendor string #
 ---@field codepages table # A two-number array of encoded code pages
 ---@field unicoderages table # A four-number array of encoded unicode ranges
@@ -366,7 +366,33 @@ _N._12_6_7_names = 249
 ---
 ---@class FontloaderNames
 ---@field lang string # language for this entry
----@field names table # The `names` keys are the actual *TrueType* name strings. The possible keys are: `copyright`, `family`, `subfamily`, `uniqueid`, `fullname`, `version`, `postscriptname`, `trademark`, `manufacturer`, `designer`, `descriptor`, `venderurl`, `designerurl`, `license`, `licenseurl`, `idontknow`, `preffamilyname`, `prefmodifiers`, `compatfull`, `sampletext`, `cidfindfontname`, `wwsfamily` and `wwssubfamily`.
+---@field names FontloaderNamesTrueType # The `names` keys are the actual *TrueType* name strings.
+
+---
+---@class FontloaderNamesTrueType
+---@field copyright string
+---@field family string
+---@field subfamily string
+---@field uniqueid string
+---@field fullname string
+---@field version string
+---@field postscriptname string
+---@field trademark string
+---@field manufacturer string
+---@field designer string
+---@field descriptor string
+---@field venderurl string
+---@field designerurl string
+---@field license string
+---@field licenseurl string
+---@field idontknow string
+---@field preffamilyname string
+---@field prefmodifiers string
+---@field compatfull string
+---@field sampletext string
+---@field cidfindfontname string
+---@field wwsfamily string
+---@field wwssubfamily string
 
 _N._12_6_8_anchor_classes = 250
 
@@ -453,18 +479,22 @@ _N._12_6_10_gsub = 251
 _N._12_6_11_ttf_tables_and_ttf_tab_saved = 251
 
 ---
+---* Corresponding C source code: [luafflib.c#L1454-L1461](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1454-L1461)
+---
 ---@class FontloaderTtfTables
 ---@field tag string #
----@field len number #
----@field maxlen number #
----@field data number #
+---@field len integer #
+---@field maxlen integer #
+---@field data integer #
 
 _N._12_6_12_mm = 251
 
 ---
+---* Corresponding C source code: [luafflib.c#L1841-L1898](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1841-L1898)
+---
 ---@class FontloaderMm
 ---@field axes table # array of axis names
----@field instance_count number #
+---@field instance_count integer #
 ---@field positions table # array of instance positions (\#axes * instances )
 ---@field defweights table # array of default weights for instances
 ---@field cdv string #
@@ -472,40 +502,108 @@ _N._12_6_12_mm = 251
 ---@field axismaps table #
 
 ---
+---* Corresponding C source code: [luafflib.c#L1820-L1839](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1820-L1839)
+---
 ---@class FontloaderAxismaps
 ---@field blends table # an array of blend points
 ---@field designs table # an array of design values
----@field min number #
----@field def number #
----@field max number #
----
+---@field min integer #
+---@field def integer #
+---@field max integer #
 
 _N._12_6_13_mark_classes = 252
 
 ---
----# `mark_classes`
----
 ---The keys in this table are mark class names, and the values are a
 ---space-separated string of glyph names in this class.
+---
+---* Corresponding C source code: [luafflib.c#L2159-L2169](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2159-L2169)
+---
+---@alias FontloaderMarkClasses string<string, string>
 
 _N._12_6_14_math = 252
 
 ---
----# `math`
----
 ---The math table has the variables that are also discussed in the chapter aboout
----math: `ScriptPercentScaleDown`, `ScriptScriptPercentScaleDown`, `DelimitedSubFormulaMinHeight`, `DisplayOperatorMinHeight`, `MathLeading`, `AxisHeight`, `AccentBaseHeight`, `FlattenedAccentBaseHeight`, `SubscriptShiftDown`, `SubscriptTopMax`,
----`SubscriptBaselineDropMin`, `SuperscriptShiftUp`, `SuperscriptShiftUpCramped`, `SuperscriptBottomMin`, `SuperscriptBaselineDropMax`, `SubSuperscriptGapMin`, `SuperscriptBottomMaxWithSubscript`, `SpaceAfterScript`, `UpperLimitGapMin`, `UpperLimitBaselineRiseMin`, `LowerLimitGapMin`,
----`LowerLimitBaselineDropMin`, `StackTopShiftUp`, `StackTopDisplayStyleShiftUp`, `StackBottomShiftDown`, `StackBottomDisplayStyleShiftDown`, `StackGapMin`, `StackDisplayStyleGapMin`, `StretchStackTopShiftUp`, `StretchStackBottomShiftDown`, `StretchStackGapAboveMin`, `StretchStackGapBelowMin`, `FractionNumeratorShiftUp`, `FractionNumeratorDisplayStyleShiftUp`, `FractionDenominatorShiftDown`,
----`FractionDenominatorDisplayStyleShiftDown`, `FractionNumeratorGapMin`, `FractionNumeratorDisplayStyleGapMin` `FractionRuleThickness`, `FractionDenominatorGapMin`, `FractionDenominatorDisplayStyleGapMin`, `SkewedFractionHorizontalGap`,
----`SkewedFractionVerticalGap`, `OverbarVerticalGap`, `OverbarRuleThickness`, `OverbarExtraAscender`, `UnderbarVerticalGap`, `UnderbarRuleThickness`, `UnderbarExtraDescender`, `RadicalVerticalGap`, `RadicalDisplayStyleVerticalGap`, `RadicalRuleThickness`, `RadicalExtraAscender`, `RadicalKernBeforeDegree`, `RadicalKernAfterDegree`, `RadicalDegreeBottomRaisePercent`, `MinConnectorOverlap`, `FractionDelimiterSize` and `FractionDelimiterDisplayStyleSize`.
+---math
+---
+---* Corresponding C source code: [luafflib.c#L1706-L1767](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1706-L1767)
+---
+---@class FontloaderMath
+---@field ScriptPercentScaleDown integer
+---@field ScriptScriptPercentScaleDown integer
+---@field DelimitedSubFormulaMinHeight integer
+---@field DisplayOperatorMinHeight integer
+---@field MathLeading integer
+---@field AxisHeight integer
+---@field AccentBaseHeight integer
+---@field FlattenedAccentBaseHeight integer
+---@field SubscriptShiftDown integer
+---@field SubscriptTopMax integer
+---@field SubscriptBaselineDropMin integer
+---@field SuperscriptShiftUp integer
+---@field SuperscriptShiftUpCramped integer
+---@field SuperscriptBottomMin integer
+---@field SuperscriptBaselineDropMax integer
+---@field SubSuperscriptGapMin integer
+---@field SuperscriptBottomMaxWithSubscript integer
+---@field SpaceAfterScript integer
+---@field UpperLimitGapMin integer
+---@field UpperLimitBaselineRiseMin integer
+---@field LowerLimitGapMin integer
+---@field LowerLimitBaselineDropMin integer
+---@field StackTopShiftUp integer
+---@field StackTopDisplayStyleShiftUp integer
+---@field StackBottomShiftDown integer
+---@field StackBottomDisplayStyleShiftDown integer
+---@field StackGapMin integer
+---@field StackDisplayStyleGapMin integer
+---@field StretchStackTopShiftUp integer
+---@field StretchStackBottomShiftDown integer
+---@field StretchStackGapAboveMin integer
+---@field StretchStackGapBelowMin integer
+---@field FractionNumeratorShiftUp integer
+---@field FractionNumeratorDisplayStyleShiftUp integer
+---@field FractionDenominatorShiftDown integer
+---@field FractionDenominatorDisplayStyleShiftDown integer
+---@field FractionNumeratorGapMin integer
+---@field FractionNumeratorDisplayStyleGapMin integer
+---@field FractionRuleThickness integer
+---@field FractionDenominatorGapMin integer
+---@field FractionDenominatorDisplayStyleGapMin integer
+---@field SkewedFractionHorizontalGap integer
+---@field SkewedFractionVerticalGap integer
+---@field OverbarVerticalGap integer
+---@field OverbarRuleThickness integer
+---@field OverbarExtraAscender integer
+---@field UnderbarVerticalGap integer
+---@field UnderbarRuleThickness integer
+---@field UnderbarExtraDescender integer
+---@field RadicalVerticalGap integer
+---@field RadicalDisplayStyleVerticalGap integer
+---@field RadicalRuleThickness integer
+---@field RadicalExtraAscender integer
+---@field RadicalKernBeforeDegree integer
+---@field RadicalKernAfterDegree integer
+---@field RadicalDegreeBottomRaisePercent integer
+---@field MinConnectorOverlap integer
+---@field FractionDelimiterSize integer
+---@field FractionDelimiterDisplayStyleSize integer
 
 _N._12_6_15_validation_state = 253
 
 ---
----# `validation_state`
----
----This is just a bonus table with keys: `bad_ps_fontname`, `bad_glyph_table`, `bad_cff_table`, `bad_metrics_table`, `bad_cmap_table`, `bad_bitmaps_table`, `bad_gx_table`, `bad_ot_table`, `bad_os2_version` and `bad_sfnt_header`.
+---@class FontloaderValidationState
+---@field bad_ps_fontname string
+---@field bad_glyph_table table
+---@field bad_cff_table table
+---@field bad_metrics_table table
+---@field bad_cmap_table table
+---@field bad_bitmaps_table table
+---@field bad_gx_table table
+---@field bad_ot_table table
+---@field bad_os2_version any
+---@field bad_sfnt_header any
 
 _N._12_6_16_horiz_base_and_vert_base = 253
 
@@ -582,6 +680,8 @@ _N._12_6_21_vkerns = 254
 _N._12_6_22_texdata = 254
 
 ---
+---* Corresponding C source code: [luafflib.c#L2096-L2107](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2096-L2107)
+---
 ---@class FontloaderTexdata
 ---@field type `unset`|`text`|`math`|`mathext`
 ---@field params table # 22 font numeric parameters
@@ -606,6 +706,8 @@ _N._12_6_23_lookups = 254
 
 ---
 ---Rule items have one common item and one specialized item:
+---
+---* Corresponding C source code: [luafflib.c#L1558-L1626](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1558-L1626)
 ---
 ---@class FontloaderLockupRule
 ---@field lookups string[] a linear array of lookup names
