@@ -243,6 +243,7 @@ _N._glyphs = "Glyph"
 ---@field horiz_variants FontloaderVertHorizVariants #
 ---@field mathkern FontloaderMathkern #
 
+---
 ---@class FontloaderGlyphKern
 ---@field char string # for example `afii10065`.
 ---@field lookup string # for example `pp_l_0_s`.

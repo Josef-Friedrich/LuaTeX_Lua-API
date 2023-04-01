@@ -114,8 +114,10 @@ function img.copy(image) end
 _N._11_1_5_write_immediatewrite_immediatewriteobject = 0
 
 ---
----By `img.write(a)` a *PDF* object number is allocated, and a rule node of
----subtype `image` is generated and put into the output list. By this the
+---Allocate a *PDF* object number and generate a rule node of
+---subtype `image` and put it into the output list.
+---
+---By this the
 ---image `a` is placed into the page stream, and the image file is written out
 ---into an image stream object after the shipping of the current page is finished.
 ---
@@ -136,9 +138,11 @@ _N._11_1_5_write_immediatewrite_immediatewriteobject = 0
 function img.write(image) end
 
 ---
----By `img.immediatewrite(a)` a *PDF* object number is allocated, and the
----image file for image `a` is written out immediately into the *PDF* file as
----an image stream object (like with `immediate` `\pdfximage`). The object
+---Allocate a *PDF* object number and write the
+---image file for image `a` out immediately into the *PDF* file as
+---an image stream object (like with `immediate` `\pdfximage`).
+---
+---The object
 ---number of the image stream dictionary is then available by the `objnum`
 ---key. No `pdf_refximage` whatsit node is generated. You will need an
 ---`img.write(a)` or `img.node(a)` call to let the image appear on the
@@ -161,8 +165,10 @@ function img.write(image) end
 function img.immediatewrite(image) end
 
 ---
----The next function is kind of special as it copies an object from a (*PDF*) image
----file. This features is experimental and might disappear.
+---Copie an object from a (*PDF*) image
+---file.
+---
+---This features is experimental and might disappear.
 ---
 ---* Corresponding C source code: [limglib.c#L284-L293](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L284-L293)
 ---
@@ -175,9 +181,11 @@ function img.immediatewriteobject(image, objnum) end
 _N._11_1_6_node = 0
 
 ---
----This function allocates a *PDF* object number and returns a whatsit node of
+---Allocate a *PDF* object number and return a whatsit node of
 ---subtype `pdf_refximage`, filled with the image parameters `width`,
----`height`, `depth`, and `objnum`. Also here you can do a terse
+---`height`, `depth`, and `objnum`.
+---
+---Also here you can do a terse
 ---call like:
 ---
 ---```
@@ -203,7 +211,7 @@ _N._11_1_7_types = 0
 ---@alias ImgType `pdf` | `png` | `jpg` | `jp2` | `jbig2`
 
 ---
----This function returns a list with the supported image file type names, currently
+---Return a list with the supported image file type names, currently
 ---these are `pdf`, `png`, `jpg`, `jp2` (JPEG 2000), and
 ---`jbig2`.
 ---
