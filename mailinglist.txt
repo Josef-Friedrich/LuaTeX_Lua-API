@@ -1,0 +1,6 @@
+luafflib.c
+
+Duplicate line
+
+    dump_intfield(L, "hhead_descent", pfm.hhead_descent);
+    dump_intfield(L, "hhead_descent", pfm.hhead_descent);

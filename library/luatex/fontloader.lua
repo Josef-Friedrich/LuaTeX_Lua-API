@@ -155,7 +155,7 @@ _N._main_table = "FontloaderField"
 ---@field public private number #
 ---@field xuid string #
 ---@field pfminfo FontloaderPfminfo #
----@field names FontloaderNames #
+---@field names FontloaderLangNames #
 ---@field cidinfo FontloaderCidinfo #
 ---@field subfonts table
 ---@field commments string #
@@ -297,7 +297,10 @@ _N._12_6_5_cidinfo = 248
 _N._12_6_6_pfminfo = 248
 
 ---
----The `pfminfo` table contains most of the OS/2 information:
+---The `pfminfo` table contains most of the OS/2 information.
+---
+---* Corresponding C source code: [luafflib.c#L1200-L1281](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1200-L1281)
+---
 ---
 ---@class FontloaderPfminfo
 ---@field pfmset integer #
@@ -348,8 +351,11 @@ _N._12_6_6_pfminfo = 248
 ---@field panose table #
 
 ---
+---
+---* Corresponding C source code: [luafflib.c#L1222-L1232](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1222-L1232)
+---
 ---@class FontloaderPanose
----@field familytype string # Values as in the *OpenType* font specification: `Any`, `No Fit`, `Text and Display`, `Script`, `Decorative`, `Pictorial`
+---@field familytype `Any`|`No Fit`|`Text and Display`|`Script`|`Decorative`|`Pictorial` # Values as in the *OpenType* font specification:
 ---@field serifstyle string # See the *OpenType* font specification for values
 ---@field weight string # idem
 ---@field proportion string # idem
@@ -364,10 +370,16 @@ _N._12_6_6_pfminfo = 248
 _N._12_6_7_names = 249
 
 ---
----@class FontloaderNames
+---
+---* Corresponding C source code: [luafflib.c#L1418-L1416](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1418-L1416)
+---
+---@class FontloaderLangNames
 ---@field lang string # language for this entry
 ---@field names FontloaderNamesTrueType # The `names` keys are the actual *TrueType* name strings.
 
+---
+---
+---* Corresponding C source code: [luafflib.c#L108-L115](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L108-L115)
 ---
 ---@class FontloaderNamesTrueType
 ---@field copyright string
@@ -397,6 +409,9 @@ _N._12_6_7_names = 249
 _N._12_6_8_anchor_classes = 250
 
 ---
+---
+---* Corresponding C source code: [luafflib.c#L1448-L1452](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1448-L1452)
+---
 ---@class FontloaderAnchorClasses
 ---@field name string # a descriptive id of this anchor class
 ---@field lookup string #
@@ -404,6 +419,9 @@ _N._12_6_8_anchor_classes = 250
 
 _N._12_6_9_gpos = 250
 
+---
+---
+---* Corresponding C source code: [luafflib.c#L580-L643](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L580-L643)
 ---
 ---@class FontloaderGposSub
 ---@field flags FontloaderGposFlags #
@@ -415,12 +433,21 @@ _N._12_6_9_gpos = 250
 ---The `gpos` table has one array entry for each lookup. (The `gpos_`
 ---prefix is somewhat redundant.)
 ---
+---* Corresponding C source code: [luafflib.c#L74-L76](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L74-L76)
+---
+---
 ---@class FontloaderGpos: FontloaderGposSub
 ---@field type `gpos_single`|`gpos_pair`|`gpos_cursive`|`gpos_mark2base`|`gpos_mark2ligature`|`gpos_mark2mark`|`gpos_context`|`gpos_contextchain`
 
 ---
+---
+
 ---The flags table has a true value for each of the lookup flags that is actually
 ---set:
+---
+---
+---* Corresponding C source code: [luafflib.c#L587-L612](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L587-L612)
+---
 ---
 ---@class FontloaderGposFlags
 ---@field r2l boolean #
@@ -431,7 +458,10 @@ _N._12_6_9_gpos = 250
 ---
 
 ---
----The features subtable items of gpos have:
+---The features subtable items of gpos have
+---
+---* Corresponding C source code: [luafflib.c#L523-L531](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L523-L531)
+---
 ---
 ---@class FontloaderGposFeatures
 ---@field tag string #
@@ -440,6 +470,9 @@ _N._12_6_9_gpos = 250
 ---
 ---The scripts table within features has:
 ---
+---* Corresponding C source code: [luafflib.c#L492-L515](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L492-L515)
+---
+---
 ---@class FontloaderGposFeaturesScripts
 ---@field script string #
 ---@field langs string[]
@@ -447,6 +480,9 @@ _N._12_6_9_gpos = 250
 
 ---
 ---The subtables table has:
+---
+---* Corresponding C source code: [luafflib.c#L541-L572](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L541-L572)
+---
 ---
 ---@class FontloaderGposSubtables
 ---@field name string #
@@ -460,6 +496,9 @@ _N._12_6_9_gpos = 250
 ---Note: the kernclass (as far as we can see) always has one entry so it could be one level
 ---deep instead. Also the seconds start at `[2]` which is close to the fontforge
 ---internals so we keep that too.
+---
+---* Corresponding C source code: [luafflib.c#L1469-L1518](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1469-L1518)
+---
 ---@class FontloaderGposSubtablesKernclass
 ---@field firsts string[]
 ---@field seconds string[]
@@ -469,9 +508,12 @@ _N._12_6_9_gpos = 250
 _N._12_6_10_gsub = 251
 
 ---
-------
+---
 ---This has identical layout to the `gpos` table, except for the
 ---type:
+---
+---* Corresponding C source code: [luafflib.c#L56-L58](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L56-L58)
+---
 ---@class FontloaderGsub: FontloaderGposSub
 ---@field type `gsub_single`|`gsub_multiple`|`gsub_alternate`|`gsub_ligature`|`gsub_context`|`gsub_contextchain`|`gsub_reversecontextchain`
 ---
@@ -593,6 +635,9 @@ _N._12_6_14_math = 252
 _N._12_6_15_validation_state = 253
 
 ---
+---
+---* Corresponding C source code: [luafflib.c#L2183-L2229](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2183-L2229)
+---
 ---@class FontloaderValidationState
 ---@field bad_ps_fontname string
 ---@field bad_glyph_table table
@@ -608,16 +653,22 @@ _N._12_6_15_validation_state = 253
 _N._12_6_16_horiz_base_and_vert_base = 253
 
 ---
+---
+---* Corresponding C source code: [luafflib.c#L1785-L1818](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1785-L1818)
+---
 ---@class FontloaderHorizVertBase
 ---@field tags table # an array of script list tags
 ---@field scripts FontloaderScripts #
 
----
+---* Corresponding C source code: [luafflib.c#L1785-L1818](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1785-L1818)
 ---@class FontloaderScripts
 ---@field baseline table #
 ---@field default_baseline number #
 ---@field lang FontloaderLang #
 
+---
+---
+---* Corresponding C source code: [luafflib.c#L1769-L1777](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1769-L1777)
 ---
 ---@class FontloaderLang
 ---@field tag string # a script tag
@@ -628,6 +679,9 @@ _N._12_6_16_horiz_base_and_vert_base = 253
 _N._12_6_17_altuni = 253
 
 ---
+---
+---* Corresponding C source code: [luafflib.c#L692-L714](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L692-L714)
+---
 ---An array of alternate *Unicode* values. Inside that array are hashes with:
 ---@class FontloaderAltuni
 ---@field unicode number # this glyph is also used for this unicode
@@ -636,11 +690,15 @@ _N._12_6_17_altuni = 253
 _N._12_6_18_vert_variants_and_horiz_variants = 253
 
 ---
+---
+---* Corresponding C source code: [luafflib.c#L914-L930](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L914-L930)
+---
 ---@class FontloaderVertHorizVariants
 ---@field variants string #
 ---@field italic_correction number #
 ---@field parts FontloaderParts[] # The `parts` table is an array of smaller tables.
 
+---* Corresponding C source code: [luafflib.c#L914-L930](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L914-L930)
 ---
 ---@class FontloaderParts
 ---@field component string #
@@ -652,12 +710,18 @@ _N._12_6_18_vert_variants_and_horiz_variants = 253
 _N._12_6_19_mathkern = 254
 
 ---
+---
+---* Corresponding C source code: [luafflib.c#L943-L957](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L943-L957)
+---
 ---@class FontloaderMathkern
 ---@field top_right FontloaderMathkernSubtable #
 ---@field bottom_right FontloaderMathkernSubtable #
 ---@field top_left FontloaderMathkernSubtable #
 ---@field bottom_left FontloaderMathkernSubtable #
 
+---
+---
+---* Corresponding C source code: [luafflib.c#L932-L941](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L932-L941)
 ---
 ---@class FontloaderMathkernSubtable
 ---@field height number #
