@@ -672,7 +672,7 @@
 ---
 --- key               type    explanation 
 ---
----@field type string # one of `gpos_single`, `gpos_pair`, `gpos_cursive`, `gpos_mark2base`,\crlf `gpos_mark2ligature`, `gpos_mark2mark`, `gpos_context`,\crlf `gpos_contextchain` 
+---@field type string # one of `gpos_single`, `gpos_pair`, `gpos_cursive`, `gpos_mark2base`,\crlf `gpos_mark2ligature`, `gpos_mark2mark`, `gpos_context`, `gpos_contextchain` 
 ---@field flags table # 
 ---@field name string # 
 --- `features`   array   

@@ -154,23 +154,23 @@ _N._main_table = "FontloaderField"
 ---@field map FontloaderMap #
 ---@field public private number #
 ---@field xuid string #
----@field pfminfo table #
----@field names table #
----@field cidinfo table #
+---@field pfminfo FontloaderPfminfo #
+---@field names FontloaderNames #
+---@field cidinfo FontloaderCidinfo #
 ---@field subfonts table
 ---@field commments string #
 ---@field fontlog string #
 ---@field cvt_names string #
 ---@field anchor_classes table #
----@field ttf_tables table #
----@field ttf_tab_saved table #
+---@field ttf_tables FontloaderTtfTables #
+---@field ttf_tab_saved FontloaderTtfTables #
 ---@field kerns table #
 ---@field vkerns table #
 ---@field texdata table #
 ---@field lookups table #
----@field gpos table #
----@field gsub table #
----@field mm table #
+---@field gpos FontloaderGpos #
+---@field gsub FontloaderGsub #
+---@field mm FontloaderMm #
 ---@field chosenname string #
 ---@field macstyle integer #
 ---@field fondname string #
@@ -297,7 +297,6 @@ _N._12_6_5_cidinfo = 248
 _N._12_6_6_pfminfo = 248
 
 ---
----
 ---The `pfminfo` table contains most of the OS/2 information:
 ---
 ---@class FontloaderPfminfo
@@ -348,6 +347,7 @@ _N._12_6_6_pfminfo = 248
 ---@field unicoderages table # A four-number array of encoded unicode ranges
 ---@field panose table #
 
+---
 ---@class FontloaderPanose
 ---@field familytype string # Values as in the *OpenType* font specification: `Any`, `No Fit`, `Text and Display`, `Script`, `Decorative`, `Pictorial`
 ---@field serifstyle string # See the *OpenType* font specification for values
@@ -363,6 +363,7 @@ _N._12_6_6_pfminfo = 248
 
 _N._12_6_7_names = 249
 
+---
 ---@class FontloaderNames
 ---@field lang string # language for this entry
 ---@field names table # The `names` keys are the actual *TrueType* name strings. The possible keys are: `copyright`, `family`, `subfamily`, `uniqueid`, `fullname`, `version`, `postscriptname`, `trademark`, `manufacturer`, `designer`, `descriptor`, `venderurl`, `designerurl`, `license`, `licenseurl`, `idontknow`, `preffamilyname`, `prefmodifiers`, `compatfull`, `sampletext`, `cidfindfontname`, `wwsfamily` and `wwssubfamily`.
@@ -373,22 +374,23 @@ _N._12_6_8_anchor_classes = 250
 ---@class FontloaderAnchorClasses
 ---@field name string # a descriptive id of this anchor class
 ---@field lookup string #
----@field type string # one of `mark`, `mkmk`, `curs`, `mklg` type is actually a lookup subtype, not a feature name. Officially, these strings should be gpos_mark2mark etc.
+---@field type `mark`|`mkmk`|`curs`|`mklg` # type is actually a lookup subtype, not a feature name. Officially, these strings should be gpos_mark2mark etc.
 
 _N._12_6_9_gpos = 250
 
 ---
----# `gpos`
----
----The `gpos` table has one array entry for each lookup. (The `gpos_`
----prefix is somewhat redundant.)
----
----@class FontloaderGpos
----@field type string # one of `gpos_single`, `gpos_pair`, `gpos_cursive`, `gpos_mark2base`,\crlf `gpos_mark2ligature`, `gpos_mark2mark`, `gpos_context`,\crlf `gpos_contextchain`
+---@class FontloaderGposSub
 ---@field flags FontloaderGposFlags #
 ---@field name string #
 ---@field features FontloaderGposFeatures
 ---@field subtables FontloaderGposSubtables
+
+---
+---The `gpos` table has one array entry for each lookup. (The `gpos_`
+---prefix is somewhat redundant.)
+---
+---@class FontloaderGpos: FontloaderGposSub
+---@field type `gpos_single`|`gpos_pair`|`gpos_cursive`|`gpos_mark2base`|`gpos_mark2ligature`|`gpos_mark2mark`|`gpos_context`|`gpos_contextchain`
 
 ---
 ---The flags table has a true value for each of the lookup flags that is actually
@@ -402,6 +404,7 @@ _N._12_6_9_gpos = 250
 ---@field mark_class string #
 ---
 
+---
 ---The features subtable items of gpos have:
 ---
 ---@class FontloaderGposFeatures
@@ -416,6 +419,7 @@ _N._12_6_9_gpos = 250
 ---@field langs string[]
 ---
 
+---
 ---The subtables table has:
 ---
 ---@class FontloaderGposSubtables
@@ -426,40 +430,30 @@ _N._12_6_9_gpos = 250
 ---@field kernclass FontloaderGposSubtablesKernclass # (only if used)
 ---
 
----The kernclass with subtables table has:
----
---- key             type              explanation
----@class FontloaderGposSubtablesKernclass
----@field firsts string[]
----@field seconds  string[]
----@field lookup string # or array   associated lookup(s)
----@field offsets  integer[]
 ---
 ---Note: the kernclass (as far as we can see) always has one entry so it could be one level
 ---deep instead. Also the seconds start at `[2]` which is close to the fontforge
 ---internals so we keep that too.
----
+---@class FontloaderGposSubtablesKernclass
+---@field firsts string[]
+---@field seconds string[]
+---@field lookup string # or an array of associated lookup(s)
+---@field offsets integer[]
 
 _N._12_6_10_gsub = 251
 
 ---
----# `gsub`
----
+------
 ---This has identical layout to the `gpos` table, except for the
 ---type:
----
---- key          type    explanation
----
----@field type string # one of `gsub_single`, `gsub_multiple`, `gsub_alternate`, `gsub_ligature`,\crlf `gsub_context`, `gsub_contextchain`, `gsub_reversecontextchain`
+---@class FontloaderGsub: FontloaderGposSub
+---@field type `gsub_single`|`gsub_multiple`|`gsub_alternate`|`gsub_ligature`|`gsub_context`|`gsub_contextchain`|`gsub_reversecontextchain`
 ---
 
 _N._12_6_11_ttf_tables_and_ttf_tab_saved = 251
 
 ---
----# `ttf_tables` and `ttf_tab_saved`
----
---- key            type    explanation
----
+---@class FontloaderTtfTables
 ---@field tag string #
 ---@field len number #
 ---@field maxlen number #
@@ -468,10 +462,7 @@ _N._12_6_11_ttf_tables_and_ttf_tab_saved = 251
 _N._12_6_12_mm = 251
 
 ---
----# `mm`
----
---- key                    type    explanation
----
+---@class FontloaderMm
 ---@field axes table # array of axis names
 ---@field instance_count number #
 ---@field positions table # array of instance positions (\#axes * instances )
@@ -479,11 +470,9 @@ _N._12_6_12_mm = 251
 ---@field cdv string #
 ---@field ndv string #
 ---@field axismaps table #
+
 ---
----The `axismaps`:
----
---- key             type    explanation
----
+---@class FontloaderAxismaps
 ---@field blends table # an array of blend points
 ---@field designs table # an array of design values
 ---@field min number #
@@ -521,61 +510,41 @@ _N._12_6_15_validation_state = 253
 _N._12_6_16_horiz_base_and_vert_base = 253
 
 ---
----# `horiz_base` and `vert_base`
----
---- key             type   explanation
----
+---@class FontloaderHorizVertBase
 ---@field tags table # an array of script list tags
----@field scripts table #
+---@field scripts FontloaderScripts #
+
 ---
----The `scripts` subtable:
----
---- key                      type     explanation
----
+---@class FontloaderScripts
 ---@field baseline table #
 ---@field default_baseline number #
----@field lang table #
+---@field lang FontloaderLang #
+
 ---
----The `lang` subtable:
----
---- key              type    explanation
----
+---@class FontloaderLang
 ---@field tag string # a script tag
 ---@field ascent number #
 ---@field descent number #
----@field features table #
----
----The `features` points to an array of tables with the same layout except
----that in those nested tables, the tag represents a language.
+---@field features table # The `features` points to an array of tables with the same layout except that in those nested tables, the tag represents a language.
 
 _N._12_6_17_altuni = 253
 
 ---
----# `altuni`
----
 ---An array of alternate *Unicode* values. Inside that array are hashes with:
----
---- key             type    explanation
----
+---@class FontloaderAltuni
 ---@field unicode number # this glyph is also used for this unicode
 ---@field variant number # the alternative is driven by this unicode selector
----
 
 _N._12_6_18_vert_variants_and_horiz_variants = 253
 
 ---
----# `vert_variants` and `horiz_variants`
----
---- key                       type    explanation
----
+---@class FontloaderVertHorizVariants
 ---@field variants string #
 ---@field italic_correction number #
----@field parts table #
+---@field parts FontloaderParts[] # The `parts` table is an array of smaller tables.
+
 ---
----The `parts` table is an array of smaller tables:
----
---- key               type    explanation
----
+---@class FontloaderParts
 ---@field component string #
 ---@field extender number #
 ---@field start number #
@@ -585,19 +554,14 @@ _N._12_6_18_vert_variants_and_horiz_variants = 253
 _N._12_6_19_mathkern = 254
 
 ---
----# `mathkern`
+---@class FontloaderMathkern
+---@field top_right FontloaderMathkernSubtable #
+---@field bottom_right FontloaderMathkernSubtable #
+---@field top_left FontloaderMathkernSubtable #
+---@field bottom_left FontloaderMathkernSubtable #
+
 ---
---- key                  type   explanation
----
----@field top_right table #
----@field bottom_right table #
----@field top_left table #
----@field bottom_left table #
----
----Each of the subtables is an array of small hashes with two keys:
----
---- key            type    explanation
----
+---@class FontloaderMathkernSubtable
 ---@field height number #
 ---@field kern number #
 
@@ -618,10 +582,9 @@ _N._12_6_21_vkerns = 254
 _N._12_6_22_texdata = 254
 
 ---
---- key            type    explanation
----
----@field type string # `unset`, `text`, `math`, `mathext`
---- `params`  array   22 font numeric parameters
+---@class FontloaderTexdata
+---@field type `unset`|`text`|`math`|`mathext`
+---@field params table # 22 font numeric parameters
 
 _N._12_6_23_lookups = 254
 
