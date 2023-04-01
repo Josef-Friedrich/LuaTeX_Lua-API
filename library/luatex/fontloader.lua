@@ -288,10 +288,7 @@ _N._12_6_4_private = 248
 _N._12_6_5_cidinfo = 248
 
 ---
----# `cidinfo`
----
---- key                type    explanation
----
+---@class FontloaderCidinfo
 ---@field registry string #
 ---@field ordering string #
 ---@field supplement number #
@@ -300,12 +297,10 @@ _N._12_6_5_cidinfo = 248
 _N._12_6_6_pfminfo = 248
 
 ---
----# `pfminfo`
 ---
 ---The `pfminfo` table contains most of the OS/2 information:
 ---
---- key                      type    explanation
----
+---@class FontloaderPfminfo
 ---@field pfmset number #
 ---@field winascent_add number #
 ---@field windescent_add number #
@@ -352,12 +347,9 @@ _N._12_6_6_pfminfo = 248
 ---@field codepages table # A two-number array of encoded code pages
 ---@field unicoderages table # A four-number array of encoded unicode ranges
 ---@field panose table #
----
----The `panose` subtable has exactly 10 string keys:
----
---- key                     type     explanation
----
----@field familytype string # Values as in the *OpenType* font specification: `Any`, `No Fit`, `Text and Display`, `Script`, `Decorative`, `Pictorial`  \NR
+
+---@class FontloaderPanose
+---@field familytype string # Values as in the *OpenType* font specification: `Any`, `No Fit`, `Text and Display`, `Script`, `Decorative`, `Pictorial`
 ---@field serifstyle string # See the *OpenType* font specification for values
 ---@field weight string # idem
 ---@field proportion string # idem
@@ -371,38 +363,17 @@ _N._12_6_6_pfminfo = 248
 
 _N._12_6_7_names = 249
 
----
----# `names`
----
----Each item has two top-level keys:
----
---- key           type    explanation
----
+---@class FontloaderNames
 ---@field lang string # language for this entry
----@field names table #
----
----The `names` keys are the actual *TrueType* name strings. The possible keys
----are: `copyright`, `family`, `subfamily`, `uniqueid`,
----`fullname`, `version`, `postscriptname`, `trademark`,
----`manufacturer`, `designer`, `descriptor`, `venderurl`,
----`designerurl`, `license`, `licenseurl`, `idontknow`,
----`preffamilyname`, `prefmodifiers`, `compatfull`, `sampletext`, `cidfindfontname`, `wwsfamily` and `wwssubfamily`.
+---@field names table # The `names` keys are the actual *TrueType* name strings. The possible keys are: `copyright`, `family`, `subfamily`, `uniqueid`, `fullname`, `version`, `postscriptname`, `trademark`, `manufacturer`, `designer`, `descriptor`, `venderurl`, `designerurl`, `license`, `licenseurl`, `idontknow`, `preffamilyname`, `prefmodifiers`, `compatfull`, `sampletext`, `cidfindfontname`, `wwsfamily` and `wwssubfamily`.
 
 _N._12_6_8_anchor_classes = 250
 
 ---
----# `anchor_classes`
----
----The anchor_classes classes:
----
---- key            type    explanation
----
+---@class FontloaderAnchorClasses
 ---@field name string # a descriptive id of this anchor class
 ---@field lookup string #
----@field type string # one of `mark`, `mkmk`, `curs`, `mklg`
----
----% type is actually a lookup subtype, not a feature name. Officially, these
----% strings should be gpos_mark2mark etc.
+---@field type string # one of `mark`, `mkmk`, `curs`, `mklg` type is actually a lookup subtype, not a feature name. Officially, these strings should be gpos_mark2mark etc.
 
 _N._12_6_9_gpos = 250
 
@@ -412,57 +383,57 @@ _N._12_6_9_gpos = 250
 ---The `gpos` table has one array entry for each lookup. (The `gpos_`
 ---prefix is somewhat redundant.)
 ---
---- key               type    explanation
----
+---@class FontloaderGpos
 ---@field type string # one of `gpos_single`, `gpos_pair`, `gpos_cursive`, `gpos_mark2base`,\crlf `gpos_mark2ligature`, `gpos_mark2mark`, `gpos_context`,\crlf `gpos_contextchain`
----@field flags table #
+---@field flags FontloaderGposFlags #
 ---@field name string #
---- `features`   array
---- `subtables`  array
+---@field features FontloaderGposFeatures
+---@field subtables FontloaderGposSubtables
+
 ---
 ---The flags table has a true value for each of the lookup flags that is actually
 ---set:
 ---
---- key                          type     explanation
----
+---@class FontloaderGposFlags
 ---@field r2l boolean #
 ---@field ignorebaseglyphs boolean #
 ---@field ignoreligatures boolean #
 ---@field ignorecombiningmarks boolean #
 ---@field mark_class string #
 ---
+
 ---The features subtable items of gpos have:
 ---
---- key             type    explanation
----
+---@class FontloaderGposFeatures
 ---@field tag string #
----@field scripts table #
+---@field scripts FontloaderGposFeaturesScripts #
+
 ---
 ---The scripts table within features has:
 ---
---- key            type              explanation
----
+---@class FontloaderGposFeaturesScripts
 ---@field script string #
---- `langs`   array of strings
+---@field langs string[]
 ---
+
 ---The subtables table has:
 ---
---- key                      type    explanation
----
+---@class FontloaderGposSubtables
 ---@field name string #
 ---@field suffix string # (only if used) % used by gpos_single to get a default
 ---@field anchor_classes number # (only if used)
 ---@field vertical_kerning number # (only if used)
----@field kernclass table # (only if used)
+---@field kernclass FontloaderGposSubtablesKernclass # (only if used)
 ---
+
 ---The kernclass with subtables table has:
 ---
 --- key             type              explanation
----
---- `firsts`   array of strings
---- `seconds`  array of strings
+---@class FontloaderGposSubtablesKernclass
+---@field firsts string[]
+---@field seconds  string[]
 ---@field lookup string # or array   associated lookup(s)
---- `offsets`  array of numbers
+---@field offsets  integer[]
 ---
 ---Note: the kernclass (as far as we can see) always has one entry so it could be one level
 ---deep instead. Also the seconds start at `[2]` which is close to the fontforge
