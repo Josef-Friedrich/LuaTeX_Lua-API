@@ -138,26 +138,26 @@ _N._main_table = "FontloaderField"
 ---* Corresponding C source code: [luafflib.c#L1900-L2242](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1900-L2242)
 ---
 ---@class FontloaderField
----@field table_version number # indicates the metrics version (currently 0.3)
----@field fontname string # *PostScript* font name
----@field fullname string # official (human-oriented) font name
----@field familyname string # family name
----@field weight string # weight indicator
----@field copyright string # copyright information
----@field filename string # the file name
----@field version string # font version
----@field italicangle integer # slant angle
----@field units_per_em integer # 1000 for *PostScript*-based fonts, usually 2048 for *TrueType*
----@field ascent integer # height of ascender in `units_per_em`
----@field descent integer # depth of descender in `units_per_em`
+---@field table_version number # Indicates the metrics version (currently 0.3)
+---@field fontname string # *PostScript* font name, for example `NimbusRoman-Regular`.
+---@field fullname string # official (human-oriented) font name, for example `Nimbus Roman Regular`.
+---@field familyname string # The family name, for example `Nimbus Roman`.
+---@field weight string # The weight indicator
+---@field copyright string # The copyright information, for example `Copyright (URW)++,Copyright 2014 by (URW)++ Design & Development`.
+---@field filename string # The file name
+---@field version string # The font version
+---@field italicangle integer # The slant angle
+---@field units_per_em integer # `1000` for *PostScript*-based fonts, usually `2048` for *TrueType*
+---@field ascent integer # The height of ascender in `units_per_em`
+---@field descent integer # The depth of descender in `units_per_em`
 ---@field upos integer #
 ---@field uwidth integer #
 ---@field uniqueid integer #
 ---@field glyphs FontloaderGlyph[] # The `glyphs` is an array containing the per-character information (quite a few of these are only present if non-zero).
----@field glyphcnt integer # number of included glyphs
----@field glyphmax integer # maximum used index the glyphs array
----@field glyphmin integer # minimum used index the glyphs array
----@field notdef_loc integer # location of the `.notdef` glyph or `-1` when not present
+---@field glyphcnt integer # The number of included glyphs
+---@field glyphmax integer # The maximum used index the glyphs array
+---@field glyphmin integer # The minimum used index the glyphs array
+---@field notdef_loc integer # The location of the `.notdef` glyph or `-1` when not present
 ---@field hasvmetrics integer #
 ---@field onlybitmaps integer #
 ---@field serifcheck integer #
@@ -169,7 +169,7 @@ _N._main_table = "FontloaderField"
 ---@field weight_width_slope_only integer #
 ---@field head_optimized_for_cleartype integer #
 ---@field uni_interp `unset`|`none`|`adobe`|`greek`|`japanese`|`trad_chinese`|`simp_chinese`|`korean`|`ams`
----@field origname string # the file name, as supplied by the user
+---@field origname string # The file name, as supplied by the user
 ---@field map FontloaderMap #
 ---@field public private FontloaderPrivate #
 ---@field xuid string #
@@ -200,7 +200,7 @@ _N._main_table = "FontloaderField"
 ---@field design_range_top integer
 ---@field strokewidth integer #
 ---@field mark_classes FontloaderMarkClasses #
----@field creationtime integer #
+---@field creationtime integer # for example `1495029639`.
 ---@field modificationtime integer #
 ---@field os2_version integer #
 ---@field math table #
@@ -218,15 +218,15 @@ _N._glyphs = "Glyph"
 ---* Corresponding C source code: [luafflib.c#L959-L1120](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L959-L1120)
 ---
 ---@class FontloaderGlyph
----@field name string # the glyph name
----@field unicode integer # unicode code point, or -1
----@field boundingbox integer[] array of four numbers, see note below
----@field width integer # only for horizontal fonts
----@field vwidth integer # only for vertical fonts
----@field tsidebearing integer # only for vertical ttf/otf fonts, and only if non-zero
----@field lsidebearing integer # only if non-zero and not equal to boundingbox[1]
+---@field name string # The glyph name, for example `space`.
+---@field unicode integer # The unicode code point, or -1 , for example `32`.
+---@field boundingbox integer[] Array of four numbers, for example `{ 0, 0, 0, 0 }`.
+---@field width integer # Only for horizontal fonts
+---@field vwidth integer # Only for vertical fonts
+---@field tsidebearing integer # Only for vertical ttf/otf fonts, and only if non-zero
+---@field lsidebearing integer # Only if non-zero and not equal to boundingbox[1]
 ---@field class string # one of "none", "base", "ligature", "mark", "component" (if not present, the glyph class is “automatic”)
----@field kerns table only for horizontal fonts, if set
+---@field kerns FontloaderGlyphKern[] only for horizontal fonts, if set
 ---@field vkerns table only for vertical fonts, if set
 ---@field dependents string[] linear array of glyph name strings, only if nonempty
 ---@field lookups table # only if nonempty
@@ -242,6 +242,11 @@ _N._glyphs = "Glyph"
 ---@field vert_variants FontloaderVertHorizVariants #
 ---@field horiz_variants FontloaderVertHorizVariants #
 ---@field mathkern FontloaderMathkern #
+
+---@class FontloaderGlyphKern
+---@field char string # for example `afii10065`.
+---@field lookup string # for example `pp_l_0_s`.
+---@field off integer # for example `7`.
 
 _N._12_6_3_map = 247
 
@@ -454,8 +459,6 @@ _N._12_6_9_gpos = 250
 ---
 ---@class FontloaderGpos: FontloaderGposSub
 ---@field type `gpos_single`|`gpos_pair`|`gpos_cursive`|`gpos_mark2base`|`gpos_mark2ligature`|`gpos_mark2mark`|`gpos_context`|`gpos_contextchain`
-
----
 
 ---
 ---The flags table has a true value for each of the lookup flags that is actually
