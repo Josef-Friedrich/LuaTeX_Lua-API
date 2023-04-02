@@ -821,18 +821,35 @@ function pdf.registerannot(objnum) end
 _N._14_1_27_newcolorstack = 286
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.newcolorstack() end
+---Allocate a new color stack and returns it's id. The arguments
+---are the same as for the similar backend extension primitive.
+---
+---```
+---pdf.newcolorstack("0 g","page",true) --
+---```
+---
+---* Corresponding C source code: [lpdflib.c#L1166-L1199](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L1166-L1199)
+---
+---@param s string
+---@param literal_mode 'page'|'direct'|'origin'|'text'|'raw'
+---@param page_start boolean
+--
+---
+---@return integer color_stack_id
+function pdf.newcolorstack(s, literal_mode, page_start) end
 
 _N._14_1_28_setfontattributes = 286
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.setfontattributes() end
+---Force some additional code into the font resource.
+---
+---It can for
+---instance be used to add a custom `ToUnicode` vector to a bitmap file.
+---
+---* Corresponding C source code: [lpdflib.c#L1202-L1216](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L1202-L1216)
+---@param font_id integer
+---@param pdf_code integer
+function pdf.setfontattributes(font_id, pdf_code) end
 
 ---
 ---@deprecated
@@ -846,31 +863,32 @@ function pdf.fontsize() end
 
 ---
 ---Return how many objects were created so far.
+---
 ---@return integer n # Number of objects.
 function pdf.maxobjnum() end
 
 ---
 ---Return number of object that are written or not yet written to file.
+---
+---* Corresponding C source code: [lpdflib.c#L1270-L1285](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L1270-L1285)
+---
 ---@return integer written_obj # Object written to file.
 ---@return integer not_written_obj # Object not yet written to file.
 function pdf.getnofobjects() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---* Corresponding C source code: [lpdflib.c#L1218-L1235](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L1218-L1235)
+---
 function pdf.includechar() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---* Corresponding C source code: [lpdflib.c#L1237-L1242](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L1237-L1242)
+---
 function pdf.includefont() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---* Corresponding C source code: [lpdflib.c#L1244-L1268](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L1244-L1268)
+---
 function pdf.includeimage() end
 
 ---
@@ -890,9 +908,8 @@ function pdf.pageref() end
 function pdf.setforcefile() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---* Corresponding C source code: [lpdflib.c#L1294-L1298](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L1294-L1298)
+---
 function pdf.settypeonewidemode() end
 
 ---
