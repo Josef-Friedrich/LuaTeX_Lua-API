@@ -103,7 +103,7 @@ function fio.readcardinal2le(f) end
 ---
 ---little endian variant
 ---
----@param f file*
+---@param f file* # A file handle.
 ---
 ---@return integer
 function fio.readcardinal3le(f) end
@@ -191,35 +191,43 @@ function fio.readinteger4le(f) end
 ---
 ---@param f file* # A file handle.
 ---
----@return number
+---@return number # a 2 byte float (used in font files)
 function fio.readfixed2(f) end
 
 ---
 ---@param f file* # A file handle.
 ---
----@return number
+---@return number # a 4 byte float (used in font files)
 function fio.readfixed4(f) end
 
 ---
 ---@param f file* # A file handle.
 ---
----@return number
+---@return number # a 2 byte float (used in font files)
 function fio.read2dot14(f) end
 
+---
+---goto position `p`
 ---
 ---@param f file* # A file handle.
 ---@param p integer
 function fio.setposition(f, p) end
 
 ---
+---get the current position
+---
 ---@param f file* # A file handle.
 function fio.getposition(f) end
 
+---
+---skip `n` positions.
 ---
 ---@param f file* # A file handle.
 ---@param n integer
 function fio.skipposition(f, n) end
 
+---
+---Read `n` bytes.
 ---
 ---@param f file* # A file handle.
 ---@param n integer
@@ -227,6 +235,8 @@ function fio.skipposition(f, n) end
 ---@return integer ...
 function fio.readbytes(f, n) end
 
+---
+---Read `n` bytes as a table.
 ---
 ---@param f file* # A file handle.
 ---@param n integer
