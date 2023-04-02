@@ -23,10 +23,12 @@ end
 
 local function analyze(filename)
     local doc = pdfe.open(filename)
+    p(doc.Catalog.Type)
     if doc then
         local pages = doc.Pages
         for i = 1, #pages do
             local page = pages[i]
+            p(page.isCropped)
             local info = {space = "  ", resources = page.Resources}
             --print("Page " .. i)
             pdfscanner.scan(page.Contents, operatortable, info)

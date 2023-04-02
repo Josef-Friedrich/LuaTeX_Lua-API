@@ -67,46 +67,52 @@ local Scanner = {}
 ---
 ---* Corresponding C source code: [lpdfscannerlib.c#L1063-L1069](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfscannerlib.c#L1063-L1069)
 ---
----
 ---@return any
 function Scanner:pop () end
 
+---
 ---Return only the value of a real or integer
 ---
 ---* Corresponding C source code: [lpdfscannerlib.c#L1013-L1021](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfscannerlib.c#L1013-L1021)
 ---
 function Scanner:popnumber () end
 
+---
 ---Return only the value of a name
 ---
 ---* Corresponding C source code: [lpdfscannerlib.c#L1039-L1045](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfscannerlib.c#L1039-L1045)
 ---
 function Scanner:popname () end
 
+---
 ---Return only the value of a string
 ---
 ---* Corresponding C source code: [lpdfscannerlib.c#L1031-L1037](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfscannerlib.c#L1031-L1037)
 ---
 function Scanner:popstring () end
 
+---
 ---Return only the value of a array
 ---
 ---* Corresponding C source code: [lpdfscannerlib.c#L1047-L1053](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfscannerlib.c#L1047-L1053)
 ---
 function Scanner:poparray () end
 
+---
 ---Return only the value of a dict
 ---
 ---* Corresponding C source code: [lpdfscannerlib.c#L1055-L1061](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfscannerlib.c#L1055-L1061)
 ---
 function Scanner:popdictionary () end
 
+---
 ---Return only the value of a boolean
 ---
 ---* Corresponding C source code: [lpdfscannerlib.c#L1023-L1029](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfscannerlib.c#L1023-L1029)
 ---
 function Scanner:popboolean () end
 
+---
 ---Abort further processing of this scan() call
 ---
 ---* Corresponding C source code: [lpdfscannerlib.c#L830-L836](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfscannerlib.c#L830-L836)

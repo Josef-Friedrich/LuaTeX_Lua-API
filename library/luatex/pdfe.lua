@@ -2,7 +2,19 @@
 pdfe = {}
 
 ---
+---* Corresponding C source code: [lpdfelib.c#L1521-L1537](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfelib.c#L1521-L1537)
+---
 ---@class PdfeDocument
+---@field catalog any
+---@field Catalog any
+---@field info any
+---@field Info any
+---@field trailer any
+---@field Trailer any
+---@field pages any
+---@field Pages any
+
+---
 ---@class PdfeDictionary
 ---@class PdfeArray
 ---@class PdfeStream
