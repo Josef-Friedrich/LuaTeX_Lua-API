@@ -636,12 +636,14 @@ _N._14_1_21_immediateobj = 283
 
 ---
 ---Create an object and write it immediately to the pdf file.
+---
 ---The created object looks like this:
 --->  <objnum> 0 obj
 --->    <str>
 --->  endobj
 ---@param objnum? integer # Object number (optional argument).
 ---@param str string # Contents of the object.
+---
 ---@return integer objnum # Object number.
 function pdf.immediateobj(str) end
 
@@ -654,11 +656,13 @@ function pdf.immediateobj(str) end
 ---@param objnum? integer # Object number (optional argument).
 ---@param file string # Literal string `"file"`.
 ---@param filename string # File name.
+---
 ---@return integer objnum # Object number.
 function pdf.immediateobj(objnum, file, filename) end
 
 ---
 ---Create an object and write it immediately to the pdf file.
+---
 ---The created object looks like this:
 --->   <objnum> 0 obj
 --->   <<
@@ -672,11 +676,13 @@ function pdf.immediateobj(objnum, file, filename) end
 ---@param stream string # Literal string `"stream"`.
 ---@param streamcontents string # Contents of the stream.
 ---@param streamdict string # Stream dictionary.
+---
 ---@return integer objnum # Object number.
 function pdf.immediateobj(stream, streamcontents, streamdict) end
 
 ---
 ---Create an object and write it immediately to the pdf file.
+---
 ---The created object looks like this:
 --->   <objnum> 0 obj
 --->   <<
@@ -696,30 +702,39 @@ function pdf.immediateobj(streamfile, filename, streamdict) end
 _N._14_1_22_obj = 285
 
 ---
----Create an object. This object is written to the pdf file only if it is referenced later by `pdf.refobj()`
+---Create an object.
+---
+---This object is written to the pdf file only if it is referenced later by `pdf.refobj()`
 ---The created object looks like this:
 --->  <objnum> 0 obj
 --->    <str>
 --->  endobj
 ---@param objnum? integer # Object number (optional argument).
 ---@param str string # Contents of the object.
+---
 ---@return integer objnum # Object number.
 function pdf.obj(str) end
 
 ---
----Create an object. This object is written to the pdf file only if it is referenced later by `pdf.refobj()`
+---Create an object.
+---
+---This object is written to the pdf file only if it is referenced later by `pdf.refobj()`
 ---The created object looks like this:
 --->  <objnum> 0 obj
 --->    <contents of file <filename>>
 --->  endobj
+---
 ---@param objnum? integer # Object number (optional argument).
 ---@param file string # Literal string `"file"`.
 ---@param filename string # File name.
+---
 ---@return integer objnum # Object number.
 function pdf.obj(objnum, file, filename) end
 
 ---
----Create an object. This object is written to the pdf file only if it is referenced later by `pdf.refobj()`
+---Create an object.
+---
+---This object is written to the pdf file only if it is referenced later by `pdf.refobj()`
 ---The created object looks like this:
 --->   <objnum> 0 obj
 --->   <<
@@ -737,7 +752,9 @@ function pdf.obj(objnum, file, filename) end
 function pdf.obj(stream, streamcontents, streamdict) end
 
 ---
----Create an object. This object is written to the pdf file only if it is referenced later by `pdf.refobj()`
+---Create an object.
+---
+---This object is written to the pdf file only if it is referenced later by `pdf.refobj()`
 ---The created object looks like this:
 --->   <objnum> 0 obj
 --->   <<
@@ -751,11 +768,13 @@ function pdf.obj(stream, streamcontents, streamdict) end
 ---@param streamfile string # Literal string `"streamfile"`.
 ---@param filename string # File name.
 ---@param streamdict string # Stream dictionary.
+---
 ---@return integer objnum # Object number.
 function pdf.obj(streamfile, filename, streamdict) end
 
 ---
 ---Create an object.
+---
 ---@param keyvals table # Object specification.
 ---> keyvals = {
 --->    type           = <string>, -- `'stream'` (stream object), `'raw'` (non-stream object)
@@ -770,6 +789,7 @@ function pdf.obj(streamfile, filename, streamdict) end
 ---> }
 --- Keys `string` and `file` are mutual exclusive.
 --- Key `nolength` omits `/Length` entry of the stream dictionary only if a `/Length` entry is given in the `attr` key.
+---
 ---@return integer objnum # Object number.
 function pdf.obj(keyvals) end
 
@@ -777,6 +797,7 @@ _N._14_1_23_refobj = 286
 
 ---
 ---Write referenced object to pdf file.
+---
 ---@param objnum integer # Object number.
 function pdf.refobj(objnum) end
 
@@ -784,16 +805,22 @@ _N._14_1_24_reserveobj = 286
 
 ---
 ---Create an empty object.
+---
 ---Use `pdf.obj()` or `pdf.immediateobj()` to define this object.
----@return objnum integer # Object number.
+---
+---@return integer objnum  # Object number.
+---
 ---@see pdf.obj
 ---@see pdf.immediateobj
 function pdf.reserveobj() end
 
 ---
 ---Create a annotation object.
+---
 ---Annotation object are not written to file directly but must be registered with `pdf.registerannot()`.
----@param annot strint # Literal string `'annot'`.
+---
+---@param annot string # Literal string `'annot'`.
+---
 ---@return integer objnum # Object number.
 ---@see pdf.registerannot
 function pdf.reserveobj(annot) end
@@ -888,7 +915,6 @@ function pdf.includefont() end
 
 ---
 ---* Corresponding C source code: [lpdflib.c#L1244-L1268](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L1244-L1268)
----
 function pdf.includeimage() end
 
 ---
@@ -902,14 +928,13 @@ function pdf.objtype() end
 function pdf.pageref() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function pdf.setforcefile() end
+---* Corresponding C source code: [lpdflib.c#L871-L879](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L871-L879)
+---
+---@param force boolean
+function pdf.setforcefile(force) end
 
 ---
 ---* Corresponding C source code: [lpdflib.c#L1294-L1298](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L1294-L1298)
----
 function pdf.settypeonewidemode() end
 
 ---

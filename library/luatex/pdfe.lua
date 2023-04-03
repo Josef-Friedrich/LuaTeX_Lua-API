@@ -25,7 +25,9 @@ _N._14_2_2_open_new_getstatus_close_unencrypt = 287
 
 ---
 ---Open a pdf file.
+---
 ---@param filename string # File name.
+---
 ---@return PdfeDocument doc # Pdfe document.
 ---
 ---* Corresponding C source code: [lpdfelib.c#L834-L851](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfelib.c#L834-L851)
@@ -33,8 +35,10 @@ function pdfe.open(filename) end
 
 ---
 ---Open a pseudo (in-memory) pdf file.
+---
 ---@param contents string # A string containing a complete pdf file.
 ---@param size integer # Size of contents in bytes.
+---
 ---@return PdfeDocument
 ---
 ---* Corresponding C source code: [lpdfelib.c#L853-L917](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfelib.c#L853-L917)
@@ -42,7 +46,9 @@ function pdfe.new(contents, size) end
 
 ---
 ---Return the encryption status of a pdfe document.
+---
 ---@param doc PdfeDocument # Pdfe document.
+---
 ---@return integer status # Encryption status.
 -- - -2  <doc> is encrypted
 -- - -1  <doc> is encrypted and decryption with `pdfe.unencrypt()` failed
@@ -54,6 +60,7 @@ function pdfe.getstatus(doc) end
 
 ---
 ---Close a pdfe document.
+---
 ---@param doc PdfeDocument # Pdfe document.
 ---
 ---* Corresponding C source code: [lpdfelib.c#L945-L948](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfelib.c#L945-L948)
@@ -61,7 +68,9 @@ function pdfe.close(doc) end
 
 ---
 ---Unencrypt a pdfe document.
+---
 ---@param doc PdfeDocument # Pdfe document.
+---
 ---@param userpassword string|nil # User password.
 ---@param ownerpassword string|nil # Owner password.
 ---
@@ -72,7 +81,9 @@ _N._14_2_3_getsize_getversion_getnofobjects_getnofpages_getmemoryusage = 288
 
 ---
 ---Return the size of a pdfe document in bytes.
+---
 ---@param doc PdfeDocument # Pdfe document.
+---
 ---@return integer size # Size of pdf document is bytes.
 ---
 ---* Corresponding C source code: [lpdfelib.c#L1008-L1015](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfelib.c#L1008-L1015)
@@ -80,7 +91,9 @@ function pdfe.getsize(doc) end
 
 ---
 ---Return the version number of the pdf document.
+---
 ---@param doc PdfeDocument
+---
 ---@return integer major # major version number
 ---@return integer minor # minor version number
 ---
@@ -89,7 +102,9 @@ function pdfe.getversion(doc) end
 
 ---
 ---Return number of objects referenced in the XREF table.
+---
 ---@param doc PdfeDocument # Pdf document.
+---
 ---@return integer nobj # Number of objects.
 ---
 ---* Corresponding C source code: [lpdfelib.c#L1040-L1047](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfelib.c#L1040-L1047)
@@ -97,7 +112,9 @@ function pdfe.getnofobjects(doc) end
 
 ---
 ---Return the number of pages of the pdf document.
+---
 ---@param document PdfeDocument # Pdfe document.
+---
 ---@return integer npages # Number of pages.
 ---
 ---* Corresponding C source code: [lpdfelib.c#L1049-L1056](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfelib.c#L1049-L1056)
@@ -105,7 +122,9 @@ function pdfe.getnofpages(document) end
 
 ---
 ---Return memory usage of pplib library in bytes.
+---
 ---@param doc PdfeDocument # Pdfe document.
+---
 ---@return integer used # Used memory including waste.
 ---@return integer waste # Waste (E.g. optional keys of pdf objects that are not used.)
 ---
@@ -116,7 +135,9 @@ _N._14_2_4_get_catalog_trailer_info = 288
 
 ---
 ---Return pdf catalog.
+---
 ---@param doc PdfeDocument # Pdfe document.
+---
 ---@return PdfeDictionary catalog # Catalog of the pdf.
 ---
 ---* Corresponding C source code: [lpdfelib.c#L465-L471](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfelib.c#L465-L471)
@@ -124,7 +145,9 @@ function pdfe.getcatalog(doc) end
 
 ---
 ---Return pdf trailer.
+---
 ---@param doc PdfeDocument # Pdfe document
+---
 ---@return PdfeDictionary trailor # Trailer of the pdf.
 ---
 ---* Corresponding C source code: [lpdfelib.c#L473-L479](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfelib.c#L473-L479)
@@ -132,7 +155,9 @@ function pdfe.gettrailer(doc) end
 
 ---
 ---Return pdf info.
+---
 ---@param doc PdfeDocument # Pdfe document
+---
 ---@return PdfeDictionary info # Info of the pdf.
 ---
 ---* Corresponding C source code: [lpdfelib.c#L481-L487](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfelib.c#L481-L487)
@@ -142,8 +167,10 @@ _N._14_2_5_getpage_getbox = 288
 
 ---
 ---Return a specific pdf page.
+---
 ---@param doc PdfeDocument # Pdfe document.
 ---@param page integer # Page number.
+---
 ---@return PdfeDictionary page # Page object.
 ---
 ---* Corresponding C source code: [lpdfelib.c#L1091-L1099](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfelib.c#L1091-L1099)
@@ -151,7 +178,9 @@ function pdfe.getpage(doc, page) end
 
 ---
 ---Return a table of pages.
+---
 ---@param doc PdfeDocument # Pdfe document.
+---
 ---@return table< PdfeDictionary > table # Lua table.
 ---Each item of the returned table is a PdfeDictionary of one page of the pdf.
 ---
@@ -160,9 +189,11 @@ function pdfe.getpages(doc) end
 
 ---
 ---Return bounding box of a pdf page.
+---
 ---@param page PdfeDictionary # Pdfe dictionary.
 ---@param bbox_name string # Name of bounding box.
 ---E.g. 'MediaBox', 'CropBox', 'BleedBox', 'TrimBox', 'ArtBox'
+---
 ---@return number[] bbox # [llx lly urx ury]
 ---
 ---* Corresponding C source code: [lpdfelib.c#L1136-L1161](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfelib.c#L1136-L1161)
@@ -172,8 +203,10 @@ _N._14_2_6_get_string_integer_number_boolean_name_type = 289
 
 ---
 ---Return a pdf string object as a string.
+---
 ---@param dict_or_array PdfeDictionary|PdfeArray # Pdfe dictionary or array.
 ---@param key_or_index integer # Key or index.
+---
 ---@return string string # String.
 ---If the pdf string is hex encoded then the returned string is hex encoded too.
 ---
@@ -182,9 +215,11 @@ function pdfe.getstring(dict_or_array, key_or_index) end
 
 ---
 ---Return a pdf string object as a string.
+---
 ---@param dict_or_array PdfeDictionary|PdfeArray # Pdfe dictionary or array.
 ---@param key_or_index string|integer # Key or index.
 ---@param decode boolean # `True`, if a hex encoded string shall be decoded.
+---
 ---@return string string # String.
 ---@return boolean was_encoded # `True`, if string was hex encoded.
 ---Return value `was_encoded` is only available if `decode` is `false`.
@@ -194,8 +229,10 @@ function pdfe.getstring(dict_or_array, key_or_index, decode) end
 
 ---
 ---Return a pdf integer object as integer.
+---
 ---@param dict_or_array PdfeDictionary|PdfeArray # Pdfe dictionary or array.
 ---@param key_or_index string|integer # Key or index.
+---
 ---@return integer value # Integer.
 ---
 ---* Corresponding C source code: [lpdfelib.c#L1371-L1383](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfelib.c#L1371-L1383)
@@ -203,8 +240,10 @@ function pdfe.getinteger(dict_or_array, key_or_index) end
 
 ---
 ---Return a pdf number object as number.
+---
 ---@param dict_or_array PdfeDictionary|PdfeArray # Pdfe dictionary or array.
 ---@param key_or_index string|integer # Key or index.
+---
 ---@return number value # Number.
 ---
 ---* Corresponding C source code: [lpdfelib.c#L1385-L1397](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfelib.c#L1385-L1397)
@@ -212,8 +251,10 @@ function pdfe.getnumber(dict_or_array, key_or_index) end
 
 ---
 ---Return a pdf boolean value as boolean.
+---
 ---@param dict_or_array PdfeDictionary|PdfeArray # Pdfe dictionary or array.
 ---@param key_or_index string|integer # Key or index.
+---
 ---@return boolean value # Boolean.
 ---
 ---* Corresponding C source code: [lpdfelib.c#L1399-L1411](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfelib.c#L1399-L1411)
@@ -221,8 +262,10 @@ function pdfe.getboolean(dict_or_array, key_or_index) end
 
 ---
 ---Return a pdf name object as string.
+---
 ---@param dict_or_array PdfeDictionary|PdfeArray # Pdfe dictionary or array.
 ---@param key_or_index string|integer # Key or index.
+---
 ---@return string value # Name.
 ---
 ---* Corresponding C source code: [lpdfelib.c#L1413-L1425](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfelib.c#L1413-L1425)
@@ -230,7 +273,9 @@ function pdfe.getname(dict_or_array, key_or_index) end
 
 ---
 ---Return a string representing the pdfe type of <pdfe_obj>.
+---
 ---@param pdfe_obj PdfeDocument|PdfeDictionary|PdfeArray|PdfeStream|PdfeReference
+---
 ---@return string|nil pdfe_type # Type of pdfe object.
 --
 --  ------------------------------------
@@ -251,8 +296,10 @@ _N._14_2_7_get_dictionary_array_stream = 289
 
 ---
 ---Return a pdf dictionary as a pdfe dictionary.
+---
 ---@param dict_or_array PdfeDictionary|PdfeArray # Pdfe dictionary or array.
 ---@param key_or_index string|integer # Key or index.
+---
 ---@return PdfeDictionary dict # Pdfe dictionary.
 ---
 ---* Corresponding C source code: [lpdfelib.c#L1427-L1437](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfelib.c#L1427-L1437)
@@ -260,8 +307,10 @@ function pdfe.getdictionary(dict_or_array, key_or_index) end
 
 ---
 ---Return a pdf array as a pdfe array.
+---
 ---@param dict_or_array PdfeDictionary|PdfeArray # Pdfe dictionary or array.
 ---@param key_or_index string|integer # Key or index.
+---
 ---@return PdfeArray array # Pdfe array.
 ---
 ---* Corresponding C source code: [lpdfelib.c#L1439-L1449](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfelib.c#L1439-L1449)
@@ -269,9 +318,12 @@ function pdfe.getarray(dict_or_array, key_or_index) end
 
 ---
 ---Return a pdf stream as a pdfe stream.
+---
 ---The corresponding dictionary of the stream is returned too.
+---
 ---@param dict_or_array PdfeDictionary|PdfeArray # Pdfe dictionary or array.
 ---@param key_or_index string|integer # Key or index.
+---
 ---@return PdfeStream stream # Pdfe stream.
 ---@return PdfeDictionary dict # Pdfe dictionary of the stream.
 ---
@@ -280,9 +332,12 @@ function pdfe.getstream(dict_or_array, key_or_index) end
 
 ---
 ---Return a value of a pdf stream dictionary, including low level details about this value.
+---
 ---Like `pdfe.getfromdictionary()` except that this functions works on a 'dictionary of a stream'.
+---
 ---@param stream PdfeStream
 ---@param key integer
+---
 ---@return integer type # Integer representing the type of a value. (See table below.)
 ---@return any value # The value itself.
 ---@return any details # Details about this value. (See table below.)
@@ -310,8 +365,10 @@ _N._14_2_8_open_close_readfrom_whole_stream = 289
 
 ---
 ---Open a stream.
+---
 ---@param stream PdfeStream # Pdfe stream object.
 ---@param decode? boolean # `True`, if stream should be decompressed.
+---
 ---@return boolean okay # `True`, if reading the stream was successful.
 ---
 ---* Corresponding C source code: [lpdfelib.c#L764-L778](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfelib.c#L764-L778)
@@ -319,6 +376,7 @@ function pdfe.openstream(stream, decode) end
 
 ---
 ---Close a stream.
+---
 ---@param stream PdfeStream # Pdfe stream object
 ---
 ---* Corresponding C source code: [lpdfelib.c#L780-L791](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfelib.c#L780-L791)
@@ -326,7 +384,9 @@ function pdfe.closestream(stream) end
 
 ---
 ---Read a stream object in chunks.
+---
 ---@param stream PdfeStream # Pdfe stream object.
+---
 ---@return string contents # Contents of stream.
 ---@return integer size# Length of stream.
 ---
@@ -346,7 +406,9 @@ function pdfe.readwholestream(stream, decode) end
 
 ---
 ---Return a table in which each item represents one page of a pdf.
+---
 ---@param doc PdfeDocument # Pdfe document.
+---
 ---@return table table # Lua table.
 -- Each item (page) of the returned table is a table itself like this:
 -- `{ page, size, objnum }`
@@ -388,8 +450,10 @@ function pdfe.getfromdictionary(dict, key) end
 
 ---
 ---Return a value of a pdf dictionary, including low level details about this value.
+---
 ---@param array PdfeArray
 ---@param index integer
+---
 ---@return integer type # Integer representing the type of a value. (See table below.)
 ---@return any value # The value itself.
 ---@return any details # Details about this value. (See table below.)
@@ -417,7 +481,9 @@ _N._14_2_10_dictionary_array_totable = 290
 
 ---
 ---Convert a pdfe dictionary into a lua table.
+---
 ---@param dict PdfeDictionary # Pdfe dictionary.
+---
 ---@return table<string, table<integer, any, any> > table # Lua table
 -- This function returns a lua table. Its keys are the keys of the pdfe dictionary and its values are what `pdfe.getfromdictionary(dict, key)` returns.
 ---
@@ -426,7 +492,9 @@ function pdfe.dictionarytotable(dict) end
 
 ---
 ---Convert a pdfe array into a lua table.
+---
 ---@param array PdfeArray # Pdfe array.
+---
 ---@return table<integer, table<integer, any, any> > table # Lua table
 -- This function returns a lua table. Its indices are the indices of the pdfe array and its values are what `pdfe.getfromarray(array, index)` returns.
 ---
@@ -437,7 +505,9 @@ _N._14_2_11_getfromreference = 290
 
 ---
 ---Return the value of a reference, including low level details about this value.
+---
 ---@param ref PdfeReference
+---
 ---@return integer type # Type of value. (See table below.)
 ---@return any value # The value itself.
 ---@return any details # Details about this value. (See table below.)
