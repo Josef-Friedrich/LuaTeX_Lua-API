@@ -19,12 +19,23 @@ _N._11_2_1_new = 232
 ---```
 ---<string> found = finder (<string> name, <string> mode, <string> type)
 ---```
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias MpFindFileFunc fun(name: string, mode: MpFileFileMode, type: MpFindFileType): string
+
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias MpFileFileMode `r`|`w` the file mode
+
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias MpFindFileType `mp`|`tfm`|`map`|`pfb`|`enc` the kind of file
+
 ---
 ---Return either the full path name of the found file, or `nil` if the file
 ---cannot be found.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class MpArguments
 ---@field error_line integer # error line width, default 79
 ---@field print_line integer # line length in ps output  100
@@ -35,6 +46,7 @@ _N._11_2_1_new = 232
 ---@field find_file MpFindFileFunc  a function to find files only local files
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class MpInstance
 
 ---
@@ -72,6 +84,8 @@ _N._11_2_1_new = 232
 ---@param args MpArguments
 ---
 ---@return MpInstance
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function mplib.new(args) end
 
 _N._11_2_2_statistics = 233
@@ -100,6 +114,8 @@ _N._11_2_2_statistics = 233
 ---* Corresponding C source code: [lmplib.c#L771-L792](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L771-L792)
 ---
 ---@return MpStats
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function mplib.statistics() end
 
 _N._11_2_3_execute = 233
@@ -123,6 +139,8 @@ _N._11_2_3_execute = 233
 ---@param code string
 ---
 ---@return MpResult
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function mplib.execute(mp, code) end
 
 _N._11_2_4_finish = 233
@@ -139,6 +157,8 @@ _N._11_2_4_finish = 233
 ---@param mp MpInstance
 ---
 ---@return MpResult
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function mplib.finish(mp) end
 
 _N._11_2_5_result_table = 233
@@ -147,6 +167,7 @@ _N._11_2_5_result_table = 233
 ---The return value of `execute` and `finish` is a table with a
 ---few possible keys (only `status` is always guaranteed to be present).
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class MpResult
 ---@field log? string # output to the “log” stream
 ---@field term? string # output to the “term” stream
@@ -162,6 +183,7 @@ _N._11_2_5_result_table = 233
 ---you can call:
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class MpFig
 ---@field boundingbox   function  returns the bounding box, as an array of 4 values
 ---@field postscript    function  returns a string that is the ps output of the `fig`. this function accepts two optional integer arguments for specifying the values of `prologues` (first argument) and `procset` (second argument)
@@ -196,9 +218,12 @@ _N._11_2_5_1_fill = 234
 ---Get the list of accessible values for a particular object
 ---
 ---* Corresponding C source code: [lmplib.c#L1548-L1591](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L1548-L1591)
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function mplib.fields(obj) end
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class MpFill
 ---@field path table # the list of knots
 ---@field htap table # the list of knots for the reversed trajectory
@@ -212,6 +237,7 @@ function mplib.fields(obj) end
 _N._11_2_5_2_outline = 234
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class MpOutline
 ---@field path table # the list of knots
 ---@field pen table # knots of the pen
@@ -226,6 +252,7 @@ _N._11_2_5_2_outline = 234
 _N._11_2_5_3_text = 234
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class MpText
 ---@field text string # the text
 ---@field font string # font tfm name
@@ -241,12 +268,14 @@ _N._11_2_5_3_text = 234
 _N._11_2_5_4_special = 236
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class MpSpecial
 ---@field prescript string # special text
 
 _N._11_2_5_5_start_bounds_start_clip = 236
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class MpStartBoundsClip
 ---@field path table # the list of knots
 
@@ -260,6 +289,7 @@ _N._11_2_6_1_paths_pens = 236
 ---concerned) are represented by an array where each entry is a table that
 ---represents a knot.
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class MpPathPen
 ---@field left_type string # when present: endpoint, but usually absent
 ---@field right_type string # like `left_type`
@@ -290,6 +320,7 @@ _N._11_2_6_2_Colors = 236
 ---If the color model of the internal object was `uninitialized`, then it was
 ---initialized to the values representing “black” in the colorspace `defaultcolormodel` that was in effect at the time of the `shipout`.
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@type table MpColor
 
 _N._11_2_6_3_Transforms = 237
@@ -297,6 +328,7 @@ _N._11_2_6_3_Transforms = 237
 ---
 ---Each transform is a six-item array.
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class MPTransform
 ---@field item1 integer # represents x
 ---@field item2 integer # represents y
@@ -315,8 +347,7 @@ _N._11_2_6_4_Dashes = 237
 ---representation of the dashlist. `dashes` is an array of “on” and
 ---“off”, values, and `offset` is the phase of the pattern.
 ---
---- field   type  explanation
----
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class MpDash
 ---@field dashes  table    an array of on-off numbers
 ---@field offset integer # the starting offset value
@@ -327,6 +358,7 @@ _N._11_2_7_Pens_and_pen_info = 237
 ---There is helper function (`pen_info(obj)`) that returns a table containing
 ---a bunch of vital characteristics of the used pen (all values are floats):
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PenInfo
 ---@field width integer # width of the pen
 ---@field sx integer # `x` scale
@@ -336,9 +368,13 @@ _N._11_2_7_Pens_and_pen_info = 237
 ---@field tx integer # `x` offset
 ---@field ty integer # `y` offset
 ---
+
+---
 ---* Corresponding C source code: [lmplib.c#L1474-L1539](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L1474-L1539)
 ---
 ---@return PenInfo
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function mplib.pen_info() end
 
 _N._11_2_8_Character_size_information = 238
@@ -360,6 +396,8 @@ _N._11_2_8_1_char_width = 238
 ---@param char string
 ---
 ---@return number w
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function mplib.char_width(mp, fontname, char) end
 
 _N._11_2_8_2_char_height = 238
@@ -376,6 +414,8 @@ _N._11_2_8_2_char_height = 238
 ---@param char string
 ---
 ---@return number w
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function mplib.char_height(mp, fontname, char) end
 
 _N._11_2_8_3_char_depth = 238
@@ -392,6 +432,8 @@ _N._11_2_8_3_char_depth = 238
 ---@param char string
 ---
 ---@return number w
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function mplib.char_depth(mp, fontname, char) end
 
 _N._11_2_8_4_get_boolean_numeric_string_path = 238
@@ -403,6 +445,8 @@ _N._11_2_8_4_get_boolean_numeric_string_path = 238
 ---@param name string
 ---
 ---@return boolean w
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function mplib.get_boolean(mp, name) end
 
 ---
@@ -416,6 +460,8 @@ function mplib.get_boolean(mp, name) end
 ---@param name string
 ---
 ---@return integer n
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function mplib.get_numeric(mp, name) end
 
 ---
@@ -425,6 +471,8 @@ function mplib.get_numeric(mp, name) end
 ---@param name string
 ---
 ---@return string s
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function mplib.get_string(mp, name) end
 
 ---
@@ -434,14 +482,20 @@ function mplib.get_string(mp, name) end
 ---@param name string
 ---
 ---@return table p
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function mplib.get_path(mp, name) end
 
 ---
 ---* Corresponding C source code: [lmplib.c#L763-L769](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L763-L769)
 ---
 ---@return string version # for example `2.02`
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function mplib.version() end
 
 ---
 ---* Corresponding C source code: [lmplib.c#L978-L1195](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L978-L1195)
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function mplib.solve_path() end

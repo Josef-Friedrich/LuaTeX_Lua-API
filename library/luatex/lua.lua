@@ -1,4 +1,6 @@
 ---@meta
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lua.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 lua = {}
 
 ---
@@ -15,6 +17,8 @@ lua = {}
 ---* Corresponding C source code: [llualib.c#L416-L417](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L416-L417)
 ---
 ---@type string
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lua.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 lua.version = ""
 
 ---
@@ -65,6 +69,8 @@ lua.version = ""
 ---* Corresponding C source code: [llualib.c#L356-L360](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L356-L360)
 ---
 ---@return {[integer]: fun(slot: integer)}
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lua.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lua.get_functions_table() end
 
 ---
@@ -80,11 +86,15 @@ function lua.get_functions_table() end
 ---* Corresponding C source code: [llualib.c#L370-L374](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L370-L374)
 ---
 ---@return integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lua.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lua.getstacktop() end
 
 ---
 ---Return a number indicating
----how much nesting is going on. It is only of use as a breakpoint when
+---how much nesting is going on.
+---
+---It is only of use as a breakpoint when
 ---checking some mechanism going haywire.
 ---
 ---* Corresponding C source code: [llualib.c#L376-L380](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L376-L380)
@@ -94,6 +104,8 @@ function lua.getstacktop() end
 ---* `LuaTeX` manual: 10.1.4 Introspection
 ---
 ---@return integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lua.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lua.getcalllevel() end
 
 ---
@@ -105,6 +117,8 @@ function lua.getcalllevel() end
 ---as actual *Lua* bytecode, so it can also be used to preload *Lua* code. The
 ---function must not contain any upvalues.
 ---@type table<integer, function|nil>
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lua.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 lua.bytecode = {}
 
 ---
@@ -114,6 +128,8 @@ lua.bytecode = {}
 ---
 ---@param n integer
 ---@param f function|nil
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lua.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lua.setbytecode(n, f) end
 
 ---
@@ -122,6 +138,8 @@ function lua.setbytecode(n, f) end
 ---* Corresponding C source code: [llualib.c#L187-L212](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L187-L212)
 ---
 ---@return function|nil f
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lua.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lua.getbytecode() end
 
 ---
@@ -133,6 +151,8 @@ function lua.getbytecode() end
 ---
 ---@return integer # command handler
 ---@return integer # graphical user interface
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lua.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lua.getcodepage() end
 
 ---
@@ -145,6 +165,8 @@ function lua.getcodepage() end
 ---```
 ---
 ---@type table<integer, string>
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lua.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 lua.name = {}
 
 ---
@@ -156,6 +178,8 @@ lua.name = {}
 ---
 ---@param s string|nil # If you want to unset a *Lua* name, you can assign `nil` to it.
 ---@param n integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lua.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lua.setluaname(s, n) end
 
 ---
@@ -168,6 +192,8 @@ function lua.setluaname(s, n) end
 ---@param n number
 ---
 ---@return string|nil
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lua.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lua.getluaname(n) end
 
 ---
@@ -184,4 +210,6 @@ function lua.getluaname(n) end
 ---@param hash integer
 ---
 ---@return table
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lua.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lua.newtable(index, hash) end

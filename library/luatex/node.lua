@@ -41,6 +41,8 @@ _N = {}
 ---
 ---There are statistics available with regards to the allocated node memory, which can be handy
 ---for tracing.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 node = {}
 
 ---
@@ -59,10 +61,14 @@ node = {}
 ---while the more direct access which uses the node numbers directly. However, even with userdata
 ---you can get into troubles when you free nodes that are no longer allocated or mess up lists. if
 ---you apply tostring to a node you see its internal (direct) number and id.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 node.direct = {}
 
 ---
 ---*LuaTeX* only understands 4 of the 16 direction specifiers of aleph: `TLT` (latin), `TRT` (arabic), `RTT` (cjk), `LTL` (mongolian). All other direction specifiers generate an error. In addition to a keyword driven model we also provide an integer driven one.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias DirectionSpecifier
 ---| "TLT" # latin
 ---| "TRT" # arabic
@@ -70,6 +76,7 @@ node.direct = {}
 ---| "LTL" # mongolian
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias NodeTypeName
 ---| 'hlist' # 0
 ---| 'vlist' # 1
@@ -123,6 +130,7 @@ node.direct = {}
 ---| 'shape' # 49
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias NodeTypeId
 ---| 0  # hlist
 ---| 1  # vlist
@@ -177,13 +185,18 @@ node.direct = {}
 
 ---
 ---A number in the range `[0,4]` indicating the glue order.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias GlueOrder 0|1|2|3|4
 
 ---
 ---The calculated glue ratio.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias GlueSet number
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias GlueSign
 ---|0 # `normal`,
 ---|1 # `stretching`,
@@ -198,6 +211,8 @@ _N.Node = true
 --- __Reference:__
 ---
 ---* Source code of the `LuaTeX` manual:  [luatex-nodes.tex#L49-L76](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L49-L76)
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class Node
 ---@field next Node|nil # the next node in a list, or nil
 ---@field prev Node|nil # That prev field is always present, but only initialized on explicit request: when the function `node.slide()` is called, it will set up the `prev` fields to be a backwards pointer in the argument node list. By now most of *TeX*'s node processing makes sure that the `prev` nodes are valid but there can be exceptions, especially when the internal magic uses a leading `temp` nodes to temporarily store a state.
@@ -209,6 +224,7 @@ _N.Node = true
 _N.hlist = 0
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias HlistNodeSubtype
 ---|0 # unknown
 ---|1 # line
@@ -251,6 +267,8 @@ _N.hlist = 0
 ---__Reference:__
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L78-L108](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L78-L108)
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class HlistNode: Node
 ---@field subtype HlistNodeSubtype
 ---@field width number # the width of the box
@@ -267,17 +285,20 @@ _N.hlist = 0
 _N.vlist = 1
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias VlistNodeSubtype
 ---|0 # unknown
 ---|4 # alignment
 ---|5 # cell
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class VlistNode: Node
 
 _N.rule = 2
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias RuleNodeSubtype
 ---|0 # normal
 ---|1 # box
@@ -311,6 +332,8 @@ _N.rule = 2
 ---__Reference:__
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L119-L157](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L119-L157)
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class RuleNode: Node
 ---@field subtype RuleNodeSubtype
 ---@field width integer # the width of the rule where the special value −1073741824 is used for ‘running’ glue dimensions
@@ -325,6 +348,7 @@ _N.rule = 2
 _N.ins = 3
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class InsNode: Node
 ---@field subtype number # the insertion class
 ---@field attr Node # list of attributes
@@ -337,6 +361,7 @@ _N.ins = 3
 _N.mark = 4
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class MarkNode: Node
 ---@field subtype number # unused
 ---@field attr Node # list of attributes
@@ -346,11 +371,13 @@ _N.mark = 4
 _N.adjust = 5
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias AdjustNodeSubtype
 ---|0 # normal
 ---|1 # pre
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class AdjustNode: Node
 ---@field subtype AdjustNodeSubtype
 ---@field attr Node # list of attributes
@@ -360,6 +387,7 @@ _N.adjust = 5
 _N.disc = 7
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias DiscNodeSubtype
 ---|0 # discretionary
 ---|1 # explicit
@@ -369,6 +397,7 @@ _N.disc = 7
 ---|5 # second
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class DiscNode: Node
 ---@field subtype DiscNodeSubtype
 ---@field attr Node # list of attributes
@@ -380,11 +409,13 @@ _N.disc = 7
 _N.math = 11
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias MathNodeSubtype
 ---|0 # beginmath
 ---|1 # endmath
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class MathNode: Node
 ---@field subtype MathNodeSubtype
 ---@field attr Node # list of attributes
@@ -426,6 +457,8 @@ _N.glue_spec = 39
 ---In addition there are the `width`, `stretch` `stretch_order`,
 ---`shrink`, and `shrink_order` fields. Note that we use the key `width` in both horizontal and vertical glue. This suits the *TeX* internals well
 ---so we decided to stick to that naming.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class GlueSpecNode: Node
 ---@field width          integer # the horizontal or vertical displacement
 ---@field stretch        integer # extra (positive) displacement or stretch amount
@@ -436,6 +469,7 @@ _N.glue_spec = 39
 _N.glue = 12
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias GlueNodeSubtype
 ---|0 # userskip
 ---|1 # lineskip
@@ -468,6 +502,7 @@ _N.glue = 12
 ---A regular word space also results in a `spaceskip` subtype (this used to be
 ---a `userskip` with subtype zero).
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class GlueNode: Node
 ---@field subtype GlueNodeSubtype
 ---@field leader Node # pointer to a box or rule for leaders
@@ -487,12 +522,15 @@ _N.glue = 12
 ---@param round? boolean
 ---
 ---@return integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.effective_glue(glue, parent, round) end
 node.direct.effective_glue = node.effective_glue
 
 _N.kern = 13
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias KernNodeSubtype
 ---|0 # fontkern
 ---|1 # userkern
@@ -503,6 +541,7 @@ _N.kern = 13
 ---The `kern` command creates such nodes but for instance the font and math
 ---machinery can also add them.
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class KernNode: Node
 ---@field subtype KernNodeSubtype
 ---@field kern integer # Fixed horizontal or vertical advance (in scaled points)
@@ -510,6 +549,7 @@ _N.kern = 13
 _N.penalty = 14
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias PenaltyNodeSubtype
 ---|0 # userpenalty
 ---|1 # linebreakpenalty
@@ -522,6 +562,7 @@ _N.penalty = 14
 ---|8 # equationnumberpenalty
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PenaltyNode: Node
 ---@field subtype PenaltyNodeSubtype
 ---@field attr Node # list of attributes
@@ -530,6 +571,7 @@ _N.penalty = 14
 _N.glyph = 29
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias GlyphNodeSubtype
 ---|1 # ligature
 ---|2 # ghost
@@ -537,6 +579,7 @@ _N.glyph = 29
 ---|4 # right
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class GlyphNode: Node
 ---@field subtype GlyphNodeSubtype # A bit field
 ---@field attr Node # A list of attributes
@@ -562,12 +605,15 @@ _N.glyph = 29
 ---@param font integer
 ---
 ---@return boolean
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.uses_font(n, font) end
 node.direct.uses_font = node.uses_font
 
 _N.boundary = 6
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias BoundaryNodeSubtype
 ---|0 # cancel
 ---|1 # user
@@ -575,6 +621,7 @@ _N.boundary = 6
 ---|3 # word
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class BoundaryNode: Node
 ---@field subtype BoundaryNodeSubtype
 ---@field attr Node # list of attributes
@@ -583,6 +630,7 @@ _N.boundary = 6
 _N.local_par = 9
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class LocalParNode: Node
 ---@field attr Node # list of attributes
 ---@field pen_inter number # local interline penalty (from `localinterlinepenalty`)
@@ -596,6 +644,7 @@ _N.local_par = 9
 _N.dir = 10
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class DirNode: Node
 ---@field attr Node # list of attributes
 ---@field dir string # the direction (but see below)
@@ -604,11 +653,13 @@ _N.dir = 10
 _N.margin_kern = 28
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias MarginKernNodeSubtype
 ---|0 # left
 ---|1 # right
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class MarginKernNode: Node
 ---@field subtype number # \showsubtypes{marginkern}
 ---@field attr Node # list of attributes
@@ -618,6 +669,7 @@ _N.margin_kern = 28
 _N.math_char = 23
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class MathCharNode: Node
 ---@field attr Node # list of attributes
 ---@field char number # the character index
@@ -626,6 +678,7 @@ _N.math_char = 23
 _N.math_text_char = 26
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class MathTextCharNode: Node
 ---@field attr Node # list of attributes
 ---@field char number # the character index
@@ -634,6 +687,7 @@ _N.math_text_char = 26
 _N.sub_box = 24
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class SubBoxNode: Node
 ---@field attr Node # list of attributes
 ---@field head Node # list of nodes
@@ -642,6 +696,7 @@ _N.sub_box = 24
 _N.sub_mlist = 25
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class SubMlistNode: Node
 ---@field attr Node # list of attributes
 ---@field head Node # list of nodes
@@ -650,6 +705,7 @@ _N.sub_mlist = 25
 _N.delim = 27
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class DelimNode: Node
 ---@field attr Node # list of attributes
 ---@field small_char number # character index of base character
@@ -660,6 +716,7 @@ _N.delim = 27
 _N.noad = 18
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias NoadNodeSubtype
 ---|0 # ord
 ---|1 # opdisplaylimits
@@ -676,6 +733,7 @@ _N.noad = 18
 ---|12 # vcenter
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class NoadNode: Node
 ---@field subtype NoadNodeSubtype
 ---@field attr Node # list of attributes
@@ -687,6 +745,7 @@ _N.noad = 18
 _N.accent = 21
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias AccentNodeSubtype
 ---|0 # bothflexible
 ---|1 # fixedtop
@@ -694,6 +753,7 @@ _N.accent = 21
 ---|3 # fixedboth
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class AccentNode: Node
 ---@field subtype AccentNodeSubtype
 ---@field nucleus Node # base
@@ -706,12 +766,14 @@ _N.accent = 21
 _N.style = 16
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class StyleNode: Node
 ---@field style string # contains the style
 
 _N.choice = 17
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class ChoiceNode: Node
 ---@field attr Node # list of attributes
 ---@field display Node # list of display size alternatives
@@ -722,6 +784,7 @@ _N.choice = 17
 _N.radical = 19
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias RadicalNodeSubtype
 ---|0 # radical
 ---|1 # uradical
@@ -732,6 +795,7 @@ _N.radical = 19
 ---|6 # udelimiterover
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class RadicalNode: Node
 ---@field subtype RadicalNodeSubtype
 ---@field attr Node # list of attributes
@@ -746,11 +810,13 @@ _N.radical = 19
 _N.fraction = 20
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FractionNode: Node
 
 _N.fence = 22
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias FenceNodeSubtype
 ---|0 # unset
 ---|1 # left
@@ -759,11 +825,13 @@ _N.fence = 22
 ---|4 # no
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FenceNode: Node
 
 _N.whatsit = 8
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias WhatsitTypeId
 ---| 0  # open
 ---| 1  # write
@@ -791,6 +859,7 @@ _N.whatsit = 8
 ---| 32 # pdf_link_state
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias WhatsitTypeName
 ---| 'open' # 0
 ---| 'write' # 1
@@ -828,11 +897,14 @@ _N._whatsit = {}
 ---font-end nodes nodes.
 ---
 ---Source: [luatex-nodes.tex#L781-L797](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L781-L797)
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class WhatsitNode: Node
 
 _N._whatsit.open = 0
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class OpenWhatsitNode: Node
 ---@field attr Node # list of attributes
 ---@field stream integer # *TeX*'s stream id number
@@ -843,6 +915,7 @@ _N._whatsit.open = 0
 _N._whatsit.write = 1
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class WriteWhatsitNode: Node
 ---@field attr Node # list of attributes
 ---@field stream number # *TeX*'s stream id number
@@ -851,6 +924,7 @@ _N._whatsit.write = 1
 _N._whatsit.close = 2
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class CloseWhatsitNode: Node
 ---@field attr Node # list of attributes
 ---@field stream number # *TeX*'s stream id number
@@ -865,6 +939,8 @@ _N._whatsit.user_defined = 8
 ---__Reference:__
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L833-L864](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L833-L864)
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class UserDefinedWhatsitNode: WhatsitNode
 ---@field user_id number # id number
 ---@field type 97|100|108|110|115|116 # The `type` can have one of six distinct values. The number is the ASCII value if the first character of the type name (so you can use string.byte("l") instead of `108`): 97 “a” list of attributes (a node list), 100 “d” a *Lua* number, 108 “l” a *Lua* value (table, number, boolean, etc), 110 “n” a node list, 115 “s” a *Lua* string, 116 “t” a *Lua* token list in *Lua* table form (a list of triplets).
@@ -873,6 +949,7 @@ _N._whatsit.user_defined = 8
 _N._whatsit.save_pos = 6
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class SavePosWhatsitNode: WhatsitNode
 ---@field attr Node # list of attributes
 
@@ -886,6 +963,7 @@ _N._whatsit.late_lua = 7
 ---When a function is used, it gets called with as first argument the node that triggers
 ---the call.
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class LateLuaWhatsitNode: WhatsitNode
 ---@field attr Node # list of attributes
 ---@field data string # or function  the to be written information stored as *Lua* value
@@ -898,6 +976,7 @@ _N._whatsit.special = 3
 ---There is only one DVI backend whatsit, and it just flushes its content to the
 ---output file.
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class SpecialWhatsitNode: WhatsitNode
 ---@field attr Node # list of attributes
 ---@field data string # the `special` information
@@ -907,6 +986,7 @@ _N._whatsit.pdf_literal = 16
 ---
 ---* Corresponding C source code: [texnodes.c#L1082-L1088](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L1082-L1088)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias PdfLiteralModes
 ---|0 `origin`
 ---|1 `page`
@@ -923,6 +1003,7 @@ _N._whatsit.pdf_literal = 16
 ---
 ---* Corresponding C source code: [texnodes.c#L1148-L1151](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L1148-L1151)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PdfLiteralWhatsitNode: WhatsitNode
 ---@field attr Node # list of attributes
 ---@field mode PdfLiteralModes # the “mode” setting of this literal
@@ -932,6 +1013,7 @@ _N._whatsit.pdf_literal = 16
 _N._whatsit.pdf_refobj = 17
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PdfRefobjWhatsitNode: WhatsitNode
 ---@field attr Node # list of attributes
 ---@field objnum number # the referenced *PDF* object number
@@ -939,6 +1021,7 @@ _N._whatsit.pdf_refobj = 17
 _N._whatsit.pdf_annot = 18
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PdfAnnotWhatsitNode: WhatsitNode
 ---@field attr Node # list of attributes
 ---@field width number # the width (not used in calculations)
@@ -950,6 +1033,7 @@ _N._whatsit.pdf_annot = 18
 _N._whatsit.pdf_start_link = 19
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PdfStartLinkWhatsitNode: WhatsitNode
 ---@field attr Node # list of attributes
 ---@field width number # the width (not used in calculations)
@@ -962,12 +1046,14 @@ _N._whatsit.pdf_start_link = 19
 _N._whatsit.pdf_end_link = 20
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PdfEndLinkWhatsitNode: WhatsitNode
 ---@field attr Node # list of attributes
 
 _N._whatsit.pdf_dest = 21
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PdfDestWhatsitNode: WhatsitNode
 ---@field attr Node # list of attributes
 ---@field width number # the width (not used in calculations)
@@ -985,6 +1071,7 @@ _N._8_6_7_pdf_action = 142
 ---
 ---* Corresponding C source code: [texnodes.c#L1090-L1093](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L1090-L1093)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias PdfActionTypes
 ---|0 'page'
 ---|1 'goto'
@@ -994,6 +1081,7 @@ _N._8_6_7_pdf_action = 142
 ---
 ---* Corresponding C source code: [texnodes.c#L1095-L1097](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L1095-L1097)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias PdfWindowTypes
 ---|0 'notset'
 ---|1 'new'
@@ -1002,6 +1090,7 @@ _N._8_6_7_pdf_action = 142
 ---
 ---* Corresponding C source code: [texnodes.c#L1104-L1111](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L1104-L1111)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PdfActionWhatsitNode: WhatsitNode
 ---@field action_type PdfActionTypes # the kind of action involved
 ---@field named_id number # are `dest_id` and `struct_id` string values?
@@ -1016,6 +1105,7 @@ _N._whatsit.pdf_thread = 23
 ---
 ------* Corresponding C source code: [texnodes.c#L1185-L1192](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L1185-L1192)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PdfThreadWhatsitNode
 ---@field attr Node # list of attributes
 ---@field width number # the width (not used in calculations)
@@ -1030,6 +1120,7 @@ _N._whatsit.pdf_start_thread = 24
 ---
 ---* Corresponding C source code: [texnodes.c#L1176-L1183](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L1176-L1183)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PdfStartThreadWhatsitNode
 ---@field attr Node # list of attributes
 ---@field width number # the width (not used in calculations)
@@ -1044,6 +1135,7 @@ _N._whatsit.pdf_end_thread = 25
 ---
 ---* Corresponding C source code: [texnodes.c#L1145-L1146](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L1145-L1146)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PdfEndThreadWhatsitNode
 ---@field attr Node # list of attributes
 
@@ -1066,6 +1158,7 @@ _N._whatsit.pdf_colorstack = 28
 ---* Source code of the `LuaTeX` manual: [pdftex-t.tex#L3954-L3980](https://github.com/tex-mirror/pdftex/blob/6fb2352aa70a23ad3830f1434613170be3f3cd74/doc/manual/pdftex-t.tex#L3954-L3980)
 ---Source: [luatex-nodes.tex#L1097-L1107](https://github.com/TeX-Live/luatex/blob/e1cb50f34dc1451c9c5319dc953305b52a7a96fd/manual/luatex-nodes.tex#L1097-L1107)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PdfColorstackWhatsitNode: WhatsitNode
 ---@field stack integer # The colorstack id number.
 ---@field command integer # The command to execute. ⟨stack action⟩ → set (0) | push (1) | pop (2) | current (3) [texnodes.c#L3523-L3545](https://github.com/TeX-Live/luatex/blob/6472bd794fea67de09f01e1a89e9b12141be7474/source/texk/web2c/luatexdir/tex/texnodes.c#L3523-L3545)
@@ -1074,6 +1167,7 @@ _N._whatsit.pdf_colorstack = 28
 _N._whatsit.pdf_setmatrix = 29
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PdfSetmatrixWhatsitNode
 ---@field attr Node # list of attributes
 ---@field data string # data
@@ -1081,12 +1175,14 @@ _N._whatsit.pdf_setmatrix = 29
 _N._whatsit.pdf_save = 30
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PdfSaveWhatsitNode
 ---@field attr Node # list of attributes
 
 _N._whatsit.pdf_restore = 31
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PdfRestoreWhatsitNode
 ---@field attr Node # list of attributes
 
@@ -1099,101 +1195,121 @@ _N._whatsit.pdf_link_state = 32
 _N.unset = 15
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class UnsetNode: Node
 
 _N.align_record = 30
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class AlignRecordNode: Node
 
 _N.pseudo_file = 31
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PseudoFileNode: Node
 
 _N.pseudo_line = 32
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PseudoLineNode: Node
 
 _N.page_insert = 33
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PageInsertNode: Node
 
 _N.split_insert = 34
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class Split_InsertNode: Node
 
 _N.expr_stack = 35
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class ExprStackNode: Node
 
 _N.nested_list = 36
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class Nested_ListNode: Node
 
 _N.span = 37
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class SpanNode: Node
 
 _N.attribute = 38
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class AttributeNode: Node
 
 _N.attribute_list = 40
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class AttributeListNode: Node
 
 _N.temp = 41
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class TempNode: Node
 
 _N.align_stack = 42
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class AlignStackNode: Node
 
 _N.movement_stack = 43
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class MovementStackNode: Node
 
 _N.if_stack = 44
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class IfStackNode: Node
 
 _N.unhyphenated = 45
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class UnhyphenatedNode: Node
 
 _N.hyphenated = 46
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class HyphenatedNode: Node
 
 _N.delta = 47
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class DeltaNode: Node
 
 _N.passive = 48
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PassiveNode: Node
 
 _N.shape = 49
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class ShapeNode: Node
 
 _N._7_2_is_node = 145
@@ -1210,6 +1326,8 @@ _N._7_2_is_node = 145
 ---@param item any
 ---
 ---@return false|integer t
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.is_node(item) end
 
 ---
@@ -1223,6 +1341,8 @@ function node.is_node(item) end
 ---@param item any
 ---
 ---@return false|integer t
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.is_node(item) end
 
 _N._7_3_types_whatsits = 145
@@ -1237,6 +1357,8 @@ _N._7_3_types_whatsits = 145
 ---* Corresponding C source code: [lnodelib.c#L3066-L3069](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3066-L3069)
 ---
 ---@return table
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.types() end
 
 ---
@@ -1251,6 +1373,8 @@ function node.types() end
 ---* Corresponding C source code: [lnodelib.c#L3073-L3076](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3073-L3076)
 ---
 ---@return table
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.whatsits() end
 
 _N._7_4_id = 145
@@ -1266,6 +1390,8 @@ _N._7_4_id = 145
 ---@param type NodeTypeName
 ---
 ---@return NodeTypeId
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.id(type) end
 
 _N._7_5_type_subtype = 145
@@ -1292,6 +1418,8 @@ _N._7_5_type_subtype = 145
 ---@param n NodeTypeId # The numeric node type id.
 ---
 ---@return NodeTypeName|'node'|nil
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.type(n) end
 
 ---
@@ -1309,6 +1437,8 @@ function node.type(n) end
 ---@param whatsit_type_name WhatsitTypeName
 ---
 ---@return WhatsitTypeId whatsit_type_id
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.subtype(whatsit_type_name) end
 
 _N._7_6_fields = 146
@@ -1329,6 +1459,8 @@ _N._7_6_fields = 146
 ---@param subtype? number
 ---
 ---@return {[number]: string}
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.fields(id, subtype) end
 
 _N._7_7_has_field = 146
@@ -1344,6 +1476,8 @@ _N._7_7_has_field = 146
 ---@param field string
 ---
 ---@return boolean t
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.has_field(n, field) end
 
 ---
@@ -1357,6 +1491,8 @@ function node.has_field(n, field) end
 ---@param field string
 ---
 ---@return boolean t
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.has_field(d, field) end
 
 _N._7_8_new = 146
@@ -1379,6 +1515,8 @@ _N._7_8_new = 146
 ---@param subtype? integer|string
 ---
 ---@return Node
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.new(id, subtype) end
 
 ---
@@ -1399,6 +1537,8 @@ function node.new(id, subtype) end
 ---@param subtype? integer|string
 ---
 ---@return integer d
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.new(id, subtype) end
 
 _N._7_9_free_flush_node_list = 146
@@ -1419,6 +1559,8 @@ _N._7_9_free_flush_node_list = 146
 ---@param n Node
 ---
 ---@return Node next
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.free(n) end
 
 ---
@@ -1437,6 +1579,8 @@ function node.direct.free(n) end
 ---@param d integer
 ---
 ---@return integer next
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.free(d) end
 
 ---
@@ -1448,6 +1592,8 @@ function node.direct.free(d) end
 ---* Corresponding C source code: [lnodelib.c#L2113-L2122](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2113-L2122)
 ---
 ---@param n Node
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.flush_node(n) end
 
 ---
@@ -1459,6 +1605,8 @@ function node.flush_node(n) end
 ---* Corresponding C source code: [lnodelib.c#L2126-L2133](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2126-L2133)
 ---
 ---@param d integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.flush_node(d) end
 
 ---
@@ -1474,6 +1622,8 @@ function node.direct.flush_node(d) end
 ---* Corresponding C source code: [lnodelib.c#L2137-L2146](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2137-L2146)
 ---
 ---@param n Node
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.flush_list(n) end
 
 ---
@@ -1489,6 +1639,8 @@ function node.flush_list(n) end
 ---* Corresponding C source code: [lnodelib.c#L2150-L2157](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2150-L2157)
 ---
 ---@param d integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.flush_list(d) end
 
 _N._7_10_copy_copy_list = 147
@@ -1504,6 +1656,8 @@ _N._7_10_copy_copy_list = 147
 ---@param n Node
 ---
 ---@return Node m
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.copy(n) end
 
 ---
@@ -1517,6 +1671,8 @@ function node.copy(n) end
 ---@param d integer
 ---
 ---@return integer e
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.copy(d) end
 
 ---
@@ -1538,6 +1694,8 @@ function node.direct.copy(d) end
 ---@param m? Node
 ---
 ---@return Node m
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.copy_list(n, m) end
 
 ---
@@ -1559,6 +1717,8 @@ function node.copy_list(n, m) end
 ---@param e? integer
 ---
 ---@return integer e
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.copy_list(d, e) end
 
 _N._7_11_prev_next = 147
@@ -1574,6 +1734,8 @@ _N._7_11_prev_next = 147
 ---@param n Node
 ---
 ---@return Node|nil m
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.prev(n) end
 
 ---
@@ -1587,6 +1749,8 @@ function node.prev(n) end
 ---@param n Node
 ---
 ---@return Node|nil m
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.next(n) end
 
 _N._7_12_current_attr = 0
@@ -1628,6 +1792,8 @@ _N._7_12_current_attr = 0
 ---* Corresponding C source code: [lnodelib.c#L6511-L6532](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6511-L6532)
 ---
 ---@return Node|nil m
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.current_attr() end
 
 ---
@@ -1638,6 +1804,8 @@ function node.current_attr() end
 ---* Corresponding C source code: [lnodelib.c#L6511-L6532](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6511-L6532)
 ---
 ---@return integer|nil e
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.current_attr() end
 
 _N._7_13_hpack = 0
@@ -1667,6 +1835,8 @@ _N._7_13_hpack = 0
 ---
 ---@return Node n
 ---@return integer badness
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.hpack(n, width, info, dir) end
 
 ---
@@ -1694,6 +1864,8 @@ function node.hpack(n, width, info, dir) end
 ---
 ---@return integer d
 ---@return integer badness
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.hpack(d, width, info, dir) end
 
 _N._7_14_vpack = 0
@@ -1719,6 +1891,8 @@ _N._7_14_vpack = 0
 ---
 ---@return Node n
 ---@return integer badness
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.vpack(n, width, info, dir) end
 
 ---
@@ -1742,6 +1916,8 @@ function node.vpack(n, width, info, dir) end
 ---
 ---@return integer d
 ---@return integer badness
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.vpack(d, width, info, dir) end
 
 _N._7_15_prepend_prevdepth = 0
@@ -1758,6 +1934,8 @@ _N._7_15_prepend_prevdepth = 0
 ---@param prevdepth integer
 ---
 ---@return integer new_prevdepth
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.prepend_prevdepth(n, prevdepth) end
 
 ---
@@ -1772,6 +1950,8 @@ function node.prepend_prevdepth(n, prevdepth) end
 ---@param prevdepth integer
 ---
 ---@return integer new_prevdepth
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.prepend_prevdepth(d, prevdepth) end
 
 _N._7_16_dimensions_rangedimensions = 149
@@ -1788,8 +1968,6 @@ _N._7_16_dimensions_rangedimensions = 149
 ---
 ---__Reference:__
 ---
-
----
 ---[Source: luatex-nodes.tex#L1490-L1546](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L1490-L1546)
 ---* Corresponding C source code: [lnodelib.c#L2767-L2812](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2767-L2812)
 ---
@@ -1799,6 +1977,8 @@ _N._7_16_dimensions_rangedimensions = 149
 ---@return integer width # scaled points
 ---@return integer height # scaled points
 ---@return integer depth # scaled points
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.dimensions(n, dir) end
 
 ---
@@ -1813,7 +1993,6 @@ function node.dimensions(n, dir) end
 ---
 ---__Reference:__
 ---
---
 ---[Source: luatex-nodes.tex#L1490-L1546](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L1490-L1546)
 ---* Corresponding C source code: [lnodelib.c#L2838-L2880](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2838-L2880)
 ---
@@ -1823,6 +2002,8 @@ function node.dimensions(n, dir) end
 ---@return integer width # scaled points
 ---@return integer height # scaled points
 ---@return integer depth # scaled points
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.dimensions(d, dir) end
 
 ---
@@ -1841,6 +2022,8 @@ function node.direct.dimensions(d, dir) end
 ---@return integer width # scaled points
 ---@return integer height # scaled points
 ---@return integer depth # scaled points
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.dimensions(n, t, dir) end
 
 ---
@@ -1859,6 +2042,8 @@ function node.dimensions(n, t, dir) end
 ---@return integer width # scaled points
 ---@return integer height # scaled points
 ---@return integer depth # scaled points
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.dimensions(d, t, dir) end
 
 ---
@@ -1899,6 +2084,8 @@ function node.direct.dimensions(d, t, dir) end
 ---@return integer width # scaled points
 ---@return integer height # scaled points
 ---@return integer depth # scaled points
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.dimensions(glue_set, glue_sign, glue_order, n, dir) end
 
 ---
@@ -1939,6 +2126,8 @@ function node.dimensions(glue_set, glue_sign, glue_order, n, dir) end
 ---@return integer width # scaled points
 ---@return integer height # scaled points
 ---@return integer depth # scaled points
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.dimensions(glue_set, glue_sign, glue_order, d, dir) end
 
 ---
@@ -1963,6 +2152,8 @@ function node.direct.dimensions(glue_set, glue_sign, glue_order, d, dir) end
 ---@return integer width # scaled points
 ---@return integer height # scaled points
 ---@return integer depth # scaled points
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.dimensions(glue_set, glue_sign, glue_order, d, t, dir) end
 
 ---
@@ -1987,6 +2178,8 @@ function node.dimensions(glue_set, glue_sign, glue_order, d, t, dir) end
 ---@return integer width # scaled points
 ---@return integer height # scaled points
 ---@return integer depth # scaled points
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.dimensions(glue_set, glue_sign, glue_order, n, t, dir) end
 
 ---
@@ -2007,6 +2200,8 @@ function node.direct.dimensions(glue_set, glue_sign, glue_order, n, t, dir) end
 ---@return integer width # scaled points
 ---@return integer height # scaled points
 ---@return integer depth # scaled points
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.rangedimensions(parent, first, last) end
 
 ---
@@ -2027,6 +2222,8 @@ function node.rangedimensions(parent, first, last) end
 ---@return integer width # scaled points
 ---@return integer height # scaled points
 ---@return integer depth # scaled points
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.rangedimensions(parent, first, last) end
 
 _N._7_17_mlist_to_hlist = 0
@@ -2047,6 +2244,8 @@ _N._7_17_mlist_to_hlist = 0
 ---@param penalties boolean
 ---
 ---@return Node h
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.mlist_to_hlist(n, display_type, penalties) end
 
 _N._7_18_slide = 0
@@ -2066,6 +2265,8 @@ _N._7_19_tail = 152
 ---@param n Node
 ---
 ---@return Node m
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.tail(n) end
 
 ---
@@ -2078,6 +2279,8 @@ function node.tail(n) end
 ---@param d integer
 ---
 ---@return integer e
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.tail(d) end
 
 _N._7_20_length_and_count = 0
@@ -2096,6 +2299,8 @@ _N._7_20_length_and_count = 0
 ---@param m? Node
 ---
 ---@return integer i
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.length(n, m) end
 
 ---
@@ -2112,6 +2317,8 @@ function node.length(n, m) end
 ---@param e? Node
 ---
 ---@return integer i
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.length(d, e) end
 
 ---
@@ -2131,6 +2338,8 @@ function node.direct.length(d, e) end
 ---@param m? Node
 ---
 ---@return integer i
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.count(id, n, m) end
 
 ---
@@ -2150,6 +2359,8 @@ function node.count(id, n, m) end
 ---@param e? Node
 ---
 ---@return integer i
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.count(id, d, e) end
 
 _N._7_21_is_char_and_is_glyph = 0
@@ -2167,6 +2378,8 @@ _N._7_21_is_char_and_is_glyph = 0
 ---
 ---@return boolean|integer|nil
 ---@return integer|nil
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.is_char(n, font) end
 
 ---
@@ -2182,6 +2395,8 @@ function node.is_char(n, font) end
 ---
 ---@return boolean|integer|nil
 ---@return integer|nil
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.is_char(d, font) end
 
 ---
@@ -2196,6 +2411,8 @@ function node.direct.is_char(d, font) end
 ---
 ---@return boolean|integer character
 ---@return integer font
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.is_glyph(n) end
 
 ---
@@ -2210,6 +2427,8 @@ function node.is_glyph(n) end
 ---
 ---@return boolean|integer character
 ---@return integer font
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.is_glyph(n) end
 
 _N._7_22_traverse = 0
@@ -2237,6 +2456,8 @@ _N._7_22_traverse = 0
 ---@param n Node
 ---
 ---@return fun(): t: Node, id: integer, subtype: integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.traverse(n) end
 
 ---
@@ -2262,6 +2483,8 @@ function node.traverse(n) end
 ---@param d integer
 ---
 ---@return fun(): t: integer, id: integer, subtype: integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.traverse(d) end
 
 _N._7_23_traverse_id = 0
@@ -2278,6 +2501,8 @@ _N._7_23_traverse_id = 0
 ---@param n Node
 ---
 ---@return fun(): t: Node, subtype: integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.traverse_id(id, n) end
 
 ---
@@ -2292,6 +2517,8 @@ function node.traverse_id(id, n) end
 ---@param d integer
 ---
 ---@return fun(): t: integer, subtype: integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.traverse_id(id, d) end
 
 _N._7_24_traverse_char_and_traverse_glyph = 0
@@ -2308,6 +2535,8 @@ _N._7_24_traverse_char_and_traverse_glyph = 0
 ---@param n Node
 ---
 ---@return fun(): n: Node, font: integer, char: integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.traverse_char(n) end
 
 ---
@@ -2322,6 +2551,8 @@ function node.traverse_char(n) end
 ---@param d integer
 ---
 ---@return fun(): d: integer, font: integer, char: integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.traverse_char(d) end
 
 ---
@@ -2335,6 +2566,8 @@ function node.direct.traverse_char(d) end
 ---@param n Node
 ---
 ---@return fun(): n: Node, font: integer, char: integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.traverse_glyph(n) end
 
 ---
@@ -2348,6 +2581,8 @@ function node.traverse_glyph(n) end
 ---@param d integer
 ---
 ---@return fun(): d: integer, font: integer, char: integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.traverse_glyph(d) end
 
 _N._7_25_traverse_list = 0
@@ -2364,6 +2599,8 @@ _N._7_25_traverse_list = 0
 ---@param n Node
 ---
 ---@return fun(): n: Node, id: integer, subtype: integer, list: Node
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.traverse_list(n) end
 
 ---
@@ -2378,6 +2615,8 @@ function node.traverse_list(n) end
 ---@param d integer
 ---
 ---@return fun(): d: integer, id: integer, subtype: integer, list: Node
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.traverse_list(d) end
 
 _N._7_26_has_glyph = 0
@@ -2392,6 +2631,8 @@ _N._7_26_has_glyph = 0
 ---@param n Node
 ---
 ---@return Node|nil n
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.has_glyph(n) end
 
 ---
@@ -2404,6 +2645,8 @@ function node.has_glyph(n) end
 ---@param d integer
 ---
 ---@return integer|nil d
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.has_glyph(d) end
 
 _N._7_27_end_of_math = 0
@@ -2423,6 +2666,8 @@ _N._7_27_end_of_math = 0
 ---@param n Node
 ---
 ---@return Node|nil t
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.end_of_math(n) end
 
 ---
@@ -2440,6 +2685,8 @@ function node.end_of_math(n) end
 ---@param d integer
 ---
 ---@return integer|nil t
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.end_of_math(d) end
 
 _N._7_28_remove = 153
@@ -2466,6 +2713,8 @@ _N._7_28_remove = 153
 ---@return Node head # The new `head`
 ---@return Node|nil current # The node following the `current` in the calling
 ---argument.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.remove(head, current) end
 
 ---
@@ -2490,6 +2739,8 @@ function node.remove(head, current) end
 ---@return integer|nil head # The new `head`
 ---@return integer|nil current # The node following the `current` in the calling
 ---argument.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.remove(head, current) end
 
 _N._7_29_insert_before = 153
@@ -2514,6 +2765,8 @@ _N._7_29_insert_before = 153
 ---
 ---@return Node head
 ---@return Node new
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.insert_before(head, current, new) end
 
 ---
@@ -2536,6 +2789,8 @@ function node.insert_before(head, current, new) end
 ---
 ---@return integer head
 ---@return integer new
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.insert_before(head, current, new) end
 
 _N._7_30_insert_after = 153
@@ -2559,6 +2814,8 @@ _N._7_30_insert_after = 153
 ---
 ---@return Node head
 ---@return Node new
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.insert_after(head, current, new) end
 
 ---
@@ -2580,6 +2837,8 @@ function node.insert_after(head, current, new) end
 ---
 ---@return integer head
 ---@return integer new
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.insert_after(head, current, new) end
 
 _N._7_31_first_glyph = 154
@@ -2601,6 +2860,8 @@ _N._7_31_first_glyph = 154
 ---
 ---@return Node|nil n
 ---@return boolean success
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.first_glyph(n, m) end
 
 ---
@@ -2619,6 +2880,8 @@ function node.first_glyph(n, m) end
 ---@param e? integer
 ---
 ---@return integer|nil d
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.first_glyph(d, e) end
 
 _N._7_32_ligaturing = 154
@@ -2636,6 +2899,8 @@ _N._7_32_ligaturing = 154
 ---@return Node head # the new head
 ---@return Node tail # the new tail (both `head` and `tail` can change into a new ligature)
 ---@return boolean success
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.ligaturing(head, tail) end
 
 ---
@@ -2651,6 +2916,8 @@ function node.ligaturing(head, tail) end
 ---@return integer head # the new head
 ---@return integer tail # the new tail (both `head` and `tail` can change into a new ligature)
 ---@return boolean success
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.ligaturing(head, tail) end
 
 _N._7_33_kerning = 154
@@ -2668,6 +2935,8 @@ _N._7_33_kerning = 154
 ---@return Node head  # the new head (can be an inserted kern node, because special kernings with word boundaries are possible).
 ---@return Node tail # the new tail (can be an inserted kern node, because special kernings with word boundaries are possible).
 ---@return boolean success
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.kerning(head, tail) end
 
 ---
@@ -2683,6 +2952,8 @@ function node.kerning(head, tail) end
 ---@return integer head  # the new head (can be an inserted kern node, because special kernings with word boundaries are possible).
 ---@return integer tail # the new tail (can be an inserted kern node, because special kernings with word boundaries are possible).
 ---@return boolean success
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.kerning(head, tail) end
 
 _N._7_34_unprotect_glyphs = 155
@@ -2696,6 +2967,8 @@ _N._7_34_unprotect_glyphs = 155
 ---* Corresponding C source code: [lnodelib.c#L6217-L6223](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6217-L6223)
 ---
 ---@param n Node
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.unprotect_glyph(n) end
 
 ---
@@ -2707,6 +2980,8 @@ function node.unprotect_glyph(n) end
 ---* Corresponding C source code: [lnodelib.c#L6272-L6278](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6272-L6278)
 ---
 ---@param d integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.unprotect_glyph(d) end
 
 ---
@@ -2719,6 +2994,8 @@ function node.direct.unprotect_glyph(d) end
 ---
 ---@param head Node
 ---@param tail? Node
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.unprotect_glyphs(head, tail) end
 
 ---
@@ -2731,6 +3008,8 @@ function node.unprotect_glyphs(head, tail) end
 ---
 ---@param head integer
 ---@param tail? integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.unprotect_glyphs(head, tail) end
 
 _N._7_35_protect_glyphs = 155
@@ -2747,6 +3026,8 @@ _N._7_35_protect_glyphs = 155
 ---* Corresponding C source code: [lnodelib.c#L6209-L6215](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6209-L6215)
 ---
 ---@param n Node
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.protect_glyph(n) end
 
 ---
@@ -2761,6 +3042,8 @@ function node.protect_glyph(n) end
 ---* Corresponding C source code: [lnodelib.c#L6264-L6270](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6264-L6270)
 ---
 ---@param d integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.protect_glyph(d) end
 
 ---
@@ -2776,6 +3059,8 @@ function node.direct.protect_glyph(d) end
 ---
 ---@param head Node
 ---@param tail? Node
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.protect_glyphs(head, tail) end
 
 ---
@@ -2791,6 +3076,8 @@ function node.protect_glyphs(head, tail) end
 ---
 ---@param head integer
 ---@param tail? integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.protect_glyphs(head, tail) end
 
 _N._7_36_last_node = 155
@@ -2803,6 +3090,8 @@ _N._7_36_last_node = 155
 ---* Corresponding C source code: [lnodelib.c#L2556-L2563](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2556-L2563)
 ---
 ---@return Node|nil n
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.last_node() end
 
 ---
@@ -2813,6 +3102,8 @@ function node.last_node() end
 ---* Corresponding C source code: [lnodelib.c#L2567-L2572](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2567-L2572)
 ---
 ---@return integer|nil n
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.last_node() end
 
 _N._7_37_write = 155
@@ -2830,6 +3121,8 @@ _N._7_37_write = 155
 ---* Corresponding C source code: [lnodelib.c#L2505-L2525](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2505-L2525)
 ---
 ---@param n Node
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.write(n) end
 
 ---
@@ -2845,6 +3138,8 @@ function node.write(n) end
 ---* Corresponding C source code: [lnodelib.c#L2529-L2552](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2529-L2552)
 ---
 ---@param d integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.write(d) end
 
 _N._7_38_protrusion_skippable = 155
@@ -2860,6 +3155,8 @@ _N._7_38_protrusion_skippable = 155
 ---@param n Node
 ---
 ---@return boolean skippable
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.protrusion_skippable(n) end
 
 ---
@@ -2873,6 +3170,8 @@ function node.protrusion_skippable(n) end
 ---@param d integer
 ---
 ---@return boolean skippable
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.protrusion_skippable(d) end
 
 _N._8_glue = 155
@@ -2905,6 +3204,8 @@ _N._8_1_setglue = 155
 ---@param shrink integer|any
 ---@param stretch_order integer|any
 ---@param shrink_order integer|any
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.setglue(n, width, stretch, shrink, stretch_order, shrink_order) end
 
 ---
@@ -2933,6 +3234,8 @@ function node.setglue(n, width, stretch, shrink, stretch_order, shrink_order) en
 ---@param shrink integer|any
 ---@param stretch_order integer|any
 ---@param shrink_order integer|any
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.setglue(d, width, stretch, shrink, stretch_order, shrink_order) end
 
 _N._8_2_getglue = 155
@@ -2954,6 +3257,8 @@ _N._8_2_getglue = 155
 ---@return integer|nil shrink_or_glue_sign # When a list node (`vlist` or `hlist`) is passed, than the glue sign is returned.
 ---@return integer|nil stretch_order
 ---@return integer|nil shrink_order
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.getglue(n) end
 
 ---
@@ -2973,6 +3278,8 @@ function node.getglue(n) end
 ---@return integer|nil shrink_or_glue_sign # When a list node (`vlist` or `hlist`) is passed, than the glue sign is returned.
 ---@return integer|nil stretch_order
 ---@return integer|nil shrink_order
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.getglue(d) end
 
 _N._8_3_is_zero_glue = 156
@@ -2988,6 +3295,8 @@ _N._8_3_is_zero_glue = 156
 ---@param n Node
 ---
 ---@return boolean isglue
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.is_zero_glue(n) end
 
 ---
@@ -3001,6 +3310,8 @@ function node.is_zero_glue(n) end
 ---@param d integer
 ---
 ---@return boolean isglue
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.is_zero_glue(d) end
 
 _N._9_attribute_handling = 156
@@ -3025,6 +3336,8 @@ _N._9_4_has_attribute = 157
 ---@param value? integer
 ---
 ---@return integer|nil value
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.has_attribute(n, id, value) end
 
 ---
@@ -3043,6 +3356,8 @@ function node.has_attribute(n, id, value) end
 ---@param value? integer
 ---
 ---@return integer|nil value
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.has_attribute(d, id, value) end
 
 _N._9_5_get_attribute = 157
@@ -3062,6 +3377,8 @@ _N._9_5_get_attribute = 157
 ---@param id integer
 ---
 ---@return integer|nil value
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.get_attribute(n, id) end
 
 ---
@@ -3079,6 +3396,8 @@ function node.get_attribute(n, id) end
 ---@param id integer
 ---
 ---@return integer|nil value
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.get_attribute(d, id) end
 
 _N._9_6_find_attribute = 157
@@ -3098,6 +3417,8 @@ _N._9_6_find_attribute = 157
 ---
 ---@return integer|nil value
 ---@return Node|nil n
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.find_attribute(n, id) end
 
 ---
@@ -3115,6 +3436,8 @@ function node.find_attribute(n, id) end
 ---
 ---@return integer|nil value
 ---@return Node|nil n
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.find_attribute(d, id) end
 
 _N._9_7_set_attribute = 157
@@ -3132,6 +3455,8 @@ _N._9_7_set_attribute = 157
 ---@param n Node
 ---@param id integer
 ---@param value? integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.set_attribute(n, id, value) end
 
 ---
@@ -3147,6 +3472,8 @@ function node.set_attribute(n, id, value) end
 ---@param d integer
 ---@param id integer
 ---@param value? integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.set_attribute(d, id, value) end
 
 _N._9_8_unset_attribute = 158
@@ -3170,6 +3497,8 @@ _N._9_8_unset_attribute = 158
 ---@param value? integer
 ---
 ---@return integer|nil value
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.unset_attribute(n, id, value) end
 
 ---
@@ -3191,6 +3520,8 @@ function node.unset_attribute(n, id, value) end
 ---@param value? integer
 ---
 ---@return integer|nil value
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.unset_attribute(n, id, value) end
 
 _N._9_9_slide = 158
@@ -3213,6 +3544,8 @@ _N._9_9_slide = 158
 ---@param n Node
 ---
 ---@return Node tail
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.slide(n) end
 
 ---
@@ -3233,6 +3566,8 @@ function node.slide(n) end
 ---@param d integer
 ---
 ---@return integer tail
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.slide(d) end
 
 _N._9_10_check_discretionaries = 158
@@ -3251,6 +3586,8 @@ _N._9_10_check_discretionaries = 158
 ---* Corresponding C source code: [lnodelib.c#L8615-L8627](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L8615-L8627)
 ---
 ---@param head Node
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.check_discretionaries(head) end
 
 ---
@@ -3267,6 +3604,8 @@ function node.check_discretionaries(head) end
 ---* Corresponding C source code: [lnodelib.c#L8550-L8562](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L8550-L8562)
 ---
 ---@param d integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.check_discretionaries(d) end
 
 ---
@@ -3283,6 +3622,8 @@ function node.direct.check_discretionaries(d) end
 ---* Corresponding C source code: [lnodelib.c#L8629-L8638](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L8629-L8638)
 ---
 ---@param n Node
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.check_discretionary(n) end
 
 ---
@@ -3299,6 +3640,8 @@ function node.check_discretionary(n) end
 ---* Corresponding C source code: [lnodelib.c#L8564-L8573](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L8564-L8573)
 ---
 ---@param d integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.check_discretionary(d) end
 
 _N._9_11_flatten_discretionaries = 158
@@ -3315,6 +3658,8 @@ _N._9_11_flatten_discretionaries = 158
 ---
 ---@return Node head
 ---@return integer count
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.flatten_discretionaries(n) end
 
 ---
@@ -3329,6 +3674,8 @@ function node.flatten_discretionaries(n) end
 ---
 ---@return Node head
 ---@return integer count
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.flatten_discretionaries(d) end
 
 _N._9_12_family_font = 158
@@ -3348,6 +3695,8 @@ _N._9_12_family_font = 158
 ---@param fam integer # family identifier
 ---
 ---@return integer id
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.family_font(fam) end
 
 _N._10_two_access_models = 159
@@ -3362,6 +3711,8 @@ _N._10_two_access_models = 159
 ---@param n Node
 ---
 ---@return integer d
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.todirect(n) end
 
 ---
@@ -3374,6 +3725,8 @@ function node.direct.todirect(n) end
 ---@param d integer
 ---
 ---@return Node n
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.tonode(d) end
 
 _N._10_two_access_models_page_2 = 160
@@ -3387,6 +3740,8 @@ _N._10_two_access_models_page_2 = 160
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---@param next integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.setnext(d, next) end
 
 ---
@@ -3399,6 +3754,8 @@ function node.direct.setnext(d, next) end
 ---@param n Node
 ---
 ---@return Node|nil next
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.getnext(n) end
 
 ---
@@ -3411,6 +3768,8 @@ function node.getnext(n) end
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return integer|nil next
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.getnext(d) end
 
 ---
@@ -3422,6 +3781,8 @@ function node.direct.getnext(d) end
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---@param prev integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.setprev(d, prev) end
 
 ---
@@ -3434,6 +3795,8 @@ function node.direct.setprev(d, prev) end
 ---@param n Node
 ---
 ---@return Node|nil prev
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.getprev(n) end
 
 ---
@@ -3446,6 +3809,8 @@ function node.getprev(n) end
 ---@param n Node
 ---
 ---@return Node|nil prev
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.getprev(n) end
 
 ---
@@ -3458,6 +3823,8 @@ function node.direct.getprev(n) end
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---@param prev integer
 ---@param next integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.setboth(d, prev, next) end
 
 ---
@@ -3471,6 +3838,8 @@ function node.direct.setboth(d, prev, next) end
 ---
 ---@return Node|nil prev
 ---@return Node|nil next
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.getboth(n) end
 
 ---
@@ -3484,6 +3853,8 @@ function node.getboth(n) end
 ---
 ---@return integer|nil next
 ---@return integer|nil prev
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.getboth(d) end
 
 ---
@@ -3496,6 +3867,8 @@ function node.direct.getboth(d) end
 ---@param n Node
 ---
 ---@return integer id
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.getid(n) end
 
 ---
@@ -3508,6 +3881,8 @@ function node.getid(n) end
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return integer id
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.getid(d) end
 
 ---
@@ -3519,6 +3894,8 @@ function node.direct.getid(d) end
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---@param subtype integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.setsubtype(d, subtype) end
 
 ---
@@ -3531,6 +3908,8 @@ function node.direct.setsubtype(d, subtype) end
 ---@param n Node
 ---
 ---@return integer subtype
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.getsubtype(n) end
 
 ---
@@ -3543,6 +3922,8 @@ function node.getsubtype(n) end
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return integer subtype
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.getsubtype(d) end
 
 ---
@@ -3555,6 +3936,8 @@ function node.direct.getsubtype(d) end
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@param font integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.setfont(d, font) end
 
 ---
@@ -3567,6 +3950,8 @@ function node.direct.setfont(d, font) end
 ---@param n Node
 ---
 ---@return integer|nil font
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.getfont(n) end
 
 ---
@@ -3579,6 +3964,8 @@ function node.getfont(n) end
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return integer|nil font
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.getfont(d) end
 
 ---
@@ -3590,6 +3977,8 @@ function node.direct.getfont(d) end
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---@param char integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.setchar(d, char) end
 
 ---
@@ -3602,6 +3991,8 @@ function node.direct.setchar(d, char) end
 ---@param n Node
 ---
 ---@return integer|nil char
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.getchar(n) end
 
 ---
@@ -3614,6 +4005,8 @@ function node.getchar(n) end
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return integer|nil char
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.getchar(d) end
 
 ---
@@ -3627,6 +4020,8 @@ function node.direct.getchar(d) end
 ---@param width number # Rounded to an integer
 ---@param height number # Rounded to an integer
 ---@param depth number # Rounded to an integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.setwhd(d, width, height, depth) end
 
 ---
@@ -3643,6 +4038,8 @@ function node.direct.setwhd(d, width, height, depth) end
 ---@return integer height
 ---@return integer depth
 ---@return integer|nil ex # If the node is a `glyph` and `get_ex` is true
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.getwhd(n, get_ex) end
 
 ---
@@ -3659,6 +4056,8 @@ function node.getwhd(n, get_ex) end
 ---@return integer height
 ---@return integer depth
 ---@return integer|nil ex # If the node is a `glyph` and `get_ex` is true
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.getwhd(d, get_ex) end
 
 ---
@@ -3673,6 +4072,8 @@ function node.direct.getwhd(d, get_ex) end
 ---@param replace? integer
 ---@param subtype? integer
 ---@param penalty? integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.setdisc(d, pre, post, replace, subtype, penalty) end
 
 ---
@@ -3691,6 +4092,8 @@ function node.direct.setdisc(d, pre, post, replace, subtype, penalty) end
 ---@return Node|nil pre_tail
 ---@return Node|nil post_tail
 ---@return Node|nil replace_tail
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.getdisc(n, get_tail) end
 
 ---
@@ -3709,6 +4112,8 @@ function node.getdisc(n, get_tail) end
 ---@return integer|nil pre_tail
 ---@return integer|nil post_tail
 ---@return integer|nil replace_tail
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.getdisc(d, get_tail) end
 
 ---
@@ -3720,6 +4125,8 @@ function node.direct.getdisc(d, get_tail) end
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---@param list integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.setlist(d, list) end
 
 ---
@@ -3732,6 +4139,8 @@ function node.direct.setlist(d, list) end
 ---@param n Node
 ---
 ---@return Node|nil list
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.getlist(n) end
 
 ---
@@ -3744,6 +4153,8 @@ function node.getlist(n) end
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return integer|nil list
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.getlist(d) end
 
 ---
@@ -3755,6 +4166,8 @@ function node.direct.getlist(d) end
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---@param leader integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.setleader(d, leader) end
 
 ---
@@ -3767,6 +4180,8 @@ function node.direct.setleader(d, leader) end
 ---@param n Node
 ---
 ---@return Node|nil leaders
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.getleader(n) end
 
 ---
@@ -3779,6 +4194,8 @@ function node.getleader(n) end
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return integer|nil leaders
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.getleader(d) end
 
 ---
@@ -3791,6 +4208,8 @@ function node.direct.getleader(d) end
 ---@param n Node
 ---@param field string
 ---@param value any
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.setfield(n, field, value) end
 
 ---
@@ -3803,6 +4222,8 @@ function node.setfield(n, field, value) end
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---@param field string
 ---@param value any
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.setfield(d, field, value) end
 
 ---
@@ -3818,6 +4239,8 @@ function node.direct.setfield(d, field, value) end
 ---@param field string
 ---
 ---@return any|nil
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.getfield(n, field) end
 
 ---
@@ -3833,6 +4256,8 @@ function node.getfield(n, field) end
 ---@param field string
 ---
 ---@return any|nil
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.getfield(d, field) end
 
 ---
@@ -3851,6 +4276,8 @@ function node.direct.getfield(d, field) end
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---@param tag integer
 ---@param line integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.set_synctex_fields(d, tag, line) end
 
 ---
@@ -3870,6 +4297,8 @@ function node.direct.set_synctex_fields(d, tag, line) end
 ---
 ---@return integer tag
 ---@return integer line
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.get_synctex_fields(d) end
 
 ---
@@ -3884,6 +4313,8 @@ function node.direct.get_synctex_fields(d) end
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---@param attr_list integer|true
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.setattributelist(d, attr_list) end
 
 ---
@@ -3896,6 +4327,8 @@ function node.direct.setattributelist(d, attr_list) end
 ---@param n Node
 ---
 ---@return integer|nil
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.getattributelist(n) end
 
 ---
@@ -3908,6 +4341,8 @@ function node.direct.getattributelist(n) end
 ---@param box integer
 ---
 ---@return integer|nil node
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.getbox(box) end
 
 ---
@@ -3919,6 +4354,8 @@ function node.direct.getbox(box) end
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---@param components integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.setcomponents(d, components) end
 
 ---
@@ -3931,6 +4368,8 @@ function node.direct.setcomponents(d, components) end
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return integer|nil
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.getcomponents(d) end
 
 ---
@@ -3941,6 +4380,8 @@ function node.direct.getcomponents(d) end
 ---* Corresponding C source code: [lnodelib.c#L1716-L1751](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1716-L1751)
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.setdata(d) end
 
 ---
@@ -3953,6 +4394,8 @@ function node.direct.setdata(d) end
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return any|nil
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.getdata(d) end
 
 ---
@@ -3964,6 +4407,8 @@ function node.direct.getdata(d) end
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---@param dir DirectionSpecifier
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.setdir(d, dir) end
 
 ---
@@ -3976,6 +4421,8 @@ function node.direct.setdir(d, dir) end
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return DirectionSpecifier
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.getdir(d) end
 
 ---
@@ -3987,6 +4434,8 @@ function node.direct.getdir(d) end
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---@param dir integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.setdirection(d, dir) end
 
 ---
@@ -3999,6 +4448,8 @@ function node.direct.setdirection(d, dir) end
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.getdirection(d) end
 
 ---
@@ -4007,6 +4458,8 @@ function node.direct.getdirection(d) end
 ---* Corresponding C source code: [lnodelib.c#L580-L596](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L580-L596)
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.setexpansion(d) end
 
 ---
@@ -4015,6 +4468,8 @@ function node.direct.setexpansion(d) end
 ---* Corresponding C source code: [lnodelib.c#L563-L578](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L563-L578)
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.getexpansion(d) end
 
 ---
@@ -4026,6 +4481,8 @@ function node.direct.getexpansion(d) end
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---@param fam integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.setfam(d, fam) end
 
 ---
@@ -4034,6 +4491,8 @@ function node.direct.setfam(d, fam) end
 ---* Corresponding C source code: [lnodelib.c#L680-L700](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L680-L700)
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.getfam(d) end
 
 ---
@@ -4045,6 +4504,8 @@ function node.direct.getfam(d) end
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---@param width number # Rounded to an integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.setwidth(d, width) end
 
 ---
@@ -4057,6 +4518,8 @@ function node.direct.setwidth(d, width) end
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return integer width
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.getwidth(d) end
 
 ---
@@ -4067,6 +4530,8 @@ function node.direct.getwidth(d) end
 ---* Corresponding C source code: [lnodelib.c#L3681-L3697](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3681-L3697)
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.setheight(d) end
 
 ---
@@ -4079,6 +4544,8 @@ function node.direct.setheight(d) end
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return integer|nil
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.getheight(d) end
 
 ---
@@ -4090,6 +4557,8 @@ function node.direct.getheight(d) end
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---@param depth number
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.setdepth(d, depth) end
 
 ---
@@ -4102,6 +4571,8 @@ function node.direct.setdepth(d, depth) end
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return integer|nil
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.getdepth(d) end
 
 ---
@@ -4113,6 +4584,8 @@ function node.direct.getdepth(d) end
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---@param kern integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.setkern(d, kern) end
 
 ---
@@ -4124,6 +4597,8 @@ function node.direct.setkern(d, kern) end
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---@return integer|nil kern
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.getkern(d) end
 
 ---
@@ -4135,6 +4610,8 @@ function node.direct.getkern(d) end
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---@param lang integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.setlang(d, lang) end
 
 ---
@@ -4147,6 +4624,8 @@ function node.direct.setlang(d, lang) end
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return integer|nil lang
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.getlang(d) end
 
 ---
@@ -4158,6 +4637,8 @@ function node.direct.getlang(d) end
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---@param nucleus integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.setnucleus(d, nucleus) end
 
 ---
@@ -4170,6 +4651,8 @@ function node.direct.setnucleus(d, nucleus) end
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return integer|nil nucleus
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.getnucleus(d) end
 
 ---
@@ -4183,6 +4666,8 @@ function node.direct.getnucleus(d) end
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---@param a integer # `xoffset` or `left`
 ---@param b integer # `yoffset` or `right`
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.setoffsets(d, a, b) end
 
 ---
@@ -4196,6 +4681,8 @@ function node.direct.setoffsets(d, a, b) end
 ---
 ---@return integer|nil a # `xoffset` or `left`
 ---@return integer|nil b # `yoffset` or `right`
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.getoffsets(d) end
 
 ---
@@ -4206,6 +4693,8 @@ function node.direct.getoffsets(d) end
 ---* Corresponding C source code: [lnodelib.c#L876-L896](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L876-L896)
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.setpenalty(d) end
 
 ---
@@ -4218,6 +4707,8 @@ function node.direct.setpenalty(d) end
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return integer|nil penalty
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.getpenalty(d) end
 
 ---
@@ -4228,6 +4719,8 @@ function node.direct.getpenalty(d) end
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---@param shift integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.setshift(d, shift) end
 
 ---
@@ -4240,6 +4733,8 @@ function node.direct.setshift(d, shift) end
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return integer|nil shift
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.getshift(d) end
 
 ---
@@ -4251,6 +4746,8 @@ function node.direct.getshift(d) end
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---@param sub integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.setsub(d, sub) end
 
 ---
@@ -4263,6 +4760,8 @@ function node.direct.setsub(d, sub) end
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return integer|nil sub
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.getsub(d) end
 
 ---
@@ -4274,6 +4773,8 @@ function node.direct.getsub(d) end
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---@param sup number
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.setsup(d, sup) end
 
 ---
@@ -4286,6 +4787,8 @@ function node.direct.setsup(d, sup) end
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return integer|nil sup
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.getsup(d) end
 
 ---
@@ -4296,6 +4799,8 @@ function node.direct.getsup(d) end
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return integer|false
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.is_direct(d) end
 
 ---
@@ -4304,6 +4809,8 @@ function node.direct.is_direct(d) end
 ---* Corresponding C source code: [lnodelib.c#L1912-L1957](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1912-L1957)
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.setlink(d) end
 
 ---
@@ -4313,6 +4820,8 @@ function node.direct.setlink(d) end
 ---
 ---@param l integer # The index number of the node in the memory table for direct access.
 ---@param r integer # The index number of the node in the memory table for direct access.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.setsplit(l, r) end
 
 _N._11_properties = 164
@@ -4327,6 +4836,8 @@ _N._11_properties = 164
 ---
 ---@param n Node
 ---@param value any
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.setproperty(n, value) end
 
 ---
@@ -4338,6 +4849,8 @@ function node.setproperty(n, value) end
 ---* Corresponding C source code: [lnodelib.c#L8418-L8431](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L8418-L8431)
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.---@param value any
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.setproperty(d, value) end
 
 ---
@@ -4351,6 +4864,8 @@ function node.direct.setproperty(d, value) end
 ---@param node Node
 ---
 ---@return any value
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.getproperty(node) end
 
 ---
@@ -4364,6 +4879,8 @@ function node.getproperty(node) end
 ---@param d integer
 ---
 ---@return any value
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.getproperty(d) end
 
 ---
@@ -4375,6 +4892,8 @@ function node.direct.getproperty(d) end
 ---
 ---@param enable boolean
 ---@param use_metatable? boolean
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.set_properties_mode(enable, use_metatable) end
 
 ---
@@ -4386,6 +4905,8 @@ function node.set_properties_mode(enable, use_metatable) end
 ---
 ---@param enable boolean
 ---@param use_metatable? boolean
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.set_properties_mode(enable, use_metatable) end
 
 ---
@@ -4393,6 +4914,7 @@ function node.direct.set_properties_mode(enable, use_metatable) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L8364-L8375](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L8364-L8375)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.flush_properties_table() end
 
 ---
@@ -4400,6 +4922,7 @@ function node.flush_properties_table() end
 ---
 ---* Corresponding C source code: [lnodelib.c#L8364-L8375](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L8364-L8375)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.flush_properties_table() end
 
 ---
@@ -4408,6 +4931,8 @@ function node.direct.flush_properties_table() end
 ---* Corresponding C source code: [lnodelib.c#L8439-L8443](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L8439-L8443)
 ---
 ---@return table
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.get_properties_table() end
 
 ---
@@ -4416,12 +4941,16 @@ function node.get_properties_table() end
 ---* Corresponding C source code: [lnodelib.c#L8433-L8437](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L8433-L8437)
 ---
 ---@return table
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.get_properties_table() end
 
 ---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L366-L374](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L366-L374)
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.fix_node_lists() end
 
 ---
@@ -4431,6 +4960,8 @@ function node.fix_node_lists() end
 ---
 ---@param n Node
 ---@param m? Node
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.hyphenating(n, m) end
 
 ---
@@ -4440,6 +4971,8 @@ function node.hyphenating(n, m) end
 ---
 ---@param d integer
 ---@param e? integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.hyphenating(d, e) end
 
 ---
@@ -4453,6 +4986,8 @@ function node.direct.hyphenating(d, e) end
 ---@param overlap? integer
 ---@param horizontal? boolean
 ---@param attlist? Node
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.make_extensible(fnt, chr, size, overlap, horizontal, attlist) end
 
 ---
@@ -4463,6 +4998,8 @@ function node.make_extensible(fnt, chr, size, overlap, horizontal, attlist) end
 ---@param subtype string|integer
 ---
 ---@return string[]
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.subtypes(subtype) end
 
 ---
@@ -4472,6 +5009,8 @@ function node.subtypes(subtype) end
 ---
 ---@param n Node
 ---@return string # For example `<node    nil <    234 >    nil : glyph 0>`
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.tostring(n) end
 
 ---
@@ -4481,6 +5020,8 @@ function node.tostring(n) end
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return string # For example `<direct    nil <    234 >    nil : glyph 0>`
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.tostring(d) end
 
 ---
@@ -4489,6 +5030,8 @@ function node.direct.tostring(d) end
 ---* Corresponding C source code: [lnodelib.c#L6471-L6476](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6471-L6476)
 ---
 ---@return Node n
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.usedlist() end
 
 ---
@@ -4497,6 +5040,8 @@ function node.usedlist() end
 ---* Corresponding C source code: [lnodelib.c#L6480-L6484](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6480-L6484)
 ---
 ---@return integer d
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.usedlist() end
 
 ---
@@ -4507,4 +5052,6 @@ function node.direct.usedlist() end
 ---@param type 'dir'|'direction'|'glue'|'pdf_literal'|'pdf_action'|'pdf_window'|'color_stack'|'pagestate'
 ---
 ---@return string[]
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.values(type) end

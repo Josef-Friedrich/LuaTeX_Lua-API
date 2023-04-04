@@ -3,10 +3,14 @@
 ---
 ---This library provides the interface to *LuaTeX*'s structure representing a
 ---language, and the associated functions.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 lang = {}
 
 ---
 ---The language object is the first argument to most of the other functions in the `lang` library.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class Language
 
 ---
@@ -22,6 +26,8 @@ lang = {}
 ---@param id integer
 ---
 ---@return Language
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lang.new(id) end
 
 ---
@@ -30,6 +36,8 @@ function lang.new(id) end
 ---@param l Language
 ---
 ---@return integer # The number returned is the internal `language` id number this object refers to.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lang.id(l) end
 
 ---
@@ -41,6 +49,8 @@ function lang.id(l) end
 ---@param n? string
 ---
 ---@return string n
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lang.hyphenation(l, n) end
 
 ---
@@ -49,6 +59,8 @@ function lang.hyphenation(l, n) end
 ---__Reference:__
 ---
 ---* Corresponding C source code: [llanglib.c#L215-L221](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llanglib.c#L215-L221)
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lang.clear_hyphenation(l) end
 
 ---
@@ -56,6 +68,8 @@ function lang.clear_hyphenation(l) end
 ---@param o string
 ---
 ---* Corresponding C source code: [llanglib.c#L223-L241](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llanglib.c#L223-L241)
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lang.clean(l, o) end
 
 ---
@@ -64,6 +78,8 @@ function lang.clean(l, o) end
 ---@return string n
 ---
 ---* Corresponding C source code: [llanglib.c#L223-L241](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llanglib.c#L223-L241)
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lang.clean(o) end
 
 ---
@@ -75,6 +91,8 @@ function lang.clean(o) end
 ---@param l Language
 ---
 ---@return string n
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lang.patterns(l) end
 
 ---
@@ -84,6 +102,8 @@ function lang.patterns(l) end
 ---
 ---@param l Language
 ---@param n string
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lang.patterns(l, n) end
 
 ---
@@ -92,6 +112,8 @@ function lang.patterns(l, n) end
 ---* Corresponding C source code: [llanglib.c#L78-L84](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llanglib.c#L78-L84)
 ---
 ---@param l Language
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lang.clear_patterns(l) end
 
 ---
@@ -103,6 +125,8 @@ function lang.clear_patterns(l) end
 ---@param l Language
 ---
 ---@return string n
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lang.hyphenationmin(l) end
 
 ---
@@ -125,6 +149,8 @@ function lang.hyphenationmin(l, n) end
 ---
 ---@param l Language
 ---@param n integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lang.prehyphenchar(l, n) end
 
 ---
@@ -138,6 +164,8 @@ function lang.prehyphenchar(l, n) end
 ---@param l Language
 ---
 ---@return integer n
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lang.prehyphenchar(l, n) end
 
 ---
@@ -150,6 +178,8 @@ function lang.prehyphenchar(l, n) end
 ---
 ---@param l Language
 ---@param n integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lang.posthyphenchar(l, n) end
 
 ---
@@ -163,6 +193,8 @@ function lang.posthyphenchar(l, n) end
 ---@param l Language
 ---
 ---@return integer n
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lang.posthyphenchar(l, n) end
 
 ---
@@ -177,6 +209,8 @@ function lang.posthyphenchar(l, n) end
 ---
 ---@param l Language
 ---@param n integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lang.preexhyphenchar(l, n) end
 
 ---
@@ -192,6 +226,8 @@ function lang.preexhyphenchar(l, n) end
 ---@param l Language
 ---
 ---@return integer n
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lang.preexhyphenchar(l, n) end
 
 ---
@@ -206,6 +242,8 @@ function lang.preexhyphenchar(l, n) end
 ---
 ---@param l Language
 ---@param n integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lang.postexhyphenchar(l, n) end
 
 ---
@@ -221,6 +259,8 @@ function lang.postexhyphenchar(l, n) end
 ---@param l Language
 ---
 ---@return integer n
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lang.postexhyphenchar(l, n) end
 
 ---
@@ -241,6 +281,8 @@ function lang.postexhyphenchar(l, n) end
 ---@param tail? Node
 ---
 ---@return boolean success
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lang.hyphenate(head, tail) end
 
 ---
@@ -254,6 +296,8 @@ function lang.hyphenate(head, tail) end
 ---@param l Language
 ---@param char integer
 ---@param usedchar integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lang.sethjcode(l, char, usedchar) end
 
 ---
@@ -265,4 +309,6 @@ function lang.sethjcode(l, char, usedchar) end
 ---@param char number
 ---
 ---@return integer usedchar
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lang.gethjcode(l, char) end
