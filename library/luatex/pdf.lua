@@ -4,6 +4,7 @@
 ---This library contains variables and functions that are related to the *PDF*
 ---backend.
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdf.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 pdf = {}
 
 _N._14_1_The_pdf_library = 281

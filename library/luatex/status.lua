@@ -3,11 +3,14 @@
 ---
 ---This library contains a number of run-time configuration items that you may find useful in message
 ---reporting, as well as an iterator function that gets all of the names and values as a `table`.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/status.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 status = {}
 
 ---
 ---* Corresponding C source code: [lstatslib.c#L289-L389](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lstatslib.c#L289-L389)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/status.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class StatusInfo
 ---@field banner string # terminal display banner, for example `This is LuaHBTeX, Version 1.15.0 (TeX Live 2022)`.
 ---@field best_page_break Node # the current best break (a node)
@@ -112,6 +115,8 @@ status = {}
 ---* Corresponding C source code: [lstatslib.c#L476-L488](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lstatslib.c#L476-L488)
 ---
 ---@return StatusInfo
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/status.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function status.list() end
 
 ---
@@ -119,6 +124,7 @@ function status.list() end
 ---
 ---* Corresponding C source code: [lstatslib.c#L490-L501](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lstatslib.c#L490-L501)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/status.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function status.resetmessages() end
 
 ---
@@ -127,4 +133,6 @@ function status.resetmessages() end
 ---* Corresponding C source code: [lstatslib.c#L503-L506](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lstatslib.c#L503-L506)
 ---
 ---@param code integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/status.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function status.setexitcode(code) end

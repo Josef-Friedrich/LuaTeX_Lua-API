@@ -9,7 +9,6 @@
 ---`sio.read2dot14`, `sio.setposition`, `sio.getposition`, `sio.skipposition`, `sio.readbytes` and
 ---`sio.readbytetable`. Here the first argument is a string instead of a
 ---file handle. More details can be found in the previous section.
-
 ---
 ---|                            |                                     |
 ---|----------------------------|-------------------------------------|
@@ -31,6 +30,8 @@
 ---| `skipposition(s,n)`        | skip `n` positions                  |
 ---| `readbytes(s,n)`           | `n` bytes                           |
 ---| `readbytetable(f,n)`       | `n` bytes                           |
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 sio = {}
 
 ---
@@ -39,6 +40,8 @@ sio = {}
 ---@param s string
 ---
 ---@return integer # a 1 byte unsigned integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readcardinal1(s) end
 
 ---
@@ -47,6 +50,8 @@ function sio.readcardinal1(s) end
 ---@param s string
 ---
 ---@return integer # a 2 byte unsigned integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readcardinal2(s) end
 
 ---
@@ -55,6 +60,8 @@ function sio.readcardinal2(s) end
 ---@param s string
 ---
 ---@return integer # a 3 byte unsigned integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readcardinal3(s) end
 
 ---
@@ -63,6 +70,8 @@ function sio.readcardinal3(s) end
 ---@param s string
 ---
 ---@return integer # a 4 byte unsigned integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readcardinal4(s) end
 
 ---
@@ -71,6 +80,8 @@ function sio.readcardinal4(s) end
 ---@param b integer
 ---
 ---@return table<integer, integer>
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readcardinaltable(s, n, b) end
 
 ---
@@ -81,6 +92,8 @@ function sio.readcardinaltable(s, n, b) end
 ---@param s string
 ---
 ---@return integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readcardinal1le(s) end
 
 ---
@@ -91,6 +104,8 @@ function sio.readcardinal1le(s) end
 ---@param s string
 ---
 ---@return integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readcardinal2le(s) end
 
 ---
@@ -101,6 +116,8 @@ function sio.readcardinal2le(s) end
 ---@param s string
 ---
 ---@return integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readcardinal3le(s) end
 
 ---
@@ -111,6 +128,8 @@ function sio.readcardinal3le(s) end
 ---@param s string
 ---
 ---@return integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readcardinal4le(s) end
 
 ---
@@ -119,6 +138,8 @@ function sio.readcardinal4le(s) end
 ---@param s string
 ---
 ---@return integer # a 1 byte signed integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readinteger1(s) end
 
 ---
@@ -127,18 +148,24 @@ function sio.readinteger1(s) end
 ---@param s string
 ---
 ---@return integer # a 2 byte signed integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readinteger2(s) end
 
 ---
 ---@param s string
 ---
 ---@return integer # a 3 byte signed integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readinteger3(s) end
 
 ---
 ---@param s string
 ---
 ---@return integer # a 4 byte signed integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readinteger4(s) end
 
 ---
@@ -147,6 +174,8 @@ function sio.readinteger4(s) end
 ---@param b integer
 ---
 ---@return table<integer, integer>
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readintegertable(s, n, b) end
 
 ---
@@ -156,6 +185,8 @@ function sio.readintegertable(s, n, b) end
 ---@param s string
 ---
 ---@return integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readinteger1le(s) end
 
 ---
@@ -166,6 +197,8 @@ function sio.readinteger1le(s) end
 ---@param s string
 ---
 ---@return integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readinteger2le(s) end
 
 ---
@@ -174,6 +207,8 @@ function sio.readinteger2le(s) end
 ---@param s string
 ---
 ---@return integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readinteger3le(s) end
 
 ---
@@ -182,38 +217,52 @@ function sio.readinteger3le(s) end
 ---@param s string
 ---
 ---@return integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readinteger4le(s) end
 
 ---
 ---@param s string
 ---
 ---@return number
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readfixed2(s) end
 
 ---
 ---@param s string
 ---
 ---@return number
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readfixed4(s) end
 
 ---
 ---@param s string
 ---
 ---@return number
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.read2dot14(s) end
 
 ---
 ---@param s string
 ---@param p integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.setposition(s, p) end
 
 ---
 ---@param s string
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.getposition(s) end
 
 ---
 ---@param s string
 ---@param n integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.skipposition(s, n) end
 
 ---
@@ -221,6 +270,8 @@ function sio.skipposition(s, n) end
 ---@param n integer
 ---
 ---@return integer ...
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readbytes(s, n) end
 
 ---
@@ -228,12 +279,16 @@ function sio.readbytes(s, n) end
 ---@param n integer
 ---
 ---@return table<integer, integer>
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readbytetable(s, n) end
 
 ---
 ---@param s string
 ---
 ---@return string
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readline(s) end
 
 return sio
