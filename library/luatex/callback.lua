@@ -19,12 +19,15 @@ _N = {}
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-callbacks.tex#L17-L26](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-callbacks.tex#L17-L26)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 callback = {}
 
 ---
 ---* Corresponding C source code: [lcallbacklib.c#L33-L90](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lcallbacklib.c#L33-L90)
 ---
 ---Source: `callback.list()`
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias CallbackName
 ---|"append_to_vlist_filter"
 ---|"build_page_insert"
@@ -136,6 +139,8 @@ callback = {}
 ---
 ---@return integer|nil id # The function returns the internal `id` of the callback or `nil`, if the callback could not be registered.
 ---@return string error # In the latter case, `error` contains an error message, otherwise it is `nil`. The function returns `No such callback exists.` if a wrong callback name was specified.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function callback.register(callback_name, func) end
 
 ---
@@ -148,6 +153,8 @@ function callback.register(callback_name, func) end
 ---* Corresponding C source code: [lcallbacklib.c#L584-L599](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lcallbacklib.c#L584-L599)
 ---
 ---@return table<string, boolean> info
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function callback.list() end
 
 ---
@@ -161,6 +168,8 @@ function callback.list() end
 ---@param callback_name CallbackName
 ---
 ---@return function|nil f
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function callback.find(callback_name) end
 
 _N._9_2_file_discovery_callbacks = 169
@@ -200,9 +209,13 @@ _N._9_2_1_find_write_file = 170
 ---names depend on the jobname.
 ---
 ---You have to return `nil` if the file cannot be found.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias FindReadFileCallback fun(id_number: integer, asked_name: string): actual_name: string|nil
 
 ---
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias FindWriteFileCallback fun(id_number: integer, asked_name: string): actual_name: string|nil
 
 _N._9_2_2_find_font_file = 170
@@ -219,6 +232,8 @@ _N._9_2_2_find_font_file = 170
 ---
 ---Return `nil` if the file cannot be found.
 ---
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias FindFontFileCallback fun(asked_name: string): actual_name: string|nil
 
 _N._9_2_3_find_output_file = 170
@@ -232,6 +247,8 @@ _N._9_2_3_find_output_file = 170
 ---```
 ---
 ---The `asked_name` is the *PDF* or *DVI* file for writing.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias FindOutputFileCallback fun(asked_name: string): actual_name: string|nil
 
 _N._9_2_4_find_format_file = 170
@@ -247,6 +264,8 @@ _N._9_2_4_find_format_file = 170
 ---The `asked_name` is a format file for reading (the format file for writing
 ---is always opened in the current directory).
 ---
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias FindFormatFileCallback fun(asked_name: string): actual_name: string|nil
 
 _N._9_2_5_find_vf_file = 171
@@ -254,18 +273,24 @@ _N._9_2_5_find_vf_file = 171
 ---
 ---Like `find_font_file`, but for virtual fonts. This applies to both *ALEPH's
 ---*OVF* files and traditional Knuthian *VF* files.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias FindVfFileCallback fun(asked_name: string): actual_name: string|nil
 
 _N._9_2_6_find_map_file = 171
 
 ---
 ---Like `find_font_file`, but for map files.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias FindMapFileCallback fun(asked_name: string): actual_name: string|nil
 
 _N._9_2_7_find_enc_file = 171
 
 ---
 ---Like `find_font_file`, but for enc files.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias FindEncFileCallback fun(asked_name: string): actual_name: string|nil
 
 _N._9_2_8_find_pk_file = 171
@@ -282,18 +307,24 @@ _N._9_2_8_find_pk_file = 171
 ---but other strategies are possible. It is up to you to find a “reasonable”
 ---bitmap file to go with that specification.
 ---
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias FindPkFileCallback fun(asked_name: string, dpi: integer): actual_name: string|nil
 
 _N._9_2_9_find_data_file = 171
 
 ---
 ---Like `find_font_file`, but for embedded files (`\pdfobj file '...'`).
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias FindDataFileCallback fun(asked_name: string): actual_name: string|nil
 
 _N._9_2_0_find_opentype_file = 171
 
 ---
 ---Like `find_font_file`, but for *OpenType* font files.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias FindOpentypeFileCallback fun(asked_name: string): actual_name: string|nil
 
 _N._9_2_1_find_truetype_file = 171
@@ -313,6 +344,8 @@ _N._9_2_1_find_truetype_file = 171
 ---Strangely enough, `find_type1_file` is also used for *OpenType* (OTF)
 ---fonts.
 ---
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias FindTruetypeFileCallback fun(asked_name: string): actual_name: string|nil
 
 _N._9_2_1_find_type1_file = 171
@@ -332,6 +365,8 @@ _N._9_2_1_find_type1_file = 171
 ---Strangely enough, `find_type1_file` is also used for *OpenType* (OTF)
 ---fonts.
 ---
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias FindType1FileCallback fun(asked_name: string): actual_name: string|nil
 
 _N._9_2_2_find_image_file = 172
@@ -348,6 +383,8 @@ _N._9_2_2_find_image_file = 172
 ---from the hard disk, so make sure you return something that is considered the name
 ---of a valid file by your operating system.
 ---
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias FindImageFileCallback fun(asked_name: string): actual_name: string|nil
 
 _N._9_3 = 172
@@ -463,6 +500,8 @@ _N._9_4_1_process_input_buffer = nil
 ---If you return `nil`, *LuaTeX* will pretend like your callback never
 ---happened. You can gain a small amount of processing time from that. This callback
 ---does not replace any internal code.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias ProcessInputBufferCallback fun(buffer: string): string|nil
 
 _N._9_4_2_process_output_buffer = nil
@@ -475,6 +514,8 @@ _N._9_4_2_process_output_buffer = nil
 ---If you return `nil`, *LuaTeX* will pretend like your callback never
 ---happened. You can gain a small amount of processing time from that. This callback
 ---does not replace any internal code.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias ProcessOutputBufferCallback fun(buffer: string): string|nil
 
 _N._9_4_3_process_jobname = nil
@@ -488,6 +529,8 @@ _N._9_4_3_process_jobname = nil
 ---inside this function or infinite recursion may occur. If you return `nil`,
 ---*LuaTeX* will pretend your callback never happened. This callback does not
 ---replace any internal code.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias ProcessJobnameCallback fun(jobname: string): string|nil
 
 _N._9_5 = nil
@@ -495,6 +538,8 @@ _N._9_5 = nil
 _N._9_5_1_contribute_filter = nil
 
 ---
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias ContributeFilterExtrainfo
 ---|'pre_box'# interline material is being added
 ---|'pre_adjust' # `vadjust` material is being added
@@ -506,11 +551,14 @@ _N._9_5_1_contribute_filter = nil
 ---
 ---The string reports the group code. From this you can deduce from
 ---what list you can give a treat.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias ContributeFilterCallback fun(extrainfo: ContributeFilterExtrainfo)
 
 _N._9_5_2_buildpage_filter = nil
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias BuildpageFilterExtrainfo
 ---|'alignment' # a (partial) alignment is being added
 ---|'after_output' # an output routine has just finished
@@ -530,6 +578,8 @@ _N._9_5_2_buildpage_filter = nil
 ---
 ---The string `extrainfo` gives some additional information about what *TeX*'s
 ---state is with respect to the “current page”.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias BuildpageFilterCallback fun(extrainfo: ContributeFilterExtrainfo)
 
 _N._9_5_3_build_page_insert = nil
@@ -547,6 +597,8 @@ _N._9_5_3_build_page_insert = nil
 ---prepended spacing. This permits for instance a different top space (when `i` equals one) and intermediate space (when `i` is larger than one). Of
 ---course you can mess with the insert box but you need to make sure that *LuaTeX*
 ---is happy afterwards.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias BuildPageInsertCallback fun(n: integer, i: integer): integer
 
 _N._9_5_4_pre_linebreak_filter = nil
@@ -557,6 +609,8 @@ _N._9_5_4_pre_linebreak_filter = nil
 ---not all of those can actually appear in `pre_linebreak_filter`, some are
 ---for the `hpack_filter` and `vpack_filter` callbacks that will be
 ---explained in the next two paragraphs.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias PreLinebreakFilterGroupCode
 ---|'' # main vertical list
 ---|'hbox' # hbox` in horizontal mode
@@ -582,6 +636,8 @@ _N._9_5_4_pre_linebreak_filter = nil
 ---  returned node
 ---* boolean `false` signals that the “head” node list should be
 ---  ignored and flushed from memory
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias NodeCallbackReturn true|false|Node
 
 ---
@@ -597,6 +653,8 @@ _N._9_5_4_pre_linebreak_filter = nil
 ---```
 ---
 ---This callback does not replace any internal code.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias PreLinebreakFilterCallback fun(head: Node, groupcode: PreLinebreakFilterGroupCode): NodeCallbackReturn
 
 _N._9_5_5_linebreak_filter = nil
@@ -616,9 +674,12 @@ _N._9_5_5_linebreak_filter = nil
 ---
 ---Setting this callback to `false` is possible, but dangerous, because it is
 ---possible you will end up in an unfixable “deadcycles loop”.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias LinebreakFilterCallback fun(head: Node, is_display: boolean): NodeCallbackReturn
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias AppendToVlistFilterLocationcode
 ---| 'box'
 ---| 'alignment'
@@ -640,6 +701,8 @@ _N._9_5_5_append_to_vlist_filter = nil
 ---
 ---It is ok to return nothing in which case you also need to flush the box or deal
 ---with it yourself. The prevdepth is also optional. You can pass `nil` instead of a node.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias AppendToVlistFilterCallback fun(box: Node, locationcode: AppendToVlistFilterLocationcode, prevdepth: integer, mirrored: boolean)
 
 _N._9_5_7_post_linebreak_filter = nil
@@ -649,6 +712,8 @@ _N._9_5_7_post_linebreak_filter = nil
 ---stack of `\hbox`es.
 ---
 ---This callback does not replace any internal code.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias PostLinebreakFilterCallback fun(head: Node, groupcode: string): NodeCallbackReturn
 
 _N._9_5_8_hpack_filter = nil
@@ -665,6 +730,8 @@ _N._9_5_8_hpack_filter = nil
 ---strings, or `nil`.
 ---
 ---This callback does not replace any internal code.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias HpackFilterCallback fun(head: Node, groupcode: string, size: integer, packtype: 'additional'|'exactly', direction?: DirectionSpecifier, attributelist?: Node): NodeCallbackReturn
 
 _N._9_5_9_vpack_filter = nil
@@ -678,6 +745,8 @@ _N._9_5_9_vpack_filter = nil
 ---*TeX*'s `maxdepth` setting.
 ---
 ---This callback does not replace any internal code.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias VpackFilterCallback fun(head: Node, groupcode: string, size: integer, packtype: 'additional'|'exactly', maxdepth: integer, direction?: DirectionSpecifier, attributelist?: Node): NodeCallbackReturn
 
 _N._9_5_10_hpack_quality_filter = nil
@@ -692,6 +761,8 @@ _N._9_5_10_hpack_quality_filter = nil
 ---Optionally you can return a node, for instance an overfull rule indicator. That
 ---node will be appended to the list (just like *TeX*'s own rule would).
 ---
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias HpackQualityFilterCallback fun(incident: 'overfull'|'underfull'|'loose'|'tight', detail: integer, head: Node, first: integer, last: integer): Node
 
 _N._9_5_11_vpack_quality_filter = nil
@@ -702,6 +773,8 @@ _N._9_5_11_vpack_quality_filter = nil
 ---
 ---The incident is one of `overfull`, `underfull`, `loose` or
 ---`tight`. The detail is either the amount of overflow in case of `overfull`, or the badness otherwise. The head is the list that is constructed.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias VpackQualityFilterCallback fun(incident: 'overfull'|'underfull'|'loose'|'tight', detail: integer, head: Node, first: integer, last: integer)
 
 _N._9_5_12_process_rule_filter = nil
@@ -711,6 +784,8 @@ _N._9_5_12_process_rule_filter = nil
 ---(user). The callback gets three arguments: the node, the width and the
 ---height. The callback can use `pdf.print` to write code to the *PDF*
 ---file but beware of not messing up the final result. No checking is done.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias ProcessRuleFilterCallback fun(node: Node, width: integer, height: integer)
 
 _N._9_5_13_pre_output_filter = nil
@@ -720,6 +795,8 @@ _N._9_5_13_pre_output_filter = nil
 ---
 ---This callback does not replace any internal code.
 ---
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias PreOutputFilterCallback fun(head: Node, groupcode: string, size: integer, packtype: 'additional'|'exactly', maxdepth: integer, direction?: DirectionSpecifier): NodeCallbackReturn
 
 _N._9_5_14_hyphenate_filter = nil
@@ -727,6 +804,8 @@ _N._9_5_14_hyphenate_filter = nil
 ---
 ---Setting this callback to `false` will prevent the internal discretionary
 ---insertion pass.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias HyphenateFilterCallback fun(head: Node, tail: Node): false|nil
 
 _N._9_5_15_ligaturing = 179
@@ -857,6 +936,8 @@ _N._9_6_4_start_page_number = 181
 ---
 ---* Corresponding C source code: [pdfshipout.c#L61](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/pdf/pdfshipout.c#L61)
 ---
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias StartPageNumberCallback fun()
 
 _N._9_6_5_stop_page_number = 181
@@ -866,6 +947,8 @@ _N._9_6_5_stop_page_number = 181
 ---
 ---* Corresponding C source code: [pdfshipout.c#L62](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/pdf/pdfshipout.c#L62)
 ---
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias StopPageNumberCallback fun()
 
 _N._9_6_6_show_error_hook = 181
@@ -878,6 +961,8 @@ _N._9_6_6_show_error_hook = 181
 ---* Corresponding C source code: [filename.c#L282](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/filename.c#L282)
 ---* Corresponding C source code: [errors.c#L430](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/errors.c#L430)
 ---
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias ShowErrorHookCallback fun()
 
 _N._9_6_7_show_error_message = 182
@@ -888,6 +973,8 @@ _N._9_6_7_show_error_message = 182
 ---
 ---* Corresponding C source code: [errors.c#L105](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/errors.c#L105)
 ---
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias ShowErrorMessageCallback fun()
 
 _N._9_6_8_show_lua_error_hook = 182
@@ -897,6 +984,8 @@ _N._9_6_8_show_lua_error_hook = 182
 ---
 ---* Corresponding C source code: [errors.c#L995](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/errors.c#L995)
 ---
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias ShowLuaErrorHookCallback fun()
 
 _N._9_6_9_start_file = 182
@@ -920,6 +1009,8 @@ _N._9_6_9_start_file = 182
 ---
 ---* Corresponding C source code: [luatexcallbackids.h#L127](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luatexcallbackids.h#L127)
 ---
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias StartFileCallback fun(category: integer, filename: string)
 
 _N._9_6_10_stop_file = 182
@@ -930,6 +1021,8 @@ _N._9_6_10_stop_file = 182
 ---
 ---* Corresponding C source code: [luatexcallbackids.h#L150](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luatexcallbackids.h#L150)
 ---
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias StopFileCallback fun(category: integer)
 
 _N._9_6_11_call_edit = 182
@@ -941,6 +1034,8 @@ _N._9_6_11_call_edit = 182
 ---
 ---* Corresponding C source code: [errors.c#L531](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/errors.c#L531)
 ---
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias CallEditCallback fun(filename: string, linenumber: integer)
 
 _N._9_6_12_finish_synctex = 183
@@ -952,6 +1047,8 @@ _N._9_6_12_finish_synctex = 183
 ---
 ---* Corresponding C source code: [mainbody.c#L668](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/mainbody.c#L668)
 ---
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias FinishSynctexCallback fun()
 
 _N._9_6_13_wrapup_run = 183
@@ -962,6 +1059,8 @@ _N._9_6_13_wrapup_run = 183
 ---
 ---* Corresponding C source code: [mainbody.c#L687](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/mainbody.c#L687)
 ---
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias WrapupRunCallback fun()
 
 _N._9_7_pdf_related = 183
@@ -994,6 +1093,8 @@ _N._9_7_2_finish_pdfpage = 183
 ---
 ---* Corresponding C source code: [pdfgen.c#L1788](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/pdf/pdfgen.c#L1788)
 ---
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias FinishPdfpageCallback fun(shippingout: string)
 
 _N._9_7_3_page_order_index = 183
@@ -1004,7 +1105,7 @@ _N._9_7_3_page_order_index = 183
 ---
 ---Say that we have 12 pages, then we can do this:
 ---
----```
+---```lua
 ---callback.register("page_order_index",function(page)
 ---        if page ==  1 then return 12
 ---    elseif page ==  2 then return 11
@@ -1021,6 +1122,8 @@ _N._9_7_3_page_order_index = 183
 ---
 ---* Corresponding C source code: [pdfgen.c#L1793](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/pdf/pdfgen.c#L1793)
 ---
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias PageOrderIndexCallback fun(pagenumber: integer): pagenumber: string
 
 _N._9_7_4_process_pdf_image_content = 184
@@ -1046,6 +1149,8 @@ _N._9_7_4_process_pdf_image_content = 184
 ---
 ---* Corresponding C source code: [pdftoepdf.c#L440](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/image/pdftoepdf.c#L440)
 ---
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias ProcessPdfImageContentCallback fun(s: string): string
 
 _N._9_8_font_related = 184
@@ -1074,6 +1179,8 @@ _N._9_8_1_define_font = 184
 ---Setting this callback to `false` is pointless as it will prevent font
 ---loading completely but will nevertheless generate errors.
 ---
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias DefineFontCallback fun(name: string, size: number, id: number): Font|integer
 
 _N._9_8_2_glyph_not_found = 184
@@ -1084,6 +1191,8 @@ _N._9_8_2_glyph_not_found = 184
 ---
 ---* Corresponding C source code: [texfont.c#L364](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/font/texfont.c#L364)
 ---
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias GlyphNotFoundCallback fun(id: number, char: number)
 
 _N._9_8_2_glyph_info = 184
@@ -1098,4 +1207,6 @@ _N._9_8_2_glyph_info = 184
 ---mind that setting this callback can change the log in an incompatible way.
 ---
 ---* Corresponding C source code: [printing.c#L1036](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/printing.c#L1036)
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias GlyphInfoCallback fun(g: Node): string|nil
