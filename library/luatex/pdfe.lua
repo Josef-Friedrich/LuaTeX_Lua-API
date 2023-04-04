@@ -191,8 +191,7 @@ function pdfe.getpages(doc) end
 ---Return bounding box of a pdf page.
 ---
 ---@param page PdfeDictionary # Pdfe dictionary.
----@param bbox_name string # Name of bounding box.
----E.g. 'MediaBox', 'CropBox', 'BleedBox', 'TrimBox', 'ArtBox'
+---@param bbox_name 'MediaBox'|'CropBox'|'BleedBox'|'TrimBox'|'ArtBox' # Name of bounding box.
 ---
 ---@return number[] bbox # [llx lly urx ury]
 ---
@@ -207,8 +206,7 @@ _N._14_2_6_get_string_integer_number_boolean_name_type = 289
 ---@param dict_or_array PdfeDictionary|PdfeArray # Pdfe dictionary or array.
 ---@param key_or_index integer # Key or index.
 ---
----@return string string # String.
----If the pdf string is hex encoded then the returned string is hex encoded too.
+---@return string string # If the pdf string is hex encoded then the returned string is hex encoded too.
 ---
 ---* Corresponding C source code: [lpdfelib.c#L1342-L1369](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfelib.c#L1342-L1369)
 function pdfe.getstring(dict_or_array, key_or_index) end
@@ -220,9 +218,8 @@ function pdfe.getstring(dict_or_array, key_or_index) end
 ---@param key_or_index string|integer # Key or index.
 ---@param decode boolean # `True`, if a hex encoded string shall be decoded.
 ---
----@return string string # String.
----@return boolean was_encoded # `True`, if string was hex encoded.
----Return value `was_encoded` is only available if `decode` is `false`.
+---@return string string
+---@return boolean was_encoded # `True`, if string was hex encoded. Return value `was_encoded` is only available if `decode` is `false`.
 ---
 ---* Corresponding C source code: [lpdfelib.c#L1342-L1369](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfelib.c#L1342-L1369)
 function pdfe.getstring(dict_or_array, key_or_index, decode) end
@@ -244,7 +241,7 @@ function pdfe.getinteger(dict_or_array, key_or_index) end
 ---@param dict_or_array PdfeDictionary|PdfeArray # Pdfe dictionary or array.
 ---@param key_or_index string|integer # Key or index.
 ---
----@return number value # Number.
+---@return number value
 ---
 ---* Corresponding C source code: [lpdfelib.c#L1385-L1397](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfelib.c#L1385-L1397)
 function pdfe.getnumber(dict_or_array, key_or_index) end
@@ -255,7 +252,7 @@ function pdfe.getnumber(dict_or_array, key_or_index) end
 ---@param dict_or_array PdfeDictionary|PdfeArray # Pdfe dictionary or array.
 ---@param key_or_index string|integer # Key or index.
 ---
----@return boolean value # Boolean.
+---@return boolean value
 ---
 ---* Corresponding C source code: [lpdfelib.c#L1399-L1411](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfelib.c#L1399-L1411)
 function pdfe.getboolean(dict_or_array, key_or_index) end
