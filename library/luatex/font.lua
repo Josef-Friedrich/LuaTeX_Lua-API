@@ -3,6 +3,8 @@
 ---and it also contains helper functions to load traditional *TeX* font metrics
 ---formats. Other font loading functionality is provided by the `fontloader`
 ---library that will be discussed in the next section.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/font.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 font = {}
 
 _N._6_1_font_tables = 87
@@ -16,6 +18,7 @@ _N._class_Font = 87
 ---callback, or if they result from the normal *tfm*/*vf* reading routines if there
 ---is no `define_font` callback defined.
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/font.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class Font
 ---@field name string # metric (file) name
 ---@field area string # (directory) location, typically empty
@@ -58,6 +61,7 @@ _N._class_Font = 87
 _N._class_VfFont = 87
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/font.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class VfFont
 ---@field name string # metric (file) name
 ---@field characters table<integer, FontCharacter> # the defined glyphs of this font
@@ -69,6 +73,7 @@ _N._class_VfFont = 87
 _N._class_TfmFont = 87
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/font.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class TfmFont
 ---@field name string # metric (file) name
 ---@field area string # (directory) location, typically empty
@@ -93,6 +98,8 @@ _N._alias_FontDirection = 89
 ---the writing direction), the second the “top” side. Keep in mind that
 ---*LuaTeX* has a bit different directional model so these values are not used for
 ---anything.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/font.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias FontDirection
 ---|0 # LT
 ---|1 # LL
@@ -120,6 +127,8 @@ _N._alias_FontParameterKey = 89
 ---gives a nicer user interface.
 ---
 ---The names and their internal remapping are:
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/font.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias FontParameterKey
 ---|`slant` # 1
 ---|`space` # 2
@@ -132,11 +141,13 @@ _N._alias_FontParameterKey = 89
 _N._alias_FontParameters = 89
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/font.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias FontParameters table<FontParameterKey|integer, any>
 
 _N._alias_FontCharacter = 90
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/font.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontCharacter
 ---@field width integer # The character's width, in sp (default 0)
 ---@field height integer # The character's height, in sp (default 0)
@@ -163,6 +174,7 @@ _N._alias_FontCharacter = 90
 _N._class_FontCharacterExtensible = 91
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/font.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontCharacterExtensible
 ---@field top integer # The top character index.
 ---@field mid integer # The middle character index.
@@ -172,6 +184,7 @@ _N._class_FontCharacterExtensible = 91
 _N._class_FontCharacterComponent = 91
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/font.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontCharacterComponent
 ---@field glyph integer # The character index. Note that this is an encoding number, not a name.
 ---@field extender integer # One (1) if this part is repeatable, zero (0) otherwise.
@@ -182,6 +195,7 @@ _N._class_FontCharacterComponent = 91
 _N._class_FontCharacterLigature = 92
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/font.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontCharacterLigature
 ---@field type integer # the type of this ligature command, default 0
 ---@field char integer # the character index of the resultant ligature
@@ -191,6 +205,7 @@ _N._6_2_real_fonts = 92
 _N._alias_FontType = 92
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/font.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias FontType
 ---|`real` # this is a base font
 ---|`virtual` # this is a virtual font
@@ -198,6 +213,7 @@ _N._alias_FontType = 92
 _N._alias_FontFormat = 92
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/font.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias FontFormat
 ---|`type1` # this is a *PostScript* *Type1* font
 ---|`type3` # this is a bitmapped (*pk*) font
@@ -207,6 +223,7 @@ _N._alias_FontFormat = 92
 _N._alias_FontEmbedding = 92
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/font.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias FontEmbedding
 ---|`no` # don't embed the font at all
 ---|`subset` # include and atttempt to subset the font
@@ -256,6 +273,7 @@ _N._alias_FontCharacterCommands = 95
 ---}
 ---```
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/font.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias FontCharacterCommands any[]
 
 ---
@@ -273,6 +291,8 @@ _N._alias_FontCharacterCommands = 95
 ---@param at_size integer # If `at_size` is positive, it specifies an “at size” in scaled points. If `at_size` is negative, its absolute value represents a “scaled” setting relative to the designsize of the font.
 ---
 ---@return TfmFont
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/font.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function font.read_tfm(name, at_size) end
 
 ---
@@ -292,11 +312,15 @@ function font.read_tfm(name, at_size) end
 ---@param at_size integer # If `s` is positive, it specifies an “at size” in scaled points. If `at_size` is negative, its absolute value represents a “scaled” setting relative to the designsize of the font.
 ---
 ---@return VfFont
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/font.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function font.read_vf(name, at_size) end
 
 ---
 ---The whole table of *TeX* fonts is accessible from *Lua* using a virtual array.
 ---Because this is a virtual array, you cannot call `pairs` on it
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/font.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 font.fonts = {}
 
 ---
@@ -304,6 +328,8 @@ font.fonts = {}
 ---
 ---@param font_id integer
 ---@param f Font
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/font.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function font.setfont(font_id, f) end
 
 ---
@@ -314,6 +340,8 @@ function font.setfont(font_id, f) end
 ---@param font_id integer
 ---
 ---@return table Font
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/font.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function font.getfont(font_id) end
 
 ---
@@ -324,6 +352,8 @@ function font.getfont(font_id) end
 ---@param font_id integer
 ---
 ---@return table Font
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/font.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function font.getcopy(font_id) end
 
 ---
@@ -335,6 +365,8 @@ function font.getcopy(font_id) end
 ---@param font_id integer
 ---
 ---@return table p
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/font.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function font.getparameters(font_id) end
 
 ---
@@ -348,6 +380,8 @@ function font.getparameters(font_id) end
 ---@param font_id integer
 ---
 ---@return boolean|nil
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/font.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function font.frozen(font_id) end
 
 ---
@@ -358,6 +392,8 @@ function font.frozen(font_id) end
 ---@param f Font
 ---
 ---@return integer font_id
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/font.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function font.define(f) end
 
 ---
@@ -369,6 +405,8 @@ function font.define(f) end
 ---@param f Font
 ---
 ---@return integer i
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/font.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function font.define(font_id, f) end
 
 ---
@@ -406,6 +444,8 @@ function font.define(font_id, f) end
 ---
 ---@param font_id integer
 ---@param f Font
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/font.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function font.addcharacters(font_id, f) end
 
 ---
@@ -420,6 +460,8 @@ function font.addcharacters(font_id, f) end
 ---* Corresponding C source code: [lfontlib.c#L240-L249](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L240-L249)
 ---
 ---@return integer font_id
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/font.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function font.nextid() end
 
 ---
@@ -430,6 +472,8 @@ function font.nextid() end
 ---@param csname string
 ---
 ---@return integer font_id
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/font.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function font.id(csname) end
 
 ---
@@ -438,6 +482,8 @@ function font.id(csname) end
 ---* Corresponding C source code: [lfontlib.c#L102-L106](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L102-L106)
 ---
 ---@return integer max_font_id # The largest used index in `font.fonts`.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/font.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function font.max() end
 
 ---
@@ -446,6 +492,8 @@ function font.max() end
 ---* Corresponding C source code: [lfontlib.c#L85-L100](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L85-L100)
 ---
 ---@param font_id integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/font.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function font.current(font_id) end
 
 ---
@@ -454,6 +502,8 @@ function font.current(font_id) end
 ---* Corresponding C source code: [lfontlib.c#L85-L100](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L85-L100)
 ---
 ---@return integer font_id
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/font.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function font.current(font_id) end
 
 ---
@@ -476,6 +526,8 @@ function font.current(font_id) end
 ---* Corresponding C source code: [lfontlib.c#L127-L133](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L127-L133)
 ---
 ---@return fun(): font_id: integer, font: Font
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/font.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function font.each() end
 
 ---
@@ -496,4 +548,6 @@ function font.each() end
 ---@param stretch integer
 ---@param shrink integer
 ---@param step integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/font.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function font.setexpansion(font_id, stretch, shrink, step) end

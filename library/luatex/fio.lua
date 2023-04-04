@@ -36,6 +36,8 @@
 ---and `integer[1-4]` readers: `cardinal[1-4]le` and `integer[1-4]le`.
 ---
 --- https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 fio = {}
 
 ---
@@ -44,6 +46,8 @@ fio = {}
 ---@param f file* # A file handle.
 ---
 ---@return integer # a 1 byte unsigned integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readcardinal1(f) end
 
 ---
@@ -52,6 +56,8 @@ function fio.readcardinal1(f) end
 ---@param f file* # A file handle.
 ---
 ---@return integer # a 2 byte unsigned integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readcardinal2(f) end
 
 ---
@@ -60,6 +66,8 @@ function fio.readcardinal2(f) end
 ---@param f file* # A file handle.
 ---
 ---@return integer # a 3 byte unsigned integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readcardinal3(f) end
 
 ---
@@ -68,6 +76,8 @@ function fio.readcardinal3(f) end
 ---@param f file* # A file handle.
 ---
 ---@return integer # a 4 byte unsigned integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readcardinal4(f) end
 
 ---
@@ -86,6 +96,8 @@ function fio.readcardinaltable(f, n, b) end
 ---@param f file* # A file handle.
 ---
 ---@return integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readcardinal1le(f) end
 
 ---
@@ -96,6 +108,8 @@ function fio.readcardinal1le(f) end
 ---@param f file* # A file handle.
 ---
 ---@return integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readcardinal2le(f) end
 
 ---
@@ -106,6 +120,8 @@ function fio.readcardinal2le(f) end
 ---@param f file* # A file handle.
 ---
 ---@return integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readcardinal3le(f) end
 
 ---
@@ -116,6 +132,8 @@ function fio.readcardinal3le(f) end
 ---@param f file* # A file handle.
 ---
 ---@return integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readcardinal4le(f) end
 
 ---
@@ -124,6 +142,8 @@ function fio.readcardinal4le(f) end
 ---@param f file* # A file handle.
 ---
 ---@return integer # a 1 byte signed integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readinteger1(f) end
 
 ---
@@ -132,18 +152,24 @@ function fio.readinteger1(f) end
 ---@param f file* # A file handle.
 ---
 ---@return integer # a 2 byte signed integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readinteger2(f) end
 
 ---
 ---@param f file* # A file handle.
 ---
 ---@return integer # a 3 byte signed integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readinteger3(f) end
 
 ---
 ---@param f file* # A file handle.
 ---
 ---@return integer # a 4 byte signed integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readinteger4(f) end
 
 ---
@@ -152,6 +178,8 @@ function fio.readinteger4(f) end
 ---@param b integer
 ---
 ---@return table<integer, integer>
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readintegertable(f, n, b) end
 
 ---
@@ -162,6 +190,8 @@ function fio.readintegertable(f, n, b) end
 ---@param f file* # A file handle.
 ---
 ---@return integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readinteger1le(f) end
 
 ---
@@ -170,6 +200,8 @@ function fio.readinteger1le(f) end
 ---@param f file* # A file handle.
 ---
 ---@return integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readinteger2le(f) end
 
 ---
@@ -178,6 +210,8 @@ function fio.readinteger2le(f) end
 ---@param f file* # A file handle.
 ---
 ---@return integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readinteger3le(f) end
 
 ---
@@ -186,24 +220,32 @@ function fio.readinteger3le(f) end
 ---@param f file* # A file handle.
 ---
 ---@return integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readinteger4le(f) end
 
 ---
 ---@param f file* # A file handle.
 ---
 ---@return number # a 2 byte float (used in font files)
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readfixed2(f) end
 
 ---
 ---@param f file* # A file handle.
 ---
 ---@return number # a 4 byte float (used in font files)
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readfixed4(f) end
 
 ---
 ---@param f file* # A file handle.
 ---
 ---@return number # a 2 byte float (used in font files)
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.read2dot14(f) end
 
 ---
@@ -211,12 +253,16 @@ function fio.read2dot14(f) end
 ---
 ---@param f file* # A file handle.
 ---@param p integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.setposition(f, p) end
 
 ---
 ---get the current position
 ---
 ---@param f file* # A file handle.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.getposition(f) end
 
 ---
@@ -224,6 +270,8 @@ function fio.getposition(f) end
 ---
 ---@param f file* # A file handle.
 ---@param n integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.skipposition(f, n) end
 
 ---
@@ -233,6 +281,8 @@ function fio.skipposition(f, n) end
 ---@param n integer
 ---
 ---@return integer ...
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readbytes(f, n) end
 
 ---
@@ -242,10 +292,14 @@ function fio.readbytes(f, n) end
 ---@param n integer
 ---
 ---@return table<integer, integer>
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readbytetable(f, n) end
 
 ---
 ---@param f file* # A file handle.
 ---
 ---@return string
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readline(f) end

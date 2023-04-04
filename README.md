@@ -114,10 +114,21 @@ It is ok if you only document the data types of the input parameters.
 
 Use imperative mood for the first line: https://peps.python.org/pep-0257/
 
-`Please contribute!` message
+`Please contribute!` messages
+
+Default message:
 
 ```lua
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdf.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+```
+
+No documentation at all:
+
+```lua
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 ```
 
 ### Minimal example of `tex.sp()`

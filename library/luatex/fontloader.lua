@@ -9,6 +9,8 @@ _N = {}
 ---can load font into a *Lua* table that then can be converted into a table suitable
 ---for *TeX*. The library is an adapted subset of *FontForge* and as such gives a
 ---similar view on a font (which has advantages when you want to debug).
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 fontloader = {}
 
 _N._12_the_fontloader = 0
@@ -17,6 +19,8 @@ _N._12_1_getting_quick_information_on_a_font = 239
 
 ---
 ---* Corresponding C source code: [luafflib.c#L2257-L2284](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2257-L2284)^
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontInfo
 ---@field fontname string # The *PostScript* name of the font
 ---@field fullname string # The formal name of the font
@@ -42,6 +46,8 @@ _N._12_1_getting_quick_information_on_a_font = 239
 ---@param filename string
 ---
 ---@return FontInfo
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fontloader.info(filename) end
 
 _N._12_2_loading_an_opentype_or_truetype_file = 0
@@ -74,6 +80,8 @@ _N._12_2_loading_an_opentype_or_truetype_file = 0
 ---
 ---@return userdata font # The first return value is a userdata representation of the font.
 ---@return table warnings # The second return value is a table containing any warnings and errors reported by fontloader while opening the font. In normal typesetting, you would probably ignore the second argument, but it can be useful for debugging purposes.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fontloader.open(filename, fontname) end
 
 ---
@@ -82,12 +90,16 @@ function fontloader.open(filename, fontname) end
 ---@param font userdata
 ---
 ---@return FontloaderField f
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fontloader.to_table(font) end
 
 ---
 ---* Corresponding C source code: [luafflib.c#L265-L280](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L265-L280)
 ---
 ---@param font userdata
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fontloader.close(font) end
 
 _N._12_3_applying_a_feature_file = 241
@@ -99,6 +111,8 @@ _N._12_3_applying_a_feature_file = 241
 ---@param filename string
 ---
 ---@return table errors
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fontloader.apply_featurefile(font, filename) end
 
 _N._12_4_applying_an_afm_file = 241
@@ -110,6 +124,8 @@ _N._12_4_applying_an_afm_file = 241
 ---@param filename string
 ---
 ---@return table errors
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fontloader.apply_afmfile(font, filename) end
 
 _N._12_5_fontloader_font_tables = 241
@@ -120,6 +136,8 @@ _N._12_5_fontloader_font_tables = 241
 ---@param font userdata
 ---
 ---@return table FontloaderField
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fontloader.fields(font) end
 
 ---
@@ -128,6 +146,8 @@ function fontloader.fields(font) end
 ---@param font_glyph userdata
 ---
 ---@return table fields
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fontloader.fields(font_glyph) end
 
 _N._12_6_Table_types = 0
@@ -137,6 +157,7 @@ _N._main_table = "FontloaderField"
 ---
 ---* Corresponding C source code: [luafflib.c#L1900-L2242](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1900-L2242)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderField
 ---@field table_version number # Indicates the metrics version (currently 0.3)
 ---@field fontname string # *PostScript* font name, for example `NimbusRoman-Regular`.
@@ -217,6 +238,7 @@ _N._glyphs = "Glyph"
 ---
 ---* Corresponding C source code: [luafflib.c#L959-L1120](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L959-L1120)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderGlyph
 ---@field name string # The glyph name, for example `space`.
 ---@field unicode integer # The unicode code point, or -1 , for example `32`.
@@ -244,6 +266,7 @@ _N._glyphs = "Glyph"
 ---@field mathkern FontloaderMathkern #
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderGlyphKern
 ---@field char string # for example `afii10065`.
 ---@field lookup string # for example `pp_l_0_s`.
@@ -257,6 +280,7 @@ _N._12_6_3_map = 247
 ---
 ---* Corresponding C source code: [luafflib.c#L1346-L1404](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1346-L1404)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderMap
 ---@field enccount integer # for example `65537`
 ---@field encmax integer # for example `65537`
@@ -270,6 +294,7 @@ _N._12_6_3_map = 247
 ---
 ---* Corresponding C source code: [luafflib.c#L1353-L1359](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1353-L1359)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderRemap
 ---@field firstenc integer #
 ---@field lastenc integer #
@@ -278,6 +303,7 @@ _N._12_6_3_map = 247
 ---
 ---* Corresponding C source code: [luafflib.c#L1284-L1336](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1284-L1336)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderEnc
 ---@field enc_name string #
 ---@field char_cnt integer #
@@ -310,6 +336,8 @@ _N._12_6_4_private = 248
 ---both strings.
 ---
 ---* Corresponding C source code: [luafflib.c#L2035-L2039](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2035-L2039)
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias FontloaderPrivate string<string, string>
 
 _N._12_6_5_cidinfo = 248
@@ -317,6 +345,7 @@ _N._12_6_5_cidinfo = 248
 ---
 ---* Corresponding C source code: [luafflib.c#L2053-L2058](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2053-L2058)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderCidinfo
 ---@field registry string #
 ---@field ordering string #
@@ -330,6 +359,7 @@ _N._12_6_6_pfminfo = 248
 ---
 ---* Corresponding C source code: [luafflib.c#L1200-L1281](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1200-L1281)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderPfminfo
 ---@field pfmset integer #
 ---@field winascent_add integer #
@@ -381,6 +411,7 @@ _N._12_6_6_pfminfo = 248
 ---
 ---* Corresponding C source code: [luafflib.c#L1222-L1232](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1222-L1232)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderPanose
 ---@field familytype `Any`|`No Fit`|`Text and Display`|`Script`|`Decorative`|`Pictorial` # Values as in the *OpenType* font specification:
 ---@field serifstyle string # See the *OpenType* font specification for values
@@ -399,6 +430,7 @@ _N._12_6_7_names = 249
 ---
 ---* Corresponding C source code: [luafflib.c#L1418-L1416](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1418-L1416)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderLangNames
 ---@field lang string # language for this entry
 ---@field names FontloaderNamesTrueType # The `names` keys are the actual *TrueType* name strings.
@@ -406,6 +438,7 @@ _N._12_6_7_names = 249
 ---
 ---* Corresponding C source code: [luafflib.c#L108-L115](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L108-L115)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderNamesTrueType
 ---@field copyright string
 ---@field family string
@@ -436,6 +469,7 @@ _N._12_6_8_anchor_classes = 250
 ---
 ---* Corresponding C source code: [luafflib.c#L1448-L1452](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1448-L1452)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderAnchorClasses
 ---@field name string # a descriptive id of this anchor class
 ---@field lookup string #
@@ -446,6 +480,7 @@ _N._12_6_9_gpos = 250
 ---
 ---* Corresponding C source code: [luafflib.c#L580-L643](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L580-L643)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderGposSub
 ---@field flags FontloaderGposFlags #
 ---@field name string #
@@ -458,6 +493,7 @@ _N._12_6_9_gpos = 250
 ---
 ---* Corresponding C source code: [luafflib.c#L74-L76](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L74-L76)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderGpos: FontloaderGposSub
 ---@field type `gpos_single`|`gpos_pair`|`gpos_cursive`|`gpos_mark2base`|`gpos_mark2ligature`|`gpos_mark2mark`|`gpos_context`|`gpos_contextchain`
 
@@ -467,6 +503,7 @@ _N._12_6_9_gpos = 250
 ---
 ---* Corresponding C source code: [luafflib.c#L587-L612](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L587-L612)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderGposFlags
 ---@field r2l boolean #
 ---@field ignorebaseglyphs boolean #
@@ -480,6 +517,7 @@ _N._12_6_9_gpos = 250
 ---
 ---* Corresponding C source code: [luafflib.c#L523-L531](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L523-L531)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderGposFeatures
 ---@field tag string #
 ---@field scripts FontloaderGposFeaturesScripts #
@@ -489,6 +527,7 @@ _N._12_6_9_gpos = 250
 ---
 ---* Corresponding C source code: [luafflib.c#L492-L515](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L492-L515)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderGposFeaturesScripts
 ---@field script string #
 ---@field langs string[]
@@ -499,6 +538,7 @@ _N._12_6_9_gpos = 250
 ---
 ---* Corresponding C source code: [luafflib.c#L541-L572](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L541-L572)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderGposSubtables
 ---@field name string #
 ---@field suffix string # (only if used) % used by gpos_single to get a default
@@ -514,6 +554,7 @@ _N._12_6_9_gpos = 250
 ---
 ---* Corresponding C source code: [luafflib.c#L1469-L1518](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1469-L1518)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderGposSubtablesKernclass
 ---@field firsts string[]
 ---@field seconds string[]
@@ -528,6 +569,7 @@ _N._12_6_10_gsub = 251
 ---
 ---* Corresponding C source code: [luafflib.c#L56-L58](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L56-L58)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderGsub: FontloaderGposSub
 ---@field type `gsub_single`|`gsub_multiple`|`gsub_alternate`|`gsub_ligature`|`gsub_context`|`gsub_contextchain`|`gsub_reversecontextchain`
 ---
@@ -537,6 +579,7 @@ _N._12_6_11_ttf_tables_and_ttf_tab_saved = 251
 ---
 ---* Corresponding C source code: [luafflib.c#L1454-L1461](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1454-L1461)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderTtfTables
 ---@field tag string #
 ---@field len integer #
@@ -548,6 +591,7 @@ _N._12_6_12_mm = 251
 ---
 ---* Corresponding C source code: [luafflib.c#L1841-L1898](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1841-L1898)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderMm
 ---@field axes table # array of axis names
 ---@field instance_count integer #
@@ -560,6 +604,7 @@ _N._12_6_12_mm = 251
 ---
 ---* Corresponding C source code: [luafflib.c#L1820-L1839](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1820-L1839)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderAxismaps
 ---@field blends table # an array of blend points
 ---@field designs table # an array of design values
@@ -575,6 +620,7 @@ _N._12_6_13_mark_classes = 252
 ---
 ---* Corresponding C source code: [luafflib.c#L2159-L2169](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2159-L2169)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias FontloaderMarkClasses string<string, string>
 
 _N._12_6_14_math = 252
@@ -585,6 +631,7 @@ _N._12_6_14_math = 252
 ---
 ---* Corresponding C source code: [luafflib.c#L1706-L1767](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1706-L1767)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderMath
 ---@field ScriptPercentScaleDown integer
 ---@field ScriptScriptPercentScaleDown integer
@@ -651,6 +698,7 @@ _N._12_6_15_validation_state = 253
 ---
 ---* Corresponding C source code: [luafflib.c#L2183-L2229](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2183-L2229)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderValidationState
 ---@field bad_ps_fontname string
 ---@field bad_glyph_table table
@@ -668,12 +716,15 @@ _N._12_6_16_horiz_base_and_vert_base = 253
 ---
 ---* Corresponding C source code: [luafflib.c#L1785-L1818](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1785-L1818)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderHorizVertBase
 ---@field tags table # an array of script list tags
 ---@field scripts FontloaderScripts #
 
 ---
 ---* Corresponding C source code: [luafflib.c#L1785-L1818](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1785-L1818)
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderScripts
 ---@field baseline table #
 ---@field default_baseline number #
@@ -682,6 +733,7 @@ _N._12_6_16_horiz_base_and_vert_base = 253
 ---
 ---* Corresponding C source code: [luafflib.c#L1769-L1777](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1769-L1777)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderLang
 ---@field tag string # a script tag
 ---@field ascent number #
@@ -694,6 +746,8 @@ _N._12_6_17_altuni = 253
 ---* Corresponding C source code: [luafflib.c#L692-L714](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L692-L714)
 ---
 ---An array of alternate *Unicode* values. Inside that array are hashes with:
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderAltuni
 ---@field unicode number # this glyph is also used for this unicode
 ---@field variant number # the alternative is driven by this unicode selector
@@ -703,6 +757,7 @@ _N._12_6_18_vert_variants_and_horiz_variants = 253
 ---
 ---* Corresponding C source code: [luafflib.c#L914-L930](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L914-L930)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderVertHorizVariants
 ---@field variants string #
 ---@field italic_correction number #
@@ -711,6 +766,7 @@ _N._12_6_18_vert_variants_and_horiz_variants = 253
 ---
 ---* Corresponding C source code: [luafflib.c#L914-L930](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L914-L930)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderParts
 ---@field component string #
 ---@field extender number #
@@ -723,6 +779,7 @@ _N._12_6_19_mathkern = 254
 ---
 ---* Corresponding C source code: [luafflib.c#L943-L957](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L943-L957)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderMathkern
 ---@field top_right FontloaderMathkernSubtable #
 ---@field bottom_right FontloaderMathkernSubtable #
@@ -732,6 +789,7 @@ _N._12_6_19_mathkern = 254
 ---
 ---* Corresponding C source code: [luafflib.c#L932-L941](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L932-L941)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderMathkernSubtable
 ---@field height number #
 ---@field kern number #
@@ -755,6 +813,7 @@ _N._12_6_22_texdata = 254
 ---
 ---* Corresponding C source code: [luafflib.c#L2096-L2107](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2096-L2107)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderTexdata
 ---@field type `unset`|`text`|`math`|`mathext`
 ---@field params table # 22 font numeric parameters
@@ -768,6 +827,7 @@ _N._12_6_23_lookups = 254
 ---
 ---* Corresponding C source code: [luafflib.c#L1628-L1661](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1628-L1661)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderLockup
 ---@field type string #
 ---@field format `glyphs`|`class`|`coverage`|`reversecoverage`
@@ -782,6 +842,7 @@ _N._12_6_23_lookups = 254
 ---
 ---* Corresponding C source code: [luafflib.c#L1558-L1626](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1558-L1626)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderLockupRule
 ---@field lookups string[] a linear array of lookup names
 ---@field glyphs FontloaderLockupGlyph[] only if the parent's format is `glyphs`
@@ -792,6 +853,7 @@ _N._12_6_23_lookups = 254
 ---
 ---* Corresponding C source code: [luafflib.c#L1562-L1568](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1562-L1568)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderLockupGlyph
 ---@field names string #
 ---@field back string #
@@ -800,6 +862,7 @@ _N._12_6_23_lookups = 254
 ---
 ---* Corresponding C source code: [luafflib.c#L1570-L1580](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1570-L1580)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderLockupClass
 ---@field before number[]
 ---@field after number[]
@@ -807,6 +870,7 @@ _N._12_6_23_lookups = 254
 ---
 ---* Corresponding C source code: [luafflib.c#L1582-L1591](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1582-L1591)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderLockupsCoverage
 ---@field current string[]
 ---@field before string[]
@@ -815,6 +879,7 @@ _N._12_6_23_lookups = 254
 ---
 ---* Corresponding C source code: [luafflib.c#L1593-L1604](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1593-L1604)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderLockupReverseCoverage
 ---@field current string[]
 ---@field before string[]

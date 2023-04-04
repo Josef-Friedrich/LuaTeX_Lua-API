@@ -220,13 +220,6 @@ _N._9_2_1_find_write_file = 170
 _N._9_2_2_find_font_file = 170
 
 ---
----Your callback function should have the following conventions:
----
----```
----<string> actual_name =
----    function (<string> asked_name)
----```
----
 ---The `asked_name` is an *OTF* or *TFM* font metrics file.
 ---
 ---Return `nil` if the file cannot be found.
@@ -237,13 +230,6 @@ _N._9_2_2_find_font_file = 170
 _N._9_2_3_find_output_file = 170
 
 ---
----Your callback function should have the following conventions:
----
----```
----<string> actual_name =
----    function (<string> asked_name)
----```
----
 ---The `asked_name` is the *PDF* or *DVI* file for writing.
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -251,13 +237,6 @@ _N._9_2_3_find_output_file = 170
 
 _N._9_2_4_find_format_file = 170
 
----
----Your callback function should have the following conventions:
----
----```
----<string> actual_name =
----    function (<string> asked_name)
----```
 ---
 ---The `asked_name` is a format file for reading (the format file for writing
 ---is always opened in the current directory).
@@ -326,13 +305,6 @@ _N._9_2_0_find_opentype_file = 171
 _N._9_2_1_find_truetype_file = 171
 
 ---
----Your callback function should have the following conventions:
----
----```
----<string> actual_name =
----    function (<string> asked_name)
----```
----
 ---The `asked_name` is a font file. This callback is called while *LuaTeX* is
 ---building its internal list of needed font files, so the actual timing may
 ---surprise you. Your return value is later fed back into the matching `read_file` callback.
@@ -346,13 +318,6 @@ _N._9_2_1_find_truetype_file = 171
 _N._9_2_1_find_type1_file = 171
 
 ---
----Your callback function should have the following conventions:
----
----```
----<string> actual_name =
----    function (<string> asked_name)
----```
----
 ---The `asked_name` is a font file. This callback is called while *LuaTeX* is
 ---building its internal list of needed font files, so the actual timing may
 ---surprise you. Your return value is later fed back into the matching `read_file` callback.
@@ -365,13 +330,6 @@ _N._9_2_1_find_type1_file = 171
 
 _N._9_2_2_find_image_file = 172
 
----
----Your callback function should have the following conventions:
----
----```
----<string> actual_name =
----    function (<string> asked_name)
----```
 ---
 ---The `asked_name` is an image file. Your return value is used to open a file
 ---from the hard disk, so make sure you return something that is considered the name
@@ -849,6 +807,7 @@ _N._9_5_15_ligaturing = 179
 ---
 ---* Corresponding C source code: [luafont.c#L2688](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/font/luafont.c#L2688)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias LigaturingCallback fun(head: Node, tail: Node): false|nil
 
 _N._9_5_16_kerning = nil
@@ -865,6 +824,7 @@ _N._9_5_16_kerning = nil
 ---
 ---* Corresponding C source code: [luafont.c#L2704](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/font/luafont.c#L2704)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias KerningCallback fun(head: Node, tail: Node): false|nil
 
 _N._9_5_17_insert_local_par = nil
@@ -878,6 +838,7 @@ _N._9_5_17_insert_local_par = nil
 ---
 ---* Corresponding C source code: [texnodes.c#L4812](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L4812)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias InsertLocalParCallback fun(local_par: Node, location: string)
 
 _N._9_5_18_mlist_to_hlist = nil
@@ -895,6 +856,7 @@ _N._9_5_18_mlist_to_hlist = nil
 ---
 ---* Corresponding C source code: [mlist.c#L1866](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/mlist.c#L1866)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias MlistToHlistCallback fun(head: Node, display_type: string, need_penalties: boolean): newhead: Node
 
 _N._9_6_information_reporting = 180
@@ -907,6 +869,7 @@ _N._9_6_1_pre_dump = 180
 ---
 ---* Corresponding C source code: [dumpdata.c#L95](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/dumpdata.c#L95)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias PreDumpCallback fun()
 
 _N._9_6_2_start_run = 181
@@ -919,6 +882,7 @@ _N._9_6_2_start_run = 181
 ---* Corresponding C source code: [printing.c#L557](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/printing.c#L557)
 ---* Corresponding C source code: [texfileio.c#L917](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texfileio.c#L917)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias StartRunCallback fun()
 
 _N._9_6_3_stop_run = 181
@@ -931,6 +895,7 @@ _N._9_6_3_stop_run = 181
 ---* Corresponding C source code: [dvigen.c#L1447](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/dvi/dvigen.c#L1447)
 ---* Corresponding C source code: [pdfgen.c#L2243](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/pdf/pdfgen.c#L2243)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias StopRunCallback fun()
 
 _N._9_6_4_start_page_number = 181
@@ -992,6 +957,7 @@ _N._9_6_8_show_lua_error_hook = 182
 _N._9_6_9_start_file = 182
 
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias StartFileCallbackCategory
 ---|1 # a normal data file, like a *TeX* source
 ---|2 # a font map coupling font names to resources
@@ -1067,6 +1033,7 @@ _N._9_7_1_finish_pdffile = 183
 ---
 ---* Corresponding C source code: [pdfgen.c#L2244](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/pdf/pdfgen.c#L2244)
 ---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias FinishPdffileCallback fun()
 
 _N._9_7_2_finish_pdfpage = 183
