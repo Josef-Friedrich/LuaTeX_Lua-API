@@ -1886,22 +1886,41 @@ tex.toks = {}
 _N._10_3_6_character_code_registers_get_set_code_s_ = 0
 
 ---
----# Character code registers: `[get|set]*code[s]`
+---*TeX*'s character code table `lccode` can be accessed and written to using
+---a virtual subtable of the `tex` table.
+---@type table
+tex.lccode = {}
+
 ---
+---*TeX*'s character code table `uccode` can be accessed and written to using
+---a virtual subtable of the `tex` table.
+---@type table
+tex.uccode = {}
+
 ---
----*TeX*'s character code tables (`lccode`, `uccode`, `sfcode`, `catcode`, `mathcode`, `delcode`) can be accessed and written to using
----six virtual subtables of the `tex` table
+---*TeX*'s character code table `sfcode` can be accessed and written to using
+---a virtual subtable of the `tex` table.
+---@type table
+tex.sfcode = {}
+
 ---
----\startthreecolumns
----```
----tex.lccode
----tex.uccode
----tex.sfcode
----tex.catcode
----tex.mathcode
----tex.delcode
----```
----\stopthreecolumns
+---*TeX*'s character code table `catcode` can be accessed and written to using
+---a virtual subtable of the `tex` table.
+---@type table
+tex.catcode = {}
+
+---
+---*TeX*'s character code table `mathcode` can be accessed and written to using
+---a virtual subtable of the `tex` table.
+---@type table
+tex.mathcode = {}
+
+---
+---*TeX*'s character code tables `delcode` can be accessed and written to using
+---a virtual subtable of the `tex` table.
+---@type table
+tex.delcode = {}
+
 ---
 ---The function call interfaces are roughly as above, but there are a few twists.
 ---`sfcode`s are the simple ones:
@@ -1910,6 +1929,19 @@ _N._10_3_6_character_code_registers_get_set_code_s_ = 0
 ---tex.setsfcode (["global",] <number> n, <number> s)
 ---<number> s = tex.getsfcode (<number> n)
 ---```
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.setsfcode() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.getsfcode() end
+
 ---
 ---The function call interface for `lccode` and `uccode` additionally
 ---allows you to set the associated sibling at the same time:
@@ -1918,10 +1950,36 @@ _N._10_3_6_character_code_registers_get_set_code_s_ = 0
 ---tex.setlccode (["global"], <number> n, <number> lc)
 ---tex.setlccode (["global"], <number> n, <number> lc, <number> uc)
 ---<number> lc = tex.getlccode (<number> n)
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.setlccode() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.getlccode() end
+
+---
 ---tex.setuccode (["global"], <number> n, <number> uc)
 ---tex.setuccode (["global"], <number> n, <number> uc, <number> lc)
 ---<number> uc = tex.getuccode (<number> n)
 ---```
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.setuccode() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.getuccode() end
+
 ---
 ---The function call interface for `catcode` also allows you to specify a
 ---category table to use on assignment or on query (default in both cases is the
@@ -1934,14 +1992,44 @@ _N._10_3_6_character_code_registers_get_set_code_s_ = 0
 ---<number> lc = tex.getcatcode (<number> cattable, <number> n)
 ---```
 ---
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.setcatcode() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.getcatcode() end
+
+---
 ---The interfaces for `delcode` and `mathcode` use small array tables to
 ---set and retrieve values:
 ---
 ---```
 ---tex.setmathcode (["global"], <number> n, <table> mval )
 ---<table> mval = tex.getmathcode (<number> n)
+
+---
 ---tex.setdelcode (["global"], <number> n, <table> dval )
 ---<table> dval = tex.getdelcode (<number> n)
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.setdelcode() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.getdelcode() end
+
+---
 ---```
 ---
 ---Where the table for `mathcode` is an array of 3 numbers, like this:
@@ -1972,11 +2060,26 @@ _N._10_3_6_character_code_registers_get_set_code_s_ = 0
 ---    <number> family, <number> character)
 ---class, family, char =
 ---    tex.getmathcodes (<number> n)
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.setmathcode() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.getmathcode() end
+
+---
 ---tex.setdelcode (["global"], <number> n, <number> smallfam,
 ---    <number> smallchar, <number> largefam, <number> largechar)
 ---smallfam, smallchar, largefam, largechar =
 ---    tex.getdelcodes (<number> n)
 ---```
+
 ---
 ---Normally, the third and fourth values in a delimiter code assignment will be zero
 ---according to `Udelcode` usage, but the returned table can have values there
@@ -1986,42 +2089,29 @@ _N._10_3_6_character_code_registers_get_set_code_s_ = 0
 _N._10_3_7_box_registers_get_set_box = 0
 
 ---
----# Box registers: `[get|set]box`
+---Set and query actual boxes, coming for instance from `hbox`, `vbox` or `vtop`.
 ---
----It is possible to set and query actual boxes, coming for instance from `hbox`, `vbox` or `vtop`, using the node interface as defined in the
----`node` library:
----
----```
----tex.box
----```
----
----for array access, or
----
----```
----tex.setbox(["global",] <number> n, <node> s)
----tex.setbox(["global",] <string> cs, <node> s)
----<node> n = tex.getbox(<number> n)
----<node> n = tex.getbox(<string> cs)
----```
----
----for function-based access. In the function-based interface, it is possible to
+---It is possible to
 ---define values globally by using the string `global` as the first function
 ---argument.
 ---
----Be warned that an assignment like
+---@param global 'global'
+---@param n_or_cs integer|string
+---@param s Node
+function tex.setbox(global, n_or_cs, s) end
+
 ---
----```
----tex.box[0] = tex.box[2]
----```
+---@param n_or_cs integer|string
+---@param s Node
+function tex.setbox(n_or_cs, s) end
+
 ---
----does not copy the node list, it just duplicates a node pointer. If `\box2`
----will be cleared by *TeX* commands later on, the contents of `\box0` becomes
----invalid as well. To prevent this from happening, always use `node.copy_list` unless you are assigning to a temporary variable:
+---Query actual boxes, coming for instance from `hbox`, `vbox` or `vtop`.
 ---
----```
----tex.box[0] = node.copy_list(tex.box[2])
----```
+---@param n_or_cs integer|string
 ---
+---@return Node n
+function tex.getbox(n_or_cs) end
 
 _N._10_3_8_reusing_boxes_use_save_boxresource_and_getboxresourcedimensions = 0
 
@@ -2117,6 +2207,19 @@ _N._10_3_11_accessing_math_parameters_get_set_math = 0
 ---tex.setmath(["global",] <string> n, <string> t, <number> n)
 ---<number> n = tex.getmath(<string> n, <string> t)
 ---```
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.setmath() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.getmath() end
+
 ---
 ---As before an optional first parameter `global` indicates a global
 ---assignment.
@@ -3159,25 +3262,7 @@ function tex.get() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.getbox() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.getboxresourcebox() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.getcatcode() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.getdelcode() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -3195,12 +3280,6 @@ function tex.getfontoffamily() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.getlccode() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.getlist() end
 
 ---
@@ -3208,18 +3287,6 @@ function tex.getlist() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.getmark() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.getmath() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.getmathcode() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -3238,18 +3305,6 @@ function tex.getmodevalues() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.getnest() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.getsfcode() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.getuccode() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -3321,61 +3376,13 @@ function tex.set() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.setbox() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.setcatcode() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.setdelcode() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.setlccode() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.setlist() end
 
 ---
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.setmath() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.setmathcode() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.setnest() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.setsfcode() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.setuccode() end
 
 ---
 ---Warning! Undocumented code!<p>
