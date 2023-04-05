@@ -7,7 +7,7 @@ _N = {}
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex = {}
 
-_N._2_1_integer_parameters_read_write = 190
+_N._10_3_2_1_integer_parameters_read_write = 190
 
 ---
 ---`\adjdemerits`: Penalty for adjacent visually incompatible lines. Plain TEX default: 10 000.
@@ -752,7 +752,7 @@ tex.widowpenalty = 0
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex.year = 0
 
-_N._2_1_integer_parameters_read_only = 191
+_N._10_3_2_1_integer_parameters_read_only = 191
 
 ---
 ---`\deadcycles`: Counter that keeps track of how many times the output routine has been called without a `\shipout` taking place.
@@ -837,7 +837,7 @@ tex.prevgraf = 0
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex.spacefactor = 0
 
-_N._2_2_dimension_parameters_read_write = 191
+_N._10_3_2_2_dimension_parameters_read_write = 191
 
 ---
 ---`\boxmaxdepth`: Maximum allowed depth of boxes. Plain TEX default: \maxdimen.
@@ -1161,7 +1161,7 @@ tex.prevgraf = 0
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex.spacefactor = 0
 
-_N._2_2_dimension_parameters_read_only = 191
+_N._10_3_2_2_dimension_parameters_read_only = 191
 
 ---
 ---`\pagedepth` Depth of the current page.
@@ -1267,7 +1267,7 @@ tex.pagestretch = 0
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex.pagetotal = 0
 
-_N._2_3_direction_parameters = 192
+_N._10_3_2_3_direction_parameters = 192
 
 ---
 ---@type string A read-only direction parameter that returns a *Lua* string.
@@ -1299,7 +1299,7 @@ tex.pardir = ""
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex.textdir = ""
 
-_N._2_4_glue_parameters = 193
+_N._10_3_2_4_glue_parameters = 193
 
 ---
 ---`\abovedisplayshortskip` Glue abovea display if the line preceding the display was short. Plain TEX defaults: 0pt plus 3pt
@@ -1481,7 +1481,7 @@ tex.topskip = nil
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex.xspaceskip = nil
 
-_N._2_5_muglue_parameters = 193
+_N._10_3_2_5_muglue_parameters = 193
 
 ---
 ---`\medmuskip` Medium amount of mu glue.
@@ -1519,7 +1519,7 @@ tex.thickmuskip = ""
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex.thinmuskip = ""
 
-_N._2_6_tokenlist_parameters = 193
+_N._10_3_2_6_tokenlist_parameters = 193
 
 ---
 ---A `tokenlist` parameters that accepts and returns a *Lua* string.
@@ -1641,7 +1641,7 @@ tex.everyvbox = ""
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex.output = ""
 
-_N._3_convert_commands = 193
+_N._10_3_3_convert_commands = 193
 
 ---
 ---@type string # for example `2.2`.
@@ -1679,7 +1679,7 @@ tex.luatexbanner = ""
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex.luatexrevision = ""
 
-_N._3_last_item_commands = 194
+_N._10_3_4_last_item_commands = 194
 
 ---
 ---All “last item” commands are read-only and return a number.
@@ -1793,7 +1793,7 @@ tex.currentiftype = 0
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex.currentifbranch = 0
 
-_N._5_registers = 194
+_N._10_3_5_registers = 194
 
 ---
 ---the attribute registers accept and return Lua numbers.
@@ -1883,6 +1883,363 @@ tex.skip = {}
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex.toks = {}
 
+_N._10_3_6_character_code_registers_get_set_code_s_ = 0
+
+---
+---# Character code registers: `[get|set]*code[s]`
+---
+---
+---
+---
+---
+---*TeX*'s character code tables (`lccode`, `uccode`, `sfcode`, `catcode`, `mathcode`, `delcode`) can be accessed and written to using
+---six virtual subtables of the `tex` table
+---
+---\startthreecolumns
+---```
+---tex.lccode
+---tex.uccode
+---tex.sfcode
+---tex.catcode
+---tex.mathcode
+---tex.delcode
+---```
+---\stopthreecolumns
+---
+---The function call interfaces are roughly as above, but there are a few twists.
+---`sfcode`s are the simple ones:
+---
+---```
+---tex.setsfcode (["global",] <number> n, <number> s)
+---<number> s = tex.getsfcode (<number> n)
+---```
+---
+---The function call interface for `lccode` and `uccode` additionally
+---allows you to set the associated sibling at the same time:
+---
+---```
+---tex.setlccode (["global"], <number> n, <number> lc)
+---tex.setlccode (["global"], <number> n, <number> lc, <number> uc)
+---<number> lc = tex.getlccode (<number> n)
+---tex.setuccode (["global"], <number> n, <number> uc)
+---tex.setuccode (["global"], <number> n, <number> uc, <number> lc)
+---<number> uc = tex.getuccode (<number> n)
+---```
+---
+---The function call interface for `catcode` also allows you to specify a
+---category table to use on assignment or on query (default in both cases is the
+---current one):
+---
+---```
+---tex.setcatcode (["global"], <number> n, <number> c)
+---tex.setcatcode (["global"], <number> cattable, <number> n, <number> c)
+---<number> lc = tex.getcatcode (<number> n)
+---<number> lc = tex.getcatcode (<number> cattable, <number> n)
+---```
+---
+---The interfaces for `delcode` and `mathcode` use small array tables to
+---set and retrieve values:
+---
+---```
+---tex.setmathcode (["global"], <number> n, <table> mval )
+---<table> mval = tex.getmathcode (<number> n)
+---tex.setdelcode (["global"], <number> n, <table> dval )
+---<table> dval = tex.getdelcode (<number> n)
+---```
+---
+---Where the table for `mathcode` is an array of 3 numbers, like this:
+---
+---```
+---{
+---    <number> class,
+---    <number> family,
+---    <number> character
+---}
+---```
+---
+---And the table for `delcode` is an array with 4 numbers, like this:
+---
+---```
+---{
+---    <number> small_fam,
+---    <number> small_char,
+---    <number> large_fam,
+---    <number> large_char
+---}
+---```
+---
+---You can also avoid the table:
+---
+---```
+---tex.setmathcode (["global"], <number> n, <number> class,
+---    <number> family, <number> character)
+---class, family, char =
+---    tex.getmathcodes (<number> n)
+---tex.setdelcode (["global"], <number> n, <number> smallfam,
+---    <number> smallchar, <number> largefam, <number> largechar)
+---smallfam, smallchar, largefam, largechar =
+---    tex.getdelcodes (<number> n)
+---```
+---
+---Normally, the third and fourth values in a delimiter code assignment will be zero
+---according to `Udelcode` usage, but the returned table can have values there
+---(if the delimiter code was set using `delcode`, for example). Unset `delcode`'s can be recognized because `dval[1]` is `-1`.
+---
+
+_N._10_3_7_box_registers_get_set_box = 0
+
+---
+---# Box registers: `[get|set]box`
+---
+---It is possible to set and query actual boxes, coming for instance from `hbox`, `vbox` or `vtop`, using the node interface as defined in the
+---`node` library:
+---
+---```
+---tex.box
+---```
+---
+---for array access, or
+---
+---```
+---tex.setbox(["global",] <number> n, <node> s)
+---tex.setbox(["global",] <string> cs, <node> s)
+---<node> n = tex.getbox(<number> n)
+---<node> n = tex.getbox(<string> cs)
+---```
+---
+---for function-based access. In the function-based interface, it is possible to
+---define values globally by using the string `global` as the first function
+---argument.
+---
+---Be warned that an assignment like
+---
+---```
+---tex.box[0] = tex.box[2]
+---```
+---
+---does not copy the node list, it just duplicates a node pointer. If `\box2`
+---will be cleared by *TeX* commands later on, the contents of `\box0` becomes
+---invalid as well. To prevent this from happening, always use `node.copy_list` unless you are assigning to a temporary variable:
+---
+---```
+---tex.box[0] = node.copy_list(tex.box[2])
+---```
+---
+
+_N._10_3_8_reusing_boxes_use_save_boxresource_and_getboxresourcedimensions = 0
+
+---
+---Register a box for reuse (this is modelled after so
+---called xforms in *PDF*). You can (re)use the box with `useboxresource` or
+---by creating a rule node with subtype 2.
+---
+---The optional second and third arguments are strings, the fourth is a boolean. The
+---fifth argument is a type. When set to non-zero the `/Type` entry is
+---omitted. A value of 1 or 3 still writes a `/BBox`, while 2 or 3 will write
+---a `/Matrix`. The sixth argument is the (virtual) margin that extends beyond
+---the effective boundingbox as seen by *TeX*. Instead of a box number one can also
+---pass a `[h|v]list` node.
+---
+---@param n Node|integer
+---@param attributes string
+---@param resources string
+---@param immediate boolean
+---@param type any
+---@param margin any
+---
+---@return integer index
+function tex.saveboxresource(n,attributes,resources,immediate,type,margin) end
+
+---
+---You can generate the reference (a rule type) with:
+---
+---```
+---local reused = tex.useboxresource(n,wd,ht,dp)
+---```
+---
+---The dimensions are optional and the final ones are returned as extra values.
+---
+---@param n Node
+---@param wd integer
+---@param ht integer
+---@param dp integer
+function tex.useboxresource(n,wd,ht,dp) end
+
+---
+---Returns the width, height, depth and margin of the resource.
+---
+---No dimensions returned means that the resource is
+---unknown.
+---
+---@param n Node
+---
+---@return integer|nil width
+---@return integer|nil height
+---@return integer|nil depth
+---@return integer|nil margin
+function tex.getboxresourcedimensions(n) end
+
+_N._10_3_9_triggerbuildpage = 0
+
+---
+---Call the internal
+---function that build a page, given that there is something to build.
+---
+---You should not expect to much from the `triggerbuildpage` helpers because
+---often *TeX* doesn't do much if it thinks nothing has to be done, but it might be
+---useful for some applications.
+function tex.triggerbuildpage() end
+
+_N._10_3_10_splitbox = 0
+
+---
+---Split a box.
+---
+---```lua
+---local vlist = tex.splitbox(n,height,mode)
+---```
+---
+---The remainder is kept in the original box and a packaged vlist is returned. This
+---operation is comparable to the `vsplit` operation. The mode can be `additional` or `exactly` and concerns the split off box.
+---
+---@param n Node
+---@param height integer
+---@param mode 'additional' | 'exactly'
+---
+---@return Node vlist
+function tex.splitbox(n, height, mode) end
+
+_N._10_3_11_accessing_math_parameters_get_set_math = 0
+
+---
+---# Accessing math parameters: `[get|set]math`
+---
+---It is possible to set and query the internal math parameters using:
+---
+---```
+---tex.setmath(["global",] <string> n, <string> t, <number> n)
+---<number> n = tex.getmath(<string> n, <string> t)
+---```
+---
+---As before an optional first parameter `global` indicates a global
+---assignment.
+---
+---The first string is the parameter name minus the leading “Umath”, and the
+---second string is the style name minus the trailing “style”. Just to be
+---complete, the values for the math parameter name are:
+---
+---```
+---quad                axis                operatorsize
+---overbarkern         overbarrule         overbarvgap
+---underbarkern        underbarrule        underbarvgap
+---radicalkern         radicalrule         radicalvgap
+---radicaldegreebefore radicaldegreeafter  radicaldegreeraise
+---stackvgap           stacknumup          stackdenomdown
+---fractionrule        fractionnumvgap     fractionnumup
+---fractiondenomvgap   fractiondenomdown   fractiondelsize
+---limitabovevgap      limitabovebgap      limitabovekern
+---limitbelowvgap      limitbelowbgap      limitbelowkern
+---underdelimitervgap  underdelimiterbgap
+---overdelimitervgap   overdelimiterbgap
+---subshiftdrop        supshiftdrop        subshiftdown
+---subsupshiftdown     subtopmax           supshiftup
+---supbottommin        supsubbottommax     subsupvgap
+---spaceafterscript    connectoroverlapmin
+---ordordspacing       ordopspacing        ordbinspacing     ordrelspacing
+---ordopenspacing      ordclosespacing     ordpunctspacing   ordinnerspacing
+---opordspacing        opopspacing         opbinspacing      oprelspacing
+---opopenspacing       opclosespacing      oppunctspacing    opinnerspacing
+---binordspacing       binopspacing        binbinspacing     binrelspacing
+---binopenspacing      binclosespacing     binpunctspacing   bininnerspacing
+---relordspacing       relopspacing        relbinspacing     relrelspacing
+---relopenspacing      relclosespacing     relpunctspacing   relinnerspacing
+---openordspacing      openopspacing       openbinspacing    openrelspacing
+---openopenspacing     openclosespacing    openpunctspacing  openinnerspacing
+---closeordspacing     closeopspacing      closebinspacing   closerelspacing
+---closeopenspacing    closeclosespacing   closepunctspacing closeinnerspacing
+---punctordspacing     punctopspacing      punctbinspacing   punctrelspacing
+---punctopenspacing    punctclosespacing   punctpunctspacing punctinnerspacing
+---innerordspacing     inneropspacing      innerbinspacing   innerrelspacing
+---inneropenspacing    innerclosespacing   innerpunctspacing innerinnerspacing
+---```
+---
+---The values for the style parameter are:
+---
+---```
+---display       crampeddisplay
+---text          crampedtext
+---script        crampedscript
+---scriptscript  crampedscriptscript
+---```
+---
+---The value is either a number (representing a dimension or number) or a glue spec
+---node representing a muskip for `ordordspacing` and similar spacing
+---parameters.
+---
+
+_N._10_3_12_special_list_heads_get_set_list = 0
+
+---
+---# Special list heads: `[get|set]list`
+---
+---The virtual table `tex.lists` contains the set of internal registers that
+---keep track of building page lists.
+---
+--- field                       explanation
+---
+--- `page_ins_head`        circular list of pending insertions
+--- `contrib_head`         the recent contributions
+--- `page_head`            the current page content
+---%NC `temp_head`
+--- `hold_head`            used for held-over items for next page
+--- `adjust_head`          head of the current `vadjust` list
+--- `pre_adjust_head`      head of the current `\vadjust pre` list
+---%NC `align_head`
+--- `page_discards_head`   head of the discarded items of a page break
+--- `split_discards_head`  head of the discarded items in a vsplit
+---
+---The getter and setter functions are `getlist` and `setlist`. You have
+---to be careful with what you set as *TeX* can have expectations with regards to
+---how a list is constructed or in what state it is.
+
+_N._10_3_13_semantic_nest_levels_getnest_and_ptr = 0
+
+---
+---# Semantic nest levels: `getnest` and `ptr`
+---
+---%libindex{setnest} % only a message
+---
+---The virtual table `nest` contains the currently active semantic nesting
+---state. It has two main parts: a zero-based array of userdata for the semantic
+---nest itself, and the numerical value `ptr`, which gives the highest
+---available index. Neither the array items in `nest[]` nor `ptr` can be
+---assigned to (as this would confuse the typesetting engine beyond repair), but you
+---can assign to the individual values inside the array items, e.g.\ `tex.nest[tex.nest.ptr].prevdepth`.
+---
+---`tex.nest[tex.nest.ptr]` is the current nest state, `nest[0]` the
+---outermost (main vertical list) level. The getter function is `getnest`. You
+---can pass a number (which gives you a list), nothing or `top`, which returns
+---the topmost list, or the string `ptr` which gives you the index of the
+---topmost list.
+---
+---The known fields are:
+---
+--- key                 type     modes  explanation
+---
+---@field mode number # all    the meaning of these numbers depends on the engine and sometimes even the version; you can use `tex.getmodevalues()` to get the mapping: positive values signal vertical, horizontal and math mode, while negative values indicate inner and inline variants
+---@field modeline number # all    source input line where this mode was entered in, negative inside the output routine
+---@field head node # all    the head of the current list
+---@field tail node # all    the tail of the current list
+---@field prevgraf number # vmode  number of lines in the previous paragraph
+---@field prevdepth number # vmode  depth of the previous paragraph
+---@field spacefactor number # hmode  the current space factor
+---@field dirs node # hmode  used for temporary storage by the line break algorithm
+---@field noad node # mmode  used for temporary storage of a pending fraction numerator, for `over` etc.
+---@field delimptr node # mmode  used for temporary storage of the previous math delimiter, for `middle`
+---@field mathdir boolean # mmode  true when during math processing the `mathdir` is not the same as the surrounding `textdir`
+---@field mathstyle number # mmode  the current `mathstyle`
+---
+
 ---
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
@@ -1967,9 +2324,9 @@ function tex.settoks() end
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.gettoks() end
 
-_N._14_print = 201
+_N._10_3_14_print = 201
 
-_N._14_1_print = 201
+_N._10_3_14_1_print = 201
 
 ---
 ---The `tex` table also contains the three print functions that are the major
@@ -2173,9 +2530,9 @@ function tex.write(...) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.write(t) end
 
-_N._15 = 203
+_N._10_3_15 = 203
 
-_N._15_1 = 203
+_N._10_3_15_1 = 203
 
 ---
 ---Rounds *Lua* number `o`, and returns a number that is in the range of a
@@ -2189,7 +2546,7 @@ _N._15_1 = 203
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.round(o) end
 
-_N._15_2 = 203
+_N._10_3_15_2 = 203
 
 ---
 ---Multiplies the *Lua* numbers `o` and `delta`, and returns a rounded
@@ -2237,7 +2594,7 @@ function tex.number(n) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.romannumeral(n) end
 
-_N._15_4 = 204
+_N._10_3_15_4 = 204
 
 ---
 ---returns the `csname` string that matches a
@@ -2262,7 +2619,7 @@ function tex.fontidentifier(font_id) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.fontname(font_id) end
 
-_N._15_5_sp = 204
+_N._10_3_15_5_sp = 204
 
 ---
 ---Converts the number `o` that represents an explicit
@@ -2313,11 +2670,11 @@ function tex.sp(o) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.sp(s) end
 
-_N._15_6 = 204
+_N._10_3_15_6 = 204
 
 -- Removed?
 
-_N._15_7_error_show_context = 204
+_N._10_3_15_7_error_show_context = 204
 
 ---
 ---This creates an error somewhat like the combination of `\errhelp` and
@@ -2338,7 +2695,7 @@ _N._15_7_error_show_context = 204
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.error(s, help) end
 
-_N._15_8_run_finish = 205
+_N._10_3_15_8_run_finish = 205
 
 ---
 ---Start the interpretation.
@@ -2368,7 +2725,7 @@ function tex.run() end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.finish() end
 
-_N._15_9_runtoks = 205
+_N._10_3_15_9_runtoks = 205
 
 ---
 ---Because of the fact that *TeX* is in a complex dance of expanding, dealing with
@@ -2427,7 +2784,7 @@ function tex.runtoks(token_register, force, grouped) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.runtoks(func) end
 
-_N._15_10_forcehmode = 205
+_N._10_3_15_10_forcehmode = 205
 
 ---
 ---An example of a (possible error triggering) complication is that *TeX* expects to
@@ -2440,7 +2797,7 @@ _N._15_10_forcehmode = 205
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.forcehmode() end
 
-_N._15_11_hashtokens = 205
+_N._10_3_15_11_hashtokens = 205
 
 ---
 ---Return a list of names.
@@ -2461,7 +2818,7 @@ _N._15_11_hashtokens = 205
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.hashtokens() end
 
-_N._15_12_definefont = 206
+_N._10_3_15_12_definefont = 206
 
 ---
 ---Associates `csname` with the internal font number `fontid`. The
@@ -2486,9 +2843,9 @@ function tex.definefont(csname, fontid) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.definefont(global, csname, fontid) end
 
-_N._16_primitives = 206
+_N._10_3_16_primitives = 206
 
-_N._16_1_enableprimitives = 206
+_N._10_3_16_1_enableprimitives = 206
 
 ---
 ---This function accepts a prefix string and an array of primitive names. For each
@@ -2540,7 +2897,7 @@ _N._16_1_enableprimitives = 206
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.enableprimitives(prefix, primitive_names) end
 
-_N._16_2_extraprimitives = 205
+_N._10_3_16_2_extraprimitives = 205
 
 ---
 ---Warning! Undocumented code!<p>
@@ -2548,7 +2905,7 @@ _N._16_2_extraprimitives = 205
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.extraprimitives() end
 
-_N._16_3_primitives = 210
+_N._10_3_16_3_primitives = 210
 
 ---
 ---Warning! Undocumented code!<p>
@@ -2556,9 +2913,9 @@ _N._16_3_primitives = 210
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.primitives() end
 
-_N._17_core_functionality_interfaces = 210
+_N._10_3_17_core_functionality_interfaces = 210
 
-_N._17_1_badness = 210
+_N._10_3_17_1_badness = 210
 
 ---
 ---This helper function is useful during linebreak calculations. `t` and `s` are scaled values; the function returns the badness for when total `t`
@@ -2568,7 +2925,7 @@ _N._17_1_badness = 210
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.badness() end
 
-_N._17_2_resetparagraph = 210
+_N._10_3_17_2_resetparagraph = 210
 
 ---
 ---This function resets the parameters that *TeX* normally resets when a new paragraph
@@ -2577,7 +2934,7 @@ _N._17_2_resetparagraph = 210
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.resetparagraph() end
 
-_N._17_3_linebreak = 210
+_N._10_3_17_3_linebreak = 210
 
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -2676,7 +3033,7 @@ function tex.getpagestate() end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.getlocallevel() end
 
-_N._18_randomizers = 212
+_N._10_3_18_randomizers = 212
 
 ---
 ---For practical reasons *LuaTeX* has its own random number generator. The original
@@ -2725,7 +3082,7 @@ function tex.uniform_rand() end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.uniformdeviate() end
 
-_N._19_synctex = 212
+_N._10_3_19_synctex = 212
 
 ---
 ---`0` is the default and used normal synctex logic, `1` uses the values set by the next helpers while `2` also sets these for glyph nodes; `3` sets glyphs and glue and `4` sets only glyphs
@@ -2812,12 +3169,6 @@ function tex.getbox() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.getboxresourcebox() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.getboxresourcedimensions() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -2961,12 +3312,6 @@ function tex.quittoks() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.saveboxresource() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.scantoks() end
 
 ---
@@ -3040,21 +3385,3 @@ function tex.setuccode() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.show_context() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.splitbox() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.triggerbuildpage() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.useboxresource() end
