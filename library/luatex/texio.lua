@@ -3,6 +3,8 @@
 ---
 ---The `texio` library takes care of the low-level I/O interface: writing to the log file
 ---and/or console.
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/texio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 texio = {}
 
 ---
@@ -13,6 +15,8 @@ texio = {}
 ---* Corresponding C source code: [ltexiolib.c#L119-L126](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexiolib.c#L119-L126)
 ---
 ---@param ... string
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/texio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function texio.write(target, ...) end
 
 ---
@@ -26,6 +30,8 @@ function texio.write(target, ...) end
 ---* Corresponding C source code: [ltexiolib.c#L119-L126](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexiolib.c#L119-L126)
 ---
 ---@param ... string
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/texio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function texio.write(...) end
 
 ---
@@ -38,6 +44,8 @@ function texio.write(...) end
 ---
 ---@param target 'term'|'log'|'term and log' # The optional `target` can be one of three possibilities: `term`, `log` or `term and log`.
 ---@param ... string
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/texio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function texio.write_nl(target, ...) end
 
 ---
@@ -52,6 +60,8 @@ function texio.write_nl(target, ...) end
 ---* Corresponding C source code: [ltexiolib.c#L128-L135](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexiolib.c#L128-L135)
 ---
 ---@param ... string
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/texio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function texio.write_nl(...) end
 
 ---
@@ -60,6 +70,8 @@ function texio.write_nl(...) end
 ---* Corresponding C source code: [ltexiolib.c#L148-L156](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexiolib.c#L148-L156)
 ---
 ---@param escape_controls boolean
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/texio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function texio.setescape(escape_controls) end
 
 ---
@@ -72,4 +84,6 @@ function texio.setescape(escape_controls) end
 ---what you're doing (or more precise: what *TeX* is doing with input).
 ---
 ---* Corresponding C source code: [ltexiolib.c#L158-L171](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexiolib.c#L158-L171)
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/texio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function texio.closeinput() end
