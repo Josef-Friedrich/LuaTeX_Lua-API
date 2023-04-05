@@ -1889,9 +1889,6 @@ _N._10_3_6_character_code_registers_get_set_code_s_ = 0
 ---# Character code registers: `[get|set]*code[s]`
 ---
 ---
----
----
----
 ---*TeX*'s character code tables (`lccode`, `uccode`, `sfcode`, `catcode`, `mathcode`, `delcode`) can be accessed and written to using
 ---six virtual subtables of the `tex` table
 ---
