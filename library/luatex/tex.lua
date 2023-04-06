@@ -7,6 +7,40 @@ _N = {}
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex = {}
 
+_N._10_3_2_internal_parameter_values_set_get = 190
+
+---
+---Set the given TeX parameter.
+---
+---When you set a glue quantity you can either pass a `glue_spec` or upto five numbers.
+---It is possible to use `global` as the first argument to `tex.set`; this makes the assignment global instead of local.
+---
+---* Corresponding C source code: [ltexlib.c#L1714-L1813](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1714-L1813)
+---
+---@param parameter string
+---@param ... any
+function tex.set(parameter, ...) end
+
+---
+---Query the given TeX parameter.
+---
+---The return value
+---is a `glue_spec` node but when you pass `false` as last argument to
+---`tex.get` you get the width of the glue and when you pass `true` you
+---get all five values. Otherwise you get a node which is a copy of the internal
+---value so you are responsible for its freeing at the *Lua* end.
+---
+--- If
+---you pass `true` to `get` you get 5 values returned for a glue and
+---when you pass `false` you only get the width returned.
+---
+---* Corresponding C source code: [ltexlib.c#L2120-L2200](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L2120-L2200)
+---@param parameter string
+---@param opts boolean
+---
+---@return any ...
+function tex.get(parameter, opts) end
+
 _N._10_3_2_1_integer_parameters_read_write = 190
 
 ---
@@ -2009,6 +2043,20 @@ function tex.gettoks() end
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.istoks() end
 
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.scantoks() end
+
+---
+---There is a dedicated getter for marks: getmark that takes two arguments. The first argument
+---is one of top, bottom, first, splitbottom or splitfirst, and the second argument is a marks
+---class number. When no arguments are given the current maximum number of classes is re-
+---turned.
+function tex.getmark() end
+
+
 _N._10_3_6_character_code_registers_get_set_code_s_ = 0
 
 ---
@@ -2170,6 +2218,12 @@ function tex.setmathcode() end
 function tex.getmathcode() end
 
 ---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.getmathcodes() end
+
+---
 ---*TeX*'s character code tables `delcode` can be accessed and written to using
 ---a virtual subtable of the `tex` table.
 ---@type table
@@ -2213,17 +2267,26 @@ function tex.getdelcode() end
 _N._10_3_7_box_registers_get_set_box = 0
 
 ---
----Set and query actual boxes, coming for instance from `hbox`, `vbox` or `vtop`.
+---Set boxes, coming for instance from `hbox`, `vbox` or `vtop`.
 ---
 ---It is possible to
 ---define values globally by using the string `global` as the first function
 ---argument.
+---
+---* Corresponding C source code: [ltexlib.c#L1352-L1362](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1352-L1362)
 ---
 ---@param global 'global'
 ---@param n_or_cs integer|string
 ---@param s Node
 function tex.setbox(global, n_or_cs, s) end
 
+---
+---Set boxes, coming for instance from `hbox`, `vbox` or `vtop`.
+---
+---It is possible to
+---define values globally by using the string `global` as the first function
+---argument.
+---* Corresponding C source code: [ltexlib.c#L1352-L1362](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1352-L1362)
 ---
 ---@param n_or_cs integer|string
 ---@param s Node
@@ -2232,10 +2295,16 @@ function tex.setbox(n_or_cs, s) end
 ---
 ---Query actual boxes, coming for instance from `hbox`, `vbox` or `vtop`.
 ---
+---* Corresponding C source code: [ltexlib.c#L1272-L1280](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1272-L1280)
+---
 ---@param n_or_cs integer|string
 ---
 ---@return Node n
 function tex.getbox(n_or_cs) end
+
+---
+---* Corresponding C source code: [ltexlib.c#L1310-L1315](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1310-L1315)
+function tex.isbox() end
 
 _N._10_3_8_reusing_boxes_use_save_boxresource_and_getboxresourcedimensions = 0
 
@@ -2594,6 +2663,13 @@ function tex.setnest() end
 ---@field mathstyle integer # mmode  the current `mathstyle`
 ---
 
+---
+---`tex.getmodevalues()` to get the mapping: positive values signal vertical, horizontal and math mode, while negative values indicate inner and inline variants (all modes).
+---
+---* Corresponding C source code: [ltexlib.c#L3549-L3565](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3549-L3565)
+---
+function tex.getmodevalues() end
+
 _N._10_3_14_print = 201
 
 _N._10_3_14_1_print = 201
@@ -2947,13 +3023,12 @@ _N._10_3_15_6 = 204
 _N._10_3_15_7_error_show_context = 204
 
 ---
----This creates an error somewhat like the combination of `\errhelp` and
----`\errmessage` would. During this error, deletions are disabled.
+---Create an error like the combination of `\errhelp` and
+---`\errmessage`.
 ---
----In case of an error the `show_context` function will show the current
----context where we're at (in the expansion).
+---During this error, deletions are disabled.
 ---
----see `LuaTeX` manual: 10.3.15.5 `sp`
+  ---see `LuaTeX` manual: 10.3.15.5 `sp`
 ---
 ---__Reference:__
 ---
@@ -2964,6 +3039,13 @@ _N._10_3_15_7_error_show_context = 204
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.error(s, help) end
+
+---
+---Show the current
+---(expansion) context in case of an error.
+---
+---* Corresponding C source code: [/ltexlib.c#L3210-L3215](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3210-L3215)
+function tex.show_context() end
 
 _N._10_3_15_8_run_finish = 205
 
@@ -3053,6 +3135,12 @@ function tex.runtoks(token_register, force, grouped) end
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.runtoks(func) end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.quittoks() end
 
 _N._10_3_15_10_forcehmode = 205
 
@@ -3426,12 +3514,6 @@ function tex.forcehmode() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.get() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.getboxresourcebox() end
 
 ---
@@ -3445,51 +3527,3 @@ function tex.getdelcodes() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.getfontoffamily() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.getmark() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.getmathcodes() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.getmodevalues() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.isbox() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.quittoks() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.scantoks() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.set() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.show_context() end
