@@ -2199,83 +2199,169 @@ function tex.splitbox(n, height, mode) end
 _N._10_3_11_accessing_math_parameters_get_set_math = 0
 
 ---
----# Accessing math parameters: `[get|set]math`
+---Set the internal math parameters.
 ---
----It is possible to set and query the internal math parameters using:
+---* Corresponding C source code: [ltexlib.c#L1986-L2015](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1986-L2015)
 ---
----```
----tex.setmath(["global",] <string> n, <string> t, <number> n)
----<number> n = tex.getmath(<string> n, <string> t)
----```
+---@param math_param_name MathParamName
+---@param math_style_name MathStyleName
+---@param value integer
+function tex.setmath(math_param_name, math_style_name, value) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.setmath() end
+---Set the internal math parameters.
+---
+---* Corresponding C source code: [ltexlib.c#L1986-L2015](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1986-L2015)
+---
+---@param global 'global' # Indicate a global assignment.
+---@param math_param_name MathParamName
+---@param math_style_name MathStyleName
+---@param value integer|Node # The value is either a number (representing a dimension or number) or a glue spec node representing a muskip for `ordordspacing` and similar spacing parameters.
+function tex.setmath(global, math_param_name, math_style_name, value) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.getmath() end
+---Query the internal math parameters.
+---
+---* Corresponding C source code: [ltexlib.c#L2017-L2039](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L2017-L2039)
+---
+---@param math_param_name MathParamName
+---@param math_style_name MathStyleName
+---
+---@return integer|Node value # The value is either a number (representing a dimension or number) or a glue spec node representing a muskip for `ordordspacing` and similar spacing parameters.
+function tex.getmath(math_param_name, math_style_name) end
 
 ---
----As before an optional first parameter `global` indicates a global
----assignment.
+---The style name minus the trailing “style”.
 ---
----The first string is the parameter name minus the leading “Umath”, and the
----second string is the style name minus the trailing “style”. Just to be
----complete, the values for the math parameter name are:
+---* Corresponding C source code: [texmath.c#L510-L516](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texmath.c#L510-L516)
+---@alias MathStyleName
+---|'display'
+---|'crampeddisplay'
+---|'text'
+---|'crampedtext'
+---|'script'
+---|'crampedscript'
+---|'scriptscript'
+---|'crampedscriptscript'
+
 ---
----```
----quad                axis                operatorsize
----overbarkern         overbarrule         overbarvgap
----underbarkern        underbarrule        underbarvgap
----radicalkern         radicalrule         radicalvgap
----radicaldegreebefore radicaldegreeafter  radicaldegreeraise
----stackvgap           stacknumup          stackdenomdown
----fractionrule        fractionnumvgap     fractionnumup
----fractiondenomvgap   fractiondenomdown   fractiondelsize
----limitabovevgap      limitabovebgap      limitabovekern
----limitbelowvgap      limitbelowbgap      limitbelowkern
----underdelimitervgap  underdelimiterbgap
----overdelimitervgap   overdelimiterbgap
----subshiftdrop        supshiftdrop        subshiftdown
----subsupshiftdown     subtopmax           supshiftup
----supbottommin        supsubbottommax     subsupvgap
----spaceafterscript    connectoroverlapmin
----ordordspacing       ordopspacing        ordbinspacing     ordrelspacing
----ordopenspacing      ordclosespacing     ordpunctspacing   ordinnerspacing
----opordspacing        opopspacing         opbinspacing      oprelspacing
----opopenspacing       opclosespacing      oppunctspacing    opinnerspacing
----binordspacing       binopspacing        binbinspacing     binrelspacing
----binopenspacing      binclosespacing     binpunctspacing   bininnerspacing
----relordspacing       relopspacing        relbinspacing     relrelspacing
----relopenspacing      relclosespacing     relpunctspacing   relinnerspacing
----openordspacing      openopspacing       openbinspacing    openrelspacing
----openopenspacing     openclosespacing    openpunctspacing  openinnerspacing
----closeordspacing     closeopspacing      closebinspacing   closerelspacing
----closeopenspacing    closeclosespacing   closepunctspacing closeinnerspacing
----punctordspacing     punctopspacing      punctbinspacing   punctrelspacing
----punctopenspacing    punctclosespacing   punctpunctspacing punctinnerspacing
----innerordspacing     inneropspacing      innerbinspacing   innerrelspacing
----inneropenspacing    innerclosespacing   innerpunctspacing innerinnerspacing
----```
+---The parameter name minus the leading “Umath”.
 ---
----The values for the style parameter are:
----
----```
----display       crampeddisplay
----text          crampedtext
----script        crampedscript
----scriptscript  crampedscriptscript
----```
----
----The value is either a number (representing a dimension or number) or a glue spec
----node representing a muskip for `ordordspacing` and similar spacing
----parameters.
----
+---* Corresponding C source code: [texmath.c#L518-L558](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texmath.c#L518-L558)
+---@alias MathParamName
+---|'quad'
+---|'axis'
+---|'operatorsize'
+---|'overbarkern'
+---|'overbarrule'
+---|'overbarvgap'
+---|'underbarkern'
+---|'underbarrule'
+---|'underbarvgap'
+---|'radicalkern'
+---|'radicalrule'
+---|'radicalvgap'
+---|'radicaldegreebefore'
+---|'radicaldegreeafter'
+---|'radicaldegreeraise'
+---|'stackvgap'
+---|'stacknumup'
+---|'stackdenomdown'
+---|'fractionrule'
+---|'fractionnumvgap'
+---|'fractionnumup'
+---|'fractiondenomvgap'
+---|'fractiondenomdown'
+---|'fractiondelsize'
+---|'skewedfractionhgap'
+---|'skewedfractionvgap'
+---|'limitabovevgap'
+---|'limitabovebgap'
+---|'limitabovekern'
+---|'limitbelowvgap'
+---|'limitbelowbgap'
+---|'limitbelowkern'
+---|'nolimitsubfactor'
+---|'nolimitsupfactor'
+---|'underdelimitervgap'
+---|'underdelimiterbgap'
+---|'overdelimitervgap'
+---|'overdelimiterbgap'
+---|'subshiftdrop'
+---|'supshiftdrop'
+---|'subshiftdown'
+---|'subsupshiftdown'
+---|'subtopmax'
+---|'supshiftup'
+---|'supbottommin'
+---|'supsubbottommax'
+---|'subsupvgap'
+---|'spaceafterscript'
+---|'connectoroverlapmin'
+---|'ordordspacing'
+---|'ordopspacing'
+---|'ordbinspacing'
+---|'ordrelspacing'
+---|'ordopenspacing'
+---|'ordclosespacing'
+---|'ordpunctspacing'
+---|'ordinnerspacing'
+---|'opordspacing'
+---|'opopspacing'
+---|'opbinspacing'
+---|'oprelspacing'
+---|'opopenspacing'
+---|'opclosespacing'
+---|'oppunctspacing'
+---|'opinnerspacing'
+---|'binordspacing'
+---|'binopspacing'
+---|'binbinspacing'
+---|'binrelspacing'
+---|'binopenspacing'
+---|'binclosespacing'
+---|'binpunctspacing'
+---|'bininnerspacing'
+---|'relordspacing'
+---|'relopspacing'
+---|'relbinspacing'
+---|'relrelspacing'
+---|'relopenspacing'
+---|'relclosespacing'
+---|'relpunctspacing'
+---|'relinnerspacing'
+---|'openordspacing'
+---|'openopspacing'
+---|'openbinspacing'
+---|'openrelspacing'
+---|'openopenspacing'
+---|'openclosespacing'
+---|'openpunctspacing'
+---|'openinnerspacing'
+---|'closeordspacing'
+---|'closeopspacing'
+---|'closebinspacing'
+---|'closerelspacing'
+---|'closeopenspacing'
+---|'closeclosespacing'
+---|'closepunctspacing'
+---|'closeinnerspacing'
+---|'punctordspacing'
+---|'punctopspacing'
+---|'punctbinspacing'
+---|'punctrelspacing'
+---|'punctopenspacing'
+---|'punctclosespacing'
+---|'punctpunctspacing'
+---|'punctinnerspacing'
+---|'innerordspacing'
+---|'inneropspacing'
+---|'innerbinspacing'
+---|'innerrelspacing'
+---|'inneropenspacing'
+---|'innerclosespacing'
+---|'innerpunctspacing'
+---|'innerinnerspacing'
 
 _N._10_3_12_special_list_heads_get_set_list = 0
 
@@ -2305,39 +2391,56 @@ _N._10_3_12_special_list_heads_get_set_list = 0
 _N._10_3_13_semantic_nest_levels_getnest_and_ptr = 0
 
 ---
----# Semantic nest levels: `getnest` and `ptr`
----
----%libindex{setnest} % only a message
----
 ---The virtual table `nest` contains the currently active semantic nesting
 ---state. It has two main parts: a zero-based array of userdata for the semantic
 ---nest itself, and the numerical value `ptr`, which gives the highest
 ---available index. Neither the array items in `nest[]` nor `ptr` can be
 ---assigned to (as this would confuse the typesetting engine beyond repair), but you
----can assign to the individual values inside the array items, e.g.\ `tex.nest[tex.nest.ptr].prevdepth`.
+---can assign to the individual values inside the array items, e.g. `tex.nest[tex.nest.ptr].prevdepth`.
 ---
 ---`tex.nest[tex.nest.ptr]` is the current nest state, `nest[0]` the
----outermost (main vertical list) level. The getter function is `getnest`. You
+---outermost (main vertical list) level.
+---@type table<integer, Nest>
+tex.nest = {}
+
+---
+---highest
+---available index.
+---@type integer
+tex.nest.ptr = 0
+
+---
+---The getter function is `getnest`. You
 ---can pass a number (which gives you a list), nothing or `top`, which returns
 ---the topmost list, or the string `ptr` which gives you the index of the
 ---topmost list.
 ---
----The known fields are:
+---* Corresponding C source code: [ltexlib.c#L2422-L2455](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L2422-L2455)
+
 ---
---- key                 type     modes  explanation
+---@return Nest
+function tex.getnest() end
+
 ---
----@field mode number # all    the meaning of these numbers depends on the engine and sometimes even the version; you can use `tex.getmodevalues()` to get the mapping: positive values signal vertical, horizontal and math mode, while negative values indicate inner and inline variants
----@field modeline number # all    source input line where this mode was entered in, negative inside the output routine
----@field head node # all    the head of the current list
----@field tail node # all    the tail of the current list
----@field prevgraf number # vmode  number of lines in the previous paragraph
----@field prevdepth number # vmode  depth of the previous paragraph
----@field spacefactor number # hmode  the current space factor
----@field dirs node # hmode  used for temporary storage by the line break algorithm
----@field noad node # mmode  used for temporary storage of a pending fraction numerator, for `over` etc.
----@field delimptr node # mmode  used for temporary storage of the previous math delimiter, for `middle`
----@field mathdir boolean # mmode  true when during math processing the `mathdir` is not the same as the surrounding `textdir`
----@field mathstyle number # mmode  the current `mathstyle`
+---* Corresponding C source code: [ltexlib.c#L2457-L2461](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L2457-L2461)
+function tex.setnest() end
+
+---
+---* Corresponding C source code: [ltexlib.c#L2325-L2361](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L2325-L2361)
+---
+---@class Nest
+---@field mode number # the meaning of these numbers depends on the engine and sometimes even the version; you can use `tex.getmodevalues()` to get the mapping: positive values signal vertical, horizontal and math mode, while negative values indicate inner and inline variants (all modes).
+---@field modeline integer # source input line where this mode was entered in, negative inside the output routine (all modes).
+---@field head Node # the head of the current list (all modes).
+---@field tail Node # the tail of the current list (all modes).
+---@field prevgraf integer # number of lines in the previous paragraph (vertical mode).
+---@field prevdepth integer # depth of the previous paragraph (vertical mode).
+---@field spacefactor integer # the current space factor (horizontal mode).
+---@field dirs Node # used for temporary storage by the line break algorithm (horizontal mode).
+---@field noad Node #  used for temporary storage of a pending fraction numerator, for `over` etc. (math mode).
+---@field delimptr Node # used for temporary storage of the previous math delimiter, for `middle` (math mode).
+---@field mathdir boolean # true when during math processing the `mathdir` is not the same as the surrounding `textdir` (math mode).
+---@field mathstyle integer # mmode  the current `mathstyle`
 ---
 
 ---
@@ -3304,12 +3407,6 @@ function tex.getmodevalues() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.getnest() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.isbox() end
 
 ---
@@ -3377,12 +3474,6 @@ function tex.set() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.setlist() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.setnest() end
 
 ---
 ---Warning! Undocumented code!<p>
