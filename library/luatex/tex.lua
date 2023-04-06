@@ -1793,7 +1793,7 @@ tex.currentiftype = 0
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex.currentifbranch = 0
 
-_N._10_3_5_registers = 194
+_N._10_3_5_accessing_registers_set_get_and_is = 194
 
 ---
 ---the attribute registers accept and return Lua numbers.
@@ -1831,6 +1831,24 @@ function tex.isattribute() end
 tex.count = {}
 
 ---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.setcount() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.getcount() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.iscount() end
+
+---
 ---The dimension registers accept *Lua* numbers (in scaled points) or
 ---strings (with an included absolute dimension; `em` and `ex`
 ---and `px` are forbidden). The result is always a number in scaled
@@ -1844,12 +1862,48 @@ tex.count = {}
 tex.dimen = {}
 
 ---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.setdimen() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.getdimen() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.isdimen() end
+
+---
 ---see `LuaTeX` manual: 10.3.5 Accessing registers: `set*`, `get*` and `is*`
 ---
 ---@type table
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex.glue = {}
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.setglue() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.getglue() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.isglue() end
 
 ---
 ---see `LuaTeX` manual: 10.3.5 Accessing registers: `set*`, `get*` and `is*`
@@ -1860,12 +1914,48 @@ tex.glue = {}
 tex.muglue = {}
 
 ---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.setmuglue() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.getmuglue() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.ismuglue() end
+
+---
 ---see `LuaTeX` manual: 10.3.5 Accessing registers: `set*`, `get*` and `is*`
 ---
 ---@type table
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex.muskip = {}
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.getmuskip() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.setmuskip() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.ismuskip() end
 
 ---
 ---see `LuaTeX` manual: 10.3.5 Accessing registers: `set*`, `get*` and `is*`
@@ -1876,12 +1966,48 @@ tex.muskip = {}
 tex.skip = {}
 
 ---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.setskip() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.getskip() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.isskip() end
+
+---
 ---see `LuaTeX` manual: 10.3.5 Accessing registers: `set*`, `get*` and `is*`
 ---
 ---@type table
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex.toks = {}
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.settoks() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.gettoks() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.istoks() end
 
 _N._10_3_6_character_code_registers_get_set_code_s_ = 0
 
@@ -1890,57 +2016,6 @@ _N._10_3_6_character_code_registers_get_set_code_s_ = 0
 ---a virtual subtable of the `tex` table.
 ---@type table
 tex.lccode = {}
-
----
----*TeX*'s character code table `uccode` can be accessed and written to using
----a virtual subtable of the `tex` table.
----@type table
-tex.uccode = {}
-
----
----*TeX*'s character code table `sfcode` can be accessed and written to using
----a virtual subtable of the `tex` table.
----@type table
-tex.sfcode = {}
-
----
----*TeX*'s character code table `catcode` can be accessed and written to using
----a virtual subtable of the `tex` table.
----@type table
-tex.catcode = {}
-
----
----*TeX*'s character code table `mathcode` can be accessed and written to using
----a virtual subtable of the `tex` table.
----@type table
-tex.mathcode = {}
-
----
----*TeX*'s character code tables `delcode` can be accessed and written to using
----a virtual subtable of the `tex` table.
----@type table
-tex.delcode = {}
-
----
----The function call interfaces are roughly as above, but there are a few twists.
----`sfcode`s are the simple ones:
----
----```
----tex.setsfcode (["global",] <number> n, <number> s)
----<number> s = tex.getsfcode (<number> n)
----```
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.setsfcode() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.getsfcode() end
 
 ---
 ---The function call interface for `lccode` and `uccode` additionally
@@ -1964,6 +2039,12 @@ function tex.setlccode() end
 function tex.getlccode() end
 
 ---
+---*TeX*'s character code table `uccode` can be accessed and written to using
+---a virtual subtable of the `tex` table.
+---@type table
+tex.uccode = {}
+
+---
 ---tex.setuccode (["global"], <number> n, <number> uc)
 ---tex.setuccode (["global"], <number> n, <number> uc, <number> lc)
 ---<number> uc = tex.getuccode (<number> n)
@@ -1979,6 +2060,39 @@ function tex.setuccode() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.getuccode() end
+
+---
+---*TeX*'s character code table `sfcode` can be accessed and written to using
+---a virtual subtable of the `tex` table.
+---@type table
+tex.sfcode = {}
+
+---
+---The function call interfaces are roughly as above, but there are a few twists.
+---`sfcode`s are the simple ones:
+---
+---```
+---tex.setsfcode (["global",] <number> n, <number> s)
+---<number> s = tex.getsfcode (<number> n)
+---```
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.setsfcode() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.getsfcode() end
+
+---
+---*TeX*'s character code table `catcode` can be accessed and written to using
+---a virtual subtable of the `tex` table.
+---@type table
+tex.catcode = {}
 
 ---
 ---The function call interface for `catcode` also allows you to specify a
@@ -2006,28 +2120,10 @@ function tex.setcatcode() end
 function tex.getcatcode() end
 
 ---
----The interfaces for `delcode` and `mathcode` use small array tables to
----set and retrieve values:
----
----```
----tex.setmathcode (["global"], <number> n, <table> mval )
----<table> mval = tex.getmathcode (<number> n)
-
----
----tex.setdelcode (["global"], <number> n, <table> dval )
----<table> dval = tex.getdelcode (<number> n)
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.setdelcode() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.getdelcode() end
+---*TeX*'s character code table `mathcode` can be accessed and written to using
+---a virtual subtable of the `tex` table.
+---@type table
+tex.mathcode = {}
 
 ---
 ---```
@@ -2074,11 +2170,39 @@ function tex.setmathcode() end
 function tex.getmathcode() end
 
 ---
+---*TeX*'s character code tables `delcode` can be accessed and written to using
+---a virtual subtable of the `tex` table.
+---@type table
+tex.delcode = {}
+
+---
+---The interfaces for `delcode` and `mathcode` use small array tables to
+---set and retrieve values:
+---
+---```
+---tex.setmathcode (["global"], <number> n, <table> mval )
+---<table> mval = tex.getmathcode (<number> n)
+
+---
+---tex.setdelcode (["global"], <number> n, <table> dval )
+---<table> dval = tex.getdelcode (<number> n)
+---
 ---tex.setdelcode (["global"], <number> n, <number> smallfam,
 ---    <number> smallchar, <number> largefam, <number> largechar)
 ---smallfam, smallchar, largefam, largechar =
 ---    tex.getdelcodes (<number> n)
 ---```
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.setdelcode() end
+
+---
+---Warning! Undocumented code!<p>
+---TODO: Please contribute
+---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+function tex.getdelcode() end
 
 ---
 ---Normally, the third and fourth values in a delimiter code assignment will be zero
@@ -2469,90 +2593,6 @@ function tex.setnest() end
 ---@field mathdir boolean # true when during math processing the `mathdir` is not the same as the surrounding `textdir` (math mode).
 ---@field mathstyle integer # mmode  the current `mathstyle`
 ---
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.setcount() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.getcount() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.setdimen() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.getdimen() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.setskip() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.getskip() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.setglue() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.getglue() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.getmuskip() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.setmuskip() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.setmuglue() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.getmuglue() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.settoks() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.gettoks() end
 
 _N._10_3_14_print = 201
 
@@ -3429,48 +3469,6 @@ function tex.getmodevalues() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.isbox() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.iscount() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.isdimen() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.isglue() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.ismuglue() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.ismuskip() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.isskip() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.istoks() end
 
 ---
 ---Warning! Undocumented code!<p>
