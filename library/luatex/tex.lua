@@ -2366,27 +2366,54 @@ function tex.getmath(math_param_name, math_style_name) end
 _N._10_3_12_special_list_heads_get_set_list = 0
 
 ---
----# Special list heads: `[get|set]list`
----
 ---The virtual table `tex.lists` contains the set of internal registers that
 ---keep track of building page lists.
+tex.lists = {}
+
 ---
---- field                       explanation
+---circular list of pending insertions
+tex.lists.page_ins_head = nil
+
 ---
---- `page_ins_head`        circular list of pending insertions
---- `contrib_head`         the recent contributions
---- `page_head`            the current page content
----%NC `temp_head`
---- `hold_head`            used for held-over items for next page
---- `adjust_head`          head of the current `vadjust` list
---- `pre_adjust_head`      head of the current `\vadjust pre` list
----%NC `align_head`
---- `page_discards_head`   head of the discarded items of a page break
---- `split_discards_head`  head of the discarded items in a vsplit
+---the recent contributions
+tex.lists.contrib_head = nil
+
 ---
----The getter and setter functions are `getlist` and `setlist`. You have
+---the current page content
+tex.lists.page_head = nil
+
+---
+---used for held-over items for next page
+tex.lists.hold_head = nil
+
+---
+---head of the current `vadjust` list
+tex.lists.adjust_head = nil
+
+---
+---head of the current `\vadjust pre` list
+tex.lists.pre_adjust_head = nil
+
+---
+---head of the discarded items of a page break
+tex.lists.page_discards_head = nil
+
+---
+---head of the discarded items in a vsplit
+tex.lists.split_discards_head = nil
+
+---
+---You have
 ---to be careful with what you set as *TeX* can have expectations with regards to
 ---how a list is constructed or in what state it is.
+---
+---* Corresponding C source code: [ltexlib.c#L2266-L2321](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L2266-L2321)
+function tex.setlist() end
+
+---
+---* Corresponding C source code: [ltexlib.c#L2202-L2264](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L2202-L2264)
+---
+function tex.getlist() end
 
 _N._10_3_13_semantic_nest_levels_getnest_and_ptr = 0
 
@@ -3383,12 +3410,6 @@ function tex.getfontoffamily() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.getlist() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.getmark() end
 
 ---
@@ -3468,12 +3489,6 @@ function tex.scantoks() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.set() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.setlist() end
 
 ---
 ---Warning! Undocumented code!<p>
