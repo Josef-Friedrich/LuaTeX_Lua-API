@@ -2185,16 +2185,7 @@ tex.mathcode = {}
 ---}
 ---```
 ---
----And the table for `delcode` is an array with 4 numbers, like this:
----
----```
----{
----    <number> small_fam,
----    <number> small_char,
----    <number> large_fam,
----    <number> large_char
----}
----```
+
 ---
 ---You can also avoid the table:
 ---
@@ -2228,39 +2219,78 @@ function tex.getmathcode() end
 function tex.getmathcodes() end
 
 ---
----*TeX*'s character code tables `delcode` can be accessed and written to using
+---*TeX*'s character code tables `delcode` (delimiter code) can be accessed and written to using
 ---a virtual subtable of the `tex` table.
 ---@type table
 tex.delcode = {}
 
 ---
----The interfaces for `delcode` and `mathcode` use small array tables to
----set and retrieve values:
+---And the table for `delcode`  (delimiter code)  is an array with 4 numbers, like this:
 ---
+---```lua
+---{
+---    -- small_fam
+---    -- small_char
+---    -- large_fam
+---    -- large_char
+---}
+---```
+---@alias DelCode integer[]
 
 ---
----tex.setdelcode (["global"], <number> n, <table> dval )
----<table> dval = tex.getdelcode (<number> n)
----
----tex.setdelcode (["global"], <number> n, <number> smallfam,
----    <number> smallchar, <number> largefam, <number> largechar)
----smallfam, smallchar, largefam, largechar =
----    tex.getdelcodes (<number> n)
----```
+---* Corresponding C source code: [ltexlib.c#L1640-L1681](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1640-L1681)
 ---
 ---@param global 'global'
 ---@param n integer
----@param smallfam integer
----@param smallchar integer
----@param largefam integer
----@param largechar integer
-function tex.setdelcode(global, n, smallfam, smallchar, largefam, largechar) end
+---@param small_fam integer
+---@param small_char integer
+---@param large_fam integer
+---@param large_char integer
+function tex.setdelcode(global, n, small_fam, small_char, large_fam, large_char) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.getdelcode() end
+---* Corresponding C source code: [ltexlib.c#L1640-L1681](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1640-L1681)
+---
+---@param n integer
+---@param small_fam integer
+---@param small_char integer
+---@param large_fam integer
+---@param large_char integer
+function tex.setdelcode( n, small_fam, small_char, large_fam, large_char) end
+
+---
+---* Corresponding C source code: [ltexlib.c#L1640-L1681](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1640-L1681)
+---
+---@param global 'global'
+---@param n integer
+---@param del_code DelCode
+function tex.setdelcode(global, n, del_code) end
+
+---
+---* Corresponding C source code: [ltexlib.c#L1640-L1681](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1640-L1681)
+---
+---@param n integer
+---@param del_code DelCode
+function tex.setdelcode(n, del_code) end
+
+---
+---* Corresponding C source code: [ltexlib.c#L1701-L1712](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1701-L1712)
+---
+---@param n integer
+---
+---@return integer small_fam
+---@return integer small_char
+---@return integer large_fam
+---@return integer large_char
+function tex.getdelcodes(n) end
+
+---
+---* Corresponding C source code: [ltexlib.c#L1683-L1699](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1683-L1699)
+---
+---@param n integer
+---
+---@return DelCode
+function tex.getdelcode(n) end
 
 ---
 ---Normally, the third and fourth values in a delimiter code assignment will be zero
@@ -3519,12 +3549,6 @@ function tex.forcehmode() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.getboxresourcebox() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.getdelcodes() end
 
 ---
 ---Warning! Undocumented code!<p>
