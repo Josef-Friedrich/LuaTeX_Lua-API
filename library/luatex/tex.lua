@@ -2056,7 +2056,6 @@ function tex.scantoks() end
 ---turned.
 function tex.getmark() end
 
-
 _N._10_3_6_character_code_registers_get_set_code_s_ = 0
 
 ---
@@ -2206,6 +2205,11 @@ tex.mathcode = {}
 ---    tex.getmathcodes (<number> n)
 
 ---
+---```
+---tex.setmathcode (["global"], <number> n, <table> mval )
+---<table> mval = tex.getmathcode (<number> n)
+
+---
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
@@ -2233,9 +2237,6 @@ tex.delcode = {}
 ---The interfaces for `delcode` and `mathcode` use small array tables to
 ---set and retrieve values:
 ---
----```
----tex.setmathcode (["global"], <number> n, <table> mval )
----<table> mval = tex.getmathcode (<number> n)
 
 ---
 ---tex.setdelcode (["global"], <number> n, <table> dval )
@@ -2247,10 +2248,13 @@ tex.delcode = {}
 ---    tex.getdelcodes (<number> n)
 ---```
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.setdelcode() end
+---@param global 'global'
+---@param n integer
+---@param smallfam integer
+---@param smallchar integer
+---@param largefam integer
+---@param largechar integer
+function tex.setdelcode(global, n, smallfam, smallchar, largefam, largechar) end
 
 ---
 ---Warning! Undocumented code!<p>
