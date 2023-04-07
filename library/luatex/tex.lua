@@ -2173,50 +2173,69 @@ function tex.getcatcode() end
 tex.mathcode = {}
 
 ---
----```
+---The table for `mathcode` is an array of 3 numbers, like this:
 ---
----Where the table for `mathcode` is an array of 3 numbers, like this:
----
----```
+---```lua
 ---{
----    <number> class,
----    <number> family,
----    <number> character
+---    -- class
+---    -- family
+---    -- character
 ---}
 ---```
 ---
+---@alias MathCode integer[]
 
 ---
----You can also avoid the table:
+---* Corresponding C source code: [ltexlib.c#L1524-L1561](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1524-L1561)
 ---
----```
----tex.setmathcode (["global"], <number> n, <number> class,
----    <number> family, <number> character)
----class, family, char =
----    tex.getmathcodes (<number> n)
+---@param global 'global'
+---@param n integer
+---@param class integer
+---@param family integer
+---@param character integer
+function tex.setmathcode(global, n, class, family, character) end
 
 ---
----```
----tex.setmathcode (["global"], <number> n, <table> mval )
----<table> mval = tex.getmathcode (<number> n)
+---* Corresponding C source code: [ltexlib.c#L1524-L1561](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1524-L1561)
+---
+---@param n integer
+---@param class integer
+---@param family integer
+---@param character integer
+function tex.setmathcode(global, n, class, family, character) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.setmathcode() end
+---* Corresponding C source code: [ltexlib.c#L1524-L1561](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1524-L1561)
+---
+---@param global 'global'
+---@param n integer
+---@param math_code MathCode
+function tex.setmathcode(global, n, math_code) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.getmathcode() end
+---* Corresponding C source code: [ltexlib.c#L1524-L1561](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1524-L1561)
+---
+---@param n integer
+---@param math_code MathCode
+function tex.setmathcode( n, math_code) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.getmathcodes() end
+---* Corresponding C source code: [ltexlib.c#L1563-L1577](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1563-L1577)
+---
+---@param n integer
+---
+---@return MathCode math_code
+function tex.getmathcode(n) end
+
+---
+---* Corresponding C source code: [ltexlib.c#L1579-L1589](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1579-L1589)
+---
+---@param n integer
+---
+---@return integer class
+---@return integer family
+---@return integer character
+function tex.getmathcodes(n) end
 
 ---
 ---*TeX*'s character code tables `delcode` (delimiter code) can be accessed and written to using
@@ -2229,10 +2248,10 @@ tex.delcode = {}
 ---
 ---```lua
 ---{
----    -- small_fam
----    -- small_char
----    -- large_fam
----    -- large_char
+---    -- small_family
+---    -- small_character
+---    -- large_family
+---    -- large_character
 ---}
 ---```
 ---@alias DelCode integer[]
@@ -2242,21 +2261,21 @@ tex.delcode = {}
 ---
 ---@param global 'global'
 ---@param n integer
----@param small_fam integer
----@param small_char integer
----@param large_fam integer
----@param large_char integer
-function tex.setdelcode(global, n, small_fam, small_char, large_fam, large_char) end
+---@param small_family integer
+---@param small_character integer
+---@param large_family integer
+---@param large_character integer
+function tex.setdelcode(global, n, small_family, small_character, large_family, large_character) end
 
 ---
 ---* Corresponding C source code: [ltexlib.c#L1640-L1681](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1640-L1681)
 ---
 ---@param n integer
----@param small_fam integer
----@param small_char integer
----@param large_fam integer
----@param large_char integer
-function tex.setdelcode( n, small_fam, small_char, large_fam, large_char) end
+---@param small_family integer
+---@param small_character integer
+---@param large_family integer
+---@param large_character integer
+function tex.setdelcode( n, small_family, small_character, large_family, large_character) end
 
 ---
 ---* Corresponding C source code: [ltexlib.c#L1640-L1681](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1640-L1681)
@@ -2278,10 +2297,10 @@ function tex.setdelcode(n, del_code) end
 ---
 ---@param n integer
 ---
----@return integer small_fam
----@return integer small_char
----@return integer large_fam
----@return integer large_char
+---@return integer small_family
+---@return integer small_character
+---@return integer large_family
+---@return integer large_character
 function tex.getdelcodes(n) end
 
 ---
