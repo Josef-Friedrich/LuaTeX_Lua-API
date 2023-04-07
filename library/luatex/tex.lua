@@ -2373,6 +2373,8 @@ _N._10_3_8_reusing_boxes_use_save_boxresource_and_getboxresourcedimensions = 0
 ---the effective boundingbox as seen by *TeX*. Instead of a box number one can also
 ---pass a `[h|v]list` node.
 ---
+---* Corresponding C source code: [ltexlib.c#L3217-L3278](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3217-L3278)
+---
 ---@param n Node|integer
 ---@param attributes string
 ---@param resources string
@@ -2381,7 +2383,7 @@ _N._10_3_8_reusing_boxes_use_save_boxresource_and_getboxresourcedimensions = 0
 ---@param margin any
 ---
 ---@return integer index
-function tex.saveboxresource(n,attributes,resources,immediate,type,margin) end
+function tex.saveboxresource(n, attributes, resources, immediate, type, margin) end
 
 ---
 ---You can generate the reference (a rule type) with:
@@ -2392,17 +2394,21 @@ function tex.saveboxresource(n,attributes,resources,immediate,type,margin) end
 ---
 ---The dimensions are optional and the final ones are returned as extra values.
 ---
+---* Corresponding C source code: [ltexlib.c#L3280-L3325](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3280-L3325)
+---
 ---@param n Node
----@param wd integer
----@param ht integer
----@param dp integer
-function tex.useboxresource(n,wd,ht,dp) end
+---@param width? integer
+---@param height? integer
+---@param depth? integer
+function tex.useboxresource(n, width, height, depth) end
 
 ---
 ---Returns the width, height, depth and margin of the resource.
 ---
 ---No dimensions returned means that the resource is
 ---unknown.
+---
+---* Corresponding C source code: [ltexlib.c#L3327-L3344](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3327-L3344)
 ---
 ---@param n Node
 ---
