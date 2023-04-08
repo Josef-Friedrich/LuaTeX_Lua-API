@@ -2026,47 +2026,62 @@ function tex.isskip() end
 tex.toks = {}
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---
+---
+---* Corresponding C source code: [ltexlib.c#L1125-L1158](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1125-L1158)
+---
 function tex.settoks() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.gettoks() end
+---Get a toks register. Also accepts a predefined csname string.
+---
+---* Corresponding C source code: [ltexlib.c#L1197-L1209](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1197-L1209)
+---
+---
+---@param n integer
+---
+---@return string s
+function tex.gettoks(n) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---
+---
+---* Corresponding C source code: [ltexlib.c#L1120-L1123](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1120-L1123)
+---
 function tex.istoks() end
 
+---For tokens registers we have an alternative where a catcode table is specified:
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---```
+---tex.scantoks(0,3,"`e=mc^2`")
+---tex.scantoks("global",0,"`\int\limits^1_2`")
+---```
+---
+---
+---* Corresponding C source code: [ltexlib.c#L1160-L1195](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1160-L1195)
+---
 function tex.scantoks() end
 
 ---
 ---There is a dedicated getter for marks: getmark that takes two arguments. The first argument
 ---is one of top, bottom, first, splitbottom or splitfirst, and the second argument is a marks
----class number. When no arguments are given the current maximum number of classes is re-
----turned.
+---class number. When no arguments are given the current maximum number of classes is returned.
 function tex.getmark() end
 
 _N._10_3_6_character_code_registers_get_set_code_s_ = 0
 
 ---
----*TeX*'s character code table `lccode` can be accessed and written to using
+---*TeX*'s character code table `lccode` (lower case code) can be accessed and written to using
 ---a virtual subtable of the `tex` table.
 ---@type table
 tex.lccode = {}
 
 ---
----The function call interface for `lccode` additionally
+---The function call interface for `lccode` (lower case code) additionally
 ---allows you to set the associated sibling at the same time.
+---
+---* Corresponding C source code: [ltexlib.c#L1369-L1397](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1369-L1397)
+---
 ---
 ---@param global 'global'
 ---@param n integer
@@ -2077,8 +2092,11 @@ tex.lccode = {}
 function tex.setlccode(global, n, lc, uc) end
 
 ---
----The function call interface for `lccode` additionally
+---The function call interface for `lccode` (lower case code) additionally
 ---allows you to set the associated sibling at the same time.
+---
+---* Corresponding C source code: [ltexlib.c#L1369-L1397](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1369-L1397)
+---
 ---
 ---@param n integer
 ---@param lc integer
@@ -2088,20 +2106,26 @@ function tex.setlccode(global, n, lc, uc) end
 function tex.setlccode(n, lc, uc) end
 
 ---
+---
+---* Corresponding C source code: [ltexlib.c#L1404-L1410](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1404-L1410)
+---
 ---@param n integer
 ---
 ---@return integer lc
 function tex.getlccode(n) end
 
 ---
----*TeX*'s character code table `uccode` can be accessed and written to using
+---*TeX*'s character code table `uccode` (upper case code) can be accessed and written to using
 ---a virtual subtable of the `tex` table.
 ---@type table
 tex.uccode = {}
 
 ---
----The function call interface for `uccode` additionally
+---The function call interface for `uccode` (upper case code) additionally
 ---allows you to set the associated sibling at the same time.
+---
+---
+---* Corresponding C source code: [ltexlib.c#L1369-L1397](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1369-L1397)
 ---
 ---@param global 'global'
 ---@param n integer
@@ -2112,8 +2136,11 @@ tex.uccode = {}
 function tex.setuccode(global, n, uc, lc) end
 
 ---
----The function call interface for `uccode` additionally
+---The function call interface for `uccode` (upper case code) additionally
 ---allows you to set the associated sibling at the same time.
+---
+---
+---* Corresponding C source code: [ltexlib.c#L1369-L1397](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1369-L1397)
 ---
 ---@param n integer
 ---@param uc integer
@@ -2123,13 +2150,16 @@ function tex.setuccode(global, n, uc, lc) end
 function tex.setuccode(n, uc, lc) end
 
 ---
+---
+---* Corresponding C source code: [ltexlib.c#L1417-L1423](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1417-L1423)
+---
 ---@param n integer
 ---
 ---@return integer s
 function tex.getuccode(n) end
 
 ---
----*TeX*'s character code table `sfcode` can be accessed and written to using
+---*TeX*'s character code table `sfcode` (space factor code) can be accessed and written to using
 ---a virtual subtable of the `tex` table.
 ---@type table
 tex.sfcode = {}
@@ -2156,13 +2186,13 @@ function tex.setsfcode(n, s) end
 function tex.getsfcode(n) end
 
 ---
----*TeX*'s character code table `catcode` can be accessed and written to using
+---*TeX*'s character code table `catcode` (category code) can be accessed and written to using
 ---a virtual subtable of the `tex` table.
 ---@type table
 tex.catcode = {}
 
 ---
----The function call interface for `catcode` also allows you to specify a
+---The function call interface for `catcode` (category code) also allows you to specify a
 ---category table to use on assignment or on query (default in both cases is the
 ---current one):
 ---
@@ -2172,7 +2202,7 @@ tex.catcode = {}
 function tex.setcatcode(global, n, c) end
 
 ---
----The function call interface for `catcode` also allows you to specify a
+---The function call interface for `catcode` (category code) also allows you to specify a
 ---category table to use on assignment or on query (default in both cases is the
 ---current one):
 ---
@@ -2181,7 +2211,7 @@ function tex.setcatcode(global, n, c) end
 function tex.setcatcode(n, c) end
 
 ---
----The function call interface for `catcode` also allows you to specify a
+---The function call interface for `catcode` (category code) also allows you to specify a
 ---category table to use on assignment or on query (default in both cases is the
 ---current one):
 ---
@@ -2192,7 +2222,7 @@ function tex.setcatcode(n, c) end
 function tex.setcatcode(global, cattable, n, c) end
 
 ---
----The function call interface for `catcode` also allows you to specify a
+---The function call interface for `catcode` (category code) also allows you to specify a
 ---category table to use on assignment or on query (default in both cases is the
 ---current one):
 ---
@@ -2202,7 +2232,7 @@ function tex.setcatcode(global, cattable, n, c) end
 function tex.setcatcode(global, cattable, n, c) end
 
 ---
----The function call interface for `catcode` also allows you to specify a
+---The function call interface for `catcode` (category code) also allows you to specify a
 ---category table to use on assignment or on query (default in both cases is the
 ---current one):
 ---
@@ -2290,7 +2320,7 @@ function tex.getmathcodes(n) end
 tex.delcode = {}
 
 ---
----And the table for `delcode`  (delimiter code)  is an array with 4 numbers, like this:
+---And the table for `delcode` (delimiter code) is an array with 4 numbers, like this:
 ---
 ---```lua
 ---{
