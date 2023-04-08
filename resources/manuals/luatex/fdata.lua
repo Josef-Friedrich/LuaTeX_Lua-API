@@ -1512,6 +1512,7 @@ local fdata = {
                 ["shortdesc"] = "Get or set hyphenation patterns.",
                 ["type"] = "function"
             },
+            ###
             ["postexhyphenchar"] = {
                 ["arguments"] = {
                     {

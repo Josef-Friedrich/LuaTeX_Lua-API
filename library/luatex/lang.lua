@@ -14,6 +14,8 @@ lang = {}
 ---@class Language
 
 ---
+---Create a new language object, with an optional fixed id number.
+---
 ---Create a new userdata object of type `<language>`.
 ---
 ---These functions can also be used as if they were object methods, using the colon
@@ -31,6 +33,8 @@ lang = {}
 function lang.new(id) end
 
 ---
+---Returns the current internal `language` id number.
+---
 ---* Corresponding C source code: [llanglib.c#L50-L56](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llanglib.c#L50-L56)
 ---
 ---@param l Language
@@ -40,6 +44,8 @@ function lang.new(id) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lang.id(l) end
 
+---
+---Get or set hyphenation exceptions.
 ---
 ---Hyphenate a string directly.
 ---
@@ -54,6 +60,8 @@ function lang.id(l) end
 function lang.hyphenation(l, n) end
 
 ---
+---Clear the set of hyphenation exceptions.
+---
 ---@param l Language
 ---
 ---__Reference:__
@@ -64,6 +72,8 @@ function lang.hyphenation(l, n) end
 function lang.clear_hyphenation(l) end
 
 ---
+---Create a hyphenation key from the supplied hyphenation exception.
+---
 ---@param l Language
 ---@param o string
 ---
@@ -72,6 +82,8 @@ function lang.clear_hyphenation(l) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lang.clean(l, o) end
 
+---
+---Create a hyphenation key from the supplied hyphenation exception.
 ---
 ---@param o string
 ---
@@ -96,7 +108,7 @@ function lang.clean(o) end
 function lang.patterns(l) end
 
 ---
----Adds additional patterns for this language object.
+---Add additional patterns for this language object.
 ---
 ---* Corresponding C source code: [llanglib.c#L58-L76](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llanglib.c#L58-L76)
 ---
@@ -106,6 +118,8 @@ function lang.patterns(l) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lang.patterns(l, n) end
 
+---
+---Clear the set of hyphenation patterns.
 ---
 ---Clear the pattern dictionary for a language.
 ---
@@ -263,6 +277,8 @@ function lang.postexhyphenchar(l, n) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lang.postexhyphenchar(l, n) end
 
+---
+---Hyphenate a node list.
 ---
 ---Insert hyphenation points (discretionary nodes) in a node list.
 ---
