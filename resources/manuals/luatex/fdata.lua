@@ -43,7 +43,7 @@ local fdata = {
                         ["type"] = "metrics"
                     }
                 },
-                ["shortdesc"] = "Define a font from within lua code. The arguments are the user-supplied information, with negative numbers indicating `scaled}, positive numbers `at}",
+                ["shortdesc"] = "Define a font from within lua code. The arguments are the user-supplied information, with negative numbers indicating `scaled`, positive numbers `at`",
                 ["type"] = "callback"
             },
             ["find"] = {
@@ -61,7 +61,7 @@ local fdata = {
                         ["type"] = "function"
                     }
                 },
-                ["shortdesc"] = "Returns the function currently associated with a callback, or `nil}",
+                ["shortdesc"] = "Returns the function currently associated with a callback, or `nil`",
                 ["type"] = "function"
             },
             ["find_data_file"] = {

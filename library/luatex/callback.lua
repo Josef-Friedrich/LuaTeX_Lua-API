@@ -113,7 +113,9 @@ callback = {}
 -- #define CALLBACK_NODE           'N'
 -- #define CALLBACK_DIR            'D'
 
--- ---
+---
+---Register a callback. Passing `nil` removes an existing callback. Returns `nil`, `error` on failure.
+---
 ---The first thing you need to do is registering a callback:
 ---
 ---Here the `callback_name` is a predefined callback name, see below.
@@ -143,6 +145,8 @@ callback = {}
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function callback.register(callback_name, func) end
 
+---
+---Produce a list of all known callback names.
 ---
 ---The keys in the table are the known callback names, the value is a boolean where
 ---`true` means that the callback is currently set (active).
@@ -178,28 +182,23 @@ _N._9_2_1_find_read_file = 170
 _N._9_2_1_find_write_file = 170
 
 ---
----Your callback function should have the following conventions:
----
----```
----<string> actual_name =
----    function (<number> id_number, <string> asked_name)
----```
+---Find a file for `input` (0) or `openin` (higher integers).
 ---
 ---Arguments:
 ---
----\sym{id_number}
+---__id_number__
 ---
 ---This number is zero for the log or `input` files. For *TeX*'s `read`
 ---or `write` the number is incremented by one, so `\read0` becomes 1.
 ---
----\sym{asked_name}
+---__asked_name__
 ---
 ---This is the user-supplied filename, as found by `input`, `openin`
 ---or `openout`.
 ---
 ---Return value:
 ---
----\sym{actual_name}
+---__actual_name__
 ---
 ---This is the filename used. For the very first file that is read in by *TeX*, you
 ---have to make sure you return an `actual_name` that has an extension and
@@ -214,11 +213,15 @@ _N._9_2_1_find_write_file = 170
 ---@alias FindReadFileCallback fun(id_number: integer, asked_name: string): actual_name: string|nil
 
 ---
+---Find a file for writing to the log file (0) or with `write` (higher integers).
+---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias FindWriteFileCallback fun(id_number: integer, asked_name: string): actual_name: string|nil
 
 _N._9_2_2_find_font_file = 170
 
+---
+---Find a font metrics file.
 ---
 ---The `asked_name` is an *OTF* or *TFM* font metrics file.
 ---
@@ -238,6 +241,8 @@ _N._9_2_3_find_output_file = 170
 _N._9_2_4_find_format_file = 170
 
 ---
+---Find the format file.
+---
 ---The `asked_name` is a format file for reading (the format file for writing
 ---is always opened in the current directory).
 ---
@@ -246,6 +251,8 @@ _N._9_2_4_find_format_file = 170
 
 _N._9_2_5_find_vf_file = 171
 
+---
+---Find a VF (virtual font) file.
 ---
 ---Like `find_font_file`, but for virtual fonts. This applies to both *ALEPH's
 ---*OVF* files and traditional Knuthian *VF* files.
@@ -264,6 +271,8 @@ _N._9_2_6_find_map_file = 171
 _N._9_2_7_find_enc_file = 171
 
 ---
+---Find a font encoding file.
+---
 ---Like `find_font_file`, but for enc files.
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -271,6 +280,8 @@ _N._9_2_7_find_enc_file = 171
 
 _N._9_2_8_find_pk_file = 171
 
+---
+---Find a PK font bitmap file.
 ---
 ---Like `find_font_file`, but for pk bitmap files. This callback takes two
 ---arguments: `name` and `dpi`. In your callback you can decide to
@@ -289,6 +300,8 @@ _N._9_2_8_find_pk_file = 171
 _N._9_2_9_find_data_file = 171
 
 ---
+---Find an input data file for PDF attachment.
+---
 ---Like `find_font_file`, but for embedded files (`\pdfobj file '...'`).
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -297,6 +310,8 @@ _N._9_2_9_find_data_file = 171
 _N._9_2_0_find_opentype_file = 171
 
 ---
+---Find an OpenType font file.
+---
 ---Like `find_font_file`, but for *OpenType* font files.
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -304,6 +319,8 @@ _N._9_2_0_find_opentype_file = 171
 
 _N._9_2_1_find_truetype_file = 171
 
+---
+---Find a TrueType font file.
 ---
 ---The `asked_name` is a font file. This callback is called while *LuaTeX* is
 ---building its internal list of needed font files, so the actual timing may
@@ -318,6 +335,8 @@ _N._9_2_1_find_truetype_file = 171
 _N._9_2_1_find_type1_file = 171
 
 ---
+---Find an Type1 (PostScript) font file.
+---
 ---The `asked_name` is a font file. This callback is called while *LuaTeX* is
 ---building its internal list of needed font files, so the actual timing may
 ---surprise you. Your return value is later fed back into the matching `read_file` callback.
@@ -331,6 +350,8 @@ _N._9_2_1_find_type1_file = 171
 _N._9_2_2_find_image_file = 172
 
 ---
+---Find an image file for inclusion.
+---
 ---The `asked_name` is an image file. Your return value is used to open a file
 ---from the hard disk, so make sure you return something that is considered the name
 ---of a valid file by your operating system.
@@ -343,107 +364,123 @@ _N._9_3 = 172
 _N._9_3_1_open_read_file = 172
 
 ---
----Your callback function should have the following conventions:
----
----```
----<table> env =
----    function (<string> file_name)
----```
----
----Argument:
----
----\sym{file_name}
----
----The filename returned by a previous `find_read_file` or the return value of
----`kpse.find_file()` if there was no such callback defined.
----
----Return value:
----
----\sym{env}
----
----This is a table containing at least one required and one optional callback
----function for this file. The required field is `reader` and the associated
----function will be called once for each new line to be read, the optional one is
----`close` that will be called once when *LuaTeX* is done with the file.
----
 ---*LuaTeX* never looks at the rest of the table, so you can use it to store your
 ---private per-file data. Both the callback functions will receive the table as
 ---their only argument.
 ---
----# `reader`
+---@class OpenReadFileEnv
+local OpenReadFileEnv = {}
+
+---
+---Read a line from a file opened with the `open_read_file` callback. The argument is the return value from `open_read_file`
 ---
 ---*LuaTeX* will run this function whenever it needs a new input line from the file.
 ---
----```
----function(<table> env)
----    return <string> line
----end
----```
----
 ---Your function should return either a string or `nil`. The value `nil`
 ---signals that the end of file has occurred, and will make *TeX* call the optional
----`close` function next.
+---@param env OpenReadFileEnv
 ---
----# `close`
+---@return string|nil line
+function OpenReadFileEnv.reader(env) end
+
+---
+---Close a file opened with the `open_read_file` callback. The argument is the return value from the `open_read_file`.
 ---
 ---*LuaTeX* will run this optional function when it decides to close the file.
 ---
----```
----function(<table> env)
----end
----```
+---@param env OpenReadFileEnv
 ---
----Your function should not return any value.
+function OpenReadFileEnv.close(env) end
+
 ---
----# General file readers
+---Open a file for reading. The returned table should define key functions for  `reader` and `close`.
 ---
----There is a set of callbacks for the loading of binary data files. These all use
----the same interface:
+---The filename returned by a previous `find_read_file` or the return value of
+---`kpse.find_file()` if there was no such callback defined.
 ---
----```
----function(<string> name)
----    return <boolean> success, <string> data, <number> data_size
----end
----```
+---@alias OpenReadFileCallback fun(file_name: string): OpenReadFileEnv
+
 ---
+---callback for the loading of binary data files.
 ---The `name` will normally be a full path name as it is returned by either
 ---one of the file discovery callbacks or the internal version of `kpse.find_file()`.
 ---
----\sym{success}
+---__success__
 ---
 ---Return `false` when a fatal error occurred (e.g.\ when the file cannot be
 ---found, after all).
 ---
----\sym{data}
+---__data__
 ---
 ---The bytes comprising the file.
 ---
----\sym{data_size}
+---__data_size__
 ---
 ---The length of the `data`, in bytes.
 ---
 ---Return an empty string and zero if the file was found but there was a
 ---reading problem.
+---@alias ReadFileCallback fun(file_name: string): success: boolean, data: string, data_size: integer
+
 ---
----The list of functions is:
+---Read a TFM metrics file. Return `true`,  the data, and the data length for success, `false` otherwise
 ---
---- function   usage
+---ofm or tfm files
+---@alias ReadFontFileCallback ReadFileCallback
+
 ---
---- `read_font_file`      ofm or tfm files
---- `read_vf_file`        virtual fonts
---- `read_map_file`       map files
---- `read_enc_file`       encoding files
---- `read_pk_file`        pk bitmap files
---- `read_data_file`      embedded files (as is possible with *PDF* objects)
---- `read_truetype_file`  *TrueType* font files
---- `read_type1_file`     *Type1* font files
---- `read_opentype_file`  *OpenType* font files
+---Read a VF metrics file.
 ---
+---virtual fonts
+---@alias ReadVfFileCallback ReadFileCallback
+
+---
+---Read a font map file.
+---
+--- map files
+---@alias ReadMapFileCallback ReadFileCallback
+
+---
+---Read a font encoding file.
+---
+---encoding files
+---@alias ReadEncFileCallback ReadFileCallback
+
+---
+---Read a font bitmap PK file.
+---
+---pk bitmap files
+---@alias ReadPkFileCallback ReadFileCallback
+
+---
+---Read a data file.
+---
+---embedded files (as is possible with *PDF* objects)
+---@alias ReadDataFileCallback ReadFileCallback
+
+---
+---Read a TrueType font.
+---*TrueType* font files
+---@alias ReadTruetypeFileCallback ReadFileCallback
+
+---
+---Read a Type1 font.
+---
+---*Type1* font files
+---@alias ReadType1FileCallback ReadFileCallback
+
+---
+---Read an OpenType font.
+---
+---*OpenType* font files
+---@alias ReadOpentypeFileCallback ReadFileCallback
 
 _N._9_4 = nil
 
 _N._9_4_1_process_input_buffer = nil
 
+---
+---Modify the encoding of the input buffer.
 ---
 ---This callback allows you to change the contents of the line input buffer just
 ---before *LuaTeX* actually starts looking at it.
@@ -458,6 +495,8 @@ _N._9_4_1_process_input_buffer = nil
 _N._9_4_2_process_output_buffer = nil
 
 ---
+---Modify the encoding of the output buffer.
+---
 ---This callback allows you to change the contents of the line output buffer just
 ---before *LuaTeX* actually starts writing it to a file as the result of a `write` command. It is only called for output to an actual file (that is,
 ---excluding the log, the terminal, and so called `write` 18 calls).
@@ -467,7 +506,7 @@ _N._9_4_2_process_output_buffer = nil
 ---does not replace any internal code.
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/callback.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
----@alias ProcessOutputBufferCallback fun(buffer: string): string|nil
+---@alias ProcessOutputBufferCallback fun(buffer: string): adjusted_buffer: string|nil
 
 _N._9_4_3_process_jobname = nil
 
@@ -525,6 +564,8 @@ _N._9_5_2_buildpage_filter = nil
 ---|'after_display' # a display is finished
 ---|'end' # *LuaTeX* is terminating (it's all over)
 
+---
+---Process objects as they are added to the main vertical list. The string argument gives some context.
 ---
 ---This callback is called whenever *LuaTeX* is ready to move stuff to the main
 ---vertical list. You can use this callback to do specialized manipulation of the
@@ -599,6 +640,8 @@ _N._9_5_4_pre_linebreak_filter = nil
 ---@alias NodeCallbackReturn true|false|Node
 
 ---
+---Alter a node list before linebreaking takes place. The string argument gives some context.
+---
 ---This callback is called just before *LuaTeX* starts converting a list of nodes
 ---into a stack of `hbox`es, after the addition of `parfillskip`.
 ---
@@ -619,6 +662,8 @@ _N._9_5_4_pre_linebreak_filter = nil
 
 _N._9_5_5_linebreak_filter = nil
 
+---
+---Override the linebreaking algorithm. The boolean is `true` if this is a pre-display break.
 ---
 ---This callback replaces *LuaTeX*'s line breaking algorithm.
 ---
@@ -666,6 +711,8 @@ _N._9_5_5_append_to_vlist_filter = nil
 _N._9_5_7_post_linebreak_filter = nil
 
 ---
+---Alter a node list afer linebreaking has taken place. The string argument gives some context.
+---
 ---This callback is called just after *LuaTeX* has converted a list of nodes into a
 ---stack of `\hbox`es.
 ---
@@ -678,6 +725,10 @@ _N._9_5_7_post_linebreak_filter = nil
 
 _N._9_5_8_hpack_filter = nil
 
+---
+---Alter a node list before horizontal packing takes place. The first string gives some context,
+---the number is the desired size, the second string is either `exact` or `additional` (modifies the first string),
+---the third string is the desired direction
 ---
 ---This callback is called when *TeX* is ready to start boxing some horizontal mode
 ---material. Math items and line boxes are ignored at the moment.
@@ -698,6 +749,8 @@ _N._9_5_8_hpack_filter = nil
 
 _N._9_5_9_vpack_filter = nil
 
+---
+---Alter a node list before vertical packing takes place. The second number is the desired max depth.
 ---
 ---This callback is called when *TeX* is ready to start boxing some vertical mode
 ---material. Math displays are ignored at the moment.
@@ -762,6 +815,8 @@ _N._9_5_12_process_rule = nil
 _N._9_5_13_pre_output_filter = nil
 
 ---
+---Alter a node list before boxing to `outputbox` takes place.
+---
 ---This callback is called when *TeX* is ready to start boxing the box 255 for `output`.
 ---
 ---This callback does not replace any internal code.
@@ -774,6 +829,8 @@ _N._9_5_13_pre_output_filter = nil
 _N._9_5_14_hyphenate = nil
 
 ---
+---Apply hyphenation to a node list.
+---
 ---Setting this callback to `false` will prevent the internal discretionary
 ---insertion pass.
 ---
@@ -784,6 +841,8 @@ _N._9_5_14_hyphenate = nil
 
 _N._9_5_15_ligaturing = 179
 
+---
+---Apply ligaturing to a node list.
 ---
 ---No return values. This callback has to apply ligaturing to the node list it
 ---receives.
@@ -812,6 +871,8 @@ _N._9_5_15_ligaturing = 179
 
 _N._9_5_16_kerning = nil
 
+---
+---Apply kerning to a node list.
 ---
 ---No return values. This callback has to apply kerning between the nodes in the
 ---node list it receives. See `ligaturing` for calling conventions.
@@ -844,6 +905,8 @@ _N._9_5_17_insert_local_par = nil
 _N._9_5_18_mlist_to_hlist = nil
 
 ---
+---Convert a math node list into a horizontal node list.
+---
 ---This callback replaces *LuaTeX*'s math list to node list conversion algorithm.
 ---
 ---The returned node is the head of the list that will be added to the vertical or
@@ -864,6 +927,8 @@ _N._9_6_information_reporting = 180
 _N._9_6_1_pre_dump = 180
 
 ---
+---Run actions just before format dumping takes place.
+---
 ---This function is called just before dumping to a format file starts. It does not
 ---replace any code and there are neither arguments nor return values.
 ---
@@ -874,6 +939,8 @@ _N._9_6_1_pre_dump = 180
 
 _N._9_6_2_start_run = 181
 
+---
+---Run actions at the start of the typesetting run.
 ---
 ---This callback replaces the code that prints *LuaTeX*'s banner. Note that for
 ---successful use, this callback has to be set in the *Lua* initialization script,
@@ -888,6 +955,8 @@ _N._9_6_2_start_run = 181
 _N._9_6_3_stop_run = 181
 
 ---
+---Run actions just before the end of the typesetting run.
+---
 ---This callback replaces the code that prints *LuaTeX*'s statistics and “output written to” messages. The engine can still do housekeeping and therefore
 ---you should not rely on this hook for postprocessing the *PDF* or log file.
 ---
@@ -901,6 +970,8 @@ _N._9_6_3_stop_run = 181
 _N._9_6_4_start_page_number = 181
 
 ---
+---Run actions at the start of typeset page number message reporting.
+---
 ---Replaces the code that prints the `[` and the page number at the begin of
 ---`shipout`. This callback will also override the printing of box information
 ---that normally takes place when `tracingoutput` is positive.
@@ -913,6 +984,8 @@ _N._9_6_4_start_page_number = 181
 _N._9_6_5_stop_page_number = 181
 
 ---
+---Run actions at the end of typeset page number message reporting.
+---
 ---Replaces the code that prints the `]` at the end of `shipout`.
 ---
 ---* Corresponding C source code: [pdfshipout.c#L62](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/pdf/pdfshipout.c#L62)
@@ -922,6 +995,8 @@ _N._9_6_5_stop_page_number = 181
 
 _N._9_6_6_show_error_hook = 181
 
+---
+---Run action at error reporting time.
 ---
 ---This callback is run from inside the *TeX* error function, and the idea is to
 ---allow you to do some extra reporting on top of what *TeX* already does (none of
@@ -1025,6 +1100,8 @@ _N._9_7_pdf_related = 183
 _N._9_7_1_finish_pdffile = 183
 
 ---
+---Run actions just before the PDF closing takes place.
+---
 ---This callback is called when all document pages are already written to the *PDF*
 ---file and *LuaTeX* is about to finalize the output document structure. Its
 ---intended use is final update of *PDF* dictionaries such as `/Catalog` or
@@ -1110,6 +1187,10 @@ _N._9_8_font_related = 184
 
 _N._9_8_1_define_font = 184
 
+---
+---Define a font from within lua code.
+---
+---The arguments are the user-supplied information, with negative numbers indicating `scaled`, positive numbers `at`
 ---
 ---The string `name` is the filename part of the font specification, as given
 ---by the user.

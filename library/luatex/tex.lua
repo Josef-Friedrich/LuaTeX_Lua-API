@@ -2040,26 +2040,23 @@ function tex.settoks(global, n, s) end
 ---
 ---* Corresponding C source code: [ltexlib.c#L1197-L1209](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1197-L1209)
 ---
----
 ---@param n integer
 ---
 ---@return string s
 function tex.gettoks(n) end
 
 ---
----
----
 ---* Corresponding C source code: [ltexlib.c#L1120-L1123](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1120-L1123)
 ---
 function tex.istoks() end
 
+---
 ---For tokens registers we have an alternative where a catcode table is specified:
 ---
 ---```
 ---tex.scantoks(0,3,"`e=mc^2`")
 ---tex.scantoks("global",0,"`\int\limits^1_2`")
 ---```
----
 ---
 ---* Corresponding C source code: [ltexlib.c#L1160-L1195](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1160-L1195)
 ---
@@ -2085,7 +2082,6 @@ tex.lccode = {}
 ---
 ---* Corresponding C source code: [ltexlib.c#L1369-L1397](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1369-L1397)
 ---
----
 ---@param global 'global'
 ---@param n integer
 ---@param lc integer
@@ -2100,7 +2096,6 @@ function tex.setlccode(global, n, lc, uc) end
 ---
 ---* Corresponding C source code: [ltexlib.c#L1369-L1397](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1369-L1397)
 ---
----
 ---@param n integer
 ---@param lc integer
 ---@param uc? integer
@@ -2108,7 +2103,6 @@ function tex.setlccode(global, n, lc, uc) end
 ---@return integer s
 function tex.setlccode(n, lc, uc) end
 
----
 ---
 ---* Corresponding C source code: [ltexlib.c#L1404-L1410](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1404-L1410)
 ---
@@ -2127,7 +2121,6 @@ tex.uccode = {}
 ---The function call interface for `uccode` (upper case code) additionally
 ---allows you to set the associated sibling at the same time.
 ---
----
 ---* Corresponding C source code: [ltexlib.c#L1369-L1397](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1369-L1397)
 ---
 ---@param global 'global'
@@ -2142,7 +2135,6 @@ function tex.setuccode(global, n, uc, lc) end
 ---The function call interface for `uccode` (upper case code) additionally
 ---allows you to set the associated sibling at the same time.
 ---
----
 ---* Corresponding C source code: [ltexlib.c#L1369-L1397](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1369-L1397)
 ---
 ---@param n integer
@@ -2152,7 +2144,6 @@ function tex.setuccode(global, n, uc, lc) end
 ---@return integer s
 function tex.setuccode(n, uc, lc) end
 
----
 ---
 ---* Corresponding C source code: [ltexlib.c#L1417-L1423](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1417-L1423)
 ---
