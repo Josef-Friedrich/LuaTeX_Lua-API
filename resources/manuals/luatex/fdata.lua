@@ -20,7 +20,7 @@ local fdata = {
                     {["name"] = "env", ["optional"] = false, ["type"] = "table"}
                 },
                 ["returnvalues"] = {},
-                ["shortdesc"] = "Close a file opened with the `open_read_file` callback. The argument is the return value from the `open_read_file}",
+                ["shortdesc"] = "Close a file opened with the `open_read_file` callback. The argument is the return value from the `open_read_file`",
                 ["type"] = "callback"
             },
             ["define_font"] = {
@@ -479,7 +479,7 @@ local fdata = {
                 ["returnvalues"] = {
                     {["name"] = "env", ["optional"] = false, ["type"] = "table"}
                 },
-                ["shortdesc"] = "Open a file for reading. The returned table should define key functions for  `reader` and `close}.",
+                ["shortdesc"] = "Open a file for reading. The returned table should define key functions for  `reader` and `close`.",
                 ["type"] = "callback"
             },
             ["post_linebreak_filter"] = {

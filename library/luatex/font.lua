@@ -277,6 +277,8 @@ _N._alias_FontCharacterCommands = 95
 ---@alias FontCharacterCommands any[]
 
 ---
+---Parse a font metrics file, at the size indicated by the number.
+---
 ---Load a TFM (`TeX` font metric) file.
 ---
 ---__Example:__
@@ -295,6 +297,8 @@ _N._alias_FontCharacterCommands = 95
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/font.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function font.read_tfm(name, at_size) end
 
+---
+---Parse a virtual font metrics file, at the size indicated by the number.
 ---
 ---Load a VF (virtual font) file.
 ---
@@ -324,6 +328,8 @@ function font.read_vf(name, at_size) end
 font.fonts = {}
 
 ---
+---Set an internal font id from a lua table.
+---
 ---* Corresponding C source code: [lfontlib.c#L156-L173](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L156-L173)
 ---
 ---@param font_id integer
@@ -332,6 +338,8 @@ font.fonts = {}
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/font.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function font.setfont(font_id, f) end
 
+---
+---Fetch an internal font id as a Lua table.
 ---
 ---Note that at the moment, each access to the `font.fonts` or call to `font.getfont` creates a *Lua* table for the whole font unless you cached it.
 ---
@@ -370,7 +378,9 @@ function font.getcopy(font_id) end
 function font.getparameters(font_id) end
 
 ---
----Test for the status of a font
+---Test for the status of a font.
+---
+---Return true if the font is frozen and can no longer be altered.
 ---
 ---The return value is one of `true` (unassignable), `false` (can be
 ---changed) or `nil` (not a valid font at all).
@@ -449,6 +459,8 @@ function font.define(font_id, f) end
 function font.addcharacters(font_id, f) end
 
 ---
+---Return the next free font id number.
+---
 ---Return the font id number that would be returned by a `font.define`
 ---call if it was executed at this spot in the code flow.
 ---
@@ -465,6 +477,8 @@ function font.addcharacters(font_id, f) end
 function font.nextid() end
 
 ---
+---Return the font id of the font accessed by the csname given.
+---
 ---Return the font id associated with `csname`, or `-1` if `csname` is not defined.
 ---
 ---* Corresponding C source code: [lfontlib.c#L278-L296](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L278-L296)
@@ -477,6 +491,8 @@ function font.nextid() end
 function font.id(csname) end
 
 ---
+---Return the highest used font id at this moment.
+---
 ---Get the largest used index in `font.fonts`.
 ---
 ---* Corresponding C source code: [lfontlib.c#L102-L106](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L102-L106)
@@ -487,7 +503,7 @@ function font.id(csname) end
 function font.max() end
 
 ---
----Set the currently used font number.
+---Set the currently used / active font number.
 ---
 ---* Corresponding C source code: [lfontlib.c#L85-L100](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L85-L100)
 ---
@@ -497,7 +513,7 @@ function font.max() end
 function font.current(font_id) end
 
 ---
----Get the currently used font number.
+---Get the currently used / active font number.
 ---
 ---* Corresponding C source code: [lfontlib.c#L85-L100](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L85-L100)
 ---
@@ -507,7 +523,7 @@ function font.current(font_id) end
 function font.current(font_id) end
 
 ---
----Iterate over all fonts.
+---Iterate over all the defined fonts.
 ---
 ---This is an iterator over each of the defined *TeX* fonts. The first returned
 ---value is the index in `font.fonts`, the second the font itself, as a *Lua*

@@ -32,6 +32,8 @@ _N._12_1_getting_quick_information_on_a_font = 239
 ---@field pfminfo FontloaderPfminfo #
 
 ---
+---Get various information fields from an font file.
+---
 ---This function returns either `nil`, or a `table`, or an array of
 ---small tables (in the case of a *TrueType* collection). The returned table(s) will
 ---contain some fairly interesting information items from the font(s) defined by the
@@ -52,6 +54,8 @@ function fontloader.info(filename) end
 
 _N._12_2_loading_an_opentype_or_truetype_file = 0
 
+---
+---Parse a font file and return a table representing its contents. The optional argument is the name of the desired font in case of font collection files. The optional return value contains any parser error strings.
 ---
 ---Open an *OpenType* font.
 ---
@@ -105,6 +109,8 @@ function fontloader.close(font) end
 _N._12_3_applying_a_feature_file = 241
 
 ---
+---Apply a feature file to a fontloader table.
+---
 ---* Corresponding C source code: [luafflib.c#L313-L334](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L313-L334)
 ---
 ---@param font userdata
@@ -117,6 +123,8 @@ function fontloader.apply_featurefile(font, filename) end
 
 _N._12_4_applying_an_afm_file = 241
 
+---
+---Apply an AFM file to a fontloader table.
 ---
 ---* Corresponding C source code: [luafflib.c#L336-L355](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L336-L355)
 ---
