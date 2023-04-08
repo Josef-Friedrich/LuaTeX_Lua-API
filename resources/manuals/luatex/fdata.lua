@@ -20,7 +20,7 @@ local fdata = {
                     {["name"] = "env", ["optional"] = false, ["type"] = "table"}
                 },
                 ["returnvalues"] = {},
-                ["shortdesc"] = "Close a file opened with the \\afunction{open_read_file} callback. The argument is the return value from the \\afunction{open_read_file}",
+                ["shortdesc"] = "Close a file opened with the `open_read_file` callback. The argument is the return value from the `open_read_file}",
                 ["type"] = "callback"
             },
             ["define_font"] = {
@@ -43,7 +43,7 @@ local fdata = {
                         ["type"] = "metrics"
                     }
                 },
-                ["shortdesc"] = "Define a font from within lua code. The arguments are the user-supplied information, with negative numbers indicating \\type{scaled}, positive numbers \\type{at}",
+                ["shortdesc"] = "Define a font from within lua code. The arguments are the user-supplied information, with negative numbers indicating `scaled}, positive numbers `at}",
                 ["type"] = "callback"
             },
             ["find"] = {
@@ -61,7 +61,7 @@ local fdata = {
                         ["type"] = "function"
                     }
                 },
-                ["shortdesc"] = "Returns the function currently associated with a callback, or \\type{nil}",
+                ["shortdesc"] = "Returns the function currently associated with a callback, or `nil}",
                 ["type"] = "function"
             },
             ["find_data_file"] = {
@@ -246,7 +246,7 @@ local fdata = {
                         ["type"] = "string"
                     }
                 },
-                ["shortdesc"] = "Find a file for \\tex{input} (0) or \\tex{openin} (higher integers).",
+                ["shortdesc"] = "Find a file for `input` (0) or `openin` (higher integers).",
                 ["type"] = "callback"
             },
             ["find_subfont_file"] = {
@@ -341,7 +341,7 @@ local fdata = {
                         ["type"] = "string"
                     }
                 },
-                ["shortdesc"] = "Find a file for writing to the log file (0) or with \\tex{write} (higher integers).",
+                ["shortdesc"] = "Find a file for writing to the log file (0) or with `write` (higher integers).",
                 ["type"] = "callback"
             },
             ["finish_pdffile"] = {
@@ -382,7 +382,7 @@ local fdata = {
                     }
                 },
                 ["shortdesc"] = "Alter a node list before horizontal packing takes place. The first string gives some context,\
-	 the number is the desired size, the second string is either \\aliteral{exact} or \\aliteral{additional} (modifies the first string),\
+	 the number is the desired size, the second string is either `exact` or `additional` (modifies the first string),\
 	 the third string is the desired direction",
                 ["type"] = "callback"
             },
@@ -429,7 +429,7 @@ local fdata = {
                         ["type"] = "node"
                     }
                 },
-                ["shortdesc"] = "Override the linebreaking algorithm. The boolean is \\type{true} if this is a pre-display break.",
+                ["shortdesc"] = "Override the linebreaking algorithm. The boolean is `true` if this is a pre-display break.",
                 ["type"] = "callback"
             },
             ["list"] = {
@@ -479,7 +479,7 @@ local fdata = {
                 ["returnvalues"] = {
                     {["name"] = "env", ["optional"] = false, ["type"] = "table"}
                 },
-                ["shortdesc"] = "Open a file for reading. The returned table should define key functions for  \\aliteral{reader} and \\aliteral{close}.",
+                ["shortdesc"] = "Open a file for reading. The returned table should define key functions for  `reader` and `close}.",
                 ["type"] = "callback"
             },
             ["post_linebreak_filter"] = {
@@ -562,7 +562,7 @@ local fdata = {
                         ["type"] = "node"
                     }
                 },
-                ["shortdesc"] = "Alter a node list before boxing to \\tex{outputbox} takes place. See \\afunction{vpack_filter} for the arguments.",
+                ["shortdesc"] = "Alter a node list before boxing to `outputbox` takes place. See `vpack_filter` for the arguments.",
                 ["type"] = "callback"
             },
             ["process_input_buffer"] = {
@@ -682,7 +682,7 @@ local fdata = {
                         ["type"] = "number"
                     }
                 },
-                ["shortdesc"] = "Read a TFM metrics file. Return \\type{true},  the data, and the data length for success, \\type{false} otherwise",
+                ["shortdesc"] = "Read a TFM metrics file. Return `true},  the data, and the data length for success, `false` otherwise",
                 ["type"] = "callback"
             },
             ["read_map_file"] = {
@@ -892,7 +892,7 @@ local fdata = {
                         ["type"] = "string"
                     }
                 },
-                ["shortdesc"] = "Read a line from a file opened with the \\afunction{open_read_file} callback. The argument is the return value from \\afunction{open_read_file}",
+                ["shortdesc"] = "Read a line from a file opened with the `open_read_file` callback. The argument is the return value from `open_read_file}",
                 ["type"] = "callback"
             },
             ["register"] = {
@@ -916,7 +916,7 @@ local fdata = {
                         ["type"] = "string"
                     }
                 },
-                ["shortdesc"] = "Register a callback. Passing \\type{nil} removes an existing callback. Returns \\type{nil}, \\type{error} on failure.",
+                ["shortdesc"] = "Register a callback. Passing `nil` removes an existing callback. Returns `nil}, `error` on failure.",
                 ["type"] = "function"
             },
             ["show_error_hook"] = {
@@ -958,7 +958,7 @@ local fdata = {
                         ["type"] = "table"
                     }
                 },
-                ["shortdesc"] = "Override the tokenization process. Return value is a \\type{token} or an array of tokens",
+                ["shortdesc"] = "Override the tokenization process. Return value is a `token` or an array of tokens",
                 ["type"] = "callback"
             },
             ["vpack_filter"] = {
@@ -997,7 +997,7 @@ local fdata = {
                         ["type"] = "node"
                     }
                 },
-                ["shortdesc"] = "Alter a node list before vertical packing takes place. The second number is the desired max depth. See \\afunction{hpack_filter} for the arguments.",
+                ["shortdesc"] = "Alter a node list before vertical packing takes place. The second number is the desired max depth. See `hpack_filter` for the arguments.",
                 ["type"] = "callback"
             }
         },
@@ -1262,7 +1262,7 @@ local fdata = {
                     {["name"] = "f", ["optional"] = false, ["type"] = "string"}
                 },
                 ["shortdesc"] = "Find a file. The optional string is the file type as supported by the\
-      standalone \\type{kpsewhich} program (default is \\aliteral{{tex}}, no autodiscovery takes place).\
+      standalone `kpsewhich` program (default is `{tex}}, no autodiscovery takes place).\
       The optional boolean indicates wether the file must exist.\
       The optional number is the dpi value for PK files.\
       ",
@@ -1334,7 +1334,7 @@ local fdata = {
                         ["type"] = "kpathsea"
                     }
                 },
-                ["shortdesc"] = "Create a new kpathsea library instance. The optional string allows explicit \\type{progname} setting.",
+                ["shortdesc"] = "Create a new kpathsea library instance. The optional string allows explicit `progname` setting.",
                 ["type"] = "function"
             },
             ["readable_file"] = {
@@ -1365,7 +1365,7 @@ local fdata = {
                     }
                 },
                 ["returnvalues"] = {},
-                ["shortdesc"] = "Initialize the kpathsea library by setting the program name. The optional string allows explicit \\type{progname} setting.",
+                ["shortdesc"] = "Initialize the kpathsea library by setting the program name. The optional string allows explicit `progname` setting.",
                 ["type"] = "function"
             },
             ["show_path"] = {
@@ -1480,7 +1480,7 @@ local fdata = {
                 ["returnvalues"] = {
                     {["name"] = "n", ["optional"] = false, ["type"] = "number"}
                 },
-                ["shortdesc"] = "Returns the current internal \\tex{language} id number.",
+                ["shortdesc"] = "Returns the current internal `language` id number.",
                 ["type"] = "function"
             },
             ["new"] = {
@@ -1955,7 +1955,7 @@ local fdata = {
                     {["name"] = "h", ["optional"] = false, ["type"] = "node"},
                     {["name"] = "b", ["optional"] = false, ["type"] = "number"}
                 },
-                ["shortdesc"] = "Pack a node list into a horizontal list. The number is the desired size, the first string is either \\aliteral{exact} or \\aliteral{additional} (modifies the first string),\
+                ["shortdesc"] = "Pack a node list into a horizontal list. The number is the desired size, the first string is either `exact` or `additional` (modifies the first string),\
       the second string is the desired direction",
                 ["type"] = "function"
             },
@@ -2335,7 +2335,7 @@ local fdata = {
                     }
                 },
                 ["returnvalues"] = {},
-                ["shortdesc"] = "      Run an external command and exit. The table is an array of arguments, with an optional \\type{argv[0]} in index 0.",
+                ["shortdesc"] = "      Run an external command and exit. The table is an array of arguments, with an optional `argv[0]` in index 0.",
                 ["type"] = "function"
             },
             ["gettimeofday"] = {
@@ -2382,7 +2382,7 @@ local fdata = {
                         ["type"] = "boolean"
                     }
                 },
-                ["shortdesc"] = "Run an external command and return its exit code. The table is an array of arguments, with an optional \\type{argv[0]} in index 0.",
+                ["shortdesc"] = "Run an external command and return its exit code. The table is an array of arguments, with an optional `argv[0]` in index 0.",
                 ["type"] = "function"
             },
             ["times"] = {
@@ -2453,7 +2453,7 @@ local fdata = {
                     {["name"] = "n", ["optional"] = false, ["type"] = "number"}
                 },
                 ["shortdesc"] = "Write an object to the PDF file immediately. The optional number is an object id,\
-      the first optional string is \\aliteral{{file}}, \\aliteral{{stream}}, or \\aliteral{{filestream}}.\
+      the first optional string is `{file}}, `{stream}}, or `{filestream}}.\
       the second optional string contains stream attributes for the latter two cases.\
       ",
                 ["type"] = "function"
@@ -2480,7 +2480,7 @@ local fdata = {
                 ["returnvalues"] = {
                     {["name"] = "n", ["optional"] = false, ["type"] = "number"}
                 },
-                ["shortdesc"] = "Write an object to the PDF file. See \\aliteral{pdf.immediateobj} for arguments.",
+                ["shortdesc"] = "Write an object to the PDF file. See `pdf.immediateobj` for arguments.",
                 ["type"] = "function"
             },
             ["refobj"] = {
@@ -2501,8 +2501,8 @@ local fdata = {
                     {["name"] = "s", ["optional"] = false, ["type"] = "string"}
                 },
                 ["returnvalues"] = {},
-                ["shortdesc"] = "Write directly to the PDF file (use in \\tex{latelua}). The optional string is\
-      one of \\aliteral{{direct}} or \\aliteral{{page}}",
+                ["shortdesc"] = "Write directly to the PDF file (use in `latelua}). The optional string is\
+      one of `{direct}` or `{page}}",
                 ["type"] = "function"
             },
             ["registerannot"] = {
@@ -2634,7 +2634,7 @@ local fdata = {
                 ["returnvalues"] = {
                     {["name"] = "i", ["optional"] = false, ["type"] = "table"}
                 },
-                ["shortdesc"] = "Break a string into pieces. The optional argument is a character possibly followed by a plus sign (default \\aliteral{{ +}})",
+                ["shortdesc"] = "Break a string into pieces. The optional argument is a character possibly followed by a plus sign (default `{ +}})",
                 ["type"] = "function"
             },
             ["utfcharacters"] = {
@@ -2734,7 +2734,7 @@ local fdata = {
                     {["name"] = "t", ["optional"] = false, ["type"] = "table"}
                 },
                 ["shortdesc"] = "Return all primitives in a (set of) extension identifiers. Valid identifiers are: \
-      \\aliteral{tex}, \\aliteral{core}, \\aliteral{etex}, \\aliteral{pdftex}, \\aliteral{omega}, \\aliteral{aleph}, and \\aliteral{luatex}.",
+      `tex}, `core}, `etex}, `pdftex}, `omega}, `aleph}, and `luatex}.",
                 ["type"] = "function"
             },
             ["get"] = {
@@ -2795,7 +2795,7 @@ local fdata = {
                 ["returnvalues"] = {
                     {["name"] = "n", ["optional"] = false, ["type"] = "number"}
                 },
-                ["shortdesc"] = "Get an internal math parameter. The first string is like the csname but without the \\type{Umath} prefix, the second string is a style name minus the \\type{style} suffix.",
+                ["shortdesc"] = "Get an internal math parameter. The first string is like the csname but without the `Umath` prefix, the second string is a style name minus the `style` suffix.",
                 ["type"] = "function"
             },
             ["getskip"] = {
@@ -3134,7 +3134,7 @@ local fdata = {
                     {["name"] = "n", ["optional"] = false, ["type"] = "number"}
                 },
                 ["returnvalues"] = {},
-                ["shortdesc"] = "Set an internal math parameter. The first string is like the csname but without the \\type{Umath} prefix, the second string is a style name minus the \\type{style} suffix.",
+                ["shortdesc"] = "Set an internal math parameter. The first string is like the csname but without the `Umath` prefix, the second string is a style name minus the `style` suffix.",
                 ["type"] = "function"
             },
             ["setskip"] = {
@@ -3199,7 +3199,7 @@ local fdata = {
                     {["name"] = "a2", ["optional"] = true, ["type"] = "table"}
                 },
                 ["returnvalues"] = {},
-                ["shortdesc"] = "Combine any number of \\type{tex.sprint}'s into a single function call.",
+                ["shortdesc"] = "Combine any number of `tex.sprint}'s into a single function call.",
                 ["type"] = "function"
             },
             ["write"] = {
@@ -3226,7 +3226,7 @@ local fdata = {
                 },
                 ["returnvalues"] = {},
                 ["shortdesc"] = "Write a string to the log and/or terminal. The optional argument is\
-      \\aliteral{{term}}, \\aliteral{{term and log}}, or \\aliteral{{log}}.",
+      `{term}}, `{term and log}}, or `{log}}.",
                 ["type"] = "function"
             },
             ["write_nl"] = {
@@ -3241,7 +3241,7 @@ local fdata = {
                 ["returnvalues"] = {},
                 ["shortdesc"] = "Write a string to the log and/or terminal, starting on a new line. \
       The optional argument is \
-      \\aliteral{{term}}, \\aliteral{{term and log}}, or \\aliteral{{log}}.",
+      `{term}}, `{term and log}}, or `{log}}.",
                 ["type"] = "function"
             }
         },

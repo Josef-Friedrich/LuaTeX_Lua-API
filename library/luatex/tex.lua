@@ -2026,11 +2026,14 @@ function tex.isskip() end
 tex.toks = {}
 
 ---
----
+---Set a toks register. Also accepts a predefined csname string.
 ---
 ---* Corresponding C source code: [ltexlib.c#L1125-L1158](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1125-L1158)
 ---
-function tex.settoks() end
+---@param global 'global'
+---@param n integer
+---@param s string
+function tex.settoks(global, n, s) end
 
 ---
 ---Get a toks register. Also accepts a predefined csname string.
