@@ -224,6 +224,8 @@ _N.Node = true
 _N.hlist = 0
 
 ---
+---* Corresponding C source code: [texnodes.c#L633-L661](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L633-L661)
+---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias HlistNodeSubtype
 ---|0 # unknown
@@ -267,6 +269,7 @@ _N.hlist = 0
 ---__Reference:__
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L78-L108](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L78-L108)
+---* Corresponding C source code: [texnodes.c#L841-L851](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L841-L851)
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class HlistNode: Node
@@ -513,19 +516,34 @@ _N.glue = 12
 ---@field shrink_order integer # factor applied to shrink amount
 
 ---
----The effective_glue function that takes a glue node and a parent (hlist or vlist) returns the
----effective width of that glue item. When you pass true as third argument the value will be
----rounded.
+---Return the
+---effective width of a glue node.
 ---
----@param glue GlyphNode
+---* Corresponding C source code: [lnodelib.c#L8473-L8503](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L8473-L8503)
+---
+---@param glue Node
 ---@param parent HlistNode|VlistNode
----@param round? boolean
+---@param round? boolean # When you pass true as third argument the value will be rounded.
 ---
----@return integer
+---@return number|integer|nil
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.effective_glue(glue, parent, round) end
-node.direct.effective_glue = node.effective_glue
+
+---
+---Return the
+---effective width of a glue node.
+---
+---* Corresponding C source code: [lnodelib.c#L8505-L8533](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L8505-L8533)
+---
+---@param d integer # The index number of the node in the memory table for direct access.
+---@param parent HlistNode|VlistNode
+---@param round? boolean # When you pass true as third argument the value will be rounded.
+---
+---@return number|integer|nil
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function node.direct.effective_glue(d, parent, round) end
 
 _N.kern = 13
 
@@ -579,6 +597,8 @@ _N.glyph = 29
 ---|4 # right
 
 ---
+---* Corresponding C source code: [texnodes.c#L801-L816](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L801-L816)
+---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class GlyphNode: Node
 ---@field subtype GlyphNodeSubtype # A bit field
@@ -599,7 +619,9 @@ _N.glyph = 29
 ---@field data number # A general purpose field for users (we had room for it)
 
 ---
----The `uses_font` helpers takes a node and font id and returns `true` when a glyph or disc node references that font.
+---Return `true` when a glyph or disc node references that font.
+---
+---* Corresponding C source code: [lnodelib.c#L7639-L7655](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L7639-L7655)
 ---
 ---@param n Node
 ---@param font integer
@@ -608,7 +630,19 @@ _N.glyph = 29
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.uses_font(n, font) end
-node.direct.uses_font = node.uses_font
+
+---
+---Return `true` when a glyph or disc node references that font.
+---
+---* Corresponding C source code: [lnodelib.c#L7621-L7637](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L7621-L7637)
+---
+---@param d integer # The index number of the node in the memory table for direct access.
+---@param font integer
+---
+---@return boolean
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function node.direct.uses_font(d, font) end
 
 _N.boundary = 6
 
@@ -753,14 +787,19 @@ _N.accent = 21
 ---|3 # fixedboth
 
 ---
+---* Corresponding C source code: [texnodes.c#L714-L723](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L714-L723)
+---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class AccentNode: Node
+---@field attr Node # list of attributes
 ---@field subtype AccentNodeSubtype
 ---@field nucleus Node # base
 ---@field sub Node # subscript
 ---@field sup Node # superscript
 ---@field accent Node # top accent
 ---@field bot_accent Node # bottom accent
+---@field top_accent Node # top_accent
+---@field overlay_accent Node # overlay_accent
 ---@field fraction number # larger step criterium (divided by 1000)
 
 _N.style = 16
