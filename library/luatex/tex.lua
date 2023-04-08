@@ -2065,25 +2065,33 @@ _N._10_3_6_character_code_registers_get_set_code_s_ = 0
 tex.lccode = {}
 
 ---
----The function call interface for `lccode` and `uccode` additionally
----allows you to set the associated sibling at the same time:
+---The function call interface for `lccode` additionally
+---allows you to set the associated sibling at the same time.
 ---
----```
----tex.setlccode (["global"], <number> n, <number> lc)
----tex.setlccode (["global"], <number> n, <number> lc, <number> uc)
----<number> lc = tex.getlccode (<number> n)
+---@param global 'global'
+---@param n integer
+---@param lc integer
+---@param uc? integer
+---
+---@return integer s
+function tex.setlccode(global, n, lc, uc) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.setlccode() end
+---The function call interface for `lccode` additionally
+---allows you to set the associated sibling at the same time.
+---
+---@param n integer
+---@param lc integer
+---@param uc? integer
+---
+---@return integer s
+function tex.setlccode(n, lc, uc) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.getlccode() end
+---@param n integer
+---
+---@return integer lc
+function tex.getlccode(n) end
 
 ---
 ---*TeX*'s character code table `uccode` can be accessed and written to using
@@ -2092,21 +2100,33 @@ function tex.getlccode() end
 tex.uccode = {}
 
 ---
----tex.setuccode (["global"], <number> n, <number> uc)
----tex.setuccode (["global"], <number> n, <number> uc, <number> lc)
----<number> uc = tex.getuccode (<number> n)
----```
+---The function call interface for `uccode` additionally
+---allows you to set the associated sibling at the same time.
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.setuccode() end
+---@param global 'global'
+---@param n integer
+---@param uc integer
+---@param lc? integer
+---
+---@return integer s
+function tex.setuccode(global, n, uc, lc) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.getuccode() end
+---The function call interface for `uccode` additionally
+---allows you to set the associated sibling at the same time.
+---
+---@param n integer
+---@param uc integer
+---@param lc? integer
+---
+---@return integer s
+function tex.setuccode(n, uc, lc) end
+
+---
+---@param n integer
+---
+---@return integer s
+function tex.getuccode(n) end
 
 ---
 ---*TeX*'s character code table `sfcode` can be accessed and written to using
@@ -2115,25 +2135,25 @@ function tex.getuccode() end
 tex.sfcode = {}
 
 ---
----The function call interfaces are roughly as above, but there are a few twists.
----`sfcode`s are the simple ones:
+---@param global 'global'
+---@param n integer
+---@param s integer
 ---
----```
----tex.setsfcode (["global",] <number> n, <number> s)
----<number> s = tex.getsfcode (<number> n)
----```
+---@return integer s
+function tex.setsfcode(global, n, s) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.setsfcode() end
+---@param n integer
+---@param s integer
+---
+---@return integer s
+function tex.setsfcode(n, s) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.getsfcode() end
+---@param n integer
+---
+---@return integer s
+function tex.getsfcode(n) end
 
 ---
 ---*TeX*'s character code table `catcode` can be accessed and written to using
@@ -2146,25 +2166,51 @@ tex.catcode = {}
 ---category table to use on assignment or on query (default in both cases is the
 ---current one):
 ---
----```
----tex.setcatcode (["global"], <number> n, <number> c)
----tex.setcatcode (["global"], <number> cattable, <number> n, <number> c)
----<number> lc = tex.getcatcode (<number> n)
----<number> lc = tex.getcatcode (<number> cattable, <number> n)
----```
----
+---@param global 'global'
+---@param n integer
+---@param c integer
+function tex.setcatcode(global, n, c) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.setcatcode() end
+---The function call interface for `catcode` also allows you to specify a
+---category table to use on assignment or on query (default in both cases is the
+---current one):
+---
+---@param n integer
+---@param c integer
+function tex.setcatcode(n, c) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.getcatcode() end
+---The function call interface for `catcode` also allows you to specify a
+---category table to use on assignment or on query (default in both cases is the
+---current one):
+---
+---@param global 'global'
+---@param cattable integer
+---@param n integer
+---@param c integer
+function tex.setcatcode(global, cattable, n, c) end
+
+---
+---The function call interface for `catcode` also allows you to specify a
+---category table to use on assignment or on query (default in both cases is the
+---current one):
+---
+---@param cattable integer
+---@param n integer
+---@param c integer
+function tex.setcatcode(global, cattable, n, c) end
+
+---
+---The function call interface for `catcode` also allows you to specify a
+---category table to use on assignment or on query (default in both cases is the
+---current one):
+---
+---@param cattable integer
+---@param n integer
+---
+---@return integer lc
+function tex.getcatcode(cattable, n) end
 
 ---
 ---*TeX*'s character code table `mathcode` can be accessed and written to using
