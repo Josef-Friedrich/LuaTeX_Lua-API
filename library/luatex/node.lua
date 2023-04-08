@@ -259,21 +259,10 @@ _N.hlist = 0
 ---|28 # radical
 
 ---
----A warning: never assign a node list to the `head` field unless you are sure
----its internal link structure is correct, otherwise an error may result.
----
----Note: the field name `head` and `list` are both valid. Sometimes it
----makes more sense to refer to a list by `head`, sometimes `list` makes
----more sense.
----
----__Reference:__
----
----* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L78-L108](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L78-L108)
 ---* Corresponding C source code: [texnodes.c#L841-L851](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L841-L851)
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
----@class HlistNode: Node
----@field subtype HlistNodeSubtype
+---@class ListNode: Node
 ---@field width number # the width of the box
 ---@field height number # the height of the box
 ---@field depth number # the depth of the box
@@ -284,6 +273,22 @@ _N.hlist = 0
 ---@field head Node # the first node of the body of this list
 ---@field list Node # the first node of the body of this list
 ---@field dir DirectionSpecifier
+
+---
+---A warning: never assign a node list to the `head` field unless you are sure
+---its internal link structure is correct, otherwise an error may result.
+---
+---Note: the field name `head` and `list` are both valid. Sometimes it
+---makes more sense to refer to a list by `head`, sometimes `list` makes
+---more sense.
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L78-L108](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L78-L108)
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+---@class HlistNode: ListNode
+---@field subtype HlistNodeSubtype
 
 _N.vlist = 1
 
@@ -296,7 +301,8 @@ _N.vlist = 1
 
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
----@class VlistNode: Node
+---@class VlistNode: ListNode
+---@field subtype VlistNodeSubtype
 
 _N.rule = 2
 
