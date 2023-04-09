@@ -50,11 +50,9 @@ _N._11_2_1_new = 232
 ---@class MpInstance
 
 ---
----To create a new *METAPOST* instance, call
+---Create a new metapost instance.
 ---
----```
----<mpinstance> mp = mplib.new({...})
----```
+---To create a new *METAPOST* instance, call
 ---
 ---This creates the `mp` instance object.
 ---
@@ -91,21 +89,26 @@ function mplib.new(args) end
 _N._11_2_2_statistics = 233
 
 ---
+---There are
+---four fields, giving the maximum number of used items in each of four allocated
+---object classes:
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+---@class MpStats
+---@field main_memory integer # memory size
+---@field hash_size integer # hash size
+---@field param_size integer # simultaneous macro parameters
+---@field max_in_open integer # input file nesting levels
+
+---
+---Returns some statistics for this metapost instance.
+---
 ---You can request statistics with:
 ---
 ---```
 ---<table> stats = mp:statistics()
 ---```
 ---
----This function returns the vital statistics for an *MPlib* instance. There are
----four fields, giving the maximum number of used items in each of four allocated
----object classes:
----
----@class MpStats
----@field main_memory integer # memory size
----@field hash_size integer # hash size
----@field param_size integer # simultaneous macro parameters
----@field max_in_open integer # input file nesting levels
+---This function returns the vital statistics for an *MPlib* instance.
 ---
 ---Note that in the new version of *MPlib*, this is informational only. The objects
 ---are all allocated dynamically, so there is no chance of running out of space
@@ -120,6 +123,8 @@ function mplib.statistics() end
 
 _N._11_2_3_execute = 233
 
+---
+---Execute metapost code in the instance.
 ---
 ---You can ask the *MetaPost* interpreter to run a chunk of code by calling mp.execute()
 ---
@@ -145,6 +150,8 @@ function mplib.execute(mp, code) end
 
 _N._11_2_4_finish = 233
 
+---
+---Finish a metapost instance.
 ---
 ---If for some reason you want to stop using an *MPlib* instance while processing is
 ---not yet actually done, you can call `finish`. Eventually, used memory
@@ -381,13 +388,11 @@ _N._11_2_8_Character_size_information = 238
 _N._11_2_8_1_char_width = 238
 
 ---
+---Report a character's width.
+---
 ---These functions find the size of a glyph in a defined font. The `fontname`
 ---is the same name as the argument to `infont`; the `char` is a glyph
 ---id in the range 0 to 255; the returned `w` is in AFM units.
----
----```
----<number> w = char_width(mp,<string> fontname, <number> char)
----```
 ---
 ---* Corresponding C source code: [lmplib.c#L748-L751](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L748-L751)
 ---
@@ -402,6 +407,8 @@ function mplib.char_width(mp, fontname, char) end
 
 _N._11_2_8_2_char_height = 238
 
+---
+---Report a character's height.
 ---
 ---These functions find the size of a glyph in a defined font. The `fontname`
 ---is the same name as the argument to `infont`; the `char` is a glyph
@@ -420,6 +427,8 @@ function mplib.char_height(mp, fontname, char) end
 
 _N._11_2_8_3_char_depth = 238
 
+---
+---Report a character's depth.
 ---
 ---These functions find the size of a glyph in a defined font. The `fontname`
 ---is the same name as the argument to `infont`; the `char` is a glyph

@@ -7,7 +7,7 @@
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdf.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 pdf = {}
 
-_N._14_1_The_pdf_library = 281
+_N._14_1_the_pdf_library = 281
 _N._14_1_1_mapfile_mapline = 281
 
 ---
@@ -917,6 +917,8 @@ function pdf.obj(objnum, file, filename) end
 ---@param stream string # Literal string `"stream"`.
 ---@param streamcontents string # Contents of the stream.
 ---@param streamdict string # Stream dictionary.
+---
+---
 ---@return integer objnum # Object number.
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdf.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -985,7 +987,7 @@ _N._14_1_24_reserveobj = 286
 ---
 ---Use `pdf.obj()` or `pdf.immediateobj()` to define this object.
 ---
----@return integer objnum  # Object number.
+---@return integer objnum # Object number.
 ---
 ---@see pdf.obj
 ---@see pdf.immediateobj
@@ -1045,7 +1047,6 @@ _N._14_1_27_newcolorstack = 286
 ---@param s string
 ---@param literal_mode 'page'|'direct'|'origin'|'text'|'raw'
 ---@param page_start boolean
---
 ---
 ---@return integer color_stack_id
 ---

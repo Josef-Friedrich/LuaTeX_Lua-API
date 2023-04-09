@@ -122,6 +122,8 @@ function lua.getcalllevel() end
 lua.bytecode = {}
 
 ---
+---Save a function in a bytecode register.
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [llualib.c#L249-L315](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L249-L315)
@@ -132,6 +134,8 @@ lua.bytecode = {}
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lua.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lua.setbytecode(n, f) end
 
+---
+---Return a previously stored function from a bytecode register.
 ---
 ---__Reference:__
 ---
