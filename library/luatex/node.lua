@@ -1453,7 +1453,6 @@ _N._7_4_id = 145
 ---
 ---Convert a single type name to its internal numeric representation.
 ---
----
 ---```lua
 ---node.id('glyph') -- 29
 ---```

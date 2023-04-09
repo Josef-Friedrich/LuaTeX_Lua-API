@@ -13,19 +13,19 @@ lang = {}
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class Language
 
+_N._5_8_1_new_and_id = 83
+
 ---
 ---Create a new language object, with an optional fixed id number.
 ---
 ---Create a new userdata object of type `<language>`.
 ---
 ---These functions can also be used as if they were object methods, using the colon
----syntax. Without an argument, the next available internal id number will be
----assigned to this object. With an argument, an object will be created that links to
----the internal language with that id number.
+---syntax.
 ---
 ---* Corresponding C source code: [llanglib.c#L27-L48](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llanglib.c#L27-L48)
 ---
----@param id integer
+---@param id? integer # Without an argument, the next available internal id number will be assigned to this object. With an argument, an object will be created that links to the internal language with that id number.
 ---
 ---@return Language
 ---
@@ -37,12 +37,14 @@ function lang.new(id) end
 ---
 ---* Corresponding C source code: [llanglib.c#L50-L56](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llanglib.c#L50-L56)
 ---
----@param l Language
+---@param language Language
 ---
 ---@return integer # The number returned is the internal `language` id number this object refers to.
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function lang.id(l) end
+function lang.id(language) end
+
+_N._5_8_2_hyphenation = 84
 
 ---
 ---Get or set hyphenation exceptions.
@@ -51,48 +53,53 @@ function lang.id(l) end
 ---
 ---* Corresponding C source code: [llanglib.c#L86-L104](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llanglib.c#L86-L104)
 ---
----@param l Language
+---@param language Language
 ---@param n? string
 ---
 ---@return string n
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function lang.hyphenation(l, n) end
+function lang.hyphenation(language, n) end
+
+_N._5_8_3_clear_hyphenation_and_clean = 84
 
 ---
 ---Clear the set of hyphenation exceptions.
 ---
----@param l Language
+---@param language Language
 ---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [llanglib.c#L215-L221](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llanglib.c#L215-L221)
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function lang.clear_hyphenation(l) end
+function lang.clear_hyphenation(language) end
 
 ---
----Create a hyphenation key from the supplied hyphenation exception.
----
----@param l Language
----@param o string
+---Clear the exception dictionary (string) for this language.
 ---
 ---* Corresponding C source code: [llanglib.c#L223-L241](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llanglib.c#L223-L241)
 ---
+---@param language Language
+---@param o string
+---
+---@return string n
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function lang.clean(l, o) end
+function lang.clean(language, o) end
 
 ---
----Create a hyphenation key from the supplied hyphenation exception.
+---Clear the exception dictionary (string) for this language.
+---
+---* Corresponding C source code: [llanglib.c#L223-L241](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llanglib.c#L223-L241)
 ---
 ---@param o string
 ---
 ---@return string n
 ---
----* Corresponding C source code: [llanglib.c#L223-L241](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llanglib.c#L223-L241)
----
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lang.clean(o) end
+
+_N._5_8_4_patterns_and_clear_patterns = 84
 
 ---
 ---Return the current
@@ -100,23 +107,23 @@ function lang.clean(o) end
 ---
 ---* Corresponding C source code: [llanglib.c#L58-L76](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llanglib.c#L58-L76)
 ---
----@param l Language
+---@param language Language
 ---
 ---@return string n
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function lang.patterns(l) end
+function lang.patterns(language) end
 
 ---
 ---Add additional patterns for this language object.
 ---
 ---* Corresponding C source code: [llanglib.c#L58-L76](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llanglib.c#L58-L76)
 ---
----@param l Language
+---@param language Language
 ---@param n string
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function lang.patterns(l, n) end
+function lang.patterns(language, n) end
 
 ---
 ---Clear the set of hyphenation patterns.
@@ -125,10 +132,12 @@ function lang.patterns(l, n) end
 ---
 ---* Corresponding C source code: [llanglib.c#L78-L84](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llanglib.c#L78-L84)
 ---
----@param l Language
+---@param language Language
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function lang.clear_patterns(l) end
+function lang.clear_patterns(language) end
+
+_N._5_8_5_hyphenationmin = 84
 
 ---
 ---Gets the value of the *TeX* parameter
@@ -136,12 +145,12 @@ function lang.clear_patterns(l) end
 ---
 ---* Corresponding C source code: [llanglib.c#L199-L213](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llanglib.c#L199-L213)
 ---
----@param l Language
+---@param language Language
 ---
 ---@return string n
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function lang.hyphenationmin(l) end
+function lang.hyphenationmin(language) end
 
 ---
 ---Set the value of the *TeX* parameter
@@ -149,9 +158,11 @@ function lang.hyphenationmin(l) end
 ---
 ---* Corresponding C source code: [llanglib.c#L199-L213](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llanglib.c#L199-L213)
 ---
----@param l Language
+---@param language Language
 ---@param n integer
-function lang.hyphenationmin(l, n) end
+function lang.hyphenationmin(language, n) end
+
+_N._5_8_6_pre_post_ex_hyphenchar = 84
 
 ---
 ---Set the “pre-break” hyphen characters for implicit hyphenation in this language.
@@ -161,11 +172,11 @@ function lang.hyphenationmin(l, n) end
 ---
 ---* Corresponding C source code: [llanglib.c#L106-L120](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llanglib.c#L106-L120)
 ---
----@param l Language
+---@param language Language
 ---@param n integer
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function lang.prehyphenchar(l, n) end
+function lang.prehyphenchar(language, n) end
 
 ---
 ---Get the “pre-break” hyphen characters for implicit hyphenation in this language.
@@ -175,12 +186,12 @@ function lang.prehyphenchar(l, n) end
 ---
 ---* Corresponding C source code: [llanglib.c#L106-L120](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llanglib.c#L106-L120)
 ---
----@param l Language
+---@param language Language
 ---
 ---@return integer n
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function lang.prehyphenchar(l, n) end
+function lang.prehyphenchar(language, n) end
 
 ---
 ---Set the “post-break” hyphen characters for implicit hyphenation in this language.
@@ -190,11 +201,11 @@ function lang.prehyphenchar(l, n) end
 ---
 ---* Corresponding C source code: [llanglib.c#L122-L136](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llanglib.c#L122-L136)
 ---
----@param l Language
+---@param language Language
 ---@param n integer
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function lang.posthyphenchar(l, n) end
+function lang.posthyphenchar(language, n) end
 
 ---
 ---Get the “post-break” hyphen characters for implicit hyphenation in this language.
@@ -204,12 +215,12 @@ function lang.posthyphenchar(l, n) end
 ---
 ---* Corresponding C source code: [llanglib.c#L122-L136](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llanglib.c#L122-L136)
 ---
----@param l Language
+---@param language Language
 ---
 ---@return integer n
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function lang.posthyphenchar(l, n) end
+function lang.posthyphenchar(language, n) end
 
 ---
 ---Set the “pre-break”  hyphen
@@ -221,11 +232,11 @@ function lang.posthyphenchar(l, n) end
 ---
 ---* Corresponding C source code: [llanglib.c#L138-L152](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llanglib.c#L138-L152)
 ---
----@param l Language
+---@param language Language
 ---@param n integer
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function lang.preexhyphenchar(l, n) end
+function lang.preexhyphenchar(language, n) end
 
 ---
 ---Get the “pre-break” hyphen
@@ -237,12 +248,12 @@ function lang.preexhyphenchar(l, n) end
 ---
 ---* Corresponding C source code: [llanglib.c#L138-L152](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llanglib.c#L138-L152)
 ---
----@param l Language
+---@param language Language
 ---
 ---@return integer n
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function lang.preexhyphenchar(l, n) end
+function lang.preexhyphenchar(language, n) end
 
 ---
 ---Set the “post-break” hyphen
@@ -254,11 +265,11 @@ function lang.preexhyphenchar(l, n) end
 ---
 ---* Corresponding C source code: [llanglib.c#L183-L197](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llanglib.c#L183-L197)
 ---
----@param l Language
+---@param language Language
 ---@param n integer
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function lang.postexhyphenchar(l, n) end
+function lang.postexhyphenchar(language, n) end
 
 ---
 ---Get the “post-break” hyphen
@@ -270,12 +281,14 @@ function lang.postexhyphenchar(l, n) end
 ---
 ---* Corresponding C source code: [llanglib.c#L183-L197](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llanglib.c#L183-L197)
 ---
----@param l Language
+---@param language Language
 ---
 ---@return integer n
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function lang.postexhyphenchar(l, n) end
+function lang.postexhyphenchar(language, n) end
+
+_N._5_8_7_hyphenate = 85
 
 ---
 ---Hyphenate a node list.
@@ -301,30 +314,32 @@ function lang.postexhyphenchar(l, n) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lang.hyphenate(head, tail) end
 
+_N._5_8_8_set_get_hjcode = 85
+
 ---
 ---Set hj codes.
 ---
 ---When you set a hjcode the current sets get initialized unless the set was already
----initialized due to `savinghyphcodes` being larger than zero.
+---initialized due to `\savinghyphcodes` being larger than zero.
 ---
 ---* Corresponding C source code: [llanglib.c#L154-L169](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llanglib.c#L154-L169)
 ---
----@param l Language
+---@param language Language
 ---@param char integer
 ---@param usedchar integer
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function lang.sethjcode(l, char, usedchar) end
+function lang.sethjcode(language, char, usedchar) end
 
 ---
 ---Query hj codes.
 ---
 ---* Corresponding C source code: [llanglib.c#L171-L181](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llanglib.c#L171-L181)
 ---
----@param l Language
+---@param language Language
 ---@param char number
 ---
 ---@return integer usedchar
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function lang.gethjcode(l, char) end
+function lang.gethjcode(language, char) end
