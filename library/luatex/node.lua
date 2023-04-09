@@ -1453,6 +1453,11 @@ _N._7_4_id = 145
 ---
 ---Convert a single type name to its internal numeric representation.
 ---
+---
+---```lua
+---node.id('glyph') -- 29
+---```
+---
 ---__Reference:__
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L1235-L1244](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L1235-L1244)

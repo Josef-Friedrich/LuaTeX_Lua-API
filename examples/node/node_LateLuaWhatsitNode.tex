@@ -1,0 +1,8 @@
+\directlua{
+    for field_id, field in pairs(node.fields(node.id('whatsit'), node.subtype('late_lua'))) do
+      print('  ' .. field_id .. ' ' .. field)
+    end
+
+}
+
+\bye
