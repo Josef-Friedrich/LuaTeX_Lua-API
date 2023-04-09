@@ -918,7 +918,6 @@ function pdf.obj(objnum, file, filename) end
 ---@param streamcontents string # Contents of the stream.
 ---@param streamdict string # Stream dictionary.
 ---
----
 ---@return integer objnum # Object number.
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdf.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
