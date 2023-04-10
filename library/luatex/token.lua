@@ -874,6 +874,15 @@ _N._4_macros = 219
 ---
 ---Create a macro.
 ---
+---__Example:__
+---
+---```tex
+---\directlua{
+---  token.set_macro("test", "content")
+---}
+---\test
+---```
+---
 ---__Reference:__
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L2368-L2382](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L2368-L2382)
@@ -888,6 +897,15 @@ function token.set_macro(csname, content, global) end
 
 ---
 ---Create a macro.
+---
+---__Example:__
+---
+---```tex
+---\directlua{
+---  token.set_macro("test", "content")
+---}
+---\test
+---```
 ---
 ---__Reference:__
 ---
@@ -906,6 +924,17 @@ function token.set_macro(catcodetable, csname, content, global) end
 ---Do a `chardef` at the
 ---*Lua* end, where invalid assignments are silently ignored.
 ---
+---__Example:__
+---
+---```tex
+---\directlua{
+---  token.set_char('myT', 84)
+---  token.set_char('mye', 101)
+---  token.set_char('myX', 88)
+---}
+---\myT\mye\myX % TeX
+---```
+---
 ---* Corresponding C source code: [lnewtokenlib.c#L1344-L1371](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L1344-L1371)
 ---
 ---@param csname string
@@ -920,11 +949,37 @@ function token.set_char(csname, number, global) end
 ---that you can access with `lua.get_functions_table`. It is the companion
 ---to `luadef`.
 ---
+---__Example:__
+---
+---```tex
+---\directlua{
+---  local t = lua.get_functions_table()
+---
+---  t[1] = function () end
+---
+---  local index = 1
+---  while t[index] do
+---    index = index + 1
+---  end
+---
+---  t[index] = function(slot)
+---    print(slot)
+---  end
+---  token.set_lua('mycode', index, 'protected', 'global')
+---}
+---
+---\mycode
+---
+---\bye
+---```
+---
 ---* Corresponding C source code: [lnewtokenlib.c#L1168-L1216](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L1168-L1216)
 ---
 ---@param name string
 ---@param id integer
 ---@param ... 'global'|'protected'
+---
+---@see lua.get_functions_table
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/token.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function token.set_lua(name, id, ...) end
