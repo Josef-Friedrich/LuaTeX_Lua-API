@@ -3197,7 +3197,7 @@ _N._10_3_15_8_run_finish = 205
 function tex.run() end
 
 ---
----Force the end of a interpretation.
+---Force the end of an interpretation.
 ---
 ---__Reference:__
 ---
@@ -3228,10 +3228,7 @@ _N._10_3_15_9_runtoks = 205
 ---effects: normally in such an definition tokens remain tokens and (for instance)
 ---characters don't become nodes.
 ---
----You can quit the local loop with `\endlocalcontrol` or from the *Lua* end
----with `tex.quittoks`. In that case you end one level up! Of course in the
----end that can mean that you arrive at the main level in which case an extra end
----will trigger a redundancy warning (not an abort!).
+
 ---
 ---__Example:__
 ---
@@ -3266,9 +3263,11 @@ function tex.runtoks(token_register, force, grouped) end
 function tex.runtoks(func) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---
+---You can quit the local loop with `\endlocalcontrol` or from the *Lua* end
+---with `tex.quittoks`. In that case you end one level up! Of course in the
+---end that can mean that you arrive at the main level in which case an extra end
+---will trigger a redundancy warning (not an abort!).
 function tex.quittoks() end
 
 _N._10_3_15_10_forcehmode = 205

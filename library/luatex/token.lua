@@ -220,7 +220,7 @@ function token.scan_dimen(inf, mu) end
 ---
 ---* Corresponding C source code: [lnewtokenlib.c#L524-L538](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L524-L538)
 ---
----@param mu_units boolean
+---@param mu_units? boolean
 ---
 ---@return GlueSpecNode
 ---
@@ -228,17 +228,33 @@ function token.scan_dimen(inf, mu) end
 function token.scan_glue(mu_units) end
 
 ---
----returns a table of tokens tokens
+---Scan a list of tokens delimited by balanced braces.
+---
+---__Example:__
+---
+---```tex
+---\directlua{
+---  local t = token.scan_toks()
+---  for id, tok in ipairs(t) do
+---    print(id, tok, tok.command, tok.cmdname, tok.csname)
+---  end
+---}{Some text}
+---```
 ---
 ---__Reference:__
 ---
----* Corresponding C source code: [lnewtokenlib.c#L540-L567](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L540-L567)
+---* Corresponding C source code: [lnewtokenlib.c#L575-L602](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L575-L602)
 ---
----[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/token.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/token.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)-
+---
+---@param definer? boolean `macro_def`, `\def`
+---@param expand? boolean
+---
+---@return Token[]
 function token.scan_toks(definer, expand) end
 
 ---
----returns a character if its category is in the given bitset (representing catcodes)
+---Return a character if its category is in the given bitset (representing catcodes)
 ---
 ---__Reference:__
 ---

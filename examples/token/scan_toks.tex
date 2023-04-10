@@ -1,0 +1,8 @@
+\directlua{
+  local t = token.scan_toks()
+  for id, tok in ipairs(t) do
+    print(id, tok, tok.command, tok.cmdname, tok.csname)
+  end
+}{Some text}
+
+\bye
