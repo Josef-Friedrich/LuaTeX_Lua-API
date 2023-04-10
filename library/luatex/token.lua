@@ -316,7 +316,7 @@ function token.scan_string() end
 function token.scan_argument(expand) end
 
 ---
----Return a sequence of characters with catcode 11 or 12 as string.
+---Return a sequence of characters with catcode `11` or `12` as a string.
 ---
 ---__Reference:__
 ---
@@ -387,7 +387,7 @@ function token.expand() end
 _N._3_creating = 218
 
 ---
----* Corresponding C source code: [luatoken.c#L191-L349](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/luatoken.c#L191-L349)
+---* Corresponding C source code: [luatoken.c#L192-L351](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/luatoken.c#L192-L351)
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/token.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias TokenCommandName

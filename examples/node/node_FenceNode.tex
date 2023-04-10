@@ -1,0 +1,15 @@
+\directlua{
+    local inspect = require('inspect')
+    for field_id, field in pairs(node.fields(node.id('fence'))) do
+      print('  ' .. field_id .. ' ' .. field)
+    end
+
+    for field_id, field in pairs(node.subtypes('fence')) do
+      print('  ' .. field_id .. ' ' .. field)
+    end
+
+print(inspect(node.subtypes('fence')))
+
+}
+
+\bye
