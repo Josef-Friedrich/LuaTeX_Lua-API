@@ -267,10 +267,10 @@ _N.hlist = 0
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class ListNode: Node
----@field width number # the width of the box
----@field height number # the height of the box
----@field depth number # the depth of the box
----@field shift number # a displacement perpendicular to the character progression direction
+---@field width integer # the width of the box
+---@field height integer # the height of the box
+---@field depth integer # the depth of the box
+---@field shift integer # a displacement perpendicular to the character progression direction
 ---@field glue_order GlueOrder
 ---@field glue_set GlueSet
 ---@field glue_sign GlueSign
@@ -371,9 +371,9 @@ _N.ins = 3
 ---@class InsNode: Node
 ---@field subtype number # the insertion class
 ---@field attr Node # A list of attributes.
----@field cost number # the penalty associated with this insert
----@field height number # height of the insert
----@field depth number # depth of the insert
+---@field cost integer # the penalty associated with this insert
+---@field height integer # height of the insert
+---@field depth integer # depth of the insert
 ---@field head Node # the first node of the body of this insert
 ---@field list Node # the first node of the body of this insert
 
@@ -384,9 +384,9 @@ _N.mark = 4
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class MarkNode: Node
----@field subtype number # unused
+---@field subtype integer # unused
 ---@field attr Node # A list of attributes.
----@field class number # the mark class
+---@field class integer # the mark class
 ---@field mark table # a table representing a token list
 
 _N.adjust = 5
@@ -433,7 +433,7 @@ _N.disc = 7
 ---@field pre Node # pointer to the pre-break text
 ---@field post Node # pointer to the post-break text
 ---@field replace Node # pointer to the no-break text
----@field penalty number # the penalty associated with the break, normally `hyphenpenalty` or `exhyphenpenalty`
+---@field penalty integer # the penalty associated with the break, normally `hyphenpenalty` or `exhyphenpenalty`
 
 _N.math = 11
 
@@ -452,7 +452,7 @@ _N.math = 11
 ---@class MathNode: Node
 ---@field subtype MathNodeSubtype
 ---@field attr Node # A list of attributes.
----@field surround number # width of the `mathsurround` kern
+---@field surround integer # width of the `mathsurround` kern
 
 _N.glue_spec = 39
 
@@ -495,11 +495,11 @@ _N.glue_spec = 39
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class GlueSpecNode: Node
----@field width          integer # the horizontal or vertical displacement
----@field stretch        integer # extra (positive) displacement or stretch amount
----@field stretch_order  integer # factor applied to stretch amount
----@field shrink         integer # extra (negative) displacement or shrink amount
----@field shrink_order   integer # factor applied to shrink amount
+---@field width integer # the horizontal or vertical displacement
+---@field stretch integer # extra (positive) displacement or stretch amount
+---@field stretch_order integer # factor applied to stretch amount
+---@field shrink integer # extra (negative) displacement or shrink amount
+---@field shrink_order integer # factor applied to shrink amount
 
 _N.glue = 12
 
@@ -626,7 +626,7 @@ _N.penalty = 14
 ---@class PenaltyNode: Node
 ---@field subtype PenaltyNodeSubtype
 ---@field attr Node # A list of attributes.
----@field penalty number # the penalty value
+---@field penalty integer # the penalty value
 
 _N.glyph = 29
 
@@ -648,20 +648,20 @@ _N.glyph = 29
 ---@class GlyphNode: Node
 ---@field subtype GlyphNodeSubtype # A bit field
 ---@field attr Node # A list of attributes
----@field char number # The character index. in the font
----@field font number # The font identifier
----@field lang number # The language identifier
----@field left number # The frozen `\lefthyphenmnin` value
----@field right number # The frozen `\righthyphenmnin` value
+---@field char integer # The character index. in the font
+---@field font integer # The font identifier
+---@field lang integer # The language identifier
+---@field left integer # The frozen `\lefthyphenmnin` value
+---@field right integer # The frozen `\righthyphenmnin` value
 ---@field uchyph boolean # The frozen `uchyph` value
 ---@field components Node # A Pointer to ligature components
----@field xoffset number # A virtual displacement in horizontal direction
----@field yoffset number # A virtual displacement in vertical direction
----@field width number # The (original) width of the character
----@field height number # The (original) height of the character
----@field depth number # The (original) depth of the character
----@field expansion_factor number # The to be applied expansion factor
----@field data number # A general purpose field for users (we had room for it)
+---@field xoffset integer # A virtual displacement in horizontal direction
+---@field yoffset integer # A virtual displacement in vertical direction
+---@field width integer # The (original) width of the character
+---@field height integer # The (original) height of the character
+---@field depth integer # The (original) depth of the character
+---@field expansion_factor integer # The to be applied expansion factor
+---@field data integer # A general purpose field for users (we had room for it)
 
 ---
 ---Return `true` when a glyph or disc node references that font.
@@ -708,7 +708,7 @@ _N.boundary = 6
 ---@class BoundaryNode: Node
 ---@field subtype BoundaryNodeSubtype
 ---@field attr Node # A list of attributes.
----@field value number # values 0-255 are reserved
+---@field value integer # values 0-255 are reserved
 
 _N.local_par = 9
 
@@ -718,16 +718,28 @@ _N.local_par = 9
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class LocalParNode: Node
 ---@field attr Node # A list of attributes.
----@field pen_inter number # local interline penalty (from `localinterlinepenalty`)
----@field pen_broken number # local broken penalty (from `localbrokenpenalty`)
+---@field pen_inter integer # local interline penalty (from `localinterlinepenalty`)
+---@field pen_broken integer # local broken penalty (from `localbrokenpenalty`)
 ---@field dir string # the direction of this par. see \in [dirnodes]
 ---@field box_left Node # the `localleftbox`
----@field box_left_width number # width of the `localleftbox`
+---@field box_left_width integer # width of the `localleftbox`
 ---@field box_right Node # the `localrightbox`
----@field box_right_width number # width of the `localrightbox`
+---@field box_right_width integer # width of the `localrightbox`
 
 _N.dir = 10
 
+---
+---Direction specifiers are three-letter combinations of `T`, `B`,
+---`R`, and `L`. These are built up out of three separate items:
+---
+---* the first is the direction of the “top” of paragraphs
+---* the second is the direction of the “start” of lines
+---* the third is the direction of the “top” of glyphs
+---
+---However, only four combinations are accepted: `TLT`, `TRT`, `RTT`, and `LTL`. Inside actual `dir` nodes, the representation of
+---`dir` is not a three-letter but a combination of numbers. When printed the
+---direction is indicated by a `+` or `-`, indicating whether the value
+---is pushed or popped from the direction stack.
 ---
 ---* Corresponding C source code: [texnodes.c#L753-L756](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L753-L756)
 ---
@@ -735,7 +747,7 @@ _N.dir = 10
 ---@class DirNode: Node
 ---@field attr Node # A list of attributes.
 ---@field dir string # the direction (but see below)
----@field level number # nesting level of this direction whatsit
+---@field level integer # nesting level of this direction whatsit
 
 _N.margin_kern = 28
 
@@ -748,69 +760,89 @@ _N.margin_kern = 28
 ---|1 # right
 
 ---
+---Margin kerns result from protrusion.
+---
 ---* Corresponding C source code: [texnodes.c#L863-L866](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L863-L866)
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class MarginKernNode: Node
----@field subtype number # \showsubtypes{marginkern}
+---@field subtype MarginKernNodeSubtype
 ---@field attr Node # A list of attributes.
----@field width number # the advance of the kern
+---@field width integer # the advance of the kern
 ---@field glyph Node # the glyph to be used
 
 _N.math_char = 23
 
+---
+---The `math_char` is the simplest subnode field, it contains the character
+---and family for a single glyph object.
 ---
 ---* Corresponding C source code: [texnodes.c#L882-L885](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L882-L885)
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class MathCharNode: Node
 ---@field attr Node # A list of attributes.
----@field char number # The character index.
----@field fam number # The family number.
+---@field char integer # The character index.
+---@field fam integer # The family number.
 
 _N.math_text_char = 26
 
+---
+---The `math_text_char` is a special
+---case that you will not normally encounter, it arises temporarily during math list
+---conversion (its sole function is to suppress a following italic correction).
 ---
 ---* Corresponding C source code: [texnodes.c#L887-L890](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L887-L890)
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class MathTextCharNode: Node
 ---@field attr Node # A list of attributes.
----@field char number # The character index.
----@field fam number # The family number.
+---@field char integer # The character index.
+---@field fam integer # The family number.
 
 _N.sub_box = 24
 
+---
+---For subsidiary list items
 ---
 ---* Corresponding C source code: [texnodes.c#L933-L935](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L933-L935)
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class SubBoxNode: Node
 ---@field attr Node # A list of attributes.
----@field head Node # A list of nodes.
+---@field head Node # A list of nodes. `head` points to a “normal” vbox or hbox.
 
 _N.sub_mlist = 25
 
+---
+---For subsidiary list items
 ---
 ---* Corresponding C source code: [texnodes.c#L937-L939](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L937-L939)
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class SubMlistNode: Node
 ---@field attr Node # A list of attributes.
----@field head Node # A list of nodes.
+---@field head Node # A list of nodes. `head` points to a math list that is yet to be converted.
 
 _N.delim = 27
 
+---
+---There is a fifth subnode type that is used exclusively for delimiter fields. As
+---before, the `next` and `prev` fields are unused.
+---
+---The fields `large_char` and `large_fam` can be zero, in that case the
+---font that is set for the `small_fam` is expected to provide the large
+---version as an extension to the `small_char`.
 ---
 ---* Corresponding C source code: [texnodes.c#L746-L751](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L746-L751)
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class DelimNode: Node
 ---@field attr Node # A list of attributes.
----@field small_char number # character index of base character
----@field small_fam number # family number of base character
----@field large_char number # character index of next larger character
----@field large_fam number # family number of next larger character
+---@field small_char integer # character index of base character
+---@field small_fam integer # family number of base character
+---@field large_char integer # character index of next larger character
+---@field large_fam integer # family number of next larger character
 
 _N.noad = 18
 
@@ -834,6 +866,28 @@ _N.noad = 18
 ---|12 # vcenter
 
 ---
+---First, there are the objects (the *TeX* book calls them “atoms”) that are
+---associated with the simple math objects: ord, op, bin, rel, open, close, punct,
+---inner, over, under, vcent. These all have the same fields, and they are combined
+---into a single node type with separate subtypes for differentiation.
+---
+---Some noads have an option field. The values in this bitset are common:
+---
+--- | meaning         |  bits           |
+--- |-----------------|-----------------|
+--- | set             |          `0x08` |
+--- | internal        | `0x00` + `0x08` |
+--- | internal        | `0x01` + `0x08` |
+--- | axis            | `0x02` + `0x08` |
+--- | no axis         | `0x04` + `0x08` |
+--- | exact           | `0x10` + `0x08` |
+--- | left            | `0x11` + `0x08` |
+--- | middle          | `0x12` + `0x08` |
+--- | right           | `0x14` + `0x08` |
+--- | no sub script   | `0x21` + `0x08` |
+--- | no super script | `0x22` + `0x08` |
+--- | no script       | `0x23` + `0x08` |
+---
 ---* Corresponding C source code: [texnodes.c#L892-L896](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L892-L896)
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -843,7 +897,7 @@ _N.noad = 18
 ---@field nucleus Node # base
 ---@field sub Node # subscript
 ---@field sup Node # superscript
----@field options number # bitset of rendering options
+---@field options integer # bitset of rendering options
 
 _N.accent = 21
 
@@ -871,7 +925,7 @@ _N.accent = 21
 ---@field bot_accent Node # bottom accent
 ---@field top_accent Node # top_accent
 ---@field overlay_accent Node # overlay_accent
----@field fraction number # larger step criterium (divided by 1000)
+---@field fraction integer # larger step criterium (divided by 1000)
 
 _N.style = 16
 
@@ -885,6 +939,9 @@ _N.style = 16
 
 _N.choice = 17
 
+---
+---Warning: never assign a node list to the `display`, `text`, `script`, or `scriptscript` field unless you are sure its internal link
+---structure is correct, otherwise an error can occur.
 ---
 ---* Corresponding C source code: [texnodes.c#L739-L744](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L739-L744)
 ---
@@ -912,6 +969,10 @@ _N.radical = 19
 ---|6 # udelimiterover
 
 ---
+----
+--Warning: never assign a node list to the `nucleus`, `sub`, `sup`, `left`, or `degree` field unless you are sure its internal
+---link structure is correct, otherwise an error can be triggered.
+---
 ---* Corresponding C source code: [texnodes.c#L902-L910](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L902-L910)
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -923,16 +984,29 @@ _N.radical = 19
 ---@field sup KernNode # superscript
 ---@field left DelimNode
 ---@field degree KernNode # only set by `Uroot`
----@field width number # required width
----@field options number # bitset of rendering options
+---@field width integer # required width
+---@field options integer # bitset of rendering options
 
 _N.fraction = 20
 
+---
+---Warning: never assign a node list to the `num`, or `denom` field
+---unless you are sure its internal link structure is correct, otherwise an error
+---can result.
 ---
 ---* Corresponding C source code: [texnodes.c#L774-L783](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L774-L783)
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FractionNode: Node
+---@field attr Node # A list of attributes.
+---@field width integer # (optional) width of the fraction
+---@field num KernNode # numerator
+---@field denom KernNode # denominator
+---@field left DelimNode # left side symbol
+---@field right DelimNode # right side symbol
+---@field middle DelimNode # middle symbol
+---@field options integer # bitset of rendering options
+---
 
 _N.fence = 22
 
@@ -948,40 +1022,51 @@ _N.fence = 22
 ---|4 # no
 
 ---
+---Warning: some of these fields are used by the renderer and might get adapted in
+---the process.
+---
 ---* Corresponding C source code: [texnodes.c#L765-L772](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L765-L772)
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FenceNode: Node
+---@field subtype FenceNodeSubtype
+---@field attr Node # list of attributes
+---@field delim DelimNode # delimiter specification
+---@field italic integer # italic correction
+---@field height integer # required height
+---@field depth integer # required depth
+---@field options integer # bitset of rendering options
+---@field class integer # spacing related class
 
 _N.whatsit = 8
 
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias WhatsitTypeId
----| 0  # open
----| 1  # write
----| 2  # close
----| 3  # special
----| 6  # save_pos
----| 7  # late_lua
----| 8  # user_defined
----| 16 # pdf_literal
----| 17 # pdf_refobj
----| 18 # pdf_annot
----| 19 # pdf_start_link
----| 20 # pdf_end_link
----| 21 # pdf_dest
----| 22 # pdf_action
----| 23 # pdf_thread
----| 24 # pdf_start_thread
----| 25 # pdf_end_thread
----| 26 # pdf_thread_data
----| 27 # pdf_link_data
----| 28 # pdf_colorstack
----| 29 # pdf_setmatrix
----| 30 # pdf_save
----| 31 # pdf_restore
----| 32 # pdf_link_state
+---|0  # open
+---|1  # write
+---|2  # close
+---|3  # special
+---|6  # save_pos
+---|7  # late_lua
+---|8  # user_defined
+---|16 # pdf_literal
+---|17 # pdf_refobj
+---|18 # pdf_annot
+---|19 # pdf_start_link
+---|20 # pdf_end_link
+---|21 # pdf_dest
+---|22 # pdf_action
+---|23 # pdf_thread
+---|24 # pdf_start_thread
+---|25 # pdf_end_thread
+---|26 # pdf_thread_data
+---|27 # pdf_link_data
+---|28 # pdf_colorstack
+---|29 # pdf_setmatrix
+---|30 # pdf_save
+---|31 # pdf_restore
+---|32 # pdf_link_state
 
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -1043,7 +1128,7 @@ _N._whatsit.write = 1
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class WriteWhatsitNode: Node
 ---@field attr Node # A list of attributes.
----@field stream number # *TeX*'s stream id number
+---@field stream integer # *TeX*'s stream id number
 ---@field data table # a table representing the token list to be written
 
 _N._whatsit.close = 2
@@ -1054,7 +1139,7 @@ _N._whatsit.close = 2
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class CloseWhatsitNode: Node
 ---@field attr Node # A list of attributes.
----@field stream number # *TeX*'s stream id number
+---@field stream integer # *TeX*'s stream id number
 
 _N._whatsit.user_defined = 8
 
@@ -1069,7 +1154,7 @@ _N._whatsit.user_defined = 8
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class UserDefinedWhatsitNode: WhatsitNode
----@field user_id number # id number
+---@field user_id integer # id number
 ---@field type 97|100|108|110|115|116 # The `type` can have one of six distinct values. The number is the ASCII value if the first character of the type name (so you can use string.byte("l") instead of `108`): 97 “a” list of attributes (a node list), 100 “d” a *Lua* number, 108 “l” a *Lua* value (table, number, boolean, etc), 110 “n” a node list, 115 “s” a *Lua* string, 116 “t” a *Lua* token list in *Lua* table form (a list of triplets).
 ---@field value number|Node|string|table
 
@@ -1145,7 +1230,7 @@ _N._whatsit.pdf_refobj = 17
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PdfRefobjWhatsitNode: WhatsitNode
 ---@field attr Node # A list of attributes.
----@field objnum number # the referenced *PDF* object number
+---@field objnum integer # the referenced *PDF* object number
 
 _N._whatsit.pdf_annot = 18
 
@@ -1153,10 +1238,10 @@ _N._whatsit.pdf_annot = 18
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PdfAnnotWhatsitNode: WhatsitNode
 ---@field attr Node # A list of attributes.
----@field width number # the width (not used in calculations)
----@field height number # the height (not used in calculations)
----@field depth number # the depth (not used in calculations)
----@field objnum number # the referenced *PDF* object number
+---@field width integer # the width (not used in calculations)
+---@field height integer # the height (not used in calculations)
+---@field depth integer # the depth (not used in calculations)
+---@field objnum integer # the referenced *PDF* object number
 ---@field data string # the annotation data
 
 _N._whatsit.pdf_start_link = 19
@@ -1165,10 +1250,10 @@ _N._whatsit.pdf_start_link = 19
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PdfStartLinkWhatsitNode: WhatsitNode
 ---@field attr Node # A list of attributes.
----@field width number # the width (not used in calculations)
----@field height number # the height (not used in calculations)
----@field depth number # the depth (not used in calculations)
----@field objnum number # the referenced *PDF* object number
+---@field width integer # the width (not used in calculations)
+---@field height integer # the height (not used in calculations)
+---@field depth integer # the depth (not used in calculations)
+---@field objnum integer # the referenced *PDF* object number
 ---@field link_attr table # the link attribute token list
 ---@field action Node # the action to perform
 
@@ -1185,14 +1270,14 @@ _N._whatsit.pdf_dest = 21
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PdfDestWhatsitNode: WhatsitNode
 ---@field attr Node # A list of attributes.
----@field width number # the width (not used in calculations)
----@field height number # the height (not used in calculations)
----@field depth number # the depth (not used in calculations)
----@field named_id number # is the `dest_id` a string value?
----@field dest_id number # the destination id string the destination name
----@field dest_type number # type of destination
----@field xyz_zoom number # the zoom factor (times 1000)
----@field objnum number # the *PDF* object number; for structure references the *PDF* object number of the linked structure element
+---@field width integer # the width (not used in calculations)
+---@field height integer # the height (not used in calculations)
+---@field depth integer # the depth (not used in calculations)
+---@field named_id integer # is the `dest_id` a string value?
+---@field dest_id integer|string # `integer`: the destination id `string`: the destination name
+---@field dest_type integer # type of destination
+---@field xyz_zoom integer # the zoom factor (times 1000)
+---@field objnum integer # the *PDF* object number; for structure references the *PDF* object number of the linked structure element
 
 _N._whatsit.pdf_action = 22
 _N._8_6_7_pdf_action = 142
@@ -1222,11 +1307,11 @@ _N._8_6_7_pdf_action = 142
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PdfActionWhatsitNode: WhatsitNode
 ---@field action_type PdfActionTypes # the kind of action involved
----@field named_id number # are `dest_id` and `struct_id` string values?
----@field action_id number|string # token list reference or string
+---@field named_id integer # are `dest_id` and `struct_id` string values?
+---@field action_id integer|string # token list reference or string
 ---@field file string # the target filename
 ---@field new_window PdfWindowTypes # the window state of the target
----@field struct_id nil|number|string # `nil`: the action does not reference a structure; `number`: id of the referenced structure; `string`: name of the referenced structure destination
+---@field struct_id nil|integer|string # `nil`: the action does not reference a structure; `integer`: id of the referenced structure; `string`: name of the referenced structure destination
 ---@field data string # the name of the destination
 
 _N._whatsit.pdf_thread = 23
@@ -1237,12 +1322,12 @@ _N._whatsit.pdf_thread = 23
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PdfThreadWhatsitNode
 ---@field attr Node # A list of attributes.
----@field width number # the width (not used in calculations)
----@field height number # the height (not used in calculations)
----@field depth number # the depth (not used in calculations)
----@field named_id number # is `tread_id` a string value?
----@field tread_id number # the thread id  string  the thread name
----@field thread_attr number # extra thread information
+---@field width integer # the width (not used in calculations)
+---@field height integer # the height (not used in calculations)
+---@field depth integer # the depth (not used in calculations)
+---@field named_id integer # is `tread_id` a string value?
+---@field tread_id integer # the thread id  string  the thread name
+---@field thread_attr integer # extra thread information
 
 _N._whatsit.pdf_start_thread = 24
 
@@ -1252,12 +1337,12 @@ _N._whatsit.pdf_start_thread = 24
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PdfStartThreadWhatsitNode
 ---@field attr Node # A list of attributes.
----@field width number # the width (not used in calculations)
----@field height number # the height (not used in calculations)
----@field depth number # the depth (not used in calculations)
----@field named_id number # is `tread_id` a string value?
----@field tread_id number # the thread id  string  the thread name
----@field thread_attr number # extra thread information
+---@field width integer # the width (not used in calculations)
+---@field height integer # the height (not used in calculations)
+---@field depth integer # the depth (not used in calculations)
+---@field named_id integer # is `tread_id` a string value?
+---@field tread_id integer # the thread id  string  the thread name
+---@field thread_attr integer # extra thread information
 
 _N._whatsit.pdf_end_thread = 25
 
