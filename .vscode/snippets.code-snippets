@@ -97,6 +97,12 @@
     "description": "@param"
   },
 
+  "see": {
+    "prefix": ["see"],
+    "body": ["", "---", "---@see $0"],
+    "description": "@see"
+  },
+
   "direct": {
     "prefix": ["direct"],
     "body": ["node.direct.$0 = node.$0"],

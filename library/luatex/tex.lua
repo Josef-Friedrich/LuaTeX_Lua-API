@@ -3263,7 +3263,6 @@ function tex.runtoks(token_register, force, grouped) end
 function tex.runtoks(func) end
 
 ---
----
 ---You can quit the local loop with `\endlocalcontrol` or from the *Lua* end
 ---with `tex.quittoks`. In that case you end one level up! Of course in the
 ---end that can mean that you arrive at the main level in which case an extra end
