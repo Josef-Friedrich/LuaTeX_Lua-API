@@ -54,8 +54,8 @@ lua.version = ""
 --- ---
 ---
 ---```lua
----token.set_lua("mycode",id)
----token.set_lua("mycode",id,"global","protected")
+---token.set_lua("mycode", id)
+---token.set_lua("mycode", id, "global", "protected")
 ---```
 ---
 ---This creates a token that refers to a *Lua* function with an entry in the table
@@ -124,6 +124,14 @@ lua.bytecode = {}
 ---
 ---Save a function in a bytecode register.
 ---
+---__Example:__
+---
+---```lua
+---lua.setbytecode(13, function () print('A message') end)
+---local print_message = lua.getbytecode(13)
+---print_message() -- 'A message'
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [llualib.c#L249-L315](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L249-L315)
@@ -137,14 +145,24 @@ function lua.setbytecode(n, f) end
 ---
 ---Return a previously stored function from a bytecode register.
 ---
+---__Example:__
+---
+---```lua
+---lua.setbytecode(13, function () print('A message') end)
+---local print_message = lua.getbytecode(13)
+---print_message() -- 'A message'
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [llualib.c#L187-L212](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L187-L212)
 ---
+---@param n integer
+---
 ---@return function|nil f
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lua.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function lua.getbytecode() end
+function lua.getbytecode(n) end
 
 ---
 ---Return two numbers, one for the command handler and one for the graphical user interface (on Microsoft Windows).
@@ -160,13 +178,15 @@ function lua.getbytecode() end
 function lua.getcodepage() end
 
 ---
----There is an array of 65536 (0--65535) potential chunk names for use with the
+---There is an array of 65536 (0-65535) potential chunk names for use with the
 ---`directlua` and `latelua` primitives.
 ---
 ---```
 ---lua.name[<number> n] = <string> s
 ---<string> s = lua.name[<number> n]
 ---```
+---@see lua.getluaname
+---@see lua.setluaname
 ---
 ---@type table<integer, string>
 ---
@@ -176,15 +196,22 @@ lua.name = {}
 ---
 ---Set a Lua chunk name.
 ---
+---When a chunk name starts with
+---a `@` it will be displayed as a file name. This is a side effect of the way Lua implements error
+---handling.
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [llualib.c#L318-L339](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L318-L339)-
 ---
----@param s string|nil # If you want to unset a *Lua* name, you can assign `nil` to it.
----@param n integer
+---@param chunk_name string|nil # If you want to unset a *Lua* name, you can assign `nil` to it.
+---@param index integer
+---
+---@see lua.name
+---@see lua.getluaname
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lua.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function lua.setluaname(s, n) end
+function lua.setluaname(chunk_name, index) end
 
 ---
 ---Return a Lua chunk name.
@@ -193,12 +220,15 @@ function lua.setluaname(s, n) end
 ---
 ---* Corresponding C source code: [llualib.c#L341-L354](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L341-L354)
 ---
----@param n number
+---@param index number
 ---
 ---@return string|nil
 ---
+---@see lua.name
+---@see lua.setluaname
+---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lua.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function lua.getluaname(n) end
+function lua.getluaname(index) end
 
 ---
 ---Create a new empty table and push it onto the stack.
@@ -208,7 +238,7 @@ function lua.getluaname(n) end
 ---__Reference:__
 ---
 ---* Corresponding C source code: [llualib.c#L362-L368](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L362-L368)
----* [lua_createtable](https://pgl.yoyo.org/luai/i/lua_createtable)-
+---* [lua_createtable](https://pgl.yoyo.org/luai/i/lua_createtable)
 ---
 ---@param index integer
 ---@param hash integer
