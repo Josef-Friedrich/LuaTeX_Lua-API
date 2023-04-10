@@ -1565,6 +1565,8 @@ _N.delta = 47
 _N.passive = 48
 
 ---
+---Used in the line breaking algorithm.
+---
 ---* Corresponding C source code: [texnodes.c#L487](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L487)
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -1572,6 +1574,8 @@ _N.passive = 48
 
 _N.shape = 49
 
+---
+---`\parshape`
 ---
 ---* Corresponding C source code: [texnodes.c#L488](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L488)
 ---
@@ -5324,13 +5328,24 @@ function node.direct.usedlist() end
 ---
 ---Report some used values.
 ---
+---Valid arguments are `dir`, `direction`, `glue`, `pdf_literal`, `pdf_action`, `pdf_window` and `color_stack`. Keep
+---in mind that the setters normally expect a number, but this helper gives you a
+---list of what numbers matter. For practical reason the `pagestate` values
+---are also reported with this helper.
+---
+---__Example:__
+---
+---```lua
+---node.values('dir') -- { "TLT", "TRT", "LTL", "RTT" },
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L3117-L3151](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3117-L3151)
 ---
 ---@param type 'dir'|'direction'|'glue'|'pdf_literal'|'pdf_action'|'pdf_window'|'color_stack'|'pagestate'
 ---
----@return string[]
+---@return string[]|nil
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.values(type) end
