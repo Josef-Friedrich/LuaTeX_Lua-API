@@ -2385,16 +2385,10 @@ function tex.getdelcodes(n) end
 ---@return DelCode
 function tex.getdelcode(n) end
 
----
----Normally, the third and fourth values in a delimiter code assignment will be zero
----according to `Udelcode` usage, but the returned table can have values there
----(if the delimiter code was set using `delcode`, for example). Unset `delcode`'s can be recognized because `dval[1]` is `-1`.
----
-
 _N._10_3_7_box_registers_get_set_box = 0
 
 ---
----Set boxes, coming for instance from `hbox`, `vbox` or `vtop`.
+---Set a box, coming for instance from `hbox`, `vbox` or `vtop`.
 ---
 ---It is possible to
 ---define values globally by using the string `global` as the first function
@@ -2403,35 +2397,49 @@ _N._10_3_7_box_registers_get_set_box = 0
 ---* Corresponding C source code: [ltexlib.c#L1352-L1362](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1352-L1362)
 ---
 ---@param global 'global'
----@param n_or_cs integer|string
----@param s Node
-function tex.setbox(global, n_or_cs, s) end
+---@param box_register integer # A box register number (0 to 65535).
+---@param head Node # A `hlist` or `vlist` node.
+function tex.setbox(global, box_register, head) end
 
 ---
----Set boxes, coming for instance from `hbox`, `vbox` or `vtop`.
+---Set a box, coming for instance from `hbox`, `vbox` or `vtop`.
 ---
 ---It is possible to
 ---define values globally by using the string `global` as the first function
 ---argument.
+---
 ---* Corresponding C source code: [ltexlib.c#L1352-L1362](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1352-L1362)
 ---
----@param n_or_cs integer|string
----@param s Node
-function tex.setbox(n_or_cs, s) end
+---@param box_register integer # A box register number (0 to 65535).
+---@param head Node # A `hlist` or `vlist` node.
+function tex.setbox(box_register, head) end
 
 ---
----Query actual boxes, coming for instance from `hbox`, `vbox` or `vtop`.
+---Query an actual boxe, coming for instance from `hbox`, `vbox` or `vtop`.
 ---
 ---* Corresponding C source code: [ltexlib.c#L1272-L1280](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1272-L1280)
 ---
----@param n_or_cs integer|string
+---@param box_register integer|string # A box register number (0 to 65535) or a cs name (for example `\newbox\MyBox`: `MyBox`)
 ---
----@return Node n
-function tex.getbox(n_or_cs) end
+---@return Node|nil head
+function tex.getbox(box_register) end
 
 ---
+---Check if the given integer is a valid box register number.
+---
+---__Example:__
+---
+---```lua
+---print(tex.isbox(65535)) -- true
+---print(tex.isbox(65536)) -- false
+---```
+---
 ---* Corresponding C source code: [ltexlib.c#L1310-L1315](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1310-L1315)
-function tex.isbox() end
+---
+---@param box_register integer # A box register number (0 to 65535).
+---
+---@return boolean
+function tex.isbox(box_register) end
 
 _N._10_3_8_reusing_boxes_use_save_boxresource_and_getboxresourcedimensions = 0
 
@@ -2440,40 +2448,39 @@ _N._10_3_8_reusing_boxes_use_save_boxresource_and_getboxresourcedimensions = 0
 ---called xforms in *PDF*). You can (re)use the box with `useboxresource` or
 ---by creating a rule node with subtype 2.
 ---
----The optional second and third arguments are strings, the fourth is a boolean. The
----fifth argument is a type. When set to non-zero the `/Type` entry is
----omitted. A value of 1 or 3 still writes a `/BBox`, while 2 or 3 will write
----a `/Matrix`. The sixth argument is the (virtual) margin that extends beyond
----the effective boundingbox as seen by *TeX*. Instead of a box number one can also
----pass a `[h|v]list` node.
----
 ---* Corresponding C source code: [ltexlib.c#L3217-L3278](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3217-L3278)
 ---
----@param n Node|integer
+---@see tex.useboxresource
+---
+---@param n Node|integer # Instead of a box number one can also pass a `[h|v]list` node.
 ---@param attributes string
 ---@param resources string
 ---@param immediate boolean
----@param type any
----@param margin any
+---@param type integer # When set to non-zero the `/Type` entry is omitted. A value of 1 or 3 still writes a `/BBox`, while 2 or 3 will write a `/Matrix`.
+---@param margin integer # The (virtual) margin that extends beyond the effective boundingbox as seen by *TeX*.
 ---
 ---@return integer index
+---
 function tex.saveboxresource(n, attributes, resources, immediate, type, margin) end
 
 ---
----You can generate the reference (a rule type) with:
----
----```
----local reused = tex.useboxresource(n,wd,ht,dp)
----```
+--Generate the reference (a rule type).
 ---
 ---The dimensions are optional and the final ones are returned as extra values.
 ---
 ---* Corresponding C source code: [ltexlib.c#L3280-L3325](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3280-L3325)
 ---
----@param n Node
+---@see tex.saveboxresource
+---
+---@param n integer
 ---@param width? integer
 ---@param height? integer
 ---@param depth? integer
+---
+---@return Node|nil margin
+---@return integer|nil width
+---@return integer|nil height
+---@return integer|nil depth
 function tex.useboxresource(n, width, height, depth) end
 
 ---
@@ -2501,6 +2508,9 @@ _N._10_3_9_triggerbuildpage = 0
 ---You should not expect to much from the `triggerbuildpage` helpers because
 ---often *TeX* doesn't do much if it thinks nothing has to be done, but it might be
 ---useful for some applications.
+---
+---* Corresponding C source code: [ltexlib.c#L3357-L3361](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3357-L3361)
+---
 function tex.triggerbuildpage() end
 
 _N._10_3_10_splitbox = 0
@@ -2508,18 +2518,16 @@ _N._10_3_10_splitbox = 0
 ---
 ---Split a box.
 ---
----```lua
----local vlist = tex.splitbox(n,height,mode)
----```
----
 ---The remainder is kept in the original box and a packaged vlist is returned. This
 ---operation is comparable to the `vsplit` operation. The mode can be `additional` or `exactly` and concerns the split off box.
+---
+---* Corresponding C source code: [ltexlib.c#L1282-L1308](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1282-L1308)
 ---
 ---@param n Node
 ---@param height integer
 ---@param mode 'additional' | 'exactly'
 ---
----@return Node vlist
+---@return Node|nil vlist
 function tex.splitbox(n, height, mode) end
 
 _N._10_3_11_accessing_math_parameters_get_set_math = 0
