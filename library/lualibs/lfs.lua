@@ -20,3 +20,13 @@ function lfs.isfound(name) end
 ---* Corresponding Lua source code: [lualibs-file.lua#L98-L100](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-file.lua#L98-L100)
 ---
 function lfs.modification(name) end
+
+---
+---* Corresponding Lua source code: [lualibs-file.lua#L711-L719](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-file.lua#L711-L719)
+---
+function lfs.mkdirs(path) end
+
+---
+---* Corresponding Lua source code: [lualibs-file.lua#L746-L748](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-file.lua#L746-L748)
+---
+function lfs.readlink(name) end
