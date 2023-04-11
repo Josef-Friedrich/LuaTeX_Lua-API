@@ -154,59 +154,126 @@ function table.fromhash(tab) end
 ---
 function table.is_simple_table(tab, hexify, accurate) end
 
-function table.are_equal(a, b, n, m) end
+---
+---* Corresponding Lua source code: [lualibs-table.lua#L965-L974](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L965-L974)
+---
+function table.serialize(root, name, specification) end
+
+---
+---* Corresponding Lua source code: [lualibs-table.lua#L987-L1013](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L987-L1013)
+---
+function table.tofile(filename, root, name, specification) end
+
+---
+---* Corresponding Lua source code: [lualibs-table.lua#L1015-L1044](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1015-L1044)
+---
+function table.flattened(t, f, depth) end
+
+---
+---* Corresponding Lua source code: [lualibs-table.lua#L1048-L1063](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1048-L1063)
+---
 function table.collapsed(t, f, h) end
+
+---
+---* Corresponding Lua source code: [lualibs-table.lua#L1065-L1078](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1065-L1078)
+---
 function table.collapsedhash(t, h) end
-function table.combine(target, source) end
+
+---
+---* Corresponding Lua source code: [lualibs-table.lua#L1083-L1100](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1083-L1100)
+---
+function table.unnest(t) end
+
+---
+---* Corresponding Lua source code: [lualibs-table.lua#L1106-L1132](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1106-L1132)
+---
+function table.are_equal(a, b, n, m) end
+
+---
+---* Corresponding Lua source code: [lualibs-table.lua#L1134-L1150](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1134-L1150)
+---
+function table.identical(a, b) end
+
+---
+---* Corresponding Lua source code: [lualibs-table.lua#L1155-L1170](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1155-L1170)
+---
+function table.sparse(old, nest, keeptables) end
+
+---
+---* Corresponding Lua source code: [lualibs-table.lua#L1174-L1176](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1174-L1176)
+---
 function table.compact(t) end
-function table.concat() end
+
+---
+---* Corresponding Lua source code: [lualibs-table.lua#L1178-L1187](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1178-L1187)
+---
 function table.contains(t, v) end
+
+---
+---* Corresponding Lua source code: [lualibs-table.lua#L1189-L1195](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1189-L1195)
+---
 function table.count(t) end
+
+---
+---* Corresponding Lua source code: [lualibs-table.lua#L1197-L1208](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1197-L1208)
+---
+function table.swapped(t, s) end
+
+---
+---* Corresponding Lua source code: [lualibs-table.lua#L1210-L1215](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1210-L1215)
+---
+function table.hashed(t) end
+
+---
+---* Corresponding Lua source code: [lualibs-table.lua#L1217-L1224](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1217-L1224)
+---
+function table.mirrored(t) end
+
+---
+---* Corresponding Lua source code: [lualibs-table.lua#L1226-L1239](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1226-L1239)
+---
+function table.reversed(t) end
+
+---
+---* Corresponding Lua source code: [lualibs-table.lua#L1241-L1251](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1241-L1251)
+---
+function table.reverse(t) end
+
+---
+---* Corresponding Lua source code: [lualibs-table.lua#L1255-L1304](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1255-L1304)
+---
+function table.sequenced(t, sep, simple) end
+
+---
+---* Corresponding Lua source code: [lualibs-table.lua#L1308-L1314](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1308-L1314)
+---
+function table.print(t) end
+
+function table.combine(target, source) end
 function table.deserialize(str) end
 function table.drop(t, slow) end
 function table.fastserialize(t, prefix) end
 function table.filtered(t, pattern, sort, cmp) end
-function table.flattened(t, f, depth) end
 function table.getmetatablekey(t, key, value) end
 function table.has_one_entry(t) end
-function table.hashed(t) end
-function table.identical(a, b) end
-
-function table.insert() end
 function table.is_empty(t) end
 function table.load(filename, loader) end
 function table.loweredkeys(t) end
 function table.makeweak(t) end
-function table.mirrored(t) end
-function table.move() end
 function table.ordered(t) end
 function table.orderedhash() end
-function table.pack() end
-function table.print(t) end
-function table.remove() end
-function table.reverse(t) end
 function table.reverse_hash(h) end
-function table.reversed(t) end
 function table.save(filename, t, n) end
-function table.sequenced(t, sep, simple) end
-function table.serialize(root, name, specification) end
 function table.setmetatablecall(t, f) end
 function table.setmetatableindex(t, f) end
 function table.setmetatableindices(t, f, n, c) end
 function table.setmetatablekey(t, key, value) end
 function table.setmetatablenewindex(t, f) end
-function table.sort() end
 function table.sorted(t) end
-
-function table.sparse(old, nest, keeptables) end
 function table.sub(t, i, j) end
-function table.swapped(t, s) end
 function table.tocsv(t, specification) end
-function table.tofile(filename, root, name, specification) end
 function table.tohandle(_handle, root, name, specification) end
 function table.toxml(t, specification) end
 function table.twowaymapper(t) end
 function table.unique(old) end
-function table.unnest(t) end
-function table.unpack() end
 function table.values(t, s) end
