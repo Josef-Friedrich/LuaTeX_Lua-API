@@ -2053,7 +2053,7 @@ function tex.istoks() end
 ---
 ---For tokens registers we have an alternative where a catcode table is specified:
 ---
----```
+---```lua
 ---tex.scantoks(0,3,"`e=mc^2`")
 ---tex.scantoks("global",0,"`\int\limits^1_2`")
 ---```
@@ -3227,8 +3227,6 @@ _N._10_3_15_9_runtoks = 205
 ---least tries to) like it were an `\the`. This prevents unwanted side
 ---effects: normally in such an definition tokens remain tokens and (for instance)
 ---characters don't become nodes.
----
-
 ---
 ---__Example:__
 ---
