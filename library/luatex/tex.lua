@@ -2031,19 +2031,19 @@ tex.toks = {}
 ---* Corresponding C source code: [ltexlib.c#L1125-L1158](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1125-L1158)
 ---
 ---@param global 'global'
----@param n integer
----@param s string
-function tex.settoks(global, n, s) end
+---@param toks_register integer
+---@param toks string
+function tex.settoks(global, toks_register, toks) end
 
 ---
 ---Get a toks register. Also accepts a predefined csname string.
 ---
 ---* Corresponding C source code: [ltexlib.c#L1197-L1209](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1197-L1209)
 ---
----@param n integer
+---@param toks_register integer
 ---
----@return string s
-function tex.gettoks(n) end
+---@return string toks
+function tex.gettoks(toks_register) end
 
 ---
 ---* Corresponding C source code: [ltexlib.c#L1120-L1123](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1120-L1123)
@@ -2054,13 +2054,17 @@ function tex.istoks() end
 ---For tokens registers we have an alternative where a catcode table is specified:
 ---
 ---```lua
----tex.scantoks(0,3,"`e=mc^2`")
----tex.scantoks("global",0,"`\int\limits^1_2`")
+---tex.scantoks(0,3,"$e=mc^2$")
+---tex.scantoks("global",0,"$\\int\\limits^1_2$")
 ---```
 ---
 ---* Corresponding C source code: [ltexlib.c#L1160-L1195](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1160-L1195)
 ---
-function tex.scantoks() end
+---@param global 'global'
+---@param toks_register integer
+---@param catcodetable integer
+---@param toks string
+function tex.scantoks(global, toks_register, catcodetable, toks) end
 
 ---
 ---There is a dedicated getter for marks: getmark that takes two arguments. The first argument
