@@ -53,6 +53,12 @@
     "description": "* Corresponding C source code: "
   },
 
+  "referenceLua": {
+    "prefix": ["l", "lcode"],
+    "body": ["", "---", "---* Corresponding Lua source code: [$2]($1)", "---$0"],
+    "description": "* Corresponding Lua source code: "
+  },
+
   "referenceCLines": {
     "prefix": ["l", "ccode"],
     "body": ["", "---", "---* Corresponding C source code: [luafflib.c#L$1-L$2](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L$1-L$2)", "---$0"],
