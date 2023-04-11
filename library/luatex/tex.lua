@@ -3386,8 +3386,10 @@ _N._10_3_16_1_enableprimitives = 206
 ---code but not do much else. The defined csnames are (of course) saved in the
 ---format and will be available at runtime.
 ---
+---* Corresponding C source code: [ltexlib.c#L2752-L2809](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L2752-L2809)
+---
 ---@param prefix string
----@param primitive_names table
+---@param primitive_names string[]
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.enableprimitives(prefix, primitive_names) end
@@ -3395,17 +3397,47 @@ function tex.enableprimitives(prefix, primitive_names) end
 _N._10_3_16_2_extraprimitives = 205
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.extraprimitives() end
+---@alias TexEngine
+---|'etex'
+---|'tex'
+---|'core'
+---|'luatex'
+
+---
+---Return a list of the primitives that originate from the engine(s)
+---given by the requested string value(s).
+---
+---The possible values and their (current)
+---return values are given in the following table. In addition the somewhat special
+---primitives “\tex{ ”}, “\tex {/”} and “`-`” are defined.
+---
+---Note that `luatex` does not contain `directlua`, as that is
+---considered to be a core primitive, along with all the *TeX*82 primitives, so it is
+---part of the list that is returned from `core`.
+---
+---Running `tex.extraprimitives()` will give you the complete list of
+---primitives `-ini` startup. It is exactly equivalent to `tex.extraprimitives("etex","luatex")`.
+---
+---* Corresponding C source code: [ltexlib.c#L2710-L2750](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L2710-L2750)
+---
+---@param ... TexEngine
+---
+---@return string[]
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function tex.extraprimitives(...) end
 
 _N._10_3_16_3_primitives = 210
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---Return a list of all primitives that *LuaTeX* knows about.
+---
+---* Corresponding C source code: [ltexlib.c#L2691-L2708](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L2691-L2708)
+---
+---@return string[]
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+
 function tex.primitives() end
 
 _N._10_3_17_core_functionality_interfaces = 210
@@ -3413,18 +3445,29 @@ _N._10_3_17_core_functionality_interfaces = 210
 _N._10_3_17_1_badness = 210
 
 ---
----This helper function is useful during linebreak calculations. `t` and `s` are scaled values; the function returns the badness for when total `t`
----is supposed to be made from amounts that sum to `s`. The returned number is
----a reasonable approximation of `100(t/s)^3`.
+---Calculate the badness.
 ---
+---This helper function is useful during linebreak calculations. The function returns the badness for when total `total`
+---is supposed to be made from amounts that sum to `sum`. The returned number is
+---a reasonable approximation of `100(total/sum)^3`.
+---
+---* Corresponding C source code: [ltexlib.c#L3069-L3075](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3069-L3075)
+---* Corresponding C source code: [arithmetic.c#L275-L300](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/arithmetic.c#L275-L300)
+---
+---@param total integer # scaled values
+---@param sum integer # scaled values
+---
+---@return integer badness
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function tex.badness() end
+function tex.badness(total, sum) end
 
 _N._10_3_17_2_resetparagraph = 210
 
 ---
----This function resets the parameters that *TeX* normally resets when a new paragraph
+---Reset the parameters that *TeX* normally resets when a new paragraph
 ---is seen.
+---
+---* Corresponding C source code: [ltexlib.c#L3054-L3059](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3054-L3059)
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.resetparagraph() end
