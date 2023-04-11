@@ -3,24 +3,44 @@
 file = {}
 
 ---
-------------------------------------------------------------------------
----Undocumented functions listed in alphabetical order
+---* Corresponding Lua source code: [lualibs-file.lua#L122-L124](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-file.lua#L122-L124)
 ---
----Document them by sliding them up and place them in the order of the
----official documentation
-------------------------------------------------------------------------
+function file.pathpart(name, default) end
+
+---
+---* Corresponding Lua source code: [lualibs-file.lua#L128-L130](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-file.lua#L128-L130)
+---
+function file.basename(name) end
+
+---
+---* Corresponding Lua source code: [lualibs-file.lua#L141-L143](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-file.lua#L141-L143)
+---
+function file.nameonly(name) end
+
+---
+---* Corresponding Lua source code: [lualibs-file.lua#L147-L149](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-file.lua#L147-L149)
+---
+function file.suffixonly(name) end
+
+---
+---* Corresponding Lua source code: [lualibs-file.lua#L147-L149](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-file.lua#L147-L149)
+function file.suffix(name) end
+
+---
+---* Corresponding Lua source code: [lualibs-file.lua#L153-L159](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-file.lua#L153-L159)
+---
+function file.suffixesonly(name) end
+
+---
+---* Corresponding Lua source code: [lualibs-file.lua#L153-L159](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-file.lua#L153-L159)
+---
+function file.suffixes(name) end
 
 ---
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function file.addsuffix() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function file.basename() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -122,12 +142,6 @@ function file.loadchecksum() end
 ---Warning! Undocumented code!<p>
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function file.nameonly() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function file.nametotable() end
 
 ---
@@ -141,12 +155,6 @@ function file.needs_updating() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function file.needsupdating() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function file.pathpart() end
 
 ---
 ---Warning! Undocumented code!<p>
@@ -225,30 +233,6 @@ function file.splitpath() end
 ---TODO: Please contribute
 ---https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function file.strip() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function file.suffix() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function file.suffixes() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function file.suffixesonly() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function file.suffixonly() end
 
 ---
 ---Warning! Undocumented code!<p>

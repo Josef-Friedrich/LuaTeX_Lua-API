@@ -1,2 +1,7 @@
-tex.scantoks(0, 3, "$e=mc^2$")
-tex.scantoks("global", 0, "$\int\limits^1_2$")
+\def\my{My}
+\def\macro{\my Macro}
+\directlua{
+  tex.scantoks(13, 0, 'scantoks: \string\\macro')
+  print(tex.toks[13])
+}
+\bye

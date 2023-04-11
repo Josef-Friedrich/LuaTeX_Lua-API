@@ -6,39 +6,26 @@
 set = {}
 
 ---
-------------------------------------------------------------------------
----Undocumented functions listed in alphabetical order
+---* Corresponding Lua source code: [lualibs-set.lua#L18](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-set.lua#L18)
 ---
----Document them by sliding them up and place them in the order of the
----official documentation
-------------------------------------------------------------------------
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function set.contains(n, s) end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function set.create(t, value) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function set.tolist(n) end
-
+---* Corresponding Lua source code: [lualibs-set.lua#L20-L40](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-set.lua#L20-L40)
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function set.tonumber(t) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---* Corresponding Lua source code: [lualibs-set.lua#L42-L48](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-set.lua#L42-L48)
+---
 function set.totable(n) end
+
+---
+---* Corresponding Lua source code: [lualibs-set.lua#L50-L63](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-set.lua#L50-L63)
+---
+function set.tolist(n) end
+
+---
+---* Corresponding Lua source code: [lualibs-set.lua#L65-L74](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-set.lua#L65-L74)
+---
+function set.contains(n, s) end
