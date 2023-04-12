@@ -1,5 +1,7 @@
 ---@meta
 
+utf = {}
+
 ---
 ---https://github.com/latex3/lualibs/blob/main/lualibs-unicode.lua
 
