@@ -1,0 +1,2709 @@
+---% language=us runpath=texruns:manuals/luametatex
+---
+---% todo: move some to elsewhere (e.g. builders / paragraphs
+---
+---\environment luametatex-style
+---
+---\startcomponent luametatex-enhancements
+---
+---# Enhancements
+---
+---# Introduction
+---
+---# Primitive behaviour
+---
+---From day one, *LuaTeX* has offered extra features compared to the superset of
+---*PDF*TEX, which includes \ETEX, and \ALEPH. This has not been limited to the
+---possibility to execute *Lua* code via `directlua`, but *LuaTeX* also adds
+---functionality via new *TeX*-side primitives or extensions to existing ones. The
+---same is true for *Lua*METATEX. Some primitives have `luatex` in their name
+---and there will be no `luametatex` variants. This is because we consider
+---*Lua*METATEX\ to be *LuaTeX* 2\high{+}.
+---
+---Contrary to the *LuaTeX* engine *Lua*METATEX\ enables all its primitives. You can
+---clone (a selection of) primitives with a different prefix, like this:
+---
+---```
+---\directlua { tex.enableprimitives('normal',tex.extraprimitives()) }
+---```
+---
+---The `extraprimitives` function returns the whole list or a subset,
+---specified by one or more keywords `tex`, `etex` or `luatex`.
+---When you clone all primitives you can also do this:
+---
+---```
+---\directlua { tex.enableprimitives('normal',true) }
+---```
+---
+---But be aware that the curly braces may not have the proper `catcode`
+---assigned to them at this early time (giving a “Missing number” error), so
+---it may be needed to put these assignments before the above line:
+---
+---```
+---\catcode `\{ = 1
+---\catcode `\} = 2
+---```
+---
+---More fine-grained primitives control is possible and you can look up the
+---details in \in {section} [luaprimitives]. There are only three kinds of
+---primitives: `tex`, `etex` and `luatex` but a future version
+---might drop this and no longer make that distinction as it no longer serves a
+---purpose apart from the fact that it reveals some history.
+---
+----------------------------------------------------------------
+
+
+---
+---# Rationale
+---
+---One can argue that *TeX* should stay as it is but over decades usage of this
+---program has evolved and resulted in large macro packages that often need to rely
+---on what the *TeX* books calls “dirty tricks”. When you look deep down in
+---the code of *ConTeXt* \MKII, \MKIV\ and \MKXL\ (aka \LMTX) you will see plenty of
+---differences but quite a bit of the functionality in the most recent versions is
+---also available in \MKII. Of course more has been added over time, and some
+---mechanisms could be made more efficient and reliable but plenty was possible.
+---
+---So, when you see something done in *ConTeXt* \LMTX\ using new *Lua*METATEX\
+---primitives you can assume that somehow the same is done in *ConTeXt* \MKIV. We
+---don't really need *Lua*METATEX\ instead of *LuaTeX*. Among the main reasons for
+---still going for this new engine are:
+---
+---* some new primitives make for less tracing and tracing has become rather
+---    verbose over years (just try `tracingall`); examples are the new macro
+---    argument handling and some new hooks
+---
+---* some new primitives permits more efficient coding and have a positive impact
+---    on performance (this sort of compensates a performance hit due to delegating
+---    work to *Lua*)
+---
+---* other primitives are there because they make the code look better; good
+---    examples are the extensions to conditionals; they remove the necessity for
+---    all kind of (somewhat unnatural) middle layers; take local control as example
+---
+---* a few primitives make complex and demanding mechanism a bit easier to grasp
+---    and explain; think of alignments, inserts and marks
+---
+---* more access from the *Lua* end to *TeX* internals: a few more callbacks, more
+---    options, more robust interfaces, etc
+---
+---* some mechanisms are very specific but can be made more generic (and powerful),
+---    like inserts, marks, adjusts and local boxes
+---
+---I realize that new primitives also can make some *TeX* code look less threatening
+---to new users. It removes a bit of hackery and limits the level of guru that comes
+---with showing off the mastery of expansion and lookahead. So be it. I wonder if
+---those objecting to some of the extensions (with the argument that they are not
+---needed, and *ConTeXt* \MKIV\ is proof of that) can resist using them. I admit
+---that it sometimes hurt to throw away good working but cumbersome code that took a
+---while to evolve, but I also admit that I favor long distance traveling by bike or
+---car over riding horseback.
+---
+---It took a few years for *Lua*METATEX\ to evolve to what it is now and most
+---extensions are not there \quotation {because they were easy} or \quotation {could
+---be done}. If that were the case, there would be plenty more. In many aspects it
+---has been a balancing act and much also relates to looking at the *ConTeXt* source
+---code (*TeX* as well as *Lua*) and wondering why it looks that way. It is also
+---driven by the fact that I want to be able to explain to users why things are done
+---in a certain way. In fact, I want users to be able to look at the code and
+---understand it (apart from maybe a few real dirty low level helpers that are also
+---dirty because of performance reasons). Just take this into account when reading on.
+---
+---And yes, there are still a few possibilities I want to explore \unknown\ some might
+---show up temporarily so don't be surprised. I'm also aware that some new features can
+---have bugs or side effects that didn't show up in *ConTeXt*, which after all is the
+---benchmark and environment in which all this evolves.
+---
+---Over time, the other *TeX* engines might have an occasional feature (primitive)
+---added and it is very unlikely that *Lua*METATEX\ will follow up on that. First of
+---all we have different internals but most of all because plenty of time went into
+---considering what got added and what not, apart from the fact that we have
+---callbacks. Decades of *TeX* development never really have lead to an extensive
+---wish list so there is no real need why there should be a demand on anything other
+---than we offer here. If *TeX* worked well for ages, it can as well do for more, so
+---there is no need to cripple the code base simply in order to be compatible with
+---other engines; *Lua*METATEX\ is already quite different anyway.
+---
+----------------------------------------------------------------
+
+
+---
+---# Version information
+---
+---There are three primitives to test the version of *LuaTeX* (and *Lua*METATEX):
+---
+---\unexpanded\def\VersionHack#1% otherwise different luatex and luajittex runs
+---  {\ctxlua{%
+---     local banner = "\luatexbanner"
+---     local banner = string.match(banner,"(.+)\letterpercent(") or banner
+---     context(string.gsub(banner ,"jit",""))%
+---  }}
+---
+--- primitive              value explanation 
+---
+--- `luatexbanner`    \VersionHack{\luatexbanner} the banner reported on the console 
+--- `luatexversion`   \the\luatexversion major and minor number combined 
+--- `luatexrevision`  \the\luatexrevision the revision number 
+---
+---A version is defined as follows:
+---
+---* The major version is the integer result of `luatexversion` divided by
+---    100. The primitive is an “internal variable”, so you may need to prefix
+---    its use with `the` or `number` depending on the context.
+---
+---* The minor version is a number running from 0 upto 99.
+---
+---* The revision is reported by `luatexrevision`. Contrary to other engines
+---    in *Lua*METATEX\ is also a number so one needs to prefix it with `the` or
+---    `number`. \footnote {In the past it always was good to prefix the
+---    revision with `number` anyway, just to play safe, although there have
+---    for instance been times that *PDF*TEX\ had funny revision indicators that at
+---    some point ended up as letters due to the internal conversions.}
+---
+---* The full version number consists of the major version (`X`), minor
+---    version (`YY`) and revision (`ZZ`), separated by dots, so `X.YY.ZZ`.
+---
+---The *LuaTeX* binary has companions like *Lua*JITTEX\ and a version that has a font
+---rendering library on board. Both introduce dependencies that don't fit into the
+---*Lua*METATEX\ agenda: compilation should be easy and future proof and not depend
+---on code outside the source tree. It means that for instance the *ConTeXt* runners
+---don't really need to check much more than the basic name. It also means that the
+---`context` and `mtxrun` stubs can be symbolic links to the main
+---program that itself is about 3MB, so we can keep the binary footprint small. For
+---normal *ConTeXt* \LMTX\ processing no other binaries are needed because whatever
+---support we need is done in *Lua*.
+---
+---The *Lua*METATEX\ version number starts at 2 in order to prevent a clash with
+---*LuaTeX*, and the version commands are the same. This is a way to indicate that
+---these projects are related.
+---
+---The `status` library also provides some information including what we get
+---with the three mentioned primitives:
+---
+--- field                    value                               
+---
+--- `filename`         \cldcontext{status.filename}        
+--- `banner`           \cldcontext{status.banner}          
+--- `luatex_engine`    \cldcontext{status.luatex_engine}   
+--- `luatex_version`   \cldcontext{status.luatex_version}  
+--- `luatex_revision`  \cldcontext{status.luatex_revision} 
+--- `luatex_verbose`   \cldcontext{status.luatex_verbose}  
+--- `copyright`        \cldcontext{status.copyright}       
+--- `development_id`   \cldcontext{status.development_id}  
+--- `format_id`        \cldcontext{status.format_id}       
+--- `used_compiler`    \cldcontext{status.used_compiler}   
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---# *Unicode* text support
+---
+---# Extended ranges
+---
+---Text input and output is now considered to be *Unicode* text, so input characters
+---can use the full range of *Unicode* (`2^{20}+2^{16}-1 = \hbox{0x10FFFF}`). Later
+---chapters will talk of characters and glyphs. Although these are not
+---interchangeable, they are closely related. During typesetting, a character is
+---always converted to a suitable graphic representation of that character in a
+---specific font. However, while processing a list of to-be-typeset nodes, its
+---contents may still be seen as a character. Inside the engine there is no clear
+---separation between the two concepts. Because the subtype of a glyph node can be
+---changed in *Lua* it is up to the user. Subtypes larger than 255 indicate that
+---font processing has happened.
+---
+---A few primitives are affected by this, all in a similar fashion: each of them has
+---to accommodate for a larger range of acceptable numbers. For instance, `char` now accepts values between 0 and `1{,}114{,}111`. This should not be a
+---problem for well-behaved input files, but it could create incompatibilities for
+---input that would have generated an error when processed by older *TeX*-based
+---engines. The affected commands with an altered initial (left of the equal sign)
+---or secondary (right of the equal sign) value are: `char`, `lccode`,
+---`uccode`, `hjcode`, `catcode`, `sfcode`, `efcode`, `cfcode`, `lpcode`, `rpcode`, `chardef`.
+---
+---As far as the core engine is concerned, all input and output to text files is
+---*UTF-8* encoded. Input files can be pre-processed using the `reader`
+---callback. This will be explained in \in {section} [iocallback]. Normalization of
+---the *Unicode* input is on purpose not built-in and can be handled by a macro
+---package during callback processing. We have made some practical choices and the
+---user has to live with those.
+---
+---% Output in byte-sized chunks can be achieved by using characters just outside of
+---% the valid *Unicode* range, starting at the value `1{,}114{,}112` (0x110000). When
+---% the time comes to print a character `c>=1{,}114{,}112`, *LuaTeX* will actually
+---% print the single byte corresponding to `c` minus 1{,}114{,}112. This feature has
+---% been dropped.
+---
+---Contrary to other *TeX* engines, the output to the terminal is as-is so there
+---is no escaping with `^^`. We operate in a *UTF-8* universe. Because we
+---operate in a \CCODE\ universum, zero characters are special but because we also
+---live in a *Unicode* galaxy that is no real problem.
+---
+----------------------------------------------------------------
+
+
+---
+---# `Uchar`
+---
+---The expandable command `Uchar` reads a number between 0 and `1{,}114{,}111`
+---and expands to the associated *Unicode* character.
+---
+----------------------------------------------------------------
+
+
+---
+---# Extended tables
+---
+---All traditional *TeX* and \ETEX\ registers can be 16-bit numbers. The affected
+---commands are:
+---
+---\startfourcolumns
+---\startlines
+---`count`
+---`dimen`
+---`skip`
+---`muskip`
+---`marks`
+---`toks`
+---`countdef`
+---`dimendef`
+---`skipdef`
+---`muskipdef`
+---`toksdef`
+---`insert`
+---`box`
+---`unhbox`
+---`unvbox`
+---`copy`
+---`unhcopy`
+---`unvcopy`
+---`wd`
+---`ht`
+---`dp`
+---`setbox`
+---`vsplit`
+---\stoplines
+---\stopfourcolumns
+---
+---Fonts are loaded via *Lua* and a minimal amount of information is kept at the
+---*TeX* end. Sharing resources is up to the loaders. The engine doesn't really care
+---about what a character (or glyph) number represents (a *Unicode* or index) as it
+---only is interested in dimensions.
+---
+---In *TeX* the number of registers is 256 and \ETEX\ bumped that to 32K. One reason
+---for a fixed number is that these registers are fast ways to store data and
+---therefore are part of the main lookup table (used for data and pointers to data
+---as well as save and restore housekeeping). In *LuaTeX* the number was bumped to
+---64K but one can argue that less would also do. In order to keep the default
+---memory footprint reasonable, in *Lua*METATEX\ the number of languages, fonts and
+---marks is limited. The size of some tables can be limited by configuration
+---settings, so they can start out small and grow till configured maximum which is
+---smaller than the absolute maximum.
+---
+---% % We show this later on so not here.
+---%
+---% The following table shows all kind of defaults as reported by \typ
+---% {status.getconstants()}.
+---%
+---% \startluacode
+---%     context.starttabulate { "|T|r|" }
+---%     for k, v in table.sortedhash(status.getconstants()) do
+---%         context.NC() context(k) context.NC() context(v) context.NC() context.NR()
+---%     end
+---%     context.stoptabulate()
+---% \stopluacode
+---
+---Because we have additional ways to store integers, dimensions and glue, we might
+---actually decide to decrease the maximum of the registers: if 64K is not enough,
+---and you work around it, then likely 32K might do as well. Also, we have *Lua* to
+---store massive amounts of data. One can argue that saving some 1.5MB memory (when
+---we go halfway) is not worth the effort in a time when you have to close a browser
+---in order to free the gigabytes it consumes, but there is no reason not to be lean
+---and mean: a more conservative approach to start with creates headroom for going
+---wild later.
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---# Attributes
+---
+---# Nodes
+---
+---When *TeX* reads input it will interpret the stream according to the properties
+---of the characters. Some signal a macro name and trigger expansion, others open
+---and close groups, trigger math mode, etc. What's left over becomes the typeset
+---text. Internally we get a linked list of nodes. Characters become `glyph`
+---nodes that have for instance a `font` and `char` property and `\kern 10pt` becomes a `kern` node with a `width` property. Spaces are
+---alien to *TeX* as they are turned into `glue` nodes. So, a simple paragraph
+---is mostly a mix of sequences of `glyph` nodes (words) and `glue` nodes
+---(spaces). A node can have a subtype so that it can be recognized as for instance
+---a space related glue.
+---
+---The sequences of characters at some point are extended with `disc` nodes
+---that relate to hyphenation. After that font logic can be applied and we get a
+---list where some characters can be replaced, for instance multiple characters can
+---become one ligature, and font kerns can be injected. This is driven by the
+---font properties.
+---
+---Boxes (like `hbox` and `vbox`) become `hlist` or `vlist`
+---nodes with `width`, `height`, `depth` and `shift`
+---properties and a pointer `list` to its actual content. Boxes can be
+---constructed explicitly or can be the result of subprocesses. For instance, when
+---lines are broken into paragraphs, the lines are a linked list of `hlist`
+---nodes, possibly with glue and penalties in between.
+---
+---Internally nodes have a number. This number is actually an index in the memory
+---used to store nodes.
+---
+---So, to summarize: all that you enter as content eventually becomes a node, often
+---as part of a (nested) list structure. They have a relative small memory footprint
+---and carry only the minimal amount of information needed. In traditional *TeX* a
+---character node only held the font and slot number, in *LuaTeX* we also store some
+---language related information, the expansion factor, etc. Now that we have access
+---to these nodes from *Lua* it makes sense to be able to carry more information
+---with a node and this is where attributes kick in.
+---
+---It is important to keep in mind that there are situations where nodes get created
+---in the current context. For instance, when *TeX* builds a paragraph or page or
+---constructs math formulas, it does add nodes and giving these the current
+---attributes makes no sense and can even give weird side effects. In these cases,
+---the attributes are inherited from neighbouring nodes.
+---
+----------------------------------------------------------------
+
+
+---
+---# Attribute registers
+---
+---Attributes are a completely new concept in *LuaTeX*. Syntactically, they behave a
+---lot like counters: attributes obey *TeX*'s nesting stack and can be used after
+---`the` etc. just like the normal `count` registers.
+---
+---\startsyntax
+---\attribute <16-bit number> <optional equals> <32-bit number>!crlf
+---\attributedef <csname> <optional equals> <16-bit number>
+---\stopsyntax
+---
+---Conceptually, an attribute is either “set” or “unset”. Unset
+---attributes have a special negative value to indicate that they are unset, that
+---value is the lowest legal value: `-"7FFFFFFF` in hexadecimal, a.k.a.
+---`-2147483647` in decimal. It follows that the value `-"7FFFFFFF` cannot be
+---used as a legal attribute value, but you {\it can\/} assign `-"7FFFFFFF` to
+---“unset” an attribute. All attributes start out in this “unset”
+---state in \INITEX.
+---
+---Attributes can be used as extra counter values, but their usefulness comes mostly
+---from the fact that the numbers and values of all “set” attributes are
+---attached to all nodes created in their scope. These can then be queried from any
+---*Lua* code that deals with node processing. Further information about how to use
+---attributes for node list processing from *Lua* is given in \in {chapter}[nodes].
+---
+---Attributes are stored in a sorted (sparse) linked list that are shared when
+---possible. This permits efficient testing and updating. You can define many
+---thousands of attributes but normally such a large number makes no sense and is
+---also not that efficient because each node carries a (possibly shared) link to a
+---list of currently set attributes. But they are a convenient extension and one of
+---the first extensions we implemented in *LuaTeX*.
+---
+---In *Lua*METATEX\ we try to minimize the memory footprint and creation of these
+---attribute lists more aggressive sharing them. This feature is still somewhat
+---experimental.
+---
+----------------------------------------------------------------
+
+
+---
+---# Box attributes
+---
+---Nodes typically receive the list of attributes that is in effect when they are
+---created. This moment can be quite asynchronous. For example: in paragraph
+---building, the individual line boxes are created after the `par` command has
+---been processed, so they will receive the list of attributes that is in effect
+---then, not the attributes that were in effect in, say, the first or third line of
+---the paragraph.
+---
+---Similar situations happen in *LuaTeX* regularly. A few of the more obvious
+---problematic cases are dealt with: the attributes for nodes that are created
+---during hyphenation, kerning and ligaturing borrow their attributes from their
+---surrounding glyphs, and it is possible to influence box attributes directly.
+---
+---When you assemble a box in a register, the attributes of the nodes contained in
+---the box are unchanged when such a box is placed, unboxed, or copied. In this
+---respect attributes act the same as characters that have been converted to
+---references to glyphs in fonts. For instance, when you use attributes to implement
+---color support, each node carries information about its eventual color. In that
+---case, unless you implement mechanisms that deal with it, applying a color to
+---already boxed material will have no effect. Keep in mind that this
+---incompatibility is mostly due to the fact that separate specials and literals are
+---a more unnatural approach to colors than attributes.
+---
+---It is possible to fine-tune the list of attributes that are applied to a `hbox`, `vbox` or `vtop` by the use of the keyword `attr`. The
+---`attr` keyword(s) should come before a `to` or `spread`, if
+---that is also specified. An example is:
+---
+---\startbuffer[tex]
+---\attribute997=123
+---\attribute998=456
+---\setbox0=\hbox {Hello}
+---\setbox2=\hbox attr 999 = 789 attr 998 = -"7FFFFFFF{Hello}
+---\stopbuffer
+---
+---\startbuffer[lua]
+---  for b=0,2,2 do
+---    for a=997, 999 do
+---      tex.sprint("box ", b, " : attr ",a," : ",tostring(tex.box[b]     [a]))
+---      tex.sprint("\\quad\\quad")
+---      tex.sprint("list ",b, " : attr ",a," : ",tostring(tex.box[b].list[a]))
+---      tex.sprint("\\par")
+---    end
+---  end
+---\stopbuffer
+---
+---\typebuffer[tex]
+---
+---Box 0 now has attributes 997 and 998 set while box 2 has attributes 997 and 999
+---set while the nodes inside that box will all have attributes 997 and 998 set.
+---Assigning the maximum negative value causes an attribute to be ignored.
+---
+---To give you an idea of what this means at the *Lua* end, take the following
+---code:
+---
+---\typebuffer[lua]
+---
+---Later we will see that you can access properties of a node. The boxes here are so
+---called `hlist` nodes that have a field `list` that points to the
+---content. Because the attributes are a list themselves you can access them by
+---indexing the node (here we do that with `[a]`). Running this snippet gives:
+---
+---\start
+---    \getbuffer[tex]
+---    \startpacked \tt
+---        \ctxluabuffer[lua]
+---    \stoppacked
+---\stop
+---
+---Because some values are not set we need to apply the `tostring` function
+---here so that we get the word `nil`.
+---
+---A special kind of box is `vcenter`. This one also can have attributes. When
+---one or more are set these plus the currently set attributes are bound to the
+---resulting box. In regular *TeX* these centered boxes are only permitted in math
+---mode, but in *Lua*METATEX\ there is no error message and the box the height and
+---depth are equally divided. Of course in text mode there is no math axis related
+---offset applied.
+---
+---It is possible to change or add to the attributes assigned to a box with `boxattribute`:
+---
+---```
+---\boxattribute 0 123 456
+---```
+---
+---You can set attributes of the current paragraph specification node with `parattribute`:
+---
+---```
+---\parattribute 123 456
+---```
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---# *Lua* related primitives
+---
+---# `directlua`
+---
+---In order to merge *Lua* code with *TeX* input, a few new primitives are needed.
+---The primitive `directlua` is used to execute *Lua* code immediately. The
+---syntax is
+---
+---\startsyntax
+---\directlua <general text>
+---\stopsyntax
+---
+---The `<general text>` is expanded fully, and then fed into the *Lua*
+---interpreter. After reading and expansion has been applied to the `<general text>`, the resulting token list is converted to a string as if it was
+---displayed using `\the\toks`. On the *Lua* side, each `directlua` block
+---is treated as a separate chunk. In such a chunk you can use the `local`
+---directive to keep your variables from interfering with those used by the macro
+---package.
+---
+---The conversion to and from a token list means that you normally can not use *Lua*
+---line comments (starting with `--`) within the argument. As there typically
+---will be only one “line” the first line comment will run on until the end
+---of the input. You will either need to use *TeX*-style line comments (starting
+---with \%), or change the *TeX* category codes locally. Another possibility is to
+---say:
+---
+---```
+---\begingroup
+---\endlinechar=10
+---\directlua ...
+---\endgroup
+---```
+---
+---Then *Lua* line comments can be used, since *TeX* does not replace line endings
+---with spaces. Of course such an approach depends on the macro package that you
+---use.
+---
+---The `directlua` command is expandable. Since it passes *Lua* code to the
+---*Lua* interpreter its expansion from the *TeX* viewpoint is usually empty.
+---However, there are some *Lua* functions that produce material to be read by *TeX*,
+---the so called print functions. The most simple use of these is `tex.print(<string> s)`. The characters of the string `s` will be placed on
+---the *TeX* input buffer, that is, “before *TeX*'s eyes” to be read by *TeX*
+---immediately. For example:
+---
+---\startbuffer
+---\count10=20
+---a\directlua{tex.print(tex.count[10]+5)}b
+---\stopbuffer
+---
+---\typebuffer
+---
+---expands to
+---
+---\getbuffer
+---
+---Here is another example:
+---
+---\startbuffer
+---`\pi = \directlua{tex.print(math.pi)}`
+---\stopbuffer
+---
+---\typebuffer
+---
+---will result in
+---
+---\getbuffer
+---
+---Note that the expansion of `directlua` is a sequence of characters, not of
+---tokens, contrary to all *TeX* commands. So formally speaking its expansion is
+---null, but it collects material in a new level on the input stack to be
+---immediately read by *TeX* after the *Lua* call as finished. It is a bit like
+---\ETEX's `scantokens`, which now uses the same mechanism. For a description
+---of print functions look at \in {section} [sec:luaprint].
+---
+---Because the `<general text>` is a chunk, the normal *Lua* error handling
+---is triggered if there is a problem in the included code. The *Lua* error messages
+---should be clear enough, but the contextual information is often suboptimal
+---because it can come from deep down, and *TeX* has no knowledge about what you do
+---in *Lua*. Often, you will only see the line number of the right brace at the end
+---of the code.
+---
+---While on the subject of errors: some of the things you can do inside *Lua* code
+---can break up *Lua*METATEX\ pretty bad. If you are not careful while working with
+---the node list interface, you may even end up with errors or even crashes from
+---within the *TeX* portion of the executable.
+---
+----------------------------------------------------------------
+
+
+---
+---# `luaescapestring`
+---
+---This primitive converts a *TeX* token sequence so that it can be safely used as
+---the contents of a *Lua* string: embedded backslashes, double and single quotes,
+---and newlines and carriage returns are escaped. This is done by prepending an
+---extra token consisting of a backslash with category code 12, and for the line
+---endings, converting them to `n` and `r` respectively. The token
+---sequence is fully expanded.
+---
+---\startsyntax
+---\luaescapestring <general text>
+---\stopsyntax
+---
+---Most often, this command is not actually the best way to deal with the
+---differences between *TeX* and *Lua*. In very short bits of *Lua* code it is often
+---not needed, and for longer stretches of *Lua* code it is easier to keep the code
+---in a separate file and load it using *Lua*'s `dofile`:
+---
+---```
+---\directlua { dofile("mysetups.lua") }
+---```
+---
+----------------------------------------------------------------
+
+
+---
+---# `luafunction`, `luafunctioncall` and `luadef`
+---
+---The `directlua` commands involves tokenization of its argument (after
+---picking up an optional name or number specification). The tokenlist is then
+---converted into a string and given to *Lua* to turn into a function that is
+---called. The overhead is rather small but when you have millions of calls it can
+---have some impact. For this reason there is a variant call available: `luafunction`. This command is used as follows:
+---
+---```
+---\directlua {
+---    local t = lua.get_functions_table()
+---    t[1] = function() tex.print("!") end
+---    t[2] = function() tex.print("?") end
+---}
+---
+---\luafunction1
+---\luafunction2
+---```
+---
+---Of course the functions can also be defined in a separate file. There is no limit
+---on the number of functions apart from normal *Lua* limitations. Of course there
+---is the limitation of no arguments but that would involve parsing and thereby give
+---no gain. The function, when called in fact gets one argument, being the index, so
+---in the following example the number `8` gets typeset.
+---
+---```
+---\directlua {
+---    local t = lua.get_functions_table()
+---    t[8] = function(slot) tex.print(slot) end
+---}
+---```
+---
+---The `luafunctioncall` primitive does the same but is unexpandable, for
+---instance in an `edef`. In addition *LuaTeX* provides a definer:
+---
+---``` \luadef\MyFunctionA 1 \global\luadef\MyFunctionB 2
+---\protected\global\luadef\MyFunctionC 3
+---```
+---
+---You should really use these commands with care. Some references get stored in
+---tokens and assume that the function is available when that token expands. On the
+---other hand, as we have tested this functionality in relative complex situations
+---normal usage should not give problems.
+---
+---{\em It makes sense to delegate the implementation of the primitives to *Lua*.}
+---
+----------------------------------------------------------------
+
+
+---
+---# `luabytecode` and `luabytecodecall`
+---
+---Analogue to the function callers discussed in the previous section we have byte
+---code callers. Again the call variant is unexpandable.
+---
+---```
+---\directlua {
+---    lua.bytecode[9998] = function(s)
+---        tex.sprint(s*token.scan_int())
+---    end
+---    lua.bytecode[5555] = function(s)
+---        tex.sprint(s*token.scan_dimen())
+---    end
+---}
+---```
+---
+---This works with:
+---
+---```
+---\luabytecode    9998 5  \luabytecode    5555 5sp
+---\luabytecodecall9998 5  \luabytecodecall5555 5sp
+---```
+---
+---The variable `s` in the code is the number of the byte code register that
+---can be used for diagnostic purposes. The advantage of bytecode registers over
+---function calls is that they are stored in the format (but without upvalues).
+---
+---{\em It makes sense to delegate the implementation of the primitives to *Lua*.}
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---# Catcode tables
+---
+---# Catcodes
+---
+---Catcode tables are a new feature that allows you to switch to a predefined
+---catcode regime in a single statement. You can have lots of different tables, but
+---if you need a dozen you might wonder what you're doing. This subsystem is
+---backward compatible: if you never use the following commands, your document will
+---not notice any difference in behaviour compared to traditional *TeX*. The contents
+---of each catcode table is independent from any other catcode table, and its
+---contents is stored and retrieved from the format file.
+---
+----------------------------------------------------------------
+
+
+---
+---# `catcodetable`
+---
+---The primitive `catcodetable` switches to a different catcode table. Such a
+---table has to be previously created using one of the two primitives below, or it
+---has to be zero. Table zero is initialized by \INITEX.
+---
+---\startsyntax
+---\catcodetable <15-bit number>
+---\stopsyntax
+---
+----------------------------------------------------------------
+
+
+---
+---# `initcatcodetable`
+---
+---\startsyntax
+---\initcatcodetable <15-bit number>
+---\stopsyntax
+---
+---The primitive `initcatcodetable` creates a new table with catcodes
+---identical to those defined by \INITEX. The new catcode table is allocated
+---globally: it will not go away after the current group has ended. If the supplied
+---number is identical to the currently active table, an error is raised. The
+---initial values are:
+---
+--- catcode  character                equivalent  category          
+---
+---  0  \tttf \letterbackslash                 `escape`       
+---  5  \tttf \letterhat\letterhat M  return   `car_ret`      
+---  9  \tttf \letterhat\letterhat @  null     `ignore`       
+--- 10  \tttf <space>                 space    `spacer`       
+--- 11  {\tttf a} \endash\ {\tttf z}           `letter`       
+--- 11  {\tttf A} \endash\ {\tttf Z}           `letter`       
+--- 12  everything else                        `other`        
+--- 14  \tttf \letterpercent                   `comment`      
+--- 15  \tttf \letterhat\letterhat ?  delete   `invalid_char` 
+---
+----------------------------------------------------------------
+
+
+---
+---# `savecatcodetable`
+---
+---\startsyntax
+---\savecatcodetable <15-bit number>
+---\stopsyntax
+---
+---`savecatcodetable` copies the current set of catcodes to a new table with
+---the requested number. The definitions in this new table are all treated as if
+---they were made in the outermost level. Again, the new table is allocated globally:
+---it will not go away after the current group has ended. If the supplied number is
+---the currently active table, an error is raised.
+---
+----------------------------------------------------------------
+
+
+---
+---# `letcharcode`
+---
+---This primitive can be used to assign a meaning to an active character, as in:
+---
+---```
+---\def\foo{bar} \letcharcode123=\foo
+---```
+---
+---This can be a bit nicer than using the uppercase tricks (using the property of
+---`uppercase` that it treats active characters special).
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---# Tokens and expansion
+---
+---# `scantextokens`, `tokenized` and `retokenized`
+---
+---The syntax of `scantextokens` is identical to `scantokens`. This
+---primitive is a slightly adapted version of \ETEX's `scantokens`. The
+---differences are:
+---
+---* The last (and usually only) line does not have a `endlinechar` appended.
+---
+---* `scantextokens` never raises an EOF error, and it does not execute
+---    `everyeof` tokens.
+---
+---* There are no “\unknown\ while end of file \unknown” error tests
+---    executed. This allows the expansion to end on a different grouping level or
+---    while a conditional is still incomplete.
+---
+---The implementation in *Lua*METATEX\ is different in the sense that it uses the same
+---methods as printing from *Lua* to *TeX* does. Therefore, in addition to the two
+---commands we also have this expandable command:
+---
+---\startsyntax
+---\tokenized {...}
+---\tokenized catcodetable <number> {...}
+---\stopsyntax
+---
+---The `retokenized` variant differs in that it doesn't check for a keyword and
+---just used the current catcode regime.
+---
+---The \ETEX\ command `\tracingscantokens` has been dropped in the process as
+---that was interwoven with the old code.
+---
+----------------------------------------------------------------
+
+
+---
+---\startsubsection[title={`toksapp`, `tokspre`, `etoksapp`, `etokspre`,
+---`gtoksapp`, `gtokspre`, `xtoksapp`,  `xtokspre`}]
+---
+---Instead of:
+---
+---```
+---\toks0\expandafter{\the\toks0 foo}
+---```
+---
+---you can use:
+---
+---```
+---\etoksapp0{foo}
+---```
+---
+---The `pre` variants prepend instead of append, and the `e` variants
+---expand the passed general text. The `g` and `x` variants are global.
+---
+----------------------------------------------------------------
+
+
+---
+---# `etoks` and `xtoks`
+---
+---A mix between the previously discussed append and prepend primitives and simple
+---toks register assignments are these two. They act like `toks` but expand
+---their content first. The `x` variant does a global assignment.
+---
+----------------------------------------------------------------
+
+
+---
+---# `expanded`, `expandedafter`, `localcontrol`, `localcontrolled`, `beginlocalcontrol` and `endlocalcontrol`
+---
+---The `expanded` primitive takes a token list and expands its content which
+---can come in handy: it avoids a tricky mix of `expandafter` and `noexpand`. You can compare it with what happens inside the body of an `edef`. The \tex {immediateassignment} and \tex {immediateassigned} commands are
+---gone because we have the more powerful local control commands. They are a tad
+---slower but this mechanism isn't used that much anyway.
+---
+---```
+---\let\immediateassigned\localcontrolled % sort of what *LuaTeX* provides
+---```
+---
+---Say that we define:
+---
+---\startbuffer
+---\edef\TestA
+---  {\advance\scratchcounter\plusone}
+---\edef\TestB
+---  {\localcontrol\TestA
+---   \the\scratchcounter}
+---\edef\TestC
+---  {\localcontrolled{\advance\scratchcounter\plusone}%
+---   \the\scratchcounter}
+---\edef\TestD
+---  {\beginlocalcontrol\advance\scratchcounter\plusone\endlocalcontrol
+---   \the\scratchcounter}
+---\stopbuffer
+---
+---\typebuffer \getbuffer
+---
+---With this example:
+---
+---\startbuffer
+---\scratchcounter 10 \meaningasis\TestA
+---\scratchcounter 20 \meaningasis\TestB
+---\scratchcounter 30 \meaningasis\TestC
+---\scratchcounter 40 \meaningasis\TestD
+---\stopbuffer
+---
+---\typebuffer
+---
+---We get this:
+---
+---\startlines
+---\tttf \getbuffer
+---\stoplines
+---
+---These local control primitives are a bit tricky and error message can be
+---confusing. Future versions might have a bit better recovery but in practice it
+---works as expected.
+---
+---An `expandedafter` primitive is also provided as an variant on `expandafter` that takes a token list instead of a single token.
+---
+----------------------------------------------------------------
+
+
+---
+---\startsubsection[title={`semiprotected`, `semiexpanded`, `expand`,
+---`semiexpand` and `expandactive`}]
+---
+---These primitives can best be explained with a few examples. The semi boils down to
+---a bit more controlled usage of `protected` macros.
+---
+---\startbuffer \def\Test {test} \def\TestA{\Test}
+---\protected     \def\TestB{\Test}
+---\semiprotected \def\TestC{\Test} \edef\TestD{\Test} \edef\TestE{\TestA} \edef\TestF{\TestB} \edef\TestG{\TestC} \edef\TestH{\normalexpanded{\TestB\TestC}} % ctx has \expanded defined \edef\TestI{\semiexpanded{\TestB\TestC}} \edef\TestJ{\expand\TestB\expand\TestC} \edef\TestK{\semiexpand\TestB\semiexpand\TestC}
+---\stopbuffer
+---
+---\typebuffer \getbuffer
+---
+---The effective meanings are given next (we use `meaningasis` for this):
+---
+---\startlines \tttf
+---\meaningasis\Test
+---\meaningasis\TestA
+---\meaningasis\TestB
+---\meaningasis\TestC
+---\meaningasis\TestD
+---\meaningasis\TestE
+---\meaningasis\TestF
+---\meaningasis\TestG
+---\meaningasis\TestH
+---\meaningasis\TestI
+---\meaningasis\TestJ
+---\meaningasis\TestK
+---\stoplines
+---
+---I admit that is not yet applied much in *ConTeXt* as we have no real need for it
+---and I implemented it more out for nostalgic reasons: the kind of selective
+---protect mechanism we have in \MKII.
+---
+---Assuming that ` ` is made active:
+---
+---```
+---\protected\def {!}
+---
+---\edef\xxxx{ }
+---\edef\xxxx{\expandactive }
+---```
+---
+---In both cases the meaning will show ` ` so it's kind of subtle because in reality
+---they have the following internal representation:
+---
+---```
+---active    char 126
+---protected call  
+---```
+---
+----------------------------------------------------------------
+
+
+---
+---# Going ahead with `expandafterpars` and `expandafterspaces`
+---
+---Here are again some convenience primitives that simplify coding, remove the need
+---to show off with multi-step macros and are nicely expandable. They fit in the
+---repertoire of additional primitives that make macro code look somewhat easier.
+---Here are a few examples:
+---
+---\startbuffer
+---\def\foo{!!} [\expandafterpars  \foo \par test]
+---\def\foo{!!} [\expandafterspaces\foo      test]
+---
+---\def\foo{!!} \def\oof{\foo}                   [{\oof} test]
+---\def\foo{!!} \def\oof{\expandafterspaces\foo} [{\oof}test]
+---\stopbuffer
+---
+---\typebuffer
+---
+---These are typically used when building high level interfaces so not many users
+---will see them in document sources.
+---
+---\startlines
+---\getbuffer
+---\stoplines
+---
+----------------------------------------------------------------
+
+
+---
+---# `afterassigned`
+---
+---This primitive is a multiple token variant of `afterassignment` and it takes
+---a token list. It might look better in some cases than multiple single token
+---“calls”.
+---
+----------------------------------------------------------------
+
+
+---
+---# `detokenized`
+---
+---The `string` primitive serializes what comes next, a control sequence or
+---something more primitive string representation or just the (*UTF-8*) character so it
+---does look at what it sees next in some detail. This can give confusing results
+---when the next token is for instance a new line. The `detokenized` is less
+---picky and just serializes the token, so in the next examples an empty lines is
+---what we normally expect it to become: a serialized par token.
+---
+---\def\oof{s\expandafter\foo\string}
+---\def\ofo{d\expandafter\foo\detokenized}
+---\def\foo#1{:[#1]}
+---
+---\startbuffer
+---\oof test
+---\ofo test
+---\oof \relax
+---\ofo \relax
+---\oof \par
+---\ofo \par
+---
+---\oof
+---
+---\ofo
+---
+---done
+---\stopbuffer
+---
+---\typebuffer
+---
+---We need the empty lines and “done” to make sure we see the effect:
+---
+---{\tttf \getbuffer}
+---
+----------------------------------------------------------------
+
+
+---
+---# `expandtoken` and `expandcstoken`
+---
+---These two are not really needed but can make code look less weird (and
+---impressive) because there are no catcode changes involved. The next example
+---illustrates what they do:
+---
+---\startbuffer
+---\edef\foo{\expandtoken 12 123 }              \meaning\foo
+---\edef\oof{\bgroup \egroup}                              \meaning\oof
+---\edef\oof{\expandcstoken \bgroup\expandcstoken \egroup} \meaning\oof
+---\edef\oof{\expandcstoken \foo   }                       \meaning\oof
+---\stopbuffer
+---
+---\typebuffer
+---
+---So `expandtoken` expects two arguments: a catcode and a character number.
+---The `expandcstoken` will only look at control sequences representing a
+---character.
+---
+---\startlines
+---\getbuffer
+---\stoplines
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---\startsection[title=Grouping]
+---
+---# `endsimplegroup`
+---
+---This feature might look somewhat weird so just ignore that it is there. It is one
+---of these features that might never make it in a engine when discussed in
+---committee but it comes in handy in *ConTeXt*, so:
+---
+---\startbuffer
+---\def\foo{\beginsimplegroup\bf\let\next}
+---
+---\foo{test}
+---\foo{test\endgroup
+---\foo{test\endsimplegroup
+---\foo{test\egroup
+---\stopbuffer
+---
+---\typebuffer
+---
+---These lines typeset as:
+---
+---\startlines \getbuffer \stoplines
+---
+---The `beginsimplegroup` primitives signals that any end group command, except
+---`endmathgroup` will wrap up the current group. The `endsimplegroup` is
+---sort of redundant but fits in anyway.
+---
+---The also *Lua*METATEX\ specific `beginmathgroup` and `endmathgroup`
+---commands are like `begingroup` and `endgroup` but restore the mathstyle
+---when it has been changed in the group.
+---
+---# `aftergrouped`
+---
+---There is a new experimental feature that can inject multiple tokens to after the group
+---ends. An example demonstrate its use:
+---
+---\startbuffer
+---{
+---    \aftergroup A \aftergroup B \aftergroup C
+---test 1 : }
+---
+---{
+---    \aftergrouped{What comes next 1}
+---    \aftergrouped{What comes next 2}
+---    \aftergrouped{What comes next 3}
+---test 2 : }
+---
+---{
+---    \aftergroup A \aftergrouped{What comes next 1}
+---    \aftergroup B \aftergrouped{What comes next 2}
+---    \aftergroup C \aftergrouped{What comes next 3}
+---test 3 : }
+---
+---{
+---    \aftergrouped{What comes next 1} \aftergroup A
+---    \aftergrouped{What comes next 2} \aftergroup B
+---    \aftergrouped{What comes next 3} \aftergroup C
+---test 4 : }
+---\stopbuffer
+---
+---\typebuffer
+---
+---This gives:
+---
+---\startpacked\getbuffer\stoppacked
+---
+----------------------------------------------------------------
+
+
+---
+---# `atendofgroup` and `atendofgrouped`
+---
+---These are variants of `aftergroup` and `aftergrouped` but they happen
+---{\em before} the groups is closed. It is one of these primitives that is not
+---really needed but that can make code (and tracing) cleaner, which is one of the
+---objectives (at least for *ConTeXt*).
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---\startsection[title=Conditions]
+---
+---# `ifabsnum` and `ifabsdim`
+---
+---There are two tests that we took from *PDF*TEX:
+---
+---\startbuffer
+---\ifabsnum -10 = 10
+---    the same number
+---\fi
+---\ifabsdim -10pt = 10pt
+---    the same dimension
+---\fi
+---\stopbuffer
+---
+---\typebuffer
+---
+---This gives
+---
+---\blank {\tt \getbuffer} \blank
+---
+----------------------------------------------------------------
+
+
+---
+---# Comparing
+---
+---When comparing (for instance) to numbers the a `=`, `<` or `>`
+---is used. In *Lua*METATEX\ you can negate such a comparison by `!`, as in
+---`!=`, `!<` or `!>`. Multiple `!` flip that state.
+---
+---In addition to these \ASCII\ combinations, we also support some *Unicode*
+---variants. The extra comparison options are:
+---
+--- character                                  operation         
+---
+--- `0x2208`  `\Uchar"2208`              element of        
+--- `0x2209`  `\Uchar"2209`              not element of    
+--- `0x2260`  `\Uchar"2260`  `!=`  not equal         
+--- `0x2264`  `\Uchar"2264`  `!>`  less equal        
+--- `0x2265`  `\Uchar"2265`  `!<`  greater equal     
+--- `0x2270`  `\Uchar"2270`              not less equal    
+--- `0x2271`  `\Uchar"2271`              not greater equal 
+---
+----------------------------------------------------------------
+
+
+---
+---# `ifzeronum`, `ifzerodim`
+---
+---Their name tells what they test for: zero (point) values.
+---
+----------------------------------------------------------------
+
+
+---
+---# `ifcmpnum`, `ifcmpdim`, `ifnumval`, `ifdimval`, `ifchknum` and `ifchkdim`
+---
+---New are the ones that compare two numbers or dimensions:
+---
+---\startbuffer
+---\ifcmpnum 5 8 less \or equal \else more \fi
+---\ifcmpnum 5 5 less \or equal \else more \fi
+---\ifcmpnum 8 5 less \or equal \else more \fi
+---\stopbuffer
+---
+---\typebuffer \blank {\tt \getbuffer} \blank
+---
+---and
+---
+---\startbuffer
+---\ifcmpdim 5pt 8pt less \or equal \else more \fi
+---\ifcmpdim 5pt 5pt less \or equal \else more \fi
+---\ifcmpdim 8pt 5pt less \or equal \else more \fi
+---\stopbuffer
+---
+---\typebuffer \blank {\tt \getbuffer} \blank
+---
+---There are also some number and dimension tests. All four expose the `\else`
+---branch when there is an error, but two also report if the number is less, equal
+---or more than zero.
+---
+---\startbuffer
+---\ifnumval  -123  \or < \or = \or > \or ! \else ? \fi
+---\ifnumval     0  \or < \or = \or > \or ! \else ? \fi
+---\ifnumval   123  \or < \or = \or > \or ! \else ? \fi
+---\ifnumval   abc  \or < \or = \or > \or ! \else ? \fi
+---
+---\ifdimval -123pt \or < \or = \or > \or ! \else ? \fi
+---\ifdimval    0pt \or < \or = \or > \or ! \else ? \fi
+---\ifdimval  123pt \or < \or = \or > \or ! \else ? \fi
+---\ifdimval  abcpt \or < \or = \or > \or ! \else ? \fi
+---\stopbuffer
+---
+---\typebuffer \blank {\tt \getbuffer} \blank
+---
+---\startbuffer
+---\ifchknum  -123  \or okay \else bad \fi
+---\ifchknum     0  \or okay \else bad \fi
+---\ifchknum   123  \or okay \else bad \fi
+---\ifchknum   abc  \or okay \else bad \fi
+---
+---\ifchkdim -123pt \or okay \else bad \fi
+---\ifchkdim    0pt \or okay \else bad \fi
+---\ifchkdim  123pt \or okay \else bad \fi
+---\ifchkdim  abcpt \or okay \else bad \fi
+---\stopbuffer
+---
+---\typebuffer \blank {\tt \getbuffer} \blank
+---
+---The last checked values are available in `lastchknum` and `lastchkdim`.
+---These don't obey grouping.
+---
+---The two primitives `ifchkdimension` and `ifchknumber` are like `ifchkdimen` and `ifchknum`but are more rigorous: the short ones quit
+---scanning at a match where after the match there can be anything, while the long
+---variants don't accept following crap.
+---
+----------------------------------------------------------------
+
+
+---
+---# `ifmathstyle` and `ifmathparameter`
+---
+---These two are variants on `ifcase` where the first one operates with values
+---in ranging from zero (display style) to seven (cramped script script style) and
+---the second one can have three values: a parameter is zero, has a value or is
+---unset. The `\ifmathparameter` primitive takes a proper parameter name and a
+---valid style identifier (a primitive identifier or number). The `\ifmathstyle` primitive is equivalent to `\ifcase \mathstyle`.
+---
+----------------------------------------------------------------
+
+
+---
+---# `ifempty`
+---
+---This primitive tests for the following token (control sequence) having no
+---content. Assuming that `\empty` is indeed empty, the following two are
+---equivalent:
+---
+---```
+---\ifempty\whatever
+---\ifx\whatever\empty
+---```
+---
+---There is no real performance gain here, it's more one of these extensions that
+---lead to less clutter in tracing.
+---
+----------------------------------------------------------------
+
+
+---
+---# `ifrelax`
+---
+---This primitive complements `\ifdefined`, `\ifempty` and `\ifcsname` so that we have all reasonable tests directly available.
+---
+----------------------------------------------------------------
+
+
+---
+---# `ifboolean`
+---
+---This primitive tests for non-zero, so the next variants are similar
+---
+---```
+---       \ifcase   <integer>.F.\else .T.\fi
+---\unless\ifcase   <integer>.T.\else .F.\fi
+---       \ifboolean<integer>.T.\else .F.\fi
+---```
+---
+----------------------------------------------------------------
+
+
+---
+---# `iftok` and `ifcstok`
+---
+---Comparing tokens and macros can be done with `\ifx`. Two extra test are
+---provided in *Lua*METATEX:
+---
+---\startbuffer
+---\def\ABC{abc} \def\DEF{def} \def\PQR{abc} \newtoks\XYZ \XYZ {abc}
+---
+---\iftok{abc}{def}\relax  (same) \else [different] \fi
+---\iftok{abc}{abc}\relax  [same] \else (different) \fi
+---\iftok\XYZ {abc}\relax  [same] \else (different) \fi
+---
+---\ifcstok\ABC \DEF\relax (same) \else [different] \fi
+---\ifcstok\ABC \PQR\relax [same] \else (different) \fi
+---\ifcstok{abc}\ABC\relax [same] \else (different) \fi
+---\stopbuffer
+---
+---\typebuffer \startpacked[blank] {\tt\nospacing\getbuffer} \stoppacked
+---
+---You can check if a macro is defined as protected with `\ifprotected` while
+---frozen macros can be tested with `\iffrozen`. A provisional `\ifusercmd` tests will check if a command is defined at the user level (and this
+---one might evolve).
+---
+----------------------------------------------------------------
+
+
+---
+---# `ifhastok`, `ifhastoks`, `ifhasxtoks` and `ifhaschar`
+---
+---The first three test primitives run over a token list in order to encounter a
+---single token or a sequence. The `x` variants applies expansion.
+---
+---\startbuffer
+---\def\ab {ab}
+---\def\abc{abc}
+---\ifhastok  1    {12} Y\else N\fi
+---\ifhastoks {ab} {abc}Y\else N\fi
+---\ifhastoks {ab} {\abc}Y\else N\fi
+---\ifhastoks {\ab}{\abc}Y\else N\fi
+---\ifhasxtoks{ab} {\abc}Y\else N\fi
+---\ifhastok  3    {12} Y\else N\fi
+---\ifhastoks {de} {abc}Y\else N\fi
+---\stopbuffer
+---
+---\typebuffer \startpacked[blank] {\tt\nospacing\getbuffer} \stoppacked
+---
+---The `ifhaschar` primitive differs from `ifhastok` in that it handles
+---nested balanced “lists”, as in:
+---
+---\startbuffer
+---\ifhastok  a  {abc}Y\else N\fi
+---\ifhaschar a  {abc}Y\else N\fi
+---\ifhastok  a{{a}bc}Y\else N\fi
+---\ifhaschar a{{a}bc}Y\else N\fi
+---\stopbuffer
+---
+---\typebuffer \startpacked[blank] {\tt\nospacing\getbuffer} \stoppacked
+---
+----------------------------------------------------------------
+
+
+---
+---# `ifarguments`, `ifparameters` and `ifparameter`
+---
+---These are part of the extended macro argument parsing features. The `ifarguments` condition is like an `ifcase` where the number is the
+---picked up number of arguments. The number reflects the {\em last} count, so
+---successive macro expansions will adapt the value. The `ifparameters`
+---counts till the first empty parameter and the `ifparameter` (singular)
+---takes a parameter reference (like `#2`) and again is an `ifcase`
+---where zero means a bad reference, one a non-empty argument and two an empty
+---one. A typical usage is:
+---
+---```
+---\def\foo#1#2%
+---  {\ifparameter#1\or one\fi
+---   \ifparameter#2\or two\fi}
+---```
+---
+---No expansion of arguments takes place here but you can use a test like this:
+---
+---```
+---\def\foo#1#2%
+---  {\iftok{#1}{}\else one\fi
+---   \iftok{#2}{}\else two\fi}
+---```
+---
+----------------------------------------------------------------
+
+
+---
+---# `ifcondition`
+---
+---This is a somewhat special one. When you write macros conditions need to be
+---properly balanced in order to let *TeX*'s fast branch skipping work well. This new
+---primitive is basically a no||op flagged as a condition so that the scanner can
+---recognize it as an if-test. However, when a real test takes place the work is
+---done by what follows, in the next example \tex {something}.
+---
+---```
+---\unexpanded\def\something#1#2%
+---  {\edef\tempa{#1}%
+---   \edef\tempb{#2}
+---   \ifx\tempa\tempb}
+---
+---\ifcondition\something{a}{b}%
+---    \ifcondition\something{a}{a}%
+---        true 1
+---    \else
+---        false 1
+---    \fi
+---\else
+---    \ifcondition\something{a}{a}%
+---        true 2
+---    \else
+---        false 2
+---    \fi
+---\fi
+---```
+---
+---If you are familiar with \METAPOST, this is a bit like `vardef` where the macro
+---has a return value. Here the return value is a test.
+---
+---Experiments with something `\ifdef` actually worked ok but were rejected
+---because in the end it gave no advantage so this generic one has to do. The `\ifcondition` test is basically is a no-op except when branches are skipped.
+---However, when a test is expected, the scanner gobbles it and the next test result
+---is used. Here is an other example:
+---
+---\startbuffer
+---\def\mytest#1%
+---  {\ifabsdim#1>0pt\else
+---     \expandafter \unless
+---   \fi
+---   \iftrue}
+---
+---\ifcondition\mytest{10pt}\relax non-zero \else zero \fi
+---\ifcondition\mytest {0pt}\relax non-zero \else zero \fi
+---\stopbuffer
+---
+---\typebuffer \blank {\tt \getbuffer} \blank
+---
+---The last expansion in a macro like `\mytest` has to be a condition and here
+---we use `\unless` to negate the result.
+---
+----------------------------------------------------------------
+
+
+---
+---# `orelse` and `orunless`
+---
+---Sometimes you have successive tests that, when laid out in the source lead to
+---deep trees. The `\ifcase` test is an exception. Experiments with `\ifcasex` worked out fine but eventually were rejected because we have many
+---tests so it would add a lot. As *Lua*METATEX\ permitted more experiments,
+---eventually an alternative was cooked up, one that has some restrictions but is
+---relative lightweight. It goes like this:
+---
+---```
+---\ifnum\count0<10
+---    less
+---\orelse\ifnum\count0=10
+---    equal
+---\else
+---    more
+---\fi
+---```
+---
+---The `\orelse` has to be followed by one of the if test commands, except
+---`\ifcondition`, and there can be an `\unless` in front of such a
+---command. These restrictions make it possible to stay in the current condition
+---(read: at the same level). If you need something more complex, using `\orelse` is probably unwise anyway. In case you wonder about performance, there
+---is a little more checking needed when skipping branches but that can be
+---neglected. There is some gain due to staying at the same level but that is only
+---measurable when you runs tens of millions of complex tests and in that case it is
+---very likely to drown in the real action. It's a convenience mechanism, in the
+---sense that it can make your code look a bit easier to follow.
+---
+---There is a nice side effect of this mechanism. When you define:
+---
+---```
+---\def\quitcondition{\orelse\iffalse}
+---```
+---
+---you can do this:
+---
+---```
+---\ifnum\count0<10
+---    less
+---\orelse\ifnum\count0=10
+---    equal
+---    \quitcondition
+---    indeed
+---\else
+---    more
+---\fi
+---```
+---
+---Of course it is only useful at the right level, so you might end up with cases like
+---
+---```
+---\ifnum\count0<10
+---    less
+---\orelse\ifnum\count0=10
+---    equal
+---    \ifnum\count2=30
+---        \expandafter\quitcondition
+---    \fi
+---    indeed
+---\else
+---    more
+---\fi
+---```
+---
+---The `orunless` variant negates the next test, just like `unless`. In
+---some cases these commands look at the next token to see if it is an if-test so
+---a following negation will not work (read: making that work would complicate the
+---code and hurt efficiency too). Side note: interesting is that in *ConTeXt* we
+---hardly use this kind of negation.
+---
+----------------------------------------------------------------
+
+
+---
+---# `ifflags`
+---
+---This checker deal with control sequences. You can check if a command is a
+---protected one, that is, defined with the `\protected` prefix. A command is
+---frozen when it has been defined with the `\frozen` prefix. Beware: only
+---macros can be frozen. A user command is a command that is not part of the
+---predefined set of commands. This is an experimental command. The flag values can
+---be queried with `tex.getflagvalues`.
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---# Control and debugging
+---
+---# Tracing
+---
+---If `tracingonline` is larger than 2, the node list display will also print
+---the node number of the nodes as well as set attributes (these can be made verbose
+---by a callback). We have only a generic whatsit but again a callback can be used
+---to provide detail. So, when a box is shown in *ConTeXt* you will see quite a lot
+---more than in other engines. Because nodes have more fields, more is shown anyway,
+---and for nodes that have sublists (like discretionaries) these are also shown. All
+---that could have been delegated to *Lua* but it felt wrong to not made that a core
+---engine feature.
+---
+---The `tracingpenalties` parameter triggers the line break routine to report
+---the applied interline penalties to the output.
+---
+---When `tracingcommands` is larger than 3 the mode switch will be not be
+---prefixed to the `{command`} but get its own `[line]`.
+---
+---When `tracinghyphenation` is set to 1 duplicate patterns are reported (in
+---*ConTeXt* we default to that) and higher values will also show details about the
+---*Lua* hyphenation (exception) feedback loop discussed elsewhere.
+---
+---When set to 1 the `tracingmath` variable triggers the reporting of the mode
+---(inline or display) an mlist is processed. Other new tracing commands are
+---discussed where the mechanisms that they relate to are introduced.
+---
+---The `tracingnodes` variable makes that when a node list is reported the node
+---numbers are also shown. This is only useful when you have callbacks that access
+---nodes.
+---
+--- value  effect 
+---
+--- 1  show node numbers in lists 
+--- 2  also show numbers of attribute nodes 
+--- 3  also show glue spec node numbers 
+---
+---When the `shownodedetails` variable is set to a value larger than zero and a
+---node is shown (in a list) then more details will be revealed. This can be rather
+---verbose because in *Lua*METATEX\ node carry more properties than in traditional
+---*TeX* and *LuaTeX*. A value larger than one will also show details of attributes
+---that are bound to nodes.
+---
+---The `tracinglevels` variable is a bitset and offers the following features:
+---
+--- value  effect 
+---
+--- 1  show group level 
+--- 2  show input level 
+--- 4  show catcode regime 
+---
+---So a value of 7 shows them all. In *ConTeXt* we set this variable to 3 which
+---gives a rather verbose log when tracing is on but in the end its'not that bad
+---because using some of the newer programming related primitive can save tracing.
+---
+---The `tracinglists` variable will show some of the (intermediate) lists that
+---get processed. It is there mainly for development but might evolve.
+---
+---Because in *LuaTeX* the saving and restoring of locally redefined macros and set
+---variables is optimized a bit in order to prevent redundant stack usage, there
+---will be less tracing visible.
+---
+---Also, because we have a more extensive macro argument parser, a fast path (and
+---less storage demands) for macros with no arguments, and flags that can be set for
+---macros the way macros are traced can be different in details (we therefore have
+---for instance `meaningfull` (double l's indeed) and `meaningless` as
+---variants of `meaning` as well as `meaningasis` for more literal
+---alternative).
+---
+----------------------------------------------------------------
+
+
+---
+---% \startsubsection[title={`lastnodetype`, `lastnodesubtype`, \prm
+---% {currentiftype} and `internalcodesmode`.}]
+---%
+---% The \ETEX\ command `\lastnodetype` is limited to some nodes. When the
+---% parameter `\internalcodesmode` is set to a non-zero value the normal
+---% (internally used) numbers are reported. The same is true for \type
+---% {\currentiftype}, as we have more conditionals and also use a different order.
+---% The `\lastnodesubtype` is a bonus.
+---%
+---% \stopsubsection
+---
+---# `lastnodetype`, `lastnodesubtype`, `currentiftype`
+---
+---The \ETEX\ command `lastnodetype` returns the node codes as used in the
+---engine. You can query the numbers at the *Lua* end if you need the actual values.
+---The parameter `\internalcodesmode` is no longer provided as compatibility
+---switch because *LuaTeX* has more cq. some different nodes and it makes no sense
+---to be incompatible with the *Lua* end of the engine. The same is true for `currentiftype`, as we have more conditionals and also use a different order.
+---The `lastnodesubtype` is a bonus and again reports the codes used
+---internally. During development these might occasionally change, but eventually
+---they will be stable.
+---
+----------------------------------------------------------------
+
+
+---
+---# `lastboundary` and `unboundary`
+---
+---There are `lastpenalty`, `lastskip`, `lastkern` and `lastbox`
+---primitives and *Lua*METATEX\ also offers `lastboundary` which gives the value
+---assigned to a user boundary node. This means that we also have a `unboundary` to complement the other \tex {un...} primitives.
+---
+----------------------------------------------------------------
+
+
+---
+---\startsubsection[title=Nodes]
+---
+---The \ETEX\ primitive `lastnodetype` is not honest in reporting the
+---internal numbers as it uses its own values. But you can set `\internalcodesmode` to a non-zero value to get the real id's instead. In
+---addition there is `lastnodesubtype`.
+---
+---Another last one is `lastnamedcs` which holds the last match but this one
+---should be used with care because one never knows if in the meantime something
+---else “last” has been seen.
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---\startsection[title=Scanning]
+---
+---\startsubsection[title=Keywords]
+---
+---Some primitives accept one or more keywords and *Lua*METATEX\ adds some more. In
+---order to deal with this efficiently the keyword scanner has been optimized, where
+---even the context was taken into account. As a result the scanner was quite a bit
+---faster. This kind of optimization was a graduate process the eventually ended up
+---in what we have now. In traditional *TeX* (and also *LuaTeX*) the order of
+---keywords is sometimes mixed and sometimes prescribed. In most cases only one
+---occurrence is permitted. So, for instance, this is valid in *LuaTeX*:
+---
+---```
+---\hbox attr 123 456 attr 123 456 spread 10cm { }
+---\hrule width 10cm depth 3mm
+---\hskip 3pt plus 2pt minus 1pt
+---```
+---
+---The `attr` comes before the `spread`, rules can have multiple mixed
+---dimension specifiers, and in glue the optional `minus` part always comes
+---last. The last two commands are famous for look ahead side effects which is why
+---macro packages will end them with something not keyword, like `\relax`,
+---when needed.
+---
+---In *Lua*METATEX\ the following is okay. Watch the few more keywords in box and
+---rule specifications.
+---
+---```
+---\hbox reverse to 10cm attr 123 456 orientation 4 xoffset 10pt spread 10cm { }
+---\hrule xoffset 10pt width 10cm depth 3mm
+---\hskip 3pt minus 1pt plus 2pt
+---```
+---
+---Here the order is not prescribed and, as demonstrated with the box specifier, for
+---instance dimensions (specified by `to` or `spread` can be overloaded
+---by later settings. In case you wonder if that breaks compatibility: in some way
+---it does but bad or sloppy keyword usage breaks a run anyway. For instance `minuscule` results in `minus` with no dimension being seen. So, in the end
+---the user should not noticed it and when a user does, the macro package already
+---had an issue that had to be fixed.
+---
+----------------------------------------------------------------
+
+
+---
+---# `norelax`
+---
+---There are a few cases where the *TeX* scanned skips over spaces and `relax` as
+---well as quits on a `relax` in which case it gets pushed back. An example is
+---given below:
+---
+---\startbuffer
+---\edef\TestA{\ifnum1=1\relax   Y\else N\fi} \meaningasis\TestA
+---\edef\TestB{\ifnum1=1\norelax Y\else N\fi} \meaningasis\TestB
+---\stopbuffer
+---
+---\typebuffer
+---
+---The second line also contains a sentinel but this time we use `norelax`
+---which will not be pushed back. So, this feature is just a trick to get rid of (in
+---itself reasonable) side effects.
+---
+---\startlines\getbuffer \stoplines
+---
+----------------------------------------------------------------
+
+
+---
+---# `ignorepars`
+---
+---This primitive is like `ignorespaces` but also skips paragraph ending
+---commands (normally `par` and empty lines).
+---
+----------------------------------------------------------------
+
+
+---
+---# `futureexpand`, `futureexpandis`, `futureexpandisap`
+---
+---These commands are used as:
+---
+---```
+---\futureexpand\sometoken\whenfound\whennotfound
+---```
+---
+---When there is no match and a space was gobbled a space will be put back. The
+---`is` variant doesn't do that while the `isap` even skips `\pars`, These characters stand for “ignorespaces” and “ignorespacesandpars”.
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---\startsection[title=Macros]
+---
+---# `lettonothing` and `glettonothing`
+---
+---This primitive is equivalent to:
+---
+---```
+---\protected\def\lettonothing#1{\def#1{}}
+---```
+---
+---and although it might feel faster (only measurable with millions of calls) it's
+---mostly there because it is easier on tracing (less clutter). An advantage over
+---letting to an empty predefined macro is also that in tracing we keep seeing the
+---name (relaxing would show the relax equivalent).
+---
+----------------------------------------------------------------
+
+
+---
+---# `glet`
+---
+---This primitive is similar to:
+---
+---```
+---\protected\def\glet{\global\let}
+---```
+---
+---but faster (only measurable with millions of calls) and probably more convenient
+---(after all we also have `\gdef`).
+---
+----------------------------------------------------------------
+
+
+---
+---# `defcsname`, `edefcsname`, `gdefcsname` and `xdefcsname`
+---
+---Although we can implement these primitives easily using macros it makes sense,
+---given the popularity of `csname` to have these as primitives. It also saves
+---some `expandafter` usage and it looks a bit better in the source.
+---
+---```
+---\gdefcsname foo\endcsname{oof}
+---```
+---
+----------------------------------------------------------------
+
+
+---
+---# `letcsname` and `gletcsname`
+---
+---These can also be implemented using macros but again they are natively provided
+---by the engine for the same reasons: less code and less tracing clutter.
+---
+---```
+---\gletcsname foo\endcsname \relax
+---```
+---
+----------------------------------------------------------------
+
+
+---
+---# `cdef`, `cdefcsname` and `constant`
+---
+---These primitives are like `edef` and `edefcsname` but tag the macro as
+---being kind of simple, which means that in some scenarios they are serialized in a
+---fast way, not going through the expansion machinery. This is actually an
+---experiment but it will stay. The `constant` prefix can be used with other
+---definition primitives instead.
+---
+----------------------------------------------------------------
+
+
+---
+---# `csstring`, `begincsname` and `lastnamedcs`
+---
+---These are somewhat special. The `csstring` primitive is like
+---`string` but it omits the leading escape character. This can be
+---somewhat more efficient than stripping it afterwards.
+---
+---The `begincsname` primitive is like `csname` but doesn't create
+---a relaxed equivalent when there is no such name. It is equivalent to
+---
+---```
+---\ifcsname foo\endcsname
+---  \csname foo\endcsname
+---\fi
+---```
+---
+---The advantage is that it saves a lookup (don't expect much speedup) but more
+---important is that it avoids using the `if` test. The `lastnamedcs`
+---is one that should be used with care. The above example could be written as:
+---
+---```
+---\ifcsname foo\endcsname
+---  \lastnamedcs
+---\fi
+---```
+---
+---This is slightly more efficient than constructing the string twice (deep down in
+---*LuaTeX* this also involves some *UTF-8* juggling), but probably more relevant is
+---that it saves a few tokens and can make code a bit more readable.
+---
+---Active characters are stored in the hash with a special prefix sequence prepended
+---to the character: `csactive` or the never used *UTF-8* representation of `U+FFFF`.
+---
+----------------------------------------------------------------
+
+
+---
+---# `futuredef` and `futurecsname`
+---
+---This is just the definition variant of `futurelet` and a simple example
+---shows the difference:
+---
+---\startbuffer
+---\def\whatever{[\next:\meaning\next]}
+---\futurelet\next\whatever A
+---\futuredef\next\whatever B
+---\stopbuffer
+---
+---\typebuffer
+---
+---\getbuffer
+---
+---The next one was more an experiment that then stayed around, just to see what
+---surprising abuse of this primitive will happen:
+---
+---\startbuffer
+---\def\whateveryes{[YES]}
+---\def\whatevernop{[NOP]}
+---\let\whatever\undefined
+---\futurecsname\whatevernop whatever\endcsname
+---\futurecsname\whatevernop whateveryes\endcsname
+---\stopbuffer
+---
+---\typebuffer
+---
+---When the assembles control sequence is undefined the given one will be expanded,
+---a weird one, right? I will probably apply it some day in cases where I want less
+---tracing and a more direct expansion of an assembled name.
+---
+---\getbuffer
+---
+---Here is a usage example:
+---
+---```
+---\xdef\Whatever{\futurecsname\whatevernop    whatever\endcsname}
+---\xdef\Whatever{\futurecsname\whateveryes whateveryes\endcsname}
+---\xdef\Whatever{\ifcsname    whatever\endcsname\lastnamedcs\else\whatevernop\fi}
+---\xdef\Whatever{\ifcsname whateveryes\endcsname\lastnamedcs\else\whatevernop\fi}
+---\xdef\Whatever{\ifcsname    whatever\endcsname\csname    whatever\endcsname\else\whatevernop\fi}
+---\xdef\Whatever{\ifcsname whateveryes\endcsname\csname whateveryes\endcsname\else\whatevernop\fi}
+---```
+---
+---The timings for one million times defining each of these definitions are 0.277,
+---0.313, 0.310, 0.359, 0.352 and 0.573 seconds (on a 2018 Dell 7250 Precision
+---laptop with mobile E3-1505M v6 processor), so there is a little gain here, but of
+---course in practice no one will notice that because not that many such macros are
+---defined (or used).
+---
+----------------------------------------------------------------
+
+
+---
+---\startsubsection[title=Prefixes]
+---
+---Quite some primitive usage can be preceded by a prefix. For instance assignments
+---can be `global` and macros can be defined `protected`. In *Lua*METATEX\
+---we have more prefixes, like `tolerant` that signals a different way of
+---interpreting macro arguments and `permanent` that flags a definition in
+---away that, when overload protection is enabled, will prevent redefinition.
+---Prefixes like `immediate` and its counterpart `deferred` are backend
+---related and, as we don't have one in the engine, are not doing much. They are
+---just intercepted and passed to e.g.\ some *Lua* function called so that one can
+---use them to construct additional (*Lua* based) pseudo primitives. Various
+---prefixes are discussed elsewhere.
+---
+----------------------------------------------------------------
+
+
+---
+---\startsubsection[title=Arguments]
+---
+---Again this is experimental and (used and) discussed in document that come with the
+---*ConTeXt* distribution. When defining a macro you can do this:
+---
+---```
+---\def\foo(#1)#2{...}
+---```
+---
+---Here the first argument between parentheses is mandate. But the magic
+---prefix `tolerant` makes that limitation go away:
+---
+---```
+---\tolerant\def\foo(#1)#2{...}
+---```
+---
+---A variant is this:
+---
+---```
+---\tolerant\def\foo(#1)#*(#2){...}
+---```
+---
+---Here we have two optional arguments, possibly be separated by spaces. There are
+---more parsing options:
+---
+---\FL
+--- +    keep the braces 
+--- -    discard and don't count the argument 
+--- /    remove leading an trailing spaces and pars 
+--- =    braces are mandate 
+--- _    braces are mandate and kept 
+--- ^    keep leading spaces 
+---\ML
+--- 1-9  an argument 
+--- 0    discard but count the argument 
+---\ML
+--- *    ignore spaces 
+--- .    ignore pars and spaces 
+--- ,    push back space when no match 
+---\ML
+--- :    pick up scanning here  
+--- ;    quit scanning 
+---
+---For the moment we leave it to your fantasy what these options do. Most probably
+---only make sense when you write a bit more complex macros. Just try to imagine
+---what this does:
+---
+---```
+---\permanent\tolerant\global\protected\def\foo(#1)#*#;[#2]#:#3{...}
+---```
+---
+---Of course complex combinations can be confusing because after all *TeX* is
+---parsing for (multi-token) delimiters and will happily gobble the whole file if
+---you are not careful. You can quit scanning with `ignorearguments` if you
+---want:
+---
+---```
+---\mymacro 123\ignorearguments
+---```
+---
+---which of course only makes sense when used in a nested call where an already
+---picked up arguments is processed further. A not (yet) discussed feature of the
+---parser is that it will happily skip tokens that have the (probably seldom used)
+---ignored characters property.
+---
+---When you use tracing or see error messages arguments defined using for instance
+---`#=` will have their usual number in the macro body, so you need to keep
+---track of the numbers.
+---
+---All this is rather easy on the engine and although it might have a little impact
+---on performance this has been compensated by some more efficiency in the macro
+---parser and engine in general and of course you can gain back some by using these
+---features.
+---
+----------------------------------------------------------------
+
+
+---
+---# `parametermark`
+---
+---The meaning of primitive `parametermark` is equivalent to `#` in a macro
+---definition, just like `alignmark` is in an alignment. It can be used to circumvent
+---catcode issues. The normal \quotation {duplicate them when nesting} rules apply.
+---
+---\startbuffer
+---\def\foo\parametermark1%
+---  {\def\oof\parametermark\parametermark1%
+---     {[\parametermark1:\parametermark\parametermark1]}}
+---\stopbuffer
+---
+---\typebuffer \getbuffer
+---
+---Here `\foo{X`\oof{Y}} gives: \foo{X}\oof{Y}.
+---
+----------------------------------------------------------------
+
+
+---
+---# `lastarguments` and `parametercount`
+---
+---There are two state variables that refer to the number of read arguments. An
+---example can show the difference:
+---
+---\startbuffer
+---\tolerant\def\foo[#1]#*[#2]{[\the\lastarguments,\the\parametercount]}
+---
+---\foo[1][2]
+---\foo[1]
+---\foo
+---
+---x: \foo[1][2]
+---x: \foo[1]
+---x: \foo
+---\stopbuffer
+---
+---\typebuffer
+---
+---What you get actually depends on the macro package. When for instance `everypar` has some value that results in a macro being expanded, the numbers
+---reported can refer to the most recent macro because serializing the number can
+---result in entering horizontal mode.
+---
+---\startlines
+---\getbuffer
+---\stoplines
+---
+---The `lastarguments` returns the most recent global state variable as with
+---any `\last...` primitives. Because it actually looks at the parameter stack
+---of the currently expanded macro `parametercount` is more reliable but also
+---less efficient.
+---
+----------------------------------------------------------------
+
+
+---
+---\startsubsection[title=Overload protection]
+---
+---There is an experimental overload protection mechanism that we will test for a
+---while before declaring it stable. The reason for that is that we need to adapt
+---the *ConTeXt* code base in order to test its usefulness. Protection is achieved
+---via prefixes. Depending on the value of the `overloadmode` variable
+---warnings or errors will be triggered. Examples of usage can be found in some
+---documents that come with *ConTeXt*, so here we just stick to the basics.
+---
+---```
+---\mutable  \def\foo{...}
+---\immutable\def\foo{...}
+---\permanent\def\foo{...}
+---\frozen   \def\foo{...}
+---\aliased  \def\foo{...}
+---```
+---
+---A `mutable` macro can always be changed contrary to an `immutable` one.
+---For instance a macro that acts as a variable is normally `mutable`, while a
+---constant can best be immutable. It makes sense to define a public core macro as
+---`permanent`. Primives start out a `permanent` ones but with a primitive
+---property instead.
+---
+---\startbuffer \let\relaxone  \relax 1: \meaningfull\relaxone
+---\aliased  \let\relaxtwo  \relax 2: \meaningfull\relaxtwo
+---\permanent\let\relaxthree\relax 3: \meaningfull\relaxthree
+---\stopbuffer
+---
+---\typebuffer
+---
+---The `meaningfull` primitive is like `meaning` but report the
+---properties too. The `meaningless` companion reports the body of a macro.
+---Anyway, this typesets:
+---
+---\startlines \tttf \getbuffer \stoplines
+---
+---So, the `aliased` prefix copies the properties. Keep in mind that a macro
+---package can redefine primitives, but `relax` is an unlikely candidate.
+---
+---There is an extra prefix `noaligned` that flags a macro as being valid
+---for `noalign` compatible usage (which means that the body must contain that
+---one. The idea is that we then can do this:
+---
+---```
+---\permanent\protected\noaligned\def\foo{\noalign{...}} % \foo is unexpandable
+---```
+---
+---that is: we can have protected macros that don't trigger an error in the parser
+---where there is a look ahead for `noalign` which is why normally protection
+---doesn't work well. So: we have macro flagged as permanent (overload protection),
+---being protected (that is, not expandable by default) and a valid equivalent of
+---the noalign primitive. Of course we can also apply the `global` and `tolerant` prefixes here. The complete repertoire of extra prefixes is:
+---
+---\starttabulate
+---\HL
+--- `frozen`      a macro that has to be redefined in a managed way 
+--- `permanent`   a macro that had better not be redefined 
+--- `primitive`   a primitive that normally will not be adapted 
+--- `immutable`   a macro or quantity that cannot be changed, it is a constant 
+--- `mutable`     a macro that can be changed no matter how well protected it is 
+---\HL
+--- `instance`    a macro marked as (for instance) be generated by an interface 
+---\HL
+--- `noaligned`   the macro becomes acceptable as `\noalign` alias 
+---\HL
+--- `overloaded`  when permitted the flags will be adapted 
+--- `enforced`    all is permitted (but only in zero mode or ini mode) 
+--- `aliased`     the macro gets the same flags as the original 
+---\HL
+--- `untraced`    the macro gets a different treatment in tracing 
+---\HL
+---
+---The not yet discussed `instance` is just a flag with no special meaning
+---which can be used as classifier. The `frozen` also protects against overload
+---which brings amount of blockers to four.
+---
+---To what extent the engine will complain when a property is changed in a way that
+---violates the flags depends on the parameter `overloadmode`. When this
+---parameter is set to zero no checking takes place. More interesting are values
+---larger than zero. If that is the case, when a control sequence is flagged as
+---mutable, it is always permitted to change. When it is set to immutable one can
+---never change it. The other flags determine the kind of checking done. Currently
+---the following overload values are used:
+--- immutable  permanent  primitive  frozen  instance 
+---     1  warning  \star      \star      \star                       
+---     2  error    \star      \star      \star                       
+---     3  warning  \star      \star      \star      \star            
+---     4  error    \star      \star      \star      \star            
+---     5  warning  \star      \star      \star      \star   \star    
+---     6  error    \star      \star      \star      \star   \star    
+---
+---The even values (except zero) will abort the run. A value of 255 will freeze this
+---parameter. At level five and above the `instance` flag is also checked but
+---no drastic action takes place. We use this to signal to the user that a specific
+---instance is redefined (of course the definition macros can check for that too).
+---
+---The `overloaded` prefix can be used to overload a frozen macro. The `enforced` is more powerful and forces an overload but that prefix is only
+---effective in ini mode or when it's embedded in the body of a macro or token list
+---at ini time unless of course at runtime the mode is zero.
+---
+---So far for a short explanation. More details can be found in the *ConTeXt*
+---documentation where we can discuss it in a more relevant perspective. It must be
+---noted that this feature only makes sense a controlled situation, that is: user
+---modules or macros of unpredictable origin will probably suffer from warnings and
+---errors when de mode is set to non zero. In *ConTeXt* we're okay unless of course
+---users redefine instances but there a warning or error is kind of welcome.
+---
+---There is an extra prefix `untraced` that will suppress the meaning when
+---tracing so that the macro looks more like a primitive. It is still somewhat
+---experimental so what gets displayed might change.
+---
+---The `letfrozen`, `unletfrozen`, `letprotected` and `unletprotected` primitives do as their names advertise. Of course the `overloadmode` must be set so that it is permitted.
+---
+----------------------------------------------------------------
+
+
+---
+---# Swapping meaning
+---
+---The `swapcsvalues` will swap the values of two control sequences of the same
+---type. This is a somewhat tricky features because it can interfere with grouping.
+---
+---\startbuffer
+---\scratchcounterone 1 \scratchcountertwo 2
+---(\the\scratchcounterone,\the\scratchcountertwo)
+---\swapcsvalues \scratchcounterone \scratchcountertwo
+---(\the\scratchcounterone,\the\scratchcountertwo)
+---\swapcsvalues \scratchcounterone \scratchcountertwo
+---(\the\scratchcounterone,\the\scratchcountertwo)
+---
+---\scratchcounterone 3 \scratchcountertwo 4
+---(\the\scratchcounterone,\the\scratchcountertwo)
+---\bgroup
+---\swapcsvalues \scratchcounterone \scratchcountertwo
+---(\the\scratchcounterone,\the\scratchcountertwo)
+---\egroup
+---(\the\scratchcounterone,\the\scratchcountertwo)
+---\stopbuffer
+---
+---\typebuffer
+---
+---We get similar results:
+---
+---\startlines
+---\getbuffer
+---\stoplines
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---\startsection[title=Quantities]
+---
+---\startsubsection[title={Constants with `integerdef`, `dimensiondef`,
+---`gluespecdef` and `mugluespecdef`}]
+---
+---It is rather common to store constant values in a register or character
+---definition.
+---
+---```
+---\newcount\MyConstantA \MyConstantA 123
+---\newdimen\MyConstantB \MyConstantB 123pt
+---\chardef \MyConstantC \MyConstantC 123
+---```
+---
+---But in *Lua*METATEX\ we also can do this:
+---
+---```
+---\integerdef    \MyConstantI 456
+---\dimensiondef  \MyConstantD 456pt
+---\gluespecdef   \MyConstantG 987pt minus 654pt plus 321pt
+---\mugluespecdef \MyConstantG 3mu plus 2mu minus 1mu
+---```
+---
+---These two are stored as efficient as a register but don't occupy a register slot.
+---They can be set as above, need `the` for serializations and are seen as
+---valid number or dimension when needed. They do behave like registers so one can
+---use for instance `advance` and assign values but keep in mind that an alias
+---(made by for instance `let` clones the value and that clone will not follow
+---a change in the original. For that, registers can be used because there we use an
+---indirect reference.
+---
+---Experiments with constant strings made the engine source more complex than I
+---wanted so that features was rejected. Of course we can use the prefixes mentioned
+---in a previous section.
+---
+----------------------------------------------------------------
+
+
+---
+---# Getting internal indices with `indexofcharacter` and `indexofregister`
+---
+---When you have defined a register with one of the \tex {...def} primitives but for
+---some reasons needs to know the register index you can query that:
+---
+---\startbuffer
+---\the\indexofregister \scratchcounterone,
+---\the\indexofregister \scratchcountertwo,
+---\the\indexofregister \scratchwidth,
+---\the\indexofregister \scratchheight,
+---\the\indexofregister \scratchdepth,
+---\the\indexofregister \scratchbox
+---\stopbuffer
+---
+---\typebuffer
+---
+---We lie a little here because in *ConTeXt* the box index \tex {scratchbox} is
+---actually defined as: \normalexpanded {`\meaningasis \scratchbox`} but it
+---still is a number so it fits in.
+---
+---\getbuffer
+---
+---A similar primitive gives us the (normally *Unicode*) value of a character:
+---
+---\startbuffer
+---\chardef\MyCharA=65
+---\the\indexofcharacter A
+---\the\indexofcharacter \MyCharA
+---\stopbuffer
+---
+---\typebuffer
+---
+---The result is equivalent to `\number `A` but avoids the back quote:
+---\inlinebuffer.
+---
+----------------------------------------------------------------
+
+
+---
+---# Serialization with `todimension`, `toscaled`, `tohexadecimal` and `tointeger`
+---
+---These serializers take a verbose or symbolic quantity:
+---
+---```
+---\todimension   10pt   \todimension   \scratchdimen    % with unit
+---\toscaled      10pt   \toscaled      \scratchdimen    % without unit
+---\tointeger     10     \tointeger     \scratchcounter
+---\tohexadecimal 10     \tohexadecimal \scratchcounter
+---```
+---
+---This is particularly handy in cases where you don't know what you deal with, for instance
+---when a value is stored in a macro. Using `\the` could fail there while:
+---
+---```
+---\the\dimexpr10pt\relax
+---```
+---
+---is often overkill and gives more noise in a trace.
+---
+----------------------------------------------------------------
+
+
+---
+---# Serialization with `thewithoutunit`, `tosparsedimension` and `tosparsescaled`
+---
+---By default *TeX* lets `1pt` come out as `1.0pt` which is why we also have
+---two sparse variants:
+---
+---\startbuffer
+---\todimension    10pt\quad\tosparsedimension  10pt
+---\todimension   1.2pt\quad\tosparsedimension 1.2pt
+---\toscaled       10pt\quad\tosparsescaled     10pt
+---\toscaled      1.2pt\quad\tosparsescaled    1.2pt
+---\stopbuffer
+---
+---\typebuffer
+---
+---This time trailing zeros (and a trailing period) will be dropped:
+---
+---\startlines \getbuffer \stoplines
+---
+---The `thewithoutunit` primitive is like `the` on a dimension but it
+---omits the unit.
+---
+----------------------------------------------------------------
+
+
+---
+---# Units
+---
+---The familiar *TeX* units like `pt` and `cm` are supported but since
+---the 2021 *ConTeXt* meeting we also support the Knuthian Potrzebie, cf.\ `en.wikipedia.org/wiki/Potrzebie`. The two character acronym is `dk`. One
+---`dk` is 6.43985pt. This unit is particularly suited for offsets in framed
+---examples.
+---
+---In 2023 we added the Edith (`es`) and Tove (`ts`) as metric
+---replacements for the inch (`in`). As with the `dk` more background
+---information can be found in documents that come with *ConTeXt* and user group
+---journals. The `eu` unit starts out as one `es` but can be scaled with
+---`eufactor`.
+---
+---\startbuffer
+---\localcontrolledloop -5 55 5 {
+---    \eufactor=\currentloopiterator
+---    \dontleavehmode\strut
+---    \vrule height .1es depth .25ts width 1dk\relax\quad
+---    \vrule height .1es depth .25ts width 1eu\relax\quad
+---    \the\currentloopiterator
+---    \par
+---}
+---\stopbuffer
+---
+---\typebuffer
+---
+---This example code shows all four new units. Watch how `eufactor` is clipped
+---to a value in the range `1-50`. The default factor of `10` makes the European
+---Unit equivalent to ten Toves or one Edith.
+---
+---\startpacked
+---\startcolor[darkgray]
+---\getbuffer
+---\stopcolor
+---\stoppacked
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---\startsection[title=Expressions]
+---
+---# Rounding and scaling
+---
+---The `*expr` parsers now accept `:` as operator for integer division
+---(the `/` operators does rounding. This can be used for division compatible
+---with `\divide`. I'm still wondering if adding a couple of bit operators
+---makes sense (for integers).
+---
+---The `numericscale` parser is kind of special (and might evolve). For now it
+---converts a following number in a scale value as often used in *TeX*, where 1000
+---means scaling by 1.0. The trick is in the presence of a digit (or comma): 1.234
+---becomes 1234 but 1234 stays 1234 and from this you can deduce that 12.34 becomes
+---123400. Internally *TeX* calculates with integers, but this permits the macro
+---package to provide an efficient mix.
+---
+----------------------------------------------------------------
+
+
+---
+---# Enhanced expressions
+---
+---The \ETEX\ expression primitives are handy but have some limitations. Although
+---the parsers have been rewritten in *Lua*METATEX\ and somewhat more efficient the
+---only extension we have is support for an integer division with `:`. After
+---experimenting for a while and pondering how to make `dimexpr` and `numexpr` more powerful I decided to come up with alternatives in order not to
+---introduce incompatibilities.
+---
+---The `numexpression` and `dimexpression` primitives are equivalent but
+---offer more. The first one operates in the integer domain and the second one
+---assumes scaled values. Often the second one can act like the first when
+---serialized with `number` in front. This is because when *TeX* sees a
+---symbolic reference to an integer or dimension it can treat them as it likes.
+---
+---The set of operators that we have to support is the following. Most have
+---alternatives so that we can get around catcode issues.
+---
+--- action     symbol                keyword 
+---
+--- add        +                             
+--- subtract   -                             
+--- multiply   *                             
+--- divide     / :                           
+--- mod        \letterpercent        mod     
+--- band       &                     band    
+--- bxor       ^                     bxor    
+--- bor        \letterbar \space v   bor     
+--- and        &&                    and     
+--- or         \letterbar\letterbar  or      
+--- setbit     <undecided>           bset    
+--- resetbit   <undecided>           breset  
+--- left       <<                            
+--- right      >>                            
+--- less       <                             
+--- lessequal  <=                            
+--- equal      = ==                          
+--- moreequal  >=                            
+--- more       >                             
+--- unequal    <> != \lettertilde =          
+--- not        ! \lettertilde        not     
+---
+---Here are some things that `numexpr` is not suitable for:
+---
+---```
+---\scratchcounter = \numexpression
+---    "00000 bor "00001 bor "00020 bor "00400 bor "08000 bor "F0000
+---\relax
+---
+---\ifcase \numexpression
+---    (\scratchcounterone > 5) && (\scratchcountertwo > 5)
+---\relax yes\else nop\fi
+---```
+---
+---You can get an idea what the engines sees by setting `tracingexpressions`
+---to a value larger than zero. It shows the expression in rpn form.
+---
+---```
+---\dimexpression 4pt * 2   + 6pt   \relax
+---\dimexpression 2   * 4pt + 6pt   \relax
+---\dimexpression 4pt * 2.5 + 6pt   \relax
+---\dimexpression 2.5 * 4pt + 6pt   \relax
+---\numexpression 2 * 4 + 6         \relax
+---\numexpression (1 + 2) * (3 + 4) \relax
+---```
+---
+---The `relax` is mandate simply because there are keywords involved so the
+---parser needs to know where to stop scanning. It made no sense to be more clever
+---and introduce fuzziness (so there is no room for exposing in-depth *TeX*
+---insight and expertise here). In case you wonder: the difference in performance
+---between the \ETEX\ expression mechanism and the more extended variant will
+---normally not be noticed, probably because they both use a different approach and
+---because the \ETEX\ variant also has been optimized. \footnote {I might add some
+---features in the future.}
+---
+---The if-test shown before can be done using the new primitives `ifdimexpression` and `ifnumexpression` which are boolean tests with zero
+---being `false`.
+---
+----------------------------------------------------------------
+
+
+---
+---\startsubsection[title={Calculations with `advanceby`, `multiplyby` and
+---`divideby`.}]
+---
+---The `advance`, `multiply` and `divide` primitives accept an
+---optional keyword `by`. In *ConTeXt* we never use that feature and as a
+---consequence the scanner has to push back a scanned token after checking for the
+---`b` or `B`. These three new primitives avoid that and therefore
+---perform better, but that is (as usual with such enhancements) only noticeable in
+---demanding scenarios.
+---
+---The original three plus these new ones also operate on the “constant”
+---integers, dimensions etc.
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---\startsection[title=Loops]
+---
+---There is actually not that much to tell about the three loop primitives `expandedloop`, `unexpandedloop` and `localcontrolledloop`. They are
+---used like:
+---
+---\startbuffer
+---\unexpandedloop 1 10 1 {
+---    [!]
+---}
+---\stopbuffer
+---
+---\typebuffer
+---
+---This will give 10 snippets.
+---
+---\getbuffer
+---
+---So what will the next give?
+---
+---\startbuffer
+---\edef\TestA{\unexpandedloop 1 10 1 {!}}\meaning\TestA
+---\edef\TestB{\expandedloop   1 10 1 {!}}\meaning\TestB
+---\stopbuffer
+---
+---\typebuffer
+---
+---We see no difference in results between the two loops:
+---
+---\startlines \tt
+---\getbuffer
+---\stoplines
+---
+---But the the next variant shows that they do:
+---
+---\startbuffer
+---\edef\TestA{\unexpandedloop 1 10 1 {\the\currentloopiterator}}\meaning\TestA
+---\edef\TestB{\expandedloop   1 10 1 {\the\currentloopiterator}}\meaning\TestB
+---\stopbuffer
+---
+---\typebuffer
+---
+---The unexpanded variants sort of delays:
+---
+---\startlines \tt
+---\getbuffer
+---\stoplines
+---
+---You can nest loops and query the nesting level:
+---
+---\startbuffer
+---\expandedloop 1 10 1 {%
+---    \ifodd\currentloopiterator\else
+---      [\expandedloop 1 \currentloopiterator 1 {%
+---        \the\currentloopnesting
+---      }]
+---    \fi
+---}
+---\stopbuffer
+---
+---\typebuffer
+---
+---Here we use the two numeric state primitives `currentloopiterator` and `currentloopnesting`. This results in:
+---
+---\getbuffer
+---
+---The `quitloop` primitive makes it possible to prematurely exit a loop (at
+---the next step), although of course in the next case one can just adapt the final
+---iterator value instead. Here we step by 2:
+---
+---\startbuffer
+---\expandedloop 1 20 2 {%
+---    \ifnum\currentloopiterator>10
+---        \quitloop
+---    \else
+---        [!]
+---    \fi
+---}
+---\stopbuffer
+---
+---\typebuffer
+---
+---This results in:
+---
+---\getbuffer
+---
+---The `lastloopiterator` primitive keeps the last iterator value and is a global
+---one as all `\last...` primitives. The loops also work with negative values.
+---
+---A special case is `localcontrolledloop` which fits into the repertoire of
+---local control primitives. In that case the loop body gets expanded in a nested
+---main loop which can come in handy in tricky cases where full expansion is mixed
+---with for instance assignments but of course users should then be aware of
+---out-of-order side effects when you push back something in the input. Consider
+---it a playground.
+---
+----------------------------------------------------------------
+
+
+---
+---\stopchapter
+---
+---\stopcomponent
+---
+---% \bgroup \unprotect
+---%     \catcode`<= \lettercatcode
+---%     \ifnum 1  = 2 n \else y \fi
+---%     \ifnum 1  > 2 n \else y \fi
+---%     \ifnum 1  < 2 y \else n \fi
+---%     \ifnum 1 != 2 y \else n \fi
+---%     \ifnum 1 !> 2 y \else n \fi
+---%     \ifnum 1 !< 2 n \else y \fi
+---%     \ifnum 1 ≠  2 y \else n \fi
+---%     \ifnum 1 ≥  2 n \else y \fi
+---%     \ifnum 1 ≤  2 y \else n \fi
+---%     \ifnum 1 ≱  2 n \else y \fi
+---%     \ifnum 1 ≰  2 y \else n \fi
+---%     \ifnum 1 ∈  3 y \else n \fi
+---%     \ifnum 1 ∉  3 n \else y \fi
+---%     \ifdim 10pt ∈ 10.5pt y \else n \fi
+---%     \ifdim 10pt ∉ 10.5pt n \else y \fi
+---%     \ifdim 11pt ∈ 10.5pt n \else y \fi
+---%     \ifdim 11pt ∉ 10.5pt y \else n \fi
+---% \protect \egroup
+---

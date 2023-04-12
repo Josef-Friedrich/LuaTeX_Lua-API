@@ -1,0 +1,18 @@
+---% language=us runpath=texruns:manuals/luametatex
+---
+---\environment luametatex-style
+---
+---\startcomponent luametatex-statistics
+---
+---# Statistics
+---
+---    
+---
+---    The following fonts are used in this document:
+---
+---    \showfontusage
+---
+---\stopchapter
+---
+---\stopcomponent
+---

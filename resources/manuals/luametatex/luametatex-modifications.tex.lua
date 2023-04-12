@@ -1,0 +1,842 @@
+---% language=us runpath=texruns:manuals/luametatex
+---
+---\environment luametatex-style
+---
+---\startcomponent luametatex-modifications
+---
+---# The original engines
+---
+---\startsection[title=The merged engines]
+---
+---\startsubsection[title=The rationale]
+---
+---The first version of *LuaTeX*, made by Hartmut after we discussed the possibility
+---of an extension language, only had a few extra primitives and it was largely the
+---same as *PDF*TEX. It was presented to the public in 2005. As part of the Oriental
+---*TeX* project, Taco merged some parts of \ALEPH\ into the code and some more
+---primitives were added. Then we started more fundamental experiments. After many
+---years, when the engine had become more stable, the decision was made to clean up
+---the rather hybrid nature of the program. This means that some primitives were
+---promoted to core primitives, often with a different name, and that others were
+---removed. This also made it possible to start cleaning up the code base, which
+---showed decades of stepwise additions to original *TeX*. In \in {chapter}
+---[enhancements] we discuss some new primitives, here we will cover most of the
+---adapted ones.
+---
+---During more than a decade stepwise new functionality was added and after 10 years
+---the more of less stable version 1.0 was presented. But we continued and after
+---some 15 years the *Lua*METATEX\ follow up entered its first testing stage. But
+---before details about the engine are discussed in successive chapters, we first
+---summarize where we started from. Keep in mind that in *Lua*METATEX\ we have a bit
+---less than in *LuaTeX*, so this section differs from the one in the *LuaTeX*
+---manual.
+---
+---Besides the expected changes caused by new functionality, there are a number of
+---not-so-expected changes. These are sometimes a side-effect of a new
+---(conflicting) feature, or, more often than not, a change necessary to clean up
+---the internal interfaces. These will also be mentioned.
+---
+---Again we stress that {\em this is not a *TeX* manual, nor a tutorial}. If you are
+---unfamiliar with *TeX* first play a little with a macro package, take a look at
+---the *TeX* book, make yourself familiar with the concepts and macro language. That
+---will likely take days and not hours. Also, many of the new concepts introduced in
+---*LuaTeX* and *Lua*METATEX\ are explained in documents that come with the *ConTeXt*
+---distribution, articles and presentations. It doesn't pay of to repeat that here,
+---especially not in a time when users often search instead of read from cover to
+---cover.
+---
+---Occasionally there are extensions to *PDF*TEX\ and *LuaTeX* but these are unlikely
+---to en dup in *Lua*METATEX. If needed one can add functionality using *Lua*. Another
+---reason is that because the way we handle files and generate output being
+---compatible would only harm the engine. We have some fundamental extensions that
+---overcome limitations anyway. One area where the are significate changes is in
+---logging: at some point it no longer made sense to be compatible (with *LuaTeX*)
+---because we carry around more information.
+---
+----------------------------------------------------------------
+
+
+---
+---# Original *TeX*
+---
+---Of course it all starts with traditional *TeX*. Even if we started with the
+---*PDF*TEX\ code base, most still comes from original Knuthian *TeX*. But we divert a
+---bit.
+---
+---* The current code base is written in \CCODE, not \PASCAL. The original \WEB\
+---    documentation is kept when possible and not wrapped in tagged comments. As a
+---    consequence instead of one large file plus change files, we now have multiple
+---    files organized in categories like `tex`, `lua`, `languages`, `fonts`, `libraries`, etc. There are some artifacts
+---    of the conversion to \CCODE, but these got (and get) removed stepwise. The
+---    documentation, which actually comes from the mix of engines (via so called
+---    change files), is a mix of what authors of the engines wove into the source,
+---    and most is of course from Don Knuths original. In *Lua*METATEX\ we try to
+---    stay as close as possible to the original so that the documentation of the
+---    fundamentals behind *TeX* by Don Knuth still applies. However, because we use
+---    \CCODE, some documentation is a bit off. Also, most global variables are now
+---    collected in structures, but the original names and level of abstraction were
+---    mostly kept. On the other hand, opening up had its impact on the code, so
+---    that makes some documentation a bit off too. Adapting that all will take time.
+---
+---* See \in {chapter} [languages] for quite some changes related to paragraph
+---    building, language handling and hyphenation. Because we have independent runs
+---    over the node list for hyphenation, kerning, ligature building, plus
+---    callbacks that also can tweak the list, adding a brace group in the middle of
+---    a word (like in `of{`fice}) does not prevent ligature creation. In
+---    fact, preventing kerns and ligatures can now be done with glyph options so
+---    that we don't depend on side effects of the engine. Because hyphenation,
+---    ligature building and kerning has been split so that we can hook in
+---    alternative or extra code wherever we like. There are various options to
+---    control discretionary injection and related penalties are now integrated in
+---    these nodes. Language information is now bound to glyphs. The number of
+---    languages in *Lua*METATEX\ is smaller than in *LuaTeX*. Control over
+---    discretionaries is more granular and now managed by less variables. Although
+---    *Lua*METATEX\ behaves pretty much like you expect from *TeX*, due to the many
+---    possibilities it is unlikely that you get identical output.
+---
+---* There is no pool file, all strings are embedded during compilation. This also
+---    removed some memory constraints. We kept token and node memory management
+---    because it is convenient and efficient but parts were reimplemented in order
+---    to remove some constraints. Token and node memory management is a bit more
+---    efficient which was needed because we carry around more information. All the
+---    other large memory structures, like those related to nesting, the save stack,
+---    input levels, the hash table and table of equivalents, etc. now all start out
+---    small and are enlarged when needed, where maxima are controlled in the usual
+---    way. In principle the initial memory footprint is smaller while at the same
+---    time we can go real large. Because we have wide memory words some data
+---    (arrays) used for housekeeping could be reorganized a bit.
+---
+---* The macro (definition and expansion) parsers are extended and we can have more
+---    detailed argument parsing. This has been done in a way that keeps compatibility.
+---
+---* The specifier `plus 1 fillll` does not generate an error. The extra
+---    “l” is simply typeset.
+---
+---* The upper limit to `endlinechar` and `newlinechar` is 127.
+---
+---* Because the backend is not built-in, the magnification (\tex {mag})
+---    primitive is gone. A \tex {shipout} command just discards the content of the
+---    given box. The write related primitives have to be implemented in the used
+---    macro package using *Lua*. None of the *PDF*TEX\ derived primitives is present.
+---
+---* Because there is no font loader, a *Lua* variant is free to either support or
+---    not the \OMEGA\ `ofm` file format. As there are hardly any such fonts
+---    it probably makes no sense. There is plenty of control over the way glyphs
+---    get treated and scaling of fonts and glyphs is also more dynamic.
+---
+---* There is more control over some (formerly hard-coded) math properties. In
+---    fact, there is a whole extra bit of math related code because we need to deal
+---    with *OpenType* fonts. The math processing has been adapted to the new
+---    (dynamic) font and glyph scaling features. Because there is more granular
+---    control, for instance because there are more classes, the engine has to be
+---    set up differently. This is also true for features that control how for
+---    instance math fonts are processed. An intermediate, improved, variant of the
+---    *LuaTeX* dual code path approach has been sacrificed in the process.
+---
+---* Math atoms and constructs like fractions, fences, radicals and accents have
+---    all been extended. The new variants accept all kind of keywords that control
+---    the rendering. As direct consequence noads (and nodes in general) are much
+---    bigger in terms of memory usage. For now we keep the old commands available
+---    but that might change when we see no eight bit fonts being used.
+---
+---* The `outer` and `long` prefixed are silently ignored but other
+---    prefixes have been added. It is permitted to use `par` in math and
+---    there are more such convenience options.
+---
+---* The lack of a backend means that some primitives related to it are not
+---    implemented. This is no big deal because it is possible to use the scanner
+---    library to implement them as needed, which depends on the macro package and
+---    backend.
+---
+---* The math style related primitives can use numbers as well as symbolic names.
+---    There is some more (control over) math anyway, which is a side effect of
+---    supporting *OpenType* math.
+---
+---There is much more to say here but at least this gives an idea of what you end up
+---with if you move from traditional *TeX* to *Lua*METATEX: a more complex but also
+---more flexible system.
+---
+----------------------------------------------------------------
+
+
+---
+---# Goodies from \ETEX
+---
+---Being the de-facto standard extension of course we provide the \ETEX\ features,
+---but only those that make sense. We used version 2.2 which is basically the only
+---version that was ever released.
+---
+---* The \ETEX\ functionality is always present and enabled so the prepended
+---    asterisk or `-etex` switch for \INITEX\ is not needed.
+---
+---* The *TeX*XET\ extension is not present, so the primitives `\TeXXeTstate`, `\beginR`, `\beginL`, `\endR` and `\endL` are missing. Instead we used the \OMEGA/\ALEPH\ approach to
+---    directionality as starting point, albeit it has been changed quite a bit, so
+---    that we're probably not that far from *TeX*XET. In the end right to left
+---    typesetting mostly boils down to marking regions in the node list and reverse
+---    flushing these in the backend. The main addition that \OMEGA\ brought was the
+---    initial paragraph node that stores the direction.
+---
+---* Some of the tracing information that is output by \ETEX's `tracingassigns` and `tracingrestores` is not there. Where \ETEX\ added
+---    some tracing, *Lua*METATEX\ adds much more and also permits to set details.
+---    Tracing is not compatible, if only because we have more complex nodes and do
+---    more in all kind of mechanism.
+---
+---* Register management in *Lua*METATEX\ uses the \OMEGA/\ALEPH\ model, so the
+---    maximum value is 65535 and the implementation uses a flat array instead of
+---    the mixed flat & sparse model from \ETEX.
+---
+---* Because we have more nodes, conditionals, etc. the \ETEX\ status related
+---    variables are adapted to *Lua*METATEX: we use different “constants”,
+---    but that should be no problem because any sane macro package uses
+---    abstraction. All these properties can be queried via *Lua*.
+---
+---* The `scantokens` primitive is now using the same mechanism as *Lua*
+---    print-to-*TeX* uses, which simplifies the code. There is a little
+---    performance hit but it will not be noticed in *ConTeXt*, because we never use
+---    this primitive.
+---
+---* The \ETEX\ engine provides `protected` and although we have that too,
+---    the implementation is different. Users should not notice that.
+---
+---* Because we don't use change files on top of original *TeX*, the integration of
+---    \ETEX\ functionality is bit more natural, code wise.
+---
+---* The \tex {readline} primitive has to be implemented in *Lua*. This is a side
+---    effect of delegating all file \IO.
+---
+---* Most of the code is rewritten but the original primitives are still tagged as
+---    coming from \ETEX.
+---
+----------------------------------------------------------------
+
+
+---
+---# Bits of *PDF*TEX
+---
+---Because we want to produce *PDF* the most natural starting point was the popular
+---*PDF*TEX\ program, so we took version 1.40. We inherit the stable features,
+---dropped most of the experimental code and promoted some functionality to core
+---*LuaTeX* functionality which in turn triggered renaming primitives. However, as
+---the backend was dropped, not that much from *PDF*TEX\ is present any more.
+---Basically all we now inherit from *PDF*TEX\ is expansion and protrusion but even
+---that has been adapted. So don't expect *Lua*METATEX\ to be compatible.
+---
+---* The experimental primitives `ifabsnum` and `ifabsdim` have been
+---    promoted to core primitives and became part of the much larger repertoire
+---    of *Lua*METATEX\ conditionals. The primitives `ifincsname` is also
+---    inherited but has a different implementation.
+---
+---* Of course `quitvmode` has become a core primitive too.
+---
+---* As the hz (expansion) and protrusion mechanism are part of the core the
+---    related primitives `lpcode`, `rpcode`, `efcode`, `leftmarginkern`, `rightmarginkern` are promoted to core primitives. The
+---    two commands `protrudechars` and `adjustspacing` control these
+---    processes. The protrusion and kern related primitives are now dimensions
+---    while expansion is still one of these 1000 based scales.
+---
+---* In *Lua*METATEX\ three extra primitives can be used to overload the font
+---    specific settings: `adjustspacingstep` (max: 100), `adjustspacingstretch` (max: 1000) and `adjustspacingshrink` (max: 500).
+---
+---* The hz optimization code has been redone so that we no longer need to create
+---    extra font instances. The front- and backend have been decoupled and the
+---    glyph and kern nodes carry the used values. In *LuaTeX* that made a more
+---    efficient generation of *PDF* code possible. It also resulted in much cleaner
+---    code. The backend code is gone, but of course the information is still
+---    carried around. Performance in *Lua*METATEX\ should be a bit better than in
+---    *PDF*TEX\ although of course its 32 bit machinery is in general slower than
+---    the eight bit *PDF*TEX.
+---
+---* When `adjustspacing` has value 2, hz optimization will be applied to
+---    glyphs and kerns. When the value is 3, only glyphs will be treated. A value
+---    smaller than 2 disables this feature.
+---
+---* When `protrudechars` has a value larger than zero characters at the edge
+---    of a line can be made to hang out. A value of 2 will take the protrusion into
+---    account when breaking a paragraph into lines. A value of 3 will try to deal
+---    with right-to-left rendering; this is a still experimental feature.
+---
+---* The pixel multiplier dimension `pxdimen` has be inherited as core
+---    primitive.
+---
+---* The primitive `tracingfonts` is now a core primitive but doesn't relate
+---    to the backend.
+---
+---* The image inclusion code was already different in *LuaTeX* and is gone in
+---    *Lua*METATEX\ which has no backend. One can implement the same abstraction
+---    layer (aka resouces) using *Lua*.
+---
+---Even if not that much is present from *PDF*TEX\ in *Lua*METATEX\ we still see it as
+---its ancestor. After all, without *PDF*TEX\ the *TeX* community would not be where
+---it is now. We still use it as reference when we check something (that we
+---changed).
+---
+----------------------------------------------------------------
+
+
+---
+---\startsubsection[title=Direcionality from \ALEPH]
+---
+---In *LuaTeX* we took the 32 bit aspects of \ALEPH\ RC4, the stable version of
+---\OMEGA\ that also integrated \ETEX. In *LuaTeX* we also took much of the
+---directional mechanisms and merged it into the *PDF*TEX\ code base as starting
+---point for further development. Then we simplified directionality, fixed it and
+---opened it up. In *Lua*METATEX\ not that much of this is left. We only have two
+---horizontal directions. Instead of vertical directions we introduce an orientation
+---model bound to boxes. We kept the initial par node, local boxes (that also use
+---par nodes) and directional nodes.
+---
+---The already reduced-to-four set of directions now only has two members:
+---left-to-right and right-to-left. They don't do much as it is the backend
+---that has to deal with them. When paragraphs are constructed a change in
+---horizontal direction is irrelevant for calculating the dimensions. So, basically
+---most that we do is registering state and passing that on till the backend can do
+---something with it.
+---
+---Here is a summary of inherited functionality:
+---
+---* The `^^` notation has been extended: after `^^^^` four
+---    hexadecimal characters are expected and after `^^^^^^` six hexadecimal
+---    characters have to be given. The original *TeX* interpretation is still valid
+---    for the `^^` case but the four and six variants do no backtracking,
+---    i.e.\ when they are not followed by the right number of hexadecimal digits
+---    they issue an error message. Because `^^^` is a normal *TeX* case, we
+---    don't support the odd number of `^^^^^` either. This kind of parsing
+---    can be disabled in *Lua*METATEX.
+---
+---* Glues {\it immediately after} direction change commands are not legal
+---    breakpoints. There is a bit more sanity testing for the direction state. This
+---    can be configured.
+---
+---* The placement of math formula numbers is direction aware and adapts
+---    accordingly. Boxes carry directional information but rules don't.
+---
+---* There are no direction related primitives for page and body directions. The
+---    paragraph, text and math directions are specified using primitives that
+---    take a number. The three letter codes are dropped.
+---
+---* The local box mechamism has been extended and redone which permits a more
+---    generalized and robust usage.
+---
+---Most of the directional work is actually up to the backend. As \OMEGA\ never had
+---a *PDF* backend, the *LuaTeX* took care of the many directions. We now only have
+---two directions so the backend code that has to be provided can be relatively
+---simple. The biggest complication is in handling fonts and synchronizing the glyph
+---streams. Much is also macro package (and usage) dependent.
+---
+----------------------------------------------------------------
+
+
+---
+---# No longer \WEBC
+---
+---The *Lua*METATEX\ codebase is not dependent on the \WEBC\ framework. The
+---interaction with the file system and \TDS\ is up to *Lua*. There still might be
+---traces but eventually the code base should be lean and mean. The \METAPOST\
+---library is coded in \CWEB\ and in order to be independent from related tools,
+---conversion to \CCODE\ is done with a *Lua* script ran by, surprise, *Lua*METATEX.
+---
+---The biggest consequence of this is that there are no dependencies, also not on
+---ever changing libraries that we occasionally see break compilation of *LuaTeX*.
+---Even on older machines (say 2013\endash2020) compilation should be sub minute.
+---The amount of platform specific code is minimal.
+---
+----------------------------------------------------------------
+
+
+---
+---# The follow up on *LuaTeX*
+---
+---This engine is a follow up on *LuaTeX*, that became more or less frozen after
+---version 1.10, so that is the version we started from. Apart from reorganizing the
+---code base, simplifying the build, limiting dependencies etc. this project also
+---adds new functionality and removes some as well. The main differences are
+---discussed in a separate section. The basic ideas remain the same but the engine
+---is not downward compatible. This is why we have *ConTeXt* \MKIV\ for *LuaTeX* and
+---*ConTeXt* \LMTX\ for *Lua*METATEX .
+---
+---There is no *Lua*JIT\ version of *Lua*METATEX, simply because there is not that
+---much gain in the average run (at least not in *ConTeXt*. Depending on the kind of
+---documents, complexity of macro code and usage of *Lua*, the *Lua*METATEX\ engine
+---can be upto 30\percent\ faster than *LuaTeX* anyway.
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---\startsection[title=Implementation notes]
+---
+---\startsubsection[title=Memory allocation]
+---
+---The single internal memory heap that traditional *TeX* used for tokens and nodes
+---is split into two separate arrays. Each of these will grow dynamically when
+---needed. Internally a token or node is an index into these arrays. This permits
+---for an efficient implementation and is also responsible for the performance of
+---the core. All other data structures are mostly the same but managed dynamically
+---too. Because we operate in a 64 bit world, the parallel table of equivalents
+---needed for managing levels, is gone. Anyhow, the original documentation in *TeX*
+---The Program mostly applies!
+---
+----------------------------------------------------------------
+
+
+---
+---\startsubsection[title=Sparse arrays]
+---
+---The `mathcode`, `delcode`, `catcode`, `sfcode`, `lccode`
+---and `uccode` (and the new `hjcode`) tables are now sparse arrays that
+---are implemented in \CCODE. They are no longer part of the *TeX* “equivalence table” and because each had 1.1 million entries with a few memory
+---words each, this makes a major difference in memory usage. Performance is not
+---really hurt by this.
+---
+---The `catcode`, `sfcode`, `lccode`, `uccode` and `hjcode`
+---assignments don't show up when using the \ETEX\ tracing routines `tracingassigns` and `tracingrestores` but we don't see that as a real
+---limitation. It also saves a lot of clutter.
+---
+---The glyph ids within a font are also managed by means of a sparse array as glyph
+---ids can go up to index `2^{21}-1` but these are never accessed directly so again
+---users will not notice this.
+---
+----------------------------------------------------------------
+
+
+---
+---\startsubsection[title=Simple single-character csnames]
+---
+---Single-character commands are no longer treated specially in the internals,
+---they are stored in the hash just like the multiletter control sequences. This is
+---a side effect of going *Unicode* and *UTF-8*. Where using 256 slots in an array add
+---no burden supporting the whole *Unicode* range is a waste of space. Therefore,
+---also active characters are internally implemented as a special type of
+---multi-letter control sequences that uses a prefix that is otherwise impossible
+---to obtain.
+---
+---The code that displays control sequences explicitly checks if the length is one
+---when it has to decide whether or not to add a trailing space.
+---
+----------------------------------------------------------------
+
+
+---
+---\startsubsection[title=Binary file reading]
+---
+---All input now goes via *Lua*: files loaded with `\input` as well as files
+---that are opened with `\openin`. Actually the later has to be implemented
+---in terms of macros and *Lua* calls. This also means that compared to *LuaTeX*
+---the internal handling of input has been changed but users won't notice that.
+---
+---Setting a callback is expected now. Although reading input natively using `getc` calls is more efficient, we now fetch lines from *Lua*, put them in a
+---buffer and then pick successive bytes (keep in mind that we read *UTF-8*) from that.
+---The performance is quite ok, also because *Lua* is fast, todays operating systems
+---cache, and storage media have become very fast. Also, *TeX* is spending more time
+---messing around with what it has input than actually reading input.
+---
+----------------------------------------------------------------
+
+
+---
+---\startsubsection[title=Tabs and spaces]
+---
+---We conform to the way other *TeX* engines handle trailing tabs and spaces. For
+---decades trailing tabs and spaces (before a newline) were removed from the input
+---but this behaviour was changed in September 2017 to only handle spaces. We are
+---aware that this can introduce compatibility issues in existing workflows but
+---because we don't want too many differences with upstream *TeX*LIVE\ we just follow
+---up on that patch (which is a functional one and not really a fix). It is up to
+---macro packages maintainers to deal with possible compatibility issues and in
+---*Lua*METATEX\ they can do so via the callbacks that deal with reading from files.
+---
+---The previous behaviour was a known side effect and (as that kind of input
+---normally comes from generated sources) it was normally dealt with by adding a
+---comment token to the line in case the spaces and/or tabs were intentional and
+---to be kept. We are aware of the fact that this contradicts some of our other
+---choices but consistency with other engines. We still stick to our view that at
+---the log level we can (and might be) more incompatible. We already expose some
+---more details anyway.
+---
+----------------------------------------------------------------
+
+
+---
+---\startsubsection[title=Logging]
+---
+---When detailed logging is enabled more detail is output with respect to what nodes
+---are involved. This is a side effect of the core nodes having more detailed
+---subtype information. The benefit of more detail wins from any wish to be byte
+---compatible in the logging. One can always write additional logging in *Lua*.
+---
+---The information that goes into the log file can be different from *LuaTeX*, and
+---might even differ a bit more in the future. The main reason is that inside the
+---engine we have more granularity, which for instance means that we output subtype
+---and attribute related information when nodes are printed. Of course we could have
+---offered a compatibility mode but it serves no purpose. Over time there have been
+---many subtle changes to control logs in the *TeX* ecosystems so another one is
+---bearable.
+---
+---In a similar fashion, there is a bit different behaviour when *TeX* expects
+---input, which in turn is a side effect of removing the interception of `*`
+---and `&` which made for cleaner code (quite a bit had accumulated as side
+---effect of continuous adaptations in the *TeX* ecosystems). There was already code
+---that was never executed, simply as side effect of the way *LuaTeX* initializes
+---itself (one needs to enable classes of primitives for instance). Keep in mind
+---that over time system dependencies have been handles with *TeX* change files, the
+---\WEBC\ infrastructure, \KPSE\ features, compilation variables and flags, etc. In
+---*Lua*METATEX\ we try to minimize all that.
+---
+---When it became unavoidable that we output more detail, it also became clear that
+---it made no sense to stay log and trace compatible. Some is controlled by
+---parameters in order to stay close the original, but *ConTeXt* is configured such
+---that we benefit from the new possibilities. Examples are that in addition to
+---`meaning` we have `meaningfull` that also exposes macro properties,
+---and `meaningless` that only exposes the body. The `untraced` prefix
+---will suppress some in the log, and we set `tracinglevels` to 3 in order to
+---get details about the input and grouping level. When there's less shown than
+---expected keep in mind that *Lua*METATEX\ has a somewhat optimized saving and
+---restoring of meanings so less can happen which is reflected in tracing. When node
+---lists are serialized (as with `showbox`) some nodes, like discretionaries
+---report more detail. The compact serializer, used for instance to signal overfull
+---boxes, also shows a bit more detail with respect to non-content nodes. I math
+---more is shown if only because we have more control and additional mechanisms.
+---
+----------------------------------------------------------------
+
+
+---
+---\startsubsection[title=Parsing]
+---
+---Token parsers have been upgraded for the sake of *Lua*, `csname` handling
+---has been extended, macro definitions can be more flexible so there code was
+---adapted, more conditionals also brought some changes. But we build upon the
+---(reorganized) *TeX* foundation so the basics can definitely be recognized.
+---
+---Because of interfacing in *Lua* the internal token and node organization has
+---been normalized (read: we cannot cheat because all is kind of visible). On
+---the one hand this can come with a performance penalty but that is more than
+---compensated by extensions, optimized parsers and such. Still the fact that we
+---are *UTF-8* based (32 bit) makes the machinery slower than the 8 bit original.
+---The reworked *Lua*METATEX\ engine is substantially faster than the *LuaTeX*
+---predecessor.
+---
+---The handling of conditionals has been adapted so that we can have flatter
+---branches (`orelse` cum suis). This again has some consequences for
+---parsing. Because parsing alignments is rather interwoven in general parsing and
+---expansion the handling of related primitives has been slightly adapted (also for
+---the sake of *Lua* interfacing) and dealing with `noalign` situations is a
+---bit more convenient.
+---
+---This are just a few of the adaptations and most of this happened stepwise with
+---testing in the *ConTeXt* code base. It will be clear that *Lua*METATEX\ is a quite
+---different extension to the original. You're warned.
+---
+----------------------------------------------------------------
+
+
+---
+---\startsubsection[title=Changes in keyword scanning]
+---
+---Some primitives accept (optional) keywords and in *Lua*METATEX\ there are more
+---keywords than in *LuaTeX*. Scanning can trigger error messages and lookahead side
+---effects and in *Lua*METATEX\ these can be different. This is no big deal because
+---errors are still errors.
+---
+----------------------------------------------------------------
+
+
+---
+---# Differences with *LuaTeX*
+---
+---\startsubsection[title=Dropped primitives]
+---
+---As *Lua*METATEX\ is a leaner and meaner *LuaTeX*. This means that substantial parts and
+---dependencies are gone: quite some font code, all backend code with related frontend
+---code and of course image and font inclusion. There is also new functionality which
+---makes for less lean but in the end we still have less, also in terms of dependencies.
+---This chapter will discuss what is gone. We start with the primitives that were dropped.
+---
+--- fonts        `\letterspacefont` `\copyfont` `\expandglyphsinfont` `\ignoreligaturesinfont` `\tagcode` `\leftghost` `\rightghost` 
+--- backend      `\dviextension` `\dvivariable ` `\dvifeedback` `\pdfextension` `\pdfvariable ` `\pdffeedback` `\dviextension` `\draftmode` `\outputmode` 
+--- dimensions   `\pageleftoffset` `\pagerightoffset` `\pagetopoffset` `\pagebottomoffset` `\pageheight` `\pagewidth` 
+--- resources    `\saveboxresource` `\useboxresource` `\lastsavedboxresourceindex` `\saveimageresource` `\useimageresource` `\lastsavedimageresourceindex` `\lastsavedimageresourcepages` 
+--- positioning  `\savepos` `\lastxpos` `\lastypos` 
+--- directions   `\textdir` `\linedir` `\mathdir` `\pardir` `\pagedir` `\bodydir` `\pagedirection` `\bodydirection` 
+--- randomizer   `\randomseed` `\setrandomseed` `\normaldeviate` `\uniformdeviate` 
+--- utilities    `\synctex` 
+--- extensions   `\latelua` `\lateluafunction` `\openout` `\write` `\closeout` `\openin` `\read` `\readline` `\closein` `\ifeof` 
+--- control      `\suppressfontnotfounderror` `\suppresslongerror` `\suppressprimitiveerror` `\suppressmathparerror` `\suppressifcsnameerror` `\suppressoutererror` `\mathoption` 
+--- system       `\primitive` `\ifprimitive` `\formatname` 
+--- ignored      `\long` `\outer` `\mag` 
+---
+---The math machinery has been overhauled stepwise. In the process detailed control
+---has been added but later some of that got removed or replaced. The engine now
+---assumes that *OpenType* fonts are used but you do need to set up the engine
+---properly, something that has to be done with respect to fonts anyway. By enabling
+---and/disabling certain features you can emulate the traditional engine. Font
+---parameters no longer are taken from the traditional parameters when they are not
+---set. We just assume properly passed so called math constants and quite a few new
+---ones have been added.
+---
+---The resources and positioning primitives are actually useful but can be defined
+---as macros that (via *Lua*) inject nodes in the input that suit the macro package
+---and backend. The three||letter direction primitives are gone and the numeric
+---variants are now leading. There is no need for page and body related directions
+---and they don't work well in *LuaTeX* anyway. We only have two directions left.
+---Because we can hook in *Lua* functions that get information about what is expected
+---(consumer or provider) there are plenty possibilities for adding functionality
+---using this scripting language.
+---
+---The primitive related extensions were not that useful and reliable so they have
+---been removed. There are some new variants that will be discussed later. The `outer` and `long` prefixes are gone as they don't make much sense
+---nowadays and them becoming dummies opened the way to something new: control
+---sequence properties that permit protection against as well as controlled
+---overloading of definitions. I don't think that (*ConTeXt*) users will notice these
+---prefixes being gone. The definition and parsing related `\suppress..`
+---features are now default and can't be changed so related primitives are gone.
+---
+---The `shipout` primitive does no ship out but just erases the content of
+---the box unless of course that has happened already in another way. A macro
+---package should implement its own backend and related shipout. Talking of backend,
+---the extension primitives that relate to backends can be implemented as part of a
+---backend design using generic whatsits. There is only one type of whatsit now. In
+---fact we're now closer to original *TeX* with respect to the extensions.
+---
+---The `img` library has been removed as it's rather bound to the backend. The
+---`slunicode` library is also gone. There are some helpers in the string
+---library that can be used instead and one can write additional *Lua* code if
+---needed. There is no longer a `pdf` backend library but we have an up to
+---date *PDF* parsing library on board.
+---
+---In the `node`, `tex` and `status` library we no longer have
+---helpers and variables that relate to the backend. The *Lua*METATEX\ engine is in
+---principle \DVI\ and *PDF* unaware. There are, as mentioned, only generic whatsit
+---nodes that can be used for some management related tasks. For instance you can
+---use them to implement user nodes. More extensive status information is provided
+---in the overhauled status library. All libraries have additional functionality and
+---names of functions have been normalized (for as far as possible).
+---
+---The margin kern nodes are gone and we now use regular kern nodes for them. As a
+---consequence there are two extra subtypes indicating the injected left or right
+---kern. The glyph field served no real purpose so there was no reason for a special
+---kind of node.
+---
+---The \KPSE\ library is no longer built-in, but one can use an external \KPSE\
+---library, assuming that it is present on the system, because the engine has a so
+---called optional library interface to it. Because there is no backend, quite some
+---file related callbacks could go away. The following file related callbacks
+---remained (till now):
+---
+---```
+---find_write_file find_format_file open_data_file
+---```
+---
+---The callbacks related to errors are changed:
+---
+---```
+---intercept_tex_error intercept_lua_error
+---show_error_message show_warning_message
+---```
+---
+---There is a hook that gets called when one of the fundamental memory structures
+---gets reallocated.
+---
+---```
+---trace_memory
+---```
+---
+---When you use the overload protect mechanisms, a callback can be plugged in to handle
+---exceptions:
+---
+---```
+---handle_overload
+---```
+---
+---The (job) management hooks are kept:
+---
+---```
+---process_jobname
+---start_run stop_run wrapup_run
+---pre_dump
+---start_file stop_file
+---```
+---
+---Because we use a more generic whatsit model, there is a new callback:
+---
+---```
+---show_whatsit
+---```
+---
+---Because tracing boxes now reports a lot more information, we have a plug in for
+---detail:
+---
+---```
+---get_attribute
+---```
+---
+---Being the core of extensibility, the typesetting callbacks of course stayed. This
+---is what we ended up with:
+---
+---\startalign[flushleft,nothyphenated]
+---\tt \cldcontext{table.concat(table.sortedkeys(callbacks.list), ", ")}
+---\stopalign
+---
+---As in *LuaTeX* font loading happens with the following callback. This time it
+---really needs to be set because there is no built-in font loader.
+---
+---```
+---define_font
+---```
+---
+---There are all kinds of subtle differences in the implementation, for instance we
+---no longer intercept `*` and `&` as these were already replaced long
+---ago in *TeX* engines by command line options. Talking of options, only a few are
+---left. All input goes via *Lua*, even the console. One can program a terminal if
+---needed.
+---
+---We took our time for reaching a stable state in *LuaTeX*. Among the reasons is the
+---fact that most was experimented with in *ConTeXt*, which we can adapt to the
+---engine as we go. It took many years to decide what to keep and how to do things.
+---Of course there are places when things can be improved but that most likely only
+---happens in *Lua*METATEX. Contrary to what is sometimes suggested, the
+---*LuaTeX*-*ConTeXt* \MKIV\ combination (assuming matched versions) has been quite
+---stable. It made no sense otherwise. Most *ConTeXt* functionality didn't change
+---much at the user level. Of course there have been issues, as is natural with
+---everything new and beta, but we have a fast update cycle.
+---
+---The same is true for *Lua*METATEX\ and *ConTeXt* \LMTX: it can be used for
+---production as usual and in practice *ConTeXt* users tend to use the beta
+---releases, which proves this. Of course, if you use low level features that are
+---experimental you're on your own. Also, as with *LuaTeX* it might take many years
+---before a long term stable is defined. The good news is that, when the source code
+---has become part of the *ConTeXt* distribution, there is always a properly
+---working, more or less long term stable, snapshot.
+---
+---The error reporting subsystem has been redone quite a bit but is still
+---fundamentally the same. We don't really assume interactive usage but if someone
+---uses it, it might be noticed that it is not possible to backtrack or inject
+---something. Of course it is no big deal to implement all that in *Lua* if needed.
+---It removes a system dependency and makes for a bit cleaner code. In *ConTeXt* we
+---quit on an error simply because one has to fix source anyway and runs are fast
+---enough. Logging provides more detail and new primitives can be used to prevent
+---clutter in tracing (the more complex a macro package becomes, the more extreme
+---tracing becomes).
+---
+----------------------------------------------------------------
+
+
+---
+---\startsubsection[title=New primitives]
+---
+---There are new primitives as well as some extensions to existing primitive
+---functionality. These are described in following chapters but there might be
+---hidden treasures in the binary. If you locate them, don't automatically assume
+---them to stay, some might be part of experiments! There are for instance a few
+---csname related definers, we have integer and dimension constants, the macro
+---argument parser can be brought in tolerant mode, the repertoire of conditionals
+---has been extended, some internals can be controlled (think of normalization of
+---lines, hyphenation etc.), and macros can be protected against user overload. Not
+---all is discussed in detail in this manual but there are introductions in the
+---*ConTeXt* distribution that explain them. But the *TeX* kernel is of course
+---omnipresent.
+---
+---\startluacode
+---
+---local luametatex = tex.primitives()
+---local luatex     = table.load("luatex-primitives.lua")
+---
+---if not luatex then
+---    local tex = "\\starttext \\ctxlua {table.save(tex.jobname .. '.lua',tex.primitives())} \\stoptext"
+---
+---    io.savedata("luatex-primitives.tex",    tex)
+---
+---    os.execute("context --luatex --once luatex-primitives")
+---
+---    luatex = table.load("luatex-primitives.lua")
+---end
+---
+---if luatex and luametatex then
+---
+---    local match = string.match
+---
+---    local found = { }
+---
+---    local function collect(index)
+---        if index then local data = index.entries for i=1,#data do found[match(data[i].list[1][1],"\\tex%s*{(.-)}") or ""] = true end
+---         -- inspect(found)
+---        end
+---    end
+---
+---    collect(structures.registers.collected and structures.registers.collected.texindex)
+---    collect(structures.registers.collected and structures.registers.collected.luatexindex)
+---
+---    luatex     = table.tohash(luatex)
+---    luametatex = table.tohash(luametatex)
+---
+--- -- context.page()
+---
+---    context("The following primitives are available in \*LuaTeX*\ but not in \*Lua*METATEX.  ")
+---    context("Some of these are emulated in \*ConTeXt*.")
+---
+---    context.blank()
+---    context.startcolumns { n = 2 }
+---        for k, v in table.sortedhash(luatex) do if not luametatex[k] then if not found[k] then context.dontleavehmode() end context.type(k) context.crlf() end
+---        end
+---    context.stopcolumns()
+---    context.blank()
+---
+--- -- context.page()
+---
+---    context("The following primitives are available in \*Lua*METATEX\\ only. In the meantime ")
+---    context("the \*Lua*METATEX\\ code base is so different from \*LuaTeX*\ that backporting ")
+---    context("is no longer reasonable.")
+---
+---    context.blank()
+---    context.startcolumns { n = 2 }
+---        for k, v in table.sortedhash(luametatex) do if not luatex[k] then if not found[k] then context.dontleavehmode() context.llap("\\infofont[todo] ") end context.type(k) context.crlf() end
+---        end
+---    context.stopcolumns()
+---    context.blank()
+---
+---end
+---
+---\stopluacode
+---
+----------------------------------------------------------------
+
+
+---
+---\startsubsection[title=Changed function names]
+---
+---As part of a bit more consistency some function names also changed. Names with an
+---`_` got that removed (as that was the minority). It's easy to provide a
+---back mapping if needed (just alias the functions).
+---
+---{\em Todo: only mention the *LuaTeX* ones.}
+---
+--- library   old name           new name          comment 
+---
+--- language  clear_patterns     clearpatterns     clear_hyphenation  clearhyphenation 
+--- mplib     italcor            italic            pen_info           peninfo           solve_path         solvepath        
+--- texio     write_nl           writenl           old name stays 
+--- node      protect_glyph      protectglyph      protect_glyphs     protectglyphs     unprotect_glyph    unprotectglyph    unprotect_glyphs   unprotectglyphs   end_of_math        endofmath         mlist_to_hlist     mlisttohlist      effective_glue     effectiveglue     has_glyph          hasglyph          first_glyph        firstglyph        has_field          hasfield          copy_list          copylist          flush_node         flushnode         flush_list         flushlist         insert_before      insertbefore      insert_after       insertafter       last_node          lastnode          is_zero_glue       iszeroglue        make_extensible    makeextensible    uses_font          usesfont          is_char            ischar            is_direct          isdirect          is_glyph           isglyph           is_node            isnode           
+--- token     scan_keyword       scankeyword       scan_keywordcs     scankeywordcs     scan_int           scanint           scan_real          scanreal          scan_float         scanfloat         scan_dimen         scandimen         scan_glue          scanglue          scan_toks          scantoks          scan_code          scancode          scan_string        scanstring        scan_argument      scanargument      scan_word          scanword          scan_csname        scancsname        scan_list          scanlist          scan_box           scanbox          
+---
+---It's all part of trying to make the code base consistent but it is sometimes a
+---bit annoying. However, that's why we develop this engine independent of the
+---*LuaTeX* code base. It's anyway a change that has been on my todo list for quite
+---a while because those inconsistencies annoyed me. It might take some years to
+---get all done.
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---\stopchapter
+---
+---\stopcomponent
+---

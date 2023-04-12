@@ -66,14 +66,22 @@ node = {}
 node.direct = {}
 
 ---
----*LuaTeX* only understands 4 of the 16 direction specifiers of aleph: `TLT` (latin), `TRT` (arabic), `RTT` (cjk), `LTL` (mongolian). All other direction specifiers generate an error. In addition to a keyword driven model we also provide an integer driven one.
+---*LuaTeX* only understands 4 of the 16 direction specifiers of aleph: `TLT` (latin), `TRT` (arabic), `RTT` (cjk), `LTL` (mongolian). All other direction specifiers generate an error.
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias DirectionSpecifier
----| "TLT" # latin
----| "TRT" # arabic
----| "RTT" # cjk
----| "LTL" # mongolian
+---|"TLT" # 0 latin
+---|"TRT" # 1 arabic
+---|"LTL" # 2 mongolian
+---|"RTT" # 3 cjk
+
+---
+---In addition to a keyword driven model we also provide an integer driven one.
+---@alias DirectionSpecifierId
+---|0 # "TLT" latin
+---|1 # "TRT" arabic
+---|2 # "LTL" mongolian
+---|3 # "RTT" cjk
 
 ---
 ---* Corresponding C source code: [texnodes.c#L493-L542](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L493-L542)
@@ -1761,7 +1769,7 @@ function node.has_field(n, field) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L3041-L3049](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3041-L3049)
 ---
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---@param field string
 ---
 ---@return boolean t
@@ -1850,7 +1858,7 @@ function node.direct.free(n) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L2094-L2109](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2094-L2109)
 ---
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return integer next
 ---
@@ -1878,7 +1886,7 @@ function node.flush_node(n) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L2126-L2133](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2126-L2133)
 ---
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.flush_node(d) end
@@ -1912,7 +1920,7 @@ function node.flush_list(n) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L2150-L2157](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2150-L2157)
 ---
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.flush_list(d) end
@@ -1942,7 +1950,7 @@ function node.copy(n) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L2489-L2500](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2489-L2500)
 ---
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return integer e
 ---
@@ -1987,7 +1995,7 @@ function node.copy_list(n, m) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L2456-L2472](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2456-L2472)
 ---
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---@param e? integer
 ---
 ---@return integer e
@@ -2131,7 +2139,7 @@ function node.hpack(n, width, info, dir) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L2576-L2619](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2576-L2619)
 ---
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---@param width? integer
 ---@param info? string
 ---@param dir? string
@@ -2145,54 +2153,56 @@ function node.direct.hpack(d, width, info, dir) end
 _N._7_14_vpack = 0
 
 ---
----Create a new `vlist` by packaging the list that begins at node `n` into a vertical box.
+---Create a new `vlist` by packaging the list that begins at node `head` into a vertical box.
 ---
 ---With only a single argument, this box is created using
----the natural height of its components. In the three argument form, `info`
----must be either `additional` or `exactly`, and `w` is the
+---the natural height of its components.
 ---
----The second return value is the badness of the generated box. See the description
----of `hpack` for a few memory allocation caveats.
+---Caveat: there can be unexpected side-effects to this function, like updating
+---some of the `marks` and `\inserts`. Also note that the content of
+---`new_head` is the original node list `head`: if you call `node.free(new_head)`
+---you will also free the node list itself, unless you explicitly set the `list` field to `nil` beforehand. And in a similar way, calling `node.free(head)` will invalidate `new_head` as well!
 ---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L2673-L2716](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2673-L2716)
 ---
----@param n Node
----@param width? integer
----@param info? string
----@param dir? string
+---@param head Node
+---@param height? integer # The additional (`\vbox spread`) or exact (`\vbox to`) height to be used.
+---@param info? 'additional'|'exactly' # Must be either `additional` (`\vbox spread`) or `exactly` (`\vbox to`).
+---@param dir? DirectionSpecifier|DirectionSpecifierId
 ---
----@return Node n
----@return integer badness
+---@return Node new_head
+---@return integer badness # The second return value is the badness of the generated box.
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function node.vpack(n, width, info, dir) end
+function node.vpack(head, height, info, dir) end
 
 ---
----Create a new `vlist` by packaging the list that begins at node `n` into a vertical box.
+---Create a new `vlist` by packaging the list that begins at node `head` into a vertical box.
 ---
 ---With only a single argument, this box is created using
----the natural height of its components. In the three argument form, `info`
----must be either `additional` or `exactly`, and `w` is the
+---the natural height of its components.
 ---
----The second return value is the badness of the generated box. See the description
----of `hpack` for a few memory allocation caveats.
+---Caveat: there can be unexpected side-effects to this function, like updating
+---some of the `marks` and `\inserts`. Also note that the content of
+---`new_head` is the original node list `head`: if you call `node.free(new_head)`
+---you will also free the node list itself, unless you explicitly set the `list` field to `nil` beforehand. And in a similar way, calling `node.free(head)` will invalidate `new_head` as well!
 ---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L2720-L2763](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2720-L2763)
 ---
----@param d integer
----@param width? integer
----@param info? string
----@param dir? string
+---@param head integer # The index number of the node in the memory table for direct access.
+---@param height? integer # The additional (`\vbox spread`) or exact (`\vbox to`) height to be used.
+---@param info? 'additional'|'exactly' # Must be either `additional` (`\vbox spread`) or `exactly` (`\vbox to`).
+---@param dir? DirectionSpecifier|DirectionSpecifierId
 ---
----@return integer d
----@return integer badness
+---@return integer new_head
+---@return integer badness # The second return value is the badness of the generated box.
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function node.direct.vpack(d, width, info, dir) end
+function node.direct.vpack(head, height, info, dir) end
 
 _N._7_15_prepend_prevdepth = 0
 
@@ -2220,7 +2230,7 @@ function node.prepend_prevdepth(n, prevdepth) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L8803-L8840](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L8803-L8840)
 ---
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---@param prevdepth integer
 ---
 ---@return integer new_prevdepth
@@ -2270,7 +2280,7 @@ function node.dimensions(n, dir) end
 ---[Source: luatex-nodes.tex#L1490-L1546](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L1490-L1546)
 ---* Corresponding C source code: [lnodelib.c#L2838-L2880](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2838-L2880)
 ---
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---@param dir? DirectionSpecifier
 ---
 ---@return integer width # scaled points
@@ -2309,7 +2319,7 @@ function node.dimensions(n, t, dir) end
 ---[Source: luatex-nodes.tex#L1490-L1546](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L1490-L1546)
 ---* Corresponding C source code: [lnodelib.c#L2838-L2880](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2838-L2880)
 ---
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---@param t integer # terminating node
 ---@param dir? DirectionSpecifier
 ---
@@ -2394,7 +2404,7 @@ function node.dimensions(glue_set, glue_sign, glue_order, n, dir) end
 ---@param glue_set integer
 ---@param glue_sign integer
 ---@param glue_order integer
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---@param dir? DirectionSpecifier
 ---
 ---@return integer width # scaled points
@@ -2419,7 +2429,7 @@ function node.direct.dimensions(glue_set, glue_sign, glue_order, d, dir) end
 ---@param glue_set integer
 ---@param glue_sign integer
 ---@param glue_order integer
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---@param t integer # terminating node
 ---@param dir? DirectionSpecifier
 ---
@@ -2550,7 +2560,7 @@ function node.tail(n) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L3278-L3289](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3278-L3289)
 ---
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return integer e
 ---
@@ -2587,7 +2597,7 @@ function node.length(n, m) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L4350-L4360](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L4350-L4360)
 ---
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---@param e? Node
 ---
 ---@return integer i
@@ -2629,7 +2639,7 @@ function node.count(id, n, m) end
 ---* Corresponding C source code: [lnodelib.c#L4362-L4369](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L4362-L4369)
 ---
 ---@param id integer|string
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---@param e? Node
 ---
 ---@return integer i
@@ -2664,7 +2674,7 @@ function node.is_char(n, font) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L7572-L7592](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L7572-L7592)
 ---
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---@param font? integer
 ---
 ---@return boolean|integer|nil
@@ -2754,7 +2764,7 @@ function node.traverse(n) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L3937-L3953](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3937-L3953)
 ---
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return fun(): t: integer, id: integer, subtype: integer
 ---
@@ -2788,7 +2798,7 @@ function node.traverse_id(id, n) end
 ---* Corresponding C source code: [lnodelib.c#L3980-L3995](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3980-L3995)
 ---
 ---@param id integer
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return fun(): t: integer, subtype: integer
 ---
@@ -2822,7 +2832,7 @@ function node.traverse_char(n) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L4022-L4038](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L4022-L4038)
 ---
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return fun(): d: integer, font: integer, char: integer
 ---
@@ -2852,7 +2862,7 @@ function node.traverse_glyph(n) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L4065-L4081](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L4065-L4081)
 ---
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return fun(): d: integer, font: integer, char: integer
 ---
@@ -2886,7 +2896,7 @@ function node.traverse_list(n) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L4318-L4330](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L4318-L4330)
 ---
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return fun(): d: integer, id: integer, subtype: integer, list: Node
 ---
@@ -2916,7 +2926,7 @@ function node.has_glyph(n) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L6368-L6382](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6368-L6382)
 ---
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return integer|nil d
 ---
@@ -2956,7 +2966,7 @@ function node.end_of_math(n) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L3317-L3334](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3317-L3334)
 ---
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return integer|nil t
 ---
@@ -3150,7 +3160,7 @@ function node.first_glyph(n, m) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L6341-L6362](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6341-L6362)
 ---
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---@param e? integer
 ---
 ---@return integer|nil d
@@ -3253,7 +3263,7 @@ function node.unprotect_glyph(n) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L6272-L6278](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6272-L6278)
 ---
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.unprotect_glyph(d) end
@@ -3315,7 +3325,7 @@ function node.protect_glyph(n) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L6264-L6270](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6264-L6270)
 ---
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.protect_glyph(d) end
@@ -3411,7 +3421,7 @@ function node.write(n) end
 ---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L2518-L2521](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L2518-L2521), [luatex-nodes.tex#L1913-L1923](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L1913-L1923)
 ---* Corresponding C source code: [lnodelib.c#L2529-L2552](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2529-L2552)
 ---
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.write(d) end
@@ -3441,7 +3451,7 @@ function node.protrusion_skippable(n) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L6497-L6506](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6497-L6506)
 ---
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return boolean skippable
 ---
@@ -3502,7 +3512,7 @@ function node.setglue(n, width, stretch, shrink, stretch_order, shrink_order) en
 ---
 ---* Corresponding C source code: [lnodelib.c#L3798-L3818](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3798-L3818)
 ---
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---@param width integer|any
 ---@param stretch integer|any
 ---@param shrink integer|any
@@ -3546,7 +3556,7 @@ function node.getglue(n) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L3776-L3796](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3776-L3796)
 ---
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return integer|number|nil width_or_glue_set # When a list node (`vlist` or `hlist`) is passed, than the glue set is returned.
 ---@return integer|nil stretch_or_glue_order # When a list node (`vlist` or `hlist`) is passed, than the glue order is returned.
@@ -3582,7 +3592,7 @@ function node.is_zero_glue(n) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L3820-L3834](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3820-L3834)
 ---
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return boolean isglue
 ---
@@ -3626,7 +3636,7 @@ function node.has_attribute(n, id, value) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L3357-L3371](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3357-L3371)
 ---
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---@param id integer
 ---@param value? integer
 ---
@@ -3667,7 +3677,7 @@ function node.get_attribute(n, id) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L3450-L3481](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3450-L3481)
 ---
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---@param id integer
 ---
 ---@return integer|nil value
@@ -3706,7 +3716,7 @@ function node.find_attribute(n, id) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L3503-L3538](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3503-L3538)
 ---
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---@param id integer
 ---
 ---@return integer|nil value
@@ -3744,7 +3754,7 @@ function node.set_attribute(n, id, value) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L3483-L3501](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3483-L3501)
 ---
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---@param id integer
 ---@param value? integer
 ---
@@ -3838,7 +3848,7 @@ function node.slide(n) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L3245-L3258](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3245-L3258)
 ---
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return integer tail
 ---
@@ -3878,7 +3888,7 @@ function node.check_discretionaries(head) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L8550-L8562](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L8550-L8562)
 ---
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.check_discretionaries(d) end
@@ -3914,7 +3924,7 @@ function node.check_discretionary(n) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L8564-L8573](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L8564-L8573)
 ---
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.check_discretionary(d) end
@@ -3945,7 +3955,7 @@ function node.flatten_discretionaries(n) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L8575-L8613](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L8575-L8613)
 ---
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return Node head
 ---@return integer count
@@ -3997,7 +4007,7 @@ function node.direct.todirect(n) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L6570-L6581](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6570-L6581)
 ---
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return Node n
 ---
@@ -5151,7 +5161,7 @@ function node.getproperty(node) end
 ---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L2520-L2523](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L2520-L2523)
 ---* Corresponding C source code: [lnodelib.c#L8391-L8401](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L8391-L8401)
 ---
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return any value
 ---
@@ -5244,7 +5254,7 @@ function node.hyphenating(n, m) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L6124-L6142](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6124-L6142)
 ---
----@param d integer
+---@param d integer # The index number of the node in the memory table for direct access.
 ---@param e? integer
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)

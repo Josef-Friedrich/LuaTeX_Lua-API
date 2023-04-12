@@ -1,0 +1,2498 @@
+---% language=us runpath=texruns:manuals/luametatex
+---
+---\environment luametatex-style
+---
+---\startcomponent luametatex-nodes
+---
+---# Nodes
+---
+---# *Lua* node representation[library=node]
+---
+---*TeX*'s nodes are represented in *Lua* as user data objects with a variable set of
+---fields or by a numeric identifier when requested. When you print a node user data
+---object you will see these numbers. In the following syntax tables the type of
+---such a user data object is represented as `<node>`.
+---
+---\blank
+---\dontleavehmode {\bf The return values of `node.types` are:} \showtypes
+---\blank
+---
+---You can ask for a list of fields with `node.fields` and for valid subtypes
+---with `node.subtypes`. There are plenty specific field values and you can
+---some idea about them by calling `tex.get*values()` which returns a table if
+---numbers (exclusive numbers or bits):
+---
+---\starttexdefinition ShowTeXValues #1
+---    \blank
+---    \dontleavehmode
+---%     {\bf The return values of `tex.get#1values()` are:}\space
+---    {\bf #1:}\space
+---    \showvalues{#1}
+---%     \showhexvalues{#1}
+---    \blank
+---\stoptexdefinition
+---
+---\ShowTeXValues{fill}
+---\ShowTeXValues{alignmentcontext}
+---\ShowTeXValues{appendlinecontext}
+---% \ShowTeXValues{automigration}
+---\ShowTeXValues{charactertag}
+---\ShowTeXValues{direction}
+---\ShowTeXValues{discoption}
+---\ShowTeXValues{discstate}
+---% \ShowTeXValues{error}
+---% \ShowTeXValues{flag}
+---% \ShowTeXValues{frozenpar}
+---\ShowTeXValues{glyphoption}
+---\ShowTeXValues{group}
+---\ShowTeXValues{hyphenation}
+---\ShowTeXValues{io}
+---\ShowTeXValues{kerneloption}
+---\ShowTeXValues{listanchor}
+---\ShowTeXValues{listgeometry}
+---\ShowTeXValues{listsign}
+---\ShowTeXValues{mathclassoption}
+---\ShowTeXValues{mathcontrol}
+---\ShowTeXValues{mathparameter}
+---\ShowTeXValues{mathstylename}
+---\ShowTeXValues{mathstyle}
+---% \ShowTeXValues{mathvariant}
+---% \ShowTeXValues{mode}
+---\ShowTeXValues{noadoption}
+---\ShowTeXValues{normalizeline}
+---\ShowTeXValues{normalizepar}
+---\ShowTeXValues{packtype}
+---\ShowTeXValues{pagecontext}
+---\ShowTeXValues{parbegin}
+---\ShowTeXValues{parcontext}
+---\ShowTeXValues{parmode}
+---% \ShowTeXValues{runstate}
+---% \ShowTeXValues{shapingpenalties}
+---% \ShowTeXValues{specialmathclass}
+---% \ShowTeXValues{textcontrol}
+---
+---There are a lot of helpers, especially for direct nodes. When possible they adapt
+---to the kind of node they get passed. Often multiple values are returned which
+---lessens the number of additional calls. It will take a while before all gets
+---documented (which is no big deal as the main usage for them is in *ConTeXt*).
+---
+----------------------------------------------------------------
+
+
+---
+---# Main text nodes
+---
+---These are the nodes that comprise actual typesetting commands. A few fields are
+---present in all nodes regardless of their type, these are:
+---
+--- field           type    explanation 
+---
+---@field next node    the next node # in a list, or nil 
+---@field id number # the node's type (`id`) number 
+---@field subtype number # the node `subtype` identifier 
+---
+---The `subtype` is sometimes just a dummy entry because not all nodes
+---actually use the `subtype`, but this way you can be sure that all nodes
+---accept it as a valid field name, and that is often handy in node list traversal.
+---In the following tables `next` and `id` are not explicitly mentioned.
+---
+---Besides these three fields, almost all nodes also have an `attr` field, and
+---there is a also a field called `prev`. That last field is always present,
+---but only initialized on explicit request: when the function `node.slide`
+---is called, it will set up the `prev` fields to be a backwards pointer in
+---the argument node list. By now most of *TeX*'s node processing makes sure that the
+---`prev` nodes are valid but there can be exceptions, especially when the
+---internal magic uses a leading `temp` nodes to temporarily store a state.
+---
+---The *Lua*METATEX\ engine provides a lot of freedom and it is up to the user to
+---make sure that the node lists remain sane. There are some safeguards but there
+---can be cases where the engine just quits out of frustration. And, of course you
+---can make the engine crash.
+---
+---# `hlist` and `vlist` nodes
+---
+---These lists share fields and subtypes although some subtypes can only occur in
+---horizontal lists while others are unique for vertical lists. The possible
+---fields are \showfields {hlist}.
+---
+--- field              type    explanation 
+---
+---@field subtype number # \showsubtypes{list} 
+---@field attr node # list of attributes 
+---@field width number # the width of the box 
+---@field height number # the height of the box 
+---@field depth number # the depth of the box 
+---@field direction number # the direction of this box, see \in [dirnodes] 
+---@field shift number # a displacement perpendicular to the character (hlist) or line (vlist) progression direction 
+---@field glueorder number # a number in the range `[0,4]`, indicating the glue order 
+---@field glueset number # the calculated glue ratio 
+---@field gluesign number # 0 = `normal`, 1 = `stretching`, 2 = `shrinking` 
+---@field list node    the first node # of the body of this list 
+---
+---The `orientation`, `woffset`, `hoffset`, `doffset`,
+---`xoffset` and `yoffset` fields are special. They can be used to make
+---the backend rotate and shift boxes which can be handy in for instance vertical
+---typesetting. Because they relate to (and depend on the) the backend they are not
+---discussed here (yet).
+---
+---A warning: never assign a node list to the `list` field unless you are sure
+---its internal link structure is correct, otherwise an error may result.
+---
+---Note: the field name `head` and `list` are both valid. Sometimes it
+---makes more sense to refer to a list by `head`, sometimes `list` makes
+---more sense.
+---
+----------------------------------------------------------------
+
+
+---
+---# `rule` nodes
+---
+---Contrary to traditional *TeX*, *LuaTeX* has more `hrule` and `vrule`
+---subtypes because we also use rules to store reuseable objects and images. User
+---nodes are invisible and can be intercepted by a callback. The supported fields
+---are \showfields {rule}.
+---
+--- field             type    explanation 
+---
+---@field subtype number # \showsubtypes {rule} 
+---@field attr node # list of attributes 
+---@field width number # the width of the rule where the special value `-1073741824` is used for “running” glue dimensions 
+---@field height number # the height of the rule (can be negative) 
+---@field depth number # the depth of the rule (can be negative) 
+---@field left number # shift at the left end (also subtracted from width) 
+---@field right number # (subtracted from width) 
+---@field dir string # the direction of this rule, see \in[dirnodes] 
+---@field index number # an optional index that can be referred to 
+---@field transform number # an private variable (also used to specify outline width) 
+---
+---The `left` and type {right} keys are somewhat special (and experimental).
+---When rules are auto adapting to the surrounding box width you can enforce a shift
+---to the right by setting `left`. The value is also subtracted from the width
+---which can be a value set by the engine itself and is not entirely under user
+---control. The `right` is also subtracted from the width. It all happens in
+---the backend so these are not affecting the calculations in the frontend (actually
+---the auto settings also happen in the backend). For a vertical rule `left`
+---affects the height and `right` affects the depth. There is no matching
+---interface at the *TeX* end (although we can have more keywords for rules it would
+---complicate matters and introduce a speed penalty.) However, you can just
+---construct a rule node with *Lua* and write it to the *TeX* input. The `outline` subtype is just a convenient variant and the `transform` field
+---specifies the width of the outline.
+---
+---The `xoffset` and `yoffset` fields are special. They can be used to
+---shift rules. Because they relate to (and depend on the) the backend they are not
+---discussed here (yet).
+---
+----------------------------------------------------------------
+
+
+---
+---# `insert` nodes
+---
+---This node relates to the `insert` primitive and support the fields: \showfields{insert}.
+---
+--- field           type    explanation 
+---
+---@field subtype number # the insertion class 
+---@field attr node # list of attributes 
+---@field cost number # the penalty associated with this insert 
+---@field height number # height of the insert 
+---@field depth number # depth of the insert 
+---@field list node    the first node # of the body of this insert 
+---
+---There is a set of extra fields that concern the associated glue: `width`,
+---`stretch`, `stretchorder`, `shrink` and `shrinkorder`.
+---These are all numbers.
+---
+---A warning: never assign a node list to the `head` field unless you are sure
+---its internal link structure is correct, otherwise an error may result. You can use
+---`list` instead (often in functions you want to use local variable with similar
+---names and both names are equally sensible).
+---
+----------------------------------------------------------------
+
+
+---
+---# `mark` nodes
+---
+---This one relates to the `mark` primitive and only has a few fields:
+---\showfields {mark}.
+---
+--- field           type    explanation 
+---
+---@field subtype number # unused 
+---@field attr node # list of attributes 
+---@field class number # the mark class 
+---@field mark table # a table representing a token list 
+---
+----------------------------------------------------------------
+
+
+---
+---# `adjust` nodes
+---
+---This node comes from `vadjust` primitive and has fields: \showfields {adjust}.
+---
+--- field           type    explanation 
+---
+---@field subtype number # \showsubtypes{adjust} 
+---@field attr node # list of attributes 
+---@field list node # adjusted material 
+---
+---A warning: never assign a node list to the `head` field unless you are sure
+---its internal link structure is correct, otherwise an error may be the result.
+---
+----------------------------------------------------------------
+
+
+---
+---# `disc` nodes
+---
+---The `discretionary` and `-`, the `-` character but also the
+---hyphenation mechanism produces these nodes. The available fields are: \showfields
+---{disc}.
+---
+--- field           type    explanation 
+---
+---@field subtype number # \showsubtypes{disc} 
+---@field attr node # list of attributes 
+---@field pre node # pointer to the pre-break text 
+---@field post node # pointer to the post-break text 
+---@field replace node # pointer to the no-break text 
+---@field penalty number # the penalty associated with the break, normally `hyphenpenalty` or `exhyphenpenalty` 
+---
+---The subtype numbers 4 and 5 belong to the “of-f-ice” explanation given
+---elsewhere. These disc nodes are kind of special as at some point they also keep
+---information about breakpoints and nested ligatures.
+---
+---The `pre`, `post` and `replace` fields at the *Lua* end are in
+---fact indirectly accessed and have a `prev` pointer that is not `nil`.
+---This means that when you mess around with the head of these (three) lists, you
+---also need to reassign them because that will restore the proper `prev`
+---pointer, so:
+---
+---```
+---pre = d.pre
+----- change the list starting with pre
+---d.pre = pre
+---```
+---
+---Otherwise you can end up with an invalid internal perception of reality and
+---*Lua*METATEX\ might even decide to crash on you. It also means that running forward
+---over for instance `pre` is ok but backward you need to stop at `pre`.
+---And you definitely must not mess with the node that `prev` points to, if
+---only because it is not really a node but part of the disc data structure (so
+---freeing it again might crash *Lua*METATEX).
+---
+----------------------------------------------------------------
+
+
+---
+---# `math` nodes
+---
+---Math nodes represent the boundaries of a math formula, normally wrapped into
+---``` signs. The following fields are available: \showfields {math}.
+---
+--- field                 type    explanation 
+---
+---@field subtype number # \showsubtypes{math} 
+---@field attr node # list of attributes 
+---@field surround number # width of the `mathsurround` kern 
+---@field width number # the horizontal or vertical displacement 
+---@field stretch number # extra (positive) displacement or stretch amount 
+---@field stretchorder number # factor applied to stretch amount 
+---@field shrink number # extra (negative) displacement or shrink amount
+---@field shrinkorder number # factor applied to shrink amount 
+---
+---The glue fields only kick in when the `surround` fields is zero.
+---
+----------------------------------------------------------------
+
+
+---
+---# `glue` nodes
+---
+---Skips are about the only type of data objects in traditional *TeX* that are not a
+---simple value. They are inserted when *TeX* sees a space in the text flow but also
+---by `hskip` and `vskip`. The structure that represents the glue
+---components of a skip internally is called a `gluespec`. In *Lua*METATEX\ we
+---don't use the spec itself but just its values. A glue node has the fields:
+---\showfields {glue}.
+---
+--- field                type    explanation 
+---
+---@field subtype number # \showsubtypes{glue} 
+---@field attr node # list of attributes 
+---@field leader node # pointer to a box or rule for leaders 
+---@field width number # the horizontal or vertical displacement 
+---@field stretch number # extra (positive) displacement or stretch amount 
+---@field stretchorder number # factor applied to stretch amount 
+---@field shrink number # extra (negative) displacement or shrink amount
+---@field shrinkorder number # factor applied to shrink amount 
+---
+---Note that we use the key `width` in both horizontal and vertical glue. This
+---suits the *TeX* internals well so we decided to stick to that naming.
+---
+---The effective width of some glue subtypes depends on the stretch or shrink needed
+---to make the encapsulating box fit its dimensions. For instance, in a paragraph
+---lines normally have glue representing spaces and these stretch or shrink to make
+---the content fit in the available space. The `effectiveglue` function that
+---takes a glue node and a parent (hlist or vlist) returns the effective width of
+---that glue item. When you pass `true` as third argument the value will be
+---rounded.
+---
+----------------------------------------------------------------
+
+
+---
+---# `gluespec` nodes
+---
+---Internally *Lua*METATEX\ (like its ancestors) also uses nodes to store data that
+---is not seen in node lists. For instance the state of expression scanning (`\dimexpr` etc.) and conditionals (`\ifcase` etc.) is also kept in lists of
+---nodes. A glue, which has five components, is stored in a node as well, so, where
+---most registers store just a number, a skip register (of internal quantity) uses a
+---pointer to a glue spec node. It has similar fields as glue nodes: \showfields
+---{gluespec}, which is not surprising because in the past (and other engines than
+---*LuaTeX*) a glue node also has its values stored in a glue spec. This has some
+---advantages because often the values are the same, so for instance spacing related
+---skips were not resolved immediately but pointed to the current value of a space
+---related internal register (like `\spaceskip`). But, in *LuaTeX* we do
+---resolve these quantities immediately and we put the current values in the glue
+---nodes.
+---
+--- field                type    explanation 
+---
+---@field width number # the horizontal or vertical displacement 
+---@field stretch number # extra (positive) displacement or stretch amount 
+---@field stretchorder number # factor applied to stretch amount 
+---@field shrink number # extra (negative) displacement or shrink amount
+---@field shrinkorder number # factor applied to shrink amount 
+---
+---You will only find these nodes in a few places, for instance when you query an
+---internal quantity. In principle we could do without them as we have interfaces
+---that use the five numbers instead. For compatibility reasons we keep glue spec
+---nodes exposed but this might change in the future.
+---
+----------------------------------------------------------------
+
+
+---
+---# `kern` nodes
+---
+---The `kern` command creates such nodes but for instance the font and math
+---machinery can also add them. There are not that many fields: \showfields {kern}.
+---
+--- field             type    explanation 
+---
+---@field subtype number # \showsubtypes{kern} 
+---@field attr node # list of attributes 
+---@field kern number # fixed horizontal or vertical advance 
+---@field expansion number # multiplier related to hz for font kerns 
+---
+----------------------------------------------------------------
+
+
+---
+---# `penalty` nodes
+---
+---The `penalty` command is one that generates these nodes. It is one of the
+---type of nodes often found in vertical lists. It has the fields: \showfields
+---{penalty}.
+---
+--- field           type    explanation 
+---
+---@field subtype number # \showsubtypes{penalty} 
+---@field attr node # list of attributes 
+---@field penalty number # the penalty value 
+---
+---The subtypes are just informative and *TeX* itself doesn't use them. When you
+---run into an `linebreakpenalty` you need to keep in mind that it's a
+---accumulation of `club`, `widow` and other relevant penalties.
+---
+----------------------------------------------------------------
+
+
+---
+---\startsubsection[title={`glyph` nodes},reference=glyphnodes]
+---
+---These are probably the mostly used nodes and although you can push them in the
+---current list with for instance `char` *TeX* will normally do it for you when
+---it considers some input to be text. Glyph nodes are relatively large and have many
+---fields: \showfields {glyph}.
+---
+--- field             type     explanation 
+---
+---@field subtype number # bit field 
+---@field attr node # list of attributes 
+---@field char number # the character index in the font 
+---@field font number # the font identifier 
+---@field language number # the language identifier 
+---@field left number # the frozen `\lefthyphenmnin` value 
+---@field right number # the frozen `\righthyphenmnin` value 
+---@field uchyph boolean # the frozen `uchyph` value 
+---@field state number # a user field (replaces the component list) 
+---@field xoffset number # a virtual displacement in horizontal direction 
+---@field yoffset number # a virtual displacement in vertical direction 
+---@field width number # the (original) width of the character 
+---@field height number # the (original) height of the character
+---@field depth number # the (original) depth of the character
+---@field expansion number # the to be applied expansion factor 
+---@field data number # a general purpose field for users (we had room for it) 
+---
+---The `width`, `height` and `depth` values are read-only. The
+---`expansion` is assigned in the par builder and used in the backend. Valid
+---bits for the `subtype` field are:
+---
+--- bit  meaning   
+---
+--- 0    character 
+--- 1    ligature  
+--- 2    ghost     
+--- 3    left      
+--- 4    right     
+---
+---The `expansion` has been introduced as part of the separation between
+---front- and backend. It is the result of extensive experiments with a more
+---efficient implementation of expansion. Early versions of *LuaTeX* already
+---replaced multiple instances of fonts in the backend by scaling but contrary to
+---*PDF*TEX\ in *LuaTeX* we now also got rid of font copies in the frontend and
+---replaced them by expansion factors that travel with glyph nodes. Apart from a
+---cleaner approach this is also a step towards a better separation between front-
+---and backend.
+---
+---The `ischar` function checks if a node is a glyph node with a subtype still
+---less than 256. This function can be used to determine if applying font logic to a
+---glyph node makes sense. The value `nil` gets returned when the node is not
+---a glyph, a character number is returned if the node is still tagged as character
+---and `false` gets returned otherwise. When nil is returned, the id is also
+---returned. The `isglyph` variant doesn't check for a subtype being less
+---than 256, so it returns either the character value or nil plus the id. These
+---helpers are not always faster than separate calls but they sometimes permit
+---making more readable tests. The `usesfont` helpers takes a node
+---and font id and returns true when a glyph or disc node references that font.
+---
+---The `isnextchar` and `isprevchar` return a next node, a character
+---code (or false) and an node id or next character code. The four `is`
+---checkers take a node and optionally a font, data, state, scale, xscale and yscale
+---value that are then checked.
+---
+----------------------------------------------------------------
+
+
+---
+---# `boundary` nodes
+---
+---This node relates to the `noboundary`, `boundary`, `protrusionboundary` and `wordboundary` primitives. These are small
+---nodes: \showfields {boundary} are the only fields.
+---
+--- field           type    explanation 
+---
+---@field subtype number # \showsubtypes{boundary} 
+---@field attr node # list of attributes 
+---@field data number # values 0--255 are reserved 
+---
+----------------------------------------------------------------
+
+
+---
+---# `par` nodes
+---
+---This node is inserted at the start of a paragraph. You should not mess
+---too much with this one. Valid fields are: \showfields {par}.
+---
+--- field                    type    explanation 
+---
+---@field attr node # list of attributes 
+---@field interlinepenalty number # local interline penalty (from `localinterlinepenalty`) 
+---@field brokenpenalty number # local broken penalty (from `localbrokenpenalty`) 
+---@field dir string # the direction of this par. see \in [dirnodes] 
+---@field leftbox node # the `localleftbox` 
+---@field leftboxwidth number # width of the `localleftbox` 
+---@field rightbox node # the `localrightbox` 
+---@field rightboxwidth number # width of the `localrightbox` 
+---@field middlebox node # the `localmiddlebox` (zero width) 
+---
+---A warning: never assign a node list to one of the box fields unless you are sure
+---its internal link structure is correct, otherwise an error may result.
+---
+----------------------------------------------------------------
+
+
+---
+---\startsubsection[title={`dir` nodes},reference=dirnodes]
+---
+---Direction nodes mark parts of the running text that need a change of direction
+---and the `textdirection` command generates them. Again this is a small node, we
+---just have \showfields {dir}.
+---
+--- field           type    explanation 
+---
+---@field subtype number # \showsubtypes{dir} 
+---@field attr node # list of attributes 
+---@field dir string # the direction (`0` = l2r, `1` = r2l) 
+---@field level number # nesting level of this direction 
+---
+---There are only two directions: left-to-right (`0`) and
+---right-to-left (`1`). This is different from *LuaTeX* that has four
+---directions.
+---
+----------------------------------------------------------------
+
+
+---
+---# Whatsits
+---
+---A whatsit node is a real simple one and it only has a subtype. It is even less
+---than a user node (which it actually could be) and uses hardly any memory. What
+---you do with it it entirely up to you: it's is real minimalistic. You can assign a
+---subtype and it has attributes. It is all up to the user how they are handled.
+---
+----------------------------------------------------------------
+
+
+---
+---# Math noads
+---
+---\startsubsubsection[title=The concept]
+---
+---These are the so||called “noad”s and the nodes that are specifically
+---associated with math processing. When you enter a formula, *TeX* creates a node
+---list with regular nodes and noads. Then it hands over the list the math
+---processing engine. The result of that is a nodelist without noads. Most of the
+---noads contain subnodes so that the list of possible fields is actually quite
+---small. Math formulas are both a linked list and a tree. For instance in `e =
+---mc^2` there is a linked list `e = m c` but the `c` has a superscript
+---branch that itself can be a list with branches.
+---
+---First, there are the objects (the *TeX* book calls them “atoms”) that are
+---associated with the simple math objects: ord, op, bin, rel, open, close, punct,
+---inner, over, under, vcenter. These all have the same fields, and they are combined
+---into a single node type with separate subtypes for differentiation: \showfields
+---{noad}.
+---
+---Many object fields in math mode are either simple characters in a specific family
+---or math lists or node lists: `mathchar`, `mathtextchar`, {subbox}
+---and `submlist` and `delimiter`. These are endpoints and therefore the
+---`next` and `prev` fields of these these subnodes are unused.
+---
+---Some of the more elaborate noads have an option field. The values in this bitset
+---are common:
+---
+--- meaning         bits                      
+---
+--- set                           `0x08` 
+--- internal        `0x00` + `0x08` 
+--- internal        `0x01` + `0x08` 
+--- axis            `0x02` + `0x08` 
+--- no axis         `0x04` + `0x08` 
+--- exact           `0x10` + `0x08` 
+--- left            `0x11` + `0x08` 
+--- middle          `0x12` + `0x08` 
+--- right           `0x14` + `0x08` 
+--- no subscript    `0x21` + `0x08` 
+--- no superscript  `0x22` + `0x08` 
+--- no script       `0x23` + `0x08` 
+---
+----------------------------------------------------------------
+
+
+---
+---# `mathchar` and `mathtextchar` subnodes
+---
+---These are the most common ones, as they represent characters, and they both have
+---the same fields: \showfields {mathchar}.
+---
+--- field        type    explanation 
+---
+---@field attr node # list of attributes 
+---@field char number # the character index 
+---@field fam number # the family number 
+---
+---The `mathchar` is the simplest subnode field, it contains the character and
+---family for a single glyph object. The family eventually resolves on a reference
+---to a font. The `mathtextchar` is a special case that you will not normally
+---encounter, it arises temporarily during math list conversion (its sole function
+---is to suppress a following italic correction).
+---
+----------------------------------------------------------------
+
+
+---
+---# `subbox` and `submlist` subnodes
+---
+---These two subnode types are used for subsidiary list items. For `subbox`,
+---the `list` points to a “normal” vbox or hbox. For `submlist`,
+---the `list` points to a math list that is yet to be converted. Their fields
+---are: \showfields {subbox}.
+---
+--- field        type  explanation 
+---
+---@field attr node # list of attributes 
+---@field list node # list of nodes 
+---
+---A warning: never assign a node list to the `list` field unless you are sure
+---its internal link structure is correct, otherwise an error is triggered.
+---
+----------------------------------------------------------------
+
+
+---
+---# `delimiter` subnodes
+---
+---There is a fifth subnode type that is used exclusively for delimiter fields. As
+---before, the `next` and `prev` fields are unused, but we do have:
+---\showfields {delimiter}.
+---
+--- field               type    explanation 
+---
+---@field attr node # list of attributes 
+---@field smallchar number # character index of base character 
+---@field smallfamily number # family number of base character 
+---@field largechar number # character index of next larger character 
+---@field largefamily number # family number of next larger character 
+---
+---The fields `largechar` and `largefamily` can be zero, in that case
+---the font that is set for the `smallfamily` is expected to provide the large
+---version as an extension to the `smallchar`.
+---
+----------------------------------------------------------------
+
+
+---
+---# simple `noad` nodes
+---
+---In these noads, the `nucleus`, `sub` and `sup` fields can
+---branch of. Its fields are: \showfields {noad}.
+---
+--- field           type         explanation 
+---
+---@field subtype number # \showsubtypes{noad} 
+---@field attr node # list of attributes 
+---@field nucleus kernel node # base 
+---@field sub kernel node # subscript 
+---@field sup kernel node # superscript 
+---@field options number # bitset of rendering options 
+---
+----------------------------------------------------------------
+
+
+---
+---# `accent` nodes
+---
+---Accent nodes deal with stuff on top or below a math constructs. They support:
+---\showfields {accent}.
+---
+--- field              type         explanation 
+---
+---@field subtype number # \showsubtypes{accent} 
+---@field nucleus kernel node # base 
+---@field sub kernel node # subscript 
+---@field sup kernel node # superscript 
+---@field topaccent kernel node # top accent 
+---@field bottomaccent kernel node # bottom accent 
+---@field fraction number # larger step criterium (divided by 1000) 
+---
+----------------------------------------------------------------
+
+
+---
+---# `style` nodes
+---
+---These nodes are signals to switch to another math style. They are quite simple:
+---\showfields {style}. Currently the subtype is actually used to store the style
+---but don't rely on that for the future. Fields are: \showfields {style}.
+---
+--- field         type    explanation    
+---
+---@field style string # contains the style 
+---
+----------------------------------------------------------------
+
+
+---
+---# `parameter` nodes
+---
+---These nodes are used to (locally) set math parameters: \showfields {parameter}.
+---Fields are: \showfields {parameter}.
+---
+--- field         type    explanation    
+---
+---@field style string # contains the style 
+---@field name string # defines the parameter 
+---@field value number # holds the value, in case of a muglue multiple 
+---
+----------------------------------------------------------------
+
+
+---
+---# `choice` nodes
+---
+---Of its fields \showfields {choice} most are lists. Warning: never assign a node
+---list unless you are sure its internal link structure is correct, otherwise an
+---error can occur.
+---
+--- field                type  explanation 
+---
+---@field attr node # list of attributes 
+---@field display node # list of display size alternatives 
+---@field text node # list of text size alternatives 
+---@field script node # list of scriptsize alternatives 
+---@field scriptscript node # list of scriptscriptsize alternatives 
+---
+----------------------------------------------------------------
+
+
+---
+---# `radical` nodes
+---
+---Radical nodes are the most complex as they deal with scripts as well as
+---constructed large symbols. Many fields: \showfields {radical}. Warning: never
+---assign a node list to the `nucleus`, `sub`, `sup`, `left`, or `degree` field unless you are sure its internal link structure
+---is correct, otherwise an error can be triggered.
+---
+--- field           type            explanation 
+---
+---@field subtype number # \showsubtypes{radical} 
+---@field attr node # list of attributes 
+---@field nucleus kernel node # base 
+---@field sub kernel node # subscript 
+---@field sup kernel node # superscript 
+---@field left delimiter node # 
+---@field degree kernel node # only set by `Uroot` 
+---@field width number # required width 
+---@field options number # bitset of rendering options 
+---
+----------------------------------------------------------------
+
+
+---
+---# `fraction` nodes
+---
+---Fraction nodes are also used for delimited cases, hence the `left` and
+---`right` fields among: \showfields {fraction}.
+---
+--- field               type            explanation 
+---
+---@field attr node # list of attributes 
+---@field width number # (optional) width of the fraction 
+---@field numerator kernel node # numerator 
+---@field denominator kernel node # denominator 
+---@field left delimiter node # left side symbol 
+---@field right delimiter node # right side symbol 
+---@field middle delimiter node # middle symbol 
+---@field options number # bitset of rendering options 
+---
+---Warning: never assign a node list to the `numerator`, or `denominator` field unless you are sure its internal link structure is correct,
+---otherwise an error can result.
+---
+----------------------------------------------------------------
+
+
+---
+---# `fence` nodes
+---
+---Fence nodes come in pairs but either one can be a dummy (this period driven empty
+---fence). Fields are: \showfields {fence}. Some of these fields are used by the
+---renderer and might get adapted in the process.
+---
+--- field           type            explanation 
+---
+---@field subtype number # \showsubtypes{fence} 
+---@field attr node # list of attributes 
+---@field delimiter delimiter node # delimiter specification 
+---@field italic number # italic correction 
+---@field height number # required height 
+---@field depth number # required depth 
+---@field options number # bitset of rendering options 
+---@field class number # spacing related class 
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---# The `node` library[library=node]
+---
+---# Introduction
+---
+---The `node` library provides methods that facilitate dealing with (lists of)
+---nodes and their values. They allow you to create, alter, copy, delete, and insert
+---node, the core objects within the typesetter. Nodes are represented in *Lua* as
+---user data. The various parts within a node can be accessed using named fields.
+---
+---Each node has at least the three fields `next`, `id`, and `subtype`. The other available fields depend on the `id`.
+---
+---* The `next` field returns the user data object for the next node in a
+---    linked list of nodes, or `nil`, if there is no next node.
+---
+---* The `id` indicates *TeX*'s “node type”. The field `id` has a
+---    numeric value for efficiency reasons, but some of the library functions also
+---    accept a string value instead of `id`.
+---
+---* The `subtype` is another number. It often gives further information
+---    about a node of a particular `id`.
+---
+---% Support for `unset` (alignment) nodes is partial: they can be queried and
+---% modified from *Lua* code, but not created.
+---
+---Nodes can be compared to each other, but: you are actually comparing indices into
+---the node memory. This means that equality tests can only be trusted under very
+---limited conditions. It will not work correctly in any situation where one of the
+---two nodes has been freed and/or reallocated: in that case, there will be false
+---positives. The general approach to a node related callback is as follows:
+---
+---* Assume that the node list that you get is okay and properly double linked.
+---    If for some reason the links are not right, you can apply `node.slide`
+---    to the list.
+---
+---* When you insert a node, make sure you use a previously removed one, a new one
+---    or a copy. Don't simply inject the same node twice.
+---
+---* When you remove a node, make sure that when this is permanent, you also free
+---    the node or list.
+---
+---* Although you can fool the system, normally you will trigger an error when you
+---    try to copy a nonexisting node, or free an already freed node. There is some
+---    overhead involved in this checking but the current compromise is acceptable.
+---
+---* When you're done, pass back (if needed) the result. It's your responsibility
+---    to make sure that the list is properly linked (you can play safe and again
+---    apply `node.slide`. In principle you can put nodes in a list that are
+---    not acceptable in the following up actions. Some nodes get ignored, others
+---    will trigger an error, and sometimes the engine will just crash.
+---
+---So, from the above it will be clear then memory management of nodes has to be
+---done explicitly by the user. Nodes are not “seen” by the *Lua* garbage
+---collector, so you have to call the node freeing functions yourself when you are
+---no longer in need of a node (list). Nodes form linked lists without reference
+---counting, so you have to be careful that when control returns back to *LuaTeX*
+---itself, you have not deleted nodes that are still referenced from a `next`
+---pointer elsewhere, and that you did not create nodes that are referenced more
+---than once. Normally the setters and getters handle this for you.
+---
+---A good example are discretionary nodes that themselves have three sublists.
+---Internally they use special pointers, but the user never sees them because when
+---you query them or set fields, this property is hidden and taken care of. You just
+---see a list. But, when you mess with these sub lists it is your responsibility
+---that it only contains nodes that are permitted in a discretionary.
+---
+---There are statistics available with regards to the allocated node memory, which
+---can be handy for tracing. Normally the amount of used nodes is not that large.
+---Typesetting a page can involve thousands of them but most are freed when the page
+---has been shipped out. Compared to other programs, node memory usage is not that
+---excessive. So, if for some reason your application leaks nodes, if at the end of
+---your run you lost as few hundred it's not a real problem. In fact, if you created
+---boxes and made copies but not flushed them for good reason, your run will for
+---sure end with used nodes and the statistics will mention that. The same is true
+---for attributes and skips (glue spec nodes): keeping the current state involves
+---using nodes.
+---
+----------------------------------------------------------------
+
+
+---
+---# Housekeeping
+---
+---# `types`
+---
+---This function returns an array that maps node id numbers to node type strings,
+---providing an overview of the possible top-level `id` types.
+---
+---```
+---<table> t = node.types()
+---```
+---
+---When we issue this command, we get a table. The currently visible types are
+---\inlineluavalue { node.types() } where the numbers are the internal identifiers.
+---Only those nodes are reported that make sense to users so there can be gaps in
+---the range of numbers.
+---
+----------------------------------------------------------------
+
+
+---
+---# `id` and `type`
+---
+---This converts a single type name to its internal numeric representation.
+---
+---```
+---<number> id = node.id(<string> type)
+---```
+---
+---The `node.id("glyph")` command returns the number \inlineluavalue { node.id
+---("glyph") } and `node.id("hlist")` returns \inlineluavalue { node.id
+---("hlist") } where the numbers don't relate to importance or some ordering; they
+---just appear in the order that is handy for the engine. Commands like this are
+---rather optimized so performance should be ok but you can of course always store
+---the id in a *Lua* number.
+---
+---The reverse operation is: `node.type` If the argument is a number, then the
+---next function converts an internal numeric representation to an external string
+---representation. Otherwise, it will return the string `node` if the object
+---represents a node, and `nil` otherwise.
+---
+---```
+---<string> type = node.type(<any> n)
+---```
+---
+---The `node.type(4)` command returns the string \inlineluavalue { node.type
+---(4) } and `node.id(99)` returns \inlineluavalue { node.id (99) } because
+---there is no node with that id.
+---
+----------------------------------------------------------------
+
+
+---
+---# `fields` and `hasfield`
+---
+---This function returns an indexed table with valid field names for a particular
+---type of node.
+---
+---```
+---<table> t = node.fields(<number|string> id)
+---```
+---
+---The function accepts a string or number, so `node.fields ("glyph")` returns
+---\inlineluavalue { node.fields ("glyph") } and `node.fields (12)` gives
+---\inlineluavalue { node.fields (12) }.
+---
+---The `hasfield` function returns a boolean that is only true if `n`
+---is actually a node, and it has the field.
+---
+---```
+---<boolean> t = node.hasfield(<node> n, <string> field)
+---```
+---
+---This function probably is not that useful but some nodes don't have a `subtype`, `attr` or `prev` field and this is a way to test for that.
+---
+----------------------------------------------------------------
+
+
+---
+---# `isnode`
+---
+---```
+---<boolean|integer> t = node.isnode(<any> item)
+---```
+---
+---This function returns a number (the internal index of the node) if the argument
+---is a user data object of type `<node>` and false when no node is passed.
+---
+----------------------------------------------------------------
+
+
+---
+---# `new`
+---
+---The `new` function creates a new node. All its fields are initialized to
+---either zero or `nil` except for `id` and `subtype`. Instead of
+---numbers you can also use strings (names). If you pass a second argument the
+---subtype will be set too.
+---
+---```
+---<node> n = node.new(<number|string> id)
+---<node> n = node.new(<number|string> id, <number|string> subtype)
+---```
+---
+---As already has been mentioned, you are responsible for making sure that nodes
+---created this way are used only once, and are freed when you don't pass them
+---back somehow.
+---
+----------------------------------------------------------------
+
+
+---
+---# `free`, `flushnode` and `flushlist`
+---
+---The next one frees node `n` from *TeX*'s memory. Be careful: no checks are
+---done on whether this node is still pointed to from a register or some `next` field: it is up to you to make sure that the internal data structures
+---remain correct. Fields that point to nodes or lists are flushed too. So, when
+---you used their content for something else you need to set them to nil first.
+---
+---```
+---<node> next = node.free(<node> n)
+---flushnode(<node> n)
+---```
+---
+---The `free` function returns the next field of the freed node, while the
+---`flushnode` alternative returns nothing.
+---
+---A list starting with node `n` can be flushed from *TeX*'s memory too. Be
+---careful: no checks are done on whether any of these nodes is still pointed to
+---from a register or some `next` field: it is up to you to make sure that the
+---internal data structures remain correct.
+---
+---```
+---node.flushlist(<node> n)
+---```
+---
+---When you free for instance a discretionary node, `flushlist` is applied to
+---the `pre`, `post`, `replace` so you don't need to do that
+---yourself. Assigning them `nil` won't free those lists!
+---
+----------------------------------------------------------------
+
+
+---
+---# `copy` and `copylist`
+---
+---This creates a deep copy of node `n`, including all nested lists as in the case
+---of a hlist or vlist node. Only the `next` field is not copied.
+---
+---```
+---<node> m = node.copy(<node> n)
+---```
+---
+---A deep copy of the node list that starts at `n` can be created too. If
+---`m` is also given, the copy stops just before node `m`.
+---
+---```
+---<node> m = node.copylist(<node> n)
+---<node> m = node.copylist(<node> n, <node> m)
+---```
+---
+---Note that you cannot copy attribute lists this way. However, there is normally no
+---need to copy attribute lists as when you do assignments to the `attr` field
+---or make changes to specific attributes, the needed copying and freeing takes
+---place automatically. When you change a value of an attribute {\em in} a list, it will
+---affect all the nodes that share that list.
+---
+----------------------------------------------------------------
+
+
+---
+---# `write`
+---
+---```
+---node.write(<node> n)
+---```
+---
+---This function will append a node list to *TeX*'s “current list”. The node
+---list is not deep-copied! There is no error checking either! You might need to
+---enforce horizontal mode in order for this to work as expected.
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---# Manipulating lists
+---
+---# `slide`
+---
+---This helper makes sure that the node list is double linked and returns the found
+---tail node.
+---
+---```
+---<node> tail = node.slide(<node> n)
+---```
+---
+---In most cases *TeX* itself only uses `next` pointers but your other
+---callbacks might expect proper `prev` pointers too. So, when you run into
+---issues or are in doubt, apply the slide function before you return the list.
+---
+----------------------------------------------------------------
+
+
+---
+---# `tail`
+---
+---```
+---<node> m = node.tail(<node> n)
+---```
+---
+---Returns the last node of the node list that starts at `n`.
+---
+----------------------------------------------------------------
+
+
+---
+---# `length` and `count`
+---
+---```
+---<number> i = node.length(<node> n)
+---<number> i = node.length(<node> n, <node> m)
+---```
+---
+---Returns the number of nodes contained in the node list that starts at `n`.
+---If `m` is also supplied it stops at `m` instead of at the end of the
+---list. The node `m` is not counted.
+---
+---```
+---<number> i = node.count(<number> id, <node> n)
+---<number> i = node.count(<number> id, <node> n, <node> m)
+---```
+---
+---Returns the number of nodes contained in the node list that starts at `n`
+---that have a matching `id` field. If `m` is also supplied, counting
+---stops at `m` instead of at the end of the list. The node `m` is not
+---counted. This function also accept string `id`'s.
+---
+----------------------------------------------------------------
+
+
+---
+---# `remove`
+---
+---```
+---<node> head, current, removed =
+---    node.remove(<node> head, <node> current)
+---<node> head, current =
+---    node.remove(<node> head, <node> current, <boolean> true)
+---```
+---
+---This function removes the node `current` from the list following `head`. It is your responsibility to make sure it is really part of that list.
+---The return values are the new `head` and `current` nodes. The
+---returned `current` is the node following the `current` in the calling
+---argument, and is only passed back as a convenience (or `nil`, if there is
+---no such node). The returned `head` is more important, because if the
+---function is called with `current` equal to `head`, it will be
+---changed. When the third argument is passed, the node is freed.
+---
+----------------------------------------------------------------
+
+
+---
+---# `insertbefore`
+---
+---```
+---<node> head, new = node.insertbefore(<node> head, <node> current, <node> new)
+---```
+---
+---This function inserts the node `new` before `current` into the list
+---following `head`. It is your responsibility to make sure that `current` is really part of that list. The return values are the (potentially
+---mutated) `head` and the node `new`, set up to be part of the list
+---(with correct `next` field). If `head` is initially `nil`, it
+---will become `new`.
+---
+----------------------------------------------------------------
+
+
+---
+---# `insertafter`
+---
+---```
+---<node> head, new = node.insertafter(<node> head, <node> current, <node> new)
+---```
+---
+---This function inserts the node `new` after `current` into the list
+---following `head`. It is your responsibility to make sure that `current` is really part of that list. The return values are the `head` and
+---the node `new`, set up to be part of the list (with correct `next`
+---field). If `head` is initially `nil`, it will become `new`.
+---
+----------------------------------------------------------------
+
+
+---
+---# `lastnode`
+---
+---```
+---<node> n = node.lastnode()
+---```
+---
+---This function pops the last node from *TeX*'s “current list”. It returns
+---that node, or `nil` if the current list is empty.
+---
+----------------------------------------------------------------
+
+
+---
+---# `traverse`
+---
+---```
+---<node> t, id, subtype = node.traverse(<node> n)
+---```
+---
+---This is a *Lua* iterator that loops over the node list that starts at `n`.
+---Typically code looks like this:
+---
+---```
+---for n in node.traverse(head) do
+---   ...
+---end
+---```
+---
+---is functionally equivalent to:
+---
+---```
+---do
+---  local n
+---  local function f (head,var)
+---    local t
+---    if var == nil then
+---       t = head
+---    else
+---       t = var.next
+---    end
+---    return t
+---  end
+---  while true do
+---    n = f (head, n)
+---    if n == nil then break end
+---    ...
+---  end
+---end
+---```
+---
+---It should be clear from the definition of the function `f` that even though
+---it is possible to add or remove nodes from the node list while traversing, you
+---have to take great care to make sure all the `next` (and `prev`)
+---pointers remain valid.
+---
+---If the above is unclear to you, see the section “For Statement” in the
+---*Lua* Reference Manual.
+---
+----------------------------------------------------------------
+
+
+---
+---# `traverseid`
+---
+---```
+---<node> t, subtype = node.traverseid(<number> id, <node> n)
+---```
+---
+---This is an iterator that loops over all the nodes in the list that starts at
+---`n` that have a matching `id` field.
+---
+---See the previous section for details. The change is in the local function `f`, which now does an extra while loop checking against the upvalue `id`:
+---
+---```
+--- local function f(head,var)
+---   local t
+---   if var == nil then
+---      t = head
+---   else
+---      t = var.next
+---   end
+---   while not t.id == id do
+---      t = t.next
+---   end
+---   return t
+--- end
+---```
+---
+----------------------------------------------------------------
+
+
+---
+---# `traversechar` and `traverseglyph`
+---
+---The `traversechar` iterator loops over the `glyph` nodes in a list.
+---Only nodes with a subtype less than 256 are seen.
+---
+---```
+---<direct> n, char, font = node.direct.traversechar(<direct> n)
+---```
+---
+---The `traverseglyph` iterator loops over a list and returns the list and
+---filters all glyphs:
+---
+---```
+---<direct> n, char, font = node.traverseglyph(<direct> n)
+---```
+---
+---These functions are only available for direct nodes.
+---
+----------------------------------------------------------------
+
+
+---
+---# `traverselist`
+---
+---This iterator loops over the `hlist` and `vlist` nodes in a list.
+---
+---```
+---<direct> n, id, subtype, list = node.traverselist(<direct> n)
+---```
+---
+---The four return values can save some time compared to fetching these fields but
+---in practice you seldom need them all. This function is only available for direct
+---nodes.
+---
+----------------------------------------------------------------
+
+
+---
+---# `traversecontent`
+---
+---This iterator loops over nodes that have content: `hlist`, `vlist`, `glue`
+---with leaders, `glyphs`, `disc` and `rules` nodes.
+---
+---```
+---<direct> n, id, subtype[, list|leader] = node.traverselist(<direct> n)
+---```
+---
+---The four return values can save some time compared to fetching these fields but
+---in practice you seldom need them all. This function is only available for direct
+---nodes.
+---
+----------------------------------------------------------------
+
+
+---
+---# Reverse traversing
+---
+---The traversers also support backward traversal. An optional extra boolean triggers
+---this. Yet another optional boolean will automatically start at the end of the
+---given list.
+---
+---```
+---\setbox0\hbox{1 2 3 4 5}
+---
+---local l = tex.box[0].list
+---for n in node.traverse(l) do
+---    print("1>",n)
+---end
+---for n in node.traverse(l,true) do
+---    print("2>",n)
+---end
+---for n in node.traverse(l,true,true) do
+---    print("3>",n)
+---end
+---for n in node.traverseid(nodes.nodecodes.glyph,l) do
+---    print("4>",n)
+---end
+---for n in node.traverseid(nodes.nodecodes.glyph,l,true) do
+---    print("5>",n)
+---end
+---for n in node.traverseid(nodes.nodecodes.glyph,l,true,true) do
+---    print("6>",n)
+---end
+---```
+---
+---This produces something similar to this (the glyph subtype indicates that it has
+---been processed by the font handlers):
+---
+---```
+---1>	<node :    nil <=   1112 =>    590 : glyph 32768>
+---1>	<node :   1112 <=    590 =>   1120 : glue spaceskip>
+---1>	<node :    590 <=   1120 =>    849 : glyph 32768>
+---1>	<node :   1120 <=    849 =>   1128 : glue spaceskip>
+---1>	<node :    849 <=   1128 =>    880 : glyph 32768>
+---1>	<node :   1128 <=    880 =>   1136 : glue spaceskip>
+---1>	<node :    880 <=   1136 =>   1020 : glyph 32768>
+---1>	<node :   1136 <=   1020 =>   1144 : glue spaceskip>
+---1>	<node :   1020 <=   1144 =>    nil : glyph 32768>
+---2>	<node :    nil <=   1112 =>    590 : glyph 32768>
+---3>	<node :   1020 <=   1144 =>    nil : glyph 32768>
+---3>	<node :   1136 <=   1020 =>   1144 : glue spaceskip>
+---3>	<node :    880 <=   1136 =>   1020 : glyph 32768>
+---3>	<node :   1128 <=    880 =>   1136 : glue spaceskip>
+---3>	<node :    849 <=   1128 =>    880 : glyph 32768>
+---3>	<node :   1120 <=    849 =>   1128 : glue spaceskip>
+---3>	<node :    590 <=   1120 =>    849 : glyph 32768>
+---3>	<node :   1112 <=    590 =>   1120 : glue spaceskip>
+---3>	<node :    nil <=   1112 =>    590 : glyph 32768>
+---4>	<node :    nil <=   1112 =>    590 : glyph 32768>
+---4>	<node :    590 <=   1120 =>    849 : glyph 32768>
+---4>	<node :    849 <=   1128 =>    880 : glyph 32768>
+---4>	<node :    880 <=   1136 =>   1020 : glyph 32768>
+---4>	<node :   1020 <=   1144 =>    nil : glyph 32768>
+---5>	<node :    nil <=   1112 =>    590 : glyph 32768>
+---6>	<node :   1020 <=   1144 =>    nil : glyph 32768>
+---6>	<node :    880 <=   1136 =>   1020 : glyph 32768>
+---6>	<node :    849 <=   1128 =>    880 : glyph 32768>
+---6>	<node :    590 <=   1120 =>    849 : glyph 32768>
+---6>	<node :    nil <=   1112 =>    590 : glyph 32768>
+---```
+---
+----------------------------------------------------------------
+
+
+---
+---# `findnode`
+---
+---This helper returns the location of the first match at or after node `n`:
+---
+---```
+---<node> n = node.findnode(<node> n, <integer> subtype)
+---<node> n, subtype = node.findnode(<node> n)
+---```
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---# Glue handling[library=node]
+---
+---# `setglue`
+---
+---You can set the five properties of a glue in one go. If a non-numeric value is
+---passed the property becomes zero.
+---
+---```
+---node.setglue(<node> n)
+---node.setglue(<node> n,width,stretch,shrink,stretchorder,shrinkorder)
+---```
+---
+---When you pass values, only arguments that are numbers are assigned so
+---
+---```
+---node.setglue(n,655360,false,65536)
+---```
+---
+---will only adapt the width and shrink.
+---
+---When a list node is passed, you set the glue, order and sign instead.
+---
+----------------------------------------------------------------
+
+
+---
+---# `getglue`
+---
+---The next call will return 5 values or nothing when no glue is passed.
+---
+---```
+---<integer> width, <integer> stretch, <integer> shrink, <integer> stretchorder,
+---    <integer> shrinkorder = node.getglue(<node> n)
+---```
+---
+---When the second argument is false, only the width is returned (this is consistent
+---with `tex.get`).
+---
+---When a list node is passed, you get back the glue that is set, the order of that
+---glue and the sign.
+---
+----------------------------------------------------------------
+
+
+---
+---# `iszeroglue`
+---
+---This function returns `true` when the width, stretch and shrink properties
+---are zero.
+---
+---```
+---<boolean> isglue = node.iszeroglue(<node> n)
+---```
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---# Attribute handling[library=node]
+---
+---# Attributes
+---
+---Assignments to attributes registers result in assigning lists with set attributes
+---to nodes and the implementation is non-trivial because the value that is
+---attached to a node is essentially a (sorted) sparse array of key-value pairs.
+---It is generally easiest to deal with attribute lists and attributes by using the
+---dedicated functions in the `node` library.
+---
+----------------------------------------------------------------
+
+
+---
+---# `attribute` nodes
+---
+---An `attribute` comes in two variants, indicated by subtype. Because attributes
+---are stored in a sorted linked list, and because they are shared, the first node is a
+---list reference node and the following ones are value nodes. So, most attribute nodes
+---are value nodes. These are forward linked lists. The reference node has fields:
+---
+--- field         type  explanation 
+---
+---@field next node # pointer to the first attribute 
+---@field count number # the reference count 
+---
+---Value nodes have these:
+---
+--- field        type  explanation 
+---
+---@field next node # pointer to the next attribute 
+---@field index number # the attribute index 
+---@field value number # the attribute value 
+---
+---Because there are assumptions to how these list are build you should rely on the
+---helpers, also because details might change.
+---
+----------------------------------------------------------------
+
+
+---
+---# `currentattr`
+---
+---This returns the currently active list of attributes, if there is one.
+---
+---```
+---<node> m = node.currentattr()
+---```
+---
+---The intended usage of `currentattr` is as follows:
+---
+---```
+---local x1 = node.new("glyph")
+---x1.attr = node.currentattr()
+---local x2 = node.new("glyph")
+---x2.attr = node.currentattr()
+---```
+---
+---or:
+---
+---```
+---local x1 = node.new("glyph")
+---local x2 = node.new("glyph")
+---local ca = node.currentattr()
+---x1.attr = ca
+---x2.attr = ca
+---```
+---
+---The attribute lists are reference counted and the assignment takes care of
+---incrementing the count. You cannot expect the value `ca` to be valid any
+---more when you assign attributes (using `tex.setattribute`) or when control
+---has been passed back to *TeX*.
+---
+----------------------------------------------------------------
+
+
+---
+---# `hasattribute`
+---
+---```
+---<number> v = node.hasattribute(<node> n, <number> id)
+---<number> v = node.hasattribute(<node> n, <number> id, <number> val)
+---```
+---
+---Tests if a node has the attribute with number `id` set. If `val` is
+---also supplied, also tests if the value matches `val`. It returns the value,
+---or, if no match is found, `nil`.
+---
+----------------------------------------------------------------
+
+
+---
+---# `getattribute`
+---
+---```
+---<number> v = node.getattribute(<node> n, <number> id)
+---```
+---
+---Tests if a node has an attribute with number `id` set. It returns the
+---value, or, if no match is found, `nil`. If no `id` is given then the
+---zero attributes is assumed.
+---
+----------------------------------------------------------------
+
+
+---
+---# `findattribute`
+---
+---```
+---<number> v, <node> n = node.findattribute(<node> n, <number> id)
+---```
+---
+---Finds the first node that has attribute with number `id` set. It returns
+---the value and the node if there is a match and otherwise nothing.
+---
+----------------------------------------------------------------
+
+
+---
+---# `setattribute`
+---
+---```
+---node.setattribute(<node> n, <number> id, <number> val)
+---```
+---
+---Sets the attribute with number `id` to the value `val`. Duplicate
+---assignments are ignored.
+---
+----------------------------------------------------------------
+
+
+---
+---# `unsetattribute`
+---
+---```
+---<number> v =
+---    node.unsetattribute(<node> n, <number> id)
+---<number> v =
+---    node.unsetattribute(<node> n, <number> id, <number> val)
+---```
+---
+---Unsets the attribute with number `id`. If `val` is also supplied, it
+---will only perform this operation if the value matches `val`. Missing
+---attributes or attribute-value pairs are ignored.
+---
+---If the attribute was actually deleted, returns its old value. Otherwise, returns
+---`nil`.
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---# Glyph handling[library=node]
+---
+---# `firstglyph`
+---
+---```
+---<node> n = node.firstglyph(<node> n)
+---<node> n = node.firstglyph(<node> n, <node> m)
+---```
+---
+---Returns the first node in the list starting at `n` that is a glyph node
+---with a subtype indicating it is a glyph, or `nil`. If `m` is given,
+---processing stops at (but including) that node, otherwise processing stops at the
+---end of the list.
+---
+----------------------------------------------------------------
+
+
+---
+---# `ischar` and `isglyph`
+---
+---The subtype of a glyph node signals if the glyph is already turned into a character reference
+---or not.
+---
+---```
+---<boolean> b = node.ischar(<node> n)
+---<boolean> b = node.isglyph(<node> n)
+---```
+---
+----------------------------------------------------------------
+
+
+---
+---# `hasglyph`
+---
+---This function returns the first glyph or disc node in the given list:
+---
+---```
+---<node> n = node.hasglyph(<node> n)
+---```
+---
+----------------------------------------------------------------
+
+
+---
+---# `ligaturing`
+---
+---```
+---<node> h, <node> t, <boolean> success = node.ligaturing(<node> n)
+---<node> h, <node> t, <boolean> success = node.ligaturing(<node> n, <node> m)
+---```
+---
+---Apply *TeX*-style ligaturing to the specified nodelist. The tail node `m` is
+---optional. The two returned nodes `h` and `t` are the new head and
+---tail (both `n` and `m` can change into a new ligature).
+---
+----------------------------------------------------------------
+
+
+---
+---# `kerning`
+---
+---```
+---<node> h, <node> t, <boolean> success = node.kerning(<node> n)
+---<node> h, <node> t, <boolean> success = node.kerning(<node> n, <node> m)
+---```
+---
+---Apply *TeX*-style kerning to the specified node list. The tail node `m` is
+---optional. The two returned nodes `h` and `t` are the head and tail
+---(either one of these can be an inserted kern node, because special kernings with
+---word boundaries are possible).
+---
+----------------------------------------------------------------
+
+
+---
+---# `unprotectglyph[s]`
+---
+---```
+---node.unprotectglyph(<node> n)
+---node.unprotectglyphs(<node> n,[<node> n])
+---```
+---
+---Subtracts 256 from all glyph node subtypes. This and the next function are
+---helpers to convert from `characters` to `glyphs` during node
+---processing. The second argument is optional and indicates the end of a range.
+---
+----------------------------------------------------------------
+
+
+---
+---# `protectglyph[s]`
+---
+---```
+---node.protectglyph(<node> n)
+---node.protectglyphs(<node> n,[<node> n])
+---```
+---
+---Adds 256 to all glyph node subtypes in the node list starting at `n`,
+---except that if the value is 1, it adds only 255. The special handling of 1 means
+---that `characters` will become `glyphs` after subtraction of 256. A
+---single character can be marked by the singular call. The second argument is
+---optional and indicates the end of a range.
+---
+----------------------------------------------------------------
+
+
+---
+---# `protrusionskippable`
+---
+---```
+---<boolean> skippable = node.protrusionskippable(<node> n)
+---```
+---
+---Returns `true` if, for the purpose of line boundary discovery when
+---character protrusion is active, this node can be skipped.
+---
+----------------------------------------------------------------
+
+
+---
+---# `checkdiscretionary`, `checkdiscretionaries`
+---
+---When you fool around with disc nodes you need to be aware of the fact that they
+---have a special internal data structure. As long as you reassign the fields when
+---you have extended the lists it's ok because then the tail pointers get updated,
+---but when you add to list without reassigning you might end up in trouble when
+---the linebreak routine kicks in. You can call this function to check the list for
+---issues with disc nodes.
+---
+---```
+---node.checkdiscretionary(<node> n)
+---node.checkdiscretionaries(<node> head)
+---```
+---
+---The plural variant runs over all disc nodes in a list, the singular variant
+---checks one node only (it also checks if the node is a disc node).
+---
+----------------------------------------------------------------
+
+
+---
+---# `flattendiscretionaries`
+---
+---This function will remove the discretionaries in the list and inject the replace
+---field when set.
+---
+---```
+---<node> head, count = node.flattendiscretionaries(<node> n)
+---```
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---# Packaging[library=node]
+---
+---# `hpack`
+---
+---This function creates a new hlist by packaging the list that begins at node `n` into a horizontal box. With only a single argument, this box is created using
+---the natural width of its components. In the three argument form, `info`
+---must be either `additional` or `exactly`, and `w` is the
+---additional (`\hbox spread`) or exact (`\hbox to`) width to be used.
+---The second return value is the badness of the generated box.
+---
+---```
+---<node> h, <number> b =
+---    node.hpack(<node> n)
+---<node> h, <number> b =
+---    node.hpack(<node> n, <number> w, <string> info)
+---<node> h, <number> b =
+---    node.hpack(<node> n, <number> w, <string> info, <string> dir)
+---```
+---
+---Caveat: there can be unexpected side-effects to this function, like updating
+---some of the `marks` and `\inserts`. Also note that the content of
+---`h` is the original node list `n`: if you call `node.free(h)`
+---you will also free the node list itself, unless you explicitly set the `list` field to `nil` beforehand. And in a similar way, calling `node.free(n)` will invalidate `h` as well!
+---
+----------------------------------------------------------------
+
+
+---
+---# `vpack`
+---
+---This function creates a new vlist by packaging the list that begins at node `n` into a vertical box. With only a single argument, this box is created using
+---the natural height of its components. In the three argument form, `info`
+---must be either `additional` or `exactly`, and `w` is the
+---additional (`\vbox spread`) or exact (`\vbox to`) height to be used.
+---
+---```
+---<node> h, <number> b =
+---    node.vpack(<node> n)
+---<node> h, <number> b =
+---    node.vpack(<node> n, <number> w, <string> info)
+---<node> h, <number> b =
+---    node.vpack(<node> n, <number> w, <string> info, <string> dir)
+---```
+---
+---The second return value is the badness of the generated box. See the description
+---of `hpack` for a few memory allocation caveats.
+---
+----------------------------------------------------------------
+
+
+---
+---# `dimensions`, `rangedimensions`, `naturalwidth`
+---
+---```
+---<number> w, <number> h, <number> d  =
+---    node.dimensions(<node> n)
+---<number> w, <number> h, <number> d  =
+---    node.dimensions(<node> n, <node> t)
+---```
+---
+---This function calculates the natural in-line dimensions of the node list starting
+---at node `n` and terminating just before node `t` (or the end of the
+---list, if there is no second argument). The return values are scaled points. An
+---alternative format that starts with glue parameters as the first three arguments
+---is also possible:
+---
+---```
+---<number> w, <number> h, <number> d  =
+---    node.dimensions(<number> glueset, <number> gluesign, <number> glueorder,
+---        <node> n)
+---<number> w, <number> h, <number> d  =
+---    node.dimensions(<number> glueset, <number> gluesign, <number> glueorder,
+---        <node> n, <node> t)
+---```
+---
+---This calling method takes glue settings into account and is especially useful for
+---finding the actual width of a sublist of nodes that are already boxed, for
+---example in code like this, which prints the width of the space in between the
+---`a` and `b` as it would be if `\box0` was used as-is:
+---
+---```
+---\setbox0 = \hbox to 20pt {a b}
+---
+---\directlua{print (node.dimensions(
+---    tex.box[0].glueset,
+---    tex.box[0].gluesign,
+---    tex.box[0].glueorder,
+---    tex.box[0].head.next,
+---    node.tail(tex.box[0].head)
+---)) }
+---```
+---
+---You need to keep in mind that this is one of the few places in *TeX* where floats
+---are used, which means that you can get small differences in rounding when you
+---compare the width reported by `hpack` with `dimensions`.
+---
+---The second alternative saves a few lookups and can be more convenient in some
+---cases:
+---
+---```
+---<number> w, <number> h, <number> d  =
+---    node.rangedimensions(<node> parent, <node> first)
+---<number> w, <number> h, <number> d  =
+---    node.rangedimensions(<node> parent, <node> first, <node> last)
+---```
+---
+---A simple and somewhat more efficient variant is this:
+---
+---```
+---<number> w =
+---    node.naturalwidth(<node> start, <node> stop)
+---```
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---# Math[library=node]
+---
+---# `mlisttohlist`
+---
+---```
+---<node> h =
+---    node.mlisttohlist(<node> n, <string> display_type, <boolean> penalties)
+---```
+---
+---This runs the internal mlist to hlist conversion, converting the math list in
+---`n` into the horizontal list `h`. The interface is exactly the same
+---as for the callback `mlisttohlist`.
+---
+----------------------------------------------------------------
+
+
+---
+---# `endofmath`
+---
+---```
+---<node> t = node.endofmath(<node> start)
+---```
+---
+---Looks for and returns the next `math_node` following the `start`. If
+---the given node is a math end node this helper returns that node, else it follows
+---the list and returns the next math endnote. If no such node is found nil is
+---returned.
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---# Two access models[library=node]
+---
+---Deep down in *TeX* a node has a number which is a numeric entry in a memory
+---table. In fact, this model, where *TeX* manages memory is real fast and one of
+---the reasons why plugging in callbacks that operate on nodes is quite fast too.
+---Each node gets a number that is in fact an index in the memory table and that
+---number often is reported when you print node related information. You go from
+---user data nodes and there numeric references and back with:
+---
+---```
+---<integer> d = node.todirect(<node> n))
+---<node> n = node.tonode(<integer> d))
+---```
+---
+---The user data model is rather robust as it is a virtual interface with some
+---additional checking while the more direct access which uses the node numbers
+---directly. However, even with user data you can get into troubles when you free
+---nodes that are no longer allocated or mess up lists. if you apply `tostring` to a node you see its internal (direct) number and id.
+---
+---The first model provides key based access while the second always accesses fields
+---via functions:
+---
+---```
+---nodeobject.char
+---getfield(nodenumber,"char")
+---```
+---
+---If you use the direct model, even if you know that you deal with numbers, you
+---should not depend on that property but treat it as an abstraction just like
+---traditional nodes. In fact, the fact that we use a simple basic datatype has the
+---penalty that less checking can be done, but less checking is also the reason why
+---it's somewhat faster. An important aspect is that one cannot mix both methods,
+---but you can cast both models. So, multiplying a node number makes no sense.
+---
+---So our advice is: use the indexed (table) approach when possible and investigate
+---the direct one when speed might be a real issue. For that reason *LuaTeX* also
+---provide the `get*` and `set*` functions in the top level node
+---namespace. There is a limited set of getters. When implementing this direct
+---approach the regular index by key variant was also optimized, so direct access
+---only makes sense when nodes are accessed millions of times (which happens in some
+---font processing for instance).
+---
+---We're talking mostly of getters because setters are less important. Documents
+---have not that many content related nodes and setting many thousands of properties
+---is hardly a burden contrary to millions of consultations.
+---
+---Normally you will access nodes like this:
+---
+---```
+---local next = current.next
+---if next then
+---    -- do something
+---end
+---```
+---
+---Here `next` is not a real field, but a virtual one. Accessing it results in
+---a metatable method being called. In practice it boils down to looking up the node
+---type and based on the node type checking for the field name. In a worst case you
+---have a node type that sits at the end of the lookup list and a field that is last
+---in the lookup chain. However, in successive versions of *LuaTeX* these lookups
+---have been optimized and the most frequently accessed nodes and fields have a
+---higher priority.
+---
+---Because in practice the `next` accessor results in a function call, there
+---is some overhead involved. The next code does the same and performs a tiny bit
+---faster (but not that much because it is still a function call but one that knows
+---what to look up).
+---
+---```
+---local next = node.next(current)
+---if next then
+---    -- do something
+---end
+---```
+---
+---In the direct namespace there are more helpers and most of them are accompanied
+---by setters. The getters and setters are clever enough to see what node is meant.
+---We don't deal with whatsit nodes: their fields are always accessed by name. It
+---doesn't make sense to add getters for all fields, we just identifier the most
+---likely candidates. In complex documents, many node and fields types never get
+---seen, or seen only a few times, but for instance glyphs are candidates for such
+---optimization. The `node.direct` interface has some more helpers. \footnote
+---{We can define the helpers in the node namespace with `getfield` which is
+---about as efficient, so at some point we might provide that as module.}
+---
+---The `setdisc` helper takes three (optional) arguments plus an optional
+---fourth indicating the subtype. Its `getdisc` takes an optional boolean;
+---when its value is `true` the tail nodes will also be returned. The `setfont` helper takes an optional second argument, it being the character. The
+---directmode setter `setlink` takes a list of nodes and will link them,
+---thereby ignoring `nil` entries. The first valid node is returned (beware:
+---for good reason it assumes single nodes). For rarely used fields no helpers are
+---provided and there are a few that probably are used seldom too but were added for
+---consistency. You can of course always define additional accessors using `getfield` and `setfield` with little overhead. When the second argument of
+---`setattributelist` is `true` the current attribute list is assumed.
+---
+---The `reverse` function reverses a given list. The `exchange` function
+---swaps two nodes; it takes upto three arguments: a head node, and one or two to be
+---swapped nodes. When there is no third argument, it will assume that the node
+---following node is to be used. So we have:
+---
+---```
+---head = node.direct.reverse(head)
+---head = node.direct.exchange(head,first,[second])
+---```
+---
+---In *ConTeXt* some of the not performance-critical user data variants are
+---emulated in *Lua* and not in the engine, so we retain downward compatibility.
+---
+---\def\yes{`+`} \def\nop{`-$}
+---
+---\def\supported#1#2#3#4%
+--- { `#1`
+---   \ifx#2\yes\lix{node}       {#1}\fi #2
+---   \ifx#3\yes\lix{node.direct}{#1}\fi #3  #4 
+---  \NR}
+---
+--- function  node  direct  emulated 
+---
+---\supported {checkdiscretionaries}    \nop \yes \yes
+---\supported {checkdiscretionary}      \nop \yes \yes
+---\supported {copylist}                \yes \yes \relax
+---%supported {copyonly}                \nop \yes \relax
+---\supported {copy}                    \yes \yes \relax
+---\supported {count}                   \nop \yes \yes
+---\supported {currentattributes}       \yes \yes \relax
+---\supported {dimensions}              \nop \yes \yes
+---\supported {effectiveglue}           \nop \yes \yes
+---\supported {endofmath}               \nop \yes \yes
+---\supported {findattributerange}      \nop \yes \relax
+---\supported {findattribute}           \nop \yes \yes
+---\supported {findnode}                \nop \yes \relax
+---\supported {firstglyph}              \nop \yes \yes
+---\supported {flattendiscretionaries}  \nop \yes \yes
+---\supported {flushlist}               \yes \yes \relax
+---\supported {flushnode}               \yes \yes \relax
+---\supported {free}                    \yes \yes \relax
+---\supported {getattributes}           \nop \yes \relax
+---\supported {getattribute}            \yes \yes \relax
+---\supported {getpropertiestable}      \yes \yes \relax
+---\supported {getsynctexfields}        \nop \yes \relax
+---\supported {getattributelist}        \nop \yes \relax
+---\supported {getboth}                 \nop \yes \relax
+---\supported {getbox}                  \nop \yes \relax
+---\supported {getclass}                \nop \yes \relax
+---\supported {getchar}                 \nop \yes \relax
+---\supported {getdata}                 \nop \yes \relax
+---\supported {getdepth}                \nop \yes \relax
+---\supported {getdirection}            \nop \yes \relax
+---\supported {getdisc}                 \nop \yes \relax
+---\supported {getexpansion}            \nop \yes \relax
+---\supported {getfam}                  \nop \yes \relax
+---\supported {getfield}                \yes \yes \relax
+---\supported {getfont}                 \nop \yes \relax
+---\supported {getglue}                 \nop \yes \yes
+---\supported {getglyphdata}            \nop \yes \relax % old experiment
+---\supported {getglyphdimensions}      \nop \yes \yes
+---\supported {getglyphscript}          \nop \yes \relax % new experiment
+---\supported {getglyphstate}           \nop \yes \relax % new experiment
+---\supported {getheight}               \nop \yes \relax
+---\supported {getid}                   \nop \yes \relax
+---\supported {getindex}                \nop \yes \relax
+---\supported {getkerndimension}        \nop \yes \yes
+---\supported {getkern}                 \nop \yes \relax
+---\supported {getlanguage}             \nop \yes \relax
+---\supported {getleader}               \nop \yes \relax
+---\supported {getlist}                 \nop \yes \relax
+---\supported {getnext}                 \nop \yes \relax
+---\supported {getnormalizedline}       \nop \yes \relax
+---\supported {getnucleus}              \nop \yes \relax
+---\supported {getoffsets}              \nop \yes \relax
+---\supported {getoptions}              \nop \yes \relax
+---\supported {getorientation}          \nop \yes \relax
+---\supported {getparstate}             \nop \yes \relax
+---\supported {getpenalty}              \nop \yes \relax
+---\supported {getpost}                 \nop \yes \relax
+---\supported {getprev}                 \nop \yes \relax
+---\supported {getpre}                  \nop \yes \relax
+---\supported {getproperty}             \yes \yes \relax
+---\supported {getreplace}              \nop \yes \relax
+---\supported {getscales}               \nop \yes \relax
+---\supported {getscript}               \nop \yes \relax
+---\supported {getshift}                \nop \yes \relax
+---\supported {getstate}                \nop \yes \relax
+---\supported {getsubpre}               \nop \yes \relax
+---\supported {getsubtype}              \nop \yes \relax
+---\supported {getsub}                  \nop \yes \relax
+---\supported {getsuppre}               \nop \yes \relax
+---\supported {getsup}                  \nop \yes \relax
+---\supported {getprime}                \nop \yes \relax
+---\supported {gettotal}                \yes \yes \relax
+---%supported {getwhatever}             \nop \yes \relax % experiment for myself
+---\supported {getwhd}                  \nop \yes \relax
+---\supported {getwidth}                \nop \yes \relax
+---\supported {getxscale}               \nop \yes \relax
+---\supported {getxyscale}              \nop \yes \relax
+---\supported {getyscale}               \nop \yes \relax
+---\supported {hasattribute}            \yes \yes \relax
+---\supported {hasdimensions}           \nop \yes \relax
+---\supported {hasfield}                \yes \yes \relax
+---\supported {hasglyphoption}          \nop \yes \yes
+---\supported {hasglyph}                \nop \yes \yes
+---\supported {hpack}                   \nop \yes \yes
+---\supported {hyphenating}             \nop \yes \yes
+---\supported {ignoremathskip}          \nop \yes \relax
+---\supported {insertafter}             \yes \yes \relax
+---\supported {insertbefore}            \yes \yes \relax
+---\supported {ischar}                  \nop \yes \relax
+---\supported {isdirect}                \nop \yes \relax
+---\supported {isglyph}                 \nop \yes \relax
+---\supported {isnextchar}              \nop \yes \relax
+---\supported {isnextglyph}             \nop \yes \relax
+---\supported {isnode}                  \yes \yes \relax
+---\supported {isprevchar}              \nop \yes \relax
+---\supported {isprevglyph}             \nop \yes \relax
+---\supported {isvalid}                 \nop \yes \relax
+---\supported {iszeroglue}              \nop \yes \yes
+---\supported {kerning}                 \nop \yes \yes
+---\supported {lastnode}                \nop \yes \yes
+---\supported {length}                  \nop \yes \yes
+---\supported {ligaturing}              \nop \yes \yes
+---\supported {makeextensible}          \nop \yes \yes
+---\supported {migrate}                 \nop \yes \relax
+---\supported {mlisttohlist}            \nop \yes \yes
+---\supported {naturalwidth}            \nop \yes \yes
+---\supported {new}                     \yes \yes \relax
+---\supported {protectglyphs}           \nop \yes \yes
+---\supported {protectglyph}            \nop \yes \yes
+---\supported {protrusionskippable}     \nop \yes \yes
+---\supported {rangedimensions}         \nop \yes \yes
+---\supported {remove}                  \yes \yes \relax
+---\supported {setattributes}           \nop \yes \relax
+---\supported {setattribute}            \yes \yes \relax
+---\supported {setsynctexfields}        \nop \yes \relax
+---\supported {setattributelist}        \nop \yes \relax
+---\supported {setboth}                 \nop \yes \relax
+---\supported {setbox}                  \nop \yes \relax
+---\supported {setchar}                 \nop \yes \relax
+---\supported {setdata}                 \nop \yes \relax
+---\supported {setdepth}                \nop \yes \relax
+---\supported {setdirection}            \nop \yes \relax
+---\supported {setdisc}                 \nop \yes \relax
+---\supported {setexpansion}            \nop \yes \relax
+---\supported {setfam}                  \nop \yes \relax
+---\supported {setfield}                \yes \yes \relax
+---\supported {setfont}                 \nop \yes \relax
+---\supported {setglue}                 \yes \yes \relax
+---\supported {setglyphdata}            \nop \yes \relax % old experiment
+---\supported {setglyphscript}          \nop \yes \relax % new experiment
+---\supported {setglyphstate}           \nop \yes \relax % new experiment
+---\supported {setheight}               \nop \yes \relax
+---\supported {setindex}                \nop \yes \relax
+---\supported {setkern}                 \nop \yes \relax
+---\supported {setlanguage}             \nop \yes \relax
+---\supported {setleader}               \nop \yes \relax
+---\supported {setlink}                 \nop \yes \relax
+---\supported {setlist}                 \nop \yes \relax
+---\supported {setnext}                 \nop \yes \relax
+---\supported {setnucleus}              \nop \yes \relax
+---\supported {setoffsets}              \nop \yes \relax
+---\supported {setoptions}              \nop \yes \relax
+---\supported {setorientation}          \nop \yes \relax
+---\supported {setpenalty}              \nop \yes \relax
+---\supported {setpost}                 \nop \yes \relax
+---\supported {setprev}                 \nop \yes \relax
+---\supported {setpre}                  \nop \yes \relax
+---\supported {setproperty}             \yes \yes \relax
+---\supported {setreplace}              \nop \yes \relax
+---\supported {setscales}               \nop \yes \relax
+---\supported {setscript}               \nop \yes \relax
+---\supported {setshift}                \nop \yes \relax
+---\supported {setsplit}                \nop \yes \relax
+---\supported {setstate}                \nop \yes \relax
+---\supported {setsubpre}               \nop \yes \relax
+---\supported {setsubtype}              \nop \yes \relax
+---\supported {setsub}                  \nop \yes \relax
+---\supported {setsuppre}               \nop \yes \relax
+---\supported {setsup}                  \nop \yes \relax
+---\supported {setprime}                \nop \yes \relax
+---\supported {setwhd}                  \nop \yes \relax
+---\supported {setwidth}                \nop \yes \relax
+---\supported {slide}                   \nop \yes \yes
+---\supported {startofpar}              \nop \yes \relax
+---\supported {subtype}                 \nop \nop \relax
+---\supported {tail}                    \yes \yes \relax
+---\supported {todirect}                \nop \yes \relax
+---\supported {tonode}                  \nop \yes \relax
+---\supported {tostring}                \yes \nop \relax
+---\supported {total}                   \nop \yes \relax
+---\supported {tovaliddirect}           \nop \yes \relax
+---\supported {traversechar}            \yes \yes \relax
+---\supported {traversecontent}         \yes \yes \relax
+---\supported {traverseglyph}           \yes \yes \relax
+---\supported {traverseid}              \yes \yes \relax
+---\supported {traverselist}            \yes \yes \relax
+---\supported {traverse}                \yes \yes \relax
+---\supported {type}                    \yes \nop \relax
+---\supported {unprotectglyphs}         \nop \yes \yes
+---\supported {unprotectglyph}          \nop \yes \yes
+---\supported {unsetattributes}         \nop \yes \relax
+---\supported {unsetattribute}          \yes \yes \relax
+---\supported {usedlist}                \nop \yes \yes
+---\supported {usesfont}                \nop \yes \yes
+---\supported {verticalbreak}           \nop \yes \relax
+---\supported {vpack}                   \nop \yes \yes
+---\supported {write}                   \yes \yes \relax
+---
+---The `node.next` and `node.prev` functions will stay but for
+---consistency there are variants called `getnext` and `getprev`. We had
+---to use `get` because `node.id` and `node.subtype` are already
+---taken for providing meta information about nodes. Note: The getters do only basic
+---checking for valid keys. You should just stick to the keys mentioned in the
+---sections that describe node properties.
+---
+---Some of the getters and setters handle multiple node types, given that the field
+---is relevant. In that case, some field names are considered similar (like `kern` and `width`, or `data` and `value`). In retrospect we
+---could have normalized field names better but we decided to stick to the original
+---(internal) names as much as possible. After all, at the *Lua* end one can easily
+---create synonyms.
+---
+---Some nodes have indirect references. For instance a math character refers to a
+---family instead of a font. In that case we provide a virtual font field as
+---accessor. So, `getfont` and `.font` can be used on them. The same is
+---true for the `width`, `height` and `depth` of glue nodes. These
+---actually access the spec node properties, and here we can set as well as get the
+---values.
+---
+---You can set and query the \SYNCTEX\ fields, a file number aka tag and a line
+---number, for a glue, kern, hlist, vlist, rule and math nodes as well as glyph
+---nodes (although this last one is not used in native \SYNCTEX).
+---
+---```
+---node.direct.setsynctexfields(<integer> f, <integer> l)
+---<integer> f, <integer> l =
+---    node.direct.getsynctexfields(<node> n)
+---```
+---
+---Of course you need to know what you're doing as no checking on sane values takes
+---place. Also, the synctex interpreter used in editors is rather peculiar and has
+---some assumptions (heuristics).
+---
+----------------------------------------------------------------
+
+
+---
+---# Normalization[library=node]
+---
+---As an experiment the lines resulting from paragraph construction can be normalized.
+---There are several modes, that can be set and queried with:
+---
+---```
+---node.direct.setnormalize(<integer> n)
+---<integer> n = node.direct.getnormalize()
+---```
+---
+---The state of a line (a hlist) can be queried with:
+---
+---```
+---<integer> leftskip, <integer> rightskip,
+---    <integer> lefthangskip, <integer> righthangskip,
+---    <node> head, <node> tail,
+---    <integer> parindent, <integer> parfillskip = node.direct.getnormalized()
+---```
+---
+---The modes accumulate, so mode `4` includes `1` upto `3`:
+---
+--- value     explanation 
+---
+--- `1`  left and right skips and directions 
+--- `2`  indentation and parfill skip 
+--- `3`  hanging indentation and par shapes 
+--- `4`  idem but before left and right skips 
+--- `5`  inject compensation for overflow 
+---
+---This is experimental code and might take a while to become frozen.
+---
+----------------------------------------------------------------
+
+
+---
+---# Properties[library=node]
+---
+---Attributes are a convenient way to relate extra information to a node. You can
+---assign them at the *TeX* end as well as at the *Lua* end and consult them at the
+---*Lua* end. One big advantage is that they obey grouping. They are linked lists
+---and normally checking for them is pretty efficient, even if you use a lot of
+---them. A macro package has to provide some way to manage these attributes at the
+---*TeX* end because otherwise clashes in their usage can occur.
+---
+---Each node also can have a properties table and you can assign values to this
+---table using the `setproperty` function and get properties using the `getproperty` function. Managing properties is way more demanding than managing
+---attributes.
+---
+---Take the following example:
+---
+---```
+---\directlua {
+---    local n = node.new("glyph")
+---
+---    node.setproperty(n,"foo")
+---    print(node.getproperty(n))
+---
+---    node.setproperty(n,"bar")
+---    print(node.getproperty(n))
+---
+---    node.free(n)
+---}
+---```
+---
+---This will print `foo` and `bar` which in itself is not that useful
+---when multiple mechanisms want to use this feature. A variant is:
+---
+---```
+---\directlua {
+---    local n = node.new("glyph")
+---
+---    node.setproperty(n,{ one = "foo", two = "bar" })
+---    print(node.getproperty(n).one)
+---    print(node.getproperty(n).two)
+---
+---    node.free(n)
+---}
+---```
+---
+---This time we store two properties with the node. It really makes sense to have a
+---table as property because that way we can store more. But in order for that to
+---work well you need to do it this way:
+---
+---```
+---\directlua {
+---    local n = node.new("glyph")
+---
+---    local t = node.getproperty(n)
+---
+---    if not t then
+---        t = { }
+---        node.setproperty(n,t)
+---    end
+---    t.one = "foo"
+---    t.two = "bar"
+---
+---    print(node.getproperty(n).one)
+---    print(node.getproperty(n).two)
+---
+---    node.free(n)
+---}
+---```
+---
+---Here our own properties will not overwrite other users properties unless of
+---course they use the same keys. So, eventually you will end up with something:
+---
+---```
+---\directlua {
+---    local n = node.new("glyph")
+---
+---    local t = node.getproperty(n)
+---
+---    if not t then
+---        t = { }
+---        node.setproperty(n,t)
+---    end
+---    t.myself = { one = "foo", two = "bar" }
+---
+---    print(node.getproperty(n).myself.one)
+---    print(node.getproperty(n).myself.two)
+---
+---    node.free(n)
+---}
+---```
+---
+---This assumes that only you use `myself` as subtable. The possibilities are
+---endless but care is needed. For instance, the generic font handler that ships
+---with *ConTeXt* uses the `injections` subtable and you should not mess with
+---that one!
+---
+---There are a few helper functions that you normally should not touch as user: `getpropertiestable` and will give the table that stores properties (using
+---direct entries) and you can best not mess too much with that one either because
+---*LuaTeX* itself will make sure that entries related to nodes will get wiped when
+---nodes get freed, so that the *Lua* garbage collector can do its job. In fact, the
+---main reason why we have this mechanism is that it saves the user (or macro
+---package) some work. One can easily write a property mechanism in *Lua* where
+---after a shipout properties gets cleaned up but it's not entirely trivial to make
+---sure that with each freed node also its properties get freed, due to the fact
+---that there can be nodes left over for a next page. And having a callback bound to
+---the node deallocator would add way to much overhead.
+---
+---When we copy a node list that has a table as property, there are several
+---possibilities: we do the same as a new node, we copy the entry to the table in
+---properties (a reference), we do a deep copy of a table in the properties, we
+---create a new table and give it the original one as a metatable. After some
+---experiments (that also included timing) with these scenarios we decided that a
+---deep copy made no sense, nor did nilling. In the end both the shallow copy and
+---the metatable variant were both ok, although the second one is slower. The most
+---important aspect to keep in mind is that references to other nodes in properties
+---no longer can be valid for that copy. We could use two tables (one unique and one
+---shared) or metatables but that only complicates matters.
+---
+---When defining a new node, we could already allocate a table but it is rather easy
+---to do that at the lua end e.g.\ using a metatable `__index` method. That
+---way it is under macro package control. When deleting a node, we could keep the
+---slot (e.g. setting it to false) but it could make memory consumption raise
+---unneeded when we have temporary large node lists and after that only small lists.
+---Both are not done because in the end this is what happens now: when a node is
+---copied, and it has a table as property, the new node will share that table. The
+---copy gets its own table with the original table as metatable.
+---
+---A few more experiments were done. For instance: copy attributes to the properties
+---so that we have fast access at the *Lua* end. In the end the overhead is not
+---compensated by speed and convenience, in fact, attributes are not that slow when
+---it comes to accessing them. So this was rejected.
+---
+---Another experiment concerned a bitset in the node but again the gain compared to
+---attributes was neglectable and given the small amount of available bits it also
+---demands a pretty strong agreement over what bit represents what, and this is
+---unlikely to succeed in the *TeX* community. It doesn't pay off.
+---
+---Just in case one wonders why properties make sense: it is not so much speed that
+---we gain, but more convenience: storing all kinds of (temporary) data in attributes
+---is no fun and this mechanism makes sure that properties are cleaned up when a
+---node is freed. Also, the advantage of a more or less global properties table is
+---that we stay at the *Lua* end. An alternative is to store a reference in the node
+---itself but that is complicated by the fact that the register has some limitations
+---(no numeric keys) and we also don't want to mess with it too much.
+---
+----------------------------------------------------------------
+
+
+---
+---\stopchapter
+---
+---\stopcomponent
+---

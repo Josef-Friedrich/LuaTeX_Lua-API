@@ -1,0 +1,1987 @@
+---% language=us runpath=texruns:manuals/luametatex
+---
+---\environment luametatex-style
+---
+---\startcomponent luametatex-tex
+---
+---# The *TeX* related libraries
+---
+---# The `lua` library[library=lua]
+---
+---# Version information
+---
+---This version of the used *Lua* interpreter (currently {\tttf \cldcontext
+---{lua.getversion()}}) can be queried with:
+---
+---```
+---<string> v = lua.getversion()
+---```
+---
+---The name of used startup file, if at all, is returned by:
+---
+---```
+---<string> s = lua.getstartupfile()
+---```
+---
+---For this document the reported value is:
+---
+---\blank {\ttx \cldcontext {lua.getstartupfile()}} \blank
+---
+----------------------------------------------------------------
+
+
+---
+---# Table allocators
+---
+---Sometimes performance (and memory usage) can benefit a little from
+---it preallocating a table with `newtable`:
+---
+---```
+---<table> t = lua.newtable(100,5000)
+---```
+---
+---This preallocates 100 hash entries and 5000 index entries. The `newindex` function create an indexed table with preset values:
+---
+---```
+---<table> t = lua.newindex(2500,true)
+---```
+---
+----------------------------------------------------------------
+
+
+---
+---# Bytecode registers
+---
+---*Lua* registers can be used to store *Lua* code chunks. The accepted values for
+---assignments are functions and `nil`. Likewise, the retrieved value is
+---either a function or `nil`.
+---
+---```
+---lua.bytecode[<number> n] = <function> f
+---<function> f = lua.bytecode[<number> n] % -- f()
+---```
+---
+---The contents of the `lua.bytecode` array is stored inside the format file
+---as actual *Lua* bytecode, so it can also be used to preload *Lua* code. The
+---function must not contain any upvalues. The associated function calls are:
+---
+---```
+---lua.setbytecode(<number> n, <function> f)
+---<function> f = lua.getbytecode(<number> n)
+---```
+---
+---Note: Since a *Lua* file loaded using `loadfile(filename)` is essentially
+---an anonymous function, a complete file can be stored in a bytecode register like
+---this:
+---
+---```
+---lua.setbytecode(n,loadfile(filename))
+---```
+---
+---Now all definitions (functions, variables) contained in the file can be
+---created by executing this bytecode register:
+---
+---```
+---lua.callbytecode(n)
+---```
+---
+---Note that the path of the file is stored in the *Lua* bytecode to be used in
+---stack backtraces and therefore dumped into the format file if the above code is
+---used in \INITEX. If it contains private information, i.e. the user name, this
+---information is then contained in the format file as well. This should be kept in
+---mind when preloading files into a bytecode register in \INITEX.
+---
+----------------------------------------------------------------
+
+
+---
+---# Introspection
+---
+---The `getstacktop` function return a number indicating how full the *Lua*
+---stack is. This function only makes sense as breakpoint when checking some
+---mechanism going haywire.
+---
+---There are four time related helpers. The `getruntime` function returns the
+---time passed since startup. The `getcurrenttime` does what its name says.
+---Just play with them to see how it pays off. The `getpreciseticks` returns a
+---number that can be used later, after a similar call, to get a difference. The
+---`getpreciseseconds` function gets such a tick (delta) as argument and
+---returns the number of seconds. Ticks can differ per operating system, but one
+---always creates a reference first and then deltas to this reference.
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---# The `status` library[library=status]
+---
+---This contains a number of run-time configuration items that you may find useful
+---in message reporting, as well as an iterator function that gets all of the names
+---and values as a table.
+---
+---```
+---<table> info = status.list()
+---```
+---
+---The keys in the table are the known items, the value is the current value. There are
+---toplevel items and items that are tables with subentries. The current list is:
+---
+---\startluacode
+---    local list = status.list()
+---
+---    context.starttabulate { "|Tw(10em)|Tp|" }
+---    context.DB()
+---    context("toplevel statistics")
+---    context.BC()
+---    context.NC()
+---    context.NR()
+---    context.TB()
+---    for k, v in table.sortedhash(list) do
+---        if type(v)  = "table" then context.NC() context(k) context.NC() context(tostring(v)) context.NC() context.NR()
+---        end
+---    end
+---    context.LL()
+---    context.stoptabulate()
+---
+---    for k, v in table.sortedhash(list) do
+---        if type(v) == "table" then context.starttabulate { "|Tw(10em)|Tp|" } context.DB() context(k ..".*") context.BC() context.NC() context.NR() context.TB() for k, v in table.sortedhash(v) do context.NC() context(k) context.NC() context(v == "" and "unset" or tostring(v)) context.NC() context.NR() end context.LL() context.stoptabulate()
+---        end
+---    end
+---\stopluacode
+---
+---There are also getters for the subtables. The whole repertoire of functions in
+---the `status` table is: {\tttf \cldcontext {table . concat ( table .
+---sortedkeys (status), ", ")}}. The error and warning messages can be wiped with
+---the `resetmessages` function. The states in subtables relate to memory
+---management and are mostly there for development purposes.
+---
+---The `getconstants` query gives back a table with all kind of internal
+---quantities and again these are only relevant for diagnostic and development
+---purposes. Many are good old *TeX* constants that are describes in the original
+---documentation of the source but some are definitely *Lua*METATEX\ specific.
+---
+---\startluacode
+---    context.starttabulate { "|Tw(15em)|Tp|" }
+---    context.DB()
+---    context("constants.*")
+---    context.BC()
+---    context.NC()
+---    context.NR()
+---    context.TB()
+---    for k, v in table.sortedhash(status.getconstants()) do
+---        if type(v)  = "table" then context.NC() context(k) context.NC() context(tostring(v)) context.NC() context.NR()
+---        end
+---    end
+---    context.LL()
+---    context.stoptabulate()
+---\stopluacode
+---
+---Most variables speak for themselves, some are more obscure. For instance the
+---`run_state` variable indicates what the engine is doing:
+---
+--- n  meaning       explanation 
+---
+--- 0  initializing  `--ini` mnode 
+--- 1  updating      relates to `overloadmode` 
+--- 2  production    a regular (format driven) run 
+---
+----------------------------------------------------------------
+
+
+---
+---# The `tex` library[library=tex]
+---
+---# Introduction
+---
+---The `tex` table contains a large list of virtual internal *TeX*
+---parameters that are partially writable.
+---
+---The designation “virtual” means that these items are not properly defined
+---in *Lua*, but are only front\-ends that are handled by a metatable that operates
+---on the actual *TeX* values. As a result, most of the *Lua* table operators (like
+---`pairs` and `#`) do not work on such items.
+---
+---At the moment, it is possible to access almost every parameter that you can use
+---after `the`, is a single token or is sort of special in *TeX*. This excludes
+---parameters that need extra arguments, like `\the\scriptfont`. The subset
+---comprising simple integer and dimension registers are writable as well as
+---readable (like `tracingcommands` and `parindent`).
+---
+----------------------------------------------------------------
+
+
+---
+---# Internal parameter values, `set` and `get`
+---
+---For all the parameters in this section, it is possible to access them directly
+---using their names as index in the `tex` table, or by using one of the
+---functions `tex.get` and `tex.set`.
+---
+---The exact parameters and return values differ depending on the actual parameter,
+---and so does whether `tex.set` has any effect. For the parameters that {\em
+---can} be set, it is possible to use `global` as the first argument to `tex.set`; this makes the assignment global instead of local.
+---
+---```
+---tex.set (["global",] <string> n, ...)
+---... = tex.get (<string> n)
+---```
+---
+---Glue is kind of special because there are five values involved. The return value
+---is a `glue_spec` node but when you pass `false` as last argument to
+---`tex.get` you get the width of the glue and when you pass `true` you
+---get all five values. Otherwise you get a node which is a copy of the internal
+---value so you are responsible for its freeing at the *Lua* end. When you set a
+---glue quantity you can either pass a `glue_spec` or upto five numbers.
+---
+---Beware: as with regular *Lua* tables you can add values to the `tex` table.
+---So, the following is valid:
+---
+---```
+---tex.foo = 123
+---```
+---
+---When you access a *TeX* parameter a look up takes place. For read||only variables
+---that means that you will get something back, but when you set them you create a
+---new entry in the table thereby making the original invisible.
+---
+---There are a few special cases that we make an exception for: `prevdepth`,
+---`prevgraf` and `spacefactor`. These normally are accessed via the
+---`tex.nest` table:
+---
+---```
+---tex.nest[tex.nest.ptr].prevdepth   = p
+---tex.nest[tex.nest.ptr].spacefactor = s
+---```
+---
+---However, the following also works:
+---
+---```
+---tex.prevdepth   = p
+---tex.spacefactor = s
+---```
+---
+---Keep in mind that when you mess with node lists directly at the *Lua* end you
+---might need to update the top of the nesting stack's `prevdepth` explicitly
+---as there is no way *LuaTeX* can guess your intentions. By using the accessor in
+---the `tex` tables, you get and set the values at the top of the nesting
+---stack.
+---
+---# Integer parameters
+---
+---The integer parameters accept and return *Lua* integers. In some cases the values
+---are checked, trigger other settings or result in some immediate change of
+---behaviour: \ctxlua {document.filteredprimitives ("internal_int")}.
+---
+---Some integer parameters are read only, because they are actually referring not to
+---some internal integer register but to an engine property: `deadcycles`,
+---`insertpenalties`, `parshape`, `interlinepenalties`, `clubpenalties`, `widowpenalties`, `displaywidowpenalties`, `prevgraf` and `spacefactor`.
+---
+---# Dimension parameters
+---
+---The dimension parameters accept *Lua* numbers (signifying scaled points) or
+---strings (with included dimension). The result is always a number in scaled
+---points. These are read-write: \ctxlua {document.filteredprimitives
+---("internal_dimen")}.
+---
+---These are read-only: `pagedepth`, `pagefilllstretch`, `pagefillstretch`, `pagefilstretch`, `pagegoal`, `pageshrink`,
+---`pagestretch` and `pagetotal`.
+---
+---# Direction parameters
+---
+---The direction states can be queried with: `gettextdir`, `getlinedir`,
+---`getmathdir` and `getpardir`. You can set them with `settextdir`, `setlinedir`, `setmathdir` and `setpardir`,
+---commands that accept a number. You can also set these parameters as table
+---key/values: `textdirection`, `linedirection`, `mathdirection`
+---and `pardirection`, so the next code sets the text direction to `r2l`:
+---
+---```
+---tex.textdirection = 1
+---```
+---
+---# Glue parameters
+---
+---The internal glue parameters accept and return a userdata object that represents
+---a `glue_spec` node: \ctxlua {document.filteredprimitives ("internal_glue")}.
+---
+---# Muglue parameters
+---
+---All muglue parameters are to be used read-only and return a *Lua* string
+---\ctxlua {document.filteredprimitives ("internal_mu_glue")}.
+---
+---# Tokenlist parameters
+---
+---The tokenlist parameters accept and return *Lua* strings. *Lua* strings are
+---converted to and from token lists using `the` `toks` style expansion:
+---all category codes are either space (10) or other (12). It follows that assigning
+---to some of these, like “tex.output”, is actually useless, but it feels bad
+---to make exceptions in view of a coming extension that will accept full-blown
+---token strings. Here is the lot: \ctxlua {document.filteredprimitives
+---("internal_toks")}.
+---
+----------------------------------------------------------------
+
+
+---
+---# Convert commands
+---
+---All “convert” commands are read-only and return a *Lua* string. The
+---supported commands at this moment are: \ctxlua {document.filteredprimitives
+---("convert")}. You will get an error message if an operation is not (yet)
+---permitted. Some take an string or number argument, just like at the *TeX* end
+---some extra input is expected.
+---
+----------------------------------------------------------------
+
+
+---
+---# Item commands
+---
+---All so called “item” commands are read-only and return a number. The
+---complete list of these commands is: \ctxlua {document.filteredprimitives
+---("some_item")}. No all are currently supported but eventually that might be the
+---case. Like the lists in previous sections, there are differences between *LuaTeX*
+---and *Lua*METATEX, where some commands are organized differently in order to
+---provide a consistent *Lua* interface.
+---
+----------------------------------------------------------------
+
+
+---
+---# Accessing registers: `set*`, `get*` and `is*`
+---
+---              
+---
+---*TeX*'s attributes (`attribute`), counters (`count`), dimensions (`dimen`), skips (`skip`, `muskip`) and token (`toks`) registers
+---can be accessed and written to using two times five virtual sub-tables of the
+---`tex` table:
+---
+---\startthreecolumns
+---```
+---tex.attribute
+---tex.count
+---tex.dimen
+---tex.skip
+---tex.glue
+---tex.muskip
+---tex.muglue
+---tex.toks
+---```
+---\stopthreecolumns
+---
+---It is possible to use the names of relevant `attributedef`, `countdef`,
+---`dimendef`, `skipdef`, or `toksdef` control sequences as indices
+---to these tables:
+---
+---```
+---tex.count.scratchcounter = 0
+---enormous = tex.dimen['maxdimen']
+---```
+---
+---In this case, *LuaTeX* looks up the value for you on the fly. You have to use a
+---valid `countdef` (or `attributedef`, or `dimendef`, or `skipdef`, or `toksdef`), anything else will generate an error (the intent
+---is to eventually also allow `<chardef tokens>` and even macros that expand
+---into a number).
+---
+---    * The count registers accept and return *Lua* numbers.
+---    
+---
+---    * The dimension registers accept *Lua* numbers (in scaled points) or
+---        strings (with an included absolute dimension; `em` and `ex`
+---        and `px` are forbidden). The result is always a number in scaled
+---        points.
+---    
+---
+---    * The token registers accept and return *Lua* strings. *Lua* strings are
+---        converted to and from token lists using `the` `toks` style
+---        expansion: all category codes are either space (10) or other (12).
+---    
+---
+---    * The skip registers accept and return `glue_spec` userdata node
+---        objects (see the description of the node interface elsewhere in this
+---        manual).
+---    
+---
+---    * The glue registers are just skip registers but instead of userdata
+---        are verbose.
+---    
+---
+---    * Like the counts, the attribute registers accept and return *Lua* numbers.
+---    
+---
+---As an alternative to array addressing, there are also accessor functions defined
+---for all cases, for example, here is the set of possibilities for `skip`
+---registers:
+---
+---```
+---tex.setskip (["global",] <number> n, <node> s)
+---tex.setskip (["global",] <string> s, <node> s)
+---<node> s = tex.getskip (<number> n)
+---<node> s = tex.getskip (<string> s)
+---```
+---
+---We have similar setters for `count`, `dimen`, `muskip`, and
+---`toks`. Counters and dimen are represented by numbers, skips and muskips by
+---nodes, and toks by strings.
+---
+---Again the glue variants are not using the `glue-spec` userdata nodes. The
+---`setglue` function accepts upto five arguments: width, stretch, shrink,
+---stretch order and shrink order. Non-numeric values set the property to zero.
+---The `getglue` function reports all five properties, unless the second
+---argument is `false` in which case only the width is returned.
+---
+---Here is an example using a threesome:
+---
+---```
+---local d = tex.getdimen("foo")
+---if tex.isdimen("oof") then
+---    tex.setdimen("oof",d)
+---end
+---```
+---
+---There are six extra skip (glue) related helpers:
+---
+---```
+---tex.setglue (["global"], <number> n,
+---    width, stretch, shrink, stretch_order, shrink_order)
+---tex.setglue (["global"], <string> s,
+---    width, stretch, shrink, stretch_order, shrink_order)
+---width, stretch, shrink, stretch_order, shrink_order =
+---    tex.getglue (<number> n)
+---width, stretch, shrink, stretch_order, shrink_order =
+---    tex.getglue (<string> s)
+---```
+---
+---The other two are `tex.setmuglue` and `tex.getmuglue`.
+---
+---There are such helpers for `dimen`, `count`, `skip`, `muskip`, `box` and `attribute` registers but the glue ones
+---are special because they have to deal with more properties.
+---
+---As with the general `get` and `set` function discussed before, for
+---the skip registers `getskip` returns a node and `getglue` returns
+---numbers, while `setskip` accepts a node and `setglue` expects upto 5
+---numbers. Again, when you pass `false` as second argument to `getglue`
+---you only get the width returned. The same is true for the `mu` variants
+---`getmuskip`, `setmuskip`, `getmuskip` and`setmuskip`.
+---
+---For tokens registers we have an alternative where a catcode table is specified:
+---
+---```
+---tex.scantoks(0,3,"`e=mc^2`")
+---tex.scantoks("global",0,3,"`\int\limits^1_2`")
+---```
+---
+---In the function-based interface, it is possible to define values globally by
+---using the string `global` as the first function argument.
+---
+---There is a dedicated getter for marks: `getmark` that takes two arguments.
+---The first argument is one of `top`, `bottom`, `first`, `splitbottom` or `splitfirst`, and the second argument is a marks class
+---number. When no arguments are given the current maximum number of classes is
+---returned.
+---
+---When `tex.gettoks` gets an extra argument `true` it will return a
+---table with userdata tokens.
+---
+----------------------------------------------------------------
+
+
+---
+---# Character code registers: `[get|set]*code[s]`
+---
+---        
+---        
+---        
+---      
+---    
+---      
+---
+---   
+---  
+---
+---*TeX*'s character code tables (`lccode`, `uccode`, `sfcode`, `catcode`, `mathcode`, `delcode`) can be accessed and written to using
+---six virtual subtables of the `tex` table
+---
+---\startthreecolumns
+---```
+---tex.lccode
+---tex.uccode
+---tex.sfcode
+---tex.catcode
+---tex.mathcode
+---tex.delcode
+---```
+---\stopthreecolumns
+---
+---The function call interfaces are roughly as above, but there are a few twists.
+---`sfcode`s are the simple ones:
+---
+---```
+---tex.setsfcode (["global",] <number> n, <number> s)
+---<number> s = tex.getsfcode (<number> n)
+---```
+---
+---The function call interface for `lccode` and `uccode` additionally
+---allows you to set the associated sibling at the same time:
+---
+---```
+---tex.setlccode (["global"], <number> n, <number> lc)
+---tex.setlccode (["global"], <number> n, <number> lc, <number> uc)
+---<number> lc = tex.getlccode (<number> n)
+---tex.setuccode (["global"], <number> n, <number> uc)
+---tex.setuccode (["global"], <number> n, <number> uc, <number> lc)
+---<number> uc = tex.getuccode (<number> n)
+---```
+---
+---The function call interface for `catcode` also allows you to specify a
+---category table to use on assignment or on query (default in both cases is the
+---current one):
+---
+---```
+---tex.setcatcode (["global"], <number> n, <number> c)
+---tex.setcatcode (["global"], <number> cattable, <number> n, <number> c)
+---<number> lc = tex.getcatcode (<number> n)
+---<number> lc = tex.getcatcode (<number> cattable, <number> n)
+---```
+---
+---The interfaces for `delcode` and `mathcode` use small array tables to
+---set and retrieve values:
+---
+---```
+---tex.setmathcode (["global"], <number> n, <table> mval )
+---<table> mval = tex.getmathcode (<number> n)
+---tex.setdelcode (["global"], <number> n, <table> dval )
+---<table> dval = tex.getdelcode (<number> n)
+---```
+---
+---Where the table for `mathcode` is an array of 3 numbers, like this:
+---
+---```
+---{
+---    <number> class,
+---    <number> family,
+---    <number> character
+---}
+---```
+---
+---And the table for `delcode` is an array with 4 numbers, like this:
+---
+---```
+---{
+---    <number> small_fam,
+---    <number> small_char,
+---    <number> large_fam,
+---    <number> large_char
+---}
+---```
+---
+---You can also avoid the table:
+---
+---```
+---tex.setmathcode (["global"], <number> n, <number> class,
+---    <number> family, <number> character)
+---class, family, char =
+---    tex.getmathcodes (<number> n)
+---tex.setdelcode (["global"], <number> n, <number> smallfam,
+---    <number> smallchar, <number> largefam, <number> largechar)
+---smallfam, smallchar, largefam, largechar =
+---    tex.getdelcodes (<number> n)
+---```
+---
+---Normally, the third and fourth values in a delimiter code assignment will be zero
+---according to `Udelcode` usage, but the returned table can have values there
+---(if the delimiter code was set using `delcode`, for example). Unset `delcode`'s can be recognized because `dval[1]` is `-1`.
+---
+----------------------------------------------------------------
+
+
+---
+---# Box registers: `[get|set]box`
+---
+---  
+---
+---It is possible to set and query actual boxes, coming for instance from `hbox`, `vbox` or `vtop`, using the node interface as defined in the
+---`node` library:
+---
+---```
+---tex.box
+---```
+---
+---for array access, or
+---
+---```
+---tex.setbox(["global",] <number> n, <node> s)
+---tex.setbox(["global",] <string> cs, <node> s)
+---<node> n = tex.getbox(<number> n)
+---<node> n = tex.getbox(<string> cs)
+---```
+---
+---for function-based access. In the function-based interface, it is possible to
+---define values globally by using the string `global` as the first function
+---argument.
+---
+---Be warned that an assignment like
+---
+---```
+---tex.box[0] = tex.box[2]
+---```
+---
+---does not copy the node list, it just duplicates a node pointer. If `\box2`
+---will be cleared by *TeX* commands later on, the contents of `\box0` becomes
+---invalid as well. To prevent this from happening, always use `node.copy_list` unless you are assigning to a temporary variable:
+---
+---```
+---tex.box[0] = node.copy_list(tex.box[2])
+---```
+---
+----------------------------------------------------------------
+
+
+---
+---# `triggerbuildpage`
+---
+---You should not expect to much from the `triggerbuildpage` helpers because
+---often *TeX* doesn't do much if it thinks nothing has to be done, but it might be
+---useful for some applications. It just does as it says it calls the internal
+---function that build a page, given that there is something to build.
+---
+----------------------------------------------------------------
+
+
+---
+---# `splitbox`
+---
+---You can split a box:
+---
+---```
+---local vlist = tex.splitbox(n,height,mode)
+---```
+---
+---The remainder is kept in the original box and a packaged vlist is returned. This
+---operation is comparable to the `vsplit` operation. The mode can be `additional` or `exactly` and concerns the split off box.
+---
+----------------------------------------------------------------
+
+
+---
+---# Accessing math parameters: `[get|set]math`
+---
+---It is possible to set and query the internal math parameters using:
+---
+---```
+---tex.setmath(["global",] <string> n, <string> t, <number> n)
+---<number> n = tex.getmath(<string> n, <string> t)
+---```
+---
+---As before an optional first parameter `global` indicates a global
+---assignment.
+---
+---The first string is the parameter name minus the leading “Umath”, and the
+---second string is the style name minus the trailing “style”. Just to be
+---complete, the values for the math parameter name are:
+---
+---```
+---quad                axis                operatorsize
+---overbarkern         overbarrule         overbarvgap
+---underbarkern        underbarrule        underbarvgap
+---radicalkern         radicalrule         radicalvgap
+---radicaldegreebefore radicaldegreeafter  radicaldegreeraise
+---stackvgap           stacknumup          stackdenomdown
+---fractionrule        fractionnumvgap     fractionnumup
+---fractiondenomvgap   fractiondenomdown   fractiondelsize
+---limitabovevgap      limitabovebgap      limitabovekern
+---limitbelowvgap      limitbelowbgap      limitbelowkern
+---underdelimitervgap  underdelimiterbgap
+---overdelimitervgap   overdelimiterbgap
+---subshiftdrop        supshiftdrop        subshiftdown
+---subsupshiftdown     subtopmax           supshiftup
+---supbottommin        supsubbottommax     subsupvgap
+---spaceafterscript    connectoroverlapmin
+---ordordspacing       ordopspacing        ordbinspacing     ordrelspacing
+---ordopenspacing      ordclosespacing     ordpunctspacing   ordinnerspacing
+---opordspacing        opopspacing         opbinspacing      oprelspacing
+---opopenspacing       opclosespacing      oppunctspacing    opinnerspacing
+---binordspacing       binopspacing        binbinspacing     binrelspacing
+---binopenspacing      binclosespacing     binpunctspacing   bininnerspacing
+---relordspacing       relopspacing        relbinspacing     relrelspacing
+---relopenspacing      relclosespacing     relpunctspacing   relinnerspacing
+---openordspacing      openopspacing       openbinspacing    openrelspacing
+---openopenspacing     openclosespacing    openpunctspacing  openinnerspacing
+---closeordspacing     closeopspacing      closebinspacing   closerelspacing
+---closeopenspacing    closeclosespacing   closepunctspacing closeinnerspacing
+---punctordspacing     punctopspacing      punctbinspacing   punctrelspacing
+---punctopenspacing    punctclosespacing   punctpunctspacing punctinnerspacing
+---innerordspacing     inneropspacing      innerbinspacing   innerrelspacing
+---inneropenspacing    innerclosespacing   innerpunctspacing innerinnerspacing
+---```
+---
+---The values for the style parameter are:
+---
+---```
+---display       crampeddisplay
+---text          crampedtext
+---script        crampedscript
+---scriptscript  crampedscriptscript
+---```
+---
+---The value is either a number (representing a dimension or number) or a glue spec
+---node representing a muskip for `ordordspacing` and similar spacing
+---parameters.
+---
+----------------------------------------------------------------
+
+
+---
+---# Special list heads: `[get|set]list`
+---
+---The virtual table `tex.lists` contains the set of internal registers that
+---keep track of building page lists.
+---
+--- field                     explanation 
+---
+--- `pageinserthead`     circular list of pending insertions 
+--- `contributehead`     the recent contributions 
+--- `pagehead`           the current page content 
+---%NC `temphead`           
+--- `holdhead`           used for held-over items for next page 
+--- `postadjusthead`     head of the (pending) post adjustments 
+--- `preadjusthead`      head of the (pending) pre adjustments 
+--- `postmigratehead`    head of the (pending) post migrations 
+--- `premigratehead`     head of the (pending) pre migrations 
+---%NC `alignhead`          
+--- `pagediscardshead`   head of the discarded items of a page break 
+--- `splitdiscardshead`  head of the discarded items in a vsplit 
+---
+---The getter and setter functions are `getlist` and `setlist`. You have
+---to be careful with what you set as *TeX* can have expectations with regards to
+---how a list is constructed or in what state it is.
+---
+----------------------------------------------------------------
+
+
+---
+---# Semantic nest levels: `getnest` and `ptr`
+---
+---%libindex{setnest} % only a message
+---
+---The virtual table `nest` contains the currently active semantic nesting
+---state. It has two main parts: a zero-based array of userdata for the semantic
+---nest itself, and the numerical value `ptr`, which gives the highest
+---available index. Neither the array items in `nest[]` nor `ptr` can be
+---assigned to (as this would confuse the typesetting engine beyond repair), but you
+---can assign to the individual values inside the array items, e.g.\ `tex.nest[tex.nest.ptr].prevdepth`.
+---
+---`tex.nest[tex.nest.ptr]` is the current nest state, `nest[0]` the
+---outermost (main vertical list) level. The getter function is `getnest`. You
+---can pass a number (which gives you a list), nothing or `top`, which returns
+---the topmost list, or the string `ptr` which gives you the index of the
+---topmost list.
+---
+---The known fields are:
+---
+--- key                 type     modes  explanation 
+---
+---@field mode number # all    the meaning of these numbers depends on the engine and sometimes even the version; you can use `tex.getmodevalues()` to get the mapping: positive values signal vertical, horizontal and math mode, while negative values indicate inner and inline variants 
+---@field modeline number # all    source input line where this mode was entered in, negative inside the output routine 
+---@field head node # all    the head of the current list 
+---@field tail node # all    the tail of the current list 
+---@field prevgraf number # vmode  number of lines in the previous paragraph 
+---@field prevdepth number # vmode  depth of the previous paragraph 
+---@field spacefactor number # hmode  the current space factor 
+---@field direction node # hmode  stack used for temporary storage by the line break algorithm 
+---@field noad node # mmode  used for temporary storage of a pending fraction numerator, for `over` etc. 
+---@field delimiter node # mmode  used for temporary storage of the previous math delimiter, for `middle` 
+---@field mathdir boolean # mmode  true when during math processing the `mathdirection` is not the same as the surrounding `textdirection` 
+---@field mathstyle number # mmode  the current `mathstyle` 
+---
+---When a second string argument is given to the `getnest`, the value with
+---that name is returned. Of course the level must be valid. When `setnest`
+---gets a third argument that value is assigned to the field given as second
+---argument.
+---
+----------------------------------------------------------------
+
+
+---
+---# Print functions
+---
+---The `tex` table also contains the three print functions that are the major
+---interface from *Lua* scripting to *TeX*. The arguments to these three functions
+---are all stored in an in-memory virtual file that is fed to the *TeX* scanner as
+---the result of the expansion of `directlua`.
+---
+---The total amount of returnable text from a `directlua` command is only
+---limited by available system \RAM. However, each separate printed string has to
+---fit completely in *TeX*'s input buffer. The result of using these functions from
+---inside callbacks is undefined at the moment.
+---
+---# `print`
+---
+---```
+---tex.print(<string> s, ...)
+---tex.print(<number> n, <string> s, ...)
+---tex.print(<table> t)
+---tex.print(<number> n, <table> t)
+---```
+---
+---Each string argument is treated by *TeX* as a separate input line. If there is a
+---table argument instead of a list of strings, this has to be a consecutive array
+---of strings to print (the first non-string value will stop the printing process).
+---
+---The optional parameter can be used to print the strings using the catcode regime
+---defined by `catcodetable` `n`. If `n` is `-1`, the currently
+---active catcode regime is used. If `n` is `-2`, the resulting catcodes are
+---the result of `the` `toks`: all category codes are 12 (other) except for
+---the space character, that has category code 10 (space). Otherwise, if `n`
+---is not a valid catcode table, then it is ignored, and the currently active
+---catcode regime is used instead.
+---
+---The very last string of the very last `tex.print` command in a `directlua` will not have the `endlinechar` appended, all others do.
+---
+---# `sprint`
+---
+---```
+---tex.sprint(<string> s, ...)
+---tex.sprint(<number> n, <string> s, ...)
+---tex.sprint(<table> t)
+---tex.sprint(<number> n, <table> t)
+---```
+---
+---Each string argument is treated by *TeX* as a special kind of input line that
+---makes it suitable for use as a partial line input mechanism:
+---
+---* *TeX* does not switch to the “new line” state, so that leading spaces
+---    are not ignored.
+---
+---* No `endlinechar` is inserted.
+---
+---* Trailing spaces are not removed. Note that this does not prevent *TeX* itself
+---    from eating spaces as result of interpreting the line. For example, in
+---
+---    ```
+---    before\directlua{tex.sprint("\\relax")tex.sprint(" in between")}after
+---    ```
+---
+---    the space before `in between` will be gobbled as a result of the “normal” scanning of `relax`.
+---
+---If there is a table argument instead of a list of strings, this has to be a
+---consecutive array of strings to print (the first non-string value will stop the
+---printing process).
+---
+---The optional argument sets the catcode regime, as with `tex.print`. This
+---influences the string arguments (or numbers turned into strings).
+---
+---Although this needs to be used with care, you can also pass token or node
+---userdata objects. These get injected into the stream. Tokens had best be valid
+---tokens, while nodes need to be around when they get injected. Therefore it is
+---important to realize the following:
+---
+---* When you inject a token, you need to pass a valid token userdata object. This
+---    object will be collected by *Lua* when it no longer is referenced. When it gets
+---    printed to *TeX* the token itself gets copied so there is no interference with the
+---    *Lua* garbage collection. You manage the object yourself. Because tokens are
+---    actually just numbers, there is no real extra overhead at the *TeX* end.
+---
+---* When you inject a node, you need to pass a valid node userdata object. The
+---    node related to the object will not be collected by *Lua* when it no longer
+---    is referenced. It lives on at the *TeX* end in its own memory space. When it
+---    gets printed to *TeX* the node reference is used assuming that node stays
+---    around. There is no *Lua* garbage collection involved. Again, you manage the
+---    object yourself. The node itself is freed when *TeX* is done with it.
+---
+---If you consider the last remark you might realize that we have a problem when a
+---printed mix of strings, tokens and nodes is reused. Inside *TeX* the sequence
+---becomes a linked list of input buffers. So, `"123"` or `"\foo{123`"}
+---gets read and parsed on the fly, while `<token userdata>` already is
+---tokenized and effectively is a token list now. A `<node userdata>` is also
+---tokenized into a token list but it has a reference to a real node. Normally this
+---goes fine. But now assume that you store the whole lot in a macro: in that case
+---the tokenized node can be flushed many times. But, after the first such flush the
+---node is used and its memory freed. You can prevent this by using copies which is
+---controlled by setting `luacopyinputnodes` to a non-zero value. This is one
+---of these fuzzy areas you have to live with if you really mess with these low
+---level issues.
+---
+---# `tprint`
+---
+---```
+---tex.tprint({<number> n, <string> s, ...}, {...})
+---```
+---
+---This function is basically a shortcut for repeated calls to `tex.sprint(<number> n, <string> s, ...)`, once for each of the supplied argument
+---tables.
+---
+---# `cprint`
+---
+---This function takes a number indicating the to be used catcode, plus either a
+---table of strings or an argument list of strings that will be pushed into the
+---input stream.
+---
+---```
+---tex.cprint( 1," 1: `&{\\foo}") tex.print("\\par") -- a lot of \bgroup s
+---tex.cprint( 2," 2: `&{\\foo}") tex.print("\\par") -- matching \egroup s
+---tex.cprint( 9," 9: `&{\\foo}") tex.print("\\par") -- all get ignored
+---tex.cprint(10,"10: `&{\\foo}") tex.print("\\par") -- all become spaces
+---tex.cprint(11,"11: `&{\\foo}") tex.print("\\par") -- letters
+---tex.cprint(12,"12: `&{\\foo}") tex.print("\\par") -- other characters
+---tex.cprint(14,"12: $&{\\foo}") tex.print("\\par") -- comment triggers
+---```
+---
+---% # `write`, `twrite`, `nwrite`
+---# `write`
+---
+---% 
+---% 
+---
+---```
+---tex.write(<string> s, ...)
+---tex.write(<table> t)
+---```
+---
+---Each string argument is treated by *TeX* as a special kind of input line that
+---makes it suitable for use as a quick way to dump information:
+---
+---\item All catcodes on that line are either “space” (for ' ') or “character” (for all others).
+---\item There is no `endlinechar` appended.
+---
+---If there is a table argument instead of a list of strings, this has to be a
+---consecutive array of strings to print (the first non-string value will stop the
+---printing process).
+---
+---% The functions `twrite` and `nwrite` can be used to write a token or
+---% node back to *TeX*, possibly intermixed with regular strings that will be
+---% tokenized. You have to make sure that you pass the right data because sometimes
+---% *TeX* has expectations that need to be met.
+---
+----------------------------------------------------------------
+
+
+---
+---# Helper functions
+---
+---# `round`
+---
+---```
+---<number> n = tex.round(<number> o)
+---```
+---
+---Rounds *Lua* number `o`, and returns a number that is in the range of a
+---valid *TeX* register value. If the number starts out of range, it generates a
+---“number too big” error as well.
+---
+---# `scale`
+---
+---```
+---<number> n = tex.scale(<number> o, <number> delta)
+---<table> n = tex.scale(table o, <number> delta)
+---```
+---
+---Multiplies the *Lua* numbers `o` and `delta`, and returns a rounded
+---number that is in the range of a valid *TeX* register value. In the table
+---version, it creates a copy of the table with all numeric top||level values scaled
+---in that manner. If the multiplied number(s) are of range, it generates
+---“number too big” error(s) as well.
+---
+---Note: the precision of the output of this function will depend on your computer's
+---architecture and operating system, so use with care! An interface to *LuaTeX*'s
+---internal, 100\% portable scale function will be added at a later date.
+---
+---# `number` and `romannumeral`
+---
+---These are the companions to the primitives `number` and `romannumeral`. They can be used like:
+---
+---```
+---tex.print(tex.romannumeral(123))
+---```
+---
+---# `fontidentifier` and `fontname`
+---
+---The first one returns the name only, the second one reports the size too.
+---
+---```
+---tex.print(tex.fontname(1))
+---tex.print(tex.fontidentifier(1))
+---```
+---
+---# `sp`
+---
+---```
+---<number> n = tex.sp(<number> o)
+---<number> n = tex.sp(<string> s)
+---```
+---
+---Converts the number `o` or a string `s` that represents an explicit
+---dimension into an integer number of scaled points.
+---
+---For parsing the string, the same scanning and conversion rules are used that
+---*LuaTeX* would use if it was scanning a dimension specifier in its *TeX*-like
+---input language (this includes generating errors for bad values), expect for the
+---following:
+---
+---* only explicit values are allowed, control sequences are not handled
+---
+---* infinite dimension units (`fil...`) are forbidden
+---
+---* `mu` units do not generate an error (but may not be useful either)
+---
+---# `tex.getlinenumber` and `tex.setlinenumber`
+---
+---You can mess with the current line number:
+---
+---```
+---local n = tex.getlinenumber()
+---tex.setlinenumber(n+10)
+---```
+---
+---which can be shortcut to:
+---
+---```
+---tex.setlinenumber(10,true)
+---```
+---
+---This might be handy when you have a callback that reads numbers from a file and
+---combines them in one line (in which case an error message probably has to refer
+---to the original line). Interference with *TeX*'s internal handling of numbers is
+---of course possible.
+---
+---# `error`, `show_context` and `gethelptext`
+---
+---```
+---tex.error(<string> s)
+---tex.error(<string> s, <table> help)
+---<string> s = tex.gethelptext()
+---```
+---
+---This creates an error somewhat like the combination of `errhelp` and `errmessage` would. During this error, deletions are disabled.
+---
+---The array part of the `help` table has to contain strings, one for each
+---line of error help.
+---
+---In case of an error the `show_context` function will show the current
+---context where we're at (in the expansion).
+---
+---# `getfamilyoffont`
+---
+---When you pass a proper family identifier the next helper will return the font
+---currently associated with it.
+---
+---```
+---<integer> id = font.getfamilyoffont(<integer> fam)
+---```
+---
+---# `[set|get]interaction`
+---
+---The engine can be in one of four modes:
+---
+--- value  mode       meaning 
+---
+--- 0      batch      omits all stops and omits terminal output 
+--- 1      nonstop    omits all stops 
+--- 2      scroll     omits error stops 
+--- 3      errorstop  stops at every opportunity to interact 
+---
+---The mode can be queried and set with:
+---
+---```
+---<integer> i = tex.getinteraction()
+---tex.setinteraction(<integer> i)
+---```
+---
+---# `runtoks` and `quittoks`
+---
+---Because of the fact that *TeX* is in a complex dance of expanding, dealing with
+---fonts, typesetting paragraphs, messing around with boxes, building pages, and so
+---on, you cannot easily run a nested *TeX* run (read nested main loop). However,
+---there is an option to force a local run with `runtoks`. The content of the
+---given token list register gets expanded locally after which we return to where we
+---triggered this expansion, at the *Lua* end. Instead a function can get passed
+---that does some work. You have to make sure that at the end *TeX* is in a sane
+---state and this is not always trivial. A more complex mechanism would complicate
+---*TeX* itself (and probably also harm performance) so this simple local expansion
+---loop has to do.
+---
+---```
+---tex.runtoks(<token register>)
+---tex.runtoks(<lua function>)
+---tex.runtoks(<macro name>)
+---tex.runtoks(<register name>)
+---```
+---
+---When the `tracingnesting` parameter is set to a value larger than 2 some
+---information is reported about the state of the local loop. The return value indicates
+---an error:
+---
+--- value  meaning 
+---
+--- 0      no error 
+--- 1      bad register number 
+--- 2      unknown macro or register name 
+--- 3      macro is unsuitable for runtoks (has arguments) 
+---
+---This function has two optional arguments in case a token register is passed:
+---
+---```
+---tex.runtoks(<token register>,force,grouped,obeymode)
+---```
+---
+---Inside for instance an `\edef` the `runtoks` function behaves (at
+---least tries to) like it were an `\the`. This prevents unwanted side
+---effects: normally in such an definition tokens remain tokens and (for instance)
+---characters don't become nodes. With the second argument you can force the local
+---main loop, no matter what. The third argument adds a level of grouping. The last
+---argument tells the scanner to stay in the current mode.
+---
+---You can quit the local loop with `\endlocalcontrol` or from the *Lua* end
+---with `tex.quittoks`. In that case you end one level up! Of course in the
+---end that can mean that you arrive at the main level in which case an extra end
+---will trigger a redundancy warning (not an abort!).
+---
+---# `forcehmode`
+---
+---An example of a (possible error triggering) complication is that *TeX* expects to
+---be in some state, say horizontal mode, and you have to make sure it is when you
+---start feeding back something from *Lua* into *TeX*. Normally a user will not run
+---into issues but when you start writing tokens or nodes or have a nested run there
+---can be situations that you need to run `forcehmode`. There is no recipe for
+---this and intercepting possible cases would weaken *LuaTeX*'s flexibility.
+---
+---# `hashtokens`
+---
+---```
+---for i,v in pairs (tex.hashtokens()) do ... end
+---```
+---
+---Returns a list of names. This can be useful for debugging, but note that this
+---also reports control sequences that may be unreachable at this moment due to
+---local redefinitions: it is strictly a dump of the hash table. You can use `token.create` to inspect properties, for instance when the `command` key
+---in a created table equals `123`, you have the `cmdname` value `undefined_cs`.
+---
+---# `definefont`
+---
+---```
+---tex.definefont(<string> csname, <number> fontid)
+---tex.definefont(<boolean> global, <string> csname, <number> fontid)
+---```
+---
+---Associates `csname` with the internal font number `fontid`. The
+---definition is global if (and only if) `global` is specified and true (the
+---setting of `globaldefs` is not taken into account).
+---
+----------------------------------------------------------------
+
+
+---
+---# Functions for dealing with primitives
+---
+---# `enableprimitives`
+---
+---```
+---tex.enableprimitives(<string> prefix, <table> primitive names)
+---```
+---
+---This function accepts a prefix string and an array of primitive names. For each
+---combination of “prefix” and “name”, the `tex.enableprimitives` first verifies that “name” is an actual primitive
+---(it must be returned by one of the `tex.extraprimitives` calls explained
+---below, or part of *TeX*82, or `directlua`). If it is not, `tex.enableprimitives` does nothing and skips to the next pair.
+---
+---But if it is, then it will construct a csname variable by concatenating the
+---“prefix” and “name”, unless the “prefix” is already the
+---actual prefix of “name”. In the latter case, it will discard the “prefix”, and just use “name”.
+---
+---Then it will check for the existence of the constructed csname. If the csname is
+---currently undefined (note: that is not the same as `relax`), it will
+---globally define the csname to have the meaning: run code belonging to the
+---primitive “name”. If for some reason the csname is already defined, it
+---does nothing and tries the next pair.
+---
+---An example:
+---
+---```
+---tex.enableprimitives('LuaTeX', {'formatname'})
+---```
+---
+---will define `\LuaTeXformatname` with the same intrinsic meaning as the
+---documented primitive `formatname`, provided that the control sequences `\LuaTeXformatname` is currently undefined.
+---
+---When *LuaTeX* is run with `--ini` only the *TeX*82 primitives and `directlua` are available, so no extra primitives {\bf at all}.
+---
+---If you want to have all the new functionality available using their default
+---names, as it is now, you will have to add
+---
+---```
+---\ifx\directlua\undefined \else
+---    \directlua {tex.enableprimitives('',tex.extraprimitives ())}
+---\fi
+---```
+---
+---near the beginning of your format generation file. Or you can choose different
+---prefixes for different subsets, as you see fit.
+---
+---Calling some form of `tex.enableprimitives` is highly important though,
+---because if you do not, you will end up with a *TeX*82-lookalike that can run *Lua*
+---code but not do much else. The defined csnames are (of course) saved in the
+---format and will be available at runtime.
+---
+---# `extraprimitives`
+---
+---```
+---<table> t = tex.extraprimitives(<string> s, ...)
+---```
+---
+---This function returns a list of the primitives that originate from the engine(s)
+---given by the requested string value(s). The possible values and their (current)
+---return values are given in the following table. In addition the somewhat special
+---primitives “\tex{ ”}, “\tex {/”} and “`-`” are defined.
+---
+--- name    values 
+---
+--- tex     \ctxlua{document.showprimitives('tex')    } 
+--- core    \ctxlua{document.showprimitives('core')   } 
+--- etex    \ctxlua{document.showprimitives('etex')   } 
+--- luatex  \ctxlua{document.showprimitives('luatex') } 
+---
+---Note that `luatex` does not contain `directlua`, as that is
+---considered to be a core primitive, along with all the *TeX*82 primitives, so it is
+---part of the list that is returned from `'core'`.
+---
+---Running `tex.extraprimitives` will give you the complete list of
+---primitives `-ini` startup. It is exactly equivalent to `tex.extraprimitives("etex","luatex")`.
+---
+---# `primitives`
+---
+---```
+---<table> t = tex.primitives()
+---```
+---
+---This function returns a list of all primitives that *LuaTeX* knows about.
+---
+----------------------------------------------------------------
+
+
+---
+---# Core functionality interfaces
+---
+---# `badness`
+---
+---```
+---<number> b = tex.badness(<number> t, <number> s)
+---```
+---
+---This helper function is useful during linebreak calculations. `t` and `s` are scaled values; the function returns the badness for when total `t`
+---is supposed to be made from amounts that sum to `s`. The returned number is
+---a reasonable approximation of \mathematics {100(t/s)^3};
+---
+---# `tex.resetparagraph`
+---
+---This function resets the parameters that *TeX* normally resets when a new paragraph
+---is seen.
+---
+---# `linebreak`
+---
+---```
+---local <node> nodelist, <table> info =
+---    tex.linebreak(<node> listhead, <table> parameters)
+---```
+---
+---The understood parameters are as follows:
+---
+--- name                         type             explanation 
+---
+---@field pardir string # 
+---@field pretolerance number # 
+---@field tracingparagraphs number # 
+---@field tolerance number # 
+---@field looseness number # 
+---@field hyphenpenalty number # 
+---@field exhyphenpenalty number # 
+---@field pdfadjustspacing number # 
+---@field adjdemerits number # 
+---@field protrudechars number # 
+---@field linepenalty number # 
+---@field lastlinefit number # 
+---@field doublehyphendemerits number # 
+---@field finalhyphendemerits number # 
+---@field hangafter number # 
+---@field interlinepenalty number # or table  if a table, then it is an array like `interlinepenalties` 
+---@field clubpenalty number # or table  if a table, then it is an array like `clubpenalties` 
+---@field widowpenalty number # or table  if a table, then it is an array like `widowpenalties` 
+---@field brokenpenalty number # 
+---@field emergencystretch number # in scaled points 
+---@field hangindent number # in scaled points 
+---@field hsize number # in scaled points 
+---@field leftskip glue_spec node # 
+---@field rightskip glue_spec node # 
+---@field parshape table # 
+---
+---Note that there is no interface for `displaywidowpenalties`, you have to
+---pass the right choice for `widowpenalties` yourself.
+---
+---It is your own job to make sure that `listhead` is a proper paragraph list:
+---this function does not add any nodes to it. To be exact, if you want to replace
+---the core line breaking, you may have to do the following (when you are not
+---actually working in the `pre_linebreak_filter` or `linebreak_filter`
+---callbacks, or when the original list starting at listhead was generated in
+---horizontal mode):
+---
+---* add an “indent box” and perhaps a `par` node at the start
+---    (only if you need them)
+---
+---* replace any found final glue by an infinite penalty (or add such a penalty,
+---    if the last node is not a glue)
+---
+---* add a glue node for the `parfillskip` after that penalty node
+---
+---* make sure all the `prev` pointers are OK
+---
+---The result is a node list, it still needs to be vpacked if you want to assign it
+---to a `vbox`. The returned `info` table contains four values that are
+---all numbers:
+---
+--- name       explanation 
+---
+--- prevdepth  depth of the last line in the broken paragraph 
+--- prevgraf   number of lines in the broken paragraph 
+--- looseness  the actual looseness value in the broken paragraph 
+--- demerits   the total demerits of the chosen solution  
+---
+---Note there are a few things you cannot interface using this function: You cannot
+---influence font expansion other than via `pdfadjustspacing`, because the
+---settings for that take place elsewhere. The same is true for hbadness and hfuzz
+---etc. All these are in the `hpack` routine, and that fetches its own
+---variables via globals.
+---
+---# `shipout`
+---
+---```
+---tex.shipout(<number> n)
+---```
+---
+---Ships out box number `n` to the output file, and clears the box register.
+---
+---# `getpagestate`
+---
+---This helper reports the current page state: `empty`, `box_there` or
+---`inserts_only` as integer value.
+---
+---# `getlocallevel`
+---
+---This integer reports the current level of the local loop. It's only useful for
+---debugging and the (relative state) numbers can change with the implementation.
+---
+----------------------------------------------------------------
+
+
+---
+---# Functions related to synctex
+---
+---      
+--- 
+---        
+---
+---The next helpers only make sense when you implement your own synctex logic. Keep in
+---mind that the library used in editors assumes a certain logic and is geared for
+---plain and \LATEX, so after a decade users expect a certain behaviour.
+---
+--- name                      explanation 
+---
+--- `setsynctexmode`     `0` is the default and used normal synctex logic, `1` uses the values set by the next helpers while `2` also sets these for glyph nodes; `3` sets glyphs and glue and `4` sets only glyphs 
+--- `setsynctextag`      set the current tag (file) value (obeys save stack) 
+--- `setsynctexline`     set the current line value (obeys save stack) 
+--- `setsynctexnofiles`  disable synctex file logging 
+--- `getsynctexmode`     returns the current mode (for values see above) 
+--- `getsynctextag`      get the currently set value of tag (file) 
+--- `getsynctexline`     get the currently set value of line 
+--- `forcesynctextag`    overload the tag (file) value (`0` resets) 
+--- `forcesynctexline`   overload the line value  (`0` resets) 
+---
+---The last one is somewhat special. Due to the way files are registered in \SYNCTEX\ we need
+---to explicitly disable that feature if we provide our own alternative if we want to avoid
+---that overhead. Passing a value of 1 disables registering.
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---\startsection[title={The `texconfig` table},reference=texconfig][library=texconfig]
+---
+---This is a table that is created empty. A startup *Lua* script could fill this
+---table with a number of settings that are read out by the executable after loading
+---and executing the startup file. Watch out: some keys are different from *LuaTeX*,
+---which is a side effect of a more granular and dynamic memory management.
+---
+--- key                       type          default   comment 
+---
+--- `buffersize`         number/table   1000000  input buffer bytes 
+--- `filesize`           number/table      1000  max number of open files 
+--- `fontsize`           number/table       250  number of permitted fonts 
+--- `hashsize`           number/table    150000  number of hash entries 
+--- `inputsize`          number/table     10000  maximum input stack 
+--- `languagesize`       number/table       250  number of permitted languages 
+--- `marksize`           number/table        50  number of mark classes 
+--- `nestsize`           number/table      1000  max depth of nesting 
+---@field nodesize number/table   1000000  max node # memory (various size) 
+--- `parametersize`      number/table     20000  max size of parameter stack 
+--- `poolsize`           number/table  10000000  max number of string bytes 
+--- `savesize`           number/table    100000  mas size of save stack 
+--- `stringsize`         number/table    150000  max number of strings 
+--- `tokensize`          number/table   1000000  max token memory 
+---\ML
+--- `expandsize`         number/table     10000  max expansion nesting 
+---@field propertiessize number # 0  initial size of node properties table 
+---@field functionsize number # 0  initial size of *Lua* functions table 
+---@field errorlinesize number # 79  how much or an error is shown 
+---@field halferrorlinesize number # 50  idem 
+---\ML
+---@field formatname string # 
+---@field jobname string # 
+---\ML
+---@field starttime number # for testing only 
+---@field useutctime number # for testing only 
+---@field permitloadlib number # for testing only 
+---
+---If no format name or jobname is given on the command line, the related keys will
+---be tested first instead of simply quitting. The statistics library has methods for
+---tracking down how much memory is available and has been configured. The size parameters
+---take a number (for the maximum allocated size) or a table with three possible keys:
+---`size`, `plus` (for extra size) and step for the increment when more memory
+---is needed. They all start out with a hard coded minimum and also have an hard coded maximum,
+---the the configured size sits somewhere between these.
+---
+----------------------------------------------------------------
+
+
+---
+---# The `texio` library[library=texio]
+---
+---This library takes care of the low-level I/O interface: writing to the log file
+---and/or console.
+---
+---# `write` and `writeselector`
+---
+---```
+---texio.write(<string> target, <string> s, ...)
+---texio.write(<string> s, ...)
+---texio.writeselector(<string> s, ...)
+---```
+---
+---Without the `target` argument, writes all given strings to the same
+---location(s) *TeX* writes messages to at this moment. If `batchmode` is in
+---effect, it writes only to the log, otherwise it writes to the log and the
+---terminal. The optional `target` can be one of `terminal`,
+---`logfile` or `terminal_and_logfile`.
+---
+---Note: If several strings are given, and if the first of these strings is or might
+---be one of the targets above, the `target` must be specified explicitly to
+---prevent *Lua* from interpreting the first string as the target.
+---
+----------------------------------------------------------------
+
+
+---
+---# `writenl` and `writeselectornl`
+---
+---```
+---texio.writenl(<string> target, <string> s, ...)
+---texio.writenl(<string> s, ...)
+---texio.writeselectornl(<string> target, ...)
+---```
+---
+---This function behaves like `texio.write`, but makes sure that the given
+---strings will appear at the beginning of a new line. You can pass a single empty
+---string if you only want to move to the next line.
+---
+---The selector variants always expect a selector, so there is no misunderstanding
+---if `logfile` is a string or selector.
+---
+----------------------------------------------------------------
+
+
+---
+---# `setescape`
+---
+---You can disable `^^` escaping of control characters by passing a value of
+---zero.
+---
+----------------------------------------------------------------
+
+
+---
+---# `closeinput`
+---
+---This function should be used with care. It acts as `endinput` but at the
+---*Lua* end. You can use it to (sort of) force a jump back to *TeX*. Normally a
+---*Lua* call will just collect prints and at the end bump an input level and flush
+---these prints. This function can help you stay at the current level but you need
+---to know what you're doing (or more precise: what *TeX* is doing with input).
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---# The `token` library[library=token]
+---
+---# The scanner
+---
+---The token library provides means to intercept the input and deal with it at the
+---*Lua* level. The library provides a basic scanner infrastructure that can be used
+---to write macros that accept a wide range of arguments. This interface is on
+---purpose kept general and as performance is quite okay so one can build additional
+---parsers without too much overhead. It's up to macro package writers to see how
+---they can benefit from this as the main principle behind *LuaTeX* is to provide a
+---minimal set of tools and no solutions. The scanner functions are probably the
+---most intriguing.
+---
+--- function              argument            result 
+---
+---@field scankeyword string # returns true if the given keyword is gobbled; as with the regular *TeX* keyword scanner this is case insensitive (and \ASCII\ based) 
+---@field scankeywordcs string # returns true if the given keyword is gobbled; this variant is case sensitive and also suitable for *UTF-8* 
+--- `scanint`                            returns an integer 
+--- `scanreal`                           returns a number from e.g.\ `1`,  `1.1`, `.1` with optional collapsed signs 
+--- `scanfloat`                          returns a number from e.g.\ `1`,  `1.1`, `.1`, `1.1E10`, , `.1e-10` with optional collapsed signs 
+--- `scandimen`      infinity, mu-units  returns a number representing a dimension or two numbers being the filler and order 
+---@field scanglue mu-units            returns a glue spec node # 
+--- `scantoks`       definer, expand     returns a table of tokens 
+--- `scancode`       bitset              returns a character if its category is in the given bitset (representing catcodes) 
+--- `scanstring`                         returns a string given between `{`}, as `\macro` or as sequence of characters with catcode 11 or 12 
+--- `scanargument`                       this one is simular to `scanstring` but also accepts a `\cs` (which then get expanded) 
+--- `scanword`                           returns a sequence of characters with catcode 11 or 12 as string 
+--- `scancsname`                         returns `foo` after scanning `\foo` 
+---@field scanlist`                           picks up a box specification and returns a `[h|v]list node # 
+---
+---The integer, dimension and glue scanners take an extra optional argument that
+---signals that en optional equal is permitted.
+---
+---The scanners can be considered stable apart from the one scanning for a token.
+---The `scancode` function takes an optional number, the `scankeyword`
+---function a normal *Lua* string. The `infinity` boolean signals that we also
+---permit `fill` as dimension and the `mu-units` flags the scanner that
+---we expect math units. When scanning tokens we can indicate that we are defining a
+---macro, in which case the result will also provide information about what
+---arguments are expected and in the result this is separated from the meaning by a
+---separator token. The `expand` flag determines if the list will be expanded.
+---
+---The `scanargument` function expands the given argument. When a braced
+---argument is scanned, expansion can be prohibited by passing `false`
+---(default is `true`). In case of a control sequence passing `false`
+---will result in a one-level expansion (the meaning of the macro).
+---
+---The string scanner scans for something between curly braces and expands on the
+---way, or when it sees a control sequence it will return its meaning. Otherwise it
+---will scan characters with catcode `letter` or `other`. So, given the
+---following definition:
+---
+---\startbuffer
+---\def\oof{oof}
+---\def\foo{foo-\oof}
+---\stopbuffer
+---
+---\typebuffer \getbuffer
+---
+---we get:
+---
+--- name  result 
+---
+--- `\directlua{token.scanstring()`{foo}}  \directlua{context("{\\red\`"..token.scanstring().."`}")} {foo}  full expansion 
+--- `\directlua{token.scanstring()`foo}    \directlua{context("{\\red\`"..token.scanstring().."`}")} foo    letters and others 
+--- `\directlua{token.scanstring()`\foo}   \directlua{context("{\\red\`"..token.scanstring().."`}")}\foo    meaning 
+---
+---The `\foo` case only gives the meaning, but one can pass an already
+---expanded definition (`edef`'d). In the case of the braced variant one can of
+---course use the `detokenize` and `unexpanded` primitives since there we
+---do expand.
+---
+---The `scanword` scanner can be used to implement for instance a number
+---scanner. An optional boolean argument can signal that a trailing space or `\relax` should be gobbled:
+---
+---```
+---function token.scannumber(base)
+---    return tonumber(token.scanword(),base)
+---end
+---```
+---
+---This scanner accepts any valid *Lua* number so it is a way to pick up floats
+---in the input.
+---
+---You can use the *Lua* interface as follows:
+---
+---```
+---\directlua {
+---    function mymacro(n)
+---        ...
+---    end
+---}
+---
+---\def\mymacro#1{%
+---    \directlua {
+---        mymacro(\number\dimexpr#1)
+---    }%
+---}
+---
+---\mymacro{12pt}
+---\mymacro{\dimen0}
+---```
+---
+---You can also do this:
+---
+---```
+---\directlua {
+---    function mymacro()
+---        local d = token.scandimen()
+---        ...
+---    end
+---}
+---
+---\def\mymacro{%
+---    \directlua {
+---        mymacro()
+---    }%
+---}
+---
+---\mymacro 12pt
+---\mymacro \dimen0
+---```
+---
+---It is quite clear from looking at the code what the first method needs as
+---argument(s). For the second method you need to look at the *Lua* code to see what
+---gets picked up. Instead of passing from *TeX* to *Lua* we let *Lua* fetch from
+---the input stream.
+---
+---In the first case the input is tokenized and then turned into a string, then it
+---is passed to *Lua* where it gets interpreted. In the second case only a function
+---call gets interpreted but then the input is picked up by explicitly calling the
+---scanner functions. These return proper *Lua* variables so no further conversion
+---has to be done. This is more efficient but in practice (given what *TeX* has to
+---do) this effect should not be overestimated. For numbers and dimensions it saves
+---a bit but for passing strings conversion to and from tokens has to be done anyway
+---(although we can probably speed up the process in later versions if needed).
+---
+----------------------------------------------------------------
+
+
+---
+---# Picking up one token
+---
+---The scanners look for a sequence. When you want to pick up one token from the
+---input you use `scannext`. This creates a token with the (low level)
+---properties as discussed next. This token is just the next one. If you want to
+---enforce expansion first you can use `scantoken` or the `_expanded`
+---variants. Internally tokens are characterized by a number that packs a lot of
+---information. In order to access the bits of information a token is wrapped in a
+---userdata object.
+---
+---The `expand` function will trigger expansion of the next token in the
+---input. This can be quite unpredictable but when you call it you probably know
+---enough about *TeX* not to be too worried about that. It basically is a call to
+---the internal expand related function.
+---
+--- name              explanation 
+---
+--- scannext          get the next token 
+--- scannextexpanded  get the next expanded token 
+--- skipnext          skip the next token 
+--- skipnextexpanded  skip the next expanded token 
+--- peeknext          get the next token and put it back in the input 
+--- peeknextexpanded  get the next expanded token and put it back in the input 
+---
+---The peek function accept a boolean argument that triggers skipping spaces and
+---alike.
+---
+----------------------------------------------------------------
+
+
+---
+---# Creating tokens
+---
+---The creator function can be used as follows:
+---
+---```
+---local t = token.create("relax")
+---```
+---
+---This gives back a token object that has the properties of the `relax`
+---primitive. The possible properties of tokens are:
+---
+--- name  explanation 
+---
+--- `command`     a number representing the internal command number 
+--- `cmdname`     the type of the command (for instance the catcode in case of a character or the classifier that determines the internal treatment) 
+--- `csname`      the associated control sequence (if applicable) 
+--- `id`          the unique id of the token 
+--- `tok`         the full token number as stored in *TeX* 
+--- `active`      a boolean indicating the active state of the token 
+--- `expandable`  a boolean indicating if the token (macro) is expandable 
+--- `protected`   a boolean indicating if the token (macro) is protected 
+--- `frozen`      a boolean indicating if the token is a frozen command 
+--- `user`        a boolean indicating if the token is a user defined command 
+--- `index`       a number that indicated the subcommand; differs per command 
+---
+---Alternatively you can use a getter `get<fieldname>` to access a property
+---of a token.
+---
+---The numbers that represent a catcode are the same as in *TeX* itself, so using
+---this information assumes that you know a bit about *TeX*'s internals. The other
+---numbers and names are used consistently but are not frozen. So, when you use them
+---for comparing you can best query a known primitive or character first to see the
+---values.
+---
+---You can ask for a list of commands:
+---
+---```
+---local t = token.commands()
+---```
+---
+---The id of a token class can be queried as follows:
+---
+---```
+---local id = token.command_id("math_shift")
+---```
+---
+---If you really know what you're doing you can create character tokens by not
+---passing a string but a number:
+---
+---```
+---local letter_x = token.create(string.byte("x"))
+---local other_x  = token.create(string.byte("x"),12)
+---```
+---
+---Passing weird numbers can give side effects so don't expect too much help with
+---that. As said, you need to know what you're doing. The best way to explore the
+---way these internals work is to just look at how primitives or macros or `chardef`'d commands are tokenized. Just create a known one and inspect its
+---fields. A variant that ignores the current catcode table is:
+---
+---```
+---local whatever = token.new(123,12)
+---```
+---
+---You can test if a control sequence is defined with `is_defined`, which
+---accepts a string and returns a boolean:
+---
+---```
+---local okay = token.is_defined("foo")
+---```
+---
+---The largest character possible is returned by `biggest_char`, just in case you
+---need to know that boundary condition.
+---
+----------------------------------------------------------------
+
+
+---
+---# Macros
+---
+---The `set_macro` function can get upto 4 arguments:
+---
+---```
+---set_macro("csname","content")
+---set_macro("csname","content","global")
+---set_macro("csname")
+---```
+---
+---You can pass a catcodetable identifier as first argument:
+---
+---```
+---set_macro(catcodetable,"csname","content")
+---set_macro(catcodetable,"csname","content","global")
+---set_macro(catcodetable,"csname")
+---```
+---
+---The results are like:
+---
+---```
+--- \def\csname{content}
+---\gdef\csname{content}
+--- \def\csname{}
+---```
+---
+---The `getmacro` function can be used to get the content of a macro while
+---the `getmeaning` function gives the meaning including the argument
+---specification (as usual in *TeX* separated by `->`).
+---
+---The `set_char` function can be used to do a `chardef` at the
+---*Lua* end, where invalid assignments are silently ignored:
+---
+---```
+---set_char("csname",number)
+---set_char("csname",number,"global")
+---```
+---
+---A special one is the following:
+---
+---```
+---set_lua("mycode",id)
+---set_lua("mycode",id,"global","protected")
+---```
+---
+---This creates a token that refers to a *Lua* function with an entry in the table
+---that you can access with `lua.getfunctions_table`. It is the companion
+---to `luadef`. When the first (and only) argument is true the size will preset
+---to the value of `texconfig.function_size`.
+---
+---The `pushmacro` and `popmacro` function are very experimental and
+---can be used to get and set an existing macro. The push call returns a user data
+---object and the pop takes such a userdata object. These object have no accessors
+---and are to be seen as abstractions.
+---
+----------------------------------------------------------------
+
+
+---
+---# Pushing back
+---
+---There is a (for now) experimental putter:
+---
+---```
+---local t1 = token.scannext()
+---local t2 = token.scannext()
+---local t3 = token.scannext()
+---local t4 = token.scannext()
+----- watch out, we flush in sequence
+---token.putnext { t1, t2 }
+----- but this one gets pushed in front
+---token.putnext ( t3, t4 )
+---```
+---
+---When we scan `wxyz!` we get `yzwx!` back. The argument is either a
+---table with tokens or a list of tokens. The `token.expand` function will
+---trigger expansion but what happens really depends on what you're doing where.
+---
+---This putter is actually a bit more flexible because the following input also
+---works out okay:
+---
+---\startbuffer
+---\def\foo#1{[#1]}
+---
+---\directlua {
+---    local list = { 101, 102, 103, token.create("foo"), "{abracadabra}" }
+---    token.putnext("(the)")
+---    token.putnext(list)
+---    token.putnext("(order)")
+---    token.putnext(unpack(list))
+---    token.putnext("(is reversed)")
+---}
+---\stopbuffer
+---
+---\typebuffer
+---
+---We get this: \blank {\tt \inlinebuffer} \blank So, strings get converted to
+---individual tokens according to the current catcode regime and numbers become
+---characters also according to this regime.
+---
+----------------------------------------------------------------
+
+
+---
+---# Nota bene
+---
+---When scanning for the next token you need to keep in mind that we're not scanning
+---like *TeX* does: expanding, changing modes and doing things as it goes. When we
+---scan with *Lua* we just pick up tokens. Say that we have:
+---
+---\pushmacro\oof \let\oof\undefined
+---
+---```
+---\oof
+---```
+---
+---but `\oof` is undefined. Normally *TeX* will then issue an error message.
+---However, when we have:
+---
+---```
+---\def\foo{\oof}
+---```
+---
+---We get no error, unless we expand `\foo` while `\oof` is still
+---undefined. What happens is that as soon as *TeX* sees an undefined macro it will
+---create a hash entry and when later it gets defined that entry will be reused. So,
+---`\oof` really exists but can be in an undefined state.
+---
+---\startbuffer[demo]
+---oof        : \directlua{tex.print(token.scancsname())}\oof
+---foo        : \directlua{tex.print(token.scancsname())}\foo
+---myfirstoof : \directlua{tex.print(token.scancsname())}\myfirstoof
+---\stopbuffer
+---
+---\startlines
+---\getbuffer[demo]
+---\stoplines
+---
+---This was entered as:
+---
+---\typebuffer[demo]
+---
+---The reason that you see `oof` reported and not `myfirstoof` is that
+---`\oof` was already used in a previous paragraph.
+---
+---If we now say:
+---
+---\startbuffer
+---\def\foo{}
+---\stopbuffer
+---
+---\typebuffer \getbuffer
+---
+---we get:
+---
+---\startlines
+---\getbuffer[demo]
+---\stoplines
+---
+---And if we say
+---
+---\startbuffer
+---\def\foo{\oof}
+---\stopbuffer
+---
+---\typebuffer \getbuffer
+---
+---we get:
+---
+---\startlines
+---\getbuffer[demo]
+---\stoplines
+---
+---When scanning from *Lua* we are not in a mode that defines (undefined) macros at
+---all. There we just get the real primitive undefined macro token.
+---
+---\startbuffer
+---\directlua{local t = token.scannext() tex.print(t.id.." "..t.tok)}\myfirstoof
+---\directlua{local t = token.scannext() tex.print(t.id.." "..t.tok)}\mysecondoof
+---\directlua{local t = token.scannext() tex.print(t.id.." "..t.tok)}\mythirdoof
+---\stopbuffer
+---
+---\startlines
+---\getbuffer
+---\stoplines
+---
+---This was generated with:
+---
+---\typebuffer
+---
+---So, we do get a unique token because after all we need some kind of *Lua* object
+---that can be used and garbage collected, but it is basically the same one,
+---representing an undefined control sequence.
+---
+---\popmacro\oof
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---\stopchapter
+---
+---\stopcomponent
+---

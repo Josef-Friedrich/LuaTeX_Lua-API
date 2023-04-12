@@ -1,0 +1,22 @@
+---% language=us runpath=texruns:manuals/luametatex
+---
+---\environment luametatex-style
+---
+---\startcomponent luametatex-contents
+---
+---\starttitle[title=Contents]
+---
+---\start
+---
+---    \definecolor[maincolor][black]
+---
+---    \placelist
+---      [chapter,section,subsection]
+---      [criterium=text]
+---
+---\stop
+---
+---\stoptitle
+---
+---\stopcomponent
+---

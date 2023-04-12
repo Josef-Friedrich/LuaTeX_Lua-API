@@ -1,0 +1,987 @@
+---% language=us runpath=texruns:manuals/luametatex
+---
+---\environment luametatex-style
+---
+---\startcomponent luametatex-fonts
+---
+---# Fonts
+---
+---# Introduction
+---
+---The traditional *TeX* ligature and kerning routines are build in but anything
+---more (like *OpenType* rendering) has to be implemented in *Lua*. In *ConTeXt* we
+---call the former base mode and the later node mode (we have some more modes). This
+---conforms to the *LuaTeX* philosophy. When you pass a font to the frontend only
+---the dimensions matter, as these are used in typesetting, and optionally ligatures
+---and kerns when you rely on the built-in font handler. For math some extra data
+---is needed, like information about extensibles and next in size glyphs. You can of
+---course put more information in your *Lua* tables because when such a table is
+---passed to *TeX* only that what is needed is filtered from it.
+---
+---Because there is no built-in backend, virtual font information is not used. If
+---you want to be compatible you'd better make sure that your tables are okay, and
+---in that case you can best consult the *LuaTeX* manual. For instance, parameters
+---like `extend` are backend related and the standard *LuaTeX* backend sets
+---the standard here.
+---
+----------------------------------------------------------------
+
+
+---
+---# Defining fonts
+---
+---All *TeX* fonts are represented to *Lua* code as tables, and internally as
+---\CCODE\ structures. All keys in the table below are saved in the internal font
+---structure if they are present in the table passed to `font.define`. When
+---the callback is set, which is needed for `\font` to work, its function
+---gets the name and size passed, and it has to return a valid font identifier (a
+---positive number).
+---
+---For the engine to work well, the following information has to be present at
+---the font level:
+---
+--- key                        value type  description 
+---
+---@field name string # metric (file) name 
+---@field original string # the name used in logging and feedback 
+---@field designsize number # expected size (default: 655360 == 10pt) 
+---@field size number # the required scaling (by default the same as designsize) 
+---\HL
+---@field characters table # the defined glyphs of this font 
+---@field fonts table # locally used fonts 
+--- `parameters`         hash        default: 7 parameters, all zero 
+---\HL
+---@field stretch number # the “stretch” 
+---@field shrink number # the “shrink” 
+---@field step number # the “step” 
+---\HL
+--- `textcontrol`        bitset      this controls various code paths in the text engine 
+---@field hyphenchar number # default: *TeX*'s `hyphenchar` 
+---\HL
+---@field skewchar number # default: *TeX*'s `skewchar` 
+---@field nomath boolean # this key allows a minor speedup for text fonts; if it is present and true, then *LuaTeX* will not check the character entries for math-specific keys 
+---@field oldmath boolean # this key flags a font as representing an old school *TeX* math font and disables the *OpenType* code path 
+--- `mathcontrol`        bitset      this controls various code paths in the math engine, like enforcing the traditional code path 
+---@field compactmath boolean # experimental: use the smaller chain to locate a character 
+---@field textscale number # scale applied to math text 
+---@field scriptscale number # scale applied to math script 
+---@field scriptscriptscale number # scale applied to math script script 
+---
+---The `parameters` is a hash with mixed key types. There are seven possible
+---string keys, as well as a number of integer indices (these start from 8 up). The
+---seven strings are actually used instead of the bottom seven indices, because that
+---gives a nicer user interface.
+---
+---The names and their internal remapping are:
+---
+--- name                   remapping 
+---
+--- `slant`         1 
+--- `space`         2 
+--- `spacestretch`  3 
+--- `spaceshrink`   4 
+--- `xheight`       5 
+--- `quad`          6 
+--- `extraspace`    7 
+---
+---The `characters` table is a *Lua* hash table where the keys are integers.
+---When a character in the input is turned into a glyph node, it gets a character
+---code that normally refers to an entry in that table. For proper paragraph
+---building and math rendering the following fields can be present in an entry in
+---the `characters` table. You can of course add all kind of extra fields. The
+---engine only uses those that it needs for typesetting a paragraph or formula. The
+---subtables that define ligatures and kerns are also hashes with integer keys, and
+---these indices should point to entries in the main characters table.
+---
+---Providing ligatures and kerns this way permits *TeX* to construct ligatures and
+---add inter-character kerning. However, normally you will use an *OpenType* font
+---in combination with *Lua* code that does this. In *ConTeXt* we have base mode
+---that uses the engine, and node mode that uses *Lua*. A monospaced font normally
+---has no ligatures and kerns and is normally not processed at all.
+---
+---We can group the parameters. All characters have the following base set. It must
+---be noted here that *OpenType* doesn't have a italic property and that the height
+---and depth are also not part of the design: one can choose to derive them from the
+---bounding box.
+---
+--- key                      type     description \NR
+---
+---@field width number # width in sp (default 0) \NR
+---@field height number # height in sp (default 0) \NR
+---@field depth number # depth in sp (default 0) \NR
+---@field italic number # italic correction in sp (default 0) \NR
+---
+---Then there are three parameters that are more optional and relate to advanced
+---optical paragraph optimization:
+---
+--- key                      type     description \NR
+---
+---@field leftprotruding number # left protruding factor (`lpcode`) \NR
+---@field rightprotruding number # right protruding factor (`rpcode`) \NR
+---@field expansion number # expansion factor (`efcode`) \NR
+---@field compression number # compression factor (`cfcode`) \NR
+---
+---The `lpcode`, `rpcode` and `efcode` are comparable to the ones
+---introduced by *PDF*TEX, while `cfcode` complements `efcode`: a
+---compression alongside expansion code per character. In *Lua*METATEX\ the expansion
+---mechanism is also available in math.
+---
+---From *TeX* we inherit the following tables. Ligatures are only used in so call
+---base mode, when the engine does the font magic. Kerns are used in text and
+---optionally in math: More details follow below.
+---
+--- key                      type     description \NR
+---
+---@field ligatures table # ligaturing information \NR
+---@field kerns table # kerning information \NR
+---
+---The next two fields control the engine and are a variant on *TeX*'s \TFM\ tag
+---property. In a future we might provide a bit more (local) control although
+---currently we see no need. Originally the tag and next field were combined into a
+---packed integer but in current *Lua*METATEX\ we have a 32 bit tag and the next
+---field moved to the math blob as it only is used as variant selector.
+---
+--- key                      type     description \NR
+---
+---@field tag number # a bitset, currently not really exposed \NR
+---%NC `reserved`         number   note for myself 
+---
+---In a math font characters have many more fields.
+---
+--- key                       type     description \NR
+---
+---@field smaller number # the next smaller math size character \NR
+---@field mirror number # a right to left alternative \NR
+---@field flataccent number # an accent alternative with less height (*OpenType*) \NR
+---@field next number # “next larger” character index \NR
+---\HL
+---@field topleft number # alternative script kern \NR
+---@field topright number # alternative script kern \NR
+---@field bottomleft number # alternative script kern \NR
+---@field bottomright number # alternative script kern \NR
+---\HL
+---@field topmargin number # alternative accent calculation margin \NR
+---@field bottomargin number # alternative accent calculation margin \NR
+---@field leftmargin number # alternative accent calculation margin \NR
+---@field rightmargin number # alternative accent calculation margin \NR
+---\HL
+---@field topovershoot number # accent width tolerance \NR
+---@field bottomovershoot number # accent width tolerance \NR
+---\HL
+---@field topanchor number # horizontal top accent alignment position \NR
+---@field bottomanchor number # horizontal bottom accent alignment position \NR
+---\HL
+---@field innerlocation string # `left` or `right`  \NR
+---@field innerxoffset number # radical degree horizontal position \NR
+---@field inneryoffset number # radical degree vertical position \NR
+---\HL
+---@field parts table # constituent parts of an extensible 
+---@field partsitalic number # the italic correction applied with the extensible 
+---@field partsorientation number # `horizontal` or `vertical` \NR
+---\HL
+---@field mathkerns table # math cut-in specifications \NR
+---\HL
+---@field extensible table # stretch a fixed width accent to fit\NR
+---
+---Now some more details follow. For example, here is the character “f”
+---(decimal 102) in the font `cmr10 at 10pt`. The numbers that represent
+---dimensions are in scaled points. Of course you will use Latin Modern *OpenType*
+---instead but the principles are the same:
+---
+---```
+---[102] = {
+---    ["width"]  = 200250,
+---    ["height"] = 455111,
+---    ["depth"]  = 0,
+---    ["italic"] = 50973,
+---    ["kerns"]  = {
+---        [63] = 50973,
+---        [93] = 50973,
+---        [39] = 50973,
+---        [33] = 50973,
+---        [41] = 50973
+---    },
+---    ["ligatures"] = {
+---        [102] = { ["char"] = 11, ["type"] = 0 },
+---        [108] = { ["char"] = 13, ["type"] = 0 },
+---        [105] = { ["char"] = 12, ["type"] = 0 }
+---    }
+---}
+---```
+---
+---Two very special string indexes can be used also: `leftboundary` is a
+---virtual character whose ligatures and kerns are used to handle word boundary
+---processing. `rightboundary` is similar but not actually used for anything
+---(yet).
+---
+---The values of `leftprotrusion` and `rightprotrusion` are used only
+---when `protrudechars` is non-zero. Whether or not `expansion` is used
+---depends on the font's global expansion settings, as well as on the value of `adjustspacing`.
+---
+---The values of `topanchor`, `bottomanchor` and `mathkern` are
+---used only for math accent and superscript placement, see \at {page} [math] in
+---this manual for details. The italic corrections are a story in themselves and
+---discussed in detail in other manuals. The additional parameters that deal with
+---kerns, margins, overshoots, inner anchoring, etc. are engine specific and not
+---part of *OpenType*. More information can be found in the *ConTeXt* distribution;
+---they relate the upgraded math engine project by Mikael and Hans.
+---
+---A math character can have a `next` field that points to a next larger
+---shape. However, the presence of `extensible` will overrule `next`, if
+---that is also present. The `extensible` field in turn can be overruled by
+---`parts`, the *OpenType* version. The `extensible` table is very
+---simple:
+---
+--- key         type    description                \NR
+---
+---@field top number # top character index        \NR
+---@field mid number # middle character index     \NR
+---@field bot number # bottom character index     \NR
+---@field rep number # repeatable character index \NR
+---
+---The `parts` entru is an arrays of components. Each of those components is
+---itself a hash of up to five keys:
+---
+--- key              type    explanation 
+---
+---@field glyph number # The character index. Note that this is an encoding number, not a name. 
+---@field extender number # One (1) if this part is repeatable, zero (0) otherwise. 
+---@field start number # The maximum overlap at the starting side (in scaled points). 
+---@field end number # The maximum overlap at the ending side (in scaled points). 
+---@field advance number # The total advance width of this item. It can be zero or missing, then the natural size of the glyph for character `component` is used. 
+---
+---The traditional (text and math) `kerns` table is a hash indexed by
+---character index (and “character index” is defined as either a
+---non-negative integer or the string value `rightboundary`), with the
+---values of the kerning to be applied, in scaled points.
+---
+---The traditional (text) `ligatures` table is a hash indexed by character
+---index (and “character index” is defined as either a non-negative integer
+---or the string value `rightboundary`), with the values being yet another
+---small hash, with two fields:
+---
+--- key          type    description 
+---
+---@field type number # the type of this ligature command, default 0 
+---@field char number # the character index of the resultant ligature 
+---
+---The `char` field in a ligature is required. The `type` field inside a
+---ligature is the numerical or string value of one of the eight possible ligature
+---types supported by *TeX*. When *TeX* inserts a new ligature, it puts the new glyph
+---in the middle of the left and right glyphs. The original left and right glyphs
+---can optionally be retained, and when at least one of them is kept, it is also
+---possible to move the new “insertion point” forward one or two places. The
+---glyph that ends up to the right of the insertion point will become the next
+---“left”.
+---
+--- textual (Knuth)        number  string         result      \NR
+---
+--- `l + r =: n`      0       `=:`      `|n`   \NR
+--- `l + r =:| n`     1       `=:|`     `|nr`  \NR
+--- `l + r |=: n`     2       `|=:`     `|ln`  \NR
+--- `l + r |=:| n`    3       `|=:|`    `|lnr` \NR
+--- `l + r  =:|> n`   5       `=:|>`    `n|r`  \NR
+--- `l + r |=:> n`    6       `|=:>`    `l|n`  \NR
+--- `l + r |=:|> n`   7       `|=:|>`   `l|nr` \NR
+--- `l + r |=:|>> n`  11      `|=:|>>`  `ln|r` \NR
+---
+---The default value is 0, and can be left out. That signifies a “normal”
+---ligature where the ligature replaces both original glyphs. In this table the `|`
+---indicates the final insertion point.
+---
+---% The `mathcontrol` bitset is mostly there for experimental purposes. Because
+---% there is inconsistency in the *OpenType* math fonts with respect to for instance
+---% glyph dimensions, it is possible to force the traditional code path. We just mention
+---% the possible flags:
+---%
+---% \startluacode
+---%     context.starttabulate { "|||" }
+---%     context.DB() context("value") context.BC() context("effect") context.NC() context.NR()
+---%     context.TB()
+---%     for k, v in table.sortedhash(tex.getmathcontrolvalues()) do
+---%         context.NC() context("0x%04X",k) context.NC() context(v) context.NC() context.NR()
+---%     end
+---%     context.LL()
+---%     context.stoptabulate()
+---% \stopluacode
+---
+---Compact math is an experimental feature. The smaller field in a character
+---definition of a text character can point to a script character that itself can
+---point to a scriptscript one. When set the `textscale`, `scriptscale`
+---and `scriptscriptscale` is applied to those.
+---
+---Bidirectional math is also experimental and driven by (in *ConTeXt* speak) tweaks
+---which means that it has to be set up explicitly as it uses a combination of
+---fonts. In *ConTeXt* is also uses specific features of the font subsystems that
+---hook into the backend where we have a more advanced virtual font subsystem than
+---in *LuaTeX*. Because this is macro package dependent it will not be discussed
+---here.
+---
+---% The `textcontrol` field is used to control some aspects of text processing.
+---% More options might be added in the future.
+---
+---% \startluacode
+---%     context.starttabulate { "|||" }
+---%     context.DB() context("value") context.BC() context("effect") context.NC() context.NR()
+---%     context.TB()
+---%     for k, v in table.sortedhash(tex.gettextcontrolvalues()) do
+---%         context.NC() context("0x%04X",k) context.NC() context(v) context.NC() context.NR()
+---%     end
+---%     context.LL()
+---%     context.stoptabulate()
+---% \stopluacode
+---%
+---% In *ConTeXt* these are interfaced via pseudo features. The math control flags of
+---% a font can be overloaded by `mathcontrolmode` on the spot and the set
+---% controls of a font can be queried by `fontmathcontrol`. The text control
+---% flags in a font always win over the ones set by other parameters, like \prm
+---% {hyphenationmode}. They can be queried with `fonttextcontrol`.
+---
+----------------------------------------------------------------
+
+
+---
+---# Virtual fonts
+---
+---% 
+---
+---Virtual fonts have been introduced to overcome limitations of good old *TeX*. They
+---were mostly used for providing a direct mapping from for instance accented
+---characters onto a glyph. The backend was responsible for turning a reference to a
+---character slot into a real glyph, possibly constructed from other glyphs. In our
+---case there is no backend so there is also no need to pass this information
+---through *TeX*. But it can of course be part of the font information and because it is
+---a kind of standard, we describe it here.
+---
+---A character is virtual when it has a `commands` array as part of the data.
+---A virtual character can itself point to virtual characters but be careful with
+---nesting as you can create loops and overflow the stack (which often indicates an
+---error anyway).
+---
+---At the font level there can be a an (indexed) `fonts` table. The values are
+---one- or two-key hashes themselves, each entry indicating one of the base fonts
+---in a virtual font. In case your font is referring to itself in for instance a
+---virtual font, you can use the `slot` command with a zero font reference,
+---which indicates that the font itself is used. So, a table looks like this:
+---
+---```
+---fonts = {
+---  { name = "ptmr8a", size = 655360 },
+---  { name = "psyr", size = 600000 },
+---  { id = 38 }
+---}
+---```
+---
+---The first referenced font (at index 1) in this virtual font is `ptrmr8a`
+---loaded at 10pt, and the second is `psyr` loaded at a little over 9pt. The
+---third one is a previously defined font that is known to *LuaTeX* as font id 38.
+---The array index numbers are used by the character command definitions that are
+---part of each character.
+---
+---The `commands` array is a hash where each item is another small array, with
+---the first entry representing a command and the extra items being the parameters
+---to that command. The frontend is only interested in the dimensions, ligatures and
+---kerns of a font, which is the reason why the *TeX* engine didn't have to be
+---extended when virtual fonts showed up: dealing with it is up to the driver that
+---comes after the backend. In *PDF*TEX\ and *LuaTeX* that driver is integrated so
+---there the backend also deals with virtual fonts. The first block in the next
+---table is what the standard mentions. The `special` command is indeed
+---special because it is an extension container. The mentioned engines only support
+---pseudo standards where the content starts with `pdf:`. The last block is
+---*LuaTeX* specific and will not be found in native fonts. These entries can be
+---used in virtual fonts that are constructed in *Lua*.
+---
+---But \unknown\ in *Lua*METATEX\ there is no backend built in but we might assume
+---that the one provided deals with these entries. However, a provided backend can
+---provide more and that is indeed what happens in *ConTeXt*. There, because we no
+---longer have compacting (of passed tables) and unpacking (when embedding) of these
+---tables going on we stay in the *Lua* domain. None of the virtual specification is
+---ever seen in the engine.
+---
+--- command         arguments  type       description 
+---
+---@field font`     1          number     select a new font from the local `fonts table # 
+--- `char`     1          number     typeset this character number from the current font, and move right by the character's width 
+--- `push`     0                     save current position
+--- `pop`      0                     pop position 
+--- `rule`     2          2 numbers  output a rule `ht*wd`, and move right. 
+--- `down`     1          number     move down on the page 
+--- `right`    1          number     move right on the page 
+---\HL
+--- `special`  1          string     output a driver directive 
+---\HL
+--- `nop`      0                     do nothing 
+--- `slot`     2          2 numbers  a shortcut for the combination of a font and char command
+---@field node 1          node       output this node # (list), and move right by the width of this list
+--- `pdf`      2          2 strings  output a *PDF* literal, the first string is one of `origin`, `page`, `text`, `font`, `direct` or `raw`; if you have one string only `origin` is assumed 
+--- `lua`      1          string, function   execute a *Lua* script when the glyph is embedded; in case of a function it gets the font id and character code passed 
+--- `image`    1          image      depends on the backend 
+--- `comment`  any        any        the arguments of this command are ignored 
+---
+---When a font id is set to 0 then it will be replaced by the currently assigned
+---font id. This prevents the need for hackery with future id's.
+---
+---The `pdf` option also accepts a `mode` keyword in which case the
+---third argument sets the mode. That option will change the mode in an efficient
+---way (passing an empty string would result in an extra empty lines in the *PDF*
+---file. This option only makes sense for virtual fonts. The `font` mode only
+---makes sense in virtual fonts. Modes are somewhat fuzzy and partially inherited
+---from *PDF*TEX.
+---
+--- mode            description 
+---
+--- `origin`  enter page mode and set the position 
+--- `page`    enter page mode 
+--- `text`    enter text mode 
+--- `font`    enter font mode (kind of text mode, only in virtual fonts) 
+--- `always`  finish the current string and force a transform if needed 
+--- `raw`     finish the current string 
+---
+---You always need to check what *PDF* code is generated because there can be all
+---kind of interferences with optimization in the backend and fonts are complicated
+---anyway. Here is a rather elaborate glyph commands example using such keys:
+---
+---```
+---...
+---commands = {
+---    { "push" },                     -- remember where we are
+---    { "right", 5000 },              -- move right about 0.08pt
+---    { "font", 3 },                  -- select the fonts[3] entry
+---    { "char", 97 },                 -- place character 97 (ASCII 'a')
+--- -- { "slot", 2, 97 },              -- an alternative for the previous two
+---    { "pop" },                      -- go all the way back
+---    { "down", -200000 },            -- move upwards by about 3pt
+---    { "special", "pdf: 1 0 0 rg" }  -- switch to red color
+--- -- { "pdf", "origin", "1 0 0 rg" } -- switch to red color (alternative)
+---    { "rule", 500000, 20000 }       -- draw a bar
+---    { "special", "pdf: 0 g" }       -- back to black
+--- -- { "pdf", "origin", "0 g" }      -- back to black (alternative)
+---}
+---...
+---```
+---
+---The default value for `font` is always 1 at the start of the
+---`commands` array. Therefore, if the virtual font is essentially only a
+---re-encoding, then you do usually not have created an explicit “font”
+---command in the array.
+---
+---Rules inside of `commands` arrays are built up using only two dimensions:
+---they do not have depth. For correct vertical placement, an extra `down`
+---command may be needed.
+---
+---Regardless of the amount of movement you create within the `commands`, the
+---output pointer will always move by exactly the width that was given in the `width` key of the character hash. Any movements that take place inside the `commands` array are ignored on the upper level.
+---
+---The special can have a `pdf:`, `pdf:origin:`,  `pdf:page:`,
+---`pdf:direct:` or  `pdf:raw:` prefix. When you have to concatenate
+---strings using the `pdf` command might be more efficient.
+---
+---{\em For the record: in *ConTeXt* \LMTX\ we no longer support the `pdf`, `image` and `special` keywords.}
+---
+----------------------------------------------------------------
+
+
+---
+---# Additional *TeX* commands
+---
+---# Font syntax
+---
+---*LuaTeX* will accept a braced argument as a font name:
+---
+---```
+---\font\myfont = {cmr10}
+---```
+---
+---This allows for embedded spaces, without the need for double quotes. Macro
+---expansion takes place inside the argument.
+---
+----------------------------------------------------------------
+
+
+---
+---# `fontid`, `setfontid` and `mathstylefontid`
+---
+---\startsyntax
+---\fontid\font
+---\stopsyntax
+---
+---This primitive expands into a number. The currently used font id is
+---\number\fontid\font. Here are some more: \footnote {Contrary to *LuaTeX* this is
+---now a number so you need to use `number` or `the`. The same is true
+---for some other numbers and dimensions that for some reason ended up in the
+---serializer that produced a sequence of tokens.}
+---
+--- style  command  font id 
+---
+--- normal       `\tf`  \tf \number\fontid\font 
+--- bold         `\bf`  \bf \number\fontid\font 
+--- italic       `\it`  \it \number\fontid\font 
+--- bold italic  `\bi`  \bi \number\fontid\font 
+---
+---These numbers depend on the macro package used because each one has its own way
+---of dealing with fonts. They can also differ per run, as they can depend on the
+---order of loading fonts. For instance, when in *ConTeXt* virtual math *Unicode*
+---fonts are used, we can easily get over a hundred ids in use. Not all ids have to
+---be bound to a real font, after all it's just a number.
+---
+---The primitive `setfontid` can be used to enable a font with the given id,
+---which of course needs to be a valid one.
+---
+---In math mode the font id depends on the style because there we have a family of
+---three related fonts. In this document we get the following identifiers:
+---
+--- `` \the \mathstylefontid \scriptscriptstyle \fam``  `\the\mathstylefontid\scriptscriptstyle \fam` 
+--- `` \the \mathstylefontid \scriptstyle       \fam``  `\the\mathstylefontid\scriptstyle       \fam` 
+--- `` \the \mathstylefontid \textstyle         \fam``  `\the\mathstylefontid\textstyle         \fam` 
+---
+----------------------------------------------------------------
+
+
+---
+---# `fontspecifiedname` and `fontspecifiedsize`
+---
+---These two primitives provide some details about the given font:
+---
+---\startbuffer
+---{\tf [\fontspecifiedname\font] [\the\fontspecifiedsize\font]}
+---{\bf [\fontspecifiedname\font] [\the\fontspecifiedsize\font]}
+---{\it [\fontspecifiedname\font] [\the\fontspecifiedsize\font]}
+---\stopbuffer
+---
+---\typebuffer
+---
+---So for this document we get:
+---
+---\startlines
+---\getbuffer
+---\stoplines
+---
+---Of course this also depends on the macro package because that is responsible for
+---implementing font support and because all that is driven by callbacks the
+---reported name doesn't even have to resemble a font.
+---
+----------------------------------------------------------------
+
+
+---
+---# `glyphoptions`
+---
+---In *LuaTeX* the `\noligs` and `\nokerns` primitives suppress these
+---features but in *Lua*METATEX\ these primitives are gone. They are replace by a more
+---generic control primitive `glyphoptions`. This numerical parameter is a
+---bitset with the following fields:
+---
+---% todo: use values
+---
+--- value        effect \NR
+---
+--- `0x01`  prevent left ligature             
+--- `0x02`  prevent right ligature            
+--- `0x04`  block left kern                   
+--- `0x08`  block right kern                  
+--- `0x10`  don't apply  expansion            
+--- `0x20`  don't apply protrusion            
+--- `0x40`  apply xoffset to width            
+--- `0x80`  apply yoffset to height and depth 
+---
+---The effects speak for themselves. They provide detailed control over individual
+---glyph, this because the current value of this option is stored with glyphs.
+---
+----------------------------------------------------------------
+
+
+---
+---# `glyphscale`, `glyphxscale`, `glyphyscale` and `scaledfontdimen`
+---
+---The three scale parameters control the current scaling. They are traditional
+---*TeX* integer parameters that operate independent of each other. The scaling is
+---reflected in the dimensions of glyphs as well as in the related font dimensions,
+---which means that units like `ex` and `em` work as expected. If you
+---query a font dimensions with `fontdimen` you get the raw value but with `scaledfontdimen` you get the useable value.
+---
+----------------------------------------------------------------
+
+
+---
+---# `glyphxscaled`, `glyphyscaled`
+---
+---These two relate to the previous one:
+---
+---\startbuffer
+---{\glyphxscale 1500 \the\glyphxscaled 100pt} and
+---{\glyphyscale  750 \the\glyphyscaled 100pt}
+---\stopbuffer
+---
+---\typebuffer
+---
+---We get: \inlinebuffer.
+---
+----------------------------------------------------------------
+
+
+---
+---# Scaled fontdimensions
+---
+---When you use `glyphscale`,  `glyphxscale` and/or  `glyphyscale` the font
+---dimensions
+---
+--- dimension                      scale  xscale  yscale \NR
+---
+--- `scaledemwidth`           \star  \star          \NR
+--- `scaledexheight`          \star          \star  \NR
+--- `scaledextraspace`        \star  \star          \NR
+--- `scaledinterwordshrink`   \star  \star          \NR
+--- `scaledinterwordspace`    \star  \star          \NR
+--- `scaledinterwordstretch`  \star  \star          \NR
+--- `scaledslantperpoint`     \star  \star          \NR
+---
+---The next table shows the effective sized when we scale by 2000. The last two
+---columns scale twice: the shared scale and the x or y scale.
+---
+---\def\ShowThem#1%
+---  {\normalexpanded{
+---    \small `\csstring\parametermark1`
+---    {\localcontrolled{\glyphscale2000 \glyphxscale1000 \glyphyscale 1000} \withoutpt\parametermark1}
+---    {\localcontrolled{\glyphscale1000 \glyphxscale2000 \glyphyscale 1000} \withoutpt\parametermark1}
+---    {\localcontrolled{\glyphscale1000 \glyphxscale1000 \glyphyscale 2000} \withoutpt\parametermark1}
+---    {\localcontrolled{\glyphscale2000 \glyphxscale2000 \glyphyscale 1000} \withoutpt\parametermark1}
+---    {\localcontrolled{\glyphscale2000 \glyphxscale1000 \glyphyscale 2000} \withoutpt\parametermark1}
+---   }}
+---
+---    \ShowThem\scaledemwidth
+---    \ShowThem\scaledexheight
+---    \ShowThem\scaledextraspace
+---    \ShowThem\scaledinterwordshrink
+---    \ShowThem\scaledinterwordspace
+---    \ShowThem\scaledinterwordstretch
+---    \ShowThem\scaledslantperpoint
+---
+---# `fontspecdef`, `fontspecid`, `fontspecscale`, , `fontspecxscale`, `fontspecyscale`
+---
+---Because we have three scale related primitives `glyphscale`, `glyphxscale` and `glyphyscale`, we also have a way to quickly set them all.
+---
+---```
+---\fontspecdef \MyFontA 2 all 1000
+---\fontspecdef \MyFontB \MyFontA xscale 1200
+---```
+---
+---The defined control sequence will set the font id (which is 2 in the case of
+---`\MyFontA`) as well as the scale(s). Possible keywords are `scale`,
+---`xscale`, `yscale` and `all`. By default the values are 1000.
+---Instead of an id an already defined specification can be given in which case we
+---start from a copy. This mechanism is still somewhat experimental and might
+---evolve. The main reason for introducing it is that it gives less tracing.
+---
+---Say that we have:
+---
+---\startbuffer
+---\fontspecdef\MyFoo\font xscale 1200 \relax
+---\stopbuffer
+---
+---\typebuffer \getbuffer
+---
+---The four properties of such a specification can then be queried as follows:
+---
+---\startbuffer
+---[\the\fontspecid    \MyFoo]
+---[\the\fontspecscale \MyFoo]
+---[\the\fontspecxscale\MyFoo]
+---[\the\fontspecyscale\MyFoo]
+---\stopbuffer
+---
+---\typebuffer \getbuffer
+---
+---A font specification obeys grouping but is not a register. Like `integerdef`
+---and `dimendef` it is just a control sequence with a special meaning.
+---
+---% \the\fontspecifiedsize\font
+---%     \fontspecifiedname\font
+---
+----------------------------------------------------------------
+
+
+---
+---# `glyphxoffset`, `glyphyoffset`
+---
+---These two parameters control the horizontal and vertical shift of glyphs with,
+---when applied to a stretch of them, the horizontal offset probably being the least
+---useful.
+---
+----------------------------------------------------------------
+
+
+---
+---# `glyph`
+---
+---This command is a variation in `char` that takes keywords:
+---
+--- keyword  effect  type 
+---
+--- `xoffset`  (virtual) horizontal shift  dimension  
+--- `yoffset`  (virtual) vertical shift    dimension  
+--- `xscale`   horizontal scaling          integer    
+--- `yscale`   vertical scaling            integer    
+--- `options`  glyph options               bitset     
+--- `font`     font                        identifier 
+--- `id`       font                        integer    
+---
+---The values default to the currently set values. Here is a *ConTeXt* example:
+---
+---\startbuffer
+---\ruledhbox{
+---    \ruledhbox{\glyph yoffset 1ex options 0 123}
+---    \ruledhbox{\glyph xoffset .5em yoffset 1ex options "C0 125}
+---    \ruledhbox{baseline\glyphyoffset 1ex \glyphxscale 800 \glyphyscale\glyphxscale raised}
+---}
+---\stopbuffer
+---
+---\typebuffer
+---
+---Visualized:
+---
+---\getbuffer
+---
+----------------------------------------------------------------
+
+
+---
+---# `nospaces`
+---
+---This new primitive can be used to overrule the usual `spaceskip` related
+---heuristics when a space character is seen in a text flow. The value `1`
+---triggers no injection while `2` results in injection of a zero skip. In \in
+---{figure} [fig:nospaces] we see the results for four characters separated by a
+---space.
+---
+---\startplacefigure[reference=fig:nospaces,title={The `nospaces` options.}]
+---\startcombination[3*2]
+---    {\ruledhbox to 5cm{\vtop{\hsize 10mm\nospaces=0\relax x x x x \par}\hss}} {`0 / hsize 10mm`}
+---    {\ruledhbox to 5cm{\vtop{\hsize 10mm\nospaces=1\relax x x x x \par}\hss}} {`1 / hsize 10mm`}
+---    {\ruledhbox to 5cm{\vtop{\hsize 10mm\nospaces=2\relax x x x x \par}\hss}} {`2 / hsize 10mm`}
+---    {\ruledhbox to 5cm{\vtop{\hsize  1mm\nospaces=0\relax x x x x \par}\hss}} {`0 / hsize 1mm`}
+---    {\ruledhbox to 5cm{\vtop{\hsize  1mm\nospaces=1\relax x x x x \par}\hss}} {`1 / hsize 1mm`}
+---    {\ruledhbox to 5cm{\vtop{\hsize  1mm\nospaces=2\relax x x x x \par}\hss}} {`2 / hsize 1mm`}
+---\stopcombination
+---\stopplacefigure
+---
+----------------------------------------------------------------
+
+
+---
+---# `protrusionboundary`
+---
+---The protrusion detection mechanism is enhanced a bit to enable a bit more complex
+---situations. When protrusion characters are identified some nodes are skipped:
+---
+---* zero glue 
+---* penalties 
+---* empty discretionaries 
+---* normal zero kerns 
+---* rules with zero dimensions 
+---* math nodes with a surround of zero 
+---* dir nodes 
+---* empty horizontal lists 
+---* local par nodes 
+---* inserts, marks and adjusts 
+---* boundaries 
+---* whatsits 
+---
+---Because this can not be enough, you can also use a protrusion boundary node to
+---make the next node being ignored. When the value is 1 or 3, the next node will be
+---ignored in the test when locating a left boundary condition. When the value is 2
+---or 3, the previous node will be ignored when locating a right boundary condition
+---(the search goes from right to left). This permits protrusion combined with for
+---instance content moved into the margin:
+---
+---```
+---\protrusionboundary1\llap{!\quad}«Who needs protrusion?»
+---```
+---
+----------------------------------------------------------------
+
+
+---
+---# `fontcharta`
+---
+---The `fontcharwd`, `fontcharht`, `fontchardp` and `fontcharic`
+---give access to character properties. To this repertoire *Lua*METATEX\ adds the top
+---accent accessor `fontcharta` which came in handy for tracing. You pass a
+---font reference and character code. Normally only *OpenType* math fonts have this
+---property.
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---# The *Lua* font library[library=font]
+---
+---# Introduction
+---
+---The *Lua* font library is reduced to a few commands. Contrary to *LuaTeX* there
+---is no loading of \TFM\ or \VF\ files. The explanation of the following commands
+---is in the *LuaTeX* manual.
+---
+--- function               description \NR
+---
+--- `current`        returns the id of the currently active font 
+--- `max`            returns the last assigned font identifier 
+--- `setfont`        enables a font setfont (sets the current font id) 
+--- `addcharacters`  adds characters to a font 
+--- `define`         defined a font 
+--- `id`             returns the id that relates to a command name 
+---
+---For practical reasons the management of font identifiers is still done by *TeX*
+---but it can become an experiment to delegate that to *Lua* as well.
+---
+----------------------------------------------------------------
+
+
+---
+---# Defining a font with `define`, `addcharacters` and `setfont`
+---
+---Normally you will use a callback to define a font but there's also a *Lua*
+---function that does the job.
+---
+---```
+---id = font.define(<table> f)
+---```
+---
+---Within reasonable bounds you can extend a font after it has been defined. Because
+---some properties are best left unchanged this is limited to adding characters.
+---
+---```
+---font.addcharacters(<number n>, <table> f)
+---```
+---
+---The table passed can have the fields `characters` which is a (sub)table
+---like the one used in define, and for virtual fonts a `fonts` table can be
+---added. The characters defined in the `characters` table are added (when not
+---yet present) or replace an existing entry. Keep in mind that replacing can have
+---side effects because a character already can have been used. Instead of posing
+---restrictions we expect the user to be careful. The `setfont` helper is
+---a more drastic replacer and only works when a font has not been used yet.
+---
+----------------------------------------------------------------
+
+
+---
+---# Font ids: `id`, `max` and `current`
+---
+---```
+---<number> i = font.id(<string> csname)
+---```
+---
+---This returns the font id associated with `csname`, or `-1` if `csname` is not defined.
+---
+---```
+---<number> i = font.max()
+---```
+---
+---This is the largest used index so far. The currently active font id can be
+---queried or set with:
+---
+---```
+---<number> i = font.current()
+---font.current(<number> i)
+---```
+---
+----------------------------------------------------------------
+
+
+---
+---# Glyph data: `glyphdatafield`, `glyphscriptfield`, `glyphstatefield`
+---
+---These primitives can be used to set an additional glyph properties. Of course
+---it's very macro package dependant what is done with that. It started with just
+---the first one as experiment, simply because we had some room left in the glyph
+---data structure. It's basically an single attribute. Then, when we got rid of the
+---ligature pointer we could either drop it or use that extra field for some more,
+---and because *ConTeXt* already used the data field, that is what happened. The
+---script and state fields are shorts, that is, they run from zero to `0xFFFF`
+---where we assume that zero means “unset”. Although they can be used for
+---whatever purpose their use in *ConTeXt* is fixed.
+---
+----------------------------------------------------------------
+
+
+---
+---# Scaling math fonts with `glyphtextscale` etc
+---
+---More details about fonts in math mode can be found in the chapter about math so
+---here we just mention a few primitives. The internal `glyphtextscale`, `glyphscriptscale` and `glyphscriptscriptscale` registers can be set to
+---enforce additional scaling of math, like this:
+---
+---\startbuffer
+---`                            a = b^2 = c^{d^2}`
+---`\glyphtextscale         800 a = b^2 = c^{d^2}`
+---`\glyphscriptscale       800 a = b^2 = c^{d^2}`
+---`\glyphscriptscriptscale 800 a = b^2 = c^{d^2}`
+---\stopbuffer
+---
+---\typebuffer
+---
+---You can of course set them all in any mix as long as the value is larger than
+---zero and doesn't exceed 1000. In *ConTeXt* we use this for special purposes so
+---don't mess with it there. as there can be side unexpected (but otherwise valid)
+---side effects.
+---
+---\startlines
+---\getbuffer
+---\stoplines
+---
+---The next few reported values depend on the font setup. A math font can be loaded
+---at a certain scale and further scaled on the fly. An open type math font comes with
+---recommended script and scriptscript scales and gets passed to the engine scaled. The
+---values reported by `mathscale` are {\em additional} scales.
+---
+---\startbuffer
+---`\the\mathscale\textfont        \zerocount`
+---`\the\mathscale\scriptfont      \zerocount`
+---`\the\mathscale\scriptscriptfont\zerocount`
+---\stopbuffer
+---
+---\typebuffer
+---
+---In *ConTeXt* we use this for some experiments (of which some made it into
+---features) but discussing this fall behind this manual. You cannot set these
+---values because the engine has to work with consistent settings and messing around
+---with fonts during a run only works well if the backend also cooperates. Also the
+---values only makes sense in the perspective of the used macro package.
+---
+----------------------------------------------------------------
+
+
+---
+---# Tracing
+---
+---The `tracingfonts` primitive that has been inherited from *PDF*TEX\ has
+---been adapted to support variants in reporting the font. The reason for this
+---extension is that a csname not always makes sense. The zero case is the default.
+---
+--- value  reported 
+---
+--- `0`  `\foo xyz` 
+--- `1`  `\foo (bar)` 
+--- `2`  `<bar> xyz` 
+--- `3`  `<bar @ ..pt> xyz` 
+--- `4`  `<id>` 
+--- `5`  `<id: bar>` 
+--- `6`  `<id: bar @ ..pt> xyz` 
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---\stopchapter
+---
+---\stopcomponent
+---
+---

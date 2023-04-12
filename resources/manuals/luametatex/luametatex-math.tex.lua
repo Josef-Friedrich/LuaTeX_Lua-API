@@ -1,0 +1,2820 @@
+---% language=us runpath=texruns:manuals/luametatex
+---
+---\environment luametatex-style
+---
+---\startcomponent luametatex-math
+---
+---# Math
+---
+---# Traditional alongside *OpenType*
+---
+---Because we started from *LuaTeX*, by the end of 2021 this chapter started with
+---this, even if we already reworked the engine:
+---
+---\startquotation
+---At this point there is no difference between *Lua*METATEX\ and *LuaTeX* with
+---respect to math. \footnote {This might no longer be true because we have more
+---control options that define default behavior and also have a more extensive
+---scaling model. Anyway, it should not look worse, and maybe even a bit better.}
+---The handling of mathematics in *LuaTeX* differs quite a bit from how *TeX*82 (and
+---therefore *PDF*TEX) handles math. First, *LuaTeX* adds primitives and extends some
+---others so that *Unicode* input can be used easily. Second, all of *TeX*82's
+---internal special values (for example for operator spacing) have been made
+---accessible and changeable via control sequences. Third, there are extensions that
+---make it easier to use *OpenType* math fonts. And finally, there are some
+---extensions that have been proposed or considered in the past that are now added
+---to the engine.
+---
+---You might be surprised that we don't use all these new control features in
+---*ConTeXt* \LMTX\ but who knows what might happen because users drive it. The main
+---reason for adding so much is that I decided it made more sense to be complete now
+---than gradually add more and more. At some point we should be able to say “This is it”. Also, when looking at these features, you need to keep in mind that
+---when it comes to math, \LATEX\ is the dominant macro package and it never needed
+---these engine features, so most are probably just here for exploration purposes.
+---\stopquotation
+---
+---Although we still process math as *TeX* does, there have been some fundamental
+---changes to the machinery. Most of that is discussed in documents that come with
+---*ConTeXt* and in Mikael Sundqvist math manual. Together we explored some new ways
+---to deal with math spacing, penalties, fencing, operators, fractions, atoms and
+---other features of the *TeX* engine. We started from the way *ConTeXt* used the
+---already present functionality combine with sometimes somewhat dirty (but on the
+---average working well) tricks.
+---
+---It will take a while before this chapter is updated. If you find errors or things
+---missing, let me know. A lot of pairwise spacing primitives were dropped but also
+---quite a bit of new ones introduced to control matters. Much in *Lua*METATEX\ math
+---handling is about micro-typography and for us the results are quite visible.
+---But, as far as we know, there have never been complaints or demands in the
+---direction of the features discussed here. Also, *TeX* math usage outside
+---*ConTeXt* is rather chiselled in stone (already for nearly three decades) so we
+---don't expect other macro packages to use the new features anyway.
+---
+----------------------------------------------------------------
+
+
+---
+---\startsection[title=Intermezzo]
+---
+---It is important to understand a bit how *TeX* handles math. The math engine
+---is a large subsystem and basically can be divided in two parts: convert
+---sequential input into a list of nodes where math related ones actually are
+---sort of intermediate and therefore called noads.
+---
+---In text mode entering `abc` results in three glyph nodes and `a b
+---c` in three glyph nodes separated by (spacing) glue. Successive glyphs can be
+---transformed in the font engine later on, just as hyphenation directive can
+---be added. Eventually one (normally) gets a mix of glyphs, font kerns from
+---a sequence of glyphs
+---
+---In math mode `abc` results in three simple ordinary noads and `a
+---b c` is equivalent to that: three noads. But `a bc` results in two
+---ordinary noads where the second one has a sublist of two ordinary noads.
+---Because characters have class properties, `( a + b = c )` results in a
+---simple open noad, a simple ordinary, a simple binary, a simple ordinary, a
+---simple relation, a simple ordinary and simple close noad. The next samples show a
+---bit of this; in order to see th effects spacing between ordinary atoms set
+---to `9mu`.
+---
+---\startbuffer
+---\typebuffer[sample]
+---% \tracingmath1\tracingonline1
+---\startlinecorrection
+---\setmathspacing\mathordinarycode\mathordinarycode\allmathstyles9mu
+---\mathgroupingmode\zerocount
+---\scale[scale=2000]{\showmakeup[mathglue]\showboxes\mathspacingmode\plusone\getbuffer[sample]}
+---\stoplinecorrection
+---\blank[2*line]
+---\stopbuffer
+---
+---\startbuffer[sample]
+---`a b c` \quad `a bc` \quad `abc`
+---\stopbuffer
+---
+---\getbuffer
+---
+---With `\tracingmath 1` we get this logged:
+---
+---```
+---> \inlinemath=
+---\noad[ord][...]
+---.\nucleus
+---..\mathchar[ord][...], family "0, character "61
+---\noad[ord][...]
+---.\nucleus
+---..\mathchar[ord][...], family "0, character "62
+---\noad[ord][...]
+---.\nucleus
+---..\mathchar[ord][...], family "0, character "63
+---
+---> \inlinemath=
+---\noad[ord][...]
+---.\nucleus
+---..\mathchar[ord][...], family "0, character "61
+---\noad[ord][...]
+---.\nucleus
+---..\mathchar[ord][...], family "0, character "62
+---\noad[ord][...]
+---.\nucleus
+---..\mathchar[ord][...], family "0, character "63
+---
+---> \inlinemath=
+---\noad[ord][...]
+---.\nucleus
+---..\mathchar[ord][...], family "0, character "61
+---\noad[ord][...]
+---.\nucleus
+---..\mathchar[ord][...], family "0, character "62
+---\noad[ord][...]
+---.\nucleus
+---..\mathchar[ord][...], family "0, character "63
+---```
+---
+---\startbuffer[sample]
+---`{a} {b} {c}` \quad `{a} {bc}` \quad `{abc}`
+---\stopbuffer
+---
+---\getbuffer
+---
+---If the previous log surprises you, that might be because in *ConTeXt* we set up the
+---engine differently: curly braces don't create ordinary atoms. However, when we
+---set `\mathgroupingmode 0` we return to what the engine normally does.
+---
+---```
+---> \inlinemath=
+---\noad[ord][...]
+---.\nucleus
+---..\mathchar[ord][...], family "0, character "61
+---\noad[ord][...]
+---.\nucleus
+---..\mathchar[ord][...], family "0, character "62
+---\noad[ord][...]
+---.\nucleus
+---..\mathchar[ord][...], family "0, character "63
+---
+---> \inlinemath=
+---\noad[ord][...]
+---.\nucleus
+---..\mathchar[ord][...], family "0, character "61
+---\noad[ord][...]
+---.\nucleus
+---..\submlist[0][...][tracing depth 5 reached]
+---
+---> \inlinemath=
+---\noad[ord][...]
+---.\nucleus
+---..\submlist[0][...][tracing depth 5 reached]
+---```
+---
+---From the first example you can imagine what these sub lists look like: a list of
+---ordinary atoms. The final list that is mix of nodes and yet unprocessed noads get
+---fed into the math-to-hlist function and eventually the noads become glyphs,
+---boxes, kerns, glue and whatever makes sense. A lot goes on there: think scripts,
+---fractions, fences, accents, radicals, spacing, break control.
+---
+---An example of more tricky scanning is shown here:
+---
+---```
+---a +   1 \over 2   + b
+---a +  {1}\over{2}  + b
+---a + {{1}\over{2}} + b
+---```
+---
+---In this case the `\over` makes *TeX* reconsider the last noad, remove if
+---from the current list and save it for later, then scan for a following atom a
+---single character turned atom or a braced sequence that then is an ordinary noad.
+---In the end a fraction noad is made. When that gets processed later specific
+---numerator and denominator styles get applied (explicitly entered style nodes of
+---course overload this for the content). The fact that this construct is all about
+---(implicit) ordinary noads, themselves captured in noads, combined with the wish
+---for enforced consistent positioning of numerator and denominator, plus style
+---overload, color support and whatever comes to mind means that in practice one
+---will use a `\frac` macro that provides all that control. \footnote {There
+---are now a `Uover` primitives that look ahead and then of course still
+---treat curly braces as math lists to be picked up.}
+---
+---A similar tricky case is this:
+---
+---```
+---      ( a +       ( b - c        ) + d        )
+---\left ( a + \left ( b - c \right ) + d \right )
+---```
+---
+---Here the first line creates a list of noads but the second line create a fenced
+---structure that is handled as a whole in order to make the fences match. \footnote
+---{Actually instead of such a structure there could have been delimiters with
+---backlinks but one never knows what happens with these links when processing
+---passes are made so that fragility is avoided.} A fence noad will not break across
+---lines as it is boxed and that is the reason why macro packages have these `\bigg` macros: they explicitly force a size using some trickery. In *Lua*METATEX\
+---a fence object can actually be unpacked when the class is configured as such. It
+---is one of the many extensions we have.
+---
+---There are some peculiar cases that one can run into but that actually are
+---mentioned in the *TeX* book. Often these reasons for intentional side effects
+---become clear when one thinks of the average usage but unless one is willing to
+---spend time on the “fine points of math” they can also interfere with
+---intentions. The next bits of code are just for the reader to look at. Try to
+---predict the outcome. Watch out: in \LMTX\ the outcome is not what one gets by
+---default in *LuaTeX*, *PDF*TEX\ or regular *TeX*. \footnote {One can set `\mathgroupingmode = 0` to get close.}
+---
+---```
+---` 1 {\red +} 2`\par
+---` 1 \color[red]{+} 2`\par
+---` 1 \mathbin{\red +} 2`\par
+---` a + - b + {- b} `
+---` a \pm - b - {+ b} `
+---` - b `
+---` {- b} `
+---```
+---
+---The message here is that when a user is coding the mindset with respect to
+---grouping using curly braces has to be switched to math mode too. And how many
+---users really read the relevant chapters of the *TeX* book a couple of times (as
+---much makes only sense after playing with math in *TeX*)? Even if one doesn't grasp
+---everything it's a worthwhile read. Also consider this: did you really ask for an
+---ordinary atom when you uses curly braces where no lists were expected? And what
+---would have happened when ordinary related spacing had been set to non-zero?
+---
+---All the above (and plenty more) is why in *ConTeXt* \LMTX\ we make extensive use
+---of some *Lua*METATEX\ features, like: additional atom classes, configurable inter
+---atom spacing and penalties, pairwise atom rules that can change classes, class
+---based rendering options, more font parameters, configurable style instead of hard
+---coded ones in constructs, more granular spacing, etc. That way we get quite
+---predictable results but also drop some older (un)expected behavior and side
+---effects. It is also why we cannot show many examples in the *Lua*METATEX\ manual:
+---it uses *ConTeXt* and we see no reason to complicate out lives (and spend energy
+---on) turning off all the nicely cooperating features (and then for sure forgetting
+---one) just for the sake of demos. It also gave us the opportunity to improve
+---existing mechanisms and/or at least simplify their sometimes complex code.
+---
+---One last word here about sequences of ordinary atoms: the traditional code path
+---feeds ordinary atoms into a ligature and kerning routine and does that when it
+---encounters one. However, in *OpenType* we don't have ligatures not (single) kerns
+---so there that doesn't apply. As we're not aware of traditional math fonts with
+---ligatures and no one is likely to use these fonts with *Lua*METATEX\ the ligature
+---code has been disabled. \footnote {It might show up in a different way if we feel
+---the need in which case it's more related to runtime patches to fonts and class
+---bases ligature building.} The kerning has been redone a bit so that it permits us
+---to fine tune spacing (which in *ConTeXt* we control with goodie files). The
+---mentioned routine can also add italic correction, but that happens selectively
+---because it is driven by specifications and circumstances. It is one of the places
+---where the approach differs from the original, if only for practical reasons.
+---
+----------------------------------------------------------------
+
+
+---
+---# Grouping with `beginmathgroup` and `endmathgroup`
+---
+---These two primitives behave like `begingroup` and `endgroup` but
+---restore a style change inside the group. Style changes are actually injecting s
+---special style noad which makes them sort of persistent till the next explicit
+---change which can be confusing. This additional grouping model compensates for
+---that.
+---
+----------------------------------------------------------------
+
+
+---
+---# Unicode math characters
+---
+---For various reasons we need to encode a math character in a 32 bit number and
+---because we often also need to keep track of families and classes the range of
+---characters is limited to 20 bits. There are upto 64 classes (which is a lot more
+---than in *LuaTeX*) and 64 families (less than in *LuaTeX*). The upper limit of
+---characters is less that what *Unicode* offers but for math we're okay. If needed
+---we can provide less families.
+---
+---The math primitives from *TeX* are kept as they are, except for the ones that
+---convert from input to math commands: `mathcode`, and `delcode`. These
+---two now allow for the larger character codes argument on the left hand side of
+---the equals sign. The number variants of some primitives might be dropped in favor
+---of the primitives that read more than one separate value (class, family and
+---code), for instance:
+---
+---```
+---\def\overbrace{\Umathaccent 0 1 "23DE }
+---```
+---
+---The altered *TeX*82 primitives are:
+---
+--- primitive        min  max     \kern 2em  min  max    
+---
+--- `mathcode`  0    10FFFF  =          0    8000   
+--- `delcode`   0    10FFFF  =          0    FFFFFF 
+---
+---The unaltered ones are:
+---
+--- primitive           min  max     
+---
+--- `mathchardef`  0       8000 
+--- `mathchar`     0       7FFF 
+--- `mathaccent`   0       7FFF 
+--- `delimiter`    0    7FFFFFF 
+--- `radical`      0    7FFFFFF 
+---
+---% In *LuaTeX* we support the single number primitives *with `num` in their
+---% name) conforming the \XETEX\ method. For the moment that still works but you need
+---% to figure out the number yourself. The split number variants are more future safe
+---% with respect to classes and families. We don't document `Umathcharnumdef`,
+---% `Umathcharnum`, `Umathcodenum` and `Udelcodenum` here any longer.
+---
+---In *LuaTeX* we support the single number primitives *with `num` in their
+---name) conforming the \XETEX\ method. These primitives have been dropped in
+---*Lua*METATEX\ because we use different ranges and properties, so these numbers
+---have no (stable) meaning.
+---
+--- primitive                    class  family  character 
+---
+--- `Umathchardef`  csname  "40    "40     "FFFFF     
+--- `Umathcode`             "40    "40     "FFFFF     
+--- `Udelcode`      "FFFFF  "40    "40     "FFFFF     
+--- `Umathchar`             "40    "40     "FFFFF     
+--- `Umathaccent`           "40    "40     "FFFFF     
+--- `Udelimiter`            "40    "40     "FFFFF     
+--- `Uradical`              "40    "40     "FFFFF     
+---
+---So, there are upto 64 classes of which at this moment about 20 are predefined so,
+---taking some future usage by the engine into account,you can assume 32 upto 60 to
+---be available for any purpose. The number of families has been reduced from 256 to
+---64 which is plenty for daily use in an *OpenType* setup. If we ever need to
+---expand the *Unicode* range there will be less families or we just go for a larger
+---internal record. The values of begin and end classes and the number of classes
+---can be fetched from the *Lua* status table.
+---
+---Given the above, specifications typically look like:
+---
+---```
+---\Umathchardef \xx = "1 "0 "456
+---\Umathcode    123 = "1 "0 "789
+---```
+---
+---The new primitives that deal with delimiter-style objects do not set up a
+---“large family”. Selecting a suitable size for display purposes is expected
+---to be dealt with by the font via the `Umathoperatorsize` parameter. Old
+---school fonts can still be handled but you need to set up the engine to do that;
+---this can be done per font. In principle we assume that *OpenType* fonts are used,
+---which is no big deal because loading fonts is already under *Lua* control. At
+---that moment the distinction between small and large delimiters will be gone. Of
+---course an alternative is to support a specific large size but that is unlikely to
+---happen.
+---
+---This means that future versions of *Lua*METATEX\ might drop for instance the large
+---family in delimiters, if only because we assume a coherent setup where
+---extensibles come from the same font so that we don't need to worry about clashing
+---font parameters. This is a condition that we can easily meet in *ConTeXt*, which is
+---the reference for *Lua*METATEX.
+---
+---% Constructor related primitives like `Umathaccent` accepts optional keywords
+---% to control various details regarding their treatment and rendering. See for
+---% instance \in {section} [mathacc] for details. Some keywords are specific, but
+---% some are shared between the math nodes (aka noads).
+---
+---There are more new primitives and most of these will be explained in following
+---sections. For instance these are variants of radicals and delimiters all are
+---set the same:
+---
+--- primitive               class  family  character 
+---
+--- `Uroot`            "40    "40     "FFFFF    
+--- `Uoverdelimiter`   "40    "40     "FFFFF    
+--- `Uunderdelimiter`  "40    "40     "FFFFF    
+--- `Udelimiterover`   "40    "40     "FFFFF    
+--- `Udelimiterunder`  "40    "40     "FFFFF    
+---
+---In addition there are `Uvextensible` and `Uoperator` and extended
+---versions of fenced: `Uleft`, `Uright` and `Umiddle`. There is also
+---`Uover` and similar primitives that expect the numerator and denominator
+---after the primitive. In addition to regular scripts there are prescripts and a
+---dedicated prime script. Many of these `U` primitives can be controlled by
+---options and keywords.
+---
+----------------------------------------------------------------
+
+
+---
+---\startsection[title=Setting up the engine]
+---
+---# Control
+---
+---Rendering math has long been dominated by *TeX* but that changed when *Microsoft*
+---came with *OpenType* math: an implementation as well as a font. Some of that was
+---modelled after *TeX* and some was dictated (we think) by the way word processors
+---deal with math. For instance, traditional *TeX* math has a limited set of glyph
+---properties and therefore has a somewhat complex interplay between width and
+---italic correction. There are no kerns, contrary to *OpenType* math fonts that
+---provides staircase kerns. Interestingly *TeX* does have some ligature building
+---going on in the engine.
+---
+---In traditional *TeX* italic correction gets added to the width and selectively
+---removed later (or compensated by some shift and/or cheating with the box
+---width). When we started with *LuaTeX* we had to gamble quite a bit about how to
+---apply parameters and glyph properties which resulted in different code paths,
+---heuristics, etc. That worked on the average but fonts are often not perfect and
+---when served as an example for another one the bad bits can be inherited. That
+---said, over time the descriptions improved and this is what the *OpenType*
+---specification has to say about italic correction now \footnote {`https://docs.microsoft.com/en-us/typography/opentype/spec/math`}:
+---
+--- [n]
+---    * When a run of slanted characters is followed by a straight character
+---        (such as an operator or a delimiter), the italics correction of the last
+---        glyph is added to its advance width.
+---    
+---    * When positioning limits on an N-ary operator (e.g., integral sign), the
+---        horizontal position of the upper limit is moved to the right by half the
+---        italics correction, while the position of the lower limit is moved to the
+---        left by the same distance.
+---    
+---    * When positioning superscripts and subscripts, their default horizontal
+---        positions are also different by the amount of the italics correction of
+---        the preceding glyph.
+---    
+---
+---The first rule is complicated by the fact that “followed” is vague: in
+---*TeX* the sequence `` a b c def `` results in six separate atoms, separated
+---by inter atom spacing. The characters in these atoms are the nucleus and there
+---can be a super- and/or subscript attached and in *Lua*METATEX\ also a prime,
+---superprescript and/or subprescript.
+---
+---The second rule comes from *TeX* and one can wonder why the available top accent
+---anchor is not used. Maybe because bottom accent anchors are missing? Anyway,
+---we're stuck with this now.
+---
+---The third rule also seems to come from *TeX*. Take the “\it f” character:
+---in *TeX* fonts that one has a narrow width and part sticks out (in some even at
+---the left edge). That means that when the subscript gets attached it will move
+---inwards relative to the real dimensions. Before the superscript an italic
+---correction is added so what that correction is non-zero the scripts are
+---horizontally shifted relative to each other.
+---
+---Now look at this specification of staircase kerns \footnote {Idem.}:
+---
+---\startnarrower
+---    The `MathKernInfo` table provides mathematical kerning values used for
+---    kerning of subscript and superscript glyphs relative to a base glyph. Its
+---    purpose is to improve spacing in situations such as omega with superscript f
+---    or capital V with subscript capital A.
+---
+---    Mathematical kerning is height dependent; that is, different kerning amounts
+---    can be specified for different heights within a glyph’s vertical extent. For
+---    any given glyph, different values can be specified for four corner positions,
+---    top-right, to-left, etc., allowing for different kerning adjustments
+---    according to whether the glyph occurs as a subscript, a superscript, a base
+---    being kerned with a subscript, or a base being kerned with a superscript.
+---\stopnarrower
+---
+---Again we're talking super- and subscripts and should we now look at the italic
+---correction or assume that the kerns do the job? This is a mixed bag because
+---scripts are not always (single) characters. We have to guess a bit here. After
+---years of experimenting we came to the conclusion that it will never be okay so
+---that's why we settled on controls and runtime fixes to fonts.
+---
+---This means that processing math is controlled by `mathfontcontrol`, a
+---numeric bitset parameter. The recommended bits are marked with a star but it
+---really depends on the macro package to set up the machinery well. Of course one
+---can just enable all and see what happens. \footnote {This model was more granular
+---and could even be font (and character) specific but that was dropped because
+---fonts are too inconsistent and an occasional fit is more robust that a generally
+---applied rule.}
+---
+--- bit              name                               
+---
+--- `0x000001`  `usefontcontrol`                  \NR
+--- `0x000002`  `overrule`                  \star \NR
+--- `0x000004`  `underrule`                 \star \NR
+--- `0x000008`  `radicalrule`               \star \NR
+--- `0x000010`  `fractionrule`              \star \NR
+--- `0x000020`  `accentskewhalf`            \star \NR
+--- `0x000040`  `accentskewapply`           \star \NR
+--- `0x000080`  `applyordinarykernpair`     \star \NR
+--- `0x000100`  `applyverticalitalickern`   \star \NR
+--- `0x000200`  `applyordinaryitalickern`   \star \NR
+--- `0x000400`  `applycharitalickern`             \NR
+--- `0x000800`  `reboxcharitalickern`             \NR
+--- `0x001000`  `applyboxeditalickern`      \star \NR
+--- `0x002000`  `staircasekern`             \star \NR
+--- `0x004000`  `applytextitalickern`       \star \NR
+--- `0x008000`  `checktextitalickern`       \star \NR
+--- `0x010000`  `checkspaceitalickern`            \NR
+--- `0x020000`  `applyscriptitalickern`     \star \NR
+--- `0x040000`  `analysescriptnucleuschar`  \star \NR
+--- `0x080000`  `analysescriptnucleuslist`  \star \NR
+--- `0x100000`  `analysescriptnucleusbox`   \star \NR
+---
+---So, to summarize: the reason for this approach is that traditional and *OpenType*
+---fonts have different approaches (especially when it comes to dealing with the
+---width and italic corrections) and is even more complicated by the fact that the
+---fonts are often inconsistent (within and between). In *ConTeXt* we deal with this
+---by runtime fixes to fonts. In any case the Cambria font is taken as reference.
+---
+----------------------------------------------------------------
+
+
+---
+---# Analyzing the script nucleus
+---
+---The three analyze option relate to staircase kerns for which we need to look into the
+---nucleus to get to the first character. In principle we only need to look into simple
+---characters and lists but we can also look into boxes.There can be interference with
+---other kinds spacing as well as italic corrections, which is why it is an option. These three
+---are not bound to fonts because we don't know if have a font involved.
+---
+---% We keep the next text commented for historic reasons. In *ConTeXt* we clean up
+---% fonts in the font goodie files so the examples would not be honest anyway. But it
+---% shows a bit where we come from and what alternatives we tried.
+---
+---% If you want to typeset text in math macro packages often provide something \type
+---% {\text} which obeys the script sizes. As the definition can be anything there is
+---% a good chance that the kerning doesn't come out well when used in a script. Given
+---% that the first glyph ends up in an `hbox` we have some control over this.
+---% And, as a bonus we also added control over the normal sublist kerning. The \prm
+---% {mathscriptboxmode} parameter defaults to 1.
+---%
+---% 
+---%  value      meaning 
+---% 
+---%  `0`  forget about kerning 
+---%  `1`  kern math sub lists with a valid glyph 
+---%  `2`  also kern math sub boxes that have a valid glyph 
+---%  `3`  only kern math sub boxes with a boundary node present
+---% 
+---% 
+---%
+---% Here we show some examples. Of course this doesn't solve all our problems, if
+---% only because some fonts have characters with bounding boxes that compensate for
+---% italics, while other fonts can lack kerns.
+---%
+---% \startbuffer[1]
+---%     `T_{\tf fluff}`
+---% \stopbuffer
+---%
+---% \startbuffer[2]
+---%     `T_{\text{fluff}}`
+---% \stopbuffer
+---%
+---% \startbuffer[3]
+---%     `T_{\text{\boundary1 fluff}}`
+---% \stopbuffer
+---%
+---% \unexpanded\def\Show#1#2#3%
+---%   {\doifelsenothing{#3}
+---%      {\small\tx\typeinlinebuffer[#1]}
+---%      {\doifelse{#3}{-}
+---%         {\small\bf\tt mode #2}
+---%         {\switchtobodyfont[#3]\showfontkerns\showglyphs\mathscriptboxmode#2\relax\inlinebuffer[#1]}}}
+---%
+---% 
+---%                \Show{1}{0}{}         \Show{1}{1}{}          \Show{2}{1}{}          \Show{2}{2}{}          \Show{3}{3}{}         
+---%                \Show{1}{0}{-}        \Show{1}{1}{-}         \Show{2}{1}{-}         \Show{2}{2}{-}         \Show{3}{3}{-}        
+---%      modern    \Show{1}{0}{modern}   \Show{1}{1}{modern}    \Show{2}{1}{modern}    \Show{2}{2}{modern}    \Show{3}{3}{modern}   
+---%      lucidaot  \Show{1}{0}{lucidaot} \Show{1}{1}{lucidaot}  \Show{2}{1}{lucidaot}  \Show{2}{2}{lucidaot}  \Show{3}{3}{lucidaot} 
+---%      pagella   \Show{1}{0}{pagella}  \Show{1}{1}{pagella}   \Show{2}{1}{pagella}   \Show{2}{2}{pagella}   \Show{3}{3}{pagella}  
+---%      cambria   \Show{1}{0}{cambria}  \Show{1}{1}{cambria}   \Show{2}{1}{cambria}   \Show{2}{2}{cambria}   \Show{3}{3}{cambria}  
+---%      dejavu    \Show{1}{0}{dejavu}   \Show{1}{1}{dejavu}    \Show{2}{1}{dejavu}    \Show{2}{2}{dejavu}    \Show{3}{3}{dejavu}   
+---% 
+---%
+---% Kerning between a character subscript is controlled by `mathscriptcharmode`
+---% which also defaults to 1.
+---%
+---% Here is another example. Internally we tag kerns as italic kerns or font kerns
+---% where font kerns result from the staircase kern tables. In 2018 fonts like Latin
+---% Modern and Pagella rely on cheats with the boundingbox, Cambria uses staircase
+---% kerns and Lucida a mixture. Depending on how fonts evolve we might add some more
+---% control over what one can turn on and off.
+---%
+---% \def\MathSample#1#2#3%
+---%   {
+---%    #1 
+---%    #2 
+---%    \showglyphdata \switchtobodyfont[#2,17.3pt]`#3T_{f}`         
+---%    \showglyphdata \switchtobodyfont[#2,17.3pt]`#3\gamma_{e}`    
+---%    \showglyphdata \switchtobodyfont[#2,17.3pt]`#3\gamma_{ee}`   
+---%    \showglyphdata \switchtobodyfont[#2,17.3pt]`#3T_{\tf fluff}` 
+---%    \NR}
+---%
+---% 
+---%     \FL
+---%     \MathSample{normal}{modern}  {\mr}
+---%     \MathSample{}      {pagella} {\mr}
+---%     \MathSample{}      {cambria} {\mr}
+---%     \MathSample{}      {lucidaot}{\mr}
+---%     \ML
+---%     \MathSample{bold}  {modern}  {\mb}
+---%     \MathSample{}      {pagella} {\mb}
+---%     \MathSample{}      {cambria} {\mb}
+---%     \MathSample{}      {lucidaot}{\mb}
+---%     
+---% 
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---# Math styles
+---
+---# `mathstyle`, `mathstackstyle` and `Ustyle`
+---
+---It is possible to discover the math style that will be used for a formula in an
+---expandable fashion (while the math list is still being read). To make this
+---possible, *LuaTeX* adds the new primitive: `mathstyle`. This is a “convert command” like e.g. `romannumeral`: its value can only be read,
+---not set. Beware that contrary to *LuaTeX* this is now a proper number so you need
+---to use `\number` or `\the` in order to serialize it.
+---
+---The returned value is between 0 and 7 (in math mode), or `-1` (all other modes).
+---For easy testing, the eight math style commands have been altered so that they can
+---be used as numeric values, so you can write code like this:
+---
+---```
+---\ifnum\mathstyle=\textstyle
+---    \message{normal text style}
+---\else \ifnum\mathstyle=\crampedtextstyle
+---    \message{cramped text style}
+---\fi \fi
+---```
+---
+---Sometimes you won't get what you expect so a bit of explanation might help to
+---understand what happens. When math is parsed and expanded it gets turned into a
+---linked list. In a second pass the formula will be build. This has to do with the
+---fact that in order to determine the automatically chosen sizes (in for instance
+---fractions) following content can influence preceding sizes. A side effect of this
+---is for instance that one cannot change the definition of a font family (and
+---thereby reusing numbers) because the number that got used is stored and used in
+---the second pass (so changing `\fam 12` mid-formula spoils over to
+---preceding use of that family).
+---
+---The style switching primitives like `textstyle` are turned into nodes so the
+---styles set there are frozen. The `mathchoice` primitive results in four
+---lists being constructed of which one is used in the second pass. The fact that
+---some automatic styles are not yet known also means that the `mathstyle`
+---primitive expands to the current style which can of course be different from the
+---one really used. It's a snapshot of the first pass state. As a consequence in the
+---following example you get a style number (first pass) typeset that can actually
+---differ from the used style (second pass). In the case of a math choice used
+---ungrouped, the chosen style is used after the choice too, unless you group.
+---
+---\startbuffer[1]
+---    [a:\number\mathstyle]\quad
+---    \bgroup
+---    \mathchoice
+---        {\bf \scriptstyle       (x:d :\number\mathstyle)}
+---        {\bf \scriptscriptstyle (x:t :\number\mathstyle)}
+---        {\bf \scriptscriptstyle (x:s :\number\mathstyle)}
+---        {\bf \scriptscriptstyle (x:ss:\number\mathstyle)}
+---    \egroup
+---    \quad[b:\number\mathstyle]\quad
+---    \mathchoice
+---        {\bf \scriptstyle       (y:d :\number\mathstyle)}
+---        {\bf \scriptscriptstyle (y:t :\number\mathstyle)}
+---        {\bf \scriptscriptstyle (y:s :\number\mathstyle)}
+---        {\bf \scriptscriptstyle (y:ss:\number\mathstyle)}
+---    \quad[c:\number\mathstyle]\quad
+---    \bgroup
+---    \mathchoice
+---        {\bf \scriptstyle       (z:d :\number\mathstyle)}
+---        {\bf \scriptscriptstyle (z:t :\number\mathstyle)}
+---        {\bf \scriptscriptstyle (z:s :\number\mathstyle)}
+---        {\bf \scriptscriptstyle (z:ss:\number\mathstyle)}
+---    \egroup
+---    \quad[d:\number\mathstyle]
+---\stopbuffer
+---
+---\startbuffer[2]
+---    [a:\number\mathstyle]\quad
+---    \begingroup
+---    \mathchoice
+---        {\bf \scriptstyle       (x:d :\number\mathstyle)}
+---        {\bf \scriptscriptstyle (x:t :\number\mathstyle)}
+---        {\bf \scriptscriptstyle (x:s :\number\mathstyle)}
+---        {\bf \scriptscriptstyle (x:ss:\number\mathstyle)}
+---    \endgroup
+---    \quad[b:\number\mathstyle]\quad
+---    \mathchoice
+---        {\bf \scriptstyle       (y:d :\number\mathstyle)}
+---        {\bf \scriptscriptstyle (y:t :\number\mathstyle)}
+---        {\bf \scriptscriptstyle (y:s :\number\mathstyle)}
+---        {\bf \scriptscriptstyle (y:ss:\number\mathstyle)}
+---    \quad[c:\number\mathstyle]\quad
+---    \begingroup
+---    \mathchoice
+---        {\bf \scriptstyle       (z:d :\number\mathstyle)}
+---        {\bf \scriptscriptstyle (z:t :\number\mathstyle)}
+---        {\bf \scriptscriptstyle (z:s :\number\mathstyle)}
+---        {\bf \scriptscriptstyle (z:ss:\number\mathstyle)}
+---    \endgroup
+---    \quad[d:\number\mathstyle]
+---\stopbuffer
+---
+---\typebuffer[1]
+---
+---% \typebuffer[2]
+---
+---This gives:
+---
+---\blank `\displaystyle \getbuffer[1]` \blank
+---\blank `\textstyle    \getbuffer[1]` \blank
+---
+---Using `begingroup` \unknown\ `endgroup` instead gives:
+---
+---\blank `\displaystyle \getbuffer[2]` \blank
+---\blank `\textstyle    \getbuffer[2]` \blank
+---
+---This might look wrong but it's just a side effect of `mathstyle` expanding
+---to the current (first pass) style and the number being injected in the list that
+---gets converted in the second pass. It all makes sense and it illustrates the
+---importance of grouping. In fact, the math choice style being effective afterwards
+---has advantages. It would be hard to get it otherwise.
+---
+---So far for the more *LuaTeX* ish approach. One problem with `mathstyle` is
+---that when you got it, and want to act upon it, you need to remap it onto say `scriptstyle` which can be done with an eight branched `ifcase`. This is
+---why we also have a more efficient alternative that you can use in macros:
+---
+---```
+---\normalexpand{ ... \Ustyle\the\mathstyle      ...}
+---\normalexpand{ ... \Ustyle\the\mathstackstyle ...}
+---```
+---
+---This new primitive `Ustyle` accepts a numeric value. The `mathstackstyle` primitive is just a bonus (it complements `Ustack`).
+---
+---The styles that the different math components and their subcomponents start out
+---with are no longer hard coded but can be set at runtime:
+---
+---\starttabulate
+--- primitive name                         default 
+---
+--- `Umathoverlinevariant`            cramped           
+--- `Umathunderlinevariant`           normal            
+--- `Umathoverdelimitervariant`       small             
+--- `Umathunderdelimitervariant`      small             
+--- `Umathdelimiterovervariant`       normal            
+--- `Umathdelimiterundervariant`      normal            
+--- `Umathhextensiblevariant`         normal            
+--- `Umathvextensiblevariant`         normal            
+--- `Umathfractionvariant`            cramped           
+--- `Umathradicalvariant`             cramped           
+--- `Umathdegreevariant`              doublesuperscript 
+--- `Umathaccentvariant`              cramped           
+--- `Umathtopaccentvariant`           cramped           
+--- `Umathbottomaccentvariant`        cramped           
+--- `Umathoverlayaccentvariant`       cramped           
+--- `Umathnumeratorvariant`           numerator         
+--- `Umathdenominatorvariant`         denominator       
+--- `Umathsuperscriptvariant`         superscript       
+--- `Umathsubscriptvariant`           subscript         
+--- `Umathprimevariant`               superscript       
+--- `Umathstackvariant`               numerator         
+---
+---These defaults remap styles are as follows:
+---
+--- default            result                     mapping 
+---
+--- cramped            cramp the style            D' D' T' T' S'  S'  SS' SS' 
+--- subscript          smaller and cramped        S' S' S' S' SS' SS' SS' SS' 
+--- small              smaller                    S  S  S  S  SS  SS  SS  SS  
+--- superscript        smaller                    S  S  S  S  SS  SS  SS  SS  
+--- smaller            smaller unless already SS  S  S' S  S' SS  SS' SS  SS' 
+--- numerator          smaller unless already SS  S  S' S  S' SS  SS' SS  SS' 
+--- denominator        smaller, all cramped       S' S' S' S' SS' SS' SS' SS' 
+--- doublesuperscript  smaller, keep cramped      S  S' S  S' SS  SS' SS  SS' 
+---
+---The main reason for opening this up was that it permits experiments and removed
+---hard coded internal values. But as these defaults served well for decades there
+---are no real reasons to change them.
+---
+----------------------------------------------------------------
+
+
+---
+---# `Ustack`
+---
+---There are a few math commands in *TeX* where the style that will be used is not
+---known straight from the start. These commands (`over`, `atop`,
+---`overwithdelims`, `atopwithdelims`) would therefore normally return
+---wrong values for `mathstyle`. To fix this, *LuaTeX* introduces a special
+---prefix command: `Ustack`:
+---
+---```
+---`\Ustack {a \over b}`
+---```
+---
+---The `Ustack` command will scan the next brace and start a new math group
+---with the correct (numerator) math style. The `mathstackstyle` primitive
+---relates to this feature.
+---
+----------------------------------------------------------------
+
+
+---
+---# The new `\cramped...style` commands
+---
+---*LuaTeX* has four new primitives to set the cramped math styles directly:
+---
+---```
+---\crampeddisplaystyle
+---\crampedtextstyle
+---\crampedscriptstyle
+---\crampedscriptscriptstyle
+---```
+---
+---These additional commands are not all that valuable on their own, but they come
+---in handy as arguments to the math parameter settings that will be added shortly.
+---
+---Because internally the eight styles are represented as numbers some of the new
+---primnitives that relate to them also work with numbers and often you can use them
+---mixed. The `tomathstyle` prefix converts a symbolic style into a number so
+---`\number \tomathstyle \crampedscriptstyle` gives \number \tomathstyle
+---\crampedscriptstyle.
+---
+---In Eijkhouts \quotation {*TeX* by Topic} the rules for handling styles in scripts
+---are described as follows:
+---
+---* In any style superscripts and subscripts are taken from the next smaller style.
+---    Exception: in display style they are in script style.
+---
+---* Subscripts are always in the cramped variant of the style; superscripts are only
+---    cramped if the original style was cramped.
+---
+---* In an `..\over..` formula in any style the numerator and denominator are
+---    taken from the next smaller style.
+---
+---* The denominator is always in cramped style; the numerator is only in cramped
+---    style if the original style was cramped.
+---
+---* Formulas under a `\sqrt` or `overline` are in cramped style.
+---
+---In *LuaTeX* one can set the styles in more detail which means that you sometimes
+---have to set both normal and cramped styles to get the effect you want. (Even) if
+---we force styles in the script using `scriptstyle` and `crampedscriptstyle` we get this:
+---
+---\startbuffer[demo]
+---\starttabulate
+--- style          example 
+---
+--- default        `b_{x=xx}^{x=xx}` 
+--- script         `b_{\scriptstyle x=xx}^{\scriptstyle x=xx}` 
+--- crampedscript  `b_{\crampedscriptstyle x=xx}^{\crampedscriptstyle x=xx}` 
+---
+---\stopbuffer
+---
+---\getbuffer[demo]
+---
+---Now we set the following parameters using `setmathspacing` that accepts two
+---class identifier, a style and a value.
+---
+---\startbuffer[setup]
+---\setmathspacing 0 3 \scriptstyle = 30mu
+---\setmathspacing 0 3 \scriptstyle = 30mu
+---\stopbuffer
+---
+---\typebuffer[setup]
+---
+---This gives a different result:
+---
+---\start\getbuffer[setup,demo]\stop
+---
+---But, as this is not what is expected (visually) we should say:
+---
+---\startbuffer[setup]
+---\setmathspacing 0 3 \scriptstyle        = 30mu
+---\setmathspacing 0 3 \scriptstyle        = 30mu
+---\setmathspacing 0 3 \crampedscriptstyle = 30mu
+---\setmathspacing 0 3 \crampedscriptstyle = 30mu
+---\stopbuffer
+---
+---\typebuffer[setup]
+---
+---Now we get:
+---
+---\start\getbuffer[setup,demo]\stop
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---# Math parameter settings
+---
+---# Many new \tex {Umath*} primitives
+---
+---In *LuaTeX*, the font dimension parameters that *TeX* used in math typesetting are
+---now accessible via primitive commands. In fact, refactoring of the math engine
+---has resulted in turning some hard codes properties into parameters.
+---
+---{\em The next needs checking ...}
+---
+---\starttabulate
+--- primitive name                  description 
+---
+--- `Umathquad`                the width of 18 mu's 
+--- `Umathaxis`                height of the vertical center axis of the math formula above the baseline 
+--- `Umathoperatorsize`        minimum size of large operators in display mode 
+--- `Umathoverbarkern`         vertical clearance above the rule 
+--- `Umathoverbarrule`         the width of the rule 
+--- `Umathoverbarvgap`         vertical clearance below the rule 
+--- `Umathunderbarkern`        vertical clearance below the rule 
+--- `Umathunderbarrule`        the width of the rule 
+--- `Umathunderbarvgap`        vertical clearance above the rule 
+--- `Umathradicalkern`         vertical clearance above the rule 
+--- `Umathradicalrule`         the width of the rule 
+--- `Umathradicalvgap`         vertical clearance below the rule 
+--- `Umathradicaldegreebefore` the forward kern that takes place before placement of the radical degree 
+--- `Umathradicaldegreeafter`  the backward kern that takes place after placement of the radical degree 
+--- `Umathradicaldegreeraise`  this is the percentage of the total height and depth of the radical sign that the degree is raised by; it is expressed in `percents`, so 60\% is expressed as the integer `60` 
+--- `Umathstackvgap`           vertical clearance between the two elements in an `atop` stack 
+--- `Umathstacknumup`          numerator shift upward in `atop` stack 
+--- `Umathstackdenomdown`      denominator shift downward in `atop` stack 
+--- `Umathfractionrule`        the width of the rule in a `over` 
+--- `Umathfractionnumvgap`     vertical clearance between the numerator and the rule 
+--- `Umathfractionnumup`       numerator shift upward in `over` 
+--- `Umathfractiondenomvgap`   vertical clearance between the denominator and the rule 
+--- `Umathfractiondenomdown`   denominator shift downward in `over` 
+--- `Umathfractiondelsize`     minimum delimiter size for `\...withdelims` 
+--- `Umathlimitabovevgap`      vertical clearance for limits above operators 
+--- `Umathlimitabovebgap`      vertical baseline clearance for limits above operators 
+--- `Umathlimitabovekern`      space reserved at the top of the limit 
+--- `Umathlimitbelowvgap`      vertical clearance for limits below operators 
+--- `Umathlimitbelowbgap`      vertical baseline clearance for limits below operators 
+--- `Umathlimitbelowkern`      space reserved at the bottom of the limit 
+--- `Umathoverdelimitervgap`   vertical clearance for limits above delimiters 
+--- `Umathoverdelimiterbgap`   vertical baseline clearance for limits above delimiters 
+--- `Umathunderdelimitervgap`  vertical clearance for limits below delimiters 
+--- `Umathunderdelimiterbgap`  vertical baseline clearance for limits below delimiters 
+--- `Umathsubshiftdrop`        subscript drop for boxes and subformulas 
+--- `Umathsubshiftdown`        subscript drop for characters 
+--- `Umathsupshiftdrop`        superscript drop (raise, actually) for boxes and subformulas 
+--- `Umathsupshiftup`          superscript raise for characters 
+--- `Umathsubsupshiftdown`     subscript drop in the presence of a superscript 
+--- `Umathsubtopmax`           the top of standalone subscripts cannot be higher than this above the baseline 
+--- `Umathsupbottommin`        the bottom of standalone superscripts cannot be less than this above the baseline 
+--- `Umathsupsubbottommax`     the bottom of the superscript of a combined super- and subscript be at least as high as this above the baseline 
+--- `Umathsubsupvgap`          vertical clearance between super- and subscript 
+--- `Umathspaceafterscript`    additional space added after a super- or subscript 
+--- `Umathconnectoroverlapmin` minimum overlap between parts in an extensible recipe 
+---
+---In addition to the above official *OpenType* font parameters we have these (the
+---undefined will get presets, quite likely zero):
+---
+---\starttabulate
+--- primitive name                              description 
+---
+--- `Umathconnectoroverlapmin`             
+--- `Umathsubsupshiftdown`                 
+--- `Umathfractiondelsize`                 
+--- `Umathnolimitsupfactor`                a multiplier for the way limits are shifted up and down 
+--- `Umathnolimitsubfactor`                a multiplier for the way limits are shifted up and down 
+--- `Umathaccentbasedepth`                 the complement of `Umathaccentbaseheight` 
+--- `Umathflattenedaccentbasedepth`        the complement of `Umathflattenedaccentbaseheight` 
+--- `Umathspacebeforescript`               
+--- `Umathprimeraise`                      
+--- `Umathprimeraisecomposed`              
+--- `Umathprimeshiftup`                    the prime variant of `Umathsupshiftup` 
+--- `Umathprimespaceafter`                 the prescript variant of `Umathspaceafterscript` 
+--- `Umathprimeshiftdrop`                  the prime variant of `Umathsupshiftdrop` 
+--- `Umathprimewidth`                      the percentage of width that gets added 
+--- `Umathskeweddelimitertolerance`        
+--- `Umathaccenttopshiftup`                the amount that a top accent is shifted up 
+--- `Umathaccentbottomshiftdown`           the amount that a bottom accent is shifted down 
+--- `Umathaccenttopovershoot`              
+--- `Umathaccentbottomovershoot`           
+--- `Umathaccentsuperscriptdrop`           
+--- `Umathaccentsuperscriptpercent`        
+--- `Umathaccentextendmargin`              margins added to automatically extended accents 
+--- `Umathflattenedaccenttopshiftup`       the amount that a wide top accent is shifted up 
+--- `Umathflattenedaccentbottomshiftdown`  the amount that a wide bottom accent is shifted down 
+--- `Umathdelimiterpercent`                
+--- `Umathdelimitershortfall`              
+--- `Umathradicalextensiblebefore`         
+--- `Umathradicalextensibleafter`          
+---
+---These relate to the font parameters and in *ConTeXt* we assign some different
+---defaults and tweak them in the goodie files:
+---
+--- font parameter                     primitive name                              default   
+---
+--- MinConnectorOverlap                `Umathconnectoroverlapmin`             0         
+--- SubscriptShiftDownWithSuperscript  `Umathsubsupshiftdown`                 inherited 
+--- FractionDelimiterSize              `Umathfractiondelsize`                 undefined 
+--- FractionDelimiterDisplayStyleSize  `Umathfractiondelsize`                 undefined 
+--- NoLimitSubFactor                   `Umathnolimitsupfactor`                0         
+--- NoLimitSupFactor                   `Umathnolimitsubfactor`                0         
+--- AccentBaseDepth                    `Umathaccentbasedepth`                 reserved  
+--- FlattenedAccentBaseDepth           `Umathflattenedaccentbasedepth`        reserved  
+--- SpaceBeforeScript                  `Umathspacebeforescript`               0         
+--- PrimeRaisePercent                  `Umathprimeraise`                      0         
+--- PrimeRaiseComposedPercent          `Umathprimeraisecomposed`              0         
+--- PrimeShiftUp                       `Umathprimeshiftup`                    0         
+--- PrimeShiftUpCramped                `Umathprimeshiftup`                    0         
+--- PrimeSpaceAfter                    `Umathprimespaceafter`                 0         
+--- PrimeBaselineDropMax               `Umathprimeshiftdrop`                  0         
+--- PrimeWidthPercent                  `Umathprimewidth`                      0         
+--- SkewedDelimiterTolerance           `Umathskeweddelimitertolerance`        0         
+--- AccentTopShiftUp                   `Umathaccenttopshiftup`                undefined 
+--- AccentBottomShiftDown              `Umathaccentbottomshiftdown`           undefined 
+--- AccentTopOvershoot                 `Umathaccenttopovershoot`              0         
+--- AccentBottomOvershoot              `Umathaccentbottomovershoot`           0         
+--- AccentSuperscriptDrop              `Umathaccentsuperscriptdrop`           0         
+--- AccentSuperscriptPercent           `Umathaccentsuperscriptpercent`        0         
+--- AccentExtendMargin                 `Umathaccentextendmargin`              0         
+--- FlattenedAccentTopShiftUp          `Umathflattenedaccenttopshiftup`       undefined 
+--- FlattenedAccentBottomShiftDown     `Umathflattenedaccentbottomshiftdown`  undefined 
+--- DelimiterPercent                   `Umathdelimiterpercent`                0         
+--- DelimiterShortfall                 `Umathdelimitershortfall`              0         
+---
+---These parameters not only provide a bit more control over rendering, they also
+---can be used in compensating issues in font, because no font is perfect. Some are
+---the side effects of experiments and they have CamelCase companions in the `MathConstants` table. For historical reasons the names are a bit inconsistent as
+---some originate in *TeX* so we prefer to keep those names. Not many users will
+---mess around with these font parameters anyway. \footnote {I wonder if some names
+---should change, so that decision is pending.}
+---
+---Each of the parameters in this section can be set by a command like this:
+---
+---```
+---\Umathquad\displaystyle=1em
+---```
+---
+---they obey grouping, and you can use `\the\Umathquad\displaystyle` if
+---needed.
+---
+---There are quite some parameters that can be set and there are eight styles, which means a lot
+---of keying in. For that reason is is possible to set parameters groupwise:
+---
+--- primitive name                D  D'  T  T'  S  S'  SS  SS' 
+---
+--- `alldisplaystyles`      `+``+ `                       
+--- `alltextstyles`                `+``+ `                
+--- `allscriptstyles`                     `+``+ `         
+--- `allscriptscriptstyles`                      `+ ``+  `
+--- `allmathstyles`         `+``+ ``+``+ ``+``+ ``+ ``+  `
+--- `allmainstyles`                                       
+--- `allsplitstyles`        `+``+ ``+``+ ``-``- ``- ``-  `
+--- `allunsplitstyles`                    `+``+ ``+ ``+  `
+--- `alluncrampedstyles`    `+`    `+`    `+`    `+ `     
+--- `allcrampedstyles`         `+ `   `+ `   `+ `    `+  `
+---
+---These groups are especially handy when you set up inter atom spacing, pre- and
+---post atom penalties and atom rules.
+---
+----------------------------------------------------------------
+
+
+---
+---# Font-based math parameters
+---
+---We already introduced the font specific math parameters but we tell abit more
+---about them and how they relate to the original *TeX* font dimensions.
+---
+---While it is nice to have these math parameters available for tweaking, it would
+---be tedious to have to set each of them by hand. For this reason, *LuaTeX*
+---initializes a bunch of these parameters whenever you assign a font identifier to
+---a math family based on either the traditional math font dimensions in the font
+---(for assignments to math family 2 and 3 using \TFM-based fonts like `cmsy` and `cmex`), or based on the named values in a potential `MathConstants` table when the font is loaded via Lua. If there is a `MathConstants` table, this takes precedence over font dimensions, and in that
+---case no attention is paid to which family is being assigned to: the `MathConstants` tables in the last assigned family sets all parameters.
+---
+---In the table below, the one-letter style abbreviations and symbolic tfm font
+---dimension names match those used in the \TeX book. Assignments to `textfont` set the values for the cramped and uncramped display and text styles,
+---`scriptfont` sets the script styles, and `scriptscriptfont` sets the
+---scriptscript styles, so we have eight parameters for three font sizes. In the
+---\TFM\ case, assignments only happen in family 2 and family 3 (and of course only
+---for the parameters for which there are font dimensions).
+---
+---Besides the parameters below, *LuaTeX* also looks at the “space” font
+---dimension parameter. For math fonts, this should be set to zero.
+---
+---\def\MathLine#1#2#3#4#5%
+---  {
+---    \llap{\high{\tx #2\enspace}}\ttbf `#1`  \tt #5 
+---    \tx #3  \tt #4 }
+---
+--- variable / style  tfm / opentype 
+---\MathLine{Umathaxis}                     {}   {}                     {AxisHeight}                              {axis_height}
+---\MathLine{Umathaccentbaseheight}         {}   {}                     {AccentBaseHeight}                        {xheight}
+---\MathLine{Umathflattenedaccentbaseheight}{}   {}                     {FlattenedAccentBaseHeight}               {xheight}
+---\MathLine{Umathoperatorsize}             {6}  {D, D'}                {DisplayOperatorMinHeight}                {\emdash}
+---\MathLine{Umathfractiondelsize}          {9}  {D, D'}                {FractionDelimiterDisplayStyleSize}       {delim1}
+---\MathLine{Umathfractiondelsize}          {9}  {T, T', S, S', SS, SS'}{FractionDelimiterSize}                   {delim2}
+---\MathLine{Umathfractiondenomdown}        {}   {D, D'}                {FractionDenominatorDisplayStyleShiftDown}{denom1}
+---\MathLine{Umathfractiondenomdown}        {}   {T, T', S, S', SS, SS'}{FractionDenominatorShiftDown}            {denom2}
+---\MathLine{Umathfractiondenomvgap}        {}   {D, D'}                {FractionDenominatorDisplayStyleGapMin}   {3*default_rule_thickness}
+---\MathLine{Umathfractiondenomvgap}        {}   {T, T', S, S', SS, SS'}{FractionDenominatorGapMin}               {default_rule_thickness}
+---\MathLine{Umathfractionnumup}            {}   {D, D'}                {FractionNumeratorDisplayStyleShiftUp}    {num1}
+---\MathLine{Umathfractionnumup}            {}   {T, T', S, S', SS, SS'}{FractionNumeratorShiftUp}                {num2}
+---\MathLine{Umathfractionnumvgap}          {}   {D, D'}                {FractionNumeratorDisplayStyleGapMin}     {3*default_rule_thickness}
+---\MathLine{Umathfractionnumvgap}          {}   {T, T', S, S', SS, SS'}{FractionNumeratorGapMin}                 {default_rule_thickness}
+---\MathLine{Umathfractionrule}             {}   {}                     {FractionRuleThickness}                   {default_rule_thickness}
+---\MathLine{Umathskewedfractionhgap}       {}   {}                     {SkewedFractionHorizontalGap}             {math_quad/2}
+---\MathLine{Umathskewedfractionvgap}       {}   {}                     {SkewedFractionVerticalGap}               {math_x_height}
+---\MathLine{Umathlimitabovebgap}           {}   {}                     {UpperLimitBaselineRiseMin}               {big_op_spacing3}
+---\MathLine{Umathlimitabovekern}           {1}  {}                     {0}                                       {big_op_spacing5}
+---\MathLine{Umathlimitabovevgap}           {}   {}                     {UpperLimitGapMin}                        {big_op_spacing1}
+---\MathLine{Umathlimitbelowbgap}           {}   {}                     {LowerLimitBaselineDropMin}               {big_op_spacing4}
+---\MathLine{Umathlimitbelowkern}           {1}  {}                     {0}                                       {big_op_spacing5}
+---\MathLine{Umathlimitbelowvgap}           {}   {}                     {LowerLimitGapMin}                        {big_op_spacing2}
+---\MathLine{Umathoverdelimitervgap}        {}   {}                     {StretchStackGapBelowMin}                 {big_op_spacing1}
+---\MathLine{Umathoverdelimiterbgap}        {}   {}                     {StretchStackTopShiftUp}                  {big_op_spacing3}
+---\MathLine{Umathunderdelimitervgap}       {}   {}                     {StretchStackGapAboveMin}                 {big_op_spacing2}
+---\MathLine{Umathunderdelimiterbgap}       {}   {}                     {StretchStackBottomShiftDown}             {big_op_spacing4}
+---\MathLine{Umathoverbarkern}              {}   {}                     {OverbarExtraAscender}                    {default_rule_thickness}
+---\MathLine{Umathoverbarrule}              {}   {}                     {OverbarRuleThickness}                    {default_rule_thickness}
+---\MathLine{Umathoverbarvgap}              {}   {}                     {OverbarVerticalGap}                      {3*default_rule_thickness}
+---\MathLine{Umathquad}                     {1}  {}                     {<font_size(f)>}                          {math_quad}
+---\MathLine{Umathradicalkern}              {}   {}                     {RadicalExtraAscender}                    {default_rule_thickness}
+---\MathLine{Umathradicalrule}              {2}  {}                     {RadicalRuleThickness}                    {<not set>}
+---\MathLine{Umathradicalvgap}              {3}  {D, D'}                {RadicalDisplayStyleVerticalGap}          {default_rule_thickness+abs(math_x_height)/4}
+---\MathLine{Umathradicalvgap}              {3}  {T, T', S, S', SS, SS'}{RadicalVerticalGap}                      {default_rule_thickness+abs(default_rule_thickness)/4}
+---\MathLine{Umathradicaldegreebefore}      {2}  {}                     {RadicalKernBeforeDegree}                 {<not set>}
+---\MathLine{Umathradicaldegreeafter}       {2}  {}                     {RadicalKernAfterDegree}                  {<not set>}
+---\MathLine{Umathradicaldegreeraise}       {2,7}{}                     {RadicalDegreeBottomRaisePercent}         {<not set>}
+---\MathLine{Umathspaceafterscript}         {4}  {}                     {SpaceAfterScript}                        {script_space}
+---\MathLine{Umathstackdenomdown}           {}   {D, D'}                {StackBottomDisplayStyleShiftDown}        {denom1}
+---\MathLine{Umathstackdenomdown}           {}   {T, T', S, S', SS, SS'}{StackBottomShiftDown}                    {denom2}
+---\MathLine{Umathstacknumup}               {}   {D, D'}                {StackTopDisplayStyleShiftUp}             {num1}
+---\MathLine{Umathstacknumup}               {}   {T, T', S, S', SS, SS'}{StackTopShiftUp}                         {num3}
+---\MathLine{Umathstackvgap}                {}   {D, D'}                {StackDisplayStyleGapMin}                 {7*default_rule_thickness}
+---\MathLine{Umathstackvgap}                {}   {T, T', S, S', SS, SS'}{StackGapMin}                             {3*default_rule_thickness}
+---\MathLine{Umathsubshiftdown}             {}   {}                     {SubscriptShiftDown}                      {sub1}
+---\MathLine{Umathsubshiftdrop}             {}   {}                     {SubscriptBaselineDropMin}                {sub_drop}
+---\MathLine{Umathsubsupshiftdown}          {8}  {}                     {SubscriptShiftDownWithSuperscript}       {\emdash}
+---\MathLine{Umathsubtopmax}                {}   {}                     {SubscriptTopMax}                         {abs(math_x_height*4)/5}
+---\MathLine{Umathsubsupvgap}               {}   {}                     {SubSuperscriptGapMin}                    {4*default_rule_thickness}
+---\MathLine{Umathsupbottommin}             {}   {}                     {SuperscriptBottomMin}                    {abs(math_x_height/4)}
+---\MathLine{Umathsupshiftdrop}             {}   {}                     {SuperscriptBaselineDropMax}              {sup_drop}
+---\MathLine{Umathsupshiftup}               {}   {D}                    {SuperscriptShiftUp}                      {sup1}
+---\MathLine{Umathsupshiftup}               {}   {T, S, SS,}            {SuperscriptShiftUp}                      {sup2}
+---\MathLine{Umathsupshiftup}               {}   {D', T', S', SS'}      {SuperscriptShiftUpCramped}               {sup3}
+---\MathLine{Umathsupsubbottommax}          {}   {}                     {SuperscriptBottomMaxWithSubscript}       {abs(math_x_height*4)/5}
+---\MathLine{Umathunderbarkern}             {}   {}                     {UnderbarExtraDescender}                  {default_rule_thickness}
+---\MathLine{Umathunderbarrule}             {}   {}                     {UnderbarRuleThickness}                   {default_rule_thickness}
+---\MathLine{Umathunderbarvgap}             {}   {}                     {UnderbarVerticalGap}                     {3*default_rule_thickness}
+---\MathLine{Umathconnectoroverlapmin}      {5}  {}                     {MinConnectorOverlap}                     {0}
+---
+---A few notes:
+---
+---* *OpenType* fonts set `Umathlimitabovekern` and `Umathlimitbelowkern` to zero and set `Umathquad` to the font size of
+---    the used font, because these are not supported in the `MATH` table.
+---
+---* Traditional \TFM\ fonts do not set `Umathradicalrule` because *TeX*82\
+---    uses the height of the radical instead. When this parameter is indeed not set
+---    when *LuaTeX* has to typeset a radical, a backward compatibility mode will
+---    kick in that assumes that an oldstyle *TeX* font is used. Also, they do not
+---    set `Umathradicaldegreebefore`, `Umathradicaldegreeafter`, and `Umathradicaldegreeraise`. These are then automatically initialized to
+---    `5/18`quad, `-10/18`quad, and 60.
+---
+---* If \TFM\ fonts are used, then the `Umathradicalvgap` is not set until
+---    the first time *LuaTeX* has to typeset a formula because this needs
+---    parameters from both family 2 and family 3. This provides a partial backward
+---    compatibility with *TeX*82, but that compatibility is only partial: once the
+---    `Umathradicalvgap` is set, it will not be recalculated any more.
+---
+---* When \TFM\ fonts are used a similar situation arises with respect to `Umathspaceafterscript`: it is not set until the first time *LuaTeX* has to
+---    typeset a formula. This provides some backward compatibility with *TeX*82. But
+---    once the `Umathspaceafterscript` is set, `scriptspace` will never
+---    be looked at again.
+---
+---* Traditional \TFM\ fonts set `Umathconnectoroverlapmin` to zero because
+---    *TeX*82\ always stacks extensibles without any overlap.
+---
+---* The `Umathoperatorsize` is only used in `displaystyle`, and is only
+---    set in *OpenType* fonts. In \TFM\ font mode, it is artificially set to one
+---    scaled point more than the initial attempt's size, so that always the “first next” will be tried, just like in *TeX*82.
+---
+---* The `Umathradicaldegreeraise` is a special case because it is the only
+---    parameter that is expressed in a percentage instead of a number of scaled
+---    points.
+---
+---* `SubscriptShiftDownWithSuperscript` does not actually exist in the
+---    “standard” *OpenType* math font Cambria, but it is useful enough to be
+---    added.
+---
+---* `FractionDelimiterDisplayStyleSize` and `FractionDelimiterSize`
+---    do not actually exist in the “standard” *OpenType* math font Cambria,
+---    but were useful enough to be added.
+---
+---As this mostly refers to *LuaTeX* there is more to tell about how *Lua*METATEX\
+---deals with it. However, it is enough to know that much more behavior is
+---configurable.
+---
+---You can let the engine ignore parameter with `setmathignore`, like:
+---
+---```
+---\setmathignore \Umathspacebeforescript 1
+---\setmathignore \Umathspaceafterscript  1
+---```
+---
+---Be aware of the fact that a global setting can get unnoticed by users because
+---there is no warning that some parameter is ignored.
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---# Extra parameters
+---
+---# Style related parameters
+---
+---There are a couple of parameters that don't relate to the font but are more generally
+---influencing the appearances. Some were added for experimenting.
+---
+--- primitive  meaning 
+---`Umathextrasubpreshift`    
+---`Umathextrasubprespace`    
+---`Umathextrasubshift`       
+---`Umathextrasubspace`       
+---`Umathextrasuppreshift`    
+---`Umathextrasupprespace`    
+---`Umathextrasupshift`       
+---`Umathextrasupspace`       
+---`Umathsubshiftdistance`    
+---`Umathsupshiftdistance`    
+---`Umathpresubshiftdistance` 
+---`Umathpresupshiftdistance` 
+---`Umathprimeshiftdrop`      
+---
+----------------------------------------------------------------
+
+
+---
+---# Math struts
+---
+---Todo:
+---
+--- primitive  meaning 
+--- `Umathruleheight` 
+--- `Umathruledepth`  
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---# Math spacing
+---
+---# Setting inline surrounding space with `mathsurround` and `mathsurroundskip`
+---
+---Inline math is surrounded by (optional) `mathsurround` spacing but that is a fixed
+---dimension. There is now an additional parameter `mathsurroundskip`. When set to a
+---non-zero value (or zero with some stretch or shrink) this parameter will replace
+---`mathsurround`. By using an additional parameter instead of changing the nature
+---of `mathsurround`, we can remain compatible. In the meantime a bit more
+---control has been added via `mathsurroundmode`. This directive can take 6 values
+---with zero being the default behavior.
+---
+---\start
+---
+---\def\MathHack#1{\mathsurroundmode#1\relax\inlinebuffer}
+---
+---\def\OneLiner#1#2%
+---  { `#1`
+---    \dontleavehmode\inframed[align=normal,offset=0pt,frame=off]{\hsize 100pt  x`\MathHack{#1}x`x}
+---    \dontleavehmode\inframed[align=normal,offset=0pt,frame=off]{\hsize 100pt x `\MathHack{#1}x` x}
+---    #2
+---   }
+---
+---\startbuffer
+---\mathsurround    10pt
+---\mathsurroundskip20pt
+---\stopbuffer
+---
+---\typebuffer
+---
+--- mode  x\`x\`x  x \`x\` x  effect 
+---
+---\OneLiner{0}{obey `mathsurround` when `mathsurroundskip` is 0pt}
+---\OneLiner{1}{only add skip to the left}
+---\OneLiner{2}{only add skip to the right}
+---\OneLiner{3}{add skip to the left and right}
+---\OneLiner{4}{ignore the skip setting, obey `mathsurround`}
+---\OneLiner{5}{disable all spacing around math}
+---\OneLiner{6}{only apply `mathsurroundskip` when also spacing}
+---\OneLiner{7}{only apply `mathsurroundskip` when no spacing}
+---
+---\stop
+---
+---Anything more fancy, like checking the beginning or end of a paragraph (or edges
+---of a box) would not be robust anyway. If you want that you can write a callback
+---that runs over a list and analyzes a paragraph. Actually, in that case you could
+---also inject glue (or set the properties of a math node) explicitly. So, these
+---modes are in practice mostly useful for special purposes and experiments (they
+---originate in a tracker item). Keep in mind that this glue is part of the math
+---node and not always treated as normal glue: it travels with the begin and end
+---math nodes. Also, method 6 and 7 will zero the skip related fields in a node when
+---applicable in the first occasion that checks them (linebreaking or packaging).
+---
+----------------------------------------------------------------
+
+
+---
+---# Pairwise spacing
+---
+---Besides the parameters mentioned in the previous sections, there are also
+---primitives to control the math spacing table (as explained in Chapter 18 of the
+---*TeX* book). This happens per class pair. Because we have many possible classes,
+---we no longer have the many primitives that *LuaTeX* has but you can define then
+---using the generic `setmathspacing` primitive:
+---
+---```
+---\def\Umathordordspacing     {\setmathspacing 0 0 }
+---\def\Umathordordopenspacing {\setmathspacing 0 4 }
+---```
+---
+---These parameters are (normally) of type `muskip`, so setting a parameter can
+---be done like this:
+---
+---```
+---\setmathspacing 1 0 \displaystyle=4mu plus 2mu % op ord Umathopordspacing
+---```
+---
+---The atom pairs known by the engine are all initialized by `initex` to the
+---values mentioned in the table in Chapter 18 of the *TeX* book.
+---
+---For ease of use as well as for backward compatibility, `thinmuskip`, `medmuskip` and `thickmuskip` are treated specially. In their case a pointer
+---to the corresponding internal parameter is saved, not the actual `muskip`
+---value. This means that any later changes to one of these three parameters will be
+---taken into account. As a bonus we also introduced the `tinymuskip` and `pettymuskip` primitives, just because we consider these fundamental, but they
+---are not assigned internally to atom spacing combinations.
+---
+---In *Lua*METATEX\ we go a bit further. Any named dimension, glue and mu glue
+---register as well as the constants with these properties can be bound to a pair by
+---prefixing `setmathspacing` by `inherited`.
+---
+---Careful readers will realize that there are also primitives for the items marked
+---`*` in the *TeX* book. These will actually be used because we pose no
+---restrictions. However, you can enforce the remapping rules to conform to the
+---rules of *TeX* (or yourself).
+---
+---Every class has a set of spacing parameters and the more classes you define the more
+---pairwise spacing you need to define. However, you can default to an existing class.
+---By default all spacing is zero and you can get rid of the defaults inherited from
+---good old *TeX* with `resetmathspacing`. You can alias class spacing to an exiting
+---class with `letmathspacing`:
+---
+---```
+---\letmathspacing class displayclass textclass scriptclass scriptscriptclass
+---```
+---
+---Instead you can copy spacing with `copymathspacing`:
+---
+---```
+---\copymathspacing class parentclass
+---```
+---
+---Specific paring happens with `setmathspacing`:
+---
+---```
+---\setmathspacing leftclass rightclass style value
+---```
+---
+---Unless we have a frozen parameter, the prefix `inherited` makes it possible
+---to have a more dynamic relationship: the used value resolves to the current value
+---of the given register. Possible values are the usual mu skip register, a regular
+---skip or dimension register, or just some mu skip value.
+---
+---A similar set of primitives deals with rules. These remap pairs onto other pairs, so
+---`setmathatomrule` looks like:
+---
+---```
+---\setmathatomrule oldleftclass oldrightclass newleftclass newrightclass
+---```
+---
+---The `letmathatomrule` and `copymathatomrule` primitives take two
+---classes where the second is the parent.
+---
+---Some primitives are still experimental and might evolve, like `letmathparent` and `copymathparent` that take numbers as in:
+---
+---```
+---\letmathatomrule class spacingclass prepenaltyclass postpenaltyclass options reserved
+---```
+---
+---Primitives like this were used when experimenting and when re use them in *ConTeXt*
+---eventually they will become stable.
+---
+---The `setmathprepenalty` and `setmathpostpenalty` primitives take a
+---class and penalty (integer) value. These are injected before and after atoms with
+---the given class where a penalty of 10000 is a signal to ignore it.
+---
+---The engine control options for a class can be set with `setmathoptions`. The
+---possible options are discussed elsewhere. This primitive takes a class number and
+---an integer (bitset). For all these setters the *ConTeXt* math setup gives examples.
+---
+----------------------------------------------------------------
+
+
+---
+---% \setdefaultmathcodes
+---% \setmathignore        parameter
+---
+---# Local `frozen` settings with
+---
+---Math is processed in two passes. The first pass is needed to intercept for
+---instance `\over`, one of the few *TeX* commands that actually has a
+---preceding argument. There are often lots of curly braces used in math and these
+---can result in a nested run of the math sub engine. However, you need to be aware
+---of the fact that some properties are kind of global to a formula and the last
+---setting (for instance a family switch) wins. This also means that a change (or
+---again, the last one) in math parameters affects the whole formula. In
+---*Lua*METATEX\ we have changed this model a bit. One can argue that this introduces
+---an incompatibility but it's hard to imagine a reason for setting the parameters
+---at the end of a formula run and assume that they also influence what goes in
+---front.
+---
+---\startbuffer
+---` x \Usubscript  {-}
+---     \frozen\Umathsubshiftdown\textstyle  0pt  x \Usubscript  {0}
+---    {\frozen\Umathsubshiftdown\textstyle  5pt  x \Usubscript  {5}} x \Usubscript  {0}
+---    {\frozen\Umathsubshiftdown\textstyle 15pt  x \Usubscript {15}} x \Usubscript  {0}
+---    {\frozen\Umathsubshiftdown\textstyle 20pt  x \Usubscript {20}} x \Usubscript  {0}
+---     \frozen\Umathsubshiftdown\textstyle 10pt  x \Usubscript {10} x \Usubscript  {0}
+---`
+---\stopbuffer
+---
+---\typebuffer
+---
+---The `\frozen` prefix does the magic: it injects information in the
+---math list about the set parameter.
+---
+---In *LuaTeX* 1.10+ the last setting, the `10pt` drop wins, but in
+---*Lua*METATEX\ you will see each local setting taking effect. The implementation
+---uses a new node type, parameters nodes, so you might encounter these in an
+---unprocessed math list. The result looks as follows:
+---
+---\blank \getbuffer \blank
+---
+----------------------------------------------------------------
+
+
+---
+---# Arbitrary atoms with `mathatom` etc.
+---
+---The original *TeX* engine has primitives like `mathord` and a limited set of
+---possible atoms. In *Lua*METATEX\ we have many more built in and you can add more.
+---It will take a while before we have documented all the new math features and more
+---details can be found in the manuals that come with *ConTeXt* for which all this
+---was implemented. In addition to `mathordinary` (aka `mathord`), `mathoperator` (aka `mathop`), `mathbinary` (aka `mathbin`), `mathrelation` (aka `mathrel`), `mathopen`, `mathclose`, `mathpunctuation` (aka {mathpunct}) and `mathinner` we have `mathfraction`, `mathradical`, `mathmiddle`, `mathaccent`, `mathfenced`, `mathghost` and the existing `mathunderline` (aka `underline`) and `mathoverline` (aka `overline`) class driven atoms.
+---
+---The `mathatom` primitive is the generic one and it accepts a couple of
+---keywords:
+---
+--- keyword     argument  meaning 
+---
+--- attr        int int  attributes to be applied to this atom 
+--- leftclass   class    the left edge class that determines spacing etc 
+--- rightclass  class    the right edge class that determines spacing etc 
+--- class       class    the general class 
+--- unpack               unpack this atom in inline math 
+--- source      int      a symbolic index of the resulting box 
+--- textfont             use the current text font 
+--- mathfont             use the current math font 
+--- limits               put scripts on top and below 
+--- nolimits             force scripts to be postscripts 
+--- nooverflow           keep (extensible) within target dimensions 
+--- options     int      bitset with options 
+--- void                 discard content and ignore dimensions 
+--- phantom              discard content but retain dimensions 
+---
+---To what extend the options kick in depends on the class as well where and how the
+---atom is used.
+---
+---The original *TeX* engines has three atom modifiers: `displaylimits`, `limits`, and `nolimits`. These look back to the last atom and set a limit
+---related signal. Just to be consistent we have some more of that: `Umathadapttoleft`, `Umathadapttoright`, `Umathuseaxis`, `Umathnoaxis`, `Umathphantom`, `Umathvoid`, `Umathsource`, `Umathopenupheight`, `Umathopenupdepth`, `Umathlimits`, `Umathnolimits`. The last two are equivalent to the lowercase ones with the
+---similar names. Al these modifiers are cheap primitives and one can wonder if they
+---are needed but that also now also applies to the original three. We could stick
+---to one modifier that takes an integer but let's not diverge too much from the
+---original concept.
+---
+---The `nonscript` primitive injects a glue node that signals that the next
+---glue is to be ignored when we are in script or scriptscript mode. The `noatomruling` does the same but this time the signal is that no inter-atom
+---rules need to be applied.
+---
+----------------------------------------------------------------
+
+
+---
+---# Checking a state with `ifmathparameter`
+---
+---When you adapt math parameters it might make sense to see if they are set at all.
+---When a parameter is unset its value has the maximum dimension value and you might
+---for instance mistakenly multiply that value to open up things a bit, which gives
+---unexpected side effects. For that reason there is a convenient checker: `ifmathparameter`. This test primitive behaves like an `ifcase`, with:
+---
+--- value  meaning 
+---
+--- 0  the parameter value is zero 
+--- 1  the parameter is set 
+--- 2  the parameter is unset 
+---
+----------------------------------------------------------------
+
+
+---
+---# Forcing fixed scripts with `mathscriptsmode`
+---
+---We have three parameters that are used for this fixed anchoring:
+---
+--- parameter  register 
+--- `d`  `Umathsubshiftdown`    
+--- `u`  `Umathsupshiftup`      
+--- `s`  `Umathsubsupshiftdown` 
+---
+---When we set `mathscriptsmode` to a value other than zero these are used
+---for calculating fixed positions. This is something that is needed for instance
+---for chemistry. You can manipulate the mentioned variables to achieve different
+---effects.
+---
+---\def\SampleMath#1%
+---  {`\mathscriptsmode#1\mathupright CH_2 + CH^+_2 + CH^2_2`}
+---
+--- mode  down           up             example        
+---
+--- 0     dynamic        dynamic        \SampleMath{0} 
+--- 1     `d`            `u`            \SampleMath{1} 
+--- 2     `s`            `u`            \SampleMath{2} 
+---%
+---% In *LuaTeX* but dropped in *Lua*METATEX:
+---%
+---%NC 3     `s`            `u + s - d`    \SampleMath{3} 
+---%NC 4     `d + (s-d)/2`  `u + (s-d)/2`  \SampleMath{4} 
+---%NC 5     `d`            `u + s - d`    \SampleMath{5} 
+---
+---The value of this parameter obeys grouping and is applied to character atoms only
+---(but that might evolve as we go).
+---
+----------------------------------------------------------------
+
+
+---
+---# Penalties: `mathpenaltiesmode`
+---
+---Only in inline math penalties will be added in a math list. You can force
+---penalties (also in display math) by setting:
+---
+---```
+---\mathpenaltiesmode = 1
+---```
+---
+---This primnitive is not really needed in *LuaTeX* because you can use the callback
+---`mlist_to_hlist` to force penalties by just calling the regular routine
+---with forced penalties. However, as part of opening up and control this primitive
+---makes sense. As a bonus we also provide two extra penalties:
+---
+---```
+---\prebinoppenalty = -100 % example value
+---\prerelpenalty   =  900 % example value
+---```
+---
+---They default to inifinite which signals that they don't need to be inserted. When
+---set they are injected before a binop or rel noad. This is an experimental feature.
+---
+----------------------------------------------------------------
+
+
+---
+---# Equation spacing: `matheqnogapstep`
+---
+---By default *TeX* will add one quad between the equation and the number. This is
+---hard coded. A new primitive can control this:
+---
+---\startsyntax
+---\matheqnogapstep = 1000
+---\stopsyntax
+---
+---Because a math quad from the math text font is used instead of a dimension, we
+---use a step to control the size. A value of zero will suppress the gap. The step
+---is divided by 1000 which is the usual way to mimmick floating point factors in
+---*TeX*.
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---# Math constructs
+---
+---# Cheating with fences
+---
+---Sometimes you might want to act upon the size of a delimiter, something that is
+---not really possible because of the fact that they are calculated {\em after} most
+---has been typeset already. For this we have two keyword: `phantom` and
+---`void`. In both cases the symbol is replaced by an empty rule, in the first
+---case all three dimensions are preserved in the last case only the height and depth.
+---
+---\startbuffer
+---\startformula
+---    x\mathlimop{\Uvextensible         \Udelimiter 5 0 "222B}_1^2 x
+---\stopformula
+---\vskip-9ex
+---\startformula \red
+---    x\mathlimop{\Uvextensible phantom \Udelimiter 5 0 "222B}_1^2 x
+---\stopformula
+---\vskip-9ex
+---\startformula \blue
+---    x\mathlimop{\Uvextensible void    \Udelimiter 5 0 "222B}_1^2 x
+---\stopformula
+---\stopbuffer
+---
+---\typebuffer
+---
+---In typeset form this looks like:
+---
+---\getbuffer
+---
+---Normally fences need to be matched, that is: when a left fence is seen, there has
+---to be a right fence. When you set `mathcheckfencesmode` to non-zero the
+---scanner silently recovers from this.
+---
+----------------------------------------------------------------
+
+
+---
+---\startsubsection[title={Accent handling with `Umathaccent`},reference=mathacc]
+---
+---*LuaTeX* supports both top accents and bottom accents in math mode, and math
+---accents stretch automatically (if this is supported by the font the accent comes
+---from, of course). Bottom and combined accents as well as fixed-width math accents
+---are controlled by optional keywords following `Umathaccent`.
+---
+---The keyword `bottom` after `Umathaccent` signals that a bottom accent
+---is needed, and the keyword `both` signals that both a top and a bottom
+---accent are needed (in this case two accents need to be specified, of course).
+---
+---Then the set of three integers defining the accent is read. This set of integers
+---can be prefixed by the `fixed` keyword to indicate that a non-stretching
+---variant is requested (in case of both accents, this step is repeated).
+---
+---A simple example:
+---
+---```
+---\Umathaccent both fixed 0 0 "20D7 fixed 0 0 "20D7 {example}
+---```
+---
+---If a math top accent has to be placed and the accentee is a character and has a
+---non-zero `top_accent` value, then this value will be used to place the
+---accent instead of the `skewchar` kern used by *TeX*82.
+---
+---The `top_accent` value represents a vertical line somewhere in the
+---accentee. The accent will be shifted horizontally such that its own `top_accent` line coincides with the one from the accentee. If the `top_accent` value of the accent is zero, then half the width of the accent
+---followed by its italic correction is used instead.
+---
+---The vertical placement of a top accent depends on the `x_height` of the
+---font of the accentee (as explained in the *TeX* book), but if a value turns out
+---to be zero and the font had a `MathConstants` table, then `AccentBaseHeight` is used instead.
+---
+---The vertical placement of a bottom accent is straight below the accentee, no
+---correction takes place.
+---
+---Possible locations are `top`, `bottom`, `both` and `center`. When no location is given `top` is assumed. An additional
+---parameter `fraction` can be specified followed by a number; a value of for
+---instance 1200 means that the criterium is 1.2 times the width of the nucleus. The
+---fraction only applies to the stepwise selected shapes and is mostly meant for the
+---`overlay` location. It also works for the other locations but then it
+---concerns the width.
+---
+----------------------------------------------------------------
+
+
+---
+---# Building radicals with `Uradical`, `Uroot` and `Urooted`
+---
+---The new primitive `Uroot` allows the construction of a radical noad
+---including a degree field. Its syntax is an extension of `Uradical`:
+---
+---```
+---\Uradical
+---    <fam integer> <left char integer>
+---    <content>
+---\Uroot
+---    <fam integer> <left char integer>
+---    <degree>
+---    <content>
+---\Urooted
+---    <fam integer> <left char integer>
+---    <fam integer> <right char integer>
+---    <degree>
+---    <content>
+---```
+---
+---The placement of the degree is controlled by the math parameters `Umathradicaldegreebefore`, `Umathradicaldegreeafter`, and `Umathradicaldegreeraise`. The degree will be typeset in `scriptscriptstyle`.
+---
+---In *ConTeXt* we use `Urooted` to wrap something in an “annuity”
+---umbrella where there is a symbol at the end that has to behave like the radical
+---does at the left end: adapt its size. In order to support variants this primitive
+---supports two delimiters.
+---
+---{\em todo: mention optional keywords}
+---
+----------------------------------------------------------------
+
+
+---
+---# Tight delimiters with `Udelimited`
+---
+---This new primitive is like `Urooted` in that it takes two delimiters but it
+---takes no degree and no rule is drawn.
+---
+---```
+---\Udelimited
+---    <fam integer> <left char integer>
+---    <fam integer> <right char integer>
+---    <content>
+---```
+---
+---In *ConTeXt* we use it for fourier notations in which case there is only a right
+---symbol (like a hat).
+---
+---{\em todo: mention optional keywords}
+---
+----------------------------------------------------------------
+
+
+---
+---# Super- and subscripts
+---
+---The character fields in a *Lua*-loaded *OpenType* math font can have a “mathkern” table. The format of this table is the same as the “mathkern”
+---table that is returned by the `fontloader` library, except that all height
+---and kern values have to be specified in actual scaled points.
+---
+---When a super- or subscript has to be placed next to a math item, *LuaTeX* checks
+---whether the super- or subscript and the nucleus are both simple character items.
+---If they are, and if the fonts of both character items are *OpenType* fonts (as
+---opposed to legacy *TeX* fonts), then *LuaTeX* will use the *OpenType* math
+---algorithm for deciding on the horizontal placement of the super- or subscript.
+---
+---This works as follows:
+---
+---    * The vertical position of the script is calculated.
+---    
+---    * The default horizontal position is flat next to the base character.
+---    
+---    * For superscripts, the italic correction of the base character is added.
+---    
+---    * For a superscript, two vertical values are calculated: the bottom of the
+---        script (after shifting up), and the top of the base. For a subscript, the two
+---        values are the top of the (shifted down) script, and the bottom of the base.
+---    
+---    * For each of these two locations:
+---         * find the math kern value at this height for the base (for a subscript placement, this is the bottom_right corner, for a superscript placement the top_right corner)  * find the math kern value at this height for the script (for a subscript placement, this is the top_left corner, for a superscript placement the bottom_left corner)  * add the found values together to get a preliminary result. 
+---        
+---    
+---    * The horizontal kern to be applied is the smallest of the two results from
+---        previous step.
+---    
+---
+---The math kern value at a specific height is the kern value that is specified by the
+---next higher height and kern pair, or the highest one in the character (if there is no
+---value high enough in the character), or simply zero (if the character has no math kern
+---pairs at all).
+---
+----------------------------------------------------------------
+
+
+---
+---\startsubsection[title={Scripts on extensibles: `Uunderdelimiter`, `Uoverdelimiter`,
+---`Udelimiterover`, `Udelimiterunder` and `Uhextensible`}]
+---
+---The primitives `Uunderdelimiter` and `Uoverdelimiter` allow the
+---placement of a subscript or superscript on an automatically extensible item and
+---`Udelimiterunder` and `Udelimiterover` allow the placement of an
+---automatically extensible item as a subscript or superscript on a nucleus. The
+---input:
+---
+---% these produce radical noads .. in fact the code base has the numbers wrong for
+---% quite a while, so no one seems to use this
+---
+---\startbuffer
+---`\Uoverdelimiter  0 "2194 {\hbox{\strut  overdelimiter}}`
+---`\Uunderdelimiter 0 "2194 {\hbox{\strut underdelimiter}}`
+---`\Udelimiterover  0 "2194 {\hbox{\strut  delimiterover}}`
+---`\Udelimiterunder 0 "2194 {\hbox{\strut delimiterunder}}`
+---\stopbuffer
+---
+---\typebuffer will render this:
+---
+---\blank \startnarrower \getbuffer \stopnarrower \blank
+---
+---The vertical placements are controlled by `Umathunderdelimiterbgap`, `Umathunderdelimitervgap`, `Umathoverdelimiterbgap`, and `Umathoverdelimitervgap` in a similar way as limit placements on large operators.
+---The superscript in `Uoverdelimiter` is typeset in a suitable scripted style,
+---the subscript in `Uunderdelimiter` is cramped as well.
+---
+---These primitives accepts an optional `width` specification. When used the
+---also optional keywords `left`, `middle` and `right` will
+---determine what happens when a requested size can't be met (which can happen when
+---we step to successive larger variants).
+---
+---An extra primitive `Uhextensible` is available that can be used like this:
+---
+---\startbuffer
+---`\Uhextensible width 10cm 0 "2194`
+---\stopbuffer
+---
+---\typebuffer This will render this:
+---
+---\blank \startnarrower \getbuffer \stopnarrower \blank
+---
+---Here you can also pass options, like:
+---
+---\startbuffer
+---`\Uhextensible width 1pt middle 0 "2194`
+---\stopbuffer
+---
+---\typebuffer This gives:
+---
+---\blank \startnarrower \getbuffer \stopnarrower \blank
+---
+---*LuaTeX* internally uses a structure that supports *OpenType* “MathVariants” as well as \TFM\ “extensible recipes”. In most cases where
+---font metrics are involved we have a different code path for traditional fonts end
+---*OpenType* fonts.
+---
+----------------------------------------------------------------
+
+
+---
+---# Fractions and the new `Ustretched` and `Ustretchedwithdelims`
+---
+---These commands are similar the regular rule separated fractions but expect a delimiter
+---that then will be used instead. This permits for instance the use of horizontal
+---extensible arrows. When no extensible is possible (this is a font property) the given
+---glyph is centered.
+---
+---Normally one will pass a specific delimiter and not a character, if only because
+---these come from the non \ASCII\ ranges:
+---
+---```
+---{ \Ustretched <delimiter> <options> {1} {2} }
+---{ \Ustretchedwithdelims <delimiter> () <options> {1} {2} }
+---```
+---
+----------------------------------------------------------------
+
+
+---
+---# Fractions and the new `Uskewed` and `Uskewedwithdelims`
+---
+---The `abovewithdelims` command accepts a keyword `exact`. When issued
+---the extra space relative to the rule thickness is not added. One can of course
+---use the `\Umathfraction..gap` commands to influence the spacing. Also the
+---rule is still positioned around the math axis.
+---
+---```
+---$` { {a} \abovewithdelims() exact 4pt {b} }``
+---```
+---
+---The math parameter table contains some parameters that specify a horizontal and
+---vertical gap for skewed fractions. Of course some guessing is needed in order to
+---implement something that uses them. And so we now provide a primitive similar to the
+---other fraction related ones but with a few options so that one can influence the
+---rendering. Of course a user can also mess around a bit with the parameters
+---`Umathskewedfractionhgap` and `Umathskewedfractionvgap`.
+---
+---The syntax used here is:
+---
+---```
+---{ \Uskewed / <options> {1} {2} }
+---{ \Uskewedwithdelims / () <options> {1} {2} }
+---```
+---
+---where the options can be `noaxis` and `exact`. By default we add half
+---the axis to the shifts and by default we zero the width of the middle character.
+---For Latin Modern the result looks as follows:
+---
+---\def\ShowA#1#2#3{`x + { \Uskewed           /    #3 {#1} {#2} } + x`}
+---\def\ShowB#1#2#3{`x + { \Uskewedwithdelims / () #3 {#1} {#2} } + x`}
+---
+---\start
+---    \switchtobodyfont[modern]
+---    
+---          \ShowA{a}{b}{}  \ShowA{1}{2}{}  \ShowB{a}{b}{}  \ShowB{1}{2}{} 
+---        \NR
+---         `exact`  \ShowA{a}{b}{exact}  \ShowA{1}{2}{exact}  \ShowB{a}{b}{exact}  \ShowB{1}{2}{exact} 
+---        \NR
+---         `noaxis`  \ShowA{a}{b}{noaxis}  \ShowA{1}{2}{noaxis}  \ShowB{a}{b}{noaxis}  \ShowB{1}{2}{noaxis} 
+---        \NR
+---         `exact noaxis`  \ShowA{a}{b}{exact noaxis}  \ShowA{1}{2}{exact noaxis}  \ShowB{a}{b}{exact noaxis}  \ShowB{1}{2}{exact noaxis} 
+---        \NR
+---    
+---\stop
+---
+---The `\over` and related primitives have the form:
+---
+---```
+---{{top}\over{bottom}}
+---```
+---
+---For convenience, which also avoids some of the trickery that makes this
+---“looking back” possible, the *Lua*METATEX\ also provides this variant:
+---
+---```
+---\Uover{top}{bottom}
+---```
+---
+---The optional arguments are also supported but we have one extra option: `style`. The style is applied to the numerator and denominator.
+---
+---```
+---\Uover style \scriptstyle {top} {bottom}
+---```
+---
+---The complete list of these commands is: `Uabove`, `Uatop`, `Uover`, `Uabovewithdelims`, `Uatopwithdelims`, `Uoverwithdelims`,
+---`Uskewed`, `Uskewedwithdelims`. As with other extensions we use a
+---leading `U`. Here are a few examples:
+---
+---\startbuffer
+---`\Uover {                   1234} {                   5678} `\quad
+---`\Uover {\textstyle         1234} {\textstyle         5678} `\quad
+---`\Uover {\scriptstyle       1234} {\scriptstyle       5678} `\quad
+---`\Uover {\scriptscriptstyle 1234} {\scriptscriptstyle 5678} `\blank
+---
+---`\Uover                          {1234} {5678} `\quad
+---`\Uover style \textstyle         {1234} {5678} `\quad
+---`\Uover style \scriptstyle       {1234} {5678} `\quad
+---`\Uover style \scriptscriptstyle {1234} {5678} `\blank
+---\stopbuffer
+---
+---\typebuffer
+---
+---These render as: \getbuffer
+---
+----------------------------------------------------------------
+
+
+---
+---# Math styles: `Ustyle`
+---
+---This primitive accepts a style identifier:
+---
+---```
+---\Ustyle \displaystyle
+---```
+---
+---This in itself is not spectacular because it is equivalent to
+---
+---```
+---\displaystyle
+---```
+---
+---Both commands inject a style node and change the current style. However, as in other
+---places where *Lua*METATEX\ expects a style you can also pass a number in the range
+---zero upto seven (like the ones reported by the primitive `mathstyle`). So, the
+---next few lines give identical results:
+---
+---\startbuffer
+---`\Ustyle0             \number\mathstyle \Ustyle7                         \number\mathstyle`
+---`\Ustyle\displaystyle \number\mathstyle \Ustyle\crampedscriptscriptstyle \number\mathstyle`
+---`       \displaystyle \number\mathstyle        \crampedscriptscriptstyle \number\mathstyle`
+---\stopbuffer
+---
+---Like: \inlinebuffer . Values outside the valid range are ignored.
+---
+---There is an extra option `norule` that can be used to suppress the rule while
+---keeping the spacing compatible.
+---
+----------------------------------------------------------------
+
+
+---
+---# Delimiters: `Uleft`, `Umiddle` and `Uright`
+---
+---Normally you will force delimiters to certain sizes by putting an empty box or
+---rule next to it. The resulting delimiter will either be a character from the
+---stepwise size range or an extensible. The latter can be quite differently
+---positioned than the characters as it depends on the fit as well as the fact
+---whether the used characters in the font have depth or height. Commands like
+---(plain *TeX* s) `\big` need to use this feature. In *LuaTeX* we provide a bit
+---more control by three variants that support optional parameters `height`,
+---`depth` and `axis`. The following example uses this:
+---
+---\startbuffer
+---\Uleft   height 30pt depth 10pt      \Udelimiter "0 "0 "000028
+---\quad x\quad
+---\Umiddle height 40pt depth 15pt      \Udelimiter "0 "0 "002016
+---\quad x\quad
+---\Uright  height 30pt depth 10pt      \Udelimiter "0 "0 "000029
+---\quad \quad \quad
+---\Uleft   height 30pt depth 10pt axis \Udelimiter "0 "0 "000028
+---\quad x\quad
+---\Umiddle height 40pt depth 15pt axis \Udelimiter "0 "0 "002016
+---\quad x\quad
+---\Uright  height 30pt depth 10pt axis \Udelimiter "0 "0 "000029
+---\stopbuffer
+---
+---\typebuffer
+---
+---\startlinecorrection
+---\ruledhbox{\mathematics{\getbuffer}}
+---\stoplinecorrection
+---
+---The keyword `exact` can be used as directive that the real dimensions
+---should be applied when the criteria can't be met which can happen when we're
+---still stepping through the successively larger variants. When no dimensions are
+---given the `noaxis` command can be used to prevent shifting over the axis.
+---
+---You can influence the final class with the keyword `class` which will
+---influence the spacing. The numbers are the same as for character classes.
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---# Extracting values
+---
+---# Codes and using `Umathcode`, `Umathcharclass`, `Umathcharfam` and `Umathcharslot`
+---
+---You should not really depend on the number that comes from `Umathcode` because
+---the engine can (at some point) use a different amount of families and classes. Given this,
+---you can extract the components of a math character. Say that we have defined:
+---
+---```
+---\Umathcode 1 2 3 4
+---```
+---
+---then
+---
+---```
+---[\Umathcharclass\Umathcode1] [\Umathcharfam\Umathcode1] [\Umathcharslot\Umathcode1]
+---```
+---
+---which will return:
+---
+---```
+---[2] [3] [4]
+---```
+---
+---You can of course store the code in for instance a register and use that as
+---argument. The three commands also accept a specification (and maybe more in the
+---future).
+---
+---These commands are provided as convenience. Before they became available you
+---could do the following:
+---
+---```
+---\def\Umathcharclass{\numexpr
+---    \directlua{tex.print(tex.getmathcode(token.scan_int())[1])}
+---\relax}
+---\def\Umathcharfam{\numexpr
+---    \directlua{tex.print(tex.getmathcode(token.scan_int())[2])}
+---\relax}
+---\def\Umathcharslot{\numexpr
+---    \directlua{tex.print(tex.getmathcode(token.scan_int())[3])}
+---\relax}
+---```
+---
+----------------------------------------------------------------
+
+
+---
+---# Last lines and `predisplaygapfactor`
+---
+---There is a new primitive to control the overshoot in the calculation of the
+---previous line in mid-paragraph display math. The default value is 2 times
+---the em width of the current font:
+---
+---```
+---\predisplaygapfactor=2000
+---```
+---
+---If you want to have the length of the last line independent of math i.e.\ you don't
+---want to revert to a hack where you insert a fake display math formula in order to
+---get the length of the last line, the following will often work too:
+---
+---```
+---\def\lastlinelength{\dimexpr
+---    \directlua {tex.sprint (
+---        (nodes.dimensions(node.tail(tex.lists.page_head).list))
+---    )}sp
+---\relax}
+---```
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---# Math mode and scripts
+---
+---\startsubsection[title={Entering and leaving math mode with `Ustartmathmode`
+---and `Ustopmathmode`}]
+---
+---These commands are variants on the single and double (usually) dollar signs that
+---make us enter math mode and later leave it. The start command expects a style
+---identifier that determines in what style we end up in.
+---
+----------------------------------------------------------------
+
+
+---
+---\startsubsection[title={Verbose versions of single-character math commands like `Usuperscript`
+---and `Usubscript`}]
+---
+---*LuaTeX* defines six new primitives that have the same function as
+---`^`, `_`, ```, and `$``:
+---
+--- primitive                 explanation 
+---
+--- `Usuperscript`       duplicates the functionality of `^` 
+--- `Usubscript`         duplicates the functionality of `_` 
+--- `Ustartmath`         duplicates the functionality of ```, % ` when used in non-math mode. 
+--- `Ustopmath`          duplicates the functionality of ```, % ` when used in inline math mode. 
+--- `Ustartdisplaymath`  duplicates the functionality of ````, % `` when used in non-math mode. 
+--- `Ustopdisplaymath`   duplicates the functionality of ````, % `` when used in display math mode. 
+---
+---The `Ustopmath` and `Ustopdisplaymath` primitives check if the current
+---math mode is the correct one (inline vs.\ displayed), but you can freely intermix
+---the four mathon/mathoff commands with explicit dollar sign(s).
+---
+----------------------------------------------------------------
+
+
+---
+---# Script commands `Unosuperscript`, `Unosubscript`, `Unosuperprescript` and `Unosubprescript`
+---
+---These commands result in super- and subscripts but with the current style (at the
+---time of rendering). So,
+---
+---\startbuffer[script]
+---`
+---    x\Usuperscript  {1}\Usubscript  {2} =
+---    x\Unosuperscript{1}\Unosubscript{2} =
+---    x\Usuperscript  {1}\Unosubscript{2} =
+---    x\Unosuperscript{1}\Usubscript  {2}
+---`
+---\stopbuffer
+---
+---\typebuffer[script]
+---
+---results in \inlinebuffer[script].
+---
+----------------------------------------------------------------
+
+
+---
+---# Script commands `Ushiftedsuperscript`, `Ushiftedsubscript`, `Ushiftedsuperprescript` and `Ushiftedsubprescript`
+---
+---Sometimes a script acts as an index in which case is should be anchored
+---differently. For that we have four extra primitives. Here the shifted postscripts
+---are shown:
+---
+---\startbuffer[script]
+---`
+---    x\Usuperscript       {1}\Usubscript       {2} =
+---    x\Ushiftedsuperscript{1}\Ushiftedsubscript{2} =
+---    x\Usuperscript       {1}\Ushiftedsubscript{2} =
+---    x\Ushiftedsuperscript{1}\Usubscript       {2}
+---`
+---\stopbuffer
+---
+---\typebuffer[script]
+---
+---results in \inlinebuffer[script].
+---
+----------------------------------------------------------------
+
+
+---
+---# Injecting primes with `Uprimescript`
+---
+---This one is a bit special. In *Lua*METATEX\ a prime is a native element of a
+---nucleus, alongside the two prescript and two postscripts. The most confusing
+---combination of primes and postscripts is the case where we have a prime and
+---superscript. In that case we assume that in order to avoid confusion parenthesis
+---are applied so we don't covert it. That leaves three cases:
+---
+---\startbuffer[script]
+---`
+---    a \Uprimescript{1} \Usuperscript{2} \Usubscript {3} +
+---    b \Usubscript  {3} \Uprimescript{1} +
+---    c \Uprimescript{1} \Usubscript  {3} = d
+---`
+---\stopbuffer
+---
+---\typebuffer[script]
+---
+---This gets rendered as: \inlinebuffer[script]. In this case a subscript is handled as if
+---it were an index.
+---
+----------------------------------------------------------------
+
+
+---
+---# Prescripts with `Usuperprescript` and `Usubprescript`
+---
+---\startbuffer
+---\hbox{`
+---    {\tf X}^1_2^^3__4 \quad
+---    {\tf X}^1  ^^3    \quad
+---    {\tf X}  _1   __4 \quad
+---    {\tf X}    ^^3    \quad
+---    {\tf X}       __4 \quad
+---    {\tf X}^^3    __4
+---`}
+---\stopbuffer
+---
+---\typebuffer
+---
+---The problem with the circumflex is that it is also used for escaping character
+---input. Normally that only happens in a format file so you can safely disable
+---that. Alternatives are using active characters that adapt. In *ConTeXt* we make
+---them regular (other) characters in text mode and set `supmarkmode` to 1 to
+---disable the normal multiple `^` treatment (a value larger than 1 will also
+---disable that in text mode). In math mode we make them active and behave as
+---expected.
+---
+---\blank \getbuffer \blank
+---
+---The more explicit commands are:
+---
+---\startbuffer
+---\hbox{`
+---{\tf X}\Usuperscript{1}                                                  \quad
+---{\tf X}                \Usubscript{2}                                    \quad
+---{\tf X}\Usuperscript{1}\Usubscript{2}                                    \quad
+---{\tf X}\Usuperscript{1}              \Usuperprescript{3}                 \quad
+---{\tf X}                \Usubscript{2}                   \Usubprescript{4}\quad
+---{\tf X}\Usuperscript{1}\Usubscript{2}\Usuperprescript{3}\Usubprescript{4}\quad
+---{\tf X}                              \Usuperprescript{3}                 \quad
+---{\tf X}                                                 \Usubprescript{4}\quad
+---{\tf X}                              \Usuperprescript{3}\Usubprescript{4}
+---`}
+---\stopbuffer
+---
+---\typebuffer
+---
+---These more verbose triggers can be used to build interfaces:
+---
+---\blank \getbuffer \blank
+---
+----------------------------------------------------------------
+
+
+---
+---# Allowed math commands in non-math modes
+---
+---The commands `mathchar`, and `Umathchar` and control sequences that are
+---the result of `mathchardef` or `Umathchardef` are also acceptable in
+---the horizontal and vertical modes. In those cases, the `textfont` from the
+---requested math family is used.
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---% # Flattening: `mathflattenmode`
+---%
+---% 
+---%
+---% The *TeX* math engine collapses `ord` noads without sub- and superscripts
+---% and a character as nucleus, which has the side effect that in *OpenType* mode
+---% italic corrections are applied (given that they are enabled).
+---%
+---% \startbuffer[sample]
+---% \switchtobodyfont[modern]
+---% `V \mathbin{\mathbin{v}} V`\par
+---% `V \mathord{\mathord{v}} V`\par
+---% \stopbuffer
+---%
+---% \typebuffer[sample]
+---%
+---% This renders as:
+---%
+---% \blank \start \mathflattenmode\plusone \getbuffer[sample] \stop \blank
+---%
+---% When we set `mathflattenmode` to 31 we get:
+---%
+---% \blank \start \mathflattenmode\numexpr1+2+4+8+16\relax \getbuffer[sample] \stop \blank
+---%
+---% When you see no difference, then the font probably has the proper character
+---% dimensions and no italic correction is needed. For Latin Modern (at least till
+---% 2018) there was a visual difference. In that respect this parameter is not always
+---% needed unless of course you want efficient math lists anyway.
+---%
+---% You can influence flattening by adding the appropriate number to the value of the
+---% mode parameter. The default value is 1.
+---%
+---% 
+---%  mode  class 
+---% 
+---%   1    ord   
+---%   2    bin   
+---%   4    rel   
+---%   8    punct 
+---%  16    inner 
+---% 
+---% 
+---%
+---% \stopsubsection
+---
+---# Tracing
+---
+---# Assignments
+---
+---Because there are quite some math related parameters and values, it is possible
+---to limit tracing. Only when `tracingassigns` and/or `tracingrestores` are set to 2 or more they will be traced.
+---
+----------------------------------------------------------------
+
+
+---
+---# `tracingmath`
+---
+---The *TeX* engine has a of places where tracing information can be generated so
+---one can see what gets read and what comes out, but the math machinery is a black
+---box. In *Lua*METATEX\ the math engine has been extended with tracing too.
+---
+---A value of one shows only the initial list, but a value of two also shows the
+---intermediate lists as well as applied rules, injected spacing, injected penalties
+---and parameter initialization. A value of three shows the result and larger values
+---will do so with maximum breadth and depth.
+---
+---If you also want to see something on the console make sure to set `tracingonline` to more than one.
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---# Classes
+---
+---# Forcing classes with `Umathclass`
+---
+---You can change the class of a math character on the fly:
+---
+---\startbuffer
+---`x\mathopen    {!}+123+\mathclose   {!}x`
+---`x\Umathclass4 `! +123+\Umathclass5 `! x`
+---`x              ! +123+              ! x`
+---`x\mathclose   {!}+123+\mathopen    {!}x`
+---`x\Umathclass5 `! +123+\Umathclass4 `! x`
+---\stopbuffer
+---
+---\typebuffer
+---
+---Watch how the spacing changes:
+---
+---\startlines
+---\getbuffer
+---\stoplines
+---
+---The *TeX* engines deal with active characters in math differently as in text.
+---When a character has class 8 it will be fed back into the machinery with an
+---active catcode which of course assumes that there is some meaning attached.
+---
+---A variant on this is the use of `amcode`. A character that has that code set
+---and that is active when we are in math mode, will be fed back with that code as
+---catcode which can be one of alignment tab, superscript, subscript, letter, other
+---char, or active. This feature is still experimental. Watch out: when an already
+---active character remains active we get a loop. Also, math characters are checked
+---for this property too, which can then turn them active.
+---
+----------------------------------------------------------------
+
+
+---
+---# Checking class states
+---
+---When a formula is typeset it starts out with a begin class and finishes with an end class.
+---This is done by adding two “fake” atoms.  here are two global state variables that tell
+---what the most recent edge classes are and two variables that act like registers and are
+---local. There are also two registers that can be set to values that will force begin and end
+---classes.
+---
+---The values of `mathbeginclass` and `mathendclass` are used when a
+---formula starts and afterwards they are reset. Afterwards `mathleftclass` and
+---`mathrightclass` have the effective edge classes. The global `lastleftclass` and `lastrightclass` variables also have the last edge
+---classes but them being global they might not always reflect what you expect.
+---
+----------------------------------------------------------------
+
+
+---
+---# Getting class spacing
+---
+---You can query the pairwise spacing of atoms with `mathatomglue` and inject it with
+---`mathatomskip`, as in:
+---
+---\startbuffer
+---\the\mathatomglue 5 4 \displaystyle : `[\mathatomskip 5 4 \displaystyle]`
+---\stopbuffer
+---
+---\typebuffer
+---
+---and get: \inlinebuffer.
+---
+----------------------------------------------------------------
+
+
+---
+---# Default math codes
+---
+---The probably not that useful primitive (but who knows) `setdefaultmathcodes`
+---initializes the mathcodes of digits to family zero and the lowercase and
+---uppercase letters to family one, just as standard *TeX* does. Don't do this in in
+---*ConTeXt*.
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---# Modes
+---
+---# Introduction
+---
+---For most cases the math engine acts the same as in regular *TeX*, apart of course
+---from some font specific features that need to be supported out of the box. There
+---are however ways to divert, which we do in *ConTeXt*. The following paragraphs are
+---therefore rather *ConTeXt* driven and not that relevant otherwise. Some modes have
+---been removed and became default and/ro were replaced by more granular options.
+---
+----------------------------------------------------------------
+
+
+---
+---# Controlling display math with `mathdisplaymode`
+---
+---By setting `mathdisplaymode` larger than zero double math shift characters
+---(normally the dollar sign) are disabled. The reason for this feature is rather
+---*ConTeXt* specific: we pay a lot attention to spacing and the build in heuristics
+---don't work well with that. We also need to initialize display math as well as
+---deal with whatever has to be done with respect to finalizing. Because users use
+---the high level commands anyway, disabling is okay for *ConTeXt* and less likely
+---to be done for other macro packages, so be careful with this one.
+---
+----------------------------------------------------------------
+
+
+---
+---# Skips around display math and `mathdisplayskipmode`
+---
+---The injection of `abovedisplayskip` and `belowdisplayskip` is not
+---symmetrical. An above one is always inserted, also when zero, but the below is
+---only inserted when larger than zero. Especially the latter makes it sometimes hard
+---to fully control spacing. Therefore *LuaTeX* comes with a new directive: `mathdisplayskipmode`. The following values apply:
+---
+--- value  meaning 
+---
+--- 0  normal *TeX* behavior 
+--- 1  always (same as 0) 
+--- 2  only when not zero 
+--- 3  never, not even when not zero 
+---
+----------------------------------------------------------------
+
+
+---
+---# Scripts
+---
+---The regular superscript trigger `^` and subscript trigger `_` are
+---quite convenient and although we do have verbose aliases in regular text these
+---two will be used. A multiple superscript character sequence is used for accessing
+---characters by number unless you disable that via catcode manipulations. In
+---*ConTeXt* the super- and subscript characters are regular characters and only in
+---math mode they have a special meaning. We can have upto for script characters and
+---they indicate pre- and postscripts.
+---
+--- `^`              super  post 
+--- `_`              sub    post 
+--- `^^`             super  pre  
+--- `__`             sub    pre  
+--- `^^^`   shifted  super  post 
+--- `___`   shifted  sub    post 
+--- `^^^^`  shifted  super  pre  
+--- `____`  shifted  sub    pre  
+---
+---The shifted variants force a script to be an index and thereby make the other
+---script move. This multiple character features used to be optional but is now always
+---active.
+---
+---Related to this is the issue of double scripts. The regular *TeX* is to issue
+---an error message, inject an ordinary node and carry on when asked to. Here we have
+---`mathdoublescriptmode` as escape: when set to a zero or positive value it will
+---also inject an atom but with class properties determined by its value. There will
+---be no error message.
+---
+---```
+---\mathdoublescriptmode"MMLLRR % main left right
+---```
+---
+---% Another variable that influences rendering is `mathscriptcharmode` that in
+---% *ConTeXt* we default to 1. The `mathscriptboxmode` parameter determines if a
+---% boxed nucleus is analyzed and is also set to 1 in *ConTeXt*. Both parameters are a
+---% left-over from the split code path approach and might still be handy for
+---% experiments. They might go away some day of replaced by a different control
+---% option. Older versions if *Lua*METATEX\ had optional behavior for different values
+---% but that code was removed.
+---
+----------------------------------------------------------------
+
+
+---
+---# Grouping
+---
+---When set to non zero `mathgroupingmode` will make stand alone “list”
+---as in `a {bc` d} behave like grouping instead of creating composite atoms.
+---In *ConTeXt* indeed we set it to a positive value. Although it was ot strictly
+---necessary it is nicer when users don't get side effects if they revert to low
+---level source coding.
+---
+----------------------------------------------------------------
+
+
+---
+---# Slack
+---
+---The `mathslackmode` parameters controls removal of accidental left and/or
+---right space added to a formula. Of course we enable this in *ConTeXt*. There is
+---more detailed control possible at the atom label as well as with class options.
+---
+----------------------------------------------------------------
+
+
+---
+---# Limit fitting `mathlimitsmode`
+---
+---When set, this parameter avoids too wide limits to stick out too much by sort of
+---centering them.
+---
+----------------------------------------------------------------
+
+
+---
+---# Nolimit correction with `mathnolimitsmode`
+---
+---There are two extra math parameters `Umathnolimitsupfactor` and `Umathnolimitsubfactor` that were added to provide some control over how limits
+---are spaced (for example the position of super and subscripts after integral
+---operators). They relate to an extra parameter `mathnolimitsmode`. The half
+---corrections are what happens when scripts are placed above and below. The
+---problem with italic corrections is that officially that correction italic is used
+---for above/below placement while advanced kerns are used for placement at the
+---right end. The question is: how often is this implemented, and if so, do the
+---kerns assume correction too. Anyway, with this parameter one can control it.
+---
+---    
+---         \mathnolimitsmode0    `\displaystyle\int\nolimits^0_1`
+---         \mathnolimitsmode1    `\displaystyle\int\nolimits^0_1`
+---         \mathnolimitsmode2    `\displaystyle\int\nolimits^0_1`
+---         \mathnolimitsmode3    `\displaystyle\int\nolimits^0_1`
+---         \mathnolimitsmode4    `\displaystyle\int\nolimits^0_1`
+---         \mathnolimitsmode8000 `\displaystyle\int\nolimits^0_1`
+---    
+---    
+---     mode
+---         \tttf 0
+---         \tttf 1
+---         \tttf 2
+---         \tttf 3
+---         \tttf 4
+---         \tttf 8000
+---    
+---     superscript
+---         0
+---         font
+---         0
+---         0
+---         +ic/2
+---         0
+---    
+---     subscript
+---         -ic
+---         font
+---         0
+---         -ic/2
+---         -ic/2
+---         8000ic/1000
+---    
+---
+---When the mode is set to one, the math parameters are used. This way a macro
+---package writer can decide what looks best. Given the current state of fonts in
+---*ConTeXt* we currently use mode 1 with factor 0 for the superscript and 750 for
+---the subscripts. Positive values are used for both parameters but the subscript
+---shifts to the left. A `mathnolimitsmode` larger that 15 is considered to
+---be a factor for the subscript correction. This feature can be handy when
+---experimenting.
+---
+----------------------------------------------------------------
+
+
+---
+---# Some spacing control with `mathsurroundmode`, `mathspacingmode` and `mathgluemode`
+---
+---See \in {section} [spacing:surround] for more about inline spacing. The `mathsurroundmode` parameter just permits the glue variant to kick in and indeed
+---we enable it in *ConTeXt*.
+---
+---The `mathspacingmode` parameter is for tracing: normally zero inter atom
+---glue is not injected but when this parameter is set to non-zero even zero
+---spacing will show up. This permits us to check the applied inter atom spacing.
+---
+---The `mathgluemode` bitset controls if glue can stretch and/or shrink. It
+---is used in some of the upgraded *ConTeXt* high level math alignment command so
+---probably more qualifies as a feature specific for that usage.
+---
+--- value  meaning 
+---
+--- 0x01   obey stretch component 
+--- 0x02   obey shrink  component 
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---# Experiments
+---
+---There are a couple of experimental features. They will stay but details might
+---change, for instance more control over spacing. We just show some examples and
+---let your imagination work it out.
+---
+---# Scaling spacing with `Umathxscale` and  `Umathyscale`
+---
+---These two primitives scale the horizontal and vertical scaling related
+---parameters. They are set by style. There is no combined scaling primitive.
+---
+---\startbuffer
+---`\Umathxscale\textstyle  800 a + b + x + d + e = f `\par
+---`\Umathxscale\textstyle 1000 a + b + x + d + e = f `\par
+---`\Umathxscale\textstyle 1200 a + b + x + d + e = f `\blank
+---
+---`\Umathyscale\textstyle  800 \sqrt[2]{x+1}`\quad
+---`\Umathyscale\textstyle 1000 \sqrt[2]{x+1}`\quad
+---`\Umathyscale\textstyle 1200 \sqrt[2]{x+1}`\blank
+---\stopbuffer
+---
+---\typebuffer
+---
+---Normally only small deviations from 1000 make sense but here we want to show the
+---effect and use a 20\percent\ scaling:
+---
+---\getbuffer
+---
+---# Scaling with `scaledmathstyle`
+---
+---Because styles put a style switching node in the stream we have a
+---scaling primitive that uses such a style node to signal dynamic
+---scaling. Thisis still somewhat experimental.
+---
+---\startbuffer
+---`
+---    {\scaledmathstyle  500 x + x}\quad
+---    {\scaledmathstyle 1000 x + x}\quad
+---    {\scaledmathstyle 1500 x + x}
+---`
+---\stopbuffer
+---
+---\typebuffer
+---
+---You get differently sized math but of course you then probably also need to
+---handle spacing differently, although for small deviations from 1000 is should
+---come out acceptable.
+---
+----------------------------------------------------------------
+
+
+---
+---# Spreading math with `maththreshold`
+---
+---Small formulas that don't get unpacked can be made to act like glue, that is,
+---they become a sort of leader and permit the par builder to prevent excessive
+---spacing because the embedded inter atom glue can now participate in the
+---calculations. The `maththreshold` primitive is a regular glue parameter.
+---
+----------------------------------------------------------------
+
+
+---
+---# `everymathatom` and `lastatomclass`
+---
+---Just for completeness we have `everymathatom` as companion for `everyhbox`
+---and friends and it is probably just as useful. The next example shows how it works:
+---
+---\startbuffer
+---\everymathatom
+---  {\begingroup
+---   \scratchcounter\lastatomclass
+---   \everymathatom{}%
+---   \mathghost{\hbox to 0pt yoffset -1ex{\smallinfofont \setstrut\strut \the\scratchcounter\hss}}%
+---   \endgroup}
+---
+---` a = \mathatom class 4 {b} + \mathatom class 5 {c} `
+---\stopbuffer
+---
+---\typebuffer
+---
+---We get a formula with open- and close atom spacing applied to `b` and `c`:
+---
+---{\getbuffer}
+---
+---This example shows bit of all: we want the number to be invisible to the math
+---machinery so we ghost it. So, we need to make sure we don't get recursion due to
+---nested injection and expansion of `everymathatom` and of course we need to
+---store the number. The `lastatomclass` state variable is only meaningful
+---inside an explicit atom wrapper like `mathatom` and `mathatom`.
+---
+----------------------------------------------------------------
+
+
+---
+---# `postinlinepenalty` and `preinlinepenalty`
+---
+---In horizontal lists math is embedded in a begin and end math node. These nodes
+---also carry information about the surrounding space, and the in *Lua*METATEX\
+---optional glue. We also store a penalty so that we can let that play a role in the
+---decisions to be made; these two internal integer registers control this. Just
+---like the mentioned spacing they are not visible as nodes in the list.
+---
+----------------------------------------------------------------
+
+
+---
+---# `mathforwardpenalties` and `mathbackwardpenalties`
+---
+---These penalties are experimental and deltas added to the regular penalties
+---between atoms. Here is an example, as with other primitives that take more
+---arguments the first number indicates how much follows.
+---
+---\startbuffer
+---` a + b + c + d + e + f + g + h = x `\par
+---\mathforwardpenalties  3 300 200 100
+---\mathbackwardpenalties 3 250 150  50
+---` a + b + c + d + e + f + g + h = x $\par
+---\stopbuffer
+---
+---\typebuffer
+---
+---You'll notice that we apply more severe penalties at the edges:
+---
+---{\showmakeup[penalty]\multiply\glyphscale\plustwo \getbuffer}
+---
+----------------------------------------------------------------
+
+
+---
+---# `Umathdiscretionary` and `hmcode`
+---
+---The usual `discretionary` command is supported in math mode but it has the
+---disadvantage that one needs to make sure that the content triplet does the math
+---right (especially the style). This command takes an optional class specification.
+---
+---```
+---\Umathdiscretionary [class n] {+} {+} {+}
+---```
+---
+---It uses the same logic as `mathchoice` but in this case we handle three
+---snippets in the current style.
+---
+---A fully automatic mechanism kicks in when a character has a `hmcode` set:
+---
+--- bit  meaning  explanation 
+---
+--- 1    normal   a discretionary is created with the same components 
+--- 2    italic   following italic correction is kept with the component 
+---
+---So we can say:
+---
+---```
+---\hmcode `+ 3
+---```
+---
+---When the `italic` bit is set italic correction is kept at a linebreak.
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---\stopchapter
+---
+---\stopcomponent
+---

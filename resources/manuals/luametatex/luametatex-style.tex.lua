@@ -1,0 +1,617 @@
+---% language=us runpath=texruns:manuals/luametatex
+---
+---\startenvironment luametatex-style
+---
+---%     \environment luatex-style
+---
+---%     \logo[LUAMETATEX] {\Lua Meta\TeX}
+---
+---% todo: use \useMPlibrary[lua]
+---
+---\enabletrackers[fonts.usage]
+---
+---\usemodule[fonts-statistics]
+---
+---\setuplayout
+---  [height=middle,
+---   width=middle,
+---   backspace=2cm,
+---   topspace=10mm,
+---   bottomspace=10mm,
+---   header=10mm,
+---   footer=10mm,
+---   footerdistance=10mm,
+---   headerdistance=10mm]
+---
+---\setuppagenumbering
+---  [alternative=doublesided]
+---
+---\setuptolerance
+---  [stretch,tolerant]
+---
+---\setuptype
+---  [lines=hyphenated]
+---
+---\setuptyping
+---  [lines=hyphenated]
+---
+---\setupitemize
+---  [each]
+---  [packed]
+---
+---\definesymbol[1][\Uchar"2023]
+---\definesymbol[2][\endash]
+---\definesymbol[3][\wait]      % we want to catch it
+---
+---\setupitemize
+---  [each]
+---  [headcolor=maincolor,
+---   symbolcolor=maincolor,
+---   color=maincolor]
+---
+---\setupwhitespace
+---  [medium]
+---
+---\setuptabulate
+---  [blank={small,samepage},
+---   margin=.25em,
+---   headstyle=bold,
+---   rulecolor=maincolor,
+---   rulethickness=1pt,
+---   foregroundcolor=white,
+---   foregroundstyle=\ss\bfx\WORD,
+---   backgroundcolor=maincolor]
+---
+---\setupcaptions
+---  [headcolor=darkblue]
+---
+---\startluacode
+---    local skipped = { 'id', 'subtype', 'next', 'prev' }
+---
+---    local function showlist(l,skipped)
+---        if l then l = table.tohash(l) if skipped then for i=1,#skipped do l[skipped[i]] = nil end end l = table.sortedkeys(l) local n = #l for i=1,n do context("%s{\\tttf %s}", (i == 1 and "") or (i == n and " and ") or ", ", l[i]) end
+---        end
+---    end
+---
+---    function document.functions.showvalues(l,hex)
+---        if l then local n = table.count(l) local i = 0 local f = hex and "%s{\\tttf %s} (0x%02X)" or "%s{\\tttf %s} (%i)" for k, v in table.sortedhash(l) do i = i + 1 context(f, (i == 1 and "") or (i == n and " and ") or ", ", v,k) end
+---        end
+---    end
+---
+---    function document.functions.showfields(s)
+---        local t = string.split(s,',')
+---        showlist(node.fields(t[1],t[2]),skipped)
+---    end
+---
+---    function document.functions.showid(s)
+---        local t = string.split(s,',')
+---        local i = t[1] and node.id(t[1])
+---        local s = t[2] and node.subtype(t[2])
+---        if s then context('{\\tttf %s}, {\\tttf %s}',i,s)
+---        else context('{\\tttf %s}',i)
+---        end
+---    end
+---
+---    function document.functions.showsubtypes(s)
+---        showlist(node.subtypes(s))
+---    end
+---
+---\stopluacode
+---
+---\protected\def\showfields   #1{\ctxlua{document.functions.showfields("#1")}}
+---\protected\def\showid       #1{\ctxlua{document.functions.showid("#1")}}
+---\protected\def\showsubtypes #1{\ctxlua{document.functions.showsubtypes("#1")}}
+---\protected\def\showvalues   #1{\ctxlua{document.functions.showvalues(tex.get#1values())}}
+---\protected\def\showhexvalues#1{\ctxlua{document.functions.showvalues(tex.get#1values(),true)}}
+---\protected\def\showtypes      {\ctxlua{document.functions.showvalues(node.types())}}
+---\protected\def\showvaluelist#1{\ctxlua{document.functions.showvalues(#1)}}
+---
+---\definecolor[blue]      [b=.5]
+---\definecolor[red]       [r=.5]
+---\definecolor[green]     [g=.5]
+---%definecolor[maincolor] [b=.5]
+---%definecolor[keptcolor] [b=.5]
+---%definecolor[othercolor][r=.5,g=.5]
+---
+---\definecolor[maincolor] [b=.5]
+---\definecolor[mooncolor] [b=.5]
+---\definecolor[keptcolor] [b=.5]
+---%\efinecolor[othercolor][s=.5]
+---\definecolor[othercolor][r=.5,g=.5]
+---
+---\writestatus{luametatex manual}{}
+---\writestatus{luametatex manual}{defining lucidaot} \usebodyfont  [lucidaot]
+---\writestatus{luametatex manual}{defining pagella}  \usebodyfont  [pagella]
+---\writestatus{luametatex manual}{defining cambria}  \usebodyfont  [cambria]
+---\writestatus{luametatex manual}{defining modern}   \usebodyfont  [modern]
+---\writestatus{luametatex manual}{defining dejavu}   \setupbodyfont[dejavu,10pt]
+---\writestatus{luametatex manual}{}
+---
+---\setuphead [chapter]      [align={flushleft,broad},style=\bfd]
+---\setuphead [section]      [align={flushleft,broad},style=\bfb]
+---\setuphead [subsection]   [align={flushleft,broad},style=\bfa]
+---\setuphead [subsubsection][align={flushleft,broad},style=\bf,after=\blank,before=\blank]
+---
+---\setuphead [chapter]      [color=maincolor]
+---\setuphead [section]      [color=maincolor]
+---\setuphead [subsection]   [color=maincolor]
+---\setuphead [subsubsection][color=maincolor]
+---
+---\setupfloats
+---  [ntop=4]
+---
+---\definehead
+---  [remark]
+---  [subsubsubject]
+---
+---\setupheadertexts
+---  []
+---
+---% \setuplayout
+---%   [style=bold,
+---%    color=maincolor]
+---
+---\definemixedcolumns
+---  [twocolumns]
+---  [n=2,
+---   balance=yes,
+---   before=\blank,
+---   after=\blank]
+---
+---\definemixedcolumns
+---  [threecolumns]
+---  [twocolumns]
+---  [n=3]
+---
+---\definemixedcolumns
+---  [fourcolumns]
+---  [threecolumns]
+---  [n=4]
+---
+---% if we do this we also need to do it in table cells
+---%
+---% \setuptyping
+---%   [color=maincolor]
+---%
+---% \setuptype
+---%   [color=maincolor]
+---
+---\definetyping
+---  [functioncall]
+---
+---\startMPdefinitions
+---
+---    string  luaplanetcolor ; luaplanetcolor := "maincolor" ;
+---    string  luamooncolor   ; luaplanetcolor := "mooncolor" ;
+---    string  luaholecolor   ; luaholecolor   := "white" ;
+---    string  luaorbitcolor  ; luaorbitcolor  := "darkgray" ;
+---    numeric luaextraangle  ; luaextraangle  := 0 ;
+---
+---    vardef lualogo = image (
+---
+---        % Graphic design by A. Nakonechnyj. Copyright (c) 1998, All rights reserved.
+---
+---        save d, r, p ; numeric d, r, p ;
+---
+---        d := sqrt(2)/4 ; r := 1/4 ; p := r/8 ;
+---
+---        fill fullcircle scaled 1 withcolor luaplanetcolor ;
+---        draw fullcircle rotated 40.5 scaled (1+r) dashed evenly scaled p withpen pencircle scaled (p/2) withcolor luaorbitcolor ;
+---        fill fullcircle scaled r shifted (d+1/8,d+1/8) rotated - luaextraangle withcolor luamooncolor ;
+---        fill fullcircle scaled r shifted (d-1/8,d-1/8) withcolor luaholecolor   ;
+---        luaorbitfactor := .25 ;
+---    ) enddef ;
+---
+---\stopMPdefinitions
+---
+---\startuseMPgraphic{luapage}
+---    StartPage ;
+---
+---        fill Page withcolor \MPcolor{othercolor} ;
+---
+---        luaorbitcolor := "white" ;
+---        luamooncolor  := "maincolor" ;
+---
+---        picture p ; p := lualogo ysized (5*\measure{paperheight}/10) ;
+---        draw p shifted - center p shifted ( \measure{spreadwidth} - .5*\measure{paperwidth} + \measure{spinewidth}, .375*\measure{paperheight} )
+---        ;
+---
+---    StopPage ;
+---\stopuseMPgraphic
+---
+---% \starttexdefinition luaextraangle
+---%     % we can also just access the last page and so in mp directly
+---%     \ctxlua {
+---%         context(\lastpage == 0 and 0 or \realfolio*360/\lastpage)
+---%     }
+---% \stoptexdefinition
+---
+---\startuseMPgraphic{luanumber}
+---  % luaextraangle := \luaextraangle;
+---    luaextraangle := if (LastPageNumber < 10) : 10 else : (RealPageNumber / LastPageNumber) * 360  fi;
+---    luaorbitcolor := "darkgray" ;
+---    luamooncolor  := "othercolor" ;
+---  % luamooncolor  := "maincolor" ;
+---    picture p ; p := lualogo ;
+---    setbounds p to boundingbox fullcircle ;
+---    draw p ysized 1cm ;
+---\stopuseMPgraphic
+---
+---\definelayer
+---  [page]
+---  [width=\paperwidth,
+---   height=\paperheight]
+---
+---\setupbackgrounds
+---  [leftpage]
+---  [background=page]
+---
+---\setupbackgrounds
+---  [rightpage]
+---  [background=page]
+---
+---\definemeasure[banneroffset][\bottomspace-\footerheight-\footerdistance+2cm]
+---
+---\startsetups pagenumber:right
+---  \setlayerframed
+---    [page]
+---    [preset=rightbottom,x=1.0cm,y=\measure{banneroffset}]
+---    [frame=off,height=1cm,offset=overlay]
+---    {\strut\useMPgraphic{luanumber}}
+---  \setlayerframed
+---    [page]
+---    [preset=rightbottom,x=2.5cm,y=\measure{banneroffset}]
+---    [frame=off,height=1cm,width=1cm,offset=overlay,
+---     foregroundstyle=bold,foregroundcolor=maincolor]
+---    {\strut\pagenumber}
+---  \setlayerframed
+---    [page]
+---    [preset=rightbottom,x=3.5cm,y=\measure{banneroffset}]
+---    [frame=off,height=1cm,offset=overlay,
+---     foregroundstyle=bold,foregroundcolor=maincolor]
+---    {\strut\getmarking[chapter]}
+---\stopsetups
+---
+---\startsetups pagenumber:left
+---  \setlayerframed
+---    [page]
+---    [preset=leftbottom,x=3.5cm,y=\measure{banneroffset}]
+---    [frame=off,height=1cm,offset=overlay,
+---     foregroundstyle=bold,foregroundcolor=maincolor]
+---    {\strut\getmarking[chapter]}
+---  \setlayerframed
+---    [page]
+---    [preset=leftbottom,x=2.5cm,y=\measure{banneroffset}]
+---    [frame=off,height=1cm,width=1cm,offset=overlay,
+---     foregroundstyle=bold,foregroundcolor=maincolor]
+---    {\strut\pagenumber}
+---  \setlayerframed
+---    [page]
+---    [preset=leftbottom,x=1.0cm,y=\measure{banneroffset}]
+---    [frame=off,height=1cm,offset=overlay]
+---    {\strut\useMPgraphic{luanumber}}
+---\stopsetups
+---
+---\protected\def\nonterminal#1>{\mathematics{\langle\hbox{\rm #1}\rangle}}
+---
+---% taco's brainwave -) .. todo: create a typing variant so that we can avoid the !crlf
+---
+---\newcatcodetable\syntaxcodetable
+---
+---\protected\def\makesyntaxcodetable
+---  {\begingroup
+---   \catcode`\<=13 \catcode`\|=12
+---   \catcode`\!= 0 \catcode`\\=12
+---   \savecatcodetable\syntaxcodetable
+---   \endgroup}
+---
+---\makesyntaxcodetable
+---
+---\protected\def\startsyntax {\begingroup\catcodetable\syntaxcodetable  \dostartsyntax}
+---\protected\def`\begingroup\catcodetable\syntaxcodetable  \dosyntax` \let\stopsyntax   \relax
+---
+---\protected\def\syntaxenvbody#1%
+---  {\par
+---   \tt
+---   \startnarrower
+--- % \maincolor
+---   #1
+---   \stopnarrower
+---   \par}
+---
+---\protected\def\syntaxbody#1%
+---  {\begingroup
+--- % \maincolor
+---   \tt #1%
+---   \endgroup}
+---
+---\bgroup \catcodetable\syntaxcodetable
+---
+---!gdef!dostartsyntax#1\stopsyntax{!let<!nonterminal!syntaxenvbody{#1}!endgroup}
+---!gdef!dosyntax     #1{!let<!nonterminal!syntaxbody{#1}!endgroup}
+---
+---!egroup
+---
+---\definetyping
+---  [texsyntax]
+---% [color=maincolor]
+---
+---% end of wave
+---
+---\setupinteraction
+---  [state=start,
+---   focus=standard,
+---   style=,
+---   color=,
+---   contrastcolor=]
+---
+---\placebookmarks
+---  [chapter,section,subsection]
+---
+---\setuplist
+---  [chapter,section,subsection,subsubsection]
+---  [interaction=all,
+---   width=4em]
+---
+---\setuplist
+---  [chapter]
+---  [style=bold,
+---   color=keptcolor]
+---
+---\setuplist
+---  [chapter]
+---  [before={\testpage[4]\blank},
+---%    after={\blank[none,samepage]}]
+---   after={\blank[samepage]}]
+---
+---% \setuplist
+---%   [section]
+---%   [before={\testpage[3]}] % \ifnum \structurelistrawnumber{section} > 2 ... \fi
+---
+---\setuplist
+---  [section,subsection]
+---  [before={\ifnum \structurelistrawnumber{section}=1 \blank[samepage] \fi}]
+---
+---\setuplist
+---  [subsection,subsubsection]
+---  [margin=4em,
+---   width=5em]
+---
+---\definestartstop
+---  [notabene]
+---  [style=slanted]
+---
+---\definestartstop
+---  [preamble]
+---  [style=normal,
+---   before=\blank,
+---   after=\blank]
+---
+---% Hans doesn't like the bookmarks opening by default so we comment this:
+---%
+---% \setupinteractionscreen
+---%   [option=bookmark]
+---
+---\startbuffer[stylecalculations]
+---
+---    \normalexpanded{\definemeasure[spinewidth] [0pt]}
+---    \normalexpanded{\definemeasure[paperwidth] [\the\paperwidth ]}
+---    \normalexpanded{\definemeasure[paperheight][\the\paperheight]}
+---    \normalexpanded{\definemeasure[spreadwidth][\measure{paperwidth}]}
+---
+---\stopbuffer
+---
+---\getbuffer[stylecalculations]
+---
+---\dontcomplain
+---
+---%usemodule[abbreviations-mixed]
+---\usemodule[abbreviations-logos]
+---
+---\defineregister[topicindex]
+---\defineregister[luatexindex]
+---\defineregister[etexindex]
+---\defineregister[texindex]
+---\defineregister[primitiveindex]
+---\defineregister[callbackindex]
+---\defineregister[nodeindex]
+---\defineregister[libraryindex]
+---
+---\setupregister[etexindex]  [textstyle=bold]
+---\setupregister[luatexindex][textstyle=bold]
+---
+---%protected\def\lpr#1{\doifmode{*bodypart}{\primitiveindex[#1]{\bf\tex {#1}}}\tex {#1}}
+---%protected\def\prm#1{\doifmode{*bodypart}{\primitiveindex[#1]{\tex    {#1}}}\tex {#1}}
+---\protected\def\cbk#1{\doifmode{*bodypart}{\callbackindex [#1]{`#1`}}`#1`}
+---\protected\def\nod#1{\doifmode{*bodypart}{\nodeindex     [#1]{\bf`#1`}}`#1`}
+---\protected\def\whs#1{\doifmode{*bodypart}{\nodeindex     [#1]{`#1`}}`#1`}
+---\protected\def\noa#1{\doifmode{*bodypart}{\nodeindex     [#1]{`#1`}}`#1`}
+---
+---\protected\def\prm#1{\doifmode{*bodypart}{\getvalue{\ctxlua{document.primitiveorigin("#1")}index}{\tex{#1}}}\tex{#1}}
+---
+---\hyphenation{sub-nodes}
+---
+---\def\currentlibraryindex{\namedstructureuservariable{section}{library}}
+---
+---\setupregister
+---  [alternative=a,
+---   balance=no]
+---
+---\setupregister
+---  [libraryindex]
+---  [indicator=no,before=]
+---
+---\setupregister
+---  [libraryindex]
+---  [1]
+---  [textstyle=\ttbf]
+---
+---\setupregister
+---  [libraryindex]
+---  [2]
+---  [textstyle=\tttf]
+---
+---\protected\def\lib     #1{\doifmode{*bodypart}{\expanded{\libraryindex{\currentlibraryindex+#1}}}`\currentlibraryindex.#1`}
+---\protected\def\libindex#1{\doifmode{*bodypart}{\expanded{\libraryindex{\currentlibraryindex+#1}}}}
+---\protected\def\libidx#1#2{\doifmode{*bodypart}{\expanded{\libraryindex{#1+#2}}`#1.#2`}}
+---\protected\def\lix   #1#2{\doifmode{*bodypart}{\expanded{\libraryindex{#1+#2}}}}
+---
+---% \setstructurepageregister[][keys:1=,entries:1=]
+---
+---\protected\def\inlineluavalue#1%
+---  {{\maincolor \ctxlua {
+---       local t = #1
+---       if type(t) == "table" then t = string.gsub(table.serialize(t,false),"="," = ")
+---       else t = tostring(t)
+---       end
+---       context.typ(t)
+---  }}}
+---
+---% Common:
+---
+---% Added December 9 2020 after being energized by Becca Stevens's Slow Burn music
+---% video: interesting what comes out of top musicians working remote.
+---
+---\startluacode
+---local list    = token.getprimitives()
+---local origins = tex.getprimitiveorigins()
+---local hash    = { }
+---
+---for i=1,#list do
+---    local l = list[i]
+---    hash[l[3]] = l
+---end
+---
+----- redo this:
+---
+---function document.primitiveorigin(name)
+---    local h = hash[name]
+---    if h then
+---        context(origins[h[4]])
+---    else
+---        logs.report("!!!!!!","unknown primitive %s",name)
+---        context("tex")
+---    end
+---end
+---
+---function document.showprimitives(tag)
+---    local t = tex.extraprimitives(tag)
+---    table.sort(t)
+---    for i=1,#t do
+---        local v = t[i]
+---        if v  = ' ' and v  = "/" and v  = "-" then context.type(v) context.space()
+---        end
+---    end
+---end
+---
+----- inspect(tokens.commands)
+---
+---function document.filteredprimitives(cmd)
+---    local t = { }
+---    local c = tokens.commands[cmd]
+---    for i=1,#list do
+---        local l = list[i]
+---        if l[1] == c then t[#t+1] = l[3]
+---        end
+---    end
+---    table.sort(t)
+---    for i=1,#t do
+---        if i > 1 then context(", ")
+---        elseif i == #t then context(" and ")
+---        end
+---        context.typ(t[i])
+---    end
+---end
+---
+---function document.allprimitives()
+---    local c = tokens.commands
+---    local o = origins
+---    table.sort(list, function(a,b)
+---        return a[3] < b[3]
+---    end)
+---    context.starttabulate { "|T|T|Tr|Tr|T|" }
+---    context.DB() context("primitive")
+---    context.BC() context("command name")
+---    context.BC() context("cmd")
+---    context.BC() context("chr")
+---    context.BC() context("origin")
+---    context.NC() context.NR()
+---    context.TB()
+---    for i=1,#list do
+---        local l = list[i]
+---        context.NC() context.tex(l[3])
+---        context.NC() context(c[l[1]])
+---        context.NC() context(l[1])
+---        context.NC() context(l[2])
+---        context.NC() context(o[l[4]])
+---        context.NC() context.NR()
+---    end
+---    context.LL()
+---    context.stoptabulate()
+---end
+---\stopluacode
+---
+---\stopenvironment
+---
+---% \startluacode
+---%
+---% local function identify(name, l)
+---%     local t = { }
+---%     local l = l or _G[name]
+---%     if type(l) == "table" then
+---%         for k, v in next, l do
+---%         print(k)
+---%             if string.find(k,"^_") then
+---%             elseif type(v) == "table" then
+---%                 t[k] = identify(k,v)
+---%             else
+---%                 t[k] = type(v)
+---%             end
+---%         end
+---%     else
+---%         print("unknown " .. name)
+---%     end
+---%     return t
+---% end
+---%
+---% local builtin = {
+---%     --
+---%     md5            = identify("md5"),
+---%     sha2           = identify("sha2"),
+---%     basexx         = identify("basexx"),
+---%     lfs            = identify("lfs"),
+---%     fio            = identify("fio"),
+---%     sio            = identify("sio"),
+---%     sparse         = identify("sparse"),
+---%     xzip           = identify("xzip"),
+---%     xmath          = identify("xmath") ,
+---%     xcomplex       = identify("xcomplex"),
+---%     xdecimal       = identify("xdecimal"),
+---%     --
+---%     socket         = identify("socket"),
+---%     mime           = identify("mime"),
+---%     --
+---%     lua            = identify("lua"),
+---%     status         = identify("status"),
+---%     texio          = identify("texio"),
+---%     --
+---%     tex            = identify("tex"),
+---%     token          = identify("token"),
+---%     node           = identify("node"),
+---%     callback       = identify("callback"),
+---%     font           = identify("font"),
+---%     language       = identify("language"),
+---%     --
+---%     mplib          = identify("mplib"),
+---%     --
+---%     pdfe           = identify("pdfe"),
+---%     pdfdecode      = identify("pdfdecode"),
+---%     pngdecode      = identify("pngdecode"),
+---%     --
+---%     optional       = identify("optional"),
+---% };
+---%
+---% inspect(builtin)
+---%
+---% \stopluacode
+---

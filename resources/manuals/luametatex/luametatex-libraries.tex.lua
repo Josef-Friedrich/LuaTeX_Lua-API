@@ -1,0 +1,526 @@
+---% language=us runpath=texruns:manuals/luametatex
+---
+---\environment luametatex-style
+---
+---\startcomponent luametatex-libraries
+---
+---# Extra libraries
+---
+---\startsection[title=Introduction]
+---
+---The libraries can be grouped in categories like fonts, languages, *TeX*,
+---\METAPOST, *PDF*, etc. There are however also some that are more general purpose
+---and these are discussed here.
+---
+----------------------------------------------------------------
+
+
+---
+---\startsection[title=File and string readers: `fio` and type {sio}]
+---
+---This library provides a set of functions for reading numbers from a file and
+---in addition to the regular `io` library functions. The following
+---work on normal *Lua* file handles.
+---
+--- name         arguments  results 
+---
+--- readcardinal1      (f)       a 1 byte unsigned integer 
+--- readcardinal2      (f)       a 2 byte unsigned integer 
+--- readcardinal3      (f)       a 3 byte unsigned integer 
+--- readcardinal4      (f)       a 4 byte unsigned integer 
+--- readcardinaltable  (f,n,b)   `n` cardinals of `b` bytes 
+--- readinteger1       (f)       a 1 byte signed integer 
+--- readinteger2       (f)       a 2 byte signed integer 
+--- readinteger3       (f)       a 3 byte signed integer 
+--- readinteger4       (f)       a 4 byte signed integer 
+--- readintegertable   (f,n,b)   `n` integers of `b` bytes 
+--- readfixed2         (f)       a float made from a 2 byte fixed format 
+--- readfixed4         (f)       a float made from a 4 byte fixed format 
+--- read2dot14         (f)       a float made from a 2 byte in 2dot4 format 
+--- setposition        (f,p)     goto position `p` 
+--- getposition        (f)       get the current position 
+--- skipposition       (f,n)     skip `n` positions 
+--- readbytes          (f,n)     `n` bytes 
+--- readbytetable      (f,n)     `n` bytes
+---
+---When relevant there are also variants that end with `le` that do it the
+---little endian way. The fixed and dot floating points formats are found in font
+---files and return *Lua* doubles.
+---
+---A similar set of function as in the `fio` library is available in the `sio` library: `sio.readcardinal1`, `sio.readcardinal2`,
+---`sio.readcardinal3`, `sio.readcardinal4`, `sio.readcardinaltable`, `sio.readinteger1`, `sio.readinteger2`,
+---`sio.readinteger3`, `sio.readinteger4`, `sio.readintegertable`, `sio.readfixed2`, `sio.readfixed4`,
+---`sio.read2dot14`, `sio.setposition`, `sio.getposition`, `sio.skipposition`, `sio.readbytes` and
+---`sio.readbytetable`. Here the first argument is a string instead of a
+---file handle.
+---
+----------------------------------------------------------------
+
+
+---
+---\startsection[title=`md5`]
+---
+--- name  arguments  results 
+---
+--- sum    
+--- hex    
+--- HEX    
+---
+----------------------------------------------------------------
+
+
+---
+---\startsection[title=`sha2`]
+---
+--- name       arguments  results 
+---
+--- digest256   
+--- digest384   
+--- digest512   
+---
+----------------------------------------------------------------
+
+
+---
+---% \startsection[title=`flate`]
+---%
+---% 
+---%  name              arguments  results 
+---% 
+---%  flate_compress     
+---%  flate_decompress   
+---%  zip_compress       
+---%  zip_decompress     
+---%  gz_compress        
+---%  gz_decompress      
+---%  update_adler32     
+---%  update_crc32       
+---% 
+---% 
+---%
+---% \stopsection
+---
+---\startsection[title=`xzip`]
+---
+--- name              arguments  results 
+---
+--- compress     
+--- decompress   
+--- adler32      
+--- crc32        
+---
+----------------------------------------------------------------
+
+
+---
+---\startsection[title=`xmath`]
+---
+---This library just opens up standard \CCODE\ math library and the main reason for
+---it being there is that it permits advanced graphics in \METAPOST\ (via the *Lua*
+---interface). There are three constant values:
+---
+--- name  arguments  results 
+---
+--- inf   \emdash  \cldcontext{xmath.inf} 
+--- nan   \emdash  \cldcontext{xmath.nan} 
+--- pi    \emdash  \cldcontext{xmath.pi}  
+---
+---and a lot of functions:
+---
+--- name        arguments  results 
+---
+--- acos        (a)        
+--- acosh       (a)        
+--- asin        (a)        
+--- asinh       (a)        
+--- atan        (a[,b])    
+--- atan2       (a[,b])    
+--- atanh       (a)        
+--- cbrt        (a)        
+--- ceil        (a)        
+--- copysign    (a,b)      
+--- cos         (a)        
+--- cosh        (a)        
+--- deg         (a)        
+--- erf         (a)        
+--- erfc        (a)        
+--- exp         (a)        
+--- exp2        (a)        
+--- expm1       (a)        
+--- fabs        (a)        
+--- fdim        (a,b)      
+--- floor       (a)        
+--- fma         (a,b,c)    
+--- fmax        (...)      
+--- fmin        (...)      
+--- fmod        (a,b)      
+--- frexp       (a,b)      
+--- gamma       (a)        
+--- hypot       (a,b)      
+--- isfinite    (a)        
+--- isinf       (a)        
+--- isnan       (a)        
+--- isnormal    (a)        
+--- j0          (a)        
+--- j1          (a)        
+--- jn          (a,b)      
+--- ldexp       (a,b)      
+--- lgamma      (a)        
+--- l0          (a)        
+--- l1          (a)        
+--- ln          (a,b)      
+--- log         (a[,b])    
+--- log10       (a)        
+--- log1p       (a)        
+--- log2        (a)        
+--- logb        (a)        
+--- modf        (a,b)      
+--- nearbyint   (a)        
+--- nextafter   (a,b)      
+--- pow         (a,b)      
+--- rad         (a)        
+--- remainder   (a,b)      
+--- remquo      (a,b)      
+--- round       (a)        
+--- scalbn      (a,b)      
+--- sin         (a)        
+--- sinh        (a)        
+--- sqrt        (a)        
+--- tan         (a)        
+--- tanh        (a)        
+--- tgamma      (a)        
+--- trunc       (a)        
+--- y0          (a)        
+--- y1          (a)        
+--- yn          (a)        
+---
+----------------------------------------------------------------
+
+
+---
+---\startsection[title=`xcomplex`]
+---
+---*Lua*METATEX\ also provides a complex library `xcomplex`. The complex
+---number is a userdatum:
+---
+--- name        arguments  results 
+---
+--- new         (r,i)      a complex userdata type 
+--- tostring    (z)        a string representation 
+--- topair      (z)        two numbers 
+---
+---There is a bunch of functions that take a complex number:
+---
+--- name        arguments  results 
+---
+--- abs        (a)        
+--- arg        (a)        
+--- imag       (a)        
+--- real       (a)        
+--- onj        (a)        
+--- proj       (a)        
+--- exp"       (a)        
+--- log        (a)        
+--- sqrt       (a)        
+--- pow        (a,b)      
+--- sin        (a)        
+--- cos        (a)        
+--- tan        (a)        
+--- asin       (a)        
+--- acos       (a)        
+--- atan       (a)        
+--- sinh       (a)        
+--- cosh       (a)        
+--- tanh       (a)        
+--- asinh      (a)        
+--- acosh      (a)        
+--- atanh      (a)        
+---
+---These are accompanied by `libcerf` functions:
+---
+--- name        arguments  results 
+---
+--- erf         (a)        The complex error function erf(z) 
+--- erfc        (a)        The complex complementary error function erfc(z) = 1 - erf(z) 
+--- erfcx       (a)        The underflow-compensating function erfcx(z) = exp(z^2) erfc(z) 
+--- erfi        (a)        The imaginary error function erfi(z) = -i erf(iz) 
+--- dawson      (a)        Dawson's integral D(z) = sqrt(pi)/2 * exp(-z^2) * erfi(z) 
+--- voigt       (a,b,c)    The convolution of a Gaussian and a Lorentzian 
+--- voigt_hwhm  (a,b)      The half width at half maximum of the Voigt profile 
+---
+----------------------------------------------------------------
+
+
+---
+---\startsection[title=`xdecimal`]
+---
+---As an experiment *Lua*METATEX\ provides an interface to the `decNumber`
+---library that we have on board for \METAPOST\ anyway. Apart from the usual
+---support for operators there are some functions.
+---
+--- name          arguments   results 
+---
+--- abs           (a)         
+--- new           ([n or s])  
+--- copy          (a)         
+--- trim          (a)         
+--- tostring      (a)         
+--- tonumber      (a)         
+--- setprecision  (n)         
+--- getprecision  ()          
+--- conj          (a)         
+--- abs           (a)         
+--- pow           (a,b)       
+--- sqrt          (a)         
+--- ln            (a)         
+--- log           (a)         
+--- exp           (a)         
+--- bor           (a,b)       
+--- bxor          (a,b)       
+--- band          (a,b)       
+--- shift         (a,b)       
+--- rotate        (a,b)       
+--- minus         (a)         
+--- plus          (a)         
+--- min           (a,b)       
+--- max           (a,b)       
+---
+----------------------------------------------------------------
+
+
+---
+---\startsection[title=`lfs`]
+---
+---The original `lfs` module has been adapted a bit to our needs but for
+---practical reasons we kept the namespace. This module will probably evolve a bit
+---over time.
+---
+--- name               arguments  results 
+---
+--- attributes         (name)  
+--- chdir              (name)  
+--- currentdir         ()      
+--- dir                (name)  `name`, `mode`, `size` and `mtime` 
+--- mkdir              (name)  
+--- rmdir              (name)  
+--- touch              (name)  
+--- link               (name)  
+--- symlinkattributes  (name)  
+--- isdir              (name)  
+--- isfile             (name)  
+--- iswriteabledir     (name)  
+--- iswriteablefile    (name)  
+--- isreadabledir      (name)  
+--- isreadablefile     (name)  
+---
+---The `dir` function is a traverser which in addition to the name returns
+---some more properties. Keep in mind that the traverser loops over a directory and
+---that it doesn't run well when used nested. This is a side effect of the operating
+---system. It is also the reason why we return some properties because querying them
+---via `attributes` would interfere badly.
+---
+---The following attributes are returned by `attributes`:
+---
+--- name          value 
+---
+--- mode          
+--- size          
+--- modification  
+--- access        
+--- change        
+--- permissions   
+--- nlink         
+---
+----------------------------------------------------------------
+
+
+---
+---\startsection[title=`pngdecode`]
+---
+---This module is experimental and used in image inclusion. It is not some general
+---purpose module and is supposed to be used in a very controlled way. The
+---interfaces might evolve.
+---
+--- name         arguments                       results 
+---
+--- applyfilter  (str,nx,ny,slice)               string 
+--- splitmask    (str,nx,ny,bpp,bytes)           string 
+--- interlace    (str,nx,ny,slice,pass)          string 
+--- expand       (str,nx,ny,parts,xline,factor)  string 
+---
+----------------------------------------------------------------
+
+
+---
+---\startsection[title=`basexx`]
+---
+---Some more experimental helpers:
+---
+--- name       arguments  results 
+---
+--- encode16   (str[,newline])   string 
+--- decode16   (str)             string 
+--- encode64   (str[,newline])   string 
+--- decode64   (str)             string 
+--- encode85   (str[,newline])   string 
+--- decode85   (str)             string 
+--- encodeRL   (str)             string 
+--- decodeRL   (str)             string 
+--- encodeLZW  (str[,defaults])  string 
+--- decodeLZW  (str[,defaults])  string 
+---
+----------------------------------------------------------------
+
+
+---
+---# Multibyte `string` functions
+---
+---The `string` library has a few extra functions, for example `string.explode`. This function takes upto two arguments: `string.explode(s[,m])` and returns an array containing the string argument `s` split into sub-strings based on the value of the string argument `m`.
+---The second argument is a string that is either empty (this splits the string into
+---characters), a single character (this splits on each occurrence of that
+---character, possibly introducing empty strings), or a single character followed by
+---the plus sign `+` (this special version does not create empty sub-strings).
+---The default value for `m` is “` +`” (multiple spaces). Note:
+---`m` is not hidden by surrounding braces as it would be if this function was
+---written in *TeX* macros.
+---
+---The `string` library also has six extra iterators that return strings
+---piecemeal: `string.utfvalues`, `string.utfcharacters`,
+---`string.characters`, `string.characterpairs`, `string.bytes` and `string.bytepairs`.
+---
+---* `string.utfvalues(s)`: an integer value in the *Unicode* range
+---
+---* `string.utfcharacters(s)`: a string with a single *UTF-8* token in it
+---
+---* `string.characters(s)`: a string containing one byte
+---
+---* `string.characterpairs(s)`: two strings each containing one byte or an
+---    empty second string if the string length was odd
+---
+---* `string.bytes(s)`: a single byte value
+---
+---* `string.bytepairs(s)`: two byte values or nil instead of a number as
+---    its second return value if the string length was odd
+---
+---The `string.characterpairs()` and `string.bytepairs()` iterators
+---are useful especially in the conversion of *UTF-8*16 encoded data into *UTF-8*.
+---
+---There is also a two-argument form of `string.dump()`. The second argument
+---is a boolean which, if true, strips the symbols from the dumped data. This
+---matches an extension made in `luajit`. This is typically a function that
+---gets adapted as *Lua* itself progresses.
+---
+---The `string` library functions `len`, `lower`, `sub`
+---etc. are not *Unicode*-aware. For strings in the *UTF-8* encoding, i.e., strings
+---containing characters above code point 127, the corresponding functions from the
+---`slnunicode` library can be used, e.g., `unicode.utf8.len`, `unicode.utf8.lower` etc. The exceptions are `unicode.utf8.find`, that
+---always returns byte positions in a string, and `unicode.utf8.match` and
+---`unicode.utf8.gmatch`. While the latter two functions in general {\it
+---are} *Unicode*-aware, they fall-back to non-*Unicode*-aware behavior when
+---using the empty capture `()` but other captures work as expected. For the
+---interpretation of character classes in `unicode.utf8` functions refer to
+---the library sources at http://luaforge.net/projects/sln.
+---
+---Version 5.3 of *Lua* provides some native *UTF-8* support but we have added a few
+---similar helpers too: `string.utfvalue`, `string.utfcharacter`
+---and `string.utflength`.
+---
+---* `string.utfvalue(s)`: returns the codepoints of the characters in the
+---    given string
+---
+---* `string.utfcharacter(c,...)`: returns a string with the characters of
+---    the given code points
+---
+---* `string.utflength(s)`: returns the length of the given string
+---
+---These three functions are relative fast and don't do much checking. They can be
+---used as building blocks for other helpers.
+---
+----------------------------------------------------------------
+
+
+---
+---# Extra `os` library functions
+---
+---The `os` library has a few extra functions and variables: `os.selfdir`, `os.selfarg`, `os.setenv`, `os.env`, `os.gettimeofday`, `os.type`, `os.name` and `os.uname`, that we will discuss here. There are also some time related helpers in
+---the `lua` namespace.
+---
+---% selfbin
+---% selfpath
+---% selfdir
+---% selfbase
+---% selfname
+---% selfcore
+---
+---* `os.selfdir` is a variable that holds the directory path of the
+---    actual executable. For example: `\directlua {tex.sprint(os.selfdir)`}.
+---
+---* `os.selfarg` is a table with the command line arguments.
+---
+---* `os.setenv(key,value)` sets a variable in the environment. Passing
+---    `nil` instead of a value string will remove the variable.
+---
+---* `os.env` is a hash table containing a dump of the variables and
+---    values in the process environment at the start of the run. It is writeable,
+---    but the actual environment is `not` updated automatically.
+---
+---* `os.gettimeofday` returns the current “\UNIX\ time”, but as a
+---    float. Keep in mind that there might be platforms where this function is
+---    not available.
+---
+---* `os.type` is a string that gives a global indication of the class of
+---    operating system. The possible values are currently `windows`, `unix`, and `msdos` (you are unlikely to find this value “in the
+---    wild”).
+---
+---* `os.name` is a string that gives a more precise indication of the
+---    operating system. These possible values are not yet fixed, and for `os.type` values `windows` and `msdos`, the `os.name`
+---    values are simply `windows` and `msdos`
+---
+---    The list for the type `unix` is more precise: `linux`, `freebsd`, `kfreebsd`, `cygwin`, `openbsd`, `solaris`, `sunos` (pre-solaris), `hpux`, `irix`, `macosx`, `gnu` (hurd), `bsd` (unknown, but \BSD-like), `sysv`, `generic` (unknown). But \unknown\ we only provide *Lua*METATEX\
+---    binaries for the mainstream variants.
+---
+---    Officially we only support mainstream systems: \MSWINDOWS, \LINUX, \FREEBSD\
+---    and \OSX. Of course one can build *Lua*METATEX\ for other systems, in which
+---    case on has to check the above.
+---
+---* `os.uname` returns a table with specific operating system
+---    information acquired at runtime. The keys in the returned table are all
+---    string values, and their names are: `sysname`, `machine`, `release`, `version`, and `nodename`.
+---
+----------------------------------------------------------------
+
+
+---
+---# The `lua` library functions
+---
+---The `lua` library provides some general helpers.
+---
+---* The `newtable` and `newindex` functions can be used to create
+---    tables with space reserved beforehand for the given amount of entries.
+---
+---* The `getstacktop` function returns a number that can be used for
+---    diagnostic purposes.
+---
+---* The functions `getruntime`, `getcurrenttime`, `getpreciseticks` and `getpreciseseconds` return what their name
+---    suggests.
+---
+---* On \MSWINDOWS\ the `getcodepage` function returns two numbers, one
+---    for the command handler and one for the graphical user interface.
+---
+---* The name of the startup file is reported by `getstartupfile`.
+---
+---* The *Lua* version is reported by `getversion`.
+---
+---* The `lua.openfile` function can be used instead of `io.open`. On
+---    \MSWINDOWS\ it will convert the filename to a so called wide one which means
+---    that filenames in *UTF-8* encoding will work ok. On the other hand, names given
+---    in the codepage won't.
+---
+----------------------------------------------------------------
+
+
+---
+---\stopchapter
+---
+---\stopcomponent
+---

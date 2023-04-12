@@ -1,0 +1,687 @@
+---% language=us runpath=texruns:manuals/luametatex
+---
+---\environment luametatex-style
+---
+---\startcomponent luametatex-metapost
+---
+---\startluacode
+---    function document.showmpcodes(what)
+---        context.type("mplib."..what.."()")
+---        context(": ")
+---        local t = mplib[what]()
+---        for i=0,#t do if i > 0 then context(", ") end context("%i: %s",i,t[i])
+---        end
+---    end
+---\stopluacode
+---
+---# The \METAPOST\ library `mplib`
+---
+---# Introduction[library=mplib]
+---
+---The library used in *Lua*METATEX\ differs from the one used in *LuaTeX*. There are
+---for instance no backends and the binary number model is not available. There is
+---also no textual output. There are scanners and injectors that make it possible to
+---enhance the language and efficiently feed back into \METAPOST. File handling is
+---now completely delegated to *Lua*, so there are more callbacks.
+---
+---{\em Some functionality is experimental and therefore documentation is limited.
+---Also, details are discussed in articles.}
+---
+----------------------------------------------------------------
+
+
+---
+---# Process management[library=mplib]
+---
+---The \METAPOST\ library interface registers itself in the table `mplib`. It
+---is based on \MPLIB\ version \ctxlua {context(mplib.version())} (*LuaTeX* used
+---version 2+). Not all functionality is described here. Once we're out of the
+---experimental stage some more information will be added. Using the library boils
+---down to initializing an instance, executing statements and picking up assembled
+---figures in the form of *Lua* user data objects (and from there on *Lua* variables
+---like tables).
+---
+---# `new`
+---
+---To create a new \METAPOST\ instance, call
+---
+---```
+---<mpinstance> mp = mplib.new({...})
+---```
+---
+---This creates the `mp` instance object. The argument is a hash table that
+---can have a number of different fields, as follows:
+---
+--- name                  type      description                 default           
+---
+---@field error_line number # error line width            79                
+---@field print_line number # line length in ps output    100               
+---@field random_seed number # the initial random seed     variable          
+---@field math_mode string # the number system to use: `scaled`, `double` or % `binary` or `decimal`             `scaled`    
+---@field interaction string # the interaction mode: `batch`, `nonstop`, `scroll` or `errorstop`           `errorstop`  
+---@field job_name string # a compatibility value                         
+---@field utf8_mode boolean # permit characters in the range 128 upto 255 to be part of names               `false`     
+---@field text_mode boolean # permit characters 2 and 3 as fencing string literals  `false`     
+---@field tolerance number # the value used as criterium for straight lines          `131/65536` 
+---@field extensions boolean # enable all extensions       (might go)        
+---
+---The binary mode is no longer available in the *Lua*METATEX\ version of \MPLIB. It
+---offers no real advantage and brings a ton of extra libraries with platform
+---specific properties that we can now avoid. We might introduce a high resolution
+---scaled variant at some point but only when it pays of performance wise.
+---
+---In addition to the above we need to provide functions that helps \METAPOST\
+---communicate to the outside world.
+---
+--- name                  type      argument(s)                     result       
+---
+--- `find_file`     function  string, string, string          string        function  string, string, number          string       
+--- `open_file`     function  string, string, string          table         function  string, string, number          table        
+--- `run_logger`    function  number, string                               
+--- `run_script`    function  string                          whatever [, boolean]  function  number                          whatever [, boolean] 
+--- `make_text`     function  string, number                  string       
+--- `run_internal`  function  number, number, number, string               
+--- `run_overload`  function  number, string, number          boolean      
+--- `run_error`     function  string, string, number                       
+---
+---The `find_file` and `open_file` functions should be of this form:
+---
+---```
+---<string> found   = find_file (<string> name, <string> mode, <string> type)
+---<table>  actions = open_file (<string> name, <string> mode, <string> type)
+---```
+---
+---where the mode is `r` or `w` and the type is `mp`, `data`, `terminal` or a number, The finder is supposed to return the full
+---path name of the found file, or `nil` if the file cannot be found. The
+---`open_file` is supposed to return a table with a `close` and `read` function. This is similar to the way we do it in *TeX*. The special name
+---`terminal` is used for interactive input. A numeric type indicates a
+---specific read or write channel.
+---
+---The `run_logger` callback gets a target and a string. A target `1`
+---means log, a value `2` means and `3` means both.
+---
+---The `run_script` function gets either a number or a string. The string
+---represents a script, the number can be used as reference to something stored. The
+---return value can be a boolean, number, string or table. Booleans and numbers are
+---injected directly, strings and concatenated tables are fed into scantokens. When
+---the second argument is true, the strings are also injected directly and tables
+---are injected as pairs, colors, paths, transforms, depending on how many elements
+---there are.
+---
+---The `run_internal` function triggers when internal \METAPOST\ variables
+---flagged with `runscript` are initialized, saved or restored. The first
+---argument is an index, the second the action. When initialized a third and fourth
+---argument are passed. This is an experimental feature.
+---
+---The experimental `run_overload` callback kicks in when a variable (or
+---macro) with a property other than zero is redefined. It gets a property, name and
+---the value of `overloadmode` passed and when the function returns `true` redefinition is permitted.
+---
+---The `run_error` callback gets the error message, help text and current
+---interaction mode passed. Normally it's best to just quit and let the user fix
+---the code.
+---
+---When you are processing a snippet of text starting with `btex` or `verbatimtex` and ending with `etex`, the \METAPOST\ `texscriptmode`
+---parameter controls how spaces and newlines get honoured. The default value is 1.
+---Possible values are:
+---
+--- name       meaning 
+---
+--- `0`  no newlines 
+--- `1`  newlines in `verbatimtex` 
+--- `2`  newlines in `verbatimtex` and `etex` 
+--- `3`  no leading and trailing strip in `verbatimtex` 
+--- `4`  no leading and trailing strip in `verbatimtex` and `btex` 
+---
+---That way the *Lua* handler (assigned to `make_text`) can do what it likes.
+---An `etex` has to be followed by a space or `;` or be at the end of a
+---line and preceded by a space or at the beginning of a line. The `make_text`
+---function can return a string that gets fed into scantokens.
+---
+----------------------------------------------------------------
+
+
+---
+---# `getstatistics`
+---
+---You can request statistics with:
+---
+---```
+---<table> stats = mp:getstatistics()
+---```
+---
+---This function returns the vital statistics for an \MPLIB\ instance. Some are
+---useful, others make more sense when debugging.
+---
+--- field   type  explanation 
+---
+---@field memory number # bytes of node memory      
+---@field hash number # size of the hash          
+---@field parameters number # allocated parameter stack 
+---@field input number # allocated input stack     
+---@field tokens number # number of token nodes     
+---@field pairs number # number of pair nodes      
+---@field knots number # number of knot nodes      
+---@field nodes number # number of value nodes     
+---@field symbols number # number of symbolic nodes  
+---@field characters number # number of string bytes    
+---@field strings number # number of strings         
+---@field internals number # number of internals       
+---
+---Note that in the new version of \MPLIB, this is informational only. The objects
+---are all allocated dynamically, so there is no chance of running out of space
+---unless the available system memory is exhausted.
+---
+----------------------------------------------------------------
+
+
+---
+---# `execute`
+---
+---You can ask the \METAPOST\ interpreter to run a chunk of code by calling
+---
+---```
+---<table> rettable = execute(mp,"metapost code")
+---```
+---
+---for various bits of \METAPOST\ language input. Be sure to check the `rettable.status` (see below) because when a fatal \METAPOST\ error occurs the
+---\MPLIB\ instance will become unusable thereafter.
+---
+---Generally speaking, it is best to keep your chunks small, but beware that all
+---chunks have to obey proper syntax, like each of them is a small file. For
+---instance, you cannot split a single statement over multiple chunks.
+---
+---In contrast with the normal stand alone `mpost` command, there is `no` implied “input” at the start of the first chunk. When no string is
+---passed to the execute function, there will still be one triggered because it then
+---expects input from the terminal and you can emulate that channel with the
+---callback you provide.
+---
+----------------------------------------------------------------
+
+
+---
+---# `finish`
+---
+---Once you create an instance it is likely that you will keep it open for
+---successive processing, if only because you want to avoid loading a format each
+---time. If for some reason you want to stop using an \MPLIB\ instance while
+---processing is not yet actually done, you can call `finish`.
+---
+---```
+---<table> rettable = finish(mp)
+---```
+---
+---Eventually, used memory
+---will be freed and open files will be closed by the *Lua* garbage collector, but
+---an explicit `finish` is the only way to capture the final part of the
+---output streams.
+---
+----------------------------------------------------------------
+
+
+---
+---# `settolerance` and `gettolerance`
+---
+---These two functions relate to the bend tolerance, a value that is used when the
+---export determines if a path has straight lines (like a rectangle has).
+---
+----------------------------------------------------------------
+
+
+---
+---# Errors
+---
+---In case of an error you can get the context where it happened with `showcontext`.
+---
+----------------------------------------------------------------
+
+
+---
+---# The scanner status
+---
+---When processing a graphic an instance is in a specific state and again we have a
+---getter for the (internal) values \ctxlua {document.showmpcodes ("getstates")}.
+---The current status can be queried with `getstatus`.
+---
+----------------------------------------------------------------
+
+
+---
+---# The hash
+---
+---Macro names and variable names are stored in a hash table. You can get a list
+---with entries with `gethashentries`, which takes an instance as first
+---argument. When the second argument is `true` more details will be provided.
+---With `gethashentry` you get info about the given macro or variable.
+---
+----------------------------------------------------------------
+
+
+---
+---# Callbacks
+---
+---Some statistics about the number of calls to the callbacks can be queried with
+---`getcallbackstate`, This function expects a valid instance.
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---# The end result
+---
+---# The figure
+---
+---The return value of `execute` and `finish` is a table with a
+---few possible keys (only `status` is always guaranteed to be present).
+---
+--- field   type  explanation 
+---
+---@field status number # the return value: `0` = good, `1` = warning, `2` = errors, `3` = fatal error 
+---@field fig table # an array of generated figures (if any) 
+---
+---When `status` equals 3, you should stop using this \MPLIB\ instance
+---immediately, it is no longer capable of processing input.
+---
+---If it is present, each of the entries in the `fig` array is a userdata
+---representing a figure object, and each of those has a number of object methods
+---you can call:
+---
+---You can check if a figure uses stacking with the `stacking` function. When
+---objects are fetched, memory gets freed so no information about stacking is
+---available then. You can get the used bend tolerance of an object with `tolerance`.
+---
+--- field   type  explanation 
+---
+--- `boundingbox`   function  returns the bounding box, as an array of 4 values 
+--- `objects`       function  returns the actual array of graphic objects in this `fig` 
+--- `filename`      function  the filename this `fig`'s *PostScript* output would have written to in stand alone mode 
+--- `width`         function  the `fontcharwd` value 
+--- `height`        function  the `fontcharht` value 
+--- `depth`         function  the `fontchardp` value 
+--- `italic`        function  the `fontcharit` value 
+--- `charcode`      function  the (rounded) `charcode` value 
+--- `stacking`      function  is there a non-zero stacking  
+---
+---Note: you can call `fig:objects()` only once for any one `fig`
+---object! Some information, like stacking, can only be queried when the complete
+---figure is still present and calling up objects will free elements in the original
+---once they are transferred.
+---
+---When the boundingbox represents a “negated rectangle”, i.e.\ when the
+---first set of coordinates is larger than the second set, the picture is empty.
+---
+---Graphical objects come in various types: `fill`, `outline`, `text`, `start_clip`, `stop_clip`, `start_bounds`, `stop_bounds`, `start_group` and `stop_group`. Each type has a
+---different list of accessible values.
+---
+---There is a helper function (`mplib.fields(obj)`) to get the list of
+---accessible values for a particular object, but you can just as easily use the
+---tables given below.
+---
+---All graphical objects have a field `type` that gives the object type as a
+---string value; it is not explicit mentioned in the following tables. In the
+---following, `number`s are *PostScript* points (base points in *TeX* speak)
+---represented as a floating point number, unless stated otherwise. Field values
+---that are of type `table` are explained in the next section.
+---
+----------------------------------------------------------------
+
+
+---
+---# fill
+---
+--- field   type  explanation 
+---
+---@field path table # the list of knots 
+---@field htap table # the list of knots for the reversed trajectory 
+---@field pen table # knots of the pen 
+---@field color table # the object's color 
+---@field linejoin number # line join style (bare number)
+---@field miterlimit number # miterlimit
+---@field prescript string # the prescript text 
+---@field postscript string # the postscript text 
+---@field stacking number # the stacking (level) 
+---
+---The entries `htap` and `pen` are optional.
+---
+----------------------------------------------------------------
+
+
+---
+---# outline
+---
+--- field   type  explanation 
+---
+---@field path table # the list of knots 
+---@field pen table # knots of the pen 
+---@field color table # the object's color 
+---@field linejoin number # line join style (bare number) 
+---@field miterlimit number # miterlimit 
+---@field linecap number # line cap style (bare number) 
+---@field dash table # representation of a dash list 
+---@field prescript string # the prescript text 
+---@field postscript string # the postscript text 
+---@field stacking number # the stacking (level) 
+---
+---The entry `dash` is optional.
+---
+----------------------------------------------------------------
+
+
+---
+---# start_bounds, start_clip, start_group
+---
+--- field   type  explanation 
+---
+---@field path table # the list of knots 
+---@field stacking number # the stacking (level) 
+---
+----------------------------------------------------------------
+
+
+---
+---# stop_bounds, stop_clip, stop_group
+---
+---Here we have only one key:
+---
+--- field   type  explanation 
+---
+---@field stacking number # the stacking (level) 
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---# Subsidiary table formats
+---
+---# Paths and pens
+---
+---Paths and pens (that are really just a special type of paths as far as \MPLIB\ is
+---concerned) are represented by an array where each entry is a table that
+---represents a knot.
+---
+--- field   type  explanation 
+---
+---@field left_type string # when present: endpoint, but usually absent 
+---@field right_type string # like `left_type` 
+---@field x_coord number # X coordinate of this knot 
+---@field y_coord number # Y coordinate of this knot 
+---@field left_x number # X coordinate of the precontrol point of this knot 
+---@field left_y number # Y coordinate of the precontrol point of this knot 
+---@field right_x number # X coordinate of the postcontrol point of this knot 
+---@field right_y number # Y coordinate of the postcontrol point of this knot 
+---
+---There is one special case: pens that are (possibly transformed) ellipses have an
+---extra key `type` with value `elliptical` besides the array part
+---containing the knot list.
+---
+----------------------------------------------------------------
+
+
+---
+---# Colors
+---
+---A color is an integer array with 0, 1, 3 or 4 values:
+---
+--- field   type  explanation 
+---
+--- `0`  marking only  no values                                                     
+--- `1`  greyscale     one value in the range `(0,1)`, “black” is `0`         
+--- `3`  \RGB          three values in the range `(0,1)`, “black” is `0,0,0`  
+--- `4`  \CMYK         four values in the range `(0,1)`, “black” is `0,0,0,1` 
+---
+---If the color model of the internal object was `uninitialized`, then it was
+---initialized to the values representing “black” in the colorspace `defaultcolormodel` that was in effect at the time of the `shipout`.
+---
+----------------------------------------------------------------
+
+
+---
+---# Transforms
+---
+---Each transform is a six-item array.
+---
+--- index   type  explanation 
+---
+---@field 1 number # represents x  
+---@field 2 number # represents y  
+---@field 3 number # represents xx 
+---@field 4 number # represents yx 
+---@field 5 number # represents xy 
+---@field 6 number # represents yy 
+---
+---Note that the translation (index 1 and 2) comes first. This differs from the
+---ordering in *PostScript*, where the translation comes last.
+---
+----------------------------------------------------------------
+
+
+---
+---# Dashes
+---
+---Each `dash` is a hash with two items. We use the same model as *PostScript*
+---for the representation of the dashlist. `dashes` is an array of “on”
+---and “off”, values, and `offset` is the phase of the pattern.
+---
+--- field   type  explanation 
+---
+--- `dashes`  hash    an array of on-off numbers 
+---@field offset number # the starting offset value  
+---
+----------------------------------------------------------------
+
+
+---
+---# Pens and `peninfo`
+---
+---There is helper function (`peninfo(obj)`) that returns a table containing
+---a bunch of vital characteristics of the used pen (all values are floats):
+---
+--- field   type  explanation 
+---
+---@field width number # width of the pen 
+---@field sx number # `x` scale        
+---@field rx number # `xy` multiplier  
+---@field ry number # `yx` multiplier  
+---@field sy number # `y` scale        
+---@field tx number # `x` offset       
+---@field ty number # `y` offset       
+---
+----------------------------------------------------------------
+
+
+---
+---# Character size information
+---
+---These functions find the size of a glyph in a defined font. The `fontname`
+---is the same name as the argument to `infont`; the `char` is a glyph
+---id in the range 0 to 255; the returned `w` is in AFM units.
+---
+---```
+---<number> w = char_width(mp,<string> fontname, <number> char)
+---<number> h = char_height(mp,<string> fontname, <number> char)
+---<number> d = char_depth(mp,<string> fontname, <number> char)
+---```
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---\startsection[title=Scanners]
+---
+---After a relative long period of testing the scanners are now part of the
+---interface. That doesn't mean that there will be no changes: depending on the
+---needs and experiences details might evolve. The summary below is there
+---still preliminary and mostly provided as reminder.
+---
+--- scanner  argument  returns 
+---
+--- `scannext`        instance, keep          token, mode, type 
+--- `scanexpression`  instance, keep          type 
+--- `scantoken`       instance, keep          token, mode, kind 
+--- `scansymbol`      instance, keep, expand  string 
+--- `scannumeric`     instance, type          number 
+--- `scaninteger`     instance, type          integer 
+--- `scanboolean`     instance, type          boolean 
+--- `scanstring`      instance, type          string 
+--- `scanpair`        instance, hashed, type  table or two numbers 
+--- `scancolor`       instance, hashed, type  table or three numbers 
+--- `scancmykcolor`   instance, hashed, type  table or four numbers 
+--- `scantransform`   instance, hashed, type  table or six numbers 
+--- `scanpath`        instance, hashed, type  table with hashes or arrays 
+--- `scanpen`         instance, hashed, type  table with hashes or arrays 
+--- `scanproperty`    {\em todo}              
+---\HL
+--- `skiptoken`       {\em todo}              
+---
+---The types and token codes are numbers but they actually depend on the
+---implementation (although changes are unlikely). The types of data structures can
+---be queried with \ctxlua {document.showmpcodes ("gettypes")}, and command codes
+---with \ctxlua {document.showmpcodes ("getcodes")}
+---
+---Now, if you really want to use these, keep in mind that the internals of
+---\METAPOST\ are not trivial, especially because expression scanning can be
+---complex. So you need to experiment a bit. In *ConTeXt* all is (and will be)
+---hidden below an abstraction layer so users are not bothered by all these
+---look-ahead and push-back issues that originate in the way \METAPOST\ scans
+---its input.
+---
+---The supported color models are: \ctxlua {document.showmpcodes ("getcolormodels")}.
+---
+---If you want the internal codes of the possible fields in a graphic object use
+---\ctxlua {document.showmpcodes ("getobjecttypes")}. You can query the id of a
+---graphic object with the `gettype` function.
+---
+---\startluacode
+---local t = mplib.getobjecttypes()
+---local f = mplib.getfields()
+---context.starttabulate { "|T|T|Tpl|" }
+---    context.DB()
+---        context("id")
+---    context.BC()
+---        context("object")
+---    context.BC()
+---        context("fields")
+---    context.NC()
+---    context.NR()
+---    for i=1,#t do
+---        context.NC() context(i)
+---        context.NC() context(t[i])
+---        context.NC() context("% t",f[i])
+---        context.NC()
+---        context.NR()
+---    end
+---    context.LL()
+---context.stoptabulate()
+---\stopluacode
+---
+----------------------------------------------------------------
+
+
+---
+---\startsection[title=Injectors]
+---
+---It is important to know that piping code into the library is pretty fast and
+---efficient. Most processing time relates to memory management, calculations and
+---generation of output can not be neglected either. Out of curiousity I added some
+---functions that directly push data into the library but the gain is not that
+---large. \footnote {The main motivation was checking of huge paths could be
+---optimized. The other data structures were then added for completeness.}
+---
+--- scanner  argument 
+---
+--- `injectnumeric`    instance, number 
+--- `injectinteger`    instance, number 
+--- `injectboolean`    instance, boolean 
+--- `injectstring`     instance, string 
+--- `injectpair`       instance, (table with) two numbers 
+--- `injectcolor`      instance, (table with) three numbers 
+--- `injectcmykcolor`  instance, (table with) four numbers 
+--- `injecttransform`  instance, (table with) six numbers 
+--- `injectpath`       instance, table with hashes or arrays, cycle, variant 
+--- `injectwhatever`   instance, ont of the above depending on type and size 
+---
+---The path injector takes a table with subtables that are either hashed (like the
+---path solver) or arrays with two, four or six entries. When the third argument has
+---the value `true` the path is closed. When the fourth argument is `true` the path is constructed out of straight lines (as with `--`) by
+---setting the `curl` values to 1 automatically. \footnote {This is all
+---experimental so future versions might provide more control.}
+---
+---This is the simplest path definition:
+---
+---```
+---{
+---    { x, y },
+---    ...,
+---    cycle = true
+---}
+---```
+---
+---and this one also has the control points:
+---
+---```
+---{
+---    { x0, y0, x1, y1, x2, y2 },
+---    ...,
+---    cycle = true
+---}
+---```
+---
+---A very detailed specification is this but you have to make sure that the
+---parameters make sense.
+---
+---```
+---{
+---    {
+---        x_coord       = ...,
+---        y_coord       = ...,
+---        left_x        = ...,
+---        left_y        = ...,
+---        right_x       = ...,
+---        right_y       = ...,
+---        left_tension  = ...,
+---        right_tension = ...,
+---        left_curl     = ...,
+---        right_curl    = ...,
+---        direction_x   = ...,
+---        direction_y   = ...,
+---        left_type     = ...,
+---        right_type    = ...,
+---    },
+---    ...,
+---    cycle = true
+---}
+---```
+---
+---Instead of the optional keyword `cycle` you can use `close`.
+---
+----------------------------------------------------------------
+
+
+---
+---# To be checked
+---
+---```
+---% solvepath
+---% expandtex
+---```
+---
+----------------------------------------------------------------
+
+
+---
+---\stopchapter
+---
+---\stopcomponent
+---

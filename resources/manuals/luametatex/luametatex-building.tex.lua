@@ -1,0 +1,1380 @@
+---% language=us runpath=texruns:manuals/luametatex
+---
+---\environment luametatex-style
+---
+---\startcomponent luametatex-building
+---
+---# Boxes, paragraphs and pages
+---
+---# Introduction
+---
+---There are some enhancements that relate to the way paragraphs and pages are
+---built. In this chapter we will cover those. There can be a bit of overlap with
+---other chapters. These enhancements are still somewhat experimental.
+---
+----------------------------------------------------------------
+
+
+---
+---\startsection[title=Directions]
+---
+---# Two directions
+---
+---The directional model in *Lua*METATEX\ is a simplified version the the model used
+---in *LuaTeX*. In fact, not much is happening at all: we only register a change in
+---direction.
+---
+----------------------------------------------------------------
+
+
+---
+---# How it works
+---
+---The approach is that we try to make node lists balanced but also try to avoid
+---some side effects. What happens is quite intuitive if we forget about spaces
+---(turned into glue) but even there what happens makes sense if you look at it in
+---detail. However that logic makes in-group switching kind of useless when no
+---properly nested grouping is used: switching from right to left several times
+---nested, results in spacing ending up after each other due to nested mirroring. Of
+---course a sane macro package will manage this for the user but here we are
+---discussing the low level injection of directional information.
+---
+---This is what happens:
+---
+---```
+---\textdirection 1 nur {\textdirection 0 run \textdirection 1 NUR} nur
+---```
+---
+---This becomes stepwise:
+---
+---\startnarrower
+---```
+---injected: [push 1]nur {[push 0]run [push 1]NUR} nur
+---balanced: [push 1]nur {[push 0]run [pop 0][push 1]NUR[pop 1]} nur[pop 0]
+---result  : run {RUNrun } run
+---```
+---\stopnarrower
+---
+---And this:
+---
+---```
+---\textdirection 1 nur {nur \textdirection 0 run \textdirection 1 NUR} nur
+---```
+---
+---becomes:
+---
+---\startnarrower
+---```
+---injected: [+TRT]nur {nur [+TLT]run [+TRT]NUR} nur
+---balanced: [+TRT]nur {nur [+TLT]run [-TLT][+TRT]NUR[-TRT]} nur[-TRT]
+---result  : run {run RUNrun } run
+---```
+---\stopnarrower
+---
+---Now, in the following examples watch where we put the braces:
+---
+---\startbuffer
+---\textdirection 1 nur {{\textdirection 0 run} {\textdirection 1 NUR}} nur
+---\stopbuffer
+---
+---\typebuffer
+---
+---This becomes:
+---
+---\startnarrower
+---\getbuffer
+---\stopnarrower
+---
+---Compare this to:
+---
+---\startbuffer
+---\textdirection 1 nur {{\textdirection 0 run }{\textdirection 1 NUR}} nur
+---\stopbuffer
+---
+---\typebuffer
+---
+---Which renders as:
+---
+---\startnarrower
+---\getbuffer
+---\stopnarrower
+---
+---So how do we deal with the next?
+---
+---\startbuffer
+---\def\ltr{\textdirection 0\relax}
+---\def\rtl{\textdirection 1\relax}
+---
+---run {\rtl nur {\ltr run \rtl NUR \ltr run \rtl NUR} nur}
+---run {\ltr run {\rtl nur \ltr RUN \rtl nur \ltr RUN} run}
+---\stopbuffer
+---
+---\typebuffer
+---
+---It gets typeset as:
+---
+---\startnarrower
+---\startlines
+---\getbuffer
+---\stoplines
+---\stopnarrower
+---
+---We could define the two helpers to look back, pick up a skip, remove it and
+---inject it after the dir node. But that way we loose the subtype information that
+---for some applications can be handy to be kept as-is. This is why we now have a
+---variant of `textdirection` which injects the balanced node before the skip.
+---Instead of the previous definition we can use:
+---
+---\startbuffer[def]
+---\def\ltr{\linedirection 0\relax}
+---\def\rtl{\linedirection 1\relax}
+---\stopbuffer
+---
+---\typebuffer[def]
+---
+---and this time:
+---
+---\startbuffer[txt]
+---run {\rtl nur {\ltr run \rtl NUR \ltr run \rtl NUR} nur}
+---run {\ltr run {\rtl nur \ltr RUN \rtl nur \ltr RUN} run}
+---\stopbuffer
+---
+---\typebuffer[txt]
+---
+---comes out as a properly spaced:
+---
+---\startnarrower
+---\startlines
+---\getbuffer[def,txt]
+---\stoplines
+---\stopnarrower
+---
+---Anything more complex that this, like combination of skips and penalties, or
+---kerns, should be handled in the input or macro package because there is no way we
+---can predict the expected behaviour. In fact, the `linedirection` is just a
+---convenience extra which could also have been implemented using node list parsing.
+---
+---Directions are complicated by the fact that they often need to work over groups
+---so a separate grouping related stack is used. A side effect is that there can be
+---paragraphs with only a local par node followed by direction synchronization
+---nodes. Paragraphs like that are seen as empty paragraphs and therefore ignored.
+---Because `noindent` doesn't inject anything but a `indent` injects
+---an box, paragraphs with only an indent and directions are handles and paragraphs
+---with content. When indentation is normalized a paragraph with an indentation
+---skip is seen as content.
+---
+----------------------------------------------------------------
+
+
+---
+---# Normalizing lines
+---
+---The original *TeX* machinery was never meant to be opened up. As a consequence a
+---constructed line can have different layouts. There can be left- and/or right
+---skips and hanging indentation or parshape can result in a shift and adapted
+---width. In *LuaTeX* glue got subtypes so we can recognize the left-, right and
+---parfill skips, but still there is no hundred percent certainty about the shape.
+---
+---In *Lua*METATEX\ lines can be normalized. This is optional because we want to
+---preserve the original (for comparison) and is controlled by `normalizelinemode`. That variable actually drives some more. An earlier version
+---provided a few more granular options (for instance: does a leftskip comes before
+---or after a left hanging indentation) but in the end that was dropped. Because
+---this normalization only is seen at the *Lua* end there is no need to go into much
+---detail here.
+---
+---At this moment a line has this pattern: left parfill, left hang, left skip,
+---indentation, content, right hang, right skip, right parfill. Of course the
+---indentation and fill skips are not present in every line.
+---
+---Control over normalization happens via the mentioned mode variable and here is
+---what the engine provides right now. We use a bitmap:
+---
+--- value  reported 
+---
+--- `0x0001`  normalize line as described above            
+--- `0x0002`  use a skip for parindent instead of a box    
+--- `0x0004`  swap hangindent in l2r mode                  
+--- `0x0008`  swap parshape in l2r mode                    
+--- `0x0010`  put breaks after dir in l2r mode             
+--- `0x0020`  remove margin kerns (*PDF*TEX\ left-over)     
+--- `0x0040`  if needed clip width and use correction kern 
+---
+---Setting the bit enables the related normalization. More features might be added
+---in future releases.
+---
+---% Swapping shapes
+---%
+---% Another adaptation to the \ALEPH\ directional model is control over shapes driven
+---% by `hangindent` and `parshape`. This is controlled by a new parameter
+---% `shapemode`:
+---%
+---% 
+---%  value     `hangindent`  `parshape` 
+---% 
+---%  `0`   normal              normal            
+---%  `1`   mirrored            normal            
+---%  `2`   normal              mirrored          
+---%  `3`   mirrored            mirrored          
+---% 
+---% 
+---%
+---% The value is reset to zero (like `hangindent` and `parshape`)
+---% after the paragraph is done with. You can use negative values to prevent
+---% this. In \in {figure} [fig:shapemode] a few examples are given.
+---%
+---% \startplacefigure[reference=fig:shapemode,title={The effect of `shapemode`.}]
+---%     \startcombination[2*3]
+---%         {\ruledvbox \bgroup \setuptolerance[verytolerant]
+---%             \hsize .45\textwidth \switchtobodyfont[6pt]
+---%                 \pardirection 0 \textdirection 0
+---%                 \hangindent 40pt \hangafter -3
+---%                 \leftskip10pt \input tufte \par
+---%          \egroup} {TLT: hangindent}
+---%         {\ruledvbox \bgroup \setuptolerance[verytolerant]
+---%             \hsize .45\textwidth \switchtobodyfont[6pt]
+---%             \pardirection 0 \textdirection 0
+---%             \parshape 4 0pt .8\hsize 10pt .8\hsize 20pt .8\hsize 0pt \hsize
+---%             \input tufte \par
+---%          \egroup} {TLT: parshape}
+---%         {\ruledvbox \bgroup \setuptolerance[verytolerant]
+---%             \hsize .45\textwidth \switchtobodyfont[6pt]
+---%             \pardirection 1 \textdirection 1
+---%             \hangindent 40pt \hangafter -3
+---%             \leftskip10pt \input tufte \par
+---%          \egroup} {TRT: hangindent mode 0}
+---%         {\ruledvbox \bgroup \setuptolerance[verytolerant]
+---%             \hsize .45\textwidth \switchtobodyfont[6pt]
+---%             \pardirection 1 \textdirection 1
+---%             \parshape 4 0pt .8\hsize 10pt .8\hsize 20pt .8\hsize 0pt \hsize
+---%             \input tufte \par
+---%          \egroup} {TRT: parshape mode 0}
+---%         {\ruledvbox \bgroup \setuptolerance[verytolerant]
+---%             \hsize .45\textwidth \switchtobodyfont[6pt]
+---%             \shapemode=3
+---%             \pardirection 1 \textdirection 1
+---%             \hangindent 40pt \hangafter -3
+---%             \leftskip10pt \input tufte \par
+---%          \egroup} {TRT: hangindent mode 1 & 3}
+---%         {\ruledvbox \bgroup \setuptolerance[verytolerant]
+---%             \hsize .45\textwidth \switchtobodyfont[6pt]
+---%             \shapemode=3
+---%             \pardirection 1 \textdirection 1
+---%             \parshape 4 0pt .8\hsize 10pt .8\hsize 20pt .8\hsize 0pt \hsize
+---%             \input tufte \par
+---%          \egroup} {TRT: parshape mode 2 & 3}
+---%     \stopcombination
+---% \stopplacefigure
+---%
+---% We have `\pardirection`, `\textdirection`, `\mathdirection` and
+---% `\linedirection` that is like `\textdirection` but with some
+---% additional (inline) glue checking.
+---
+---% Controlling glue with `breakafterdirmode`
+---%
+---% Glue after a dir node is ignored in the linebreak decision but you can bypass that
+---% by setting `breakafterdirmode` to `1`. The following table shows the
+---% difference. Watch your spaces.
+---%
+---% \def\ShowSome#1{%
+---%      `#1`
+---%      \breakafterdirmode\zerocount\hsize\zeropoint#1
+---%     
+---%      \breakafterdirmode\plusone\hsize\zeropoint#1
+---%     
+---%     
+---% }
+---%
+---% 
+---%     
+---%      `0`
+---%     
+---%      `1`
+---%     
+---%     
+---%     
+---%     \ShowSome{pre {\textdirection 0 xxx} post}
+---%     \ShowSome{pre {\textdirection 0 xxx }post}
+---%     \ShowSome{pre{ \textdirection 0 xxx} post}
+---%     \ShowSome{pre{ \textdirection 0 xxx }post}
+---%     \ShowSome{pre { \textdirection 0 xxx } post}
+---%     \ShowSome{pre {\textdirection 0\relax\space xxx} post}
+---%     
+---% 
+---
+----------------------------------------------------------------
+
+
+---
+---\startsubsection[title=Orientations]
+---
+---As mentioned, the difference with *LuaTeX* is that we only have numeric
+---directions and that there are only two: left-to-right (`0`) and
+---right-to-left (`1`). The direction of a box is set with `direction`.
+---
+---In addition to that boxes can now have an `orientation` keyword followed by
+---optional `xoffset` and/or `yoffset` keywords. The offsets don't
+---have consequences for the dimensions. The alternatives `xmove` and `ymove` on the contrary are reflected in the dimensions. Just play with them. The
+---offsets and moves only are accepted when there is also an orientation, so no time
+---is wasted on testing for these rarely used keywords. There are related primitives
+---`\box...` that set these properties.
+---
+---As these are experimental it will not be explained here (yet). They are covered
+---in the descriptions of the development of *Lua*METATEX: articles and/or
+---documents in the *ConTeXt* distribution. For now it is enough to know that the
+---orientation can be up, down, left or right (rotated) and that it has some
+---anchoring variants. Combined with the offsets this permits macro writers to
+---provide solutions for top-down and bottom-up writing directions, something
+---that is rather macro package specific and used for scripts that need
+---manipulations anyway. The “old” vertical directions were never okay and
+---therefore not used.
+---
+---There are a couple of properties in boxes that you can set and query but that
+---only really take effect when the backend supports them. When usage on *ConTeXt*
+---shows that is't okay, they will become official, so we just mention them: `boxdirection`, `boxattribute`, `boxorientation`, `boxxoffset`,
+---`boxyoffset`, `boxxmove`, `boxymove` and `boxtotal`.
+---
+---{\em This is still somewhat experimental and will be documented in more detail
+---when I've used it more in *ConTeXt* and the specification is frozen. This might
+---take some time (and user input).}
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---# Boxes, rules and leaders
+---
+---# `outputbox`
+---
+---This integer parameter allows you to alter the number of the box that will be
+---used to store the page sent to the output routine. Its default value is 255, and
+---the acceptable range is from 0 to 65535.
+---
+---\startsyntax
+---\outputbox = 12345
+---\stopsyntax
+---
+----------------------------------------------------------------
+
+
+---
+---\startsubsection[title={`hrule`, `vrule`, `srule`, `nohrule`, `novrule`,
+---`virtualhrule` and `virtualvrule`}]
+---
+---Both rule drawing commands take an optional `xoffset` and `yoffset`
+---parameter. The displacement is virtual and not taken into account when the
+---dimensions are calculated. A rule is specified in the usual way:
+---
+---\obeydepth
+---
+---\startbuffer
+---\blue \vrule
+---    height 2ex depth 1ex width 10cm
+---\relax
+---\stopbuffer
+---
+---\startlinecorrection
+---\getbuffer
+---\stoplinecorrection
+---
+---There is however a catch. The keyword scanners in *Lua*METATEX\ are implemented
+---slightly different. When *TeX* scans a keyword it will (case insensitive) scan
+---for a whole keyword. So, it scans for `height` and when it doesn't find it
+---it will scan for `depth` etc. When it does find a keyword in this case it
+---expects a dimension next. When that criterium is not met it will issue an error
+---message.
+---
+---In order to avoid look ahead failures like that it is recommended to end the
+---specification with `\relax`. A glue specification is an other example where
+---a `\relax` makes sense when look ahead issues are expected and actually
+---there in traditional scanning the order of keywords can also matter. In any case,
+---when no valid keyword is seen the characters scanned so far are pushed back in
+---the input.
+---
+---The main reason for using an adapted scanner is that we always permit repetition
+---(consistency) and accept an arbitrary order. Because we have more keywords to
+---process the scanner quits at a partial failure. This prevents some push back and
+---also gives an earlier warning. Interesting is that some *ConTeXt* users ran into
+---error messages due to a missing `\relax` and found out that their style has
+---a potential flaw with respect to look ahead. One can be lucky for years.
+---
+---Back to rules, there are some extra keywords, two deal with an offset, and four
+---provide margins. The margins are a bit special because `left` and `top` are the same as are `right` and `bottom`. They influence the
+---edges and these depend on it being a horizontal or vertical rule.
+---
+---\obeydepth
+---
+---\startbuffer
+---\blue \vrule
+---    height 2.0ex depth 1.0ex width 10cm
+---\relax
+---\white \vrule
+---    height 1.0ex depth 0.5ex width  9cm
+---    xoffset -9.5cm yoffset .25ex
+---\relax
+---\blue \vrule
+---    height .5ex depth 0.25ex width  8cm
+---    xoffset -18cm yoffset .375ex top 1pt
+---\relax
+---\stopbuffer
+---
+---\startlinecorrection
+---\getbuffer
+---\stoplinecorrection
+---
+---Two new primitives were introduced: `nohrule` and `novrule`. These can
+---be used to reserve space. This is often more efficient than creating an empty box
+---with fake dimensions. Of course this assumes that the backend implements them
+---being invisible but still taking space.
+---
+---An `srule` is sort of special. In text mode it is just a convenience (we
+---could do without it for ages) but in math mode it comes in handy when we want to
+---enforce consistency. \footnote {In *ConTeXt* there is a lot of focus on
+---consistent vertical spacing, something that doesn't naturally comes with *TeX*
+---(you have to pay attention!) and therefore for decades now you can find plenty of
+---documents with bad spacing of a nature that has seem to have become accepted as
+---quality. This probably makes these `srule`'s one of the few primitives that
+---actually targets at *ConTeXt*.}
+---
+---As with all rules, the backend will makes rules span the width or height and
+---depth of the encapsulating box. An `srule` is just a `vrule` but is set
+---up such that it can adapt itself:
+---
+---\startbuffer
+---\hbox to 3cm {x\leaders\hrule\hfil x}
+---\hbox{x \vrule width 4cm \relax x}
+---\hbox{x \srule width 4cm \relax x}
+---\hbox{x \vrule font \font char `( width 4cm \relax x}
+---\hbox{x \srule font \font char `( width 4cm \relax x}
+---\hbox{`x \srule fam \fam  char `( width 4cm \relax x`}
+---\hbox{`x \vrule fam \fam  char `( width 4cm \relax x`}
+---\stopbuffer
+---
+---\typebuffer
+---
+---You can hard code the height and depth or get it from a font/family/character
+---combination. This is especially important in math mode where then can adapt to
+---(stylistic) circumstances.
+---
+---\startlines
+---\showboxes\getbuffer
+---\stoplines
+---
+---Because this kind of rules has a dedicated subtype you can intercept it in the backend
+---if needed. The two virtual variants are special in the way that they are like normal
+---rules but take no space. Can you figure out how to get this?
+---
+---\startlinecorrection[blank]
+---\dontleavehmode \hbox{%
+---    \hbox{\green before}%
+---    {\darkblue \virtualvrule width 40pt height -2pt depth 4pt xoffset -20pt\relax}%
+---    \hbox{\red after}%
+---}
+---\stoplinecorrection
+---
+---% \vskip5pt
+---
+---% \ruledvbox{\ruledhbox to 10pt{\green x}
+---% \virtualhrule width 10pt height 2pt depth 2pt yoffset -2pt \relax
+---% \ruledhbox to 10pt{\red x}}
+---
+----------------------------------------------------------------
+
+
+---
+---# `vsplit`, `tsplit` and `dsplit`
+---
+---The `vsplit` primitive has to be followed by a specification of the required
+---height. As alternative for the `to` keyword you can use `upto` to get
+---a split of the given size but result has the natural dimensions then.
+---
+---```
+---\vsplit 123 to   10cm % final box has the required height
+---\vsplit 123 upto 10cm % final box has its natural height
+---```
+---
+---The two alternative primitives return a `vtop` or `dbox` instead of a
+---`vbox`. All three accept the `attr` keyword as boxes do.
+---
+----------------------------------------------------------------
+
+
+---
+---\startsubsection[title={`boxxoffset`, `boxyoffset`, `boxxmove`, `boxymove`,
+---`boxorientation` and `boxgeometry`}]
+---
+---This repertoire of primitives can be used to do relative positioning. The offsets
+---are virtual while the moves adapt the dimensions. The orientation bitset can be
+---used to rotate the box over 90, 180 and 270 degrees. It also influences the
+---corner, midpoint or baseline.
+---
+---{\em There is information in the *ConTeXt* low level manuals and in due time I
+---will add a few examples here. This feature needs support in the backend when used
+---(as in *ConTeXt*) so it might influence performance.}
+---
+----------------------------------------------------------------
+
+
+---
+---# `boxtotal`
+---
+---The `boxtotal` primitive returns the sum of the height and depth and is less
+---useful as setter: it just sets the height and depth to half of the given value.
+---
+----------------------------------------------------------------
+
+
+---
+---# `boxshift`
+---
+---In traditional *TeX* a box has height, depth, width and a shift where the later
+---relates to `raise`, `lower`, `moveleft` and `moveright`. This
+---primitive can be used to query and set this property.
+---
+---\startbuffer
+---\setbox0\hbox{test test test}
+---\setbox2\hbox{test test test} \boxshift2 -10pt
+---\ruledhbox{x \raise10pt\box0\ x}
+---\ruledhbox{x           \box2\ x}
+---\stopbuffer
+---
+---\typebuffer
+---
+----------------------------------------------------------------
+
+
+---
+---# `boxanchor`, `boxanchors`, `boxsource` and `boxtarget`
+---
+---{\em These are experimental.}
+---
+----------------------------------------------------------------
+
+
+---
+---# `boxfreeze`, `boxadapt` and `boxrepack`
+---
+---This operation will freeze the glue in the given box, something that normally is
+---delayed and delegated to the backend.
+---
+---\startbuffer
+---\setbox    0 \hbox to 5cm {\hss test}
+---\setbox    2 \hbox to 5cm {\hss test}
+---\boxfreeze 2 0
+---\ruledhbox{\unhbox   0}
+---\ruledhbox{\unhbox   2}
+---\stopbuffer
+---
+---\typebuffer
+---
+---The second parameter to `boxfreeze` determines recursion. Here we just
+---freeze the outer level:
+---
+---\getbuffer
+---
+---Repacking will take the content of an existing box and add or subtract from it:
+---
+---\startbuffer
+---\setbox 0 \hbox        {test test test}
+---\setbox 2 \hbox {\red   test test test} \boxrepack0 +.2em
+---\setbox 4 \hbox {\green test test test} \boxrepack0 -.2em
+---\ruledhbox{\box0} \vskip-\lineheight
+---\ruledhbox{\box0} \vskip-\lineheight
+---\ruledhbox{\box0}
+---\stopbuffer
+---
+---\typebuffer
+---
+---\getbuffer
+---
+---We can use this primitive to check the natural dimensions:
+---
+---\startbuffer
+---\setbox 0 \hbox spread 10pt {test test test}
+---\ruledhbox{\box0} (\the\boxrepack0,\the\wd0)
+---\stopbuffer
+---
+---\typebuffer
+---
+---\getbuffer
+---
+---Adapting will recalculate the dimensions with a scale factor for the glue:
+---
+---\startbuffer
+---\setbox 0 \hbox       {test test test}
+---\setbox 2 \hbox {\red  test test test} \boxadapt 0   200
+---\setbox 4 \hbox {\blue test test test} \boxadapt 0  -200
+---\ruledhbox{\box0} \vskip-\lineheight
+---\ruledhbox{\box0} \vskip-\lineheight
+---\ruledhbox{\box0}
+---\stopbuffer
+---
+---\typebuffer
+---
+---\getbuffer
+---
+----------------------------------------------------------------
+
+
+---
+---# `boxvadjust`
+---
+---This primitive binds a `vadjust` to a box and therefore also accepts the
+---`pre` and `post` keywords which means that you can prepend and append
+---as the box itself gets flushed.
+---
+----------------------------------------------------------------
+
+
+---
+---# Overshooting dimensions
+---
+---The `overshoot` primitive reports the most recent amount of overshoot when a
+---box is packages. It relates to overfull boxes and the then set `badness` of
+---1000000.
+---
+---\startbuffer
+---\hbox to 2cm {does it fit}               \the\overshoot
+---\hbox to 2cm {does it fit in here}       \the\overshoot
+---\hbox to 2cm {how much does fit in here} \the\overshoot
+---\stopbuffer
+---
+---\typebuffer
+---
+---This global state variables reports a dimension:
+---
+---\startlines
+---\getbuffer
+---\stoplines
+---
+----------------------------------------------------------------
+
+
+---
+---\startsubsection[title={Images and reused box objects},reference=sec:imagesandforms]
+---
+---In original *TeX* image support is dealt with via specials. It's not a native
+---feature of the engine. All that *TeX* cares about is dimensions, so in practice
+---that meant: using a box with known dimensions that wraps a special that instructs
+---the backend to include an image. The wrapping is needed because a special itself
+---is a whatsit and as such has no dimensions.
+---
+---In *PDF*TEX\ a special whatsit for images was introduced and that one {\em has}
+---dimensions. As a consequence, in several places where the engine deals with the
+---dimensions of nodes, it now has to check the details of whatsits. By inheriting
+---code from *PDF*TEX, the *LuaTeX* engine also had that property. However, at some
+---point this approach was abandoned and a more natural trick was used: images (and
+---box resources) became a special kind of rules, and as rules already have
+---dimensions, the code could be simplified.
+---
+---When direction nodes and (formerly local) par nodes also became first class
+---nodes, whatsits again became just that: nodes representing whatever you want, but
+---without dimensions, and therefore they could again be ignored when dimensions
+---mattered. And, because images were disguised as rules, as mentioned, their
+---dimensions automatically were taken into account. This separation between front
+---and backend cleaned up the code base already quite a bit.
+---
+---In *Lua*METATEX\ we still have the image specific subtypes for rules, but the
+---engine never looks at subtypes of rules. That was up to the backend. This means
+---that image support is not present in *Lua*METATEX. When an image specification was
+---parsed the special properties, like the filename, or additional attributes, were
+---stored in the backend and all that *LuaTeX* does is registering a reference to an
+---image's specification in the rule node. But, having no backend means nothing is
+---stored, which in turn would make the image inclusion primitives kind of weird.
+---
+---Therefore you need to realize that contrary to *LuaTeX*, {\em in *Lua*METATEX\
+---support for images and box reuse is not built in}! However, we can assume that
+---an implementation uses rules in a similar fashion as *LuaTeX* does. So, you can
+---still consider images and box reuse to be core concepts. Here we just mention the
+---primitives that *LuaTeX* provides. They are not available in the engine but can
+---of course be implemented in *Lua*.
+---
+--- command  explanation 
+---
+--- \tex {saveboxresource}              save the box as an object to be included later 
+--- \tex {saveimageresource}            save the image as an object to be included later 
+--- \tex {useboxresource}               include the saved box object here (by index) 
+--- \tex {useimageresource}             include the saved image object here (by index) 
+--- \tex {lastsavedboxresourceindex}    the index of the last saved box object 
+--- \tex {lastsavedimageresourceindex}  the index of the last saved image object 
+--- \tex {lastsavedimageresourcepages}  the number of pages in the last saved image object 
+---
+---An implementation probably should accept the usual optional dimension parameters
+---for `\use...resource` in the same format as for rules. With images, these
+---dimensions are then used instead of the ones given to \tex {useimageresource} but
+---the original dimensions are not overwritten, so that a \tex {useimageresource}
+---without dimensions still provides the image with dimensions defined by \tex
+---{saveimageresource}. These optional parameters are not implemented for \tex
+---{saveboxresource}.
+---
+---```
+---\useimageresource width 20mm height 10mm depth 5mm \lastsavedimageresourceindex
+---\useboxresource   width 20mm height 10mm depth 5mm \lastsavedboxresourceindex
+---```
+---
+---Examples or optional entries are `attr` and `resources` that accept a
+---token list, and the `type` key. When set to non-zero the `/Type`
+---entry is omitted. A value of 1 or 3 still writes a `/BBox`, while 2 or 3
+---will write a `/Matrix`. But, as said: this is entirely up to the backend.
+---Generic macro packages (like `tikz`) can use these assumed primitives so
+---one can best provide them. It is probably, for historic reasons, the only more or
+---less standardized image inclusion interface one can expect to work in all macro
+---packages.
+---
+----------------------------------------------------------------
+
+
+---
+---# `dbox`
+---
+---This primitive is a variant on `vbox` in the sense that when it gets
+---appended to a vertical list the height of the topmost line or rule as well as the
+---depth of the box are taken into account when interline space is calculated.
+---
+----------------------------------------------------------------
+
+
+---
+---# `hpack`, `vpack`, `tpack` and `dpack`
+---
+---These three primitives are the equivalents of `hbox`, `vbox`, `vtop` and `dbox` but they don't trigger the packaging related callbacks.
+---Of course one never know if content needs a treatment so using them should be
+---done with care. Apart from accepting more keywords (and therefore options) the
+---normal box behave the same as before.
+---
+----------------------------------------------------------------
+
+
+---
+---# `vcenter`
+---
+---The `vcenter` builder also works in text mode.
+---
+----------------------------------------------------------------
+
+
+---
+---# `unhpack`, `unvpack`
+---
+---These two are somewhat experimental. They ignore the accumulated pre- and
+---postmigrated material bound to a box. I needed it for some experiment so the
+---functionality might change when I really need it.
+---
+----------------------------------------------------------------
+
+
+---
+---\startsubsection[title={`gleaders` and `uleaders`},reference=sec:gleaders]
+---
+---This type of leaders is anchored to the origin of the box to be shipped out. So
+---they are like normal `leaders` in that they align nicely, except that the
+---alignment is based on the {\it largest\/} enclosing box instead of the {\it
+---smallest\/}. The `g` stresses this global nature. The `uleaders` are
+---used for flexible boxes and are discussed elsewhere.
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---# Paragraphs
+---
+---\startsubsection[title=Freezing]
+---
+---In *Lua*METATEX\ we store quite some properties with a paragraph. Where in traditional
+---*TeX* the properties that are set when the paragraph broken into lines are used, here
+---we can freeze them.
+---
+---{\em At some point this section will describe `autoparagraphmode`, `everybeforepar`, `snapshotpar`, `wrapuppar`, etc. For the moment the
+---manuals that come with *ConTeXt* have to do.}
+---
+---% The concept of paragraph in *TeX* can be a bit confusing, and what follows here
+---% is even more so. In *Lua*METATEX\ we distinguish three different cases:
+---%
+---% 
+---% \starthead {normal}
+---%     This state is entered when we have an explicit `\par`.
+---% \stophead
+---% \starthead {inserted}
+---%     This state is entered when *TeX* forces a new paragraph which can happen when
+---%     we automatically change to horizontal mode.
+---% \stophead
+---% \starthead{newline}
+---%     This state is entered when an empty line is encoduntered.
+---% \stophead
+---% 
+---%
+---% When defining macros, a `\par` can be a delimiter and an empty line is then
+---% equivalent to that. With `\autoparagraphmode` we can change this behaviour.
+---% The bits set in this variable determines how `\par` tokens are interpreted
+---% and processed in different situations. It is good to know that this experimental
+---% feature is pretty much *ConTeXt* specific. Here are a few characteristics:
+---%
+---% 
+---%     * %         When any bit is set, a par token is appended when with property inserted.
+---%         The reason behind different properties (mentioned above) is that we can
+---%         intercept them with callbacks.
+---%     
+---%     * %         When bit 1 (text) is set, `\par` will be appended to a string when
+---%         a token list is serialized.
+---%     
+---%     * %         When bit 2 (macro) is set when a macro is defined there is an explicit
+---%         check for a par token when `\par` is part of the preamble.
+---%     
+---%     * %         When bit 4 (go on) is not set we enter the same state as a new line.
+---%         After that when bit 1 (text) is set, a regular par token command is
+---%         injected (with an associated newline state), otherwise the meaning of
+---%         `\par` kicks in (users can have redefined `\par`).
+---%     
+---% 
+---%
+---% In *ConTeXt* we currently default to one, because we still have a few `\par`
+---% delimited macros but these will go and then we will set the mode to two. This
+---% means that in *ConTeXt* such macro expects an explicit `\par` and not an
+---% empty line which in turn encourages users to use the proper alternatives. We
+---% anyway don't support redefined `\par` tokens. Therefore, when we load for
+---% instance tikz, we set the mode to zero (normal *TeX*) and afterwards back to one.
+---% This is still an experimental feature that we occasionally review so don't bother
+---% us with questions about it (just don't set the mode).
+---
+----------------------------------------------------------------
+
+
+---
+---\startsubsection[title=Penalties]
+---
+---In addition to the penalties introduced in \ETEX, we also provide `orphanpenalty` and `orphanpenalties`. When we're shaping a paragraph
+---an additional `shapingpenalty` can be injected. This penalty gets
+---injected instead of the usual penalties when the following bits are set in
+---`shapingpenaltiesmode`:
+---
+--- value         ignored 
+---
+--- `0x01`  interlinepenalty 
+--- `0x02`  widowpenalty     
+--- `0x04`  clubpenalty      
+--- `0x08`  brokenpenalty    
+---
+---When none of these is set the shaping penalty will be added. That way one can
+---prevent a page break inside a shape.
+---
+----------------------------------------------------------------
+
+
+---
+---\startsubsection[title=Criteria]
+---
+---The linebreak algorithm uses some heuristics for determining the badness of a
+---line. In most cases that works quite well. Of course one can run into a bad
+---result when one has a large document of weird (extreme) constraints and it can be
+---tempting to mess around with parameters which then of course can lead to bad
+---results in other places. A solution is is to locally tweak penalties or looseness
+---but one can also just accept the occasional less optimal result (after all there
+---are plenty occasions to make a document look bad otherwise so best focus on the
+---average first). That said, it is tempting to see if changing the hard codes
+---criteria makes a difference. Experiments with this demonstrated the usual: when
+---asked what looks best contradictions mix with expectations and being triggered by
+---events that one related to *TeX*, like successive hyphenated lines.
+---
+---The `linebreakcriterium` parameter can be set to a value made from four bytes. We're
+---not going to explain the magic numbers because they come from and are discussed in original
+---*TeX*. It is enough to know that we have four criteria:
+---
+--- magic  bound to    bytes      
+---
+--- 12     semi tight  0x7F...... 
+--- 12     decent      0x..7F.... 
+--- 12     semi loose  0x....7F.. 
+--- 99     loose       0x......7F 
+---
+---These four values can be changed according to the above pattern and are limited
+---to the range 1\endash127 which is plenty especially when one keeps in mind that
+---the actual useful values sit around the 12 anyway. Values outside the range (and
+---therefore an all-over zero assignment) makes the defaults kick in.
+---
+---The original decisions are made in the following way:
+---
+---```
+---function loose(badness)
+---    if badness > loose_criterium then
+---        return very_loose_fit
+---    elseif badness > decent_criterium then
+---        return loose_fit
+---    else {
+---        return decent_fit
+---    end
+---end
+---
+---function tight(badness)
+---    if badness > decent_criterium then
+---        return tight_fit
+---    else {
+---        return decent_fit
+---    end
+---end
+---```
+---
+---while in *Lua*METATEX\ we use (again in *Lua* speak):
+---
+---```
+---function loose(badness)
+---    if badness > loose then
+---        return very_loose_fit
+---    elseif badness > semi_loose then
+---        return semi_loose_fit
+---    elseif badness > decent then
+---        return loose_fit
+---    else
+---        return decent_fit
+---    end
+---end
+---
+---function tight(badness)
+---    if badness > semi_tight then
+---        return semi_tight_fit
+---    else if badness > decent then
+---        return tight_fit
+---    else
+---        return decent_fit
+---    end
+---end
+---```
+---
+---So we have a few more steps to play with. But don't be disappointed when it
+---doesn't work out as you expect. Don Knuth did a good job on the heuristics and
+---after many decades there is no real need to change something. Consider it a
+---playground.
+---
+---The parameter `ignoredepthcriterium` is set to -1000pt at startup and is a
+---special signal for `prevdepth`. You can change the value locally for
+---educational purposes but best not mess with this standard value in production
+---code unless you want special effects.
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---# Inserts
+---
+---Inserts are tightly integrated into the page builder. Depending on penalties and
+---available space they end up on the same page as were they got injected or they
+---move to following pages, either or not split.
+---
+---In traditional *TeX* inserts are controlled by registers. A quadruple of box,
+---skip, dimen and count registers with the same number acts as an insert class.
+---Details can be found in the *TeX* book. A side effect of this is that we only have
+---these four properties bound to class, other properties of inserts are driven by
+---shared parameters. Another side effect is that register management has to make
+---sure that these foursome get “allocates” as set and not clashes with other
+---register allocations.
+---
+---In *Lua*METATEX\ you can set the `insertmode` to a non zero value in which case
+---inserts are not using the register pool but have their own (global) resources. For
+---now this is mode driven (for compatibility reasons) and once set or when an
+---insert has been accessed, this mode is frozen, so  this parameter can be set
+---very early in the macro package loading process.
+---
+--- primitive                traditional             explanation 
+---
+--- `insertdistance`    skip                    the space before the first instance (on a page) 
+--- `insertmultiplier`  count                   a factor that is used to calculate the height used 
+--- `insertlimit`       dimen                   the maximum amount of space on a page to be taken 
+--- `insertpenalty`     `insertpenalties`  the floating penalty (used when set) 
+--- `insertmaxdepth`    `maxdepth`         the maximum split depth (used when set) 
+--- `insertstorage`                             signals that the insert has to be stored for later 
+--- `insertheight`      `ht` box / index   the accumulated height of the inserts so far 
+--- `insertdepth`       `dp` box / index   the current depth of the inserts so far 
+--- `insertwidth`       `wd` box / index   the width of the inserts 
+--- `insertbox`         box / index             the boxed content 
+--- `insertcopy`        box / index             a copy of the boxed content 
+--- `insertunbox`       box / index             the unboxed content 
+--- `insertuncopy`      box / index             a copy of the unboxed content 
+--- `insertuncopy`      box / index             a copy of the unboxed content 
+--- `insertprogress`    box / index             the currently accumulated height 
+---
+---These primitives takes an insert class number. The `insertpenalties`
+---primitives is unchanged, as is the *LuaTeX* `insertheights` one. When `insertstoring` is set 1, all inserts that have their storage flag set will be
+---saved. Think of a multi column setup where inserts have to end up in the last
+---column. If there are three columns, the first two will store inserts. Then when
+---the last column is dealt with `insertstoring` can be set to 2 and that will
+---signal the builder that we will inject the inserts. In both cases, the value of
+---this register will be set to zero so that it doesn't influence further
+---processing. You can use `ifinsert` to check if an insert box is void. More
+---details about these (probably experimental for a while) features can be found in
+---documents that come with *ConTeXt*.
+---
+---A limitation of inserts is that when they are buried too deep, a property they
+---share with inserts, they become invisible This can be dealt with by the migration
+---feature described in an upcoming section.
+---
+---The *Lua*METATEX\ engine has some tracing built in that is enabled by setting `tracinginserts` to a positive value.
+---
+----------------------------------------------------------------
+
+
+---
+---# Marks
+---
+---Marks are kind of signal nodes in the list that refer to stored token lists. When
+---a page has been split off and is handed over to the output routine these signals
+---are resolved into first, top and bottom mark references that can (for instance)
+---be used for running headers.
+---
+---In \ETEX\ the standard *TeX* primitives `mark`, `firstmark`, `topmark`, `botmark`, `splitfirstmark` and `splitbotmark` have
+---been extended with plural forms that accent a number before the token list. That
+---number indicates a mark class.
+---
+---In addition to the mark fetch commands, we also have access to the last set
+---mark in the given class with `currentmarks`:
+---
+---\startsyntax
+---\currentmarks <16-bit number>
+---\stopsyntax
+---
+---A problem with marks is that one cannot really reset them. Mark states are kept
+---in the node lists and only periodically the state is snapshot into the global
+---state variables. The *LuaTeX* engine can reset these global states with `clearmarks` but that's only half a solution. In *Lua*METATEX\ we have `flushmarks` which, like `marks`, puts a node in the list that does a reset.
+---This permits implementing controlled resets of specific marks at the cost of a
+---possible interfering mode, but that can normally be dealt with rather well.
+---
+---The `clearmarks` primitive complements the \ETEX\ mark primitives and clears
+---a mark class completely, resetting all three connected mark texts to empty. It is
+---an immediate command (no synchronization node is used).
+---
+---\startsyntax
+---\clearmarks <16-bit number>
+---\stopsyntax
+---
+---The `flushmarks` variant is delayed but puts a (mark) node in the list as
+---signal (we could have gone for a keyword to `marks` instead).
+---
+---\startsyntax
+---\flushmarks <16-bit number>
+---\stopsyntax
+---
+---Another problem with marks is that when they are buried too deep, a property they
+---share with inserts, they become invisible. This can be dealt with by the
+---migration feature described in the next section.
+---
+---The *Lua*METATEX\ engine has some tracing built in that is enabled by setting `tracingmarks` to a positive value. When set to 1 the page builder shows the set
+---values, and when set to a higher value details about collecting them are shown.
+---
+----------------------------------------------------------------
+
+
+---
+---# Adjusts
+---
+---The `vadjust` primitive injects something in the vertical list after the
+---line where it ends up. In *PDF*TEX\ the `pre` keyword was added so that one
+---could force something before a previous line (actually this was something that we
+---needed in *ConTeXt* \MKII). The *Lua*METATEX\ engine also supports the `post`
+---keyword.
+---
+---We support a few more keywords: `before` will prepend the adjustment to the
+---already given one, and `after` will append it. The `index` keyword
+---expects an integer and relates that to the current adjustment. This index is
+---passed to an (optional) callback when the adjustment is finally moved to the
+---vertical list. That move is actually delayed because like inserts and marks these
+---(vertical) adjustments can migrate to the “outer” vertical level.
+---
+---The main reason for the index having no influence on the order is that this
+---primitive already could be used multiple times and order is determined by usage.
+---\footnote {Under consideration is to let the callback mess with the flushing
+---order.}
+---
+---The *Lua*METATEX\ engine has some tracing built in that is enabled by setting `tracingadjusts` to a positive value. Currently there is not that much tracing
+---which is why the value has to be at least 2 in order to be compatible with other
+---(detailed) tracers.
+---
+----------------------------------------------------------------
+
+
+---
+---# Migration
+---
+---There are a few injected node types that are used to track information: marks,
+---inserts and adjusts (see previous sections). Marks are token lists that can be
+---used to register states like section numbers and titles they are synchronized in
+---the page builder when a page is shipped out. Inserts are node lists that get
+---rendered and relate to specific locations and these are flushed with the main
+---vertical list which also means that in calculating page breaks they need to be
+---taken into account. An Adjust is material that gets injected before or after a
+---line. Strictly spoke local boxes also in this repertoire but they are dealt with
+---in the par builder.
+---
+---A new primitive `automigrationmode` can be used to let deeply burried marks
+---and inserts bubble up to the outer level.
+---
+--- value  explanation 
+---
+--- \the\markautomigrationcode    migrate marks in the par builder 
+--- \the\insertautomigrationcode  migrate inserts in the par builder  
+--- \the\adjustautomigrationcode  migrate adjusts in the par builder  
+--- \the\preautomigrationcode     migrate prebox material in the page builder 
+--- \the\postautomigrationcode    migrate postbox material in the page builder 
+---
+---If you want to migrate marks and inserts you need to set all these flags. Migrated
+---marks and inserts end up as post-box properties and will be handled in the page
+---builder as such. At the *Lua* end you can add pre- and post-box material too.
+---
+---The primitive register `holdingmigrations` is a bitset that can be used to temporarily
+---disable migrations. It is a generalization of `holdinginserts`.
+---
+--- value  explanation 
+---
+--- 0x01   marks   
+--- 0x02   inserts 
+--- 0x04   adjusts 
+---
+---Migrates material is bound to boxes so boxed material gets unboxed it is taken
+---into account, but you should be aware of potential side effects. But then, marks,
+---inserts and adjusts always demanded care.
+---
+----------------------------------------------------------------
+
+
+---
+---# Pages
+---
+---The page builder can be triggered by (for instance) a penalty but you can also
+---use `pageboundary`. This will trigger the page builder but not leave
+---anything behind.
+---
+---{\em In due time we will discuss `pagevsize`, `pageextragoal` and `lastpageextra` but for now we treat them as very experimental and they will be
+---tested in *ConTeXt*, also in discussion with users.}
+---
+----------------------------------------------------------------
+
+
+---
+---# Paragraphs
+---
+---The numeric primitive `lastparcontext` inspector reports the current context
+---in which a paragraph triggering commands happened. The numbers can be queried
+---with `tex.getparcontextvalues()` and currently are: \showvaluelist
+---{tex.getparcontextvalues()}. As with the other `\last...` primitives this
+---variable is global.
+---
+---Traditional *TeX* has the `parfillskip` parameter that determines the way
+---the last line is filled. In *Lua*METATEX\ we also have `parfillleftskip`. The
+---counterparts for the first line are `parinitleftskip` and `parinitrightskip`.
+---
+---\startbuffer
+---\leftskip        2em
+---\rightskip       \leftskip
+---\parfillskip     \zeropoint plus 1 fill
+---\parfillleftskip \parfillskip
+---\parinitleftskip \parfillleftskip
+---\parinitrightskip\parfillleftskip
+---\input ward
+---\stopbuffer
+---
+---\typebuffer This results in: \par \start \em \getbuffer \par \stop
+---
+---An additional tracing primitive `tracingfullboxes` reports details about the
+---encountered overfull boxes. This can be rather verbose!
+---
+---Normally *TeX* will insert an empty hbox when paragraph indentation is requested
+---but when the second bit in `normalizelinemode` has been set *Lua*METATEX\
+---will in a glue node instead. You can zero the set value with `undent` unless
+---of course some more has been inserted already.
+---
+---\startbuffer
+---\parinitleftskip1cm \parindent 1cm \indent test \par
+---\parinitleftskip1cm \parindent 1cm \undent test \par
+---\parinitleftskip1cm \parindent 1cm \indent \undent test \par
+---\parinitleftskip1cm \parindent 1cm \indent \strut \undent test \par
+---\stopbuffer
+---
+---\typebuffer \startpacked \getbuffer \stoppacked
+---
+---By setting `tracingpenalties` to a positive value penalties related to
+---windows, clubs, lines etc. get reported to the output channels.
+---
+----------------------------------------------------------------
+
+
+---
+---# Local boxes
+---
+---As far as I know the \OMEGA/\ALEPH\ local box mechanism is mostly in those
+---engines in order to support repetitive quotes. In *LuaTeX* this mechanism has
+---been made more robust and in *Lua*METATEX\ it became more tightly integrated in
+---the paragraph properties. In order for it to be more generic and useful, it got
+---more features. For instance it is a bit painful to manage with respect to
+---grouping (which is a reason why it's not that much used). The most interesting
+---property is that the dimensions are taken into account when a paragraph is
+---broken into lines.
+---
+---There are three commands: `localleftbox`, `localrightbox` and the
+---*Lua*METATEX\ specific `localmiddlebox` which is basically a right box but
+---when we pass these boxes to a callback they can be distinguished (we could have
+---used the index but this was a cheap extra signal so we keep it).
+---
+---These commands take optional keywords. The `index` keyword has to be
+---followed by an integer. This index determines the order which doesn't introduce a
+---significant compatibility issue: local boxes are hardly used and originally had
+---only one instance.
+---
+---The `par` keyword forces the box to be added to the current paragraph head.
+---This permits setting them when a paragraph has already started. The
+---implementation of these boxes is done via so called (local) paragraph nodes and
+---there is one at the start of each paragraph.
+---
+---The `local` keyword tells this mechanism not to update the registers that
+---keep these boxes. In that case a next paragraph will start fresh. The `keep` option will do the opposite and retain the box after a group ends.
+---
+---The commands: `localleftboxbox`, `localrightboxbox` and `localmiddleboxbox` return a copy of the current related register content.
+---
+----------------------------------------------------------------
+
+
+---
+---# Leaders
+---
+---Leaders are flexible content that are basically just seen as glue and it is up to
+---the backend to apply the effective glue to the result as seen in the backend
+---(like a rule of box). This means that the frontend doesn't do anything with the
+---fact that we have a regular `leaders`, a `gleaders`, `xleaders` or
+---`cleaders`. The `uleaders` that has been added in *Lua*METATEX\ is just
+---that: an extra leader category. The main difference is that the width of the
+---given box is added to the glue. That way we create a stretchable box.
+---
+---\startbuffer
+---\unexpandedloop 1 30 1 {x             \hbox{1 2 3}                                                           x }
+---\unexpandedloop 1 30 1 {x {\uleaders \hbox{1 2 3}\hskip 0pt plus 10pt               minus 10pt\relax}        x }
+---\unexpandedloop 1 30 1 {x {\uleaders \hbox{1 2 3}\hskip 0pt plus  \interwordstretch minus \interwordshrink}  x }
+---\unexpandedloop 1 30 1 {x {\uleaders \hbox{1 2 3}\hskip 0pt plus 2\interwordstretch minus 2\interwordshrink} x }
+---\stopbuffer
+---
+---\typebuffer
+---
+---Here are some examples:
+---
+---\startlines
+---\getbuffer
+---\stoplines
+---
+---So the flexibility fo the box plays a role in the line break calculations. But in
+---the end the backend has to do the work.
+---
+---\startbuffer[a]
+---{\green \hrule width \hsize} \par \vskip2pt
+---\vbox to 40pt {
+---    {\red\hrule width \hsize} \par \vskip2pt
+---    \vbox {
+---        \vskip2pt {\blue\hrule width \hsize} \par
+---        \vskip 10pt plus 10pt minus 10pt
+---        {\blue\hrule width \hsize} \par \vskip2pt
+---    }
+---    \vskip2pt {\red\hrule width \hsize} \par
+---}
+---\vskip2pt {\green \hrule width \hsize} \par
+---\stopbuffer
+---
+---\startbuffer[b]
+---{\green \hrule width \hsize} \par \vskip2pt
+---\vbox to 40pt {
+---    {\red\hrule width \hsize} \par \vskip2pt
+---    \uleaders\vbox {
+---        \vskip2pt {\blue\hrule width \hsize} \par
+---        \vskip 10pt plus 10pt minus 10pt
+---        {\blue\hrule width \hsize} \par \vskip2pt
+---    }\vskip 0pt plus 10pt minus 10pt
+---    \vskip2pt {\red\hrule width \hsize} \par
+---}
+---\vskip2pt {\green \hrule width \hsize} \par
+---\stopbuffer
+---
+---\typebuffer[a]
+---
+---with
+---
+---\typebuffer[b]
+---
+---In the first case we get the this:
+---
+---\startlinecorrection
+---\getbuffer[a]
+---\stoplinecorrection
+---
+---but with `uleaders` we get:
+---
+---\startlinecorrection
+---\normalizeparmode\zerocount
+---\getbuffer[b]
+---\stoplinecorrection
+---
+---or this:
+---
+---\startlinecorrection
+---\normalizeparmode"FF
+---\getbuffer[b]
+---\stoplinecorrection
+---
+---In the second case we flatten the leaders in the engine by setting the second bit
+---in the `normalizeparmode` parameter (`0x2`). We actually do the same
+---with `normalizelinemode` where bit 10 is set (`0x200`). The `delay` keyword can be passed with a box to prevent flattening. If we don't do
+---this in the engine, the backend has to take care of it. In principle this permits
+---implementing variants in a macro package. Eventually there will be plenty examples in
+---the *ConTeXt* code base and documentation. Till then, consider this experimental.
+---
+----------------------------------------------------------------
+
+
+---
+---\startsection[title=Alignments]
+---
+---The primitive `alignmark` duplicates the functionality of `#` inside
+---alignment preambles, while `aligntab` duplicates the functionality of `&`. The `aligncontent` primitive directly refers to an entry so that one
+---does not get repeated.
+---
+---Alignments can be traced with `tracingalignments`. When set to 1 basics
+---usage is shown, for instance of `noalign` but more interesting is 2 or more:
+---you then get the preambles reported.
+---
+---The `halign` (tested) and `valign` (yet untested) primitives accept a
+---few keywords in addition to `to` and `spread`:
+---
+--- keyword  explanation 
+---
+--- `attr`      set the given attribute to the given value 
+--- `callback`  trigger the `alignment_filter` callback 
+--- `discard`   discard zero `tabskip`'s 
+--- `noskips`   don't even process zero `tabskip`'s 
+--- `reverse`   reverse the final rows 
+---
+---In the preamble the `tabsize` primitive can be used to set the width of a
+---column. By doing so one can avoid using a box in the preamble which, combined
+---with the sparse tabskip features, is a bit easier on memory when you produce
+---tables that span hundreds of pages and have a dozen columns.
+---
+---The `everytab` complements the `everycr` token register but is sort of
+---experimental as it might become more selective and powerful some day.
+---
+---The two primitives `alignmentcellsource` and `alignmentwrapsource` that
+---associate a source id (integer) to the current cell and row (line). Sources and
+---targets are experimental and are being explored in *ConTeXt* so we'll see where
+---that ends up in.
+---
+---{\em todo: callbacks}
+---
+----------------------------------------------------------------
+
+
+---
+---\stopchapter
+---
+---\stopcomponent
+---

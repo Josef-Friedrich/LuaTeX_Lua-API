@@ -1,0 +1,541 @@
+---% language=us runpath=texruns:manuals/luametatex
+---
+---% lua.newtable
+---
+---\environment luametatex-style
+---
+---\startcomponent luametatex-pdf
+---
+---# The *PDF* related libraries
+---
+---# The `pdfe` library[library=pdfe]
+---
+---# Introduction
+---
+---The `pdfe` library replaces the `epdf` library and provides an
+---interface to *PDF* files. It uses the same code as is used for *PDF* image
+---inclusion. The `pplib` library by Paweł Jackowski replaces the `poppler` (derived from `xpdf`) library.
+---
+---A *PDF* file is basically a tree of objects and one descends into the tree via
+---dictionaries (key/value) and arrays (index/value). There are a few topmost
+---dictionaries that start at root that are accessed more directly.
+---
+---Although everything in *PDF* is basically an object we only wrap a few in so
+---called userdata *Lua* objects.
+---
+--- type           mapping 
+---
+--- *PDF*           *Lua* 
+--- null           nil 
+--- boolean        boolean 
+--- integer        integer 
+--- float          number 
+--- name           string 
+--- string         string 
+--- array          array userdatum 
+--- dictionary     dictionary userdatum 
+--- stream         stream userdatum (with related dictionary) 
+--- reference      reference userdatum 
+---
+---The regular getters return these *Lua* data types but one can also get more
+---detailed information.
+---
+----------------------------------------------------------------
+
+
+---
+---# `open`, `openfile`, `new`, `getstatus`, `close`, `unencrypt`
+---
+---A document is loaded from a file (by name or handle) or string:
+---
+---```
+---<pdfe document> = pdfe.open(filename)
+---<pdfe document> = pdfe.openfile(filehandle)
+---<pdfe document> = pdfe.new(somestring,somelength)
+---```
+---
+---Such a document is closed with:
+---
+---```
+---pdfe.close(<pdfe document>)
+---```
+---
+---You can check if a document opened well by:
+---
+---```
+---pdfe.getstatus(<pdfe document>)
+---```
+---
+---The returned codes are:
+---
+--- value       explanation 
+---
+--- `-2`  the document is (still) protected 
+--- `-1`  the document failed to open 
+--- `0`  the document is not encrypted 
+--- `1`  the document has been unencrypted 
+---
+---An encrypted document can be unencrypted by the next command where instead of
+---either password you can give `nil`:
+---
+---```
+---pdfe.unencrypt(<pdfe document>,userpassword,ownerpassword)
+---```
+---
+----------------------------------------------------------------
+
+
+---
+---# `getsize`, `getversion`, `getnofobjects`, `getnofpages`
+---
+---A successfully opened document can provide some information:
+---
+---```
+---bytes = getsize(<pdfe document>)
+---major, minor = getversion(<pdfe document>)
+---n = getnofobjects(<pdfe document>)
+---n = getnofpages(<pdfe document>)
+---bytes, waste = getnofpages(<pdfe document>)
+---```
+---
+----------------------------------------------------------------
+
+
+---
+---# `get[catalog|trailer|info]`
+---
+---For accessing the document structure you start with the so called catalog, a
+---dictionary:
+---
+---```
+---<pdfe dictionary> = pdfe.getcatalog(<pdfe document>)
+---```
+---
+---The other two root dictionaries are accessed with:
+---
+---```
+---<pdfe dictionary> = pdfe.gettrailer(<pdfe document>)
+---<pdfe dictionary> = pdfe.getinfo(<pdfe document>)
+---```
+---
+----------------------------------------------------------------
+
+
+---
+---# `getpage`, `getbox`
+---
+---A specific page can conveniently be reached with the next command, which
+---returns a dictionary.
+---
+---```
+---<pdfe dictionary> = pdfe.getpage(<pdfe document>,pagenumber)
+---```
+---
+---Another convenience command gives you the (bounding) box of a (normally page)
+---which can be inherited from the document itself. An example of a valid box name
+---is `MediaBox`.
+---
+---```
+---pages = pdfe.getbox(<pdfe dictionary>,boxname)
+---```
+---
+----------------------------------------------------------------
+
+
+---
+---# `get[string|integer|number|boolean|name]`
+---
+---Common values in dictionaries and arrays are strings, integers, floats, booleans
+---and names (which are also strings) and these are also normal *Lua* objects:
+---
+---```
+---s = getstring (<pdfe array|dictionary>,index|key)
+---i = getinteger(<pdfe array|dictionary>,index|key)
+---n = getnumber (<pdfe array|dictionary>,index|key)
+---b = getboolean(<pdfe array|dictionary>,index|key)
+---n = getname   (<pdfe array|dictionary>,index|key)
+---```
+---
+---The `getstring` function has two extra variants:
+---
+---```
+---s, h = getstring (<pdfe array|dictionary>,index|key,false)
+---s    = getstring (<pdfe array|dictionary>,index|key,true)
+---```
+---
+---The first call returns the original string plus a boolean indicating if the
+---string is hex encoded. The second call returns the unencoded string.
+---
+----------------------------------------------------------------
+
+
+---
+---# `get[dictionary|array|stream]`
+---
+--- 
+---      
+---     
+---
+---Normally you will use an index in an array and key in a dictionary but dictionaries
+---also accept an index. The size of an array or dictionary is available with the
+---usual `#` operator.
+---
+---```
+---<pdfe dictionary>   = getdictionary(<pdfe array|dictionary>,index|key)
+---<pdfe array>        = getarray     (<pdfe array|dictionary>,index|key)
+---<pdfe stream>,
+---<pdfe dictionary>   = getstream    (<pdfe array|dictionary>,index|key)
+---```
+---
+---These commands return dictionaries, arrays and streams, which are dictionaries
+---with a blob of data attached.
+---
+---Before we come to an alternative access mode, we mention that the objects provide
+---access in a different way too, for instance this is valid:
+---
+---```
+---print(pdfe.open("foo.pdf").Catalog.Type)
+---```
+---
+---At the topmost level there are `Catalog`, `Info`, `Trailer`
+---and `Pages`, so this is also okay:
+---
+---```
+---print(pdfe.open("foo.pdf").Pages[1])
+---```
+---
+----------------------------------------------------------------
+
+
+---
+---# `[open|close|readfrom|whole|]stream`
+---
+---Streams are sort of special. When your index or key hits a stream you get back a
+---stream object and dictionary object. The dictionary you can access in the usual
+---way and for the stream there are the following methods:
+---
+---```
+---okay   = openstream(<pdfe stream>,[decode])
+---         closestream(<pdfe stream>)
+---str, n = readfromstream(<pdfe stream>)
+---str, n = readwholestream(<pdfe stream>,[decode])
+---```
+---
+---You either read in chunks, or you ask for the whole. When reading in chunks, you
+---need to open and close the stream yourself. The `n` value indicates the
+---length read. The `decode` parameter controls if the stream data gets
+---uncompressed.
+---
+---As with dictionaries, you can access fields in a stream dictionary in the usual
+---*Lua* way too. You get the content when you “call” the stream. You can
+---pass a boolean that indicates if the stream has to be decompressed.
+---
+---% pdfe.objectcodes      = objectcodes
+---% pdfe.stringcodes      = stringcodes
+---% pdfe.encryptioncodes  = encryptioncodes
+---
+----------------------------------------------------------------
+
+
+---
+---# `getfrom[dictionary|array]`
+---
+---In addition to the interface described before, there is also a bit lower level
+---interface available.
+---
+---```
+---key, type, value, detail = getfromdictionary(<pdfe dictionary>,index)
+---type, value, detail = getfromarray(<pdfe array>,index)
+---```
+---
+--- type        meaning     value             detail 
+--- `0`   none        nil               
+--- `1`   null        nil               
+---@field 2 boolean # boolean           
+--- `3`   integer     integer           
+---@field 4 number # float             
+--- `5`   name        string            
+---@field 6 string # string            hex 
+--- `7`   array       arrayobject       size 
+--- `8`   dictionary  dictionaryobject  size 
+--- `9`   stream      streamobject      dictionary size 
+--- `10`  reference   integer           
+---
+---A `hex` string is (in the *PDF* file) surrounded by `<>` while plain
+---strings are bounded by `<>`.
+---
+----------------------------------------------------------------
+
+
+---
+---# `[dictionary|array]totable`
+---
+---All entries in a dictionary or table can be fetched with the following commands
+---where the return values are a hashed or indexed table.
+---
+---```
+---hash = dictionarytotable(<pdfe dictionary>)
+---list = arraytotable(<pdfe array>)
+---```
+---
+---You can get a list of pages with:
+---
+---```
+---{ { <pdfe dictionary>, size, objnum }, ... } = pagestotable(<pdfe document>)
+---```
+---
+----------------------------------------------------------------
+
+
+---
+---# `getfromreference`
+---
+---Because you can have unresolved references, a reference object can be resolved
+---with:
+---
+---```
+---type, <pdfe dictionary|array|stream>, detail = getfromreference(<pdfe reference>)
+---```
+---
+---So, as second value you get back a new `pdfe` userdata object that you can
+---query.
+---
+----------------------------------------------------------------
+
+
+---
+----------------------------------------------------------------
+
+
+---
+---# Memory streams[library=pdfe]
+---
+---The `pdfe.new` function takes three arguments:
+---
+---\starttabulate
+--- value            explanation      
+---
+--- `stream`   this is a (in low level *Lua* speak) light userdata object, i.e.\ a pointer to a sequence of bytes 
+--- `length`   this is the length of the stream in bytes (the stream can have embedded zeros) 
+--- `name`     optional, this is a unique identifier that is used for hashing the stream 
+---
+---The third argument is optional. When it is not given the function will return a
+---`pdfe` document object as with a regular file, otherwise it will return a
+---filename that can be used elsewhere (e.g.\ in the image library) to reference the
+---stream as pseudo file.
+---
+---Instead of a light userdata stream (which is actually fragile but handy when you
+---come from a library) you can also pass a *Lua* string, in which case the given
+---length is (at most) the string length.
+---
+---The function returns a `pdfe` object and a string. The string can be used in
+---the `img` library instead of a filename. You need to prevent garbage
+---collection of the object when you use it as image (for instance by storing it
+---somewhere).
+---
+---Both the memory stream and it's use in the image library is experimental and can
+---change. In case you wonder where this can be used: when you use the swiglib
+---library for `graphicmagick`, it can return such a userdata object. This
+---permits conversion in memory and passing the result directly to the backend. This
+---might save some runtime in one-pass workflows. This feature is currently not
+---meant for production and we might come up with a better implementation.
+---
+----------------------------------------------------------------
+
+
+---
+---# The `pdfscanner` library[library=pdfscanner]
+---
+---This library is not available in *Lua*METATEX.
+---
+----------------------------------------------------------------
+
+
+---
+---% # The `pdfscanner` library[library=pdfscanner]
+---%
+---% 
+---%
+---% 
+---%
+---% The `pdfscanner` library allows interpretation of *PDF* content streams and
+---% `/ToUnicode` (cmap) streams. You can get those streams from the \type
+---% {pdfe} library, as explained in an earlier section. There is only a single
+---% top-level function in this library:
+---%
+---% ```
+---% pdfscanner.scan (<pdfe stream>, <table> operatortable, <table> info)
+---% pdfscanner.scan (<pdfe array>, <table> operatortable, <table> info)
+---% pdfscanner.scan (<string>, <table> operatortable, <table> info)
+---% ```
+---%
+---% The first argument should be a *Lua* string or a stream or array onject coming
+---% from the `pdfe` library. The second argument, `operatortable`, should
+---% be a *Lua* table where the keys are *PDF* operator name strings and the values
+---% are *Lua* functions (defined by you) that are used to process those operators.
+---% The functions are called whenever the scanner finds one of these *PDF* operators
+---% in the content stream(s). The functions are called with two arguments: the \type
+---% {scanner} object itself, and the `info` table that was passed are the third
+---% argument to `pdfscanner.scan`.
+---%
+---% Internally, `pdfscanner.scan` loops over the *PDF* operators in the
+---% stream(s), collecting operands on an internal stack until it finds a *PDF*
+---% operator. If that *PDF* operator's name exists in `operatortable`, then the
+---% associated function is executed. After the function has run (or when there is no
+---% function to execute) the internal operand stack is cleared in preparation for the
+---% next operator, and processing continues.
+---%
+---% The `scanner` argument to the processing functions is needed because it
+---% offers various methods to get the actual operands from the internal operand
+---% stack.
+---%
+---% A simple example of processing a *PDF*'s document stream could look like this:
+---%
+---% ```
+---% local operatortable = { }
+---%
+---% operatortable.Do = function(scanner,info)
+---%     local resources = info.resources
+---%     if resources then
+---%         local val     = scanner:pop()
+---%         local name    = val[2]
+---%         local xobject = resources.XObject
+---%         print(info.space .. "Uses XObject " .. name)
+---%         local resources = xobject.Resources
+---%         if resources then
+---%             local newinfo =  {
+---%                 space     = info.space .. "  ",
+---%                 resources = resources,
+---%             }
+---%             pdfscanner.scan(entry, operatortable, newinfo)
+---%         end
+---%     end
+---% end
+---%
+---% local function Analyze(filename)
+---%     local doc = pdfe.open(filename)
+---%     if doc then
+---%         local pages = doc.Pages
+---%         for i=1,#pages do
+---%             local page = pages[i]
+---%             local info = {
+---%               space     = "  " ,
+---%               resources = page.Resources,
+---%             }
+---%             print("Page " .. i)
+---%          -- pdfscanner.scan(page.Contents,operatortable,info)
+---%             pdfscanner.scan(page.Contents(),operatortable,info)
+---%         end
+---%     end
+---% end
+---%
+---% Analyze("foo.pdf")
+---% ```
+---%
+---% This example iterates over all the actual content in the *PDF*, and prints out the
+---% found `XObject` names. While the code demonstrates quite some of the \type
+---% {pdfe} functions, let's focus on the type `pdfscanner` specific code
+---% instead.
+---%
+---% From the bottom up, the following line runs the scanner with the *PDF* page's
+---% top-level content given in the first argument.
+---%
+---% The third argument, `info`, contains two entries: `space` is used to
+---% indent the printed output, and `resources` is needed so that embedded \type
+---% {XForms} can find their own content.
+---%
+---% The second argument, `operatortable` defines a processing function for a
+---% single *PDF* operator, `Do`.
+---%
+---% The function `Do` prints the name of the current `XObject`, and then
+---% starts a new scanner for that object's content stream, under the condition that
+---% the `XObject` is in fact a `/Form`. That nested scanner is called
+---% with new `info` argument with an updated `space` value so that the
+---% indentation of the output nicely nests, and with a new `resources` field
+---% to help the next iteration down to properly process any other, embedded \type
+---% {XObject}s.
+---%
+---% Of course, this is not a very useful example in practice, but for the purpose of
+---% demonstrating `pdfscanner`, it is just long enough. It makes use of only
+---% one `scanner` method: `scanner:pop()`. That function pops the top
+---% operand of the internal stack, and returns a *Lua* table where the object at index
+---% one is a string representing the type of the operand, and object two is its
+---% value.
+---%
+---% The list of possible operand types and associated *Lua* value types is:
+---%
+---% 
+---%  types            type      
+---% 
+---%  `integer`   <number>  
+---%  `real`      <number>  
+---%  `boolean`   <boolean> 
+---%  `name`      <string>  
+---%  `operator`  <string>  
+---%  `string`    <string>  
+---%  `array`     <table>   
+---%  `dict`      <table>   
+---% 
+---% 
+---%
+---% In case of `integer` or `real`, the value is always a *Lua* (floating
+---% point) number. In case of `name`, the leading slash is always stripped.
+---%
+---% In case of `string`, please bear in mind that *PDF* actually supports
+---% different types of strings (with different encodings) in different parts of the
+---% *PDF* document, so you may need to reencode some of the results; `pdfscanner`
+---% always outputs the byte stream without reencoding anything. `pdfscanner`
+---% does not differentiate between literal strings and hexadecimal strings (the
+---% hexadecimal values are decoded), and it treats the stream data for inline images
+---% as a string that is the single operand for `EI`.
+---%
+---% In case of `array`, the table content is a list of `pop` return
+---% values and in case of `dict`, the table keys are *PDF* name strings and the
+---% values are `pop` return values.
+---%
+---% 
+---% 
+---% 
+---% 
+---% 
+---% 
+---% 
+---% 
+---%
+---% There are a few more methods defined that you can ask `scanner`:
+---%
+---% 
+---%  method                explanation 
+---% 
+---%  `pop`            see above 
+---%  `popnumber`      return only the value of a `real` or `integer` 
+---%  `popname`        return only the value of a `name` 
+---%  `popstring`      return only the value of a `string` 
+---%  `poparray`       return only the value of a `array` 
+---%  `popdictionary`  return only the value of a `dict` 
+---%  `popboolean`     return only the value of a `boolean` 
+---%  `done`           abort further processing of this `scan()` call 
+---% 
+---% 
+---%
+---% The `pop*` are convenience functions, and come in handy when you know the
+---% type of the operands beforehand (which you usually do, in *PDF*). For example, the
+---% `Do` function could have used `local name = scanner:popname()`
+---% instead, because the single operand to the `Do` operator is always a *PDF*
+---% name object.
+---%
+---% The `done` function allows you to abort processing of a stream once you
+---% have learned everything you want to learn. This comes in handy while parsing
+---% `/ToUnicode`, because there usually is trailing garbage that you are not
+---% interested in. Without `done`, processing only ends at the end of the
+---% stream, possibly wasting \CPU\ cycles.
+---%
+---% {\em We keep the older names `popNumber`, `popName`, \type
+---% {popString}, `popArray`, `popDict` and `popBool` around.}
+---%
+---% \stopsection
+---
+---\stopchapter
+---
+---\stopcomponent
+---
