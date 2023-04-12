@@ -76,7 +76,7 @@ tex.binoppenalty = 0
 ---
 ---@type integer # A readable and writable integer parameter that accepts and returns Lua numbers.
 ---
----[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+---😱 [Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 💁🏻 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex.brokenpenalty = 0
 
 ---
@@ -96,6 +96,8 @@ tex.catcodetable = 0
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex.clubpenalty = 0
+
+tex.binoppenalty = 'sds'
 
 ---
 ---`\day`: The day of the current job.
