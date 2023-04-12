@@ -1830,7 +1830,8 @@ tex.currentifbranch = 0
 _N._10_3_5_accessing_registers_set_get_and_is = 194
 
 ---
----the attribute registers accept and return Lua numbers.
+---The attribute registers accept and return Lua numbers.
+---
 ---see `LuaTeX` manual: 10.3.5 Accessing registers: `set*`, `get*` and `is*`
 ---
 ---@type table
@@ -1851,11 +1852,16 @@ function tex.setattribute() end
 function tex.getattribute() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.isattribute() end
+---* Corresponding C source code: [ltexlib.c#L1080-L1083](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1080-L1083)
+---* Corresponding C source code: [ltexlib.c#L350-L358](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L350-L358)
+---
+---@param register string|integer
+---
+---@return false|integer
+function tex.isattribute(register) end
 
+---
+---The count registers accept and return *Lua* numbers.
 ---
 ---see `LuaTeX` manual: 10.3.5 Accessing registers: `set*`, `get*` and `is*`
 ---
@@ -1865,22 +1871,23 @@ function tex.isattribute() end
 tex.count = {}
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---* Corresponding C source code: [ltexlib.c#L1051-L1066](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1051-L1066)
+---
 function tex.setcount() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---* Corresponding C source code: [ltexlib.c#L1068-L1078](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1068-L1078)
+---
 function tex.getcount() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.iscount() end
+---* Corresponding C source code: [ltexlib.c#L1046-L1049](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1046-L1049)
+---* Corresponding C source code: [ltexlib.c#L350-L358](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L350-L358)
+---
+---@param register string|integer
+---
+---@return false|integer
+function tex.iscount(register) end
 
 ---
 ---The dimension registers accept *Lua* numbers (in scaled points) or
@@ -1896,23 +1903,27 @@ function tex.iscount() end
 tex.dimen = {}
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---* Corresponding C source code: [ltexlib.c#L818-L834](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L818-L834)
+---
 function tex.setdimen() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---* Corresponding C source code: [ltexlib.c#L836-L846](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L836-L846)
+---
 function tex.getdimen() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.isdimen() end
+---* Corresponding C source code: [ltexlib.c#L813-L816](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L813-L816)
+---* Corresponding C source code: [ltexlib.c#L350-L358](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L350-L358)
+---
+---@param register string|integer
+---
+---@return false|integer
+function tex.isdimen(register) end
 
+---
+---The glue registers are just skip registers but instead of userdata
+---are verbose.
 ---
 ---see `LuaTeX` manual: 10.3.5 Accessing registers: `set*`, `get*` and `is*`
 ---
@@ -1922,22 +1933,26 @@ function tex.isdimen() end
 tex.glue = {}
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---* Corresponding C source code: [ltexlib.c#L884-L903](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L884-L903)
+---
 function tex.setglue() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---* Corresponding C source code: [ltexlib.c#L905-L949](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L905-L949)
+---
 function tex.getglue() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.isglue() end
+---Alias of tex.isskip()
+---
+---* Corresponding C source code: [ltexlib.c#L848-L851](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L848-L851)
+---
+---* Corresponding C source code: [ltexlib.c#L350-L358](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L350-L358)
+---
+---@param register string|integer
+---
+---@return false|integer
+function tex.isglue(register) end
 
 ---
 ---see `LuaTeX` manual: 10.3.5 Accessing registers: `set*`, `get*` and `is*`
@@ -1948,22 +1963,25 @@ function tex.isglue() end
 tex.muglue = {}
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---* Corresponding C source code: [ltexlib.c#L979-L998](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L979-L998)
+---
 function tex.setmuglue() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---* Corresponding C source code: [ltexlib.c#L1000-L1044](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1000-L1044)
+---
 function tex.getmuglue() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.ismuglue() end
+---Alias of tex.ismuskip()
+---
+---* Corresponding C source code: [ltexlib.c#L951-L954](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L951-L954)
+---* Corresponding C source code: [ltexlib.c#L350-L358](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L350-L358)
+---
+---@param register string|integer
+---
+---@return false|integer
+function tex.ismuglue(register) end
 
 ---
 ---see `LuaTeX` manual: 10.3.5 Accessing registers: `set*`, `get*` and `is*`
@@ -1974,23 +1992,27 @@ function tex.ismuglue() end
 tex.muskip = {}
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.getmuskip() end
-
+---* Corresponding C source code: [ltexlib.c#L956-L965](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L956-L965)
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function tex.setmuskip() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.ismuskip() end
+---* Corresponding C source code: [ltexlib.c#L967-L977](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L967-L977)
+---
+function tex.getmuskip() end
 
+---
+---* Corresponding C source code: [ltexlib.c#L951-L954](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L951-L954)
+---* Corresponding C source code: [ltexlib.c#L350-L358](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L350-L358)
+---
+---@param register string|integer
+---
+---@return false|integer
+function tex.ismuskip(register) end
+
+---
+---The skip registers accept and return `glue_spec` userdata node
+---objects.
 ---
 ---see `LuaTeX` manual: 10.3.5 Accessing registers: `set*`, `get*` and `is*`
 ---
@@ -2000,23 +2022,41 @@ function tex.ismuskip() end
 tex.skip = {}
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.setskip() end
+---* Corresponding C source code: [ltexlib.c#L853-L866](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L853-L866)
+---
+---@param global 'global'
+---@param register integer|string
+---@param skip GlueSpecNode
+function tex.setskip(global, register, skip) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.getskip() end
+---* Corresponding C source code: [ltexlib.c#L853-L866](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L853-L866)
+---
+---@param register integer|string
+---@param skip GlueSpecNode
+function tex.setskip(register, skip) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function tex.isskip() end
+---* Corresponding C source code: [ltexlib.c#L868-L882](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L868-L882)
+---
+---@param register integer|string
+---
+---@return GlueSpecNode
+function tex.getskip(register) end
 
+---
+---* Corresponding C source code: [ltexlib.c#L848-L851](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L848-L851)
+---* Corresponding C source code: [ltexlib.c#L350-L358](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L350-L358)
+---
+---@param register string|integer
+---
+---@return false|integer
+function tex.isskip(register) end
+
+---
+---The token registers accept and return *Lua* strings. *Lua* strings are
+---converted to and from token lists using `the` `toks` style
+---expansion: all category codes are either space (10) or other (12).
 ---
 ---see `LuaTeX` manual: 10.3.5 Accessing registers: `set*`, `get*` and `is*`
 ---
@@ -2031,24 +2071,28 @@ tex.toks = {}
 ---* Corresponding C source code: [ltexlib.c#L1125-L1158](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1125-L1158)
 ---
 ---@param global 'global'
----@param toks_register integer
+---@param register integer
 ---@param toks string
-function tex.settoks(global, toks_register, toks) end
+function tex.settoks(global, register, toks) end
 
 ---
 ---Get a toks register. Also accepts a predefined csname string.
 ---
 ---* Corresponding C source code: [ltexlib.c#L1197-L1209](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1197-L1209)
 ---
----@param toks_register integer
+---@param register integer
 ---
 ---@return string toks
-function tex.gettoks(toks_register) end
+function tex.gettoks(register) end
 
 ---
 ---* Corresponding C source code: [ltexlib.c#L1120-L1123](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1120-L1123)
+---* Corresponding C source code: [ltexlib.c#L350-L358](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L350-L358)
 ---
-function tex.istoks() end
+---@param register string|integer
+---
+---@return false|integer
+function tex.istoks(register) end
 
 ---
 ---For tokens registers we have an alternative where a catcode table is specified:
@@ -2061,16 +2105,21 @@ function tex.istoks() end
 ---* Corresponding C source code: [ltexlib.c#L1160-L1195](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1160-L1195)
 ---
 ---@param global 'global'
----@param toks_register integer
+---@param register integer
 ---@param catcodetable integer
 ---@param toks string
-function tex.scantoks(global, toks_register, catcodetable, toks) end
+function tex.scantoks(global, register, catcodetable, toks) end
 
 ---
----There is a dedicated getter for marks: getmark that takes two arguments. The first argument
----is one of top, bottom, first, splitbottom or splitfirst, and the second argument is a marks
----class number. When no arguments are given the current maximum number of classes is returned.
-function tex.getmark() end
+---When no arguments are given the current maximum number of classes is returned.
+---
+---* Corresponding C source code: [ltexlib.c#L1211-L1242](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1211-L1242)
+---
+---@param position? 'top'|'bottom'|'first'|'splitbottom'|'splitfirst' # one of top, bottom, first, splitbottom or splitfirst
+---@param class? integer marks class number.
+---
+---@return integer|string
+function tex.getmark(position, class) end
 
 _N._10_3_6_character_code_registers_get_set_code_s_ = 0
 
