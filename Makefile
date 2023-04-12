@@ -22,6 +22,8 @@ generate_doc:
 dist: fix_lua_docstrings
 	rsync -av --delete library/ dist/
 	resources/remove-navigation-table.py
+	rsync -av --delete dist/lualibs/ $(HOME)/repos/lua/lualibs/library/
+	rsync -av --delete dist/luametatex/ $(HOME)/repos/lua/luametatex/library/
 	rsync -av --delete dist/luatex/ $(HOME)/repos/lua/luatex/library/
 
 test:
