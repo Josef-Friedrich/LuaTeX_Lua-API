@@ -8,12 +8,18 @@
 texio = {}
 
 ---
----Write all given strings to a target.
+---The optional `target` can be one of three possibilities: `term`, `log` or `term and log`.
+---@alias WriteTarget
+---|'term'
+---|'log'
+---|'term and log'
+
 ---
----@param target 'term'|'log'|'term and log' # The optional `target` can be one of three possibilities: `term`, `log` or `term and log`.
+---Write all given strings to a target.
 ---
 ---* Corresponding C source code: [ltexiolib.c#L119-L126](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexiolib.c#L119-L126)
 ---
+---@param target WriteTarget
 ---@param ... string
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/texio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -42,7 +48,7 @@ function texio.write(...) end
 ---
 ---* Corresponding C source code: [ltexiolib.c#L128-L135](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexiolib.c#L128-L135)
 ---
----@param target 'term'|'log'|'term and log' # The optional `target` can be one of three possibilities: `term`, `log` or `term and log`.
+---@param target WriteTarget
 ---@param ... string
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/texio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
