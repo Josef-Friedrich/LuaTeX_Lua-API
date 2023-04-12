@@ -97,8 +97,6 @@ tex.catcodetable = 0
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex.clubpenalty = 0
 
-tex.binoppenalty = 'sds'
-
 ---
 ---`\day`: The day of the current job.
 ---
