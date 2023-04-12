@@ -142,7 +142,7 @@ function file.is_rootbased_path(filename) end
 ---
 ---* Corresponding Lua source code: [lualibs-file.lua#L686-L691](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-file.lua#L686-L691)
 ---
-function file.strip(name,dir) end
+function file.strip(name, dir) end
 
 ---
 ---* Corresponding Lua source code: [lualibs-file.lua#L724-L740](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-file.lua#L724-L740)

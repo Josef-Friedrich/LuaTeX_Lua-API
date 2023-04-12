@@ -3520,8 +3520,7 @@ function node.setglue(n, width, stretch, shrink, stretch_order, shrink_order) en
 ---@param shrink_order integer|any
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function node.direct.setglue(d, width, stretch, shrink, stretch_order,
-                             shrink_order) end
+function node.direct.setglue(d, width, stretch, shrink, stretch_order, shrink_order) end
 
 _N._8_2_getglue = 155
 

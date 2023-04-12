@@ -76,7 +76,7 @@ local Scanner = {}
 ---@return any
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdfscanner.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function Scanner:pop () end
+function Scanner:pop() end
 
 ---
 ---Return only the value of a real or integer
@@ -84,7 +84,7 @@ function Scanner:pop () end
 ---* Corresponding C source code: [lpdfscannerlib.c#L1013-L1021](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfscannerlib.c#L1013-L1021)
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdfscanner.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function Scanner:popnumber () end
+function Scanner:popnumber() end
 
 ---
 ---Return only the value of a name
@@ -92,7 +92,7 @@ function Scanner:popnumber () end
 ---* Corresponding C source code: [lpdfscannerlib.c#L1039-L1045](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfscannerlib.c#L1039-L1045)
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdfscanner.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function Scanner:popname () end
+function Scanner:popname() end
 
 ---
 ---Return only the value of a string
@@ -100,7 +100,7 @@ function Scanner:popname () end
 ---* Corresponding C source code: [lpdfscannerlib.c#L1031-L1037](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfscannerlib.c#L1031-L1037)
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdfscanner.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function Scanner:popstring () end
+function Scanner:popstring() end
 
 ---
 ---Return only the value of a array
@@ -108,7 +108,7 @@ function Scanner:popstring () end
 ---* Corresponding C source code: [lpdfscannerlib.c#L1047-L1053](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfscannerlib.c#L1047-L1053)
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdfscanner.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function Scanner:poparray () end
+function Scanner:poparray() end
 
 ---
 ---Return only the value of a dict
@@ -116,7 +116,7 @@ function Scanner:poparray () end
 ---* Corresponding C source code: [lpdfscannerlib.c#L1055-L1061](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfscannerlib.c#L1055-L1061)
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdfscanner.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function Scanner:popdictionary () end
+function Scanner:popdictionary() end
 
 ---
 ---Return only the value of a boolean
@@ -124,7 +124,7 @@ function Scanner:popdictionary () end
 ---* Corresponding C source code: [lpdfscannerlib.c#L1023-L1029](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfscannerlib.c#L1023-L1029)
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdfscanner.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function Scanner:popboolean () end
+function Scanner:popboolean() end
 
 ---
 ---Abort further processing of this scan() call
@@ -132,7 +132,7 @@ function Scanner:popboolean () end
 ---* Corresponding C source code: [lpdfscannerlib.c#L830-L836](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfscannerlib.c#L830-L836)
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdfscanner.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function Scanner:done () end
+function Scanner:done() end
 
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdfscanner.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)

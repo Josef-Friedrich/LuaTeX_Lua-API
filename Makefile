@@ -1,4 +1,4 @@
-all: fix_lua_docstrings convert_tex_to_lua
+all: fix_lua_docstrings convert_tex_to_lua stylua
 
 fix_lua_docstrings:
 	resources/fix-lua-docstrings.py
@@ -6,6 +6,9 @@ fix_lua_docstrings:
 convert_tex_to_lua:
 	resources/convert-tex-to-lua-docstrings.py
 	# resources/convert-html-to-lua-docstrings.py
+
+stylua:
+	$(HOME)/.cargo/bin/stylua library
 
 debug:
 	luatex --luaonly debug.lua

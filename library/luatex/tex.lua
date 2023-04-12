@@ -2291,7 +2291,7 @@ function tex.setmathcode(global, n, math_code) end
 ---
 ---@param n integer
 ---@param math_code MathCode
-function tex.setmathcode( n, math_code) end
+function tex.setmathcode(n, math_code) end
 
 ---
 ---* Corresponding C source code: [ltexlib.c#L1563-L1577](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1563-L1577)
@@ -2349,7 +2349,7 @@ function tex.setdelcode(global, n, small_family, small_character, large_family, 
 ---@param small_character integer
 ---@param large_family integer
 ---@param large_character integer
-function tex.setdelcode( n, small_family, small_character, large_family, large_character) end
+function tex.setdelcode(n, small_family, small_character, large_family, large_character) end
 
 ---
 ---* Corresponding C source code: [ltexlib.c#L1640-L1681](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1640-L1681)
@@ -3177,7 +3177,7 @@ _N._10_3_15_7_error_show_context = 204
 ---
 ---During this error, deletions are disabled.
 ---
-  ---see `LuaTeX` manual: 10.3.15.5 `sp`
+---see `LuaTeX` manual: 10.3.15.5 `sp`
 ---
 ---__Reference:__
 ---
@@ -3679,7 +3679,7 @@ function tex.uniform_rand() end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.uniformdeviate(n) end
 
-_N._10_3_19_synctex = 'page 212'
+_N._10_3_19_synctex = "page 212"
 
 ---
 ---@alias SyntexMode
