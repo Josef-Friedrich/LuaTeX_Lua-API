@@ -68,7 +68,7 @@ function number.toinches(n, fmt) end
 function number.tocentimeters(n, fmt) end
 
 ---
----* Corresponding Lua source code: [](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-util-dim.lua#L124)
+---* Corresponding Lua source code: [lualibs-util-dim.lua#L124](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-util-dim.lua#L124)
 ---
 function number.tomillimeters(n, fmt) end
 
@@ -118,9 +118,7 @@ function number.formatted(n, sep1, sep2) end
 function number.formattedfloat(n, b, a) end
 function number.nubasepoints(n) end
 function number.nupoints(n) end
-
 function number.points(n) end
 function number.signed(i) end
 function number.sparseexponent(f, n) end
-
 function number.to16dot16(n) end
