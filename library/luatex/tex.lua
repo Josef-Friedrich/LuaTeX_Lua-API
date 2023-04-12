@@ -1842,20 +1842,25 @@ tex.attribute = {}
 ---
 ---* Corresponding C source code: [ltexlib.c#L1087-L1102](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1087-L1102)
 ---
+---@param global 'global' # It is possible to define values globally by using the string `global` as the first function argument.
+---@param register string|integer # A register number or a predefined csname string from `\attributedef`.
+---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function tex.setattribute() end
+function tex.setattribute(global, register) end
 
 ---
 ---* Corresponding C source code: [ltexlib.c#L1104-L1114](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1104-L1114)
 ---
+---@param register string|integer # A register number or a predefined csname string from `\attributedef`.
+---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function tex.getattribute() end
+function tex.getattribute(register) end
 
 ---
 ---* Corresponding C source code: [ltexlib.c#L1080-L1083](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1080-L1083)
 ---* Corresponding C source code: [ltexlib.c#L350-L358](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L350-L358)
 ---
----@param register string|integer
+---@param register string|integer # A register number or a predefined csname string from `\attributedef`.
 ---
 ---@return false|integer
 function tex.isattribute(register) end
@@ -1873,18 +1878,23 @@ tex.count = {}
 ---
 ---* Corresponding C source code: [ltexlib.c#L1051-L1066](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1051-L1066)
 ---
-function tex.setcount() end
+---@param global 'global' # It is possible to define values globally by using the string `global` as the first function argument.
+---@param register string|integer # A register number or a predefined csname string from `\countdef`.
+---
+function tex.setcount(global, register) end
 
 ---
 ---* Corresponding C source code: [ltexlib.c#L1068-L1078](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1068-L1078)
 ---
-function tex.getcount() end
+---@param register string|integer # A register number or a predefined csname string from `\countdef`.
+---
+function tex.getcount(register) end
 
 ---
 ---* Corresponding C source code: [ltexlib.c#L1046-L1049](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1046-L1049)
 ---* Corresponding C source code: [ltexlib.c#L350-L358](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L350-L358)
 ---
----@param register string|integer
+---@param register string|integer # A register number or a predefined csname string from `\countdef`.
 ---
 ---@return false|integer
 function tex.iscount(register) end
@@ -1905,18 +1915,23 @@ tex.dimen = {}
 ---
 ---* Corresponding C source code: [ltexlib.c#L818-L834](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L818-L834)
 ---
-function tex.setdimen() end
+---@param global 'global' # It is possible to define values globally by using the string `global` as the first function argument.
+---@param register string|integer # A register number or a predefined csname string from `\dimendef`.
+---
+function tex.setdimen(global, register) end
 
 ---
 ---* Corresponding C source code: [ltexlib.c#L836-L846](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L836-L846)
 ---
-function tex.getdimen() end
+---@param register string|integer # A register number or a predefined csname string from `\dimendef`.
+---
+function tex.getdimen(register) end
 
 ---
 ---* Corresponding C source code: [ltexlib.c#L813-L816](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L813-L816)
 ---* Corresponding C source code: [ltexlib.c#L350-L358](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L350-L358)
 ---
----@param register string|integer
+---@param register string|integer # A register number or a predefined csname string from `\dimendef`.
 ---
 ---@return false|integer
 function tex.isdimen(register) end
@@ -1935,12 +1950,15 @@ tex.glue = {}
 ---
 ---* Corresponding C source code: [ltexlib.c#L884-L903](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L884-L903)
 ---
-function tex.setglue() end
+---@param global 'global' # It is possible to define values globally by using the string `global` as the first function argument.
+---@param register string|integer # A register number or a predefined csname string from `\skipdef`.
+function tex.setglue(global, register) end
 
 ---
 ---* Corresponding C source code: [ltexlib.c#L905-L949](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L905-L949)
 ---
-function tex.getglue() end
+---@param register string|integer # A register number or a predefined csname string from `\skipdef`.
+function tex.getglue(register) end
 
 ---
 ---Alias of tex.isskip()
@@ -1949,7 +1967,7 @@ function tex.getglue() end
 ---
 ---* Corresponding C source code: [ltexlib.c#L350-L358](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L350-L358)
 ---
----@param register string|integer
+---@param register string|integer # A register number or a predefined csname string from `\skipdef`.
 ---
 ---@return false|integer
 function tex.isglue(register) end
@@ -1965,12 +1983,15 @@ tex.muglue = {}
 ---
 ---* Corresponding C source code: [ltexlib.c#L979-L998](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L979-L998)
 ---
-function tex.setmuglue() end
+---@param global 'global' # It is possible to define values globally by using the string `global` as the first function argument.
+---@param register string|integer # A register number or a predefined csname string from `\muskipdef`.
+function tex.setmuglue(global, register) end
 
 ---
 ---* Corresponding C source code: [ltexlib.c#L1000-L1044](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1000-L1044)
 ---
-function tex.getmuglue() end
+---@param register string|integer # A register number or a predefined csname string from `\muskipdef`.
+function tex.getmuglue(register) end
 
 ---
 ---Alias of tex.ismuskip()
@@ -1978,7 +1999,7 @@ function tex.getmuglue() end
 ---* Corresponding C source code: [ltexlib.c#L951-L954](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L951-L954)
 ---* Corresponding C source code: [ltexlib.c#L350-L358](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L350-L358)
 ---
----@param register string|integer
+---@param register string|integer # A register number or a predefined csname string from `\muskipdef`.
 ---
 ---@return false|integer
 function tex.ismuglue(register) end
@@ -1994,18 +2015,23 @@ tex.muskip = {}
 ---
 ---* Corresponding C source code: [ltexlib.c#L956-L965](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L956-L965)
 ---
-function tex.setmuskip() end
+---@param global 'global' # It is possible to define values globally by using the string `global` as the first function argument.
+---@param register string|integer # A register number or a predefined csname string from `\muskipdef`.
+---
+function tex.setmuskip(global, register) end
 
 ---
 ---* Corresponding C source code: [ltexlib.c#L967-L977](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L967-L977)
 ---
-function tex.getmuskip() end
+---@param register string|integer # A register number or a predefined csname string from `\muskipdef`.
+---
+function tex.getmuskip(register) end
 
 ---
 ---* Corresponding C source code: [ltexlib.c#L951-L954](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L951-L954)
 ---* Corresponding C source code: [ltexlib.c#L350-L358](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L350-L358)
 ---
----@param register string|integer
+---@param register string|integer # A register number or a predefined csname string from `\muskipdef`.
 ---
 ---@return false|integer
 function tex.ismuskip(register) end
@@ -2024,22 +2050,22 @@ tex.skip = {}
 ---
 ---* Corresponding C source code: [ltexlib.c#L853-L866](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L853-L866)
 ---
----@param global 'global'
----@param register integer|string
+---@param global 'global' # It is possible to define values globally by using the string `global` as the first function argument.
+---@param register string|integer # A register number or a predefined csname string from `\skipdef`.
 ---@param skip GlueSpecNode
 function tex.setskip(global, register, skip) end
 
 ---
 ---* Corresponding C source code: [ltexlib.c#L853-L866](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L853-L866)
 ---
----@param register integer|string
+---@param register string|integer # A register number or a predefined csname string from `\skipdef`.
 ---@param skip GlueSpecNode
 function tex.setskip(register, skip) end
 
 ---
 ---* Corresponding C source code: [ltexlib.c#L868-L882](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L868-L882)
 ---
----@param register integer|string
+---@param register string|integer # A register number or a predefined csname string from `\skipdef`.
 ---
 ---@return GlueSpecNode
 function tex.getskip(register) end
@@ -2048,7 +2074,7 @@ function tex.getskip(register) end
 ---* Corresponding C source code: [ltexlib.c#L848-L851](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L848-L851)
 ---* Corresponding C source code: [ltexlib.c#L350-L358](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L350-L358)
 ---
----@param register string|integer
+---@param register string|integer # A register number or a predefined csname string from `\skipdef`.
 ---
 ---@return false|integer
 function tex.isskip(register) end
@@ -2070,8 +2096,8 @@ tex.toks = {}
 ---
 ---* Corresponding C source code: [ltexlib.c#L1125-L1158](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1125-L1158)
 ---
----@param global 'global'
----@param register integer
+---@param global 'global' # It is possible to define values globally by using the string `global` as the first function argument.
+---@param register string|integer # A register number or a predefined csname string from `\toksdef`.
 ---@param toks string
 function tex.settoks(global, register, toks) end
 
@@ -2080,7 +2106,7 @@ function tex.settoks(global, register, toks) end
 ---
 ---* Corresponding C source code: [ltexlib.c#L1197-L1209](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1197-L1209)
 ---
----@param register integer
+---@param register string|integer # A register number or a predefined csname string from `\toksdef`.
 ---
 ---@return string toks
 function tex.gettoks(register) end
@@ -2089,7 +2115,7 @@ function tex.gettoks(register) end
 ---* Corresponding C source code: [ltexlib.c#L1120-L1123](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1120-L1123)
 ---* Corresponding C source code: [ltexlib.c#L350-L358](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L350-L358)
 ---
----@param register string|integer
+---@param register string|integer # A register number or a predefined csname string from `\toksdef`.
 ---
 ---@return false|integer
 function tex.istoks(register) end
@@ -2135,7 +2161,7 @@ tex.lccode = {}
 ---
 ---* Corresponding C source code: [ltexlib.c#L1369-L1397](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1369-L1397)
 ---
----@param global 'global'
+---@param global 'global' # It is possible to define values globally by using the string `global` as the first function argument.
 ---@param n integer
 ---@param lc integer
 ---@param uc? integer
@@ -2176,7 +2202,7 @@ tex.uccode = {}
 ---
 ---* Corresponding C source code: [ltexlib.c#L1369-L1397](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1369-L1397)
 ---
----@param global 'global'
+---@param global 'global' # It is possible to define values globally by using the string `global` as the first function argument.
 ---@param n integer
 ---@param uc integer
 ---@param lc? integer
@@ -2212,7 +2238,7 @@ function tex.getuccode(n) end
 tex.sfcode = {}
 
 ---
----@param global 'global'
+---@param global 'global' # It is possible to define values globally by using the string `global` as the first function argument.
 ---@param n integer
 ---@param s integer
 ---
@@ -2243,7 +2269,7 @@ tex.catcode = {}
 ---category table to use on assignment or on query (default in both cases is the
 ---current one):
 ---
----@param global 'global'
+---@param global 'global' # It is possible to define values globally by using the string `global` as the first function argument.
 ---@param n integer
 ---@param c integer
 function tex.setcatcode(global, n, c) end
@@ -2262,7 +2288,7 @@ function tex.setcatcode(n, c) end
 ---category table to use on assignment or on query (default in both cases is the
 ---current one):
 ---
----@param global 'global'
+---@param global 'global' # It is possible to define values globally by using the string `global` as the first function argument.
 ---@param cattable integer
 ---@param n integer
 ---@param c integer
@@ -2311,7 +2337,7 @@ tex.mathcode = {}
 ---
 ---* Corresponding C source code: [ltexlib.c#L1524-L1561](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1524-L1561)
 ---
----@param global 'global'
+---@param global 'global' # It is possible to define values globally by using the string `global` as the first function argument.
 ---@param n integer
 ---@param class integer
 ---@param family integer
@@ -2330,7 +2356,7 @@ function tex.setmathcode(global, n, class, family, character) end
 ---
 ---* Corresponding C source code: [ltexlib.c#L1524-L1561](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1524-L1561)
 ---
----@param global 'global'
+---@param global 'global' # It is possible to define values globally by using the string `global` as the first function argument.
 ---@param n integer
 ---@param math_code MathCode
 function tex.setmathcode(global, n, math_code) end
@@ -2382,7 +2408,7 @@ tex.delcode = {}
 ---
 ---* Corresponding C source code: [ltexlib.c#L1640-L1681](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1640-L1681)
 ---
----@param global 'global'
+---@param global 'global' # It is possible to define values globally by using the string `global` as the first function argument.
 ---@param n integer
 ---@param small_family integer
 ---@param small_character integer
@@ -2403,7 +2429,7 @@ function tex.setdelcode(n, small_family, small_character, large_family, large_ch
 ---
 ---* Corresponding C source code: [ltexlib.c#L1640-L1681](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1640-L1681)
 ---
----@param global 'global'
+---@param global 'global' # It is possible to define values globally by using the string `global` as the first function argument.
 ---@param n integer
 ---@param del_code DelCode
 function tex.setdelcode(global, n, del_code) end
@@ -2445,7 +2471,7 @@ _N._10_3_7_box_registers_get_set_box = 0
 ---
 ---* Corresponding C source code: [ltexlib.c#L1352-L1362](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1352-L1362)
 ---
----@param global 'global'
+---@param global 'global' # It is possible to define values globally by using the string `global` as the first function argument.
 ---@param box_register integer # A box register number (0 to 65535).
 ---@param head Node # A `hlist` or `vlist` node.
 function tex.setbox(global, box_register, head) end
