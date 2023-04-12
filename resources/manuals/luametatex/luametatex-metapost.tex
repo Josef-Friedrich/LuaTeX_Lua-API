@@ -1,0 +1,763 @@
+% language=us runpath=texruns:manuals/luametatex
+
+\environment luametatex-style
+
+\startcomponent luametatex-metapost
+
+\startluacode
+    function document.showmpcodes(what)
+        context.type("mplib."..what.."()")
+        context(": ")
+        local t = mplib[what]()
+        for i=0,#t do
+            if i > 0 then
+                context(", ")
+            end
+            context("%i: %s",i,t[i])
+        end
+    end
+\stopluacode
+
+\startchapter[reference=metapost,title={The \METAPOST\ library \type {mplib}}]
+
+\startsection[title={Introduction}][library=mplib]
+
+The library used in \LUAMETATEX\ differs from the one used in \LUATEX. There are
+for instance no backends and the binary number model is not available. There is
+also no textual output. There are scanners and injectors that make it possible to
+enhance the language and efficiently feed back into \METAPOST. File handling is
+now completely delegated to \LUA, so there are more callbacks.
+
+{\em Some functionality is experimental and therefore documentation is limited.
+Also, details are discussed in articles.}
+
+\stopsection
+
+\startsection[title={Process management}][library=mplib]
+
+\topicindex {\METAPOST}
+\topicindex {\METAPOST+mplib}
+\topicindex {images+mplib}
+\topicindex {images+\METAPOST}
+
+\libindex{version}
+
+The \METAPOST\ library interface registers itself in the table \type {mplib}. It
+is based on \MPLIB\ version \ctxlua {context(mplib.version())} (\LUATEX\ used
+version 2+). Not all functionality is described here. Once we're out of the
+experimental stage some more information will be added. Using the library boils
+down to initializing an instance, executing statements and picking up assembled
+figures in the form of \LUA\ user data objects (and from there on \LUA\ variables
+like tables).
+
+
+\startsubsection[title={\type {new}}]
+
+\libindex{new}
+
+To create a new \METAPOST\ instance, call
+
+\startfunctioncall
+<mpinstance> mp = mplib.new({...})
+\stopfunctioncall
+
+This creates the \type {mp} instance object. The argument is a hash table that
+can have a number of different fields, as follows:
+
+\starttabulate[|l|l|pl|pl|]
+\DB name                 \BC type     \BC description                \BC default           \NC \NR
+\TB
+\NC \type {error_line}   \NC number   \NC error line width           \NC 79                \NC \NR
+\NC \type {print_line}   \NC number   \NC line length in ps output   \NC 100               \NC \NR
+\NC \type {random_seed}  \NC number   \NC the initial random seed    \NC variable          \NC \NR
+\NC \type {math_mode}    \NC string   \NC the number system to use:
+                                          \type {scaled},
+                                          \type {double} or
+                                        % \type {binary} or
+                                          \type {decimal}            \NC \type {scaled}    \NC \NR
+\NC \type {interaction}  \NC string   \NC the interaction mode:
+                                         \type {batch},
+                                         \type {nonstop},
+                                         \type {scroll} or
+                                         \type {errorstop}          \NC \type {errorstop}  \NC \NR
+\NC \type {job_name}     \NC string   \NC a compatibility value      \NC                   \NC \NR
+\NC \type {utf8_mode}    \NC boolean  \NC permit characters in the
+                                          range 128 upto 255 to be
+                                          part of names              \NC \type {false}     \NC \NR
+\NC \type {text_mode}    \NC boolean  \NC permit characters 2 and 3
+                                          as fencing string literals \NC \type {false}     \NC \NR
+\NC \type {tolerance}    \NC number   \NC the value used as criterium
+                                          for straight lines         \NC \type {131/65536} \NC \NR
+\NC \type {extensions}   \NC boolean  \NC enable all extensions      \NC (might go)        \NC \NR
+\LL
+\stoptabulate
+
+The binary mode is no longer available in the \LUAMETATEX\ version of \MPLIB. It
+offers no real advantage and brings a ton of extra libraries with platform
+specific properties that we can now avoid. We might introduce a high resolution
+scaled variant at some point but only when it pays of performance wise.
+
+In addition to the above we need to provide functions that helps \METAPOST\
+communicate to the outside world.
+
+\starttabulate[|l|l|pl|pl|]
+\DB name                 \BC type     \BC argument(s)                    \BC result       \NC \NR
+\TB
+\NC \type {find_file}    \NC function \NC string, string, string         \NC string       \NC \NR
+\NC                      \NC function \NC string, string, number         \NC string       \NC \NR
+\NC \type {open_file}    \NC function \NC string, string, string         \NC table        \NC \NR
+\NC                      \NC function \NC string, string, number         \NC table        \NC \NR
+\NC \type {run_logger}   \NC function \NC number, string                 \NC              \NC \NR
+\NC \type {run_script}   \NC function \NC string                         \NC whatever [, boolean] \NC \NR
+\NC                      \NC function \NC number                         \NC whatever [, boolean] \NC \NR
+\NC \type {make_text}    \NC function \NC string, number                 \NC string       \NC \NR
+\NC \type {run_internal} \NC function \NC number, number, number, string \NC              \NC \NR
+\NC \type {run_overload} \NC function \NC number, string, number         \NC boolean      \NC \NR
+\NC \type {run_error}    \NC function \NC string, string, number         \NC              \NC \NR
+\LL
+\stoptabulate
+
+The \type {find_file} and \type {open_file} functions should be of this form:
+
+\starttyping
+<string> found   = find_file (<string> name, <string> mode, <string> type)
+<table>  actions = open_file (<string> name, <string> mode, <string> type)
+\stoptyping
+
+where the mode is \type {r} or \type {w} and the type is \type {mp}, \type
+{data}, \type {terminal} or a number, The finder is supposed to return the full
+path name of the found file, or \type {nil} if the file cannot be found. The
+\type {open_file} is supposed to return a table with a \type {close} and \type
+{read} function. This is similar to the way we do it in \TEX. The special name
+\type {terminal} is used for interactive input. A numeric type indicates a
+specific read or write channel.
+
+The \type {run_logger} callback gets a target and a string. A target \type {1}
+means log, a value \type {2} means and \type {3} means both.
+
+The \type {run_script} function gets either a number or a string. The string
+represents a script, the number can be used as reference to something stored. The
+return value can be a boolean, number, string or table. Booleans and numbers are
+injected directly, strings and concatenated tables are fed into scantokens. When
+the second argument is true, the strings are also injected directly and tables
+are injected as pairs, colors, paths, transforms, depending on how many elements
+there are.
+
+The \type {run_internal} function triggers when internal \METAPOST\ variables
+flagged with \type {runscript} are initialized, saved or restored. The first
+argument is an index, the second the action. When initialized a third and fourth
+argument are passed. This is an experimental feature.
+
+The experimental \type {run_overload} callback kicks in when a variable (or
+macro) with a property other than zero is redefined. It gets a property, name and
+the value of \type {overloadmode} passed and when the function returns \type
+{true} redefinition is permitted.
+
+The \type {run_error} callback gets the error message, help text and current
+interaction mode passed. Normally it's best to just quit and let the user fix
+the code.
+
+When you are processing a snippet of text starting with \type {btex} or \type
+{verbatimtex} and ending with \type {etex}, the \METAPOST\ \type {texscriptmode}
+parameter controls how spaces and newlines get honoured. The default value is~1.
+Possible values are:
+
+\starttabulate[|l|p|]
+\DB name      \BC meaning \NC \NR
+\TB
+\NC \type {0} \NC no newlines \NC \NR
+\NC \type {1} \NC newlines in \type {verbatimtex} \NC \NR
+\NC \type {2} \NC newlines in \type {verbatimtex} and \type {etex} \NC \NR
+\NC \type {3} \NC no leading and trailing strip in \type {verbatimtex} \NC \NR
+\NC \type {4} \NC no leading and trailing strip in \type {verbatimtex} and \type {btex} \NC \NR
+\LL
+\stoptabulate
+
+That way the \LUA\ handler (assigned to \type {make_text}) can do what it likes.
+An \type {etex} has to be followed by a space or \type {;} or be at the end of a
+line and preceded by a space or at the beginning of a line. The \type {make_text}
+function can return a string that gets fed into scantokens.
+
+\stopsubsection
+
+\startsubsection[title={\type {getstatistics}}]
+
+\libindex{statistics}
+
+You can request statistics with:
+
+\startfunctioncall
+<table> stats = mp:getstatistics()
+\stopfunctioncall
+
+This function returns the vital statistics for an \MPLIB\ instance. Some are
+useful, others make more sense when debugging.
+
+\starttabulate[|l|l|p|]
+\DB field  \BC type \BC explanation \NC \NR
+\TB
+\NC \type {memory}     \NC number \NC bytes of node memory      \NC \NR
+\NC \type {hash}       \NC number \NC size of the hash          \NC \NR
+\NC \type {parameters} \NC number \NC allocated parameter stack \NC \NR
+\NC \type {input}      \NC number \NC allocated input stack     \NC \NR
+\NC \type {tokens}     \NC number \NC number of token nodes     \NC \NR
+\NC \type {pairs}      \NC number \NC number of pair nodes      \NC \NR
+\NC \type {knots}      \NC number \NC number of knot nodes      \NC \NR
+\NC \type {nodes}      \NC number \NC number of value nodes     \NC \NR
+\NC \type {symbols}    \NC number \NC number of symbolic nodes  \NC \NR
+\NC \type {characters} \NC number \NC number of string bytes    \NC \NR
+\NC \type {strings}    \NC number \NC number of strings         \NC \NR
+\NC \type {internals}  \NC number \NC number of internals       \NC \NR
+\LL
+\stoptabulate
+
+Note that in the new version of \MPLIB, this is informational only. The objects
+are all allocated dynamically, so there is no chance of running out of space
+unless the available system memory is exhausted.
+
+\stopsubsection
+
+\startsubsection[title={\type {execute}}]
+
+\libindex{execute}
+
+You can ask the \METAPOST\ interpreter to run a chunk of code by calling
+
+\startfunctioncall
+<table> rettable = execute(mp,"metapost code")
+\stopfunctioncall
+
+for various bits of \METAPOST\ language input. Be sure to check the \type
+{rettable.status} (see below) because when a fatal \METAPOST\ error occurs the
+\MPLIB\ instance will become unusable thereafter.
+
+Generally speaking, it is best to keep your chunks small, but beware that all
+chunks have to obey proper syntax, like each of them is a small file. For
+instance, you cannot split a single statement over multiple chunks.
+
+In contrast with the normal stand alone \type {mpost} command, there is \notabene
+{no} implied \quote{input} at the start of the first chunk. When no string is
+passed to the execute function, there will still be one triggered because it then
+expects input from the terminal and you can emulate that channel with the
+callback you provide.
+
+\stopsubsection
+
+\startsubsection[title={\type {finish}}]
+
+\libindex{finish}
+
+Once you create an instance it is likely that you will keep it open for
+successive processing, if only because you want to avoid loading a format each
+time. If for some reason you want to stop using an \MPLIB\ instance while
+processing is not yet actually done, you can call \type {finish}.
+
+\startfunctioncall
+<table> rettable = finish(mp)
+\stopfunctioncall
+
+Eventually, used memory
+will be freed and open files will be closed by the \LUA\ garbage collector, but
+an explicit \type {finish} is the only way to capture the final part of the
+output streams.
+
+\stopsubsection
+
+\startsubsection[title={\type {settolerance} and \type {gettolerance}}]
+
+\libindex{gettolerance}
+\libindex{settolerance}
+
+These two functions relate to the bend tolerance, a value that is used when the
+export determines if a path has straight lines (like a rectangle has).
+
+\stopsubsection
+
+\startsubsection[title={Errors}]
+
+\libindex{showcontext}
+
+In case of an error you can get the context where it happened with \type
+{showcontext}.
+
+\stopsubsection
+
+\startsubsection[title={The scanner status}]
+
+\libindex {getstatus}
+\libindex {getstates}
+
+When processing a graphic an instance is in a specific state and again we have a
+getter for the (internal) values \ctxlua {document.showmpcodes ("getstates")}.
+The current status can be queried with \type {getstatus}.
+
+\stopsubsection
+
+\startsubsection[title={The hash}]
+
+\libindex {gethashentries}
+\libindex {gethashentry}
+
+Macro names and variable names are stored in a hash table. You can get a list
+with entries with \type {gethashentries}, which takes an instance as first
+argument. When the second argument is \type {true} more details will be provided.
+With \type {gethashentry} you get info about the given macro or variable.
+
+\stopsubsection
+
+\startsubsection[title={Callbacks}]
+
+\libindex{getcallbackstate}
+
+Some statistics about the number of calls to the callbacks can be queried with
+\type {getcallbackstate}, This function expects a valid instance.
+
+\stopsubsection
+
+\stopsection
+
+\startsection[title={The end result}]
+
+\startsubsection[title={The figure}]
+
+\libindex {fields}
+\libindex {stacking}
+
+The return value of \type {execute} and \type {finish} is a table with a
+few possible keys (only \type {status} is always guaranteed to be present).
+
+\starttabulate[|l|l|p|]
+\DB field  \BC type \BC explanation \NC \NR
+\TB
+\NC \type{status} \NC number \NC the return value:
+                                 \type {0} = good,
+                                 \type {1} = warning,
+                                 \type {2} = errors,
+                                 \type {3} = fatal error \NC \NR
+\NC \type{fig}    \NC table  \NC an array of generated figures (if any) \NC \NR
+\LL
+\stoptabulate
+
+When \type {status} equals~3, you should stop using this \MPLIB\ instance
+immediately, it is no longer capable of processing input.
+
+If it is present, each of the entries in the \type {fig} array is a userdata
+representing a figure object, and each of those has a number of object methods
+you can call:
+
+You can check if a figure uses stacking with the \type {stacking} function. When
+objects are fetched, memory gets freed so no information about stacking is
+available then. You can get the used bend tolerance of an object with \type
+{tolerance}.
+
+\starttabulate[|l|l|p|]
+\DB field  \BC type \BC explanation \NC \NR
+\TB
+\NC \type{boundingbox}  \NC function \NC returns the bounding box, as an array of 4
+                                         values \NC \NR
+\NC \type{objects}      \NC function \NC returns the actual array of graphic objects in
+                                         this \type {fig} \NC \NR
+\NC \type{filename}     \NC function \NC the filename this \type {fig}'s \POSTSCRIPT\
+                                         output would have written to in stand alone
+                                         mode \NC \NR
+\NC \type{width}        \NC function \NC the \type {fontcharwd} value \NC \NR
+\NC \type{height}       \NC function \NC the \type {fontcharht} value \NC \NR
+\NC \type{depth}        \NC function \NC the \type {fontchardp} value \NC \NR
+\NC \type{italic}       \NC function \NC the \type {fontcharit} value \NC \NR
+\NC \type{charcode}     \NC function \NC the (rounded) \type {charcode} value \NC \NR
+\NC \type{stacking}     \NC function \NC is there a non|-|zero stacking  \NC \NR
+\LL
+\stoptabulate
+
+Note: you can call \type {fig:objects()} only once for any one \type {fig}
+object! Some information, like stacking, can only be queried when the complete
+figure is still present and calling up objects will free elements in the original
+once they are transferred.
+
+When the boundingbox represents a \quote {negated rectangle}, i.e.\ when the
+first set of coordinates is larger than the second set, the picture is empty.
+
+Graphical objects come in various types: \type {fill}, \type {outline}, \type
+{text}, \type {start_clip}, \type {stop_clip}, \type {start_bounds}, \type
+{stop_bounds}, \type {start_group} and \type {stop_group}. Each type has a
+different list of accessible values.
+
+There is a helper function (\type {mplib.fields(obj)}) to get the list of
+accessible values for a particular object, but you can just as easily use the
+tables given below.
+
+All graphical objects have a field \type {type} that gives the object type as a
+string value; it is not explicit mentioned in the following tables. In the
+following, \type {number}s are \POSTSCRIPT\ points (base points in \TEX\ speak)
+represented as a floating point number, unless stated otherwise. Field values
+that are of type \type {table} are explained in the next section.
+
+\stopsubsection
+
+\startsubsection[title={fill}]
+
+\starttabulate[|l|l|p|]
+\DB field  \BC type \BC explanation \NC \NR
+\TB
+\NC \type{path}       \NC table  \NC the list of knots \NC \NR
+\NC \type{htap}       \NC table  \NC the list of knots for the reversed trajectory \NC \NR
+\NC \type{pen}        \NC table  \NC knots of the pen \NC \NR
+\NC \type{color}      \NC table  \NC the object's color \NC \NR
+\NC \type{linejoin}   \NC number \NC line join style (bare number)\NC \NR
+\NC \type{miterlimit} \NC number \NC miterlimit\NC \NR
+\NC \type{prescript}  \NC string \NC the prescript text \NC \NR
+\NC \type{postscript} \NC string \NC the postscript text \NC \NR
+\NC \type{stacking}   \NC number \NC the stacking (level) \NC \NR
+\LL
+\stoptabulate
+
+The entries \type {htap} and \type {pen} are optional.
+
+\stopsubsection
+
+\startsubsection[title={outline}]
+
+\starttabulate[|l|l|p|]
+\DB field  \BC type \BC explanation \NC \NR
+\TB
+\NC \type{path}       \NC table  \NC the list of knots \NC \NR
+\NC \type{pen}        \NC table  \NC knots of the pen \NC \NR
+\NC \type{color}      \NC table  \NC the object's color \NC \NR
+\NC \type{linejoin}   \NC number \NC line join style (bare number) \NC \NR
+\NC \type{miterlimit} \NC number \NC miterlimit \NC \NR
+\NC \type{linecap}    \NC number \NC line cap style (bare number) \NC \NR
+\NC \type{dash}       \NC table  \NC representation of a dash list \NC \NR
+\NC \type{prescript}  \NC string \NC the prescript text \NC \NR
+\NC \type{postscript} \NC string \NC the postscript text \NC \NR
+\NC \type{stacking}   \NC number \NC the stacking (level) \NC \NR
+\LL
+\stoptabulate
+
+The entry \type {dash} is optional.
+
+\stopsubsection
+
+\startsubsection[title={start_bounds, start_clip, start_group}]
+
+\starttabulate[|l|l|p|]
+\DB field  \BC type \BC explanation \NC \NR
+\TB
+\NC \type{path}     \NC table \NC the list of knots \NC \NR
+\NC \type{stacking} \NC number \NC the stacking (level) \NC \NR
+\LL
+\stoptabulate
+
+\stopsubsection
+
+\startsubsection[title={stop_bounds, stop_clip, stop_group}]
+
+Here we have only one key:
+
+\starttabulate[|l|l|p|]
+\DB field  \BC type \BC explanation \NC \NR
+\TB
+\NC \type{stacking} \NC number \NC the stacking (level) \NC \NR
+\LL
+\stoptabulate
+
+\stopsubsection
+
+\stopsection
+
+\startsection[title={Subsidiary table formats}]
+
+\startsubsection[title={Paths and pens}]
+
+Paths and pens (that are really just a special type of paths as far as \MPLIB\ is
+concerned) are represented by an array where each entry is a table that
+represents a knot.
+
+\starttabulate[|l|l|p|]
+\DB field  \BC type \BC explanation \NC \NR
+\TB
+\NC \type{left_type}  \NC string \NC when present: endpoint, but usually absent \NC \NR
+\NC \type{right_type} \NC string \NC like \type {left_type} \NC \NR
+\NC \type{x_coord}    \NC number \NC X coordinate of this knot \NC \NR
+\NC \type{y_coord}    \NC number \NC Y coordinate of this knot \NC \NR
+\NC \type{left_x}     \NC number \NC X coordinate of the precontrol point of this knot \NC \NR
+\NC \type{left_y}     \NC number \NC Y coordinate of the precontrol point of this knot \NC \NR
+\NC \type{right_x}    \NC number \NC X coordinate of the postcontrol point of this knot \NC \NR
+\NC \type{right_y}    \NC number \NC Y coordinate of the postcontrol point of this knot \NC \NR
+\LL
+\stoptabulate
+
+There is one special case: pens that are (possibly transformed) ellipses have an
+extra key \type {type} with value \type {elliptical} besides the array part
+containing the knot list.
+
+\stopsubsection
+
+\startsubsection[title={Colors}]
+
+A color is an integer array with 0, 1, 3 or 4 values:
+
+\starttabulate[|l|l|p|]
+\DB field  \BC type \BC explanation \NC \NR
+\TB
+\NC \type{0} \NC marking only \NC no values                                                     \NC \NR
+\NC \type{1} \NC greyscale    \NC one value in the range $(0,1)$, \quote {black} is $0$         \NC \NR
+\NC \type{3} \NC \RGB         \NC three values in the range $(0,1)$, \quote {black} is $0,0,0$  \NC \NR
+\NC \type{4} \NC \CMYK        \NC four values in the range $(0,1)$, \quote {black} is $0,0,0,1$ \NC \NR
+\LL
+\stoptabulate
+
+If the color model of the internal object was \type {uninitialized}, then it was
+initialized to the values representing \quote {black} in the colorspace \type
+{defaultcolormodel} that was in effect at the time of the \type {shipout}.
+
+\stopsubsection
+
+\startsubsection[title={Transforms}]
+
+Each transform is a six|-|item array.
+
+\starttabulate[|l|l|p|]
+\DB index  \BC type \BC explanation \NC \NR
+\TB
+\NC \type{1} \NC number \NC represents x  \NC \NR
+\NC \type{2} \NC number \NC represents y  \NC \NR
+\NC \type{3} \NC number \NC represents xx \NC \NR
+\NC \type{4} \NC number \NC represents yx \NC \NR
+\NC \type{5} \NC number \NC represents xy \NC \NR
+\NC \type{6} \NC number \NC represents yy \NC \NR
+\LL
+\stoptabulate
+
+Note that the translation (index 1 and 2) comes first. This differs from the
+ordering in \POSTSCRIPT, where the translation comes last.
+
+\stopsubsection
+
+\startsubsection[title={Dashes}]
+
+Each \type {dash} is a hash with two items. We use the same model as \POSTSCRIPT\
+for the representation of the dashlist. \type {dashes} is an array of \quote {on}
+and \quote {off}, values, and \type {offset} is the phase of the pattern.
+
+\starttabulate[|l|l|p|]
+\DB field  \BC type \BC explanation \NC \NR
+\TB
+\NC \type{dashes} \NC hash   \NC an array of on-off numbers \NC \NR
+\NC \type{offset} \NC number \NC the starting offset value  \NC \NR
+\LL
+\stoptabulate
+
+\stopsubsection
+
+\startsubsection[title={Pens and \type {peninfo}}]
+
+\libindex{peninfo}
+
+There is helper function (\type {peninfo(obj)}) that returns a table containing
+a bunch of vital characteristics of the used pen (all values are floats):
+
+\starttabulate[|l|l|p|]
+\DB field  \BC type \BC explanation \NC \NR
+\TB
+\NC \type{width} \NC number \NC width of the pen \NC \NR
+\NC \type{sx}    \NC number \NC $x$ scale        \NC \NR
+\NC \type{rx}    \NC number \NC $xy$ multiplier  \NC \NR
+\NC \type{ry}    \NC number \NC $yx$ multiplier  \NC \NR
+\NC \type{sy}    \NC number \NC $y$ scale        \NC \NR
+\NC \type{tx}    \NC number \NC $x$ offset       \NC \NR
+\NC \type{ty}    \NC number \NC $y$ offset       \NC \NR
+\LL
+\stoptabulate
+
+\stopsubsection
+
+\startsubsection[title={Character size information}]
+
+\libindex{char_width}
+\libindex{char_height}
+\libindex{char_depth}
+
+These functions find the size of a glyph in a defined font. The \type {fontname}
+is the same name as the argument to \type {infont}; the \type {char} is a glyph
+id in the range 0 to 255; the returned \type {w} is in AFM units.
+
+\startfunctioncall
+<number> w = char_width(mp,<string> fontname, <number> char)
+<number> h = char_height(mp,<string> fontname, <number> char)
+<number> d = char_depth(mp,<string> fontname, <number> char)
+\stopfunctioncall
+
+\stopsubsection
+
+\stopsection
+
+\startsection[title=Scanners]
+
+After a relative long period of testing the scanners are now part of the
+interface. That doesn't mean that there will be no changes: depending on the
+needs and experiences details might evolve. The summary below is there
+still preliminary and mostly provided as reminder.
+
+\starttabulate[|l|l|p|]
+\DB scanner \BC argument \BC returns \NC \NR
+\TB
+\NC \type{scannext}       \NC instance, keep         \NC token, mode, type \NC \NR
+\NC \type{scanexpression} \NC instance, keep         \NC type \NC \NR
+\NC \type{scantoken}      \NC instance, keep         \NC token, mode, kind \NC \NR
+\NC \type{scansymbol}     \NC instance, keep, expand \NC string \NC \NR
+\NC \type{scannumeric}    \NC instance, type         \NC number \NC \NR
+\NC \type{scaninteger}    \NC instance, type         \NC integer \NC \NR
+\NC \type{scanboolean}    \NC instance, type         \NC boolean \NC \NR
+\NC \type{scanstring}     \NC instance, type         \NC string \NC \NR
+\NC \type{scanpair}       \NC instance, hashed, type \NC table or two numbers \NC \NR
+\NC \type{scancolor}      \NC instance, hashed, type \NC table or three numbers \NC \NR
+\NC \type{scancmykcolor}  \NC instance, hashed, type \NC table or four numbers \NC \NR
+\NC \type{scantransform}  \NC instance, hashed, type \NC table or six numbers \NC \NR
+\NC \type{scanpath}       \NC instance, hashed, type \NC table with hashes or arrays \NC \NR
+\NC \type{scanpen}        \NC instance, hashed, type \NC table with hashes or arrays \NC \NR
+\NC \type{scanproperty}   \NC {\em todo}             \NC \NC \NR
+\HL
+\NC \type{skiptoken}      \NC {\em todo}             \NC \NC \NR
+\LL
+\stoptabulate
+
+The types and token codes are numbers but they actually depend on the
+implementation (although changes are unlikely). The types of data structures can
+be queried with \ctxlua {document.showmpcodes ("gettypes")}, and command codes
+with \ctxlua {document.showmpcodes ("getcodes")}
+
+Now, if you really want to use these, keep in mind that the internals of
+\METAPOST\ are not trivial, especially because expression scanning can be
+complex. So you need to experiment a bit. In \CONTEXT\ all is (and will be)
+hidden below an abstraction layer so users are not bothered by all these
+look|-|ahead and push|-|back issues that originate in the way \METAPOST\ scans
+its input.
+
+The supported color models are: \ctxlua {document.showmpcodes ("getcolormodels")}.
+
+If you want the internal codes of the possible fields in a graphic object use
+\ctxlua {document.showmpcodes ("getobjecttypes")}. You can query the id of a
+graphic object with the \type {gettype} function.
+
+\startluacode
+local t = mplib.getobjecttypes()
+local f = mplib.getfields()
+context.starttabulate { "|T|T|Tpl|" }
+    context.DB()
+        context("id")
+    context.BC()
+        context("object")
+    context.BC()
+        context("fields")
+    context.NC()
+    context.NR()
+    for i=1,#t do
+        context.NC()
+            context(i)
+        context.NC()
+            context(t[i])
+        context.NC()
+            context("% t",f[i])
+        context.NC()
+        context.NR()
+    end
+    context.LL()
+context.stoptabulate()
+\stopluacode
+
+\stopsection
+
+\startsection[title=Injectors]
+
+It is important to know that piping code into the library is pretty fast and
+efficient. Most processing time relates to memory management, calculations and
+generation of output can not be neglected either. Out of curiousity I added some
+functions that directly push data into the library but the gain is not that
+large. \footnote {The main motivation was checking of huge paths could be
+optimized. The other data structures were then added for completeness.}
+
+\starttabulate[|l|l|]
+\DB scanner \BC argument \NC \NR
+\TB
+\NC \type{injectnumeric}   \NC instance, number \NC \NR
+\NC \type{injectinteger}   \NC instance, number \NC \NR
+\NC \type{injectboolean}   \NC instance, boolean \NC \NR
+\NC \type{injectstring}    \NC instance, string \NC \NR
+\NC \type{injectpair}      \NC instance, (table with) two numbers \NC \NR
+\NC \type{injectcolor}     \NC instance, (table with) three numbers \NC \NR
+\NC \type{injectcmykcolor} \NC instance, (table with) four numbers \NC \NR
+\NC \type{injecttransform} \NC instance, (table with) six numbers \NC \NR
+\NC \type{injectpath}      \NC instance, table with hashes or arrays, cycle, variant \NC \NR
+\NC \type{injectwhatever}  \NC instance, ont of the above depending on type and size \NC \NR
+\LL
+\stoptabulate
+
+The path injector takes a table with subtables that are either hashed (like the
+path solver) or arrays with two, four or six entries. When the third argument has
+the value \type {true} the path is closed. When the fourth argument is \type
+{true} the path is constructed out of straight lines (as with \type {--}) by
+setting the \type {curl} values to~1 automatically. \footnote {This is all
+experimental so future versions might provide more control.}
+
+This is the simplest path definition:
+
+\starttyping
+{
+    { x, y },
+    ...,
+    cycle = true
+}
+\stoptyping
+
+and this one also has the control points:
+
+\starttyping
+{
+    { x0, y0, x1, y1, x2, y2 },
+    ...,
+    cycle = true
+}
+\stoptyping
+
+A very detailed specification is this but you have to make sure that the
+parameters make sense.
+
+\starttyping
+{
+    {
+        x_coord       = ...,
+        y_coord       = ...,
+        left_x        = ...,
+        left_y        = ...,
+        right_x       = ...,
+        right_y       = ...,
+        left_tension  = ...,
+        right_tension = ...,
+        left_curl     = ...,
+        right_curl    = ...,
+        direction_x   = ...,
+        direction_y   = ...,
+        left_type     = ...,
+        right_type    = ...,
+    },
+    ...,
+    cycle = true
+}
+\stoptyping
+
+Instead of the optional keyword \type {cycle} you can use \type {close}.
+
+\stopsection
+
+\startsection[title={To be checked}]
+
+\starttyping
+% solvepath
+% expandtex
+\stoptyping
+
+\stopsection
+
+\stopchapter
+
+\stopcomponent
