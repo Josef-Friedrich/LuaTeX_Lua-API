@@ -1,4 +1,10 @@
 ---@meta
+
+---
+---https://luarocks.org/modules/ignacio/lmathx
+
+---
+---https://github.com/LuaDist/lmathx
 xmath = {}
 
 ---
@@ -250,7 +256,7 @@ function xmath.expm1(a) end
 function xmath.fabs(a) end
 
 ---
----Returns the positive difference between `a` and `b`, that is, if `a > b`, returns `a - b`, otherwise (if `a <= b`), returns `+0`.
+---Return the positive difference between `a` and `b`, that is, if `a > b`, returns `a - b`, otherwise (if `a <= b`), returns `+0`.
 ---
 ---__Reference:__
 ---
@@ -276,6 +282,7 @@ function xmath.fdim(a, b) end
 function xmath.floor(a) end
 
 ---
+---Compute `(a*b) + c` as if to infinite precision and rounded only once to fit the result type.
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lmtxmathlib.c#L156-L160](https://github.com/contextgarden/luametatex/blob/812e28feca3cf5de5f41a7fb3ebf25e4a4b2ae00/source/luarest/lmtxmathlib.c#L156-L160)
@@ -286,6 +293,8 @@ function xmath.floor(a) end
 ---@return number
 function xmath.fma(a, b, c) end
 
+---
+--- Return the larger of the numbers.
 ---
 ---__Reference:__
 ---
@@ -298,6 +307,8 @@ function xmath.fma(a, b, c) end
 function xmath.fmax(...) end
 
 ---
+---Return the smaller of the numbers.
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lmtxmathlib.c#L173-L182](https://github.com/contextgarden/luametatex/blob/812e28feca3cf5de5f41a7fb3ebf25e4a4b2ae00/source/luarest/lmtxmathlib.c#L173-L182)
@@ -309,6 +320,8 @@ function xmath.fmax(...) end
 function xmath.fmin(...) end
 
 ---
+---Compute the floating-point remainder of the division operation `a/b`.
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lmtxmathlib.c#L184-L188](https://github.com/contextgarden/luametatex/blob/812e28feca3cf5de5f41a7fb3ebf25e4a4b2ae00/source/luarest/lmtxmathlib.c#L184-L188)
@@ -319,6 +332,8 @@ function xmath.fmin(...) end
 ---@return number
 function xmath.fmod(a, b) end
 
+---
+---Decomposes given floating point value `a` into a normalized fraction and an integral power of two.
 ---
 ---__Reference:__
 ---
@@ -334,13 +349,14 @@ function xmath.frexp(a, b) end
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lmtxmathlib.c#L205-L209](https://github.com/contextgarden/luametatex/blob/812e28feca3cf5de5f41a7fb3ebf25e4a4b2ae00/source/luarest/lmtxmathlib.c#L205-L209)
----* cppreference.com: [numeric/math/gamma](https://en.cppreference.com/w/c/numeric/math/gamma)
 ---
 ---@param a number
 ---
 ---@return number
 function xmath.gamma(a) end
 
+---
+---Compute the square root of the sum of the squares of `a` and `b`, without undue overflow or underflow at intermediate stages of the computation.
 ---
 ---__Reference:__
 ---
@@ -353,6 +369,8 @@ function xmath.gamma(a) end
 function xmath.hypot(a, b) end
 
 ---
+---Determine if the given  number `a` has finite value i.e. it is normal, subnormal or zero, but not infinite or NaN.
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lmtxmathlib.c#L217-L221](https://github.com/contextgarden/luametatex/blob/812e28feca3cf5de5f41a7fb3ebf25e4a4b2ae00/source/luarest/lmtxmathlib.c#L217-L221)
@@ -363,6 +381,8 @@ function xmath.hypot(a, b) end
 ---@return number
 function xmath.isfinite(a) end
 
+---
+---Determines if the given number `a` is positive or negative infinity.
 ---
 ---__Reference:__
 ---
@@ -375,6 +395,8 @@ function xmath.isfinite(a) end
 function xmath.isinf(a) end
 
 ---
+---Determine if the given number `a` is a not-a-number (NaN) value.
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lmtxmathlib.c#L229-L233](https://github.com/contextgarden/luametatex/blob/812e28feca3cf5de5f41a7fb3ebf25e4a4b2ae00/source/luarest/lmtxmathlib.c#L229-L233)
@@ -385,6 +407,8 @@ function xmath.isinf(a) end
 ---@return number
 function xmath.isnan(a) end
 
+---
+---Determine if the given number `a` is normal, i.e. is neither zero, subnormal, infinite, nor NaN.
 ---
 ---__Reference:__
 ---
@@ -400,7 +424,6 @@ function xmath.isnormal(a) end
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lmtxmathlib.c#L241-L245](https://github.com/contextgarden/luametatex/blob/812e28feca3cf5de5f41a7fb3ebf25e4a4b2ae00/source/luarest/lmtxmathlib.c#L241-L245)
----* cppreference.com: [numeric/math/j0](https://en.cppreference.com/w/c/numeric/math/)
 ---
 ---@param a number
 ---
@@ -411,7 +434,6 @@ function xmath.j0(a) end
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lmtxmathlib.c#L247-L251](https://github.com/contextgarden/luametatex/blob/812e28feca3cf5de5f41a7fb3ebf25e4a4b2ae00/source/luarest/lmtxmathlib.c#L247-L251)
----* cppreference.com: [numeric/math/j1](https://en.cppreference.com/w/c/numeric/math/)
 ---
 ---@param a number
 ---
@@ -422,13 +444,14 @@ function xmath.j1(a) end
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lmtxmathlib.c#L253-L257](https://github.com/contextgarden/luametatex/blob/812e28feca3cf5de5f41a7fb3ebf25e4a4b2ae00/source/luarest/lmtxmathlib.c#L253-L257)
----* cppreference.com: [numeric/math/jn](https://en.cppreference.com/w/c/numeric/math/jn)
 ---
 ---@param a number
 ---
 ---@return number
 function xmath.jn(a, b) end
 
+---
+---Multiplies a floating point value `a` by the number `2` raised to the `b` power.
 ---
 ---__Reference:__
 ---
@@ -441,6 +464,8 @@ function xmath.jn(a, b) end
 function xmath.ldexp(a, b) end
 
 ---
+---Compute the natural logarithm of the absolute value of the gamma function of `a`.
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lmtxmathlib.c#L265-L269](https://github.com/contextgarden/luametatex/blob/812e28feca3cf5de5f41a7fb3ebf25e4a4b2ae00/source/luarest/lmtxmathlib.c#L265-L269)
@@ -451,6 +476,8 @@ function xmath.ldexp(a, b) end
 ---@return number
 function xmath.lgamma(a) end
 
+---
+---Compute the natural (base `e`) logarithm of `a`.
 ---
 ---__Reference:__
 ---
@@ -463,6 +490,8 @@ function xmath.lgamma(a) end
 function xmath.log(a, b) end
 
 ---
+---Compute the common (base-10) logarithm of `a`.
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lmtxmathlib.c#L289-L293](https://github.com/contextgarden/luametatex/blob/812e28feca3cf5de5f41a7fb3ebf25e4a4b2ae00/source/luarest/lmtxmathlib.c#L289-L293)
@@ -474,6 +503,8 @@ function xmath.log(a, b) end
 function xmath.log10(a) end
 
 ---
+---Compute the natural (base `e`) logarithm of `1+arg`. This function is more precise than the expression `log(1+a)` if `a` is close to zero.
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lmtxmathlib.c#L295-L299](https://github.com/contextgarden/luametatex/blob/812e28feca3cf5de5f41a7fb3ebf25e4a4b2ae00/source/luarest/lmtxmathlib.c#L295-L299)
@@ -484,6 +515,8 @@ function xmath.log10(a) end
 ---@return number
 function xmath.log1p(a) end
 
+---
+--- Compute the base `2` logarithm of `a`.
 ---
 ---__Reference:__
 ---
@@ -518,6 +551,8 @@ function xmath.logb(a) end
 function xmath.modf(a, b) end
 
 ---
+---Rounds the floating-point argument `a` to an integer value in floating-point format, using the current rounding mode.
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lmtxmathlib.c#L322-L326](https://github.com/contextgarden/luametatex/blob/812e28feca3cf5de5f41a7fb3ebf25e4a4b2ae00/source/luarest/lmtxmathlib.c#L322-L326)
@@ -529,6 +564,8 @@ function xmath.modf(a, b) end
 function xmath.nearbyint(a) end
 
 ---
+---First, convert both arguments to the type of the function, then return the next representable value of from in the direction of to. If from equals to to, to is returned.
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lmtxmathlib.c#L328-L332](https://github.com/contextgarden/luametatex/blob/812e28feca3cf5de5f41a7fb3ebf25e4a4b2ae00/source/luarest/lmtxmathlib.c#L328-L332)
@@ -539,6 +576,8 @@ function xmath.nearbyint(a) end
 ---@return number
 function xmath.nextafter(a, b) end
 
+---
+---Compute the value of base raised to the power exponent.
 ---
 ---__Reference:__
 ---
@@ -554,13 +593,14 @@ function xmath.pow(a, b) end
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lmtxmathlib.c#L340-L344](https://github.com/contextgarden/luametatex/blob/812e28feca3cf5de5f41a7fb3ebf25e4a4b2ae00/source/luarest/lmtxmathlib.c#L340-L344)
----* cppreference.com: [numeric/math/rad](https://en.cppreference.com/w/c/numeric/math/rad)
 ---
 ---@param a number
 ---
 ---@return number
 function xmath.rad(a) end
 
+---
+---Computes the IEEE remainder of the floating point division operation `a/b`.
 ---
 ---__Reference:__
 ---
