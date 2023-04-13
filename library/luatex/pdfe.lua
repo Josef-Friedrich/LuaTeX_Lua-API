@@ -33,8 +33,8 @@ pdfe = {}
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdfe.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PdfeReference
 
-_N._14_2_1_introduction = 287
-_N._14_2_2_open_new_getstatus_close_unencrypt = 287
+_N._14_2_1_introduction = "page 287"
+_N._14_2_2_open_new_getstatus_close_unencrypt = "page 287"
 
 ---
 ---Open a pdf file.
@@ -100,7 +100,7 @@ function pdfe.close(doc) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdfe.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function pdfe.unencrypt(doc, userpassword, ownerpassword) end
 
-_N._14_2_3_getsize_getversion_getnofobjects_getnofpages_getmemoryusage = 288
+_N._14_2_3_getsize_getversion_getnofobjects_getnofpages_getmemoryusage = "page 288"
 
 ---
 ---Return the size of a pdfe document in bytes.
@@ -164,7 +164,7 @@ function pdfe.getnofpages(document) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdfe.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function pdfe.getmemoryusage(doc) end
 
-_N._14_2_4_get_catalog_trailer_info = 288
+_N._14_2_4_get_catalog_trailer_info = "page 288"
 
 ---
 ---Return pdf catalog.
@@ -202,7 +202,7 @@ function pdfe.gettrailer(doc) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdfe.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function pdfe.getinfo(doc) end
 
-_N._14_2_5_getpage_getbox = 288
+_N._14_2_5_getpage_getbox = "page 288"
 
 ---
 ---Return a specific pdf page.
@@ -243,7 +243,7 @@ function pdfe.getpages(doc) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdfe.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function pdfe.getbox(page, bbox_name) end
 
-_N._14_2_6_get_string_integer_number_boolean_name_type = 289
+_N._14_2_6_get_string_integer_number_boolean_name_type = "page 289"
 
 ---
 ---Return a pdf string object as a string.
@@ -348,7 +348,7 @@ function pdfe.getname(dict_or_array, key_or_index) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdfe.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function pdfe.type(pdfe_obj) end
 
-_N._14_2_7_get_dictionary_array_stream = 289
+_N._14_2_7_get_dictionary_array_stream = "page 289"
 
 ---
 ---Return a pdf dictionary as a pdfe dictionary.
@@ -423,7 +423,7 @@ function pdfe.getstream(dict_or_array, key_or_index) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdfe.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function pdfe.getfromstream(stream, key) end
 
-_N._14_2_8_open_close_readfrom_whole_stream = 289
+_N._14_2_8_open_close_readfrom_whole_stream = "page 289"
 
 ---
 ---Open a stream.
@@ -491,7 +491,7 @@ function pdfe.readwholestream(stream, decode) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdfe.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function pdfe.pagestotable(doc) end
 
-_N._14_2_9_getfrom_dictionary_array = 290
+_N._14_2_9_getfrom_dictionary_array = "page 290"
 
 ---
 ---Return a value of a pdf dictionary, including low level details about this value.
@@ -553,7 +553,7 @@ function pdfe.getfromdictionary(dict, key) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdfe.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function pdfe.getfromarray(array, index) end
 
-_N._14_2_10_dictionary_array_totable = 290
+_N._14_2_10_dictionary_array_totable = "page 290"
 
 ---
 ---Convert a pdfe dictionary into a lua table.
@@ -581,7 +581,7 @@ function pdfe.dictionarytotable(dict) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdfe.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function pdfe.arraytotable(array) end
 
-_N._14_2_11_getfromreference = 290
+_N._14_2_11_getfromreference = "page 290"
 
 ---
 ---Return the value of a reference, including low level details about this value.

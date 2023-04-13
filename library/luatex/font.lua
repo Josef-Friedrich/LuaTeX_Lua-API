@@ -7,7 +7,7 @@
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/font.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 font = {}
 
-_N._6_1_font_tables = 87
+_N._6_1_font_tables = "page 87"
 
 _N._class_Font = 87
 
@@ -200,7 +200,7 @@ _N._class_FontCharacterLigature = 92
 ---@field type integer # the type of this ligature command, default 0
 ---@field char integer # the character index of the resultant ligature
 
-_N._6_2_real_fonts = 92
+_N._6_2_real_fonts = "page 92"
 
 _N._alias_FontType = 92
 
@@ -229,9 +229,9 @@ _N._alias_FontEmbedding = 92
 ---|`subset` # include and atttempt to subset the font
 ---|`full` # include this font in its entirety
 
-_N._6_3_virtual_fonts = 94
+_N._6_3_virtual_fonts = "page 94"
 
-_N._6_3_1_the_structure = 94
+_N._6_3_1_the_structure = "page 94"
 
 _N._alias_FontCharacterCommands = 95
 

@@ -29,4 +29,7 @@ dist: fix_lua_docstrings
 test:
 	 luatex --luaonly examples/unicode/all.lua
 
+update_manual:
+	wget -O /usr/local/texlive/texmf-dist/doc/luatex/base/luatex.pdf https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/raw/master/manual/luatex.pdf
+
 .PHONY: all fix_lua_docstrings convert_tex_to_lua debug print_namespace generate_doc

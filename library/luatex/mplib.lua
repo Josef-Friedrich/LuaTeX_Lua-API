@@ -1,9 +1,9 @@
 ---@meta
 mplib = {}
 
-_N._11_2_mplib_library = 0
+_N._11_2_mplib_library = "page 0"
 
-_N._11_2_1_new = 232
+_N._11_2_1_new = "page 232"
 
 ---
 ---The argument hash can have a number
@@ -86,7 +86,7 @@ _N._11_2_1_new = 232
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function mplib.new(args) end
 
-_N._11_2_2_statistics = 233
+_N._11_2_2_statistics = "page 233"
 
 ---
 ---There are
@@ -121,7 +121,7 @@ _N._11_2_2_statistics = 233
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function mplib.statistics() end
 
-_N._11_2_3_execute = 233
+_N._11_2_3_execute = "page 233"
 
 ---
 ---Execute metapost code in the instance.
@@ -148,7 +148,7 @@ _N._11_2_3_execute = 233
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function mplib.execute(mp, code) end
 
-_N._11_2_4_finish = 233
+_N._11_2_4_finish = "page 233"
 
 ---
 ---Finish a metapost instance.
@@ -168,7 +168,7 @@ _N._11_2_4_finish = 233
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function mplib.finish(mp) end
 
-_N._11_2_5_result_table = 233
+_N._11_2_5_result_table = "page 233"
 
 ---
 ---The return value of `execute` and `finish` is a table with a
@@ -210,7 +210,7 @@ _N._11_2_5_result_table = 233
 ---When the boundingbox represents a “negated rectangle”, i.e. when the
 ---first set of coordinates is larger than the second set, the picture is empty.
 
-_N._11_2_5_1_fill = 234
+_N._11_2_5_1_fill = "page 234"
 
 ---
 ---There is a helper function (`mplib.fields(obj)`) to get the list of
@@ -241,7 +241,7 @@ function mplib.fields(obj) end
 ---@field prescript string # the prescript text
 ---@field postscript string # the postscript text
 
-_N._11_2_5_2_outline = 234
+_N._11_2_5_2_outline = "page 234"
 
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -256,7 +256,7 @@ _N._11_2_5_2_outline = 234
 ---@field prescript string # the prescript text
 ---@field postscript string # the postscript text
 
-_N._11_2_5_3_text = 234
+_N._11_2_5_3_text = "page 234"
 
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -272,24 +272,24 @@ _N._11_2_5_3_text = 234
 ---@field prescript string # the prescript text
 ---@field postscript string # the postscript text
 
-_N._11_2_5_4_special = 236
+_N._11_2_5_4_special = "page 236"
 
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class MpSpecial
 ---@field prescript string # special text
 
-_N._11_2_5_5_start_bounds_start_clip = 236
+_N._11_2_5_5_start_bounds_start_clip = "page 236"
 
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class MpStartBoundsClip
 ---@field path table # the list of knots
 
-_N._11_2_5_6_stop_bounds_stop_clip = 236
+_N._11_2_5_6_stop_bounds_stop_clip = "page 236"
 
-_N._11_2_6_subsidiary_table_formats = 236
-_N._11_2_6_1_paths_pens = 236
+_N._11_2_6_subsidiary_table_formats = "page 236"
+_N._11_2_6_1_paths_pens = "page 236"
 
 ---
 ---Paths and pens (that are really just a special type of paths as far as mplib is
@@ -312,7 +312,7 @@ _N._11_2_6_1_paths_pens = 236
 ---array part containing the knot list.
 ---
 
-_N._11_2_6_2_Colors = 236
+_N._11_2_6_2_Colors = "page 236"
 
 ---
 ---A color is an integer array with 0, 1, 3 or 4 values:
@@ -330,7 +330,7 @@ _N._11_2_6_2_Colors = 236
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@type table MpColor
 
-_N._11_2_6_3_Transforms = 237
+_N._11_2_6_3_Transforms = "page 237"
 
 ---
 ---Each transform is a six-item array.
@@ -347,7 +347,7 @@ _N._11_2_6_3_Transforms = 237
 ---Note that the translation (index 1 and 2) comes first. This differs from the
 ---ordering in *PostScript*, where the translation comes last.
 
-_N._11_2_6_4_Dashes = 237
+_N._11_2_6_4_Dashes = "page 237"
 
 ---
 ---Each `dash` is two-item hash, using the same model as *PostScript* for the
@@ -359,7 +359,7 @@ _N._11_2_6_4_Dashes = 237
 ---@field dashes  table    an array of on-off numbers
 ---@field offset integer # the starting offset value
 
-_N._11_2_7_Pens_and_pen_info = 237
+_N._11_2_7_Pens_and_pen_info = "page 237"
 
 ---
 ---There is helper function (`pen_info(obj)`) that returns a table containing
@@ -384,8 +384,8 @@ _N._11_2_7_Pens_and_pen_info = 237
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function mplib.pen_info() end
 
-_N._11_2_8_Character_size_information = 238
-_N._11_2_8_1_char_width = 238
+_N._11_2_8_Character_size_information = "page 238"
+_N._11_2_8_1_char_width = "page 238"
 
 ---
 ---Report a character's width.
@@ -405,7 +405,7 @@ _N._11_2_8_1_char_width = 238
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function mplib.char_width(mp, fontname, char) end
 
-_N._11_2_8_2_char_height = 238
+_N._11_2_8_2_char_height = "page 238"
 
 ---
 ---Report a character's height.
@@ -425,7 +425,7 @@ _N._11_2_8_2_char_height = 238
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function mplib.char_height(mp, fontname, char) end
 
-_N._11_2_8_3_char_depth = 238
+_N._11_2_8_3_char_depth = "page 238"
 
 ---
 ---Report a character's depth.
@@ -445,7 +445,7 @@ _N._11_2_8_3_char_depth = 238
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function mplib.char_depth(mp, fontname, char) end
 
-_N._11_2_8_4_get_boolean_numeric_string_path = 238
+_N._11_2_8_4_get_boolean_numeric_string_path = "page 238"
 
 ---
 ---* Corresponding C source code: [lmplib.c#L497-L510](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L497-L510)

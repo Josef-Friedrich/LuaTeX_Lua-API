@@ -22,7 +22,7 @@ token = {}
 
 ---
 ---10.6 The token library
-_N._1_scanner = 215
+_N._1_scanner = "page 215"
 
 ---
 ---Scan and gobble a given keyword.
@@ -359,7 +359,7 @@ function token.scan_csname() end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/token.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function token.scan_list() end
 
-_N._1_picking_one_token = 218
+_N._1_picking_one_token = "page 218"
 
 ---
 ---Scan and gobble the next token.
@@ -402,7 +402,7 @@ function token.scan_token() end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/token.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function token.expand() end
 
-_N._3_creating = 218
+_N._3_creating = "page 218"
 
 ---
 ---* Corresponding C source code: [luatoken.c#L192-L351](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/luatoken.c#L192-L351)
@@ -869,7 +869,7 @@ function token.is_defined(cs) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/token.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function token.biggest_char() end
 
-_N._4_macros = 219
+_N._4_macros = "page 219"
 
 ---
 ---Create a macro.
@@ -984,7 +984,7 @@ function token.set_char(csname, number, global) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/token.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function token.set_lua(name, id, ...) end
 
-_N._5_pushing_back = 220
+_N._5_pushing_back = "page 220"
 
 ---
 ---Put the next token back in the input.
