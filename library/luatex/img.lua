@@ -3,8 +3,8 @@
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/img.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 img = {}
 
-_N._11_1_The_img_library = "page 0"
-_N._11_1_1_new = "page 0"
+_N._11_1_the_img_library = "page 225"
+_N._11_1_1_new = "page 225"
 
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/img.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -20,7 +20,7 @@ _N._11_1_1_new = "page 0"
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/img.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function img.new(image_spec) end
 
-_N._11_1_2_fields = "page 0"
+_N._11_1_2_fields = "page 226"
 
 ---
 ---* Corresponding C source code: [limglib.c#L301-L304](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L301-L304)
@@ -73,7 +73,7 @@ function img.keys() end
 ---@field nolength boolean # don't add length key nor compress for streams
 ---@field nosize boolean # don't add size fields for streams
 
-_N._11_1_3_scan = "page 0"
+_N._11_1_3_scan = "page 227"
 
 ---
 ---When you say `img.scan(a)` for a new image, the file is scanned, and
@@ -105,7 +105,7 @@ _N._11_1_3_scan = "page 0"
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/img.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function img.scan(image) end
 
-_N._11_1_4_copy = "page 0"
+_N._11_1_4_copy = "page 230"
 
 ---
 ---If you say `a = b`, then both variables point to the same `<image>`
@@ -125,7 +125,7 @@ _N._11_1_4_copy = "page 0"
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/img.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function img.copy(image) end
 
-_N._11_1_5_write_immediatewrite_immediatewriteobject = "page 0"
+_N._11_1_5_write_immediatewrite_immediatewriteobject = "page 228"
 
 ---
 ---Allocate a *PDF* object number and generate a rule node of
@@ -198,7 +198,7 @@ function img.immediatewrite(image) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/img.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function img.immediatewriteobject(image, objnum) end
 
-_N._11_1_6_node = "page 0"
+_N._11_1_6_node = "page 229"
 
 ---
 ---Allocate a *PDF* object number and return a whatsit node of
@@ -227,7 +227,7 @@ _N._11_1_6_node = "page 0"
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/img.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function img.node(image) end
 
-_N._11_1_7_types = "page 0"
+_N._11_1_7_types = "page 229"
 
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/img.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -249,7 +249,7 @@ _N._11_1_7_types = "page 0"
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/img.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function img.types() end
 
-_N._11_1_8_boxes = "page 0"
+_N._11_1_8_boxes = "page 229"
 
 ---
 ---* Corresponding C source code: [luatex-api.h#L534-L540](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/luatex-api.h#L534-L540)

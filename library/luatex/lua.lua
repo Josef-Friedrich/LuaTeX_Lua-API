@@ -3,6 +3,10 @@
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lua.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 lua = {}
 
+_N = {}
+_N._10_1_the_lua_library = "page 187"
+_N._10_1_1_version_information = "page 187"
+
 ---
 ---Version information: This library contains one read-only item:
 ---
@@ -21,92 +25,7 @@ lua = {}
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lua.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 lua.version = ""
 
----
----The `\directlua` commands involves tokenization of its argument (after
----picking up an optional name or number specification). The tokenlist is then
----converted into a string and given to *Lua* to turn into a function that is
----called. The overhead is rather small but when you have millions of calls it can
----have some impact. For this reason there is a variant call available: `\luafunction`. This command is used as follows:
----
----```tex
----\directlua {
----    local t = lua.get_functions_table()
----    t[1] = function() tex.print("!") end
----    t[2] = function() tex.print("?") end
----}
----
----\luafunction1
----\luafunction2
----```
----
----Of course the functions can also be defined in a separate file. There is no limit
----on the number of functions apart from normal *Lua* limitations. Of course there
----is the limitation of no arguments but that would involve parsing and thereby give
----no gain. The function, when called in fact gets one argument, being the index, so
----in the following example the number `8` gets typeset.
----
----```tex
----\directlua {
----    local t = lua.get_functions_table()
----    t[8] = function(slot) tex.print(slot) end
----}
----```
---- ---
----
----```lua
----token.set_lua("mycode", id)
----token.set_lua("mycode", id, "global", "protected")
----```
----
----This creates a token that refers to a *Lua* function with an entry in the table
----that you can access with `lua.get_functions_table`. It is the companion
----to `luadef`.
----
----__Reference:__
----
----* `LuaTeX` manual: 2.4.4 `\luafunction`, `\luafunctioncall` and `\luadef`
----* `LuaTeX` manual: 10.6.4 Macros
----* Corresponding C source code: [llualib.c#L356-L360](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L356-L360)
----
----@return {[integer]: fun(slot: integer)}
----
----[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lua.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function lua.get_functions_table() end
-
----
----Return a number indicating
----how much nesting is going on.
----
----It is only of use as a breakpoint when
----checking some mechanism going haywire.
----
----__Reference:__
----
----* `LuaTeX` manual: 10.1.4 Introspection
----* Corresponding C source code: [llualib.c#L370-L374](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L370-L374)
----
----@return integer
----
----[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lua.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function lua.getstacktop() end
-
----
----Return a number indicating
----how much nesting is going on.
----
----It is only of use as a breakpoint when
----checking some mechanism going haywire.
----
----* Corresponding C source code: [llualib.c#L376-L380](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L376-L380)
----
----__Reference:__
----
----* `LuaTeX` manual: 10.1.4 Introspection
----
----@return integer
----
----[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lua.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function lua.getcalllevel() end
+_N._10_1_2_bytecode_registers = "page 187"
 
 ---
 ---Use the `bytecode` table to store *Lua* code chunks. The accepted values for
@@ -176,6 +95,8 @@ function lua.getbytecode(n) end
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lua.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lua.getcodepage() end
+
+_N._10_1_3_chunk_name_registers = "page 187"
 
 ---
 ---There is an array of 65536 (0-65535) potential chunk names for use with the
@@ -247,3 +168,94 @@ function lua.getluaname(index) end
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lua.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lua.newtable(index, hash) end
+
+_N._10_1_4_introspection = "page 188"
+
+---
+---Return a number indicating
+---how much nesting is going on.
+---
+---It is only of use as a breakpoint when
+---checking some mechanism going haywire.
+---
+---__Reference:__
+---
+---* `LuaTeX` manual: 10.1.4 Introspection
+---* Corresponding C source code: [llualib.c#L370-L374](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L370-L374)
+---
+---@return integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lua.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function lua.getstacktop() end
+
+---
+---Return a number indicating
+---how much nesting is going on.
+---
+---It is only of use as a breakpoint when
+---checking some mechanism going haywire.
+---
+---* Corresponding C source code: [llualib.c#L376-L380](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L376-L380)
+---
+---__Reference:__
+---
+---* `LuaTeX` manual: 10.1.4 Introspection
+---
+---@return integer
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lua.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function lua.getcalllevel() end
+
+_N._2_4_4_luafunction_luafunctioncall_and_luadef = "page 25"
+
+---
+---The `\directlua` commands involves tokenization of its argument (after
+---picking up an optional name or number specification). The tokenlist is then
+---converted into a string and given to *Lua* to turn into a function that is
+---called. The overhead is rather small but when you have millions of calls it can
+---have some impact. For this reason there is a variant call available: `\luafunction`. This command is used as follows:
+---
+---```tex
+---\directlua {
+---    local t = lua.get_functions_table()
+---    t[1] = function() tex.print("!") end
+---    t[2] = function() tex.print("?") end
+---}
+---
+---\luafunction1
+---\luafunction2
+---```
+---
+---Of course the functions can also be defined in a separate file. There is no limit
+---on the number of functions apart from normal *Lua* limitations. Of course there
+---is the limitation of no arguments but that would involve parsing and thereby give
+---no gain. The function, when called in fact gets one argument, being the index, so
+---in the following example the number `8` gets typeset.
+---
+---```tex
+---\directlua {
+---    local t = lua.get_functions_table()
+---    t[8] = function(slot) tex.print(slot) end
+---}
+---```
+--- ---
+---
+---```lua
+---token.set_lua("mycode", id)
+---token.set_lua("mycode", id, "global", "protected")
+---```
+---
+---This creates a token that refers to a *Lua* function with an entry in the table
+---that you can access with `lua.get_functions_table`. It is the companion
+---to `luadef`.
+---
+---__Reference:__
+---
+---* `LuaTeX` manual: 2.4.4 `\luafunction`, `\luafunctioncall` and `\luadef`
+---* `LuaTeX` manual: 10.6.4 Macros
+---* Corresponding C source code: [llualib.c#L356-L360](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L356-L360)
+---
+---@return {[integer]: fun(slot: integer)}
+---
+---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lua.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function lua.get_functions_table() end

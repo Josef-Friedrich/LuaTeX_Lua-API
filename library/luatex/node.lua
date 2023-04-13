@@ -1590,7 +1590,7 @@ _N.shape = 49
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class ShapeNode: Node
 
-_N._7_2_is_node = "page 145"
+_N._8_2_is_node = "page 145"
 
 ---
 ---Return a number (the internal index of the node) if the argument is a userdata
@@ -1623,7 +1623,7 @@ function node.is_node(item) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.is_node(item) end
 
-_N._7_3_types_whatsits = "page 145"
+_N._8_3_types_whatsits = "page 145"
 
 ---
 ---Return a table that maps node id numbers to node type strings, providing an
@@ -1655,7 +1655,7 @@ function node.types() end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.whatsits() end
 
-_N._7_4_id = "page 145"
+_N._8_4_id = "page 145"
 
 ---
 ---Convert a single type name to its internal numeric representation.
@@ -1676,7 +1676,7 @@ _N._7_4_id = "page 145"
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.id(type) end
 
-_N._7_5_type_subtype = "page 145"
+_N._8_5_type_subtype = "page 145"
 
 ---
 ---Convert an internal numeric node type representation to an external
@@ -1723,7 +1723,7 @@ function node.type(n) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.subtype(whatsit_type_name) end
 
-_N._7_6_fields = "page 146"
+_N._8_6_fields = "page 146"
 
 ---
 ---Return an array of valid field names for a particular type of
@@ -1745,7 +1745,7 @@ _N._7_6_fields = "page 146"
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.fields(id, subtype) end
 
-_N._7_7_has_field = "page 146"
+_N._8_7_has_field = "page 146"
 
 ---
 ---Return a boolean that is only `true` if `n` is actually a node, and it has the field.
@@ -1777,7 +1777,7 @@ function node.has_field(n, field) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.has_field(d, field) end
 
-_N._7_8_new = "page 146"
+_N._8_8_new = "page 146"
 
 ---
 ---Create a new node.
@@ -1823,7 +1823,7 @@ function node.new(id, subtype) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.new(id, subtype) end
 
-_N._7_9_free_flush_node_list = "page 146"
+_N._8_9_free_flush_node_list = "page 146"
 
 ---
 ---Free the *TeX* memory allocated for node `n`.
@@ -1925,7 +1925,7 @@ function node.flush_list(n) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.flush_list(d) end
 
-_N._7_10_copy_copy_list = "page 147"
+_N._8_10_copy_copy_list = "page 147"
 
 ---
 ---Create a deep copy of node `n`, including all nested lists as in the case
@@ -2003,7 +2003,7 @@ function node.copy_list(n, m) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.copy_list(d, e) end
 
-_N._7_11_prev_next = "page 147"
+_N._8_11_prev_next = "page 147"
 
 ---
 ---Return the node preceding the given node, or `nil` if
@@ -2035,14 +2035,14 @@ function node.prev(n) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.next(n) end
 
-_N._7_12_current_attr = "page 0"
+_N._8_12_current_attr = "page 147"
 
 ---
 ---Return the currently active list of attributes, if there is one.
 ---
 ---The intended usage of `current_attr` is as follows:
 ---
----```
+---```lua
 ---local x1 = node.new("glyph")
 ---x1.attr = node.current_attr()
 ---local x2 = node.new("glyph")
@@ -2051,7 +2051,7 @@ _N._7_12_current_attr = "page 0"
 ---
 ---or:
 ---
----```
+---```lua
 ---local x1 = node.new("glyph")
 ---local x2 = node.new("glyph")
 ---local ca = node.current_attr()
@@ -2090,7 +2090,7 @@ function node.current_attr() end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.current_attr() end
 
-_N._7_13_hpack = "page 0"
+_N._8_13_hpack = "page 148"
 
 ---
 ---Create a new `hlist` by packaging the list that begins at node `n` into a horizontal box.
@@ -2150,7 +2150,7 @@ function node.hpack(n, width, info, dir) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.hpack(d, width, info, dir) end
 
-_N._7_14_vpack = "page 0"
+_N._8_14_vpack = "page 148"
 
 ---
 ---Create a new `vlist` by packaging the list that begins at node `head` into a vertical box.
@@ -2204,7 +2204,7 @@ function node.vpack(head, height, info, dir) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.vpack(head, height, info, dir) end
 
-_N._7_15_prepend_prevdepth = "page 0"
+_N._8_15_prepend_prevdepth = "page 149"
 
 ---
 ---Add the interlinespace to a line keeping the baselineskip and lineskip into
@@ -2238,7 +2238,7 @@ function node.prepend_prevdepth(n, prevdepth) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.prepend_prevdepth(d, prevdepth) end
 
-_N._7_16_dimensions_rangedimensions = "page 149"
+_N._8_16_dimensions_rangedimensions = "page 149"
 
 ---
 ---Calculate the natural in-line dimensions of the end of the node list starting
@@ -2510,7 +2510,7 @@ function node.rangedimensions(parent, first, last) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.rangedimensions(parent, first, last) end
 
-_N._7_17_mlist_to_hlist = "page 0"
+_N._8_17_mlist_to_hlist = "page 150"
 
 ---
 ---Run the internal `mlist` to `hlist` conversion, converting the math list in
@@ -2532,12 +2532,12 @@ _N._7_17_mlist_to_hlist = "page 0"
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.mlist_to_hlist(n, display_type, penalties) end
 
-_N._7_18_slide = "page 0"
+_N._8_18_slide = "page 150"
 
 ---
 ---see _N._9_9
 
-_N._7_19_tail = "page 152"
+_N._8_19_tail = "page 150"
 
 ---
 ---Return the last node of the node list that starts at `n`.
@@ -2567,7 +2567,7 @@ function node.tail(n) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.tail(d) end
 
-_N._7_20_length_and_count = "page 0"
+_N._8_20_length_and_count = "page 151"
 
 ---
 ---Return the number of nodes contained in the node list that starts at `n`.
@@ -2647,7 +2647,7 @@ function node.count(id, n, m) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.count(id, d, e) end
 
-_N._7_21_is_char_and_is_glyph = "page 0"
+_N._8_21_is_char_and_is_glyph = "page 151"
 
 ---
 ---Signal if the glyph is already turned into a character reference
@@ -2715,7 +2715,7 @@ function node.is_glyph(n) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.is_glyph(n) end
 
-_N._7_22_traverse = "page 0"
+_N._8_22_traverse = "page 153"
 
 ---
 ---Return a *Lua* iterator that loops over the node list that starts at `n`.
@@ -2771,7 +2771,7 @@ function node.traverse(n) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.traverse(d) end
 
-_N._7_23_traverse_id = "page 0"
+_N._8_23_traverse_id = "page 152"
 
 ---
 ---Return an iterator that loops over all the nodes in the list that starts at
@@ -2805,7 +2805,7 @@ function node.traverse_id(id, n) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.traverse_id(id, d) end
 
-_N._7_24_traverse_char_and_traverse_glyph = "page 0"
+_N._8_24_traverse_char_and_traverse_glyph = "page 152"
 
 ---
 ---Loop over the `glyph` nodes in a list.
@@ -2869,7 +2869,7 @@ function node.traverse_glyph(n) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.traverse_glyph(d) end
 
-_N._7_25_traverse_list = "page 0"
+_N._8_25_traverse_list = "page 153"
 
 ---
 ---Loop over the `hlist` and `vlist` nodes in a list.
@@ -2903,7 +2903,7 @@ function node.traverse_list(n) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.traverse_list(d) end
 
-_N._7_26_has_glyph = "page 0"
+_N._8_26_has_glyph = "page 153"
 
 ---
 ---Return the first `glyph` or `disc` node in the given list.
@@ -2933,7 +2933,7 @@ function node.has_glyph(n) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.has_glyph(d) end
 
-_N._7_27_end_of_math = "page 0"
+_N._8_27_end_of_math = "page 153"
 
 ---
 ---Look for and return the next `math` node following the start node `n`.
@@ -2973,7 +2973,7 @@ function node.end_of_math(n) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.end_of_math(d) end
 
-_N._7_28_remove = "page 153"
+_N._8_28_remove = "page 153"
 
 ---
 ---Remove the node `current` from the list following `head`.
@@ -3027,7 +3027,7 @@ function node.remove(head, current) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.remove(head, current) end
 
-_N._7_29_insert_before = "page 153"
+_N._8_29_insert_before = "page 153"
 
 ---
 ---Insert the node `new` before `current` into the list
@@ -3077,7 +3077,7 @@ function node.insert_before(head, current, new) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.insert_before(head, current, new) end
 
-_N._7_30_insert_after = "page 153"
+_N._8_30_insert_after = "page 153"
 
 ---
 ---Insert the node `new` after `current` into the list
@@ -3125,7 +3125,7 @@ function node.insert_after(head, current, new) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.insert_after(head, current, new) end
 
-_N._7_31_first_glyph = "page 154"
+_N._8_31_first_glyph = "page 154"
 
 ---
 ---Return the first node in the list starting at `n` that is a glyph node
@@ -3168,7 +3168,7 @@ function node.first_glyph(n, m) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.first_glyph(d, e) end
 
-_N._7_32_ligaturing = "page 154"
+_N._8_32_ligaturing = "page 154"
 
 ---
 ---Apply *TeX*-style ligaturing to the specified nodelist.
@@ -3204,7 +3204,7 @@ function node.ligaturing(head, tail) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.ligaturing(head, tail) end
 
-_N._7_33_kerning = "page 154"
+_N._8_33_kerning = "page 154"
 
 ---
 ---Apply *TeX*-style kerning to the specified node list.
@@ -3240,7 +3240,7 @@ function node.kerning(head, tail) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.kerning(head, tail) end
 
-_N._7_34_unprotect_glyphs = "page 155"
+_N._8_34_unprotect_glyphs = "page 155"
 
 ---
 ---Convert from `characters` to `glyphs` during node
@@ -3296,7 +3296,7 @@ function node.unprotect_glyphs(head, tail) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.unprotect_glyphs(head, tail) end
 
-_N._7_35_protect_glyphs = "page 155"
+_N._8_35_protect_glyphs = "page 155"
 
 ---
 ---Add `256` to the `glyph` node subtype
@@ -3364,7 +3364,7 @@ function node.protect_glyphs(head, tail) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.protect_glyphs(head, tail) end
 
-_N._7_36_last_node = "page 155"
+_N._8_36_last_node = "page 155"
 
 ---
 ---Pop the last node from *TeX*'s “current list”.
@@ -3390,7 +3390,7 @@ function node.last_node() end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.last_node() end
 
-_N._7_37_write = "page 155"
+_N._8_37_write = "page 155"
 
 ---
 ---Append a node list to *TeX*'s “current list”.
@@ -3426,7 +3426,7 @@ function node.write(n) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.write(d) end
 
-_N._7_38_protrusion_skippable = "page 155"
+_N._8_38_protrusion_skippable = "page 155"
 
 ---
 ---Return `true` if, for the purpose of line boundary discovery when

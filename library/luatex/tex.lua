@@ -2268,7 +2268,7 @@ function tex.scantoks(global, register, catcodetable, toks) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.getmark(position, class) end
 
-_N._10_3_6_character_code_registers_get_set_code_s_ = "page 0"
+_N._10_3_6_character_code_registers_get_set_code_s_ = "page 196"
 
 ---
 ---*TeX*'s character code table `lccode` (lower case code) can be accessed and written to using
@@ -2620,7 +2620,7 @@ function tex.getdelcodes(char_code) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.getdelcode(char_code) end
 
-_N._10_3_7_box_registers_get_set_box = "page 0"
+_N._10_3_7_box_registers_get_set_box = "page 197"
 
 ---
 ---Set a box, coming for instance from `hbox`, `vbox` or `vtop`.
@@ -2680,7 +2680,7 @@ function tex.getbox(register) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.isbox(register) end
 
-_N._10_3_8_reusing_boxes_use_save_boxresource_and_getboxresourcedimensions = "page 0"
+_N._10_3_8_reusing_boxes_use_save_boxresource_and_getboxresourcedimensions = "page 198"
 
 ---
 ---Register a box for reuse (this is modelled after so
@@ -2750,7 +2750,7 @@ function tex.useboxresource(n, width, height, depth) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.getboxresourcedimensions(n) end
 
-_N._10_3_9_triggerbuildpage = "page 0"
+_N._10_3_9_triggerbuildpage = "page 198"
 
 ---
 ---Call the internal
@@ -2765,7 +2765,7 @@ _N._10_3_9_triggerbuildpage = "page 0"
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.triggerbuildpage() end
 
-_N._10_3_10_splitbox = "page 0"
+_N._10_3_10_splitbox = "page 198"
 
 ---
 ---Split a box.
@@ -2783,7 +2783,7 @@ _N._10_3_10_splitbox = "page 0"
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.splitbox(n, height, mode) end
 
-_N._10_3_11_accessing_math_parameters_get_set_math = "page 0"
+_N._10_3_11_accessing_math_parameters_get_set_math = "page 198"
 
 ---
 ---Set the internal math parameters.
@@ -2958,7 +2958,7 @@ function tex.getmath(math_param_name, math_style_name) end
 ---|'innerpunctspacing'
 ---|'innerinnerspacing'
 
-_N._10_3_12_special_list_heads_get_set_list = "page 0"
+_N._10_3_12_special_list_heads_get_set_list = "page 200"
 
 ---
 ---The virtual table `tex.lists` contains the set of internal registers that
@@ -3031,7 +3031,7 @@ function tex.setlist() end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.getlist() end
 
-_N._10_3_13_semantic_nest_levels_getnest_and_ptr = "page 0"
+_N._10_3_13_semantic_nest_levels_getnest_and_ptr = "page 200"
 
 ---
 ---The virtual table `nest` contains the currently active semantic nesting

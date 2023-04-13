@@ -7,6 +7,9 @@
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/texio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 texio = {}
 
+_N._10_5_the_texio_library = "page 214"
+_N._10_5_1_write = "page 214"
+
 ---
 ---The optional `target` can be one of three possibilities: `term`, `log` or `term and log`.
 ---@alias WriteTarget
@@ -40,6 +43,8 @@ function texio.write(target, ...) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/texio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function texio.write(...) end
 
+_N._10_5_2_write_nl = "page 214"
+
 ---
 ---Write all given strings to a target.
 ---
@@ -70,6 +75,8 @@ function texio.write_nl(target, ...) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/texio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function texio.write_nl(...) end
 
+_N._10_5_3_setescape = "page 215"
+
 ---
 ---Disable `^^` escaping of control characters.
 ---
@@ -79,6 +86,8 @@ function texio.write_nl(...) end
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/texio.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function texio.setescape(escape_controls) end
+
+_N._10_5_4_closeinput = "page 215"
 
 ---
 ---Force a jump back to *TeX*.

@@ -13,9 +13,9 @@ _N = {}
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 fontloader = {}
 
-_N._12_the_fontloader = "page 0"
+_N._12_the_fontloader = "page 237"
 
-_N._12_1_getting_quick_information_on_a_font = "page 239"
+_N._12_1_getting_quick_information_on_a_font = "page 237"
 
 ---
 ---* Corresponding C source code: [luafflib.c#L2257-L2284](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2257-L2284)^
@@ -52,7 +52,7 @@ _N._12_1_getting_quick_information_on_a_font = "page 239"
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fontloader.info(filename) end
 
-_N._12_2_loading_an_opentype_or_truetype_file = "page 0"
+_N._12_2_loading_an_opentype_or_truetype_file = "page 237"
 
 ---
 ---Parse a font file and return a table representing its contents. The optional argument is the name of the desired font in case of font collection files. The optional return value contains any parser error strings.
@@ -158,7 +158,7 @@ function fontloader.fields(font) end
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fontloader.fields(font_glyph) end
 
-_N._12_6_Table_types = "page 0"
+_N._12_6_table_types = "page 240"
 
 _N._main_table = "FontloaderField"
 
