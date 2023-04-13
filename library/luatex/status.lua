@@ -14,85 +14,94 @@ status = {}
 ---
 ---[Type definition and documentation](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/status.lua) incomplete or incorrect? [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class StatusInfo
----@field banner string # terminal display banner, for example `This is LuaHBTeX, Version 1.15.0 (TeX Live 2022)`.
----@field best_page_break Node # the current best break (a node)
----@field buf_size integer # current allocated size of the line buffer, for example `200000`.
----@field callbacks integer # total number of executed callbacks so far, for example `9`.
----@field cs_count integer # of control sequences, for example `20658`.
----@field dest_names_size integer # *PDF* destination table size, for example `1000`.
+---@field output_active boolean # `true` if the output routine is active, for example `false`.
+---@field best_page_break Node # The current best break (a node)
+---
+---@field filename string # The name of the current input file , for example `./list.tex`.
+---@field inputid integer # The numeric id of the current input, for example `2118770`.
+---@field linenumber integer # The location in the current input file, for example `12`.
+---
+---@field lasterrorstring string # The last *TeX* error string.
+---@field lastluaerrorstring string # The last *Lua* error string.
+---@field lastwarningtag string # The last warning string.
+---@field lastwarningstring string # The last warning tag, normally an indication of in what part.
+---@field lasterrorcontext string # The last error context string (with newlines).
+---
+---@field pdf_gone integer # Written *PDF* bytes, for example `0`.
+---@field pdf_ptr integer # Not yet written *PDF* bytes, for example `0`.
+---@field dvi_gone integer # Written *DVI* bytes, for example `1631423304`.
+---@field dvi_ptr integer # Not yet written *DVI* bytes, for example `-1858237624`.
+---
+---@field total_pages integer # The total pages of written pages, for example `0`.
+---@field output_file_name string # The name of the *PDF* or *DVI* file.
+---@field log_name string # The name of the log file, for example `list.log`.
+---@field banner string # The terminal display banner, for example `This is LuaHBTeX, Version 1.15.0 (TeX Live 2022)`.
+---@field luatex_version integer # The *LuaTeX* version number, for example `115`.
+---@field luatex_revision integer # The *LuaTeX* revision string.
 ---@field development_id integer # for example `7509`.
----@field direct_callbacks integer for example `10`.
----@field dvi_gone integer # written *DVI* bytes, for example `1631423304`.
----@field dvi_ptr integer # not yet written *DVI* bytes, for example `-1858237624`.
----@field dyn_used integer # token (multi-word) memory in use, for example `383564`.
----@field filename string # name of the current input file , for example `./list.tex`.
----@field fix_mem_end integer # maximum number of used tokens, for example `1869998`.
----@field fix_mem_max integer # maximum number of allocated words for tokensv, for example `1977958`.
----@field fix_mem_min integer # minimum number of allocated words for tokens, for example `0`.
----@field font_ptr integer # of active fonts, for example `15`.
----@field function_callbacks integer # of active fonts, for example `238`.
----@field hash_extra integer # extra allowed hash, for example `600000`.
----@field hash_size integer # size of hash, for example `65536`.
----@field indirect_callbacks integer # of those that were themselves a result of other callbacks (e.g. file readers), for example `0`.
+---@field luatex_hashtype string # The hash method used (in *Lua*JITTEX), for example `lua`.
+---@field luatex_hashchars integer # The length to which *Lua* hashes strings (`2^n`), for example `6`.
+---@field luatex_engine string # The *LuaTeX* engine identifier, for example `luahbtex`.
+---
 ---@field ini_version boolean # `true` if this is an *iniTeX* run, for example `false`.
----@field init_pool_ptr integer # *iniTeX* string pool index, for example `0`.
----@field init_str_ptr integer # of *iniTeX* strings, for example `2118768`.
----@field input_ptr integer # the level of input we're at, for example `1`.
----@field inputid integer # numeric id of the current input, for example `2118770`.
+---
+---@field shell_escape integer # `0` means disabled, `1` means anything is permitted, and `2` is restricted, for example `2`.
+---@field safer_option integer # `1` means safer is enforced, for example `0`.
 ---@field kpse_used integer # `1` means that kpse is used, for example `1`.
+---
+---@field var_used integer # The variable (one-word) memory in use, for example `309`.
+---@field dyn_used integer # The token (multi-word) memory in use, for example `383564`.
+---
+---@field str_ptr integer # The string pointer, for example `2119239`.
+---@field init_str_ptr integer # The *iniTeX* string pointer, for example `2118768`.
+---@field max_strings integer # The maximum allowed strings, for example `500000`.
+---@field pool_ptr string # The pool index, for example `393692`.
+---@field init_pool_ptr integer # The *iniTeX* string pool index, for example `0`.
+---@field pool_size integer # The current size allocated for string characters, for example `20000`.
+---@field var_mem_max integer # Maximum variable memory of allocated words for nodes, for example `100000`.
+---@field node_mem_usage string # A string giving insight into currently used nodes, for example `2 hlist, 1 rule, 1 dir, 3 kern, 1 glyph, 3 attribute, 48 glue_spec, 3 attribute_list, 1 write`.
+---@field fix_mem_max integer # The maximum number of allocated words for tokens, for example `1977958`.
+---@field fix_mem_min integer # The minimum number of allocated words for tokens, for example `0`.
+---@field fix_mem_end integer # maximum number of used tokens, for example `1869998`.
+---@field cs_count integer # The count of control sequences, for example `20658`.
+---@field hash_size integer # The size of the hash, for example `65536`.
+---@field hash_extra integer # The extra allowed hash, for example `600000`.
+---@field font_ptr integer # The active fonts pointer, for example `15`.
+---@field max_in_stack integer # The maximum of the used input stack entries, for example `33`.
+---@field max_nest_stack integer # The maximum of the used nesting stack entries, for example `0`.
+---@field max_param_stack integer # The maximum of the used parameter stack entries, for example `37`.
+---@field max_buf_stack integer # The maximum used buffer position, for example `126`.
+---@field max_save_stack integer # The maximum of the used save stack entries, for example `50`.
+---@field stack_size integer # The input stack size, for example `10000`.
+---@field nest_size integer # The nesting stack size, for example `1000`.
+---@field param_size integer # The parameter stack size, for example `20000`.
+---@field buf_size integer # The current allocated size of the line buffer, for example `200000`.
+---@field save_size integer # The save stack size, for example `200000`.
+---@field input_ptr integer # The level of input we're at, for example `1`.
+---@field obj_ptr integer # The *PDF* object pointer.
+---@field obj_tab_size integer # The *PDF* object table size, for example `1000`.
+---@field pdf_os_cntr integer # The *PDF* object stream pointer, for example `0`.
+---@field pdf_os_objidx integer # The *PDF* object stream index, for example `0`.
+---@field pdf_dest_names_ptr integer # max *PDF* destination pointer, for example `0`.
+---@field dest_names_size integer # The *PDF* destination table size, for example `1000`.
+---@field pdf_mem_ptr integer # The *PDF* memory used, for example `1`.
+---@field pdf_mem_size integer # The *PDF* memory size, for example `10000`.
+---@field largest_used_mark integer # The largest referenced marks class, for example `0`.
+---@field luabytecodes integer # The active *Lua* bytecode registers, for example `1`.
+---@field luabytecode_bytes integer # The used bytes in the *Lua* bytecode registers, for example `32`.
+---@field luastate_bytes integer # The bytes in use by *Lua* interpreters, for example `54667449`.
+---
+---@field callbacks integer # The total number of executed callbacks so far, for example `9`.
+---@field indirect_callbacks integer # The total number of those callbacks that were themselves a result of other callbacks (e.g. file readers), for example `0`.
+---
+---@field saved_callbacks integer # for example `0`.
 ---@field late_callbacks integer # for example `0`.
----@field largest_used_mark integer # max referenced marks class, for example `0`.
----@field lasterrorcontext string # last error context string (with newlines)
----@field lasterrorstring string # last *TeX* error string
----@field lastluaerrorstring string # last *Lua* error string
----@field lastwarningstring string # last warning tag, normally an indication of in what part
----@field lastwarningtag string # last warning string
+---@field direct_callbacks integer for example `10`.
+---@field function_callbacks integer # of active fonts, for example `238`.
+---
 ---@field lc_collate string # the value of `LC_COLLATE` at startup time (becomes `C` at startup), for example `en_US.UTF-8`.
 ---@field lc_ctype string # the value of `LC_CTYPE` at startup time (becomes `C` at startup), for example `en_US.UTF-8`.
----@field lc_monetary string # the value of `LC_MONETARY` at startup time
 ---@field lc_numeric string # the value of `LC_NUMERIC` at startup time, for example `de_DE.UTF-8`.
----@field lc_timestring string # the value of `LC_TIME` at startup time (becomes `C` at startup)
----@field linenumber integer # location in the current input file, for example `12`.
----@field log_name string # name of the log file, for example `list.log`.
----@field luabytecode_bytes integer # of bytes in *Lua* bytecode registers, for example `32`.
----@field luabytecodes integer # of active *Lua* bytecode registers, for example `1`.
----@field luastate_bytes integer # of bytes in use by *Lua* interpreters, for example `54667449`.
----@field luatex_engine string # the *LuaTeX* engine identifier, for example `luahbtex`.
----@field luatex_hashchars integer # length to which *Lua* hashes strings (`2^n`), for example `6`.
----@field luatex_hashtype string # the hash method used (in *Lua*JITTEX), for example `lua`.
----@field luatex_revision integer # the *LuaTeX* revision string
----@field luatex_version integer # the *LuaTeX* version number, for example `115`.
----@field max_buf_stack integer # max used buffer position, for example `126`.
----@field max_in_stack integer # max used input stack entries, for example `33`.
----@field max_nest_stack integer # max used nesting stack entries, for example `0`.
----@field max_param_stack integer # max used parameter stack entries, for example `37`.
----@field max_save_stack integer # max used save stack entries, for example `50`.
----@field max_strings integer # maximum allowed strings, for example `500000`.
----@field nest_size integer # nesting stack size, for example `1000`.
----@field node_mem_usage string # a string giving insight into currently used nodes, for example `2 hlist, 1 rule, 1 dir, 3 kern, 1 glyph, 3 attribute, 48 glue_spec, 3 attribute_list, 1 write`.
----@field obj_ptr integer # max *PDF* object pointer
----@field obj_tab_size integer # *PDF* object table size, for example `1000`.
----@field output_active boolean # `true` if the output routine is active, for example `false`.
----@field output_file_name string # name of the *PDF* or *DVI* file
----@field param_size integer # parameter stack size, for example `20000`.
----@field pdf_dest_names_ptr integer # max *PDF* destination pointer, for example `0`.
----@field pdf_gone integer # written *PDF* bytes, for example `0`.
----@field pdf_mem_ptr integer # max *PDF* memory used, for example `1`.
----@field pdf_mem_size integer # *PDF* memory size, for example `10000`.
----@field pdf_os_cntr integer # max *PDF* object stream pointer, for example `0`.
----@field pdf_os_objidx integer # *PDF* object stream index, for example `0`.
----@field pdf_ptr integer # not yet written *PDF* bytes, for example `0`.
----@field pool_ptr string # pool index, for example `393692`.
----@field pool_size integer # current size allocated for string characters, for example `20000`.
----@field safer_option integer # `1 # means safer is enforced, for example `0`.
----@field save_size integer # save stack size, for example `200000`.
----@field shell_escape integer# `0` means disabled, `1` means anything is permitted, and `2` is restricted, for example `2`.
----@field stack_size integer # input stack size, for example `10000`.
----@field str_ptr integer # of strings, for example `2119239`.
----@field total_pages integer # of written pages, for example `0`.
----@field var_mem_max integer # of allocated words for nodes, for example `100000`.
----@field var_used integer # variable (one-word) memory in use, for example `309`.
----
 
 ---
 ---The keys in the table are the known items, the value is the current value. Almost
