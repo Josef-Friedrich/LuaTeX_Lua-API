@@ -1,5 +1,7 @@
 ---@meta
 
+_N._10_2_the_status_library = "page 188"
+
 ---
 ---This library contains a number of run-time configuration items that you may find useful in message
 ---reporting, as well as an iterator function that gets all of the names and values as a `table`.

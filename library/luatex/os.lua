@@ -1,3 +1,6 @@
+_N._4_2_6_extra_os_library_functions = "page 64"
+
+---
 ---@meta
 ---
 ---# Extra `os` library functions
