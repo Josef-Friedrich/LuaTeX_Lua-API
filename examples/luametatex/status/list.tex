@@ -1,0 +1,6 @@
+\directlua{
+  info = status.list()
+  for key, value in pairs(info) do
+    print(key, value)
+  end
+}

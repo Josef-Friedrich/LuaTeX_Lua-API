@@ -4,4 +4,5 @@
 *.fdb_latexmk
 *.fls
 *.synctex*
+*.tuc
 dist/*
