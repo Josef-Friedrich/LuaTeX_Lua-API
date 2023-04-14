@@ -27,8 +27,11 @@ dist: fix_lua_docstrings
 test:
 	 luatex --luaonly examples/unicode/all.lua
 
-fetch_upstream:
-	resources/fetch-upstream.sh
+diff:
+	resources/make-diff.sh
+
+patch:
+	resources/patch.sh
 
 update_manual:
 	wget -O /usr/local/texlive/texmf-dist/doc/luatex/base/luatex.pdf https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/raw/master/manual/luatex.pdf

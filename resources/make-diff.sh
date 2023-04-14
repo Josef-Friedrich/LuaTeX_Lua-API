@@ -1,23 +1,8 @@
 #! /bin/sh
 
 LUA_HOME="${HOME}/repos/lua"
-
 PROJECT_DIR="${LUA_HOME}/luatex_api_all"
-
 LIBRARY="${PROJECT_DIR}/library"
-
-# diff -Naur
-_fetch() {
-  local PROJECT="$1"
-  local FILENAME="$2"
-  wget \
-    -O "${PROJECT_DIR}/library/luatex/${FILENAME}.lua_upstream.lua" \
-    "https://raw.githubusercontent.com/LuaCATS/${PROJECT}/main/library/${FILENAME}.lua"
-
-  patch \
-    "${PROJECT_DIR}/library/luatex/${FILENAME}.lua" < \
-    "${PROJECT_DIR}/resources/patches/${FILENAME}.diff"
-}
 
 _make_diff() {
   local PROJECT="$1"

@@ -4,12 +4,14 @@
 ---@meta
 ---The definitions are developed in this repository: https://github.com/LuaCATS/luaharfbuzz
 
+---
+---https://github.com/ufyTeX/luaharfbuzz/blob/master/src/harfbuzz.luadoc
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 luaharfbuzz = {}
 
 ---
----https://github.com/ufyTeX/luaharfbuzz/blob/master/src/harfbuzz.luadoc
-
----
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 ---@class LuaHarfBuzzOptions
 ---@field direction Direction # A `Direction` object representing the object.
 ---@field script Script # A `Script` object representing the script.
@@ -25,18 +27,24 @@ luaharfbuzz = {}
 ---@param buffer Buffer
 ---@param features Feature[]
 ---@param shapers string[]
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function luaharfbuzz.shape_full(font, buffer, features, shapers) end
 
 ---
 ---* Corresponding C source code: [luaharfbuzz.c#L44-L53](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/luaharfbuzz.c#L44-L53)
 ---
 ---@return string ...  # for example: `graphite2 ot fallback`
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function luaharfbuzz.shapers() end
 
 ---
 ---Wraps `hb_version`
 ---
 ---* Corresponding C source code: [luaharfbuzz.c#L39-L42](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/luaharfbuzz.c#L39-L42)
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function luaharfbuzz.version() end
 
 ---
@@ -47,12 +55,16 @@ function luaharfbuzz.version() end
 ---@param font Font # `Font` to use for shaping
 ---@param buffer Buffer # `Buffer` to shape
 ---@param options? LuaHarfBuzzOptions
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function luaharfbuzz.shape(font, buffer, options) end
 
 ---
 ---Lua wrapper for `hb_blob_t` type
 ---
 ---@class Blob
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 local Blob = {}
 luaharfbuzz.Blob = Blob
 
@@ -65,6 +77,8 @@ luaharfbuzz.Blob = Blob
 ---@param data string # lua string containing binary or character data.
 ---
 ---@return Blob
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Blob.new(data) end
 
 ---
@@ -76,6 +90,8 @@ function Blob.new(data) end
 ---@param filename string # lua string.
 ---
 ---@return Blob
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Blob.new_from_file(filename) end
 
 ---
@@ -84,6 +100,8 @@ function Blob.new_from_file(filename) end
 ---* Corresponding C source code: [blob.c#L28-L33](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/blob.c#L28-L33)
 ---
 ---@return integer
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Blob:get_length() end
 
 ---
@@ -92,10 +110,14 @@ function Blob:get_length() end
 ---* Corresponding C source code: [blob.c#L35-L44](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/blob.c#L35-L44)
 ---
 ---@return string
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Blob:get_data() end
 
 ---
 ---Lua wrapper for `hb_face_t` type
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 ---@class Face
 local Face = {}
 luaharfbuzz.Face = Face
@@ -110,6 +132,8 @@ luaharfbuzz.Face = Face
 ---@param font_index? integer # index of font to read.
 ---
 ---@return Face|nil
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Face.new_from_blob(blob, font_index) end
 
 ---
@@ -123,6 +147,8 @@ function Face.new_from_blob(blob, font_index) end
 ---@param font_index? integer # index of font to read.
 ---
 ---@return Face|nil
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Face.new(file, font_index) end
 
 ---
@@ -131,10 +157,14 @@ function Face.new(file, font_index) end
 ---* Corresponding C source code: [face.c#L264-L284](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L264-L284)
 ---
 ---@return table # of codepoints supported by the face.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Face:collect_unicodes() end
 
 ---
 ---Wraps `hb_face_get_glyph_count`.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Face:get_glyph_count() end
 
 ---
@@ -143,12 +173,16 @@ function Face:get_glyph_count() end
 ---@param tag Tag # `Tag` object of the table.
 ---
 ---@return Blob # `Blob` object for the face table of `tag`.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Face:get_table(tag) end
 
 ---
 ---Wraps `hb_face_get_table_tags`.
 ---
 ---@return Tag[] # table of `Tag`s representing face table tags.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Face:get_table_tags() end
 
 ---
@@ -157,6 +191,8 @@ function Face:get_table_tags() end
 ---* Corresponding C source code: [face.c#L286-L291](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L286-L291)
 ---
 ---@return integer
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Face:get_upem() end
 
 ---
@@ -165,6 +201,8 @@ function Face:get_upem() end
 ---* Corresponding C source code: [face.c#L293-L298](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L293-L298)
 ---
 ---@return boolean
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Face:ot_color_has_palettes() end
 
 ---
@@ -173,9 +211,12 @@ function Face:ot_color_has_palettes() end
 ---* Corresponding C source code: [face.c#L300-L305](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L300-L305)
 ---
 ---@return integer
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Face:ot_color_palette_get_count() end
 
 ---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 ---@class LuaHarfBuzzColor
 ---@field red integer
 ---@field green integer
@@ -188,6 +229,8 @@ function Face:ot_color_palette_get_count() end
 ---* Corresponding C source code: [face.c#L307-L347](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L307-L347)
 ---
 ---@return LuaHarfBuzzColor[]
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Face:ot_color_palette_get_colors() end
 
 ---
@@ -195,6 +238,8 @@ function Face:ot_color_palette_get_colors() end
 ---
 ---* Corresponding C source code: [face.c#L349-L354](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L349-L354)
 ---@return boolean
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Face:ot_color_has_layers() end
 
 ---
@@ -202,6 +247,8 @@ function Face:ot_color_has_layers() end
 ---
 ---* Corresponding C source code: [face.c#L356-L392](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L356-L392)
 ---
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Face:ot_color_glyph_get_layers() end
 
 ---
@@ -210,6 +257,8 @@ function Face:ot_color_glyph_get_layers() end
 ---* Corresponding C source code: [face.c#L394-L399](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L394-L399)
 ---
 ---@return boolean
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Face:ot_color_has_png() end
 
 ---
@@ -218,6 +267,8 @@ function Face:ot_color_has_png() end
 ---* Corresponding C source code: [face.c#L126-L156](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L126-L156)
 ---
 ---@return Tag[]
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Face:ot_layout_get_script_tags() end
 
 ---
@@ -226,6 +277,8 @@ function Face:ot_layout_get_script_tags() end
 ---* Corresponding C source code: [face.c#L158-L189](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L158-L189)
 ---
 ---@return Tag[]
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Face:ot_layout_get_language_tags() end
 
 ---
@@ -234,6 +287,8 @@ function Face:ot_layout_get_language_tags() end
 ---* Corresponding C source code: [face.c#L191-L223](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L191-L223)
 ---
 ---@return Tag[]
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Face:ot_layout_get_feature_tags() end
 
 ---
@@ -243,6 +298,8 @@ function Face:ot_layout_get_feature_tags() end
 ---
 ---@return boolean found
 ---@return integer index
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Face:ot_layout_find_script() end
 
 ---
@@ -252,6 +309,8 @@ function Face:ot_layout_find_script() end
 ---
 ---@return boolean found
 ---@return integer index
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Face:ot_layout_find_language() end
 
 ---
@@ -261,11 +320,14 @@ function Face:ot_layout_find_language() end
 ---
 ---@return boolean found
 ---@return integer index
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Face:ot_layout_find_feature() end
 
 ---
 ---Lua wrapper for `hb_font_t` type
 ---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 ---@class Font
 local Font = {}
 luaharfbuzz.Font = Font
@@ -277,6 +339,8 @@ luaharfbuzz.Font = Font
 ---calling `hb_ot_font_set_funcs` on it.
 ---
 ---@param face Face # `Face` object.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Font.new(face) end
 
 ---
@@ -286,6 +350,8 @@ function Font.new(face) end
 ---
 ---@return integer # x-scale of the font.
 ---@return integer # y-scale of the font.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Font:get_scale() end
 
 ---
@@ -295,9 +361,12 @@ function Font:get_scale() end
 ---
 ---@param x_scale integer # desired x-scale of font.
 ---@param y_scale integer # desired y-scale of font.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Font:set_scale(x_scale, y_scale) end
 
 ---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 ---@class FontExtens
 ---@field ascender integer # typographic ascender.
 ---@field descender integer # typographic descender.
@@ -309,6 +378,8 @@ function Font:set_scale(x_scale, y_scale) end
 ---@param glyph integer # index inside the font.
 ---
 ---@return FontExtens|nil # font extents table for horizontal direction, contains the following or `nil` if HarfBuzz fails to load font extents:
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Font:get_h_extents(glyph) end
 
 ---
@@ -317,9 +388,12 @@ function Font:get_h_extents(glyph) end
 ---@param glyph integer # index inside the font.
 ---
 ---@return FontExtens|nil # font extents table for vertical direction, similar to `Font:get_h_extents`, or `nil` if HarfBuzz fails to load font extents:
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Font:get_v_extents(glyph) end
 
 ---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 ---@class GlyphExtens
 ---@field x_bearing integer # left side of glyph from origin.
 ---@field y_bearing integer # top side of glyph from origin.
@@ -333,6 +407,8 @@ function Font:get_v_extents(glyph) end
 ---
 ---@return GlyphExtens|nil # extents table contains the following or `nil` if HarfBuzz fails to
 ---load glyph extents
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Font:get_glyph_extents(glyph) end
 
 ---
@@ -341,6 +417,8 @@ function Font:get_glyph_extents(glyph) end
 ---@param glyph integer # index inside the font.
 ---
 ---@return string # name of the glyph or nil.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Font:get_glyph_name(glyph) end
 
 ---
@@ -349,6 +427,8 @@ function Font:get_glyph_name(glyph) end
 ---@param name string # name of the glyph.
 ---
 ---@return integer # glyph index inside the font or nil.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Font:get_glyph_from_name(name) end
 
 ---
@@ -357,6 +437,8 @@ function Font:get_glyph_from_name(name) end
 ---@param glyph integer # glyph index inside the font.
 ---
 ---@return integer # advance glyph advance of the glyph in horizontal direction.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Font:get_glyph_h_advance(glyph) end
 
 ---
@@ -365,6 +447,8 @@ function Font:get_glyph_h_advance(glyph) end
 ---@param glyph integer # glyph index inside the font.
 ---
 ---@return integer # advance glyph advance of the glyph in vertical direction.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Font:get_glyph_v_advance(glyph) end
 
 ---
@@ -373,20 +457,28 @@ function Font:get_glyph_v_advance(glyph) end
 ---@param codepoint integer
 ---
 ---@return integer|nil # glyph index or `nil` if `codepoint` is not supported by the font.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Font:get_nominal_glyph(codepoint) end
 
 ---
 ---Wraps `hb_ot_color_glyph_get_png`.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Font:ot_color_glyph_get_png() end
 
 ---
 ---Lua wrapper for `hb_buffer_t` type.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 ---@class Buffer
 local Buffer = {}
 luaharfbuzz.Buffer = Buffer
 
 ---
 ---Wraps `hb_buffer_create`.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Buffer.new() end
 
 ---
@@ -394,6 +486,8 @@ function Buffer.new() end
 ---
 ---@param text string # UTF8 encoded string.
 ---@param opt? integer [opt=0] item_offset 0-indexed offset in `text`, from where to start adding. [opt=-1] item_length length to add from `item_offset`. `-1` adds till end of `text`.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Buffer:add_utf8(text, opt) end
 
 ---
@@ -401,71 +495,97 @@ function Buffer:add_utf8(text, opt) end
 ---
 ---@param text integer[] # with codepoints as lua numbers.
 ---@param opt? integer [opt=0] item_offset 0-indexed offset in `text`, from where to start adding. [opt=-1] item_length length to add from `item_offset`. `-1` adds till end of `text`.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Buffer:add_codepoints(text, opt) end
 
 ---
 ---Wraps `hb_buffer_set_direction`.
 ---
 ---@param dir Direction # A `Direction` object.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Buffer:set_direction(dir) end
 
 ---
 ---Wraps `hb_buffer_get_direction`.
 ---
 ---@return Direction # A `Direction` object.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Buffer:get_direction() end
 
 ---
 ---Wraps `hb_buffer_set_script`.
 ---
 ---@param script Script # A `Script` object.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Buffer:set_script(script) end
 
 ---
 ---Wraps `hb_buffer_get_script`.
 ---
 ---@return Script # A `Script` object.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Buffer:get_script() end
 
 ---
 ---Wraps `hb_buffer_set_language`.
 ---
 ---@param lang Language A `Language` object
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Buffer:set_language(lang) end
 
 ---
 ---Wraps `hb_buffer_get_language`.
 ---
 ---@return Language # A `Language` object
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Buffer:get_language() end
 
 ---
 ---Wraps `hb_buffer_reverse`.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Buffer:reverse() end
 
 ---
 ---Wraps `hb_buffer_get_length`.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Buffer:get_length() end
 
 ---
 ---Wraps `hb_buffer_get_cluster_level`.
 ---
 ---@return integer level # see Cluster Levels
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Buffer:get_cluster_level() end
 
 ---
 ---Wraps `hb_buffer_set_cluster_level`.
 ---
 ---@param level integer # see Cluster Levels
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Buffer:set_cluster_level(level) end
 
 ---
 ---Wraps `hb_buffer_guess_segment_properties`.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Buffer:guess_segment_properties() end
 
 ---
 ---containing data for each glyph, in a nested table. Each nested
 ---table contains the following:
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 ---@class Glyph
 ---@field x_advance number # horizontal advance.
 ---@field y_advance number # vertical advance.
@@ -481,6 +601,8 @@ function Buffer:guess_segment_properties() end
 ---`hb_glyph_info_get_glyph_flags`, and assembles the data into a Lua table.
 ---
 ---@return Glyph[]
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Buffer:get_glyphs() end
 
 ---
@@ -489,31 +611,45 @@ function Buffer:get_glyphs() end
 ---about what each of these levels mean.
 ---
 ---Wraps `HB_BUFFER_CLUSTER_LEVEL_MONOTONE_GRAPHEMES`.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 Buffer.CLUSTER_LEVEL_MONOTONE_GRAPHEMES = 0
 
 ---
 ---Wraps `HB_BUFFER_CLUSTER_LEVEL_MONOTONE_CHARACTERS`.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 Buffer.CLUSTER_LEVEL_MONOTONE_CHARACTERS = 1
 
 ---
 ---Wraps `HB_BUFFER_CLUSTER_LEVEL_CHARACTERS`.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 Buffer.CLUSTER_LEVEL_CHARACTERS = 2
 
 ---
 ---Wraps `HB_BUFFER_CLUSTER_LEVEL_DEFAULT`.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 Buffer.CLUSTER_LEVEL_DEFAULT = 0
 
 ---
 ---Wraps `HB_GLYPH_FLAG_UNSAFE_TO_BREAK`.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 Buffer.GLYPH_FLAG_UNSAFE_TO_BREAK = 1
 
 ---
 ---Wraps `HB_GLYPH_FLAG_DEFINED`.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 Buffer.GLYPH_FLAG_DEFINED = 3
 
 ---
 ---Lua wrapper for `hb_feature_t` type
 ---
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 ---@class Feature
 local Feature = {}
 luaharfbuzz.Feature = Feature
@@ -521,16 +657,21 @@ luaharfbuzz.Feature = Feature
 ---
 ---Wraps `hb_feature_from_string`
 ---@param feature_string string # See [feature string syntax reference](https://github.com/ufytex/luaharfbuzz/wiki/Feature-Strings)
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Feature.new(feature_string) end
 
 ---
 ---Wraps `hb_feature_to_string`.
 ---Enables nice output with `tostring(…)`.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Feature:__tostring() end
 
 ---
 ---Lua wrapper for `hb_tag_t` type.
 ---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 ---@class Tag
 local Tag = {}
 luaharfbuzz.Tag = Tag
@@ -541,23 +682,30 @@ luaharfbuzz.Tag = Tag
 ---@param s string # to be converted to a `Tag` object.
 ---
 ---@return Tag # a `Tag` object.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Tag.new(s) end
 
 ---
 ---Wraps `hb_tag_to_string`. Enable nice output with `tostring(…)`.
 ---
 ---@return string # Returns a string representation for the tag object.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Tag:__to_string() end
 
 ---
 ---Enables equality comparisions with `==` between two tags.
 ---
 ---@return boolean# `true` or `false` depending on whether the two tags are equal.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Tag:__eq() end
 
 ---
 ---Lua wrapper for `hb_script_t` type.
 ---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 ---@class Script
 local Script = {}
 luaharfbuzz.Script = Script
@@ -568,6 +716,8 @@ luaharfbuzz.Script = Script
 ---@param script string # 4-letter script code according to the [ISO 15924 standard](http://www.unicode.org/iso15924/iso15924-num.html).
 ---
 ---@return Script # a `Script` object.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Script.new(script) end
 
 ---
@@ -576,6 +726,8 @@ function Script.new(script) end
 ---* HarfBuzz online documentation: [harfbuzz-hb-common.html#hb-script-from-iso15924-tag](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-script-from-iso15924-tag)
 ---
 ---@param tag Tag # a `Tag` object representing a [ISO 15924 script](http://www.unicode.org/iso15924/iso15924-num.html).
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Script.from_iso15924_tag(tag) end
 
 ---
@@ -584,50 +736,61 @@ function Script.from_iso15924_tag(tag) end
 ---* HarfBuzz online documentation: [harfbuzz-hb-common.html#hb-script-to-iso15924-tag](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-script-to-iso15924-tag)
 ---
 ---@return Tag # a `Tag` object representing the script.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Script:to_iso15924_tag() end
 
 ---
 ---Enable nice output with `tostring(…)`
 ---
 ---@return string # Returns a 4-letter [ISO 15924 script code](http://www.unicode.org/iso15924/iso15924-num.html) for the script object.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Script:__to_string() end
 
 ---
 ---Enables equality comparisions with `==` between two scripts.
 ---@return boolean `true` or `false` depending on whether the two scripts are equal.
-function Script:__eq() end
-
 ---
----Predefined Script Codes.
----Predefined directions that correspond to their original definitions in Harfbuzz.
----@section
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
+function Script:__eq() end
 
 ---
 ---Wraps `HB_SCRIPT_COMMON`.
 ---
 ---* [HarfBuzz online documentation](https://harfbuzz.github.io/harfbuzz-hb-common.html#HB-SCRIPT-COMMON:CAPS)
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 Script.COMMON = "Zyyy"
 
 ---
 ---Wraps `HB_SCRIPT_INHERITED`.
 ---
 ---* [HarfBuzz online documentation](https://harfbuzz.github.io/harfbuzz-hb-common.html#HB-SCRIPT-INHERITED:CAPS)
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 Script.INHERITED = "Zinh"
 
 ---
 ---Wraps `HB_SCRIPT_UNKNOWN`.
 ---
 ---* [HarfBuzz online documentation](https://harfbuzz.github.io/harfbuzz-hb-common.html#HB-SCRIPT-UNKNOWN:CAPS)
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 Script.UNKNOWN = "Zzzz"
 
 ---
 ---Wraps `HB_SCRIPT_INVALID`.
 ---
 ---* [HarfBuzz online documentation](https://harfbuzz.github.io/harfbuzz-hb-common.html#HB-SCRIPT-INVALID:CAPS)
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 Script.INVALID = "No script set"
 
 ---
 ---Lua wrapper for `hb_direction_t` type.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 ---@class Direction
 local Direction = {}
 luaharfbuzz.Direction = Direction
@@ -637,48 +800,64 @@ luaharfbuzz.Direction = Direction
 ---@param dir `ltr`|`rtl`|`ttb`|`btt`|`invalid` # can be one of `ltr`, `rtl`, `ttb`, `btt` or `invalid`.
 ---
 ---@return Direction # a `Direction` object.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Direction.new(dir) end
 
 ---
 ---Wraps `hb_direction_to_string`. Enable nice output with `tostring(…)`.
 ---
 ---@return string # Returns a string representation for direction.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Direction:__to_string() end
 
 ---
 ---Enables equality comparisions with `==` between two directions.
 ---
 ---@return boolean # `true` or `false` depending on whether the two tags are equal.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Direction:__eq() end
 
 ---
 ---Wraps `HB_DIRECTION_IS_VALID`.
 ---
 ---@return boolean # a boolean value
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Direction:is_valid() end
 
 ---
 ---Wraps `HB_DIRECTION_IS_HORIZONTAL`.
 ---
 ---@return boolean # a boolean value
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Direction:is_horizontal() end
 
 ---
 ---Wraps `HB_DIRECTION_IS_VERTICAL`.
 ---
 ---@return boolean # a boolean value
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Direction:is_vertical() end
 
 ---
 ---Wraps `HB_DIRECTION_IS_FORWARD`.
 ---
 ---@return boolean # a boolean value
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Direction:is_forward() end
 
 ---
 ---Wraps `HB_DIRECTION_IS_BACKWARD`.
 ---
 ---@return boolean # a boolean value
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Direction:is_backward() end
 
 ---
@@ -686,6 +865,8 @@ function Direction:is_backward() end
 ---
 ---Predefined directions that correspond to their original definitions in Harfbuzz.
 ---@type integer|nil
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 luaharfbuzz.Direction.LTR = 4
 
 ---
@@ -693,6 +874,8 @@ luaharfbuzz.Direction.LTR = 4
 ---
 ---Predefined directions that correspond to their original definitions in Harfbuzz.
 ---@type integer|nil
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 luaharfbuzz.Direction.RTL = 0
 
 ---
@@ -700,6 +883,8 @@ luaharfbuzz.Direction.RTL = 0
 ---
 ---Predefined directions that correspond to their original definitions in Harfbuzz.
 ---@type integer|nil
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 luaharfbuzz.Direction.TTB = 0
 
 ---
@@ -707,30 +892,40 @@ luaharfbuzz.Direction.TTB = 0
 ---
 ---Predefined directions that correspond to their original definitions in Harfbuzz.
 ---@type integer|nil
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 luaharfbuzz.Direction.BTT = 0
 
 ---
 ---Lua wrapper for `hb_language_t` type.
 ---@class Language
 local Language = {}
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 luaharfbuzz.Language = Language
 
 ---
 ---Wraps `hb_language_from_string`.
 ---@param lang string [three-letter language tag](http://www.microsoft.com/typography/otspec/languagetags.htm) to be converted to a `Language` object.
 ---@return Language # a `Language` object.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Language.new(lang) end
 
 ---
 ---Wraps `hb_language_to_string`. Enable nice output with `tostring(…)`.
 ---
 ---@return string # Returns a string representation for the language object.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Language:__to_string() end
 
 ---
 ---Enables equality comparisions with `==` between two languages.
 ---
 ---@return boolean # `true` or `false` depending on whether the two languages are equal.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Language:__eq() end
 
 ---
@@ -747,11 +942,15 @@ luaharfbuzz.unicode = unicode
 ---Wraps `hb_unicode_script`
 ---@param char integer # Unicode codepoint
 ---@return Script # a `Script` object.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function unicode.script(char) end
 
 ---
 ---Predefined Name IDs.
 ---Predefined OpenType 'name' table name identifier.
+---
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 ---@class ot
 ---@field NAME_ID_COPYRIGHT string # Wraps `HB_OT_NAME_ID_COPYRIGHT`
 ---@field NAME_ID_FONT_FAMILY string # Wraps `HB_OT_NAME_ID_FONT_FAMILY`
