@@ -5,17 +5,13 @@
 ---
 ---https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-table.lua
 
----
----* Corresponding Lua source code: [lualibs-table.lua#L24-L26](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L24-L26)
----
----@param tab table
-function table.getn(tab) end
+_N.sorted = "page "
 
 ---
----* Corresponding Lua source code: [lualibs-table.lua#L28-L41](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L28-L41)
----
 ---@param tab table
-function table.strip(tab) end
+function table.sorted(tab) end
+
+_N.keys_sortedkeys_sortedhashkeys_sortedhash = "page "
 
 ---
 ---__Example:__
@@ -35,12 +31,6 @@ function table.strip(tab) end
 function table.keys(tab) end
 
 ---
----* Corresponding Lua source code: [lualibs-table.lua#L247-L255](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L247-L255)
----
----@param tab table
-function table.allkeys(tab) end
-
----
 ---Provide a sorted list of keys.
 ---
 ---__Example:__
@@ -57,20 +47,6 @@ function table.allkeys(tab) end
 ---
 ---@param tab table
 function table.sortedkeys(tab) end
-
----
----* Corresponding Lua source code: [lualibs-table.lua#L190-L207](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L190-L207)
----
----@param tab table
----
----@return any[]
-function table.sortedhashonly(tab) end
-
----
----* Corresponding Lua source code: [lualibs-table.lua#L209-L226](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L209-L226)
----
----@param tab table
-function table.sortedindexonly(tab) end
 
 ---
 ---__Example:__
@@ -112,6 +88,9 @@ function table.sortedhashkeys(tab, cmp) end
 function table.sortedhash(tab, cmp) end
 
 ---
+---a synonym of sortedhash which sometimes looks more natural
+---when used alongside the pairs and ipairs iterators.
+---
 ---* Corresponding Lua source code: [lualibs-table.lua#L264-L288](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L264-L288)
 ---@deprecated
 ---
@@ -121,6 +100,124 @@ function table.sortedhash(tab, cmp) end
 ---@return fun(): key: integer, value: any
 function table.sortedpairs(tab, cmp) end
 
+_N.serialize_print_tohandle_tofile = ""
+
+---
+---Convert a table into a verbose representation.
+---
+---__Reference:__
+---
+---* Context Lua Documents, July 25. 2021, page 77
+---* Corresponding Lua source code: [lualibs-table.lua#L965-L974](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L965-L974)
+---* Corresponding Lua source code: [lualibs-util-tab.lua#L715-L909](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-util-tab.lua#L715-L909)
+---
+function table.serialize(root, name, specification) end
+
+---
+---Print the result to the console which is handy for tracing.
+---
+---__Reference:__
+---
+---* Context Lua Documents, July 25. 2021, page 77
+---* Corresponding Lua source code: [lualibs-table.lua#L1308-L1314](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1308-L1314)
+---
+---@param tab table
+function table.print(tab) end
+
+---
+---Write the table to a file, using reasonable chunks so that less memory is used.
+---
+---__Reference:__
+---
+---* Context Lua Documents, July 25. 2021, page 77
+---
+---* Corresponding Lua source code: [lualibs-table.lua#L987-L1013](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L987-L1013)
+---
+function table.tofile(filename, root, name, specification) end
+
+---
+---Take a handle so that you can do whatever you like with the result.
+---
+---__Reference:__
+---
+---* Context Lua Documents, July 25. 2021, page 77
+function table.tohandle(handle, root, name, specification) end
+
+_N.identical_are_equal = ""
+
+---
+---Operate on a hash.
+---
+---* Corresponding Lua source code: [lualibs-table.lua#L1134-L1150](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1134-L1150)
+---
+---@param a table
+---@param b table
+function table.identical(a, b) end
+
+---
+---Assume an indexed table.
+---
+---* Corresponding Lua source code: [lualibs-table.lua#L1106-L1132](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1106-L1132)
+---
+---@param a table
+---@param b table
+function table.are_equal(a, b, n, m) end
+
+_N.tohash_fromhash_swapped_swaphash_reversed_reverse_mirrored = ""
+
+---
+---Convert a list into a hash so
+---that we can easily check if (a string) is in a given set.
+---
+---* Corresponding Lua source code: [lualibs-table.lua#L505-L514](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L505-L514)
+---
+---@param tab table
+function table.tohash(tab, value) end
+
+---
+---Create a list of keys from a hashed table where
+---each value that is not `false` or `nil` is present.
+---
+---* Corresponding Lua source code: [lualibs-table.lua#L516-L526](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L516-L526)
+---
+---@param tab table
+function table.fromhash(tab) end
+
+---
+---Turns keys into values.
+---
+---* Corresponding Lua source code: [lualibs-table.lua#L1197-L1208](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1197-L1208)
+---
+---@param tab any[]
+function table.swapped(tab, s) end
+
+---
+------Reverse the values in an indexed table.
+---
+---* Corresponding Lua source code: [lualibs-table.lua#L1241-L1251](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1241-L1251)
+---
+---@param tab any[]
+function table.reverse(tab) end
+
+---
+---Reverse the values in an indexed table and reverses the table itself (inplace).
+---
+---* Corresponding Lua source code: [lualibs-table.lua#L1226-L1239](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1226-L1239)
+---
+---@param tab any[]
+function table.reversed(tab) end
+
+---
+---* Corresponding Lua source code: [lualibs-table.lua#L1217-L1224](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1217-L1224)
+---
+---@param tab table
+function table.mirrored(tab) end
+
+_N.append_prepend = ""
+
+---
+---The first table gets
+---appended by the second. The first table is returned as well.
 ---
 ---* Corresponding Lua source code: [lualibs-table.lua#L324-L331](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L324-L331)
 ---
@@ -131,6 +228,9 @@ function table.sortedpairs(tab, cmp) end
 function table.append(tab, list) end
 
 ---
+---The first table gets
+---prepended by the second. The first table is returned as well.
+---
 ---* Corresponding Lua source code: [lualibs-table.lua#L333-L344](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L333-L344)
 ---
 ---@param tab any[]
@@ -139,6 +239,10 @@ function table.append(tab, list) end
 ---@return any[] tab
 function table.prepend(tab, list) end
 
+_N.merge_merged_imerge_imerged = ""
+
+---
+---Merge multiple hashes
 ---
 ---first one is target
 ---
@@ -151,13 +255,7 @@ function table.prepend(tab, list) end
 function table.merge(tab, ...) end
 
 ---
----* Corresponding Lua source code: [lualibs-table.lua#L379-L387](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L379-L387)
----
----@param ... table
----
----@return table new_tab
-function table.merged(...) end
-
+---Merge multiple indexed tables.
 ---
 ---first one is target
 ---
@@ -170,6 +268,24 @@ function table.merged(...) end
 function table.imerge(tab, ...) end
 
 ---
+---Merge multiple hashes.
+---
+---The variants ending with a `d` merge the given list of tables and return
+---the result leaving the first argument untouched.
+---
+---* Corresponding Lua source code: [lualibs-table.lua#L379-L387](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L379-L387)
+---
+---@param ... table
+---
+---@return table new_tab
+function table.merged(...) end
+
+---
+---Merge multiple indexed tables.
+---
+---The variants ending with a `d` merge the given list of tables and return
+---the result leaving the first argument untouched.
+---
 ---* Corresponding Lua source code: [lualibs-table.lua#L425-L436](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L425-L436)
 ---
 ---@param ... any[]
@@ -177,15 +293,13 @@ function table.imerge(tab, ...) end
 ---@return any[] new_tab
 function table.imerged(...) end
 
----
----* Corresponding Lua source code: [lualibs-table.lua#L438-L459](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L438-L459)
----
----@param tab table
----@param metatabletoo? boolean
----
----@return table new_tab
-function table.fastcopy(tab, metatabletoo) end
+_N.copy_fastcopy = ""
 
+---
+---Make a real and deep copy.
+---
+---This
+---function is an adapted version from the *Lua* wiki.
 ---
 ---* Corresponding Lua source code: [lualibs-table.lua#L463-L492](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L463-L492)
 ---
@@ -196,49 +310,62 @@ function table.fastcopy(tab, metatabletoo) end
 function table.copy(tab, tables) end
 
 ---
+---Make a real and deep copy.
+---
+---This function is faster than table.copy()
+---because it does not check for circular references and does not share tables when
+---possible. In practice using the fast variant is okay.
+---
+---* Corresponding Lua source code: [lualibs-table.lua#L438-L459](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L438-L459)
+---
+---@param tab table
+---@param metatabletoo? boolean
+---
+---@return table new_tab
+function table.fastcopy(tab, metatabletoo) end
+
+---
+---* Corresponding Lua source code: [lualibs-table.lua#L24-L26](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L24-L26)
+---
+---@param tab table
+function table.getn(tab) end
+
+---
+---* Corresponding Lua source code: [lualibs-table.lua#L28-L41](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L28-L41)
+---
+---@param tab table
+function table.strip(tab) end
+
+---
+---* Corresponding Lua source code: [lualibs-table.lua#L247-L255](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L247-L255)
+---
+---@param tab table
+function table.allkeys(tab) end
+
+---
+---* Corresponding Lua source code: [lualibs-table.lua#L190-L207](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L190-L207)
+---
+---@param tab table
+---
+---@return any[]
+function table.sortedhashonly(tab) end
+
+---
+---* Corresponding Lua source code: [lualibs-table.lua#L209-L226](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L209-L226)
+---
+---@param tab table
+function table.sortedindexonly(tab) end
+
+---
 ---* Corresponding Lua source code: [lualibs-table.lua#L497-L503](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L497-L503)
 ---
 function table.derive(parent) end
-
----
----* Corresponding Lua source code: [lualibs-table.lua#L505-L514](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L505-L514)
----
----@param tab table
-function table.tohash(tab, value) end
-
----
----* Corresponding Lua source code: [lualibs-table.lua#L516-L526](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L516-L526)
----
----@param tab table
-function table.fromhash(tab) end
 
 ---
 ---* Corresponding Lua source code: [lualibs-table.lua#L536-L598](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L536-L598)
 ---
 ---@param tab table
 function table.is_simple_table(tab, hexify, accurate) end
-
----
----converts a table into a verbose representation
----
----__Reference:__
----
----* Context Lua Documents, July 25. 2021, page 77
----* Corresponding Lua source code: [lualibs-table.lua#L965-L974](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L965-L974)
----* Corresponding Lua source code: [lualibs-util-tab.lua#L715-L909](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-util-tab.lua#L715-L909)
----
-function table.serialize(root, name, specification) end
-
----
----writes the table to a file, using reasonable chunks so that less memory is used
----
----__Reference:__
----
----* Context Lua Documents, July 25. 2021, page 77
----
----* Corresponding Lua source code: [lualibs-table.lua#L987-L1013](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L987-L1013)
----
-function table.tofile(filename, root, name, specification) end
 
 ---
 ---* Corresponding Lua source code: [lualibs-table.lua#L1015-L1044](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1015-L1044)
@@ -265,16 +392,6 @@ function table.collapsedhash(tab, h) end
 function table.unnest(tab) end
 
 ---
----* Corresponding Lua source code: [lualibs-table.lua#L1106-L1132](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1106-L1132)
----
-function table.are_equal(a, b, n, m) end
-
----
----* Corresponding Lua source code: [lualibs-table.lua#L1134-L1150](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1134-L1150)
----
-function table.identical(a, b) end
-
----
 ---* Corresponding Lua source code: [lualibs-table.lua#L1155-L1170](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1155-L1170)
 ---
 function table.sparse(old, nest, keeptables) end
@@ -298,51 +415,16 @@ function table.contains(tab, v) end
 function table.count(tab) end
 
 ---
----* Corresponding Lua source code: [lualibs-table.lua#L1197-L1208](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1197-L1208)
----
----@param tab table
-function table.swapped(tab, s) end
-
----
 ---* Corresponding Lua source code: [lualibs-table.lua#L1210-L1215](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1210-L1215)
 ---
 ---@param tab table
 function table.hashed(tab) end
 
 ---
----* Corresponding Lua source code: [lualibs-table.lua#L1217-L1224](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1217-L1224)
----
----@param tab table
-function table.mirrored(tab) end
-
----
----* Corresponding Lua source code: [lualibs-table.lua#L1226-L1239](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1226-L1239)
----
----@param tab table
-function table.reversed(tab) end
-
----
----* Corresponding Lua source code: [lualibs-table.lua#L1241-L1251](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1241-L1251)
----
----@param tab table
-function table.reverse(tab) end
-
----
 ---* Corresponding Lua source code: [lualibs-table.lua#L1255-L1304](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1255-L1304)
 ---
 ---@param tab table
 function table.sequenced(tab, sep, simple) end
-
----
----prints the result to the console which is handy for tracing
----
----__Reference:__
----
----* Context Lua Documents, July 25. 2021, page 77
----* Corresponding Lua source code: [lualibs-table.lua#L1308-L1314](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1308-L1314)
----
----@param tab table
-function table.print(tab) end
 
 ---
 ---* Corresponding Lua source code: [lualibs-util-tab.lua#L262-L275](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-util-tab.lua#L262-L275)
@@ -398,8 +480,6 @@ function table.ordered(tab) end
 ---* Corresponding Lua source code: [lualibs-util-tab.lua#L982-L996](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-util-tab.lua#L982-L996)
 ---
 function table.combine(target, source) end
----@param tab table
-function table.sorted(tab) end
 
 ---
 ---@param tab table
@@ -455,13 +535,6 @@ function table.sub(tab, i, j) end
 ---@param tab table
 function table.tocsv(tab, specification) end
 
----
----takes a handle so that you can do whatever you like with the result.
----
----__Reference:__
----
----* Context Lua Documents, July 25. 2021, page 77
-function table.tohandle(handle, root, name, specification) end
 function table.unique(old) end
 
 ---
