@@ -37,3 +37,4 @@ _sync lualatex
 _sync lualibs
 _sync luametatex
 _sync luatex
+_sync vscode_luatex
