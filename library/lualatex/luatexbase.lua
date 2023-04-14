@@ -193,7 +193,7 @@ function luatexbase.provides_module(module) end
 ---error down.
 ---
 ---* Corresponding DTX source code: [ltluatex.dtx#L335-L343](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L335-L343)
----* Corresponding C source code: [ltluatex.dtx#L1079-L1081](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L1079-L1081)
+---* Corresponding DTX source code: [ltluatex.dtx#L1079-L1081](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L1079-L1081)
 ---
 ---@param module string
 ---@param text string
@@ -215,7 +215,7 @@ function luatexbase.module_info(module, text) end
 ---error down.
 ---
 ---* Corresponding DTX source code: [ltluatex.dtx#L335-L343](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L335-L343)
----* Corresponding C source code: [ltluatex.dtx#L1083-L1086](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L1083-L1086)
+---* Corresponding DTX source code: [ltluatex.dtx#L1083-L1086](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L1083-L1086)
 ---
 ---@param module string
 ---@param text string
@@ -237,8 +237,7 @@ function luatexbase.module_warning(module, text) end
 ---error down.
 ---
 ---* Corresponding DTX source code: [ltluatex.dtx#L335-L343](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L335-L343)
----
----* Corresponding C source code: [ltluatex.dtx#L1087-L1090](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L1087-L1090)
+---* Corresponding DTX source code: [ltluatex.dtx#L1087-L1090](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L1087-L1090)
 ---
 ---@param module string
 ---@param text string
@@ -271,7 +270,7 @@ function luatexbase.new_attribute() end
 ---@return integer
 ---
 ---* Corresponding DTX source code: [ltluatex.dtx#L210-L212](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L210-L212)
----* Corresponding C source code: [ltluatex.dtx#L1241-L1253](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L1241-L1253)
+---* Corresponding DTX source code: [ltluatex.dtx#L1241-L1253](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L1241-L1253)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualatex/luatexbase.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function luatexbase.new_bytecode(name) end
@@ -284,7 +283,7 @@ function luatexbase.new_bytecode(name) end
 ---`lua.name` array at that index.
 ---
 ---* Corresponding DTX source code: [ltluatex.dtx#L216-L220](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L216-L220)
----* Corresponding C source code: [ltluatex.dtx#L1264-L1279](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L1264-L1279)
+---* Corresponding DTX source code: [ltluatex.dtx#L1264-L1279](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L1264-L1279)
 ---
 ---@param name string
 ---
@@ -302,7 +301,7 @@ function luatexbase.new_chunkname(name) end
 ---is just used for logging.
 ---
 ---* Corresponding DTX source code: [ltluatex.dtx#L226-L229](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L226-L229)
----* Corresponding C source code: [ltluatex.dtx#L1290-L1302](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L1290-L1302)
+---* Corresponding DTX source code: [ltluatex.dtx#L1290-L1302](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L1290-L1302)
 ---
 ---@param name? string
 ---
@@ -315,7 +314,7 @@ function luatexbase.new_luafunction(name) end
 ---Return an allocation number for the custom `whatsit`, indexed from 1.
 ---
 ---* Corresponding DTX source code: [ltluatex.dtx#L203-L206](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L203-L206)
----* Corresponding C source code: [ltluatex.dtx#L1219-L1230](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L1219-L1230)
+---* Corresponding DTX source code: [ltluatex.dtx#L1219-L1230](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L1219-L1230)
 ---
 ---@param name? string
 ---
