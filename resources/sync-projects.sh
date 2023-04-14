@@ -37,4 +37,16 @@ _sync lualatex
 _sync lualibs
 _sync luametatex
 _sync luatex
-_sync vscode_luatex
+
+# Sync vscode addon
+
+cd "$LUA_HOME/vscode_luatex"
+
+git pull origin
+
+rsync -av --delete "${PROJECT_DIR}/dist/" "${LUA_HOME}/vscode_luatex/library/"
+
+echo $COMMIT_MESSAGE
+git add -Av
+git commit -m "$COMMIT_MESSAGE"
+git push -u origin main
