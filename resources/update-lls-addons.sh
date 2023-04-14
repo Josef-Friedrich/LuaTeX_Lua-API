@@ -32,7 +32,5 @@ _update() {
 }
 
 for ADDON in $ADDONS; do
-
   _update $ADDON
-
 done

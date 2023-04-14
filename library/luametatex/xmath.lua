@@ -92,6 +92,7 @@ function xmath.atan2(a, b) end
 ---
 ---* Corresponding C source code: [lmtxmathlib.c#L66-L70](https://github.com/contextgarden/luametatex/blob/812e28feca3cf5de5f41a7fb3ebf25e4a4b2ae00/source/luarest/lmtxmathlib.c#L66-L70)
 function xmath.atanh(a) end
+
 ---* cppreference.com: [numeric/math/atan2](https://en.cppreference.com/w/c/numeric/math/)
 ---
 ---@param a number

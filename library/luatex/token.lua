@@ -956,6 +956,7 @@ function token.set_char(csname, number, global) end
 ---  local t = lua.get_functions_table()
 ---
 ---  t[1] = function () end
+
 ---
 ---  local index = 1
 ---  while t[index] do

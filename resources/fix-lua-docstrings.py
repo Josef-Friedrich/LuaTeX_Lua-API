@@ -16,7 +16,13 @@ def patch_file(file_name: str):
     content = re.sub(r"\n\n---(?=[^\n])", r"\n\n---\n---", content)
 
     # Remove duplicate empty comment lines.
-    content = content.replace("\n---\n---\n", "\n---\n")
+    content = re.sub("\n---(\n---)+\n", "\n---\n", content)
+
+    content = content.replace(") end\n---", ") end\n\n---")
+
+
+
+
 
     # Add an empty comment line before the @param annotation.
     # content = re.sub(

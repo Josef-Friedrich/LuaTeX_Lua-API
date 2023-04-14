@@ -374,6 +374,7 @@ function unicode.grapheme.len(s) end
 ---
 ---@return string
 function unicode.grapheme.lower(s) end
+
 ---
 ---Looks for the first match of pattern in the string.
 ---

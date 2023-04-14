@@ -219,7 +219,9 @@ _N._2_4_4_luafunction_luafunctioncall_and_luadef = "page 25"
 ---\directlua {
 ---    local t = lua.get_functions_table()
 ---    t[1] = function() tex.print("!") end
+
 ---    t[2] = function() tex.print("?") end
+
 ---}
 ---
 ---\luafunction1
@@ -236,6 +238,7 @@ _N._2_4_4_luafunction_luafunctioncall_and_luadef = "page 25"
 ---\directlua {
 ---    local t = lua.get_functions_table()
 ---    t[8] = function(slot) tex.print(slot) end
+
 ---}
 ---```
 --- ---
