@@ -35,5 +35,12 @@ _make_diff() {
 }
 
 _make_diff lpeg lpeg lpeg
-_make_diff md5 md5 md5
+_make_diff luafilesystem lfs lfs
 _make_diff lzlib lzlib zlib
+_make_diff md5 md5 md5
+_make_diff luaharfbuzz luaharfbuzz luaharfbuzz
+_make_diff luasocket mbox mbox
+_make_diff luasocket mime mime
+_make_diff luasocket socket socket
+_make_diff slnunicode unicode unicode
+_make_diff luazip zip zip

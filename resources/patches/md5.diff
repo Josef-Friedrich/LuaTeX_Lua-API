@@ -1,4 +1,4 @@
---- /home/jf/repos/lua/luatex_api_all/library/luatex/md5.lua_upstream.lua	2023-04-14 21:08:15.188483660 +0200
+--- /home/jf/repos/lua/luatex_api_all/library/luatex/md5.lua_upstream.lua	2023-04-14 21:14:49.526846173 +0200
 +++ /home/jf/repos/lua/luatex_api_all/library/luatex/md5.lua	2023-04-14 21:00:18.135651346 +0200
 @@ -1,3 +1,9 @@
 +---https://github.com/TeX-Live/luatex/tree/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luamd5
