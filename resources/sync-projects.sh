@@ -18,8 +18,8 @@ _sync() {
 
   echo $COMMIT_MESSAGE
   git add -Av
-  # git commit -m "$COMMIT_MESSAGE"
-  # git push -u origin main
+  git commit -m "$COMMIT_MESSAGE"
+  git push -u origin main
 }
 
 if [ -n "$(git diff HEAD)" ]; then
