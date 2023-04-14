@@ -247,7 +247,6 @@ function Face:ot_color_has_layers() end
 ---
 ---* Corresponding C source code: [face.c#L356-L392](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L356-L392)
 ---
----
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Face:ot_color_glyph_get_layers() end
 
@@ -647,7 +646,6 @@ Buffer.GLYPH_FLAG_DEFINED = 3
 
 ---
 ---Lua wrapper for `hb_feature_t` type
----
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 ---@class Feature

@@ -454,6 +454,7 @@ function unicode.grapheme.len(s) end
 ---
 ---😱 [Types](https://github.com/LuaCATS/slnunicode/blob/main/library/unicode.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/slnunicode/pulls)
 function unicode.grapheme.lower(s) end
+
 ---
 ---Looks for the first match of pattern in the string.
 ---

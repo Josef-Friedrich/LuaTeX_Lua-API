@@ -1,6 +1,7 @@
 _N._4_3_lua_modules = "page 67"
 ---Changes to upstream: global zlib table
 
+---
 ---@meta
 ---The definitions are developed in this repository: https://github.com/LuaCATS/lzlib
 
@@ -111,6 +112,7 @@ local InflateSink = {}
 ---
 ---😱 [Types](https://github.com/LuaCATS/lzlib/blob/main/library/lzlib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lzlib/pulls)
 function InflateSink:read() end
+
 ---
 ---😱 [Types](https://github.com/LuaCATS/lzlib/blob/main/library/lzlib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lzlib/pulls)
 function InflateSink:close() end

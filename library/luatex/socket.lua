@@ -246,6 +246,7 @@ function socket.protect(func) end
 ---😱 [Types](https://github.com/LuaCATS/luasocket/blob/main/library/socket.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luasocket/pulls)
 function socket.select(recvt, sendt, timeout) end
 
+---
 --- The maximum number of sockets that the select function can handle.
 ---@type integer
 ---
@@ -286,7 +287,6 @@ function socket.sink(mode, socket) end
 ---The function returns `retd+1` to `retN`.
 ---
 ---Note: This function is useful to avoid creation of dummy variables:
----
 ---
 ---```
 ----- get the status code and separator from SMTP server reply
@@ -336,6 +336,7 @@ function socket.sleep(time) end
 ---😱 [Types](https://github.com/LuaCATS/luasocket/blob/main/library/socket.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luasocket/pulls)
 function socket.source(mode, socket, timeout) end
 
+---
 ---The OS value for an invalid socket. This can be used with
 ---`tcp:getfd`and `tcp:setfd`methods.
 ---@type any
@@ -343,7 +344,6 @@ function socket.source(mode, socket, timeout) end
 ---😱 [Types](https://github.com/LuaCATS/luasocket/blob/main/library/socket.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luasocket/pulls)
 socket._SOCKETINVALID = nil
 
----
 ---
 ---Throws an exception in case `ret1` is falsy, using
 ---`ret2` as the error message. The exception is supposed to be caught
