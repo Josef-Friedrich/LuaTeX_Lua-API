@@ -94,7 +94,7 @@ status = {}
 ---@field callbacks integer # The total number of executed callbacks so far, for example `9`.
 ---@field indirect_callbacks integer # The total number of those callbacks that were themselves a result of other callbacks (e.g. file readers), for example `0`.
 ---
----@field saved_callbacks integer # for example `0`.
+---@field saved_callbacks integer # alias for `indirect_callbacks` for example `0`.
 ---@field late_callbacks integer # for example `0`.
 ---@field direct_callbacks integer for example `10`.
 ---@field function_callbacks integer # of active fonts, for example `238`.
