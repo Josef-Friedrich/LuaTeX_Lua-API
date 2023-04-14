@@ -4,7 +4,6 @@ _N._4_3_lua_modules = "page 67"
 ---https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luapeg/lpeg.c
 ---Changes to upstream: global lpeg table
 
----
 ---@meta
 ---The definitions are developed in this repository: https://github.com/LuaCATS/lpeg
 
@@ -43,9 +42,12 @@ _N._4_3_lua_modules = "page 67"
 ---to break complex definitions in smaller parts, etc.)
 ---and are extensible,
 ---as we can define new functions to create and compose patterns.
+---
+---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
 lpeg = {}
 
 ---
+---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
 ---@class Pattern
 ---@operator add(Pattern): Pattern
 ---@operator mul(Pattern): Pattern
@@ -58,6 +60,7 @@ lpeg = {}
 ---@field match fun(p: Pattern, s: string)
 
 ---
+---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
 ---@alias Capture Pattern
 ---@operator add(Capture): Pattern
 ---@operator mul(Capture): Pattern
@@ -94,6 +97,8 @@ lpeg = {}
 ---@param init? integer
 ---
 ---@return integer|Capture
+---
+---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
 function lpeg.match(pattern, subject, init) end
 
 ---
@@ -102,12 +107,16 @@ function lpeg.match(pattern, subject, init) end
 ---Otherwise returns nil.
 ---
 ---@return nil|string
+---
+---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
 function lpeg.type(value) end
 
 ---
 ---Returns a string with the running version of LPeg.
 ---
 ---@return string
+---
+---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
 function lpeg.version() end
 
 ---
@@ -123,6 +132,8 @@ function lpeg.version() end
 ---subjects with deep recursion may also need larger limits.
 ---
 ---@param max integer
+---
+---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
 function lpeg.setmaxstack(max) end
 
 ---
@@ -160,6 +171,8 @@ function lpeg.setmaxstack(max) end
 ---@param value Pattern|string|integer|boolean|table|function
 ---
 ---@return Pattern
+---
+---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
 function lpeg.P(value) end
 
 ---
@@ -177,6 +190,8 @@ function lpeg.P(value) end
 ---@param pattern Pattern
 ---
 ---@return Pattern
+---
+---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
 function lpeg.B(pattern) end
 
 ---
@@ -194,6 +209,8 @@ function lpeg.B(pattern) end
 ---@param ... string
 ---
 ---@return Pattern
+---
+---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
 function lpeg.R(...) end
 
 ---
@@ -214,6 +231,8 @@ function lpeg.R(...) end
 ---@param string string
 ---
 ---@return Pattern
+---
+---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
 function lpeg.S(string) end
 
 ---
@@ -224,6 +243,8 @@ function lpeg.S(string) end
 ---@param v string
 ---
 ---@return Pattern
+---
+---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
 function lpeg.V(v) end
 
 ---
@@ -264,6 +285,8 @@ function lpeg.V(v) end
 ---@param tab? table
 ---
 ---@return Locale
+---
+---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
 function lpeg.locale(tab) end
 
 ---
@@ -277,6 +300,8 @@ function lpeg.locale(tab) end
 ---@param patt Pattern
 ---
 ---@return Capture
+---
+---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
 function lpeg.C(patt) end
 
 ---
@@ -289,6 +314,8 @@ function lpeg.C(patt) end
 ---@param n integer
 ---
 ---@return Capture
+---
+---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
 function lpeg.Carg(n) end
 
 ---
@@ -316,6 +343,8 @@ function lpeg.Carg(n) end
 ---@param name any
 ---
 ---@return Capture
+---
+---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
 function lpeg.Cb(name) end
 
 ---
@@ -327,6 +356,8 @@ function lpeg.Cb(name) end
 ---@param ... any
 ---
 ---@return Capture
+---
+---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
 function lpeg.Cc(...) end
 
 ---
@@ -376,6 +407,8 @@ function lpeg.Cc(...) end
 ---@param func fun(acc, newvalue)
 ---
 ---@return Capture
+---
+---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
 function lpeg.Cf(patt, func) end
 
 ---
@@ -391,6 +424,8 @@ function lpeg.Cf(patt, func) end
 ---@param name? string
 ---
 ---@return Capture
+---
+---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
 function lpeg.Cg(patt, name) end
 
 ---
@@ -401,6 +436,8 @@ function lpeg.Cg(patt, name) end
 ---The captured value is a number.
 ---
 ---@return Capture
+---
+---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
 function lpeg.Cp() end
 
 ---
@@ -418,6 +455,8 @@ function lpeg.Cp() end
 ---@param patt Pattern
 ---
 ---@return Capture
+---
+---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
 function lpeg.Cs(patt) end
 
 ---
@@ -435,6 +474,8 @@ function lpeg.Cs(patt) end
 ---@param patt Pattern|''
 ---
 ---@return Capture
+---
+---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
 function lpeg.Ct(patt) end
 
 ---
@@ -470,6 +511,8 @@ function lpeg.Ct(patt) end
 ---@param fn function
 ---
 ---@return Capture
+---
+---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
 function lpeg.Cmt(patt, fn) end
 
 return lpeg

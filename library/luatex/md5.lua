@@ -4,7 +4,6 @@
 ---* local md5 table
 ---* additional function md5.sumHEXA()
 
----
 ---@meta
 ---The definitions are developed in this repository: https://github.com/LuaCATS/md5
 
@@ -14,6 +13,8 @@
 ---This library offers basic cryptographic facilities for Lua 5.0: a hash (digest) function, an a pair crypt/decrypt.
 ---
 ---All functions are registered inside a table `md5`.
+---
+---😱 [Types](https://github.com/LuaCATS/md5/blob/main/library/md5.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/md5/pulls)
 md5 = {}
 
 ---
@@ -32,6 +33,8 @@ md5 = {}
 ---@param message string
 ---
 ---@return string
+---
+---😱 [Types](https://github.com/LuaCATS/md5/blob/main/library/md5.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/md5/pulls)
 function md5.sum(message) end
 
 ---
@@ -41,6 +44,8 @@ function md5.sum(message) end
 ---@param message string
 ---
 ---@return string # for example `098f6bcd4621d373cade4e832627b4f6`
+---
+---😱 [Types](https://github.com/LuaCATS/md5/blob/main/library/md5.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/md5/pulls)
 function md5.sumhexa(message) end
 
 ---
@@ -84,6 +89,8 @@ function md5.sumHEXA(message) end
 ---```
 ---
 ---@return string # The cyphertext (as a binary string).
+---
+---😱 [Types](https://github.com/LuaCATS/md5/blob/main/library/md5.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/md5/pulls)
 function md5.crypt(message, key, seed) end
 
 ---
@@ -102,6 +109,8 @@ function md5.crypt(message, key, seed) end
 ---@param key string # arbitrary binary string to be used as a key.
 ---
 ---@return string # The plaintext.
+---
+---😱 [Types](https://github.com/LuaCATS/md5/blob/main/library/md5.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/md5/pulls)
 function md5.decrypt(message, key) end
 
 ---
@@ -113,6 +122,8 @@ function md5.decrypt(message, key) end
 ---@param s2 string # arbitrary binary string with same length as s1.
 ---
 ---@return string # a binary string with same length as s1 and s2, where each bit is the exclusive-or of the corresponding bits in s1-s2.
+---
+---😱 [Types](https://github.com/LuaCATS/md5/blob/main/library/md5.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/md5/pulls)
 function md5.exor(s1, s2) end
 
 return md5

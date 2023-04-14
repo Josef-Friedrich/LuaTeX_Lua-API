@@ -6,3 +6,4 @@
 *.synctex*
 *.tuc
 dist/*
+*_upstream.lua
