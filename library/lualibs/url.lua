@@ -1,8 +1,9 @@
 ---@meta
 
+---https://github.com/latex3/lualibs/blob/main/lualibs-url.lua
+
 ---
 ---This is a specialized library. You can split an url into its components. An URL is constructed like this:
----https://github.com/latex3/lualibs/blob/main/lualibs-url.lua
 
 url = {}
 

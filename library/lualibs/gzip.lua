@@ -6,63 +6,31 @@
 gzip = {}
 
 ---
-------------------------------------------------------------------------
----Undocumented functions listed in alphabetical order
+---* Corresponding Lua source code: [lualibs-util-zip.lua#L536-L540](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-util-zip.lua#L536-L540)
 ---
----Document them by sliding them up and place them in the order of the
----official documentation
-------------------------------------------------------------------------
+function gzip.suffix(filename) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function gzip.close() end
-
+---* Corresponding Lua source code: [lualibs-util-zip.lua#L542-L544](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-util-zip.lua#L542-L544)
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function gzip.compress(s, level) end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function gzip.compressed(s) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function gzip.decompress(s) end
-
+---* Corresponding Lua source code: [lualibs-util-zip.lua#L634-L648](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-util-zip.lua#L634-L648)
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function gzip.lines() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function gzip.load(filename) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function gzip.open() end
-
+---* Corresponding Lua source code: [lualibs-util-zip.lua#L650-L661](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-util-zip.lua#L650-L661)
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function gzip.save(filename, data, level, originalname) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function gzip.suffix(filename) end
+---* Corresponding Lua source code: [lualibs-util-zip.lua#L663-L674](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-util-zip.lua#L663-L674)
+---
+function gzip.compress(s, level) end
+
+---
+---* Corresponding Lua source code: [lualibs-util-zip.lua#L676-L682](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-util-zip.lua#L676-L682)
+---
+function gzip.decompress(s) end

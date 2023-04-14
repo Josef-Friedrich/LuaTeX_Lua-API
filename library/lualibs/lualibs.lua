@@ -3,27 +3,21 @@
 lualibs = {}
 
 ---
-------------------------------------------------------------------------
----Undocumented functions listed in alphabetical order
+---* Corresponding Lua source code: [lualibs.dtx#L527-L536](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs.dtx#L527-L536)
 ---
----Document them by sliding them up and place them in the order of the
----official documentation
-------------------------------------------------------------------------
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function lualibs.info() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
 function lualibs.loadmodule() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---* Corresponding Lua source code: [lualibs.dtx#L506](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs.dtx#L506)
+---
+function lualibs.error() end
+
+---
+---* Corresponding Lua source code: [lualibs.dtx#L506](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs.dtx#L506)
+---
 function lualibs.warn() end
+
+---
+---* Corresponding Lua source code: [lualibs.dtx#L506](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs.dtx#L506)
+---
+function lualibs.info() end

@@ -85,9 +85,21 @@ function file.replacesuffix(name, suffix) end
 function file.reslash(str) end
 
 ---
+---* Corresponding Lua source code: [lualibs-file.lua#L394](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-file.lua#L394)
+---@see file.is_writable
+---@deprecated
+function file.iswritable() end
+
+---
 ---* Corresponding Lua source code: [lualibs-file.lua#L352-L378](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-file.lua#L352-L378)
 ---
 function file.is_writable(name) end
+
+---
+---* Corresponding Lua source code: [lualibs-file.lua#L393](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-file.lua#L393)
+---@see file.is_readable
+---@deprecated
+function file.isreadable() end
 
 ---
 ---* Corresponding Lua source code: [lualibs-file.lua#L382-L389](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-file.lua#L382-L389)
@@ -105,6 +117,11 @@ function file.size(name) end
 function file.splitpath(str, separator) end
 
 ---
+---* Corresponding Lua source code: [lualibs-compat.lua#L30](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-compat.lua#L30)
+---@see file.splitpath
+function file.split_path() end
+
+---
 ---* Corresponding Lua source code: [lualibs-file.lua#L409-L411](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-file.lua#L409-L411)
 ---
 function file.joinpath(tab, separator) end
@@ -117,6 +134,12 @@ function file.join(one, two, three, ...) end
 ---
 ---* Corresponding Lua source code: [lualibs-file.lua#L545-L597](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-file.lua#L545-L597)
 ---
+function file.collapsepath() end
+
+---
+---* Corresponding Lua source code: [lualibs-file.lua#L545-L597](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-file.lua#L545-L597)
+---@see file.collapsepath
+---@deprecated
 function file.collapse_path(str, anchor) end
 
 ---
@@ -150,79 +173,47 @@ function file.strip(name, dir) end
 function file.withinbase(path) end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function file.checksum() end
-
+---* Corresponding Lua source code: [lualibs-md5.lua#L62-L78](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-md5.lua#L62-L78)
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function file.collapsepath() end
-
+function file.needsupdating() end
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function file.expandname() end
-
+---* Corresponding Lua source code: [lualibs-md5.lua#L62-L78](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-md5.lua#L62-L78)
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function file.isreadable() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function file.iswritable() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function file.loadchecksum() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---@see file.needsupdating
+---@deprecated
 function file.needs_updating() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function file.needsupdating() end
+---* Corresponding Lua source code: [lualibs-md5.lua#L82-L87](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-md5.lua#L82-L87)
+---
+function file.syncmtimes() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function file.readdata() end
+---* Corresponding Lua source code: [lualibs-md5.lua#L89-L97](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-md5.lua#L89-L97)
+---
+function file.checksum() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---* Corresponding Lua source code: [lualibs-md5.lua#L101-L107](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-md5.lua#L101-L107)
+---
+function file.loadchecksum() end
+
+---
+---* Corresponding Lua source code: [lualibs-md5.lua#L109-L116](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-md5.lua#L109-L116)
+---
 function file.savechecksum() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---* Corresponding Lua source code: [lualibs-dir.lua#L601](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-dir.lua#L601)
+---@see dir.expandname
+function file.expandname() end
+
+---
+---* Corresponding Lua source code: [lualibs-file.lua#L631](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-file.lua#L631)
+---@see io.loaddata
+function file.readdata() end
+
+---
+---* Corresponding Lua source code: [lualibs-file.lua#L632](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-file.lua#L632)
+---@see io.savedata
 function file.savedata() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function file.split_path() end
-
----
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
-function file.syncmtimes() end
