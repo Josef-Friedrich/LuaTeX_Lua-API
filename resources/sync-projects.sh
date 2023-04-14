@@ -16,6 +16,7 @@ _sync() {
 
   rsync -av --delete "${PROJECT_DIR}/dist/${NAME}/" "${LUA_HOME}/${NAME}/library/"
 
+  echo $COMMIT_MESSAGE
   git add -Av
   # git commit -m "$COMMIT_MESSAGE"
   # git push -u origin main
