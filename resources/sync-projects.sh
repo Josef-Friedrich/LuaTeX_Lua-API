@@ -21,7 +21,7 @@ _sync() {
   # git push -u origin main
 }
 
-if [ "-n $(git diff HEAD)" ]; then
+if [ -n "$(git diff HEAD)" ]; then
   echo Commit first
   exit 1
 fi
