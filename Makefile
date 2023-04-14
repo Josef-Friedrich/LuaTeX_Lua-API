@@ -22,6 +22,7 @@ generate_doc:
 dist: fix_lua_docstrings
 	rsync -av --delete library/ dist/
 	resources/sync-projects.sh
+	resources/update-lls-addons.sh
 
 test:
 	 luatex --luaonly examples/unicode/all.lua
