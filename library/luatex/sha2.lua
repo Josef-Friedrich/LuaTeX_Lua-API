@@ -31,6 +31,8 @@ sha2 = {}
 --- -- 9f86d081... (length 64)
 ---```
 ---
+---* Corresponding C source code: [md5lib.c#L199-L210](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luamd5/md5lib.c#L199-L210)
+---
 ---@param data string
 ---
 ---@return string # binary string
@@ -52,6 +54,8 @@ function sha2.digest256(data) end
 --- -- 76841232... (length 96)
 ---```
 ---
+---* Corresponding C source code: [md5lib.c#L212-L223](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luamd5/md5lib.c#L212-L223)
+---
 ---@param data string
 ---
 ---@return string # binary string
@@ -72,6 +76,8 @@ function sha2.digest384(data) end
 ---print(to_hex(sha2.digest512('test')))
 --- -- ee26b0dd ... (length 128)
 ---```
+---
+---* Corresponding C source code: [md5lib.c#L225-L236](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luamd5/md5lib.c#L225-L236)
 ---
 ---@param data string
 ---
