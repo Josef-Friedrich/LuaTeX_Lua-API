@@ -67,13 +67,16 @@ function xmath.asinh(a) end
 ---* Corresponding C source code: [lmtxmathlib.c#L50-L58](https://github.com/contextgarden/luametatex/blob/812e28feca3cf5de5f41a7fb3ebf25e4a4b2ae00/source/luarest/lmtxmathlib.c#L50-L58)
 ---* cppreference.com: [numeric/math/atan](https://en.cppreference.com/w/c/numeric/math/atan)
 ---
+---@see xmath.atan2
+---
 ---@param a number
+---@param b? number # If the value is given, then the function `xmath.atan2` is calculated.
 ---
 ---@return number
 function xmath.atan(a, b) end
 
 ---
----Compute the arc tangent of `y / x` using the signs of arguments to determine the correct quadrant.
+---Compute the arc tangent of `a / b` using the signs of arguments to determine the correct quadrant.
 ---
 ---__Reference:__
 ---
@@ -81,6 +84,7 @@ function xmath.atan(a, b) end
 ---* cppreference.com: [numeric/math/atan2](https://en.cppreference.com/w/c/numeric/math/atan2)
 ---
 ---@param a number
+---@param b number
 ---
 ---@return number
 function xmath.atan2(a, b) end
@@ -91,10 +95,7 @@ function xmath.atan2(a, b) end
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lmtxmathlib.c#L66-L70](https://github.com/contextgarden/luametatex/blob/812e28feca3cf5de5f41a7fb3ebf25e4a4b2ae00/source/luarest/lmtxmathlib.c#L66-L70)
-function xmath.atanh(a) end
-
----
----* cppreference.com: [numeric/math/atan2](https://en.cppreference.com/w/c/numeric/math/)
+---* cppreference.com: [numeric/math/atan2](https://en.cppreference.com/w/c/numeric/math/atanh)
 ---
 ---@param a number
 ---
@@ -155,7 +156,7 @@ function xmath.copysign(a, b) end
 function xmath.cos(a) end
 
 ---
----Computes the hyperbolic cosine of `a`.
+---Compute the hyperbolic cosine of `a`.
 ---
 ---__Reference:__
 ---
@@ -168,13 +169,15 @@ function xmath.cos(a) end
 function xmath.cosh(a) end
 
 ---
+---Compute the degrees (`a * (180 / pi)`).
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lmtxmathlib.c#L102-L106](https://github.com/contextgarden/luametatex/blob/812e28feca3cf5de5f41a7fb3ebf25e4a4b2ae00/source/luarest/lmtxmathlib.c#L102-L106)
 ---
----@param a number
+---@param a number # radians
 ---
----@return number
+---@return number # degrees
 function xmath.deg(a) end
 
 ---
@@ -191,7 +194,7 @@ function xmath.deg(a) end
 function xmath.erf(a) end
 
 ---
----Computes the complementary error function of `a`, that is `1.0 - erf(a)`, but without loss of precision for large `a`.
+---Compute the complementary error function of `a`, that is `1.0 - erf(a)`, but without loss of precision for large `a`.
 ---
 ---__Reference:__
 ---
@@ -245,7 +248,7 @@ function xmath.exp2(a) end
 function xmath.expm1(a) end
 
 ---
----Compute the absolute value of a floating point value `a`.
+---Compute the absolute value of a value `a`.
 ---
 ---__Reference:__
 ---
@@ -291,6 +294,8 @@ function xmath.floor(a) end
 ---* cppreference.com: [numeric/math/fma](https://en.cppreference.com/w/c/numeric/math/fma)
 ---
 ---@param a number
+---@param b number
+---@param c number
 ---
 ---@return number
 function xmath.fma(a, b, c) end
@@ -322,7 +327,7 @@ function xmath.fmax(...) end
 function xmath.fmin(...) end
 
 ---
----Compute the floating-point remainder of the division operation `a/b`.
+---Compute the floating-point remainder of the division operation `a / b`.
 ---
 ---__Reference:__
 ---
@@ -330,12 +335,13 @@ function xmath.fmin(...) end
 ---* cppreference.com: [numeric/math/fmod](https://en.cppreference.com/w/c/numeric/math/fmod)
 ---
 ---@param a number
+---@param b number
 ---
 ---@return number
 function xmath.fmod(a, b) end
 
 ---
----Decomposes given floating point value `a` into a normalized fraction and an integral power of two.
+---Decompose given value `a` into a normalized fraction and an integral power of two.
 ---
 ---__Reference:__
 ---
@@ -345,7 +351,8 @@ function xmath.fmod(a, b) end
 ---@param a number
 ---
 ---@return number
-function xmath.frexp(a, b) end
+---@return integer e
+function xmath.frexp(a) end
 
 ---
 ---__Reference:__
@@ -423,36 +430,6 @@ function xmath.isnan(a) end
 function xmath.isnormal(a) end
 
 ---
----__Reference:__
----
----* Corresponding C source code: [lmtxmathlib.c#L241-L245](https://github.com/contextgarden/luametatex/blob/812e28feca3cf5de5f41a7fb3ebf25e4a4b2ae00/source/luarest/lmtxmathlib.c#L241-L245)
----
----@param a number
----
----@return number
-function xmath.j0(a) end
-
----
----__Reference:__
----
----* Corresponding C source code: [lmtxmathlib.c#L247-L251](https://github.com/contextgarden/luametatex/blob/812e28feca3cf5de5f41a7fb3ebf25e4a4b2ae00/source/luarest/lmtxmathlib.c#L247-L251)
----
----@param a number
----
----@return number
-function xmath.j1(a) end
-
----
----__Reference:__
----
----* Corresponding C source code: [lmtxmathlib.c#L253-L257](https://github.com/contextgarden/luametatex/blob/812e28feca3cf5de5f41a7fb3ebf25e4a4b2ae00/source/luarest/lmtxmathlib.c#L253-L257)
----
----@param a number
----
----@return number
-function xmath.jn(a, b) end
-
----
 ---Multiplies a floating point value `a` by the number `2` raised to the `b` power.
 ---
 ---__Reference:__
@@ -487,6 +464,7 @@ function xmath.lgamma(a) end
 ---* cppreference.com: [numeric/math/log](https://en.cppreference.com/w/c/numeric/math/log)
 ---
 ---@param a number
+---@param b number
 ---
 ---@return number
 function xmath.log(a, b) end
@@ -574,6 +552,7 @@ function xmath.nearbyint(a) end
 ---* cppreference.com: [numeric/math/nextafter](https://en.cppreference.com/w/c/numeric/math/nextafter)
 ---
 ---@param a number
+---@param b number
 ---
 ---@return number
 function xmath.nextafter(a, b) end
@@ -587,6 +566,7 @@ function xmath.nextafter(a, b) end
 ---* cppreference.com: [numeric/math/pow](https://en.cppreference.com/w/c/numeric/math/pow)
 ---
 ---@param a number
+---@param b number
 ---
 ---@return number
 function xmath.pow(a, b) end
@@ -610,19 +590,29 @@ function xmath.rad(a) end
 ---* cppreference.com: [numeric/math/remainder](https://en.cppreference.com/w/c/numeric/math/remainder)
 ---
 ---@param a number
+---@param b number
 ---
 ---@return number
 function xmath.remainder(a, b) end
 
 ---
+---Compute the floating-point remainder of the division operation `a/b` as the remainder() function does.
+---
+---Additionally, the sign and at least the three of the last bits of `a/b` will be returned in `quo`, sufficient to determine the octant of the result within a period.
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lmtxmathlib.c#L197-L203](https://github.com/contextgarden/luametatex/blob/812e28feca3cf5de5f41a7fb3ebf25e4a4b2ae00/source/luarest/lmtxmathlib.c#L197-L203)
 ---* cppreference.com: [numeric/math/remquo](https://en.cppreference.com/w/c/numeric/math/remquo)
+---* [man3/remquo](https://man7.org/linux/man-pages/man3/remquo.3.html)
+---
+---@see xmath.remainder
 ---
 ---@param a number
+---@param b number
 ---
 ---@return number
+---@return integer quo
 function xmath.remquo(a, b) end
 
 ---
@@ -639,7 +629,7 @@ function xmath.remquo(a, b) end
 function xmath.round(a) end
 
 ---
----Multiplies `a` by `FLT_RADIX` raised to power `b`.
+---Multiplies `a` by `FLT_RADIX` (probably 2) raised to power `b`.
 ---
 ---__Reference:__
 ---
@@ -705,7 +695,8 @@ function xmath.sqrt(a) end
 function xmath.tan(a) end
 
 ---
---- Compute the hyperbolic tangent of `a`.
+---Compute the hyperbolic tangent of `a`.
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lmtxmathlib.c#L388-L392](https://github.com/contextgarden/luametatex/blob/812e28feca3cf5de5f41a7fb3ebf25e4a4b2ae00/source/luarest/lmtxmathlib.c#L388-L392)
@@ -743,13 +734,56 @@ function xmath.tgamma(a) end
 function xmath.trunc(a) end
 
 ---
----Return the Bessel functions of `a` of the
----second kind of orders `0`.
+---Return the Bessel functions of `a` of the *first* kind of orders `0`.
+---
+---__Reference:__
+---
+---* Corresponding C source code: [lmtxmathlib.c#L241-L245](https://github.com/contextgarden/luametatex/blob/812e28feca3cf5de5f41a7fb3ebf25e4a4b2ae00/source/luarest/lmtxmathlib.c#L241-L245)
+---* [man3/j0.3](https://man7.org/linux/man-pages/man3/j0.3.html)
+---* [Wikipedia: Bessel function](https://en.wikipedia.org/wiki/Bessel_function)
+---
+---@param a number
+---
+---@return number
+function xmath.j0(a) end
+
+---
+---Return the Bessel functions of `a` of the *first* kind of orders `1`.
+---
+---__Reference:__
+---
+---* Corresponding C source code: [lmtxmathlib.c#L247-L251](https://github.com/contextgarden/luametatex/blob/812e28feca3cf5de5f41a7fb3ebf25e4a4b2ae00/source/luarest/lmtxmathlib.c#L247-L251)
+---* [man3/j0.3](https://man7.org/linux/man-pages/man3/j0.3.html)
+---* [Wikipedia: Bessel function](https://en.wikipedia.org/wiki/Bessel_function)
+---
+---@param a number
+---
+---@return number
+function xmath.j1(a) end
+
+---
+---Return the Bessel function of `a` of the *first* kind of order `n`.
+---
+---__Reference:__
+---
+---* Corresponding C source code: [lmtxmathlib.c#L253-L257](https://github.com/contextgarden/luametatex/blob/812e28feca3cf5de5f41a7fb3ebf25e4a4b2ae00/source/luarest/lmtxmathlib.c#L253-L257)
+---* [man3/j0.3](https://man7.org/linux/man-pages/man3/j0.3.html)
+---* [Wikipedia: Bessel function](https://en.wikipedia.org/wiki/Bessel_function)
+---
+---@param n integer
+---@param a number
+---
+---@return number
+function xmath.jn(n, a) end
+
+---
+---Return the Bessel functions of `a` of the *second* kind of orders `0`.
 ---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lmtxmathlib.c#L406-L410](https://github.com/contextgarden/luametatex/blob/812e28feca3cf5de5f41a7fb3ebf25e4a4b2ae00/source/luarest/lmtxmathlib.c#L406-L410)
 ---* [man3/y0.3](https://man7.org/linux/man-pages/man3/y0.3.html)
+---* [Wikipedia: Bessel function](https://en.wikipedia.org/wiki/Bessel_function)
 ---
 ---@param a number
 ---
@@ -757,15 +791,14 @@ function xmath.trunc(a) end
 function xmath.y0(a) end
 
 ---
----Return the Bessel functions of `a` of the
----second kind of orders `1`.
+---Return the Bessel functions of `a` of the *second* kind of orders `1`.
 ---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lmtxmathlib.c#L412-L416](https://github.com/contextgarden/luametatex/blob/812e28feca3cf5de5f41a7fb3ebf25e4a4b2ae00/source/luarest/lmtxmathlib.c#L412-L416)
 ---* cppreference.com: [numeric/math/atan2](https://en.cppreference.com/w/c/numeric/math/)
 ---* [man3/y0.3](https://man7.org/linux/man-pages/man3/y0.3.html)
-
+---* [Wikipedia: Bessel function](https://en.wikipedia.org/wiki/Bessel_function)
 ---
 ---@param a number
 ---
@@ -773,12 +806,13 @@ function xmath.y0(a) end
 function xmath.y1(a) end
 
 ---
----Return the Bessel function of `a` of the second kind of order `n`.
+---Return the Bessel function of `a` of the *second* kind of order `n`.
 ---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lmtxmathlib.c#L418-L422](https://github.com/contextgarden/luametatex/blob/812e28feca3cf5de5f41a7fb3ebf25e4a4b2ae00/source/luarest/lmtxmathlib.c#L418-L422)
 ---* [man3/y0.3](https://man7.org/linux/man-pages/man3/y0.3.html)
+---* [Wikipedia: Bessel function](https://en.wikipedia.org/wiki/Bessel_function)
 ---
 ---@param n number
 ---@param a integer
