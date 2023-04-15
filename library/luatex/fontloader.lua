@@ -379,10 +379,6 @@ _N._main_table = "FontloaderField"
 ---https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1931-L1939
 ---@field truetype integer # signals a *TrueType* font
 
----
----@type FontloaderField
-local test
-test.design_range_bottom = 1
 _N._12_6_2_glyphs = "page 244"
 
 _N._glyphs = "Glyph"
