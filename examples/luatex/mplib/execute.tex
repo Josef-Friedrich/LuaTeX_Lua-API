@@ -3,6 +3,8 @@
   local mp = mplib.new()
   print(inspect(mplib.statistics(mp)))
   print(inspect(mp:statistics()))
+  local run = require('./min-test.lua')
+  run()
 }
 
 \bye

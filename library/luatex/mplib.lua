@@ -216,11 +216,11 @@ _N._11_2_5_result_table = "page 233"
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class MpResult
----@field log? string # output to the “log” stream
----@field term? string # output to the “term” stream
----@field error? string # output to the “error” stream (only used for “out of memory”)
----@field status number # the return value: `0` = good, `1` = warning, `2` = errors, `3` = fatal error
----@field fig? MpFig # an array of generated figures (if any)
+---@field log? string # The output to the “log” stream.
+---@field term? string # The output to the “term” stream.
+---@field error? string # The output to the “error” stream (only used for “out of memory”).
+---@field status number # The return value: `0` = good, `1` = warning, `2` = errors, `3` = fatal error.
+---@field fig? MpFig # An array of generated figures (if any).
 ---
 ---When `status` equals 3, you should stop using this *MPlib* instance
 ---immediately, it is no longer capable of processing input.
@@ -232,17 +232,17 @@ _N._11_2_5_result_table = "page 233"
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class MpFig
----@field boundingbox   function  returns the bounding box, as an array of 4 values
----@field postscript    function  returns a string that is the ps output of the `fig`. this function accepts two optional integer arguments for specifying the values of `prologues` (first argument) and `procset` (second argument)
----@field svg           function  returns a string that is the svg output of the `fig`. This function accepts an optional integer argument for specifying the value of `prologues`
----@field objects       function  returns the actual array of graphic objects in this `fig`
----@field copy_objects  function  returns a deep copy of the array of graphic objects in this `fig`
----@field filename      function  the filename this `fig`'s *PostScript* output would have written to in stand alone mode
----@field width         function  the `fontcharwd` value
----@field height        function  the `fontcharht` value
----@field depth         function  the `fontchardp` value
----@field italcorr      function  the `fontcharit` value
----@field charcode      function  the (rounded) `charcode` value
+---@field boundingbox function # returns the bounding box, as an array of 4 values
+---@field postscript function # returns a string that is the ps output of the `fig`. this function accepts two optional integer arguments for specifying the values of `prologues` (first argument) and `procset` (second argument)
+---@field svg function # returns a string that is the svg output of the `fig`. This function accepts an optional integer argument for specifying the value of `prologues`
+---@field objects function # returns the actual array of graphic objects in this `fig`
+---@field copy_objects function # returns a deep copy of the array of graphic objects in this `fig`
+---@field filename function # the filename this `fig`'s *PostScript* output would have written to in stand alone mode
+---@field width function # the `fontcharwd` value
+---@field height function # the `fontcharht` value
+---@field depth function # the `fontchardp` value
+---@field italcorr function # the `fontcharit` value
+---@field charcode function # the (rounded) `charcode` value
 ---
 ---Note: you can call `fig:objects()` only once for any one `fig`
 ---object!
@@ -265,6 +265,8 @@ _N._11_2_5_1_fill = "page 234"
 ---Get the list of accessible values for a particular object
 ---
 ---* Corresponding C source code: [lmplib.c#L1548-L1591](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L1548-L1591)
+---
+---@param obj any
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function mplib.fields(obj) end
