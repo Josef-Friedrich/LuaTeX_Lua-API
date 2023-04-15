@@ -551,7 +551,7 @@ function font.each() end
 ---special font instances, we can change some font related parameters before lines
 ---are constructed, like:
 ---
----```
+---```lua
 ---font.setexpansion(font.current(),100,100,20)
 ---```
 ---

@@ -4,6 +4,7 @@
 ---* local md5 table
 ---* additional function md5.sumHEXA()
 
+---
 ---@meta
 ---The definitions are developed in this repository: https://github.com/LuaCATS/md5
 
