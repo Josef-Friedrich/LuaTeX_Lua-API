@@ -140,5 +140,11 @@
     "prefix": ["-"],
     "body": ["", "---", "---"],
     "description": "---"
+  },
+
+  "inspect": {
+    "prefix": ["i", "inspect"],
+    "body": ["", "local inspect = require('inspect')", "print(inspect())"],
+    "description": "---"
   }
 }

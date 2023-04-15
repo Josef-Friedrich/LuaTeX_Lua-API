@@ -2652,7 +2652,7 @@ function tex.setbox(global, register, head) end
 function tex.setbox(register, head) end
 
 ---
----Query an actual boxe, coming for instance from `hbox`, `vbox` or `vtop`.
+---Query an actual box, coming for instance from `hbox`, `vbox` or `vtop`.
 ---
 ---* Corresponding C source code: [ltexlib.c#L1272-L1280](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1272-L1280)
 ---

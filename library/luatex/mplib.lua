@@ -32,8 +32,8 @@ _N._11_2_1_new = "page 230"
 ---@alias MpFindFileType `mp`|`tfm`|`map`|`pfb`|`enc` the kind of file
 
 ---
----Return either the full path name of the found file, or `nil` if the file
----cannot be found.
+---* Source code of the `LuaTeX` manual: [luatex-graphics.tex#L387-L409](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-graphics.tex#L387-L409)
+---* Corresponding C source code: [lmplib.c#L308-L322](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L308-L322)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class MpArguments
@@ -43,43 +43,20 @@ _N._11_2_1_new = "page 230"
 ---@field math_mode `scaled`|`double`|`binary`|`decimal` # the number system to use, default `scaled`
 ---@field interaction `batch`|`nonstop`|`scroll`|`errorstop` # the interaction mode, default `errorstop`
 ---@field job_name string # `--jobname`, default `mpout`
----@field find_file MpFindFileFunc  a function to find files only local files
+---@field find_file MpFindFileFunc # a function to find files only local files
 
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class MpInstance
+local MpInstance = {}
 
 ---
 ---Create a new metapost instance.
 ---
----To create a new *METAPOST* instance, call
----
----This creates the `mp` instance object.
----
----Note that the new version of *MPlib* no longer uses binary mem files, so the way
----to preload a set of macros is simply to start off with an `input` command
----in the first `execute` call.
----
----When you are processing a snippet of text starting with `btex` and
----ending with either `etex` or `verbatimtex`, the *METAPOST*
----`texscriptmode` parameter controls how spaces and newlines get honoured.
----The default value is 1. Possible values are:
----
---- name       meaning
----
---- `0`  no newlines
---- `1`  newlines in `verbatimtex`
---- `2`  newlines in `verbatimtex` and `etex`
---- `3`  no leading and trailing strip in `verbatimtex`
---- `4`  no leading and trailing strip in `verbatimtex` and `btex`
----
----That way the *Lua* handler (assigned to `make_text`) can do what it likes.
----An `etex` has to be followed by a space or `;` or be at the end of a
----line and preceded by a space or at the beginning of a line.
----
+---* Source code of the `LuaTeX` manual: [luatex-graphics.tex#L381-L385](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-graphics.tex#L381-L385)
 ---* Corresponding C source code: [lmplib.c#L532-L627](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L532-L627)
 ---
----@param args MpArguments
+---@param args? MpArguments
 ---
 ---@return MpInstance
 ---
@@ -91,22 +68,21 @@ _N._11_2_2_statistics = "page 233"
 ---
 ---There are
 ---four fields, giving the maximum number of used items in each of four allocated
----object classes:
----😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
----@class MpStats
----@field main_memory integer # memory size
----@field hash_size integer # hash size
----@field param_size integer # simultaneous macro parameters
----@field max_in_open integer # input file nesting levels
+---object classes.
+---
 
 ---
----Returns some statistics for this metapost instance.
+---* Source code of the `LuaTeX` manual: [luatex-graphics.tex#L460-L470](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-graphics.tex#L460-L470)
 ---
----You can request statistics with:
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+---@class MpStats
+---@field main_memory integer # The memory size.
+---@field hash_size integer # The hash size.
+---@field param_size integer # The simultaneous macro parameters.
+---@field max_in_open integer # The input file nesting levels.
+
 ---
----```
----<table> stats = mp:statistics()
----```
+---Return some statistics for this metapost instance.
 ---
 ---This function returns the vital statistics for an *MPlib* instance.
 ---
@@ -114,12 +90,32 @@ _N._11_2_2_statistics = "page 233"
 ---are all allocated dynamically, so there is no chance of running out of space
 ---unless the available system memory is exhausted.
 ---
+---* Source code of the `LuaTeX` manual: [luatex-graphics.tex#L470-L482](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-graphics.tex#L470-L482)
+---* Corresponding C source code: [lmplib.c#L771-L792](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L771-L792)
+---
+---@param mp MpInstance
+---
+---@return MpStats
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function mplib.statistics(mp) end
+
+---
+---Return some statistics for this metapost instance.
+---
+---This function returns the vital statistics for an *MPlib* instance.
+---
+---Note that in the new version of *MPlib*, this is informational only. The objects
+---are all allocated dynamically, so there is no chance of running out of space
+---unless the available system memory is exhausted.
+---
+---* Source code of the `LuaTeX` manual: [luatex-graphics.tex#L470-L482](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-graphics.tex#L470-L482)
 ---* Corresponding C source code: [lmplib.c#L771-L792](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L771-L792)
 ---
 ---@return MpStats
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function mplib.statistics() end
+function MpInstance:statistics() end
 
 _N._11_2_3_execute = "page 233"
 
@@ -138,6 +134,7 @@ _N._11_2_3_execute = "page 233"
 ---In contrast with the normal stand alone `mpost` command, there is
 ---`no` implied “input” at the start of the first chunk.
 ---
+---* Source code of the `LuaTeX` manual: [luatex-graphics.tex#L488-L507](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-graphics.tex#L488-L507)
 ---* Corresponding C source code: [lmplib.c#L692-L711](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L692-L711)
 ---
 ---@param mp MpInstance
@@ -147,6 +144,31 @@ _N._11_2_3_execute = "page 233"
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function mplib.execute(mp, code) end
+
+---
+---Execute metapost code in the instance.
+---
+---You can ask the *MetaPost* interpreter to run a chunk of code by calling mp.execute()
+---
+---for various bits of *MetaPost* language input. Be sure to check the `rettable.status` (see below) because when a fatal *MetaPost* error occurs the
+---*MPlib* instance will become unusable thereafter.
+---
+---Generally speaking, it is best to keep your chunks small, but beware that all
+---chunks have to obey proper syntax, like each of them is a small file. For
+---instance, you cannot split a single statement over multiple chunks.
+---
+---In contrast with the normal stand alone `mpost` command, there is
+---`no` implied “input” at the start of the first chunk.
+---
+---* Source code of the `LuaTeX` manual: [luatex-graphics.tex#L488-L507](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-graphics.tex#L488-L507)
+---* Corresponding C source code: [lmplib.c#L692-L711](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L692-L711)
+---
+---@param code string
+---
+---@return MpResult
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function MpInstance:execute(code) end
 
 _N._11_2_4_finish = "page 233"
 
@@ -167,6 +189,24 @@ _N._11_2_4_finish = "page 233"
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function mplib.finish(mp) end
+
+---
+---Finish a metapost instance.
+---
+---If for some reason you want to stop using an *MPlib* instance while processing is
+---not yet actually done, you can call `finish`. Eventually, used memory
+---will be freed and open files will be closed by the *Lua* garbage collector, but
+---an explicit `finish` is the only way to capture the final part of the
+---output streams.
+---
+---* Corresponding C source code: [lmplib.c#L713-L728](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L713-L728)
+---
+---@param mp MpInstance
+---
+---@return MpResult
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function MpInstance:finish() end
 
 _N._11_2_5_result_table = "page 233"
 
@@ -400,10 +440,27 @@ _N._11_2_8_1_char_width = "page 238"
 ---@param fontname string
 ---@param char string
 ---
----@return number w
+---@return number width
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function mplib.char_width(mp, fontname, char) end
+
+---
+---Report a character's width.
+---
+---These functions find the size of a glyph in a defined font. The `fontname`
+---is the same name as the argument to `infont`; the `char` is a glyph
+---id in the range 0 to 255; the returned `w` is in AFM units.
+---
+---* Corresponding C source code: [lmplib.c#L748-L751](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L748-L751)
+---
+---@param fontname string
+---@param char string
+---
+---@return number width
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function MpInstance:char_width(fontname, char) end
 
 _N._11_2_8_2_char_height = "page 238"
 
@@ -420,10 +477,27 @@ _N._11_2_8_2_char_height = "page 238"
 ---@param fontname string
 ---@param char string
 ---
----@return number w
+---@return number height
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function mplib.char_height(mp, fontname, char) end
+
+---
+---Report a character's height.
+---
+---These functions find the size of a glyph in a defined font. The `fontname`
+---is the same name as the argument to `infont`; the `char` is a glyph
+---id in the range 0 to 255; the returned `w` is in AFM units.
+---
+---* Corresponding C source code: [lmplib.c#L758-L761](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L758-L761)
+---
+---@param fontname string
+---@param char string
+---
+---@return number height
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function MpInstance:char_height(fontname, char) end
 
 _N._11_2_8_3_char_depth = "page 238"
 
@@ -440,10 +514,27 @@ _N._11_2_8_3_char_depth = "page 238"
 ---@param fontname string
 ---@param char string
 ---
----@return number w
+---@return number depth
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function mplib.char_depth(mp, fontname, char) end
+
+---
+---Report a character's depth.
+---
+---These functions find the size of a glyph in a defined font. The `fontname`
+---is the same name as the argument to `infont`; the `char` is a glyph
+---id in the range 0 to 255; the returned `w` is in AFM units.
+---
+---* Corresponding C source code: [lmplib.c#L753-L756](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L753-L756)
+---
+---@param fontname string
+---@param char string
+---
+---@return number depth
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function MpInstance:char_depth(fontname, char) end
 
 _N._11_2_8_4_get_boolean_numeric_string_path = "page 238"
 
@@ -453,10 +544,20 @@ _N._11_2_8_4_get_boolean_numeric_string_path = "page 238"
 ---@param mp MpInstance
 ---@param name string
 ---
----@return boolean w
+---@return boolean value
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function mplib.get_boolean(mp, name) end
+
+---
+---* Corresponding C source code: [lmplib.c#L497-L510](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L497-L510)
+---
+---@param name string
+---
+---@return boolean value
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function MpInstance:get_boolean(name) end
 
 ---
 ---Not documented alias for get_numeric
@@ -468,10 +569,20 @@ function mplib.get_boolean(mp, name) end
 ---@param mp MpInstance
 ---@param name string
 ---
----@return integer n
+---@return integer value
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function mplib.get_numeric(mp, name) end
+
+---
+---* Corresponding C source code: [lmplib.c#L482-L495](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L482-L495)
+---
+---@param name string
+---
+---@return integer value
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function MpInstance:get_numeric(name) end
 
 ---
 ---* Corresponding C source code: [lmplib.c#L512-L528](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L512-L528)
@@ -479,10 +590,20 @@ function mplib.get_numeric(mp, name) end
 ---@param mp MpInstance
 ---@param name string
 ---
----@return string s
+---@return string value
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function mplib.get_string(mp, name) end
+
+---
+---* Corresponding C source code: [lmplib.c#L512-L528](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L512-L528)
+---
+---@param name string
+---
+---@return string value
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function MpInstance:get_string(name) end
 
 ---
 ---* Corresponding C source code: [lmplib.c#L1649-L1693](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L1649-L1693)
@@ -490,10 +611,20 @@ function mplib.get_string(mp, name) end
 ---@param mp MpInstance
 ---@param name string
 ---
----@return table p
+---@return table value
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function mplib.get_path(mp, name) end
+
+---
+---* Corresponding C source code: [lmplib.c#L1649-L1693](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L1649-L1693)
+---
+---@param name string
+---
+---@return table value
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function MpInstance:get_path(name) end
 
 ---
 ---* Corresponding C source code: [lmplib.c#L763-L769](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L763-L769)
@@ -507,4 +638,19 @@ function mplib.version() end
 ---* Corresponding C source code: [lmplib.c#L978-L1195](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L978-L1195)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function mplib.solve_path() end
+--
+---@param mp MpInstance
+---@param coordinates table
+---@param cyclic boolean
+function mplib.solve_path(mp, coordinates, cyclic) end
+
+---
+---* Corresponding C source code: [lmplib.c#L978-L1195](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L978-L1195)
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+---
+---@param coordinates table
+---@param cyclic boolean
+function MpInstance:solve_path(coordinates, cyclic) end
+
+return mplib
