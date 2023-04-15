@@ -1,5 +1,5 @@
---- /home/jf/repos/lua/luatex_api_all/library/luatex/lfs.lua_upstream.lua	2023-04-14 21:14:48.906845193 +0200
-+++ /home/jf/repos/lua/luatex_api_all/library/luatex/lfs.lua	2023-04-14 20:48:09.769666020 +0200
+--- /home/jf/repos/lua/luatex_api_all/library/luatex/lfs.lua_upstream.lua	2023-04-14 22:11:29.449707560 +0200
++++ /home/jf/repos/lua/luatex_api_all/library/luatex/lfs.lua	2023-04-14 17:56:47.916960993 +0200
 @@ -1,9 +1,19 @@
 +_N._4_3_lua_modules = "page 67"
 +

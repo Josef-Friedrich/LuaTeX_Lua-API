@@ -3,8 +3,6 @@ _N._4_3_lua_modules = "page 67"
 ---
 ---https://github.com/TeX-Live/luatex/blob/trunk/source/texk/web2c/luatexdir/luasocket/src/socket.lua
 ---Changes to upstream: global socket table
-
----
 ---@meta
 ---The definitions are developed in this repository: https://github.com/LuaCATS/luasocket
 
@@ -21,9 +19,13 @@ _N._4_3_lua_modules = "page 67"
 ----- loads the socket module
 ---local socket = require("socket")
 ---```
+---
+---😱 [Types](https://github.com/LuaCATS/luasocket/blob/main/library/socket.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luasocket/pulls)
 ---@class Socket
 socket = {}
 
+---
+---😱 [Types](https://github.com/LuaCATS/luasocket/blob/main/library/socket.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luasocket/pulls)
 socket.headers = {}
 
 ---
@@ -34,6 +36,8 @@ socket.headers = {}
 ---in this table, the associated value is substituted in
 ---whenever the field name is sent out.
 ---```
+---
+---😱 [Types](https://github.com/LuaCATS/luasocket/blob/main/library/socket.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luasocket/pulls)
 socket.headers.canonic = {}
 
 ---
@@ -49,6 +53,8 @@ socket.headers.canonic = {}
 ---@param address string
 ---@param port integer
 ---@param backlog? any
+---
+---😱 [Types](https://github.com/LuaCATS/luasocket/blob/main/library/socket.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luasocket/pulls)
 function socket.bind(address, port, backlog) end
 
 ---
@@ -68,6 +74,8 @@ function socket.bind(address, port, backlog) end
 ---@param locaddr? string
 ---@param locport? integer
 ---@param family? 'inet'|'inet6'
+---
+---😱 [Types](https://github.com/LuaCATS/luasocket/blob/main/library/socket.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luasocket/pulls)
 function socket.connect(address, port, locaddr, locport, family) end
 
 ---
@@ -87,6 +95,8 @@ function socket.connect(address, port, locaddr, locport, family) end
 ---@param locaddr? string
 ---@param locport? integer
 ---@param family? 'inet'|'inet6'
+---
+---😱 [Types](https://github.com/LuaCATS/luasocket/blob/main/library/socket.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luasocket/pulls)
 function socket.connect4(address, port, locaddr, locport, family) end
 
 ---
@@ -106,6 +116,8 @@ function socket.connect4(address, port, locaddr, locport, family) end
 ---@param locaddr? string
 ---@param locport? integer
 ---@param family? 'inet'|'inet6'
+---
+---😱 [Types](https://github.com/LuaCATS/luasocket/blob/main/library/socket.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luasocket/pulls)
 function socket.connect6(address, port, locaddr, locport, family) end
 
 ---
@@ -113,6 +125,8 @@ function socket.connect6(address, port, locaddr, locport, family) end
 ---with debug support.
 ---
 ---@type boolean
+---
+---😱 [Types](https://github.com/LuaCATS/luasocket/blob/main/library/socket.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luasocket/pulls)
 socket._DEBUG = true
 
 ---
@@ -122,6 +136,8 @@ socket._DEBUG = true
 ---(Unless changed in compile time, the value is 8192.)
 ---
 ---@type integer
+---
+---😱 [Types](https://github.com/LuaCATS/luasocket/blob/main/library/socket.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luasocket/pulls)
 socket._DATAGRAMSIZE = 8192
 
 ---
@@ -133,6 +149,8 @@ socket._DATAGRAMSIZE = 8192
 ----- do stuff
 ---print(socket.gettime() - t .. " seconds elapsed")
 ---```
+---
+---😱 [Types](https://github.com/LuaCATS/luasocket/blob/main/library/socket.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luasocket/pulls)
 function socket.gettime() end
 
 ---
@@ -162,6 +180,8 @@ function socket.gettime() end
 ---@param finalizer function # -`Finalizer` is a function that will be called before `try` throws the exception.
 ---
 ---@return function # The function returns your customized `try` function.
+---
+---😱 [Types](https://github.com/LuaCATS/luasocket/blob/main/library/socket.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luasocket/pulls)
 function socket.newtry(finalizer) end
 
 ---
@@ -173,6 +193,8 @@ function socket.newtry(finalizer) end
 ---@param func function # `func` is a function that calls `try` (or `assert`, or `error`) to throw exceptions.
 ---
 ---@return function # Returns an equivalent function that instead of throwing exceptions in case of a failed `try`call, returns `nil` followed by an error message.
+---
+---😱 [Types](https://github.com/LuaCATS/luasocket/blob/main/library/socket.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luasocket/pulls)
 function socket.protect(func) end
 
 ---
@@ -220,11 +242,15 @@ function socket.protect(func) end
 ---maximum amount of time (in seconds) to wait for a change in status.  A
 ---`nil`, negative or omitted `timeout` value allows the
 ---function to block indefinitely.
+---
+---😱 [Types](https://github.com/LuaCATS/luasocket/blob/main/library/socket.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luasocket/pulls)
 function socket.select(recvt, sendt, timeout) end
 
 ---
 --- The maximum number of sockets that the select function can handle.
 ---@type integer
+---
+---😱 [Types](https://github.com/LuaCATS/luasocket/blob/main/library/socket.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luasocket/pulls)
 socket._SETSIZE = 0
 
 ---
@@ -248,6 +274,8 @@ socket._SETSIZE = 0
 ---
 ---@param mode 'http-chunked'|'close-when-done'|'keep-open'
 ---@param socket any
+---
+---😱 [Types](https://github.com/LuaCATS/luasocket/blob/main/library/socket.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luasocket/pulls)
 function socket.sink(mode, socket) end
 
 ---
@@ -267,6 +295,8 @@ function socket.sink(mode, socket) end
 ---
 ---@param d integer
 ---@param ... any
+---
+---😱 [Types](https://github.com/LuaCATS/luasocket/blob/main/library/socket.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luasocket/pulls)
 function socket.skip(d, ...) end
 
 ---
@@ -276,6 +306,8 @@ function socket.skip(d, ...) end
 ---`time` is negative, the function returns immediately.
 ---
 ---@param time integer
+---
+---😱 [Types](https://github.com/LuaCATS/luasocket/blob/main/library/socket.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luasocket/pulls)
 function socket.sleep(time) end
 
 ---
@@ -300,12 +332,16 @@ function socket.sleep(time) end
 ---@param mode 'http-chunked'|'by-length'|'until-closed'
 ---@param socket any
 ---@param timeout integer
+---
+---😱 [Types](https://github.com/LuaCATS/luasocket/blob/main/library/socket.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luasocket/pulls)
 function socket.source(mode, socket, timeout) end
 
 ---
 ---The OS value for an invalid socket. This can be used with
 ---`tcp:getfd`and `tcp:setfd`methods.
 ---@type any
+---
+---😱 [Types](https://github.com/LuaCATS/luasocket/blob/main/library/socket.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luasocket/pulls)
 socket._SOCKETINVALID = nil
 
 ---
@@ -329,11 +365,15 @@ socket._SOCKETINVALID = nil
 ---```
 ---
 ---@param ... any
+---
+---😱 [Types](https://github.com/LuaCATS/luasocket/blob/main/library/socket.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luasocket/pulls)
 function socket.try(...) end
 
 ---
 ---This constant has a string describing the current LuaSocket version.
 ---@type string
+---
+---😱 [Types](https://github.com/LuaCATS/luasocket/blob/main/library/socket.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luasocket/pulls)
 socket._VERSION = ""
 
 return socket
