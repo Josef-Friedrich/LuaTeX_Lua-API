@@ -437,7 +437,6 @@ _N._12_6_3_map = "page 247"
 ---@field map table<integer, integer> # non-linear array of mappings, for example `{ [32] = 1, [33] = 2, [34] = 3 }`
 ---@field backmap integer[] # non-linear array of backward mappings, for example `{ 32, 33, 34, 35, 36, 37, 38, 8217 }`
 ---@field enc FontloaderEnc #
----
 
 ---
 ---* Corresponding C source code: [luafflib.c#L1353-L1359](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1353-L1359)
@@ -547,7 +546,7 @@ _N._12_6_6_pfminfo = "page 248"
 ---@field os2_strikeysize integer #
 ---@field os2_strikeypos integer #
 ---@field os2_family_class integer #
----@field os2_xheight integer #
+---@field os2_xheight integer # the height of lower case letters such as “x”
 ---@field os2_capheight integer #
 ---@field os2_defaultchar integer #
 ---@field os2_breakchar integer #
