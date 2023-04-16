@@ -130,6 +130,18 @@
     "description": "@see"
   },
 
+  "alias": {
+    "prefix": ["alias"],
+    "body": ["", "---", "---@alias $1 $2 $0"],
+    "description": "@alias"
+  },
+
+  "class": {
+    "prefix": ["class"],
+    "body": ["", "---", "---@class $1 $0"],
+    "description": "@class"
+  },
+
   "direct": {
     "prefix": ["direct"],
     "body": ["node.direct.$0 = node.$0"],
