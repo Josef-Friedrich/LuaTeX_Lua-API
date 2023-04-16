@@ -17,26 +17,31 @@ _N._10_3_2_internal_parameter_values_set_get = "page 190"
 ---
 ---* Corresponding C source code: [ltexlib.c#L1714-L1813](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1714-L1813)
 ---
+---
+---@param global 'global'
 ---@param parameter string
 ---@param ... any
-function tex.set(parameter, ...) end
+function tex.set(global, parameter, ...) end
 
 ---
 ---Query the given TeX parameter.
 ---
+---The exact return values differ depending on the actual parameter.
+---
+---Glue is kind of special:
 ---The return value
 ---is a `glue_spec` node but when you pass `false` as last argument to
 ---`tex.get` you get the width of the glue and when you pass `true` you
 ---get all five values. Otherwise you get a node which is a copy of the internal
 ---value so you are responsible for its freeing at the *Lua* end.
 ---
---- If
+---If
 ---you pass `true` to `get` you get 5 values returned for a glue and
 ---when you pass `false` you only get the width returned.
 ---
 ---* Corresponding C source code: [ltexlib.c#L2120-L2200](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L2120-L2200)
 ---@param parameter string
----@param opts boolean
+---@param opts? boolean
 ---
 ---@return any ...
 function tex.get(parameter, opts) end

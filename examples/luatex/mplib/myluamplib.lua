@@ -1,13 +1,13 @@
--- 
+--
 --  This is file `luamplib.lua',
 --  generated with the docstrip utility.
--- 
+--
 --  The original source files were:
--- 
+--
 --  luamplib.dtx  (with options: `lua')
---  
+--
 --  See source file 'luamplib.dtx' for licencing and contact information.
---  
+--
 
 luatexbase.provides_module {
   name          = "luamplib",
@@ -15,6 +15,9 @@ luatexbase.provides_module {
   date          = "2023/04/04",
   description   = "Lua package to typeset Metapost with LuaTeX's MPLib.",
 }
+
+local inspect = require('inspect')
+local function printi(data) print(inspect(data)) end
 
 local format, abs = string.format, math.abs
 
@@ -395,7 +398,8 @@ local function process_tex_text (str)
     tex_box_id = tex_box_id + 1
     local global = luamplib.globaltextext and "\\global" or ""
     run_tex_code(format("%s\\setbox%i\\hbox{%s}", global, tex_box_id, str))
-    local box = texgetbox(tex_box_id)
+
+    local box = texgetbox(tex_box_id)  --[[@as HlistNode]]
     local wd  = box.width  / factor
     local ht  = box.height / factor
     local dp  = box.depth  / factor
@@ -763,7 +767,8 @@ local function concat(px, py) -- no tx, ty here
   return (sy*px-ry*py)/divider,(sx*py-rx*px)/divider
 end
 
-local function curved(ith,pth)
+local function curved(ith--[[@as MpPathPen]],pth --[[@as MpPathPen]])
+
   local d = pth.left_x - ith.right_x
   if abs(ith.right_x - ith.x_coord - d) <= bend_tolerance and abs(pth.x_coord - pth.left_x - d) <= bend_tolerance then
     d = pth.left_y - ith.right_y
@@ -775,6 +780,7 @@ local function curved(ith,pth)
 end
 
 local function flushnormalpath(path,open)
+  printi(path)
   local pth, ith
   for i=1,#path do
     pth = path[i]
@@ -1106,9 +1112,14 @@ end
 
 local function flush(result,flusher)
   if result then
+
+    ---
+    ---@type MpFig[]
     local figures = result.fig
     if figures then
+
       for f=1, #figures do
+        print(figures[f])
         info("flushing figure %s",f)
         local figure = figures[f]
         local objects = getobjects(result,figure,f)
@@ -1318,5 +1329,5 @@ local function colorconverter(cr)
   end
 end
 luamplib.colorconverter = colorconverter
--- 
+--
 --  End of File `luamplib.lua'.

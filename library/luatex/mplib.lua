@@ -227,7 +227,7 @@ _N._11_2_5_result_table = "page 233"
 ---@field term? string # The output to the “term” stream.
 ---@field error? string # The output to the “error” stream (only used for “out of memory”).
 ---@field status MpResultStatus # The return value: `0` = good, `1` = warning, `2` = errors, `3` = fatal error.
----@field fig? MpFig # An array of generated figures (if any).
+---@field fig? MpFig[] # An array of generated figures (if any).
 ---
 ---When `status` equals 3, you should stop using this *MPlib* instance
 ---immediately, it is no longer capable of processing input.
@@ -362,7 +362,7 @@ _N._11_2_5_1_fill = "page 234"
 ---* Corresponding C source code: [psout.w#L5308-L5310](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/psout.w#L5308-L5310)
 ---
 ---@class MpGraphicObject
----@field type integer
+---@field type string
 
 ---
 ---Get the list of
@@ -371,6 +371,8 @@ _N._11_2_5_1_fill = "page 234"
 ---* Corresponding C source code: [lmplib.c#L1548-L1591](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L1548-L1591)
 ---
 ---@param obj MpGraphicObject
+---
+---@return string[]
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function mplib.fields(obj) end
@@ -451,20 +453,24 @@ _N._11_2_6_1_paths_pens = "page 236"
 ---represents a knot.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
----@class MpPathPen
+---@class MpKnot
 ---@field left_type string # when present: endpoint, but usually absent
 ---@field right_type string # like `left_type`
----@field x_coord integer # X coordinate of this knot
----@field y_coord integer # Y coordinate of this knot
----@field left_x integer # X coordinate of the precontrol point of this knot
----@field left_y integer # Y coordinate of the precontrol point of this knot
----@field right_x integer # X coordinate of the postcontrol point of this knot
----@field right_y integer # Y coordinate of the postcontrol point of this knot
+---@field x_coord number # X coordinate of this knot
+---@field y_coord number # Y coordinate of this knot
+---@field left_x number # X coordinate of the precontrol point of this knot
+---@field left_y number # Y coordinate of the precontrol point of this knot
+---@field right_x number # X coordinate of the postcontrol point of this knot
+---@field right_y number # Y coordinate of the postcontrol point of this knot
 ---
 ---There is one special case: pens that are (possibly transformed) ellipses have an
 ---extra string-valued key `type` with value `elliptical` besides the
 ---array part containing the knot list.
 ---
+
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+---@alias MpPathPen MpKnot[]
 
 _N._11_2_6_2_Colors = "page 236"
 
@@ -482,24 +488,22 @@ _N._11_2_6_2_Colors = "page 236"
 ---initialized to the values representing “black” in the colorspace `defaultcolormodel` that was in effect at the time of the `shipout`.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
----@type table MpColor
+---@alias MpColor integer[]
 
 _N._11_2_6_3_Transforms = "page 237"
 
 ---
 ---Each transform is a six-item array.
 ---
----😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
----@class MPTransform
----@field item1 integer # represents x
----@field item2 integer # represents y
----@field item3 integer # represents xx
----@field item4 integer # represents yx
----@field item5 integer # represents xy
----@field item6 integer # represents yy
----
 ---Note that the translation (index 1 and 2) comes first. This differs from the
 ---ordering in *PostScript*, where the translation comes last.
+---
+---```
+---{ x, y, xx, yx, xy, yy }
+---```
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+---@alias MPTransform number[]
 
 _N._11_2_6_4_Dashes = "page 237"
 
@@ -510,7 +514,7 @@ _N._11_2_6_4_Dashes = "page 237"
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class MpDash
----@field dashes  table    an array of on-off numbers
+---@field dashes table # an array of on-off numbers
 ---@field offset integer # the starting offset value
 
 _N._11_2_7_Pens_and_pen_info = "page 237"
@@ -521,22 +525,24 @@ _N._11_2_7_Pens_and_pen_info = "page 237"
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PenInfo
----@field width integer # width of the pen
----@field sx integer # `x` scale
----@field rx integer # `xy` multiplier
----@field ry integer # `yx` multiplier
----@field sy integer # `y` scale
----@field tx integer # `x` offset
----@field ty integer # `y` offset
+---@field width number # width of the pen
+---@field sx number # `x` scale
+---@field rx number # `xy` multiplier
+---@field ry number # `yx` multiplier
+---@field sy number # `y` scale
+---@field tx number # `x` offset
+---@field ty number # `y` offset
 ---
 
 ---
 ---* Corresponding C source code: [lmplib.c#L1474-L1539](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L1474-L1539)
 ---
----@return PenInfo
+---@param obj MpGraphicObject
+---
+---@return PenInfo|nil
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function mplib.pen_info() end
+function mplib.pen_info(obj) end
 
 _N._11_2_8_Character_size_information = "page 238"
 _N._11_2_8_1_char_width = "page 238"

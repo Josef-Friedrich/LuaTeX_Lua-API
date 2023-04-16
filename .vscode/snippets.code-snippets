@@ -136,10 +136,22 @@
     "description": "@alias"
   },
 
+  "type": {
+    "prefix": ["type"],
+    "body": ["", "---", "---@type $1"],
+    "description": "@alias"
+  },
+
   "class": {
     "prefix": ["class"],
     "body": ["", "---", "---@class $1 $0"],
     "description": "@class"
+  },
+
+  "as": {
+    "prefix": ["a", "as"],
+    "body": [" --[[@as <type>]] $1 $0"],
+    "description": "@as"
   },
 
   "direct": {
