@@ -230,17 +230,111 @@ _N._11_2_5_result_table = "page 233"
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class MpFig
----@field boundingbox function # returns the bounding box, as an array of 4 values
----@field postscript function # returns a string that is the ps output of the `fig`. this function accepts two optional integer arguments for specifying the values of `prologues` (first argument) and `procset` (second argument)
----@field svg function # returns a string that is the svg output of the `fig`. This function accepts an optional integer argument for specifying the value of `prologues`
----@field objects function # returns the actual array of graphic objects in this `fig`
----@field copy_objects function # returns a deep copy of the array of graphic objects in this `fig`
----@field filename function # the filename this `fig`'s *PostScript* output would have written to in stand alone mode
----@field width function # the `fontcharwd` value
----@field height function # the `fontcharht` value
----@field depth function # the `fontchardp` value
----@field italcorr function # the `fontcharit` value
----@field charcode function # the (rounded) `charcode` value
+local MpFig = {}
+
+---
+---Return the bounding box, as an array of 4 values.
+---
+---* Corresponding C source code: [lmplib.c#L1375-L1388](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L1375-L1388)
+---
+---@return number[] # minx miny maxx maxy
+function MpFig.boundingbox() end
+
+---
+---Return a string that is the ps output of the `fig`.
+---
+---this function accepts two optional integer arguments for specifying the values of `prologues` (first argument) and `procset` (second argument)
+---
+---* Corresponding C source code: [lmplib.c#L1262-L1276](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L1262-L1276)
+---@param prologues? integer
+---@param procset? integer
+---
+---@return string|nil
+function MpFig.postscript(prologues, procset) end
+
+---
+---Return a string that is the svg output of the `fig`.
+---
+---This function accepts an optional integer argument for specifying the value of `prologues`.
+---
+---* Corresponding C source code: [lmplib.c#L1278-L1291](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L1278-L1291)
+---
+---@param prologues? integer
+---
+---@return string|nil
+function MpFig.svg(prologues) end
+
+---
+---* Corresponding C source code: [lmplib.c#L1293-L1306](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L1293-L1306)
+---
+---@param options? string
+---
+---@return string|nil
+function MpFig.png(options) end
+
+---
+---Return the actual array of graphic objects in this `fig`.
+---
+---* Corresponding C source code: [lmplib.c#L1213-L1233](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L1213-L1233)
+---@return table
+function MpFig.objects() end
+
+---
+---Return a deep copy of the array of graphic objects in this `fig`.
+---
+---* Corresponding C source code: [lmplib.c#L1235-L1253](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L1235-L1253)
+---
+---@return table
+function MpFig.copy_objects() end
+
+---
+---The filename this `fig`'s *PostScript* output would have written to in stand alone mode
+---
+---* Corresponding C source code: [lmplib.c#L1308-L1318](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L1308-L1318)
+---
+---@return string|nil
+function MpFig.filename() end
+
+---
+---the `fontcharwd` value
+---
+---* Corresponding C source code: [lmplib.c#L1320-L1329](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L1320-L1329)
+---
+---@return number|nil
+function MpFig.width() end
+
+---
+---the `fontcharht` value
+---
+---* Corresponding C source code: [lmplib.c#L1331-L1340](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L1331-L1340)
+---
+---@return number|nil
+function MpFig.height() end
+
+---
+---the `fontchardp` value
+---
+---* Corresponding C source code: [lmplib.c#L1342-L1351](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L1342-L1351)
+---
+---@return number|nil
+function MpFig.depth() end
+
+---
+---the `fontcharit` value
+---
+---* Corresponding C source code: [lmplib.c#L1353-L1362](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L1353-L1362)
+---
+---@return number|nil
+function MpFig.italcorr() end
+
+---
+---the (rounded) `charcode` value
+---
+---* Corresponding C source code: [lmplib.c#L1364-L1373](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L1364-L1373)
+---
+---@return number|nil
+function MpFig.charcode() end
+
 ---
 ---Note: you can call `fig:objects()` only once for any one `fig`
 ---object!
@@ -251,24 +345,27 @@ _N._11_2_5_result_table = "page 233"
 _N._11_2_5_1_fill = "page 234"
 
 ---
----There is a helper function (`mplib.fields(obj)`) to get the list of
----accessible values for a particular object, but you can just as easily use the
----tables given below.
----
 ---All graphical objects have a field `type` that gives the object type as a
----string value; it is not explicit mentioned in the following tables. In the
----following, `number`s are *PostScript* points represented as a floating
----point number, unless stated otherwise. Field values that are of type `table` are explained in the next section.
+---string value;
 ---
----Get the list of accessible values for a particular object
+---* Corresponding C source code: [psout.w#L5308-L5310](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/psout.w#L5308-L5310)
+---
+---@class MpGraphicObject
+---@field type integer
+
+---
+---Get the list of
+---accessible values for a particular object.
 ---
 ---* Corresponding C source code: [lmplib.c#L1548-L1591](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L1548-L1591)
 ---
----@param obj any
+---@param obj MpGraphicObject
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function mplib.fields(obj) end
 
+---
+---* Corresponding C source code: [psout.w#L5335-L5346](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/psout.w#L5335-L5346)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class MpFill
@@ -299,6 +396,8 @@ _N._11_2_5_2_outline = "page 234"
 _N._11_2_5_3_text = "page 234"
 
 ---
+---* Corresponding C source code: [psout.w#L5312-L5333](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/psout.w#L5312-L5333)
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class MpText
 ---@field text string # the text
@@ -315,12 +414,16 @@ _N._11_2_5_3_text = "page 234"
 _N._11_2_5_4_special = "page 236"
 
 ---
+---* Corresponding C source code: [psout.w#L5372-L5375](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/psout.w#L5372-L5375)
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class MpSpecial
 ---@field prescript string # special text
 
 _N._11_2_5_5_start_bounds_start_clip = "page 236"
 
+---
+---* Corresponding C source code: [psout.w#L5362-L5370](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/psout.w#L5362-L5370)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class MpStartBoundsClip
