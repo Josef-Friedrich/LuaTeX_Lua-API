@@ -3,16 +3,15 @@
 LUA_HOME="${HOME}/repos/lua"
 
 ROOT="${LUA_HOME}/lls_addons"
-cd "${ROOT}"
+cd "${LUA_HOME}"
 
-git checkout main
-git pull
-git submodule init
-git submodule update
-git branch upgrade
-git checkout upgrade
+git clone git@github.com:Josef-Friedrich/LLS-Addons.git "${ROOT}"
+
+git branch update
+git checkout update
 
 ADDONS="\
+lmathx
 lpeg
 luasocket
 luazip
@@ -20,6 +19,8 @@ lzlib
 md5
 slnunicode
 tex-lualatex
+tex-lualibs
+tex-luametatex
 tex-luatex\
 "
 
