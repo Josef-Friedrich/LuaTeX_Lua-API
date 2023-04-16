@@ -10,7 +10,6 @@ git clone --recurse-submodules git@github.com:Josef-Friedrich/LLS-Addons.git "${
 
 cd "${ROOT}"
 
-
 git branch update
 git checkout update
 
@@ -32,8 +31,7 @@ _update() {
   local ADDON_ROOT="${ROOT}/addons/$1/module"
   echo "
 ${ADDON_ROOT}"
-  cd "${ADDON_ROOT}
-"
+  cd "${ADDON_ROOT}"
   git checkout main
   git pull
   $HOME/.cargo/bin/stylua "${ADDON_ROOT}/library"
