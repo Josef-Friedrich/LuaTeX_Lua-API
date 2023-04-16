@@ -1,13 +1,13 @@
---
+-- 
 --  This is file `luamplib.lua',
 --  generated with the docstrip utility.
---
+-- 
 --  The original source files were:
---
+-- 
 --  luamplib.dtx  (with options: `lua')
---
+--  
 --  See source file 'luamplib.dtx' for licencing and contact information.
---
+--  
 
 luatexbase.provides_module {
   name          = "luamplib",
@@ -395,7 +395,6 @@ local function process_tex_text (str)
     tex_box_id = tex_box_id + 1
     local global = luamplib.globaltextext and "\\global" or ""
     run_tex_code(format("%s\\setbox%i\\hbox{%s}", global, tex_box_id, str))
-    ---@type HlistNode
     local box = texgetbox(tex_box_id)
     local wd  = box.width  / factor
     local ht  = box.height / factor
@@ -1319,5 +1318,5 @@ local function colorconverter(cr)
   end
 end
 luamplib.colorconverter = colorconverter
---
+-- 
 --  End of File `luamplib.lua'.
