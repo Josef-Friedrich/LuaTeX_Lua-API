@@ -1,0 +1,11 @@
+\directlua{
+  local inspect = require('inspect')
+  local function printi(data) print(inspect(data)) end
+  require('lualibs')
+  printi(url.query("a=b&c=d"))
+  printi(url.query("a"))
+  printi(url.query(""))
+  printi(url.query(false)) % false
+  printi(url.query(true)) % true
+}
+\bye
