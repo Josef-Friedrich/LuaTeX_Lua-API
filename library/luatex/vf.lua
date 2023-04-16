@@ -23,12 +23,14 @@ vf = {}
 function vf.char(n) end
 
 ---
----move down on the page
+---Move down on the page.
+---
+---@param down integer
 ---
 ---* Corresponding C source code: [lfontlib.c#L354-L367](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L354-L367)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/vf.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function vf.down() end
+function vf.down(down) end
 
 ---
 ---* Corresponding C source code: [lfontlib.c#L369-L376](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L369-L376)
@@ -39,12 +41,14 @@ function vf.down() end
 function vf.fontid(fontid) end
 
 ---
----output an image (the argument can be either an `image` variable or an `image_spec` table)
+---Output an image (the argument can be either an `image` variable or an `image_spec` table)
 ---
 ---* Corresponding C source code: [lfontlib.c#L378-L387](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L378-L387)
 ---
+---@param image Image|ImageSpec
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/vf.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function vf.image() end
+function vf.image(image) end
 
 ---
 ---Output this node (list), and move right by the width of
@@ -52,11 +56,13 @@ function vf.image() end
 ---
 ---* Corresponding C source code: [lfontlib.c#L389-L398](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L389-L398)
 ---
+---@param list Node
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/vf.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function vf.node() end
+function vf.node(list) end
 
 ---
----do nothing
+---Do nothing.
 ---
 ---* Corresponding C source code: [lfontlib.c#L400-L406](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L400-L406)
 ---
@@ -64,7 +70,7 @@ function vf.node() end
 function vf.nop() end
 
 ---
----pop position
+---Pop position.
 ---
 ---* Corresponding C source code: [lfontlib.c#L408-L420](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L408-L420)
 ---
@@ -80,15 +86,17 @@ function vf.pop() end
 function vf.push() end
 
 ---
----move right on the page.
+---Move right on the page.
+---
+---@param right integer
 ---
 ---* Corresponding C source code: [lfontlib.c#L437-L453](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L437-L453)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/vf.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function vf.right() end
+function vf.right(right) end
 
 ---
----output a rule ht∗wd, and move right.
+---Output a rule (height * width) and move right.
 ---
 ---* Corresponding C source code: [lfontlib.c#L455-L475](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L455-L475)
 ---
@@ -99,19 +107,40 @@ function vf.right() end
 function vf.rule(height, width) end
 
 ---
----output a `\special` command
+---Output a `\special` command.
+---
+---@param special string
 ---
 ---* Corresponding C source code: [lfontlib.c#L477-L489](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L477-L489)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/vf.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function vf.special() end
+function vf.special(special) end
 
 ---
----output a pdf literal, the first string is one of `origin`,
----`page`, `text`, `font`, `direct` or `raw`; if you have one string
----only `origin` is assumed
+---Output a pdf literal.
+---
+---The first string is one of `origin`,
+---`page`, `text`, `font`, `direct` or `raw`
 ---
 ---* Corresponding C source code: [lfontlib.c#L491-L499](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L491-L499)
+---* Corresponding C source code: [lpdflib.c#L25-L87](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L25-L87)
+---
+---@param mode `origin`|`page`|`text`|`font`|`direct`|`raw`
+---@param general_text string
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/vf.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function vf.pdf() end
+function vf.pdf(mode, general_text) end
+
+---
+---Output a pdf literal.
+---
+---If you have one string
+---only `origin` is assumed.
+---
+---* Corresponding C source code: [lfontlib.c#L491-L499](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L491-L499)
+---* Corresponding C source code: [lpdflib.c#L25-L87](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L25-L87)
+---
+---@param general_text string
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/vf.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function vf.pdf(general_text) end
