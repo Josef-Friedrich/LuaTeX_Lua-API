@@ -175,5 +175,14 @@
       "local function printi(data) print(inspect(data)) end"
     ],
     "description": "---"
+  },
+
+  "man": {
+    "prefix": ["m", "man"],
+    "body": [
+      "",
+      "---* [man3/$1](https://man7.org/linux/man-pages/man3/$1.3.html)"
+    ],
+    "description": "man"
   }
 }
