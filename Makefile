@@ -24,6 +24,9 @@ dist: fix_lua_docstrings
 	resources/sync-projects.sh
 	resources/update-lls-addons.sh
 
+update_lls_addons:
+	resources/update-lls-addons.sh
+
 test:
 	 luatex --luaonly examples/unicode/all.lua
 

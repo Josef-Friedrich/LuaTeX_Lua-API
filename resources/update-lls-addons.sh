@@ -3,9 +3,13 @@
 LUA_HOME="${HOME}/repos/lua"
 
 ROOT="${LUA_HOME}/lls_addons"
-cd "${LUA_HOME}"
 
-git clone git@github.com:Josef-Friedrich/LLS-Addons.git "${ROOT}"
+rm -rf "${ROOT}"
+
+git clone --recurse-submodules git@github.com:Josef-Friedrich/LLS-Addons.git "${ROOT}"
+
+cd "${ROOT}"
+
 
 git branch update
 git checkout update
@@ -26,7 +30,10 @@ tex-luatex\
 
 _update() {
   local ADDON_ROOT="${ROOT}/addons/$1/module"
-  cd "${ADDON_ROOT}"
+  echo "
+${ADDON_ROOT}"
+  cd "${ADDON_ROOT}
+"
   git checkout main
   git pull
   $HOME/.cargo/bin/stylua "${ADDON_ROOT}/library"
