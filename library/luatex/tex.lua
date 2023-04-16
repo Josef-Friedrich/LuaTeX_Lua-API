@@ -17,7 +17,6 @@ _N._10_3_2_internal_parameter_values_set_get = "page 190"
 ---
 ---* Corresponding C source code: [ltexlib.c#L1714-L1813](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1714-L1813)
 ---
----
 ---@param global 'global'
 ---@param parameter string
 ---@param ... any

@@ -34,5 +34,6 @@
       ],
       "env": {}
     }
-  ]
+  ],
+  "Lua.workspace.checkThirdParty": false
 }

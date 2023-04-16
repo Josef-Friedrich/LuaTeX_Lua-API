@@ -810,7 +810,7 @@ function token.command_id(cmdname) end
 ---* Corresponding C source code: [lnewtokenlib.c#L826-L845](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L826-L845)
 ---
 ---@param chr integer
----@param cmd integer
+---@param cmd? integer
 ---
 ---@return Token
 ---
