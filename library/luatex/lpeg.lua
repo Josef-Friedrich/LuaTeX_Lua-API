@@ -71,9 +71,10 @@ lpeg = {}
 ---@operator div(table): Capture
 ---@operator div(function): Capture
 ---@operator pow(number): Pattern
+
 ---
----The matching function.
----It attempts to match the given pattern against the subject string.
+---Match the given `pattern` against the `subject` string.
+---
 ---If the match succeeds,
 ---returns the index in the subject of the first character after the match,
 ---or the captured values
@@ -93,6 +94,7 @@ lpeg = {}
 ---we must either write a loop in Lua or write a pattern that
 ---matches anywhere.
 ---This second approach is easy and quite efficient;
+---
 ---@param pattern Pattern
 ---@param subject string
 ---@param init? integer
@@ -103,17 +105,15 @@ lpeg = {}
 function lpeg.match(pattern, subject, init) end
 
 ---
----If the given value is a pattern,
----returns the string `"pattern"`.
----Otherwise returns nil.
+---Return the string `"pattern"` if the given value is a pattern, otherwise `nil`.
 ---
----@return nil|string
+---@return 'pattern'|nil
 ---
 ---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
 function lpeg.type(value) end
 
 ---
----Returns a string with the running version of LPeg.
+---Return a string with the running version of LPeg.
 ---
 ---@return string
 ---
@@ -121,9 +121,10 @@ function lpeg.type(value) end
 function lpeg.version() end
 
 ---
----Sets a limit for the size of the backtrack stack used by LPeg to
+---Set a limit for the size of the backtrack stack used by LPeg to
 ---track calls and choices.
----(The default limit is 400.)
+---
+---The default limit is `400`.
 ---Most well-written patterns need little backtrack levels and
 ---therefore you seldom need to change this limit;
 ---before changing it you should try to rewrite your
@@ -138,8 +139,9 @@ function lpeg.version() end
 function lpeg.setmaxstack(max) end
 
 ---
----Converts the given value into a proper pattern,
----according to the following rules:
+---Convert the given value into a proper pattern.
+---
+---This following rules are applied:
 ---
 ---* If the argument is a pattern,
 ---it is returned unmodified.
@@ -147,12 +149,12 @@ function lpeg.setmaxstack(max) end
 ---* If the argument is a string,
 ---it is translated to a pattern that matches the string literally.
 ---
----* If the argument is a non-negative number n,
----the result is a pattern that matches exactly n characters.
+---* If the argument is a non-negative number `n`,
+---the result is a pattern that matches exactly `n` characters.
 ---
----* If the argument is a negative number -n,
+---* If the argument is a negative number `-n`,
 ---the result is a pattern that
----succeeds only if the input string has less than ncharacters left:
+---succeeds only if the input string has less than `n` characters left:
 ---`lpeg.P(-n)`
 ---is equivalent to `-lpeg.P(n)`
 ---(see the  unary minus operation).
@@ -169,6 +171,7 @@ function lpeg.setmaxstack(max) end
 ---* If the argument is a function,
 ---returns a pattern equivalent to a
 ---match-time captureover the empty string.
+---
 ---@param value Pattern|string|integer|boolean|table|function
 ---
 ---@return Pattern
@@ -177,9 +180,10 @@ function lpeg.setmaxstack(max) end
 function lpeg.P(value) end
 
 ---
----Returns a pattern that
+---Return a pattern that
 ---matches only if the input string at the current position
 ---is preceded by `patt`.
+---
 ---Pattern `patt` must match only strings
 ---with some fixed length,
 ---and it cannot contain captures.
@@ -196,8 +200,9 @@ function lpeg.P(value) end
 function lpeg.B(pattern) end
 
 ---
----Returns a pattern that matches any single character
+---Return a pattern that matches any single character
 ---belonging to one of the given ranges.
+---
 ---Each `range` is a string `xy` of length 2,
 ---representing all characters with code
 ---between the codes of `x` and `y`
@@ -215,7 +220,7 @@ function lpeg.B(pattern) end
 function lpeg.R(...) end
 
 ---
----Returns a pattern that matches any single character that
+---Return a pattern that matches any single character that
 ---appears in the given string.
 ---(The `S` stands for Set.)
 ---
@@ -237,10 +242,13 @@ function lpeg.R(...) end
 function lpeg.S(string) end
 
 ---
+---Create a non-terminal (a variable) for a grammar.
+---
 ---This operation creates a non-terminal (a variable)
 ---for a grammar.
 ---The created non-terminal refers to the rule indexed by `v`
 ---in the enclosing grammar.
+---
 ---@param v string
 ---
 ---@return Pattern
@@ -263,8 +271,9 @@ function lpeg.V(v) end
 ---@field xdigit userdata
 
 ---
----Returns a table with patterns for matching some character classes
+---Return a table with patterns for matching some character classes
 ---according to the current locale.
+---
 ---The table has fields named
 ---`alnum`,
 ---`alpha`,
@@ -442,9 +451,9 @@ function lpeg.Cg(patt, name) end
 function lpeg.Cp() end
 
 ---
----Creates a substitution capture.
+---Create a substitution capture.
 ---
----Creates a substitution capture,
+---This function creates a substitution capture,
 ---which captures the substring of the subject that matches `patt`,
 ---with substitutions.
 ---For any capture inside `patt` with a value,

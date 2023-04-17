@@ -1,5 +1,5 @@
---- /home/jf/repos/lua/luatex_api_all/library/luatex/lpeg.lua_upstream.lua	2023-04-14 22:11:29.221692484 +0200
-+++ /home/jf/repos/lua/luatex_api_all/library/luatex/lpeg.lua	2023-04-14 22:00:41.904001055 +0200
+--- /home/jf/repos/lua/luatex_api_all/library/luatex/lpeg.lua_upstream.lua	2023-04-17 08:35:03.570260821 +0200
++++ /home/jf/repos/lua/luatex_api_all/library/luatex/lpeg.lua	2023-04-17 08:34:43.034441167 +0200
 @@ -1,3 +1,9 @@
 +_N._4_3_lua_modules = "page 67"
 +
@@ -7,15 +7,15 @@
 +---https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luapeg/lpeg.c
 +---Changes to upstream: global lpeg table
 +
+ ---
  ---@meta
  ---The definitions are developed in this repository: https://github.com/LuaCATS/lpeg
- 
-@@ -38,7 +44,7 @@
+@@ -39,7 +45,7 @@
  ---as we can define new functions to create and compose patterns.
  ---
  ---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
 -local lpeg = {}
 +lpeg = {}
- 
+
  ---
  ---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
