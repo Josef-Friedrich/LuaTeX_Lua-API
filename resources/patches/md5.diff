@@ -1,28 +1,32 @@
---- /home/jf/repos/lua/luatex_api_all/library/luatex/md5.lua_upstream.lua	2023-04-14 22:11:29.893736915 +0200
-+++ /home/jf/repos/lua/luatex_api_all/library/luatex/md5.lua	2023-04-14 22:00:41.904001055 +0200
-@@ -1,3 +1,9 @@
+--- /home/jf/repos/lua/luatex_api_all/library/luatex/md5.lua_upstream.lua	2023-04-17 08:58:40.938370262 +0200
++++ /home/jf/repos/lua/luatex_api_all/library/luatex/md5.lua	2023-04-17 08:58:23.018547733 +0200
+@@ -1,3 +1,11 @@
++_N._4_3_lua_modules = "page 67"
++
 +---https://github.com/TeX-Live/luatex/tree/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luamd5
 +---https://github.com/TeX-Live/luatex/blob/517487384d3b0b4b003fb3180ea415f52eeb5f5f/source/texk/web2c/luatexdir/lua/luatex-core.lua#L220-L241
 +---Changes to upstream:
 +---* local md5 table
 +---* additional function md5.sumHEXA()
 +
+ ---
  ---@meta
  ---The definitions are developed in this repository: https://github.com/LuaCATS/md5
- 
-@@ -9,7 +15,7 @@
+@@ -10,7 +18,7 @@
  ---All functions are registered inside a table `md5`.
  ---
  ---😱 [Types](https://github.com/LuaCATS/md5/blob/main/library/md5.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/md5/pulls)
 -local md5 = {}
 +md5 = {}
- 
+
  ---
- ---Computes the MD5 message-digest of the string `message`.
-@@ -43,6 +49,15 @@
+ ---Compute the MD5 message-digest of the string `message`.
+@@ -47,6 +55,17 @@
  function md5.sumhexa(message) end
- 
+
  ---
++---Compute the MD5 upper case hexadecimal message-digest of the string `message`.
++---
 +---Similar to `md5.sum()`
 +---but returns its value as a string of 32 hexadecimal digits (upper case letters).
 +---
@@ -32,6 +36,6 @@
 +function md5.sumHEXA(message) end
 +
 +---
- ---Encrypts a string, using MD5 in CFB (Cipher-feedback mode).
+ ---Encrypt a string, using MD5 in CFB (Cipher-feedback mode).
+ ---
  ---`message` is an arbitrary binary string to be encrypted.
- ---`key` is an arbitrary binary string to be used as a key.

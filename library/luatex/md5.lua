@@ -1,3 +1,6 @@
+_N._4_3_lua_modules = "page 67"
+
+---
 ---https://github.com/TeX-Live/luatex/tree/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luamd5
 ---https://github.com/TeX-Live/luatex/blob/517487384d3b0b4b003fb3180ea415f52eeb5f5f/source/texk/web2c/luatexdir/lua/luatex-core.lua#L220-L241
 ---Changes to upstream:
@@ -19,7 +22,8 @@
 md5 = {}
 
 ---
----Computes the MD5 message-digest of the string `message`.
+---Compute the MD5 message-digest of the string `message`.
+---
 ---This function takes as input a message of arbitrary length and content
 ---and returns as output a 128-bit "fingerprint" (or "message digest")
 ---of the input.
@@ -39,6 +43,8 @@ md5 = {}
 function md5.sum(message) end
 
 ---
+---Compute the MD5 lower case hexadecimal message-digest of the string `message`.
+---
 ---Similar to `md5.sum()`,
 ---but returns its value as a string of 32 hexadecimal digits (lower case letters).
 ---
@@ -50,6 +56,8 @@ function md5.sum(message) end
 function md5.sumhexa(message) end
 
 ---
+---Compute the MD5 upper case hexadecimal message-digest of the string `message`.
+---
 ---Similar to `md5.sum()`
 ---but returns its value as a string of 32 hexadecimal digits (upper case letters).
 ---
@@ -59,7 +67,8 @@ function md5.sumhexa(message) end
 function md5.sumHEXA(message) end
 
 ---
----Encrypts a string, using MD5 in CFB (Cipher-feedback mode).
+---Encrypt a string, using MD5 in CFB (Cipher-feedback mode).
+---
 ---`message` is an arbitrary binary string to be encrypted.
 ---`key` is an arbitrary binary string to be used as a key.
 ---`seed` is an arbitrary binary string to be used as a seed;
@@ -89,40 +98,42 @@ function md5.sumHEXA(message) end
 ---tex.print(convert_to_hex(md5.crypt('secret', '123')))
 ---```
 ---
----@return string # The cyphertext (as a binary string).
+---@return string cyphertext # The cyphertext (as a binary string).
 ---
 ---😱 [Types](https://github.com/LuaCATS/md5/blob/main/library/md5.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/md5/pulls)
 function md5.crypt(message, key, seed) end
 
 ---
----Decrypts a string.
+---Decrypt a string.
+---
 ---The input `message` must be the result of a previous call
 ---to `crypt`.
----For any `msg`, `key`,
+---For any `message`, `key`,
 ---and `seed`, we have that
 ---
 ---```lua
----md5.decrypt(md5.crypt(msg, key, seed), key) == msg
+---md5.decrypt(md5.crypt(message, key, seed), key) == message
 ---md5.decrypt(md5.crypt('secret', '123', 'seed'), '123') == 'secret'
 ---```
 ---
 ---@param message string # message to be decrypted (this must be the result of a previous call to `crypt`).
 ---@param key string # arbitrary binary string to be used as a key.
 ---
----@return string # The plaintext.
+---@return string plaintext # The plaintext.
 ---
 ---😱 [Types](https://github.com/LuaCATS/md5/blob/main/library/md5.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/md5/pulls)
 function md5.decrypt(message, key) end
 
 ---
----Does a bit-a-bit exclusive or of strings `s1` and `s2`.
+---Do a bit-a-bit exclusive `or` of strings `s1` and `s2`.
+---
 ---Both strings must have the same length,
 ---which will be also the length of the resulting string.
 ---
 ---@param s1 string # arbitrary binary string.
----@param s2 string # arbitrary binary string with same length as s1.
+---@param s2 string # arbitrary binary string with same length as `s1`.
 ---
----@return string # a binary string with same length as s1 and s2, where each bit is the exclusive-or of the corresponding bits in s1-s2.
+---@return string # a binary string with same length as `s1` and `s2`, where each bit is the exclusive `or` of the corresponding bits in `s1`-`s2`.
 ---
 ---😱 [Types](https://github.com/LuaCATS/md5/blob/main/library/md5.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/md5/pulls)
 function md5.exor(s1, s2) end
