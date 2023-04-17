@@ -9,3 +9,4 @@ dist/*
 *_upstream.lua
 *.orig
 *.rej
+*_new.diff

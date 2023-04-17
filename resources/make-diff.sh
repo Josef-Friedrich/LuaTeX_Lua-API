@@ -16,7 +16,7 @@ _make_diff() {
   diff -Naur \
     "${LIBRARY}/luatex/${DEST}.lua_upstream.lua" \
     "${LIBRARY}/luatex/${DEST}.lua" > \
-    "${PROJECT_DIR}/resources/patches/${DEST}.diff"
+    "${PROJECT_DIR}/resources/patches/${DEST}_new.diff"
 }
 
 _make_diff lpeg lpeg lpeg
