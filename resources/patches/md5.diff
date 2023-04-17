@@ -1,8 +1,9 @@
---- /home/jf/repos/lua/luatex_api_all/library/luatex/md5.lua_upstream.lua	2023-04-17 08:58:40.938370262 +0200
-+++ /home/jf/repos/lua/luatex_api_all/library/luatex/md5.lua	2023-04-17 08:58:23.018547733 +0200
-@@ -1,3 +1,11 @@
+--- /home/jf/repos/lua/luatex_api_all/library/luatex/md5.lua_upstream.lua	2023-04-17 21:26:17.145443123 +0200
++++ /home/jf/repos/lua/luatex_api_all/library/luatex/md5.lua	2023-04-17 21:26:13.861448345 +0200
+@@ -1,3 +1,12 @@
 +_N._4_3_lua_modules = "page 67"
 +
++---
 +---https://github.com/TeX-Live/luatex/tree/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luamd5
 +---https://github.com/TeX-Live/luatex/blob/517487384d3b0b4b003fb3180ea415f52eeb5f5f/source/texk/web2c/luatexdir/lua/luatex-core.lua#L220-L241
 +---Changes to upstream:
@@ -12,7 +13,7 @@
  ---
  ---@meta
  ---The definitions are developed in this repository: https://github.com/LuaCATS/md5
-@@ -10,7 +18,7 @@
+@@ -10,7 +19,7 @@
  ---All functions are registered inside a table `md5`.
  ---
  ---😱 [Types](https://github.com/LuaCATS/md5/blob/main/library/md5.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/md5/pulls)
@@ -21,7 +22,7 @@
 
  ---
  ---Compute the MD5 message-digest of the string `message`.
-@@ -47,6 +55,17 @@
+@@ -47,6 +56,17 @@
  function md5.sumhexa(message) end
 
  ---

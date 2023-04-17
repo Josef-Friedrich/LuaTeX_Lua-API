@@ -1,4 +1,6 @@
 _N._4_3_lua_modules = "page 67"
+
+---
 ---Changes to upstream: global zlib table
 
 ---
@@ -6,15 +8,17 @@ _N._4_3_lua_modules = "page 67"
 ---The definitions are developed in this repository: https://github.com/LuaCATS/lzlib
 
 ---
----`lzlib`, by Tiago Dionizio, http://luaforge.net/projects/lzlib/.
----https://luarocks.org/modules/hisham/lzlib
----https://github.com/LuaDist/lzlib
+---`lzlib`, by Tiago Dionizio.
+---
+---* Old location: http://luaforge.net/projects/lzlib/.
+---* More recent git repo (archived): https://github.com/LuaDist/lzlib
+---* On luarocks: https://luarocks.org/modules/hisham/lzlib
 ---
 ---😱 [Types](https://github.com/LuaCATS/lzlib/blob/main/library/lzlib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lzlib/pulls)
-zlib = {}
+local zlib = {}
 
 ---
----returns zlib version
+---Return the zlib version.
 ---
 ---@return string
 ---
@@ -22,10 +26,10 @@ zlib = {}
 function zlib.version() end
 
 ---
----Without any parameters, returns the initial adler32 value.
+---Return the initial `adler32` value.
 ---
----Call to update the adler32 value, adler is the current value, buffer is passed
----to adler32 zlib function and the updated value is returned.
+---Call to update the `adler32` value, `adler32` is the current value, `buffer` is passed
+---to `adler32` zlib function and the updated value is returned.
 ---
 ---@param adler32? integer
 ---@param buffer? string
@@ -36,7 +40,10 @@ function zlib.version() end
 function zlib.adler32(adler32, buffer) end
 
 ---
----Same as zlib.adler32.
+---Return the initial `crc32` value.
+---
+---Call to update the `crc32` value, `crc32` is the current value, `buffer` is passed
+---to `crc32` zlib function and the updated value is returned.
 ---
 ---@param crc32? integer
 ---@param buffer? string
@@ -109,6 +116,7 @@ function zlib.deflate(sink, level, method, windowBits, memLevel, strategy, dicti
 ---😱 [Types](https://github.com/LuaCATS/lzlib/blob/main/library/lzlib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lzlib/pulls)
 ---@class InflateSink
 local InflateSink = {}
+
 ---
 ---😱 [Types](https://github.com/LuaCATS/lzlib/blob/main/library/lzlib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lzlib/pulls)
 function InflateSink:read() end
@@ -142,29 +150,29 @@ local Stream = {}
 function Stream:write(...) end
 
 ---
----  Read from the stream, each parameter corresponds to
----   a return value.
+---Read from the stream, each parameter corresponds to a return value.
 ---
----  With no arguments, it reads a line.
----  Parameters are interpreted as follows:
----    number - reads the specified number of bytes
----    'a' - reads the remaining bytes
----    'l' - reads a line
+---With no arguments, it reads a line. Parameters are interpreted as follows:
+---* `a` - reads the remaining bytes
+---* `l` - reads a line
+---
 ---@param ... integer|'a'|'l'
 ---
 ---😱 [Types](https://github.com/LuaCATS/lzlib/blob/main/library/lzlib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lzlib/pulls)
 function Stream:read(...) end
 
 ---
----Returns an iterator that returns a new line each time
+---Return an iterator that returns a new line each time
 ---it is called.
----@return function
+---
+---@return fun(): line: string
 ---
 ---😱 [Types](https://github.com/LuaCATS/lzlib/blob/main/library/lzlib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lzlib/pulls)
 function Stream:lines() end
 
 ---
----Flush output for deflate streams.
+---Flush the output for deflate streams.
+---
 ---@param opts 'sync'|'full'|'finish'
 ---
 ---😱 [Types](https://github.com/LuaCATS/lzlib/blob/main/library/lzlib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lzlib/pulls)

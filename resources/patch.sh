@@ -16,13 +16,13 @@ _patch() {
     "${PROJECT_DIR}/resources/patches/${FILENAME}.diff"
 }
 
-_patch lpeg lpeg lpeg
-_patch luafilesystem lfs lfs
-_patch lzlib lzlib zlib
-_patch md5 md5 md5
-_patch luaharfbuzz luaharfbuzz luaharfbuzz
-_patch luasocket mbox mbox
-_patch luasocket mime mime
-_patch luasocket socket socket
-_patch slnunicode unicode unicode
-_patch luazip zip zip
+_patch lpeg          lpeg
+_patch luafilesystem lfs
+_patch lzlib         zlib
+_patch md5           md5
+_patch luaharfbuzz   luaharfbuzz
+_patch luasocket     mbox
+_patch luasocket     mime
+_patch luasocket     socket
+_patch slnunicode    unicode
+_patch luazip        zip

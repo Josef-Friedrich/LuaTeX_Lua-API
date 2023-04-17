@@ -1,18 +1,11 @@
---- /home/jf/repos/lua/luatex_api_all/library/luatex/zlib.lua_upstream.lua	2023-04-14 22:11:29.677722634 +0200
-+++ /home/jf/repos/lua/luatex_api_all/library/luatex/zlib.lua	2023-04-14 22:11:21.825203421 +0200
-@@ -1,3 +1,6 @@
+--- /home/jf/repos/lua/luatex_api_all/library/luatex/zlib.lua_upstream.lua	2023-04-17 21:44:13.293592373 +0200
++++ /home/jf/repos/lua/luatex_api_all/library/luatex/zlib.lua	2023-04-17 21:44:08.949322763 +0200
+@@ -1,3 +1,8 @@
 +_N._4_3_lua_modules = "page 67"
++
++---
 +---Changes to upstream: global zlib table
 +
+ ---
  ---@meta
  ---The definitions are developed in this repository: https://github.com/LuaCATS/lzlib
- 
-@@ -7,7 +10,7 @@
- ---https://github.com/LuaDist/lzlib
- ---
- ---😱 [Types](https://github.com/LuaCATS/lzlib/blob/main/library/lzlib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lzlib/pulls)
--local zlib = {}
-+zlib = {}
- 
- ---
- ---returns zlib version
