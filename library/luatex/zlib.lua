@@ -15,7 +15,7 @@ _N._4_3_lua_modules = "page 67"
 ---* On luarocks: https://luarocks.org/modules/hisham/lzlib
 ---
 ---😱 [Types](https://github.com/LuaCATS/lzlib/blob/main/library/lzlib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lzlib/pulls)
-local zlib = {}
+zlib = {}
 
 ---
 ---Return the zlib version.

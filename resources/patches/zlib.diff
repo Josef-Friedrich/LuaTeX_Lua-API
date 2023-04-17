@@ -1,5 +1,5 @@
---- /home/jf/repos/lua/luatex_api_all/library/luatex/zlib.lua_upstream.lua	2023-04-17 21:44:13.293592373 +0200
-+++ /home/jf/repos/lua/luatex_api_all/library/luatex/zlib.lua	2023-04-17 21:44:08.949322763 +0200
+--- /home/jf/repos/lua/luatex_api_all/library/luatex/zlib.lua_upstream.lua	2023-04-17 21:46:57.292658193 +0200
++++ /home/jf/repos/lua/luatex_api_all/library/luatex/zlib.lua	2023-04-17 21:46:51.892271525 +0200
 @@ -1,3 +1,8 @@
 +_N._4_3_lua_modules = "page 67"
 +
@@ -9,3 +9,20 @@
  ---
  ---@meta
  ---The definitions are developed in this repository: https://github.com/LuaCATS/lzlib
+@@ -10,7 +15,7 @@
+ ---* On luarocks: https://luarocks.org/modules/hisham/lzlib
+ ---
+ ---😱 [Types](https://github.com/LuaCATS/lzlib/blob/main/library/lzlib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lzlib/pulls)
+-local zlib = {}
++zlib = {}
+
+ ---
+ ---Return the zlib version.
+@@ -35,7 +40,6 @@
+ function zlib.adler32(adler32, buffer) end
+
+ ---
+----
+ ---Return the initial `crc32` value.
+ ---
+ ---Call to update the `crc32` value, `crc32` is the current value, `buffer` is passed
