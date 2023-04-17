@@ -19,7 +19,7 @@ print_namespace:
 generate_doc:
 	$(HOME)/.vscode/extensions/sumneko.lua-3.6.8-linux-x64/server/bin/lua-language-server --doc library
 
-dist: fix_lua_docstrings
+dist: fix_lua_docstrings clean
 	rsync -av --delete library/ dist/
 	resources/sync-projects.sh
 	resources/update-lls-addons.sh
