@@ -7,3 +7,5 @@
 *.tuc
 dist/*
 *_upstream.lua
+*.orig
+*.rej

@@ -1,0 +1,7 @@
+\directlua{
+  local f = zip.open('test.zip')
+  print(zip.type(f)) % zip file
+  f:close()
+  print(zip.type(f)) % closed file
+}
+\bye
