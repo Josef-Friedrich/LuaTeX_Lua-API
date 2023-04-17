@@ -8,6 +8,8 @@ _N._4_3_lua_modules = "page 67"
 ---basically do all that you want in *Lua*.
 ---
 ---Changes to the upstream project: global unicode table
+
+---
 ---@meta
 ---The definitions are developed in this repository: https://github.com/LuaCATS/slnunicode
 
