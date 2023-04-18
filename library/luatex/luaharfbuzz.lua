@@ -912,40 +912,65 @@ luaharfbuzz.Direction.TTB = 0
 luaharfbuzz.Direction.BTT = 0
 
 ---
+---Data type for languages. Each lanauge object corresponds to a BCP 47 language tag.
+---
 ---Lua wrapper for `hb_language_t` type.
+---
+---* HarfBuzz online documentation: [hb_language_t](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-language-t)
+---
 ---@class Language
 local Language = {}
+
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 luaharfbuzz.Language = Language
 
 ---
+---Convert a string representing a BCP 47 language tag to the corresponding language object.
+---
 ---Wraps `hb_language_from_string`.
----@param lang string [three-letter language tag](http://www.microsoft.com/typography/otspec/languagetags.htm) to be converted to a `Language` object.
+---
+---* HarfBuzz online documentation: [hb_language_from_string](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-language-from-string)
+---
+---@param language_tag string [three-letter language tag](http://www.microsoft.com/typography/otspec/languagetags.htm) to be converted to a `Language` object.
+---
 ---@return Language # a `Language` object.
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
-function Language.new(lang) end
+function Language.new(language_tag) end
 
 ---
 ---Wraps `hb_language_to_string`. Enable nice output with `tostring(…)`.
 ---
+---* Corresponding C source code: [language.c#L19-L25](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/language.c#L19-L25)
+---
 ---@return string # Returns a string representation for the language object.
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
-function Language:__to_string() end
+function Language:__tostring() end
 
 ---
 ---Enables equality comparisions with `==` between two languages.
 ---
+---* Corresponding C source code: [language.c#L27-L34](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/language.c#L27-L34)
+---
+---@param lang Language
+---
 ---@return boolean # `true` or `false` depending on whether the two languages are equal.
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
-function Language:__eq() end
+function Language:__eq(lang) end
 
 ---
+---Value to represent a nonexistent name ID.
+---
 ---Wraps `HB_LANGUAGE_INVALID`.
-Language.INVALID = true
+---
+---* HarfBuzz online documentation: [HB_LANGUAGE_INVALID](https://harfbuzz.github.io/harfbuzz-hb-common.html#HB-LANGUAGE-INVALID:CAPS)
+---* Corresponding C source code: [harfbuzz.lua#L20](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/harfbuzz.lua#L20)
+---
+---@type Language
+Language.INVALID = nil
 
 ---
 ---Unicode functions.
@@ -954,8 +979,14 @@ local unicode = {}
 luaharfbuzz.unicode = unicode
 
 ---
+---Retrieve the `Script` object to which code point `unicode` belongs.
+---
 ---Wraps `hb_unicode_script`
+---
+---* HarfBuzz online documentation: [hb_unicode_script](https://harfbuzz.github.io/harfbuzz-hb-unicode.html#hb-unicode-script)
+---
 ---@param char integer # Unicode codepoint
+---
 ---@return Script # a `Script` object.
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)

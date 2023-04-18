@@ -47,6 +47,7 @@
     "description": "* item and markdown link"
   },
 
+
   "referenceC": {
     "prefix": ["c", "ccode"],
     "body": ["", "---", "---* Corresponding C source code: [$2]($1)", "---$0"],
@@ -111,6 +112,7 @@
     ],
     "description": "Link to CTAN version of TeX by Topic"
   },
+
 
   "return": {
     "prefix": ["return"],
