@@ -22,7 +22,7 @@ _make_diff() {
 
 _make_diff luatex lpeg          lpeg        lpeg
 _make_diff luatex luafilesystem lfs         lfs
-_make_diff luatex lzlib         lzlib       zlib
+_make_diff luatex lzlib         zlib        zlib
 _make_diff luatex md5           md5         md5
 _make_diff luatex luaharfbuzz   luaharfbuzz luaharfbuzz
 _make_diff luatex luasocket     mbox        mbox
