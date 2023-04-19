@@ -45,6 +45,10 @@ _N._14_1_2_set_get_catalog_info_names_trailer = "page 281"
 ---
 ---Insert string <catalog> into the `/Catalog` dictionary.
 ---
+---* Corresponding C source code: [lpdflib.c#L612](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L612)
+---
+---@see pdf.getcatalog
+---
 ---@param catalog string # String.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdf.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -52,6 +56,8 @@ function pdf.setcatalog(catalog) end
 
 ---
 ---Return string <catalog> that was set by `pdf.setcatalog()`.
+---
+---@see pdf.setcatalog
 ---
 ---@return string | nil catalog # String.
 ---
@@ -61,6 +67,10 @@ function pdf.getcatalog() end
 ---
 ---Insert string <info> into the `/Info` dictionary.
 ---
+---* Corresponding C source code: [lpdflib.c#L613](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L613)
+---
+---@see pdf.getinfo
+---
 ---@param info string # String.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdf.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -68,6 +78,8 @@ function pdf.setinfo(info) end
 
 ---
 ---Return string <info> that was set by `pdf.setinfo()`.
+---
+---@see pdf.setinfo
 ---
 ---@return string | nil info # String.
 ---
@@ -77,6 +89,10 @@ function pdf.getinfo() end
 ---
 ---Insert string <names> into the `/Names` dictionary of the `/Catalog`.
 ---
+---* Corresponding C source code: [lpdflib.c#L614](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L614)
+---
+---@see pdf.getnames
+---
 ---@param names string # String.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdf.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -84,6 +100,8 @@ function pdf.setnames(names) end
 
 ---
 ---Return string <names> that was set by `pdf.setnames()`.
+---
+---@see pdf.setnames
 ---
 ---@return string | nil names # String.
 ---
@@ -93,6 +111,10 @@ function pdf.getnames() end
 ---
 ---Insert string <trailer> into the `trailer` dictionary.
 ---
+---* Corresponding C source code: [lpdflib.c#L615](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L615)
+---
+---@see pdf.gettrailer
+---
 ---@param trailer string # String.
 ---FIXME: pdf.settrailer() not working. Bug?
 ---
@@ -101,6 +123,8 @@ function pdf.settrailer(trailer) end
 
 ---
 ---Return string <trailer> that was set by `pdf.settrailer()`.
+---
+---@see pdf.settrailer
 ---
 ---@return string | nil trailer # String.
 ---
@@ -112,6 +136,10 @@ _N._14_1_3_set_get_pageattributes_pageresources_pagesattributes = "page 281"
 ---
 ---Insert string <attributes> into the current `/Page` dictionary.
 ---
+------* Corresponding C source code: [lpdflib.c#L610](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L610)
+---
+---@see pdf.getpageattributes
+---
 ---@param attributes string # String.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdf.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -119,6 +147,8 @@ function pdf.setpageattributes(attributes) end
 
 ---
 ---Return string <attributes> that was set by `pdf.setpageattributes()`.
+---
+---@see pdf.setpageattributes
 ---
 ---@return string | nil attributes # String.
 ---
@@ -128,6 +158,10 @@ function pdf.getpageattributes() end
 ---
 ---Insert string <resources> into the `/Resources` dictionary of the current page.
 ---
+---* Corresponding C source code: [lpdflib.c#L609](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L609)
+---
+---@see pdf.getpageresources
+---
 ---@param resources string # String.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdf.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -135,6 +169,8 @@ function pdf.setpageresources(resources) end
 
 ---
 ---Return string <resources> that was set by `pdf.setpageresources()`.
+---
+---@see pdf.setpageresources
 ---
 ---@return string | nil resources # String.
 ---
@@ -144,6 +180,10 @@ function pdf.getpageresources() end
 ---
 ---Insert string <attributes> into the `/Pages` dictionary of the `/Catalog`.
 ---
+---* Corresponding C source code: [lpdflib.c#L611](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L611)
+---
+---@see pdf.setpageattributes
+---
 ---@param attributes string # String.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdf.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -151,6 +191,8 @@ function pdf.setpagesattributes(attributes) end
 
 ---
 ---Return string <attributes> that was set by `pdf.setpageattributes()`.
+---
+---@see pdf.setpageattributes
 ---
 ---@return string | nil attributes # String.
 ---
@@ -160,33 +202,29 @@ function pdf.getpagesattributes() end
 _N._14_1_4_set_get_xformattributes_xformresources = "page 281"
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---@see pdf.getxformattributes
+---
+---* Corresponding C source code: [lpdflib.c#L617](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L617)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdf.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function pdf.setxformattributes() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---@see pdf.setxformattributes
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdf.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function pdf.getxformattributes() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---@see pdf.getxformresources
+---
+---* Corresponding C source code: [lpdflib.c#L616](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L616)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdf.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function pdf.setxformresources() end
 
 ---
----Warning! Undocumented code!<p>
----TODO: Please contribute
----https://github.com/Josef-Friedrich/LuaTeX_Lua-API#how-to-contribute
+---@see pdf.setxformresources
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdf.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function pdf.getxformresources() end
@@ -197,6 +235,9 @@ _N._14_1_5_set_get_major_minor_version = "page 281"
 ---Set major version number of the PDF file format.
 ---
 ---Note: This function sets the version number of the file header. It does not set the `/Version` key of the `/Catalog` as recommended for PDF-1.4 and later.
+---
+---@see pdf.getmajorversion
+---
 ---@param n integer # Major version number.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdf.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -216,6 +257,8 @@ function pdf.getmajorversion() end
 ---Set minor version number of the PDF file format.
 ---
 ---Note: This function sets the version number of the file header. It does not set the `/Version` key of the `/Catalog` as recommended for PDF-1.4 and later.
+---
+---@see pdf.getmajorversion
 ---
 ---@param n integer # Minor version number.
 ---
