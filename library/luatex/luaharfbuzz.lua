@@ -16,10 +16,10 @@ luaharfbuzz = {}
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 ---@class LuaHarfBuzzOptions
----@field direction Direction # A `Direction` object representing the object.
----@field script Script # A `Script` object representing the script.
----@field language Language # A `Language` object representing the language.
----@field features string|Feature[] # features to enable, specified as either of the following.
+---@field direction HbDirection # A `Direction` object representing the object.
+---@field script HbScript # A `Script` object representing the script.
+---@field language HbLanguage # A `Language` object representing the language.
+---@field features string|HbFeature[] # features to enable, specified as either of the following.
 ----- comma-separated list of features. See [feature string syntax reference](https://github.com/ufytex/luaharfbuzz/wiki/Feature-Strings)
 ----- table of `Feature` objects
 
@@ -31,9 +31,9 @@ luaharfbuzz = {}
 ---* Corresponding C source code: [luaharfbuzz.c#L16-L51](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.c#L16-L51)
 ---* HarfBuzz online documentation: [hb_shape_full](https://harfbuzz.github.io/harfbuzz-hb-shape.html#hb-shape-full)
 ---
----@param font Font
----@param buffer Buffer
----@param features Feature[]
+---@param font HbFont
+---@param buffer HbBuffer
+---@param features HbFeature[]
 ---@param shapers string[]
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
@@ -68,8 +68,8 @@ function luaharfbuzz.version() end
 ---
 ---* Corresponding C source code: [harfbuzz.lua#L22-L53](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/harfbuzz.lua#L22-L53)
 ---
----@param font Font # `Font` to use for shaping
----@param buffer Buffer # `Buffer` to shape
+---@param font HbFont # `Font` to use for shaping
+---@param buffer HbBuffer # `Buffer` to shape
 ---@param options? LuaHarfBuzzOptions
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
@@ -138,7 +138,7 @@ function Blob:get_data() end
 ---* Corresponding C source code: [luaharfbuzz.h#L13](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.h#L13)
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
----@class Face
+---@class HbFace
 local Face = {}
 luaharfbuzz.Face = Face
 
@@ -152,7 +152,7 @@ luaharfbuzz.Face = Face
 ---@param blob Blob # `Blob` to read the font from.
 ---@param font_index? integer # index of font to read.
 ---
----@return Face|nil
+---@return HbFace|nil
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Face.new_from_blob(blob, font_index) end
@@ -168,7 +168,7 @@ function Face.new_from_blob(blob, font_index) end
 ---@param file string # path to font file.
 ---@param font_index? integer # index of font to read.
 ---
----@return Face|nil
+---@return HbFace|nil
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Face.new(file, font_index) end
@@ -198,7 +198,7 @@ function Face:get_glyph_count() end
 ---
 ---* Corresponding C source code: [face.c#L82-L94](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L82-L94)
 ---
----@param tag Tag # `Tag` object of the table.
+---@param tag HbTag # `Tag` object of the table.
 ---
 ---@return Blob # `Blob` object for the face table of `tag`.
 ---
@@ -212,7 +212,7 @@ function Face:get_table(tag) end
 ---
 ---* Corresponding C source code: [face.c#L96-L124](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L96-L124)
 ---
----@return Tag[] # table of `Tag`s representing face table tags.
+---@return HbTag[] # table of `Tag`s representing face table tags.
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Face:get_table_tags() end
@@ -297,7 +297,7 @@ function Face:ot_color_has_png() end
 ---
 ---* Corresponding C source code: [face.c#L126-L156](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L126-L156)
 ---
----@return Tag[]
+---@return HbTag[]
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Face:ot_layout_get_script_tags() end
@@ -307,7 +307,7 @@ function Face:ot_layout_get_script_tags() end
 ---
 ---* Corresponding C source code: [face.c#L158-L189](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L158-L189)
 ---
----@return Tag[]
+---@return HbTag[]
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Face:ot_layout_get_language_tags() end
@@ -316,44 +316,72 @@ function Face:ot_layout_get_language_tags() end
 ---Wraps `hb_ot_layout_language_get_feature_tags`.
 ---
 ---* Corresponding C source code: [face.c#L191-L223](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L191-L223)
+---* HarfBuzz online documentation: [hb_ot_layout_language_get_feature_tags](https://harfbuzz.github.io/harfbuzz-hb-ot-layout.html#hb-ot-layout-language-get-feature-tags)
 ---
----@return Tag[]
+---@param table_tag HbTag # OpenType Glyph Substitution Table (gsub) or OpenType Glyph Positioning Table (gpos).
+---@param script_index integer # The index of the requested script tag
+---@param language_index integer # The index of the requested language tag
+---
+---@return HbTag[] # The array of HbTag feature tags found for the query.
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
-function Face:ot_layout_get_feature_tags() end
+function Face:ot_layout_get_feature_tags(table_tag, script_index, language_index) end
 
+---
+---Fetch the index if a given script tag in the specified face's GSUB table or GPOS table.
 ---
 ---Wraps `hb_ot_layout_table_find_script`.
 ---
 ---* Corresponding C source code: [face.c#L225-L235](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L225-L235)
+---* HarfBuzz online documentation: [hb_ot_layout_table_find_script](https://harfbuzz.github.io/harfbuzz-hb-deprecated.html#hb-ot-layout-table-find-script)
 ---
----@return boolean found
----@return integer index
+---@deprecated
+---
+---@param table_tag HbTag # OpenType Glyph Substitution Table (gsub) or OpenType Glyph Positioning Table (gpos).
+---@param script_tag HbTag # The `HbTag` script tag requested
+---
+---@return boolean found # `true` if the script is found, `false` otherwise
+---@return integer index # The index of the requested script tag.
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
-function Face:ot_layout_find_script() end
+function Face:ot_layout_find_script(table_tag, script_tag) end
 
+---
+---Fetch the index of a given language tag in the specified face's GSUB table or GPOS table, underneath the specified script tag.
 ---
 ---Wraps `hb_ot_layout_script_find_language`.
 ---
 ---* Corresponding C source code: [face.c#L237-L248](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L237-L248)
+---* HarfBuzz online documentation: [hb_ot_layout_script_find_language](https://harfbuzz.github.io/harfbuzz-hb-ot-layout.html#hb-ot-layout-script-find-language)
 ---
----@return boolean found
----@return integer index
+---@param tag HbTag # OpenType Glyph Substitution Table (gsub) or OpenType Glyph Positioning Table (gpos).
+---@param script_index integer # The index of the requested script tag.
+---@param language_tag HbTag # The `HbTag` of the requested language.
+---
+---@return boolean found # `true` if the language tag is found, `false` otherwise
+---@return integer index # The index of the requested language.
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
-function Face:ot_layout_find_language() end
+function Face:ot_layout_find_language(tag, script_index, language_tag) end
 
+---
+---Fetches the index of a given feature tag in the specified face's GSUB table or GPOS table, underneath the specified script and language.
 ---
 ---Wraps `hb_ot_layout_language_find_feature`.
 ---
 ---* Corresponding C source code: [face.c#L250-L262](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L250-L262)
+---* HarfBuzz online documentation: [hb_ot_layout_language_find_feature](https://harfbuzz.github.io/harfbuzz-hb-ot-layout.html#hb-ot-layout-language-find-feature)
 ---
----@return boolean found
----@return integer index
+---@param tag HbTag # OpenType Glyph Substitution Table (gsub) or OpenType Glyph Positioning Table (gpos).
+---@param script_index integer # The index of the requested script tag.
+---@param language_index integer # The index of the requested language tag.
+---@param feature HbTag # The feature tag requested.
+---
+---@return boolean found # `true` if the feature is found, `false` otherwise
+---@return integer index # The index of the requested feature.
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
-function Face:ot_layout_find_feature() end
+function Face:ot_layout_find_feature(tag, script_index, language_index, feature) end
 
 ---
 ---Data type for holding fonts.
@@ -365,7 +393,7 @@ function Face:ot_layout_find_feature() end
 ---* HarfBuzz online documentation: [hb_font_t](https://harfbuzz.github.io/harfbuzz-hb-font.html#hb-font-t)
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
----@class Font
+---@class HbFont
 local Font = {}
 luaharfbuzz.Font = Font
 
@@ -375,7 +403,7 @@ luaharfbuzz.Font = Font
 ---to the face’s upem value, and sets the font shaping functions by
 ---calling `hb_ot_font_set_funcs` on it.
 ---
----@param face Face # `Face` object.
+---@param face HbFace # `Face` object.
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Font.new(face) end
@@ -513,7 +541,7 @@ function Font:ot_color_glyph_get_png() end
 ---* HarfBuzz online documentation: [hb_buffer_t](https://harfbuzz.github.io/harfbuzz-hb-buffer.html#hb-buffer-t)
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
----@class Buffer
+---@class HbBuffer
 local Buffer = {}
 luaharfbuzz.Buffer = Buffer
 
@@ -544,7 +572,7 @@ function Buffer:add_codepoints(text, opt) end
 ---
 ---Wraps `hb_buffer_set_direction`.
 ---
----@param dir Direction # A `Direction` object.
+---@param dir HbDirection # A `Direction` object.
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Buffer:set_direction(dir) end
@@ -552,7 +580,7 @@ function Buffer:set_direction(dir) end
 ---
 ---Wraps `hb_buffer_get_direction`.
 ---
----@return Direction # A `Direction` object.
+---@return HbDirection # A `Direction` object.
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Buffer:get_direction() end
@@ -560,7 +588,7 @@ function Buffer:get_direction() end
 ---
 ---Wraps `hb_buffer_set_script`.
 ---
----@param script Script # A `Script` object.
+---@param script HbScript # A `Script` object.
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Buffer:set_script(script) end
@@ -568,7 +596,7 @@ function Buffer:set_script(script) end
 ---
 ---Wraps `hb_buffer_get_script`.
 ---
----@return Script # A `Script` object.
+---@return HbScript # A `Script` object.
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Buffer:get_script() end
@@ -576,7 +604,7 @@ function Buffer:get_script() end
 ---
 ---Wraps `hb_buffer_set_language`.
 ---
----@param lang Language A `Language` object
+---@param lang HbLanguage A `Language` object
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Buffer:set_language(lang) end
@@ -584,7 +612,7 @@ function Buffer:set_language(lang) end
 ---
 ---Wraps `hb_buffer_get_language`.
 ---
----@return Language # A `Language` object
+---@return HbLanguage # A `Language` object
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Buffer:get_language() end
@@ -628,7 +656,7 @@ function Buffer:guess_segment_properties() end
 ---table contains the following:
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
----@class Glyph
+---@class HbGlyph
 ---@field x_advance number # horizontal advance.
 ---@field y_advance number # vertical advance.
 ---@field x_offset number # horizontal displacement.
@@ -642,7 +670,7 @@ function Buffer:guess_segment_properties() end
 ---Calls `hb_buffer_get_glyph_infos`, `hb_buffer_get_glyph_positions` and
 ---`hb_glyph_info_get_glyph_flags`, and assembles the data into a Lua table.
 ---
----@return Glyph[]
+---@return HbGlyph[]
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Buffer:get_glyphs() end
@@ -696,7 +724,7 @@ Buffer.GLYPH_FLAG_DEFINED = 3
 ---* Corresponding Lua source code: [hb_feature_t](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-feature-t)
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
----@class Feature
+---@class HbFeature
 local Feature = {}
 luaharfbuzz.Feature = Feature
 
@@ -724,7 +752,7 @@ function Feature:__tostring() end
 ---* HarfBuzz online documentation: [hb_tag_t](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-tag-t)
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
----@class Tag
+---@class HbTag
 local Tag = {}
 luaharfbuzz.Tag = Tag
 
@@ -733,7 +761,7 @@ luaharfbuzz.Tag = Tag
 ---
 ---@param s string # to be converted to a `Tag` object.
 ---
----@return Tag # a `Tag` object.
+---@return HbTag # a `Tag` object.
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Tag.new(s) end
@@ -749,7 +777,7 @@ function Tag:__to_string() end
 ---
 ---Enables equality comparisions with `==` between two tags.
 ---
----@return boolean# `true` or `false` depending on whether the two tags are equal.
+---@return boolean # `true` or `false` depending on whether the two tags are equal.
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Tag:__eq() end
@@ -764,7 +792,7 @@ function Tag:__eq() end
 ---* HarfBuzz online documentation: [hb_script_t](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-script-t)
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
----@class Script
+---@class HbScript
 local Script = {}
 luaharfbuzz.Script = Script
 
@@ -773,7 +801,7 @@ luaharfbuzz.Script = Script
 ---
 ---@param script string # 4-letter script code according to the [ISO 15924 standard](http://www.unicode.org/iso15924/iso15924-num.html).
 ---
----@return Script # a `Script` object.
+---@return HbScript # a `Script` object.
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Script.new(script) end
@@ -783,7 +811,7 @@ function Script.new(script) end
 ---
 ---* HarfBuzz online documentation: [harfbuzz-hb-common.html#hb-script-from-iso15924-tag](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-script-from-iso15924-tag)
 ---
----@param tag Tag # a `Tag` object representing a [ISO 15924 script](http://www.unicode.org/iso15924/iso15924-num.html).
+---@param tag HbTag # a `Tag` object representing a [ISO 15924 script](http://www.unicode.org/iso15924/iso15924-num.html).
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Script.from_iso15924_tag(tag) end
@@ -793,7 +821,7 @@ function Script.from_iso15924_tag(tag) end
 ---
 ---* HarfBuzz online documentation: [harfbuzz-hb-common.html#hb-script-to-iso15924-tag](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-script-to-iso15924-tag)
 ---
----@return Tag # a `Tag` object representing the script.
+---@return HbTag # a `Tag` object representing the script.
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Script:to_iso15924_tag() end
@@ -854,7 +882,7 @@ Script.INVALID = "No script set"
 ---* HarfBuzz online documentation: [hb_direction_t](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-direction-t)
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
----@class Direction
+---@class HbDirection
 local Direction = {}
 luaharfbuzz.Direction = Direction
 
@@ -862,7 +890,7 @@ luaharfbuzz.Direction = Direction
 ---Wraps `hb_direction_from_string`.
 ---@param dir `ltr`|`rtl`|`ttb`|`btt`|`invalid` # can be one of `ltr`, `rtl`, `ttb`, `btt` or `invalid`.
 ---
----@return Direction # a `Direction` object.
+---@return HbDirection # a `Direction` object.
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Direction.new(dir) end
@@ -967,7 +995,7 @@ luaharfbuzz.Direction.BTT = 0
 ---* Corresponding C source code: [luaharfbuzz.h#L20](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.h#L20)
 ---* HarfBuzz online documentation: [hb_language_t](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-language-t)
 ---
----@class Language
+---@class HbLanguage
 local Language = {}
 luaharfbuzz.Language = Language
 
@@ -980,7 +1008,7 @@ luaharfbuzz.Language = Language
 ---
 ---@param language_tag string [three-letter language tag](http://www.microsoft.com/typography/otspec/languagetags.htm) to be converted to a `Language` object.
 ---
----@return Language # a `Language` object.
+---@return HbLanguage # a `Language` object.
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Language.new(language_tag) end
@@ -1000,7 +1028,7 @@ function Language:__tostring() end
 ---
 ---* Corresponding C source code: [language.c#L27-L34](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/language.c#L27-L34)
 ---
----@param lang Language
+---@param lang HbLanguage
 ---
 ---@return boolean # `true` or `false` depending on whether the two languages are equal.
 ---
@@ -1015,7 +1043,7 @@ function Language:__eq(lang) end
 ---* HarfBuzz online documentation: [HB_LANGUAGE_INVALID](https://harfbuzz.github.io/harfbuzz-hb-common.html#HB-LANGUAGE-INVALID:CAPS)
 ---* Corresponding C source code: [harfbuzz.lua#L20](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/harfbuzz.lua#L20)
 ---
----@type Language
+---@type HbLanguage
 Language.INVALID = nil
 
 ---
@@ -1033,7 +1061,7 @@ luaharfbuzz.unicode = unicode
 ---
 ---@param char integer # Unicode codepoint
 ---
----@return Script # a `Script` object.
+---@return HbScript # a `Script` object.
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function unicode.script(char) end
@@ -1148,7 +1176,7 @@ luaharfbuzz.ot = ot
 ---* HarfBuzz online documentation: [hb_variation_t](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-variation-t)
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
----@class Variation
+---@class HbVariation
 local Variation = {}
 
 ---
