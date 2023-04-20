@@ -1,0 +1,3 @@
+---https://github.com/contextgarden/luametatex/blob/812e28feca3cf5de5f41a7fb3ebf25e4a4b2ae00/source/luarest/lmtxcomplexlib.c
+---https://web.tecgraf.puc-rio.br/~lhf/ftp/lua/ar/lcomplex-100.tar.gz
+---https://luarocks.org/modules/edubart/lcomplex
