@@ -63,8 +63,6 @@ else
   exit  1
 fi
 
-ACTION=
-
 $ACTION luatex lpeg          lpeg
 $ACTION luatex luafilesystem lfs
 $ACTION luatex lzlib         zlib
