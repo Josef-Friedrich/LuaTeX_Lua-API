@@ -9,12 +9,22 @@ _patch() {
   local PROJECT="$2"
   local FILENAME="$3"
   wget \
-    -O "${PROJECT_DIR}/library/${ENGINE}/${FILENAME}.lua" \
+    --quiet \
+    --output-document "${PROJECT_DIR}/library/${ENGINE}/${FILENAME}.lua" \
     "https://raw.githubusercontent.com/LuaCATS/${PROJECT}/main/library/${FILENAME}.lua"
+
+  if [ "$?" -ne 0 ]; then
+    echo "Error downloading file https://raw.githubusercontent.com/LuaCATS/${PROJECT}/main/library/${FILENAME}.lua"
+  fi
 
   patch \
     "${PROJECT_DIR}/library/${ENGINE}/${FILENAME}.lua" < \
     "${PROJECT_DIR}/resources/patches/${ENGINE}/${FILENAME}.diff"
+
+  if [ "$?" -ne 0 ]; then
+    echo "Error patching file ${PROJECT_DIR}/library/${ENGINE}/${FILENAME}.lua"
+  fi
+
 }
 
 _patch luatex lpeg          lpeg

@@ -11,7 +11,7 @@ _make_diff() {
 
   wget \
     --quiet \
-    --output-document="${PROJECT_DIR}/library/${ENGINE}/${FILENAME}.lua_upstream.lua" \
+    --output-document "${PROJECT_DIR}/library/${ENGINE}/${FILENAME}.lua_upstream.lua" \
     "https://raw.githubusercontent.com/LuaCATS/${PROJECT}/main/library/${FILENAME}.lua"
 
   if [ "$?" -ne 0 ]; then
