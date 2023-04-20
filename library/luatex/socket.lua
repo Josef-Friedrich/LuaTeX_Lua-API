@@ -1,9 +1,3 @@
-_N._4_3_lua_modules = "page 67"
-
----
----https://github.com/TeX-Live/luatex/blob/trunk/source/texk/web2c/luatexdir/luasocket/src/socket.lua
----Changes to upstream: global socket table
-
 ---
 ---@meta
 ---The definitions are developed in this repository: https://github.com/LuaCATS/luasocket
@@ -249,7 +243,8 @@ function socket.protect(func) end
 function socket.select(recvt, sendt, timeout) end
 
 ---
---- The maximum number of sockets that the select function can handle.
+---The maximum number of sockets that the select function can handle.
+---
 ---@type integer
 ---
 ---😱 [Types](https://github.com/LuaCATS/luasocket/blob/main/library/socket.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luasocket/pulls)

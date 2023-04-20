@@ -31,10 +31,10 @@ test:
 	 luatex --luaonly examples/unicode/all.lua
 
 diff:
-	resources/make-diff.sh
+	resources/patch.sh diff
 
 patch:
-	resources/patch.sh
+	resources/patch.sh patch
 
 clean:
 	git clean -dfX
