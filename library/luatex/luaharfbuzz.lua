@@ -822,6 +822,7 @@ function Buffer:get_glyphs() end
 ---
 ---* HarfBuzz online documentation: []()
 
+---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 Buffer.CLUSTER_LEVEL_MONOTONE_GRAPHEMES = 0
 
