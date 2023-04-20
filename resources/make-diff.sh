@@ -10,13 +10,24 @@ _make_diff() {
   local FILENAME="$3"
 
   wget \
-    -O "${PROJECT_DIR}/library/${ENGINE}/${FILENAME}.lua_upstream.lua" \
+    --quiet \
+    --output-document="${PROJECT_DIR}/library/${ENGINE}/${FILENAME}.lua_upstream.lua" \
     "https://raw.githubusercontent.com/LuaCATS/${PROJECT}/main/library/${FILENAME}.lua"
+
+  if [ "$?" -ne 0 ]; then
+    echo Error
+  fi
 
   diff -Naur \
     "${LIBRARY}/${ENGINE}/${FILENAME}.lua_upstream.lua" \
     "${LIBRARY}/${ENGINE}/${FILENAME}.lua" > \
     "${PROJECT_DIR}/resources/patches/${ENGINE}/${FILENAME}_new.diff"
+
+
+  if [ "$?" -ne 0 ]; then
+    echo Error
+  fi
+
 }
 
 _make_diff luatex lpeg          lpeg
