@@ -78,6 +78,8 @@ function luaharfbuzz.shape(font, buffer, options) end
 ---
 ---Blobs wrap a chunk of binary data to handle lifecycle management of data while it is passed between client and HarfBuzz. Blobs are primarily used to create font faces, but also to access font face tables, as well as pass around other binary data.
 ---
+---Wraps `hb_blob_t`.
+---
 ---* Corresponding C source code: [luaharfbuzz.h#L12](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.h#L12)
 ---
 ---@class Blob
@@ -88,6 +90,8 @@ luaharfbuzz.Blob = Blob
 
 ---
 ---Create a new "blob" object wrapping data.
+---
+---Wraps `hb_blob_create`.
 ---
 ---* Corresponding C source code: [blob.c#L3-L14](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/blob.c#L3-L14)
 ---
@@ -101,6 +105,8 @@ function Blob.new(data) end
 ---
 ---Create a new blob containing the data from the specified binary font file.
 ---
+---Wraps `hb_blob_create_from_file`.
+---
 ---* Corresponding C source code: [blob.c#L16-L26](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/blob.c#L16-L26)
 ---
 ---@param filename string # lua string.
@@ -113,6 +119,8 @@ function Blob.new_from_file(filename) end
 ---
 ---Fetch the length of a blob's data.
 ---
+---Wraps `hb_blob_get_length`.
+---
 ---* Corresponding C source code: [blob.c#L28-L33](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/blob.c#L28-L33)
 ---
 ---@return integer
@@ -122,6 +130,8 @@ function Blob:get_length() end
 
 ---
 ---Fetch the data from a blob.
+---
+---Wraps `hb_blob_get_data`.
 ---
 ---* Corresponding C source code: [blob.c#L35-L44](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/blob.c#L35-L44)
 ---
@@ -135,6 +145,8 @@ function Blob:get_data() end
 ---
 ---More precisely, a font face represents a single face in a binary font file. Font faces are typically built from a binary blob and a face index. Font faces are used to create fonts.
 ---
+---Wraps `hb_face_t`.
+---
 ---* Corresponding C source code: [luaharfbuzz.h#L13](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.h#L13)
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
@@ -146,6 +158,8 @@ luaharfbuzz.Face = Face
 ---Constructs a new face object from the specified blob and a face index into that blob.
 ---
 ---The face index is used for blobs of file formats such as TTC and DFont that can contain more than one face. Face indices within such collections are zero-based.
+---
+---Wraps `hb_face_create`.
 ---
 ---* Corresponding C source code: [face.c#L28-L45](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L28-L45)
 ---
@@ -163,6 +177,8 @@ function Face.new_from_blob(blob, font_index) end
 ---Makes a call to `Face:new_from_blob` after creating a `Blob` from the
 ---file contents.
 ---
+---Wraps `hb_face_create`.
+---
 ---* Corresponding C source code: [face.c#L7-L26](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L7-L26)
 ---
 ---@param file string # path to font file.
@@ -176,6 +192,8 @@ function Face.new(file, font_index) end
 ---
 ---Collect all of the Unicode characters covered by face.
 ---
+---Wraps `hb_face_collect_unicodes`.
+---
 ---* Corresponding C source code: [face.c#L264-L284](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L264-L284)
 ---
 ---@return table # of codepoints supported by the face.
@@ -185,6 +203,8 @@ function Face:collect_unicodes() end
 
 ---
 ---Fetch the glyph-count value of the specified face object.
+---
+---Wraps `hb_face_get_glyph_count`.
 ---
 ---* Corresponding C source code: [face.c#L47-L52](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L47-L52)
 ---
@@ -398,10 +418,12 @@ local Font = {}
 luaharfbuzz.Font = Font
 
 ---
----Wraps `hb_font_create`, and sets up some defaults for scale and shaping functions.
+---Set up some defaults for scale and shaping functions.
 ---Initializes a new `hb_font_t` from a `Face` object. Sets the default scale
 ---to the face’s upem value, and sets the font shaping functions by
 ---calling `hb_ot_font_set_funcs` on it.
+---
+---Wraps `hb_font_create`.
 ---
 ---@param face HbFace # `Face` object.
 ---
@@ -730,6 +752,7 @@ luaharfbuzz.Feature = Feature
 
 ---
 ---Wraps `hb_feature_from_string`
+---
 ---@param feature_string string # See [feature string syntax reference](https://github.com/ufytex/luaharfbuzz/wiki/Feature-Strings)
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
@@ -737,6 +760,7 @@ function Feature.new(feature_string) end
 
 ---
 ---Wraps `hb_feature_to_string`.
+---
 ---Enables nice output with `tostring(…)`.
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
@@ -746,6 +770,7 @@ function Feature:__tostring() end
 ---Data type for tag identifiers. Tags are four byte integers, each byte representing a character.
 ---
 ---Tags are used to identify tables, design-variation axes, scripts, languages, font features, and baselines with human-readable names.
+---
 ---Lua wrapper for `hb_tag_t` type.
 ---
 ---* Corresponding C source code: [luaharfbuzz.h#L17](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.h#L17)
@@ -836,6 +861,7 @@ function Script:__to_string() end
 
 ---
 ---Enables equality comparisions with `==` between two scripts.
+---
 ---@return boolean `true` or `false` depending on whether the two scripts are equal.
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
@@ -888,6 +914,7 @@ luaharfbuzz.Direction = Direction
 
 ---
 ---Wraps `hb_direction_from_string`.
+---
 ---@param dir `ltr`|`rtl`|`ttb`|`btt`|`invalid` # can be one of `ltr`, `rtl`, `ttb`, `btt` or `invalid`.
 ---
 ---@return HbDirection # a `Direction` object.
@@ -955,6 +982,7 @@ function Direction:is_backward() end
 ---Wraps `HB_DIRECTION_LTR`.
 ---
 ---Predefined directions that correspond to their original definitions in Harfbuzz.
+---
 ---@type integer|nil
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
@@ -964,6 +992,7 @@ luaharfbuzz.Direction.LTR = 4
 ---Wraps `HB_DIRECTION_RTL`.
 ---
 ---Predefined directions that correspond to their original definitions in Harfbuzz.
+---
 ---@type integer|nil
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
@@ -973,6 +1002,7 @@ luaharfbuzz.Direction.RTL = 0
 ---Wraps `HB_DIRECTION_TTB`.
 ---
 ---Predefined directions that correspond to their original definitions in Harfbuzz.
+---
 ---@type integer|nil
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
@@ -982,6 +1012,7 @@ luaharfbuzz.Direction.TTB = 0
 ---Wraps `HB_DIRECTION_LTR`.
 ---
 ---Predefined directions that correspond to their original definitions in Harfbuzz.
+---
 ---@type integer|nil
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
