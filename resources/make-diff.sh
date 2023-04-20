@@ -15,19 +15,21 @@ _make_diff() {
     "https://raw.githubusercontent.com/LuaCATS/${PROJECT}/main/library/${FILENAME}.lua"
 
   if [ "$?" -ne 0 ]; then
-    echo Error
+    echo "Error downloading file https://raw.githubusercontent.com/LuaCATS/${PROJECT}/main/library/${FILENAME}.lua"
   fi
 
-  diff -Naur \
+  diff --new-file --text --unified \
     "${LIBRARY}/${ENGINE}/${FILENAME}.lua_upstream.lua" \
     "${LIBRARY}/${ENGINE}/${FILENAME}.lua" > \
     "${PROJECT_DIR}/resources/patches/${ENGINE}/${FILENAME}_new.diff"
+  # When diff finds a difference between the two files, its exit code is 1
 
-
-  if [ "$?" -ne 0 ]; then
-    echo Error
+  local DIFF_EXIT="$?"
+  if [ "$DIFF_EXIT" -gt 1 ]; then
+    echo "Diff error $DIFF_EXIT ${PROJECT_DIR}/resources/patches/${ENGINE}/${FILENAME}_new.diff"
   fi
 
+  true # to make “make” happy
 }
 
 _make_diff luatex lpeg          lpeg
