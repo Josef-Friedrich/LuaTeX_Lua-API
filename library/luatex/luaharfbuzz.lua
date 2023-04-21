@@ -186,6 +186,19 @@ function Face.new_from_blob(blob, font_index) end
 ---
 ---Wraps `hb_face_create`.
 ---
+---__Example:__
+---
+---```lua
+---local face = luaharfbuzz.Face.new('xxx')
+---print(face) -- nil
+---
+---face = luaharfbuzz.Face.new(
+---           '/usr/share/fonts/truetype/noto/NotoSans-Regular.ttf')
+---if face ~= nil then
+---    print(face) -- harfbuzz.Face: 0x12426a8
+---end
+---```
+---
 ---* Corresponding C source code: [face.c#L7-L26](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L7-L26)
 ---* HarfBuzz online documentation: [hb_face_create](https://harfbuzz.github.io/harfbuzz-hb-face.html#hb-face-create)
 ---
@@ -202,10 +215,22 @@ function Face.new(file, font_index) end
 ---
 ---Wraps `hb_face_collect_unicodes`.
 ---
+---__Example:__
+---
+---```lua
+---local face = luaharfbuzz.Face.new('/usr/share/fonts/truetype/noto/NotoSans-Regular.ttf')
+---if face == nil then error("Font not found!") end
+
+---
+---for _, char in ipairs(face:collect_unicodes()) do
+---  print(char, unicode.utf8.char(char))
+---end
+---```
+---
 ---* Corresponding C source code: [face.c#L264-L284](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L264-L284)
 ---* HarfBuzz online documentation: [hb_face_collect_unicodes](https://harfbuzz.github.io/harfbuzz-hb-face.html#hb-face-collect-unicodes)
 ---
----@return table # of codepoints supported by the face.
+---@return number[] # of codepoints supported by the face.
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Face:collect_unicodes() end
@@ -222,6 +247,39 @@ function Face:collect_unicodes() end
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Face:get_glyph_count() end
+
+---
+---Fetch a font name from the OpenType 'name' table.
+---
+---If language is HB_LANGUAGE_INVALID, English ("en") is assumed. Returns string in UTF-8 encoding.
+---
+---Wraps `hb_ot_name_get_utf8`.
+---
+---__Example:__
+---
+---```lua
+---local face = luaharfbuzz.Face.new('/usr/share/fonts/truetype/noto/NotoSans-Regular.ttf')
+---if face == nil then error("Font not found!") end
+
+---
+---local name_id = 0
+---local name
+---repeat
+---  name = face:get_name(name_id)
+---  print(name_id, name)
+---  name_id = name_id + 1
+---until (name == nil)
+---```
+---
+---* Corresponding C source code: [face.c#L54-L80](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L54-L80)
+---* HarfBuzz online documentation: [hb_ot_name_get_utf8](https://harfbuzz.github.io/harfbuzz-hb-ot-name.html#hb-ot-name-get-utf8)
+---
+---@param name_id integer
+---@param lang? HbLanguage
+---
+---@return string|nil
+---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
+function Face:get_name(name_id, lang) end
 
 ---
 ---Fetch a reference to the specified table within the specified face.
@@ -257,6 +315,15 @@ function Face:get_table_tags() end
 ---Typical UPEM values for fonts are 1000, or 2048, but any value in between 16 and 16,384 is allowed for OpenType fonts.
 ---
 ---Wraps `hb_face_get_upem`.
+---
+---__Example:__
+---
+---```lua
+---local face = luaharfbuzz.Face.new('/usr/share/fonts/truetype/noto/NotoSans-Regular.ttf')
+---if face == nil then error("Font not found!") end
+
+---print('Units per em', face:get_upem()) -- 1000
+---```
 ---
 ---* Corresponding C source code: [face.c#L286-L291](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L286-L291)
 ---* HarfBuzz online documentation: [hb_face_get_upem](https://harfbuzz.github.io/harfbuzz-hb-face.html#hb-face-get-upem)
