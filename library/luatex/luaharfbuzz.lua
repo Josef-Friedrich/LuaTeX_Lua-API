@@ -663,14 +663,20 @@ local Buffer = {}
 luaharfbuzz.Buffer = Buffer
 
 ---
+---Create a new `Buffer` object with all properties to defaults.
+---
 ---Wraps `hb_buffer_create`.
 ---
 ---* Corresponding C source code: [buffer.c#L3-L12](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/buffer.c#L3-L12)
 ---* HarfBuzz online documentation: [hb_buffer_create](https://harfbuzz.github.io/harfbuzz-hb-buffer.html#hb-buffer-create)
 ---
+---@return HbBuffer
+---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Buffer.new() end
 
+---
+---Replace invalid UTF-8 characters with the buffer replacement code point.
 ---
 ---Wraps `hb_buffer_add_utf8`.
 ---
@@ -678,22 +684,32 @@ function Buffer.new() end
 ---* HarfBuzz online documentation: [hb_buffer_add_utf8](https://harfbuzz.github.io/harfbuzz-hb-buffer.html#hb-buffer-add-utf8)
 ---
 ---@param text string # UTF8 encoded string.
----@param opt? integer [opt=0] item_offset 0-indexed offset in `text`, from where to start adding. [opt=-1] item_length length to add from `item_offset`. `-1` adds till end of `text`.
+---@param item_offset? integer # The offset of the first character to add to the `buffer`.
+---@param item_length? integer # The number of characters to add to the buffer , or `-1` for the end of text.
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
-function Buffer:add_utf8(text, opt) end
+function Buffer:add_utf8(text, item_offset, item_length) end
 
+---
+---Appends characters from text array to buffer .
+---
+---The `item_offset` is the position of the first character from text that will be appended, and `item_length` is the number of character. When shaping part of a larger text (e.g. a run of text from a paragraph), instead of passing just the substring corresponding to the run, it is preferable to pass the whole paragraph and specify the run start and length as `item_offset` and `item_length`, respectively, to give HarfBuzz the full context to be able, for example, to do cross-run Arabic shaping or properly handle combining marks at stat of run.
+---
+---This function does not check the validity of `text`, it is up to the caller to ensure it contains a valid Unicode scalar values. In contrast, `Buffer:add_utf8()` can be used that takes similar input but performs sanity-check on the input.
 ---
 ---Wraps `hb_buffer_add_codepoints`.
 ---
 ---* Corresponding C source code: [buffer.c#L137-L162](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/buffer.c#L137-L162)
 ---* HarfBuzz online documentation: [hb_buffer_add_codepoints](https://harfbuzz.github.io/harfbuzz-hb-buffer.html#hb-buffer-add-codepoints)
 ---
+---@see HbBuffer.add_utf8
+---
 ---@param text integer[] # with codepoints as lua numbers.
----@param opt? integer [opt=0] item_offset 0-indexed offset in `text`, from where to start adding. [opt=-1] item_length length to add from `item_offset`. `-1` adds till end of `text`.
+---@param item_offset? integer # The offset of the first character to add to the `buffer`.
+---@param item_length? integer # The number of characters to add to the buffer , or `-1` for the end of text.
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
-function Buffer:add_codepoints(text, opt) end
+function Buffer:add_codepoints(text, item_offset, item_length) end
 
 ---
 ---Wraps `hb_buffer_set_direction`.
@@ -906,6 +922,7 @@ luaharfbuzz.Feature = Feature
 ---
 ---Wraps `hb_feature_from_string`
 ---
+---* Corresponding C source code: [feature.c#L4-L18](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/feature.c#L4-L18)
 ---* HarfBuzz online documentation: [hb_feature_from_string](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-feature-from-string)
 ---
 ---@param feature_string string # See [feature string syntax reference](https://github.com/ufytex/luaharfbuzz/wiki/Feature-Strings)
@@ -914,9 +931,11 @@ luaharfbuzz.Feature = Feature
 function Feature.new(feature_string) end
 
 ---
+---Enables nice output with `tostring(…)`.
+---
 ---Wraps `hb_feature_to_string`.
 ---
----Enables nice output with `tostring(…)`.
+---* Corresponding C source code: [feature.c#L20-L27](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/feature.c#L20-L27)
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Feature:__tostring() end
@@ -937,8 +956,13 @@ local Tag = {}
 luaharfbuzz.Tag = Tag
 
 ---
+---Convert a string into an `Tag` object.
+---
+---Valid tags are four characters. Shorter input strings will be padded with spaces. Longer input strings will be truncated.
+---
 ---Wraps `hb_tag_from_string`.
 ---
+---* Corresponding C source code: [tag.c#L4-L17](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/tag.c#L4-L17)
 ---* HarfBuzz online documentation: [hb_tag_from_string](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-tag-from-string)
 ---
 ---@param s string # to be converted to a `Tag` object.
@@ -949,15 +973,21 @@ luaharfbuzz.Tag = Tag
 function Tag.new(s) end
 
 ---
----Wraps `hb_tag_to_string`. Enable nice output with `tostring(…)`.
+---Enable nice output with `tostring(…)`.
 ---
----@return string # Returns a string representation for the tag object.
+---Wraps `hb_tag_to_string`.
+---
+---* Corresponding C source code: [tag.c#L19-L27](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/tag.c#L19-L27)
+---
+---@return string # Returns a string representation for the `Tag` object.
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 function Tag:__to_string() end
 
 ---
 ---Enables equality comparisions with `==` between two tags.
+---
+---* Corresponding C source code: [tag.c#L29-L35](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/tag.c#L29-L35)
 ---
 ---@return boolean # `true` or `false` depending on whether the two tags are equal.
 ---
@@ -978,8 +1008,10 @@ local Script = {}
 luaharfbuzz.Script = Script
 
 ---
+---Convert a string representing an ISO 15924 script tag to a corresponding `Script` object.
 ---Wraps `hb_script_from_string`.
 ---
+---* Corresponding C source code: [script.c#L3-L14](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/script.c#L3-L14)
 ---* HarfBuzz online documentation: [hb_script_from_string](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-script-from-string)
 ---
 ---@param script string # 4-letter script code according to the [ISO 15924 standard](http://www.unicode.org/iso15924/iso15924-num.html).
@@ -990,8 +1022,11 @@ luaharfbuzz.Script = Script
 function Script.new(script) end
 
 ---
+---Convert an ISO 15924 script `Tag` object to a corresponding `Script` object.
+---
 ---Wraps `hb_script_from_iso15924_tag`
 ---
+---* Corresponding C source code: [script.c#L16-L25](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/script.c#L16-L25)
 ---* HarfBuzz online documentation: [harfbuzz-hb-common.html#hb-script-from-iso15924-tag](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-script-from-iso15924-tag)
 ---
 ---@param tag HbTag # a `Tag` object representing a [ISO 15924 script](http://www.unicode.org/iso15924/iso15924-num.html).
@@ -1000,8 +1035,11 @@ function Script.new(script) end
 function Script.from_iso15924_tag(tag) end
 
 ---
+---Converts an `Script` object to a corresponding ISO 15924 script `Tag`.
+---
 ---Wraps `hb_script_to_iso15924_tag`.
 ---
+---* Corresponding C source code: [script.c#L37-L46](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/script.c#L37-L46)
 ---* HarfBuzz online documentation: [harfbuzz-hb-common.html#hb-script-to-iso15924-tag](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-script-to-iso15924-tag)
 ---
 ---@return HbTag # a `Tag` object representing the script.
@@ -1010,7 +1048,9 @@ function Script.from_iso15924_tag(tag) end
 function Script:to_iso15924_tag() end
 
 ---
----Enable nice output with `tostring(…)`
+---Enable nice output with `tostring(…)`.
+---
+---* Corresponding C source code: [script.c#L27-L35](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/script.c#L27-L35)
 ---
 ---@return string # Returns a 4-letter [ISO 15924 script code](http://www.unicode.org/iso15924/iso15924-num.html) for the script object.
 ---
@@ -1019,6 +1059,8 @@ function Script:__to_string() end
 
 ---
 ---Enables equality comparisions with `==` between two scripts.
+---
+---* Corresponding C source code: [script.c#L48-L54](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/script.c#L48-L54)
 ---
 ---@return boolean `true` or `false` depending on whether the two scripts are equal.
 ---
@@ -1030,6 +1072,8 @@ function Script:__eq() end
 ---
 ---* [HarfBuzz online documentation](https://harfbuzz.github.io/harfbuzz-hb-common.html#HB-SCRIPT-COMMON:CAPS)
 ---
+---@type string
+---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 Script.COMMON = "Zyyy"
 
@@ -1037,6 +1081,8 @@ Script.COMMON = "Zyyy"
 ---Wraps `HB_SCRIPT_INHERITED`.
 ---
 ---* [HarfBuzz online documentation](https://harfbuzz.github.io/harfbuzz-hb-common.html#HB-SCRIPT-INHERITED:CAPS)
+---
+---@type string
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 Script.INHERITED = "Zinh"
@@ -1046,6 +1092,8 @@ Script.INHERITED = "Zinh"
 ---
 ---* [HarfBuzz online documentation](https://harfbuzz.github.io/harfbuzz-hb-common.html#HB-SCRIPT-UNKNOWN:CAPS)
 ---
+---@type string
+---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 Script.UNKNOWN = "Zzzz"
 
@@ -1053,6 +1101,8 @@ Script.UNKNOWN = "Zzzz"
 ---Wraps `HB_SCRIPT_INVALID`.
 ---
 ---* [HarfBuzz online documentation](https://harfbuzz.github.io/harfbuzz-hb-common.html#HB-SCRIPT-INVALID:CAPS)
+---
+---@type string
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 Script.INVALID = "No script set"
@@ -1073,6 +1123,7 @@ luaharfbuzz.Direction = Direction
 ---
 ---Wraps `hb_direction_from_string`.
 ---
+---* Corresponding C source code: [direction.c#L4-L14](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/direction.c#L4-L14)
 ---* HarfBuzz online documentation: [hb_direction_from_string](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-direction-from-string)
 ---
 ---@param dir `ltr`|`rtl`|`ttb`|`btt`|`invalid` # can be one of `ltr`, `rtl`, `ttb`, `btt` or `invalid`.
@@ -1083,7 +1134,11 @@ luaharfbuzz.Direction = Direction
 function Direction.new(dir) end
 
 ---
----Wraps `hb_direction_to_string`. Enable nice output with `tostring(…)`.
+---Enable nice output with `tostring(…)`.
+---
+---Wraps `hb_direction_to_string`.
+---
+---* Corresponding C source code: [direction.c#L16-L21](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/direction.c#L16-L21)
 ---
 ---@return string # Returns a string representation for direction.
 ---
@@ -1091,7 +1146,9 @@ function Direction.new(dir) end
 function Direction:__to_string() end
 
 ---
----Enables equality comparisions with `==` between two directions.
+---Enable equality comparisions with `==` between two directions.
+---
+---* Corresponding C source code: [direction.c#L23-L29](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/direction.c#L23-L29)
 ---
 ---@return boolean # `true` or `false` depending on whether the two tags are equal.
 ---
@@ -1099,8 +1156,11 @@ function Direction:__to_string() end
 function Direction:__eq() end
 
 ---
+---Test whether a text direction is valid.
+---
 ---Wraps `HB_DIRECTION_IS_VALID`.
 ---
+---* Corresponding C source code: [direction.c#L31-L36](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/direction.c#L31-L36)
 ---* HarfBuzz online documentation: [HB_DIRECTION_IS_VALID](https://harfbuzz.github.io/harfbuzz-hb-common.html#HB-DIRECTION-IS-VALID:CAPS)
 ---
 ---@return boolean # a boolean value
@@ -1109,8 +1169,11 @@ function Direction:__eq() end
 function Direction:is_valid() end
 
 ---
----Wraps `HB_DIRECTION_IS_HORIZONTAL`.
+---Test whether a text direction is horizontal.
 ---
+---Requires that the direction be valid. Wraps `HB_DIRECTION_IS_HORIZONTAL`.
+---
+---* Corresponding C source code: [direction.c#L38-L43](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/direction.c#L38-L43)
 ---* HarfBuzz online documentation: [HB_DIRECTION_IS_HORIZONTAL](https://harfbuzz.github.io/harfbuzz-hb-common.html#HB-DIRECTION-IS-HORIZONTAL:CAPS)
 ---
 ---@return boolean # a boolean value
@@ -1119,8 +1182,11 @@ function Direction:is_valid() end
 function Direction:is_horizontal() end
 
 ---
----Wraps `HB_DIRECTION_IS_VERTICAL`.
+---Test whether a text direction is vertical.
 ---
+---Requires that the direction be valid. Wraps `HB_DIRECTION_IS_VERTICAL`.
+---
+---* Corresponding C source code: [direction.c#L45-L50](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/direction.c#L45-L50)
 ---* HarfBuzz online documentation: [HB_DIRECTION_IS_VERTICAL](https://harfbuzz.github.io/harfbuzz-hb-common.html#HB-DIRECTION-IS-VERTICAL:CAPS)
 ---
 ---@return boolean # a boolean value
@@ -1129,8 +1195,11 @@ function Direction:is_horizontal() end
 function Direction:is_vertical() end
 
 ---
----Wraps `HB_DIRECTION_IS_FORWARD`.
+---Test whether a text direction moves forward (from left to right, or from top to bottom).
 ---
+---Requires that the direction be valid. Wraps `HB_DIRECTION_IS_FORWARD`.
+---
+---* Corresponding C source code: [direction.c#L52-L57](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/direction.c#L52-L57)
 ---* HarfBuzz online documentation: [HB_DIRECTION_IS_FORWARD](https://harfbuzz.github.io/harfbuzz-hb-common.html#HB-DIRECTION-IS-FORWARD:CAPS)
 ---
 ---@return boolean # a boolean value
@@ -1139,8 +1208,11 @@ function Direction:is_vertical() end
 function Direction:is_forward() end
 
 ---
----Wraps `HB_DIRECTION_IS_BACKWARD`.
+---Test whether a text direction moves backward (from right to left, or from bottom to top).
 ---
+---Requires that the direction be valid. Wraps `HB_DIRECTION_IS_BACKWARD`.
+---
+---* Corresponding C source code: [direction.c#L59-L64](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/direction.c#L59-L64)
 ---* HarfBuzz online documentation: [HB_DIRECTION_IS_BACKWARD](https://harfbuzz.github.io/harfbuzz-hb-common.html#HB-DIRECTION-IS-BACKWARD:CAPS)
 ---
 ---@return boolean # a boolean value
@@ -1213,6 +1285,7 @@ luaharfbuzz.Language = Language
 ---
 ---Wraps `hb_language_from_string`.
 ---
+---* Corresponding C source code: [language.c#L4-L17](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/language.c#L4-L17)
 ---* HarfBuzz online documentation: [hb_language_from_string](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-language-from-string)
 ---
 ---@param language_tag string [three-letter language tag](http://www.microsoft.com/typography/otspec/languagetags.htm) to be converted to a `Language` object.
@@ -1223,7 +1296,9 @@ luaharfbuzz.Language = Language
 function Language.new(language_tag) end
 
 ---
----Wraps `hb_language_to_string`. Enable nice output with `tostring(…)`.
+---Enable nice output with `tostring(…)`.
+---
+---Wraps `hb_language_to_string`.
 ---
 ---* Corresponding C source code: [language.c#L19-L25](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/language.c#L19-L25)
 ---* HarfBuzz online documentation: [hb_language_to_string](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-language-to-string)
@@ -1234,7 +1309,7 @@ function Language.new(language_tag) end
 function Language:__tostring() end
 
 ---
----Enables equality comparisions with `==` between two languages.
+---Enable equality comparisions with `==` between two languages.
 ---
 ---* Corresponding C source code: [language.c#L27-L34](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/language.c#L27-L34)
 ---
@@ -1267,6 +1342,7 @@ luaharfbuzz.unicode = unicode
 ---
 ---Wraps `hb_unicode_script`
 ---
+---* Corresponding C source code: [unicode.c#L3-L12](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/unicode.c#L3-L12)
 ---* HarfBuzz online documentation: [hb_unicode_script](https://harfbuzz.github.io/harfbuzz-hb-unicode.html#hb-unicode-script)
 ---
 ---@param char integer # Unicode codepoint
