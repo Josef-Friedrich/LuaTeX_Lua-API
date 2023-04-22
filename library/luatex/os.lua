@@ -164,7 +164,7 @@ os.env = {}
 ---os.sleep(1) -- Sleep 1 second
 ---os.sleep(1, 10) -- Sleep 1 decisecond
 ---os.sleep(1, 100) -- Sleep 1 centisecond
----os.sleep(1, 1000) -- Sleep 1 millisecond
+---os.sleep(1, 1000) -- Sleep 1 millisecond<
 ---```
 ---
 ---__Reference:__
