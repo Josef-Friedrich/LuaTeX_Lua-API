@@ -35,6 +35,18 @@ md5 = {}
 ---(see
 ---RFC 1321)
 ---
+---__Example:__
+---
+---```lua
+---local function convert_to_hex(str)
+---  return (str:gsub('.', function (c)
+---      return string.format('%02X', string.byte(c))
+---  end))
+---end
+---local hash = convert_to_hex(md5.sum('test'))
+---assert(hash == '098F6BCD4621D373CADE4E832627B4F6')
+---```
+---
 ---@param message string
 ---
 ---@return string
@@ -48,6 +60,13 @@ function md5.sum(message) end
 ---Similar to `md5.sum()`,
 ---but returns its value as a string of 32 hexadecimal digits (lower case letters).
 ---
+---__Example:__
+---
+---```lua
+---local hash = md5.sumhexa('test')
+---assert(hash == '098f6bcd4621d373cade4e832627b4f6')
+---```
+---
 ---@param message string
 ---
 ---@return string # for example `098f6bcd4621d373cade4e832627b4f6`
@@ -60,6 +79,13 @@ function md5.sumhexa(message) end
 ---
 ---Similar to `md5.sum()`
 ---but returns its value as a string of 32 hexadecimal digits (upper case letters).
+---
+---__Example:__
+---
+---```lua
+---local hash = md5.sumHEXA('test')
+---assert(hash == '098F6BCD4621D373CADE4E832627B4F6')
+---```
 ---
 ---@param message string
 ---
@@ -83,20 +109,22 @@ function md5.sumHEXA(message) end
 ---The length of the cyphertext is the length of the message plus the
 ---length of the seed plus one.
 ---
----@param message string # An arbitrary binary string to be encrypted.
----@param key string # An arbitrary binary string to be used as a key.
----@param seed? string # An optional arbitrary binary string to be used as a seed. If no seed is provided, the function uses the result of `time()` as a seed.
----
 ---__Example:__
 ---
 ---```lua
----function convert_to_hex(str)
----return (str:gsub('.', function (c)
----    return string.format('%02X', string.byte(c))
----end))
+---local function convert_to_hex(str)
+---  return (str:gsub('.', function(c)
+---      return string.format('%02X', string.byte(c))
+---  end))
 ---end
----tex.print(convert_to_hex(md5.crypt('secret', '123')))
+---
+---local result = convert_to_hex(md5.crypt('secret', '123', 'seed'))
+---assert(result == '0473656564974C4C1B3848')
 ---```
+---
+---@param message string # An arbitrary binary string to be encrypted.
+---@param key string # An arbitrary binary string to be used as a key.
+---@param seed? string # An optional arbitrary binary string to be used as a seed. If no seed is provided, the function uses the result of `time()` as a seed.
 ---
 ---@return string cyphertext # The cyphertext (as a binary string).
 ---
@@ -112,8 +140,9 @@ function md5.crypt(message, key, seed) end
 ---and `seed`, we have that
 ---
 ---```lua
----md5.decrypt(md5.crypt(message, key, seed), key) == message
----md5.decrypt(md5.crypt('secret', '123', 'seed'), '123') == 'secret'
+---local encrypted = md5.crypt('message', '123', 'seed')
+---local message = md5.decrypt(encrypted, '123')
+---assert(message == 'message')
 ---```
 ---
 ---@param message string # message to be decrypted (this must be the result of a previous call to `crypt`).
@@ -129,6 +158,13 @@ function md5.decrypt(message, key) end
 ---
 ---Both strings must have the same length,
 ---which will be also the length of the resulting string.
+---
+---__Example:__
+---
+---```lua
+---assert(md5.exor('', '') == '')
+---assert(md5.exor('alo alo', '\0\0\0\0\0\0\0') == 'alo alo')
+---```
 ---
 ---@param s1 string # arbitrary binary string.
 ---@param s2 string # arbitrary binary string with same length as `s1`.
