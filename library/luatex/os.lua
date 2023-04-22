@@ -59,7 +59,7 @@ os.selfdir = ""
 ---values `nil` and `error` if there was a problem while
 ---attempting to execute the command.
 ---
----On MS Windows, the current process is actually kept in memory until after the
+---On *MS Windows*, the current process is actually kept in memory until after the
 ---execution of the command has finished. This prevents crashes in situations
 ---where *TeXLua* scripts are run inside integrated *TeX* environments.
 ---
@@ -71,7 +71,12 @@ os.selfdir = ""
 ---
 ---* Corresponding C source code: [loslibext.c#L429-L501](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L429-L501)
 ---
+---@see os.execute
+---
 ---@param commandline string|table
+---
+---@return integer|nil exit_status
+---@return string|nil error
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/os.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function os.exec(commandline) end
@@ -87,7 +92,12 @@ function os.exec(commandline) end
 ---
 ---* Corresponding C source code: [loslibext.c#L510-L596](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L510-L596)
 ---
+---@see os.execute
+---
 ---@param commandline string|table
+---
+---@return integer|nil exit_status
+---@return string|nil error
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/os.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function os.spawn(commandline) end
@@ -141,11 +151,28 @@ function os.setenv(key, value) end
 os.env = {}
 
 ---
+---* Corresponding C source code: [loslibext.c#L663-L673](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L663-L673)
+---* Corresponding Lualibs source code: [lualibs-os.lua#L580-L587](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-os.lua#L580-L587)
+---
+---@param interval number
+---@param unit? number
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/os.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function os.sleep(interval, unit) end
+
+---
 ---Return the current “UNIX time”, but as a
 ---float.
 ---
 ---This function is not available on the *SunOS* platforms, so do not use
 ---this function for portable documents.
+---
+---__Example:__
+---
+---```lua
+---local time = os.gettimeofday()
+---assert(time > 1682153121.3217, time)
+---```
 ---
 ---__Reference:__
 ---
@@ -180,6 +207,16 @@ function os.gettimeofday() end
 ---}
 ---```
 ---
+---__Example:__
+---
+---```lua
+---local times = os.times()
+---assert(type(times.cstime) == 'number')
+---assert(type(times.cutime) == 'number')
+---assert(type(times.stime) == 'number')
+---assert(type(times.utime) == 'number')
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [loslibext.c#L872-L894](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L872-L894)
@@ -198,14 +235,33 @@ function os.times() end
 ---The user is responsible for cleaning up at the end of the run, it does not
 ---happen automatically.
 ---
+---__Example:__
+---
+---```lua
+---lfs.chdir('/tmp')
+---local dir = os.tmpdir()
+---assert(type(dir) == 'string')
+---assert(lfs.isdir('/tmp/' .. dir))
+---
+---dir = os.tmpdir('tmp.XXXXXX')
+---assert(type(dir) == 'string')
+---assert(lfs.isdir('/tmp/' .. dir))
+---
+---dir = os.tmpdir('tmp.X')
+---assert(dir == nil)
+---```
+---
 ---__Reference:__
 ---
+---* Source code of the `LuaTeX` manual: [luatex-lua.tex#L531-L538](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-lua.tex#L531-L538)
 ---* Corresponding C source code: [loslibext.c#L971-L997](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L971-L997)
 ---
----@return string
+---@param path_template? string # for example `luatex.XXXXXX`
+---
+---@return string|nil
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/os.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function os.tmpdir() end
+function os.tmpdir(path_template) end
 
 ---
 ---A string that gives a global indication of the class of
@@ -213,6 +269,12 @@ function os.tmpdir() end
 ---
 ---The possible values are currently `windows`, `unix`, and `msdos` (you are unlikely to find this value “in the
 ---wild”).
+---
+---__Example:__
+---
+---```lua
+---assert(os.type == 'unix')
+---```
 ---
 ---__Reference:__
 ---
@@ -231,6 +293,12 @@ os.type = ""
 ---values are simply `windows` and `msdos`
 ---
 ---The list for the type `unix` is more precise: `linux`, `freebsd`, `kfreebsd`, `cygwin`, `openbsd`, `solaris`, `sunos` (pre-solaris), `hpux`, `irix`, `macosx`, `gnu` (hurd), `bsd` (unknown, but BSD-like), `sysv` (unknown, but SYSV-like), `generic` (unknown).
+---
+---__Example:__
+---
+---```lua
+---assert(os.name == 'linux')
+---```
 ---
 ---__Reference:__
 ---
@@ -255,6 +323,17 @@ os.name = ""
 ---
 ---The keys in the returned table are all
 ---string values, and their names are: `sysname`, `machine`, `release`, `version`, and `nodename`.
+---
+---__Example:__
+---
+---```lua
+---local uname = os.uname()
+---assert(type(uname.machine) == 'string')
+---assert(type(uname.nodename) == 'string')
+---assert(type(uname.release) == 'string')
+---assert(type(uname.sysname) == 'string')
+---assert(type(uname.version) == 'string')
+---```
 ---
 ---__Reference:__
 ---
