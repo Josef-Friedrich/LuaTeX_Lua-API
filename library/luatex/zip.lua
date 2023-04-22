@@ -39,7 +39,7 @@ zip = {}
 ---print(zip.type(f)) - closed zip file
 ---```
 ---
----@param zfile Zfile
+---@param zfile ZFile
 ---
 ---@return "closed zip file"|"zip file"|nil
 ---
@@ -57,7 +57,7 @@ function zip.type(zfile) end
 ---
 ---@param filename string
 ---
----@return Zfile|nil
+---@return ZFile|nil
 ---@return nil|string err
 ---
 ---😱 [Types](https://github.com/LuaCATS/luazip/blob/main/library/zip.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luazip/pulls)
@@ -89,16 +89,12 @@ function zip.open(filename) end
 function zip.openfile(filename) end
 
 ---
----@class ZInteralFile
-local ZInteralFile = {}
-
----
 ---😱 [Types](https://github.com/LuaCATS/luazip/blob/main/library/zip.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luazip/pulls)
----@class Zfile
+---@class ZFile
 local ZFile = {}
 
 ---
----@param zfile Zfile
+---@param zfile ZFile
 ---
 ---* Corresponding C source code: [luazip.c#L121-L131](https://github.com/mpeterv/luazip/blob/e424f667cc5c78dd19bb5eca5a86b3c8698e0ce5/src/luazip.c#L121-L131)
 ---
@@ -123,7 +119,7 @@ function ZFile:close() end
 ---@field uncompressed_size integer # The uncompressed size of the file in bytes, for example `434654`.
 
 ---
----Return an iterator function that returns a new table containing the
+---Return an iterator function that returns a new table containing
 ---informations about the current file.
 ---
 ---__Example:__
@@ -177,6 +173,10 @@ function ZFile:files() end
 ---
 ---😱 [Types](https://github.com/LuaCATS/luazip/blob/main/library/zip.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luazip/pulls)
 function ZFile:open(filename) end
+
+---
+---@class ZInteralFile
+local ZInteralFile = {}
 
 ---
 ---Read a `file` according to the given formats, which specify what to read.
