@@ -151,11 +151,29 @@ function os.setenv(key, value) end
 os.env = {}
 
 ---
+---Suspend execution for second intervals.
+---
+---__Example:__
+---
+---```lua
+---local start_time = os.gettimeofday()
+---os.sleep(1)
+---local end_time = os.gettimeofday()
+---assert(end_time - start_time > 1)
+---
+---os.sleep(1) -- Sleep 1 second
+---os.sleep(1, 10) -- Sleep 1 decisecond
+---os.sleep(1, 100) -- Sleep 1 centisecond
+---os.sleep(1, 1000) -- Sleep 1 millisecond
+---```
+---
+---__Reference:__
+---
 ---* Corresponding C source code: [loslibext.c#L663-L673](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L663-L673)
 ---* Corresponding Lualibs source code: [lualibs-os.lua#L580-L587](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-os.lua#L580-L587)
 ---
----@param interval number
----@param unit? number
+---@param interval number # By default seconds.
+---@param unit? number # Sleep `interval / unit` seconds.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/os.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function os.sleep(interval, unit) end
