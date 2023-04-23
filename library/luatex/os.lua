@@ -164,7 +164,7 @@ os.env = {}
 ---os.sleep(1) -- Sleep 1 second
 ---os.sleep(1, 10) -- Sleep 1 decisecond
 ---os.sleep(1, 100) -- Sleep 1 centisecond
----os.sleep(1, 1000) -- Sleep 1 millisecond<
+---os.sleep(1, 1000) -- Sleep 1 millisecond
 ---```
 ---
 ---__Reference:__
@@ -257,16 +257,21 @@ function os.times() end
 ---
 ---```lua
 ---lfs.chdir('/tmp')
----local dir = os.tmpdir()
+---local dir, err = os.tmpdir()
 ---assert(type(dir) == 'string')
 ---assert(lfs.isdir('/tmp/' .. dir))
 ---
----dir = os.tmpdir('tmp.XXXXXX')
+---dir, err = os.tmpdir('tmp.XXXXXX')
 ---assert(type(dir) == 'string')
 ---assert(lfs.isdir('/tmp/' .. dir))
 ---
----dir = os.tmpdir('tmp.X')
+---dir, err = os.tmpdir('tmp.X')
 ---assert(dir == nil)
+---assert(err == 'Invalid argument to os.tmpdir()', err)
+---
+---dir, err = os.tmpdir('tmp.XXXXXXX_suffix')
+---assert(dir == nil)
+---assert(err == 'Invalid argument to os.tmpdir()', err)
 ---```
 ---
 ---__Reference:__
@@ -274,12 +279,13 @@ function os.times() end
 ---* Source code of the `LuaTeX` manual: [luatex-lua.tex#L531-L538](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-lua.tex#L531-L538)
 ---* Corresponding C source code: [loslibext.c#L971-L997](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L971-L997)
 ---
----@param path_template? string # for example `luatex.XXXXXX`
+---@param template? string # for example `luatex.XXXXXX`
 ---
 ---@return string|nil
+---@return nil|string error
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/os.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function os.tmpdir(path_template) end
+function os.tmpdir(template) end
 
 ---
 ---A string that gives a global indication of the class of
