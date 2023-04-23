@@ -147,69 +147,56 @@ function zlib.compress(buffer, level, method, window_bits, mem_level, strategy) 
 function zlib.decompress(buffer, window_bits) end
 
 ---
----😱 [Types](https://github.com/LuaCATS/lzlib/blob/main/library/lzlib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lzlib/pulls)
----@class Sink
-local Sink = {}
-
----
----😱 [Types](https://github.com/LuaCATS/lzlib/blob/main/library/lzlib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lzlib/pulls)
-function Sink:write() end
-
----
----😱 [Types](https://github.com/LuaCATS/lzlib/blob/main/library/lzlib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lzlib/pulls)
-function Sink:close() end
-
----
----😱 [Types](https://github.com/LuaCATS/lzlib/blob/main/library/lzlib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lzlib/pulls)
-function Sink:flush() end
-
----
 ---Return a deflate stream.
 ---
 ---In the upstream project this function is called `zlib.deflate()`.
 ---
+---__Example:__
+---
+---```lua
+---local z_stream = zlib.compressobj(1)
+---local result = z_stream:compress('test')
+---assert(type(result) == 'string')
+---```
+---
 ---* Corresponding C source code: [lzlib.c#L156-L173](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L156-L173)
 ---
----@param sink function | Sink
 ---@param level? integer # The compression level must be `-1` (default compression), or between `0` and `9`: `1` gives best speed, `9` gives best compression, `0` gives no compression at all (the input data is simply copied a block at a time).
 ---@param method? integer # The method parameter is the compression method. It must be `8` (`Z_DEFLATED`) in this version of the library.
 ---@param window_bits? integer # `The window_bits` parameter is the base two logarithm of the maximum window size (the size of the history buffer). It should be in the range `8..15` for this version of the library, default `15`.
 ---@param mem_level? integer - default `8`
 ---@param strategy? integer - default `Z_DEFAULT_STRATEGY`
----@param dictionary? string - default `""`
 ---
 ---@return ZStream
 ---
 ---😱 [Types](https://github.com/LuaCATS/lzlib/blob/main/library/lzlib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lzlib/pulls)
-function zlib.compressobj(sink, level, method, window_bits, mem_level, strategy, dictionary) end
-
----
----😱 [Types](https://github.com/LuaCATS/lzlib/blob/main/library/lzlib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lzlib/pulls)
----@class InflateSink
-local InflateSink = {}
-
----
----😱 [Types](https://github.com/LuaCATS/lzlib/blob/main/library/lzlib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lzlib/pulls)
-function InflateSink:read() end
-
----
----😱 [Types](https://github.com/LuaCATS/lzlib/blob/main/library/lzlib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lzlib/pulls)
-function InflateSink:close() end
+function zlib.compressobj(level, method, window_bits, mem_level, strategy) end
 
 ---
 ---Return an inflate stream.
 ---
 ---In the upstream project this function is called `zlib.inflate()`.
 ---
+---__Example:__
+---
+---```lua
+---local z_stream_com = zlib.compressobj(1)
+---local compressed = z_stream_com:compress('test')
+---compressed = compressed .. z_stream_com:flush()
+---
+---local z_stream_decomp = zlib.decompressobj()
+---local result = z_stream_decomp:decompress(compressed)
+---assert(result == 'test')
+---```
+---
 ---* Corresponding C source code: [lzlib.c#L177-L191](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L177-L191)
 ---
----@param source string|function|InflateSink
 ---@param window_bits? integer # `The window_bits` parameter is the base two logarithm of the maximum window size (the size of the history buffer). It should be in the range `8..15` for this version of the library, default `15`.
----@param dictionary? string - default `""`
+---
 ---@return ZStream
 ---
 ---😱 [Types](https://github.com/LuaCATS/lzlib/blob/main/library/lzlib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lzlib/pulls)
-function zlib.decompressobj(source, window_bits, dictionary) end
+function zlib.decompressobj(window_bits) end
 
 ---
 ---😱 [Types](https://github.com/LuaCATS/lzlib/blob/main/library/lzlib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lzlib/pulls)
@@ -224,22 +211,26 @@ function ZStream:adlerreset() end
 ---
 ---* Corresponding C source code: [lzlib.c#L231-L263](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L231-L263)
 ---
-function ZStream:compress(...) end
+---@param buffer string
+---
+---@return string buffer
+function ZStream:compress(buffer) end
 
 ---
 ---* Corresponding C source code: [lzlib.c#L195-L227](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L195-L227)
 ---
-function ZStream:decompress() end
+---@param buffer string
+---
+---@return string buffer
+function ZStream:decompress(buffer) end
 
 ---
 ---Flush the output for deflate streams.
 ---
 ---* Corresponding C source code: [lzlib.c#L267-L303](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L267-L303)
 ---
----@param opts? 'sync'|'full'|'finish'
----
 ---😱 [Types](https://github.com/LuaCATS/lzlib/blob/main/library/lzlib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lzlib/pulls)
-function ZStream:flush(opts) end
+function ZStream:flush() end
 
 ---
 ---Close the stream.
@@ -252,6 +243,7 @@ function ZStream:close() end
 ---
 ---* Corresponding C source code: [lzlib.c#L147-L152](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L147-L152)
 ---
+---@return number adler
 function ZStream.adler() end
 
 return zlib
