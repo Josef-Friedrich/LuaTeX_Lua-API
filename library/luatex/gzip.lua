@@ -24,9 +24,9 @@ gzip = {}
 ---```lua
 ---local g_file = gzip.open('test.gz', 'wb9')
 ---assert(g_file)
----for i = 1, 10 do g_file:write('This is line ' .. i, '\n') end
-
----
+---for i = 1, 10 do
+---  g_file:write('This is line ' .. i, '\n')
+---end
 ---g_file:close()
 ---```
 ---
@@ -47,9 +47,9 @@ function gzip.open(filename, mode) end
 ---__Example:__
 ---
 ---```lua
----for line in gzip.lines('test.gz') do print(line) end
-
----
+---for line in gzip.lines('test.gz') do
+---  print(line)
+---end
 ---```
 ---
 ---* Corresponding C source code: [lgzip.c#L159-L166](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lgzip.c#L159-L166)
@@ -161,9 +161,9 @@ function GFile:seek(whence, offset) end
 ---```lua
 ---local g_file = gzip.open('test.gz', 'wb9')
 ---assert(g_file)
----for i = 1, 10 do g_file:write('This is line ' .. i, '\n') end
-
----
+---for i = 1, 10 do
+---  g_file:write('This is line ' .. i, '\n')
+--end
 ---g_file:close()
 ---```
 ---
@@ -178,9 +178,9 @@ function GFile:write(value1, ...) end
 ---```lua
 ---local g_file = gzip.open('test.gz', 'wb9')
 ---assert(g_file)
----for i = 1, 10 do g_file:write('This is line ' .. i, '\n') end
-
----
+---for i = 1, 10 do
+---  g_file:write('This is line ' .. i, '\n')
+---end
 ---g_file:close()
 ---```
 function GFile:close() end
