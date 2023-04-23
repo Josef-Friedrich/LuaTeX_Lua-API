@@ -20,7 +20,14 @@ zlib = {}
 ---
 ---Return the zlib version.
 ---
----@return string
+---__Example:__
+---
+---```lua
+---local version = zlib.version()
+---assert(version == '1.2.13')
+---```
+---
+---@return string version # For example `1.2.13`
 ---
 ---😱 [Types](https://github.com/LuaCATS/lzlib/blob/main/library/lzlib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lzlib/pulls)
 function zlib.version() end
