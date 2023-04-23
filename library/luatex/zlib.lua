@@ -27,6 +27,9 @@ zlib = {}
 ---assert(version == '1.2.13')
 ---```
 ---
+---* Corresponding C source code: [lzlib.c#L331-L335](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L331-L335)
+---
+---
 ---@return string version # For example `1.2.13`
 ---
 ---😱 [Types](https://github.com/LuaCATS/lzlib/blob/main/library/lzlib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lzlib/pulls)
@@ -37,6 +40,9 @@ function zlib.version() end
 ---
 ---Call to update the `adler32` value, `adler32` is the current value, `buffer` is passed
 ---to `adler32` zlib function and the updated value is returned.
+---
+---* Corresponding C source code: [lzlib.c#L338-L355](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L338-L355)
+---
 ---
 ---@param adler32? integer
 ---@param buffer? string
@@ -52,6 +58,9 @@ function zlib.adler32(adler32, buffer) end
 ---Call to update the `crc32` value, `crc32` is the current value, `buffer` is passed
 ---to `crc32` zlib function and the updated value is returned.
 ---
+---* Corresponding C source code: [lzlib.c#L358-L375](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L358-L375)
+---
+---
 ---@param crc32? integer
 ---@param buffer? string
 ---
@@ -62,6 +71,9 @@ function zlib.crc32(crc32, buffer) end
 
 ---
 ---Return a string containing the compressed buffer according to the given parameters.
+---
+---* Corresponding C source code: [lzlib.c#L380-L441](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L380-L441)
+---
 ---
 ---@param buffer string
 ---@param level? integer
@@ -77,6 +89,9 @@ function zlib.compress(buffer, level, method, windowBits, memLevel, strategy) en
 
 ---
 ---Return the decompressed stream after processing the given buffer.
+---
+---* Corresponding C source code: [lzlib.c#L445-L502](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L445-L502)
+---
 ---
 ---@param buffer string
 ---@param windowBits? integer
@@ -106,6 +121,12 @@ function Sink:flush() end
 ---
 ---Return a deflate stream.
 ---
+---
+---In the upstream project this function is called `zlib.deflate()`.
+---
+---* Corresponding C source code: [lzlib.c#L156-L173](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L156-L173)
+---
+---
 ---@param sink function | Sink
 ---@param level? integer - compression level, default `Z_DEFAILT_COMPRESSION`
 ---@param method? integer - default `Z_DEFLATED`
@@ -114,10 +135,10 @@ function Sink:flush() end
 ---@param strategy? integer - default `Z_DEFAULT_STRATEGY`
 ---@param dictionary? string - default `""`
 ---
----@return Stream
+---@return ZStream
 ---
 ---😱 [Types](https://github.com/LuaCATS/lzlib/blob/main/library/lzlib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lzlib/pulls)
-function zlib.deflate(sink, level, method, windowBits, memLevel, strategy, dictionary) end
+function zlib.compressobj(sink, level, method, windowBits, memLevel, strategy, dictionary) end
 
 ---
 ---😱 [Types](https://github.com/LuaCATS/lzlib/blob/main/library/lzlib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lzlib/pulls)
@@ -135,60 +156,62 @@ function InflateSink:close() end
 ---
 ---Return an inflate stream.
 ---
+---In the upstream project this function is called `zlib.inflate()`.
+---
+---* Corresponding C source code: [lzlib.c#L177-L191](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L177-L191)
+---
+---
 ---@param source string|function|InflateSink
 ---@param windowBits? integer -  default `15`
 ---@param dictionary? string - default `""`
----@return Stream
+---@return ZStream
 ---
 ---😱 [Types](https://github.com/LuaCATS/lzlib/blob/main/library/lzlib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lzlib/pulls)
-function zlib.inflate(source, windowBits, dictionary) end
+function zlib.decompressobj(source, windowBits, dictionary) end
 
 ---
 ---😱 [Types](https://github.com/LuaCATS/lzlib/blob/main/library/lzlib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lzlib/pulls)
----@class Stream
-local Stream = {}
+---@class ZStream
+local ZStream = {}
 
 ---
----Write each parameter into the stream.
+---* Corresponding C source code: [lzlib.c#L307-L322](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L307-L322)
 ---
----@param ... any
----
----😱 [Types](https://github.com/LuaCATS/lzlib/blob/main/library/lzlib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lzlib/pulls)
-function Stream:write(...) end
+function ZStream:adlerreset() end
 
 ---
----Read from the stream, each parameter corresponds to a return value.
+---* Corresponding C source code: [lzlib.c#L231-L263](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L231-L263)
 ---
----With no arguments, it reads a line. Parameters are interpreted as follows:
----* `a` - reads the remaining bytes
----* `l` - reads a line
----
----@param ... integer|'a'|'l'
----
----😱 [Types](https://github.com/LuaCATS/lzlib/blob/main/library/lzlib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lzlib/pulls)
-function Stream:read(...) end
+function ZStream:compress(...) end
 
 ---
----Return an iterator that returns a new line each time
----it is called.
+---* Corresponding C source code: [lzlib.c#L195-L227](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L195-L227)
 ---
----@return fun(): line: string
----
----😱 [Types](https://github.com/LuaCATS/lzlib/blob/main/library/lzlib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lzlib/pulls)
-function Stream:lines() end
+function ZStream:decompress() end
 
 ---
 ---Flush the output for deflate streams.
 ---
----@param opts 'sync'|'full'|'finish'
+---* Corresponding C source code: [lzlib.c#L267-L303](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L267-L303)
+---
+---
+---@param opts? 'sync'|'full'|'finish'
 ---
 ---😱 [Types](https://github.com/LuaCATS/lzlib/blob/main/library/lzlib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lzlib/pulls)
-function Stream:flush(opts) end
+function ZStream:flush(opts) end
 
 ---
 ---Close the stream.
 ---
+---* Corresponding C source code: [lzlib.c#L138-L143](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L138-L143)
+---
+---
 ---😱 [Types](https://github.com/LuaCATS/lzlib/blob/main/library/lzlib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lzlib/pulls)
-function Stream:close() end
+function ZStream:close() end
+
+---
+---* Corresponding C source code: [lzlib.c#L147-L152](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L147-L152)
+---
+function ZStream.adler() end
 
 return zlib
