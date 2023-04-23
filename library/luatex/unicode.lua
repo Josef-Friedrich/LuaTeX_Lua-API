@@ -133,7 +133,15 @@ function unicode.ascii.gmatch(s, pattern) end
 function unicode.ascii.gsub(s, pattern, repl, n) end
 
 ---
----Return its length.
+---Return the length of a string.
+---
+---__Example:__
+---
+---```lua
+----- \204\136 (CC,88) -> COMBINING DIAERESIS in UTF-8
+---local len = unicode.ascii.len('A\204\136O\204\136')
+---assert(len == 6)
+---```
 ---
 ---@see string.len
 ---
@@ -146,6 +154,13 @@ function unicode.ascii.len(s) end
 
 ---
 ---Return a copy of this string with all uppercase letters changed to lowercase.
+---
+---__Example:__
+---
+---```lua
+---local lower = unicode.ascii.lower('Ä')
+---assert(lower == 'Ä')
+---```
 ---
 ---@see string.lower
 ---
@@ -211,6 +226,13 @@ function unicode.ascii.sub(s, i, j) end
 
 ---
 ---Return a copy of this string with all lowercase letters changed to uppercase.
+---
+---__Example:__
+---
+---```lua
+---local upper = unicode.ascii.upper('ä')
+---assert(upper == 'ä')
+---```
 ---
 ---@see string.upper
 ---
@@ -331,7 +353,15 @@ function unicode.latin1.gmatch(s, pattern) end
 function unicode.latin1.gsub(s, pattern, repl, n) end
 
 ---
----Return its length.
+---Return the length of a string.
+---
+---__Example:__
+---
+---```lua
+----- \204\136 (CC,88) -> COMBINING DIAERESIS in UTF-8
+---local len = unicode.latin1.len('A\204\136O\204\136')
+---assert(len == 6)
+---```
 ---
 ---@see string.len
 ---
@@ -344,6 +374,13 @@ function unicode.latin1.len(s) end
 
 ---
 ---Return a copy of this string with all uppercase letters changed to lowercase.
+---
+---__Example:__
+---
+---```lua
+---local lower = unicode.latin1.lower('A')
+---assert(lower == 'a')
+---```
 ---
 ---@see string.lower
 ---
@@ -409,6 +446,13 @@ function unicode.latin1.sub(s, i, j) end
 
 ---
 ---Return a copy of this string with all lowercase letters changed to uppercase.
+---
+---__Example:__
+---
+---```lua
+---local upper = unicode.latin1.upper('ä')
+---assert(upper == 'ä')
+---```
 ---
 ---@see string.upper
 ---
@@ -531,7 +575,15 @@ function unicode.grapheme.gmatch(s, pattern) end
 function unicode.grapheme.gsub(s, pattern, repl, n) end
 
 ---
----Return its length.
+---Return the length of a string.
+---
+---__Example:__
+---
+---```lua
+----- \204\136 (CC,88) -> COMBINING DIAERESIS in UTF-8
+---local len = unicode.grapheme.len('A\204\136O\204\136')
+---assert(len == 2)
+---```
 ---
 ---@see string.len
 ---
@@ -544,6 +596,13 @@ function unicode.grapheme.len(s) end
 
 ---
 ---Return a copy of this string with all uppercase letters changed to lowercase.
+---
+---__Example:__
+---
+---```lua
+---local lower = unicode.grapheme.lower('Ä')
+---assert(lower == 'ä')
+---```
 ---
 ---@see string.lower
 ---
@@ -609,6 +668,13 @@ function unicode.grapheme.sub(s, i, j) end
 
 ---
 ---Return a copy of this string with all lowercase letters changed to uppercase.
+---
+---__Example:__
+---
+---```lua
+---local upper = unicode.grapheme.upper('ä')
+---assert(upper == 'Ä')
+---```
 ---
 ---@see string.upper
 ---
@@ -733,7 +799,15 @@ function unicode.utf8.gmatch(s, pattern) end
 function unicode.utf8.gsub(s, pattern, repl, n) end
 
 ---
----Return its length.
+---Return the length of a string.
+---
+---__Example:__
+---
+---```lua
+----- \204\136 (CC,88) -> COMBINING DIAERESIS in UTF-8
+---local len = unicode.utf8.len('A\204\136O\204\136')
+---assert(len == 4)
+---```
 ---
 ---@see string.len
 ---
@@ -746,6 +820,13 @@ function unicode.utf8.len(s) end
 
 ---
 ---Return a copy of this string with all uppercase letters changed to lowercase.
+---
+---__Example:__
+---
+---```lua
+---local lower = unicode.utf8.lower('Ä')
+---assert(lower == 'ä')
+---```
 ---
 ---@see string.lower
 ---
@@ -809,6 +890,13 @@ function unicode.utf8.sub(s, i, j) end
 
 ---
 ---Return a copy of this string with all lowercase letters changed to uppercase.
+---
+---__Example:__
+---
+---```lua
+---local upper = unicode.utf8.upper('ä')
+---assert(upper == 'Ä')
+---```
 ---
 ---@see string.upper
 ---
