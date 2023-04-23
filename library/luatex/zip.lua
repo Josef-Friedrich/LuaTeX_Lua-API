@@ -32,11 +32,13 @@ zip = {}
 ---* Corresponding C source code: (luazip.c#L217-L225)[https://github.com/mpeterv/luazip/blob/e424f667cc5c78dd19bb5eca5a86b3c8698e0ce5/src/luazip.c#L217-L225]
 ---
 ---__Example:__
+---
 ---```lua
----local f = zip.open('test.zip')
----print(zip.type(f)) - zip file
----f:close()
----print(zip.type(f)) - closed zip file
+---local z_file = zip.open('test.zip')
+---assert(z_file)
+---assert(zip.type(z_file) == "zip file")
+---z_file:close()
+---assert(zip.type(z_file) == "closed zip file")
 ---```
 ---
 ---@param zfile ZFile
@@ -52,6 +54,13 @@ function zip.type(zfile) end
 ---In case of
 ---error it returns nil and an error message. Unlike `io.open`, there is no
 ---`mode` parameter, as the only supported mode is "read".
+---
+---__Example:__
+---
+---```lua
+---local z_file = zip.open('test.zip')
+---assert(z_file)
+---```
 ---
 ---* Corresponding C source code: [luazip.c#L106-L119](https://github.com/mpeterv/luazip/blob/e424f667cc5c78dd19bb5eca5a86b3c8698e0ce5/src/luazip.c#L106-L119)
 ---
@@ -74,19 +83,30 @@ function zip.open(filename) end
 ---Instead of simply looking for a file at a given path, this function goes recursively up
 ---through all path separators ("/") looking for zip files there. If it finds a zip file,
 ---this function use the remaining path to open the requested file.
----The optional parameter extensionsallows the use of file extensions other than .zip
+---The optional parameter `extensions` allows the use of file extensions other than .zip
 ---during the lookup. It can be a string corresponding to the extension or an indexed table
 ---with the lookup extensions sequence.
+---
+---__Example:__
+---
+---```lua
+----- test.zip: Hello-World.txt
+---local z_internal_file = zip.openfile('test/Hello-world.txt')
+---assert(z_internal_file)
+---local content = z_internal_file:read('*a')
+---assert(content == 'Hello, World!\n', content)
+---```
 ---
 ---* Corresponding C source code: [luazip.c#L151-L215](https://github.com/mpeterv/luazip/blob/e424f667cc5c78dd19bb5eca5a86b3c8698e0ce5/src/luazip.c#L151-L215)
 ---
 ---@param filename string
+---@param extensions? string|string[]
 ---
----@return ZInteralFile|nil
+---@return ZInternalFile|nil
 ---@return nil|string err
 ---
 ---😱 [Types](https://github.com/LuaCATS/luazip/blob/main/library/zip.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luazip/pulls)
-function zip.openfile(filename) end
+function zip.openfile(filename, extensions) end
 
 ---
 ---😱 [Types](https://github.com/LuaCATS/luazip/blob/main/library/zip.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luazip/pulls)
@@ -94,19 +114,38 @@ function zip.openfile(filename) end
 local ZFile = {}
 
 ---
----@param zfile ZFile
+---Close a zfile opened by `zip.open`.
+---
+---__Example:__
+---
+---```lua
+---local z_file = zip.open('test.zip')
+---local success = zip.close(z_file)
+---assert(success == true)
+---```
 ---
 ---* Corresponding C source code: [luazip.c#L121-L131](https://github.com/mpeterv/luazip/blob/e424f667cc5c78dd19bb5eca5a86b3c8698e0ce5/src/luazip.c#L121-L131)
 ---
----@return boolean
+---@param zfile ZFile
+---
+---@return boolean success
 function zip.close(zfile) end
 
 ---
 ---Close a zfile opened by `zip.open`.
 ---
+---__Example:__
+---
+---```lua
+---local z_file = zip.open('../test.zip')
+---assert(z_file)
+---local success = z_file:close()
+---assert(success == true, success)
+---```
+---
 ---* Corresponding C source code: [luazip.c#L121-L131](https://github.com/mpeterv/luazip/blob/e424f667cc5c78dd19bb5eca5a86b3c8698e0ce5/src/luazip.c#L121-L131)
 ---
----@return boolean
+---@return boolean success
 ---
 ---😱 [Types](https://github.com/LuaCATS/luazip/blob/main/library/zip.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luazip/pulls)
 function ZFile:close() end
@@ -125,14 +164,14 @@ function ZFile:close() end
 ---__Example:__
 ---
 ---```lua
----local zfile = zip.open('../test.zip')
----assert(zfile)
+---local z_file = zip.open('../test.zip')
+---assert(z_file)
 ---
----for internal in zfile:files() do
----  assert(internal.filename)
----  assert(internal.compression_method)
----  assert(internal.compressed_size)
----  assert(internal.uncompressed_size)
+---for info in z_file:files() do
+---  assert(info.filename)
+---  assert(info.compression_method)
+---  assert(info.compressed_size)
+---  assert(info.uncompressed_size)
 ---end
 ---```
 ---
@@ -154,13 +193,13 @@ function ZFile:files() end
 ---__Example:__
 ---
 ---```lua
----local f = zip.open('test.zip')
----assert(f)
----local _, err = f:open('xxx.xxx')
+---local z_file = zip.open('test.zip')
+---assert(z_file)
+---local _, err = z_file:open('xxx.xxx')
 ---assert(err == 'could not open file `xxx.xxx\'')
 ---
----local ff, err = f:open('Hello-world.txt')
----assert(ff)
+---local z_internal_file, err = z_file:open('Hello-world.txt')
+---assert(z_internal_file)
 ---assert(err == nil)
 ---```
 ---
@@ -168,15 +207,15 @@ function ZFile:files() end
 ---
 ---@param filename string
 ---
----@return ZInteralFile|nil
+---@return ZInternalFile|nil
 ---@return nil|string err
 ---
 ---😱 [Types](https://github.com/LuaCATS/luazip/blob/main/library/zip.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luazip/pulls)
 function ZFile:open(filename) end
 
 ---
----@class ZInteralFile
-local ZInteralFile = {}
+---@class ZInternalFile
+local ZInternalFile = {}
 
 ---
 ---Read a `file` according to the given formats, which specify what to read.
@@ -184,14 +223,27 @@ local ZInteralFile = {}
 ---For each format, the function returns a string with the characters read, or nil if it cannot read
 ---data with the specified format. When called without formats, it uses a default format that reads
 ---the entire next line (see below).
+---
 ---The available formats are:
 ---
----* `"*a"`: reads the whole file, starting at the current position. On end of file, it
+---* `*a`: reads the whole file, starting at the current position. On end of file, it
 ---returns the empty string.
----* `"*l"`: reads the next line (skipping the end of line), returns nil on end of file.
+---* `*l`: reads the next line (skipping the end of line), returns nil on end of file.
 ---This is the default format.
 ---* `number`: reads a string with up to that number of characters, returning nil
 ---on end of file.
+---
+---__Example:__
+---
+---```lua
+---local z_file = zip.open('../test.zip')
+---assert(z_file)
+---local z_internal_file, err = z_file:open('Hello-world.txt')
+---assert(z_internal_file)
+---local content = z_internal_file:read('*a')
+---assert(content == 'Hello, World!\n', content)
+---
+---```
 ---
 ---* Corresponding C source code: [luazip.c#L407-L409](https://github.com/mpeterv/luazip/blob/e424f667cc5c78dd19bb5eca5a86b3c8698e0ce5/src/luazip.c#L407-L409)
 ---
@@ -200,7 +252,7 @@ local ZInteralFile = {}
 ---@return string|nil
 ---
 ---😱 [Types](https://github.com/LuaCATS/luazip/blob/main/library/zip.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luazip/pulls)
-function ZInteralFile:read(...) end
+function ZInternalFile:read(...) end
 
 ---
 ---Sets and gets the file position.
@@ -222,21 +274,60 @@ function ZInteralFile:read(...) end
 ---and the call `zfile:seek("end")` sets the position to the end of the file, and returns its
 ---size.
 ---
+---__Example:__
+---
+---```lua
+---local z_file = zip.open('../test.zip')
+---assert(z_file)
+---local z_internal_file, err = z_file:open('Hello-world.txt')
+---assert(z_internal_file)
+---
+---local size = z_internal_file:seek('end')
+---assert(size == 14, size)
+---
+---local offset = z_internal_file:seek('set', 7)
+---assert(offset == 7)
+---
+---local cur = z_internal_file:seek('cur')
+---assert(cur == 7)
+---```
+---
 ---* Corresponding C source code: [luazip.c#L429-L447](https://github.com/mpeterv/luazip/blob/e424f667cc5c78dd19bb5eca5a86b3c8698e0ce5/src/luazip.c#L429-L447)
 ---
 ---@param whence? 'set'|'cur'|'end'
 ---@param offset? integer
 ---
+---@return integer|nil offset
+---@return nil|string err
+---@return nil|integer errno
+---
 ---😱 [Types](https://github.com/LuaCATS/luazip/blob/main/library/zip.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luazip/pulls)
-function ZInteralFile:seek(whence, offset) end
+function ZInternalFile:seek(whence, offset) end
 
 ---
----Close a file opened by `zfile:open`.
+---Close a file opened by `zfile:open()`.
+---
+---__Example:__
+---
+---```lua
+---local z_file = zip.open('../test.zip')
+---assert(z_file)
+---local z_internal_file, err = z_file:open('Hello-world.txt')
+---assert(z_internal_file)
+---local success = z_internal_file:close()
+---assert(success == true)
+---```
 ---
 ---* Corresponding C source code: [luazip.c#L295-L297](https://github.com/mpeterv/luazip/blob/e424f667cc5c78dd19bb5eca5a86b3c8698e0ce5/src/luazip.c#L295-L297)
 ---
+---@see ZFile.open
+---
+---@return true|nil success
+---@return nil|string err
+---@return nil|integer errno
+---
 ---😱 [Types](https://github.com/LuaCATS/luazip/blob/main/library/zip.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luazip/pulls)
-function ZInteralFile:close() end
+function ZInternalFile:close() end
 
 ---
 ---Return an iterator function that returns a new line from the
@@ -250,11 +341,23 @@ function ZInteralFile:close() end
 ---
 ---will iterate over all lines of the file.
 ---
+---__Example:__
+---
+---```lua
+---local z_file = zip.open('../test.zip')
+---assert(z_file)
+---local z_internal_file, err = z_file:open('Hello-world.txt')
+---assert(z_internal_file)
+---for line in z_internal_file:lines() do
+---  assert(line == 'Hello, World!')
+---end
+---```
+---
 ---* Corresponding C source code: [luazip.c#L423-L427](https://github.com/mpeterv/luazip/blob/e424f667cc5c78dd19bb5eca5a86b3c8698e0ce5/src/luazip.c#L423-L427)
 ---
 ---@return fun(): string
 ---
 ---😱 [Types](https://github.com/LuaCATS/luazip/blob/main/library/zip.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luazip/pulls)
-function ZInteralFile:lines() end
+function ZInternalFile:lines() end
 
 return zip

@@ -1,4 +1,4 @@
 #! luatex --luaonly
 
-local f = zip.open('test.zip')
-assert(f)
+local z_file = zip.open('test.zip')
+assert(z_file)

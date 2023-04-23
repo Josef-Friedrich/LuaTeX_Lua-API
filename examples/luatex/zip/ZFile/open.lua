@@ -1,10 +1,10 @@
 #! luatex --luaonly
 
-local f = zip.open('test.zip')
-assert(f)
-local _, err = f:open('xxx.xxx')
+local z_file = zip.open('test.zip')
+assert(z_file)
+local _, err = z_file:open('xxx.xxx')
 assert(err == 'could not open file `xxx.xxx\'')
 
-local ff, err = f:open('Hello-world.txt')
-assert(ff)
+local z_internal_file, err = z_file:open('Hello-world.txt')
+assert(z_internal_file)
 assert(err == nil)
