@@ -58,7 +58,7 @@ lpeg = {}
 ---@operator div(table): Capture
 ---@operator div(function): Capture
 ---@operator pow(number): Pattern
----@field match fun(p: Pattern, s: string)
+local Pattern = {}
 
 ---
 ---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
@@ -95,6 +95,15 @@ lpeg = {}
 ---matches anywhere.
 ---This second approach is easy and quite efficient;
 ---
+---__Example:__
+---
+---```lua
+---local pattern = lpeg.R("az") ^ 1 * -1
+---assert(pattern:match("hello") == 6)
+---assert(lpeg.match(pattern, "hello") == 6)
+---assert(pattern:match("1 hello") == nil)
+---```
+---
 ---@param pattern Pattern
 ---@param subject string
 ---@param init? integer
@@ -103,6 +112,46 @@ lpeg = {}
 ---
 ---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
 function lpeg.match(pattern, subject, init) end
+
+---
+---Match the given `pattern` against the `subject` string.
+---
+---If the match succeeds,
+---returns the index in the subject of the first character after the match,
+---or the captured values
+---(if the pattern captured any value).
+---
+---An optional numeric argument `init` makes the match
+---start at that position in the subject string.
+---As usual in Lua libraries,
+---a negative value counts from the end.
+---
+---Unlike typical pattern-matching functions,
+---`match` works only in anchored mode;
+---that is, it tries to match the pattern with a prefix of
+---the given subject string (at position `init`),
+---not with an arbitrary substring of the subject.
+---So, if we want to find a pattern anywhere in a string,
+---we must either write a loop in Lua or write a pattern that
+---matches anywhere.
+---This second approach is easy and quite efficient;
+---
+---__Example:__
+---
+---```lua
+---local pattern = lpeg.R("az") ^ 1 * -1
+---assert(pattern:match("hello") == 6)
+---assert(lpeg.match(pattern, "hello") == 6)
+---assert(pattern:match("1 hello") == nil)
+---```
+---
+---@param subject string
+---@param init? integer
+---
+---@return integer|Capture
+---
+---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
+function Pattern:match(subject, init) end
 
 ---
 ---Return the string `"pattern"` if the given value is a pattern, otherwise `nil`.
@@ -212,6 +261,13 @@ function lpeg.B(pattern) end
 ---`lpeg.R("09")` matches any digit,
 ---and `lpeg.R("az", "AZ")` matches any ASCII letter.
 ---
+---__Example:__
+---
+---```lua
+---local pattern = lpeg.R("az") ^ 1 * -1
+---assert(pattern:match("hello") == 6)
+---```
+---
 ---@param ... string
 ---
 ---@return Pattern
@@ -249,7 +305,15 @@ function lpeg.S(string) end
 ---The created non-terminal refers to the rule indexed by `v`
 ---in the enclosing grammar.
 ---
----@param v string
+---__Example:__
+---
+---```lua
+---local b = lpeg.P({"(" * ((1 - lpeg.S "()") + lpeg.V(1)) ^ 0 * ")"})
+---assert(b:match('((string))') == 11)
+---assert(b:match('(') == nil)
+---```
+---
+---@param v string|integer
 ---
 ---@return Pattern
 ---
@@ -292,6 +356,25 @@ function lpeg.V(v) end
 ---If called with an argument `table`,
 ---then it creates those fields inside the given table and
 ---returns that table.
+---
+---__Example:__
+---
+---```lua
+---lpeg.locale(lpeg)
+---local space = lpeg.space^0
+---local name = lpeg.C(lpeg.alpha^1) * space
+---local sep = lpeg.S(",;") * space
+---local pair = lpeg.Cg(name * "=" * space * name) * sep^-1
+---local list = lpeg.Cf(lpeg.Ct("") * pair^0, rawset)
+---local t = list:match("a=b, c = hi; next = pi")
+---assert(t.a == 'b')
+---assert(t.c == 'hi')
+---assert(t.next == 'pi')
+---
+---local locale = lpeg.locale()
+---assert(type(locale.digit) == 'userdata')
+---```
+---
 ---@param tab? table
 ---
 ---@return Locale
@@ -307,6 +390,23 @@ function lpeg.locale(tab) end
 ---The captured value is a string.
 ---If `patt` has other captures,
 ---their values are returned after this one.
+---
+---__Example:__
+---
+---```lua
+---local function split (s, sep)
+---  sep = lpeg.P(sep)
+---  local elem = lpeg.C((1 - sep)^0)
+---  local p = elem * (sep * elem)^0
+---  return lpeg.match(p, s)
+---end
+---
+---local a, b, c = split('a,b,c', ',')
+---assert(a == 'a')
+---assert(b == 'b')
+---assert(c == 'c')
+---```
+---
 ---@param patt Pattern
 ---
 ---@return Capture
@@ -397,20 +497,11 @@ function lpeg.Cc(...) end
 ---__Example:__
 ---
 ---```lua
------ matches a numeral and captures its numerical value
----number = lpeg.R"09"^1 / tonumber
----
------ matches a list of numbers, capturing their values
----list = number * ("," * number)^0
----
------ auxiliary function to add two numbers
----function add (acc, newvalue) return acc + newvalue end
----
------ folds the list of numbers adding them
----sum = lpeg.Cf(list, add)
----
------ example of use
----print(sum:match("10,30,43"))   --> 83
+---local number = lpeg.R("09") ^ 1 / tonumber
+---local list = number * ("," * number) ^ 0
+---local function add(acc, newvalue) return acc + newvalue end
+---local sum = lpeg.Cf(list, add)
+---assert(sum:match("10,30,43") == 83)
 ---```
 ---
 ---@param patt Pattern
@@ -445,6 +536,17 @@ function lpeg.Cg(patt, name) end
 ---captures the position in the subject where the match occurs.
 ---The captured value is a number.
 ---
+---__Example:__
+---
+---```lua
+---local I = lpeg.Cp()
+---local function anywhere(p) return lpeg.P({I * p * I + 1 * lpeg.V(1)}) end
+
+---local match_start, match_end = anywhere("world"):match("hello world!")
+---assert(match_start == 7)
+---assert(match_end == 12)
+---```
+---
 ---@return Capture
 ---
 ---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
@@ -461,6 +563,17 @@ function lpeg.Cp() end
 ---(which should be a string).
 ---The final captured value is the string resulting from
 ---all replacements.
+---
+---__Example:__
+---
+---```lua
+---local function gsub (s, patt, repl)
+---  patt = lpeg.P(patt)
+---  patt = lpeg.Cs((patt / repl + 1)^0)
+---  return lpeg.match(patt, s)
+---end
+---assert(gsub('Hello, xxx!', 'xxx', 'World') == 'Hello, World!')
+---```
 ---
 ---@param patt Pattern
 ---

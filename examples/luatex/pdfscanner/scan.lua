@@ -1,3 +1,5 @@
+#! luatex --luaonly
+
 ---@type Operatorable
 local operatortable = {}
 local inspect = require('inspect')
