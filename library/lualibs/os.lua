@@ -82,29 +82,82 @@ function os.converttime(t, default) end
 ---
 ---* Corresponding Lua source code: [lualibs-os.lua#L527-L529](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-os.lua#L527-L529)
 ---
+---@return osdate
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/os.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function os.today() end
 
 ---
+---Return the UTC time without timezone, for example `2021-10-22 08:22:54`.
+---
 ---* Corresponding Lua source code: [lualibs-os.lua#L533-L535](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-os.lua#L533-L535)
 ---
+---@return string # for example `2021-10-22 08:22:54`.
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/os.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function os.now() end
 
 ---
+---__Example:__
+---
+---```lua
+---print(os.which("inkscape.exe"))
+---print(os.which("inkscape"))
+---print(os.which("gs.exe"))
+---print(os.which("ps2pdf"))
+---```
+---
 ---* Corresponding Lua source code: [lualibs-os.lua#L543-L564](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-os.lua#L543-L564)
+---
+---@see os.where
+---
+---@param filename string
+---
+---@return string
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/os.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function os.which(filename) end
 
 ---
+---__Example:__
+---
+---```lua
+---print(os.where("inkscape.exe"))
+---print(os.where("inkscape"))
+---print(os.where("gs.exe"))
+---print(os.where("ps2pdf"))
+---```
+---
+---* Corresponding Lua source code: [lualibs-os.lua#L543-L564](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-os.lua#L543-L564)
+---
+---@see os.which
+---
+---@param filename string
+---
+---@return string
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/os.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function os.where(filename) end
+
+---
 ---* Corresponding Lua source code: [lualibs-os.lua#L595-L599](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-os.lua#L595-L599)
+---
+---@param year integer
+---
+---@return boolean
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/os.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function os.isleapyear(year) end
 
 ---
+---Calculate the number of days.
+---
 ---* Corresponding Lua source code: [lualibs-os.lua#L619-L633](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-os.lua#L619-L633)
+---
+---@param year integer
+---@param month? integer
+---@param day? integer
+---
+---@return integer number_of_days # Calculates the number of days of a month if the parameter `day` is missing. Calculates the number of days of the year if the parameters `month` and `day` are missing.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/os.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function os.nofdays(year, month, day) end
@@ -122,17 +175,36 @@ function os.weekday(day, month, year) end
 function os.validdate(year, month, day) end
 
 ---
+---Return a string or a table containing date and time, formatted according to the given string format.
+---
+---If the parameter `format` is missing the format string `%Y-%m-%d %H:%M` is used.
+---
 ---* Corresponding Lua source code: [lualibs-os.lua#L660-L666](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-os.lua#L660-L666)
 ---
+---@param format? string
+---@param time? integer
+---
+---@return string|osdate
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/os.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function os.date(fmt) end
+function os.date(format, time) end
 
 ---
----* Corresponding Lua source code: [lualibs-os.lua#L679-L687](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-os.lua#L679-L687)
+---* Corresponding Lua source code: [lualibs-os.lua#L675-L677](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-os.lua#L675-L677)
+---
+---@see os.exit
+---
+---@param code integer|string
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/os.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function os.setexitcode(code) end
 
 ---
+---* Corresponding Lua source code: [lualibs-os.lua#L679-L687](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-os.lua#L679-L687)
+---
+---@see os.setexitcode
+---
+---@param code? integer|string
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/os.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function os.exit(c) end
+function os.exit(code) end

@@ -18,11 +18,8 @@ def patch_file(file_name: str):
     # Remove duplicate empty comment lines.
     content = re.sub("\n---(\n---)+\n", "\n---\n", content)
 
-    content = content.replace(") end\n---", ") end\n\n---")
-
-
-
-
+    # Side effect with code examples in Lua docstrings
+    # content = content.replace(") end\n---", ") end\n\n---")
 
     # Add an empty comment line before the @param annotation.
     # content = re.sub(
