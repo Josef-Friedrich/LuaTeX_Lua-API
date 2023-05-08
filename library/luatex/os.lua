@@ -103,6 +103,27 @@ function os.exec(commandline) end
 function os.spawn(commandline) end
 
 ---
+---This function is similar to `io.popen`
+---but with a preliminary check of the command by mean of `kpse.check_permission`
+---
+---If the command ran ok, then the return value is the same of `io.popen`;
+---otherwise it will return the two values `nil` and `error`.
+---
+---* Corresponding C source code: [loslibext.c#L1093-1121](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/5650c067de62cb7d4aaca44f30c8e9115c51bfc6/source/texk/web2c/luatexdir/lua/loslibext.c#L1093-1121)
+---
+---@see io.popen
+---@see kpse.check_permission
+---
+---@param commandline string
+---@param mode 'r'|'w'
+---
+---@return integer|nil exit_status
+---@return string|nil error
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/os.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function os.kpsepopen(commandline, mode) end
+
+---
 ---Set a variable in the environment.
 ---
 ---Passing
@@ -377,3 +398,21 @@ os.name = ""
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/os.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function os.uname() end
+
+---
+---* Corresponding C source code: [loslibext.c#L1157-1170](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/b6437de2fa62bb25e17f162e624e8d815fc4d88b/source/texk/web2c/luatexdir/lua/loslibext.c#L1157-1170)
+---
+---@see socket.sleep
+---
+---@param time number
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/os.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function os.socketsleep(time) end
+
+---
+---* Corresponding C source code: [loslibext.c#L1171-1179](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/b6437de2fa62bb25e17f162e624e8d815fc4d88b/source/texk/web2c/luatexdir/lua/loslibext.c#L1171-1179)
+---
+---@see socket.gettime
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/os.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function os.socketgettime() end

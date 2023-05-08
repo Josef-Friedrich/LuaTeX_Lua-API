@@ -143,14 +143,24 @@ socket._DEBUG = true
 socket._DATAGRAMSIZE = 8192
 
 ---
----Returns the UNIX time in seconds. You should subtract the values returned by this function
+---Return the UNIX time in seconds.
+---
+---You should subtract the values returned by this function
 ---to get meaningful values.
+---
+---__Example:__
 ---
 ---```lua
 ---t = socket.gettime()
 ----- do stuff
 ---print(socket.gettime() - t .. " seconds elapsed")
 ---```
+---
+---__Reference:__
+---
+---* Corresponding C source code: [timeout.c#L190-L194](https://github.com/lunarmodules/luasocket/blob/8c2ff7217e2a205eb107a6f48b04ff1b2b3090a1/src/timeout.c#L190-L194)
+---
+---@return number time # for example `1683526723.1653`
 ---
 ---😱 [Types](https://github.com/LuaCATS/luasocket/blob/main/library/socket.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luasocket/pulls)
 function socket.gettime() end
@@ -303,12 +313,13 @@ function socket.sink(mode, socket) end
 function socket.skip(d, ...) end
 
 ---
----Freezes the program execution during a given amount of time.
+---Freeze the program execution during a given amount of time.
 ---
----`Time` is the number of seconds to sleep for. If
----`time` is negative, the function returns immediately.
+---__Reference:__
 ---
----@param time integer
+---* Corresponding C source code: [timeout.c#L196-L226](https://github.com/lunarmodules/luasocket/blob/8c2ff7217e2a205eb107a6f48b04ff1b2b3090a1/src/timeout.c#L196-L226)
+---
+---@param time integer # `time` is the number of seconds to sleep for. If `time` is negative, the function returns immediately.
 ---
 ---😱 [Types](https://github.com/LuaCATS/luasocket/blob/main/library/socket.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luasocket/pulls)
 function socket.sleep(time) end
