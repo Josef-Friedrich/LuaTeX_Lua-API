@@ -6,19 +6,7 @@ _N._11_2_mplib_library = "page 200"
 _N._11_2_1_new = "page 230"
 
 ---
----The argument hash can have a number
----of different fields, as follows:
----
----The binary mode is no longer available in the *LuaTeX* version of *mplib*. It
----offers no real advantage and brings a ton of extra libraries with platform
----specific properties that we can now avoid. We might introduce a high resolution
----scaled variant at some point but only when it pays of performance wise.
----
----The `find_file` function should be of this form:
----
----```
----<string> found = finder (<string> name, <string> mode, <string> type)
----```
+---* Corresponding C source code: [lmplib.c#L330-L374](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L330-L374)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias MpFindFileFunc fun(name: string, mode: MpFileFileMode, type: MpFindFileType): string
@@ -32,18 +20,41 @@ _N._11_2_1_new = "page 230"
 ---@alias MpFindFileType `mp`|`tfm`|`map`|`pfb`|`enc` the kind of file
 
 ---
+---* Corresponding C source code: [lmplib.c#L408-L442](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L408-L442)
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+---@alias MpRunScriptFunc fun(name: string): string
+
+---
+---* Corresponding C source code: [lmplib.c#L444-L480](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L444-L480)
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+---@alias MpMakeTextFunc fun(name: string, what: integer): string
+
+---
+---* Corresponding C source code: [lmplib.c#L381-L406C2](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L381-L406C2)
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+---@alias MpScriptErrorFunc fun(name: string)
+
+---
 ---* Source code of the `LuaTeX` manual: [luatex-graphics.tex#L387-L409](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-graphics.tex#L387-L409)
 ---* Corresponding C source code: [lmplib.c#L308-L322](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L308-L322)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class MpArguments
----@field error_line integer # error line width, default 79
----@field print_line integer # line length in ps output  100
----@field random_seed integer # the initial random seed   variable
----@field math_mode `scaled`|`double`|`binary`|`decimal` # the number system to use, default `scaled`
----@field interaction `batch`|`nonstop`|`scroll`|`errorstop` # the interaction mode, default `errorstop`
----@field job_name string # `--jobname`, default `mpout`
----@field find_file MpFindFileFunc # a function to find files only local files
+---@field error_line? integer # error line width, default 79
+---@field print_line? integer # line length in ps output 100
+---@field random_seed? integer # the initial random seed variable
+---@field interaction? `batch`|`nonstop`|`scroll`|`errorstop` # the interaction mode, default `errorstop`
+---@field job_name? string # `--jobname`, default `mpout`
+---@field find_file? MpFindFileFunc # a function to find files only local files
+---@field run_script? MpRunScriptFunc
+---@field make_text? MpMakeTextFunc
+---@field script_error? MpScriptErrorFunc
+---@field extensions? integer
+---@field math_mode? `scaled`|`double`|`binary`|`decimal` # the number system to use, default `scaled`
+---@field utf8_mode? boolean
 
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
