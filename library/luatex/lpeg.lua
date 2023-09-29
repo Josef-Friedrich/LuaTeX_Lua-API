@@ -50,7 +50,9 @@ lpeg = {}
 ---
 ---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
 ---@class Pattern
+---@operator unm: Pattern
 ---@operator add(Pattern): Pattern
+---@operator sub(Pattern): Pattern
 ---@operator mul(Pattern): Pattern
 ---@operator mul(Capture): Pattern
 ---@operator div(string): Capture
@@ -58,6 +60,7 @@ lpeg = {}
 ---@operator div(table): Capture
 ---@operator div(function): Capture
 ---@operator pow(number): Pattern
+---@operator mod(function): nil
 local Pattern = {}
 
 ---
@@ -541,7 +544,6 @@ function lpeg.Cg(patt, name) end
 ---```lua
 ---local I = lpeg.Cp()
 ---local function anywhere(p) return lpeg.P({I * p * I + 1 * lpeg.V(1)}) end
-
 ---
 ---local match_start, match_end = anywhere("world"):match("hello world!")
 ---assert(match_start == 7)
