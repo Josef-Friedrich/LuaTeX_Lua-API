@@ -389,6 +389,7 @@ function socket.try(...) end
 ---😱 [Types](https://github.com/LuaCATS/luasocket/blob/main/library/socket.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luasocket/pulls)
 socket._VERSION = ""
 
+---
 ---Creates and returns an TCP master object. A master object can be transformed into a server object with the method listen (after a call to bind) or into a client object with the method connect. The only other method supported by a master object is the close method.
 ---In case of success, a new master object is returned. In case of error, nil is returned, followed by an error message.
 ---Note: The choice between IPv4 and IPv6 happens during a call to bind or connect, depending on the address family obtained from the resolver.
@@ -397,12 +398,14 @@ socket._VERSION = ""
 ---@return TCPSocket
 function socket.tcp() end
 
+---
 ---Creates and returns an IPv4 TCP master object. A master object can be transformed into a server object with the method listen (after a call to bind) or into a client object with the method connect. The only other method supported by a master object is the close method.
 ---In case of success, a new master object is returned. In case of error, nil is returned, followed by an error message.
 ---
 ---@return TCPSocket
 function socket.tcp4() end
 
+---
 ---Creates and returns an IPv6 TCP master object. A master object can be transformed into a server object with the method listen (after a call to bind) or into a client object with the method connect. The only other method supported by a master object is the close method.
 ---In case of success, a new master object is returned. In case of error, nil is returned, followed by an error message.
 ---Note: The TCP object returned will have the option "ipv6-v6only" set to true.
@@ -410,9 +413,11 @@ function socket.tcp4() end
 ---@return TCPSocket
 function socket.tcp6() end
 
+---
 --- @class TCPSocket
 local tcp_socket = {}
 
+---
 ---Attempts to connect a master object to a remote host, transforming it into a client object.
 ---Client objects support methods send, receive, getsockname, getpeername, settimeout, and close.
 ---
@@ -425,11 +430,13 @@ local tcp_socket = {}
 ---@return nil | 1, nil | string # In case of error, the method returns nil followed by a string describing the error. In case of success, the method returns 1.
 function tcp_socket:connect(address, port) end
 
+---
 ---@alias PatternMode
 ---| '*a' # Reads from the socket until the connection is closed. No end-of-line translation is performed
 ---| '*l' # Reads a line of text from the socket. The line is terminated by a LF character (ASCII 10), optionally preceded by a CR character (ASCII 13). The CR and LF characters are not included in the returned line. In fact, all CR characters are ignored by the pattern. This is the default pattern;
 ---| number # Causes the method to read a specified number of bytes from the socket.
 
+---
 ---Reads data from a client object, according to the specified read pattern.
 ---Patterns follow the Lua file I/O format,
 ---and the difference in performance between all patterns is negligible.
@@ -439,6 +446,7 @@ function tcp_socket:connect(address, port) end
 ---@return nil | string, nil | string, nil | string # if successful, the method returns the received pattern. In case of error, the method returns nil followed by an error message, followed by a (possibly empty) string containing the partial that was received. The error message can be the string 'closed' in case the connection was closed before the transmission was completed or the string 'timeout' in case there was a timeout during the operation.
 function tcp_socket:receive(pattern, prefix) end
 
+---
 ---Sends data through client object.
 ---
 ---Note: Output is not buffered. For small strings, it is always better to concatenate them in Lua (with the '..' operator) and send the result in one call instead of calling the method several times.
@@ -449,6 +457,7 @@ function tcp_socket:receive(pattern, prefix) end
 ---@return nil | number, nil | string # If successful, the method returns the index of the last byte within [i, j] that has been sent. Notice that, if i is 1 or absent, this is effectively the total number of bytes sent. In case of error, the method returns nil, followed by an error message, followed by the index of the last byte within [i, j] that has been sent. You might want to try again from the byte following that. The error message can be 'closed' in case the connection was closed before the transmission was completed or the string 'timeout' in case there was a timeout during the operation.
 function tcp_socket:send(data, i, j) end
 
+---
 ---Closes a TCP object.
 ---The internal socket used by the object is closed and the local address to which the object was bound is made available to other applications.
 ---No further operations (except for further calls to the close method) are allowed on a closed socket.
