@@ -111,7 +111,7 @@ local Pattern = {}
 ---@param subject string
 ---@param init? integer
 ---
----@return integer|Capture
+---@return any ...
 ---
 ---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
 function lpeg.match(pattern, subject, init) end
@@ -151,7 +151,7 @@ function lpeg.match(pattern, subject, init) end
 ---@param subject string
 ---@param init? integer
 ---
----@return integer|Capture
+---@return any ...
 ---
 ---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
 function Pattern:match(subject, init) end
@@ -244,7 +244,7 @@ function lpeg.P(value) end
 ---this pattern never consumes any input,
 ---independently of success or failure.
 ---
----@param pattern Pattern
+---@param pattern Pattern|string|integer|boolean|table
 ---
 ---@return Pattern
 ---
@@ -410,7 +410,7 @@ function lpeg.locale(tab) end
 ---assert(c == 'c')
 ---```
 ---
----@param patt Pattern
+---@param patt Pattern|string|integer|boolean|table|function
 ---
 ---@return Capture
 ---
@@ -488,7 +488,7 @@ function lpeg.Cc(...) end
 ---at least one capture with at least one value (of any type),
 ---which becomes the initial value of an accumulator.
 ---(If you need a specific initial value,
----you may prefix a constant captureto `patt`.)
+---you may prefix a constant capture to `patt`.)
 ---For each subsequent capture,
 ---LPeg calls `func`
 ---with this accumulator as the first argument and all values produced
@@ -507,8 +507,8 @@ function lpeg.Cc(...) end
 ---assert(sum:match("10,30,43") == 83)
 ---```
 ---
----@param patt Pattern
----@param func fun(acc, newvalue)
+---@param patt Pattern|string|number|boolean|table|function
+---@param func fun(acc, newvalue): (acc: any)
 ---
 ---@return Capture
 ---
@@ -524,7 +524,7 @@ function lpeg.Cf(patt, func) end
 ---or named with the given name
 ---(which can be any non-nil Lua value).
 ---
----@param patt Pattern
+---@param patt Pattern|string|number|boolean|table|function
 ---@param name? string
 ---
 ---@return Capture
@@ -578,7 +578,7 @@ function lpeg.Cp() end
 ---assert(gsub('Hello, xxx!', 'xxx', 'World') == 'Hello, World!')
 ---```
 ---
----@param patt Pattern
+---@param patt Pattern|string|number|boolean|table|function
 ---
 ---@return Capture
 ---
@@ -597,7 +597,7 @@ function lpeg.Cs(patt) end
 ---with the group name as its key.
 ---The captured value is only the table.
 ---
----@param patt Pattern|''
+---@param patt Pattern|string|number|boolean|table|function
 ---
 ---@return Capture
 ---
@@ -617,24 +617,24 @@ function lpeg.Ct(patt) end
 ---the current position (after the match of `patt`),
 ---plus any capture values produced by `patt`.
 ---
----The first value returned by `function`
+---The first value returned by `fn`
 ---defines how the match happens.
 ---If the call returns a number,
 ---the match succeeds
 ---and the returned number becomes the new current position.
----(Assuming a subject sand current position i,
+---(Assuming a subject and current position i,
 ---the returned number must be in the range [i, len(s) + 1].)
 ---If the call returns true,
 ---the match succeeds without consuming any input.
----(So, to return trueis equivalent to return i.)
+---(So, to return true is equivalent to return i.)
 ---If the call returns false, nil, or no value,
 ---the match fails.
 ---
 ---Any extra values returned by the function become the
 ---values produced by the capture.
 ---
----@param patt Pattern
----@param fn function
+---@param patt Pattern|string|number|boolean|table|function
+---@param fn fun(s: string, i: integer, ...: any): (position?: boolean|number, ...: any)
 ---
 ---@return Capture
 ---
