@@ -10,7 +10,7 @@ Work in progress! Please contribute!
 [LuaTeX](http://luatex.org) has a very large [Lua](https://www.lua.org)
 API. This project tries to make this API accessible in the text editor
 of your choice. This is made possible by the
-[lua-language-server](https://github.com/sumneko/lua-language-server) -
+[lua-language-server](https://github.com/LuaLS/lua-language-server) -
 a server that implements the [Language Server Protocol
 (LSP)](https://en.wikipedia.org/wiki/Language_Server_Protocol) for the
 `Lua` language.
