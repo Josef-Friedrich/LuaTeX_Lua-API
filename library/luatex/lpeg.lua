@@ -634,7 +634,7 @@ function lpeg.Ct(patt) end
 ---values produced by the capture.
 ---
 ---@param patt Pattern|string|number|boolean|table|function
----@param fn fun(s: string, i: integer, ...: any): (position?: boolean|number, ...: any)
+---@param fn fun(s: string, i: integer, ...: any): (position: boolean|number, ...: any)
 ---
 ---@return Capture
 ---
