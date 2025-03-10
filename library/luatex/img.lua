@@ -9,39 +9,6 @@ _N._11_1_1_new = "page 225"
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/img.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class Image
-
----
----* Corresponding C source code: [limglib.c#L75-L102](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L75-L102)
----
----@param image_spec? table
----
----@return Image
----
----😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/img.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function img.new(image_spec) end
-
-_N._11_1_2_fields = "page 226"
-
----
----* Corresponding C source code: [limglib.c#L301-L304](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L301-L304)
----@return ImageSpec keys
----
----😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/img.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function img.fields() end
-
----
----Alias for img.fields()
----
----* Corresponding C source code: [limglib.c#L301-L304](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L301-L304)
----
----😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/img.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function img.keys() end
-
----
----* Corresponding C source code: [luatex-api.h#L506-L532](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/luatex-api.h#L506-L532)
----
----😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/img.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
----@class ImageSpec
 ---@field attr string # the image attributes for *LuaTeX*
 ---@field bbox table # table with 4 boundingbox dimensions `llx`, `lly`, `urx` and `ury` overruling the `pagebox` entry
 ---@field colordepth number # the number of bits used by the color space
@@ -72,6 +39,127 @@ function img.keys() end
 ---@field nobbox boolean # don't add a boundingbox specification for streams
 ---@field nolength boolean # don't add length key nor compress for streams
 ---@field nosize boolean # don't add size fields for streams
+
+---
+---Create a userdata object of type “image”.
+---
+---```
+---<image> var = img.new()
+---<image> var = img.new(<table> image_spec)
+---```
+---
+---This function creates a userdata object of type “image”. The `image_spec` argument is optional. If it is given, it must be a table, and that
+---table must contain a `filename` key. A number of other keys can also be
+---useful, these are explained below.
+---
+---You can either say
+---
+---```
+---a = img.new()
+---```
+---
+---followed by
+---
+---```
+---a.filename = "foo.png"
+---```
+---
+---or you can put the file name (and some or all of the other keys) into a table
+---directly, like so:
+---
+---```
+---a = img.new({filename='foo.pdf', page=1})
+---```
+---
+---The generated `<image>` userdata object allows access to a set of
+---user-specified values as well as a set of values that are normally filled in
+---and updated automatically by *LuaTeX* itself. Some of those are derived from the
+---actual image file, others are updated to reflect the *PDF* output status of the
+---object.
+---
+---There is one required user-specified field: the file name (`filename`). It
+---can optionally be augmented by the requested image dimensions (`width`,
+---`depth`, `height`), user-specified image attributes (`attr`),
+---the requested *PDF* page identifier (`page`), the requested boundingbox
+---(`pagebox`) for *PDF* inclusion, the requested color space object (`colorspace`).
+---
+---The function `img.new` does not access the actual image file, it just
+---creates the `<image>` userdata object and initializes some memory
+---structures. The `<image>` object and its internal structures are
+---automatically garbage collected.
+---
+---Once the image is scanned, all the values in the `<image>` except `width`, `height` and `depth`, become frozen, and you cannot change
+---them any more.
+---
+---You can use `pdf.setignoreunknownimages(1)` (or at the *TeX* end the `pdfvariable` `ignoreunknownimages`) to get around a quit when no known
+---image type is found (based on name or preamble). Beware: this will not catch
+---invalid images and we cannot guarantee side effects. A zero dimension image is
+---still included when requested. No special flags are set. A proper workflow will
+---not rely in such a catch but make sure that images are valid.
+---
+---* Corresponding C source code: [limglib.c#L75-L102](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L75-L102)
+---
+---@param image_spec? ImageSpec
+---
+---@return Image
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/img.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function img.new(image_spec) end
+
+_N._11_1_2_fields = "page 226"
+
+---
+---* Corresponding C source code: [limglib.c#L301-L304](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L301-L304)
+---@return ImageSpec keys
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/img.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function img.fields() end
+
+---
+---Alias for img.fields()
+---
+---* Corresponding C source code: [limglib.c#L301-L304](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L301-L304)
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/img.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function img.keys() end
+
+---
+---Must be a table, and that table must contain a `filename` key.
+---
+---* Corresponding C source code: [luatex-api.h#L506-L532](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/luatex-api.h#L506-L532)
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/img.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+---@class ImageSpec
+---@field attr? string # the image attributes for *LuaTeX*
+---@field bbox? table # table with 4 boundingbox dimensions `llx`, `lly`, `urx` and `ury` overruling the `pagebox` entry
+---@field colordepth? number # the number of bits used by the color space
+---@field colorspace? number # the color space object number
+---@field depth? number # the image depth for *LuaTeX*
+---@field filename string # the image file name
+---@field filepath? string # the full (expanded) file name of the image
+---@field height? number # the image height for *LuaTeX*
+---@field imagetype? string # one of `pdf`, `png`, `jpg`, `jp2` or `jbig2`
+---@field index? number # the *PDF* image name suffix
+---@field objnum? number # the *PDF* image object number
+---@field page? number # the identifier for the requested image page
+---@field pagebox? string # the requested bounding box, one of `none`, `media`, `crop`, `bleed`, `trim`, `art`
+---@field pages? number # the total number of available pages
+---@field rotation? number # the image rotation from included *PDF* file, in multiples of 90 deg.
+---@field stream? string # the raw stream data for an `/Xobject` `/Form` object
+---@field transform? number # the image transform, integer number 0..7
+---@field orientation? number # the (jpeg) image orientation, integer number 1..8 (0 for unset)
+---@field width? number # the image width for *LuaTeX*
+---@field xres? number # the horizontal natural image resolution (in \DPI)
+---@field xsize? number # the natural image width
+---@field yres? number # the vertical natural image resolution (in \DPI)
+---@field ysize? number # the natural image height
+---@field visiblefilename? string # when set, this name will find its way in the *PDF* file as `PTEX` specification; when an empty string is assigned nothing is written to file; otherwise the natural filename is taken
+---@field userpassword? string # the userpassword needed for opening a *PDF* file
+---@field ownerpassword? string # the ownerpassword needed for opening a *PDF* file
+---@field keepopen? boolean # keep the *PDF* file open
+---@field nobbox? boolean # don't add a boundingbox specification for streams
+---@field nolength? boolean # don't add length key nor compress for streams
+---@field nosize? boolean # don't add size fields for streams
 
 _N._11_1_3_scan = "page 227"
 
