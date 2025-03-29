@@ -3,6 +3,7 @@ _N._4_3_lua_modules = "page 67"
 ---
 ---https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luapeg/lpeg.c
 ---Changes to upstream: global lpeg table
+
 ---
 ---@meta
 ---The definitions are developed in this repository: https://github.com/LuaCATS/lpeg
@@ -44,35 +45,37 @@ _N._4_3_lua_modules = "page 67"
 ---as we can define new functions to create and compose patterns.
 ---
 ---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
-lpeg = {}
+local lpeg = {}
 
 ---
 ---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
 ---@class Pattern
+---@operator len: Pattern
 ---@operator unm: Pattern
 ---@operator add(Pattern): Pattern
 ---@operator sub(Pattern): Pattern
 ---@operator mul(Pattern): Pattern
 ---@operator mul(Capture): Pattern
 ---@operator div(string): Capture
----@operator div(number): Capture
+---@operator div(integer): Capture
 ---@operator div(table): Capture
 ---@operator div(function): Capture
----@operator pow(number): Pattern
+---@operator pow(integer): Pattern
 ---@operator mod(function): Capture
 local Pattern = {}
 
 ---
 ---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
 ---@alias Capture Pattern
+---@operator len: Pattern
 ---@operator add(Capture): Pattern
 ---@operator mul(Capture): Pattern
 ---@operator mul(Pattern): Pattern
 ---@operator div(string): Capture
----@operator div(number): Capture
+---@operator div(integer): Capture
 ---@operator div(table): Capture
 ---@operator div(function): Capture
----@operator pow(number): Pattern
+---@operator pow(integer): Pattern
 
 ---
 ---Match the given `pattern` against the `subject` string.
@@ -106,14 +109,15 @@ local Pattern = {}
 ---assert(pattern:match('1 hello') == nil)
 ---```
 ---
----@param pattern Pattern
+---@param pattern Pattern|string|integer|boolean|table|function
 ---@param subject string
 ---@param init? integer
+---@param ... any
 ---
 ---@return any ...
 ---
 ---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
-function lpeg.match(pattern, subject, init) end
+function lpeg.match(pattern, subject, init, ...) end
 
 ---
 ---Match the given `pattern` against the `subject` string.
@@ -149,11 +153,12 @@ function lpeg.match(pattern, subject, init) end
 ---
 ---@param subject string
 ---@param init? integer
+---@param ... any
 ---
 ---@return any ...
 ---
 ---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
-function Pattern:match(subject, init) end
+function Pattern:match(subject, init, ...) end
 
 ---
 ---Return the string `"pattern"` if the given value is a pattern, otherwise `nil`.
@@ -164,12 +169,14 @@ function Pattern:match(subject, init) end
 function lpeg.type(value) end
 
 ---
----Return a string with the running version of LPeg.
+---A string (not a function) with the running version of LPeg.
 ---
----@return string
+---Note: In earlier versions of LPeg this field was a function.
+---
+---@type string
 ---
 ---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
-function lpeg.version() end
+lpeg.version = ""
 
 ---
 ---Set a limit for the size of the backtrack stack used by LPeg to
@@ -315,7 +322,7 @@ function lpeg.S(string) end
 ---assert(b:match('(') == nil)
 ---```
 ---
----@param v string|integer
+---@param v boolean|string|number|function|table|thread|userdata|lightuserdata
 ---
 ---@return Pattern
 ---
@@ -506,7 +513,7 @@ function lpeg.Cc(...) end
 ---assert(sum:match('10,30,43') == 83)
 ---```
 ---
----@param patt Pattern|string|number|boolean|table|function
+---@param patt Pattern|string|integer|boolean|table|function
 ---@param func fun(acc, newvalue): (acc: any)
 ---
 ---@return Capture
@@ -523,7 +530,7 @@ function lpeg.Cf(patt, func) end
 ---or named with the given name
 ---(which can be any non-nil Lua value).
 ---
----@param patt Pattern|string|number|boolean|table|function
+---@param patt Pattern|string|integer|boolean|table|function
 ---@param name? string
 ---
 ---@return Capture
@@ -577,7 +584,7 @@ function lpeg.Cp() end
 ---assert(gsub('Hello, xxx!', 'xxx', 'World') == 'Hello, World!')
 ---```
 ---
----@param patt Pattern|string|number|boolean|table|function
+---@param patt Pattern|string|integer|boolean|table|function
 ---
 ---@return Capture
 ---
@@ -596,7 +603,7 @@ function lpeg.Cs(patt) end
 ---with the group name as its key.
 ---The captured value is only the table.
 ---
----@param patt Pattern|string|number|boolean|table|function
+---@param patt Pattern|string|integer|boolean|table|function
 ---
 ---@return Capture
 ---
@@ -632,8 +639,8 @@ function lpeg.Ct(patt) end
 ---Any extra values returned by the function become the
 ---values produced by the capture.
 ---
----@param patt Pattern|string|number|boolean|table|function
----@param fn fun(s: string, i: integer, ...: any): (position: boolean|number, ...: any)
+---@param patt Pattern|string|integer|boolean|table|function
+---@param fn fun(s: string, i: integer, ...: any): (position: boolean|integer, ...: any)
 ---
 ---@return Capture
 ---
