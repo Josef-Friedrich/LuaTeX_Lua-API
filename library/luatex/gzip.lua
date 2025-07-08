@@ -1,7 +1,7 @@
 ---@meta
 
 ---
----https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/gzip.luas
+---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/gzip.luas
 gzip = {}
 
 ---
@@ -30,7 +30,7 @@ gzip = {}
 ---g_file:close()
 ---```
 ---
----* Corresponding C source code: [lgzip.c#L132-L138](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lgzip.c#L132-L138)
+---* Corresponding C source code: [lgzip.c#L132-L138](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lgzip.c#L132-L138)
 ---
 ---@param filename string
 ---@param mode? string
@@ -52,7 +52,7 @@ function gzip.open(filename, mode) end
 ---end
 ---```
 ---
----* Corresponding C source code: [lgzip.c#L159-L166](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lgzip.c#L159-L166)
+---* Corresponding C source code: [lgzip.c#L159-L166](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lgzip.c#L159-L166)
 ---
 ---@see io.lines
 ---
@@ -74,7 +74,7 @@ function gzip.lines(filename) end
 ----- gzip.close(g_file) -> attempt to use a closed file
 ---```
 ---
----* Corresponding C source code: [lgzip.c#L107-L109](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lgzip.c#L107-L109)
+---* Corresponding C source code: [lgzip.c#L107-L109](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lgzip.c#L107-L109)
 ---
 ---@see GFile.close
 ---
@@ -93,7 +93,7 @@ local GFile = {}
 ---most likely not work as expected. This is subject to change in the future
 ---if there is a strong reason for it to happen.
 ---
----* Corresponding C source code: [lgzip.c#L327-L329](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lgzip.c#L327-L329)
+---* Corresponding C source code: [lgzip.c#L327-L329](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lgzip.c#L327-L329)
 function GFile:flush() end
 
 ---
@@ -115,7 +115,7 @@ function GFile:flush() end
 ---
 ---Unlink io.read, the `*n` format will not be available.
 ---
----* Corresponding C source code: [lgzip.c#L263-L265](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lgzip.c#L263-L265)
+---* Corresponding C source code: [lgzip.c#L263-L265](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lgzip.c#L263-L265)
 ---
 function GFile:read(format1, ...) end
 
@@ -126,7 +126,7 @@ function GFile:read(format1, ...) end
 ---will iterate over all lines of the file. (Unlike gzip.lines, this function
 ---does not close the file when the loop ends.)
 ---
----* Corresponding C source code: [lgzip.c#L152-L156](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lgzip.c#L152-L156)
+---* Corresponding C source code: [lgzip.c#L152-L156](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lgzip.c#L152-L156)
 ---
 function GFile:lines() end
 
@@ -145,7 +145,7 @@ function GFile:lines() end
 ---`zlib` library, such as the inability to use `end` as the base for seeking
 ---and the inability to seek backwards when writing.
 ---
----* Corresponding C source code: [lgzip.c#L310-L324](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lgzip.c#L310-L324)
+---* Corresponding C source code: [lgzip.c#L310-L324](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lgzip.c#L310-L324)
 ---
 function GFile:seek(whence, offset) end
 
@@ -167,7 +167,7 @@ function GFile:seek(whence, offset) end
 ---g_file:close()
 ---```
 ---
----* Corresponding C source code: [lgzip.c#L305-L307](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lgzip.c#L305-L307)
+---* Corresponding C source code: [lgzip.c#L305-L307](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lgzip.c#L305-L307)
 function GFile:write(value1, ...) end
 
 ---

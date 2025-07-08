@@ -18,7 +18,7 @@ _N._10_1_1_version_information = "page 187"
 ---
 ---__Reference:__
 ---
----* Corresponding C source code: [llualib.c#L416-L417](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L416-L417)
+---* Corresponding C source code: [llualib.c#L416-L417](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L416-L417)
 ---
 ---@type string
 ---
@@ -53,7 +53,7 @@ lua.bytecode = {}
 ---
 ---__Reference:__
 ---
----* Corresponding C source code: [llualib.c#L249-L315](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L249-L315)
+---* Corresponding C source code: [llualib.c#L249-L315](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L249-L315)
 ---
 ---@param n integer
 ---@param f function|nil
@@ -74,7 +74,7 @@ function lua.setbytecode(n, f) end
 ---
 ---__Reference:__
 ---
----* Corresponding C source code: [llualib.c#L187-L212](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L187-L212)
+---* Corresponding C source code: [llualib.c#L187-L212](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L187-L212)
 ---
 ---@param n integer
 ---
@@ -88,7 +88,7 @@ function lua.getbytecode(n) end
 ---
 ---__Reference:__
 ---
----* Corresponding C source code: [llualib.c#L382-L392](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L382-L392)
+---* Corresponding C source code: [llualib.c#L382-L392](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L382-L392)
 ---
 ---@return integer # command handler
 ---@return integer # graphical user interface
@@ -123,7 +123,7 @@ lua.name = {}
 ---
 ---__Reference:__
 ---
----* Corresponding C source code: [llualib.c#L318-L339](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L318-L339)-
+---* Corresponding C source code: [llualib.c#L318-L339](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L318-L339)-
 ---
 ---@param chunk_name string|nil # If you want to unset a *Lua* name, you can assign `nil` to it.
 ---@param index integer
@@ -139,7 +139,7 @@ function lua.setluaname(chunk_name, index) end
 ---
 ---__Reference:__
 ---
----* Corresponding C source code: [llualib.c#L341-L354](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L341-L354)
+---* Corresponding C source code: [llualib.c#L341-L354](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L341-L354)
 ---
 ---@param index number
 ---
@@ -158,7 +158,7 @@ function lua.getluaname(index) end
 ---
 ---__Reference:__
 ---
----* Corresponding C source code: [llualib.c#L362-L368](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L362-L368)
+---* Corresponding C source code: [llualib.c#L362-L368](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L362-L368)
 ---* [lua_createtable](https://pgl.yoyo.org/luai/i/lua_createtable)
 ---
 ---@param index integer
@@ -181,7 +181,7 @@ _N._10_1_4_introspection = "page 188"
 ---__Reference:__
 ---
 ---* `LuaTeX` manual: 10.1.4 Introspection
----* Corresponding C source code: [llualib.c#L370-L374](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L370-L374)
+---* Corresponding C source code: [llualib.c#L370-L374](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L370-L374)
 ---
 ---@return integer
 ---
@@ -195,7 +195,7 @@ function lua.getstacktop() end
 ---It is only of use as a breakpoint when
 ---checking some mechanism going haywire.
 ---
----* Corresponding C source code: [llualib.c#L376-L380](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L376-L380)
+---* Corresponding C source code: [llualib.c#L376-L380](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L376-L380)
 ---
 ---__Reference:__
 ---
@@ -253,7 +253,7 @@ _N._2_4_4_luafunction_luafunctioncall_and_luadef = "page 25"
 ---
 ---* `LuaTeX` manual: 2.4.4 `\luafunction`, `\luafunctioncall` and `\luadef`
 ---* `LuaTeX` manual: 10.6.4 Macros
----* Corresponding C source code: [llualib.c#L356-L360](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L356-L360)
+---* Corresponding C source code: [llualib.c#L356-L360](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L356-L360)
 ---
 ---@return {[integer]: fun(slot: integer)}
 ---

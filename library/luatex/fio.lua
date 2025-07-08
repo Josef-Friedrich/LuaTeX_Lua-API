@@ -38,13 +38,13 @@ _N._4_2_7_binary_input_from_files_with_fio = "page 66"
 ---There are eight additional little endian variants for the `cardinal[1-4]`
 ---and `integer[1-4]` readers: `cardinal[1-4]le` and `integer[1-4]le`.
 ---
---- https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c
+--- https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 fio = {}
 
 ---
----* Corresponding C source code: [liolibext.c#L114-L122](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L114-L122)
+---* Corresponding C source code: [liolibext.c#L114-L122](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L114-L122)
 ---
 ---@param f file* # A file handle.
 ---
@@ -54,7 +54,7 @@ fio = {}
 function fio.readcardinal1(f) end
 
 ---
----* Corresponding C source code: [liolibext.c#L137-L147](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L137-L147)
+---* Corresponding C source code: [liolibext.c#L137-L147](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L137-L147)
 ---
 ---@param f file* # A file handle.
 ---
@@ -64,7 +64,7 @@ function fio.readcardinal1(f) end
 function fio.readcardinal2(f) end
 
 ---
----* Corresponding C source code: [liolibext.c#L187-L198](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L187-L198)
+---* Corresponding C source code: [liolibext.c#L187-L198](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L187-L198)
 ---
 ---@param f file* # A file handle.
 ---
@@ -74,7 +74,7 @@ function fio.readcardinal2(f) end
 function fio.readcardinal3(f) end
 
 ---
----* Corresponding C source code: [liolibext.c#L241-L253](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L241-L253)
+---* Corresponding C source code: [liolibext.c#L241-L253](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L241-L253)
 ---
 ---@param f file* # A file handle.
 ---
@@ -92,7 +92,7 @@ function fio.readcardinal4(f) end
 function fio.readcardinaltable(f, n, b) end
 
 ---
----* Corresponding C source code: [liolibext.c#L137-L147](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L137-L147)
+---* Corresponding C source code: [liolibext.c#L137-L147](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L137-L147)
 ---
 ---little endian variant
 ---
@@ -104,7 +104,7 @@ function fio.readcardinaltable(f, n, b) end
 function fio.readcardinal1le(f) end
 
 ---
----* Corresponding C source code: [liolibext.c#L148-L158](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L148-L158)
+---* Corresponding C source code: [liolibext.c#L148-L158](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L148-L158)
 ---
 ---little endian variant
 ---
@@ -116,7 +116,7 @@ function fio.readcardinal1le(f) end
 function fio.readcardinal2le(f) end
 
 ---
----* Corresponding C source code: [liolibext.c#L199-L210](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L199-L210)
+---* Corresponding C source code: [liolibext.c#L199-L210](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L199-L210)
 ---
 ---little endian variant
 ---
@@ -128,7 +128,7 @@ function fio.readcardinal2le(f) end
 function fio.readcardinal3le(f) end
 
 ---
----* Corresponding C source code: [liolibext.c#L254-L266](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L254-L266)
+---* Corresponding C source code: [liolibext.c#L254-L266](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L254-L266)
 ---
 ---little endian variant
 ---
@@ -140,7 +140,7 @@ function fio.readcardinal3le(f) end
 function fio.readcardinal4le(f) end
 
 ---
----* Corresponding C source code: [liolibext.c#L432-L442](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L432-L442)
+---* Corresponding C source code: [liolibext.c#L432-L442](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L432-L442)
 ---
 ---@param f file* # A file handle.
 ---
@@ -150,7 +150,7 @@ function fio.readcardinal4le(f) end
 function fio.readinteger1(f) end
 
 ---
----* Corresponding C source code: [liolibext.c#L460-L471](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L460-L471)
+---* Corresponding C source code: [liolibext.c#L460-L471](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L460-L471)
 ---
 ---@param f file* # A file handle.
 ---
@@ -186,7 +186,7 @@ function fio.readinteger4(f) end
 function fio.readintegertable(f, n, b) end
 
 ---
-------* Corresponding C source code: [liolibext.c#L432-L442](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L432-L442)
+------* Corresponding C source code: [liolibext.c#L432-L442](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L432-L442)
 ---
 ---little endian variant
 ---

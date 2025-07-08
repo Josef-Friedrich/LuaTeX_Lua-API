@@ -20,7 +20,7 @@ os = {}
 ---
 ---__Reference:__
 ---
----* Corresponding C source code: [luainit.c#L169-L186](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/luainit.c#L169-L186)
+---* Corresponding C source code: [luainit.c#L169-L186](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/luainit.c#L169-L186)
 ---
 ---For example `/usr/local/texlive/bin/x86_64-linux`
 ---@string
@@ -69,7 +69,7 @@ os.selfdir = ""
 ---
 ---__Reference:__
 ---
----* Corresponding C source code: [loslibext.c#L429-L501](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L429-L501)
+---* Corresponding C source code: [loslibext.c#L429-L501](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L429-L501)
 ---
 ---@see os.execute
 ---
@@ -90,7 +90,7 @@ function os.exec(commandline) end
 ---
 ---__Reference:__
 ---
----* Corresponding C source code: [loslibext.c#L510-L596](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L510-L596)
+---* Corresponding C source code: [loslibext.c#L510-L596](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L510-L596)
 ---
 ---@see os.execute
 ---
@@ -131,7 +131,7 @@ function os.kpsepopen(commandline, mode) end
 ---
 ---__Reference:__
 ---
----* Corresponding C source code: [loslibext.c#L600-L627](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L600-L627)
+---* Corresponding C source code: [loslibext.c#L600-L627](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L600-L627)
 ---
 ---@param key string
 ---@param value string|nil
@@ -148,7 +148,7 @@ function os.setenv(key, value) end
 ---
 ---__Reference:__
 ---
----* Corresponding C source code: [loslibext.c#L630-L661](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L630-L661)
+---* Corresponding C source code: [loslibext.c#L630-L661](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L630-L661)
 ---
 ---```lua
 ---{
@@ -190,7 +190,7 @@ os.env = {}
 ---
 ---__Reference:__
 ---
----* Corresponding C source code: [loslibext.c#L663-L673](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L663-L673)
+---* Corresponding C source code: [loslibext.c#L663-L673](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L663-L673)
 ---* Corresponding Lualibs source code: [lualibs-os.lua#L580-L587](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-os.lua#L580-L587)
 ---
 ---@param interval number # By default seconds.
@@ -215,7 +215,7 @@ function os.sleep(interval, unit) end
 ---
 ---__Reference:__
 ---
----* Corresponding C source code: [loslibext.c#L905-L927](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L905-L927)
+---* Corresponding C source code: [loslibext.c#L905-L927](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L905-L927)
 ---
 ---@return number # for example `1673390071.0893`
 ---
@@ -258,7 +258,7 @@ function os.gettimeofday() end
 ---
 ---__Reference:__
 ---
----* Corresponding C source code: [loslibext.c#L872-L894](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L872-L894)
+---* Corresponding C source code: [loslibext.c#L872-L894](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L872-L894)
 ---
 ---@return Times
 ---
@@ -297,8 +297,8 @@ function os.times() end
 ---
 ---__Reference:__
 ---
----* Source code of the `LuaTeX` manual: [luatex-lua.tex#L531-L538](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-lua.tex#L531-L538)
----* Corresponding C source code: [loslibext.c#L971-L997](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L971-L997)
+---* Source code of the `LuaTeX` manual: [luatex-lua.tex#L531-L538](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-lua.tex#L531-L538)
+---* Corresponding C source code: [loslibext.c#L971-L997](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L971-L997)
 ---
 ---@param template? string # for example `luatex.XXXXXX`
 ---
@@ -323,7 +323,7 @@ function os.tmpdir(template) end
 ---
 ---__Reference:__
 ---
----* Corresponding C source code: [loslibext.c#L40-L91](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L40-L91)
+---* Corresponding C source code: [loslibext.c#L40-L91](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L40-L91)
 ---
 ---@type string
 ---
@@ -347,7 +347,7 @@ os.type = ""
 ---
 ---__Reference:__
 ---
----* Corresponding C source code: [loslibext.c#L40-L91](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L40-L91)
+---* Corresponding C source code: [loslibext.c#L40-L91](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L40-L91)
 ---
 ---@type string
 ---
@@ -382,7 +382,7 @@ os.name = ""
 ---
 ---__Reference:__
 ---
----* Corresponding C source code: [loslibext.c#L849-L868](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L849-L868)
+---* Corresponding C source code: [loslibext.c#L849-L868](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L849-L868)
 ---
 ---```lua
 ---{

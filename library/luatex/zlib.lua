@@ -27,7 +27,7 @@ zlib = {}
 ---assert(version == '1.2.13')
 ---```
 ---
----* Corresponding C source code: [lzlib.c#L331-L335](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L331-L335)
+---* Corresponding C source code: [lzlib.c#L331-L335](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L331-L335)
 ---
 ---@return string version # For example `1.2.13`
 ---
@@ -55,7 +55,7 @@ function zlib.version() end
 ---assert(adler == 2530937548.0)
 ---```
 ---
----* Corresponding C source code: [lzlib.c#L338-L355](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L338-L355)
+---* Corresponding C source code: [lzlib.c#L338-L355](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L338-L355)
 ---
 ---@param adler32? number
 ---@param buffer? string
@@ -86,7 +86,7 @@ function zlib.adler32(adler32, buffer) end
 ---assert(crc == 1021719064.0)
 ---```
 ---
----* Corresponding C source code: [lzlib.c#L358-L375](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L358-L375)
+---* Corresponding C source code: [lzlib.c#L358-L375](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L358-L375)
 ---
 ---@param crc32? number
 ---@param buffer? string
@@ -110,7 +110,7 @@ function zlib.adler32(crc32, buffer) end
 ---assert(string.len(zlib.compress(orig)) < string.len(orig))
 ---```
 ---
----* Corresponding C source code: [lzlib.c#L380-L441](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L380-L441)
+---* Corresponding C source code: [lzlib.c#L380-L441](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L380-L441)
 ---
 ---@param buffer string
 ---@param level? integer # The compression level must be `-1` (default compression), or between `0` and `9`: `1` gives best speed, `9` gives best compression, `0` gives no compression at all (the input data is simply copied a block at a time).
@@ -136,7 +136,7 @@ function zlib.compress(buffer, level, method, window_bits, mem_level, strategy) 
 ---assert(result == uncompressed)
 ---```
 ---
----* Corresponding C source code: [lzlib.c#L445-L502](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L445-L502)
+---* Corresponding C source code: [lzlib.c#L445-L502](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L445-L502)
 ---
 ---@param buffer string
 ---@param window_bits? integer # `The window_bits` parameter is the base two logarithm of the maximum window size (the size of the history buffer). It should be in the range `8..15` for this version of the library, default `15`.
@@ -159,7 +159,7 @@ function zlib.decompress(buffer, window_bits) end
 ---assert(type(result) == 'string')
 ---```
 ---
----* Corresponding C source code: [lzlib.c#L156-L173](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L156-L173)
+---* Corresponding C source code: [lzlib.c#L156-L173](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L156-L173)
 ---
 ---@param level? integer # The compression level must be `-1` (default compression), or between `0` and `9`: `1` gives best speed, `9` gives best compression, `0` gives no compression at all (the input data is simply copied a block at a time).
 ---@param method? integer # The method parameter is the compression method. It must be `8` (`Z_DEFLATED`) in this version of the library.
@@ -189,7 +189,7 @@ function zlib.compressobj(level, method, window_bits, mem_level, strategy) end
 ---assert(result == 'test')
 ---```
 ---
----* Corresponding C source code: [lzlib.c#L177-L191](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L177-L191)
+---* Corresponding C source code: [lzlib.c#L177-L191](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L177-L191)
 ---
 ---@param window_bits? integer # `The window_bits` parameter is the base two logarithm of the maximum window size (the size of the history buffer). It should be in the range `8..15` for this version of the library, default `15`.
 ---
@@ -204,12 +204,12 @@ function zlib.decompressobj(window_bits) end
 local ZStream = {}
 
 ---
----* Corresponding C source code: [lzlib.c#L307-L322](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L307-L322)
+---* Corresponding C source code: [lzlib.c#L307-L322](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L307-L322)
 ---
 function ZStream:adlerreset() end
 
 ---
----* Corresponding C source code: [lzlib.c#L231-L263](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L231-L263)
+---* Corresponding C source code: [lzlib.c#L231-L263](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L231-L263)
 ---
 ---@param buffer string
 ---
@@ -217,7 +217,7 @@ function ZStream:adlerreset() end
 function ZStream:compress(buffer) end
 
 ---
----* Corresponding C source code: [lzlib.c#L195-L227](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L195-L227)
+---* Corresponding C source code: [lzlib.c#L195-L227](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L195-L227)
 ---
 ---@param buffer string
 ---
@@ -227,7 +227,7 @@ function ZStream:decompress(buffer) end
 ---
 ---Flush the output for deflate streams.
 ---
----* Corresponding C source code: [lzlib.c#L267-L303](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L267-L303)
+---* Corresponding C source code: [lzlib.c#L267-L303](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L267-L303)
 ---
 ---😱 [Types](https://github.com/LuaCATS/lzlib/blob/main/library/lzlib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lzlib/pulls)
 function ZStream:flush() end
@@ -235,13 +235,13 @@ function ZStream:flush() end
 ---
 ---Close the stream.
 ---
----* Corresponding C source code: [lzlib.c#L138-L143](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L138-L143)
+---* Corresponding C source code: [lzlib.c#L138-L143](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L138-L143)
 ---
 ---😱 [Types](https://github.com/LuaCATS/lzlib/blob/main/library/lzlib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lzlib/pulls)
 function ZStream:close() end
 
 ---
----* Corresponding C source code: [lzlib.c#L147-L152](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L147-L152)
+---* Corresponding C source code: [lzlib.c#L147-L152](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L147-L152)
 ---
 ---@return number adler
 function ZStream.adler() end

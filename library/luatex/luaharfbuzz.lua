@@ -28,7 +28,7 @@ luaharfbuzz = {}
 ---
 ---Wraps `hb_shape_full`.
 ---
----* Corresponding C source code: [luaharfbuzz.c#L16-L51](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.c#L16-L51)
+---* Corresponding C source code: [luaharfbuzz.c#L16-L51](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.c#L16-L51)
 ---* HarfBuzz online documentation: [hb_shape_full](https://harfbuzz.github.io/harfbuzz-hb-shape.html#hb-shape-full)
 ---
 ---@param font HbFont
@@ -80,7 +80,7 @@ function luaharfbuzz.shape(font, buffer, options) end
 ---
 ---Wraps `hb_blob_t`.
 ---
----* Corresponding C source code: [luaharfbuzz.h#L12](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.h#L12)
+---* Corresponding C source code: [luaharfbuzz.h#L12](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.h#L12)
 ---* HarfBuzz online documentation: [hb_blob_t](https://harfbuzz.github.io/harfbuzz-hb-blob.html#hb-blob-t)
 ---
 ---@class Blob
@@ -152,7 +152,7 @@ function Blob:get_data() end
 ---
 ---Wraps `hb_face_t`.
 ---
----* Corresponding C source code: [luaharfbuzz.h#L13](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.h#L13)
+---* Corresponding C source code: [luaharfbuzz.h#L13](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.h#L13)
 ---* HarfBuzz online documentation: [hb_face_t](https://harfbuzz.github.io/harfbuzz-hb-face.html#hb-face-t)
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
@@ -533,7 +533,7 @@ function Face:ot_layout_find_feature(tag, script_index, language_index, feature)
 ---
 ---Lua wrapper for `hb_font_t` type.
 ---
----* Corresponding C source code: [luaharfbuzz.h#L14](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.h#L14)
+---* Corresponding C source code: [luaharfbuzz.h#L14](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.h#L14)
 ---* HarfBuzz online documentation: [hb_font_t](https://harfbuzz.github.io/harfbuzz-hb-font.html#hb-font-t)
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
@@ -722,7 +722,7 @@ function Font:ot_color_glyph_get_png() end
 ---
 ---Lua wrapper for `hb_buffer_t` type.
 ---
----* Corresponding C source code: [luaharfbuzz.h#L15](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.h#L15)
+---* Corresponding C source code: [luaharfbuzz.h#L15](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.h#L15)
 ---* HarfBuzz online documentation: [hb_buffer_t](https://harfbuzz.github.io/harfbuzz-hb-buffer.html#hb-buffer-t)
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
@@ -979,7 +979,7 @@ Buffer.GLYPH_FLAG_DEFINED = 3
 ---
 ---* HarfBuzz online documentation: [hb_feature_t](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-feature-t)
 ---
----* Corresponding C source code: [luaharfbuzz.h#L16](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.h#L16)
+---* Corresponding C source code: [luaharfbuzz.h#L16](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.h#L16)
 ---* Corresponding Lua source code: [hb_feature_t](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-feature-t)
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
@@ -1015,7 +1015,7 @@ function Feature:__tostring() end
 ---
 ---Lua wrapper for `hb_tag_t` type.
 ---
----* Corresponding C source code: [luaharfbuzz.h#L17](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.h#L17)
+---* Corresponding C source code: [luaharfbuzz.h#L17](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.h#L17)
 ---* HarfBuzz online documentation: [hb_tag_t](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-tag-t)
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
@@ -1067,7 +1067,7 @@ function Tag:__eq() end
 ---
 ---Lua wrapper for `hb_script_t` type.
 ---
----* Corresponding C source code: [luaharfbuzz.h#L18](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.h#L18)
+---* Corresponding C source code: [luaharfbuzz.h#L18](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.h#L18)
 ---* HarfBuzz online documentation: [hb_script_t](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-script-t)
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
@@ -1180,7 +1180,7 @@ Script.INVALID = "No script set"
 ---
 ---Lua wrapper for `hb_direction_t` type.
 ---
----* Corresponding C source code: [luaharfbuzz.h#L19](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.h#L19)
+---* Corresponding C source code: [luaharfbuzz.h#L19](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.h#L19)
 ---* HarfBuzz online documentation: [hb_direction_t](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-direction-t)
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
@@ -1341,7 +1341,7 @@ luaharfbuzz.Direction.BTT = 0
 ---
 ---Lua wrapper for `hb_language_t` type.
 ---
----* Corresponding C source code: [luaharfbuzz.h#L20](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.h#L20)
+---* Corresponding C source code: [luaharfbuzz.h#L20](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.h#L20)
 ---* HarfBuzz online documentation: [hb_language_t](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-language-t)
 ---
 ---@class HbLanguage
@@ -1427,97 +1427,97 @@ function unicode.script(char) end
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 ---@class ot
 ---
----https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L4
+---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L4
 ---@field NAME_ID_COPYRIGHT string # Copyright notice. Wraps `HB_OT_NAME_ID_COPYRIGHT`.
 ---
----https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L5
+---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L5
 ---@field NAME_ID_FONT_FAMILY string # Font Family name. Wraps `HB_OT_NAME_ID_FONT_FAMILY`.
 ---
----https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L6
+---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L6
 ---@field NAME_ID_FONT_SUBFAMILY string # Font Subfamily name. Wraps `HB_OT_NAME_ID_FONT_SUBFAMILY`.
 ---
----https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L7
+---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L7
 ---@field NAME_ID_UNIQUE_ID string # Unique font identifier. Wraps `HB_OT_NAME_ID_UNIQUE_ID`.
 ---
----https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L8
+---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L8
 ---@field NAME_ID_FULL_NAME string # Full font name that reflects all family and relevant subfamily descriptors. Wraps `HB_OT_NAME_ID_FULL_NAME`.
 ---
----https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L9
+---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L9
 ---@field NAME_ID_VERSION_STRING string # Version string. Wraps `HB_OT_NAME_ID_VERSION_STRING`.
 ---
----https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L10
+---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L10
 ---@field NAME_ID_POSTSCRIPT_NAME string # PostScript name for the font. Wraps `HB_OT_NAME_ID_POSTSCRIPT_NAME`.
 ---
----https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L11
+---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L11
 ---@field NAME_ID_TRADEMARK string # Trademark. Wraps `HB_OT_NAME_ID_TRADEMARK`.
 ---
----https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L12
+---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L12
 ---@field NAME_ID_MANUFACTURER string # Manufacturer Name. Wraps `HB_OT_NAME_ID_MANUFACTURER`.
 ---
----https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L13
+---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L13
 ---@field NAME_ID_DESIGNER string # Designer. Wraps `HB_OT_NAME_ID_DESIGNER`.
 ---
----https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L14
+---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L14
 ---@field NAME_ID_DESCRIPTION string # Description. Wraps `HB_OT_NAME_ID_DESCRIPTION`.
 ---
----https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L15
+---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L15
 ---@field NAME_ID_VENDOR_URL string # URL of font vendor. Wraps `HB_OT_NAME_ID_VENDOR_URL`.
 ---
----https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L16
+---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L16
 ---@field NAME_ID_DESIGNER_URL string # URL of typeface designer. Wraps `HB_OT_NAME_ID_DESIGNER_URL`.
 ---
----https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L17
+---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L17
 ---@field NAME_ID_LICENSE string # License Description. Wraps `HB_OT_NAME_ID_LICENSE`.
 ---
----https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L18
+---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L18
 ---@field NAME_ID_LICENSE_URL string # URL where additional licensing information can be found. Wraps `HB_OT_NAME_ID_LICENSE_URL`.
 ---
----https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L19
+---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L19
 ---@field NAME_ID_TYPOGRAPHIC_FAMILY string # Typographic Family name. Wraps `HB_OT_NAME_ID_TYPOGRAPHIC_FAMILY`.
 ---
----https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L20
+---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L20
 ---@field NAME_ID_TYPOGRAPHIC_SUBFAMILY string # Typographic Subfamily name. Wraps `HB_OT_NAME_ID_TYPOGRAPHIC_SUBFAMILY`.
 ---
----https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L21
+---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L21
 ---@field NAME_ID_MAC_FULL_NAME string # Compatible Full Name for MacOS. Wraps `HB_OT_NAME_ID_MAC_FULL_NAME`.
 ---
----https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L22
+---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L22
 ---@field NAME_ID_SAMPLE_TEXT string # Sample text. Wraps `HB_OT_NAME_ID_SAMPLE_TEXT`.
 ---
----https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L23
+---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L23
 ---@field NAME_ID_CID_FINDFONT_NAME string # PostScript CID findfont name. Wraps `HB_OT_NAME_ID_CID_FINDFONT_NAME`.
 ---
----https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L24
+---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L24
 ---@field NAME_ID_WWS_FAMILY string # WWS Family Name. Wraps `HB_OT_NAME_ID_WWS_FAMILY`.
 ---
----https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L25
+---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L25
 ---@field NAME_ID_WWS_SUBFAMILY string # WWS Subfamily Name. Wraps `HB_OT_NAME_ID_WWS_SUBFAMILY`.
 ---
----https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L26
+---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L26
 ---@field NAME_ID_LIGHT_BACKGROUND string # Light Background Palette. Wraps `HB_OT_NAME_ID_LIGHT_BACKGROUND`.
 ---
----https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L27
+---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L27
 ---@field NAME_ID_DARK_BACKGROUND string # Dark Background Palette. Wraps `HB_OT_NAME_ID_DARK_BACKGROUND`.
 ---
----https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L28
+---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L28
 ---@field NAME_ID_VARIATIONS_PS_PREFIX string # Variations PostScript Name Prefix. Wraps `HB_OT_NAME_ID_VARIATIONS_PS_PREFIX`.
 ---
----https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L29
+---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L29
 ---@field NAME_ID_INVALID string # Value to represent a nonexistent name ID. Wraps `HB_OT_NAME_ID_INVALID`.
 ---
----https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L30
+---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L30
 ---@field LAYOUT_NO_SCRIPT_INDEX string # Special value for script index indicating unsupported script. Wraps `HB_OT_LAYOUT_NO_SCRIPT_INDEX`.
 ---
----https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L31
+---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L31
 ---@field LAYOUT_NO_FEATURE_INDEX string # Special value for variations index indicating unsupported variation. Wraps `HB_OT_LAYOUT_NO_FEATURE_INDEX`.
 ---
----https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L32
+---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L32
 ---@field LAYOUT_DEFAULT_LANGUAGE_INDEX string # Special value for language index indicating default or unsupported language. Wraps `HB_OT_LAYOUT_DEFAULT_LANGUAGE_INDEX`.
 ---
----https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L33
+---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L33
 ---@field LAYOUT_NO_VARIATIONS_INDEX string # Special value for variations index indicating unsupported variation. Wraps `HB_OT_LAYOUT_NO_VARIATIONS_INDEX`.
 ---
----https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L34
+---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/ot.c#L34
 local ot = {}
 luaharfbuzz.ot = ot
 
@@ -1526,7 +1526,7 @@ luaharfbuzz.ot = ot
 ---
 ---Wraps `hb_variation_t`.
 ---
----* Corresponding C source code: [luaharfbuzz.h#L21](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.h#L21)
+---* Corresponding C source code: [luaharfbuzz.h#L21](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.h#L21)
 ---* HarfBuzz online documentation: [hb_variation_t](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-variation-t)
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
@@ -1534,7 +1534,7 @@ luaharfbuzz.ot = ot
 local Variation = {}
 
 ---
----* Corresponding C source code: [luaharfbuzz.h#L21](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.h#L21)
+---* Corresponding C source code: [luaharfbuzz.h#L21](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.h#L21)
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 luaharfbuzz.Variation = Variation

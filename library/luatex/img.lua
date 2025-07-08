@@ -97,7 +97,7 @@ _N._11_1_1_new = "page 225"
 ---still included when requested. No special flags are set. A proper workflow will
 ---not rely in such a catch but make sure that images are valid.
 ---
----* Corresponding C source code: [limglib.c#L75-L102](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L75-L102)
+---* Corresponding C source code: [limglib.c#L75-L102](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L75-L102)
 ---
 ---@param image_spec? ImageSpec
 ---
@@ -109,7 +109,7 @@ function img.new(image_spec) end
 _N._11_1_2_fields = "page 226"
 
 ---
----* Corresponding C source code: [limglib.c#L301-L304](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L301-L304)
+---* Corresponding C source code: [limglib.c#L301-L304](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L301-L304)
 ---@return ImageSpec keys
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/img.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -118,7 +118,7 @@ function img.fields() end
 ---
 ---Alias for img.fields()
 ---
----* Corresponding C source code: [limglib.c#L301-L304](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L301-L304)
+---* Corresponding C source code: [limglib.c#L301-L304](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L301-L304)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/img.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function img.keys() end
@@ -126,7 +126,7 @@ function img.keys() end
 ---
 ---Must be a table, and that table must contain a `filename` key.
 ---
----* Corresponding C source code: [luatex-api.h#L506-L532](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/luatex-api.h#L506-L532)
+---* Corresponding C source code: [luatex-api.h#L506-L532](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/luatex-api.h#L506-L532)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/img.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class ImageSpec
@@ -184,7 +184,7 @@ _N._11_1_3_scan = "page 227"
 ---again by saying `a=nil`. In that case no image object will be reserved in
 ---the PDF, and the used memory will be cleaned up automatically.
 ---
----* Corresponding C source code: [limglib.c#L145-L157](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L145-L157)
+---* Corresponding C source code: [limglib.c#L145-L157](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L145-L157)
 ---
 ---@param image Image|ImageSpec
 ---
@@ -204,7 +204,7 @@ _N._11_1_4_copy = "page 230"
 ---dictionary, but the dimensions for `b` can now be changed from their
 ---initial values that were just copies from `a`.
 ---
----* Corresponding C source code: [limglib.c#L104-L114](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L104-L114)
+---* Corresponding C source code: [limglib.c#L104-L114](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L104-L114)
 ---
 ---@param image Image|ImageSpec
 ---
@@ -232,7 +232,7 @@ _N._11_1_5_write_immediatewrite_immediatewriteobject = "page 228"
 ---The `<image>` variable is returned in case you want it for later
 ---processing. You can also write an object.
 ---
----* Corresponding C source code: [limglib.c#L267-L271](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L267-L271)
+---* Corresponding C source code: [limglib.c#L267-L271](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L267-L271)
 ---
 ---@param image Image|ImageSpec
 ---
@@ -261,7 +261,7 @@ function img.write(image) end
 ---
 ---The `<image>` variable is returned and you will most likely need it.
 ---
----* Corresponding C source code: [limglib.c#L273-L282](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L273-L282)
+---* Corresponding C source code: [limglib.c#L273-L282](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L273-L282)
 ---
 ---@param image Image|ImageSpec
 ---
@@ -276,7 +276,7 @@ function img.immediatewrite(image) end
 ---
 ---This features is experimental and might disappear.
 ---
----* Corresponding C source code: [limglib.c#L284-L293](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L284-L293)
+---* Corresponding C source code: [limglib.c#L284-L293](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L284-L293)
 ---
 ---@param image Image|ImageSpec
 ---@param objnum integer
@@ -306,7 +306,7 @@ _N._11_1_6_node = "page 229"
 ---node.write(img.node{filename="foo.png"})
 ---```
 ---
----* Corresponding C source code: [limglib.c#L295-L299](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L295-L299)
+---* Corresponding C source code: [limglib.c#L295-L299](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L295-L299)
 ---
 ---@param image Image|ImageSpec
 ---
@@ -330,7 +330,7 @@ _N._11_1_7_types = "page 229"
 ---types = img.types()
 ---```
 ---
----* Corresponding C source code: [limglib.c#L306-L309](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L306-L309)
+---* Corresponding C source code: [limglib.c#L306-L309](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L306-L309)
 ---
 ---@return ImgType[]
 ---
@@ -340,7 +340,7 @@ function img.types() end
 _N._11_1_8_boxes = "page 229"
 
 ---
----* Corresponding C source code: [luatex-api.h#L534-L540](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/luatex-api.h#L534-L540)
+---* Corresponding C source code: [luatex-api.h#L534-L540](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/luatex-api.h#L534-L540)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/img.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias ImgBox `media` | `crop` | `bleed` | `trim` | `art`
@@ -353,7 +353,7 @@ _N._11_1_8_boxes = "page 229"
 ---boxes = img.boxes()
 ---```
 ---
----* Corresponding C source code: [limglib.c#L311-L314](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L311-L314)
+---* Corresponding C source code: [limglib.c#L311-L314](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L311-L314)
 ---
 ---@return ImgBox[]
 ---

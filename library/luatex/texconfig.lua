@@ -33,7 +33,7 @@ texconfig.kpse_init = true
 ---
 ---__Reference:__
 ---
----* [texmf.cnf#L810-L811](https://github.com/TeX-Live/luatex/blob/2f443efc11d9b87ec0592ddd64c90d9ad15ea498/source/texk/kpathsea/texmf.cnf#L810-L811)
+---* [texmf.cnf#L810-L811](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/2f443efc11d9b87ec0592ddd64c90d9ad15ea498/source/texk/kpathsea/texmf.cnf#L810-L811)
 ---
 ---@type integer
 ---
@@ -45,7 +45,7 @@ texconfig.string_vacancies = 75000
 ---
 ---__Reference:__
 ---
----* [texmf.cnf#L815](https://github.com/TeX-Live/luatex/blob/2f443efc11d9b87ec0592ddd64c90d9ad15ea498/source/texk/kpathsea/texmf.cnf#L815)
+---* [texmf.cnf#L815](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/2f443efc11d9b87ec0592ddd64c90d9ad15ea498/source/texk/kpathsea/texmf.cnf#L815)
 ---
 ---@type integer
 ---
@@ -57,7 +57,7 @@ texconfig.pool_free = 5000
 ---
 ---__Reference:__
 ---
----* [texmf.cnf#L813](https://github.com/TeX-Live/luatex/blob/2f443efc11d9b87ec0592ddd64c90d9ad15ea498/source/texk/kpathsea/texmf.cnf#L813)
+---* [texmf.cnf#L813](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/2f443efc11d9b87ec0592ddd64c90d9ad15ea498/source/texk/kpathsea/texmf.cnf#L813)
 ---
 ---@type integer
 ---
@@ -69,7 +69,7 @@ texconfig.max_strings = 15000
 ---
 ---__Reference:__
 ---
----* [texmf.cnf#L817](https://github.com/TeX-Live/luatex/blob/2f443efc11d9b87ec0592ddd64c90d9ad15ea498/source/texk/kpathsea/texmf.cnf#L817)
+---* [texmf.cnf#L817](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/2f443efc11d9b87ec0592ddd64c90d9ad15ea498/source/texk/kpathsea/texmf.cnf#L817)
 ---
 ---@type integer
 texconfig.strings_free = 100
@@ -79,7 +79,7 @@ texconfig.strings_free = 100
 ---
 ---__Reference:__
 ---
----* [kpathsea/texmf.cnf](https://github.com/TeX-Live/luatex/blob/2f443efc11d9b87ec0592ddd64c90d9ad15ea498/source/texk/kpathsea/texmf.cnf)
+---* [kpathsea/texmf.cnf](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/2f443efc11d9b87ec0592ddd64c90d9ad15ea498/source/texk/kpathsea/texmf.cnf)
 ---
 ---@type integer
 ---
@@ -91,7 +91,7 @@ texconfig.nest_size = 50
 ---
 ---__Reference:__
 ---
----* [kpathsea/texmf.cnf](https://github.com/TeX-Live/luatex/blob/2f443efc11d9b87ec0592ddd64c90d9ad15ea498/source/texk/kpathsea/texmf.cnf)
+---* [kpathsea/texmf.cnf](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/2f443efc11d9b87ec0592ddd64c90d9ad15ea498/source/texk/kpathsea/texmf.cnf)
 ---
 ---@type integer
 ---
@@ -103,7 +103,7 @@ texconfig.max_in_open = 15
 ---
 ---__Reference:__
 ---
----* [kpathsea/texmf.cnf](https://github.com/TeX-Live/luatex/blob/2f443efc11d9b87ec0592ddd64c90d9ad15ea498/source/texk/kpathsea/texmf.cnf)
+---* [kpathsea/texmf.cnf](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/2f443efc11d9b87ec0592ddd64c90d9ad15ea498/source/texk/kpathsea/texmf.cnf)
 ---
 ---@type integer
 ---
@@ -115,7 +115,7 @@ texconfig.param_size = 60
 ---
 ---__Reference:__
 ---
----* [kpathsea/texmf.cnf](https://github.com/TeX-Live/luatex/blob/2f443efc11d9b87ec0592ddd64c90d9ad15ea498/source/texk/kpathsea/texmf.cnf)
+---* [kpathsea/texmf.cnf](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/2f443efc11d9b87ec0592ddd64c90d9ad15ea498/source/texk/kpathsea/texmf.cnf)
 ---
 ---@type integer
 ---
@@ -127,7 +127,7 @@ texconfig.save_size = 4000
 ---
 ---__Reference:__
 ---
----* [kpathsea/texmf.cnf](https://github.com/TeX-Live/luatex/blob/2f443efc11d9b87ec0592ddd64c90d9ad15ea498/source/texk/kpathsea/texmf.cnf)
+---* [kpathsea/texmf.cnf](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/2f443efc11d9b87ec0592ddd64c90d9ad15ea498/source/texk/kpathsea/texmf.cnf)
 ---
 ---@type integer
 ---
@@ -139,7 +139,7 @@ texconfig.stack_size = 300
 ---
 ---__Reference:__
 ---
----* [kpathsea/texmf.cnf](https://github.com/TeX-Live/luatex/blob/2f443efc11d9b87ec0592ddd64c90d9ad15ea498/source/texk/kpathsea/texmf.cnf)
+---* [kpathsea/texmf.cnf](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/2f443efc11d9b87ec0592ddd64c90d9ad15ea498/source/texk/kpathsea/texmf.cnf)
 ---
 ---@type integer
 ---
@@ -156,7 +156,7 @@ texconfig.dvi_buf_size = 16384
 ---
 ---__Reference:__
 ---
----* [kpathsea/texmf.cnf](https://github.com/TeX-Live/luatex/blob/2f443efc11d9b87ec0592ddd64c90d9ad15ea498/source/texk/kpathsea/texmf.cnf)
+---* [kpathsea/texmf.cnf](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/2f443efc11d9b87ec0592ddd64c90d9ad15ea498/source/texk/kpathsea/texmf.cnf)
 ---
 ---@type integer
 ---
@@ -173,7 +173,7 @@ texconfig.error_line = 79
 ---
 ---__Reference:__
 ---
----* [kpathsea/texmf.cnf](https://github.com/TeX-Live/luatex/blob/2f443efc11d9b87ec0592ddd64c90d9ad15ea498/source/texk/kpathsea/texmf.cnf)
+---* [kpathsea/texmf.cnf](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/2f443efc11d9b87ec0592ddd64c90d9ad15ea498/source/texk/kpathsea/texmf.cnf)
 ---
 ---@type integer
 ---
@@ -190,7 +190,7 @@ texconfig.half_error_line = 50
 ---
 ---__Reference:__
 ---
----* [kpathsea/texmf.cnf](https://github.com/TeX-Live/luatex/blob/2f443efc11d9b87ec0592ddd64c90d9ad15ea498/source/texk/kpathsea/texmf.cnf)
+---* [kpathsea/texmf.cnf](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/2f443efc11d9b87ec0592ddd64c90d9ad15ea498/source/texk/kpathsea/texmf.cnf)
 ---
 ---@type integer
 ---

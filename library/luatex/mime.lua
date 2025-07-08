@@ -1,7 +1,7 @@
 _N._4_3_lua_modules = "page 67"
 
 ---
----https://github.com/TeX-Live/luatex/blob/trunk/source/texk/web2c/luatexdir/luasocket/src/mime.lua
+---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/trunk/source/texk/web2c/luatexdir/luasocket/src/mime.lua
 ---Changes to upstream: global mime table
 
 ---

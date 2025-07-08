@@ -49,7 +49,7 @@ _N._14_1_2_set_get_catalog_info_names_trailer = "page 281"
 ---with metadata. The value is written to the *PDF*
 ---file directly after the token registers set at the *TeX* end are written.
 ---
----* Corresponding C source code: [lpdflib.c#L612](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L612)
+---* Corresponding C source code: [lpdflib.c#L612](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L612)
 ---
 ---@see pdf.getcatalog
 ---
@@ -79,7 +79,7 @@ function pdf.getcatalog() end
 ---with metadata. The value is written to the *PDF*
 ---file directly after the token registers set at the *TeX* end are written.
 ---
----* Corresponding C source code: [lpdflib.c#L613](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L613)
+---* Corresponding C source code: [lpdflib.c#L613](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L613)
 ---
 ---@see pdf.getinfo
 ---
@@ -109,7 +109,7 @@ function pdf.getinfo() end
 ---with metadata. The value is written to the *PDF*
 ---file directly after the token registers set at the *TeX* end are written.
 ---
----* Corresponding C source code: [lpdflib.c#L614](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L614)
+---* Corresponding C source code: [lpdflib.c#L614](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L614)
 ---
 ---@see pdf.getnames
 ---
@@ -139,7 +139,7 @@ function pdf.getnames() end
 ---with metadata. The value is written to the *PDF*
 ---file directly after the token registers set at the *TeX* end are written.
 ---
----* Corresponding C source code: [lpdflib.c#L615](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L615)
+---* Corresponding C source code: [lpdflib.c#L615](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L615)
 ---
 ---@see pdf.gettrailer
 ---
@@ -173,7 +173,7 @@ _N._14_1_3_set_get_pageattributes_pageresources_pagesattributes = "page 281"
 ---backend token register. They are written to the *PDF* file directly after the
 ---token registers set at the *TeX* end are written.
 ---
-------* Corresponding C source code: [lpdflib.c#L610](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L610)
+------* Corresponding C source code: [lpdflib.c#L610](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L610)
 ---
 ---@see pdf.getpageattributes
 ---
@@ -205,7 +205,7 @@ function pdf.getpageattributes() end
 ---backend token register. They are written to the *PDF* file directly after the
 ---token registers set at the *TeX* end are written.
 ---
----* Corresponding C source code: [lpdflib.c#L609](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L609)
+---* Corresponding C source code: [lpdflib.c#L609](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L609)
 ---
 ---@see pdf.getpageresources
 ---
@@ -237,7 +237,7 @@ function pdf.getpageresources() end
 ---backend token register. They are written to the *PDF* file directly after the
 ---token registers set at the *TeX* end are written.
 ---
----* Corresponding C source code: [lpdflib.c#L611](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L611)
+---* Corresponding C source code: [lpdflib.c#L611](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L611)
 ---
 ---@see pdf.setpageattributes
 ---
@@ -271,7 +271,7 @@ _N._14_1_4_set_get_xformattributes_xformresources = "page 281"
 ---
 ---@see pdf.getxformattributes
 ---
----* Corresponding C source code: [lpdflib.c#L617](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L617)
+---* Corresponding C source code: [lpdflib.c#L617](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L617)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdf.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function pdf.setxformattributes() end
@@ -295,7 +295,7 @@ function pdf.getxformattributes() end
 ---
 ---@see pdf.getxformresources
 ---
----* Corresponding C source code: [lpdflib.c#L616](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L616)
+---* Corresponding C source code: [lpdflib.c#L616](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L616)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdf.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function pdf.setxformresources() end
@@ -1177,7 +1177,7 @@ _N._14_1_27_newcolorstack = "page 286"
 ---pdf.newcolorstack("0 g","page",true) --
 ---```
 ---
----* Corresponding C source code: [lpdflib.c#L1166-L1199](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L1166-L1199)
+---* Corresponding C source code: [lpdflib.c#L1166-L1199](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L1166-L1199)
 ---
 ---@param s string
 ---@param literal_mode 'page'|'direct'|'origin'|'text'|'raw'
@@ -1196,7 +1196,7 @@ _N._14_1_28_setfontattributes = "page 286"
 ---It can for
 ---instance be used to add a custom `ToUnicode` vector to a bitmap file.
 ---
----* Corresponding C source code: [lpdflib.c#L1202-L1216](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L1202-L1216)
+---* Corresponding C source code: [lpdflib.c#L1202-L1216](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L1202-L1216)
 ---@param font_id integer
 ---@param pdf_code integer
 ---
@@ -1228,7 +1228,7 @@ function pdf.maxobjnum() end
 ---
 ---Return number of object that are written or not yet written to file.
 ---
----* Corresponding C source code: [lpdflib.c#L1270-L1285](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L1270-L1285)
+---* Corresponding C source code: [lpdflib.c#L1270-L1285](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L1270-L1285)
 ---
 ---@return integer written_obj # Object written to file.
 ---@return integer not_written_obj # Object not yet written to file.
@@ -1237,19 +1237,19 @@ function pdf.maxobjnum() end
 function pdf.getnofobjects() end
 
 ---
----* Corresponding C source code: [lpdflib.c#L1218-L1235](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L1218-L1235)
+---* Corresponding C source code: [lpdflib.c#L1218-L1235](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L1218-L1235)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdf.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function pdf.includechar() end
 
 ---
----* Corresponding C source code: [lpdflib.c#L1237-L1242](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L1237-L1242)
+---* Corresponding C source code: [lpdflib.c#L1237-L1242](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L1237-L1242)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdf.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function pdf.includefont() end
 
 ---
----* Corresponding C source code: [lpdflib.c#L1244-L1268](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L1244-L1268)
+---* Corresponding C source code: [lpdflib.c#L1244-L1268](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L1244-L1268)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdf.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function pdf.includeimage() end
@@ -1269,7 +1269,7 @@ function pdf.objtype() end
 function pdf.pageref() end
 
 ---
----* Corresponding C source code: [lpdflib.c#L871-L879](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L871-L879)
+---* Corresponding C source code: [lpdflib.c#L871-L879](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L871-L879)
 ---
 ---@param force boolean
 ---
@@ -1277,7 +1277,7 @@ function pdf.pageref() end
 function pdf.setforcefile(force) end
 
 ---
----* Corresponding C source code: [lpdflib.c#L1294-L1298](https://github.com/TeX-Live/luatex/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L1294-L1298)
+---* Corresponding C source code: [lpdflib.c#L1294-L1298](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L1294-L1298)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdf.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function pdf.settypeonewidemode() end
