@@ -45,8 +45,6 @@ function tex.set(global, parameter, ...) end
 ---@return any ...
 function tex.get(parameter, opts) end
 
-
-
 _N._10_3_2_1_integer_parameters_read_write = "page 190"
 
 ---
@@ -1840,6 +1838,10 @@ _N._10_3_5_accessing_registers_set_get_and_is = "page 194"
 ---
 ---see `LuaTeX` manual: 10.3.5 Accessing registers: `set*`, `get*` and `is*`
 ---
+---__Reference:__
+---
+---* Corresponding C source code: [ltexlib.c#L3698](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3698)
+---
 ---@type table
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -1888,6 +1890,10 @@ function tex.isattribute(register) end
 ---The count registers accept and return *Lua* numbers.
 ---
 ---see `LuaTeX` manual: 10.3.5 Accessing registers: `set*`, `get*` and `is*`
+---
+---__Reference:__
+---
+---* Corresponding C source code: [ltexlib.c#L3704](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3704)
 ---
 ---@type table
 ---
@@ -1942,6 +1948,10 @@ function tex.iscount(register) end
 ---
 ---see `LuaTeX` manual: 10.3.5 Accessing registers: `set*`, `get*` and `is*`
 ---
+---__Reference:__
+---
+---* Corresponding C source code: [ltexlib.c#L3703](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3703)
+---
 ---@type table
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -1982,6 +1992,10 @@ function tex.isdimen(register) end
 ---are verbose.
 ---
 ---see `LuaTeX` manual: 10.3.5 Accessing registers: `set*`, `get*` and `is*`
+---
+---__Reference:__
+---
+---* Corresponding C source code: [ltexlib.c#L3700](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3700)
 ---
 ---@type table
 ---
@@ -2045,6 +2059,10 @@ function tex.isglue(register) end
 ---
 ---see `LuaTeX` manual: 10.3.5 Accessing registers: `set*`, `get*` and `is*`
 ---
+---__Reference:__
+---
+---* Corresponding C source code: [ltexlib.c#L3702](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3702)
+---
 ---@type table
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -2106,6 +2124,10 @@ function tex.ismuglue(register) end
 ---
 ---see `LuaTeX` manual: 10.3.5 Accessing registers: `set*`, `get*` and `is*`
 ---
+---__Reference:__
+---
+---* Corresponding C source code: [ltexlib.c#L3701](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3701)
+---
 ---@type table
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -2156,6 +2178,10 @@ function tex.ismuskip(register) end
 ---
 ---see `LuaTeX` manual: 10.3.5 Accessing registers: `set*`, `get*` and `is*`
 ---
+---__Reference:__
+---
+---* Corresponding C source code: [ltexlib.c#L3699](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3699)
+---
 ---@type table
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -2203,6 +2229,10 @@ function tex.isskip(register) end
 ---expansion: all category codes are either space (10) or other (12).
 ---
 ---see `LuaTeX` manual: 10.3.5 Accessing registers: `set*`, `get*` and `is*`
+---
+---__Reference:__
+---
+---* Corresponding C source code: [ltexlib.c#L3705](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3705)
 ---
 ---@type table
 ---
@@ -2279,6 +2309,11 @@ _N._10_3_6_character_code_registers_get_set_code_s_ = "page 196"
 ---
 ---*TeX*'s character code table `lccode` (lower case code) can be accessed and written to using
 ---a virtual subtable of the `tex` table.
+---
+---__Reference:__
+---
+---* Corresponding C source code: [ltexlib.c#L3708](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3708)
+---
 ---@type table
 tex.lccode = {}
 
@@ -2321,6 +2356,11 @@ function tex.getlccode(char_code) end
 ---
 ---*TeX*'s character code table `uccode` (upper case code) can be accessed and written to using
 ---a virtual subtable of the `tex` table.
+---
+---__Reference:__
+---
+---* Corresponding C source code: [ltexlib.c#L3709](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3709)
+---
 ---@type table
 tex.uccode = {}
 
@@ -2363,6 +2403,11 @@ function tex.getuccode(char_code) end
 ---
 ---*TeX*'s character code table `sfcode` (space factor code) can be accessed and written to using
 ---a virtual subtable of the `tex` table.
+---
+---__Reference:__
+---
+---* Corresponding C source code: [ltexlib.c#L3707](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3707)
+---
 ---@type table
 tex.sfcode = {}
 
@@ -2395,8 +2440,136 @@ function tex.setsfcode(char_code, sf) end
 function tex.getsfcode(n) end
 
 ---
----*TeX*'s character code table `catcode` (category code) can be accessed and written to using
----a virtual subtable of the `tex` table.
+---A virtual subtable of the `tex` table called `catcode` (category code) can be used to access and write to TeX's character code table.
+---
+---The category codes are indexed by the character code.
+---
+---```lua
+---for i=33,126 do
+---  print(i, utf8.char(i), tex.catcode[i])
+---end
+---```
+---
+---## Output:
+---
+---```
+---33	!	12
+---34	"	12
+---35	#	6
+---36	$	3
+---37	%	14
+---38	&	4
+---39	'	12
+---40	(	12
+---41	)	12
+---42	*	12
+---43	+	12
+---44	,	12
+---45	-	12
+---46	.	12
+---47	/	12
+---48	0	12
+---49	1	12
+---50	2	12
+---51	3	12
+---52	4	12
+---53	5	12
+---54	6	12
+---55	7	12
+---56	8	12
+---57	9	12
+---58	:	12
+---59	;	12
+---60	<	12
+---61	=	12
+---62	>	12
+---63	?	12
+---64	@	12
+---65	A	11
+---66	B	11
+---67	C	11
+---68	D	11
+---69	E	11
+---70	F	11
+---71	G	11
+---72	H	11
+---73	I	11
+---74	J	11
+---75	K	11
+---76	L	11
+---77	M	11
+---78	N	11
+---79	O	11
+---80	P	11
+---81	Q	11
+---82	R	11
+---83	S	11
+---84	T	11
+---85	U	11
+---86	V	11
+---87	W	11
+---88	X	11
+---89	Y	11
+---90	Z	11
+---91	[	12
+---92	\	0
+---93	]	12
+---94	^	7
+---95	_	8
+---96	`	12
+---97	a	11
+---98	b	11
+---99	c	11
+---100	d	11
+---101	e	11
+---102	f	11
+---103	g	11
+---104	h	11
+---105	i	11
+---106	j	11
+---107	k	11
+---108	l	11
+---109	m	11
+---110	n	11
+---111	o	11
+---112	p	11
+---113	q	11
+---114	r	11
+---115	s	11
+---116	t	11
+---117	u	11
+---118	v	11
+---119	w	11
+---120	x	11
+---121	y	11
+---122	z	11
+---123	{	1
+---124	|	12
+---125	}	2
+---126	~	13
+---```
+---
+---## Category codes:
+---
+---* `0`: Escape character, normally `\`
+---* `1`: Begin grouping, normally `{`
+---* `2`: End grouping, normally `}`
+---* `3`: Math shift, normally `$`
+---* `4`: Alignment tab, normally `&`
+---* `5`: End of line, normally `<return>`
+---* `6`: Parameter, normally `#`
+---* `7`: Superscript, normally `^`
+---* `8`: Subscript, normally `_`
+---* `9`: Ignored character, normally `<null>`
+---* `10`: Space, normally `<space>` and `<tab>`
+---* `11`: Letter, normally only contains the letters `a,...,z` and `A,...,Z`. These characters can be used in command names
+---* `12`: Other, normally everything else not listed in the other categories
+---* `13`: Active character, for example `~`
+---* `14`: Comment character, normally `%`
+---* `15`: Invalid character, normally `<delete>`
+---
+---* Corresponding C source code: [ltexlib.c#L3710](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3710)
+---
 ---@type table
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex.catcode = {}
@@ -2409,8 +2582,8 @@ tex.catcode = {}
 ---* Corresponding C source code: [ltexlib.c#L1438-L1464](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1438-L1464)
 ---
 ---@param global 'global' # It is possible to define values globally by using the string `global` as the first function argument.
----@param char_code integer
----@param cat_code integer
+---@param char_code integer # The character code, for example ASCII or UNICODE character code.
+---@param cat_code integer # The category code (`0` stands for the escape character, normally `\`, `1` stands for begin grouping, normally `{` and so on).
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.setcatcode(global, char_code, cat_code) end
@@ -2420,10 +2593,31 @@ function tex.setcatcode(global, char_code, cat_code) end
 ---category table to use on assignment or on query (default in both cases is the
 ---current one).
 ---
+---## Category codes:
+---
+---* `0`: Escape character, normally `\`
+---* `1`: Begin grouping, normally `{`
+---* `2`: End grouping, normally `}`
+---* `3`: Math shift, normally `$`
+---* `4`: Alignment tab, normally `&`
+---* `5`: End of line, normally `<return>`
+---* `6`: Parameter, normally `#`
+---* `7`: Superscript, normally `^`
+---* `8`: Subscript, normally `_`
+---* `9`: Ignored character, normally `<null>`
+---* `10`: Space, normally `<space>` and `<tab>`
+---* `11`: Letter, normally only contains the letters `a,...,z` and `A,...,Z`. These characters can be used in command names
+---* `12`: Other, normally everything else not listed in the other categories
+---* `13`: Active character, for example `~`
+---* `14`: Comment character, normally `%`
+---* `15`: Invalid character, normally `<delete>`
+---
+---__Reference:__
+---
 ---* Corresponding C source code: [ltexlib.c#L1438-L1464](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1438-L1464)
 ---
----@param char_code integer
----@param cat_code integer
+---@param char_code integer # The character code, for example ASCII or UNICODE character code.
+---@param cat_code integer # The category code (`0` stands for the escape character, normally `\`, `1` stands for begin grouping, normally `{` and so on).
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.setcatcode(char_code, cat_code) end
 
@@ -2432,12 +2626,33 @@ function tex.setcatcode(char_code, cat_code) end
 ---category table to use on assignment or on query (default in both cases is the
 ---current one).
 ---
+---## Category codes:
+---
+---* `0`: Escape character, normally `\`
+---* `1`: Begin grouping, normally `{`
+---* `2`: End grouping, normally `}`
+---* `3`: Math shift, normally `$`
+---* `4`: Alignment tab, normally `&`
+---* `5`: End of line, normally `<return>`
+---* `6`: Parameter, normally `#`
+---* `7`: Superscript, normally `^`
+---* `8`: Subscript, normally `_`
+---* `9`: Ignored character, normally `<null>`
+---* `10`: Space, normally `<space>` and `<tab>`
+---* `11`: Letter, normally only contains the letters `a,...,z` and `A,...,Z`. These characters can be used in command names
+---* `12`: Other, normally everything else not listed in the other categories
+---* `13`: Active character, for example `~`
+---* `14`: Comment character, normally `%`
+---* `15`: Invalid character, normally `<delete>`
+---
+---__Reference:__
+---
 ---* Corresponding C source code: [ltexlib.c#L1438-L1464](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1438-L1464)
 ---
 ---@param global 'global' # It is possible to define values globally by using the string `global` as the first function argument.
 ---@param cat_table integer
----@param char_code integer
----@param cat_code integer
+---@param char_code integer # The character code, for example ASCII or UNICODE character code.
+---@param cat_code integer # The category code (`0` stands for the escape character, normally `\`, `1` stands for begin grouping, normally `{` and so on).
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.setcatcode(global, cat_table, char_code, cat_code) end
 
@@ -2446,11 +2661,32 @@ function tex.setcatcode(global, cat_table, char_code, cat_code) end
 ---category table to use on assignment or on query (default in both cases is the
 ---current one).
 ---
+---## Category codes:
+---
+---* `0`: Escape character, normally `\`
+---* `1`: Begin grouping, normally `{`
+---* `2`: End grouping, normally `}`
+---* `3`: Math shift, normally `$`
+---* `4`: Alignment tab, normally `&`
+---* `5`: End of line, normally `<return>`
+---* `6`: Parameter, normally `#`
+---* `7`: Superscript, normally `^`
+---* `8`: Subscript, normally `_`
+---* `9`: Ignored character, normally `<null>`
+---* `10`: Space, normally `<space>` and `<tab>`
+---* `11`: Letter, normally only contains the letters `a,...,z` and `A,...,Z`. These characters can be used in command names
+---* `12`: Other, normally everything else not listed in the other categories
+---* `13`: Active character, for example `~`
+---* `14`: Comment character, normally `%`
+---* `15`: Invalid character, normally `<delete>`
+---
+---__Reference:__
+---
 ---* Corresponding C source code: [ltexlib.c#L1438-L1464](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1438-L1464)
 ---
 ---@param cat_table integer
----@param char_code integer
----@param cat_code integer
+---@param char_code integer # The character code, for example ASCII or UNICODE character code.
+---@param cat_code integer # The category code (`0` stands for the escape character, normally `\`, `1` stands for begin grouping, normally `{` and so on).
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.setcatcode(global, cat_table, char_code, cat_code) end
 
@@ -2459,16 +2695,40 @@ function tex.setcatcode(global, cat_table, char_code, cat_code) end
 ---category table to use on assignment or on query (default in both cases is the
 ---current one):
 ---
----@param cat_table integer
----@param char_code integer
+---## Category codes:
 ---
----@return integer cat_code
+---* `0`: Escape character, normally `\`
+---* `1`: Begin grouping, normally `{`
+---* `2`: End grouping, normally `}`
+---* `3`: Math shift, normally `$`
+---* `4`: Alignment tab, normally `&`
+---* `5`: End of line, normally `<return>`
+---* `6`: Parameter, normally `#`
+---* `7`: Superscript, normally `^`
+---* `8`: Subscript, normally `_`
+---* `9`: Ignored character, normally `<null>`
+---* `10`: Space, normally `<space>` and `<tab>`
+---* `11`: Letter, normally only contains the letters `a,...,z` and `A,...,Z`. These characters can be used in command names
+---* `12`: Other, normally everything else not listed in the other categories
+---* `13`: Active character, for example `~`
+---* `14`: Comment character, normally `%`
+---* `15`: Invalid character, normally `<delete>`
+---
+---@param cat_table integer
+---@param char_code integer # The character code, for example ASCII or UNICODE character code.
+---
+---@return integer cat_code # The category code (`0` stands for the escape character, normally `\`, `1` stands for begin grouping, normally `{` and so on).
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.getcatcode(cat_table, char_code) end
 
 ---
 ---*TeX*'s character code table `mathcode` can be accessed and written to using
 ---a virtual subtable of the `tex` table.
+---
+---__Reference:__
+---
+---* Corresponding C source code: [ltexlib.c#L3711](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3711)
+---
 ---@type table
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex.mathcode = {}
@@ -2547,6 +2807,11 @@ function tex.getmathcodes(char_code) end
 ---
 ---*TeX*'s character code tables `delcode` (delimiter code) can be accessed and written to using
 ---a virtual subtable of the `tex` table.
+---
+---__Reference:__
+---
+---* Corresponding C source code: [ltexlib.c#L3712](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3712)
+---
 ---@type table
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex.delcode = {}
@@ -2627,6 +2892,13 @@ function tex.getdelcodes(char_code) end
 function tex.getdelcode(char_code) end
 
 _N._10_3_7_box_registers_get_set_box = "page 197"
+
+---
+---__Reference:__
+---
+---* Corresponding C source code: [ltexlib.c#L3706](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3706)
+---
+tex.box = {}
 
 ---
 ---Set a box, coming for instance from `hbox`, `vbox` or `vtop`.
@@ -2970,6 +3242,10 @@ _N._10_3_12_special_list_heads_get_set_list = "page 200"
 ---The virtual table `tex.lists` contains the set of internal registers that
 ---keep track of building page lists.
 ---
+---__Reference:__
+---
+---* Corresponding C source code: [ltexlib.c#L3713](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3713)
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex.lists = {}
 
@@ -3049,6 +3325,11 @@ _N._10_3_13_semantic_nest_levels_getnest_and_ptr = "page 200"
 ---
 ---`tex.nest[tex.nest.ptr]` is the current nest state, `nest[0]` the
 ---outermost (main vertical list) level.
+---
+---__Reference:__
+---
+---* Corresponding C source code: [ltexlib.c#L3714](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3714)
+---
 ---@type table<integer, Nest>
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
