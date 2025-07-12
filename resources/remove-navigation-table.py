@@ -18,6 +18,9 @@ def patch_file(file_name: str):
     # Remove duplicate empty lines.
     content = re.sub("\n\n+", "\n\n", content)
 
+    # Remove leading and trailing whitespace
+    content = content.strip() + "\n"
+
     with open(file_name, "w") as dest:
         dest.write(content)
 
