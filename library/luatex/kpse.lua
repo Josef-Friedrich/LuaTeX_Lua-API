@@ -17,6 +17,10 @@ _N._10_7_1_set_program_name_and_new = "page 221"
 ---where the currently set program name acts as filter. You can check what file is
 ---used by with `default_texmfcnf`.
 ---
+---__Reference:__
+---
+---* Corresponding C source code: [lkpselib.c#L317-321](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lkpselib.c#L317-321)
+---
 ---@return string # returns the value of the C preprocessor macro DEFAULT_TEXMFCNF without initializing anything else from kpathsea, for example `{$SELFAUTOLOC,$SELFAUTOLOC/share/texmf-local/web2c,...}`
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/kpse.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -39,6 +43,8 @@ function kpse.default_texmfcnf() end
 ---
 ---Third, if you prefer the object oriented interface, you have to call a different
 ---function. It has the same arguments, but it returns a userdata variable.
+---
+---* Corresponding C source code: [lkpselib.c#L832-852](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lkpselib.c#L832-852)
 ---
 ---@param name string
 ---@param progname? string
@@ -97,6 +103,10 @@ function kpse.record_output_file(name) end
 
 _N._10_7_3_find_file = "page 222"
 
+---
+---__Reference:__
+---
+---* Corresponding C source code: [lkpselib.c#L104-163](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lkpselib.c#L104-163)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/kpse.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias KpseFtype
@@ -168,6 +178,10 @@ _N._10_7_3_find_file = "page 222"
 ---If `--output-directory` is specified and the value is a relative pathname,
 ---the file is searched first here and if it fails it will be searched in the standard tree.
 ---
+---__References:__
+---
+---* Corresponding C source code: [lkpselib.c#L254-315](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01yd53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lkpselib.c#L254-315)
+---
 ---@param filename string # the name of the file you want to find, with or without extension.
 ---
 ---@return string
@@ -184,6 +198,10 @@ function kpse.find_file(filename) end
 ---
 ---If `--output-directory` is specified and the value is a relative pathname,
 ---the file is searched first here and if it fails it will be searched in the standard tree.
+---
+---__References:__
+---
+---* Corresponding C source code: [lkpselib.c#L254-315](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01yd53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lkpselib.c#L254-315)
 ---
 ---@param filename string # the name of the file you want to find, with or without extension.
 ---@param ftype KpseFtype # maps to the `-format` argument of `kpsewhich`. The supported `ftype` values are the same as the ones supported by the standalone `kpsewhich` program. The default type is `tex`. Note: this is different from `kpsewhich`, which tries to deduce the file type itself from looking at the supplied extension.
@@ -202,6 +220,10 @@ function kpse.find_file(filename, ftype) end
 ---
 ---If `--output-directory` is specified and the value is a relative pathname,
 ---the file is searched first here and if it fails it will be searched in the standard tree.
+---
+---__References:__
+---
+---* Corresponding C source code: [lkpselib.c#L254-315](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01yd53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lkpselib.c#L254-315)
 ---
 ---@param filename string # the name of the file you want to find, with or without extension.
 ---@param ftype KpseFtype # maps to the `-format` argument of `kpsewhich`. The supported `ftype` values are the same as the ones supported by the standalone `kpsewhich` program. The default type is `tex`. Note: this is different from `kpsewhich`, which tries to deduce the file type itself from looking at the supplied extension.
@@ -222,6 +244,10 @@ function kpse.find_file(filename, ftype, mustexist) end
 ---If `--output-directory` is specified and the value is a relative pathname,
 ---the file is searched first here and if it fails it will be searched in the standard tree.
 ---
+---__References:__
+---
+---* Corresponding C source code: [lkpselib.c#L254-315](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01yd53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lkpselib.c#L254-315)
+---
 ---@param filename string # the name of the file you want to find, with or without extension.
 ---@param ftype KpseFtype # maps to the `-format` argument of `kpsewhich`. The supported `ftype` values are the same as the ones supported by the standalone `kpsewhich` program. The default type is `tex`. Note: this is different from `kpsewhich`, which tries to deduce the file type itself from looking at the supplied extension.
 ---@param dpi number # This is used for the size argument of the formats `pk`, `gf`, and `bitmap font`.
@@ -233,6 +259,10 @@ function kpse.find_file(filename, ftype, dpi) end
 
 ---
 ---The options correspond to the command line arguments of `kpsewhich`:
+---
+---__References:__
+---
+---* Corresponding C source code: [lkpselib.c#L565-810](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lkpselib.c#L565-810)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/kpse.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class KpseLookupOptions
@@ -259,6 +289,10 @@ _N._10_7_4_lookup = "page 223"
 ---If `--output-directory` is specified and the value is a relative pathname,
 ---the file is searched first here and then in the standard tree.
 ---
+---__References:__
+---
+---* Corresponding C source code: [lkpselib.c#L813-818](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lkpselib.c#L813-818)
+---
 ---@param filename string # the name of the file you want to find, with or without extension.
 ---@param options KpseLookupOptions
 ---
@@ -274,6 +308,10 @@ _N._10_7_5_init_prog = "page 223"
 ---
 ---Extra initialization for programs that need to generate bitmap fonts.
 ---
+---__References:__
+---
+---* Corresponding C source code: [lkpselib.c#L865-874](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lkpselib.c#L865-874)
+---
 ---@param prefix string
 ---@param base_dpi number
 ---@param mfmode string
@@ -288,6 +326,10 @@ _N._10_7_6_readable_file = "page 223"
 ---Returns true if a file exists and is readable.
 ---
 ---Test if an (absolute) file name is a readable file.
+---
+---__References:__
+---
+---* Corresponding C source code: [lkpselib.c#L891-898](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lkpselib.c#L891-898)
 ---
 ---@param name string
 ---
@@ -307,6 +349,7 @@ _N._10_7_7_expand_path = "page 224"
 ---__References:__
 ---
 ---* [kpathsea manual](https://www.tug.org/texinfohtml/kpathsea.html#index-_002d_002dexpand_002dpath_003dstring)
+---* Corresponding C source code: [lkpselib.c#L353-359](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lkpselib.c#L353-359)
 ---
 ---@param s string
 ---
@@ -326,6 +369,7 @@ _N._10_7_8_expand_var = "page 224"
 ---__References:__
 ---
 ---* [kpathsea manual](https://www.tug.org/texinfohtml/kpathsea.html#index-_002d_002dexpand_002dvar_003dstring)
+---* Corresponding C source code: [lkpselib.c#L386-392](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lkpselib.c#L386-392)
 ---
 ---@param s string
 ---
@@ -344,6 +388,7 @@ _N._10_7_9_expand_braces = "page 224"
 ---__References:__
 ---
 ---* [kpathsea manual](https://www.tug.org/texinfohtml/kpathsea.html#index-_002d_002dexpand_002dbraces_003dstring)
+---* Corresponding C source code: [lkpselib.c#L369-375](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lkpselib.c#L369-375)
 ---
 ---@param s string
 ---
@@ -364,6 +409,7 @@ _N._10_7_10_show_path = "page 224"
 ---__References:__
 ---
 ---* [kpathsea manual](https://www.tug.org/texinfohtml/kpathsea.html#index-_002d_002dshow_002dpath_003dname)
+---* Corresponding C source code: [lkpselib.c#L334-343](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lkpselib.c#L334-343)
 ---
 ---@param file_type string
 ---
