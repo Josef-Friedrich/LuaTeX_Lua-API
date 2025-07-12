@@ -354,6 +354,8 @@ function token.scan_csname() end
 ---
 ---Pick up a box specification and return a `[h|v]list` node.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lnewtokenlib.c#L1100-L1111](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L1100-L1111)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/token.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -382,6 +384,8 @@ function token.get_next() end
 ---if you want to
 ---enforce expansion first you can.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lnewtokenlib.c#L1090-L1098](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L1090-L1098)
 ---
 ---@return Token
@@ -397,6 +401,8 @@ function token.scan_token() end
 ---enough about *TeX* not to be too worried about that. It basically is a call to
 ---the internal expand related function.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lnewtokenlib.c#L764-L769](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L764-L769)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/token.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -404,6 +410,8 @@ function token.expand() end
 
 _N._3_creating = "page 218"
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [luatoken.c#L192-L351](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/luatoken.c#L192-L351)
 ---
@@ -694,6 +702,8 @@ function token.get_active(t) end
 ---
 ---Return a boolean indicating if the token (macro) is expandable.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lnewtokenlib.c#L993-L1004](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L993-L1004)
 ---
 ---@param t Token
@@ -787,6 +797,8 @@ function token.get_meaning(name) end
 ---
 ---Ask for a list of commands.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lnewtokenlib.c#L1373-L1382](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L1373-L1382)
 ---
 ---@return table
@@ -801,11 +813,15 @@ function token.commands() end
 ---
 ---@return integer|nil
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lnewtokenlib.c#L201-L213](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L201-L213)
 function token.command_id(cmdname) end
 
 ---
 ---Create a token.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lnewtokenlib.c#L826-L845](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L826-L845)
 ---
@@ -821,6 +837,8 @@ function token.create(chr, cmd) end
 
 ---
 --- A variant that ignores the current catcode table is:
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lnewtokenlib.c#L847-L854](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L847-L854)
 ---
@@ -846,6 +864,8 @@ function token.new(chr, cmd) end
 ---}
 ---```
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lnewtokenlib.c#L807-L824](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L807-L824)
 ---
 ---@param cs string
@@ -861,6 +881,8 @@ function token.is_defined(cs) end
 ---```lua
 ---print(token.biggest_char()) % 1114111
 ---```
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lnewtokenlib.c#L185-L189](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L185-L189)
 ---
@@ -935,6 +957,8 @@ function token.set_macro(catcodetable, csname, content, global) end
 ---\myT\mye\myX % TeX
 ---```
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lnewtokenlib.c#L1344-L1371](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L1344-L1371)
 ---
 ---@param csname string
@@ -973,6 +997,8 @@ function token.set_char(csname, number, global) end
 ---
 ---\bye
 ---```
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lnewtokenlib.c#L1168-L1216](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L1168-L1216)
 ---
@@ -1028,6 +1054,8 @@ function token.put_next(...) end
 ---}Token
 ---```
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lnewtokenlib.c#L758-L762](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L758-L762)
 ---
 ---@param t any
@@ -1052,6 +1080,8 @@ function token.is_token(t) end
 ---  print(token.type(true)) % nil
 ---}Token
 ---```
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lnewtokenlib.c#L1080-L1088](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L1080-L1088)
 ---

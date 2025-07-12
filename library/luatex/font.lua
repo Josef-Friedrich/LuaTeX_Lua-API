@@ -287,6 +287,8 @@ _N._alias_FontCharacterCommands = 95
 ---font.read_tfm('cmr10', tex.sp('10pt'))
 ---```
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lfontlib.c#L38-L64](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L38-L64)
 ---
 ---@param name string
@@ -311,6 +313,8 @@ function font.read_tfm(name, at_size) end
 ---The meaning of the number `at_size` and the format of the returned table are
 ---similar to the ones in the `read_tfm` function.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lfontlib.c#L67-L83](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L67-L83)
 ---
 ---@param at_size integer # If `s` is positive, it specifies an “at size” in scaled points. If `at_size` is negative, its absolute value represents a “scaled” setting relative to the designsize of the font.
@@ -330,6 +334,8 @@ font.fonts = {}
 ---
 ---Set an internal font id from a lua table.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lfontlib.c#L156-L173](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L156-L173)
 ---
 ---@param font_id integer
@@ -343,6 +349,8 @@ function font.setfont(font_id, f) end
 ---
 ---Note that at the moment, each access to the `font.fonts` or call to `font.getfont` creates a *Lua* table for the whole font unless you cached it.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lfontlib.c#L251-L258](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L251-L258)
 ---
 ---@param font_id integer
@@ -354,6 +362,8 @@ function font.getfont(font_id) end
 
 ---
 ---Copy the internal data of a font.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lfontlib.c#L260-L267](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L260-L267)
 ---
@@ -367,6 +377,8 @@ function font.getcopy(font_id) end
 ---
 ---Return a table of the parameters as known to *TeX*. These can be
 ---different from the ones in the cached table.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lfontlib.c#L269-L276](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L269-L276)
 ---
@@ -385,6 +397,8 @@ function font.getparameters(font_id) end
 ---The return value is one of `true` (unassignable), `false` (can be
 ---changed) or `nil` (not a valid font at all).
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lfontlib.c#L135-L153](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L135-L153)
 ---
 ---@param font_id integer
@@ -396,6 +410,8 @@ function font.frozen(font_id) end
 
 ---
 ---Define a font into `font.fonts`.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lfontlib.c#L209-L235](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L209-L235)
 ---
@@ -450,6 +466,8 @@ function font.define(font_id, f) end
 ---font.addcharacters(font_id, { characters = newcharacters })
 ---```
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lfontlib.c#L175-L188](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L175-L188)
 ---
 ---@param font_id integer
@@ -469,6 +487,8 @@ function font.addcharacters(font_id, f) end
 ---the id gets reserved and you can pass to `font.define` as first argument.
 ---This can be handy when you create complex virtual fonts.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lfontlib.c#L240-L249](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L240-L249)
 ---
 ---@return integer font_id
@@ -480,6 +500,8 @@ function font.nextid() end
 ---Return the font id of the font accessed by the csname given.
 ---
 ---Return the font id associated with `csname`, or `-1` if `csname` is not defined.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lfontlib.c#L278-L296](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L278-L296)
 ---
@@ -495,6 +517,8 @@ function font.id(csname) end
 ---
 ---Get the largest used index in `font.fonts`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lfontlib.c#L102-L106](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L102-L106)
 ---
 ---@return integer max_font_id # The largest used index in `font.fonts`.
@@ -505,6 +529,8 @@ function font.max() end
 ---
 ---Set the currently used / active font number.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lfontlib.c#L85-L100](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L85-L100)
 ---
 ---@param font_id integer
@@ -514,6 +540,8 @@ function font.current(font_id) end
 
 ---
 ---Get the currently used / active font number.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lfontlib.c#L85-L100](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L85-L100)
 ---
@@ -539,6 +567,8 @@ function font.current(font_id) end
 ---end
 ---```
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lfontlib.c#L127-L133](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L127-L133)
 ---
 ---@return fun(): font_id: integer, font: Font
@@ -557,6 +587,8 @@ function font.each() end
 ---
 ---This is mostly meant for experiments (or an optimizing routing written in *Lua*)
 ---so there is no primitive.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lfontlib.c#L190-L204](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L190-L204)
 ---

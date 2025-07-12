@@ -10,6 +10,8 @@ _N._4_3_lua_modules = "page 67"
 ---
 ---`lzlib`, by Tiago Dionizio.
 ---
+---__Reference:__
+---
 ---* Old location: http://luaforge.net/projects/lzlib/.
 ---* More recent git repo (archived): https://github.com/LuaDist/lzlib
 ---* On luarocks: https://luarocks.org/modules/hisham/lzlib
@@ -26,6 +28,8 @@ zlib = {}
 ---local version = zlib.version()
 ---assert(version == '1.2.13')
 ---```
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lzlib.c#L331-L335](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L331-L335)
 ---
@@ -54,6 +58,8 @@ function zlib.version() end
 ---adler = zlib.adler32(adler, 'some text')
 ---assert(adler == 2530937548.0)
 ---```
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lzlib.c#L338-L355](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L338-L355)
 ---
@@ -86,6 +92,8 @@ function zlib.adler32(adler32, buffer) end
 ---assert(crc == 1021719064.0)
 ---```
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lzlib.c#L358-L375](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L358-L375)
 ---
 ---@param crc32? number
@@ -109,6 +117,8 @@ function zlib.adler32(crc32, buffer) end
 ---]]
 ---assert(string.len(zlib.compress(orig)) < string.len(orig))
 ---```
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lzlib.c#L380-L441](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L380-L441)
 ---
@@ -136,6 +146,8 @@ function zlib.compress(buffer, level, method, window_bits, mem_level, strategy) 
 ---assert(result == uncompressed)
 ---```
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lzlib.c#L445-L502](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L445-L502)
 ---
 ---@param buffer string
@@ -158,6 +170,8 @@ function zlib.decompress(buffer, window_bits) end
 ---local result = z_stream:compress('test')
 ---assert(type(result) == 'string')
 ---```
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lzlib.c#L156-L173](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L156-L173)
 ---
@@ -189,6 +203,8 @@ function zlib.compressobj(level, method, window_bits, mem_level, strategy) end
 ---assert(result == 'test')
 ---```
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lzlib.c#L177-L191](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L177-L191)
 ---
 ---@param window_bits? integer # `The window_bits` parameter is the base two logarithm of the maximum window size (the size of the history buffer). It should be in the range `8..15` for this version of the library, default `15`.
@@ -204,10 +220,14 @@ function zlib.decompressobj(window_bits) end
 local ZStream = {}
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lzlib.c#L307-L322](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L307-L322)
 ---
 function ZStream:adlerreset() end
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lzlib.c#L231-L263](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L231-L263)
 ---
@@ -216,6 +236,8 @@ function ZStream:adlerreset() end
 ---@return string buffer
 function ZStream:compress(buffer) end
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lzlib.c#L195-L227](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L195-L227)
 ---
@@ -227,6 +249,8 @@ function ZStream:decompress(buffer) end
 ---
 ---Flush the output for deflate streams.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lzlib.c#L267-L303](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L267-L303)
 ---
 ---😱 [Types](https://github.com/LuaCATS/lzlib/blob/main/library/lzlib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lzlib/pulls)
@@ -235,11 +259,15 @@ function ZStream:flush() end
 ---
 ---Close the stream.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lzlib.c#L138-L143](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L138-L143)
 ---
 ---😱 [Types](https://github.com/LuaCATS/lzlib/blob/main/library/lzlib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lzlib/pulls)
 function ZStream:close() end
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lzlib.c#L147-L152](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luazlib/lzlib.c#L147-L152)
 ---

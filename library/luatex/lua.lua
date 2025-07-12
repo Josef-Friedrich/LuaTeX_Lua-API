@@ -195,10 +195,9 @@ function lua.getstacktop() end
 ---It is only of use as a breakpoint when
 ---checking some mechanism going haywire.
 ---
----* Corresponding C source code: [llualib.c#L376-L380](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L376-L380)
----
 ---__Reference:__
 ---
+---* Corresponding C source code: [llualib.c#L376-L380](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llualib.c#L376-L380)
 ---* `LuaTeX` manual: 10.1.4 Introspection
 ---
 ---@return integer

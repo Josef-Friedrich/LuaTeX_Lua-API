@@ -28,6 +28,8 @@ luaharfbuzz = {}
 ---
 ---Wraps `hb_shape_full`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [luaharfbuzz.c#L16-L51](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.c#L16-L51)
 ---* HarfBuzz online documentation: [hb_shape_full](https://harfbuzz.github.io/harfbuzz-hb-shape.html#hb-shape-full)
 ---
@@ -42,6 +44,8 @@ function luaharfbuzz.shape_full(font, buffer, features, shapers) end
 ---
 ---Retrieve the list of shapers supported by HarfBuzz.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [luaharfbuzz.c#L44-L53](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/luaharfbuzz.c#L44-L53)
 ---* HarfBuzz online documentation: [hb_shape_list_shapers](https://harfbuzz.github.io/harfbuzz-hb-shape.html#hb-shape-list-shapers)
 ---
@@ -55,6 +59,8 @@ function luaharfbuzz.shapers() end
 ---
 ---Wraps `hb_version_string`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [luaharfbuzz.c#L39-L42](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/luaharfbuzz.c#L39-L42)
 ---* HarfBuzz online documentation: [hb_version_string](https://harfbuzz.github.io/harfbuzz-hb-version.html#hb-version-string)
 ---
@@ -65,6 +71,8 @@ function luaharfbuzz.version() end
 
 ---
 ---Shape `buffer` using `font` turning its Unicode characters content to positioned glyphs.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [harfbuzz.lua#L22-L53](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/harfbuzz.lua#L22-L53)
 ---
@@ -80,6 +88,8 @@ function luaharfbuzz.shape(font, buffer, options) end
 ---
 ---Wraps `hb_blob_t`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [luaharfbuzz.h#L12](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.h#L12)
 ---* HarfBuzz online documentation: [hb_blob_t](https://harfbuzz.github.io/harfbuzz-hb-blob.html#hb-blob-t)
 ---
@@ -93,6 +103,8 @@ luaharfbuzz.Blob = Blob
 ---Create a new "blob" object wrapping data.
 ---
 ---Wraps `hb_blob_create`.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [blob.c#L3-L14](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/blob.c#L3-L14)
 ---* HarfBuzz online documentation: [hb_blob_create](https://harfbuzz.github.io/harfbuzz-hb-blob.html#hb-blob-create)
@@ -109,6 +121,8 @@ function Blob.new(data) end
 ---
 ---Wraps `hb_blob_create_from_file`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [blob.c#L16-L26](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/blob.c#L16-L26)
 ---* HarfBuzz online documentation: [hb_blob_create_from_file](https://harfbuzz.github.io/harfbuzz-hb-blob.html#hb-blob-create-from-file)
 ---
@@ -124,6 +138,8 @@ function Blob.new_from_file(filename) end
 ---
 ---Wraps `hb_blob_get_length`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [blob.c#L28-L33](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/blob.c#L28-L33)
 ---* HarfBuzz online documentation: [hb_blob_get_length](https://harfbuzz.github.io/harfbuzz-hb-blob.html#hb-blob-get-length)
 ---
@@ -136,6 +152,8 @@ function Blob:get_length() end
 ---Fetch the data from a blob.
 ---
 ---Wraps `hb_blob_get_data`.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [blob.c#L35-L44](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/blob.c#L35-L44)
 ---* HarfBuzz online documentation: [hb_blob_get_data](https://harfbuzz.github.io/harfbuzz-hb-blob.html#hb-blob-get-data)
@@ -152,6 +170,8 @@ function Blob:get_data() end
 ---
 ---Wraps `hb_face_t`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [luaharfbuzz.h#L13](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.h#L13)
 ---* HarfBuzz online documentation: [hb_face_t](https://harfbuzz.github.io/harfbuzz-hb-face.html#hb-face-t)
 ---
@@ -166,6 +186,8 @@ luaharfbuzz.Face = Face
 ---The face index is used for blobs of file formats such as TTC and DFont that can contain more than one face. Face indices within such collections are zero-based.
 ---
 ---Wraps `hb_face_create`.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [face.c#L28-L45](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L28-L45)
 ---* HarfBuzz online documentation: [hb_face_create](https://harfbuzz.github.io/harfbuzz-hb-face.html#hb-face-create)
@@ -199,6 +221,8 @@ function Face.new_from_blob(blob, font_index) end
 ---end
 ---```
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [face.c#L7-L26](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L7-L26)
 ---* HarfBuzz online documentation: [hb_face_create](https://harfbuzz.github.io/harfbuzz-hb-face.html#hb-face-create)
 ---
@@ -227,6 +251,8 @@ function Face.new(file, font_index) end
 ---end
 ---```
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [face.c#L264-L284](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L264-L284)
 ---* HarfBuzz online documentation: [hb_face_collect_unicodes](https://harfbuzz.github.io/harfbuzz-hb-face.html#hb-face-collect-unicodes)
 ---
@@ -239,6 +265,8 @@ function Face:collect_unicodes() end
 ---Fetch the glyph-count value of the specified face object.
 ---
 ---Wraps `hb_face_get_glyph_count`.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [face.c#L47-L52](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L47-L52)
 ---* HarfBuzz online documentation: [hb_face_get_glyph_count](https://harfbuzz.github.io/harfbuzz-hb-face.html#hb-face-get-glyph-count)
@@ -271,6 +299,8 @@ function Face:get_glyph_count() end
 ---until (name == nil)
 ---```
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [face.c#L54-L80](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L54-L80)
 ---* HarfBuzz online documentation: [hb_ot_name_get_utf8](https://harfbuzz.github.io/harfbuzz-hb-ot-name.html#hb-ot-name-get-utf8)
 ---
@@ -286,6 +316,8 @@ function Face:get_name(name_id, lang) end
 ---
 ---Wraps `hb_face_reference_table`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [face.c#L82-L94](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L82-L94)
 ---* HarfBuzz online documentation: [hb_face_reference_table](https://harfbuzz.github.io/harfbuzz-hb-face.html#hb-face-reference-table)
 ---
@@ -300,6 +332,8 @@ function Face:get_table(tag) end
 ---Fetch a list of all table tags for a face, if possible. The list returned will begin at the offset provided.
 ---
 ---Wraps `hb_face_get_table_tags`.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [face.c#L96-L124](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L96-L124)
 ---* HarfBuzz online documentation: [hb_face_get_table_tags](https://harfbuzz.github.io/harfbuzz-hb-face.html#hb-face-get-table-tags)
@@ -326,6 +360,8 @@ function Face:get_table_tags() end
 ---print('Units per em', face:get_upem()) -- 1000
 ---```
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [face.c#L286-L291](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L286-L291)
 ---* HarfBuzz online documentation: [hb_face_get_upem](https://harfbuzz.github.io/harfbuzz-hb-face.html#hb-face-get-upem)
 ---
@@ -339,6 +375,8 @@ function Face:get_upem() end
 ---
 ---Wraps `hb_ot_color_has_palettes`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [face.c#L293-L298](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L293-L298)
 ---* HarfBuzz online documentation: [hb_ot_color_has_palettes](https://harfbuzz.github.io/harfbuzz-hb-ot-color.html#hb-ot-color-has-palettes)
 ---
@@ -351,6 +389,8 @@ function Face:ot_color_has_palettes() end
 ---Fetch the number of color palettes in a face.
 ---
 ---Wraps `hb_ot_color_palette_get_count`.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [face.c#L300-L305](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L300-L305)
 ---* HarfBuzz online documentation: [hb_ot_color_palette_get_count](https://harfbuzz.github.io/harfbuzz-hb-ot-color.html#hb-ot-color-palette-get-count)
@@ -373,6 +413,8 @@ function Face:ot_color_palette_get_count() end
 ---
 ---Wraps `hb_ot_color_palette_get_colors`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [face.c#L307-L347](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L307-L347)
 ---* HarfBuzz online documentation: [hb_ot_color_palette_get_colors](https://harfbuzz.github.io/harfbuzz-hb-ot-color.html#hb-ot-color-palette-get-colors)
 ---
@@ -385,6 +427,8 @@ function Face:ot_color_palette_get_colors() end
 ---Test whether a face includes a COLR table with data according to COLRv0.
 ---
 ---Wraps `hb_ot_color_has_layers`.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [face.c#L349-L354](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L349-L354)
 ---* HarfBuzz online documentation: [hb_ot_color_has_layers](https://harfbuzz.github.io/harfbuzz-hb-ot-color.html#hb-ot-color-has-layers)
@@ -404,6 +448,8 @@ function Face:ot_color_has_layers() end
 ---
 ---Wraps `hb_ot_color_glyph_get_layers`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [face.c#L356-L392](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L356-L392)
 ---* HarfBuzz online documentation: [hb_ot_color_glyph_get_layers](https://harfbuzz.github.io/harfbuzz-hb-ot-color.html#hb-ot-color-glyph-get-layers)
 ---
@@ -418,6 +464,8 @@ function Face:ot_color_glyph_get_layers(glyph) end
 ---
 ---Wraps `hb_ot_color_has_png`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [face.c#L394-L399](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L394-L399)
 ---* HarfBuzz online documentation: [hb_ot_color_has_png](https://harfbuzz.github.io/harfbuzz-hb-ot-color.html#hb-ot-color-has-png)
 ---
@@ -430,6 +478,8 @@ function Face:ot_color_has_png() end
 ---Fetch a list of all scripts enumerated in the specified face's GSUB table or GPOS table.
 ---
 ---Wraps `hb_ot_layout_table_get_script_tags`.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [face.c#L126-L156](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L126-L156)
 ---* HarfBuzz online documentation: [hb_ot_layout_table_get_script_tags](https://harfbuzz.github.io/harfbuzz-hb-ot-layout.html#hb-ot-layout-table-get-script-tags)
@@ -446,6 +496,8 @@ function Face:ot_layout_get_script_tags(table_tag) end
 ---
 ---Wraps `hb_ot_layout_script_get_language_tags`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [face.c#L158-L189](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L158-L189)
 ---* HarfBuzz online documentation: [hb_ot_layout_script_get_language_tags](https://harfbuzz.github.io/harfbuzz-hb-ot-layout.html#hb-ot-layout-script-get-language-tags)
 ---
@@ -459,6 +511,8 @@ function Face:ot_layout_get_language_tags(table_tag, script_index) end
 
 ---
 ---Wraps `hb_ot_layout_language_get_feature_tags`.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [face.c#L191-L223](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L191-L223)
 ---* HarfBuzz online documentation: [hb_ot_layout_language_get_feature_tags](https://harfbuzz.github.io/harfbuzz-hb-ot-layout.html#hb-ot-layout-language-get-feature-tags)
@@ -476,6 +530,8 @@ function Face:ot_layout_get_feature_tags(table_tag, script_index, language_index
 ---Fetch the index if a given script tag in the specified face's GSUB table or GPOS table.
 ---
 ---Wraps `hb_ot_layout_table_find_script`.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [face.c#L225-L235](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L225-L235)
 ---* HarfBuzz online documentation: [hb_ot_layout_table_find_script](https://harfbuzz.github.io/harfbuzz-hb-deprecated.html#hb-ot-layout-table-find-script)
@@ -496,6 +552,8 @@ function Face:ot_layout_find_script(table_tag, script_tag) end
 ---
 ---Wraps `hb_ot_layout_script_find_language`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [face.c#L237-L248](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L237-L248)
 ---* HarfBuzz online documentation: [hb_ot_layout_script_find_language](https://harfbuzz.github.io/harfbuzz-hb-ot-layout.html#hb-ot-layout-script-find-language)
 ---
@@ -513,6 +571,8 @@ function Face:ot_layout_find_language(tag, script_index, language_tag) end
 ---Fetches the index of a given feature tag in the specified face's GSUB table or GPOS table, underneath the specified script and language.
 ---
 ---Wraps `hb_ot_layout_language_find_feature`.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [face.c#L250-L262](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/face.c#L250-L262)
 ---* HarfBuzz online documentation: [hb_ot_layout_language_find_feature](https://harfbuzz.github.io/harfbuzz-hb-ot-layout.html#hb-ot-layout-language-find-feature)
@@ -533,6 +593,8 @@ function Face:ot_layout_find_feature(tag, script_index, language_index, feature)
 ---
 ---Lua wrapper for `hb_font_t` type.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [luaharfbuzz.h#L14](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.h#L14)
 ---* HarfBuzz online documentation: [hb_font_t](https://harfbuzz.github.io/harfbuzz-hb-font.html#hb-font-t)
 ---
@@ -549,6 +611,8 @@ luaharfbuzz.Font = Font
 ---
 ---Wraps `hb_font_create`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [font.c#L3-L20](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/font.c#L3-L20)
 ---* HarfBuzz online documentation: [hb_font_create](https://harfbuzz.github.io/harfbuzz-hb-font.html#hb-font-create)
 ---
@@ -561,6 +625,8 @@ function Font.new(face) end
 ---Fetch the horizontal and vertical scale of a font.
 ---
 ---Wraps `hb_font_get_scale`.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [font.c#L31-L40](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/font.c#L31-L40)
 ---* HarfBuzz online documentation: [hb_font_get_scale](https://harfbuzz.github.io/harfbuzz-hb-font.html#hb-font-get-scale)
@@ -577,6 +643,8 @@ function Font:get_scale() end
 ---The font scale is a number related to, but not the same as, font size. Typically the client establishes a scale factor to be used between the two. For example, 64, or 256, which would be the fractional-precision part of the font scale.
 ---
 ---Wraps `hb_font_set_scale`.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [font.c#L22-L29](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/font.c#L22-L29)
 ---* HarfBuzz online documentation: [hb_font_set_scale](https://harfbuzz.github.io/harfbuzz-hb-font.html#hb-font-set-scale)
@@ -599,6 +667,8 @@ function Font:set_scale(x_scale, y_scale) end
 ---
 ---Wraps `hb_font_get_h_extents`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [font.c#L42-L62](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/font.c#L42-L62)
 ---* HarfBuzz online documentation: [hb_font_get_h_extents](https://harfbuzz.github.io/harfbuzz-hb-font.html#hb-font-get-h-extents)
 ---
@@ -611,6 +681,8 @@ function Font:get_h_extents(glyph) end
 
 ---
 ---Wraps `hb_font_get_v_extents`.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [font.c#L64-L84](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/font.c#L64-L84)
 ---* HarfBuzz online documentation: [hb_font_get_v_extents](https://harfbuzz.github.io/harfbuzz-hb-font.html#hb-font-get-v-extents)
@@ -633,6 +705,8 @@ function Font:get_v_extents(glyph) end
 ---
 ---Wraps `hb_font_get_glyph_extents`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [font.c#L86-L110](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/font.c#L86-L110)
 ---* HarfBuzz online documentation: [hb_font_get_glyph_extents](https://harfbuzz.github.io/harfbuzz-hb-font.html#hb-font-get-glyph-extents)
 ---
@@ -647,6 +721,8 @@ function Font:get_glyph_extents(glyph) end
 ---
 ---Wraps `hb_font_get_glyph_name`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [font.c#L112-L125](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/font.c#L112-L125)
 ---* HarfBuzz online documentation: [hb_font_get_glyph_name](https://harfbuzz.github.io/harfbuzz-hb-font.html#hb-font-get-glyph-name)
 ---
@@ -659,6 +735,8 @@ function Font:get_glyph_name(glyph) end
 
 ---
 ---Wraps `hb_font_get_glyph_from_name`.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [font.c#L127-L138](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/font.c#L127-L138)
 ---* HarfBuzz online documentation: [hb_font_get_glyph_from_name](https://harfbuzz.github.io/harfbuzz-hb-font.html#hb-font-get-glyph-from-name)
@@ -673,6 +751,8 @@ function Font:get_glyph_from_name(name) end
 ---
 ---Wraps `hb_font_get_glyph_h_advance`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [font.c#L140-L146](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/font.c#L140-L146)
 ---* HarfBuzz online documentation: [hb_font_get_glyph_h_advance](https://harfbuzz.github.io/harfbuzz-hb-font.html#hb-font-get-glyph-h-advance)
 ---
@@ -685,6 +765,8 @@ function Font:get_glyph_h_advance(glyph) end
 
 ---
 ---Wraps `hb_font_get_glyph_v_advance`.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [font.c#L148-L154](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/font.c#L148-L154)
 ---* HarfBuzz online documentation: [hb_font_get_glyph_v_advance](https://harfbuzz.github.io/harfbuzz-hb-font.html#hb-font-get-glyph-v-advance)
@@ -699,6 +781,8 @@ function Font:get_glyph_v_advance(glyph) end
 ---
 ---Wraps `hb_font_get_nominal_glyph`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [font.c#L156-L167](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/font.c#L156-L167)
 ---* HarfBuzz online documentation: [hb_font_get_nominal_glyph](https://harfbuzz.github.io/harfbuzz-hb-font.html#hb-font-get-nominal-glyph)
 ---
@@ -712,6 +796,8 @@ function Font:get_nominal_glyph(codepoint) end
 ---
 ---Wraps `hb_ot_color_glyph_get_png`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [font.c#L188-L204](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/font.c#L188-L204)
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
@@ -721,6 +807,8 @@ function Font:ot_color_glyph_get_png() end
 ---The main structure holding the input text and its properties before shaping, and output glyphs and their information after shaping.
 ---
 ---Lua wrapper for `hb_buffer_t` type.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [luaharfbuzz.h#L15](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.h#L15)
 ---* HarfBuzz online documentation: [hb_buffer_t](https://harfbuzz.github.io/harfbuzz-hb-buffer.html#hb-buffer-t)
@@ -735,6 +823,8 @@ luaharfbuzz.Buffer = Buffer
 ---
 ---Wraps `hb_buffer_create`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [buffer.c#L3-L12](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/buffer.c#L3-L12)
 ---* HarfBuzz online documentation: [hb_buffer_create](https://harfbuzz.github.io/harfbuzz-hb-buffer.html#hb-buffer-create)
 ---
@@ -747,6 +837,8 @@ function Buffer.new() end
 ---Replace invalid UTF-8 characters with the buffer replacement code point.
 ---
 ---Wraps `hb_buffer_add_utf8`.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [buffer.c#L178-L191](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/buffer.c#L178-L191)
 ---* HarfBuzz online documentation: [hb_buffer_add_utf8](https://harfbuzz.github.io/harfbuzz-hb-buffer.html#hb-buffer-add-utf8)
@@ -767,6 +859,8 @@ function Buffer:add_utf8(text, item_offset, item_length) end
 ---
 ---Wraps `hb_buffer_add_codepoints`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [buffer.c#L137-L162](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/buffer.c#L137-L162)
 ---* HarfBuzz online documentation: [hb_buffer_add_codepoints](https://harfbuzz.github.io/harfbuzz-hb-buffer.html#hb-buffer-add-codepoints)
 ---
@@ -782,6 +876,8 @@ function Buffer:add_codepoints(text, item_offset, item_length) end
 ---
 ---Wraps `hb_buffer_set_direction`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [buffer.c#L32-L38](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/buffer.c#L32-L38)
 ---* HarfBuzz online documentation: [hb_buffer_set_direction](https://harfbuzz.github.io/harfbuzz-hb-buffer.html#hb-buffer-set-direction)
 ---
@@ -792,6 +888,8 @@ function Buffer:set_direction(dir) end
 
 ---
 ---Wraps `hb_buffer_get_direction`.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [buffer.c#L21-L30](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/buffer.c#L21-L30)
 ---* HarfBuzz online documentation: [hb_buffer_get_direction](https://harfbuzz.github.io/harfbuzz-hb-buffer.html#hb-buffer-get-direction)
@@ -804,6 +902,8 @@ function Buffer:get_direction() end
 ---
 ---Wraps `hb_buffer_set_script`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [buffer.c#L86-L92](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/buffer.c#L86-L92)
 ---* HarfBuzz online documentation: [hb_buffer_set_script](https://harfbuzz.github.io/harfbuzz-hb-buffer.html#hb-buffer-set-script)
 ---
@@ -814,6 +914,8 @@ function Buffer:set_script(script) end
 
 ---
 ---Wraps `hb_buffer_get_script`.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [buffer.c#L75-L84](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/buffer.c#L75-L84)
 ---* HarfBuzz online documentation: [hb_buffer_get_script](https://harfbuzz.github.io/harfbuzz-hb-buffer.html#hb-buffer-get-script)
@@ -826,6 +928,8 @@ function Buffer:get_script() end
 ---
 ---Wraps `hb_buffer_set_language`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [buffer.c#L67-L73](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/buffer.c#L67-L73)
 ---* HarfBuzz online documentation: [hb_buffer_set_language](https://harfbuzz.github.io/harfbuzz-hb-buffer.html#hb-buffer-set-language)
 ---
@@ -836,6 +940,8 @@ function Buffer:set_language(lang) end
 
 ---
 ---Wraps `hb_buffer_get_language`.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [buffer.c#L56-L65](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/buffer.c#L56-L65)
 ---* HarfBuzz online documentation: [hb_buffer_get_language](https://harfbuzz.github.io/harfbuzz-hb-buffer.html#hb-buffer-get-language)
@@ -848,6 +954,8 @@ function Buffer:get_language() end
 ---
 ---Wraps `hb_buffer_reverse`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [buffer.c#L247-L252](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/buffer.c#L247-L252)
 ---* HarfBuzz online documentation: [hb_buffer_reverse](https://harfbuzz.github.io/harfbuzz-hb-buffer.html#hb-buffer-reverse)
 ---
@@ -857,6 +965,8 @@ function Buffer:reverse() end
 ---
 ---Wraps `hb_buffer_get_length`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [buffer.c#L254-L259](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/buffer.c#L254-L259)
 ---* HarfBuzz online documentation: [hb_buffer_get_length](https://harfbuzz.github.io/harfbuzz-hb-buffer.html#hb-buffer-get-length)
 ---
@@ -865,6 +975,8 @@ function Buffer:get_length() end
 
 ---
 ---Wraps `hb_buffer_get_cluster_level`.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [buffer.c#L261-L266](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/buffer.c#L261-L266)
 ---* HarfBuzz online documentation: [hb_buffer_get_cluster_level](https://harfbuzz.github.io/harfbuzz-hb-buffer.html#hb-buffer-get-cluster-level)
@@ -877,6 +989,8 @@ function Buffer:get_cluster_level() end
 ---
 ---Wraps `hb_buffer_set_cluster_level`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [buffer.c#L268-L275](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/buffer.c#L268-L275)
 ---* HarfBuzz online documentation: [hb_buffer_set_cluster_level](https://harfbuzz.github.io/harfbuzz-hb-buffer.html#hb-buffer-set-cluster-level)
 ---
@@ -887,6 +1001,8 @@ function Buffer:set_cluster_level(level) end
 
 ---
 ---Wraps `hb_buffer_guess_segment_properties`.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [buffer.c#L14-L19](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/buffer.c#L14-L19)
 ---* HarfBuzz online documentation: [hb_buffer_guess_segment_properties](https://harfbuzz.github.io/harfbuzz-hb-buffer.html#hb-buffer-guess-segment-properties)
@@ -913,6 +1029,8 @@ function Buffer:guess_segment_properties() end
 ---Calls `hb_buffer_get_glyph_infos`, `hb_buffer_get_glyph_positions` and
 ---`hb_glyph_info_get_glyph_flags`, and assembles the data into a Lua table.
 ---
+---__Reference:__
+---
 ---* HarfBuzz online documentation: [hb_buffer_get_glyph_infos](https://harfbuzz.github.io/harfbuzz-hb-buffer.html#hb-buffer-get-glyph-infos)
 ---
 ---@return HbGlyph[]
@@ -927,6 +1045,8 @@ function Buffer:get_glyphs() end
 ---
 ---Wraps `HB_BUFFER_CLUSTER_LEVEL_MONOTONE_GRAPHEMES`.
 ---
+---__Reference:__
+---
 ---* HarfBuzz online documentation: [hb_buffer_cluster_level_t](https://harfbuzz.github.io/harfbuzz-hb-buffer.html#hb-buffer-cluster-level-t)
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
@@ -934,6 +1054,8 @@ Buffer.CLUSTER_LEVEL_MONOTONE_GRAPHEMES = 0
 
 ---
 ---Wraps `HB_BUFFER_CLUSTER_LEVEL_MONOTONE_CHARACTERS`.
+---
+---__Reference:__
 ---
 ---* HarfBuzz online documentation: [hb_buffer_cluster_level_t](https://harfbuzz.github.io/harfbuzz-hb-buffer.html#hb-buffer-cluster-level-t)
 ---
@@ -943,6 +1065,8 @@ Buffer.CLUSTER_LEVEL_MONOTONE_CHARACTERS = 1
 ---
 ---Wraps `HB_BUFFER_CLUSTER_LEVEL_CHARACTERS`.
 ---
+---__Reference:__
+---
 ---* HarfBuzz online documentation: [hb_buffer_cluster_level_t](https://harfbuzz.github.io/harfbuzz-hb-buffer.html#hb-buffer-cluster-level-t)
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
@@ -950,6 +1074,8 @@ Buffer.CLUSTER_LEVEL_CHARACTERS = 2
 
 ---
 ---Wraps `HB_BUFFER_CLUSTER_LEVEL_DEFAULT`.
+---
+---__Reference:__
 ---
 ---* HarfBuzz online documentation: [hb_buffer_cluster_level_t](https://harfbuzz.github.io/harfbuzz-hb-buffer.html#hb-buffer-cluster-level-t)
 ---
@@ -959,6 +1085,8 @@ Buffer.CLUSTER_LEVEL_DEFAULT = 0
 ---
 ---Wraps `HB_GLYPH_FLAG_UNSAFE_TO_BREAK`.
 ---
+---__Reference:__
+---
 ---* HarfBuzz online documentation: [hb_glyph_flags_t](https://harfbuzz.github.io/harfbuzz-hb-buffer.html#hb-glyph-flags-t)
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
@@ -966,6 +1094,8 @@ Buffer.GLYPH_FLAG_UNSAFE_TO_BREAK = 1
 
 ---
 ---Wraps `HB_GLYPH_FLAG_DEFINED`.
+---
+---__Reference:__
 ---
 ---* HarfBuzz online documentation: [hb_glyph_flags_t](https://harfbuzz.github.io/harfbuzz-hb-buffer.html#hb-glyph-flags-t)
 ---
@@ -977,8 +1107,9 @@ Buffer.GLYPH_FLAG_DEFINED = 3
 ---
 ---Lua wrapper for `hb_feature_t` type.
 ---
----* HarfBuzz online documentation: [hb_feature_t](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-feature-t)
+---__Reference:__
 ---
+---* HarfBuzz online documentation: [hb_feature_t](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-feature-t)
 ---* Corresponding C source code: [luaharfbuzz.h#L16](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.h#L16)
 ---* Corresponding Lua source code: [hb_feature_t](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-feature-t)
 ---
@@ -989,6 +1120,8 @@ luaharfbuzz.Feature = Feature
 
 ---
 ---Wraps `hb_feature_from_string`
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [feature.c#L4-L18](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/feature.c#L4-L18)
 ---* HarfBuzz online documentation: [hb_feature_from_string](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-feature-from-string)
@@ -1003,6 +1136,8 @@ function Feature.new(feature_string) end
 ---
 ---Wraps `hb_feature_to_string`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [feature.c#L20-L27](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/feature.c#L20-L27)
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
@@ -1014,6 +1149,8 @@ function Feature:__tostring() end
 ---Tags are used to identify tables, design-variation axes, scripts, languages, font features, and baselines with human-readable names.
 ---
 ---Lua wrapper for `hb_tag_t` type.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [luaharfbuzz.h#L17](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.h#L17)
 ---* HarfBuzz online documentation: [hb_tag_t](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-tag-t)
@@ -1030,6 +1167,8 @@ luaharfbuzz.Tag = Tag
 ---
 ---Wraps `hb_tag_from_string`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [tag.c#L4-L17](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/tag.c#L4-L17)
 ---* HarfBuzz online documentation: [hb_tag_from_string](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-tag-from-string)
 ---
@@ -1045,6 +1184,8 @@ function Tag.new(s) end
 ---
 ---Wraps `hb_tag_to_string`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [tag.c#L19-L27](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/tag.c#L19-L27)
 ---
 ---@return string # Returns a string representation for the `Tag` object.
@@ -1054,6 +1195,8 @@ function Tag:__to_string() end
 
 ---
 ---Enables equality comparisions with `==` between two tags.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [tag.c#L29-L35](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/tag.c#L29-L35)
 ---
@@ -1067,6 +1210,8 @@ function Tag:__eq() end
 ---
 ---Lua wrapper for `hb_script_t` type.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [luaharfbuzz.h#L18](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.h#L18)
 ---* HarfBuzz online documentation: [hb_script_t](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-script-t)
 ---
@@ -1078,6 +1223,8 @@ luaharfbuzz.Script = Script
 ---
 ---Convert a string representing an ISO 15924 script tag to a corresponding `Script` object.
 ---Wraps `hb_script_from_string`.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [script.c#L3-L14](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/script.c#L3-L14)
 ---* HarfBuzz online documentation: [hb_script_from_string](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-script-from-string)
@@ -1094,6 +1241,8 @@ function Script.new(script) end
 ---
 ---Wraps `hb_script_from_iso15924_tag`
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [script.c#L16-L25](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/script.c#L16-L25)
 ---* HarfBuzz online documentation: [harfbuzz-hb-common.html#hb-script-from-iso15924-tag](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-script-from-iso15924-tag)
 ---
@@ -1107,6 +1256,8 @@ function Script.from_iso15924_tag(tag) end
 ---
 ---Wraps `hb_script_to_iso15924_tag`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [script.c#L37-L46](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/script.c#L37-L46)
 ---* HarfBuzz online documentation: [harfbuzz-hb-common.html#hb-script-to-iso15924-tag](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-script-to-iso15924-tag)
 ---
@@ -1118,6 +1269,8 @@ function Script:to_iso15924_tag() end
 ---
 ---Enable nice output with `tostring(…)`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [script.c#L27-L35](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/script.c#L27-L35)
 ---
 ---@return string # Returns a 4-letter [ISO 15924 script code](http://www.unicode.org/iso15924/iso15924-num.html) for the script object.
@@ -1127,6 +1280,8 @@ function Script:__to_string() end
 
 ---
 ---Enables equality comparisions with `==` between two scripts.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [script.c#L48-L54](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/script.c#L48-L54)
 ---
@@ -1138,6 +1293,8 @@ function Script:__eq() end
 ---
 ---Wraps `HB_SCRIPT_COMMON`.
 ---
+---__Reference:__
+---
 ---* [HarfBuzz online documentation](https://harfbuzz.github.io/harfbuzz-hb-common.html#HB-SCRIPT-COMMON:CAPS)
 ---
 ---@type string
@@ -1147,6 +1304,8 @@ Script.COMMON = "Zyyy"
 
 ---
 ---Wraps `HB_SCRIPT_INHERITED`.
+---
+---__Reference:__
 ---
 ---* [HarfBuzz online documentation](https://harfbuzz.github.io/harfbuzz-hb-common.html#HB-SCRIPT-INHERITED:CAPS)
 ---
@@ -1158,6 +1317,8 @@ Script.INHERITED = "Zinh"
 ---
 ---Wraps `HB_SCRIPT_UNKNOWN`.
 ---
+---__Reference:__
+---
 ---* [HarfBuzz online documentation](https://harfbuzz.github.io/harfbuzz-hb-common.html#HB-SCRIPT-UNKNOWN:CAPS)
 ---
 ---@type string
@@ -1167,6 +1328,8 @@ Script.UNKNOWN = "Zzzz"
 
 ---
 ---Wraps `HB_SCRIPT_INVALID`.
+---
+---__Reference:__
 ---
 ---* [HarfBuzz online documentation](https://harfbuzz.github.io/harfbuzz-hb-common.html#HB-SCRIPT-INVALID:CAPS)
 ---
@@ -1180,6 +1343,8 @@ Script.INVALID = "No script set"
 ---
 ---Lua wrapper for `hb_direction_t` type.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [luaharfbuzz.h#L19](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.h#L19)
 ---* HarfBuzz online documentation: [hb_direction_t](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-direction-t)
 ---
@@ -1190,6 +1355,8 @@ luaharfbuzz.Direction = Direction
 
 ---
 ---Wraps `hb_direction_from_string`.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [direction.c#L4-L14](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/direction.c#L4-L14)
 ---* HarfBuzz online documentation: [hb_direction_from_string](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-direction-from-string)
@@ -1206,6 +1373,8 @@ function Direction.new(dir) end
 ---
 ---Wraps `hb_direction_to_string`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [direction.c#L16-L21](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/direction.c#L16-L21)
 ---
 ---@return string # Returns a string representation for direction.
@@ -1215,6 +1384,8 @@ function Direction:__to_string() end
 
 ---
 ---Enable equality comparisions with `==` between two directions.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [direction.c#L23-L29](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/direction.c#L23-L29)
 ---
@@ -1227,6 +1398,8 @@ function Direction:__eq() end
 ---Test whether a text direction is valid.
 ---
 ---Wraps `HB_DIRECTION_IS_VALID`.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [direction.c#L31-L36](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/direction.c#L31-L36)
 ---* HarfBuzz online documentation: [HB_DIRECTION_IS_VALID](https://harfbuzz.github.io/harfbuzz-hb-common.html#HB-DIRECTION-IS-VALID:CAPS)
@@ -1241,6 +1414,8 @@ function Direction:is_valid() end
 ---
 ---Requires that the direction be valid. Wraps `HB_DIRECTION_IS_HORIZONTAL`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [direction.c#L38-L43](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/direction.c#L38-L43)
 ---* HarfBuzz online documentation: [HB_DIRECTION_IS_HORIZONTAL](https://harfbuzz.github.io/harfbuzz-hb-common.html#HB-DIRECTION-IS-HORIZONTAL:CAPS)
 ---
@@ -1253,6 +1428,8 @@ function Direction:is_horizontal() end
 ---Test whether a text direction is vertical.
 ---
 ---Requires that the direction be valid. Wraps `HB_DIRECTION_IS_VERTICAL`.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [direction.c#L45-L50](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/direction.c#L45-L50)
 ---* HarfBuzz online documentation: [HB_DIRECTION_IS_VERTICAL](https://harfbuzz.github.io/harfbuzz-hb-common.html#HB-DIRECTION-IS-VERTICAL:CAPS)
@@ -1267,6 +1444,8 @@ function Direction:is_vertical() end
 ---
 ---Requires that the direction be valid. Wraps `HB_DIRECTION_IS_FORWARD`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [direction.c#L52-L57](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/direction.c#L52-L57)
 ---* HarfBuzz online documentation: [HB_DIRECTION_IS_FORWARD](https://harfbuzz.github.io/harfbuzz-hb-common.html#HB-DIRECTION-IS-FORWARD:CAPS)
 ---
@@ -1279,6 +1458,8 @@ function Direction:is_forward() end
 ---Test whether a text direction moves backward (from right to left, or from bottom to top).
 ---
 ---Requires that the direction be valid. Wraps `HB_DIRECTION_IS_BACKWARD`.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [direction.c#L59-L64](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/direction.c#L59-L64)
 ---* HarfBuzz online documentation: [HB_DIRECTION_IS_BACKWARD](https://harfbuzz.github.io/harfbuzz-hb-common.html#HB-DIRECTION-IS-BACKWARD:CAPS)
@@ -1293,6 +1474,8 @@ function Direction:is_backward() end
 ---
 ---Predefined directions that correspond to their original definitions in Harfbuzz.
 ---
+---__Reference:__
+---
 ---* HarfBuzz online documentation: [hb_direction_t](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-direction-t)
 ---
 ---@type integer|nil
@@ -1304,6 +1487,8 @@ luaharfbuzz.Direction.LTR = 4
 ---Wraps `HB_DIRECTION_RTL`.
 ---
 ---Predefined directions that correspond to their original definitions in Harfbuzz.
+---
+---__Reference:__
 ---
 ---* HarfBuzz online documentation: [hb_direction_t](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-direction-t)
 ---
@@ -1317,6 +1502,8 @@ luaharfbuzz.Direction.RTL = 0
 ---
 ---Predefined directions that correspond to their original definitions in Harfbuzz.
 ---
+---__Reference:__
+---
 ---* HarfBuzz online documentation: [hb_direction_t](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-direction-t)
 ---
 ---@type integer|nil
@@ -1328,6 +1515,8 @@ luaharfbuzz.Direction.TTB = 0
 ---Wraps `HB_DIRECTION_LTR`.
 ---
 ---Predefined directions that correspond to their original definitions in Harfbuzz.
+---
+---__Reference:__
 ---
 ---* HarfBuzz online documentation: [hb_direction_t](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-direction-t)
 ---
@@ -1341,6 +1530,8 @@ luaharfbuzz.Direction.BTT = 0
 ---
 ---Lua wrapper for `hb_language_t` type.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [luaharfbuzz.h#L20](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.h#L20)
 ---* HarfBuzz online documentation: [hb_language_t](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-language-t)
 ---
@@ -1352,6 +1543,8 @@ luaharfbuzz.Language = Language
 ---Convert a string representing a BCP 47 language tag to the corresponding language object.
 ---
 ---Wraps `hb_language_from_string`.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [language.c#L4-L17](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/language.c#L4-L17)
 ---* HarfBuzz online documentation: [hb_language_from_string](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-language-from-string)
@@ -1368,6 +1561,8 @@ function Language.new(language_tag) end
 ---
 ---Wraps `hb_language_to_string`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [language.c#L19-L25](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/language.c#L19-L25)
 ---* HarfBuzz online documentation: [hb_language_to_string](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-language-to-string)
 ---
@@ -1378,6 +1573,8 @@ function Language:__tostring() end
 
 ---
 ---Enable equality comparisions with `==` between two languages.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [language.c#L27-L34](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/language.c#L27-L34)
 ---
@@ -1392,6 +1589,8 @@ function Language:__eq(lang) end
 ---Value to represent a nonexistent name ID.
 ---
 ---Wraps `HB_LANGUAGE_INVALID`.
+---
+---__Reference:__
 ---
 ---* HarfBuzz online documentation: [HB_LANGUAGE_INVALID](https://harfbuzz.github.io/harfbuzz-hb-common.html#HB-LANGUAGE-INVALID:CAPS)
 ---* Corresponding C source code: [harfbuzz.lua#L20](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/harfbuzz.lua#L20)
@@ -1409,6 +1608,8 @@ luaharfbuzz.unicode = unicode
 ---Retrieve the `Script` object to which code point `unicode` belongs.
 ---
 ---Wraps `hb_unicode_script`
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [unicode.c#L3-L12](https://github.com/ufyTeX/luaharfbuzz/blob/b3bdf5dc7a6e3f9b674226140c3dfdc73d2970cd/src/luaharfbuzz/unicode.c#L3-L12)
 ---* HarfBuzz online documentation: [hb_unicode_script](https://harfbuzz.github.io/harfbuzz-hb-unicode.html#hb-unicode-script)
@@ -1526,6 +1727,8 @@ luaharfbuzz.ot = ot
 ---
 ---Wraps `hb_variation_t`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [luaharfbuzz.h#L21](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.h#L21)
 ---* HarfBuzz online documentation: [hb_variation_t](https://harfbuzz.github.io/harfbuzz-hb-common.html#hb-variation-t)
 ---
@@ -1533,6 +1736,8 @@ luaharfbuzz.ot = ot
 ---@class HbVariation
 local Variation = {}
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [luaharfbuzz.h#L21](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luaharfbuzz/src/luaharfbuzz/luaharfbuzz.h#L21)
 ---

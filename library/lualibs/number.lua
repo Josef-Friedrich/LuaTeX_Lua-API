@@ -8,6 +8,9 @@ number = {}
 ---https://github.com/latex3/lualibs/blob/main/lualibs-util-str.lua
 
 _N.bit = ""
+
+---
+---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-number.lua#L25-L99](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-number.lua#L25-L99)
 ---

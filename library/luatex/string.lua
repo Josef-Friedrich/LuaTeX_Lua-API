@@ -20,6 +20,8 @@ string = {}
 ---`m` is not hidden by surrounding braces as it would be if this function was
 ---written in *TeX* macros.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lstrlibext.c#L247-L309](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lstrlibext.c#L247-L309)
 ---
 ---@param s string
@@ -34,6 +36,8 @@ function string.explode(s, m) end
 ---This function is relative fast and don’t do much checking. It can be
 ---used as a building block for other helpers.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lstrlibext.c#L421-L461](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lstrlibext.c#L421-L461)
 ---
 ---@param s string
@@ -46,6 +50,8 @@ function string.utfvalue(s) end
 ---
 ---This function is relative fast and don’t do much checking. It can be
 ---used as a building block for other helpers.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lstrlibext.c#L402-L412](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lstrlibext.c#L402-L412)
 ---
@@ -61,6 +67,8 @@ function string.utfcharacter(c, ...) end
 ---This function is relative fast and don’t do much checking. It can be
 ---used as a building block for other helpers.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lstrlibext.c#L465-L488](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lstrlibext.c#L465-L488)
 ---
 ---@param s string
@@ -72,6 +80,8 @@ function string.utflength(s) end
 
 ---
 ---Iterator that returns a value representing a single UTF-8 token.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lstrlibext.c#L183-L189](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lstrlibext.c#L183-L189)
 ---
@@ -85,6 +95,8 @@ function string.utfvalues(s) end
 ---
 ---Iterator that returns a string representing a single UTF-8 token.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lstrlibext.c#L128-L134](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lstrlibext.c#L128-L134)
 ---
 ---@param s string
@@ -96,6 +108,8 @@ function string.utfcharacters(s) end
 
 ---
 ---Iterator that returns a string representing a single 8-byte token.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lstrlibext.c#L239-L245](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lstrlibext.c#L239-L245)
 ---
@@ -112,6 +126,8 @@ function string.characters(s) end
 ---The `string.characterpairs()` iterator
 ---is useful especially in the conversion of *UTF-8*16 encoded data into *UTF-8*.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lstrlibext.c#L216-L222](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lstrlibext.c#L216-L222)
 ---
 ---@param s string
@@ -123,6 +139,8 @@ function string.characterpairs(s) end
 
 ---
 ---Iterator that returns a value representing a single 8-byte token.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lstrlibext.c#L85-L91](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lstrlibext.c#L85-L91)
 ---
@@ -138,6 +156,8 @@ function string.bytes(s) end
 ---
 ---The `string.bytepairs()` iterator
 ---is useful especially in the conversion of *UTF-8*16 encoded data into *UTF-8*.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lstrlibext.c#L62-L68](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lstrlibext.c#L62-L68)
 ---

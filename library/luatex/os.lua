@@ -109,6 +109,8 @@ function os.spawn(commandline) end
 ---If the command ran ok, then the return value is the same of `io.popen`;
 ---otherwise it will return the two values `nil` and `error`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [loslibext.c#L1093-1121](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/5650c067de62cb7d4aaca44f30c8e9115c51bfc6/source/texk/web2c/luatexdir/lua/loslibext.c#L1093-1121)
 ---
 ---@see io.popen
@@ -400,6 +402,8 @@ os.name = ""
 function os.uname() end
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [loslibext.c#L1157-1170](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/b6437de2fa62bb25e17f162e624e8d815fc4d88b/source/texk/web2c/luatexdir/lua/loslibext.c#L1157-1170)
 ---
 ---@see socket.sleep
@@ -409,6 +413,8 @@ function os.uname() end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/os.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function os.socketsleep(time) end
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [loslibext.c#L1171-1179](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/b6437de2fa62bb25e17f162e624e8d815fc4d88b/source/texk/web2c/luatexdir/lua/loslibext.c#L1171-1179)
 ---

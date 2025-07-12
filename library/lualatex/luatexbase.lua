@@ -171,6 +171,8 @@ function luatexbase.declare_callback_rule(name, first, relation, second) end
 ---
 ---Identify module.
 ---
+---__Reference:__
+---
 ---* Corresponding DTX source code: [ltluatex.dtx#L321-L326](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L321-L326)
 ---* Corresponding Lua source code: [ltluatex.dtx#L1008-L1026](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L1008-L1026)
 ---
@@ -191,6 +193,8 @@ function luatexbase.provides_module(module) end
 ---which currently means a call stack will be dumped. While this may not
 ---look pretty, at least it provides useful information for tracking the
 ---error down.
+---
+---__Reference:__
 ---
 ---* Corresponding DTX source code: [ltluatex.dtx#L335-L343](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L335-L343)
 ---* Corresponding DTX source code: [ltluatex.dtx#L1079-L1081](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L1079-L1081)
@@ -214,6 +218,8 @@ function luatexbase.module_info(module, text) end
 ---look pretty, at least it provides useful information for tracking the
 ---error down.
 ---
+---__Reference:__
+---
 ---* Corresponding DTX source code: [ltluatex.dtx#L335-L343](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L335-L343)
 ---* Corresponding DTX source code: [ltluatex.dtx#L1083-L1086](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L1083-L1086)
 ---
@@ -236,6 +242,8 @@ function luatexbase.module_warning(module, text) end
 ---look pretty, at least it provides useful information for tracking the
 ---error down.
 ---
+---__Reference:__
+---
 ---* Corresponding DTX source code: [ltluatex.dtx#L335-L343](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L335-L343)
 ---* Corresponding DTX source code: [ltluatex.dtx#L1087-L1090](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L1087-L1090)
 ---
@@ -255,8 +263,9 @@ function luatexbase.module_error(module, text) end
 ---metatable is provided so that the table syntax can be used
 ---consistently for attributes declared in \TeX\ or Lua.
 ---
+---__Reference:__
+---
 ---* Corresponding DTX source code: [ltluatex.dtx#L194-L201](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L194-L201)
-
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualatex/luatexbase.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function luatexbase.new_attribute() end
@@ -268,6 +277,8 @@ function luatexbase.new_attribute() end
 ---@param name? string
 ---
 ---@return integer
+---
+---__Reference:__
 ---
 ---* Corresponding DTX source code: [ltluatex.dtx#L210-L212](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L210-L212)
 ---* Corresponding DTX source code: [ltluatex.dtx#L1241-L1253](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L1241-L1253)
@@ -281,6 +292,8 @@ function luatexbase.new_bytecode(name) end
 ---
 ---The number is returned and also `name` argument is added to the
 ---`lua.name` array at that index.
+---
+---__Reference:__
 ---
 ---* Corresponding DTX source code: [ltluatex.dtx#L216-L220](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L216-L220)
 ---* Corresponding DTX source code: [ltluatex.dtx#L1264-L1279](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L1264-L1279)
@@ -300,6 +313,8 @@ function luatexbase.new_chunkname(name) end
 ---The optional `name` argument
 ---is just used for logging.
 ---
+---__Reference:__
+---
 ---* Corresponding DTX source code: [ltluatex.dtx#L226-L229](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L226-L229)
 ---* Corresponding DTX source code: [ltluatex.dtx#L1290-L1302](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L1290-L1302)
 ---
@@ -312,6 +327,8 @@ function luatexbase.new_luafunction(name) end
 
 ---
 ---Return an allocation number for the custom `whatsit`, indexed from 1.
+---
+---__Reference:__
 ---
 ---* Corresponding DTX source code: [ltluatex.dtx#L203-L206](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L203-L206)
 ---* Corresponding DTX source code: [ltluatex.dtx#L1219-L1230](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L1219-L1230)
@@ -333,6 +350,8 @@ function luatexbase.new_whatsit(name) end
 ---would then return the register number, $15$ in this case. If the string passed
 ---as argument does not correspond to a token defined by `\attributedef`,
 ---`\countdef` or similar commands, the Lua value `false` is returned.
+---
+---__Reference:__
 ---
 ---* Corresponding DTX source code: [ltluatex.dtx#L248-L256](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L248-L256)
 ---* Corresponding Lua source code: [ltluatex.dtx#L1144-L1171](https://github.com/latex3/latex2e/blob/ae4e1f74f2be2f8a13c0616287a8ff9009b72ca8/base/ltluatex.dtx#L1144-L1171)

@@ -51,6 +51,8 @@ function kpse.set_program_name(name, progname) end
 ---
 ---The optional string allows explicit `progname` setting.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lkpselib.c#L908-L921](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lkpselib.c#L908-L921)
 ---
 ---@param name string
@@ -69,6 +71,8 @@ _N._10_7_2_record_input_file_and_record_output_file = "page 222"
 ---Because callbacks can load
 ---files themselves you might need these helpers (if you use recording at all).
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lkpselib.c#L923-L930](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lkpselib.c#L923-L930)
 ---
 ---@param name string
@@ -81,6 +85,8 @@ function kpse.record_input_file(name) end
 ---
 ---Because callbacks can load
 ---files themselves you might need these helpers (if you use recording at all).
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lkpselib.c#L932-L939](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lkpselib.c#L932-L939)
 ---
@@ -392,6 +398,8 @@ _N._10_7_12_version = "page 224"
 ---
 ---Return the kpathsea version string.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lkpselib.c#L876-L880](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lkpselib.c#L876-L880)
 ---
 ---@return string version # For example `kpathsea version 6.3.4`
@@ -406,6 +414,8 @@ function kpse.version() end
 ---  return io.popen(found,...)
 ---end
 ---```
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lkpselib.c#L943-L980](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lkpselib.c#L943-L980)
 ---

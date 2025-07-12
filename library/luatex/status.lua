@@ -10,6 +10,8 @@ _N._10_2_the_status_library = "page 188"
 status = {}
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lstatslib.c#L289-L389](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lstatslib.c#L289-L389)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/status.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -123,6 +125,8 @@ status = {}
 ---}
 ---```
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lstatslib.c#L476-L488](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lstatslib.c#L476-L488)
 ---
 ---@return StatusInfo
@@ -133,6 +137,8 @@ function status.list() end
 ---
 ---Wipe error and warning messages.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lstatslib.c#L490-L501](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lstatslib.c#L490-L501)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/status.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -140,6 +146,8 @@ function status.resetmessages() end
 
 ---
 ---Set the exit code.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lstatslib.c#L503-L506](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lstatslib.c#L503-L506)
 ---

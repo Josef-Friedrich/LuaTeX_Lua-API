@@ -29,6 +29,8 @@ zip = {}
 ---
 ---Check if a zip file is open or closed.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: (luazip.c#L217-L225)[https://github.com/mpeterv/luazip/blob/e424f667cc5c78dd19bb5eca5a86b3c8698e0ce5/src/luazip.c#L217-L225]
 ---
 ---__Example:__
@@ -61,6 +63,8 @@ function zip.type(zfile) end
 ---local z_file = zip.open('test.zip')
 ---assert(z_file)
 ---```
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [luazip.c#L106-L119](https://github.com/mpeterv/luazip/blob/e424f667cc5c78dd19bb5eca5a86b3c8698e0ce5/src/luazip.c#L106-L119)
 ---
@@ -97,6 +101,8 @@ function zip.open(filename) end
 ---assert(content == 'Hello, World!\n', content)
 ---```
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [luazip.c#L151-L215](https://github.com/mpeterv/luazip/blob/e424f667cc5c78dd19bb5eca5a86b3c8698e0ce5/src/luazip.c#L151-L215)
 ---
 ---@param filename string
@@ -124,6 +130,8 @@ local ZFile = {}
 ---assert(success == true)
 ---```
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [luazip.c#L121-L131](https://github.com/mpeterv/luazip/blob/e424f667cc5c78dd19bb5eca5a86b3c8698e0ce5/src/luazip.c#L121-L131)
 ---
 ---@param zfile ZFile
@@ -142,6 +150,8 @@ function zip.close(zfile) end
 ---local success = z_file:close()
 ---assert(success == true, success)
 ---```
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [luazip.c#L121-L131](https://github.com/mpeterv/luazip/blob/e424f667cc5c78dd19bb5eca5a86b3c8698e0ce5/src/luazip.c#L121-L131)
 ---
@@ -175,6 +185,8 @@ function ZFile:close() end
 ---end
 ---```
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [luazip.c#L278-L285](https://github.com/mpeterv/luazip/blob/e424f667cc5c78dd19bb5eca5a86b3c8698e0ce5/src/luazip.c#L278-L285)
 ---
 ---@return fun(): ZInternalFileInfo
@@ -202,6 +214,8 @@ function ZFile:files() end
 ---assert(z_internal_file)
 ---assert(err == nil)
 ---```
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [luazip.c#L133-L146](https://github.com/mpeterv/luazip/blob/e424f667cc5c78dd19bb5eca5a86b3c8698e0ce5/src/luazip.c#L133-L146)
 ---
@@ -244,6 +258,8 @@ local ZInternalFile = {}
 ---assert(content == 'Hello, World!\n', content)
 ---
 ---```
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [luazip.c#L407-L409](https://github.com/mpeterv/luazip/blob/e424f667cc5c78dd19bb5eca5a86b3c8698e0ce5/src/luazip.c#L407-L409)
 ---
@@ -292,6 +308,8 @@ function ZInternalFile:read(...) end
 ---assert(cur == 7)
 ---```
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [luazip.c#L429-L447](https://github.com/mpeterv/luazip/blob/e424f667cc5c78dd19bb5eca5a86b3c8698e0ce5/src/luazip.c#L429-L447)
 ---
 ---@param whence? 'set'|'cur'|'end'
@@ -317,6 +335,8 @@ function ZInternalFile:seek(whence, offset) end
 ---local success = z_internal_file:close()
 ---assert(success == true)
 ---```
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [luazip.c#L295-L297](https://github.com/mpeterv/luazip/blob/e424f667cc5c78dd19bb5eca5a86b3c8698e0ce5/src/luazip.c#L295-L297)
 ---
@@ -352,6 +372,8 @@ function ZInternalFile:close() end
 ---  assert(line == 'Hello, World!')
 ---end
 ---```
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [luazip.c#L423-L427](https://github.com/mpeterv/luazip/blob/e424f667cc5c78dd19bb5eca5a86b3c8698e0ce5/src/luazip.c#L423-L427)
 ---

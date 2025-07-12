@@ -1291,6 +1291,8 @@ _N._whatsit.pdf_action = 22
 _N._8_6_7_pdf_action = "page 142"
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [texnodes.c#L1090-L1093](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L1090-L1093)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -1301,6 +1303,8 @@ _N._8_6_7_pdf_action = "page 142"
 ---|3 'user'
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [texnodes.c#L1095-L1097](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L1095-L1097)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -1309,6 +1313,8 @@ _N._8_6_7_pdf_action = "page 142"
 ---|1 'new'
 ---|2 'nonew'
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L1104-L1111](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L1104-L1111)
 ---
@@ -1325,7 +1331,9 @@ _N._8_6_7_pdf_action = "page 142"
 _N._whatsit.pdf_thread = 23
 
 ---
-------* Corresponding C source code: [texnodes.c#L1185-L1192](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L1185-L1192)
+---__Reference:__
+---
+---* Corresponding C source code: [texnodes.c#L1185-L1192](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L1185-L1192)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PdfThreadWhatsitNode
@@ -1339,6 +1347,8 @@ _N._whatsit.pdf_thread = 23
 
 _N._whatsit.pdf_start_thread = 24
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L1176-L1183](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L1176-L1183)
 ---
@@ -1354,6 +1364,8 @@ _N._whatsit.pdf_start_thread = 24
 
 _N._whatsit.pdf_end_thread = 25
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L1145-L1146](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L1145-L1146)
 ---
@@ -1417,6 +1429,8 @@ _N._whatsit.pdf_link_state = 32
 _N.unset = 15
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [texnodes.c#L941-L952](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L941-L952)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -1454,6 +1468,8 @@ _N.pseudo_line = 32
 _N.page_insert = 33
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [texnodes.c#L826-L834](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L826-L834)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -1461,6 +1477,8 @@ _N.page_insert = 33
 
 _N.split_insert = 34
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L922-L927](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L922-L927)
 ---
@@ -1475,6 +1493,8 @@ _N.split_insert = 34
 _N.expr_stack = 35
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [texnodes.c#L474](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L474)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -1482,6 +1502,8 @@ _N.expr_stack = 35
 
 _N.nested_list = 36
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L475](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L475)
 ---
@@ -1491,6 +1513,8 @@ _N.nested_list = 36
 _N.span = 37
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [texnodes.c#L476](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L476)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -1498,6 +1522,8 @@ _N.span = 37
 
 _N.attribute = 38
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L729-L731](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L729-L731)
 ---
@@ -1509,6 +1535,8 @@ _N.attribute = 38
 _N.attribute_list = 40
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [texnodes.c#L733](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L733)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -1516,6 +1544,8 @@ _N.attribute_list = 40
 
 _N.temp = 41
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L480](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L480)
 ---
@@ -1525,6 +1555,8 @@ _N.temp = 41
 _N.align_stack = 42
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [texnodes.c#L481](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L481)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -1532,6 +1564,8 @@ _N.align_stack = 42
 
 _N.movement_stack = 43
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L482](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L482)
 ---
@@ -1541,6 +1575,8 @@ _N.movement_stack = 43
 _N.if_stack = 44
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [texnodes.c#L483](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L483)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -1548,6 +1584,8 @@ _N.if_stack = 44
 
 _N.unhyphenated = 45
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L484](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L484)
 ---
@@ -1557,6 +1595,8 @@ _N.unhyphenated = 45
 _N.hyphenated = 46
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [texnodes.c#L485](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L485)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -1564,6 +1604,8 @@ _N.hyphenated = 46
 
 _N.delta = 47
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L486](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L486)
 ---
@@ -1575,6 +1617,8 @@ _N.passive = 48
 ---
 ---Used in the line breaking algorithm.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [texnodes.c#L487](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L487)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -1584,6 +1628,8 @@ _N.shape = 49
 
 ---
 ---`\parshape`
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L488](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L488)
 ---

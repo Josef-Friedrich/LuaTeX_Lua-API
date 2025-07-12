@@ -15,6 +15,8 @@ vf = {}
 ---
 ---Typeset a character from the current font, and move right by the character’s width.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lfontlib.c#L327-L352](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L327-L352)
 ---
 ---@param n integer
@@ -27,11 +29,15 @@ function vf.char(n) end
 ---
 ---@param down integer
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lfontlib.c#L354-L367](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L354-L367)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/vf.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function vf.down(down) end
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lfontlib.c#L369-L376](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L369-L376)
 ---
@@ -42,6 +48,8 @@ function vf.fontid(fontid) end
 
 ---
 ---Output an image (the argument can be either an `image` variable or an `image_spec` table)
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lfontlib.c#L378-L387](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L378-L387)
 ---
@@ -54,6 +62,8 @@ function vf.image(image) end
 ---Output this node (list), and move right by the width of
 ---this list.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lfontlib.c#L389-L398](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L389-L398)
 ---
 ---@param list Node
@@ -64,6 +74,8 @@ function vf.node(list) end
 ---
 ---Do nothing.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lfontlib.c#L400-L406](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L400-L406)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/vf.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -72,6 +84,8 @@ function vf.nop() end
 ---
 ---Pop position.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lfontlib.c#L408-L420](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L408-L420)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/vf.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -79,6 +93,8 @@ function vf.pop() end
 
 ---
 ---Save the current position.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lfontlib.c#L422-L435](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L422-L435)
 ---
@@ -90,6 +106,8 @@ function vf.push() end
 ---
 ---@param right integer
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lfontlib.c#L437-L453](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L437-L453)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/vf.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -97,6 +115,8 @@ function vf.right(right) end
 
 ---
 ---Output a rule (height * width) and move right.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lfontlib.c#L455-L475](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L455-L475)
 ---
@@ -111,6 +131,8 @@ function vf.rule(height, width) end
 ---
 ---@param special string
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lfontlib.c#L477-L489](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L477-L489)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/vf.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -121,6 +143,8 @@ function vf.special(special) end
 ---
 ---The first string is one of `origin`,
 ---`page`, `text`, `font`, `direct` or `raw`
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lfontlib.c#L491-L499](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L491-L499)
 ---* Corresponding C source code: [lpdflib.c#L25-L87](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L25-L87)
@@ -136,6 +160,8 @@ function vf.pdf(mode, general_text) end
 ---
 ---If you have one string
 ---only `origin` is assumed.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lfontlib.c#L491-L499](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lfontlib.c#L491-L499)
 ---* Corresponding C source code: [lpdflib.c#L25-L87](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdflib.c#L25-L87)

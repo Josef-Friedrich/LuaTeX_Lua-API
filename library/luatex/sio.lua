@@ -38,6 +38,8 @@ _N._4_2_8_binary_input_from_strings_with_sio = "page 66"
 sio = {}
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [liolibext.c#L124-L135](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L124-L135)
 ---
 ---@param s string
@@ -47,6 +49,8 @@ sio = {}
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readcardinal1(s) end
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [liolibext.c#L160-L172](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L160-L172)
 ---
@@ -58,6 +62,8 @@ function sio.readcardinal1(s) end
 function sio.readcardinal2(s) end
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [liolibext.c#L212-L225](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L212-L225)
 ---
 ---@param s string
@@ -67,6 +73,8 @@ function sio.readcardinal2(s) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readcardinal3(s) end
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [liolibext.c#L268-L282](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L268-L282)
 ---
@@ -88,6 +96,8 @@ function sio.readcardinal4(s) end
 function sio.readcardinaltable(s, n, b) end
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [liolibext.c#L124-L135](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L124-L135)
 ---
 ---little endian variant
@@ -99,6 +109,8 @@ function sio.readcardinaltable(s, n, b) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readcardinal1le(s) end
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [liolibext.c#L173-L185](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L173-L185)
 ---
@@ -112,6 +124,8 @@ function sio.readcardinal1le(s) end
 function sio.readcardinal2le(s) end
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [liolibext.c#L226-L239](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L226-L239)
 ---
 ---little endian variant
@@ -123,6 +137,8 @@ function sio.readcardinal2le(s) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readcardinal3le(s) end
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [liolibext.c#L283-L297](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L283-L297)
 ---
@@ -136,6 +152,8 @@ function sio.readcardinal3le(s) end
 function sio.readcardinal4le(s) end
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [liolibext.c#L444-L458](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L444-L458)
 ---
 ---@param s string
@@ -145,6 +163,8 @@ function sio.readcardinal4le(s) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readinteger1(s) end
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [liolibext.c#L485-L500](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L485-L500)
 ---
@@ -182,6 +202,8 @@ function sio.readinteger4(s) end
 function sio.readintegertable(s, n, b) end
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [liolibext.c#L444-L458](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L444-L458)
 ---little endian variant
 ---
@@ -192,6 +214,8 @@ function sio.readintegertable(s, n, b) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readinteger1le(s) end
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [liolibext.c#L501-L516](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L501-L516)
 ---
