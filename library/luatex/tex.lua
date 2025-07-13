@@ -2886,9 +2886,9 @@ function tex.getcatcode(cat_table, char_code) end
 ---The character hex is `2B`, which is the decimal `43`, the character
 ---code for `+` in the Roman font encoding.
 ---
----The mathcode section in the
+---The `mathcode` section in the
 ---[plain.tex](https://mirrors.ctan.org/macros/plain/base/plain.tex)
----format file.
+---format file:
 ---
 ---```tex
 ---\mathcode`\^^?="1273 % \smallint
@@ -3520,8 +3520,56 @@ function tex.getmathcode(char_code) end
 function tex.getmathcodes(char_code) end
 
 ---
----*TeX*'s character code tables `delcode` (delimiter code) can be accessed and written to using
+---The *TeX*'s character code tables `delcode` (delimiter code) can be accessed and written to using
 ---a virtual subtable of the `tex` table.
+---
+
+---```lua
+---for i=1,128 do
+---  local delcode = tex.delcode[i]
+---  print(i, utf8.char(i), delcode[1], delcode[2], delcode[3], delcode[4])
+---end
+---```
+---
+---Output:
+---
+---```
+---1		-1	0	0	0
+---...
+---40	(	0	40	3	0
+---41	)	0	41	3	1
+---...
+---47	/	0	47	3	14
+---...
+---60	<	2	104	3	10
+---61	=	-1	0	0	0
+---62	>	2	105	3	11
+---...
+---91	[	0	91	3	2
+---92	\	2	110	3	15
+---93	]	0	93	3	3
+---...
+---124	|	2	106	3	12
+---...
+---```
+---
+---The `delcode` section in the
+---[plain.tex](https://mirrors.ctan.org/macros/plain/base/plain.tex)
+---format file:
+---
+---```tex
+---% Finally, INITEX sets all \delcode values to -1, except \delcode`.=0
+---\delcode`\(="028300
+---\delcode`\)="029301
+---\delcode`\[="05B302
+---\delcode`\]="05D303
+---\delcode`\<="26830A
+---\delcode`\>="26930B
+---\delcode`\/="02F30E
+---\delcode`\|="26A30C
+---\delcode`\\="26E30F
+---% N.B. { and } should NOT get delcodes; otherwise parameter grouping fails!
+---```
 ---
 ---__Reference:__
 ---
@@ -3532,7 +3580,7 @@ function tex.getmathcodes(char_code) end
 tex.delcode = {}
 
 ---
----And the table for `delcode` (delimiter code) is an array with 4 numbers, like this:
+---The table for `delcode` (delimiter code) is an array with 4 numbers, like this:
 ---
 ---```lua
 ---{
@@ -3542,6 +3590,7 @@ tex.delcode = {}
 ---    -- large_character
 ---}
 ---```
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias DelCode integer[]
 

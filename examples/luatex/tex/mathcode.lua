@@ -3,6 +3,8 @@ for i = 1, 128 do
   print(i, utf8.char(i), mathcode[1], mathcode[2], mathcode[3])
 end
 
+---Output:
+---
 ---1		3	2	35
 ---2		0	1	11
 ---3		0	1	12
