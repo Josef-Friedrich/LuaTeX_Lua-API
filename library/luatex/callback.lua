@@ -2,6 +2,10 @@ _N._9_lua_callbacks = "page 169"
 _N._9_1_registering_callbacks = "page 169"
 
 ---
+---Current version
+---
+---2025/07/13 v0.1.0
+---
 ---Copyright (C) 2022-2025 by Josef Friedrich <josef@friedrich.rocks>
 ------------------------------------------------------------------------
 ---

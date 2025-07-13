@@ -67,6 +67,10 @@ Or you can use the configuration `Lua.workspace.library`:
 }
 ```
 
+## Current version
+
+2025/07/13 v0.1.0
+
 ## License
 
 Copyright (C) 2022-2025 by Josef Friedrich <josef@friedrich.rocks>

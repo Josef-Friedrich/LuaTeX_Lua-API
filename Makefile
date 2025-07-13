@@ -48,7 +48,7 @@ ctan_luatex: dist_rsync
 	cp -f dist-ctan/luatex/README.md luatex-type-definitions
 	cp -f dist-ctan/luatex/luatex-type-definitions.lua luatex-type-definitions
 	tar cvfz luatex-type-definitions.tar.gz luatex-type-definitions
-	# rm -rf luatex-type-definitions
+	rm -rf luatex-type-definitions
 
 
 
