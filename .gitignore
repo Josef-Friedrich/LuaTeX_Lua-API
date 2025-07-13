@@ -10,3 +10,4 @@ dist/*
 *.orig
 *.rej
 *_new.diff
+*.tar.gz

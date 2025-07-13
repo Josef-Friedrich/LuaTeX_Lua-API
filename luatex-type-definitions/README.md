@@ -1,31 +1,16 @@
 # LuaTeX Lua API
 
-Type definitions for the Lua API of `LuaTeX`.
+Type definitions / Stubs for the Lua API / interface of `LuaTeX` and
+related `Lua` modules.
 
-<!-- [LuaTeX](http://luatex.org) verfügt über eine sehr umfangreiche
-[Lua](https://www.lua.org) API. -->
 [LuaTeX](http://luatex.org) has a very large [Lua](https://www.lua.org)
-API.
-<!-- Dieses Projekt versucht, diese API im Texteditor Ihrer Wahl
-zugänglich zu machen. -->
-This project tries to make this API accessible in the text editor
-of your choice.
-<!-- Ermöglicht wird dies durch den
-[lua-language-server](https://github.com/LuaLS/lua-language-server)
-– einen Server, der das
-[Language Server Protocol](https://en.wikipedia.org/wiki/Language_Server_Protocol) für die
-Sprache Lua implementiert. -->
-This is made possible by the
+API. This project tries to make this API accessible in the text editor
+of your choice. This is made possible by the
 [lua-language-server](https://github.com/LuaLS/lua-language-server) -
 a server that implements the [Language Server Protocol
 (LSP)](https://en.wikipedia.org/wiki/Language_Server_Protocol) for the
 `Lua` language.
 
-<!-- Funktionen wie die Syntaxhervorhebung bei der Code-Vervollständigung
-und die Markierung von Warnungen und Fehlern sollten daher nicht nur in [Visual
-Studio Code](https://code.visualstudio.com), sondern in einer
-[großen Anzahl an Editoren](https://langserver.org/#implementations-client)
-möglich sein, die das „LSP“ unterstützen. -->
 Features such as code completion syntax highlighting and marking of
 warnings and errors, should therefore not only be possible in [Visual
 Studio Code](https://code.visualstudio.com), but in a [large number of
