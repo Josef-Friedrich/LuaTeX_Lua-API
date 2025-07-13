@@ -44,6 +44,8 @@ _N._4_2_7_binary_input_from_files_with_fio = "page 66"
 fio = {}
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [liolibext.c#L114-L122](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L114-L122)
 ---
 ---@param f file* # A file handle.
@@ -53,6 +55,8 @@ fio = {}
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readcardinal1(f) end
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [liolibext.c#L137-L147](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L137-L147)
 ---
@@ -64,6 +68,8 @@ function fio.readcardinal1(f) end
 function fio.readcardinal2(f) end
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [liolibext.c#L187-L198](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L187-L198)
 ---
 ---@param f file* # A file handle.
@@ -73,6 +79,8 @@ function fio.readcardinal2(f) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readcardinal3(f) end
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [liolibext.c#L241-L253](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L241-L253)
 ---
@@ -92,6 +100,8 @@ function fio.readcardinal4(f) end
 function fio.readcardinaltable(f, n, b) end
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [liolibext.c#L137-L147](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L137-L147)
 ---
 ---little endian variant
@@ -103,6 +113,8 @@ function fio.readcardinaltable(f, n, b) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readcardinal1le(f) end
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [liolibext.c#L148-L158](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L148-L158)
 ---
@@ -116,6 +128,8 @@ function fio.readcardinal1le(f) end
 function fio.readcardinal2le(f) end
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [liolibext.c#L199-L210](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L199-L210)
 ---
 ---little endian variant
@@ -127,6 +141,8 @@ function fio.readcardinal2le(f) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readcardinal3le(f) end
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [liolibext.c#L254-L266](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L254-L266)
 ---
@@ -140,6 +156,8 @@ function fio.readcardinal3le(f) end
 function fio.readcardinal4le(f) end
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [liolibext.c#L432-L442](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L432-L442)
 ---
 ---@param f file* # A file handle.
@@ -149,6 +167,8 @@ function fio.readcardinal4le(f) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readinteger1(f) end
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [liolibext.c#L460-L471](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L460-L471)
 ---

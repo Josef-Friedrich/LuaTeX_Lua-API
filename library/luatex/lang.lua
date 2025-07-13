@@ -125,7 +125,6 @@ function Language:hyphenation(hyphenation_exceptions) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lang.hyphenation(language) end
 
-
 ---
 ---Get the hyphenation exceptions.
 ---

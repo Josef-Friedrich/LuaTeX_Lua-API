@@ -1,0 +1,22 @@
+% Examples from The TeXBook, page 154
+
+% \mathcode‘<="313C
+% ASCII `<`: 60 (decimal) 3C (hexadecimal)
+% class: 3
+% family: 1
+% character: 60
+\directlua{
+  local mathcode = tex.getmathcode(60)
+  print(mathcode[1], mathcode[2], mathcode[3]) -- 3 1 60
+}
+
+% \mathcode‘*="2203
+% ASCII `*`: 42 (decimal) 2A (hexadecimal)
+% class: 2
+% family: 2
+% character: 3
+\directlua{
+  local mathcode = tex.getmathcode(42)
+  print(mathcode[1], mathcode[2], mathcode[3]) -- 2 2 3
+}
+\bye

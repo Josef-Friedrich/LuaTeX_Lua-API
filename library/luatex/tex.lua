@@ -2726,9 +2726,148 @@ function tex.setcatcode(global, cat_table, char_code, cat_code) end
 function tex.getcatcode(cat_table, char_code) end
 
 ---
----*TeX*'s character code table `mathcode` can be accessed and written to using
+---The *TeX*'s character code table `mathcode` can be accessed and written to using
 ---a virtual subtable of the `tex` table.
 ---
+---```lua
+---for i = 1, 128 do
+---  local mathcode = tex.mathcode[i]
+---  print(i, utf8.char(i), mathcode[1], mathcode[2], mathcode[3])
+---end
+---```
+---
+---__Output:__
+---
+---```
+---1		3	2	35
+---2		0	1	11
+---3		0	1	12
+---4		2	2	94
+---5		0	2	58
+---6		3	2	50
+---7		0	1	25
+---8		0	1	21
+---9		0	1	13
+---10		0	1	14
+---11		3	2	34
+---12		2	2	6
+---1		2	2	8
+---14		0	2	49
+---15		0	1	64
+---16		3	2	26
+---17		3	2	27
+---18		2	2	92
+---19		2	2	91
+---20		0	2	56
+---21		0	2	57
+---22		2	2	10
+---23		3	2	36
+---24		3	2	32
+---25		3	2	33
+---26	�	8	0	0
+---27			2	5
+---28		3	2	20
+---29		3	2	21
+---30		3	2	17
+---31		2	2	95
+---32	 	8	0	0
+---33	!	5	0	33
+---34	"	0	0	34
+---35	#	0	0	35
+---36	$	0	0	36
+---37	%	0	0	37
+---38	&	0	0	38
+---39	'	8	0	0
+---40	(	4	0	40
+---41	)	5	0	41
+---42	*	2	2	3
+---43	+	2	0	43
+---44	,	6	1	59
+---45	-	2	2	0
+---46	.	0	1	58
+---47	/	0	1	61
+---48	0	7	0	48
+---49	1	7	0	49
+---50	2	7	0	50
+---51	3	7	0	51
+---52	4	7	0	52
+---53	5	7	0	53
+---54	6	7	0	54
+---55	7	7	0	55
+---56	8	7	0	56
+---57	9	7	0	57
+---58	:	3	0	58
+---59	;	6	0	59
+---60	<	3	1	60
+---61	=	3	0	61
+---62	>	3	1	62
+---63	?	5	0	63
+---64	@	0	0	64
+---65	A	7	1	65
+---66	B	7	1	66
+---67	C	7	1	67
+---68	D	7	1	68
+---69	E	7	1	69
+---70	F	7	1	70
+---71	G	7	1	71
+---72	H	7	1	72
+---73	I	7	1	73
+---74	J	7	1	74
+---75	K	7	1	75
+---76	L	7	1	76
+---77	M	7	1	77
+---78	N	7	1	78
+---79	O	7	1	79
+---80	P	7	1	80
+---81	Q	7	1	81
+---82	R	7	1	82
+---83	S	7	1	83
+---84	T	7	1	84
+---85	U	7	1	85
+---86	V	7	1	86
+---87	W	7	1	87
+---88	X	7	1	88
+---89	Y	7	1	89
+---90	Z	7	1	90
+---91	[	4	0	91
+---92	\	0	2	110
+---93	]	5	0	93
+---94	^	0	0	94
+---95	_	8	0	0
+---96	`	0	0	96
+---97	a	7	1	97
+---98	b	7	1	98
+---99	c	7	1	99
+---100	d	7	1	100
+---101	e	7	1	101
+---102	f	7	1	102
+---103	g	7	1	103
+---104	h	7	1	104
+---105	i	7	1	105
+---106	j	7	1	106
+---107	k	7	1	107
+---108	l	7	1	108
+---109	m	7	1	109
+---110	n	7	1	110
+---111	o	7	1	111
+---112	p	7	1	112
+---113	q	7	1	113
+---114	r	7	1	114
+---115	s	7	1	115
+---116	t	7	1	116
+---117	u	7	1	117
+---118	v	7	1	118
+---119	w	7	1	119
+---120	x	7	1	120
+---121	y	7	1	121
+---122	z	7	1	122
+---123	{	4	2	102
+---124	|	0	2	106
+---125	}	5	2	103
+---126	~	0	0	126
+---127		1	2	115
+---128		0	0	128
+---```
 ---
 ---In math mode, the math atoms require more structure. Each symbol
 ---originates from a different font and receives different spacing
@@ -2826,7 +2965,7 @@ function tex.getcatcode(cat_table, char_code) end
 tex.mathcode = {}
 
 ---
----The table for `mathcode` is an array of 3 numbers, like this:
+---The table for `mathcode` is an array of 3 integers, like this:
 ---
 ---```lua
 ---{
@@ -2839,60 +2978,544 @@ tex.mathcode = {}
 ---@alias MathCode integer[]
 
 ---
----* Corresponding C source code: [ltexlib.c#L1524-1561]https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1524-1561)
+---__class__:
+---
+---| Class | Meaning          | Example |
+---|-------|------------------|---------|
+---| 0     | Ordinary         | `/`     |
+---| 1     | Large operator   | `\sum`  |
+---| 2     | Binary operation | `+`     |
+---| 3     | Relation         | `=`     |
+---| 4     | Opening          | `(`     |
+---| 5     | Closing          | `)`     |
+---| 6     | Punctuation      | `,`     |
+---| 7     | Variable family  | `x`     |
+---
+---__family__:
+---
+---```tex
+---% Family 0 (Roman)
+---\font\tenrm=mdbchr7t at10pt
+---\font\sevenrm=mdbchr7t at7pt
+---\font\fiverm=mdbchr7t at5pt
+---\textfont0=\tenrm
+---\scriptfont0=\sevenrm
+---27
+---\scriptscriptfont0=\fiverm
+---\def\rm{\fam=0 \tenrm}
+---%
+---% Family 1 (Math italic)
+---\font\teni=mdbchri7m at10pt
+---\font\seveni=mdbchri7m at7pt
+---\font\fivei=mdbchri7m at5pt
+---\textfont1=\teni
+---\scriptfont1=\seveni
+---\scriptscriptfont1=\fivei
+---\def\mit{\fam=1}
+---%
+---% Family 2 (Math symbols)
+---\font\tensy=md-chr7y at10pt
+---\font\sevensy=md-chr7y at7pt
+---\font\fivesy=md-chr7y at5pt
+---\textfont2=\tensy
+---\scriptfont2=\
+---% Family 3 (Math extension)
+---\font\tenex=mdbchr7v at10pt
+---\font\sevenex=mdbchr7v at7pt
+---\font\fiveex=mdbchr7v at5pt
+---\textfont3=\tenex
+---\scriptfont3=\sevenex
+---\scriptscriptfont3=\fiveex
+---%
+---% Family 4 (Italic text)
+---\font\tenit=mdbchri7t at10pt
+---\font\sevenit=mdbchri7t at7pt
+---\font\fiveit=mdbchri7t at5pt
+---\textfont\itfam=\tenit
+---\scriptfont\itfam=\sevenit
+---\scriptscriptfont\itfam=\fiveit
+---\def\it{\fam=\itfam \tenit}
+---%
+---% Family 5 (Slanted text)
+---\font\tensl=mdbchro7t at10pt
+---\font\sevensl=mdbchro7t at7pt
+---\font\fivesl=mdbchro7t at5pt
+---\textfont\slfam=\tensl
+---\scriptfont\slfam=\sevensl
+---\scriptscriptfont\slfam=\fivesl
+---\def\sl{\fam=\slfam \tensl}
+---%
+---% Family 6 (Bold text)
+---\font\tenbf=mdbchb7t at10pt
+---\font\sevenbf=mdbchb7t at7pt
+---\font\fivebf=mdbchb7t at5pt
+---\textfont\bffam=\tenbf
+---\scriptfont\bffam=\sevenbf
+---\scriptscriptfont\bffam=\fivebf
+---\def\bf{\fam=\bffam \tenbf}
+---%
+---% Family 7 (Typewriter)
+---\font\tentt=cmtt10---%
+---\rm
+---% Sets normal roman font
+---\font\seventt=cmtt10 at7pt
+---\font\fivett=cmtt10 at5pt
+---\textfont\ttfam=\tentt
+---\scriptfont\ttfam=\seventt
+---\scriptscriptfont\ttfam=\fivett
+---\def\tt{\fam=\ttfam \tentt}
+---```sevensy
+---\scriptscriptfont2=\fivesy
+---\def\cal{\fam=2}
+---%
+---% Family 3 (Math extension)
+---\font\tenex=mdbchr7v at10pt
+---\font\sevenex=mdbchr7v at7pt
+---\font\fiveex=mdbchr7v at5pt
+---\textfont3=\tenex
+---\scriptfont3=\sevenex
+---\scriptscriptfont3=\fiveex
+---%
+---% Family 4 (Italic text)
+---\font\tenit=mdbchri7t at10pt
+---\font\sevenit=mdbchri7t at7pt
+---\font\fiveit=mdbchri7t at5pt
+---\textfont\itfam=\tenit
+---\scriptfont\itfam=\sevenit
+---\scriptscriptfont\itfam=\fiveit
+---\def\it{\fam=\itfam \tenit}
+---%
+---% Family 5 (Slanted text)
+---\font\tensl=mdbchro7t at10pt
+---\font\sevensl=mdbchro7t at7pt
+---\font\fivesl=mdbchro7t at5pt
+---\textfont\slfam=\tensl
+---\scriptfont\slfam=\sevensl
+---\scriptscriptfont\slfam=\fivesl
+---\def\sl{\fam=\slfam \tensl}
+---%
+---% Family 6 (Bold text)
+---\font\tenbf=mdbchb7t at10pt
+---\font\sevenbf=mdbchb7t at7pt
+---\font\fivebf=mdbchb7t at5pt
+---\textfont\bffam=\tenbf
+---\scriptfont\bffam=\sevenbf
+---\scriptscriptfont\bffam=\fivebf
+---\def\bf{\fam=\bffam \tenbf}
+---%
+---% Family 7 (Typewriter)
+---\font\tentt=cmtt10---%
+---\rm
+---% Sets normal roman font
+---\font\seventt=cmtt10 at7pt
+---\font\fivett=cmtt10 at5pt
+---\textfont\ttfam=\tentt
+---\scriptfont\ttfam=\seventt
+---\scriptscriptfont\ttfam=\fivett
+---\def\tt{\fam=\ttfam \tentt}
+---```
+---
+---__Reference:__
+---
+---* Corresponding C source code: [ltexlib.c#L1524-1561](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1524-1561)
+---* Donald E. Knuth: The TeXbook, Page 154
+---* TUGboat, Volume 31 (2010), No. 1, Mathematical typefaces in TEX documents, Amit Raj Dhawan
 ---
 ---@param global 'global' # It is possible to define values globally by using the string `global` as the first function argument.
----@param char_code integer
----@param class integer
----@param family integer
----@param character integer
+---@param char_code integer  # The ASCII or UNICODE charcater code point.
+---@param class integer # The class to which a math character belongs (`0`: Ordinary, `1`: Large operator, `2`: Binary operation, `3`: Relation, `4`: Opening, `5`: Closing, `6`: Punctuation, `7`: Variable family).
+---@param family integer # TeX uses fonts from one or more of the sixteen font families to typeset mathematical characters. Each font family consists of three fonts — textfont, scriptfont, and scriptscriptfont. (`0`: Roman, `1`: Math italic, `2`: Math symbol, `3`: Math extension, `4`: Italic text, `5`: Slanted text, `6`: Bold text, `7`: Typewriter)
+---@param character integer # The character position
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.setmathcode(global, char_code, class, family, character) end
 
 ---
----* Corresponding C source code: [ltexlib.c#L1524-L1561](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1524-L1561)
+---__class__:
 ---
----@param char_code integer
----@param class integer
----@param family integer
----@param character integer
+---| Class | Meaning          | Example |
+---|-------|------------------|---------|
+---| 0     | Ordinary         | `/`     |
+---| 1     | Large operator   | `\sum`  |
+---| 2     | Binary operation | `+`     |
+---| 3     | Relation         | `=`     |
+---| 4     | Opening          | `(`     |
+---| 5     | Closing          | `)`     |
+---| 6     | Punctuation      | `,`     |
+---| 7     | Variable family  | `x`     |
+---
+---__family__:
+---
+---```tex
+---% Family 0 (Roman)
+---\font\tenrm=mdbchr7t at10pt
+---\font\sevenrm=mdbchr7t at7pt
+---\font\fiverm=mdbchr7t at5pt
+---\textfont0=\tenrm
+---\scriptfont0=\sevenrm
+---27
+---\scriptscriptfont0=\fiverm
+---\def\rm{\fam=0 \tenrm}
+---%
+---% Family 1 (Math italic)
+---\font\teni=mdbchri7m at10pt
+---\font\seveni=mdbchri7m at7pt
+---\font\fivei=mdbchri7m at5pt
+---\textfont1=\teni
+---\scriptfont1=\seveni
+---\scriptscriptfont1=\fivei
+---\def\mit{\fam=1}
+---%
+---% Family 2 (Math symbols)
+---\font\tensy=md-chr7y at10pt
+---\font\sevensy=md-chr7y at7pt
+---\font\fivesy=md-chr7y at5pt
+---\textfont2=\tensy
+---\scriptfont2=\
+---% Family 3 (Math extension)
+---\font\tenex=mdbchr7v at10pt
+---\font\sevenex=mdbchr7v at7pt
+---\font\fiveex=mdbchr7v at5pt
+---\textfont3=\tenex
+---\scriptfont3=\sevenex
+---\scriptscriptfont3=\fiveex
+---%
+---% Family 4 (Italic text)
+---\font\tenit=mdbchri7t at10pt
+---\font\sevenit=mdbchri7t at7pt
+---\font\fiveit=mdbchri7t at5pt
+---\textfont\itfam=\tenit
+---\scriptfont\itfam=\sevenit
+---\scriptscriptfont\itfam=\fiveit
+---\def\it{\fam=\itfam \tenit}
+---%
+---% Family 5 (Slanted text)
+---\font\tensl=mdbchro7t at10pt
+---\font\sevensl=mdbchro7t at7pt
+---\font\fivesl=mdbchro7t at5pt
+---\textfont\slfam=\tensl
+---\scriptfont\slfam=\sevensl
+---\scriptscriptfont\slfam=\fivesl
+---\def\sl{\fam=\slfam \tensl}
+---%
+---% Family 6 (Bold text)
+---\font\tenbf=mdbchb7t at10pt
+---\font\sevenbf=mdbchb7t at7pt
+---\font\fivebf=mdbchb7t at5pt
+---\textfont\bffam=\tenbf
+---\scriptfont\bffam=\sevenbf
+---\scriptscriptfont\bffam=\fivebf
+---\def\bf{\fam=\bffam \tenbf}
+---%
+---% Family 7 (Typewriter)
+---\font\tentt=cmtt10---%
+---\rm
+---% Sets normal roman font
+---\font\seventt=cmtt10 at7pt
+---\font\fivett=cmtt10 at5pt
+---\textfont\ttfam=\tentt
+---\scriptfont\ttfam=\seventt
+---\scriptscriptfont\ttfam=\fivett
+---\def\tt{\fam=\ttfam \tentt}
+---```sevensy
+---\scriptscriptfont2=\fivesy
+---\def\cal{\fam=2}
+---%
+---% Family 3 (Math extension)
+---\font\tenex=mdbchr7v at10pt
+---\font\sevenex=mdbchr7v at7pt
+---\font\fiveex=mdbchr7v at5pt
+---\textfont3=\tenex
+---\scriptfont3=\sevenex
+---\scriptscriptfont3=\fiveex
+---%
+---% Family 4 (Italic text)
+---\font\tenit=mdbchri7t at10pt
+---\font\sevenit=mdbchri7t at7pt
+---\font\fiveit=mdbchri7t at5pt
+---\textfont\itfam=\tenit
+---\scriptfont\itfam=\sevenit
+---\scriptscriptfont\itfam=\fiveit
+---\def\it{\fam=\itfam \tenit}
+---%
+---% Family 5 (Slanted text)
+---\font\tensl=mdbchro7t at10pt
+---\font\sevensl=mdbchro7t at7pt
+---\font\fivesl=mdbchro7t at5pt
+---\textfont\slfam=\tensl
+---\scriptfont\slfam=\sevensl
+---\scriptscriptfont\slfam=\fivesl
+---\def\sl{\fam=\slfam \tensl}
+---%
+---% Family 6 (Bold text)
+---\font\tenbf=mdbchb7t at10pt
+---\font\sevenbf=mdbchb7t at7pt
+---\font\fivebf=mdbchb7t at5pt
+---\textfont\bffam=\tenbf
+---\scriptfont\bffam=\sevenbf
+---\scriptscriptfont\bffam=\fivebf
+---\def\bf{\fam=\bffam \tenbf}
+---%
+---% Family 7 (Typewriter)
+---\font\tentt=cmtt10---%
+---\rm
+---% Sets normal roman font
+---\font\seventt=cmtt10 at7pt
+---\font\fivett=cmtt10 at5pt
+---\textfont\ttfam=\tentt
+---\scriptfont\ttfam=\seventt
+---\scriptscriptfont\ttfam=\fivett
+---\def\tt{\fam=\ttfam \tentt}
+---```
+---
+---__Reference:__
+---
+---* Corresponding C source code: [ltexlib.c#L1524-L1561](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1524-L1561)
+---* Donald E. Knuth: The TeXbook, Page 154
+---* TUGboat, Volume 31 (2010), No. 1, Mathematical typefaces in TEX documents, Amit Raj Dhawan
+---
+---@param global 'global' # It is possible to define values globally by using the string `global` as the first function argument.
+---@param char_code integer # The ASCII or UNICODE charcater code point.
+---@param class integer # The class to which a math character belongs (`0`: Ordinary, `1`: Large operator, `2`: Binary operation, `3`: Relation, `4`: Opening, `5`: Closing, `6`: Punctuation, `7`: Variable family).
+---@param family integer # TeX uses fonts from one or more of the sixteen font families to typeset mathematical characters. Each font family consists of three fonts — textfont, scriptfont, and scriptscriptfont. (`0`: Roman, `1`: Math italic, `2`: Math symbol, `3`: Math extension, `4`: Italic text, `5`: Slanted text, `6`: Bold text, `7`: Typewriter)
+---@param character integer # The character position
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.setmathcode(global, char_code, class, family, character) end
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [ltexlib.c#L1524-L1561](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1524-L1561)
 ---
 ---@param global 'global' # It is possible to define values globally by using the string `global` as the first function argument.
----@param char_code integer
----@param math_code MathCode
+---@param char_code integer # The ASCII or UNICODE charcater code point.
+---@param math_code MathCode # A table with three integers (class, family, character).
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.setmathcode(global, char_code, math_code) end
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [ltexlib.c#L1524-L1561](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1524-L1561)
 ---
----@param char_code integer
----@param math_code MathCode
+---@param char_code integer  # The ASCII or UNICODE charcater code point.
+---@param math_code MathCode # A table with three integers (class, family, character).
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.setmathcode(char_code, math_code) end
 
+---
+---Retrieve the math code of a character as a table with three integers (class, family, character).
+---
+---__Examples from The TeXBook, page 154__:
+---
+---`\mathcode‘<="313C`
+---
+---* ASCII `<`: 60 (decimal) 3C (hexadecimal)
+---* class: 3
+---* family: 1
+---* character: 60
+---
+---```lua
+---local mathcode = tex.getmathcode(60)
+---print(mathcode[1], mathcode[2], mathcode[3]) -- 3 1 60
+---```
+---
+---`\mathcode‘*="2203`
+---
+---* ASCII `*`: 42 (decimal) 2A (hexadecimal)
+---* class: 2
+---* family: 2
+---* character: 3
+---
+---```lua
+---local mathcode = tex.getmathcode(42)
+---print(mathcode[1], mathcode[2], mathcode[3]) -- 2 2 3
+---```
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [ltexlib.c#L1563-L1577](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1563-L1577)
 ---
 ---@param char_code integer
 ---
----@return MathCode math_code
+---@return MathCode math_code # A table with three integers (class, family, character).
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.getmathcode(char_code) end
 
 ---
+---Retrieve the math code of a character as three integers (class, family, character).
+---
+---__Examples from The TeXBook, page 154__:
+---
+---`\mathcode‘<="313C`
+---
+---* ASCII `<`: 60 (decimal) 3C (hexadecimal)
+---* class: 3
+---* family: 1
+---* character: 60
+---
+---```lua
+---print(tex.getmathcodes(60)) -- 3 1 60
+---```
+---
+---`\mathcode‘*="2203`
+---
+---* ASCII `*`: 42 (decimal) 2A (hexadecimal)
+---* class: 2
+---* family: 2
+---* character: 3
+---
+---```lua
+---print(tex.getmathcodes(42)) -- 2 2 3
+---```
+---
+---__class__:
+---
+---| Class | Meaning          | Example |
+---|-------|------------------|---------|
+---| 0     | Ordinary         | `/`     |
+---| 1     | Large operator   | `\sum`  |
+---| 2     | Binary operation | `+`     |
+---| 3     | Relation         | `=`     |
+---| 4     | Opening          | `(`     |
+---| 5     | Closing          | `)`     |
+---| 6     | Punctuation      | `,`     |
+---| 7     | Variable family  | `x`     |
+---
+---__family__:
+---
+---```tex
+---% Family 0 (Roman)
+---\font\tenrm=mdbchr7t at10pt
+---\font\sevenrm=mdbchr7t at7pt
+---\font\fiverm=mdbchr7t at5pt
+---\textfont0=\tenrm
+---\scriptfont0=\sevenrm
+---27
+---\scriptscriptfont0=\fiverm
+---\def\rm{\fam=0 \tenrm}
+---%
+---% Family 1 (Math italic)
+---\font\teni=mdbchri7m at10pt
+---\font\seveni=mdbchri7m at7pt
+---\font\fivei=mdbchri7m at5pt
+---\textfont1=\teni
+---\scriptfont1=\seveni
+---\scriptscriptfont1=\fivei
+---\def\mit{\fam=1}
+---%
+---% Family 2 (Math symbols)
+---\font\tensy=md-chr7y at10pt
+---\font\sevensy=md-chr7y at7pt
+---\font\fivesy=md-chr7y at5pt
+---\textfont2=\tensy
+---\scriptfont2=\
+---% Family 3 (Math extension)
+---\font\tenex=mdbchr7v at10pt
+---\font\sevenex=mdbchr7v at7pt
+---\font\fiveex=mdbchr7v at5pt
+---\textfont3=\tenex
+---\scriptfont3=\sevenex
+---\scriptscriptfont3=\fiveex
+---%
+---% Family 4 (Italic text)
+---\font\tenit=mdbchri7t at10pt
+---\font\sevenit=mdbchri7t at7pt
+---\font\fiveit=mdbchri7t at5pt
+---\textfont\itfam=\tenit
+---\scriptfont\itfam=\sevenit
+---\scriptscriptfont\itfam=\fiveit
+---\def\it{\fam=\itfam \tenit}
+---%
+---% Family 5 (Slanted text)
+---\font\tensl=mdbchro7t at10pt
+---\font\sevensl=mdbchro7t at7pt
+---\font\fivesl=mdbchro7t at5pt
+---\textfont\slfam=\tensl
+---\scriptfont\slfam=\sevensl
+---\scriptscriptfont\slfam=\fivesl
+---\def\sl{\fam=\slfam \tensl}
+---%
+---% Family 6 (Bold text)
+---\font\tenbf=mdbchb7t at10pt
+---\font\sevenbf=mdbchb7t at7pt
+---\font\fivebf=mdbchb7t at5pt
+---\textfont\bffam=\tenbf
+---\scriptfont\bffam=\sevenbf
+---\scriptscriptfont\bffam=\fivebf
+---\def\bf{\fam=\bffam \tenbf}
+---%
+---% Family 7 (Typewriter)
+---\font\tentt=cmtt10---%
+---\rm
+---% Sets normal roman font
+---\font\seventt=cmtt10 at7pt
+---\font\fivett=cmtt10 at5pt
+---\textfont\ttfam=\tentt
+---\scriptfont\ttfam=\seventt
+---\scriptscriptfont\ttfam=\fivett
+---\def\tt{\fam=\ttfam \tentt}
+---```sevensy
+---\scriptscriptfont2=\fivesy
+---\def\cal{\fam=2}
+---%
+---% Family 3 (Math extension)
+---\font\tenex=mdbchr7v at10pt
+---\font\sevenex=mdbchr7v at7pt
+---\font\fiveex=mdbchr7v at5pt
+---\textfont3=\tenex
+---\scriptfont3=\sevenex
+---\scriptscriptfont3=\fiveex
+---%
+---% Family 4 (Italic text)
+---\font\tenit=mdbchri7t at10pt
+---\font\sevenit=mdbchri7t at7pt
+---\font\fiveit=mdbchri7t at5pt
+---\textfont\itfam=\tenit
+---\scriptfont\itfam=\sevenit
+---\scriptscriptfont\itfam=\fiveit
+---\def\it{\fam=\itfam \tenit}
+---%
+---% Family 5 (Slanted text)
+---\font\tensl=mdbchro7t at10pt
+---\font\sevensl=mdbchro7t at7pt
+---\font\fivesl=mdbchro7t at5pt
+---\textfont\slfam=\tensl
+---\scriptfont\slfam=\sevensl
+---\scriptscriptfont\slfam=\fivesl
+---\def\sl{\fam=\slfam \tensl}
+---%
+---% Family 6 (Bold text)
+---\font\tenbf=mdbchb7t at10pt
+---\font\sevenbf=mdbchb7t at7pt
+---\font\fivebf=mdbchb7t at5pt
+---\textfont\bffam=\tenbf
+---\scriptfont\bffam=\sevenbf
+---\scriptscriptfont\bffam=\fivebf
+---\def\bf{\fam=\bffam \tenbf}
+---%
+---% Family 7 (Typewriter)
+---\font\tentt=cmtt10---%
+---\rm
+---% Sets normal roman font
+---\font\seventt=cmtt10 at7pt
+---\font\fivett=cmtt10 at5pt
+---\textfont\ttfam=\tentt
+---\scriptfont\ttfam=\seventt
+---\scriptscriptfont\ttfam=\fivett
+---\def\tt{\fam=\ttfam \tentt}
+---```
+---
+---__Reference:__
+---
 ---* Corresponding C source code: [ltexlib.c#L1579-L1589](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1579-L1589)
+---* Donald E. Knuth: The TeXbook, Page 154
+---* TUGboat, Volume 31 (2010), No. 1, Mathematical typefaces in TEX documents, Amit Raj Dhawan
 ---
 ---@param char_code integer
 ---
----@return integer class
----@return integer family
----@return integer character
+---@return integer class # The class to which a math character belongs (`0`: Ordinary, `1`: Large operator, `2`: Binary operation, `3`: Relation, `4`: Opening, `5`: Closing, `6`: Punctuation, `7`: Variable family).
+---@return integer family # TeX uses fonts from one or more of the sixteen font families to typeset mathematical characters. Each font family consists of three fonts — textfont, scriptfont, and scriptscriptfont. (`0`: Roman, `1`: Math italic, `2`: Math symbol, `3`: Math extension, `4`: Italic text, `5`: Slanted text, `6`: Bold text, `7`: Typewriter)
+---@return integer character # The character position
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.getmathcodes(char_code) end
 

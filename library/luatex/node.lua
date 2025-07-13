@@ -84,6 +84,8 @@ node.direct = {}
 ---|3 # "RTT" cjk
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [texnodes.c#L493-L542](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L493-L542)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -139,6 +141,8 @@ node.direct = {}
 ---| 'passive' # 48 `passive_node`
 ---| 'shape' # 49 `shape_node`
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L493-L542](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L493-L542)
 ---
@@ -236,6 +240,8 @@ _N.Node = true
 _N.hlist = 0
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [texnodes.c#L633-L661](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L633-L661)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -270,6 +276,8 @@ _N.hlist = 0
 ---|27 # accent
 ---|28 # radical
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L841-L851](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L841-L851)
 ---
@@ -318,6 +326,8 @@ _N.vlist = 1
 
 _N.rule = 2
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L602-L611](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L602-L611)
 ---
@@ -373,6 +383,8 @@ _N.rule = 2
 _N.ins = 3
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [texnodes.c#L818-L824](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L818-L824)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -388,6 +400,8 @@ _N.ins = 3
 _N.mark = 4
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [texnodes.c#L868-L871](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L868-L871)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -400,6 +414,8 @@ _N.mark = 4
 _N.adjust = 5
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [texnodes.c#L669-L670](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L669-L670)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -407,6 +423,8 @@ _N.adjust = 5
 ---|0 # normal
 ---|1 # pre
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L725-L727](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L725-L727)
 ---
@@ -420,6 +438,8 @@ _N.adjust = 5
 _N.disc = 7
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [texnodes.c#L620-L625](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L620-L625)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -431,6 +451,8 @@ _N.disc = 7
 ---|4 # first
 ---|5 # second
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L758-L763](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L758-L763)
 ---
@@ -446,6 +468,8 @@ _N.disc = 7
 _N.math = 11
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [texnodes.c#L663-L664](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L663-L664)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -453,6 +477,8 @@ _N.math = 11
 ---|0 # beginmath
 ---|1 # endmath
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L873-L880](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L873-L880)
 ---
@@ -498,6 +524,8 @@ _N.glue_spec = 39
 ---In addition there are the `width`, `stretch` `stretch_order`,
 ---`shrink`, and `shrink_order` fields. Note that we use the key `width` in both horizontal and vertical glue. This suits the *TeX* internals well
 ---so we decided to stick to that naming.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L794-L799](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L794-L799)
 ---
@@ -545,6 +573,8 @@ _N.glue = 12
 ---A regular word space also results in a `spaceskip` subtype (this used to be
 ---a `userskip` with subtype zero).
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [texnodes.c#L785-L792](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L785-L792)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -561,6 +591,8 @@ _N.glue = 12
 ---Return the
 ---effective width of a glue node.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lnodelib.c#L8473-L8503](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L8473-L8503)
 ---
 ---@param glue Node
@@ -576,6 +608,8 @@ function node.effective_glue(glue, parent, round) end
 ---Return the
 ---effective width of a glue node.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lnodelib.c#L8505-L8533](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L8505-L8533)
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
@@ -590,6 +624,8 @@ function node.direct.effective_glue(d, parent, round) end
 _N.kern = 13
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [texnodes.c#L597-L600](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L597-L600)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -603,6 +639,8 @@ _N.kern = 13
 ---The `kern` command creates such nodes but for instance the font and math
 ---machinery can also add them.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [texnodes.c#L836-L839](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L836-L839)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -612,6 +650,8 @@ _N.kern = 13
 
 _N.penalty = 14
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L587-L595](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L587-L595)
 ---
@@ -628,6 +668,8 @@ _N.penalty = 14
 ---|8 # equationnumberpenalty
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [texnodes.c#L898-L900](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L898-L900)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -639,6 +681,8 @@ _N.penalty = 14
 _N.glyph = 29
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [texnodes.c#L613-L618](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L613-L618)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -649,6 +693,8 @@ _N.glyph = 29
 ---|3 # left
 ---|4 # right
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L801-L816](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L801-L816)
 ---
@@ -674,6 +720,8 @@ _N.glyph = 29
 ---
 ---Return `true` when a glyph or disc node references that font.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [lnodelib.c#L7639-L7655](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L7639-L7655)
 ---
 ---@param n Node
@@ -686,6 +734,8 @@ function node.uses_font(n, font) end
 
 ---
 ---Return `true` when a glyph or disc node references that font.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L7621-L7637](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L7621-L7637)
 ---
@@ -700,6 +750,8 @@ function node.direct.uses_font(d, font) end
 _N.boundary = 6
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [texnodes.c#L582-L585](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L582-L585)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -709,6 +761,8 @@ _N.boundary = 6
 ---|2 # protrusion
 ---|3 # word
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L735-L737](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L735-L737)
 ---
@@ -720,6 +774,8 @@ _N.boundary = 6
 
 _N.local_par = 9
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L853-L861](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L853-L861)
 ---
@@ -749,6 +805,8 @@ _N.dir = 10
 ---direction is indicated by a `+` or `-`, indicating whether the value
 ---is pushed or popped from the direction stack.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [texnodes.c#L753-L756](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L753-L756)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -760,6 +818,8 @@ _N.dir = 10
 _N.margin_kern = 28
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [texnodes.c#L666-L667](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L666-L667)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -769,6 +829,8 @@ _N.margin_kern = 28
 
 ---
 ---Margin kerns result from protrusion.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L863-L866](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L863-L866)
 ---
@@ -785,6 +847,8 @@ _N.math_char = 23
 ---The `math_char` is the simplest subnode field, it contains the character
 ---and family for a single glyph object.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [texnodes.c#L882-L885](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L882-L885)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -800,6 +864,8 @@ _N.math_text_char = 26
 ---case that you will not normally encounter, it arises temporarily during math list
 ---conversion (its sole function is to suppress a following italic correction).
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [texnodes.c#L887-L890](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L887-L890)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -813,6 +879,8 @@ _N.sub_box = 24
 ---
 ---For subsidiary list items
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [texnodes.c#L933-L935](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L933-L935)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -824,6 +892,8 @@ _N.sub_mlist = 25
 
 ---
 ---For subsidiary list items
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L937-L939](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L937-L939)
 ---
@@ -842,6 +912,8 @@ _N.delim = 27
 ---font that is set for the `small_fam` is expected to provide the large
 ---version as an extension to the `small_char`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [texnodes.c#L746-L751](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L746-L751)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -854,6 +926,8 @@ _N.delim = 27
 
 _N.noad = 18
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L672-L684](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L672-L684)
 ---
@@ -896,6 +970,8 @@ _N.noad = 18
 --- | no super script | `0x22` + `0x08` |
 --- | no script       | `0x23` + `0x08` |
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [texnodes.c#L892-L896](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L892-L896)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -910,6 +986,8 @@ _N.noad = 18
 _N.accent = 21
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [texnodes.c#L694-L697](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L694-L697)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -919,6 +997,8 @@ _N.accent = 21
 ---|2 # fixedbottom
 ---|3 # fixedboth
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L714-L723](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L714-L723)
 ---
@@ -938,6 +1018,8 @@ _N.accent = 21
 _N.style = 16
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [texnodes.c#L929-L931](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L929-L931)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -951,6 +1033,8 @@ _N.choice = 17
 ---Warning: never assign a node list to the `display`, `text`, `script`, or `scriptscript` field unless you are sure its internal link
 ---structure is correct, otherwise an error can occur.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [texnodes.c#L739-L744](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L739-L744)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -963,6 +1047,8 @@ _N.choice = 17
 
 _N.radical = 19
 
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L686-L692](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L686-L692)
 ---
@@ -980,6 +1066,8 @@ _N.radical = 19
 ----
 --Warning: never assign a node list to the `nucleus`, `sub`, `sup`, `left`, or `degree` field unless you are sure its internal
 ---link structure is correct, otherwise an error can be triggered.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L902-L910](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L902-L910)
 ---
@@ -1002,6 +1090,8 @@ _N.fraction = 20
 ---unless you are sure its internal link structure is correct, otherwise an error
 ---can result.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [texnodes.c#L774-L783](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L774-L783)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -1019,6 +1109,8 @@ _N.fraction = 20
 _N.fence = 22
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [texnodes.c#L627-L631](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L627-L631)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -1032,6 +1124,8 @@ _N.fence = 22
 ---
 ---Warning: some of these fields are used by the renderer and might get adapted in
 ---the process.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L765-L772](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L765-L772)
 ---
@@ -1142,6 +1236,8 @@ _N._whatsit.write = 1
 _N._whatsit.close = 2
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [texnodes.c#L1018-L1020](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L1018-L1020)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -1183,6 +1279,8 @@ _N._whatsit.late_lua = 7
 ---When a function is used, it gets called with as first argument the node that triggers
 ---the call.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [texnodes.c#L1022-L1027](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L1022-L1027)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -1206,6 +1304,8 @@ _N._whatsit.special = 3
 _N._whatsit.pdf_literal = 16
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [texnodes.c#L1082-L1088](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L1082-L1088)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -1222,6 +1322,8 @@ _N._whatsit.pdf_literal = 16
 ---The higher the number, the less checking and the more you can run into trouble.
 ---Especially the `raw` variant can produce bad *PDF* so you can best check
 ---what you generate.
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L1148-L1151](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L1148-L1151)
 ---

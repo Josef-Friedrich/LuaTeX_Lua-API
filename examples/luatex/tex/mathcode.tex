@@ -1,0 +1,7 @@
+\directlua{
+  for i=1,128 do
+    local mathcode = tex.mathcode[i]
+    print(i, utf8.char(i), mathcode[1], mathcode[2], mathcode[3])
+  end
+}
+\bye
