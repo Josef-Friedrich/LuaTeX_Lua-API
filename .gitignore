@@ -10,4 +10,3 @@ dist/*
 *.orig
 *.rej
 *_new.diff
-dist-ctan/*
