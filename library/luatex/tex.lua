@@ -2729,9 +2729,97 @@ function tex.getcatcode(cat_table, char_code) end
 ---*TeX*'s character code table `mathcode` can be accessed and written to using
 ---a virtual subtable of the `tex` table.
 ---
+---
+---In math mode, the math atoms require more structure. Each symbol
+---originates from a different font and receives different spacing
+---based on its class (operator, binary infix, relation, etc.).
+---Following the typical style of the 1970s, these properties are
+---compactly packed into bit fields within a single integer called a
+---mathcode. The mathcode is usually expressed in hexadecimal so
+---that the fields can easily be pulled apart. The mathcode of `+` in
+---plain TeX is set as:
+---
+---```tex
+---\mathcode`\+="202B
+---```
+---
+---This means it is class 2 (binary infix) and fam0 (the Roman font).
+---The character hex is `2B`, which is the decimal `43`, the character
+---code for `+` in the Roman font encoding.
+---
+---The mathcode section in the
+---[plain.tex](https://mirrors.ctan.org/macros/plain/base/plain.tex)
+---format file.
+---
+---```tex
+---\mathcode`\^^?="1273 % \smallint
+---% INITEX sets up \mathcode x=x, for x=0..255, except that
+---% \mathcode x=x+"7100, for x = `A to `Z and `a to `z;
+---% \mathcode x=x+"7000, for x = `0 to `9.
+---% The following changes define internal codes as recommended
+---% in Appendix C of The TeXbook:
+---\mathcode`\^^@="2201 % \cdot
+---\mathcode`\^^A="3223 % \downarrow
+---\mathcode`\^^B="010B % \alpha
+---\mathcode`\^^C="010C % \beta
+---\mathcode`\^^D="225E % \land
+---\mathcode`\^^E="023A % \lnot
+---\mathcode`\^^F="3232 % \in
+---\mathcode`\^^G="0119 % \pi
+---\mathcode`\^^H="0115 % \lambda
+---\mathcode`\^^I="010D % \gamma
+---\mathcode`\^^J="010E % \delta
+---\mathcode`\^^K="3222 % \uparrow
+---\mathcode`\^^L="2206 % \pm
+---\mathcode`\^^M="2208 % \oplus
+---\mathcode`\^^N="0231 % \infty
+---\mathcode`\^^O="0140 % \partial
+---\mathcode`\^^P="321A % \subset
+---\mathcode`\^^Q="321B % \supset
+---\mathcode`\^^R="225C % \cap
+---\mathcode`\^^S="225B % \cup
+---\mathcode`\^^T="0238 % \forall
+---\mathcode`\^^U="0239 % \exists
+---\mathcode`\^^V="220A % \otimes
+---\mathcode`\^^W="3224 % \leftrightarrow
+---\mathcode`\^^X="3220 % \leftarrow
+---\mathcode`\^^Y="3221 % \rightarrow
+---\mathcode`\^^Z="8000 % \ne
+---\mathcode`\^^[="2205 % \diamond
+---\mathcode`\^^\="3214 % \le
+---\mathcode`\^^]="3215 % \ge
+---\mathcode`\^^^="3211 % \equiv
+---\mathcode`\^^_="225F % \lor
+---\mathcode`\ ="8000 % \space
+---\mathcode`\!="5021
+---\mathcode`\'="8000 % ^\prime
+---\mathcode`\(="4028
+---\mathcode`\)="5029
+---\mathcode`\*="2203 % \ast
+---\mathcode`\+="202B
+---\mathcode`\,="613B
+---\mathcode`\-="2200
+---\mathcode`\.="013A
+---\mathcode`\/="013D
+---\mathcode`\:="303A
+---\mathcode`\;="603B
+---\mathcode`\<="313C
+---\mathcode`\=="303D
+---\mathcode`\>="313E
+---\mathcode`\?="503F
+---\mathcode`\[="405B
+---\mathcode`\\="026E % \backslash
+---\mathcode`\]="505D
+---\mathcode`\_="8000 % \_
+---\mathcode`\{="4266
+---\mathcode`\|="026A
+---\mathcode`\}="5267
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [ltexlib.c#L3711](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3711)
+---* [tex.stackexchange.com](https://tex.stackexchange.com/a/109440)
 ---
 ---@type table
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -2751,7 +2839,7 @@ tex.mathcode = {}
 ---@alias MathCode integer[]
 
 ---
----* Corresponding C source code: [ltexlib.c#L1524-L1561](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1524-L1561)
+---* Corresponding C source code: [ltexlib.c#L1524-1561]https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1524-1561)
 ---
 ---@param global 'global' # It is possible to define values globally by using the string `global` as the first function argument.
 ---@param char_code integer
