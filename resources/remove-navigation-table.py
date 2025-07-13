@@ -12,8 +12,14 @@ def patch_file(file_name: str):
     with open(file_name) as src:
         content = src.read()
 
+    content = content.replace(
+        "---A helper table to better navigate through the documentation using the\n"
+        + "---outline: https://github.com/Josef-Friedrich/LuaTeX_Lua-API#navigation-table-_n\n",
+        "",
+    )
+
     # Remove the navigation table
-    content = re.sub(r"^_N\..+(?=\n)", "", content, flags=re.MULTILINE)
+    content = re.sub(r"^_N.+\n", "", content, flags=re.MULTILINE)
 
     # Remove duplicate empty lines.
     content = re.sub("\n\n+", "\n\n", content)

@@ -24,6 +24,10 @@ dist: fix_lua_docstrings clean
 	resources/sync-projects.sh
 	resources/update-lls-addons.sh
 
+dist_rsync:
+	rsync -av --delete ./library/ ./dist/
+	./resources/remove-navigation-table.py
+
 update_lls_addons:
 	resources/update-lls-addons.sh
 
@@ -35,6 +39,9 @@ diff:
 
 patch:
 	resources/patch.sh patch
+
+ctan_luatex: dist_rsync
+	resources/merge-luatex.py
 
 clean:
 	git clean -dfX

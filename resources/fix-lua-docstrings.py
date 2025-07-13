@@ -6,7 +6,7 @@ import glob
 from pathlib import Path
 
 
-def patch_file(file_name: str):
+def patch_file(file_name: str) -> None:
     content: str = ""
 
     with open(file_name) as src:
