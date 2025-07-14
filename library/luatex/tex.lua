@@ -16,73 +16,74 @@ _N._10_3_2_internal_parameter_values_set_get = "page 190"
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L284-350](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L284-350)
 ---@alias ReadWriteIntegerParameter
----| 'adjdemerits'
----| 'binoppenalty'
----| 'brokenpenalty'
----| 'catcodetable'
----| 'clubpenalty'
----| 'day'
----| 'defaulthyphenchar'
----| 'defaultskewchar'
----| 'delimiterfactor'
----| 'displaywidowpenalty'
----| 'doublehyphendemerits'
----| 'endlinechar'
----| 'errorcontextlines'
----| 'escapechar'
----| 'exhyphenpenalty'
----| 'fam'
----| 'finalhyphendemerits'
----| 'floatingpenalty'
----| 'globaldefs'
----| 'hangafter'
----| 'hbadness'
----| 'holdinginserts'
----| 'hyphenpenalty'
----| 'interlinepenalty'
----| 'language'
----| 'lastlinefit'
----| 'lefthyphenmin'
----| 'linepenalty'
----| 'localbrokenpenalty'
----| 'localinterlinepenalty'
----| 'looseness'
----| 'mag'
----| 'maxdeadcycles'
----| 'month'
----| 'newlinechar'
----| 'outputpenalty'
----| 'pausing'
----| 'postdisplaypenalty'
----| 'predisplaydirection'
----| 'predisplaypenalty'
----| 'pretolerance'
----| 'relpenalty'
----| 'righthyphenmin'
----| 'savinghyphcodes'
----| 'savingvdiscards'
----| 'showboxbreadth'
----| 'showboxdepth'
----| 'time'
----| 'tolerance'
----| 'tracingassigns'
----| 'tracingcommands'
----| 'tracinggroups'
----| 'tracingifs'
----| 'tracinglostchars'
----| 'tracingmacros'
----| 'tracingnesting'
----| 'tracingonline'
----| 'tracingoutput'
----| 'tracingpages'
----| 'tracingparagraphs'
----| 'tracingrestores'
----| 'tracingscantokens'
----| 'tracingstats'
----| 'uchyph'
----| 'vbadness'
----| 'widowpenalty'
----| 'year'
+---| 'adjdemerits' # Penalty for adjacent visually incompatible lines. Plain TeX default: `10000`.
+---| 'binoppenalty' # Penalty for breaking after a binary operator not enclosed in a subformula. Plain TeX default: `700`
+---| 'brokenpenalty' # Additional penalty for breaking a page after a hyphenated line. Plain TeX default: `100`
+---| 'catcodetable' # Catcode tables are a new feature that allows you to switch to a predefined catcode regime in a single statement.
+---| 'clubpenalty' # Extra penalty for breaking a page after the first line of a paragraph. In Plain TeX this is `150`. This amount, and the following penalties, are added to the `\interlinepenalty`, and a penalty of the resulting size is inserted after the `\hbox` containing the first line of a paragraph instead of the `\interlinepenalty`.
+---| 'day' #  The day of the current job.
+---| 'defaulthyphenchar' # Value of `\hyphenchar` when a font is loaded. Plain TeX default: `‘\-`.
+---| 'defaultskewchar' # Value of `\skewchar` when a font is loaded.
+---| 'delimiterfactor' # `1000` times the fraction of a delimited formula that should be covered by a delimiter. Plain TeX default: `901`
+---| 'displaywidowpenalty' # Extra penalty for breaking a page before the last line above a display formula. The default value in Plain TeX is `50`.
+---| 'doublehyphendemerits' # Penalty for consecutive lines ending with a hyphen. Plain TeX default: `10000`.
+---| 'endlinechar' # The character code of the end-of-line character appended to input lines. IniTEX default: `13`.
+---| 'errorcontextlines' # (TEX3 only) Number of additional context lines shown in error messages.
+---| 'escapechar' # Number of the character that is to be used for the escape character when control sequences are being converted into character tokens. IniTEX default: `92` (`\`).
+---| 'exhyphenpenalty' # Penalty for breaking a horizontal line at a discretionary item in the special case where the prebreak text is empty. Plain TeX default: `50`.
+---| 'fam' # The number of the current font family.
+---| 'finalhyphendemerits' # Penalty added when the penultimate line of a paragraph ends with a hyphen. Plain TeX default: `5000`.
+---| 'floatingpenalty' # Penalty added when an insertion is split.
+---| 'globaldefs' # Parameter for overriding \global prefixes. IniTEX default: `0`.
+---| 'hangafter' # If positive, this denotes the number of lines before indenting starts; if negative, the absolute value of this is the number of indented lines starting with the first line of the paragraph. Default: `1`.
+---| 'hbadness' # Amount of tolerance before TEX reports an underfull or overfull horizontal box.
+---| 'holdinginserts' # (TEX3 only) If this is positive, insertions are not placed in their boxes at output time.
+---| 'hyphenpenalty' # Penalty associated with break at a discretionary item in the general case. Plain TeX default: `50`.
+---| 'interlinepenalty' # Penalty for breaking a page between lines of a paragraph. Plain TeX default: `0`
+---| 'language' # Choose a set of hyphenation patterns and exceptions.
+---| 'lastlinefit' # A readable and writable integer parameter that accepts and returns Lua numbers.
+---| 'lefthyphenmin' # (TEX3 only) Minimal number of characters before a hyphenation. Plain TeX default: `2`.
+---| 'linepenalty' # Penalty value associated with each line break. Plain TeX default: `10`.
+---| 'localbrokenpenalty' # Local broken penalty (from `\localbrokenpenalty`)
+---| 'localinterlinepenalty' # Local interline penalty (from `\localinterlinepenalty`)
+---| 'looseness' # Number of lines by which this paragraph has to be made longer than it would be ideally.
+---| 'mag' # `1000` times the magnification of the document.
+---| 'maxdeadcycles' # The maximum number of times that the output routine is allowed to be called without a `\shipout` occurring. IniTEX default: `25`.
+---| 'month' # The month of the current job.
+---| 'newlinechar' # Number of the character that triggers a new line in `\write` statements.
+---| 'outputpenalty' # Value of the penalty at the current page break, or `10000` if the break was not at a penalty.
+---| 'pausing' # Specify that TEX should pause after each line that is read from a file.
+---| 'postdisplaypenalty' # Penalty placed in the vertical list below a display. Plain TeX defaults: `0`
+---| 'predisplaydirection' # An internal read/write integer, to indicate the direction of the last partial paragraph before a display; it is used to control the placement of elements such as equation numbers, and can be explictly set to affect this placement.
+---| 'predisplaypenalty' # Penalty placed in the vertical list above a display. Plain TeX defaults: `10000`.
+---| 'pretolerance' # Tolerance value for a paragraph without hyphenation. Plain TeX default: `100`.
+---| 'relpenalty' # Penalty for breaking after a binary relation not enclosed in a subformula. Plain TeX default: `500`
+---| 'righthyphenmin' # (TEX3 only) Minimum number of characters after a hyphenation. Plain TeX default: `3`.
+---| 'savinghyphcodes' # When a `\patterns` command is executed and \savinghyphcodes has a positive value, the current `\lccode` values are saved as hyphenation codes for the current language.
+---| 'savingvdiscards' # When ε-TEX’s parameter `\savingvdiscards` has been assigned a positive value, these ‘discarded items’ are saved in two lists and can be recovered by the commands `\pagediscards` and `\splitdiscards` that act like ‘unvboxing’ hypothetical box registers containing a vbox with the discarded items.
+---| 'showboxbreadth' # Number of successive elements on each level that are shown when boxes are displayed.
+---| 'showboxdepth' # The number of levels of box dump that are shown when boxes are displayed.
+---| 'time' # Number of minutes after midnight that the current job started.
+---| 'tolerance' # Tolerance value for lines in a paragraph with hyphenation. Plain TeX default: `200`.
+---| 'tracingassigns' # When the program is compiled with the code for collecting statistics and `\tracingassigns` has a value of `1` or more, all assignments subject to TeX’s grouping mechanism are traced.
+---| 'tracingcommands' # If this is `1` TEX displays primitive commands executed; if this is `2` or more the outcome of conditionals is also recorded.
+---| 'tracinggroups' # When `\tracinggroups` has a value of `1` or more, the start and end of each save group is traced, together with the starting line and grouping level.
+---| 'tracingifs' # When `\tracingifs` has a value of `1` or more, all conditionals (including `\unless`, `\or`, `\else`, and `\fi`) are traced, together with the starting line and nesting level.
+---| 'tracinglostchars' # If this parameter is positive, TeX gives diagnostic messages whenever a character is accessed that is not present in a font. Plain default: `1`.
+---| 'tracingmacros' # If this is `1`, the log file shows expansion of macros that are performed and the actual values of the arguments; if this is `2` or more token parameters such as `\output` and `\everypar` are also traced.
+---| 'tracingnesting' # When `\tracingnesting` has a value of `1` or more, these anomalies are shown; when `\tracingnesting` has a value of `2` or more, the current context (traceback) is shown as well.
+---| 'tracingonline' # If this parameter is positive, TeX will write trace information to the terminal in addition to the log file.
+---| 'tracingoutput' # If this is positive, the log file shows a dump of boxes that are shipped to the dvi file.
+---| 'tracingpages' # If this parameter is positive, TeX generates a trace of the page breaking algorithm.
+---
+---| 'tracingparagraphs' # If this parameter is positive, TeX generates a trace of the line breaking algorithm.
+---| 'tracingrestores' # If this parameter is positive, TEX will report all values that are restored when a group ends.
+---| 'tracingscantokens' # When `\tracingscantokens` has a value of `1` or more, the opening and closing of pseudo-files (generated by `\scantokens`) is recorded as for any other file, with ‘␣’ as filename.
+---| 'tracingstats' # If this parameter is `1`, TeX reports at the end of the job the usage of various internal arrays; if it is `2`, the memory demands are given whenever a page is shipped out.
+---| 'uchyph' # Positive to allow hyphenation of words starting with a capital letter. Plain TeX default: `1`.
+---| 'vbadness' # Amount of tolerance before TEX reports an underfull or overfull vertical box.
+---| 'widowpenalty' # Additional penalty for breaking a page before the last line of a paragraph. Plain TeX default: `150`
+---| 'year' # The year of the current job.
 
 ---
 ---The integer parameters accept and return Lua numbers. These are read-only:
@@ -296,7 +297,7 @@ function tex.get(parameter, opts) end
 _N._10_3_2_1_integer_parameters_read_write = "page 190"
 
 ---
----`\adjdemerits`: Penalty for adjacent visually incompatible lines. Plain TEX default: 10 000.
+---`\adjdemerits`: Penalty for adjacent visually incompatible lines. Plain TeX default: `10000`.
 ---
 ---__Reference:__
 ---
@@ -308,7 +309,7 @@ _N._10_3_2_1_integer_parameters_read_write = "page 190"
 tex.adjdemerits = 0
 
 ---
----`\binoppenalty`: Penalty for breaking after a binary operator not enclosed in a subformula. Plain TEX default: 700
+---`\binoppenalty`: Penalty for breaking after a binary operator not enclosed in a subformula. Plain TeX default: `700`
 ---
 ---__Reference:__
 ---
@@ -320,7 +321,7 @@ tex.adjdemerits = 0
 tex.binoppenalty = 0
 
 ---
----`\brokenpenalty`: Additional penalty for breaking a page after a hyphenated line. Plain TEX default: 100
+---`\brokenpenalty`: Additional penalty for breaking a page after a hyphenated line. Plain TeX default: `100`
 ---
 ---__Reference:__
 ---
@@ -332,13 +333,16 @@ tex.binoppenalty = 0
 tex.brokenpenalty = 0
 
 ---
+---Catcode tables are a new feature that allows you to switch to a
+---predefined catcode regime in a single statement.
+---
 ---@type integer # A readable and writable integer parameter that accepts and returns Lua numbers.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex.catcodetable = 0
 
 ---
----`\clubpenalty`: Extra penalty for breaking a page after the first line of a paragraph. In plain TEX this is 150. This amount, and the following penalties, are added to the `\interlinepenalty`, and a penalty of the resulting size is inserted after the `\hbox` containing the first line of a paragraph instead of the `\interlinepenalty`.
+---`\clubpenalty`: Extra penalty for breaking a page after the first line of a paragraph. In Plain TeX this is `150`. This amount, and the following penalties, are added to the `\interlinepenalty`, and a penalty of the resulting size is inserted after the `\hbox` containing the first line of a paragraph instead of the `\interlinepenalty`.
 ---
 ---__Reference:__
 ---
@@ -362,7 +366,7 @@ tex.clubpenalty = 0
 tex.day = 0
 
 ---
----`\defaulthyphenchar`: Value of `\hyphenchar` when a font is loaded. Plain TEX default: `‘\-`.
+---`\defaulthyphenchar`: Value of `\hyphenchar` when a font is loaded. Plain TeX default: `‘\-`.
 ---
 ---__Reference:__
 ---
@@ -386,7 +390,7 @@ tex.defaulthyphenchar = 0
 tex.defaultskewchar = 0
 
 ---
----`\delimiterfactor`: 1000 times the fraction of a delimited formula that should be covered by a delimiter. Plain TEX default: 901
+---`\delimiterfactor`: `1000` times the fraction of a delimited formula that should be covered by a delimiter. Plain TeX default: `901`
 ---
 ---__Reference:__
 ---
@@ -398,7 +402,7 @@ tex.defaultskewchar = 0
 tex.delimiterfactor = 0
 
 ---
----`\displaywidowpenalty`: Extra penalty for breaking a page before the last line above a display formula. The default value in plain TEX is 50.
+---`\displaywidowpenalty`: Extra penalty for breaking a page before the last line above a display formula. The default value in Plain TeX is `50`.
 ---
 ---__Reference:__
 ---
@@ -410,7 +414,7 @@ tex.delimiterfactor = 0
 tex.displaywidowpenalty = 0
 
 ---
----`\doublehyphendemerits`: Penalty for consecutive lines ending with a hyphen. Plain TEX default: 10 000.
+---`\doublehyphendemerits`: Penalty for consecutive lines ending with a hyphen. Plain TeX default: `10000`.
 ---
 ---__Reference:__
 ---
@@ -422,7 +426,8 @@ tex.displaywidowpenalty = 0
 tex.doublehyphendemerits = 0
 
 ---
----`\endlinechar`: The character code of the end-of-line character appended to input lines. IniTEX default: 13.
+---`\endlinechar`: The character code of the end-of-line character appended to input lines. IniTEX default: `13`.
+---
 ---@type integer # A readable and writable integer parameter that accepts and returns Lua numbers.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -453,7 +458,7 @@ tex.errorcontextlines = 0
 tex.escapechar = 0
 
 ---
----`\exhyphenpenalty`: Penalty for breaking a horizontal line at a discretionary item in the special case where the prebreak text is empty. Plain TEX default: 50.
+---`\exhyphenpenalty`: Penalty for breaking a horizontal line at a discretionary item in the special case where the prebreak text is empty. Plain TeX default: `50`.
 ---
 ---__Reference:__
 ---
@@ -477,7 +482,7 @@ tex.exhyphenpenalty = 0
 tex.fam = 0
 
 ---
----`\finalhyphendemerits`: Penalty added when the penultimate line of a paragraph ends with a hyphen. Plain TEX default: 5000.
+---`\finalhyphendemerits`: Penalty added when the penultimate line of a paragraph ends with a hyphen. Plain TeX default: `5000`.
 ---
 ---__Reference:__
 ---
@@ -501,7 +506,7 @@ tex.finalhyphendemerits = 0
 tex.floatingpenalty = 0
 
 ---
----`\globaldefs`: Parameter for overriding \global prefixes. IniTEX default: 0.
+---`\globaldefs`: Parameter for overriding \global prefixes. IniTEX default: `0`.
 ---
 ---`\globaldefs` is a TeX internal parameter. Normally set to 0. If set equal to a positive number, all following definitions and assignments are treated as if preceded by `\global`. If set equal to a negative number, none of the following definitions or assignments are global, meaning that an explicit `\global` is ignored. This remains in effect until `\globaldefs` is explicitly set to 0 again, or the group containing the `\globaldefs` reassignment ends (assuming it was not made global as well).
 ---
@@ -516,7 +521,7 @@ tex.floatingpenalty = 0
 tex.globaldefs = 0
 
 ---
----`\hangafter`: If positive, this denotes the number of lines before indenting starts; if negative, the absolute value of this is the number of indented lines starting with the first line of the paragraph. Default: 1.
+---`\hangafter`: If positive, this denotes the number of lines before indenting starts; if negative, the absolute value of this is the number of indented lines starting with the first line of the paragraph. Default: `1`.
 ---
 ---A readable and writable integer parameter that accepts and returns
 ---Lua numbers.
@@ -531,7 +536,7 @@ tex.globaldefs = 0
 tex.hangafter = 0
 
 ---
----`\hbadness` \vbadness: Amount of tolerance before TEX reports an underfull or overfull horizontal/vertical box.
+---`\hbadness`: Amount of tolerance before TEX reports an underfull or overfull horizontal box.
 ---
 ---__Reference:__
 ---
@@ -555,7 +560,7 @@ tex.hbadness = 0
 tex.holdinginserts = 0
 
 ---
----`\hyphenpenalty`: Penalty associated with break at a discretionary item in the general case. Plain TEX default: 50.
+---`\hyphenpenalty`: Penalty associated with break at a discretionary item in the general case. Plain TeX default: `50`.
 ---
 ---__Reference:__
 ---
@@ -567,7 +572,7 @@ tex.holdinginserts = 0
 tex.hyphenpenalty = 0
 
 ---
----`\interlinepenalty`: Penalty for breaking a page between lines of a paragraph. Plain TEX default: 0
+---`\interlinepenalty`: Penalty for breaking a page between lines of a paragraph. Plain TeX default: `0`
 ---
 ---__Reference:__
 ---
@@ -597,7 +602,7 @@ tex.language = 0
 tex.lastlinefit = 0
 
 ---
----`\lefthyphenmin` (TEX3 only) Minimal number of characters before a hyphenation. Plain TEX default: 2.
+---`\lefthyphenmin` (TEX3 only) Minimal number of characters before a hyphenation. Plain TeX default: `2`.
 ---
 ---__Reference:__
 ---
@@ -609,7 +614,7 @@ tex.lastlinefit = 0
 tex.lefthyphenmin = 0
 
 ---
----`\linepenalty`: Penalty value associated with each line break. Plain TEX default: 10.
+---`\linepenalty`: Penalty value associated with each line break. Plain TeX default: `10`.
 ---
 ---__Reference:__
 ---
@@ -621,11 +626,15 @@ tex.lefthyphenmin = 0
 tex.linepenalty = 0
 
 ---
----@type integer # A readable and writable integer parameter that accepts and returns Lua numbers.
+---Local broken penalty (from `\localbrokenpenalty`)
+---
+------@type integer # A readable and writable integer parameter that accepts and returns Lua numbers.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex.localbrokenpenalty = 0
 
+---
+---Local interline penalty (from `\localinterlinepenalty`)
 ---
 ---@type integer # A readable and writable integer parameter that accepts and returns Lua numbers.
 ---
@@ -645,7 +654,7 @@ tex.localinterlinepenalty = 0
 tex.looseness = 0
 
 ---
----`\mag`: 1000 times the magnification of the document.
+---`\mag`: `1000` times the magnification of the document.
 ---
 ---__Reference:__
 ---
@@ -657,7 +666,7 @@ tex.looseness = 0
 tex.mag = 0
 
 ---
----`\maxdeadcycles`: hinteger parameteri The maximum number of times that the output routine is allowed to be called without a \shipout occurring. IniTEX default: 25.
+---`\maxdeadcycles`: The maximum number of times that the output routine is allowed to be called without a `\shipout` occurring. IniTEX default: `25`.
 ---
 ---__Reference:__
 ---
@@ -693,7 +702,7 @@ tex.month = 0
 tex.newlinechar = 0
 
 ---
----`\outputpenalty`: Value of the penalty at the current page break, or 10 000 if the break was not at a penalty.
+---`\outputpenalty`: Value of the penalty at the current page break, or `10000` if the break was not at a penalty.
 ---
 ---__Reference:__
 ---
@@ -717,7 +726,7 @@ tex.outputpenalty = 0
 tex.pausing = 0
 
 ---
----`\postdisplaypenalty`: Penalty placed in the vertical list below a display. Plain TEX defaults: 0
+---`\postdisplaypenalty`: Penalty placed in the vertical list below a display. Plain TeX defaults: `0`
 ---
 ---__Reference:__
 ---
@@ -729,13 +738,20 @@ tex.pausing = 0
 tex.postdisplaypenalty = 0
 
 ---
+---`\predisplaydirection`: An internal read/write integer, to indicate the direction of the last partial paragraph before a display; it is used to control the placement of elements such as equation numbers, and can be explictly set to affect this placement.
+---
+---__Reference:__
+---
+---* [The e-TeX Short Reference Manual](https://ftp.fau.de/ctan/systems/doc/etex/etex_ref.html#predisplaydirection)
+---
 ---@type integer # A readable and writable integer parameter that accepts and returns Lua numbers.
+
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex.predisplaydirection = 0
 
 ---
----`\predisplaypenalty`: Penalty placed in the vertical list above a display. Plain TEX defaults: 10 000 .
+---`\predisplaypenalty`: Penalty placed in the vertical list above a display. Plain TeX defaults: `10000`.
 ---
 ---__Reference:__
 ---
@@ -747,7 +763,7 @@ tex.predisplaydirection = 0
 tex.predisplaypenalty = 0
 
 ---
----`\pretolerance`: Tolerance value for a paragraph without hyphenation. Plain TEX default: 100.
+---`\pretolerance`: Tolerance value for a paragraph without hyphenation. Plain TeX default: `100`.
 ---
 ---__Reference:__
 ---
@@ -759,7 +775,7 @@ tex.predisplaypenalty = 0
 tex.pretolerance = 0
 
 ---
----`\relpenalty`: Penalty for breaking after a binary relation not enclosed in a subformula. Plain TEX default: 500
+---`\relpenalty`: Penalty for breaking after a binary relation not enclosed in a subformula. Plain TeX default: `500`
 ---
 ---__Reference:__
 ---
@@ -771,7 +787,7 @@ tex.pretolerance = 0
 tex.relpenalty = 0
 
 ---
----`\righthyphenmin`: (TEX3 only) Minimum number of characters after a hyphenation. Plain TEX default: 3.
+---`\righthyphenmin`: (TEX3 only) Minimum number of characters after a hyphenation. Plain TeX default: `3`.
 ---
 ---__Reference:__
 ---
@@ -783,11 +799,23 @@ tex.relpenalty = 0
 tex.righthyphenmin = 0
 
 ---
+---When a `\patterns` command is executed and \savinghyphcodes has a positive value, the current `\lccode` values are saved as hyphenation codes for the current language.
+---
+---__Reference:__
+---
+---* The ε-TEX manual Version 2, February 1998 (updated March 2024), page 11
+---
 ---@type integer # A readable and writable integer parameter that accepts and returns Lua numbers.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex.savinghyphcodes = 0
 
+---
+---When ε-TEX’s parameter `\savingvdiscards` has been assigned a positive value, these ‘discarded items’ are saved in two lists and can be recovered by the commands `\pagediscards` and `\splitdiscards` that act like ‘unvboxing’ hypothetical box registers containing a vbox with the discarded items.
+---
+---__Reference:__
+---
+---* The ε-TEX manual Version 2, February 1998 (updated March 2024), page 12
 ---
 ---@type integer # A readable and writable integer parameter that accepts and returns Lua numbers.
 ---
@@ -831,7 +859,7 @@ tex.showboxdepth = 0
 tex.time = 0
 
 ---
----`\tolerance`: Tolerance value for lines in a paragraph with hyphenation. Plain TEX default: 200.
+---`\tolerance`: Tolerance value for lines in a paragraph with hyphenation. Plain TeX default: `200`.
 ---
 ---__Reference:__
 ---
@@ -843,13 +871,19 @@ tex.time = 0
 tex.tolerance = 0
 
 ---
+---When the program is compiled with the code for collecting statistics and `\tracingassigns` has a value of `1` or more, all assignments subject to TeX’s grouping mechanism are traced.
+---
+---__Reference:__
+---
+---* The ε-TEX manual Version 2, February 1998 (updated March 2024), page 4
+---
 ---@type integer # A readable and writable integer parameter that accepts and returns Lua numbers.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex.tracingassigns = 0
 
 ---
----`\tracingcommands`: If this is 1 TEX displays primitive commands executed; if this is 2 or more the outcome of conditionals is also recorded.
+---`\tracingcommands`: If this is `1` TEX displays primitive commands executed; if this is `2` or more the outcome of conditionals is also recorded.
 ---
 ---__Reference:__
 ---
@@ -861,11 +895,23 @@ tex.tracingassigns = 0
 tex.tracingcommands = 0
 
 ---
+---When `\tracinggroups` has a value of `1` or more, the start and end of each save group is traced, together with the starting line and grouping level.
+---
+---__Reference:__
+---
+---* The ε-TEX manual Version 2, February 1998 (updated March 2024), page 4
+---
 ---@type integer # A readable and writable integer parameter that accepts and returns Lua numbers.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex.tracinggroups = 0
 
+---
+---When `\tracingifs` has a value of `1` or more, all conditionals (including `\unless`, `\or`, `\else`, and `\fi`) are traced, together with the starting line and nesting level.
+---
+---__Reference:__
+---
+---* The ε-TEX manual Version 2, February 1998 (updated March 2024), page 4
 ---
 ---@type integer # A readable and writable integer parameter that accepts and returns Lua numbers.
 ---
@@ -873,7 +919,7 @@ tex.tracinggroups = 0
 tex.tracingifs = 0
 
 ---
----`\tracinglostchars`: If this parameter is positive, TEX gives diagnostic messages whenever a character is accessed that is not present in a font. Plain default: 1.
+---`\tracinglostchars`: If this parameter is positive, TeX gives diagnostic messages whenever a character is accessed that is not present in a font. Plain default: `1`.
 ---
 ---__Reference:__
 ---
@@ -885,7 +931,7 @@ tex.tracingifs = 0
 tex.tracinglostchars = 0
 
 ---
----`\tracingmacros`: hinteger parameteri If this is 1, the log file shows expansion of macros that are performed and the actual values of the arguments; if this is 2 or more htoken parameteris such as \output and \everypar are also traced.
+---`\tracingmacros`: If this is `1`, the log file shows expansion of macros that are performed and the actual values of the arguments; if this is `2` or more token parameters such as `\output` and `\everypar` are also traced.
 ---
 ---__Reference:__
 ---
@@ -897,11 +943,18 @@ tex.tracinglostchars = 0
 tex.tracingmacros = 0
 
 ---
+---When `\tracingnesting` has a value of `1` or more, these anomalies are shown; when `\tracingnesting` has a value of `2` or more, the current context (traceback) is shown as well.
+---
+---__Reference:__
+---
+---* The ε-TEX manual Version 2, February 1998 (updated March 2024), page 5
+---
 ---@type integer # A readable and writable integer parameter that accepts and returns Lua numbers.
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex.tracingnesting = 0
 
 ---
----`\tracingonline`: If this parameter is positive, TEX will write trace information to the terminal in addition to the log file.
+---`\tracingonline`: If this parameter is positive, TeX will write trace information to the terminal in addition to the log file.
 ---
 ---__Reference:__
 ---
@@ -925,7 +978,7 @@ tex.tracingonline = 0
 tex.tracingoutput = 0
 
 ---
----`\tracingpages`: If this parameter is positive, TEX generates a trace of the page breaking algorithm.
+---`\tracingpages`: If this parameter is positive, TeX generates a trace of the page breaking algorithm.
 ---
 ---__Reference:__
 ---
@@ -937,7 +990,7 @@ tex.tracingoutput = 0
 tex.tracingpages = 0
 
 ---
----`\tracingparagraphs`: If this parameter is positive, TEX generates a trace of the line breaking algorithm.
+---`\tracingparagraphs`: If this parameter is positive, TeX generates a trace of the line breaking algorithm.
 ---
 ---__Reference:__
 ---
@@ -961,13 +1014,19 @@ tex.tracingparagraphs = 0
 tex.tracingrestores = 0
 
 ---
+---When `\tracingscantokens` has a value of `1` or more, the opening and closing of pseudo-files (generated by `\scantokens`) is recorded as for any other file, with ‘␣’ as filename.
+---
+---__Reference:__
+---
+---* The ε-TEX manual Version 2, February 1998 (updated March 2024), page 5
+---
 ---@type integer # A readable and writable integer parameter that accepts and returns Lua numbers.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex.tracingscantokens = 0
 
 ---
----`\tracingstats`: If this parameter is 1, TEX reports at the end of the job the usage of various internal arrays; if it is 2, the memory demands are given whenever a page is shipped out.
+---`\tracingstats`: If this parameter is `1`, TeX reports at the end of the job the usage of various internal arrays; if it is `2`, the memory demands are given whenever a page is shipped out.
 ---
 ---__Reference:__
 ---
@@ -979,7 +1038,7 @@ tex.tracingscantokens = 0
 tex.tracingstats = 0
 
 ---
----`\uchyph`: Positive to allow hyphenation of words starting with a capital letter. Plain TEX default: 1.
+---`\uchyph`: Positive to allow hyphenation of words starting with a capital letter. Plain TeX default: `1`.
 ---
 ---__Reference:__
 ---
@@ -989,18 +1048,6 @@ tex.tracingstats = 0
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex.uchyph = 0
-
----
----`\hbadness`: Amount of tolerance before TEX reports an underfull or overfull horizontal box.
----
----__Reference:__
----
----* [TeX by Topic, page 57](http://mirrors.ctan.org/info/texbytopic/TeXbyTopic.pdf)
----
----@type integer # A readable and writable integer parameter that accepts and returns Lua numbers.
----
----😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-tex.hbadness = 0
 
 ---
 ---`\vbadness`: Amount of tolerance before TEX reports an underfull or overfull vertical box.
@@ -1015,7 +1062,7 @@ tex.hbadness = 0
 tex.vbadness = 0
 
 ---
----`\widowpenalty`: Additional penalty for breaking a page before the last line of a paragraph. Plain TEX default: 150
+---`\widowpenalty`: Additional penalty for breaking a page before the last line of a paragraph. Plain TeX default: `150`
 ---
 ---__Reference:__
 ---
@@ -1126,7 +1173,7 @@ tex.spacefactor = 0
 _N._10_3_2_2_dimension_parameters_read_write = "page 191"
 
 ---
----`\boxmaxdepth`: Maximum allowed depth of boxes. Plain TEX default: \maxdimen.
+---`\boxmaxdepth`: Maximum allowed depth of boxes. Plain TeX default: \maxdimen.
 ---
 ---__Reference:__
 ---
@@ -1138,7 +1185,7 @@ _N._10_3_2_2_dimension_parameters_read_write = "page 191"
 tex.boxmaxdepth = 0
 
 ---
----`\delimitershortfall`: Size of the part of a delimited formula that is allowed to go uncovered by a delimiter. Plain TEX default: 5pt
+---`\delimitershortfall`: Size of the part of a delimited formula that is allowed to go uncovered by a delimiter. Plain TeX default: 5pt
 ---
 ---__Reference:__
 ---
@@ -1234,7 +1281,7 @@ tex.hoffset = 0
 tex.hsize = 0
 
 ---
----`\lineskiplimit`: Distance to be maintained between the bottom and top of neighbouring boxes on a vertical list. Plain TEX default: 0pt.
+---`\lineskiplimit`: Distance to be maintained between the bottom and top of neighbouring boxes on a vertical list. Plain TeX default: 0pt.
 ---
 ---__Reference:__
 ---
@@ -1270,7 +1317,7 @@ tex.mathsurround = 0
 tex.maxdepth = 0
 
 ---
----`\nulldelimiterspace`: Width taken for empty delimiters. Plain TEX default: 1.2pt
+---`\nulldelimiterspace`: Width taken for empty delimiters. Plain TeX default: 1.2pt
 ---
 ---__Reference:__
 ---
@@ -1354,7 +1401,7 @@ tex.parindent = 0
 tex.predisplaysize = 0
 
 ---
----`\scriptspace` Extra space after subscripts and superscripts. Plain TEX default: 0.5pt
+---`\scriptspace` Extra space after subscripts and superscripts. Plain TeX default: 0.5pt
 ---
 ---__Reference:__
 ---
@@ -1366,7 +1413,7 @@ tex.predisplaysize = 0
 tex.scriptspace = 0
 
 ---
----`\splitmaxdepth` Maximum depth of a box split off by a `\vsplit` operation. Plain TEX default: `\maxdimen`
+---`\splitmaxdepth` Maximum depth of a box split off by a `\vsplit` operation. Plain TeX default: `\maxdimen`
 ---
 ---__Reference:__
 ---
@@ -1402,7 +1449,7 @@ tex.vfuzz = 0
 tex.voffset = 0
 
 ---
----`\vsize` Height of the page box. Plain TEX default: 8.9in
+---`\vsize` Height of the page box. Plain TeX default: 8.9in
 ---
 ---__Reference:__
 ---
@@ -1588,7 +1635,7 @@ tex.textdir = ""
 _N._10_3_2_4_glue_parameters = "page 193"
 
 ---
----`\abovedisplayshortskip` Glue abovea display if the line preceding the display was short. Plain TEX defaults: 0pt plus 3pt
+---`\abovedisplayshortskip` Glue abovea display if the line preceding the display was short. Plain TeX defaults: 0pt plus 3pt
 ---
 ---__Reference:__
 ---
@@ -1600,7 +1647,7 @@ _N._10_3_2_4_glue_parameters = "page 193"
 tex.abovedisplayshortskip = nil
 
 ---
----`\abovedisplayskip` Glue above a display. Plain TEX default: 12pt plus 3pt minus 9pt
+---`\abovedisplayskip` Glue above a display. Plain TeX default: 12pt plus 3pt minus 9pt
 ---
 ---__Reference:__
 ---
@@ -1612,7 +1659,7 @@ tex.abovedisplayshortskip = nil
 tex.abovedisplayskip = nil
 
 ---
----`\baselineskip` The ‘ideal’ baseline distance between neighbouring boxes on a vertical list. Plain TEX default: 12pt.
+---`\baselineskip` The ‘ideal’ baseline distance between neighbouring boxes on a vertical list. Plain TeX default: 12pt.
 ---
 ---__Reference:__
 ---
@@ -1624,7 +1671,7 @@ tex.abovedisplayskip = nil
 tex.baselineskip = nil
 
 ---
----`\belowdisplayshortskip` Glue above/below a display if the line preceding the display was short. Plain TEX defaults: 0pt plus 3pt and 7pt plus 3pt minus 4pt respectively.
+---`\belowdisplayshortskip` Glue above/below a display if the line preceding the display was short. Plain TeX defaults: 0pt plus 3pt and 7pt plus 3pt minus 4pt respectively.
 ---
 ---__Reference:__
 ---
@@ -1636,7 +1683,7 @@ tex.baselineskip = nil
 tex.belowdisplayshortskip = nil
 
 ---
----`\belowdisplayskip` Glue below a display. Plain TEX default: 12pt plus 3pt minus 9pt
+---`\belowdisplayskip` Glue below a display. Plain TeX default: 12pt plus 3pt minus 9pt
 ---
 ---__Reference:__
 ---
@@ -1660,7 +1707,7 @@ tex.belowdisplayskip = nil
 tex.leftskip = nil
 
 ---
----`\lineskip` Glue added if the distance between bottom and top of neighbouring boxes is less than `\lineskiplimit`. Plain TEX default: 1pt.
+---`\lineskip` Glue added if the distance between bottom and top of neighbouring boxes is less than `\lineskiplimit`. Plain TeX default: 1pt.
 ---
 ---__Reference:__
 ---
@@ -1672,7 +1719,7 @@ tex.leftskip = nil
 tex.lineskip = nil
 
 ---
----`\parfillskip` Glue that is placed between the last element of the paragraph and the line end. Plain TEX default: 0pt plus 1fil.
+---`\parfillskip` Glue that is placed between the last element of the paragraph and the line end. Plain TeX default: 0pt plus 1fil.
 ---
 ---__Reference:__
 ---
@@ -1684,7 +1731,7 @@ tex.lineskip = nil
 tex.parfillskip = nil
 
 ---
----`\parskip` Amount of glue added to the surrounding vertical list when a paragraph starts. Plain TEX default: 0pt plus 1pt.
+---`\parskip` Amount of glue added to the surrounding vertical list when a paragraph starts. Plain TeX default: 0pt plus 1pt.
 ---
 ---__Reference:__
 ---
@@ -1720,7 +1767,7 @@ tex.rightskip = nil
 tex.spaceskip = nil
 
 ---
----`\splittopskip` Minimum distance between the top of what remains after a `\vsplit` operation, and the first item in that box. Plain TEX default: 10pt
+---`\splittopskip` Minimum distance between the top of what remains after a `\vsplit` operation, and the first item in that box. Plain TeX default: 10pt
 ---
 ---__Reference:__
 ---
@@ -1744,7 +1791,7 @@ tex.splittopskip = nil
 tex.tabskip = nil
 
 ---
----`\topskip` Minimum distance between the top of the page box and the baseline of the first box on the page. Plain TEX default: 10pt
+---`\topskip` Minimum distance between the top of the page box and the baseline of the first box on the page. Plain TeX default: 10pt
 ---
 ---__Reference:__
 ---
