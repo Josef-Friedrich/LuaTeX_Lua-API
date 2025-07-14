@@ -2311,12 +2311,87 @@ function tex.getmark(position, class) end
 _N._10_3_6_character_code_registers_get_set_code_s_ = "page 196"
 
 ---
----*TeX*'s character code table `lccode` (lower case code) can be accessed and written to using
+---The *TeX*'s character code table `lccode` (lower case code) can be accessed and written to using
 ---a virtual subtable of the `tex` table.
+---
+---```lua
+---for i = 0, 1024 do
+--- -- Exclude C0 and C1 control codes
+---  if i > 31 and not (i >= 127 and i <= 159) then
+---    print(i, utf8.char(i), tex.lccode[i], utf8.char(tex.lccode[i]))
+---  end
+---end
+---```
+---
+---Output:
+---
+---```
+---...
+---65	A	97	a
+---66	B	98	b
+---67	C	99	c
+---68	D	100	d
+---69	E	101	e
+---70	F	102	f
+---71	G	103	g
+---72	H	104	h
+---73	I	105	i
+---74	J	106	j
+---75	K	107	k
+---76	L	108	l
+---77	M	109	m
+---78	N	110	n
+---79	O	111	o
+---80	P	112	p
+---81	Q	113	q
+---82	R	114	r
+---83	S	115	s
+---84	T	116	t
+---85	U	117	u
+---86	V	118	v
+---87	W	119	w
+---88	X	120	x
+---89	Y	121	y
+---90	Z	122	z
+---91	[	0
+---92	\	0
+---93	]	0
+---94	^	0
+---95	_	0
+---96	`	0
+---97	a	97	a
+---98	b	98	b
+---99	c	99	c
+---100	d	100	d
+---101	e	101	e
+---102	f	102	f
+---103	g	103	g
+---104	h	104	h
+---105	i	105	i
+---106	j	106	j
+---107	k	107	k
+---108	l	108	l
+---109	m	109	m
+---110	n	110	n
+---111	o	111	o
+---112	p	112	p
+---113	q	113	q
+---114	r	114	r
+---115	s	115	s
+---116	t	116	t
+---117	u	117	u
+---118	v	118	v
+---119	w	119	w
+---120	x	120	x
+---121	y	121	y
+---122	z	122	z
+---...
+---```
 ---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [ltexlib.c#L3708](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3708)
+---* Corresponding plain TeX control sequence: [\lccode](https://www.tug.org/utilities/plain/cseq.html#lccode-rp)
 ---
 ---@type table
 tex.lccode = {}
@@ -2325,35 +2400,44 @@ tex.lccode = {}
 ---Set the `lccode` (lower case code) and additionally
 ---the associated sibling for a character code at the same time.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [ltexlib.c#L1369-L1397](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1369-L1397)
+---* Corresponding plain TeX control sequence: [\lccode](https://www.tug.org/utilities/plain/cseq.html#lccode-rp)
 ---
 ---@param global 'global' # It is possible to define values globally by using the string `global` as the first function argument.
----@param char_code integer
----@param lc integer
----@param uc? integer
+---@param char_code integer # A Unicode code point for which a lowercase variant of the character is to be set, for example `65` stands for an uppercase `A` and `97` for a lowercase `a`.
+---@param lower_case integer # The Unicode code point for the lowercase variant of the character.
+---@param upper_case? integer # The Unicode code point for the uppercase variant of the character.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function tex.setlccode(global, char_code, lc, uc) end
+function tex.setlccode(global, char_code, lower_case, upper_case) end
 
 ---
 ---Set the `lccode` (lower case code) and additionally
 ---the associated sibling for a character code at the same time.
 ---
----* Corresponding C source code: [ltexlib.c#L1369-L1397](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1369-L1397)
+---__Reference:__
 ---
----@param char_code integer
----@param lc integer
----@param uc? integer
+---* Corresponding C source code: [ltexlib.c#L1369-L1397](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1369-L1397)
+---* Corresponding plain TeX control sequence: [\lccode](https://www.tug.org/utilities/plain/cseq.html#lccode-rp)
+---
+---@param char_code integer # A Unicode code point for which a lowercase variant of the character is to be set, for example `65` stands for an uppercase `A` and `97` for a lowercase `a`.
+---@param lower_case integer # The Unicode code point for the lowercase variant of the character.
+---@param upper_case? integer # The Unicode code point for the uppercase variant of the character.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function tex.setlccode(char_code, lc, uc) end
+function tex.setlccode(char_code, lower_case, upper_case) end
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [ltexlib.c#L1404-L1410](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1404-L1410)
+---* Corresponding plain TeX control sequence: [\lccode](https://www.tug.org/utilities/plain/cseq.html#lccode-rp)
 ---
----@param char_code integer
+---@param char_code integer # A Unicode code point for which a lowercase variant of the character should be returned, for example `65` stands for an uppercase `A` and `97` for a lowercase `a`.
 ---
----@return integer lc
+---@return integer lower_case # The Unicode code point for the lowercase variant of the character.
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.getlccode(char_code) end
 
@@ -2361,9 +2445,85 @@ function tex.getlccode(char_code) end
 ---*TeX*'s character code table `uccode` (upper case code) can be accessed and written to using
 ---a virtual subtable of the `tex` table.
 ---
+---
+---```lua
+---for i = 0, 1024 do
+--- -- Exclude C0 and C1 control codes
+---  if i > 31 and not (i >= 127 and i <= 159) then
+---    print(i, utf8.char(i), tex.uccode[i], utf8.char(tex.uccode[i]))
+---  end
+---end
+---```
+---
+---Output:
+---
+---```
+---...
+---65	A	65	A
+---66	B	66	B
+---67	C	67	C
+---68	D	68	D
+---69	E	69	E
+---70	F	70	F
+---71	G	71	G
+---72	H	72	H
+---73	I	73	I
+---74	J	74	J
+---75	K	75	K
+---76	L	76	L
+---77	M	77	M
+---78	N	78	N
+---79	O	79	O
+---80	P	80	P
+---81	Q	81	Q
+---82	R	82	R
+---83	S	83	S
+---84	T	84	T
+---85	U	85	U
+---86	V	86	V
+---87	W	87	W
+---88	X	88	X
+---89	Y	89	Y
+---90	Z	90	Z
+---91	[	0
+---92	\	0
+---93	]	0
+---94	^	0
+---95	_	0
+---96	`	0
+---97	a	65	A
+---98	b	66	B
+---99	c	67	C
+---100	d	68	D
+---101	e	69	E
+---102	f	70	F
+---103	g	71	G
+---104	h	72	H
+---105	i	73	I
+---106	j	74	J
+---107	k	75	K
+---108	l	76	L
+---109	m	77	M
+---110	n	78	N
+---111	o	79	O
+---112	p	80	P
+---113	q	81	Q
+---114	r	82	R
+---115	s	83	S
+---116	t	84	T
+---117	u	85	U
+---118	v	86	V
+---119	w	87	W
+---120	x	88	X
+---121	y	89	Y
+---122	z	90	Z
+---...
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [ltexlib.c#L3709](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3709)
+---* Corresponding plain TeX control sequence: [\uccode](https://www.tug.org/utilities/plain/cseq.html#uccode-rp)
 ---
 ---@type table
 tex.uccode = {}
@@ -2372,35 +2532,49 @@ tex.uccode = {}
 ---The function call interface for `uccode` (upper case code) additionally
 ---allows you to set the associated sibling at the same time.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [ltexlib.c#L1369-L1397](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1369-L1397)
+---* Corresponding plain TeX control sequence: [\uccode](https://www.tug.org/utilities/plain/cseq.html#uccode-rp)
 ---
 ---@param global 'global' # It is possible to define values globally by using the string `global` as the first function argument.
----@param char_code integer
----@param uc integer
----@param lc? integer
+---@param char_code integer # A Unicode code point for which a uppercase variant of the character is to be set, for example `65` stands for an uppercase `A` and `97` for a lowercase `a`.
+---@param upper_case integer # The Unicode code point for the uppercase variant of the character.
+---@param lower_case? integer # The Unicode code point for the lowercase variant of the character.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function tex.setuccode(global, char_code, uc, lc) end
+function tex.setuccode(global, char_code, upper_case, lower_case) end
 
 ---
 ---The function call interface for `uccode` (upper case code) additionally
 ---allows you to set the associated sibling at the same time.
 ---
----* Corresponding C source code: [ltexlib.c#L1369-L1397](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1369-L1397)
+---__Reference:__
 ---
----@param char_code integer
----@param uc integer
----@param lc? integer
+---* Corresponding C source code: [ltexlib.c#L1369-L1397](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1369-L1397)
+---* Corresponding plain TeX control sequence: [\uccode](https://www.tug.org/utilities/plain/cseq.html#uccode-rp)
+---
+---@param char_code integer # A Unicode code point for which a uppercase variant of the character is to be set, for example `65` stands for an uppercase `A` and `97` for a lowercase `a`.
+---@param upper_case integer # The Unicode code point for the uppercase variant of the character.
+---@param lower_case? integer # The Unicode code point for the lowercase variant of the character.
+---
+---@see tex.getuccode
+---@see tex.setlccode
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function tex.setuccode(char_code, uc, lc) end
+function tex.setuccode(char_code, upper_case, lower_case) end
 
 ---
+---Corresponding plain TeX control sequence: [\uccode](https://www.tug.org/utilities/plain/cseq.html#uccode-rp)
+---
+---__Reference:__
+---
 ---* Corresponding C source code: [ltexlib.c#L1417-L1423](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1417-L1423)
+---* Corresponding plain TeX control sequence: [\uccode](https://www.tug.org/utilities/plain/cseq.html#uccode-rp)
 ---
----@param char_code integer
+---@param char_code integer # A Unicode code point for which a uppercase variant of the character should be returned, for example `65` stands for an uppercase `A` and `97` for a lowercase `a`.
 ---
----@return integer uc
+---@return integer upper_case # The Unicode code point for the uppercase variant of the character.
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.getuccode(char_code) end
 
@@ -2411,12 +2585,16 @@ function tex.getuccode(char_code) end
 ---__Reference:__
 ---
 ---* Corresponding C source code: [ltexlib.c#L3707](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3707)
+---* Corresponding plain TeX control sequence: [\sfcode](https://www.tug.org/utilities/plain/cseq.html#sfcode-rp)
 ---
 ---@type table
 tex.sfcode = {}
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [ltexlib.c#L1425-L1428](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1425-L1428)
+---* Corresponding plain TeX control sequence: [\sfcode](https://www.tug.org/utilities/plain/cseq.html#sfcode-rp)
 ---
 ---@param global 'global' # It is possible to define values globally by using the string `global` as the first function argument.
 ---@param char_code integer
@@ -2426,7 +2604,10 @@ tex.sfcode = {}
 function tex.setsfcode(global, char_code, sf) end
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [ltexlib.c#L1425-L1428](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1425-L1428)
+---* Corresponding plain TeX control sequence: [\sfcode](https://www.tug.org/utilities/plain/cseq.html#sfcode-rp)
 ---
 ---@param char_code integer
 ---@param sf integer
@@ -2435,7 +2616,10 @@ function tex.setsfcode(global, char_code, sf) end
 function tex.setsfcode(char_code, sf) end
 
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [ltexlib.c#L1430-L1436](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1430-L1436)
+---* Corresponding plain TeX control sequence: [\sfcode](https://www.tug.org/utilities/plain/cseq.html#sfcode-rp)
 ---
 ---@param n integer
 ---
@@ -2958,6 +3142,7 @@ function tex.getcatcode(cat_table, char_code) end
 ---__Reference:__
 ---
 ---* Corresponding C source code: [ltexlib.c#L3711](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3711)
+---* Corresponding plain TeX control sequence: [\mathcode](https://www.tug.org/utilities/plain/cseq.html#mathcode-rp)
 ---* [tex.stackexchange.com](https://tex.stackexchange.com/a/109440)
 ---
 ---@type table
@@ -3118,6 +3303,7 @@ tex.mathcode = {}
 ---__Reference:__
 ---
 ---* Corresponding C source code: [ltexlib.c#L1524-1561](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1524-1561)
+---* Corresponding plain TeX control sequence: [\mathcode](https://www.tug.org/utilities/plain/cseq.html#mathcode-rp)
 ---* Donald E. Knuth: The TeXbook, Page 154
 ---* TUGboat, Volume 31 (2010), No. 1, Mathematical typefaces in TEX documents, Amit Raj Dhawan
 ---
@@ -3270,6 +3456,7 @@ function tex.setmathcode(global, char_code, class, family, character) end
 ---__Reference:__
 ---
 ---* Corresponding C source code: [ltexlib.c#L1524-L1561](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1524-L1561)
+---* Corresponding plain TeX control sequence: [\mathcode](https://www.tug.org/utilities/plain/cseq.html#mathcode-rp)
 ---* Donald E. Knuth: The TeXbook, Page 154
 ---* TUGboat, Volume 31 (2010), No. 1, Mathematical typefaces in TEX documents, Amit Raj Dhawan
 ---
@@ -3285,6 +3472,7 @@ function tex.setmathcode(global, char_code, class, family, character) end
 ---__Reference:__
 ---
 ---* Corresponding C source code: [ltexlib.c#L1524-L1561](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1524-L1561)
+---* Corresponding plain TeX control sequence: [\mathcode](https://www.tug.org/utilities/plain/cseq.html#mathcode-rp)
 ---
 ---@param global 'global' # It is possible to define values globally by using the string `global` as the first function argument.
 ---@param char_code integer # The ASCII or UNICODE charcater code point.
@@ -3296,6 +3484,7 @@ function tex.setmathcode(global, char_code, math_code) end
 ---__Reference:__
 ---
 ---* Corresponding C source code: [ltexlib.c#L1524-L1561](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1524-L1561)
+---* Corresponding plain TeX control sequence: [\mathcode](https://www.tug.org/utilities/plain/cseq.html#mathcode-rp)
 ---
 ---@param char_code integer  # The ASCII or UNICODE charcater code point.
 ---@param math_code MathCode # A table with three integers (class, family, character).
@@ -3334,6 +3523,7 @@ function tex.setmathcode(char_code, math_code) end
 ---__Reference:__
 ---
 ---* Corresponding C source code: [ltexlib.c#L1563-L1577](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1563-L1577)
+---* Corresponding plain TeX control sequence: [\mathcode](https://www.tug.org/utilities/plain/cseq.html#mathcode-rp)
 ---
 ---@param char_code integer
 ---
@@ -3508,6 +3698,7 @@ function tex.getmathcode(char_code) end
 ---__Reference:__
 ---
 ---* Corresponding C source code: [ltexlib.c#L1579-L1589](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1579-L1589)
+---* Corresponding plain TeX control sequence: [\mathcode](https://www.tug.org/utilities/plain/cseq.html#mathcode-rp)
 ---* Donald E. Knuth: The TeXbook, Page 154
 ---* TUGboat, Volume 31 (2010), No. 1, Mathematical typefaces in TEX documents, Amit Raj Dhawan
 ---
@@ -3574,6 +3765,7 @@ function tex.getmathcodes(char_code) end
 ---__Reference:__
 ---
 ---* Corresponding C source code: [ltexlib.c#L3712](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3712)
+---* Corresponding plain TeX control sequence: [\delcode](https://www.tug.org/utilities/plain/cseq.html#delcode-rp)
 ---
 ---@type table
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -3595,7 +3787,10 @@ tex.delcode = {}
 ---@alias DelCode integer[]
 
 ---
+----__Reference:__
+---
 ---* Corresponding C source code: [ltexlib.c#L1640-L1681](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1640-L1681)
+---* Corresponding plain TeX control sequence: [\delcode](https://www.tug.org/utilities/plain/cseq.html#delcode-rp)
 ---
 ---@param global 'global' # It is possible to define values globally by using the string `global` as the first function argument.
 ---@param char_code integer
@@ -3607,7 +3802,10 @@ tex.delcode = {}
 function tex.setdelcode(global, char_code, small_family, small_character, large_family, large_character) end
 
 ---
+----__Reference:__
+---
 ---* Corresponding C source code: [ltexlib.c#L1640-L1681](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1640-L1681)
+---* Corresponding plain TeX control sequence: [\delcode](https://www.tug.org/utilities/plain/cseq.html#delcode-rp)
 ---
 ---@param char_code integer
 ---@param small_family integer
@@ -3619,6 +3817,7 @@ function tex.setdelcode(char_code, small_family, small_character, large_family, 
 
 ---
 ---* Corresponding C source code: [ltexlib.c#L1640-L1681](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1640-L1681)
+---* Corresponding plain TeX control sequence: [\delcode](https://www.tug.org/utilities/plain/cseq.html#delcode-rp)
 ---
 ---@param global 'global' # It is possible to define values globally by using the string `global` as the first function argument.
 ---@param char_code integer
@@ -3627,7 +3826,10 @@ function tex.setdelcode(char_code, small_family, small_character, large_family, 
 function tex.setdelcode(global, char_code, del_code) end
 
 ---
+----__Reference:__
+---
 ---* Corresponding C source code: [ltexlib.c#L1640-L1681](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1640-L1681)
+---* Corresponding plain TeX control sequence: [\delcode](https://www.tug.org/utilities/plain/cseq.html#delcode-rp)
 ---
 ---@param char_code integer
 ---@param del_code DelCode
@@ -3636,6 +3838,7 @@ function tex.setdelcode(char_code, del_code) end
 
 ---
 ---* Corresponding C source code: [ltexlib.c#L1701-L1712](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1701-L1712)
+---* Corresponding plain TeX control sequence: [\delcode](https://www.tug.org/utilities/plain/cseq.html#delcode-rp)
 ---
 ---@param char_code integer
 ---
@@ -3647,7 +3850,10 @@ function tex.setdelcode(char_code, del_code) end
 function tex.getdelcodes(char_code) end
 
 ---
+----__Reference:__
+---
 ---* Corresponding C source code: [ltexlib.c#L1683-L1699](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1683-L1699)
+---* Corresponding plain TeX control sequence: [\delcode](https://www.tug.org/utilities/plain/cseq.html#delcode-rp)
 ---
 ---@param char_code integer
 ---
@@ -3661,17 +3867,16 @@ _N._10_3_7_box_registers_get_set_box = "page 197"
 ---__Reference:__
 ---
 ---* Corresponding C source code: [ltexlib.c#L3706](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3706)
----
+---* Corresponding plain TeX control sequence: [\box](https://www.tug.org/utilities/plain/cseq.html#box-rp)
 tex.box = {}
 
 ---
 ---Set a box, coming for instance from `hbox`, `vbox` or `vtop`.
 ---
----It is possible to
----define values globally by using the string `global` as the first function
----argument.
+---__Reference:__
 ---
 ---* Corresponding C source code: [ltexlib.c#L1352-L1362](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1352-L1362)
+---* Corresponding plain TeX control sequence: [\setbox](https://www.tug.org/utilities/plain/cseq.html#setbox-rp)
 ---
 ---@param global 'global' # It is possible to define values globally by using the string `global` as the first function argument.
 ---@param register integer # A box register number (0 to 65535).
@@ -3682,11 +3887,10 @@ function tex.setbox(global, register, head) end
 ---
 ---Set a box, coming for instance from `hbox`, `vbox` or `vtop`.
 ---
----It is possible to
----define values globally by using the string `global` as the first function
----argument.
+---__Reference:__
 ---
 ---* Corresponding C source code: [ltexlib.c#L1352-L1362](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1352-L1362)
+---* Corresponding plain TeX control sequence: [\setbox](https://www.tug.org/utilities/plain/cseq.html#setbox-rp)
 ---
 ---@param register integer # A box register number (0 to 65535).
 ---@param head Node # A `hlist` or `vlist` node.
@@ -3696,7 +3900,10 @@ function tex.setbox(register, head) end
 ---
 ---Query an actual box, coming for instance from `hbox`, `vbox` or `vtop`.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [ltexlib.c#L1272-L1280](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1272-L1280)
+---* Corresponding plain TeX control sequence: [\box](https://www.tug.org/utilities/plain/cseq.html#box-rp)
 ---
 ---@param register integer|string # A box register number (0 to 65535) or a cs name (for example `\newbox\MyBox`: `MyBox`)
 ---
@@ -3713,6 +3920,8 @@ function tex.getbox(register) end
 ---print(tex.isbox(65535)) -- true
 ---print(tex.isbox(65536)) -- false
 ---```
+---
+---__Reference:__
 ---
 ---* Corresponding C source code: [ltexlib.c#L1310-L1315](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1310-L1315)
 ---

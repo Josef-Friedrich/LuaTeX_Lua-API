@@ -507,12 +507,15 @@ Documentation for the field `data` of the `pdf_colorstack` node:
 * [FiveM Lua Stubs](https://github.com/jamie-34254/fivem_lua_stubs)
 
 
+## References
+
 ```lua
 ---
 ---__Reference:__
 ---
+---* Corresponding C source code: [ltexlib.c#L1430-L1436](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1430-L1436)
 ---* Source code of the `LuaTeX` manual: [luatex-nodes.tex#L1199-L1211](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L1199-L1211)
----
+---* Corresponding plain TeX control sequence: [\sfcode](https://www.tug.org/utilities/plain/cseq.html#sfcode-rp)
 ```
 
 ```lua
