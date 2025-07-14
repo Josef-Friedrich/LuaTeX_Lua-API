@@ -2398,7 +2398,6 @@ function tex.getlccode(char_code) end
 ---*TeX*'s character code table `uccode` (upper case code) can be accessed and written to using
 ---a virtual subtable of the `tex` table.
 ---
----
 ---```lua
 ---for i = 0, 1024 do
 --- -- Exclude C0 and C1 control codes
@@ -3685,6 +3684,7 @@ function tex.getmathcodes(char_code) end
 ---a virtual subtable of the `tex` table.
 ---
 
+---
 ---```lua
 ---for i=1,128 do
 ---  local delcode = tex.delcode[i]
