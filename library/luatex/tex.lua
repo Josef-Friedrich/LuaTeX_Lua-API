@@ -2330,60 +2330,13 @@ _N._10_3_6_character_code_registers_get_set_code_s_ = "page 196"
 ---65	A	97	a
 ---66	B	98	b
 ---67	C	99	c
----68	D	100	d
----69	E	101	e
----70	F	102	f
----71	G	103	g
----72	H	104	h
----73	I	105	i
----74	J	106	j
----75	K	107	k
----76	L	108	l
----77	M	109	m
----78	N	110	n
----79	O	111	o
----80	P	112	p
----81	Q	113	q
----82	R	114	r
----83	S	115	s
----84	T	116	t
----85	U	117	u
----86	V	118	v
----87	W	119	w
----88	X	120	x
----89	Y	121	y
+---...
 ---90	Z	122	z
----91	[	0
----92	\	0
----93	]	0
----94	^	0
----95	_	0
----96	`	0
+---...
 ---97	a	97	a
 ---98	b	98	b
 ---99	c	99	c
----100	d	100	d
----101	e	101	e
----102	f	102	f
----103	g	103	g
----104	h	104	h
----105	i	105	i
----106	j	106	j
----107	k	107	k
----108	l	108	l
----109	m	109	m
----110	n	110	n
----111	o	111	o
----112	p	112	p
----113	q	113	q
----114	r	114	r
----115	s	115	s
----116	t	116	t
----117	u	117	u
----118	v	118	v
----119	w	119	w
----120	x	120	x
----121	y	121	y
+---...
 ---122	z	122	z
 ---...
 ---```
@@ -2393,7 +2346,7 @@ _N._10_3_6_character_code_registers_get_set_code_s_ = "page 196"
 ---* Corresponding C source code: [ltexlib.c#L3708](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3708)
 ---* Corresponding plain TeX control sequence: [\lccode](https://www.tug.org/utilities/plain/cseq.html#lccode-rp)
 ---
----@type table
+---@type table<integer, integer>
 tex.lccode = {}
 
 ---
@@ -2462,60 +2415,13 @@ function tex.getlccode(char_code) end
 ---65	A	65	A
 ---66	B	66	B
 ---67	C	67	C
----68	D	68	D
----69	E	69	E
----70	F	70	F
----71	G	71	G
----72	H	72	H
----73	I	73	I
----74	J	74	J
----75	K	75	K
----76	L	76	L
----77	M	77	M
----78	N	78	N
----79	O	79	O
----80	P	80	P
----81	Q	81	Q
----82	R	82	R
----83	S	83	S
----84	T	84	T
----85	U	85	U
----86	V	86	V
----87	W	87	W
----88	X	88	X
----89	Y	89	Y
+---...
 ---90	Z	90	Z
----91	[	0
----92	\	0
----93	]	0
----94	^	0
----95	_	0
----96	`	0
+---...
 ---97	a	65	A
 ---98	b	66	B
 ---99	c	67	C
----100	d	68	D
----101	e	69	E
----102	f	70	F
----103	g	71	G
----104	h	72	H
----105	i	73	I
----106	j	74	J
----107	k	75	K
----108	l	76	L
----109	m	77	M
----110	n	78	N
----111	o	79	O
----112	p	80	P
----113	q	81	Q
----114	r	82	R
----115	s	83	S
----116	t	84	T
----117	u	85	U
----118	v	86	V
----119	w	87	W
----120	x	88	X
----121	y	89	Y
+---...
 ---122	z	90	Z
 ---...
 ---```
@@ -2525,7 +2431,7 @@ function tex.getlccode(char_code) end
 ---* Corresponding C source code: [ltexlib.c#L3709](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3709)
 ---* Corresponding plain TeX control sequence: [\uccode](https://www.tug.org/utilities/plain/cseq.html#uccode-rp)
 ---
----@type table
+---@type table<integer, integer>
 tex.uccode = {}
 
 ---
@@ -2579,17 +2485,77 @@ function tex.setuccode(char_code, upper_case, lower_case) end
 function tex.getuccode(char_code) end
 
 ---
----*TeX*'s character code table `sfcode` (space factor code) can be accessed and written to using
----a virtual subtable of the `tex` table.
+---Each character in a font has a space factor code that is an integer
+---between `0` and `32767`. The code is used to adjust the space factor
+---in a horizontal list. The uppercase letters `A-Z` have space factor
+---code `999`. Most other characters have code `1000` [Donald E. Knuth, The TeXbook, page 76]. However,
+---Plain TeX makes `)', `'', and `]' have space factor code `0`.
+---Also, the `\frenchspacing` and `\nonfrenchspacing` modes in Plain
+---TeX work by changing the `\sfcode` for: `.`, `?`, `!`, `:`, `;`,
+---and `,` [Donald E. Knuth, The TeXbook, 351].
+---
+---*TeX*'s character code table `sfcode` (space factor code) can be
+---accessed and written to using a virtual subtable of the `tex` table.
+---
+---```lua
+---for i = 0, 1024 do
+---  -- Exclude C0 and C1 control codes
+---  if i > 31 and not (i >= 127 and i <= 159) then
+---    print(i, utf8.char(i), tex.sfcode[i])
+---  end
+---end
+---```
+---
+---Output:
+---
+---```
+---32	 	1000
+---33	!	3000
+---34	"	1000
+---35	#	1000
+---36	$	1000
+---37	%	1000
+---38	&	1000
+---39	'	0
+---40	(	1000
+---41	)	0
+---42	*	1000
+---43	+	1000
+---44	,	1250
+---45	-	1000
+---46	.	3000
+---47	/	1000
+---48	0	1000
+---49	1	1000
+---50	2	1000
+---51	3	1000
+---52	4	1000
+---53	5	1000
+---54	6	1000
+---55	7	1000
+---56	8	1000
+---57	9	1000
+---58	:	2000
+---59	;	1500
+---60	<	1000
+---61	=	1000
+---62	>	1000
+---63	?	3000
+---64	@	1000
+---65	A	999
+---...
+---```
 ---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [ltexlib.c#L3707](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3707)
 ---* Corresponding plain TeX control sequence: [\sfcode](https://www.tug.org/utilities/plain/cseq.html#sfcode-rp)
 ---
----@type table
+---@type table<integer, integer>
 tex.sfcode = {}
 
+---
+---Set the space factor code for a character globally.
 ---
 ---__Reference:__
 ---
@@ -2597,35 +2563,39 @@ tex.sfcode = {}
 ---* Corresponding plain TeX control sequence: [\sfcode](https://www.tug.org/utilities/plain/cseq.html#sfcode-rp)
 ---
 ---@param global 'global' # It is possible to define values globally by using the string `global` as the first function argument.
----@param char_code integer
----@param sf integer
+---@param char_code integer # A Unicode code point, for example `65` stands for an uppercase `A` and `97` for a lowercase `a`.
+---@param space_factor integer # The code (between `0` and `32767`) to adjust the space factor in a horizontal list. The uppercase letters `A-Z` have space factor code `999`. Most other characters have code `1000`.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function tex.setsfcode(global, char_code, sf) end
+function tex.setsfcode(global, char_code, space_factor) end
 
+---
+---Set the space factor code for a character.
 ---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [ltexlib.c#L1425-L1428](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1425-L1428)
 ---* Corresponding plain TeX control sequence: [\sfcode](https://www.tug.org/utilities/plain/cseq.html#sfcode-rp)
 ---
----@param char_code integer
----@param sf integer
+---@param char_code integer # A Unicode code point, for example `65` stands for an uppercase `A` and `97` for a lowercase `a`.
+---@param space_factor integer # The code (between `0` and `32767`) to adjust the space factor in a horizontal list. The uppercase letters `A-Z` have space factor code `999`. Most other characters have code `1000`.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function tex.setsfcode(char_code, sf) end
+function tex.setsfcode(char_code, space_factor) end
 
+---
+---Get the space factor code of a character.
 ---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [ltexlib.c#L1430-L1436](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1430-L1436)
 ---* Corresponding plain TeX control sequence: [\sfcode](https://www.tug.org/utilities/plain/cseq.html#sfcode-rp)
 ---
----@param n integer
+---@param char_code integer # A Unicode code point, for example `65` stands for an uppercase `A` and `97` for a lowercase `a`.
 ---
----@return integer s
+---@return integer space_factor # The code (between `0` and `32767`) to adjust the space factor in a horizontal list. The uppercase letters `A-Z` have space factor code `999`. Most other characters have code `1000`.
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function tex.getsfcode(n) end
+function tex.getsfcode(char_code) end
 
 ---
 ---A virtual subtable of the `tex` table called `catcode` (category code) can be used to access and write to TeX's character code table.
@@ -2758,7 +2728,7 @@ function tex.getsfcode(n) end
 ---
 ---* Corresponding C source code: [ltexlib.c#L3710](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3710)
 ---
----@type table
+---@type table<integer, integer>
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex.catcode = {}
 
@@ -3145,7 +3115,7 @@ function tex.getcatcode(cat_table, char_code) end
 ---* Corresponding plain TeX control sequence: [\mathcode](https://www.tug.org/utilities/plain/cseq.html#mathcode-rp)
 ---* [tex.stackexchange.com](https://tex.stackexchange.com/a/109440)
 ---
----@type table
+---@type table<integer, MathCode>
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex.mathcode = {}
 
@@ -3767,7 +3737,7 @@ function tex.getmathcodes(char_code) end
 ---* Corresponding C source code: [ltexlib.c#L3712](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3712)
 ---* Corresponding plain TeX control sequence: [\delcode](https://www.tug.org/utilities/plain/cseq.html#delcode-rp)
 ---
----@type table
+---@type table<integer, DelCode>
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex.delcode = {}
 
@@ -3868,6 +3838,8 @@ _N._10_3_7_box_registers_get_set_box = "page 197"
 ---
 ---* Corresponding C source code: [ltexlib.c#L3706](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3706)
 ---* Corresponding plain TeX control sequence: [\box](https://www.tug.org/utilities/plain/cseq.html#box-rp)
+---
+---@type table<integer, Node>
 tex.box = {}
 
 ---
