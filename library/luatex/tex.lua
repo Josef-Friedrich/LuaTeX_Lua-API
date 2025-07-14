@@ -10,19 +10,263 @@ tex = {}
 _N._10_3_2_internal_parameter_values_set_get = "page 190"
 
 ---
----Set the given TeX parameter.
----
----When you set a glue quantity you can either pass a `glue_spec` or upto five numbers.
----It is possible to use `global` as the first argument to `tex.set`; this makes the assignment global instead of local.
+---The integer parameters accept and return Lua numbers. These are read-write:
 ---
 ---__Reference:__
 ---
----* Corresponding C source code: [ltexlib.c#L1714-L1813](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1714-L1813)
+---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L284-350](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L284-350)
+---@alias ReadWriteIntegerParameter
+---| 'adjdemerits'
+---| 'binoppenalty'
+---| 'brokenpenalty'
+---| 'catcodetable'
+---| 'clubpenalty'
+---| 'day'
+---| 'defaulthyphenchar'
+---| 'defaultskewchar'
+---| 'delimiterfactor'
+---| 'displaywidowpenalty'
+---| 'doublehyphendemerits'
+---| 'endlinechar'
+---| 'errorcontextlines'
+---| 'escapechar'
+---| 'exhyphenpenalty'
+---| 'fam'
+---| 'finalhyphendemerits'
+---| 'floatingpenalty'
+---| 'globaldefs'
+---| 'hangafter'
+---| 'hbadness'
+---| 'holdinginserts'
+---| 'hyphenpenalty'
+---| 'interlinepenalty'
+---| 'language'
+---| 'lastlinefit'
+---| 'lefthyphenmin'
+---| 'linepenalty'
+---| 'localbrokenpenalty'
+---| 'localinterlinepenalty'
+---| 'looseness'
+---| 'mag'
+---| 'maxdeadcycles'
+---| 'month'
+---| 'newlinechar'
+---| 'outputpenalty'
+---| 'pausing'
+---| 'postdisplaypenalty'
+---| 'predisplaydirection'
+---| 'predisplaypenalty'
+---| 'pretolerance'
+---| 'relpenalty'
+---| 'righthyphenmin'
+---| 'savinghyphcodes'
+---| 'savingvdiscards'
+---| 'showboxbreadth'
+---| 'showboxdepth'
+---| 'time'
+---| 'tolerance'
+---| 'tracingassigns'
+---| 'tracingcommands'
+---| 'tracinggroups'
+---| 'tracingifs'
+---| 'tracinglostchars'
+---| 'tracingmacros'
+---| 'tracingnesting'
+---| 'tracingonline'
+---| 'tracingoutput'
+---| 'tracingpages'
+---| 'tracingparagraphs'
+---| 'tracingrestores'
+---| 'tracingscantokens'
+---| 'tracingstats'
+---| 'uchyph'
+---| 'vbadness'
+---| 'widowpenalty'
+---| 'year'
+
 ---
----@param global 'global'
----@param parameter string
+---The integer parameters accept and return Lua numbers. These are read-only:
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L358-366](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L358-366)
+---@alias ReadOnlyIntegerParameter
+---| 'deadcycles'
+---| 'insertpenalties'
+---| 'parshape'
+---| 'interlinepenalties'
+---| 'clubpenalties'
+---| 'widowpenalties'
+---| 'displaywidowpenalties'
+---| 'prevgraf'
+---| 'spacefactor'
+
+---
+---The dimension parameters accept Lua numbers (signifying scaled points) or
+---strings (with included dimension). The result is always a number in scaled
+---points. These are read-write:
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L378-407](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L378-407)
+---@alias ReadWriteDimensionParameter
+---| 'boxmaxdepth'
+---| 'delimitershortfall'
+---| 'displayindent'
+---| 'displaywidth'
+---| 'emergencystretch'
+---| 'hangindent'
+---| 'hfuzz'
+---| 'hoffset'
+---| 'hsize'
+---| 'lineskiplimit'
+---| 'mathsurround'
+---| 'maxdepth'
+---| 'nulldelimiterspace'
+---| 'overfullrule'
+---| 'pagebottomoffset'
+---| 'pageheight'
+---| 'pageleftoffset'
+---| 'pagerightoffset'
+---| 'pagetopoffset'
+---| 'pagewidth'
+---| 'parindent'
+---| 'predisplaysize'
+---| 'scriptspace'
+---| 'splitmaxdepth'
+---| 'vfuzz'
+---| 'voffset'
+---| 'vsize'
+---| 'prevdepth'
+---| 'prevgraf'
+---| 'spacefactor'
+
+---
+---The dimension parameters accept Lua numbers (signifying scaled points) or
+---strings (with included dimension). The result is always a number in scaled
+---points. These are read-only:
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L415-422](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L415-422)
+---@alias ReadOnlyDimensionParameter
+---| 'pagedepth'
+---| 'pagefilllstretch'
+---| 'pagefillstretch'
+---| 'pagefilstretch'
+---| 'pagegoal'
+---| 'pageshrink'
+---| 'pagestretch'
+---| 'pagetotal'
+
+---
+---The direction parameters are read-only and return a Lua string.
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L465-469](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L465-469)
+---@alias DirectionParameter
+---| 'bodydir'
+---| 'mathdir'
+---| 'pagedir'
+---| 'pardir'
+---| 'textdir'
+
+---
+---The glue parameters accept and return a userdata object that
+---represents a `glue_spec` node.
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L479-493](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L479-493)
+---@alias GlueParameter
+---| 'abovedisplayshortskip'
+---| 'abovedisplayskip'
+---| 'baselineskip'
+---| 'belowdisplayshortskip'
+---| 'belowdisplayskip'
+---| 'leftskip'
+---| 'lineskip'
+---| 'parfillskip'
+---| 'parskip'
+---| 'rightskip'
+---| 'spaceskip'
+---| 'splittopskip'
+---| 'tabskip'
+---| 'topskip'
+---| 'xspaceskip'
+
+---
+---All muglue parameters are to be used read-only and return a Lua string.
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L503-505](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L503-505)
+---@alias MuglueParameter
+---| 'medmuskip'
+---| 'thickmuskip'
+---| 'thinmuskip'
+
+---
+---The tokenlist parameters accept and return Lua strings. Lua strings are
+---converted to and from token lists using `\the\toks` style expansion:
+---all category codes are either space (10) or other (12). It follows that assigning
+---to some of these, like `tex.output`, is actually useless, but it feels bad
+---to make exceptions in view of a coming extension that will accept full-blown
+---token strings.
+---
+---__Reference:__
+---
+---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L520-529](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L520-529)
+---@alias TokenlistParameter
+---| 'errhelp'
+---| 'everycr'
+---| 'everydisplay'
+---| 'everyeof'
+---| 'everyhbox'
+---| 'everyjob'
+---| 'everymath'
+---| 'everypar'
+---| 'everyvbox'
+---| 'output'
+
+---
+---@alias InternalParameter
+---| ReadWriteIntegerParameter
+---| ReadOnlyIntegerParameter
+---| ReadWriteDimensionParameter
+---| ReadOnlyDimensionParameter
+---| DirectionParameter
+---| GlueParameter
+---| MuglueParameter
+---| TokenlistParameter
+
+---
+---Set the given TeX parameter.
+---
+---When you set a glue quantity you can either pass a `glue_spec` or upto five numbers.
+---
+---__Reference:__
+---
+---* Corresponding C source code: [ltexlib.c#L1714-1813](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/80a00d7131ae569d4a49f374e988226fe20de0d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1714-1813)
+---
+---@param global 'global' # It is possible to use `global` as the first argument to `tex.set`; this makes the assignment global instead of local.
+---@param parameter InternalParameter
 ---@param ... any
 function tex.set(global, parameter, ...) end
+
+---
+---Set the given TeX parameter.
+---
+---When you set a glue quantity you can either pass a `glue_spec` or upto five numbers.
+---
+---__Reference:__
+---
+---* Corresponding C source code: [ltexlib.c#L1714-1813](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/80a00d7131ae569d4a49f374e988226fe20de0d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1714-1813)
+---
+---@param parameter InternalParameter
+---@param ... any
+function tex.set(parameter, ...) end
 
 ---
 ---Query the given TeX parameter.
@@ -43,7 +287,7 @@ function tex.set(global, parameter, ...) end
 ---__Reference:__
 ---
 ---* Corresponding C source code: [ltexlib.c#L2120-L2200](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L2120-L2200)
----@param parameter string
+---@param parameter InternalParameter
 ---@param opts? boolean
 ---
 ---@return any ...
@@ -449,7 +693,7 @@ tex.month = 0
 tex.newlinechar = 0
 
 ---
----`\outputpenalty`: hinteger parameteri Value of the penalty at the current page break, or 10 000 if the break was not at a penalty.
+---`\outputpenalty`: Value of the penalty at the current page break, or 10 000 if the break was not at a penalty.
 ---
 ---__Reference:__
 ---
