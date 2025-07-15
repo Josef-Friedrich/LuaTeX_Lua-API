@@ -124,21 +124,21 @@ _N._10_3_2_internal_parameter_values_set_get = "page 190"
 ---| 'maxdepth' # Maximum depth of the page box. Default: `4pt`.
 ---| 'nulldelimiterspace' # Width taken for empty delimiters. Default: `1.2pt`.
 ---| 'overfullrule' # Width of the rule that is printed to indicate overfull horizontal boxes.
----| 'pagebottomoffset'
----| 'pageheight'
----| 'pageleftoffset'
----| 'pagerightoffset'
----| 'pagetopoffset'
----| 'pagewidth'
----| 'parindent'
----| 'predisplaysize'
----| 'scriptspace'
----| 'splitmaxdepth'
----| 'vfuzz'
----| 'voffset'
----| 'vsize'
+---| 'pagebottomoffset' # To set the bottom margin in non-TLT text.
+---| 'pageheight' # The page height of the PDF output (the screen, the paper, etc.).
+---| 'pageleftoffset' # To set the left margin in non-TLT text.
+---| 'pagerightoffset' # To set the right margin in non-TLT text.
+---| 'pagetopoffset' # To set the top margin in non-TLT text.
+---| 'pagewidth' # The page width of the PDF output (the screen, the paper, etc.).
+---| 'parindent' # Width of the indentation box added in front of a paragraph. Default: `20pt`.
+---| 'predisplaysize' # Effective width of the line preceding the display.
+---| 'scriptspace' # Extra space after subscripts and superscripts. Default: `0.5pt`.
+---| 'splitmaxdepth' # Maximum depth of a box split off by a `\vsplit` operation. Default: `\maxdimen`.
+---| 'vfuzz' # Excess size that TeX tolerates before it considers a vertical box overfull.
+---| 'voffset' # Distance by which the page is shifted right/down with respect to the reference point.
+---| 'vsize' # Height of the page box. Default: `8.9in`.
 ---| 'prevdepth' # Depth of the last box added to a vertical list as it is perceived by TeX.
----| 'prevgraf'
+---| 'prevgraf' # The number of lines in the paragraph last added to the vertical list.
 ---| 'spacefactor' # `1000` times the ratio by which the stretch (shrink) component of the interword glue should be multiplied (divided).
 
 ---
@@ -219,16 +219,16 @@ _N._10_3_2_internal_parameter_values_set_get = "page 190"
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L520-529](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L520-529)
 ---@alias TokenlistParameter
----| 'errhelp'
----| 'everycr'
----| 'everydisplay'
----| 'everyeof'
----| 'everyhbox'
----| 'everyjob'
----| 'everymath'
----| 'everypar'
----| 'everyvbox'
----| 'output'
+---| 'errhelp' # Tokens that will be displayed if the user asks further help after an `\errmessage`.
+---| 'everycr' # Token list inserted after every `\cr` or non-redundant `\crcr`.
+---| 'everydisplay' # Token list inserted at the start of a display.
+---| 'everyeof' # The content of this token list is injected when a file ends.
+---| 'everyhbox' # Token list inserted at the start of a horizontal box.
+---| 'everyjob' # Token list that is inserted at the start of each new job.
+---| 'everymath' # Token list inserted at the start of non-display math.
+---| 'everypar' # Token list inserted in front of paragraph text.
+---| 'everyvbox' # Token list inserted at the start of a vertical box.
+---| 'output' # Token list with instructions for shipping out pages.
 
 ---
 ---@alias InternalParameter
@@ -1369,7 +1369,7 @@ tex.nulldelimiterspace = 0
 tex.overfullrule = 0
 
 ---
----\pagebottomoffset: To set the bottom margin in non-TLT text.
+---`\pagebottomoffset`: To set the bottom margin in non-TLT text.
 ---
 ---__Reference:__
 ---
@@ -1381,11 +1381,23 @@ tex.overfullrule = 0
 tex.pagebottomoffset = 0
 
 ---
+---`\pageheight`: The page height of the PDF output (the screen, the paper, etc.).
+---
+---__Reference:__
+---
+---* pdfTeX-Manual, page 25
+---
 ---@type integer # A readable and writable dimension parameter that accepts a Lua number (signifying scaled points) or a string (with included dimension). The result is always a number in scaled points.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex.pageheight = 0
 
+---
+---`\pageleftoffset`: To set the left margin in non-TLT text.
+---
+---__Reference:__
+---
+---* https://mirrors.aliyun.com/CTAN/systems/doc/aleph/News
 ---
 ---@type integer # A readable and writable dimension parameter that accepts a Lua number (signifying scaled points) or a string (with included dimension). The result is always a number in scaled points.
 ---
@@ -1393,11 +1405,23 @@ tex.pageheight = 0
 tex.pageleftoffset = 0
 
 ---
+---`\pagerightoffset`: To set the right margin in non-TLT text.
+---
+---__Reference:__
+---
+---* https://mirrors.aliyun.com/CTAN/systems/doc/aleph/News
+---
 ---@type integer # A readable and writable dimension parameter that accepts a Lua number (signifying scaled points) or a string (with included dimension). The result is always a number in scaled points.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex.pagerightoffset = 0
 
+---
+---`\pagetopoffset`: To set the top margin in non-TLT text.
+---
+---__Reference:__
+---
+---* https://mirrors.aliyun.com/CTAN/systems/doc/aleph/News
 ---
 ---@type integer # A readable and writable dimension parameter that accepts a Lua number (signifying scaled points) or a string (with included dimension). The result is always a number in scaled points.
 ---
@@ -1405,13 +1429,19 @@ tex.pagerightoffset = 0
 tex.pagetopoffset = 0
 
 ---
+---`\pagewidth`: The page width of the PDF output (the screen, the paper, etc.).
+---
+---__Reference:__
+---
+---* pdfTeX-Manual, page 25
+---
 ---@type integer # A readable and writable dimension parameter that accepts a Lua number (signifying scaled points) or a string (with included dimension). The result is always a number in scaled points.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex.pagewidth = 0
 
 ---
----`\parindent`: Width of the indentation box added in front of a paragraph. Default: 20pt.
+---`\parindent`: Width of the indentation box added in front of a paragraph. Default: `20pt`.
 ---
 ---__Reference:__
 ---
@@ -1423,7 +1453,7 @@ tex.pagewidth = 0
 tex.parindent = 0
 
 ---
----`\predisplaysize` Effective width of the line preceding the display.
+---`\predisplaysize`: Effective width of the line preceding the display.
 ---
 ---__Reference:__
 ---
@@ -1435,7 +1465,7 @@ tex.parindent = 0
 tex.predisplaysize = 0
 
 ---
----`\scriptspace` Extra space after subscripts and superscripts. Default: 0.5pt
+---`\scriptspace`: Extra space after subscripts and superscripts. Default: `0.5pt`.
 ---
 ---__Reference:__
 ---
@@ -1447,7 +1477,7 @@ tex.predisplaysize = 0
 tex.scriptspace = 0
 
 ---
----`\splitmaxdepth` Maximum depth of a box split off by a `\vsplit` operation. Default: `\maxdimen`
+---`\splitmaxdepth`: Maximum depth of a box split off by a `\vsplit` operation. Default: `\maxdimen`.
 ---
 ---__Reference:__
 ---
@@ -1459,7 +1489,7 @@ tex.scriptspace = 0
 tex.splitmaxdepth = 0
 
 ---
----`*vf*uzz`: Excess size that TEX tolerates before it considers a vertical box overfull.
+---`\vfuzz`: Excess size that TeX tolerates before it considers a vertical box overfull.
 ---
 ---__Reference:__
 ---
@@ -1471,7 +1501,7 @@ tex.splitmaxdepth = 0
 tex.vfuzz = 0
 
 ---
----`\voffset` Distance by which the page is shifted right/down with respect to the reference point.
+---`\voffset`: Distance by which the page is shifted right/down with respect to the reference point.
 ---
 ---__Reference:__
 ---
@@ -1483,7 +1513,7 @@ tex.vfuzz = 0
 tex.voffset = 0
 
 ---
----`\vsize`: Height of the page box. Default: `8.9in`
+---`\vsize`: Height of the page box. Default: `8.9in`.
 ---
 ---__Reference:__
 ---
@@ -1499,7 +1529,7 @@ tex.vsize = 0
 ---
 ---__Reference:__
 ---
----* [TeX by Topic, page ](http://mirrors.ctan.org/info/texbytopic/TeXbyTopic.pdf)
+---* [TeX by Topic, page 157](http://mirrors.ctan.org/info/texbytopic/TeXbyTopic.pdf)
 ---
 ---@type integer # A readable and writable dimension parameter that accepts a Lua number (signifying scaled points) or a string (with included dimension). The result is always a number in scaled points.
 ---
@@ -1507,9 +1537,11 @@ tex.vsize = 0
 tex.prevdepth = 0
 
 ---
+---`\prevgraf`: The number of lines in the paragraph last added to the vertical list.
+---
 ---__Reference:__
 ---
----* [TeX by Topic, page 157](http://mirrors.ctan.org/info/texbytopic/TeXbyTopic.pdf)
+---* [TeX by Topic, page 290](http://mirrors.ctan.org/info/texbytopic/TeXbyTopic.pdf)
 ---
 ---@type integer # A readable and writable dimension parameter that accepts a Lua number (signifying scaled points) or a string (with included dimension). The result is always a number in scaled points.
 ---
@@ -1919,11 +1951,17 @@ tex.thinmuskip = ""
 _N._10_3_2_6_tokenlist_parameters = "page 193"
 
 ---
+---`\errhelp`: Tokens that will be displayed if the user asks further help after an `\errmessage`.
+---
 ---A `tokenlist` parameters that accepts and returns a *Lua* string.
 ---
 ---The *Lua* string is
----converted to and from a token list using `the` `toks` style expansion:
+---converted to and from a token list using `\the` `\toks` style expansion:
 ---all category codes are either space (10) or other (12).
+---
+---__Reference:__
+---
+---* [TeX by Topic, page 272](http://mirrors.ctan.org/info/texbytopic/TeXbyTopic.pdf)
 ---
 ---@type string
 ---
@@ -1931,23 +1969,36 @@ _N._10_3_2_6_tokenlist_parameters = "page 193"
 tex.errhelp = ""
 
 ---
+---`\everycr`: Token list inserted after every `\cr` or non-redundant `\crcr`.
+---
 ---A `tokenlist` parameters that accepts and returns a *Lua* string.
 ---
 ---The *Lua* string is
----converted to and from a token list using `the` `toks` style expansion:
+---converted to and from a token list using `\the` `\toks` style expansion:
 ---all category codes are either space (10) or other (12).
 ---
+---__Reference:__
+---
+---* [TeX by Topic, page 215](http://mirrors.ctan.org/info/texbytopic/TeXbyTopic.pdf)
+-----
 ---@type string
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex.everycr = ""
 
 ---
+---`\everydisplay`: Token list inserted at the start of a display.
+---
 ---A `tokenlist` parameters that accepts and returns a *Lua* string.
 ---
 ---The *Lua* string is
----converted to and from a token list using `the` `toks` style expansion:
+---converted to and from a token list using `\the` `\toks` style expansion:
 ---all category codes are either space (10) or other (12).
+---
+---__Reference:__
+---
+---* [TeX by Topic, page 210](http://mirrors.ctan.org/info/texbytopic/TeXbyTopic.pdf)
+-----
 ---
 ---@type string
 ---
@@ -1955,11 +2006,17 @@ tex.everycr = ""
 tex.everydisplay = ""
 
 ---
+---`\everyeof`: The content of this token list is injected when a file ends.
+---
 ---A `tokenlist` parameters that accepts and returns a *Lua* string.
 ---
 ---The *Lua* string is
----converted to and from a token list using `the` `toks` style expansion:
+---converted to and from a token list using `\the` `\toks` style expansion:
 ---all category codes are either space (10) or other (12).
+---
+---__Reference:__
+---
+---* LuaMetaTeX-Manual, page 115
 ---
 ---@type string
 ---
@@ -1967,11 +2024,17 @@ tex.everydisplay = ""
 tex.everyeof = ""
 
 ---
+---`\everyhbox`: Token list inserted at the start of a horizontal box.
+---
 ---A `tokenlist` parameters that accepts and returns a *Lua* string.
 ---
 ---The *Lua* string is
----converted to and from a token list using `the` `toks` style expansion:
+---converted to and from a token list using `\the` `\toks` style expansion:
 ---all category codes are either space (10) or other (12).
+---
+---__Reference:__
+---
+---* [TeX by Topic, page 284](http://mirrors.ctan.org/info/texbytopic/TeXbyTopic.pdf)
 ---
 ---@type string
 ---
@@ -1979,11 +2042,17 @@ tex.everyeof = ""
 tex.everyhbox = ""
 
 ---
+---`\everyjob`: Token list that is inserted at the start of each new job.
+---
 ---A `tokenlist` parameters that accepts and returns a *Lua* string.
 ---
 ---The *Lua* string is
----converted to and from a token list using `the` `toks` style expansion:
+---converted to and from a token list using `\the` `\toks` style expansion:
 ---all category codes are either space (10) or other (12).
+---
+---__Reference:__
+---
+---* [TeX by Topic, page 254](http://mirrors.ctan.org/info/texbytopic/TeXbyTopic.pdf)
 ---
 ---@type string
 ---
@@ -1991,11 +2060,17 @@ tex.everyhbox = ""
 tex.everyjob = ""
 
 ---
+---`\everymath`: Token list inserted at the start of non-display math.
+---
 ---A `tokenlist` parameters that accepts and returns a *Lua* string.
 ---
 ---The *Lua* string is
----converted to and from a token list using `the` `toks` style expansion:
+---converted to and from a token list using `\the` `\toks` style expansion:
 ---all category codes are either space (10) or other (12).
+---
+---__Reference:__
+---
+---* [TeX by Topic, page 284](http://mirrors.ctan.org/info/texbytopic/TeXbyTopic.pdf)
 ---
 ---@type string
 ---
@@ -2003,11 +2078,17 @@ tex.everyjob = ""
 tex.everymath = ""
 
 ---
+---`\everypar`: Token list inserted in front of paragraph text.
+---
 ---A `tokenlist` parameters that accepts and returns a *Lua* string.
 ---
 ---The *Lua* string is
----converted to and from a token list using `the` `toks` style expansion:
+---converted to and from a token list using `\the` `\toks` style expansion:
 ---all category codes are either space (10) or other (12).
+---
+---__Reference:__
+---
+---* [TeX by Topic, page 284](http://mirrors.ctan.org/info/texbytopic/TeXbyTopic.pdf)
 ---
 ---@type string
 ---
@@ -2015,11 +2096,17 @@ tex.everymath = ""
 tex.everypar = ""
 
 ---
+---`\everyvbox`: Token list inserted at the start of a vertical box.
+---
 ---A `tokenlist` parameters that accepts and returns a *Lua* string.
 ---
 ---The *Lua* string is
----converted to and from a token list using `the` `toks` style expansion:
+---converted to and from a token list using `\the` `\toks` style expansion:
 ---all category codes are either space (10) or other (12).
+---
+---__Reference:__
+---
+---* [TeX by Topic, page 284](http://mirrors.ctan.org/info/texbytopic/TeXbyTopic.pdf)
 ---
 ---@type string
 ---
@@ -2027,11 +2114,17 @@ tex.everypar = ""
 tex.everyvbox = ""
 
 ---
+---`\output`: Token list with instructions for shipping out pages.
+---
 ---A `tokenlist` parameters that accepts and returns a *Lua* string.
 ---
 ---The *Lua* string is
----converted to and from a token list using `the` `toks` style expansion:
+---converted to and from a token list using `\the` `\toks` style expansion:
 ---all category codes are either space (10) or other (12).
+---
+---__Reference:__
+---
+---* [TeX by Topic, page 289](http://mirrors.ctan.org/info/texbytopic/TeXbyTopic.pdf)
 ---
 ---@type string
 ---
@@ -2584,7 +2677,7 @@ function tex.isskip(register) end
 
 ---
 ---The token registers accept and return *Lua* strings. *Lua* strings are
----converted to and from token lists using `the` `toks` style
+---converted to and from token lists using `\the` `\toks` style
 ---expansion: all category codes are either space (10) or other (12).
 ---
 ---see `LuaTeX` manual: 10.3.5 Accessing registers: `set*`, `get*` and `is*`
@@ -4734,7 +4827,7 @@ function tex.print(...) end
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L1176-L1182](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L1176-L1182)
 ---
----@param n integer If `n` is `-1`, the currently active catcode regime is used. If `n` is `-2`, the resulting catcodes are the result of `the` `toks`: all category codes are 12 (other) except for the space character, that has category code 10 (space). Otherwise, if `n` is not a valid catcode table, then it is ignored, and the currently active catcode regime is used instead.
+---@param n integer If `n` is `-1`, the currently active catcode regime is used. If `n` is `-2`, the resulting catcodes are the result of `\the` `\toks`: all category codes are 12 (other) except for the space character, that has category code 10 (space). Otherwise, if `n` is not a valid catcode table, then it is ignored, and the currently active catcode regime is used instead.
 ---@param ... string
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
