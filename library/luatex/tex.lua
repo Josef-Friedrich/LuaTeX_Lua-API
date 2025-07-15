@@ -16,34 +16,34 @@ _N._10_3_2_internal_parameter_values_set_get = "page 190"
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L284-350](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L284-350)
 ---@alias ReadWriteIntegerParameter
----| 'adjdemerits' # Penalty for adjacent visually incompatible lines. Plain TeX default: `10000`.
----| 'binoppenalty' # Penalty for breaking after a binary operator not enclosed in a subformula. Plain TeX default: `700`
----| 'brokenpenalty' # Additional penalty for breaking a page after a hyphenated line. Plain TeX default: `100`
+---| 'adjdemerits' # Penalty for adjacent visually incompatible lines. Default: `10000`.
+---| 'binoppenalty' # Penalty for breaking after a binary operator not enclosed in a subformula. Default: `700`
+---| 'brokenpenalty' # Additional penalty for breaking a page after a hyphenated line. Default: `100`
 ---| 'catcodetable' # Catcode tables are a new feature that allows you to switch to a predefined catcode regime in a single statement.
 ---| 'clubpenalty' # Extra penalty for breaking a page after the first line of a paragraph. In Plain TeX this is `150`. This amount, and the following penalties, are added to the `\interlinepenalty`, and a penalty of the resulting size is inserted after the `\hbox` containing the first line of a paragraph instead of the `\interlinepenalty`.
 ---| 'day' # The day of the current job.
----| 'defaulthyphenchar' # Value of `\hyphenchar` when a font is loaded. Plain TeX default: `‘\-`.
+---| 'defaulthyphenchar' # Value of `\hyphenchar` when a font is loaded. Default: `‘\-`.
 ---| 'defaultskewchar' # Value of `\skewchar` when a font is loaded.
----| 'delimiterfactor' # `1000` times the fraction of a delimited formula that should be covered by a delimiter. Plain TeX default: `901`
+---| 'delimiterfactor' # `1000` times the fraction of a delimited formula that should be covered by a delimiter. Default: `901`
 ---| 'displaywidowpenalty' # Extra penalty for breaking a page before the last line above a display formula. The default value in Plain TeX is `50`.
----| 'doublehyphendemerits' # Penalty for consecutive lines ending with a hyphen. Plain TeX default: `10000`.
+---| 'doublehyphendemerits' # Penalty for consecutive lines ending with a hyphen. Default: `10000`.
 ---| 'endlinechar' # The character code of the end-of-line character appended to input lines. IniTEX default: `13`.
 ---| 'errorcontextlines' # (TEX3 only) Number of additional context lines shown in error messages.
 ---| 'escapechar' # Number of the character that is to be used for the escape character when control sequences are being converted into character tokens. IniTEX default: `92` (`\`).
----| 'exhyphenpenalty' # Penalty for breaking a horizontal line at a discretionary item in the special case where the prebreak text is empty. Plain TeX default: `50`.
+---| 'exhyphenpenalty' # Penalty for breaking a horizontal line at a discretionary item in the special case where the prebreak text is empty. Default: `50`.
 ---| 'fam' # The number of the current font family.
----| 'finalhyphendemerits' # Penalty added when the penultimate line of a paragraph ends with a hyphen. Plain TeX default: `5000`.
+---| 'finalhyphendemerits' # Penalty added when the penultimate line of a paragraph ends with a hyphen. Default: `5000`.
 ---| 'floatingpenalty' # Penalty added when an insertion is split.
 ---| 'globaldefs' # Parameter for overriding \global prefixes. IniTEX default: `0`.
 ---| 'hangafter' # If positive, this denotes the number of lines before indenting starts; if negative, the absolute value of this is the number of indented lines starting with the first line of the paragraph. Default: `1`.
 ---| 'hbadness' # Amount of tolerance before TEX reports an underfull or overfull horizontal box.
 ---| 'holdinginserts' # (TEX3 only) If this is positive, insertions are not placed in their boxes at output time.
----| 'hyphenpenalty' # Penalty associated with break at a discretionary item in the general case. Plain TeX default: `50`.
----| 'interlinepenalty' # Penalty for breaking a page between lines of a paragraph. Plain TeX default: `0`
+---| 'hyphenpenalty' # Penalty associated with break at a discretionary item in the general case. Default: `50`.
+---| 'interlinepenalty' # Penalty for breaking a page between lines of a paragraph. Default: `0`
 ---| 'language' # Choose a set of hyphenation patterns and exceptions.
 ---| 'lastlinefit' # A readable and writable integer parameter that accepts and returns Lua numbers.
----| 'lefthyphenmin' # (TEX3 only) Minimal number of characters before a hyphenation. Plain TeX default: `2`.
----| 'linepenalty' # Penalty value associated with each line break. Plain TeX default: `10`.
+---| 'lefthyphenmin' # (TEX3 only) Minimal number of characters before a hyphenation. Default: `2`.
+---| 'linepenalty' # Penalty value associated with each line break. Default: `10`.
 ---| 'localbrokenpenalty' # Local broken penalty (from `\localbrokenpenalty`)
 ---| 'localinterlinepenalty' # Local interline penalty (from `\localinterlinepenalty`)
 ---| 'looseness' # Number of lines by which this paragraph has to be made longer than it would be ideally.
@@ -53,18 +53,18 @@ _N._10_3_2_internal_parameter_values_set_get = "page 190"
 ---| 'newlinechar' # Number of the character that triggers a new line in `\write` statements.
 ---| 'outputpenalty' # Value of the penalty at the current page break, or `10000` if the break was not at a penalty.
 ---| 'pausing' # Specify that TEX should pause after each line that is read from a file.
----| 'postdisplaypenalty' # Penalty placed in the vertical list below a display. Plain TeX defaults: `0`
+---| 'postdisplaypenalty' # Penalty placed in the vertical list below a display. Default: `0`
 ---| 'predisplaydirection' # An internal read/write integer, to indicate the direction of the last partial paragraph before a display; it is used to control the placement of elements such as equation numbers, and can be explictly set to affect this placement.
----| 'predisplaypenalty' # Penalty placed in the vertical list above a display. Plain TeX defaults: `10000`.
----| 'pretolerance' # Tolerance value for a paragraph without hyphenation. Plain TeX default: `100`.
----| 'relpenalty' # Penalty for breaking after a binary relation not enclosed in a subformula. Plain TeX default: `500`
----| 'righthyphenmin' # (TEX3 only) Minimum number of characters after a hyphenation. Plain TeX default: `3`.
+---| 'predisplaypenalty' # Penalty placed in the vertical list above a display. Default: `10000`.
+---| 'pretolerance' # Tolerance value for a paragraph without hyphenation. Default: `100`.
+---| 'relpenalty' # Penalty for breaking after a binary relation not enclosed in a subformula. Default: `500`
+---| 'righthyphenmin' # (TEX3 only) Minimum number of characters after a hyphenation. Default: `3`.
 ---| 'savinghyphcodes' # When a `\patterns` command is executed and \savinghyphcodes has a positive value, the current `\lccode` values are saved as hyphenation codes for the current language.
 ---| 'savingvdiscards' # When ε-TEX’s parameter `\savingvdiscards` has been assigned a positive value, these ‘discarded items’ are saved in two lists and can be recovered by the commands `\pagediscards` and `\splitdiscards` that act like ‘unvboxing’ hypothetical box registers containing a vbox with the discarded items.
 ---| 'showboxbreadth' # Number of successive elements on each level that are shown when boxes are displayed.
 ---| 'showboxdepth' # The number of levels of box dump that are shown when boxes are displayed.
 ---| 'time' # Number of minutes after midnight that the current job started.
----| 'tolerance' # Tolerance value for lines in a paragraph with hyphenation. Plain TeX default: `200`.
+---| 'tolerance' # Tolerance value for lines in a paragraph with hyphenation. Default: `200`.
 ---| 'tracingassigns' # When the program is compiled with the code for collecting statistics and `\tracingassigns` has a value of `1` or more, all assignments subject to TeX’s grouping mechanism are traced.
 ---| 'tracingcommands' # If this is `1` TEX displays primitive commands executed; if this is `2` or more the outcome of conditionals is also recorded.
 ---| 'tracinggroups' # When `\tracinggroups` has a value of `1` or more, the start and end of each save group is traced, together with the starting line and grouping level.
@@ -79,9 +79,9 @@ _N._10_3_2_internal_parameter_values_set_get = "page 190"
 ---| 'tracingrestores' # If this parameter is positive, TEX will report all values that are restored when a group ends.
 ---| 'tracingscantokens' # When `\tracingscantokens` has a value of `1` or more, the opening and closing of pseudo-files (generated by `\scantokens`) is recorded as for any other file, with ‘␣’ as filename.
 ---| 'tracingstats' # If this parameter is `1`, TeX reports at the end of the job the usage of various internal arrays; if it is `2`, the memory demands are given whenever a page is shipped out.
----| 'uchyph' # Positive to allow hyphenation of words starting with a capital letter. Plain TeX default: `1`.
+---| 'uchyph' # Positive to allow hyphenation of words starting with a capital letter. Default: `1`.
 ---| 'vbadness' # Amount of tolerance before TEX reports an underfull or overfull vertical box.
----| 'widowpenalty' # Additional penalty for breaking a page before the last line of a paragraph. Plain TeX default: `150`
+---| 'widowpenalty' # Additional penalty for breaking a page before the last line of a paragraph. Default: `150`
 ---| 'year' # The year of the current job.
 
 ---
@@ -110,19 +110,19 @@ _N._10_3_2_internal_parameter_values_set_get = "page 190"
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L378-407](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L378-407)
 ---@alias ReadWriteDimensionParameter
----| 'boxmaxdepth' # Maximum allowed depth of boxes. Plain TeX default: `\maxdimen`.
----| 'delimitershortfall' # Size of the part of a delimited formula that is allowed to go uncovered by a delimiter. Plain TeX default: `5pt`.
+---| 'boxmaxdepth' # Maximum allowed depth of boxes. Default: `\maxdimen`.
+---| 'delimitershortfall' # Size of the part of a delimited formula that is allowed to go uncovered by a delimiter. Default: `5pt`.
 ---| 'displayindent' # Distance by which the box, in which the display is centred, is indented owing to hanging indentation.
 ---| 'displaywidth' # Width of the box in which the display is centred.
 ---| 'emergencystretch' # (TEX3 only) Assumed extra stretchability in lines of a paragraph.
 ---| 'hangindent' # If positive, this indicates indentation from the left margin; if negative, this is the negative of the indentation from the right margin.
 ---| 'hfuzz' # Excess size that TeX tolerates before it considers a horizontal box overfull.
 ---| 'hoffset' # Distance by which the page is shifted right with respect to the reference point.
----| 'hsize' # Line width used for typesetting a paragraph. Plain TeX default: `6.5in`.
----| 'lineskiplimit' # Distance to be maintained between the bottom and top of neighbouring boxes on a vertical list. Plain TeX default: `0pt`.
+---| 'hsize' # Line width used for typesetting a paragraph. Default: `6.5in`.
+---| 'lineskiplimit' # Distance to be maintained between the bottom and top of neighbouring boxes on a vertical list. Default: `0pt`.
 ---| 'mathsurround' # Kern amount placed before and after in-line formulas.
----| 'maxdepth' # Maximum depth of the page box. Plain TeX default: `4pt`.
----| 'nulldelimiterspace' # Width taken for empty delimiters. Plain TeX default: `1.2pt`.
+---| 'maxdepth' # Maximum depth of the page box. Default: `4pt`.
+---| 'nulldelimiterspace' # Width taken for empty delimiters. Default: `1.2pt`.
 ---| 'overfullrule' # Width of the rule that is printed to indicate overfull horizontal boxes.
 ---| 'pagebottomoffset'
 ---| 'pageheight'
@@ -137,9 +137,9 @@ _N._10_3_2_internal_parameter_values_set_get = "page 190"
 ---| 'vfuzz'
 ---| 'voffset'
 ---| 'vsize'
----| 'prevdepth'
+---| 'prevdepth' # Depth of the last box added to a vertical list as it is perceived by TeX.
 ---| 'prevgraf'
----| 'spacefactor'
+---| 'spacefactor' # `1000` times the ratio by which the stretch (shrink) component of the interword glue should be multiplied (divided).
 
 ---
 ---The dimension parameters accept Lua numbers (signifying scaled points) or
@@ -150,14 +150,14 @@ _N._10_3_2_internal_parameter_values_set_get = "page 190"
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L415-422](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L415-422)
 ---@alias ReadOnlyDimensionParameter
----| 'pagedepth'
----| 'pagefilllstretch'
----| 'pagefillstretch'
----| 'pagefilstretch'
----| 'pagegoal'
----| 'pageshrink'
----| 'pagestretch'
----| 'pagetotal'
+---| 'pagedepth' # Depth of the current page.
+---| 'pagefilllstretch' # Accumulated third-order stretch of the current page.
+---| 'pagefillstretch' # Accumulated second-order stretch of the current page.
+---| 'pagefilstretch' # Accumulated first-order stretch of the current page.
+---| 'pagegoal' # Goal height of the page box. This starts at `\vsize`, and is diminished by heights of insertion items.
+---| 'pageshrink' # Accumulated shrink of the current page.
+---| 'pagestretch' # Accumulated zeroth-order stretch of the current page.
+---| 'pagetotal' # Accumulated natural height of the current page.
 
 ---
 ---The direction parameters are read-only and return a Lua string.
@@ -166,11 +166,11 @@ _N._10_3_2_internal_parameter_values_set_get = "page 190"
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L465-469](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L465-469)
 ---@alias DirectionParameter
----| 'bodydir'
----| 'mathdir'
----| 'pagedir'
----| 'pardir'
----| 'textdir'
+---| 'bodydir' # The direction for vboxes, including the main body of text. Default: `TLT`.
+---| 'mathdir' # The direction for mathematics. Default: `TLT`.
+---| 'pagedir' # The direction for pages (`\shipout`). Default: `TLT`.
+---| 'pardir' # The direction for paragraphs. Default: `TLT`.
+---| 'textdir' # The direction for text and hboxes. Default: `TLT`.
 
 ---
 ---The glue parameters accept and return a userdata object that
@@ -180,21 +180,21 @@ _N._10_3_2_internal_parameter_values_set_get = "page 190"
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L479-493](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L479-493)
 ---@alias GlueParameter
----| 'abovedisplayshortskip'
----| 'abovedisplayskip'
----| 'baselineskip'
----| 'belowdisplayshortskip'
----| 'belowdisplayskip'
----| 'leftskip'
----| 'lineskip'
----| 'parfillskip'
----| 'parskip'
----| 'rightskip'
----| 'spaceskip'
----| 'splittopskip'
----| 'tabskip'
----| 'topskip'
----| 'xspaceskip'
+---| 'abovedisplayshortskip' # Glue above a display if the line preceding the display was short. Default: `0pt plus 3pt`.
+---| 'abovedisplayskip' # Glue above a display. Default: `12pt plus 3pt minus 9pt`.
+---| 'baselineskip' # The ‘ideal’ baseline distance between neighbouring boxes on a vertical list. Default: `12pt`.
+---| 'belowdisplayshortskip' # Glue above/below a display if the line preceding the display was short. Default: `0pt plus 3pt` and `7pt plus 3pt minus 4pt` respectively.
+---| 'belowdisplayskip' # Glue below a display. Default: `12pt plus 3pt minus 9pt`.
+---| 'leftskip' # Glue that is placed to the left of all lines of a paragraph.
+---| 'lineskip' # Glue added if the distance between bottom and top of neighbouring boxes is less than `\lineskiplimit`. Default: `1pt`.
+---| 'parfillskip' # Glue that is placed between the last element of the paragraph and the line end. Default: `0pt plus 1fil`.
+---| 'parskip' # Amount of glue added to the surrounding vertical list when a paragraph starts. Default: `0pt plus 1pt`.
+---| 'rightskip' # Glue that is placed to the right of all lines of a paragraph.
+---| 'spaceskip' # Interword glue if non-zero.
+---| 'splittopskip' # Minimum distance between the top of what remains after a `\vsplit` operation, and the first item in that box. Default: `10pt`.
+---| 'tabskip' # Amount of glue in between columns (rows) of an `\halign` (`\valign`).
+---| 'topskip' # Minimum distance between the top of the page box and the baseline of the first box on the page. Default: `10pt`.
+---| 'xspaceskip' # Interword glue if non-zero and `\spacefactor` ≥ 2000.
 
 ---
 ---All muglue parameters are to be used read-only and return a Lua string.
@@ -203,9 +203,9 @@ _N._10_3_2_internal_parameter_values_set_get = "page 190"
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L503-505](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L503-505)
 ---@alias MuglueParameter
----| 'medmuskip'
----| 'thickmuskip'
----| 'thinmuskip'
+---| 'medmuskip' # Medium amount of mu (math units) glue.
+---| 'thickmuskip' # Large amount of mu (math units) glue.
+---| 'thinmuskip' # Small amount of mu (math units) glue.
 
 ---
 ---The tokenlist parameters accept and return Lua strings. Lua strings are
@@ -296,7 +296,7 @@ function tex.get(parameter, opts) end
 _N._10_3_2_1_integer_parameters_read_write = "page 190"
 
 ---
----`\adjdemerits`: Penalty for adjacent visually incompatible lines. Plain TeX default: `10000`.
+---`\adjdemerits`: Penalty for adjacent visually incompatible lines. Default: `10000`.
 ---
 ---__Reference:__
 ---
@@ -308,7 +308,7 @@ _N._10_3_2_1_integer_parameters_read_write = "page 190"
 tex.adjdemerits = 0
 
 ---
----`\binoppenalty`: Penalty for breaking after a binary operator not enclosed in a subformula. Plain TeX default: `700`
+---`\binoppenalty`: Penalty for breaking after a binary operator not enclosed in a subformula. Default: `700`
 ---
 ---__Reference:__
 ---
@@ -320,7 +320,7 @@ tex.adjdemerits = 0
 tex.binoppenalty = 0
 
 ---
----`\brokenpenalty`: Additional penalty for breaking a page after a hyphenated line. Plain TeX default: `100`
+---`\brokenpenalty`: Additional penalty for breaking a page after a hyphenated line. Default: `100`
 ---
 ---__Reference:__
 ---
@@ -365,7 +365,7 @@ tex.clubpenalty = 0
 tex.day = 0
 
 ---
----`\defaulthyphenchar`: Value of `\hyphenchar` when a font is loaded. Plain TeX default: `‘\-`.
+---`\defaulthyphenchar`: Value of `\hyphenchar` when a font is loaded. Default: `‘\-`.
 ---
 ---__Reference:__
 ---
@@ -389,7 +389,7 @@ tex.defaulthyphenchar = 0
 tex.defaultskewchar = 0
 
 ---
----`\delimiterfactor`: `1000` times the fraction of a delimited formula that should be covered by a delimiter. Plain TeX default: `901`
+---`\delimiterfactor`: `1000` times the fraction of a delimited formula that should be covered by a delimiter. Default: `901`
 ---
 ---__Reference:__
 ---
@@ -413,7 +413,7 @@ tex.delimiterfactor = 0
 tex.displaywidowpenalty = 0
 
 ---
----`\doublehyphendemerits`: Penalty for consecutive lines ending with a hyphen. Plain TeX default: `10000`.
+---`\doublehyphendemerits`: Penalty for consecutive lines ending with a hyphen. Default: `10000`.
 ---
 ---__Reference:__
 ---
@@ -457,7 +457,7 @@ tex.errorcontextlines = 0
 tex.escapechar = 0
 
 ---
----`\exhyphenpenalty`: Penalty for breaking a horizontal line at a discretionary item in the special case where the prebreak text is empty. Plain TeX default: `50`.
+---`\exhyphenpenalty`: Penalty for breaking a horizontal line at a discretionary item in the special case where the prebreak text is empty. Default: `50`.
 ---
 ---__Reference:__
 ---
@@ -481,7 +481,7 @@ tex.exhyphenpenalty = 0
 tex.fam = 0
 
 ---
----`\finalhyphendemerits`: Penalty added when the penultimate line of a paragraph ends with a hyphen. Plain TeX default: `5000`.
+---`\finalhyphendemerits`: Penalty added when the penultimate line of a paragraph ends with a hyphen. Default: `5000`.
 ---
 ---__Reference:__
 ---
@@ -559,7 +559,7 @@ tex.hbadness = 0
 tex.holdinginserts = 0
 
 ---
----`\hyphenpenalty`: Penalty associated with break at a discretionary item in the general case. Plain TeX default: `50`.
+---`\hyphenpenalty`: Penalty associated with break at a discretionary item in the general case. Default: `50`.
 ---
 ---__Reference:__
 ---
@@ -571,7 +571,7 @@ tex.holdinginserts = 0
 tex.hyphenpenalty = 0
 
 ---
----`\interlinepenalty`: Penalty for breaking a page between lines of a paragraph. Plain TeX default: `0`
+---`\interlinepenalty`: Penalty for breaking a page between lines of a paragraph. Default: `0`
 ---
 ---__Reference:__
 ---
@@ -601,7 +601,7 @@ tex.language = 0
 tex.lastlinefit = 0
 
 ---
----`\lefthyphenmin` (TEX3 only) Minimal number of characters before a hyphenation. Plain TeX default: `2`.
+---`\lefthyphenmin` (TEX3 only) Minimal number of characters before a hyphenation. Default: `2`.
 ---
 ---__Reference:__
 ---
@@ -613,7 +613,7 @@ tex.lastlinefit = 0
 tex.lefthyphenmin = 0
 
 ---
----`\linepenalty`: Penalty value associated with each line break. Plain TeX default: `10`.
+---`\linepenalty`: Penalty value associated with each line break. Default: `10`.
 ---
 ---__Reference:__
 ---
@@ -725,7 +725,7 @@ tex.outputpenalty = 0
 tex.pausing = 0
 
 ---
----`\postdisplaypenalty`: Penalty placed in the vertical list below a display. Plain TeX defaults: `0`
+---`\postdisplaypenalty`: Penalty placed in the vertical list below a display. Default: `0`
 ---
 ---__Reference:__
 ---
@@ -750,7 +750,7 @@ tex.postdisplaypenalty = 0
 tex.predisplaydirection = 0
 
 ---
----`\predisplaypenalty`: Penalty placed in the vertical list above a display. Plain TeX defaults: `10000`.
+---`\predisplaypenalty`: Penalty placed in the vertical list above a display. Default: `10000`.
 ---
 ---__Reference:__
 ---
@@ -762,7 +762,7 @@ tex.predisplaydirection = 0
 tex.predisplaypenalty = 0
 
 ---
----`\pretolerance`: Tolerance value for a paragraph without hyphenation. Plain TeX default: `100`.
+---`\pretolerance`: Tolerance value for a paragraph without hyphenation. Default: `100`.
 ---
 ---__Reference:__
 ---
@@ -774,7 +774,7 @@ tex.predisplaypenalty = 0
 tex.pretolerance = 0
 
 ---
----`\relpenalty`: Penalty for breaking after a binary relation not enclosed in a subformula. Plain TeX default: `500`
+---`\relpenalty`: Penalty for breaking after a binary relation not enclosed in a subformula. Default: `500`
 ---
 ---__Reference:__
 ---
@@ -786,7 +786,7 @@ tex.pretolerance = 0
 tex.relpenalty = 0
 
 ---
----`\righthyphenmin`: (TEX3 only) Minimum number of characters after a hyphenation. Plain TeX default: `3`.
+---`\righthyphenmin`: (TEX3 only) Minimum number of characters after a hyphenation. Default: `3`.
 ---
 ---__Reference:__
 ---
@@ -858,7 +858,7 @@ tex.showboxdepth = 0
 tex.time = 0
 
 ---
----`\tolerance`: Tolerance value for lines in a paragraph with hyphenation. Plain TeX default: `200`.
+---`\tolerance`: Tolerance value for lines in a paragraph with hyphenation. Default: `200`.
 ---
 ---__Reference:__
 ---
@@ -1037,7 +1037,7 @@ tex.tracingscantokens = 0
 tex.tracingstats = 0
 
 ---
----`\uchyph`: Positive to allow hyphenation of words starting with a capital letter. Plain TeX default: `1`.
+---`\uchyph`: Positive to allow hyphenation of words starting with a capital letter. Default: `1`.
 ---
 ---__Reference:__
 ---
@@ -1061,7 +1061,7 @@ tex.uchyph = 0
 tex.vbadness = 0
 
 ---
----`\widowpenalty`: Additional penalty for breaking a page before the last line of a paragraph. Plain TeX default: `150`
+---`\widowpenalty`: Additional penalty for breaking a page before the last line of a paragraph. Default: `150`
 ---
 ---__Reference:__
 ---
@@ -1201,7 +1201,7 @@ tex.spacefactor = 0
 _N._10_3_2_2_dimension_parameters_read_write = "page 191"
 
 ---
----`\boxmaxdepth`: Maximum allowed depth of boxes. Plain TeX default: `\maxdimen`.
+---`\boxmaxdepth`: Maximum allowed depth of boxes. Default: `\maxdimen`.
 ---
 ---__Reference:__
 ---
@@ -1213,7 +1213,7 @@ _N._10_3_2_2_dimension_parameters_read_write = "page 191"
 tex.boxmaxdepth = 0
 
 ---
----`\delimitershortfall`: Size of the part of a delimited formula that is allowed to go uncovered by a delimiter. Plain TeX default: `5pt`.
+---`\delimitershortfall`: Size of the part of a delimited formula that is allowed to go uncovered by a delimiter. Default: `5pt`.
 ---
 ---__Reference:__
 ---
@@ -1297,7 +1297,7 @@ tex.hfuzz = 0
 tex.hoffset = 0
 
 ---
----`\hsize`: Line width used for typesetting a paragraph. Plain TeX default: `6.5in`.
+---`\hsize`: Line width used for typesetting a paragraph. Default: `6.5in`.
 ---
 ---__Reference:__
 ---
@@ -1309,7 +1309,7 @@ tex.hoffset = 0
 tex.hsize = 0
 
 ---
----`\lineskiplimit`: Distance to be maintained between the bottom and top of neighbouring boxes on a vertical list. Plain TeX default: `0pt`.
+---`\lineskiplimit`: Distance to be maintained between the bottom and top of neighbouring boxes on a vertical list. Default: `0pt`.
 ---
 ---__Reference:__
 ---
@@ -1333,7 +1333,7 @@ tex.lineskiplimit = 0
 tex.mathsurround = 0
 
 ---
----`\maxdepth`: Maximum depth of the page box. Plain TeX default: `4pt`.
+---`\maxdepth`: Maximum depth of the page box. Default: `4pt`.
 ---
 ---__Reference:__
 ---
@@ -1345,7 +1345,7 @@ tex.mathsurround = 0
 tex.maxdepth = 0
 
 ---
----`\nulldelimiterspace`: Width taken for empty delimiters. Plain TeX default: `1.2pt`.
+---`\nulldelimiterspace`: Width taken for empty delimiters. Default: `1.2pt`.
 ---
 ---__Reference:__
 ---
@@ -1411,7 +1411,7 @@ tex.pagetopoffset = 0
 tex.pagewidth = 0
 
 ---
----`\parindent`: Width of the indentation box added in front of a paragraph. Plain TeX default: 20pt.
+---`\parindent`: Width of the indentation box added in front of a paragraph. Default: 20pt.
 ---
 ---__Reference:__
 ---
@@ -1435,7 +1435,7 @@ tex.parindent = 0
 tex.predisplaysize = 0
 
 ---
----`\scriptspace` Extra space after subscripts and superscripts. Plain TeX default: 0.5pt
+---`\scriptspace` Extra space after subscripts and superscripts. Default: 0.5pt
 ---
 ---__Reference:__
 ---
@@ -1447,7 +1447,7 @@ tex.predisplaysize = 0
 tex.scriptspace = 0
 
 ---
----`\splitmaxdepth` Maximum depth of a box split off by a `\vsplit` operation. Plain TeX default: `\maxdimen`
+---`\splitmaxdepth` Maximum depth of a box split off by a `\vsplit` operation. Default: `\maxdimen`
 ---
 ---__Reference:__
 ---
@@ -1483,7 +1483,7 @@ tex.vfuzz = 0
 tex.voffset = 0
 
 ---
----`\vsize` Height of the page box. Plain TeX default: 8.9in
+---`\vsize`: Height of the page box. Default: `8.9in`
 ---
 ---__Reference:__
 ---
@@ -1495,6 +1495,8 @@ tex.voffset = 0
 tex.vsize = 0
 
 ---
+---`\prevdepth`: Depth of the last box added to a vertical list as it is perceived by TeX.
+---
 ---__Reference:__
 ---
 ---* [TeX by Topic, page ](http://mirrors.ctan.org/info/texbytopic/TeXbyTopic.pdf)
@@ -1504,8 +1506,6 @@ tex.vsize = 0
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 tex.prevdepth = 0
 
----
----`\prevdepth` Depth of the last box added to a vertical list as it is perceived by TEX.
 ---
 ---__Reference:__
 ---
@@ -1517,7 +1517,7 @@ tex.prevdepth = 0
 tex.prevgraf = 0
 
 ---
----`\spacefactor` 1000 times the ratio by which the stretch (shrink) component of the interword glue should be multiplied (divided).
+---`\spacefactor`: `1000` times the ratio by which the stretch (shrink) component of the interword glue should be multiplied (divided).
 ---
 ---__Reference:__
 ---
@@ -1531,7 +1531,7 @@ tex.spacefactor = 0
 _N._10_3_2_2_dimension_parameters_read_only = "page 191"
 
 ---
----`\pagedepth` Depth of the current page.
+---`\pagedepth`: Depth of the current page.
 ---
 ---__Reference:__
 ---
@@ -1544,7 +1544,7 @@ _N._10_3_2_2_dimension_parameters_read_only = "page 191"
 tex.pagedepth = 0
 
 ---
----`\pagefilllstretch` Accumulated third-order stretch of the current page.
+---`\pagefilllstretch`: Accumulated third-order stretch of the current page.
 ---
 ---__Reference:__
 ---
@@ -1557,7 +1557,7 @@ tex.pagedepth = 0
 tex.pagefilllstretch = 0
 
 ---
----`\pagefillstretch` Accumulated second-order stretch of the current page.
+---`\pagefillstretch`: Accumulated second-order stretch of the current page.
 ---
 ---__Reference:__
 ---
@@ -1570,7 +1570,7 @@ tex.pagefilllstretch = 0
 tex.pagefillstretch = 0
 
 ---
----`\pagefilstretch` Accumulated first-order stretch of the current page.
+---`\pagefilstretch`: Accumulated first-order stretch of the current page.
 ---
 ---__Reference:__
 ---
@@ -1583,7 +1583,7 @@ tex.pagefillstretch = 0
 tex.pagefilstretch = 0
 
 ---
----`\pagegoal` Goal height of the page box. This starts at \vsize, and is diminished by heights of insertion items.
+---`\pagegoal`: Goal height of the page box. This starts at `\vsize`, and is diminished by heights of insertion items.
 ---
 ---__Reference:__
 ---
@@ -1596,7 +1596,7 @@ tex.pagefilstretch = 0
 tex.pagegoal = 0
 
 ---
----`\pageshrink` Accumulated shrink of the current page.
+---`\pageshrink`: Accumulated shrink of the current page.
 ---
 ---__Reference:__
 ---
@@ -1609,7 +1609,7 @@ tex.pagegoal = 0
 tex.pageshrink = 0
 
 ---
----`\pagestretch` Accumulated zeroth-order stretch of the current page.
+---`\pagestretch`: Accumulated zeroth-order stretch of the current page.
 ---
 ---__Reference:__
 ---
@@ -1622,7 +1622,7 @@ tex.pageshrink = 0
 tex.pagestretch = 0
 
 ---
----`\pagetotal` Accumulated natural height of the current page.
+---`\pagetotal`: Accumulated natural height of the current page.
 ---
 ---__Reference:__
 ---
@@ -1637,39 +1637,69 @@ tex.pagetotal = 0
 _N._10_3_2_3_direction_parameters = "page 192"
 
 ---
----@type string A read-only direction parameter that returns a *Lua* string.
+---The direction for vboxes, including the main body of text. Default: `TLT`.
+---
+---__Reference:__
+---
+---* [README of the Omega engine](https://mirrors.ctan.org/obsolete/systems/omega/README)
+---
+---@type DirectionSpecifier A read-only direction parameter that returns a *Lua* string.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-tex.bodydir = ""
+tex.bodydir = "TLT"
 
 ---
----@type string A read-only direction parameter that returns a *Lua* string.
+---The direction for mathematics. Default: `TLT`.
+---
+---__Reference:__
+---
+---* [README of the Omega engine](https://mirrors.ctan.org/obsolete/systems/omega/README)
+---
+---@type DirectionSpecifier A read-only direction parameter that returns a *Lua* string.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-tex.mathdir = ""
+tex.mathdir = "TLT"
 
 ---
----@type string A read-only direction parameter that returns a *Lua* string.
+---The direction for pages (`\shipout`). Default: `TLT`.
+---
+---__Reference:__
+---
+---* [README of the Omega engine](https://mirrors.ctan.org/obsolete/systems/omega/README)
+---
+---@type DirectionSpecifier A read-only direction parameter that returns a *Lua* string.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-tex.pagedir = ""
+tex.pagedir = "TLT"
 
 ---
----@type string A read-only direction parameter that returns a *Lua* string.
+---The direction for paragraphs. Default: `TLT`.
+---
+---__Reference:__
+---
+---* [README of the Omega engine](https://mirrors.ctan.org/obsolete/systems/omega/README)
+---
+---@type DirectionSpecifier A read-only direction parameter that returns a *Lua* string.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-tex.pardir = ""
+tex.pardir = "TLT"
 
 ---
----@type string A read-only direction parameter that returns a *Lua* string.
+---The direction for text and hboxes. Default: `TLT`.
+---
+---__Reference:__
+---
+---* [README of the Omega engine](https://mirrors.ctan.org/obsolete/systems/omega/README)
+---
+---@type DirectionSpecifier A read-only direction parameter that returns a *Lua* string.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-tex.textdir = ""
+tex.textdir = "TLT"
 
 _N._10_3_2_4_glue_parameters = "page 193"
 
 ---
----`\abovedisplayshortskip` Glue abovea display if the line preceding the display was short. Plain TeX defaults: 0pt plus 3pt
+---`\abovedisplayshortskip`: Glue above a display if the line preceding the display was short. Default: `0pt plus 3pt`.
 ---
 ---__Reference:__
 ---
@@ -1681,7 +1711,7 @@ _N._10_3_2_4_glue_parameters = "page 193"
 tex.abovedisplayshortskip = nil
 
 ---
----`\abovedisplayskip` Glue above a display. Plain TeX default: 12pt plus 3pt minus 9pt
+---`\abovedisplayskip`: Glue above a display. Default: `12pt plus 3pt minus 9pt`.
 ---
 ---__Reference:__
 ---
@@ -1693,7 +1723,7 @@ tex.abovedisplayshortskip = nil
 tex.abovedisplayskip = nil
 
 ---
----`\baselineskip` The ‘ideal’ baseline distance between neighbouring boxes on a vertical list. Plain TeX default: 12pt.
+---`\baselineskip`: The ‘ideal’ baseline distance between neighbouring boxes on a vertical list. Default: `12pt`.
 ---
 ---__Reference:__
 ---
@@ -1705,7 +1735,7 @@ tex.abovedisplayskip = nil
 tex.baselineskip = nil
 
 ---
----`\belowdisplayshortskip` Glue above/below a display if the line preceding the display was short. Plain TeX defaults: 0pt plus 3pt and 7pt plus 3pt minus 4pt respectively.
+---`\belowdisplayshortskip`: Glue above/below a display if the line preceding the display was short. Default: `0pt plus 3pt` and `7pt plus 3pt minus 4pt` respectively.
 ---
 ---__Reference:__
 ---
@@ -1717,7 +1747,7 @@ tex.baselineskip = nil
 tex.belowdisplayshortskip = nil
 
 ---
----`\belowdisplayskip` Glue below a display. Plain TeX default: 12pt plus 3pt minus 9pt
+---`\belowdisplayskip`: Glue below a display. Default: `12pt plus 3pt minus 9pt`.
 ---
 ---__Reference:__
 ---
@@ -1741,7 +1771,7 @@ tex.belowdisplayskip = nil
 tex.leftskip = nil
 
 ---
----`\lineskip` Glue added if the distance between bottom and top of neighbouring boxes is less than `\lineskiplimit`. Plain TeX default: 1pt.
+---`\lineskip`: Glue added if the distance between bottom and top of neighbouring boxes is less than `\lineskiplimit`. Default: `1pt`.
 ---
 ---__Reference:__
 ---
@@ -1753,7 +1783,7 @@ tex.leftskip = nil
 tex.lineskip = nil
 
 ---
----`\parfillskip` Glue that is placed between the last element of the paragraph and the line end. Plain TeX default: 0pt plus 1fil.
+---`\parfillskip`: Glue that is placed between the last element of the paragraph and the line end. Default: `0pt plus 1fil`.
 ---
 ---__Reference:__
 ---
@@ -1765,7 +1795,7 @@ tex.lineskip = nil
 tex.parfillskip = nil
 
 ---
----`\parskip` Amount of glue added to the surrounding vertical list when a paragraph starts. Plain TeX default: 0pt plus 1pt.
+---`\parskip`: Amount of glue added to the surrounding vertical list when a paragraph starts. Default: `0pt plus 1pt`.
 ---
 ---__Reference:__
 ---
@@ -1789,7 +1819,7 @@ tex.parskip = nil
 tex.rightskip = nil
 
 ---
----`\spaceskip` Interword glue if non-zero.
+---`\spaceskip`: Interword glue if non-zero.
 ---
 ---__Reference:__
 ---
@@ -1801,7 +1831,7 @@ tex.rightskip = nil
 tex.spaceskip = nil
 
 ---
----`\splittopskip` Minimum distance between the top of what remains after a `\vsplit` operation, and the first item in that box. Plain TeX default: 10pt
+---`\splittopskip`: Minimum distance between the top of what remains after a `\vsplit` operation, and the first item in that box. Default: `10pt`.
 ---
 ---__Reference:__
 ---
@@ -1813,7 +1843,7 @@ tex.spaceskip = nil
 tex.splittopskip = nil
 
 ---
----`\tabskip` Amount of glue in between columns (rows) of an \halign (\valign).
+---`\tabskip`: Amount of glue in between columns (rows) of an `\halign` (`\valign`).
 ---
 ---__Reference:__
 ---
@@ -1825,7 +1855,7 @@ tex.splittopskip = nil
 tex.tabskip = nil
 
 ---
----`\topskip` Minimum distance between the top of the page box and the baseline of the first box on the page. Plain TeX default: 10pt
+---`\topskip`: Minimum distance between the top of the page box and the baseline of the first box on the page. Default: `10pt`.
 ---
 ---__Reference:__
 ---
@@ -1837,7 +1867,7 @@ tex.tabskip = nil
 tex.topskip = nil
 
 ---
----`\xspaceskip` Interword glue if non-zero and `\spacefactor` ≥ 2000.
+---`\xspaceskip`: Interword glue if non-zero and `\spacefactor` ≥ 2000.
 ---
 ---__Reference:__
 ---
@@ -1851,7 +1881,7 @@ tex.xspaceskip = nil
 _N._10_3_2_5_muglue_parameters = "page 193"
 
 ---
----`\medmuskip` Medium amount of mu glue.
+---`\medmuskip`: Medium amount of mu (math units) glue.
 ---
 ---__Reference:__
 ---
@@ -1863,7 +1893,7 @@ _N._10_3_2_5_muglue_parameters = "page 193"
 tex.medmuskip = ""
 
 ---
----`\thickmuskip` Large amount of mu glue.
+---`\thickmuskip`: Large amount of mu (math units) glue.
 ---
 ---__Reference:__
 ---
@@ -1875,7 +1905,7 @@ tex.medmuskip = ""
 tex.thickmuskip = ""
 
 ---
----`\thinmuskip` Small amount of mu glue.
+---`\thinmuskip`: Small amount of mu (math units) glue.
 ---
 ---__Reference:__
 ---
