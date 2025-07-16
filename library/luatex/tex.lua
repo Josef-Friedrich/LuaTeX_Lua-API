@@ -17,14 +17,14 @@ _N._10_3_2_internal_parameter_values_set_get = "page 190"
 ---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L284-350](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L284-350)
 ---@alias ReadWriteIntegerParameter
 ---| 'adjdemerits' # Penalty for adjacent visually incompatible lines. Default: `10000`.
----| 'binoppenalty' # Penalty for breaking after a binary operator not enclosed in a subformula. Default: `700`
+---| 'binoppenalty' # Penalty for breaking after a binary operator not enclosed in a subformula. Default: `700`.
 ---| 'brokenpenalty' # Additional penalty for breaking a page after a hyphenated line. Default: `100`
 ---| 'catcodetable' # Catcode tables are a new feature that allows you to switch to a predefined catcode regime in a single statement.
 ---| 'clubpenalty' # Extra penalty for breaking a page after the first line of a paragraph. In Plain TeX this is `150`. This amount, and the following penalties, are added to the `\interlinepenalty`, and a penalty of the resulting size is inserted after the `\hbox` containing the first line of a paragraph instead of the `\interlinepenalty`.
 ---| 'day' # The day of the current job.
 ---| 'defaulthyphenchar' # Value of `\hyphenchar` when a font is loaded. Default: `‘\-`.
 ---| 'defaultskewchar' # Value of `\skewchar` when a font is loaded.
----| 'delimiterfactor' # `1000` times the fraction of a delimited formula that should be covered by a delimiter. Default: `901`
+---| 'delimiterfactor' # `1000` times the fraction of a delimited formula that should be covered by a delimiter. Default: `901`.
 ---| 'displaywidowpenalty' # Extra penalty for breaking a page before the last line above a display formula. The default value in Plain TeX is `50`.
 ---| 'doublehyphendemerits' # Penalty for consecutive lines ending with a hyphen. Default: `10000`.
 ---| 'endlinechar' # The character code of the end-of-line character appended to input lines. IniTEX default: `13`.
@@ -44,8 +44,8 @@ _N._10_3_2_internal_parameter_values_set_get = "page 190"
 ---| 'lastlinefit' # A readable and writable integer parameter that accepts and returns Lua numbers.
 ---| 'lefthyphenmin' # (TeX3 only) Minimal number of characters before a hyphenation. Default: `2`.
 ---| 'linepenalty' # Penalty value associated with each line break. Default: `10`.
----| 'localbrokenpenalty' # Local broken penalty (from `\localbrokenpenalty`)
----| 'localinterlinepenalty' # Local interline penalty (from `\localinterlinepenalty`)
+---| 'localbrokenpenalty' # Local broken penalty (from `\localbrokenpenalty`).
+---| 'localinterlinepenalty' # Local interline penalty (from `\localinterlinepenalty`).
 ---| 'looseness' # Number of lines by which this paragraph has to be made longer than it would be ideally.
 ---| 'mag' # `1000` times the magnification of the document.
 ---| 'maxdeadcycles' # The maximum number of times that the output routine is allowed to be called without a `\shipout` occurring. IniTEX default: `25`.
@@ -53,11 +53,11 @@ _N._10_3_2_internal_parameter_values_set_get = "page 190"
 ---| 'newlinechar' # Number of the character that triggers a new line in `\write` statements.
 ---| 'outputpenalty' # Value of the penalty at the current page break, or `10000` if the break was not at a penalty.
 ---| 'pausing' # Specify that TEX should pause after each line that is read from a file.
----| 'postdisplaypenalty' # Penalty placed in the vertical list below a display. Default: `0`
+---| 'postdisplaypenalty' # Penalty placed in the vertical list below a display. Default: `0`.
 ---| 'predisplaydirection' # An internal read/write integer, to indicate the direction of the last partial paragraph before a display; it is used to control the placement of elements such as equation numbers, and can be explictly set to affect this placement.
 ---| 'predisplaypenalty' # Penalty placed in the vertical list above a display. Default: `10000`.
 ---| 'pretolerance' # Tolerance value for a paragraph without hyphenation. Default: `100`.
----| 'relpenalty' # Penalty for breaking after a binary relation not enclosed in a subformula. Default: `500`
+---| 'relpenalty' # Penalty for breaking after a binary relation not enclosed in a subformula. Default: `500`.
 ---| 'righthyphenmin' # (TeX3 only) Minimum number of characters after a hyphenation. Default: `3`.
 ---| 'savinghyphcodes' # When a `\patterns` command is executed and \savinghyphcodes has a positive value, the current `\lccode` values are saved as hyphenation codes for the current language.
 ---| 'savingvdiscards' # When ε-TEX’s parameter `\savingvdiscards` has been assigned a positive value, these ‘discarded items’ are saved in two lists and can be recovered by the commands `\pagediscards` and `\splitdiscards` that act like ‘unvboxing’ hypothetical box registers containing a vbox with the discarded items.
@@ -81,7 +81,7 @@ _N._10_3_2_internal_parameter_values_set_get = "page 190"
 ---| 'tracingstats' # If this parameter is `1`, TeX reports at the end of the job the usage of various internal arrays; if it is `2`, the memory demands are given whenever a page is shipped out.
 ---| 'uchyph' # Positive to allow hyphenation of words starting with a capital letter. Default: `1`.
 ---| 'vbadness' # Amount of tolerance before TEX reports an underfull or overfull vertical box.
----| 'widowpenalty' # Additional penalty for breaking a page before the last line of a paragraph. Default: `150`
+---| 'widowpenalty' # Additional penalty for breaking a page before the last line of a paragraph. Default: `150`.
 ---| 'year' # The year of the current job.
 
 ---
@@ -197,7 +197,7 @@ _N._10_3_2_internal_parameter_values_set_get = "page 190"
 ---| 'xspaceskip' # Interword glue if non-zero and `\spacefactor` ≥ 2000.
 
 ---
----All muglue parameters are to be used read-only and return a Lua string.
+---All muglue (math units) parameters are to be used read-only and return a Lua string.
 ---
 ---__Reference:__
 ---
@@ -1685,6 +1685,7 @@ tex.prevgraf = 0
 ---__Reference:__
 ---
 ---* [TeX by Topic, page 185](http://mirrors.ctan.org/info/texbytopic/TeXbyTopic.pdf)
+---* [The TexBook: page 76. Also: 76, 271, 285, 363, 433.](https://ctan.org/tex-archive/systems/knuth/dist/tex/texbook.tex)
 ---
 ---@type integer # A readable and writable dimension parameter that accepts a Lua number (signifying scaled points) or a string (with included dimension). The result is always a number in scaled points.
 ---
@@ -4959,22 +4960,20 @@ _N._10_3_14_1_print = "page 201"
 ---tex.print(<number> n, <table> t)
 ---```
 ---
----The very last string of the very last `tex.print` command in a `directlua` will not have the `endlinechar` appended, all others do.
----
 ---see `LuaTeX` manual: 10.3.14.1 `print`
 ---
 ---__Reference:__
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L1172-L1196](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L1172-L1196)
 ---
----@param ... string # Each string argument is treated by *TeX* as a separate input line.
+---@param input_line string # Each string argument is treated by *TeX* as a separate input line.
+---@param ... string # The very last string of the very last `tex.print` command in a `directlua` will not have the `endlinechar` appended, all others do.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function tex.print(...) end
+function tex.print(input_line, ...) end
 
 ---
----The optional parameter can be used to print the strings using the catcode regime
----defined by `catcodetable` `n`.
+---
 ---
 ---see `LuaTeX` manual: 10.3.14.1 `print`
 ---
@@ -4982,11 +4981,12 @@ function tex.print(...) end
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L1176-L1182](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L1176-L1182)
 ---
----@param n integer If `n` is `-1`, the currently active catcode regime is used. If `n` is `-2`, the resulting catcodes are the result of `\the` `\toks`: all category codes are 12 (other) except for the space character, that has category code 10 (space). Otherwise, if `n` is not a valid catcode table, then it is ignored, and the currently active catcode regime is used instead.
----@param ... string
+---@param catcodetable_no integer The parameter can be used to print the strings using the catcode regime defined by `\catcodetable` `catcodetable_no`. If `catcodetable_no` is `-1`, the currently active catcode regime is used. If `catcodetable_no` is `-2`, the resulting catcodes are the result of `\the` `\toks`: all category codes are `12` (`other`) except for the space character, that has category code `10` (`space`). Otherwise, if `catcodetable_no` is not a valid catcode table, then it is ignored, and the currently active catcode regime is used instead.
+---@param input_line string # Each string argument is treated by *TeX* as a separate input line.
+---@param ... string # The very last string of the very last `tex.print` command in a `directlua` will not have the `endlinechar` appended, all others do.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function tex.print(n, ...) end
+function tex.print(catcodetable_no, input_line, ...) end
 
 ---
 ---If there is a
@@ -4999,37 +4999,37 @@ function tex.print(n, ...) end
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L1222-L1224](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L1222-L1224)
 ---
----@param t table
+---@param input_lines table
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function tex.print(t) end
+function tex.print(input_lines) end
 
 ---
 ---see `LuaTeX` manual: 10.3.14.1 `print`
 ---
----@param n integer # Print the strings using the catcode regime defined by `catcodetable` `n`.
----@param t table
+---@param catcodetable_no integer The parameter can be used to print the strings using the catcode regime defined by `\catcodetable` `catcodetable_no`. If `catcodetable_no` is `-1`, the currently active catcode regime is used. If `catcodetable_no` is `-2`, the resulting catcodes are the result of `\the` `\toks`: all category codes are `12` (`other`) except for the space character, that has category code `10` (`space`). Otherwise, if `catcodetable_no` is not a valid catcode table, then it is ignored, and the currently active catcode regime is used instead.
+---@param input_lines string[]
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function tex.print(n, t) end
+function tex.print(catcodetable_no, input_lines) end
 
 ---
 ---Each string argument is treated by *TeX* as a special kind of input line that
 ---makes it suitable for use as a partial line input mechanism:
 ---
----* *TeX* does not switch to the “new line” state, so that leading spaces
----    are not ignored.
----
+---* *TeX* does not switch to the “new line” state, so that leading
+---  spaces are not ignored.
 ---* No `endlinechar` is inserted.
----
----* Trailing spaces are not removed. Note that this does not prevent *TeX* itself
----    from eating spaces as result of interpreting the line. For example, in
+---* Trailing spaces are not removed. Note that this does not prevent
+---  *TeX* itself from eating spaces as result of interpreting the line.
+---   For example, in
 ---
 ---```tex
 ---before\directlua{tex.sprint("\\relax")tex.sprint(" inbetween")}after
 ---```
 ---
----    the space before `in between` will be gobbled as a result of the “normal” scanning of `relax`.
+---the space before `in between` will be gobbled as a result of the
+---“normal” scanning of `\relax`.
 ---
 ---If there is a table argument instead of a list of strings, this has to be a
 ---consecutive array of strings to print (the first non-string value will stop the
@@ -5074,11 +5074,11 @@ function tex.print(n, t) end
 function tex.sprint(...) end
 
 ---
----@param n integer
+---@param catcodetable_no integer The parameter can be used to print the strings using the catcode regime defined by `\catcodetable` `catcodetable_no`. If `catcodetable_no` is `-1`, the currently active catcode regime is used. If `catcodetable_no` is `-2`, the resulting catcodes are the result of `\the` `\toks`: all category codes are `12` (`other`) except for the space character, that has category code `10` (`space`). Otherwise, if `catcodetable_no` is not a valid catcode table, then it is ignored, and the currently active catcode regime is used instead.
 ---@param ... string
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function tex.sprint(n, ...) end
+function tex.sprint(catcodetable_no, ...) end
 
 ---
 ---@param t table
@@ -5087,11 +5087,10 @@ function tex.sprint(n, ...) end
 function tex.sprint(t) end
 
 ---
----@param n integer # Print the strings using the catcode regime defined by `catcodetable` `n`.
----@param t table
+---@param catcodetable_no integer The parameter can be used to print the strings using the catcode regime defined by `\catcodetable` `catcodetable_no`. If `catcodetable_no` is `-1`, the currently active catcode regime is used. If `catcodetable_no` is `-2`, the resulting catcodes are the result of `\the` `\toks`: all category codes are `12` (`other`) except for the space character, that has category code `10` (`space`). Otherwise, if `catcodetable_no` is not a valid catcode table, then it is ignored, and the currently active catcode regime is used instead.---@param t table
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function tex.sprint(n, t) end
+function tex.sprint(catcodetable_no, t) end
 
 ---
 ---This function is basically a shortcut for repeated calls to `tex.sprint(<number> n, <string> s, ...)`, once for each of the supplied argument
@@ -5103,24 +5102,25 @@ function tex.sprint(n, t) end
 function tex.tprint(...) end
 
 ---
+---Print to the input stream and specify a catcode.
+---
 ---This function takes a number indicating the to be used catcode, plus either a
 ---table of strings or an argument list of strings that will be pushed into the
 ---input stream.
 ---
----```tex
----tex.cprint( 1," 1: `&{\\foo}") tex.print("\\par") -- a lot of \bgroup s
----tex.cprint( 2," 2: `&{\\foo}") tex.print("\\par") -- matching \egroup s
----tex.cprint( 9," 9: `&{\\foo}") tex.print("\\par") -- all get ignored
----tex.cprint(10,"10: `&{\\foo}") tex.print("\\par") -- all become spaces
----tex.cprint(11,"11: `&{\\foo}") tex.print("\\par") -- letters
----tex.cprint(12,"12: `&{\\foo}") tex.print("\\par") -- other characters
----tex.cprint(14,"12: $&{\\foo}") tex.print("\\par") -- comment triggers
+---```lua
+---tex.cprint( 1, " 1: `&{\\foo}") tex.print("\\par") -- a lot of \bgroup s
+---tex.cprint( 2, " 2: `&{\\foo}") tex.print("\\par") -- matching \egroup s
+---tex.cprint( 9, " 9: `&{\\foo}") tex.print("\\par") -- all get ignored
+---tex.cprint(10, "10: `&{\\foo}") tex.print("\\par") -- all become spaces
+---tex.cprint(11, "11: `&{\\foo}") tex.print("\\par") -- letters
+---tex.cprint(12, "12: `&{\\foo}") tex.print("\\par") -- other characters
+---tex.cprint(14, "12: $&{\\foo}") tex.print("\\par") -- comment triggers
 ---```
----@param n integer
----@param ... string|table
 ---
+---@param catcode integer
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function tex.cprint(n, ...) end
+function tex.cprint(catcode, ...) end
 
 ---
 ---Each string argument is treated by *TeX* as a special kind of input line that
