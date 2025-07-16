@@ -4943,23 +4943,6 @@ _N._10_3_14_print = "page 201"
 _N._10_3_14_1_print = "page 201"
 
 ---
----The `tex` table also contains the three print functions that are the major
----interface from *Lua* scripting to *TeX*. The arguments to these three functions
----are all stored in an in|-|memory virtual file that is fed to the *TeX* scanner as
----the result of the expansion of `directlua`.
----
----The total amount of returnable text from a `directlua` command is only
----limited by available system RAM. However, each separate printed string has to
----fit completely in *TeX*'s input buffer. The result of using these functions from
----inside callbacks is undefined at the moment.
----
----```
----tex.print(<string> s, ...)
----tex.print(<number> n, <string> s, ...)
----tex.print(<table> t)
----tex.print(<number> n, <table> t)
----```
----
 ---see `LuaTeX` manual: 10.3.14.1 `print`
 ---
 ---__Reference:__
@@ -4967,31 +4950,34 @@ _N._10_3_14_1_print = "page 201"
 ---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L1222-L1224](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L1222-L1224)
 ---* Corresponding C source code: [ltexlib.c#L161-164](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L161-164)
 ---
----
 ---@param input_line string # Each string argument is treated by *TeX* as a separate input line.
 ---@param ... string # The very last string of the very last `tex.print` command in a `directlua` will not have the `endlinechar` appended, all others do.
+---
+---@see tex.sprint
+---@see tex.tprint
+---@see tex.cprint
+---@see tex.write
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.print(input_line, ...) end
 
 ---
----
----
 ---see `LuaTeX` manual: 10.3.14.1 `print`
----
----__Reference:__
----
----* Source code of the `LuaTeX` manual: [luatex-tex.tex#L1176-L1182](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L1176-L1182)
----
----@param catcodetable_no integer The parameter can be used to print the strings using the catcode regime defined by `\catcodetable` `catcodetable_no`. If `catcodetable_no` is `-1`, the currently active catcode regime is used. If `catcodetable_no` is `-2`, the resulting catcodes are the result of `\the` `\toks`: all category codes are `12` (`other`) except for the space character, that has category code `10` (`space`). Otherwise, if `catcodetable_no` is not a valid catcode table, then it is ignored, and the currently active catcode regime is used instead.
----@param input_line string # Each string argument is treated by *TeX* as a separate input line.
----@param ... string # The very last string of the very last `tex.print` command in a `directlua` will not have the `endlinechar` appended, all others do.
 ---
 ---__Reference:__
 ---
 ---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L1222-L1224](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L1222-L1224)
 ---* Corresponding C source code: [ltexlib.c#L161-164](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L161-164)
 ---
+---@param catcodetable_no integer The parameter can be used to print the strings using the catcode regime defined by `\catcodetable` `catcodetable_no`. If `catcodetable_no` is `-1`, the currently active catcode regime is used. If `catcodetable_no` is `-2`, the resulting catcodes are the result of `\the` `\toks`: all category codes are `12` (`other`) except for the space character, that has category code `10` (`space`). Otherwise, if `catcodetable_no` is not a valid catcode table, then it is ignored, and the currently active catcode regime is used instead.
+---@param input_line string # Each string argument is treated by *TeX* as a separate input line.
+---@param ... string # The very last string of the very last `tex.print` command in a `directlua` will not have the `endlinechar` appended, all others do.
+---
+---@see tex.print
+---@see tex.sprint
+---@see tex.tprint
+---@see tex.cprint
+---@see tex.write
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.print(catcodetable_no, input_line, ...) end
@@ -5010,6 +4996,11 @@ function tex.print(catcodetable_no, input_line, ...) end
 ---
 ---@param input_lines table
 ---
+---@see tex.sprint
+---@see tex.tprint
+---@see tex.cprint
+---@see tex.write
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.print(input_lines) end
 
@@ -5024,9 +5015,16 @@ function tex.print(input_lines) end
 ---@param catcodetable_no integer The parameter can be used to print the strings using the catcode regime defined by `\catcodetable` `catcodetable_no`. If `catcodetable_no` is `-1`, the currently active catcode regime is used. If `catcodetable_no` is `-2`, the resulting catcodes are the result of `\the` `\toks`: all category codes are `12` (`other`) except for the space character, that has category code `10` (`space`). Otherwise, if `catcodetable_no` is not a valid catcode table, then it is ignored, and the currently active catcode regime is used instead.
 ---@param input_lines string[]
 ---
+---@see tex.sprint
+---@see tex.tprint
+---@see tex.cprint
+---@see tex.write
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.print(catcodetable_no, input_lines) end
 
+---
+---combines all of its arguments (or the elements of array argument) into a single input line for TeX. So any leading spaces will be treated as if they were typed, etc. (`s(ingle-input-line)print`).
 ---
 ---Each string argument is treated by *TeX* as a special kind of input line that
 ---makes it suitable for use as a partial line input mechanism:
@@ -5036,7 +5034,7 @@ function tex.print(catcodetable_no, input_lines) end
 ---* No `endlinechar` is inserted.
 ---* Trailing spaces are not removed. Note that this does not prevent
 ---  *TeX* itself from eating spaces as result of interpreting the line.
----   For example, in
+---  For example, in
 ---
 ---```tex
 ---before\directlua{tex.sprint("\\relax")tex.sprint(" inbetween")}after
@@ -5058,17 +5056,16 @@ function tex.print(catcodetable_no, input_lines) end
 ---important to realize the following:
 ---
 ---* When you inject a token, you need to pass a valid token userdata object. This
----    object will be collected by *Lua* when it no longer is referenced. When it gets
----    printed to *TeX* the token itself gets copied so there is no interference with the
----    *Lua* garbage collection. You manage the object yourself. Because tokens are
----    actually just numbers, there is no real extra overhead at the *TeX* end.
----
+---  object will be collected by *Lua* when it no longer is referenced. When it gets
+---  printed to *TeX* the token itself gets copied so there is no interference with the
+---  *Lua* garbage collection. You manage the object yourself. Because tokens are
+---  actually just numbers, there is no real extra overhead at the *TeX* end.
 ---* When you inject a node, you need to pass a valid node userdata object. The
----    node related to the object will not be collected by *Lua* when it no longer
----    is referenced. It lives on at the *TeX* end in its own memory space. When it
----    gets printed to *TeX* the node reference is used assuming that node stays
----    around. There is no *Lua* garbage collection involved. Again, you manage the
----    object yourself. The node itself is freed when *TeX* is done with it.
+---  node related to the object will not be collected by *Lua* when it no longer
+---  is referenced. It lives on at the *TeX* end in its own memory space. When it
+---  gets printed to *TeX* the node reference is used assuming that node stays
+---  around. There is no *Lua* garbage collection involved. Again, you manage the
+---  object yourself. The node itself is freed when *TeX* is done with it.
 ---
 ---If you consider the last remark you might realize that we have a problem when a
 ---printed mix of strings, tokens and nodes is reused. Inside *TeX* the sequence
@@ -5087,32 +5084,50 @@ function tex.print(catcodetable_no, input_lines) end
 ---
 ---* Corresponding C source code: [ltexlib.c#L168-171](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L168-171)
 ---
+---@param input string
 ---@param ... string
 ---
+---@see tex.print
+---@see tex.tprint
+---@see tex.cprint
+---@see tex.write
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function tex.sprint(...) end
+function tex.sprint(input, ...) end
 
+---
+---__Reference:__
+---
+---* Corresponding C source code: [ltexlib.c#L168-171](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L168-171)
 ---
 ---@param catcodetable_no integer The parameter can be used to print the strings using the catcode regime defined by `\catcodetable` `catcodetable_no`. If `catcodetable_no` is `-1`, the currently active catcode regime is used. If `catcodetable_no` is `-2`, the resulting catcodes are the result of `\the` `\toks`: all category codes are `12` (`other`) except for the space character, that has category code `10` (`space`). Otherwise, if `catcodetable_no` is not a valid catcode table, then it is ignored, and the currently active catcode regime is used instead.
----
----__Reference:__
----
----* Corresponding C source code: [ltexlib.c#L168-171](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L168-171)
----
+---@param input string
 ---@param ... string
 ---
+---@see tex.print
+---@see tex.tprint
+---@see tex.cprint
+---@see tex.write
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function tex.sprint(catcodetable_no, ...) end
+function tex.sprint(catcodetable_no, input, ...) end
 
+---
+---(`s(ingle-input-line)print`).
 ---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [ltexlib.c#L168-171](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L168-171)
 ---
----@param t table
+---@param input table
+---
+---@see tex.print
+---@see tex.tprint
+---@see tex.cprint
+---@see tex.write
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function tex.sprint(t) end
+function tex.sprint(input) end
 
 ---
 ---__Reference:__
@@ -5120,9 +5135,15 @@ function tex.sprint(t) end
 ---* Corresponding C source code: [ltexlib.c#L168-171](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L168-171)
 ---
 ---@param catcodetable_no integer The parameter can be used to print the strings using the catcode regime defined by `\catcodetable` `catcodetable_no`. If `catcodetable_no` is `-1`, the currently active catcode regime is used. If `catcodetable_no` is `-2`, the resulting catcodes are the result of `\the` `\toks`: all category codes are `12` (`other`) except for the space character, that has category code `10` (`space`). Otherwise, if `catcodetable_no` is not a valid catcode table, then it is ignored, and the currently active catcode regime is used instead.---@param t table
+---@param input table
+---
+---@see tex.print
+---@see tex.tprint
+---@see tex.cprint
+---@see tex.write
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function tex.sprint(catcodetable_no, t) end
+function tex.sprint(catcodetable_no, input) end
 
 ---
 ---Print tables of strings to the input stream (`t(able)print`).
@@ -5150,6 +5171,11 @@ function tex.sprint(catcodetable_no, t) end
 ---@param input string[]
 ---@param ... string[]
 ---
+---@see tex.print
+---@see tex.sprint
+---@see tex.cprint
+---@see tex.write
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.tprint(input, ...) end
 
@@ -5171,31 +5197,33 @@ function tex.tprint(input, ...) end
 ---* Corresponding C source code: [ltexlib.c#L175-203](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L175-203)
 ---
 ---@param catcode integer # The category code (`0` stands for the escape character, normally `\`, `1` stands for begin grouping, normally `{` and so on).
+---@param input string
+---
+---@see tex.print
+---@see tex.sprint
+---@see tex.tprint
+---@see tex.write
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function tex.cprint(catcode, ...) end
-
+function tex.cprint(catcode, input, ...) end
 
 ---
 ---Print to the input stream and specify a catcode (`c(atcode)print`).
----
----```lua
----tex.cprint( 1, " 1: `&{\\foo}") tex.print("\\par") -- a lot of \bgroup s
----tex.cprint( 2, " 2: `&{\\foo}") tex.print("\\par") -- matching \egroup s
----tex.cprint( 9, " 9: `&{\\foo}") tex.print("\\par") -- all get ignored
----tex.cprint(10, "10: `&{\\foo}") tex.print("\\par") -- all become spaces
----tex.cprint(11, "11: `&{\\foo}") tex.print("\\par") -- letters
----tex.cprint(12, "12: `&{\\foo}") tex.print("\\par") -- other characters
----tex.cprint(14, "12: $&{\\foo}") tex.print("\\par") -- comment triggers
----```
 ---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [ltexlib.c#L175-203](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L175-203)
 ---
 ---@param catcode integer # The category code (`0` stands for the escape character, normally `\`, `1` stands for begin grouping, normally `{` and so on).
+---@param input table
+---
+---@see tex.print
+---@see tex.sprint
+---@see tex.tprint
+---@see tex.write
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function tex.cprint(catcode, ...) end
+function tex.cprint(catcode, input) end
 
 ---
 ---Each string argument is treated by *TeX* as a special kind of input line that
@@ -5211,11 +5239,21 @@ function tex.cprint(catcode, ...) end
 ---@param input string
 ---@param ... string
 ---
+---@see tex.print
+---@see tex.sprint
+---@see tex.tprint
+---@see tex.cprint
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.write(input, ...) end
 
 ---
 ---@param input table
+---
+---@see tex.print
+---@see tex.sprint
+---@see tex.tprint
+---@see tex.cprint
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.write(input) end
