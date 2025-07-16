@@ -1,0 +1,15 @@
+\directlua{tex.tprint({ 'table-1-a,', 'table-1-b,', 'table-1-c,' }, { 'table-2-a,', 'table-2-b,', 'table-2-c,' })}
+
+\begingroup
+\catcode`\_=12
+\savecatcodetable 2
+\endgroup
+
+\tt
+
+% Print with catcodetable 2: underscores can be printed
+\directlua{tex.tprint({2, '_' })}
+
+\directlua{tex.tprint({ 1, 1, 2, 3 })}
+
+\bye
