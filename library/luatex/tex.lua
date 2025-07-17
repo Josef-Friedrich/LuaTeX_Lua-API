@@ -4942,8 +4942,7 @@ _N._10_3_14_print = "page 201"
 
 _N._10_3_14_1_print = "page 201"
 
----
----see `LuaTeX` manual: 10.3.14.1 `print`
+
 ---
 ---__Reference:__
 ---
@@ -4961,8 +4960,6 @@ _N._10_3_14_1_print = "page 201"
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.print(input_line, ...) end
 
----
----see `LuaTeX` manual: 10.3.14.1 `print`
 ---
 ---__Reference:__
 ---
@@ -5226,15 +5223,18 @@ function tex.cprint(catcode, input, ...) end
 function tex.cprint(catcode, input) end
 
 ---
+---Print to the input stream using category code `12` (`other`) except
+---for the space character, that has category code `10` (`space`).
+---
 ---Each string argument is treated by *TeX* as a special kind of input line that
 ---makes it suitable for use as a quick way to dump information:
 ---
----* All catcodes on that line are either “space” (for ' ') or “character” (for all others).
+---* All catcodes on that line are either “space” (for ` `) or “character” (for all others).
 ---* There is no `endlinechar` appended.
 ---
----If there is a table argument instead of a list of strings, this has to be a
----consecutive array of strings to print (the first non-string value will stop the
----printing process).
+---__Reference:__
+---
+---* Corresponding C source code: [ltexlib.c#L175-203](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L154-157)
 ---
 ---@param input string
 ---@param ... string
@@ -5247,6 +5247,19 @@ function tex.cprint(catcode, input) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.write(input, ...) end
 
+---
+---Print to the input stream using category code `12` (`other`) except
+---for the space character, that has category code `10` (`space`).
+---
+---Each string argument is treated by *TeX* as a special kind of input line that
+---makes it suitable for use as a quick way to dump information:
+---
+---* All catcodes on that line are either “space” (for ` `) or “character” (for all others).
+---* There is no `endlinechar` appended.
+---
+---__Reference:__
+---
+---* Corresponding C source code: [ltexlib.c#L175-203](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L154-157)
 ---
 ---@param input table
 ---
@@ -5328,7 +5341,10 @@ _N._10_3_15_4 = "page 204"
 ---returns the `csname` string that matches a
 ---font id number (if there is one).
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [L2047-L2050](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L2047-L2050)
+---
 ---@param font_id integer
 ---
 ---@return string # for example `\tenrm`.
@@ -5339,7 +5355,10 @@ function tex.fontidentifier(font_id) end
 ---
 ---The first one returns the name only, the second one reports the size too.
 ---
+---__Reference:__
+---
 ---* Corresponding C source code: [L2042-L2045](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L2042-L2045)
+---
 ---@param font_id integer
 ---
 ---@return string # for example `cmr10`.

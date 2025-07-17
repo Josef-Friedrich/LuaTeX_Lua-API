@@ -6,4 +6,7 @@
 
 \directlua{tex.write('write 1')tex.write('write 2')}
 
+\directlua{tex.write({ 'string', 1, 2, 3 })}
+\directlua{require('examples/luatex/tex/write.lua')()}
+
 \bye
