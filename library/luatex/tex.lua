@@ -4991,7 +4991,7 @@ function tex.print(catcodetable_no, input_line, ...) end
 ---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L1222-L1224](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L1222-L1224)
 ---* Corresponding C source code: [ltexlib.c#L161-164](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L161-164)
 ---
----@param input_lines table
+---@param input_lines string[] # Each string element of the input table is treated by *TeX* as a separate input line.
 ---
 ---@see tex.sprint
 ---@see tex.tprint
@@ -5010,7 +5010,7 @@ function tex.print(input_lines) end
 ---* Corresponding C source code: [ltexlib.c#L161-164](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L161-164)
 ---
 ---@param catcodetable_no integer The parameter can be used to print the strings using the catcode regime defined by `\catcodetable` `catcodetable_no`. If `catcodetable_no` is `-1`, the currently active catcode regime is used. If `catcodetable_no` is `-2`, the resulting catcodes are the result of `\the` `\toks`: all category codes are `12` (`other`) except for the space character, that has category code `10` (`space`). Otherwise, if `catcodetable_no` is not a valid catcode table, then it is ignored, and the currently active catcode regime is used instead.
----@param input_lines string[]
+---@param input_lines string[] # Each string element of the input table is treated by *TeX* as a separate input line.
 ---
 ---@see tex.sprint
 ---@see tex.tprint
@@ -5116,7 +5116,7 @@ function tex.sprint(catcodetable_no, input, ...) end
 ---
 ---* Corresponding C source code: [ltexlib.c#L168-171](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L168-171)
 ---
----@param input table
+---@param input string[] # Each string element of the input table is treated by *TeX* as a separate input argument.
 ---
 ---@see tex.print
 ---@see tex.tprint
@@ -5132,7 +5132,7 @@ function tex.sprint(input) end
 ---* Corresponding C source code: [ltexlib.c#L168-171](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L168-171)
 ---
 ---@param catcodetable_no integer The parameter can be used to print the strings using the catcode regime defined by `\catcodetable` `catcodetable_no`. If `catcodetable_no` is `-1`, the currently active catcode regime is used. If `catcodetable_no` is `-2`, the resulting catcodes are the result of `\the` `\toks`: all category codes are `12` (`other`) except for the space character, that has category code `10` (`space`). Otherwise, if `catcodetable_no` is not a valid catcode table, then it is ignored, and the currently active catcode regime is used instead.---@param t table
----@param input table
+---@param input string[] # Each string element of the input table is treated by *TeX* as a separate input argument.
 ---
 ---@see tex.print
 ---@see tex.tprint
@@ -5165,7 +5165,7 @@ function tex.sprint(catcodetable_no, input) end
 ---
 ---* Corresponding C source code: [ltexlib.c#L207-242](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L207-242)
 ---
----@param input string[]
+---@param input string[] # Each string element of the input table is treated by *TeX* as a separate input argument.
 ---@param ... string[]
 ---
 ---@see tex.print
@@ -5195,6 +5195,7 @@ function tex.tprint(input, ...) end
 ---
 ---@param catcode integer # The category code (`0` stands for the escape character, normally `\`, `1` stands for begin grouping, normally `{` and so on).
 ---@param input string
+---@param ... string
 ---
 ---@see tex.print
 ---@see tex.sprint
@@ -5212,7 +5213,7 @@ function tex.cprint(catcode, input, ...) end
 ---* Corresponding C source code: [ltexlib.c#L175-203](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L175-203)
 ---
 ---@param catcode integer # The category code (`0` stands for the escape character, normally `\`, `1` stands for begin grouping, normally `{` and so on).
----@param input table
+---@param input string[] # Each string element of the input table is treated by *TeX* as a separate input argument.
 ---
 ---@see tex.print
 ---@see tex.sprint
@@ -5261,7 +5262,7 @@ function tex.write(input, ...) end
 ---
 ---* Corresponding C source code: [ltexlib.c#L175-203](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L154-157)
 ---
----@param input table
+---@param input string[] # Each string element of the input table is treated by *TeX* as a separate input argument.
 ---
 ---@see tex.print
 ---@see tex.sprint
@@ -5279,6 +5280,10 @@ _N._10_3_15_1 = "page 203"
 ---Rounds *Lua* number `o`, and returns a number that is in the range of a
 ---valid *TeX* register value. If the number starts out of range, it generates a
 ---“number too big” error as well.
+---
+---__Reference:__
+---
+---* Corresponding C source code: [ltexlib.c#L2474-2482](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L2474-2482)
 ---
 ---@param o number
 ---
@@ -5300,6 +5305,10 @@ _N._10_3_15_2 = "page 203"
 ---architecture and operating system, so use with care! An interface to *LuaTeX*'s
 ---internal, 100% portable scale function will be added at a later date.
 ---
+---__Reference:__
+---
+---* Corresponding C source code: [ltexlib.c#L2484-2513](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L2484-2513)
+---
 ---@param o number
 ---@param delta number
 ---
@@ -5320,6 +5329,13 @@ function tex.scale(o, delta) end
 _N._15_3 = "page 204"
 
 ---
+---Companion to the primitive `\number`.
+---
+---__Reference:__
+---
+---* Corresponding C source code: [ltexlib.c#L2484-2513](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L2484-2513)
+---* https://www.tug.org/utilities/plain/cseq.html#number-rp
+---
 ---@param n integer
 ---
 ---@return integer
@@ -5328,9 +5344,15 @@ _N._15_3 = "page 204"
 function tex.number(n) end
 
 ---
----@param n integer
+---Companion to the primitive `\romannumeral`.
 ---
----@return string
+---__Reference:__
+---
+---* Corresponding C source code: [ltexlib.c#L2061-2064](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L2061-2064)
+---
+---@param n integer # for example `2025`
+---
+---@return string # for example `mmxxv`
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.romannumeral(n) end

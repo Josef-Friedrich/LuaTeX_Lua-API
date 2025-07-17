@@ -1,2 +1,19 @@
-\directlua{print(tex.number(234234))}
+\directlua{print(tex.number(01234))} % 1234
+\directlua{print(tex.number(0))} % 0
+\directlua{print(tex.number(-0123))} % -123
+\directlua{print(tex.number(999999999))} % 999999999
+\directlua{print(tex.number(9999999999))} % 1410065407
+\directlua{print(tex.number(99999999999))} % 1215752191
+
+% https://www.tug.org/utilities/plain/cseq.html#number-rp
+\number 01234\par
+\number 0\par
+\number-0123\par
+\number 18.23\par
+\number\month/\number\day/\number\year\par% make today's date.
+\setbox0=\hbox{Hello World}
+\noindent\copy0: \number\wd0, \the\wd0\par
+\setbox0=\hbox to 20pt{\hss}
+\noindent\copy0: \number\wd0, \the\wd0\par
+
 \bye
