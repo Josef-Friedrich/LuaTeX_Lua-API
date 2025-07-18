@@ -5065,6 +5065,7 @@ _N._10_3_14_print = "page 201"
 
 _N._10_3_14_1_print = "page 201"
 
+---@alias PrintableInput string|number|integer
 
 ---
 ---__Reference:__
@@ -5072,8 +5073,8 @@ _N._10_3_14_1_print = "page 201"
 ---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L1222-L1224](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L1222-L1224)
 ---* Corresponding C source code: [ltexlib.c#L161-164](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L161-164)
 ---
----@param input_line string # Each string argument is treated by *TeX* as a separate input line.
----@param ... string # The very last string of the very last `tex.print` command in a `directlua` will not have the `endlinechar` appended, all others do.
+---@param input_line PrintableInput # Each string argument is treated by *TeX* as a separate input line.
+---@param ... PrintableInput # The very last string of the very last `tex.print` command in a `directlua` will not have the `endlinechar` appended, all others do.
 ---
 ---@see tex.sprint
 ---@see tex.tprint
@@ -5090,8 +5091,8 @@ function tex.print(input_line, ...) end
 ---* Corresponding C source code: [ltexlib.c#L161-164](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L161-164)
 ---
 ---@param catcodetable_no integer The parameter can be used to print the strings using the catcode regime defined by `\catcodetable` `catcodetable_no`. If `catcodetable_no` is `-1`, the currently active catcode regime is used. If `catcodetable_no` is `-2`, the resulting catcodes are the result of `\the` `\toks`: all category codes are `12` (`other`) except for the space character, that has category code `10` (`space`). Otherwise, if `catcodetable_no` is not a valid catcode table, then it is ignored, and the currently active catcode regime is used instead.
----@param input_line string # Each string argument is treated by *TeX* as a separate input line.
----@param ... string # The very last string of the very last `tex.print` command in a `directlua` will not have the `endlinechar` appended, all others do.
+---@param input_line PrintableInput # Each string argument is treated by *TeX* as a separate input line.
+---@param ... PrintableInput # The very last string of the very last `tex.print` command in a `directlua` will not have the `endlinechar` appended, all others do.
 ---
 ---@see tex.print
 ---@see tex.sprint
@@ -5114,7 +5115,7 @@ function tex.print(catcodetable_no, input_line, ...) end
 ---* Source code of the `LuaTeX` manual: [luatex-tex.tex#L1222-L1224](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L1222-L1224)
 ---* Corresponding C source code: [ltexlib.c#L161-164](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L161-164)
 ---
----@param input_lines string[] # Each string element of the input table is treated by *TeX* as a separate input line.
+---@param input_lines PrintableInput[] # Each string (or number) element of the input table is treated by *TeX* as a separate input line.
 ---
 ---@see tex.sprint
 ---@see tex.tprint
@@ -5133,7 +5134,7 @@ function tex.print(input_lines) end
 ---* Corresponding C source code: [ltexlib.c#L161-164](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L161-164)
 ---
 ---@param catcodetable_no integer The parameter can be used to print the strings using the catcode regime defined by `\catcodetable` `catcodetable_no`. If `catcodetable_no` is `-1`, the currently active catcode regime is used. If `catcodetable_no` is `-2`, the resulting catcodes are the result of `\the` `\toks`: all category codes are `12` (`other`) except for the space character, that has category code `10` (`space`). Otherwise, if `catcodetable_no` is not a valid catcode table, then it is ignored, and the currently active catcode regime is used instead.
----@param input_lines string[] # Each string element of the input table is treated by *TeX* as a separate input line.
+---@param input_lines PrintableInput[] # Each string element of the input table is treated by *TeX* as a separate input line.
 ---
 ---@see tex.sprint
 ---@see tex.tprint
@@ -5204,8 +5205,8 @@ function tex.print(catcodetable_no, input_lines) end
 ---
 ---* Corresponding C source code: [ltexlib.c#L168-171](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L168-171)
 ---
----@param input string
----@param ... string
+---@param input PrintableInput
+---@param ... PrintableInput
 ---
 ---@see tex.print
 ---@see tex.tprint
@@ -5221,8 +5222,8 @@ function tex.sprint(input, ...) end
 ---* Corresponding C source code: [ltexlib.c#L168-171](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L168-171)
 ---
 ---@param catcodetable_no integer The parameter can be used to print the strings using the catcode regime defined by `\catcodetable` `catcodetable_no`. If `catcodetable_no` is `-1`, the currently active catcode regime is used. If `catcodetable_no` is `-2`, the resulting catcodes are the result of `\the` `\toks`: all category codes are `12` (`other`) except for the space character, that has category code `10` (`space`). Otherwise, if `catcodetable_no` is not a valid catcode table, then it is ignored, and the currently active catcode regime is used instead.
----@param input string
----@param ... string
+---@param input PrintableInput
+---@param ... PrintableInput
 ---
 ---@see tex.print
 ---@see tex.tprint
@@ -5239,7 +5240,7 @@ function tex.sprint(catcodetable_no, input, ...) end
 ---
 ---* Corresponding C source code: [ltexlib.c#L168-171](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L168-171)
 ---
----@param input string[] # Each string element of the input table is treated by *TeX* as a separate input argument.
+---@param input PrintableInput[] # Each string element of the input table is treated by *TeX* as a separate input argument.
 ---
 ---@see tex.print
 ---@see tex.tprint
@@ -5255,7 +5256,7 @@ function tex.sprint(input) end
 ---* Corresponding C source code: [ltexlib.c#L168-171](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L168-171)
 ---
 ---@param catcodetable_no integer The parameter can be used to print the strings using the catcode regime defined by `\catcodetable` `catcodetable_no`. If `catcodetable_no` is `-1`, the currently active catcode regime is used. If `catcodetable_no` is `-2`, the resulting catcodes are the result of `\the` `\toks`: all category codes are `12` (`other`) except for the space character, that has category code `10` (`space`). Otherwise, if `catcodetable_no` is not a valid catcode table, then it is ignored, and the currently active catcode regime is used instead.---@param t table
----@param input string[] # Each string element of the input table is treated by *TeX* as a separate input argument.
+---@param input PrintableInput[] # Each string element of the input table is treated by *TeX* as a separate input argument.
 ---
 ---@see tex.print
 ---@see tex.tprint
@@ -5288,8 +5289,8 @@ function tex.sprint(catcodetable_no, input) end
 ---
 ---* Corresponding C source code: [ltexlib.c#L207-242](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L207-242)
 ---
----@param input string[] # Each string element of the input table is treated by *TeX* as a separate input argument.
----@param ... string[]
+---@param input PrintableInput[] # Each string element of the input table is treated by *TeX* as a separate input argument.
+---@param ... PrintableInput[]
 ---
 ---@see tex.print
 ---@see tex.sprint
@@ -5317,8 +5318,8 @@ function tex.tprint(input, ...) end
 ---* Corresponding C source code: [ltexlib.c#L175-203](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L175-203)
 ---
 ---@param catcode integer # The category code (`0` stands for the escape character, normally `\`, `1` stands for begin grouping, normally `{` and so on).
----@param input string
----@param ... string
+---@param input PrintableInput
+---@param ... PrintableInput
 ---
 ---@see tex.print
 ---@see tex.sprint
@@ -5336,7 +5337,7 @@ function tex.cprint(catcode, input, ...) end
 ---* Corresponding C source code: [ltexlib.c#L175-203](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L175-203)
 ---
 ---@param catcode integer # The category code (`0` stands for the escape character, normally `\`, `1` stands for begin grouping, normally `{` and so on).
----@param input string[] # Each string element of the input table is treated by *TeX* as a separate input argument.
+---@param input PrintableInput[] # Each string element of the input table is treated by *TeX* as a separate input argument.
 ---
 ---@see tex.print
 ---@see tex.sprint
@@ -5360,8 +5361,8 @@ function tex.cprint(catcode, input) end
 ---
 ---* Corresponding C source code: [ltexlib.c#L175-203](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L154-157)
 ---
----@param input string
----@param ... string
+---@param input PrintableInput
+---@param ... PrintableInput
 ---
 ---@see tex.print
 ---@see tex.sprint
@@ -5385,7 +5386,7 @@ function tex.write(input, ...) end
 ---
 ---* Corresponding C source code: [ltexlib.c#L175-203](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L154-157)
 ---
----@param input string[] # Each string element of the input table is treated by *TeX* as a separate input argument.
+---@param input PrintableInput[] # Each string element of the input table is treated by *TeX* as a separate input argument.
 ---
 ---@see tex.print
 ---@see tex.sprint
