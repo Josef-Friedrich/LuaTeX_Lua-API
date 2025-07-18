@@ -242,16 +242,14 @@ _N._10_3_2_internal_parameter_values_set_get = "page 190"
 ---| TokenlistParameter
 
 ---
----Set the given TeX parameter.
----
----When you set a glue quantity you can either pass a `glue_spec` or upto five numbers.
+---Set the given TeX parameter globally.
 ---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [ltexlib.c#L1714-1813](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/80a00d7131ae569d4a49f374e988226fe20de0d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1714-1813)
 ---
 ---@param global 'global' # It is possible to use `global` as the first argument to `tex.set`; this makes the assignment global instead of local.
----@param parameter InternalParameter
+---@param parameter InternalParameter # The name of the TeX parameter.
 ---@param ... any
 function tex.set(global, parameter, ...) end
 
@@ -264,12 +262,82 @@ function tex.set(global, parameter, ...) end
 ---
 ---* Corresponding C source code: [ltexlib.c#L1714-1813](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/80a00d7131ae569d4a49f374e988226fe20de0d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1714-1813)
 ---
----@param parameter InternalParameter
+---@param parameter InternalParameter # The name of the TeX parameter.
 ---@param ... any
 function tex.set(parameter, ...) end
 
 ---
+---Set the given glue parameter globally by specifying the `width`, `stretch`,
+---`stretch_order`, `shrink` and `shrink_order` of the glue.
+---
+---__Reference:__
+---
+---* Corresponding C source code: [ltexlib.c#L1714-1813](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/80a00d7131ae569d4a49f374e988226fe20de0d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1714-1813)
+---
+---@param global 'global' # It is possible to use `global` as the first argument to `tex.set`; this makes the assignment global instead of local.
+---@param parameter GlueParameter # The name of the glue parameter.
+---@param width integer # The horizontal or vertical displacement.
+---@param stretch? integer # An extra (positive) displacement or stretch amount.
+---@param stretch_order? integer # Factor applied to stretch amount.
+---@param shrink? integer # An extra (negative) displacement or shrink amount.
+---@param shrink_order? integer # Factor applied to shrink amount.
+function tex.set(global, parameter, width, stretch, stretch_order, shrink, shrink_order) end
+
+---
+---Set the given glue parameter by specifying the `width`, `stretch`,
+---`stretch_order`, `shrink` and `shrink_order` of the glue.
+---
+---__Reference:__
+---
+---* Corresponding C source code: [ltexlib.c#L1714-1813](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/80a00d7131ae569d4a49f374e988226fe20de0d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1714-1813)
+---
+---@param parameter GlueParameter # The name of the glue parameter.
+---@param width integer # The horizontal or vertical displacement.
+---@param stretch? integer # An extra (positive) displacement or stretch amount.
+---@param stretch_order? integer # Factor applied to stretch amount.
+---@param shrink? integer # An extra (negative) displacement or shrink amount.
+---@param shrink_order? integer # Factor applied to shrink amount.
+function tex.set(parameter, width, stretch, stretch_order, shrink, shrink_order) end
+
+---
+---Set the given glue parameter globally using a `glue_spec` node.
+---
+---__Reference:__
+---
+---* Corresponding C source code: [ltexlib.c#L1714-1813](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/80a00d7131ae569d4a49f374e988226fe20de0d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1714-1813)
+---
+---@param global 'global' # It is possible to use `global` as the first argument to `tex.set`; this makes the assignment global instead of local.
+---@param parameter GlueParameter # The name of the glue parameter.
+---@param glue_spec GlueSpecNode # A glue spec node.
+function tex.set(global, parameter, glue_spec) end
+
+---
+---Set the given glue parameter using a `glue_spec` node.
+---
+---__Reference:__
+---
+---* Corresponding C source code: [ltexlib.c#L1714-1813](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/80a00d7131ae569d4a49f374e988226fe20de0d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L1714-1813)
+---
+---@param parameter GlueParameter # The name of the glue parameter.
+---@param glue_spec GlueSpecNode # A glue spec node.
+function tex.set(parameter, glue_spec) end
+
+---
 ---Query the given TeX parameter.
+---
+---The exact return values differ depending on the actual parameter.
+---
+---__Reference:__
+---
+---* Corresponding C source code: [ltexlib.c#L2120-L2200](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L2120-L2200)
+---@param parameter InternalParameter
+---@param opts? boolean
+---
+---@return any ...
+function tex.get(parameter, opts) end
+
+---
+---Query the given glue parameter.
 ---
 ---The exact return values differ depending on the actual parameter.
 ---
@@ -287,11 +355,66 @@ function tex.set(parameter, ...) end
 ---__Reference:__
 ---
 ---* Corresponding C source code: [ltexlib.c#L2120-L2200](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L2120-L2200)
----@param parameter InternalParameter
----@param opts? boolean
+
+---@param parameter GlueParameter
 ---
----@return any ...
-function tex.get(parameter, opts) end
+---@return GlueSpecNode
+function tex.get(parameter) end
+
+---
+---Query the given glue parameter.
+---
+---The exact return values differ depending on the actual parameter.
+---
+---Glue is kind of special:
+---The return value
+---is a `glue_spec` node but when you pass `false` as last argument to
+---`tex.get` you get the width of the glue and when you pass `true` you
+---get all five values. Otherwise you get a node which is a copy of the internal
+---value so you are responsible for its freeing at the *Lua* end.
+---
+---If
+---you pass `true` to `get` you get 5 values returned for a glue and
+---when you pass `false` you only get the width returned.
+---
+---__Reference:__
+---
+---* Corresponding C source code: [ltexlib.c#L2120-L2200](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L2120-L2200)
+---@param parameter GlueParameter
+---@param all true
+---
+---@return integer width  # The horizontal or vertical displacement.
+---@return integer stretch  # An extra (positive) displacement or stretch amount.
+---@return integer stretch_order  # Factor applied to stretch amount.
+---@return integer shrink  # An extra (negative) displacement or shrink amount.
+---@return integer shrink_order  # Factor applied to shrink amount.
+function tex.get(parameter, all) end
+
+---
+---Query the given glue parameter.
+---
+---The exact return values differ depending on the actual parameter.
+---
+---Glue is kind of special:
+---The return value
+---is a `glue_spec` node but when you pass `false` as last argument to
+---`tex.get` you get the width of the glue and when you pass `true` you
+---get all five values. Otherwise you get a node which is a copy of the internal
+---value so you are responsible for its freeing at the *Lua* end.
+---
+---If
+---you pass `true` to `get` you get 5 values returned for a glue and
+---when you pass `false` you only get the width returned.
+---
+---__Reference:__
+---
+---* Corresponding C source code: [ltexlib.c#L2120-L2200](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L2120-L2200)
+---@param parameter GlueParameter
+---@param all false
+---
+---@return integer width  # The horizontal or vertical displacement.
+function tex.get(parameter, all) end
+
 
 _N._10_3_2_1_integer_parameters_read_write = "page 190"
 

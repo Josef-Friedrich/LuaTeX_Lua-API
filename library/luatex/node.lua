@@ -531,11 +531,11 @@ _N.glue_spec = 39
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class GlueSpecNode: Node
----@field width integer # the horizontal or vertical displacement
----@field stretch integer # extra (positive) displacement or stretch amount
----@field stretch_order integer # factor applied to stretch amount
----@field shrink integer # extra (negative) displacement or shrink amount
----@field shrink_order integer # factor applied to shrink amount
+---@field width integer # The horizontal or vertical displacement.
+---@field stretch integer # An extra (positive) displacement or stretch amount.
+---@field stretch_order integer # Factor applied to stretch amount.
+---@field shrink integer # An extra (negative) displacement or shrink amount.
+---@field shrink_order integer # Factor applied to shrink amount.
 
 _N.glue = 12
 
@@ -580,12 +580,12 @@ _N.glue = 12
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class GlueNode: Node
 ---@field subtype GlueNodeSubtype
----@field leader Node # pointer to a box or rule for leaders
----@field width integer # the horizontal or vertical displacement
----@field stretch integer # extra (positive) displacement or stretch amount
----@field stretch_order integer # factor applied to stretch amount
----@field shrink integer # extra (negative) displacement or shrink amount
----@field shrink_order integer # factor applied to shrink amount
+---@field leader Node # A pointer to a box or rule for leaders.
+---@field width integer # The horizontal or vertical displacement.
+---@field stretch integer # An extra (positive) displacement or stretch amount.
+---@field stretch_order integer # Factor applied to stretch amount.
+---@field shrink integer # An extra (negative) displacement or shrink amount.
+---@field shrink_order integer # Factor applied to shrink amount.
 
 ---
 ---Return the

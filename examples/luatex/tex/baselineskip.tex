@@ -9,20 +9,28 @@ tortor eu justo. Pellentesque suscipit placerat ex.}
 
 \lorem
 
-{\directlua{
+{
+  \directlua{
     n = node.new("glue_spec")
     n.width = tex.sp('50pt')
     tex.baselineskip = n
+    print(tex.get('baselineskip').width)
   }
-   \lorem\par}
-
+  \lorem\par
+}
 
 \lorem
 
-
-{\directlua{
-    tex.set('baselineskip', tex.sp('20pt'))
+{
+  \directlua{
+    tex.set('global', 'baselineskip', tex.sp('20pt'))
+    print(tex.get('baselineskip').width)
   }
-   \lorem\par}
+  \lorem\par
+}
+
+\directlua{
+  print(tex.get('baselineskip').width)
+}
 
 \bye
