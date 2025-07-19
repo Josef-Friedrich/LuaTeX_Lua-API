@@ -356,6 +356,7 @@ function tex.get(parameter, opts) end
 ---
 ---* Corresponding C source code: [ltexlib.c#L2120-L2200](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L2120-L2200)
 
+---
 ---@param parameter GlueParameter
 ---
 ---@return GlueSpecNode
@@ -414,7 +415,6 @@ function tex.get(parameter, all) end
 ---
 ---@return integer width  # The horizontal or vertical displacement.
 function tex.get(parameter, all) end
-
 
 _N._10_3_2_1_integer_parameters_read_write = "page 190"
 
@@ -5065,6 +5065,7 @@ _N._10_3_14_print = "page 201"
 
 _N._10_3_14_1_print = "page 201"
 
+---
 ---@alias PrintableInput string|number|integer
 
 ---
