@@ -41,7 +41,7 @@ patch:
 	resources/patch.sh patch
 
 ctan_luatex: dist_rsync
-	resources/merge-luatex.py
+	./manage.py merge luatex
 	rm -rf luatex-type-definitions.tar.gz
 	rm -rf luatex-type-definitions
 	mkdir luatex-type-definitions

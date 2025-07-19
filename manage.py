@@ -8,7 +8,7 @@ import re
 import glob
 from typing import Literal
 
-project_base_path: Path = Path(__file__).resolve().parent.parent
+project_base_path: Path = Path(__file__).resolve().parent
 
 
 def open_file(path: Path) -> None:
