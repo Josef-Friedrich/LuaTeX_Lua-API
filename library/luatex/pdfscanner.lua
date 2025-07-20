@@ -10,7 +10,7 @@ _N._14_4_the_pdfscanner_library = "page 289"
 pdfscanner = {}
 
 ---
----The first argument should be a *Lua* string or a stream or array onject coming
+---The first argument should be a *Lua* string or a stream or array object coming
 ---from the `pdfe` library. The second argument, `operatortable`, should
 ---be a *Lua* table where the keys are *PDF* operator name strings and the values
 ---are *Lua* functions (defined by you) that are used to process those operators.
@@ -57,6 +57,9 @@ pdfscanner = {}
 ---
 ---Analyze("foo.pdf")
 ---```
+---
+---__Reference:__
+---
 ---* Corresponding C source code: [lpdfscannerlib.c#L680-L828](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lpdfscannerlib.c#L680-L828)
 ---
 ---@param pdf string|PdfeStream|PdfeArray

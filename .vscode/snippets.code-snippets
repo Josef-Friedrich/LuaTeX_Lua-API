@@ -1,6 +1,8 @@
 {
   "examples": {
-    "prefix": ["example"],
+    "prefix": [
+      "example"
+    ],
     "body": [
       "\n---",
       "---__Example:__",
@@ -12,21 +14,34 @@
     ],
     "description": "An code example."
   },
-
   "for-example": {
-    "prefix": ["fexample", "forexample"],
-    "body": [", for example `$0`."],
+    "prefix": [
+      "fexample",
+      "forexample"
+    ],
+    "body": [
+      ", for example `$0`."
+    ],
     "description": "Inline code example"
   },
-
   "references": {
-    "prefix": ["reference"],
-    "body": ["", "---", "---__Reference:__", "---", "---* [$2]($1)", "---$0"],
+    "prefix": [
+      "reference"
+    ],
+    "body": [
+      "",
+      "---",
+      "---__Reference:__",
+      "---",
+      "---* [$2]($1)",
+      "---$0"
+    ],
     "description": "Reference heading"
   },
-
   "referenceLuaTeXManual": {
-    "prefix": ["manual"],
+    "prefix": [
+      "manual"
+    ],
     "body": [
       "",
       "---* `LuaTeX` manual: ${1:chapter} “${2:title}” page ${3:page}",
@@ -34,28 +49,46 @@
     ],
     "description": "* `LuaTeX` manual: "
   },
-
   "referenceSourceLuaTeXManual": {
-    "prefix": ["source"],
-    "body": ["", "---* Source code of the `LuaTeX` manual: [$2]($1)", "---$0"],
+    "prefix": [
+      "source"
+    ],
+    "body": [
+      "",
+      "---* Source code of the `LuaTeX` manual: [$2]($1)",
+      "---$0"
+    ],
     "description": "* Source code of the `LuaTeX` manual"
   },
-
   "link": {
-    "prefix": ["link"],
-    "body": ["", "---* [$2]($1)", "---$0"],
+    "prefix": [
+      "link"
+    ],
+    "body": [
+      "",
+      "---* [$2]($1)",
+      "---$0"
+    ],
     "description": "* item and markdown link"
   },
-
-
   "referenceC": {
-    "prefix": ["c", "ccode"],
-    "body": ["", "---", "---* Corresponding C source code: [$2]($1)", "---$0"],
+    "prefix": [
+      "c",
+      "ccode"
+    ],
+    "body": [
+      "",
+      "---",
+      "---* Corresponding C source code: [$2]($1)",
+      "---$0"
+    ],
     "description": "* Corresponding C source code: "
   },
-
   "referenceLua": {
-    "prefix": ["l", "lcode"],
+    "prefix": [
+      "l",
+      "lcode"
+    ],
     "body": [
       "",
       "---",
@@ -64,9 +97,11 @@
     ],
     "description": "* Corresponding Lua source code: "
   },
-
   "referenceCLines": {
-    "prefix": ["l", "ccode"],
+    "prefix": [
+      "l",
+      "ccode"
+    ],
     "body": [
       "",
       "---",
@@ -75,15 +110,24 @@
     ],
     "description": "* Corresponding C source code: only line numbers"
   },
-
   "referenceCpp": {
-    "prefix": ["p", "cpp"],
-    "body": ["", "---", "---* cppreference.com: [$2]($1)", "---$0"],
+    "prefix": [
+      "p",
+      "cpp"
+    ],
+    "body": [
+      "",
+      "---",
+      "---* cppreference.com: [$2]($1)",
+      "---$0"
+    ],
     "description": "* cppreference.com"
   },
-
   "referenceHarfBuzz": {
-    "prefix": ["h", "harf"],
+    "prefix": [
+      "h",
+      "harf"
+    ],
     "body": [
       "",
       "---",
@@ -92,9 +136,10 @@
     ],
     "description": "* HarfBuzz online documentation: "
   },
-
   "referenceWikibooks": {
-    "prefix": ["wikibook"],
+    "prefix": [
+      "wikibook"
+    ],
     "body": [
       "",
       "---* [Wikibook/TeX](https://en.wikibooks.org/wiki/TeX/$1)",
@@ -102,9 +147,10 @@
     ],
     "description": "Link to Wikibooks / TeX"
   },
-
   "referenceTeXbyTopic": {
-    "prefix": ["texbytopic"],
+    "prefix": [
+      "texbytopic"
+    ],
     "body": [
       "",
       "---* [TeX by Topic, page $1](http://mirrors.ctan.org/info/texbytopic/TeXbyTopic.pdf)",
@@ -112,64 +158,107 @@
     ],
     "description": "Link to CTAN version of TeX by Topic"
   },
-
-
   "return": {
-    "prefix": ["return"],
-    "body": ["", "---", "---@return $0"],
+    "prefix": [
+      "return"
+    ],
+    "body": [
+      "",
+      "---",
+      "---@return $0"
+    ],
     "description": "@return"
   },
-
   "param": {
-    "prefix": ["param"],
-    "body": ["", "---", "---@param $0"],
+    "prefix": [
+      "param"
+    ],
+    "body": [
+      "",
+      "---",
+      "---@param $0"
+    ],
     "description": "@param"
   },
-
   "see": {
-    "prefix": ["see"],
-    "body": ["", "---", "---@see $0"],
+    "prefix": [
+      "see"
+    ],
+    "body": [
+      "",
+      "---",
+      "---@see $0"
+    ],
     "description": "@see"
   },
-
   "alias": {
-    "prefix": ["alias"],
-    "body": ["", "---", "---@alias $1 $2 $0"],
+    "prefix": [
+      "alias"
+    ],
+    "body": [
+      "",
+      "---",
+      "---@alias $1 $2 $0"
+    ],
     "description": "@alias"
   },
-
   "type": {
-    "prefix": ["type"],
-    "body": ["", "---", "---@type $1"],
+    "prefix": [
+      "type"
+    ],
+    "body": [
+      "",
+      "---",
+      "---@type $1"
+    ],
     "description": "@alias"
   },
-
   "class": {
-    "prefix": ["class"],
-    "body": ["", "---", "---@class $1 $0"],
+    "prefix": [
+      "class"
+    ],
+    "body": [
+      "",
+      "---",
+      "---@class $1 $0"
+    ],
     "description": "@class"
   },
-
   "as": {
-    "prefix": ["a", "as"],
-    "body": [" --[[@as <type>]] $1 $0"],
+    "prefix": [
+      "a",
+      "as"
+    ],
+    "body": [
+      " --[[@as <type>]] $1 $0"
+    ],
     "description": "@as"
   },
-
   "direct": {
-    "prefix": ["direct"],
-    "body": ["node.direct.$0 = node.$0"],
+    "prefix": [
+      "direct"
+    ],
+    "body": [
+      "node.direct.$0 = node.$0"
+    ],
     "description": "node.direct.xxx = node.xxx"
   },
-
   "linebreak": {
-    "prefix": ["-"],
-    "body": ["", "---", "---"],
+    "prefix": [
+      "-"
+    ],
+    "body": [
+      "",
+      "---",
+      "---"
+    ],
     "description": "---"
   },
-
   "inspect": {
-    "prefix": ["i", "inspect"],
+    "prefix": [
+      "i",
+      "inspect"
+    ],
     "body": [
       "",
       "local inspect = require('inspect')",
@@ -178,13 +267,21 @@
     ],
     "description": "---"
   },
-
   "man": {
-    "prefix": ["m", "man"],
+    "prefix": [
+      "m",
+      "man"
+    ],
     "body": [
       "",
       "---* [man3/$1](https://man7.org/linux/man-pages/man3/$1.3.html)"
     ],
     "description": "man"
+  },
+  "`code`": {
+    "body": [
+      "`${TM_SELECTED_TEXT:text}`"
+    ],
+    "prefix": "code"
   }
 }
