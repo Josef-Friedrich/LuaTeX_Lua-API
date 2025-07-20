@@ -8,7 +8,7 @@ import sys
 import tempfile
 import urllib.request
 from pathlib import Path
-from typing import Callable, Literal
+from typing import Callable, Literal, Union
 
 project_base_path: Path = Path(__file__).resolve().parent
 
@@ -250,26 +250,37 @@ def format_docstrings() -> None:
 
 
 def download_manuals() -> None:
-    for file in [
-        "01_preamble.tex",
-        "02_enhancements.tex",
-        "03_modifications.tex",
-        "04_lua.tex",
-        "05_languages.tex",
-        "06_fonts.tex",
-        "07_math.tex",
-        "08_nodes.tex",
-        "09_callbacks.tex",
-        "10_tex.tex",
-        "11_graphics.tex",
-        "12_fontloader.tex",
-        "13_harfbuzz.tex",
-        "14_backend.tex",
-    ]:
-        _download_url(
-            f"https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/raw/master/manual/{file}",
-            str(project_base_path) + f"/resources/manuals/luatex/{file}",
-        )
+    files: dict[str, Union[str, None]] = {
+        "luatex-backend.tex": "14_backend.tex",
+        "luatex-callbacks.tex": "09_callbacks.tex",
+        "luatex-contents.tex": None,
+        "luatex-enhancements.tex": "02_enhancements.tex",
+        "luatex-export-titlepage.tex": None,
+        "luatex-firstpage.tex": None,
+        "luatex-fontloader.tex": "12_fontloader.tex",
+        "luatex-fonts.tex": "06_fonts.tex",
+        "luatex-graphics.tex": "11_graphics.tex",
+        "luatex-harfbuzz.tex": "13_harfbuzz.tex",
+        "luatex-introduction.tex": None,
+        "luatex-languages.tex": "05_languages.tex",
+        "luatex-logos.tex": None,
+        "luatex-lua.tex": "04_lua.tex",
+        "luatex-math.tex": "07_math.tex",
+        "luatex-modifications.tex": "03_modifications.tex",
+        "luatex-nodes.tex": "08_nodes.tex",
+        "luatex-preamble.tex": "01_preamble.tex",
+        "luatex-registers.tex": None,
+        "luatex-statistics.tex": None,
+        "luatex-style.tex": None,
+        "luatex-tex.tex": "10_tex.tex",
+        "luatex-titlepage.tex": None,
+    }
+    for file, renamed in files.items():
+        if renamed:
+            _download_url(
+                f"https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/raw/master/manual/{file}",
+                str(project_base_path) + f"/resources/manuals/luatex/{renamed}",
+            )
 
 
 # merge
