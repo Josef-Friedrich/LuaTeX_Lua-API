@@ -1,12 +1,13 @@
 #! /usr/bin/python
 
 import argparse
+import glob
+import re
+import subprocess
 import sys
 import tempfile
+import urllib.request
 from pathlib import Path
-import subprocess
-import re
-import glob
 from typing import Callable, Literal
 
 project_base_path: Path = Path(__file__).resolve().parent
@@ -33,6 +34,13 @@ Subproject = Literal[
 ]
 
 # convert
+
+
+def _download_url(url: str, dest_path: str) -> None:
+    with urllib.request.urlopen(url) as response:
+        data = response.read()
+        with open(dest_path, "wb") as f:
+            f.write(data)
 
 
 def convert_tex() -> None:
@@ -238,6 +246,32 @@ def format_docstrings() -> None:
     _apply_function_on_glob("library/**/*.lua", _format)
 
 
+# manuals
+
+
+def download_manuals() -> None:
+    for file in [
+        "01_preamble.tex",
+        "02_enhancements.tex",
+        "03_modifications.tex",
+        "04_lua.tex",
+        "05_languages.tex",
+        "06_fonts.tex",
+        "07_math.tex",
+        "08_nodes.tex",
+        "09_callbacks.tex",
+        "10_tex.tex",
+        "11_graphics.tex",
+        "12_fontloader.tex",
+        "13_harfbuzz.tex",
+        "14_backend.tex",
+    ]:
+        _download_url(
+            f"https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/raw/master/manual/{file}",
+            str(project_base_path) + f"/resources/manuals/luatex/{file}",
+        )
+
+
 # merge
 
 
@@ -312,6 +346,11 @@ if __name__ == "__main__":
         help="Format the lua docstrings (Remove duplicate empty comment lines, start docstring with an empty line)",
     )
 
+    manuals_parser = subparsers.add_parser(
+        "manuals",
+        help="Download the TeX or HTML sources of the manuals.",
+    )
+
     merge_parser = subparsers.add_parser(
         "merge",
         help="Merge multiple definitions files into one for the CTAN upload.",
@@ -333,6 +372,8 @@ if __name__ == "__main__":
         compile_example(args.relpath)
     elif args.command == "format":
         format_docstrings()
+    elif args.command == "manuals":
+        download_manuals()
     elif args.command == "merge":
         merge_type_definitions(args.subproject)
     elif args.command == "remove-navigation-table":
