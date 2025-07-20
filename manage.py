@@ -120,7 +120,7 @@ def convert_tex() -> None:
         with open(file_name + ".lua", "w") as dest:
             dest.write(content)
 
-    _apply_function_on_glob("manuals/**/*.tex", _convert)
+    _apply_function_on_glob("resources/manuals/**/*.tex", _convert)
 
 
 def convert_html() -> None:
@@ -151,7 +151,7 @@ def convert_html() -> None:
         with open(file_name + ".lua", "w") as dest:
             dest.write(content)
 
-    _apply_function_on_glob("**/*.html", _convert)
+    _apply_function_on_glob("resources/**/*.html", _convert)
 
 
 # example
