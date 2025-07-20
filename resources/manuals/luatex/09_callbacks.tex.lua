@@ -112,7 +112,7 @@
 ---    function (<string> asked_name)
 ---```
 ---
----The `asked_name` is an \OTF\ or *tfm* font metrics file.
+---The `asked_name` is an \OTF\ or \TFM\ font metrics file.
 ---
 ---Return `nil` if the file cannot be found.
 ---
@@ -125,7 +125,7 @@
 ---    function (<string> asked_name)
 ---```
 ---
----The `asked_name` is the *PDF* or *DVI* file for writing.
+---The `asked_name` is the *PDF* or \DVI\ file for writing.
 ---
 ---# `find_format_file`
 ---
@@ -142,7 +142,7 @@
 ---# `find_vf_file`
 ---
 ---Like `find_font_file`, but for virtual fonts. This applies to both \ALEPH's
----\OVF\ files and traditional Knuthian *vf* files.
+---\OVF\ files and traditional Knuthian \VF\ files.
 ---
 ---# `find_map_file`
 ---
@@ -306,7 +306,7 @@
 --- `read_pk_file`        pk bitmap files 
 --- `read_data_file`      embedded files (as is possible with *PDF* objects) 
 --- `read_truetype_file`  *TrueType* font files 
---- `read_type1_file`     *Type1* font files 
+--- `read_type1_file`     \TYPEONE\ font files 
 --- `read_opentype_file`  *OpenType* font files 
 ---
 ----------------------------------------------------------------
@@ -799,6 +799,18 @@
 ---This callback replaces the code that prints the error message. The usual
 ---interaction after the message is not affected.
 ---
+---# `show_ignored_error_message`
+---
+---```
+---function()
+---end
+---```
+---
+---This callback replaces the code that prints the error message
+---when `ignoreprimitiveerror` is enabled.
+---As before, the usual
+---interaction after the message is not affected.
+---
 ---# `show_lua_error_hook`
 ---
 ---```
@@ -994,6 +1006,33 @@
 ---returned string is used. By default the *UTF-8* representation is shown which is
 ---not always that useful, especially when there is no real representation. Keep in
 ---mind that setting this callback can change the log in an incompatible way.
+---
+---# `provide_charproc_data`
+---
+---The `provide_charproc_data` callback is triggered when the backend is
+---writing out a user-defined Type 3 font:
+---
+---```
+---function(<number> mode, <number> id, <number> char)
+---    if mode == 1 then
+---        -- preroll
+---        return
+---    elseif mode == 2 then
+---        -- write out the glyph contents
+---        return <number> stream, <number> width
+---    elseif mode == 3 then
+---        -- the overall font scale
+---        return <number> scale
+---    end
+---end
+---```
+---
+---To make a user-defined Type 3 font, you need to set `encodingbytes = 0`
+---and `psname = "none"` at the top-level when defining the font. From the
+---`glyph_not_found` callback, you should return the overall font scale
+---(conventionally 0.001) in mode 3, and the index of a *PDF* stream (where the
+---first operator is either `d0` or `d1`) and the width of the glyph
+---(in sp's) in mode 2. You can generally ignore mode 1.
 ---
 ----------------------------------------------------------------
 

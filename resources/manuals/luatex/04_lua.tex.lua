@@ -61,6 +61,7 @@
 --- `--credits`                     display credits and exit 
 --- `--debug-format`                enable format debugging 
 --- `--draftmode`                   switch on draft mode i.e.\ generate no output in *PDF* mode 
+--- `--[no-]check-dvi-total-pages`  exit when DVI exceeds 65535 pages (default: check) 
 --- `--[no-]file-line-error`        disable/enable `file:line:error` style messages 
 --- `--[no-]file-line-error-style`  aliases of `--[no-]file-line-error` 
 --- `--fmt=FORMAT`                  load the format file `FORMAT` \NR
@@ -71,9 +72,12 @@
 --- `--jobname=STRING`              set the job name to `STRING` 
 --- `--kpathsea-debug=NUMBER`       set path searching debugging flags according to the bits of `NUMBER` 
 --- `--lua=FILE`                    load and execute a *Lua* initialization script \NR
+--- `--luadebug`                    enable the `debug` library\NR
 --- `--[no-]mktex=FMT`              disable/enable `mktexFMT` generation with `FMT` is `tex` or `tfm` 
 --- `--nosocket`                    disable the *Lua* socket library \NR
---- `--output-comment=STRING`       use `STRING` for *DVI* file comment instead of date (no effect for *PDF*) 
+--- `--no-socket`                   disable the *Lua* socket library \NR
+--- `--socket`                      enable the *Lua* socket library \NR
+--- `--output-comment=STRING`       use `STRING` for \DVI\ file comment instead of date (no effect for *PDF*) 
 --- `--output-directory=DIR`        use `DIR` as the directory to write files to 
 --- `--output-format=FORMAT`        use `FORMAT` for job output; `FORMAT` is `dvi` or `pdf` 
 --- `--progname=STRING`             set the program name to `STRING` 
@@ -106,6 +110,9 @@
 ---The file names for output files that are generated automatically are created by
 ---attaching the proper extension (`log`, `pdf`, etc.) to the found
 ---`jobname`. These files are created in the directory pointed to by `--output-directory`, or in the current directory, if that switch is not present.
+---If `--output-directory` is not empty, its value it's copied to the
+---`TEXMF_OUTPUT_DIRECTORY` env. variable; if it's empty, the value of
+---`TEXMF_OUTPUT_DIRECTORY` is the value of the output directory.
 ---
 ---Without the `--lua` option, command line processing works like it does in
 ---any other \WEBC-based typesetting engine, except that *LuaTeX* has a few extra
@@ -116,24 +123,25 @@
 ---
 ---* First, it will parse the command line as usual, but it will only interpret a
 ---    small subset of the options immediately: `--safer`, `--nosocket`,
----    `--[no-]shell-escape`, `--enable-write18`, `--disable-write18`, `--shell-restricted`, `--help`, `--version`, and `--credits`.
+---    `--no-socket`,
+---    `--socket`, `--[no-]shell-escape`, `--enable-write18`, `--disable-write18`, `--shell-restricted`, `--help`, `--version`, and `--credits`.
 ---
 ---* Next *LuaTeX* searches for the requested *Lua* initialization script. If it
 ---    cannot be found using the actual name given on the command line, a second
 ---    attempt is made by prepending the value of the environment variable `LUATEXDIR`, if that variable is defined in the environment.
 ---
 ---* Then it checks the various safety switches. You can use those to disable some
----    *Lua* commands that can easily be abused by a malicious document. At the
----    moment, `--safer` `nil`s the following functions:
+---    *Lua* commands that can easily be abused by a malicious document. Currently
+---    `--safer` nils the following functions:
 ---
 ---    \blank
 ---
 ---    
 ---         library      functions 
 ---        
----         `os`   `execute` `exec` `spawn` `setenv` `rename` `remove` `tmpdir` 
+---         `os`   `execute` `exec` `kpsepopen` `spawn` `setenv` `rename` `remove` `tmpdir` 
 ---         `io`   `popen` `output` `tmpfile` 
----         `lfs`  `rmdir` `mkdir` `chdir` `lock` `touch` 
+---         `lfs`  `rmdir` `mkdir` `mkdirp` `chdir` `lock`  `touch` 
 ---        
 ---    
 ---
@@ -142,8 +150,25 @@
 ---    Furthermore, it disables loading of compiled *Lua* libraries and it makes
 ---    `io.open()` fail on files that are opened for anything besides reading.
 ---
+---    Finally, it disables the `socket` library unconditionally (but not the
+---    `mime` library which is always available).
+---
+---    From version 1.18.0  and if  \KPATHSEA\ is used, with the exception of `debug.traceback`
+---    the `debug` library is not enabled by default; it can
+---    be enabled with the `--luadebug` switch. The `debug` library
+---    is always enabled in shell-escape mode.
+---
+---   Also from version 1.18.0 and if  \KPATHSEA\ is used, the functions
+---   `os.rename`,`os.remove`, `lfs.attributes`, `lfs.chdir`,
+---   `lfs.lock_dir`, `lfs.dir`, `lfs.link`, `lfs.mkdir`, `lfs.mkdirp`,
+---   `lfs.rmdir`, `lfs.symlinkattributes`, `lfs.touch` 
+---   return `true` if both `kpse.in_name_ok_silent_extended` and
+---   `kpse.out_name_ok_silent_extended` validate the pathname;
+---   `lfs.attributes`, `lfs.dir` and  `lfs.symlinkattributes` are validated
+---   only against `kpse.in_name_ok_silent_extended`.
+---
 ---* When *LuaTeX* starts it sets the `locale` to a neutral value. If for
----    some reason you use `os.locale`, you need to make sure you `nil`
+---    some reason you use `os.setlocale`, you need to make sure you `nil`
 ---    it afterwards because otherwise it can interfere with code that for instance
 ---    generates dates. You can ignore the `locale` with:
 ---
@@ -151,13 +176,24 @@
 ---    os.setlocale(nil,nil)
 ---    ```
 ---
----    The `--nosocket` option makes the socket library unavailable, so that *Lua*
----    cannot use networking.
+---    The `--nosocket` or `--no-socket` option makes the socket library
+---    unavailable, so that *Lua* cannot use networking;  
+---    `--socket` option makes the socket library available.
 ---
 ---    The switches `--[no-]shell-escape`, `--[enable|disable]-write18`, and
 ---    `--shell-restricted` have the same effects as in *PDF*TEX, and additionally
----    make `io.popen()`, `os.execute`, `os.exec` and `os.spawn`
----    adhere to the requested option.
+---    make `io.popen()`, `os.execute`, `os.exec`, `os.kpsepopen`
+---    and `os.spawn` adhere to the requested option.
+---
+---    By default
+---    the socket library is not enabled: one can enable it with with `--socket`
+---     or with `--shell-escape`  (but without  `--shell-restricted`)
+---     and disable it with `--nosocket` (or `--no-socket`)
+---     or unconditionally with `--safer`.
+---
+---    In case of conflictual options, the most restrictive wins.
+---
+---    The `mime` library is always available.
 ---
 ---* Next the initialization script is loaded and executed. From within the
 ---    script, the entire command line is available in the *Lua* table `arg`,
@@ -194,6 +230,12 @@
 ---finished: in order to initialize the built-in \KPATHSEA\ library properly,
 ---*LuaTeX* needs to know the correct program name to use, and for that it needs to
 ---check `--progname`, or `--ini` and `--fmt`, if `--progname` is missing.
+---
+---From version 1.17.1, in \DVI\ mode the new commandline switch `--check-dvi-total-pages`,
+---enabled by default, checks  that the total number of pages does not
+---exceeds 65535, and in case the run abort. This breaks the compatibility with *PDF*TEX\
+---where, as in *TeX*, when the total number of pages is greater than 65535 the file will lie.
+---The previous behaviour can be restored with `--[no-]check-dvi-total-pages`.
 ---
 ----------------------------------------------------------------
 
@@ -276,8 +318,8 @@
 ---
 ---# Executing programs
 ---
----In keeping with the other *TeX*-like programs in *TeX*LIVE, the two *Lua* functions
----`os.execute` and `io.popen`, as well as the two new functions `os.exec` and `os.spawn` that are explained below, take the value of `shell_escape` and/or `shell_escape_commands` in account. Whenever
+---In keeping with the other *TeX*-like programs in *TeX*LIVE, the *Lua* functions
+---`os.execute`, `os.kpsepopen` and `io.popen`, as well as the two new functions `os.exec` and `os.spawn` that are explained below, take the value of `shell_escape` and/or `shell_escape_commands` in account. Whenever
 ---*LuaTeX* is run with the assumed intention to typeset a document (and by that we
 ---mean that it is called as `luatex`, as opposed to `texlua`, and that
 ---the command line option `--luaonly` was not given), it will only run the
@@ -285,10 +327,11 @@
 ---requested system command. In “script interpreter” runs of *LuaTeX*, these
 ---settings have no effect, and all four functions have their original meaning.
 ---
----Some libraries have a few more functions, either coded in *C code* or in *Lua*. For
+---Some libraries have a few more functions, either coded in \CCODE\ or in *Lua*. For
 ---instance, when we started with *LuaTeX* we added some helpers to the `luafilesystem` namespace `lfs`. The two boolean functions `lfs.isdir` and `lfs.isfile` were speedy and better variants of what could
 ---be done with `lfs.attributes`. The additional function `lfs.shortname` takes a file name and returns its short name on `win32`
----platforms. Finally, for non-`win32` platforms only, we provided `lfs.readlink` that takes an existing symbolic link as argument and returns its
+---platforms; `lfs.mkdirp` is like `lfs.mkdir` but make parent directories as needed.
+---Finally, for non-`win32` platforms only, we provided `lfs.readlink` that takes an existing symbolic link as argument and returns its
 ---name. However, the `lfs` library evolved so we have dropped these in favour of
 ---pure *Lua* variants. The `shortname` helper is obsolete and now just
 ---returns the name.
@@ -366,8 +409,14 @@
 ---
 ---# Extra `os` library functions
 ---
----The `os` library has a few extra functions and variables: `os.selfdir`, `os.exec`, `os.spawn`, `os.setenv`,
----`os.env`, `os.gettimeofday`, `os.times`, `os.tmpdir`, `os.type`, `os.name` and `os.uname`,
+---The `os` library has a few extra functions and
+---variables: `os.selfdir`, `os.exec`,
+---`os.kpsepopen`,
+---`os.socketgettime`, `os.socketsleep`,
+---`os.spawn`, `os.setenv`,
+---`os.env`, `os.gettimeofday`, `os.times`,
+---`os.sleep`, `os.tmpdir`, `os.type`,
+---`os.name` and `os.uname`,{os} {uname},
 ---that we will discuss here.
 ---
 ---* `os.selfdir` is a variable that holds the directory path of the
@@ -417,11 +466,25 @@
 ---    process before starting the new one, making it especially useful for use in
 ---    *TeX*LUA.
 ---
+---* `os.kpsepopen(commandline,[opt])` is similar to `io.popen`
+---    but with a preliminary check of the  commandline;
+---    if the check is ok then the return value is the same as in `io.popen`;
+---    Otherwise it will return the two values `nil` and `error`.
+---
+---* `os.socketgettime` and `os.socketsleep` are the same as for
+---    `socket.gettime` and `socket.sleep` but they are always available.
+---
 ---* `os.spawn(commandline)` is a returning version of `os.exec`,
 ---    with otherwise identical calling conventions.
 ---
 ---    If the command ran ok, then the return value is the exit status of the
 ---    command. Otherwise, it will return the two values `nil` and `error`.
+---
+---    `os.spawn()` takes an optional second argument, a table of key-value
+---    pairs for the environment of the spawned process. Note that if you do pass
+---    this table, it will be used as the `complete` environment for the
+---    spawned process, so you'll likely want to start from `os.env` and add
+---    or remove keys as needed.
 ---
 ---* `os.setenv(key,value)` sets a variable in the environment. Passing
 ---    `nil` instead of a value string will remove the variable.
@@ -434,16 +497,24 @@
 ---    float. This function is not available on the \SUNOS\ platforms, so do not use
 ---    this function for portable documents.
 ---
----* `os.times()`returns the current process times according to \ the
+---* `os.times()`returns the current process times according to the
 ---    \UNIX\ C library function “times”. This function is not available on
 ---    the \MSWINDOWS\ and \SUNOS\ platforms, so do not use this function for
 ---    portable documents.
 ---
----* `os.tmpdir()` creates a directory in the “current directory”
+---* `os.sleep(interval[, unit])` suspends the execution of the current run for
+---    a given number of seconds. If the optional argument `unit` is present, the
+---    function waits `interval / units` seconds. `os.sleep(1, 1000)`
+---    for example pauses the program for one millisecond.
+---
+---* `os.tmpdir([template])` creates a directory in the “current directory”
 ---    with the name `luatex.XXXXXX` where the `X`-es are replaced by a
 ---    unique string. The function also returns this string, so you can `lfs.chdir()` into it, or `nil` if it failed to create the directory.
 ---    The user is responsible for cleaning up at the end of the run, it does not
----    happen automatically.
+---    happen automatically. You can also use your own `template` for the name
+---    of the temporary folder. However, the passed string must end with six capital
+---    `X`-es. For example, the template `tmp.XXXXXX` could result in the
+---    folder name `tmp.vX3gPo`.
 ---
 ---* `os.type` is a string that gives a global indication of the class of
 ---    operating system. The possible values are currently `windows`, `unix`, and `msdos` (you are unlikely to find this value “in the

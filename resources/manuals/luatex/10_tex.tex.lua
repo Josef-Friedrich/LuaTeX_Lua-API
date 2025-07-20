@@ -84,7 +84,7 @@
 ---accessors are:
 ---
 ---```
----lua.setluaname(<string> s,<number> n])
+---lua.setluaname(<number> n, <string> s)
 ---<string> s = lua.getluaname(<number> n)
 ---```
 ---
@@ -131,8 +131,8 @@
 --- `callbacks`           total number of executed callbacks so far 
 ---@field cs_count number # of control sequences 
 --- `dest_names_size`     *PDF* destination table size 
---- `dvi_gone`            written *DVI* bytes 
---- `dvi_ptr`             not yet written *DVI* bytes 
+--- `dvi_gone`            written \DVI\ bytes 
+--- `dvi_ptr`             not yet written \DVI\ bytes 
 --- `dyn_used`            token (multi-word) memory in use  
 --- `filename`            name of the current input file 
 --- `fix_mem_end`         maximum number of used tokens 
@@ -174,7 +174,7 @@
 --- `obj_ptr`             max *PDF* object pointer 
 --- `obj_tab_size`        *PDF* object table size 
 --- `output_active`       `true` if the `output` routine is active 
---- `output_file_name`    name of the *PDF* or *DVI* file 
+--- `output_file_name`    name of the *PDF* or \DVI\ file 
 --- `param_size`          parameter stack size 
 --- `pdf_dest_names_ptr`  max *PDF* destination pointer 
 --- `pdf_gone`            written *PDF* bytes 
@@ -188,6 +188,8 @@
 --- `save_size`           save stack size 
 --- `shell_escape`        `0` means disabled, `1` means anything is permitted, and `2` is restricted 
 --- `safer_option`        `1` means safer is enforced 
+--- `luadebug_option`     true if the `debug` library is enabled at command line \NR
+--- `output_directory`    the value of the output directory 
 --- `kpse_used`           `1` means that kpse is used 
 --- `stack_size`          input stack size 
 ---@field str_ptr number # of strings 
@@ -1251,8 +1253,8 @@
 ---The first one returns the name only, the second one reports the size too.
 ---
 ---```
----tex.print(tex.fontname(tex.fontname))
----tex.print(tex.fontname(tex.fontidentidier))
+---tex.print(tex.fontidentifier(1))
+---tex.print(tex.fontname(1))
 ---```
 ---
 ---# `sp`
@@ -1276,25 +1278,28 @@
 ---
 ---* `mu` units do not generate an error (but may not be useful either)
 ---
----# `tex.getlinenumber` and `tex.setlinenumber`
----
----You can mess with the current line number:
----
----```
----local n = tex.getlinenumber()
----tex.setlinenumber(n+10)
----```
----
----which can be shortcut to:
----
----```
----tex.setlinenumber(10,true)
----```
----
----This might be handy when you have a callback that read numbers from a file and
----combines them in one line (in which case an error message probably has to refer
----to the original line). Interference with *TeX*'s internal handling of numbers is
----of course possible.
+---%# `tex.getlinenumber` and `tex.setlinenumber`
+---%
+---%
+---%
+---%
+---%You can mess with the current line number:
+---%
+---%```
+---%local n = tex.getlinenumber()
+---%tex.setlinenumber(n+10)
+---%```
+---%
+---%which can be shortcut to:
+---%
+---%```
+---%tex.setlinenumber(10,true)
+---%```
+---%
+---%This might be handy when you have a callback that read numbers from a file and
+---%combines them in one line (in which case an error message probably has to refer
+---%to the original line). Interference with *TeX*'s internal handling of numbers is
+---%of course possible.
 ---
 ---# `error` and `show_context`
 ---
@@ -1698,11 +1703,12 @@
 ---@field max_print_line number # 79   cf.\ web2c docs 
 ---@field hash_extra number # 0   cf.\ web2c docs 
 ---@field pk_dpi number # 72   cf.\ web2c docs 
----@field trace_file_names boolean # true
+---@field trace_file_names boolean # true 
 ---
 ---    `false` disables *TeX*'s normal file open-close feedback (the
 ---    assumption is that callbacks will take care of that)
 ---
+---@field trace_extra_newline boolean # false  adds an extra newline in `\tracingmacros` \NR
 ---@field file_line_error boolean # false
 ---
 ---    do `file:line` style error messages
@@ -1730,6 +1736,19 @@
 ---    when larger than zero the input nesting level will be shown when `\tracingmacros` is set; levels above this value will be clipped with
 ---    the level shown up front
 ---
+---@field check_dvi_total_pages boolean # 
+--- 
+---     in \DVI\ output mode, if true abort run when the number of pages exceeds 65535. 
+---     This is the default behaviour. If false, the run goes on as is in *TeX*.
+---
+---@field texlua_img boolean # 
+--- 
+---     if true, allows access to the `img` library in *TeX*LUA\ mode. If
+---     false (the default), the `img` library is not available in *TeX*LUA\
+---     mode (as it was unconditionally for *LuaTeX* versions prior to 1.22.0).
+---     Note that this setting is {\bf experimental} and subject to be removed at
+---     any time, without notice.
+---
 ---Note: the numeric values that match web2c parameters are only used if `kpse_init` is explicitly set to `false`. In all other cases, the normal
 ---values from `texmf.cnf` are used.
 ---
@@ -1737,10 +1756,12 @@
 ---
 ---```
 ---callback.register("input_level_string",function(n)
----         if tex.tracingmacros > 0 and tex.count.tracingstacklevels > 0 then
+--- if tex.tracingmacros > 0 and tex.count.tracingstacklevels > 0 then
 ---    if tex.tracingmacros > 1 then
 ---        return "! " .. string.rep(">",n) .. " "
 ---    end
+---  end
+---  return ""
 ---end)
 ---```
 ---
@@ -1757,6 +1778,7 @@
 ---        return string.rep(" ",l) .. string.rep(".",n-l)
 ---      end
 ---    end
+---    return ""
 ---  end)
 ---}
 ---```
@@ -2133,7 +2155,12 @@
 ---```
 ---
 ---When we scan `wxyz!` we get `yzwx!` back. The argument is either a table
----with tokens or a list of tokens. The `token.expand` function will trigger
+---with tokens or a list of tokens. The new function `token.unchecked_put_next`
+---has been added per request of the \LATEX\ team. It skips this error checking and
+---follows a different code path. It assumes that a valid token user datum is
+---passed and can crash the engine otherwise.
+---
+---The `token.expand` function will trigger
 ---expansion but what happens really depends on what you're doing where.
 ---
 ----------------------------------------------------------------
@@ -2502,6 +2529,57 @@
 
 
 ---
+---# `in_name_ok`
+---
+---Returns true if `fname` is acceptable to open for reading, otherwise false and 
+---write a message to standard error. 
+---
+---```
+---<boolean> r = kpse.in_name_ok(<string> fname)
+---```
+---
+---# `in_name_ok_silent_extended`
+---
+---```
+---<boolean> r = kpse.in_name_ok_silent_extended(<string> fname)
+---```
+---
+---Returns true if `fname` is acceptable to open for reading;
+---the values of `TEXMFVAR` and `TEXMFSYSVAR` are also
+---checked for absolute filenames. Returns false otherwise but it doesn't write
+---a message to standard error.
+---
+----------------------------------------------------------------
+
+
+---
+---# `out_name_ok`
+---
+---Returns true if `fname` is acceptable to open for writing. 
+---
+---```
+---<boolean> r = kpse.out_name_ok(<string> fname)
+---```
+---
+----------------------------------------------------------------
+
+
+---
+---# `out_name_ok_silent_extended`
+---
+---```
+---<boolean> r = kpse.out_name_ok_silent_extended(<string> fname)
+---```
+---
+---Returns true if `fname` is acceptable to open for writing;
+---the values of `TEXMFVAR` and `TEXMFSYSVAR` are also
+---checked for absolute filenames. Returns false otherwise but it doesn't write
+---a message to standard error.
+---
+----------------------------------------------------------------
+
+
+---
 ---# `show_path`
 ---
 ---Like kpsewhich's `-show-path`:
@@ -2532,6 +2610,20 @@
 ---
 ---```
 ---<string> r = kpse.version()
+---```
+---
+----------------------------------------------------------------
+
+
+---
+---# `check_permission`
+---
+---Checks if the `filename` can be executed or not.
+---Returns `1`, `filename` or a safe cmd alternative  if it can be executed,
+---otherwise  returns `0` and an error message. 
+---
+---```
+---<string> res, cmd = kpse.check_permission(<string> filename)
 ---```
 ---
 ----------------------------------------------------------------

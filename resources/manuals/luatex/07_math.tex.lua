@@ -1,4 +1,4 @@
----% language=uk engine=luatex runpath=texruns:manuals/luatex
+---% language=us engine=luatex runpath=texruns:manuals/luatex
 ---
 ---\environment luatex-style
 ---
@@ -114,6 +114,19 @@
 --- `Uunderdelimiter`  0 + 0--FF + 10FFFF   
 --- `Udelimiterover`   0 + 0--FF + 10FFFF   
 --- `Udelimiterunder`  0 + 0--FF + 10FFFF   
+---
+---Instead of the pseudo class variable (7) you can use a family number as signal
+---for using the current family. This permits classifying characters with a class
+---and still let the family adapt. The trigger family is set with `variablefam`. So:
+---
+---```
+---\variablefam"24
+---\Umathchardef\foo "3 "24 123
+---\foo \fam9
+---```
+---
+---Results in a curly left brace taken from family 9 with class “relation”
+---and spacing around it will be accordingly.
 ---
 ----------------------------------------------------------------
 
@@ -398,14 +411,14 @@
 ---be tedious to have to set each of them by hand. For this reason, *LuaTeX*
 ---initializes a bunch of these parameters whenever you assign a font identifier to
 ---a math family based on either the traditional math font dimensions in the font
----(for assignments to math family 2 and 3 using *tfm*-based fonts like `cmsy` and `cmex`), or based on the named values in a potential `MathConstants` table when the font is loaded via Lua. If there is a `MathConstants` table, this takes precedence over font dimensions, and in that
+---(for assignments to math family 2 and 3 using \TFM-based fonts like `cmsy` and `cmex`), or based on the named values in a potential `MathConstants` table when the font is loaded via Lua. If there is a `MathConstants` table, this takes precedence over font dimensions, and in that
 ---case no attention is paid to which family is being assigned to: the `MathConstants` tables in the last assigned family sets all parameters.
 ---
 ---In the table below, the one-letter style abbreviations and symbolic tfm font
 ---dimension names match those used in the \TeX book. Assignments to `textfont` set the values for the cramped and uncramped display and text styles,
 ---`scriptfont` sets the script styles, and `scriptscriptfont` sets the
 ---scriptscript styles, so we have eight parameters for three font sizes. In the
----*tfm* case, assignments only happen in family 2 and family 3 (and of course only
+---\TFM\ case, assignments only happen in family 2 and family 3 (and of course only
 ---for the parameters for which there are font dimensions).
 ---
 ---Besides the parameters below, *LuaTeX* also looks at the “space” font
@@ -479,28 +492,28 @@
 ---Note 1: *OpenType* fonts set `Umathlimitabovekern` and `Umathlimitbelowkern` to zero and set `Umathquad` to the font size of the
 ---used font, because these are not supported in the `MATH` table,
 ---
----Note 2: Traditional *tfm* fonts do not set `Umathradicalrule` because
+---Note 2: Traditional \TFM\ fonts do not set `Umathradicalrule` because
 ---*TeX*82\ uses the height of the radical instead. When this parameter is indeed not
 ---set when *LuaTeX* has to typeset a radical, a backward compatibility mode will
 ---kick in that assumes that an oldstyle *TeX* font is used. Also, they do not set
 ---`Umathradicaldegreebefore`, `Umathradicaldegreeafter`, and `Umathradicaldegreeraise`. These are then automatically initialized to
 ---`5/18`quad, `-10/18`quad, and 60.
 ---
----Note 3: If *tfm* fonts are used, then the `Umathradicalvgap` is not set
+---Note 3: If \TFM\ fonts are used, then the `Umathradicalvgap` is not set
 ---until the first time *LuaTeX* has to typeset a formula because this needs
 ---parameters from both family 2 and family 3. This provides a partial backward
 ---compatibility with *TeX*82, but that compatibility is only partial: once the `Umathradicalvgap` is set, it will not be recalculated any more.
 ---
----Note 4: When *tfm* fonts are used a similar situation arises with respect to `Umathspaceafterscript`: it is not set until the first time *LuaTeX* has to
+---Note 4: When \TFM\ fonts are used a similar situation arises with respect to `Umathspaceafterscript`: it is not set until the first time *LuaTeX* has to
 ---typeset a formula. This provides some backward compatibility with *TeX*82. But
 ---once the `Umathspaceafterscript` is set, `scriptspace` will never be
 ---looked at again.
 ---
----Note 5: Traditional *tfm* fonts set `Umathconnectoroverlapmin` to zero
+---Note 5: Traditional \TFM\ fonts set `Umathconnectoroverlapmin` to zero
 ---because *TeX*82\ always stacks extensibles without any overlap.
 ---
 ---Note 6: The `Umathoperatorsize` is only used in `displaystyle`, and is
----only set in *OpenType* fonts. In *tfm* font mode, it is artificially set to one
+---only set in *OpenType* fonts. In \TFM\ font mode, it is artificially set to one
 ---scaled point more than the initial attempt's size, so that always the “first next” will be tried, just like in *TeX*82.
 ---
 ---Note 7: The `Umathradicaldegreeraise` is a special case because it is the
@@ -687,160 +700,208 @@
 ---hacks that users came up with but when you set `matheqdirmode` to a positive
 ---value direction will be taken into account.
 ---
----\subsection {Nolimit correction}
+---% \subsection {Nolimit correction}
+---%
+---% 
+---%
+---% There are two extra math parameters `Umathnolimitsupfactor` and \lpr
+---% {Umathnolimitsubfactor} that were added to provide some control over how limits
+---% are spaced (for example the position of super and subscripts after integral
+---% operators). They relate to an extra parameter `mathnolimitsmode`. The half
+---% corrections are what happens when scripts are placed above and below. The
+---% problem with italic corrections is that officially that correction italic is used
+---% for above/below placement while advanced kerns are used for placement at the
+---% right end. The question is: how often is this implemented, and if so, do the
+---% kerns assume correction too. Anyway, with this parameter one can control it.
 ---
----There are two extra math parameters `Umathnolimitsupfactor` and `Umathnolimitsubfactor` that were added to provide some control over how limits
----are spaced (for example the position of super and subscripts after integral
----operators). They relate to an extra parameter `mathnolimitsmode`. The half
----corrections are what happens when scripts are placed above and below. The
----problem with italic corrections is that officially that correction italic is used
----for above/below placement while advanced kerns are used for placement at the
----right end. The question is: how often is this implemented, and if so, do the
----kerns assume correction too. Anyway, with this parameter one can control it.
+---% 
+---%      % probably not ok, we need a raw int here
+---%          \mathnolimitsmode0    `\displaystyle\mathop{\normalint}\nolimits^0_1`
+---%          \mathnolimitsmode1    `\displaystyle\mathop{\normalint}\nolimits^0_1`
+---%          \mathnolimitsmode2    `\displaystyle\mathop{\normalint}\nolimits^0_1`
+---%          \mathnolimitsmode3    `\displaystyle\mathop{\normalint}\nolimits^0_1`
+---%          \mathnolimitsmode4    `\displaystyle\mathop{\normalint}\nolimits^0_1`
+---%          \mathnolimitsmode8000 `\displaystyle\mathop{\normalint}\nolimits^0_1`
+---%     
+---%     
+---%      mode
+---%          \tttf 0
+---%          \tttf 1
+---%          \tttf 2
+---%          \tttf 3
+---%          \tttf 4
+---%          \tttf 8000
+---%     
+---%      superscript
+---%          0
+---%          font
+---%          0
+---%          0
+---%          +ic/2
+---%          0
+---%     
+---%      subscript
+---%          -ic
+---%          font
+---%          0
+---%          -ic/2
+---%          -ic/2
+---%          8000ic/1000
+---%     
+---% 
+---%
+---% When the mode is set to one, the math parameters are used. This way a macro
+---% package writer can decide what looks best. Given the current state of fonts in
+---% *ConTeXt* we currently use mode 1 with factor 0 for the superscript and 750 for
+---% the subscripts. Positive values are used for both parameters but the subscript
+---% shifts to the left. A `mathnolimitsmode` larger that 15 is considered to
+---% be a factor for the subscript correction. This feature can be handy when
+---% experimenting.
 ---
----    
----         \mathnolimitsmode0    `\displaystyle\int\nolimits^0_1`
----         \mathnolimitsmode1    `\displaystyle\int\nolimits^0_1`
----         \mathnolimitsmode2    `\displaystyle\int\nolimits^0_1`
----         \mathnolimitsmode3    `\displaystyle\int\nolimits^0_1`
----         \mathnolimitsmode4    `\displaystyle\int\nolimits^0_1`
----         \mathnolimitsmode8000 `\displaystyle\int\nolimits^0_1`
----    
----    
----     mode
----         \tttf 0
----         \tttf 1
----         \tttf 2
----         \tttf 3
----         \tttf 4
----         \tttf 8000
----    
----     superscript
----         0
----         font
----         0
----         0
----         +ic/2
----         0
----    
----     subscript
----         -ic
----         font
----         0
----         -ic/2
----         -ic/2
----         8000ic/1000
----    
+---% \subsection {Math italic mess}
+---%
+---% 
+---%
+---% The `mathitalicsmode` parameter was introduced to deal with the difference
+---% in applying italic correction in traditional and *OpenType* math fonts. There are
+---% *OpenType* fonts out there that have italic correction and assume them to be
+---% applied like traditional *TeX* fonts. This parameter takes several values:
+---%
+---% When set to zero, you get what was decided when the two code paths (traditional
+---% and *OpenType*) were introduced.
+---%
+---% Values larger than zero will add the italic correction between simple noads (it
+---% checks some classes so you might pay attention to for instance punctuation
+---% classes assigned).
+---%
+---% When set to zero or one, italics are independent, so we separate width from
+---% italic, while values larger than one combine both in the width but later
+---% selectively has to get rid of it (depending on code path).
+---%
+---% A value larger than two will backtrack italics for large operators, because there
+---% italic correction is used for anchoring scripts (limits and no limits). In fact,
+---% *OpenType* uses italics either between characters or for this purpose but as
+---% mentioned fonts are sort of messy here.
+---%
+---% We tested our version of plain *TeX* and recommend to use the value of three to
+---% get the best average results. More about this italic correction dilemma in
+---% rendering math can be found in articles (in for instance \TUGBOAT) and various
+---% documents in the *ConTeXt* distribution, especially those that discuss the
+---% upgraded math engine in *Lua*METATEX.
+---%
+---% % The `mathitalicsmode` parameter can be set to 1 to force italic correction
+---% % before noads that represent some more complex structure (read: everything that is
+---% % not an ord, bin, rel, open, close, punct or inner). A value of 2 will enforce the
+---% % old school font code path for all italics. We show a Cambria example.
+---% %
+---% % \starttexdefinition Whatever #1
+---% %      `\mathitalicsmode = #1`
+---% %      \mathitalicsmode#1\ruledhbox{`\left|T^1\right|`}
+---% %      \mathitalicsmode#1\ruledhbox{`\left|T\right|`}
+---% %      \mathitalicsmode#1\ruledhbox{`T+1`}
+---% %      \mathitalicsmode#1\ruledhbox{`T{1\over2}`}
+---% %      \mathitalicsmode#1\ruledhbox{`T\sqrt{1}`}
+---% %     
+---% % \stoptexdefinition
+---% %
+---% % \start
+---% %     \switchtobodyfont[cambria]
+---% %     
+---% %         \Whatever{0}%
+---% %         \Whatever{1}%
+---% %     
+---% % \stop
+---% %
+---% % This kind of parameters relate to the fact that italic correction in *OpenType*
+---% % math is bound to fuzzy rules. So, control is the solution.
 ---
----When the mode is set to one, the math parameters are used. This way a macro
----package writer can decide what looks best. Given the current state of fonts in
----*ConTeXt* we currently use mode 1 with factor 0 for the superscript and 750 for
----the subscripts. Positive values are used for both parameters but the subscript
----shifts to the left. A `mathnolimitsmode` larger that 15 is considered to
----be a factor for the subscript correction. This feature can be handy when
----experimenting.
----
----\subsection {Math italic mess}
----
----The `mathitalicsmode` parameter can be set to 1 to force italic correction
----before noads that represent some more complex structure (read: everything that is
----not an ord, bin, rel, open, close, punct or inner). A value of 2 will enforce the
----old school font code path for all italics. We show a Cambria example.
----
----\starttexdefinition Whatever #1
----     `\mathitalicsmode = #1`
----     \mathitalicsmode#1\ruledhbox{`\left|T^1\right|`}
----     \mathitalicsmode#1\ruledhbox{`\left|T\right|`}
----     \mathitalicsmode#1\ruledhbox{`T+1`}
----     \mathitalicsmode#1\ruledhbox{`T{1\over2}`}
----     \mathitalicsmode#1\ruledhbox{`T\sqrt{1}`}
----    
----\stoptexdefinition
----
----\start
----    \switchtobodyfont[cambria]
----    
----        \Whatever{0}%
----        \Whatever{1}%
----    
----\stop
----
----This kind of parameters relate to the fact that italic correction in *OpenType*
----math is bound to fuzzy rules. So, control is the solution.
----
----\subsection {Script and kerning}
----
----If you want to typeset text in math macro packages often provide something `\text` which obeys the script sizes. As the definition can be anything there is
----a good chance that the kerning doesn't come out well when used in a script. Given
----that the first glyph ends up in a `hbox` we have some control over this.
----And, as a bonus we also added control over the normal sublist kerning. The `mathscriptboxmode` parameter defaults to 1.
----
---- value      meaning 
----
---- `0`  forget about kerning 
---- `1`  kern math sub lists with a valid glyph 
---- `2`  also kern math sub boxes that have a valid glyph 
----@field 2 only kern math sub boxes with a boundary node # present
----
----Here we show some examples. Of course this doesn't solve all our problems, if
----only because some fonts have characters with bounding boxes that compensate for
----italics, while other fonts can lack kerns.
----
----\startbuffer[1]
----    `T_{\tf fluff}`
----\stopbuffer
----
----\startbuffer[2]
----    `T_{\text{fluff}}`
----\stopbuffer
----
----\startbuffer[3]
----    `T_{\text{\boundary1 fluff}}`
----\stopbuffer
----
----\unexpanded\def\Show#1#2#3%
----  {\doifelsenothing{#3}
----     {\small\tx\typeinlinebuffer[#1]}
----     {\doifelse{#3}{-}
----        {\small\bf\tt mode #2}
----        {\switchtobodyfont[#3]\showfontkerns\showglyphs\mathscriptboxmode#2\relax\inlinebuffer[#1]}}}
---- \Show{1}{0}{}         \Show{1}{1}{}          \Show{2}{1}{}          \Show{2}{2}{}          \Show{3}{3}{}          \Show{1}{0}{-}        \Show{1}{1}{-}         \Show{2}{1}{-}         \Show{2}{2}{-}         \Show{3}{3}{-}        
----     modern    \Show{1}{0}{modern}   \Show{1}{1}{modern}    \Show{2}{1}{modern}    \Show{2}{2}{modern}    \Show{3}{3}{modern}   
----     lucidaot  \Show{1}{0}{lucidaot} \Show{1}{1}{lucidaot}  \Show{2}{1}{lucidaot}  \Show{2}{2}{lucidaot}  \Show{3}{3}{lucidaot} 
----     pagella   \Show{1}{0}{pagella}  \Show{1}{1}{pagella}   \Show{2}{1}{pagella}   \Show{2}{2}{pagella}   \Show{3}{3}{pagella}  
----     cambria   \Show{1}{0}{cambria}  \Show{1}{1}{cambria}   \Show{2}{1}{cambria}   \Show{2}{2}{cambria}   \Show{3}{3}{cambria}  
----     dejavu    \Show{1}{0}{dejavu}   \Show{1}{1}{dejavu}    \Show{2}{1}{dejavu}    \Show{2}{2}{dejavu}    \Show{3}{3}{dejavu}   
----
----Kerning between a character subscript is controlled by `mathscriptcharmode`
----which also defaults to 1.
----
----Here is another example. Internally we tag kerns as italic kerns or font kerns
----where font kerns result from the staircase kern tables. In 2018 fonts like Latin
----Modern and Pagella rely on cheats with the boundingbox, Cambria uses staircase
----kerns and Lucida a mixture. Depending on how fonts evolve we might add some more
----control over what one can turn on and off.
----
----\def\MathSample#1#2#3%
----  {
----   #1 
----   #2 
----   \showglyphdata \switchtobodyfont[#2,17.3pt]`#3T_{f}`         
----   \showglyphdata \switchtobodyfont[#2,17.3pt]`#3\gamma_{e}`    
----   \showglyphdata \switchtobodyfont[#2,17.3pt]`#3\gamma_{ee}`   
----   \showglyphdata \switchtobodyfont[#2,17.3pt]`#3T_{\tf fluff}` 
----   \NR}
----
----    \FL
----    \MathSample{normal}{modern}  {\mr}
----    \MathSample{}      {pagella} {\mr}
----    \MathSample{}      {cambria} {\mr}
----    \MathSample{}      {lucidaot}{\mr}
----    \ML
----    \MathSample{bold}  {modern}  {\mb}
----    \MathSample{}      {pagella} {\mb}
----    \MathSample{}      {cambria} {\mb}
----    \MathSample{}      {lucidaot}{\mb}
----    
+---% \subsection {Script and kerning}
+---%
+---% 
+---% 
+---%
+---% If you want to typeset text in math macro packages often provide something \type
+---% {\text} which obeys the script sizes. As the definition can be anything there is
+---% a good chance that the kerning doesn't come out well when used in a script. Given
+---% that the first glyph ends up in a `hbox` we have some control over this.
+---% And, as a bonus we also added control over the normal sublist kerning. The \lpr
+---% {mathscriptboxmode} parameter defaults to 1.
+---%
+---% 
+---%  value      meaning 
+---% 
+---%  `0`  forget about kerning 
+---%  `1`  kern math sub lists with a valid glyph 
+---%  `2`  also kern math sub boxes that have a valid glyph 
+---%  `2`  only kern math sub boxes with a boundary node present
+---% 
+---% 
+---%
+---% Here we show some examples. Of course this doesn't solve all our problems, if
+---% only because some fonts have characters with bounding boxes that compensate for
+---% italics, while other fonts can lack kerns.
+---%
+---% \startbuffer[1]
+---%     `T_{\tf fluff}`
+---% \stopbuffer
+---%
+---% \startbuffer[2]
+---%     `T_{\text{fluff}}`
+---% \stopbuffer
+---%
+---% \startbuffer[3]
+---%     `T_{\text{\boundary1 fluff}}`
+---% \stopbuffer
+---%
+---% \unexpanded\def\Show#1#2#3%
+---%   {\doifelsenothing{#3}
+---%      {\small\tx\typeinlinebuffer[#1]}
+---%      {\doifelse{#3}{-}
+---%         {\small\bf\tt mode #2}
+---%         {\switchtobodyfont[#3]\showfontkerns\showglyphs\mathscriptboxmode#2\relax\inlinebuffer[#1]}}}
+---%
+---% 
+---%                \Show{1}{0}{}         \Show{1}{1}{}          \Show{2}{1}{}          \Show{2}{2}{}          \Show{3}{3}{}         
+---%                \Show{1}{0}{-}        \Show{1}{1}{-}         \Show{2}{1}{-}         \Show{2}{2}{-}         \Show{3}{3}{-}        
+---%      modern    \Show{1}{0}{modern}   \Show{1}{1}{modern}    \Show{2}{1}{modern}    \Show{2}{2}{modern}    \Show{3}{3}{modern}   
+---%      lucidaot  \Show{1}{0}{lucidaot} \Show{1}{1}{lucidaot}  \Show{2}{1}{lucidaot}  \Show{2}{2}{lucidaot}  \Show{3}{3}{lucidaot} 
+---%      pagella   \Show{1}{0}{pagella}  \Show{1}{1}{pagella}   \Show{2}{1}{pagella}   \Show{2}{2}{pagella}   \Show{3}{3}{pagella}  
+---%      cambria   \Show{1}{0}{cambria}  \Show{1}{1}{cambria}   \Show{2}{1}{cambria}   \Show{2}{2}{cambria}   \Show{3}{3}{cambria}  
+---%      dejavu    \Show{1}{0}{dejavu}   \Show{1}{1}{dejavu}    \Show{2}{1}{dejavu}    \Show{2}{2}{dejavu}    \Show{3}{3}{dejavu}   
+---% 
+---%
+---% % Kerning between a character subscript is controlled by `mathscriptcharmode`
+---% % which also defaults to 1.
+---%
+---% Here is another example. Internally we tag kerns as italic kerns or font kerns
+---% where font kerns result from the staircase kern tables. In 2018 fonts like Latin
+---% Modern and Pagella rely on cheats with the boundingbox, Cambria uses staircase
+---% kerns and Lucida a mixture. Depending on how fonts evolve we might add some more
+---% control over what one can turn on and off.
+---%
+---% \def\MathSample#1#2#3%
+---%   {
+---%    #1 
+---%    #2 
+---%    \showglyphdata \switchtobodyfont[#2,17.3pt]`#3T_{f}`         
+---%    \showglyphdata \switchtobodyfont[#2,17.3pt]`#3\gamma_{e}`    
+---%    \showglyphdata \switchtobodyfont[#2,17.3pt]`#3\gamma_{ee}`   
+---%    \showglyphdata \switchtobodyfont[#2,17.3pt]`#3T_{\tf fluff}` 
+---%    \NR}
+---%
+---% 
+---%     \FL
+---%     \MathSample{normal}{modern}  {\mr}
+---%     \MathSample{}      {pagella} {\mr}
+---%     \MathSample{}      {cambria} {\mr}
+---%     \MathSample{}      {lucidaot}{\mr}
+---%     \ML
+---%     \MathSample{bold}  {modern}  {\mb}
+---%     \MathSample{}      {pagella} {\mb}
+---%     \MathSample{}      {cambria} {\mb}
+---%     \MathSample{}      {lucidaot}{\mb}
+---%     
+---% 
 ---
 ---# Fixed scripts
 ---
@@ -915,45 +976,51 @@
 ---
 ---# Math constructs
 ---
----\subsection {Unscaled fences}
----
----The `mathdelimitersmode` primitive is experimental and deals with the
----following (potential) problems. Three bits can be set. The first bit prevents an
----unwanted shift when the fence symbol is not scaled (a cambria side effect). The
----second bit forces italic correction between a preceding character ordinal and the
----fenced subformula, while the third bit turns that subformula into an ordinary so
----that the same spacing applies as with unfenced variants. Here we show Cambria
----(with `mathitalicsmode` enabled).
----
----\starttexdefinition Whatever #1
----     `\mathdelimitersmode = #1`
----     \mathitalicsmode1\mathdelimitersmode#1\ruledhbox{\showglyphs\showfontkerns\showfontitalics`f(x)`}
----     \mathitalicsmode1\mathdelimitersmode#1\ruledhbox{\showglyphs\showfontkerns\showfontitalics`f\left(x\right)`}
----    
----\stoptexdefinition
----
----\start
----    \switchtobodyfont[cambria]
----    
----        \Whatever{0}\Whatever{1}\Whatever{2}\Whatever{3}%
----        \Whatever{4}\Whatever{5}\Whatever{6}\Whatever{7}%
----    
----\stop
----
----So, when set to 7 fenced subformulas with unscaled delimiters come out the same
----as unfenced ones. This can be handy for cases where one is forced to use `left` and `right` always because of unpredictable content. As said, it's an
----experimental feature (which somehow fits in the exceptional way fences are dealt
----with in the engine). The full list of flags is given in the next table:
----
---- value   meaning 
----
---- `"01`  don't apply the usual shift 
---- `"02`  apply italic correction when possible 
---- `"04`  force an ordinary subformula 
---- `"08`  no shift when a base character 
---- `"10`  only shift when an extensible 
----
----The effect can depend on the font (and for Cambria one can use for instance `"16`).
+---% \subsection {Unscaled fences}
+---%
+---% 
+---%
+---% The `mathdelimitersmode` primitive is experimental and deals with the
+---% following (potential) problems. Three bits can be set. The first bit prevents an
+---% unwanted shift when the fence symbol is not scaled (a cambria side effect). The
+---% second bit forces italic correction between a preceding character ordinal and the
+---% fenced subformula, while the third bit turns that subformula into an ordinary so
+---% that the same spacing applies as with unfenced variants. Here we show Cambria
+---% (with `mathitalicsmode` enabled).
+---%
+---% \starttexdefinition Whatever #1
+---%      `\mathdelimitersmode = #1`
+---%      \mathitalicsmode1\mathdelimitersmode#1\ruledhbox{\showglyphs\showfontkerns\showfontitalics`f(x)`}
+---%      \mathitalicsmode1\mathdelimitersmode#1\ruledhbox{\showglyphs\showfontkerns\showfontitalics`f\left(x\right)`}
+---%     
+---% \stoptexdefinition
+---%
+---% \start
+---%     \switchtobodyfont[cambria]
+---%     
+---%         \Whatever{0}\Whatever{1}\Whatever{2}\Whatever{3}%
+---%         \Whatever{4}\Whatever{5}\Whatever{6}\Whatever{7}%
+---%     
+---% \stop
+---%
+---% So, when set to 7 fenced subformulas with unscaled delimiters come out the same
+---% as unfenced ones. This can be handy for cases where one is forced to use \prm
+---% {left} and `right` always because of unpredictable content. As said, it's an
+---% experimental feature (which somehow fits in the exceptional way fences are dealt
+---% with in the engine). The full list of flags is given in the next table:
+---%
+---% 
+---%  value   meaning 
+---% 
+---%  `"01`  don't apply the usual shift 
+---%  `"02`  apply italic correction when possible 
+---%  `"04`  force an ordinary subformula 
+---%  `"08`  no shift when a base character 
+---%  `"10`  only shift when an extensible 
+---% 
+---% 
+---%
+---% The effect can depend on the font (and for Cambria one can use for instance `"16`).
 ---
 ---\subsection[mathacc]{Accent handling}
 ---
@@ -1098,7 +1165,7 @@
 ---
 ---\blank \startnarrower \getbuffer \stopnarrower \blank
 ---
----*LuaTeX* internally uses a structure that supports *OpenType* “MathVariants” as well as *tfm* “extensible recipes”. In most cases where
+---*LuaTeX* internally uses a structure that supports *OpenType* “MathVariants” as well as \TFM\ “extensible recipes”. In most cases where
 ---font metrics are involved we have a different code path for traditional fonts end
 ---*OpenType* fonts.
 ---
@@ -1346,6 +1413,17 @@
 ---
 ---# Goodies
 ---
+---\subsection {Obsolete}
+---
+---Per TL 2026 the following primitives are “ignored”. They were not used in
+---two decades unless by *ConTeXt* for exploring variants but we can do that
+---differently now. Obsolete commands that trigger a warning: `\mathoption`,
+---`\mathitalicssmode`, `\mathnolimitsmode`, `\mathscriptboxmode`,
+---`\mathscriptcharmode`, %`\mathflattenmode`,
+---`\mathdefaultsmode`,
+---`\mathrulethicknessmode`, `\mathdelimitersmode`. Also no longer used
+---are the parameters `\Umathnolimitsupfactor` and `\Umathnolimitsubfactor`.
+---
 ---\subsection {Flattening: `mathflattenmode`}
 ---
 ---The *TeX* math engine collapses `ord` noads without sub- and superscripts
@@ -1389,54 +1467,67 @@
 ---Because there are quite some math related parameters and values, it is possible
 ---to limit tracing. Only when `tracingassigns` and/or `tracingrestores` are set to 2 or more they will be traced.
 ---
----\subsection {Math options with `mathdefaultsmode`}
+---% \subsection {Math options with `mathdefaultsmode`}
+---%
+---% This option has been introduced because \LATEX\ developers wanted some of the
+---% defaults to be different from the ones that were set in stone when we froze
+---% *LuaTeX*. The default values are:
+---%
+---% 
+---%                   scanning  rendering 
+---% 
+---%  radical/root     cramped   cramped   
+---%  under delimiter  cramped   supstyle  
+---%  over delimiter   cramped   substyle  
+---%  delimiter under  cramped   current   
+---%  delimiter over   cramped   current   
+---% 
+---% 
+---%
+---% When `\mathdefaultsmode` is larger than zero, we have:
+---%
+---% 
+---%                   scanning  rendering 
+---% 
+---%  radical/root     cramped   cramped   
+---%  under delimiter  substyle  substyle  
+---%  over delimiter   supstyle  supstyle  
+---%  delimiter under  current   current   
+---%  delimiter over   cramped   cramped   
+---% 
+---% 
+---%
+---% It is outside the scope of this manual to discuss the rationale behind these
+---% defaults. The zero values date back from the early times. If needed you can
+---% explicitly set the style in the content argument.
 ---
----This option has been introduced because \LATEX\ developers wanted some of the
----defaults to be different from the ones that were set in stone when we froze
----*LuaTeX*. The default values are:
---- scanning  rendering 
+---% \subsection {Math options with `mathoption`}
+---%
+---% This command is now obsolete and triggers an error message. It was only meant
+---% for experiments.
 ---
---- radical/root     cramped   cramped   
---- under delimiter  cramped   supstyle  
---- over delimiter   cramped   substyle  
---- delimiter under  cramped   current   
---- delimiter over   cramped   current   
+---% % even more obsolete:
 ---
----When `\mathdefaultsmode` is larger than zero, we have:
---- scanning  rendering 
----
---- radical/root     cramped   cramped   
---- under delimiter  substyle  substyle  
---- over delimiter   supstyle  supstyle  
---- delimiter under  current   current   
---- delimiter over   cramped   cramped   
----
----It is outside the scope of this manual to discuss the rationale behind these
----defaults. The zero values date back from the early times. If needed you can
----explicitly set the style in the content argument.
----
----\subsection {Math options with `mathoption`}
----
----The logic in the math engine is rather complex and there are often no universal
----solutions (read: what works out well for one font, fails for another). Therefore
----some variations in the implementation are driven by parameters (modes). In
----addition there is a new primitive `mathoption` which will be used for
----testing. Don't rely on any option to be there in a production version as they are
----meant for development.
----
----This option was introduced for testing purposes when the math engine got split
----code paths and it forces the engine to treat new fonts as old ones with respect
----to italic correction etc. There are no guarantees given with respect to the final
----result and unexpected side effects are not seen as bugs as they relate to font
----properties. There is currently only one option:
----
----\startbuffer
----\mathoption old 1
----\stopbuffer
----
----The `oldmath` boolean flag in the *Lua* font table is the official way to
----force old treatment as it's bound to fonts. Like with all options we may
----temporarily introduce with this command this feature is not meant for production.
+---% The logic in the math engine is rather complex and there are often no universal
+---% solutions (read: what works out well for one font, fails for another). Therefore
+---% some variations in the implementation are driven by parameters (modes). In
+---% addition there is a new primitive `mathoption` which will be used for
+---% testing. Don't rely on any option to be there in a production version as they are
+---% meant for development.
+---%
+---% This option was introduced for testing purposes when the math engine got split
+---% code paths and it forces the engine to treat new fonts as old ones with respect
+---% to italic correction etc. There are no guarantees given with respect to the final
+---% result and unexpected side effects are not seen as bugs as they relate to font
+---% properties. There is currently only one option:
+---%
+---% \startbuffer
+---% \mathoption old 1
+---% \stopbuffer
+---%
+---% The `oldmath` boolean flag in the *Lua* font table is the official way to
+---% force old treatment as it's bound to fonts. Like with all options we may
+---% temporarily introduce with this command this feature is not meant for production.
 ---
 ---% % obsolete:
 ---%

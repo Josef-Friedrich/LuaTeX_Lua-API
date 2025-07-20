@@ -105,7 +105,7 @@
 ---
 ---The font file is parsed and partially interpreted by the font loading routines
 ---from *FontForge*. The file format can be *OpenType*, *TrueType*, *TrueType*
----Collection, \CFF, or *Type1*.
+---Collection, \CFF, or \TYPEONE.
 ---
 ---There are a few advantages to this approach compared to reading the actual font
 ---file ourselves:
@@ -170,7 +170,7 @@
 ---```
 ---
 ---An \AFM\ file is a textual representation of (some of) the meta information
----in a *Type1* font. See
+---in a \TYPEONE\ font. See
 ---
 ---```
 ---ftp://ftp.math.utah.edu/u/ma/hohn/linux/postscript/5004.AFM_Spec.pdf
@@ -178,7 +178,7 @@
 ---
 ---for more information about \AFM\ files.
 ---
----Note: If you `fontloader.open` a *Type1* file named `font.pfb`,
+---Note: If you `fontloader.open` a \TYPEONE\ file named `font.pfb`,
 ---the library will automatically search for and apply `font.afm` if it exists
 ---in the same directory as the file `font.pfb`. In that case, there is no
 ---need for an explicit call to `apply_afmfile()`.
@@ -194,7 +194,7 @@
 ---
 ---As mentioned earlier, the return value of `fontloader.open` is a userdata
 ---object. One way to have access to the actual metrics is to call `fontloader.to_table` on this object, returning the table structure that is
----explained in the following sections. In teh following sections we will not
+---explained in the following sections. In the following sections we will not
 ---explain each field in detail. Most fields are self descriptive and for the more
 ---technical aspects you need to consult the relevant font references.
 ---
@@ -267,7 +267,7 @@
 ---
 --- key                                  type      explanation 
 ---
----@field table_version number # indicates the metrics version (currently 0.3)
+---@field table_version string # indicates the metrics version (currently 0.3)
 ---@field fontname string # *PostScript* font name
 ---@field fullname string # official (human-oriented) font name
 ---@field familyname string # family name
@@ -672,7 +672,7 @@
 ---
 --- key               type    explanation 
 ---
----@field type string # one of `gpos_single`, `gpos_pair`, `gpos_cursive`, `gpos_mark2base`,\crlf `gpos_mark2ligature`, `gpos_mark2mark`, `gpos_context`, `gpos_contextchain` 
+---@field type string # one of `gpos_single`, `gpos_pair`, `gpos_cursive`, `gpos_mark2base`,\crlf `gpos_mark2ligature`, `gpos_mark2mark`, `gpos_context`,\crlf `gpos_contextchain` 
 ---@field flags table # 
 ---@field name string # 
 --- `features`   array   
@@ -793,7 +793,7 @@
 ---
 ---# `math`
 ---
----The math table has the variables that are also discussed in the chapter aboout
+---The math table has the variables that are also discussed in the chapter about
 ---math: `ScriptPercentScaleDown`, `ScriptScriptPercentScaleDown`, `DelimitedSubFormulaMinHeight`, `DisplayOperatorMinHeight`, `MathLeading`, `AxisHeight`, `AccentBaseHeight`, `FlattenedAccentBaseHeight`, `SubscriptShiftDown`, `SubscriptTopMax`,
 ---`SubscriptBaselineDropMin`, `SuperscriptShiftUp`, `SuperscriptShiftUpCramped`, `SuperscriptBottomMin`, `SuperscriptBaselineDropMax`, `SubSuperscriptGapMin`, `SuperscriptBottomMaxWithSubscript`, `SpaceAfterScript`, `UpperLimitGapMin`, `UpperLimitBaselineRiseMin`, `LowerLimitGapMin`,
 ---`LowerLimitBaselineDropMin`, `StackTopShiftUp`, `StackTopDisplayStyleShiftUp`, `StackBottomShiftDown`, `StackBottomDisplayStyleShiftDown`, `StackGapMin`, `StackDisplayStyleGapMin`, `StretchStackTopShiftUp`, `StretchStackBottomShiftDown`, `StretchStackGapAboveMin`, `StretchStackGapBelowMin`, `FractionNumeratorShiftUp`, `FractionNumeratorDisplayStyleShiftUp`, `FractionDenominatorShiftDown`,

@@ -1,4 +1,4 @@
----% language=uk engine=luatex runpath=texruns:manuals/luatex
+---% language=us engine=luatex runpath=texruns:manuals/luatex
 ---
 ---\environment luatex-style
 ---
@@ -33,12 +33,12 @@
 ---Of course it all starts with traditional *TeX*. Even if we started with *PDF*TEX,
 ---most still comes from the original. But we divert a bit.
 ---
----* The current code base is written in *C code*, not \PASCAL. We use \CWEB\ when
+---* The current code base is written in \CCODE, not \PASCAL. We use \CWEB\ when
 ---    possible. As a consequence instead of one large file plus change files, we
 ---    now have multiple files organized in categories like `tex`, `pdf`, `lang`, `font`, `lua`, etc. There are some artifacts
----    of the conversion to *C code*, but in due time we will clean up the source code
+---    of the conversion to \CCODE, but in due time we will clean up the source code
 ---    and make sure that the documentation is done right. Many files are in the
----    \CWEB\ format, but others, like those interfacing to *Lua*, are *C code* files.
+---    \CWEB\ format, but others, like those interfacing to *Lua*, are \CCODE\ files.
 ---    Of course we want to stay as close as possible to the original so that the
 ---    documentation of the fundamentals behind *TeX* by Don Knuth still applies.
 ---
@@ -54,17 +54,23 @@
 ---
 ---* The upper limit to `endlinechar` and `newlinechar` is 127.
 ---
----* Magnification (`mag`) is only supported in *DVI* output mode. You can
+---* Magnification (`mag`) is only supported in \DVI\ output mode. You can
 ---    set this parameter and it even works with `true` units till you switch
 ---    to *PDF* output mode. When you use *PDF* output you can best not touch the
 ---    `mag` variable. This fuzzy behaviour is not much different from using
----    *PDF* backend related functionality while eventually *DVI* output is
+---    *PDF* backend related functionality while eventually \DVI\ output is
 ---    required.
 ---
 ---    After the output mode has been frozen (normally that happens when the first
 ---    page is shipped out) or when *PDF* output is enabled, the `true`
 ---    specification is ignored. When you preload a plain format adapted to
 ---    *LuaTeX* it can be that the `mag` parameter already has been set.
+---
+---* When `\globaldefs` is positive while a local assignment is asked for,
+---    `{\global enforced`} is shown in the log when `\tracingcommands`
+---    is larger than one. When `\globaldefs` is negative and a global
+---    assignment is requested by `\global`, `\gdef` etc. the log will
+---    mention `{\global canceled`}.
 ---
 ----------------------------------------------------------------
 
@@ -78,18 +84,18 @@
 ---* The \ETEX\ functionality is always present and enabled so the prepended
 ---    asterisk or `-etex` switch for \INITEX\ is not needed.
 ---
----* The *TeX*XET\ extension is not present, so the primitives `\TeXXeTstate`, `\beginR`, `\beginL`, `\endR` and `\endL` are missing. Instead we used the *Omega*/\ALEPH\ approach to
+---* The *TeX*XET\ extension is not present, so the primitives `\TeXXeTstate`, `\beginR`, `\beginL`, `\endR` and `\endL` are missing. Instead we used the \OMEGA/\ALEPH\ approach to
 ---    directionality as starting point.
 ---
 ---* Some of the tracing information that is output by \ETEX's `tracingassigns` and `tracingrestores` is not there.
 ---
----* Register management in *LuaTeX* uses the *Omega*/\ALEPH\ model, so the maximum
+---* Register management in *LuaTeX* uses the \OMEGA/\ALEPH\ model, so the maximum
 ---    value is 65535 and the implementation uses a flat array instead of the mixed
 ---    flat & sparse model from \ETEX.
 ---
 ---* When kpathsea is used to find files, *LuaTeX* uses the `ofm` file
 ---    format to search for font metrics. In turn, this means that *LuaTeX* looks at
----    the `OFMFONTS` configuration variable (like *Omega* and \ALEPH) instead
+---    the `OFMFONTS` configuration variable (like \OMEGA\ and \ALEPH) instead
 ---    of `TFMFONTS` (like *TeX* and *PDF*TEX). Likewise for virtual fonts
 ---    (*LuaTeX* uses the variable `OVFFONTS` instead of `VFFONTS`).
 ---
@@ -199,7 +205,7 @@
 ---
 ---* The \orm {pdffontexpand} primitive is now `expandglyphsinfont`.
 ---
----* Because position tracking is also available in *DVI* mode the `savepos`,
+---* Because position tracking is also available in \DVI\ mode the `savepos`,
 ---    `lastxpos` and `lastypos` commands now replace their `pdf`
 ---    prefixed originals.
 ---
@@ -286,7 +292,7 @@
 ---\startsubsection[title=Changes from \ALEPH\ RC4]
 ---
 ---Because we wanted proper directional typesetting the \ALEPH\ mechanisms looked
----most attractive. These are rather close to the ones provided by *Omega*, so what
+---most attractive. These are rather close to the ones provided by \OMEGA, so what
 ---we say next applies to both these programs.
 ---
 ---* The extended 16-bit math primitives (\orm {omathcode} etc.) have been
@@ -369,7 +375,7 @@
 ---\startsubsection[title=Changes from standard \WEBC]
 ---
 ---The compilation framework is \WEBC\ and we keep using that but without the
----\PASCAL\ to *C code* step. This framework also provides some common features that
+---\PASCAL\ to \CCODE\ step. This framework also provides some common features that
 ---deal with reading bytes from files and locating files in \TDS. This is what we do
 ---different:
 ---
@@ -406,8 +412,8 @@
 ---In a previous section we mentioned that some *PDF*TEX\ primitives were removed and
 ---others promoted to core *LuaTeX* primitives. That is only part of the story. In
 ---order to separate the backend specific primitives in de code these commands are
----now replaced by only a few. In traditional *TeX* we only had the *DVI* backend
----but now we have two: *DVI* and *PDF*. Additional functionality is implemented as
+---now replaced by only a few. In traditional *TeX* we only had the \DVI\ backend
+---but now we have two: \DVI\ and *PDF*. Additional functionality is implemented as
 ---“extensions” in *TeX* speak. By separating more strickly we are able to
 ---keep the core (frontend) clean and stable and isolate these extensions. If for
 ---some reason an extra backend option is needed, it can be implemented without
@@ -435,6 +441,7 @@
 ---
 ---```
 ---\protected\def\pdfliteral             {\pdfextension literal}
+---\protected\def\pdflateliteral         {\pdfextension lateliteral}
 ---\protected\def\pdfcolorstack          {\pdfextension colorstack}
 ---\protected\def\pdfsetmatrix           {\pdfextension setmatrix}
 ---\protected\def\pdfsave                {\pdfextension save\relax}
@@ -502,6 +509,10 @@
 ---\edef\pdfomitcidset               {\pdfvariable omitcidset}
 ---\edef\pdfomitcharset              {\pdfvariable omitcharset}
 ---\edef\pdfomitinfodict             {\pdfvariable omitinfodict}
+---\edef\pdfomitinfodict             {\pdfvariable omitinfodict}
+---\edef\pdfomitmediabox             {\pdfvariable omitmediabox}
+---\edef\pdfomitprocset              {\pdfvariable omitprocset}
+---\edef\pdfptexprefix               {\pdfvariable ptexprefix}
 ---\edef\pdfpagebox                  {\pdfvariable pagebox}
 ---\edef\pdfminorversion             {\pdfvariable minorversion}
 ---\edef\pdfuniqueresname            {\pdfvariable uniqueresname}
@@ -581,11 +592,12 @@
 ---
 ---Although we started from a merge of *PDF*TEX\ and \ALEPH, by now the code base as
 ---well as functionality has diverted from those parents. Here we show the options
----that can be passed to the extensions.
+---that can be passed to the extensions. The `shipout` option is a compatibility
+---feature. Instead one can use the `deferred` prefix.
 ---
 ---\starttexsyntax
 ---\pdfextension literal
----    [ direct | page | raw ] { tokens }
+---    [shipout] [ direct | page | raw ] { tokens }
 ---\stoptexsyntax
 ---
 ---\starttexsyntax
@@ -754,6 +766,9 @@
 ---\pdfomitcidset            0
 ---\pdfomitcharset           0
 ---\pdfomitinfodict          0
+---\pdfomitmediabox          0
+---\pdfomitprocset           0
+---\pdfptexprefix            0
 ---\pdfpagebox               0
 ---\pdfminorversion          4
 ---\pdfuniqueresname         0
@@ -838,7 +853,7 @@
 ---
 ---# Four directions
 ---
----The directional model in *LuaTeX* is inherited from *Omega*/\ALEPH\ but we tried
+---The directional model in *LuaTeX* is inherited from \OMEGA/\ALEPH\ but we tried
 ---to improve it a bit. At some point we played with recovery of modes but that was
 ---disabled later on when we found that it interfered with nested directions. That
 ---itself had as side effect that the node list was no longer balanced with respect
@@ -985,8 +1000,12 @@
 ---paragraphs with only a local par node followed by direction synchronization
 ---nodes. Paragraphs like that are seen as empty paragraphs and therefore ignored.
 ---Because `\noindent` doesn't inject anything but a `\indent` injects
----an box, paragraphs with only an indent and directions are handles as paragraphs
+---an box, paragraphs with only an indent and directions are handled as paragraphs
 ---with content.
+---
+---By default paragraphs before a display equation containing dir nodes are never ignored.
+---Changing that could break existing documents, but when you set `mathemptydisplaymode`
+---to `1` empty paragraphs before a display equation will be ignored.
 ---
 ----------------------------------------------------------------
 
@@ -1072,7 +1091,7 @@
 ---nodes, and therefore has two states. At the *TeX* end we don't see these states
 ---because *TeX* itself will add proper end state nodes if needed.
 ---
----The symbolic names `TLT`, `TRT`, etc. originate in *Omega*. In
+---The symbolic names `TLT`, `TRT`, etc. originate in \OMEGA. In
 ---*LuaTeX* we also have a number based model which sometimes makes more sense.
 ---
 --- value      equivalent 
@@ -1082,7 +1101,7 @@
 --- `2`  LTL 
 --- `3`  RTT 
 ---
----We support the *Omega* primitives \orm {textdir}, \orm {pardir}, \orm {pagedir},
+---We support the \OMEGA\ primitives \orm {textdir}, \orm {pardir}, \orm {pagedir},
 ---\orm {pardir} and \orm {mathdir}. These accept three character keywords. The
 ---primitives that set the direction by number are: `textdirection`, `pardirection`, `pagedirection` and `bodydirection` and `mathdirection`. When specifying a direction for a box you can use `bdir`
 ---instead of `dir`.
@@ -1133,7 +1152,7 @@
 ---
 ---The `mathcode`, `delcode`, `catcode`, `sfcode`, `lccode`
 ---and `uccode` (and the new `hjcode`) tables are now sparse arrays that
----are implemented in *C code*. They are no longer part of the *TeX* “equivalence table” and because each had 1.1 million entries with a few memory
+---are implemented in \CCODE. They are no longer part of the *TeX* “equivalence table” and because each had 1.1 million entries with a few memory
 ---words each, this makes a major difference in memory usage. Performance is not
 ---really hurt by this.
 ---
@@ -1182,7 +1201,7 @@
 ---
 ---\startsubsection[title=Binary file reading]
 ---
----All of the internal code is changed in such a way that if one of the `read_xxx_file` callbacks is not set, then the file is read by a *C code* function
+---All of the internal code is changed in such a way that if one of the `read_xxx_file` callbacks is not set, then the file is read by a \CCODE\ function
 ---using basically the same convention as the callback: a single read into a buffer
 ---big enough to hold the entire file contents. While this uses more memory than the
 ---previous code (that mostly used `getc` calls), it can be quite a bit faster
@@ -1211,6 +1230,26 @@
 ---common file \IO\ layer is used can have a side effect of breaking compatibility.
 ---We still stick to our view that at the log level we can (and might be) more
 ---incompatible. We already expose some more details.
+---
+----------------------------------------------------------------
+
+
+---
+---\startsubsection[title=Hyperlinks]
+---
+---There is an experimental feature that makes multi-line hyper links behave a
+---little better, fixing some side effects that showed up in r2l typesetting but
+---also can surface in l2r. Because this got unnoticed till 2023, and because it
+---depends bit on how macro packages deal with hyper links, the fix is currently
+---under parameter control:
+---
+---```
+---\pdfvariable linking = 1
+---```
+---
+---That way (we hope) legacy documents come out as expected, whatever those
+---expectations are. One of the aspects dealt with concerns (unusual) left and right
+---skips.
 ---
 ----------------------------------------------------------------
 

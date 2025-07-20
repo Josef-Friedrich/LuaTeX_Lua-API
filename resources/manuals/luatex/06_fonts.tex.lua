@@ -1,4 +1,4 @@
----% language=uk engine=luatex
+---% language=us engine=luatex runpath=texruns:manuals/luatex
 ---
 ---\environment luatex-style
 ---
@@ -9,12 +9,12 @@
 ---# The font tables
 ---
 ---All *TeX* fonts are represented to *Lua* code as tables, and internally as
----*C code* structures. All keys in the table below are saved in the internal font
+---\CCODE structures. All keys in the table below are saved in the internal font
 ---structure if they are present in the table returned by the `define_font`
----callback, or if they result from the normal *tfm*/*vf* reading routines if there
+---callback, or if they result from the normal \TFM/\VF\ reading routines if there
 ---is no `define_font` callback defined.
 ---
----The column “*vf*” means that this key will be created by the `font.read_vf()` routine, “*tfm*” means that the key will be created by the
+---The column “\VF” means that this key will be created by the `font.read_vf()` routine, “\TFM” means that the key will be created by the
 ---`font.read_tfm()` routine, and “used” means whether or not the
 ---*LuaTeX* engine itself will do something with the key. The top-level keys in
 ---the table are as follows:
@@ -52,8 +52,8 @@
 --- `cache`             no   no   yes   string      This key controls caching of the *Lua* table on the *TeX* end where `yes` means: use a reference to the table that is passed to *LuaTeX* (this is the default), and `no` means: don't store the table reference, don't cache any *Lua* data for this font while `renew` means: don't store the table reference, but save a reference to the table that is created at the first access to one of its fields in the font. 
 --- `nomath`            no   no   yes   boolean     This key allows a minor speedup for text fonts. If it is present and true, then *LuaTeX* will not check the character entries for math-specific keys. 
 --- `oldmath`           no   no   yes   boolean     This key flags a font as representing an old school *TeX* math font and disables the *OpenType* code path. 
---- `slant`             no   no   yes   number      This parameter will tilt the font and does the same as `SlantFont` in the map file for *Type1* fonts. 
---- `extend`            no   no   yes   number      This parameter will scale the font horizontally and does the same as `ExtendFont` in the map file for *Type1* fonts. 
+--- `slant`             no   no   yes   number      This parameter will tilt the font and does the same as `SlantFont` in the map file for \TYPEONE\ fonts. 
+--- `extend`            no   no   yes   number      This parameter will scale the font horizontally and does the same as `ExtendFont` in the map file for \TYPEONE\ fonts. 
 --- `squeeze`           no   no   yes   number      This parameter will scale the font vertically and has no equivalent in the map file. 
 --- `width`             no   no   yes   number      The backend will inject *PDF* operators that set the penwidth. The value is (as usual in *TeX*) divided by 1000. It works with the `mode` file. 
 --- `mode`              no   no   yes   number      The backend will inject *PDF* operators that relate to the drawing mode with 0 being a fill, 1 being an outline, 2 both draw and fill and 3 no painting at all. 
@@ -89,8 +89,8 @@
 ---
 ---The key `attributes` can be used to set font attributes in the *PDF* file.
 ---The key `used` is set by the engine when a font is actively in use, this
----makes sure that the font's definition is written to the output file (*DVI* or
----*PDF*). The *tfm* reader sets it to false. The `direction` is a number
+---makes sure that the font's definition is written to the output file (\DVI\ or
+---*PDF*). The \TFM\ reader sets it to false. The `direction` is a number
 ---signalling the “normal” direction for this font. There are sixteen
 ---possibilities:
 ---
@@ -101,7 +101,7 @@
 ---  2  LB    6  RB   10  TB   14  BB  
 ---  3  LR    7  RR   11  TR   15  BR  
 ---
----These are *Omega*-style direction abbreviations: the first character indicates
+---These are \OMEGA-style direction abbreviations: the first character indicates
 ---the “first” edge of the character glyphs (the edge that is seen first in
 ---the writing direction), the second the “top” side. Keep in mind that
 ---*LuaTeX* has a bit different directional model so these values are not used for
@@ -172,7 +172,7 @@
 --- `left_protruding`   no   no   maybe  number   character's `lpcode` \NR
 --- `right_protruding`  no   no   maybe  number   character's `rpcode` \NR
 --- `expansion_factor`  no   no   maybe  number   character's `efcode` \NR
---- `tounicode`         no   no   maybe  string   character's *Unicode* equivalent(s), in *UTF-8*-16BE hexadecimal format \NR
+--- `tounicode`         no   no   maybe  string   character's *Unicode* equivalent(s), in *UTF-8*-16BE hexadecimal format \NR table    character's *Unicode* equivalent, as an array of (integer) *Unicode* codepoints \NR
 --- `next`              no   yes  yes    number   the “next larger” character index \NR
 --- `extensible`        no   yes  yes    table    the constituent parts of an extensible recipe \NR
 --- `vert_variants`     no   no   yes    table    constituent parts of a vertical variant set 
@@ -285,10 +285,10 @@
 ---The actions to be taken depend on a number of different variables:
 ---
 ---* Whether the used font fits in an 8-bit encoding scheme or not. This is true for
----    traditional *TeX* fonts that communicate via *tfm* files.
+---    traditional *TeX* fonts that communicate via \TFM\ files.
 ---
 ---* The type of the disk font file, for instance a bitmap file or an outline
----    *Type1*, *TrueType* or *OpenType* font.
+---    \TYPEONE, *TrueType* or *OpenType* font.
 ---
 ---* The level of embedding requested, although in most cases a subset of
 ---    characters is embedded. The times when nothing got embedded are (in our
@@ -297,12 +297,12 @@
 ---A font that uses anything other than an 8-bit encoding vector has to be written
 ---to the *PDF* in a different way. When the font table has `encodingbytes`
 ---set to 2, then it is a wide font, in all other cases it isn't. The value 2 is the
----default for *OpenType* and *TrueType* fonts loaded via *Lua*. For *Type1* fonts,
----you have to set `encodingbytes` to 2 explicitly. For *pk* bitmap fonts,
+---default for *OpenType* and *TrueType* fonts loaded via *Lua*. For \TYPEONE\ fonts,
+---you have to set `encodingbytes` to 2 explicitly. For \PK\ bitmap fonts,
 ---wide font encoding is not supported at all.
 ---
 ---If no special care is needed, *LuaTeX* falls back to the mapfile-based solution
----used by *PDF*TEX\ and *DVI*PS, so that legacy fonts are supported transparently. If
+---used by *PDF*TEX\ and \DVIPS, so that legacy fonts are supported transparently. If
 ---a “wide” font is used, the new subsystem kicks in, and some extra fields
 ---have to be present in the font structure. In this case, *LuaTeX* does not use a
 ---map file at all. These extra fields are: `format`, `embedding`, `fullname`, `cidinfo` (as explained above), `filename`, and the `index` key in the separate characters.
@@ -313,8 +313,8 @@
 ---
 --- value            description                                               
 ---
---- `type1`     this is a *PostScript* *Type1* font                     
---- `type3`     this is a bitmapped (*pk*) font                            
+--- `type1`     this is a *PostScript* \TYPEONE\ font                     
+--- `type3`     this is a bitmapped (\PK) font                            
 --- `truetype`  this is a *TrueType* or *TrueType*-based *OpenType* font 
 --- `opentype`  this is a *PostScript*-based *OpenType* font             
 ---
@@ -342,7 +342,7 @@
 ---the `index` key in the character information as value. The overall effect
 ---is like having an encoding based on numbers instead of traditional (*PostScript*)
 ---name-based reencoding. One way to get the correct `index` numbers for
----*Type1* fonts is by loading the font via `fontloader.open` and use the
+---\TYPEONE\ fonts is by loading the font via `fontloader.open` and use the
 ---table indices as `index` fields.
 ---
 ---In order to make sure that cut and paste of the final document works okay you can
@@ -378,7 +378,7 @@
 ---you are absolutely certain that a font is not a virtual font, assigning the value
 ---`real` to `type` will inhibit *LuaTeX* from looking for a virtual
 ---font file, thereby saving you a disk search. This only matters when we load a
----*tfm* file.
+---\TFM\ file.
 ---
 ---The `fonts` is an (indexed) *Lua* table. The values are one- or two-key
 ---hashes themselves, each entry indicating one of the base fonts in a virtual font.
@@ -550,7 +550,7 @@
 ---formats. Other font loading functionality is provided by the `fontloader`
 ---library that will be discussed in the next section.
 ---
----# Loading a *tfm* file
+---# Loading a \TFM\ file
 ---
 ---The behaviour documented in this subsection is considered stable in the sense that
 ---there will not be backward-incompatible changes any more.
@@ -567,7 +567,7 @@
 ---* If it is negative, its absolute value represents a “scaled”
 ---    setting relative to the designsize of the font.
 ---
----# Loading a *vf* file
+---# Loading a \VF\ file
 ---
 ---The behavior documented in this subsection is considered stable in the sense that
 ---there will not be backward-incompatible changes any more.
@@ -600,10 +600,10 @@
 ---```
 ---
 ---Note that at the moment, each access to the `font.fonts` or call to `font.getfont` creates a *Lua* table for the whole font unless you cached it.
----If you want a copy of the internal data you can use `font.copyfont`:
+---If you want a copy of the internal data you can use `font.getcopy`:
 ---
 ---```
----<table> f = font.copyfont(<number> n)
+---<table> f = font.getcopy(<number> n)
 ---```
 ---
 ---This one will return a table of the parameters as known to *TeX*. These can be
@@ -650,13 +650,64 @@
 ---
 ---Where the first argument is a reserved font id (see below).
 ---
+---# Unicode mappings
+---
+---The `glyphtounicode` extension is similar to the one in *PDF*TEX\ but
+---doesn't offer a way to set it per font. This has to do with the fact that we
+---store fonts differently and that one can overload the default font loader. If you
+---want to tune a specific font, you can use a *Lua* helper as shown below in plain
+---*TeX* code.
+---
+---```
+---% ToUnicode vectors will be added
+---
+---\pdfvariable gentounicode 1
+---
+---% Wrap a helper in a macro:
+---
+---\protected\def\luaglyphtounicode#1#2%
+---  {\directlua{font.settounicode(\fontid\font,\number#1,"#2")}}
+---
+---% Use the global mapper:
+---
+---\pdfextension glyphtounicode {A}{0042}
+---
+---% Test this:
+---
+---{A \font\test=cmss10 \test  A}
+---
+---% Define a non unicode symbol font:
+---
+---\font\orn = OrnementsADF at 10pt
+---
+---% Register mappings:
+---
+---\bgroup \orn
+---    \luaglyphtounicode{42}{2B9C}
+---    \luaglyphtounicode{65}{2B9D}
+---\egroup
+---
+---% Test this:
+---
+---{\orn \char42 \char65 A} A
+---
+---% And see if cut-n-paste from the pdf file works.
+---```
+---
+---Of course wrapping the helper is macro package dependent. This feature was added
+---for the 2026 release and should not interfere with previous behavior. As a side
+---note: adding the vectors to the pdf file for \TYPEONE\ fonts only happens when
+---there is at least one global extension entry, but this *Lua* driven one doesn't
+---have that limitation. This means that when you use the font specific method, it
+---also can trigger vectors for other eight bit fonts.
+---
 ---# Extending a font
 ---
 ---Within reasonable bounds you can extend a font after it has been defined. Because
 ---some properties are best left unchanged this is limited to adding characters.
 ---
 ---```
----font.addcharacters(<number n>, <table> f)
+---font.addcharacters(<number> n, <table> f)
 ---```
 ---
 ---The table passed can have the fields `characters` which is a (sub)table
@@ -757,6 +808,27 @@
 ---     \ligmodefont \discretionaryligaturemode0 \hsize1pt xxffixx
 ---     \ligmodefont \discretionaryligaturemode1 \hsize1pt xxffixx
 ---     \ligmodefont \discretionaryligaturemode2 \hsize1pt xxffixx 
+---    
+---
+----------------------------------------------------------------
+
+
+---
+---# `\tracinglostchars`
+---
+---This tracer reports missing characters. By design we delay this till the backend
+---included them, when math typesetting needs them, or when a virtual font is
+---created (1, 2, 3). Per request of the \LATEX\ team we have two extra options that
+---report in an earlier stage i.e.\ when the glyphs are packaged or processed during
+---line breaking (4 and 5).
+--- effect 
+---    
+---     0    nothing 
+---     1    warning only to log file 
+---     2    warning and force terminal 
+---     3    error 
+---     4    early warning (and force terminal) 
+---     > 4  early error 
 ---    
 ---
 ----------------------------------------------------------------

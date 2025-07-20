@@ -120,7 +120,7 @@
 ---constructed. When `savinghyphcodes` was zero when the language got
 ---initialized you start out with nothing, otherwise you already have a set.
 ---
----When a `hjcode` is greater than 0 but less than 32 is indicates the
+---When a `hjcode` is greater than 0 but less than 32 it indicates the
 ---to be used length. In the following example we map a character (`x`) onto
 ---another one in the patterns and tell the engine that `œ` counts as one
 ---character. Because traditionally zero itself is reserved for inhibiting

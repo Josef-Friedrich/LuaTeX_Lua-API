@@ -652,7 +652,7 @@
 ---<table>   p = get_path   (mp,<string> name)
 ---```
 ---
----The path is returned a a table with subtables that have six numbers: the
+---The path is returned as a table with subtables that have six numbers: the
 ---coordinates of the point, pre- and postcontrol. A `cycle` fields indicates
 ---if a path is cyclic.
 ---

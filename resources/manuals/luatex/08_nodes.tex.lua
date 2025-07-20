@@ -1,4 +1,4 @@
----% language=uk
+---% language=us engine=luatex runpath=texruns:manuals/luatex
 ---
 ---\environment luatex-style
 ---
@@ -633,7 +633,7 @@
 ---. % period
 ---
 ---Some of them are generic and independent of the output mode and others are
----specific to the chosen backend: *DVI* or *PDF*. Here we discuss the generic
+---specific to the chosen backend: \DVI\ or *PDF*. Here we discuss the generic
 ---font-end nodes nodes.
 ---
 ---# `open`
@@ -652,7 +652,8 @@
 ---
 ---@field attr node # list of attributes 
 ---@field stream number # *TeX*'s stream id number 
----@field data table # a table representing the token list to be written 
+---@field data string # a string representing the token list to be written 
+---@field value table # a table representing the token list to be written 
 ---
 ---# `close`
 ---
@@ -713,11 +714,11 @@
 
 
 ---
----# *DVI* backend whatsits
+---# \DVI\ backend whatsits
 ---
 ---# `special`
 ---
----There is only one *DVI* backend whatsit, and it just flushes its content to the
+---There is only one \DVI\ backend whatsit, and it just flushes its content to the
 ---output file.
 ---
 --- field        type    explanation 
@@ -731,7 +732,7 @@
 ---
 ---# *PDF* backend whatsits
 ---
----# `pdf_literal`
+---# `pdf_literal` and `pdf_late_literal`
 ---
 --- field         type    explanation 
 ---
@@ -813,10 +814,13 @@
 ---
 ---@field action_type number # the kind of action involved 
 ---@field action_id number # or string  token list reference or string 
+---%NC `named_id`     number            the index of the destination 
+---% a strange key but needed for latex; a probably downward incompable patch instead of a fix
 ---@field named_id`     number            are `dest_id` and `struct_id string # values? 
 ---@field file string # the target filename 
 ---@field new_window number # the window state of the target 
 ---@field data string # the name of the destination 
+---% needed for latex and therefore equivalent to pdftex
 --- `struct_id`    nil               the action does not reference a structure destination  number            id of the referenced structure destination  string            name of the referenced structure destination 
 ---
 ---Valid action types are:
@@ -988,7 +992,7 @@
 ---
 ---# `type` and `subtype`
 ---
----In the argument is a number, then the next function converts an internal numeric
+---If the argument is a number, then the next function converts an internal numeric
 ---representation to an external string representation. Otherwise, it will return
 ---the string `node` if the object represents a node, and `nil`
 ---otherwise.
@@ -1049,7 +1053,7 @@
 ---
 ---# `free`, `flush_node` and `flush_list`
 ---
----The next one the node `n` from *TeX*'s memory. Be careful: no checks are
+---The next one removes the node `n` from *TeX*'s memory. Be careful: no checks are
 ---done on whether this node is still pointed to from a register or some `next` field: it is up to you to make sure that the internal data structures
 ---remain correct.
 ---
@@ -1410,7 +1414,7 @@
 ---Only nodes with a subtype less than 256 are seen.
 ---
 ---```
----<node> n, font, char =
+---<node> n, char, font =
 ---    node.traverse_char(<node> n)
 ---```
 ---
@@ -1418,7 +1422,7 @@
 ---filters all glyphs:
 ---
 ---```
----<node> n, font, char =
+---<node> n, char, font =
 ---    node.traverse_glyph(<node> n)
 ---```
 ---
@@ -1541,7 +1545,7 @@
 ---
 ---```
 ---node.unprotect_glyph(<node> n)
----node.unprotect_glyphs(<node> n,[<node> n])
+---node.unprotect_glyphs(<node> n,[<node> ,m])
 ---```
 ---
 ---Subtracts 256 from all glyph node subtypes. This and the next function are
@@ -1552,7 +1556,7 @@
 ---
 ---```
 ---node.protect_glyph(<node> n)
----node.protect_glyphs(<node> n,[<node> n])
+---node.protect_glyphs(<node> n,[<node> m])
 ---```
 ---
 ---Adds 256 to all glyph node subtypes in the node list starting at `n`,
@@ -1813,8 +1817,8 @@
 ---userdata nodes and there numeric references and back with:
 ---
 ---```
----<integer> d = node.todirect(<node> n))
----<node> n = node.tonode(<integer> d))
+---<integer> d = node.direct.todirect(<node> n))
+---<node> n = node.direct.tonode(<integer> d))
 ---```
 ---
 ---The userdata model is rather robust as it is a virtual interface with some
@@ -1940,21 +1944,26 @@
 ---\supported {fields}                  \yes \nop
 ---\supported {find_attribute}          \yes \yes
 ---\supported {first_glyph}             \yes \yes
+---\supported {fix_node_lists}          \yes \nop
 ---\supported {flatten_discretionaries} \yes \yes
 ---\supported {flush_list}              \yes \yes
 ---\supported {flush_node}              \yes \yes
+---\supported {flush_properties_table}  \yes \yes
 ---\supported {free}                    \yes \yes
 ---\supported {get_attribute}           \yes \yes
+---\supported {get_properties_table}    \yes \yes
 ---\supported {get_synctex_fields}      \nop \yes
 ---\supported {getattributelist}        \nop \yes
 ---\supported {getboth}                 \yes \yes
 ---\supported {getbox}                  \nop \yes
 ---\supported {getchar}                 \yes \yes
 ---\supported {getcomponents}           \nop \yes
+---\supported {getdata}                 \nop \yes
 ---\supported {getdepth}                \nop \yes
 ---\supported {getdirection}            \nop \yes
 ---\supported {getdir}                  \nop \yes
 ---\supported {getdisc}                 \yes \yes
+---\supported {getexpansion}            \nop \yes
 ---\supported {getfam}                  \nop \yes
 ---\supported {getfield}                \yes \yes
 ---\supported {getfont}                 \yes \yes
@@ -1975,13 +1984,13 @@
 ---\supported {getsubtype}              \yes \yes
 ---\supported {getsub}                  \nop \yes
 ---\supported {getsup}                  \nop \yes
----\supported {getdata}                 \nop \yes
 ---\supported {getwhd}                  \yes \yes
 ---\supported {getwidth}                \nop \yes
 ---\supported {has_attribute}           \yes \yes
 ---\supported {has_field}               \yes \yes
 ---\supported {has_glyph}               \yes \yes
 ---\supported {hpack}                   \yes \yes
+---\supported {hyphenating}             \nop \yes
 ---\supported {id}                      \yes \nop
 ---\supported {insert_after}            \yes \yes
 ---\supported {insert_before}           \yes \yes
@@ -1994,10 +2003,11 @@
 ---\supported {last_node}               \yes \yes
 ---\supported {length}                  \yes \yes
 ---\supported {ligaturing}              \yes \yes
+---\supported {make_extensible}         \yes \nop
 ---\supported {mlist_to_hlist}          \yes \nop
 ---\supported {new}                     \yes \yes
 ---\supported {next}                    \yes \nop
----\supported {prepend_prevdepth}       \nop \yes
+---\supported {prepend_prevdepth}       \yes \yes
 ---\supported {prev}                    \yes \nop
 ---\supported {protect_glyphs}          \yes \yes
 ---\supported {protect_glyph}           \yes \yes
@@ -2005,20 +2015,22 @@
 ---\supported {rangedimensions}         \yes \yes
 ---\supported {remove}                  \yes \yes
 ---\supported {set_attribute}           \yes \yes
+---\supported {set_properties_mode}     \yes \yes
 ---\supported {set_synctex_fields}      \nop \yes
 ---\supported {setattributelist}        \nop \yes
 ---\supported {setboth}                 \nop \yes
 ---\supported {setbox}                  \nop \yes
 ---\supported {setchar}                 \nop \yes
 ---\supported {setcomponents}           \nop \yes
+---\supported {setdata}                 \nop \yes
 ---\supported {setdepth}                \nop \yes
 ---\supported {setdirection}            \nop \yes
 ---\supported {setdir}                  \nop \yes
 ---\supported {setdisc}                 \nop \yes
+---\supported {setexpansion}            \nop \yes
 ---\supported {setfam}                  \nop \yes
 ---\supported {setfield}                \yes \yes
 ---\supported {setfont}                 \nop \yes
----\supported {setexpansion}            \nop \yes
 ---\supported {setglue}                 \yes \yes
 ---\supported {setheight}               \nop \yes
 ---\supported {setkern}                 \nop \yes
@@ -2043,12 +2055,13 @@
 ---\supported {subtypes}                \yes \nop
 ---\supported {subtype}                 \yes \nop
 ---\supported {tail}                    \yes \yes
----\supported {todirect}                \yes \yes
----\supported {tonode}                  \yes \yes
+---\supported {todirect}                \nop \yes
+---\supported {tonode}                  \nop \yes
 ---\supported {tostring}                \yes \yes
 ---\supported {traverse_char}           \yes \yes
 ---\supported {traverse_glyph}          \yes \yes
 ---\supported {traverse_id}             \yes \yes
+---\supported {traverse_list}           \nop \yes
 ---\supported {traverse}                \yes \yes
 ---\supported {types}                   \yes \nop
 ---\supported {type}                    \yes \nop
@@ -2057,6 +2070,7 @@
 ---\supported {unset_attribute}         \yes \yes
 ---\supported {usedlist}                \yes \yes
 ---\supported {uses_font}               \yes \yes
+---\supported {values}                  \yes \nop
 ---\supported {vpack}                   \yes \yes
 ---\supported {whatsits}                \yes \nop
 ---\supported {write}                   \yes \yes
@@ -2073,6 +2087,11 @@
 ---could have normalized field names better but we decided to stick to the original
 ---(internal) names as much as possible. After all, at the *Lua* end one can easily
 ---create synonyms.
+---
+---In `setfield` and `getfield` specials and writes accept `data`
+---and `value` as equivalent keys. In the case of a write whatsit getting the
+---`value` returns the token list as table, while `data` returns the
+---expansion as a string (version 1.23.2, 2026).
 ---
 ---Some nodes have indirect references. For instance a math character refers to a
 ---family instead of a font. In that case we provide a virtual font field as
@@ -2093,9 +2112,9 @@
 ---nodes (although this last one is not used in native \SYNCTEX).
 ---
 ---```
----node.set_synctex_fields(<integer> f, <integer> l)
+---node.direct.set_synctex_fields(<integer> n, <integer> f, <integer> l)
 ---<integer> f, <integer> l =
----    node.get_synctex_fields(<node> n)
+---    node.direct.get_synctex_fields(<integer> n)
 ---```
 ---
 ---Of course you need to know what you're doing as no checking on sane values takes

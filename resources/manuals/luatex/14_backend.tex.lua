@@ -1,4 +1,4 @@
----% language=uk
+---% language=us engine=luatex runpath=texruns:manuals/luatex
 ---
 ---\environment luatex-style
 ---
@@ -115,10 +115,11 @@
 
 ---
 ---\startsubsection[title={`[set|get]suppressoptionalinfo`, `[set|get]trailerid`,
----`[set|get]omitcidset` and `[set|get]omitinfodict`}]
+---`[set|get]omitcidset`, `[set|get]omitinfo`, `[set|get]omitmediabox`,
+---`[set|get]omitprocset`, `[set|get]ptexprefix`} ]
 ---
----    
----         
+---     
+---           
 ---
 ---The optional info bitset (a number) determines what kind of info gets flushed.
 ---By default we flush all. See \in {section} [sec:pdfextensions] for more details.
@@ -128,7 +129,15 @@
 ---
 ---The cidset, charset and info flags (numbers) disables inclusion of a so called
 ---`CIDSet` and `CharSet` entries, which can be handy when aiming at
----some of the many *PDF* substandards.
+---some of the many *PDF* substandards. The same is true for the `ProcSet` and
+---`PTEX` prefix where setting this flag will force the use of a `_`
+---instead if a `.`. \footnote {In the info dictionary a period is valid pre
+---version 2, but the underscore has to be used elsewhere. The prefix dates from the
+---early days of *PDF*TEX\ and at that time using a period was considered okay. Later
+---specifications clarified this.}
+---
+---When it is omitted, one should provide the `MediaBox` via the page attribute
+---options, because it is a mandate field. No checking is done.
 ---
 ----------------------------------------------------------------
 
@@ -558,12 +567,12 @@
 ---
 ---The returned codes are:
 ---
---- value        explanation 
+--- value       explanation 
 ---
---- `-2`   the document failed to open 
---- `-1`   the document is (still) protected 
---- `0`    the document is not encrypted 
---- `2`    the document has been unencrypted 
+--- `-2`  the document is (still) protected 
+--- `-1`  the document failed to open 
+--- `0`  the document is not encrypted 
+--- `1`  the document has been unencrypted 
 ---
 ---An encrypted document can be unencrypted by the next command where instead of
 ---either password you can give `nil`:
@@ -585,7 +594,7 @@
 ---major, minor = getversion(<pdfe document>)
 ---n = getnofobjects(<pdfe document>)
 ---n = getnofpages(<pdfe document>)
----bytes, waste  = getmemoryusage(<pdfe document>)
+---bytes, waste = getmemoryusage(<pdfe document>)
 ---```
 ---
 ----------------------------------------------------------------
@@ -626,7 +635,7 @@
 ---is `MediaBox`.
 ---
 ---```
----pages = pdfe.getbox(<pdfe dictionary>,boxname)
+---box_dimens <array> = pdfe.getbox(<pdfe dictionary>,boxname)
 ---```
 ---
 ----------------------------------------------------------------
@@ -746,7 +755,7 @@
 --- type        meaning     value             detail 
 --- `0`   none        nil               
 --- `1`   null        nil               
----@field 2 boolean # 1 or 0            
+---@field 2 boolean # boolean           
 --- `3`   integer     integer           
 ---@field 4 number # float             
 --- `5`   name        string            
@@ -851,7 +860,7 @@
 ---pdfscanner.scan (<string>, <table> operatortable, <table> info)
 ---```
 ---
----The first argument should be a *Lua* string or a stream or array onject coming
+---The first argument should be a *Lua* string or a stream or array object coming
 ---from the `pdfe` library. The second argument, `operatortable`, should
 ---be a *Lua* table where the keys are *PDF* operator name strings and the values
 ---are *Lua* functions (defined by you) that are used to process those operators.
