@@ -127,7 +127,7 @@ Your callback function should have the following conventions:
     function (<string> asked_name)
 \stopfunctioncall
 
-The \type {asked_name} is an \OTF\ or *tfm* font metrics file.
+The \type {asked_name} is an \OTF\ or \TFM\ font metrics file.
 
 Return \type {nil} if the file cannot be found.
 
@@ -142,7 +142,7 @@ Your callback function should have the following conventions:
     function (<string> asked_name)
 \stopfunctioncall
 
-The \type {asked_name} is the \PDF\ or *DVI* file for writing.
+The \type {asked_name} is the \PDF\ or \DVI\ file for writing.
 
 \subsection{\cbk {find_format_file}}
 
@@ -163,7 +163,7 @@ is always opened in the current directory).
 \topicindex{callbacks+font files}
 
 Like \cbk {find_font_file}, but for virtual fonts. This applies to both \ALEPH's
-\OVF\ files and traditional Knuthian *vf* files.
+\OVF\ files and traditional Knuthian \VF\ files.
 
 \subsection{\cbk {find_map_file}}
 
@@ -362,7 +362,7 @@ The list of functions is:
 \NC \type{read_pk_file}       \NC pk bitmap files \NC \NR
 \NC \type{read_data_file}     \NC embedded files (as is possible with \PDF\ objects) \NC \NR
 \NC \type{read_truetype_file} \NC \TRUETYPE\ font files \NC \NR
-\NC \type{read_type1_file}    \NC *Type1* font files \NC \NR
+\NC \type{read_type1_file}    \NC \TYPEONE\ font files \NC \NR
 \NC \type{read_opentype_file} \NC \OPENTYPE\ font files \NC \NR
 \LL
 \stoptabulate
@@ -933,6 +933,21 @@ end
 This callback replaces the code that prints the error message. The usual
 interaction after the message is not affected.
 
+\subsection{\cbk {show_ignored_error_message}}
+
+\topicindex{callbacks+errors}
+
+\startfunctioncall
+function()
+end
+\stopfunctioncall
+
+This callback replaces the code that prints the error message
+when \prm {ignoreprimitiveerror} is enabled.
+As before, the usual
+interaction after the message is not affected.
+
+
 \subsection{\cbk {show_lua_error_hook}}
 
 \topicindex{callbacks+errors}
@@ -1156,6 +1171,36 @@ When \type {nil} is returned the character code is printed, otherwise the
 returned string is used. By default the \UTF\ representation is shown which is
 not always that useful, especially when there is no real representation. Keep in
 mind that setting this callback can change the log in an incompatible way.
+
+\subsection{\cbk {provide_charproc_data}}
+
+\topicindex{callbacks+fonts}
+
+The \type {provide_charproc_data} callback is triggered when the backend is
+writing out a user-defined Type~3 font:
+
+\startfunctioncall
+function(<number> mode, <number> id, <number> char)
+    if mode == 1 then
+        -- preroll
+        return
+    elseif mode == 2 then
+        -- write out the glyph contents
+        return <number> stream, <number> width
+    elseif mode == 3 then
+        -- the overall font scale
+        return <number> scale
+    end
+end
+\stopfunctioncall
+
+To make a user-defined Type~3 font, you need to set \type {encodingbytes = 0}
+and \type {psname = "none"} at the top-level when defining the font. From the
+\type {glyph_not_found} callback, you should return the overall font scale
+(conventionally 0.001) in mode~3, and the index of a \PDF\ stream (where the
+first operator is either \type {d0} or \type {d1}) and the width of the glyph
+(in sp's) in mode~2. You can generally ignore mode~1.
+
 
 \stopsection
 

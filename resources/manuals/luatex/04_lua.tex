@@ -73,6 +73,7 @@ consequence. The following command|-|line options are understood:
 \NC \type{--credits}                    \NC display credits and exit \NC \NR
 \NC \type{--debug-format}               \NC enable format debugging \NC \NR
 \NC \type{--draftmode}                  \NC switch on draft mode i.e.\ generate no output in \PDF\ mode \NC \NR
+\NC \type{--[no-]check-dvi-total-pages} \NC exit when DVI exceeds 65535 pages (default: check) \NC \NR
 \NC \type{--[no-]file-line-error}       \NC disable/enable \type {file:line:error} style messages \NC \NR
 \NC \type{--[no-]file-line-error-style} \NC aliases of \type {--[no-]file-line-error} \NC \NR
 \NC \type{--fmt=FORMAT}                 \NC load the format file \type {FORMAT} \NC\NR
@@ -85,10 +86,13 @@ consequence. The following command|-|line options are understood:
 \NC \type{--kpathsea-debug=NUMBER}      \NC set path searching debugging flags according to the bits of
                                            \type {NUMBER} \NC \NR
 \NC \type{--lua=FILE}                   \NC load and execute a \LUA\ initialization script \NC\NR
+\NC \type{--luadebug}                   \NC enable the \type{debug} library\NC\NR
 \NC \type{--[no-]mktex=FMT}             \NC disable/enable \type {mktexFMT} generation with \type {FMT} is
                                             \type {tex} or \type {tfm} \NC \NR
 \NC \type{--nosocket}                   \NC disable the \LUA\ socket library \NC\NR
-\NC \type{--output-comment=STRING}      \NC use \type {STRING} for *DVI* file comment instead of date (no
+\NC \type{--no-socket}                  \NC disable the \LUA\ socket library \NC\NR
+\NC \type{--socket}                     \NC enable the \LUA\ socket library \NC\NR
+\NC \type{--output-comment=STRING}      \NC use \type {STRING} for \DVI\ file comment instead of date (no
                                             effect for \PDF) \NC \NR
 \NC \type{--output-directory=DIR}       \NC use \type {DIR} as the directory to write files to \NC \NR
 \NC \type{--output-format=FORMAT}       \NC use \type {FORMAT} for job output; \type {FORMAT} is \type {dvi}
@@ -134,6 +138,10 @@ The file names for output files that are generated automatically are created by
 attaching the proper extension (\type {log}, \type {pdf}, etc.) to the found
 \prm {jobname}. These files are created in the directory pointed to by \type
 {--output-directory}, or in the current directory, if that switch is not present.
+If \type{--output-directory} is not empty, its value it's copied to the
+\type{TEXMF_OUTPUT_DIRECTORY} env. variable; if it's empty, the value of
+\type{TEXMF_OUTPUT_DIRECTORY} is the value of the output directory.
+
 
 Without the \type {--lua} option, command line processing works like it does in
 any other \WEBC|-|based typesetting engine, except that \LUATEX\ has a few extra
@@ -147,7 +155,8 @@ in the following order:
 \startitem
     First, it will parse the command line as usual, but it will only interpret a
     small subset of the options immediately: \type {--safer}, \type {--nosocket},
-    \type {--[no-]shell-escape}, \type {--enable-write18}, \type
+    \type {--no-socket},
+    \type {--socket}, \type {--[no-]shell-escape}, \type {--enable-write18}, \type
     {--disable-write18}, \type {--shell-restricted}, \type {--help}, \type
     {--version}, and \type {--credits}.
 \stopitem
@@ -161,19 +170,20 @@ in the following order:
 
 \startitem
     Then it checks the various safety switches. You can use those to disable some
-    \LUA\ commands that can easily be abused by a malicious document. At the
-    moment, \type {--safer} \type {nil}s the following functions:
+    \LUA\ commands that can easily be abused by a malicious document. Currently
+    \type {--safer} nils the following functions:
 
     \blank
 
     \starttabulate[|c|l|]
         \DB library     \BC functions \NC \NR
         \TB
-        \NC \type {os}  \NC \type {execute} \type {exec} \type {spawn} \type {setenv}
+        \NC \type {os}  \NC \type {execute} \type {exec} \type{kpsepopen}
+                            \type {spawn} \type {setenv}
                             \type {rename} \type {remove} \type {tmpdir} \NC \NR
         \NC \type {io}  \NC \type {popen} \type {output} \type {tmpfile} \NC \NR
-        \NC \type {lfs} \NC \type {rmdir} \type {mkdir} \type {chdir} \type {lock}
-                            \type {touch} \NC \NR
+        \NC \type {lfs} \NC \type {rmdir} \type {mkdir} \type {mkdirp} \type {chdir}
+                            \type {lock}  \type {touch} \NC \NR
         \LL
     \stoptabulate
 
@@ -181,11 +191,31 @@ in the following order:
 
     Furthermore, it disables loading of compiled \LUA\ libraries and it makes
     \type {io.open()} fail on files that are opened for anything besides reading.
+
+    Finally, it disables the \type {socket} library unconditionally (but not the
+    \type {mime} library which is always available).
+
+    From version 1.18.0  and if  \KPATHSEA\ is used, with the exception of \type{debug.traceback}
+    the \type{debug} library is not enabled by default; it can
+    be enabled with the \type{--luadebug} switch. The \type{debug} library
+    is always enabled in shell-escape mode.
+
+   Also from version 1.18.0 and if  \KPATHSEA\ is used, the functions
+   \type{os.rename},\type{os.remove}, \type{lfs.attributes}, \type{lfs.chdir},
+   \type{lfs.lock_dir}, \type{lfs.dir}, \type{lfs.link}, \type{lfs.mkdir}, \type{lfs.mkdirp},
+   \type{lfs.rmdir}, \type{lfs.symlinkattributes}, \type{lfs.touch} 
+   return \type{true} if both \type{kpse.in_name_ok_silent_extended} and
+   \type{kpse.out_name_ok_silent_extended} validate the pathname;
+   \type{lfs.attributes}, \type{lfs.dir} and  \type{lfs.symlinkattributes} are validated
+   only against \type{kpse.in_name_ok_silent_extended}.
+
+
+
 \stopitem
 
 \startitem
     When \LUATEX\ starts it sets the \type {locale} to a neutral value. If for
-    some reason you use \type {os.locale}, you need to make sure you \type {nil}
+    some reason you use \type {os.setlocale}, you need to make sure you \type {nil}
     it afterwards because otherwise it can interfere with code that for instance
     generates dates. You can ignore the \type {locale} with:
 
@@ -193,13 +223,25 @@ in the following order:
     os.setlocale(nil,nil)
     \stoptyping
 
-    The \type {--nosocket} option makes the socket library unavailable, so that \LUA\
-    cannot use networking.
+    The \type {--nosocket} or \type {--no-socket} option makes the socket library
+    unavailable, so that \LUA\ cannot use networking;  
+    \type {--socket} option makes the socket library available.
 
     The switches \type {--[no-]shell-escape}, \type {--[enable|disable]-write18}, and
     \type {--shell-restricted} have the same effects as in \PDFTEX, and additionally
-    make \type {io.popen()}, \type {os.execute}, \type {os.exec} and \type {os.spawn}
-    adhere to the requested option.
+    make \type {io.popen()}, \type {os.execute}, \type {os.exec}, \type {os.kpsepopen}
+    and \type {os.spawn} adhere to the requested option.
+
+    By default
+    the socket library is not enabled: one can enable it with with \type {--socket}
+     or with \type {--shell-escape}  (but without  \type {--shell-restricted})
+     and disable it with \type {--nosocket} (or \type {--no-socket})
+     or unconditionally with \type {--safer}.
+
+    In case of conflictual options, the most restrictive wins.
+
+    The \type{mime} library is always available.
+
 \stopitem
 
 \startitem
@@ -243,6 +285,12 @@ finished: in order to initialize the built|-|in \KPATHSEA\ library properly,
 \LUATEX\ needs to know the correct program name to use, and for that it needs to
 check \type {--progname}, or \type {--ini} and \type {--fmt}, if \type
 {--progname} is missing.
+
+From version 1.17.1, in \DVI\ mode the new commandline switch \type {--check-dvi-total-pages},
+enabled by default, checks  that the total number of pages does not
+exceeds 65535, and in case the run abort. This breaks the compatibility with \PDFTEX\
+where, as in \TEX, when the total number of pages is greater than 65535 the file will lie.
+The previous behaviour can be restored with \type {--[no-]check-dvi-total-pages}.
 
 \stopsubsection
 
@@ -319,8 +367,8 @@ of the module itself).
 
 \startsubsection[title={Executing programs}]
 
-In keeping with the other \TEX|-|like programs in \TEXLIVE, the two \LUA\ functions
-\type {os.execute} and \type {io.popen}, as well as the two new functions \type
+In keeping with the other \TEX|-|like programs in \TEXLIVE, the \LUA\ functions
+\type {os.execute}, \type{os.kpsepopen} and \type {io.popen}, as well as the two new functions \type
 {os.exec} and \type {os.spawn} that are explained below, take the value of \type
 {shell_escape} and|/|or \type {shell_escape_commands} in account. Whenever
 \LUATEX\ is run with the assumed intention to typeset a document (and by that we
@@ -331,13 +379,14 @@ four functions above if the matching \type {texmf.cnf} variable(s) or their \typ
 requested system command. In \quote {script interpreter} runs of \LUATEX, these
 settings have no effect, and all four functions have their original meaning.
 
-Some libraries have a few more functions, either coded in *C code* or in \LUA. For
+Some libraries have a few more functions, either coded in \CCODE\ or in \LUA. For
 instance, when we started with \LUATEX\ we added some helpers to the \type
 {luafilesystem} namespace \type {lfs}. The two boolean functions \type
 {lfs.isdir} and \type {lfs.isfile} were speedy and better variants of what could
 be done with \type {lfs.attributes}. The additional function \type
 {lfs.shortname} takes a file name and returns its short name on \type {win32}
-platforms. Finally, for non|-|\type {win32} platforms only, we provided \type
+platforms; \type{lfs.mkdirp} is like \type{lfs.mkdir} but make parent directories as needed.
+Finally, for non|-|\type {win32} platforms only, we provided \type
 {lfs.readlink} that takes an existing symbolic link as argument and returns its
 name. However, the \type {lfs} library evolved so we have dropped these in favour of
 pure \LUA\ variants. The \type {shortname} helper is obsolete and now just
@@ -432,11 +481,18 @@ used as building blocks for other helpers.
 
 \startsubsection[title={Extra \type {os} library functions}]
 
-The \type {os} library has a few extra functions and variables: \libidx {os}
-{selfdir}, \libidx {os} {exec}, \libidx {os} {spawn}, \libidx {os} {setenv},
-\libidx {os} {env}, \libidx {os} {gettimeofday}, \libidx {os} {times}, \libidx
-{os} {tmpdir}, \libidx {os} {type}, \libidx {os} {name} and \libidx {os} {uname},
+The \type {os} library has a few extra functions and
+variables: \libidx {os} {selfdir}, \libidx {os} {exec},
+\libidx {os} {kpsepopen},
+\libidx {os} {socketgettime}, \libidx {os} {socketsleep},
+\libidx {os} {spawn}, \libidx {os} {setenv},
+\libidx {os} {env}, \libidx {os} {gettimeofday}, \libidx {os} {times},
+\libidx {os} {sleep}, \libidx {os} {tmpdir}, \libidx {os} {type},
+\libidx {os} {name} and \libidx {os} {uname},{os} {uname},
 that we will discuss here.
+
+
+
 
 \startitemize
 
@@ -496,12 +552,30 @@ that we will discuss here.
 \stopitem
 
 \startitem
+    \type {os.kpsepopen(commandline,[opt])} is similar to \type {io.popen}
+    but with a preliminary check of the  commandline;
+    if the check is ok then the return value is the same as in \type{io.popen};
+    Otherwise it will return the two values \type {nil} and \type {error}.
+\stopitem
+
+\startitem
+    \type {os.socketgettime} and \type {os.socketsleep} are the same as for
+    \type{socket.gettime} and \type{socket.sleep} but they are always available.
+\stopitem
+
+\startitem
     \type {os.spawn(commandline)} is a returning version of \type {os.exec},
     with otherwise identical calling conventions.
 
     If the command ran ok, then the return value is the exit status of the
     command. Otherwise, it will return the two values \type {nil} and \type
     {error}.
+
+    \type {os.spawn()} takes an optional second argument, a table of key-value
+    pairs for the environment of the spawned process. Note that if you do pass
+    this table, it will be used as the \notabene {complete} environment for the
+    spawned process, so you'll likely want to start from \type {os.env} and add
+    or remove keys as needed.
 \stopitem
 
 \startitem
@@ -522,19 +596,29 @@ that we will discuss here.
 \stopitem
 
 \startitem
-    \type {os.times()}returns the current process times according to \ the
+    \type {os.times()}returns the current process times according to the
     \UNIX\ C library function \quote {times}. This function is not available on
     the \MSWINDOWS\ and \SUNOS\ platforms, so do not use this function for
     portable documents.
 \stopitem
 
 \startitem
-    \type {os.tmpdir()} creates a directory in the \quote {current directory}
+    \type {os.sleep(interval[, unit])} suspends the execution of the current run for
+    a given number of seconds. If the optional argument \type {unit} is present, the
+    function waits \type {interval / units} seconds. \type {os.sleep(1, 1000)}
+    for example pauses the program for one millisecond.
+\stopitem
+
+\startitem
+    \type {os.tmpdir([template])} creates a directory in the \quote {current directory}
     with the name \type {luatex.XXXXXX} where the \type {X}-es are replaced by a
     unique string. The function also returns this string, so you can \type
     {lfs.chdir()} into it, or \type {nil} if it failed to create the directory.
     The user is responsible for cleaning up at the end of the run, it does not
-    happen automatically.
+    happen automatically. You can also use your own \type {template} for the name
+    of the temporary folder. However, the passed string must end with six capital
+    \type {X}-es. For example, the template \type {tmp.XXXXXX} could result in the
+    folder name \type {tmp.vX3gPo}.
 \stopitem
 
 \startitem

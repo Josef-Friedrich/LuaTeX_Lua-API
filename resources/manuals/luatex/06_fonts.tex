@@ -1,4 +1,4 @@
-% language=uk engine=luatex
+% language=us engine=luatex runpath=texruns:manuals/luatex
 
 \environment luatex-style
 
@@ -12,13 +12,13 @@
 \topicindex {fonts+tables}
 
 All \TEX\ fonts are represented to \LUA\ code as tables, and internally as
-*C code*~structures. All keys in the table below are saved in the internal font
+\CCODE~structures. All keys in the table below are saved in the internal font
 structure if they are present in the table returned by the \cbk {define_font}
-callback, or if they result from the normal *tfm*|/|*vf* reading routines if there
+callback, or if they result from the normal \TFM|/|\VF\ reading routines if there
 is no \cbk {define_font} callback defined.
 
-The column \quote {*vf*} means that this key will be created by the \type
-{font.read_vf()} routine, \quote {*tfm*} means that the key will be created by the
+The column \quote {\VF} means that this key will be created by the \type
+{font.read_vf()} routine, \quote {\TFM} means that the key will be created by the
 \type {font.read_tfm()} routine, and \quote {used} means whether or not the
 \LUATEX\ engine itself will do something with the key. The top|-|level keys in
 the table are as follows:
@@ -76,10 +76,10 @@ the table are as follows:
                                                                         math font and disables the \OPENTYPE\ code path. \NC \NR
 \NC \type{slant}            \NC no  \NC no  \NC yes  \NC number     \NC This parameter will tilt the font and
                                                                         does the same as \type {SlantFont} in the map file for
-                                                                        *Type1* fonts. \NC \NR
+                                                                        \TYPEONE\ fonts. \NC \NR
 \NC \type{extend}           \NC no  \NC no  \NC yes  \NC number     \NC This parameter will scale the font horizontally and
                                                                         does the same as \type {ExtendFont} in the map file for
-                                                                        *Type1* fonts. \NC \NR
+                                                                        \TYPEONE\ fonts. \NC \NR
 \NC \type{squeeze}          \NC no  \NC no  \NC yes  \NC number     \NC This parameter will scale the font vertically and has
                                                                         no equivalent in the map file. \NC \NR
 \NC \type{width}            \NC no  \NC no  \NC yes  \NC number     \NC The backend will inject \PDF\ operators that set the
@@ -124,8 +124,8 @@ so there is no primitive.
 
 The key \type {attributes} can be used to set font attributes in the \PDF\ file.
 The key \type {used} is set by the engine when a font is actively in use, this
-makes sure that the font's definition is written to the output file (*DVI* or
-\PDF). The *tfm* reader sets it to false. The \type {direction} is a number
+makes sure that the font's definition is written to the output file (\DVI\ or
+\PDF). The \TFM\ reader sets it to false. The \type {direction} is a number
 signalling the \quote {normal} direction for this font. There are sixteen
 possibilities:
 
@@ -139,7 +139,7 @@ possibilities:
 \LL
 \stoptabulate
 
-These are *Omega*|-|style direction abbreviations: the first character indicates
+These are \OMEGA|-|style direction abbreviations: the first character indicates
 the \quote {first} edge of the character glyphs (the edge that is seen first in
 the writing direction), the second the \quote {top} side. Keep in mind that
 \LUATEX\ has a bit different directional model so these values are not used for
@@ -216,6 +216,7 @@ The following top|-|level keys can be present inside a character hash:
 \NC \type{right_protruding} \NC no  \NC no  \NC maybe \NC number  \NC character's \lpr {rpcode} \NC\NR
 \NC \type{expansion_factor} \NC no  \NC no  \NC maybe \NC number  \NC character's \lpr {efcode} \NC\NR
 \NC \type{tounicode}        \NC no  \NC no  \NC maybe \NC string  \NC character's \UNICODE\ equivalent(s), in \UTF|-|16BE hexadecimal format \NC\NR
+\NC                         \NC     \NC     \NC       \NC table   \NC character's \UNICODE\ equivalent, as an array of (integer) \UNICODE\ codepoints \NC\NR
 \NC \type{next}             \NC no  \NC yes \NC yes   \NC number  \NC the \quote {next larger} character index \NC\NR
 \NC \type{extensible}       \NC no  \NC yes \NC yes   \NC table   \NC the constituent parts of an extensible recipe \NC\NR
 \NC \type{vert_variants}    \NC no  \NC no  \NC yes   \NC table   \NC constituent parts of a vertical variant set \NC \NR
@@ -356,11 +357,11 @@ The actions to be taken depend on a number of different variables:
 \startitemize[packed]
 \startitem
     Whether the used font fits in an 8-bit encoding scheme or not. This is true for
-    traditional \TEX\ fonts that communicate via *tfm* files.
+    traditional \TEX\ fonts that communicate via \TFM\ files.
 \stopitem
 \startitem
     The type of the disk font file, for instance a bitmap file or an outline
-    *Type1*, \TRUETYPE\ or \OPENTYPE\ font.
+    \TYPEONE, \TRUETYPE\ or \OPENTYPE\ font.
 \stopitem
 \startitem
     The level of embedding requested, although in most cases a subset of
@@ -372,12 +373,12 @@ The actions to be taken depend on a number of different variables:
 A font that uses anything other than an 8-bit encoding vector has to be written
 to the \PDF\ in a different way. When the font table has \type {encodingbytes}
 set to~2, then it is a wide font, in all other cases it isn't. The value~2 is the
-default for \OPENTYPE\ and \TRUETYPE\ fonts loaded via \LUA. For *Type1* fonts,
-you have to set \type {encodingbytes} to~2 explicitly. For *pk* bitmap fonts,
+default for \OPENTYPE\ and \TRUETYPE\ fonts loaded via \LUA. For \TYPEONE\ fonts,
+you have to set \type {encodingbytes} to~2 explicitly. For \PK\ bitmap fonts,
 wide font encoding is not supported at all.
 
 If no special care is needed, \LUATEX\ falls back to the mapfile|-|based solution
-used by \PDFTEX\ and *DVI*PS, so that legacy fonts are supported transparently. If
+used by \PDFTEX\ and \DVIPS, so that legacy fonts are supported transparently. If
 a \quote {wide} font is used, the new subsystem kicks in, and some extra fields
 have to be present in the font structure. In this case, \LUATEX\ does not use a
 map file at all. These extra fields are: \type {format}, \type {embedding}, \type
@@ -391,8 +392,8 @@ encoding options.
 \starttabulate[|l|p|]
 \DB value           \BC description                                               \NC \NR
 \TB
-\NC \type{type1}    \NC this is a \POSTSCRIPT\ *Type1* font                     \NC \NR
-\NC \type{type3}    \NC this is a bitmapped (*pk*) font                            \NC \NR
+\NC \type{type1}    \NC this is a \POSTSCRIPT\ \TYPEONE\ font                     \NC \NR
+\NC \type{type3}    \NC this is a bitmapped (\PK) font                            \NC \NR
 \NC \type{truetype} \NC this is a \TRUETYPE\ or \TRUETYPE|-|based \OPENTYPE\ font \NC \NR
 \NC \type{opentype} \NC this is a \POSTSCRIPT|-|based \OPENTYPE\ font             \NC \NR
 \LL
@@ -426,7 +427,7 @@ Typeset strings are written out in a wide format using 2~bytes per glyph, using
 the \type {index} key in the character information as value. The overall effect
 is like having an encoding based on numbers instead of traditional (\POSTSCRIPT)
 name|-|based reencoding. One way to get the correct \type {index} numbers for
-*Type1* fonts is by loading the font via \type {fontloader.open} and use the
+\TYPEONE\ fonts is by loading the font via \type {fontloader.open} and use the
 table indices as \type {index} fields.
 
 In order to make sure that cut and paste of the final document works okay you can
@@ -469,7 +470,7 @@ looking for a virtual font on its own. This also works \quote {in reverse}: if
 you are absolutely certain that a font is not a virtual font, assigning the value
 \type {real} to \type {type} will inhibit \LUATEX\ from looking for a virtual
 font file, thereby saving you a disk search. This only matters when we load a
-*tfm* file.
+\TFM\ file.
 
 The \type {fonts} is an (indexed) \LUA\ table. The values are one- or two|-|key
 hashes themselves, each entry indicating one of the base fonts in a virtual font.
@@ -666,7 +667,7 @@ and it also contains helper functions to load traditional \TEX\ font metrics
 formats. Other font loading functionality is provided by the \type {fontloader}
 library that will be discussed in the next section.
 
-\subsection{Loading a *tfm* file}
+\subsection{Loading a \TFM\ file}
 
 \topicindex {fonts+tfm}
 
@@ -690,7 +691,7 @@ The number is a bit special:
 \stopitem
 \stopitemize
 
-\subsection{Loading a *vf* file}
+\subsection{Loading a \VF\ file}
 
 \topicindex {fonts+vf}
 
@@ -728,10 +729,10 @@ font.setfont(<number> n, <table> f)
 
 Note that at the moment, each access to the \type {font.fonts} or call to \type
 {font.getfont} creates a \LUA\ table for the whole font unless you cached it.
-If you want a copy of the internal data you can use \type {font.copyfont}:
+If you want a copy of the internal data you can use \type {font.getcopy}:
 
 \startfunctioncall
-<table> f = font.copyfont(<number> n)
+<table> f = font.getcopy(<number> n)
 \stopfunctioncall
 
 This one will return a table of the parameters as known to \TEX. These can be
@@ -780,6 +781,57 @@ a font structure. An alternative call is:
 
 Where the first argument is a reserved font id (see below).
 
+\subsection{Unicode mappings}
+
+The \type {glyphtounicode} extension is similar to the one in \PDFTEX\ but
+doesn't offer a way to set it per font. This has to do with the fact that we
+store fonts differently and that one can overload the default font loader. If you
+want to tune a specific font, you can use a \LUA\ helper as shown below in plain
+\TEX\ code.
+
+\starttyping
+% ToUnicode vectors will be added
+
+\pdfvariable gentounicode 1
+
+% Wrap a helper in a macro:
+
+\protected\def\luaglyphtounicode#1#2%
+  {\directlua{font.settounicode(\fontid\font,\number#1,"#2")}}
+
+% Use the global mapper:
+
+\pdfextension glyphtounicode {A}{0042}
+
+% Test this:
+
+{A \font\test=cmss10 \test  A}
+
+% Define a non unicode symbol font:
+
+\font\orn = OrnementsADF at 10pt
+
+% Register mappings:
+
+\bgroup \orn
+    \luaglyphtounicode{42}{2B9C}
+    \luaglyphtounicode{65}{2B9D}
+\egroup
+
+% Test this:
+
+{\orn \char42 \char65 A} A
+
+% And see if cut-n-paste from the pdf file works.
+\stoptyping
+
+Of course wrapping the helper is macro package dependent. This feature was added
+for the 2026 release and should not interfere with previous behavior. As a side
+note: adding the vectors to the pdf file for \TYPEONE\ fonts only happens when
+there is at least one global extension entry, but this \LUA\ driven one doesn't
+have that limitation. This means that when you use the font specific method, it
+also can trigger vectors for other eight bit fonts.
+
 \subsection{Extending a font}
 
 \topicindex {fonts+extend}
@@ -788,7 +840,7 @@ Within reasonable bounds you can extend a font after it has been defined. Becaus
 some properties are best left unchanged this is limited to adding characters.
 
 \startfunctioncall
-font.addcharacters(<number n>, <table> f)
+font.addcharacters(<number> n, <table> f)
 \stopfunctioncall
 
 The table passed can have the fields \type {characters} which is a (sub)table
@@ -901,6 +953,28 @@ so called init and select discretionaries.
     \NC \ligmodefont \discretionaryligaturemode0 \hsize1pt xxffixx
     \NC \ligmodefont \discretionaryligaturemode1 \hsize1pt xxffixx
     \NC \ligmodefont \discretionaryligaturemode2 \hsize1pt xxffixx \NC \NR
+    \LL
+\stoptabulate
+
+\stopsubsection
+
+\startsubsection[title={\type {\tracinglostchars}}]
+
+This tracer reports missing characters. By design we delay this till the backend
+included them, when math typesetting needs them, or when a virtual font is
+created (1, 2, 3). Per request of the \LATEX\ team we have two extra options that
+report in an earlier stage i.e.\ when the glyphs are packaged or processed during
+line breaking (4 and 5).
+
+\starttabulate[|r|l|]
+    \DB     \BC effect \NC \NR
+    \TB
+    \NC 0   \NC nothing \NC \NR
+    \NC 1   \NC warning only to log file \NC \NR
+    \NC 2   \NC warning and force terminal \NC \NR
+    \NC 3   \NC error \NC \NR
+    \NC 4   \NC early warning (and force terminal) \NC \NR
+    \NC > 4 \NC early error \NC \NR
     \LL
 \stoptabulate
 

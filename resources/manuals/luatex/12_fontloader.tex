@@ -121,7 +121,7 @@ by \type {fontloader.to_table}.
 
 The font file is parsed and partially interpreted by the font loading routines
 from \FONTFORGE. The file format can be \OPENTYPE, \TRUETYPE, \TRUETYPE\
-Collection, \CFF, or *Type1*.
+Collection, \CFF, or \TYPEONE.
 
 There are a few advantages to this approach compared to reading the actual font
 file ourselves:
@@ -187,7 +187,7 @@ returned.
 
 \startsection[title={Applying an \quote{\AFM\ file}}][library=fontloader]
 
-\topicindex {*Type1*}
+\topicindex {\TYPEONE}
 
 \libindex{apply_afmfile}
 
@@ -198,7 +198,7 @@ You can apply an \quote {\AFM\ file} to a loaded font:
 \stopfunctioncall
 
 An \AFM\ file is a textual representation of (some of) the meta information
-in a *Type1* font. See
+in a \TYPEONE\ font. See
 
 \starttyping
 ftp://ftp.math.utah.edu/u/ma/hohn/linux/postscript/5004.AFM_Spec.pdf
@@ -206,7 +206,7 @@ ftp://ftp.math.utah.edu/u/ma/hohn/linux/postscript/5004.AFM_Spec.pdf
 
 for more information about \AFM\ files.
 
-Note: If you \type {fontloader.open} a *Type1* file named \type {font.pfb},
+Note: If you \type {fontloader.open} a \TYPEONE\ file named \type {font.pfb},
 the library will automatically search for and apply \type {font.afm} if it exists
 in the same directory as the file \type {font.pfb}. In that case, there is no
 need for an explicit call to \type {apply_afmfile()}.
@@ -225,7 +225,7 @@ by fontloader while applying the AFM file. On success, \type {nil} is returned.
 As mentioned earlier, the return value of \type {fontloader.open} is a userdata
 object. One way to have access to the actual metrics is to call \type
 {fontloader.to_table} on this object, returning the table structure that is
-explained in the following sections. In teh following sections we will not
+explained in the following sections. In the following sections we will not
 explain each field in detail. Most fields are self descriptive and for the more
 technical aspects you need to consult the relevant font references.
 
@@ -306,7 +306,7 @@ the documentation are not yet finished):
 \starttabulate[|l|l|p|]
 \DB key                                 \BC type     \NC explanation \NC \NR
 \TB
-\NC \type{table_version}                \NC number   \NC indicates the metrics version (currently~0.3)\NC \NR
+\NC \type{table_version}                \NC string   \NC indicates the metrics version (currently~0.3)\NC \NR
 \NC \type{fontname}                     \NC string   \NC \POSTSCRIPT\ font name\NC \NR
 \NC \type{fullname}                     \NC string   \NC official (human-oriented) font name\NC \NR
 \NC \type{familyname}                   \NC string   \NC family name\NC \NR
@@ -767,7 +767,7 @@ prefix is somewhat redundant.)
 \TB
 \NC \type{type}      \NC string \NC one of \type {gpos_single}, \type {gpos_pair},
                                     \type {gpos_cursive}, \type {gpos_mark2base},\crlf
-                                    \type {gpos_mark2ligature}, \type {gpos_mark2mark}, \type {gpos_context}, \type {gpos_contextchain} \NC \NR
+                                    \type {gpos_mark2ligature}, \type {gpos_mark2mark}, \type {gpos_context},\crlf \type {gpos_contextchain} \NC \NR
 \NC \type{flags}     \NC table  \NC \NC \NR
 \NC \type{name}      \NC string \NC \NC \NR
 \NC \type{features}  \NC array  \NC \NC \NR
@@ -911,7 +911,7 @@ space|-|separated string of glyph names in this class.
 
 \startsubsection[title={\type {math}}]
 
-The math table has the variables that are also discussed in the chapter aboout
+The math table has the variables that are also discussed in the chapter about
 math: \type {ScriptPercentScaleDown}, \type {ScriptScriptPercentScaleDown}, \type
 {DelimitedSubFormulaMinHeight}, \type {DisplayOperatorMinHeight}, \type
 {MathLeading}, \type {AxisHeight}, \type {AccentBaseHeight}, \type
@@ -970,7 +970,6 @@ The \type {scripts} subtable:
 \NC \type{lang}             \NC table   \NC \NC \NR
 \LL
 \stoptabulate
-
 
 The \type {lang} subtable:
 

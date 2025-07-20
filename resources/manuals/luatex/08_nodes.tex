@@ -1,4 +1,4 @@
-% language=uk
+% language=us engine=luatex runpath=texruns:manuals/luatex
 
 \environment luatex-style
 
@@ -793,7 +793,7 @@ Whatsit nodes come in many subtypes that you can ask for them by running
 . % period
 
 Some of them are generic and independent of the output mode and others are
-specific to the chosen backend: *DVI* or \PDF. Here we discuss the generic
+specific to the chosen backend: \DVI\ or \PDF. Here we discuss the generic
 font|-|end nodes nodes.
 
 \subsection{\whs {open}}
@@ -816,7 +816,8 @@ font|-|end nodes nodes.
 \TB
 \NC \type{attr}   \NC node   \NC list of attributes \NC \NR
 \NC \type{stream} \NC number \NC \TEX's stream id number \NC \NR
-\NC \type{data}   \NC table  \NC a table representing the token list to be written \NC \NR
+\NC \type{data}   \NC string \NC a string representing the token list to be written \NC \NR
+\NC \type{value}  \NC table  \NC a table representing the token list to be written \NC \NR
 \LL
 \stoptabulate
 
@@ -893,14 +894,13 @@ The difference between \type {data} and \type {string} is that on assignment, th
 When a function is used, it gets called with as first argument the node that triggers
 the call.
 
-
 \stopsection
 
-\startsection[title={*DVI* backend whatsits}]
+\startsection[title={\DVI\ backend whatsits}]
 
 \subsection{\whs {special}}
 
-There is only one *DVI* backend whatsit, and it just flushes its content to the
+There is only one \DVI\ backend whatsit, and it just flushes its content to the
 output file.
 
 \starttabulate[|l|l|p|]
@@ -915,7 +915,7 @@ output file.
 
 \startsection[title={\PDF\ backend whatsits}]
 
-\subsection{\whs {pdf_literal}}
+\subsection{\whs {pdf_literal} and \whs {pdf_late_literal}}
 
 \starttabulate[|l|l|p|]
 \DB field        \BC type   \BC explanation \NC \NR
@@ -1020,10 +1020,13 @@ objects.
 \TB
 \NC \type{action_type} \NC number           \NC the kind of action involved \NC \NR
 \NC \type{action_id}   \NC number or string \NC token list reference or string \NC \NR
+%NC \type{named_id}    \NC number           \NC the index of the destination \NC \NR
+% a strange key but needed for latex; a probably downward incompable patch instead of a fix
 \NC \type{named_id}    \NC number           \NC are \type {dest_id} and \type {struct_id} string values? \NC \NR
 \NC \type{file}        \NC string           \NC the target filename \NC \NR
 \NC \type{new_window}  \NC number           \NC the window state of the target \NC \NR
 \NC \type{data}        \NC string           \NC the name of the destination \NC \NR
+% needed for latex and therefore equivalent to pdftex
 \NC \type{struct_id}   \NC nil              \NC the action does not reference a structure destination \NC \NR
 \NC                    \NC number           \NC id of the referenced structure destination \NC \NR
 \NC                    \NC string           \NC name of the referenced structure destination \NC \NR
@@ -1248,7 +1251,7 @@ This converts a single type name to its internal numeric representation.
 \libindex {type}
 \libindex {subtype}
 
-In the argument is a number, then the next function converts an internal numeric
+If the argument is a number, then the next function converts an internal numeric
 representation to an external string representation. Otherwise, it will return
 the string \type {node} if the object represents a node, and \type {nil}
 otherwise.
@@ -1319,7 +1322,7 @@ creates a node at the \TEX\ level.
 \libindex{flush_node}
 \libindex{flush_list}
 
-The next one the node \type {n} from \TEX's memory. Be careful: no checks are
+The next one removes the node \type {n} from \TEX's memory. Be careful: no checks are
 done on whether this node is still pointed to from a register or some \type
 {next} field: it is up to you to make sure that the internal data structures
 remain correct.
@@ -1720,7 +1723,7 @@ The \type{traverse_char} iterator loops over the \nod {glyph} nodes in a list.
 Only nodes with a subtype less than 256 are seen.
 
 \startfunctioncall
-<node> n, font, char =
+<node> n, char, font =
     node.traverse_char(<node> n)
 \stopfunctioncall
 
@@ -1728,7 +1731,7 @@ The \type{traverse_glyph} iterator loops over a list and returns the list and
 filters all glyphs:
 
 \startfunctioncall
-<node> n, font, char =
+<node> n, char, font =
     node.traverse_glyph(<node> n)
 \stopfunctioncall
 
@@ -1875,7 +1878,7 @@ word boundaries are possible).
 
 \startfunctioncall
 node.unprotect_glyph(<node> n)
-node.unprotect_glyphs(<node> n,[<node> n])
+node.unprotect_glyphs(<node> n,[<node> ,m])
 \stopfunctioncall
 
 Subtracts 256 from all glyph node subtypes. This and the next function are
@@ -1889,7 +1892,7 @@ processing. The second argument is optional and indicates the end of a range.
 
 \startfunctioncall
 node.protect_glyph(<node> n)
-node.protect_glyphs(<node> n,[<node> n])
+node.protect_glyphs(<node> n,[<node> m])
 \stopfunctioncall
 
 Adds 256 to all glyph node subtypes in the node list starting at \type {n},
@@ -2193,8 +2196,8 @@ number often is reported when you print node related information. You go from
 userdata nodes and there numeric references and back with:
 
 \startfunctioncall
-<integer> d = node.todirect(<node> n))
-<node> n = node.tonode(<integer> d))
+<integer> d = node.direct.todirect(<node> n))
+<node> n = node.direct.tonode(<integer> d))
 \stopfunctioncall
 
 The userdata model is rather robust as it is a virtual interface with some
@@ -2332,21 +2335,26 @@ consistency. You can of course always define additional accessors using \type
 \supported {fields}                  \yes \nop
 \supported {find_attribute}          \yes \yes
 \supported {first_glyph}             \yes \yes
+\supported {fix_node_lists}          \yes \nop
 \supported {flatten_discretionaries} \yes \yes
 \supported {flush_list}              \yes \yes
 \supported {flush_node}              \yes \yes
+\supported {flush_properties_table}  \yes \yes
 \supported {free}                    \yes \yes
 \supported {get_attribute}           \yes \yes
+\supported {get_properties_table}    \yes \yes
 \supported {get_synctex_fields}      \nop \yes
 \supported {getattributelist}        \nop \yes
 \supported {getboth}                 \yes \yes
 \supported {getbox}                  \nop \yes
 \supported {getchar}                 \yes \yes
 \supported {getcomponents}           \nop \yes
+\supported {getdata}                 \nop \yes
 \supported {getdepth}                \nop \yes
 \supported {getdirection}            \nop \yes
 \supported {getdir}                  \nop \yes
 \supported {getdisc}                 \yes \yes
+\supported {getexpansion}            \nop \yes
 \supported {getfam}                  \nop \yes
 \supported {getfield}                \yes \yes
 \supported {getfont}                 \yes \yes
@@ -2367,13 +2375,13 @@ consistency. You can of course always define additional accessors using \type
 \supported {getsubtype}              \yes \yes
 \supported {getsub}                  \nop \yes
 \supported {getsup}                  \nop \yes
-\supported {getdata}                 \nop \yes
 \supported {getwhd}                  \yes \yes
 \supported {getwidth}                \nop \yes
 \supported {has_attribute}           \yes \yes
 \supported {has_field}               \yes \yes
 \supported {has_glyph}               \yes \yes
 \supported {hpack}                   \yes \yes
+\supported {hyphenating}             \nop \yes
 \supported {id}                      \yes \nop
 \supported {insert_after}            \yes \yes
 \supported {insert_before}           \yes \yes
@@ -2386,10 +2394,11 @@ consistency. You can of course always define additional accessors using \type
 \supported {last_node}               \yes \yes
 \supported {length}                  \yes \yes
 \supported {ligaturing}              \yes \yes
+\supported {make_extensible}         \yes \nop
 \supported {mlist_to_hlist}          \yes \nop
 \supported {new}                     \yes \yes
 \supported {next}                    \yes \nop
-\supported {prepend_prevdepth}       \nop \yes
+\supported {prepend_prevdepth}       \yes \yes
 \supported {prev}                    \yes \nop
 \supported {protect_glyphs}          \yes \yes
 \supported {protect_glyph}           \yes \yes
@@ -2397,20 +2406,22 @@ consistency. You can of course always define additional accessors using \type
 \supported {rangedimensions}         \yes \yes
 \supported {remove}                  \yes \yes
 \supported {set_attribute}           \yes \yes
+\supported {set_properties_mode}     \yes \yes
 \supported {set_synctex_fields}      \nop \yes
 \supported {setattributelist}        \nop \yes
 \supported {setboth}                 \nop \yes
 \supported {setbox}                  \nop \yes
 \supported {setchar}                 \nop \yes
 \supported {setcomponents}           \nop \yes
+\supported {setdata}                 \nop \yes
 \supported {setdepth}                \nop \yes
 \supported {setdirection}            \nop \yes
 \supported {setdir}                  \nop \yes
 \supported {setdisc}                 \nop \yes
+\supported {setexpansion}            \nop \yes
 \supported {setfam}                  \nop \yes
 \supported {setfield}                \yes \yes
 \supported {setfont}                 \nop \yes
-\supported {setexpansion}            \nop \yes
 \supported {setglue}                 \yes \yes
 \supported {setheight}               \nop \yes
 \supported {setkern}                 \nop \yes
@@ -2435,12 +2446,13 @@ consistency. You can of course always define additional accessors using \type
 \supported {subtypes}                \yes \nop
 \supported {subtype}                 \yes \nop
 \supported {tail}                    \yes \yes
-\supported {todirect}                \yes \yes
-\supported {tonode}                  \yes \yes
+\supported {todirect}                \nop \yes
+\supported {tonode}                  \nop \yes
 \supported {tostring}                \yes \yes
 \supported {traverse_char}           \yes \yes
 \supported {traverse_glyph}          \yes \yes
 \supported {traverse_id}             \yes \yes
+\supported {traverse_list}           \nop \yes
 \supported {traverse}                \yes \yes
 \supported {types}                   \yes \nop
 \supported {type}                    \yes \nop
@@ -2449,6 +2461,7 @@ consistency. You can of course always define additional accessors using \type
 \supported {unset_attribute}         \yes \yes
 \supported {usedlist}                \yes \yes
 \supported {uses_font}               \yes \yes
+\supported {values}                  \yes \nop
 \supported {vpack}                   \yes \yes
 \supported {whatsits}                \yes \nop
 \supported {write}                   \yes \yes
@@ -2469,6 +2482,11 @@ could have normalized field names better but we decided to stick to the original
 (internal) names as much as possible. After all, at the \LUA\ end one can easily
 create synonyms.
 
+In \type {setfield} and \type {getfield} specials and writes accept \type {data}
+and \type {value} as equivalent keys. In the case of a write whatsit getting the
+\type {value} returns the token list as table, while \type {data} returns the
+expansion as a string (version 1.23.2, 2026).
+
 Some nodes have indirect references. For instance a math character refers to a
 family instead of a font. In that case we provide a virtual font field as
 accessor. So, \type {getfont} and \type {.font} can be used on them. The same is
@@ -2488,9 +2506,9 @@ number, for a glue, kern, hlist, vlist, rule and math nodes as well as glyph
 nodes (although this last one is not used in native \SYNCTEX).
 
 \startfunctioncall
-node.set_synctex_fields(<integer> f, <integer> l)
+node.direct.set_synctex_fields(<integer> n, <integer> f, <integer> l)
 <integer> f, <integer> l =
-    node.get_synctex_fields(<node> n)
+    node.direct.get_synctex_fields(<integer> n)
 \stopfunctioncall
 
 Of course you need to know what you're doing as no checking on sane values takes

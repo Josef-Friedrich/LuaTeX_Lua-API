@@ -1,4 +1,4 @@
-% language=uk engine=luatex runpath=texruns:manuals/luatex
+% language=us engine=luatex runpath=texruns:manuals/luatex
 
 \environment luatex-style
 
@@ -39,13 +39,13 @@ most still comes from the original. But we divert a bit.
 \startitemize
 
 \startitem
-    The current code base is written in *C code*, not \PASCAL. We use \CWEB\ when
+    The current code base is written in \CCODE, not \PASCAL. We use \CWEB\ when
     possible. As a consequence instead of one large file plus change files, we
     now have multiple files organized in categories like \type {tex}, \type
     {pdf}, \type {lang}, \type {font}, \type {lua}, etc. There are some artifacts
-    of the conversion to *C code*, but in due time we will clean up the source code
+    of the conversion to \CCODE, but in due time we will clean up the source code
     and make sure that the documentation is done right. Many files are in the
-    \CWEB\ format, but others, like those interfacing to \LUA, are *C code* files.
+    \CWEB\ format, but others, like those interfacing to \LUA, are \CCODE\ files.
     Of course we want to stay as close as possible to the original so that the
     documentation of the fundamentals behind \TEX\ by Don Knuth still applies.
 \stopitem
@@ -71,17 +71,25 @@ most still comes from the original. But we divert a bit.
 \stopitem
 
 \startitem
-    Magnification (\prm {mag}) is only supported in *DVI* output mode. You can
+    Magnification (\prm {mag}) is only supported in \DVI\ output mode. You can
     set this parameter and it even works with \type {true} units till you switch
     to \PDF\ output mode. When you use \PDF\ output you can best not touch the
     \prm {mag} variable. This fuzzy behaviour is not much different from using
-    \PDF\ backend related functionality while eventually *DVI* output is
+    \PDF\ backend related functionality while eventually \DVI\ output is
     required.
 
     After the output mode has been frozen (normally that happens when the first
     page is shipped out) or when \PDF\ output is enabled, the \type {true}
     specification is ignored. When you preload a plain format adapted to
     \LUATEX\ it can be that the \prm {mag} parameter already has been set.
+\stopitem
+
+\startitem
+    When \type {\globaldefs} is positive while a local assignment is asked for,
+    \type {{\global enforced}} is shown in the log when \type {\tracingcommands}
+    is larger than one. When \type {\globaldefs} is negative and a global
+    assignment is requested by \type {\global}, \type {\gdef} etc.\ the log will
+    mention \type {{\global canceled}}.
 \stopitem
 
 \stopitemize
@@ -105,7 +113,7 @@ functionality, but with a few small adaptations.
 \startitem
     The \TEXXET\ extension is not present, so the primitives \type
     {\TeXXeTstate}, \type {\beginR}, \type {\beginL}, \type {\endR} and \type
-    {\endL} are missing. Instead we used the *Omega*/\ALEPH\ approach to
+    {\endL} are missing. Instead we used the \OMEGA/\ALEPH\ approach to
     directionality as starting point.
 \stopitem
 
@@ -115,7 +123,7 @@ functionality, but with a few small adaptations.
 \stopitem
 
 \startitem
-    Register management in \LUATEX\ uses the *Omega*/\ALEPH\ model, so the maximum
+    Register management in \LUATEX\ uses the \OMEGA/\ALEPH\ model, so the maximum
     value is 65535 and the implementation uses a flat array instead of the mixed
     flat & sparse model from \ETEX.
 \stopitem
@@ -123,7 +131,7 @@ functionality, but with a few small adaptations.
 \startitem
     When kpathsea is used to find files, \LUATEX\ uses the \type {ofm} file
     format to search for font metrics. In turn, this means that \LUATEX\ looks at
-    the \type {OFMFONTS} configuration variable (like *Omega* and \ALEPH) instead
+    the \type {OFMFONTS} configuration variable (like \OMEGA\ and \ALEPH) instead
     of \type {TFMFONTS} (like \TEX\ and \PDFTEX). Likewise for virtual fonts
     (\LUATEX\ uses the variable \type {OVFFONTS} instead of \type {VFFONTS}).
 \stopitem
@@ -290,7 +298,7 @@ backend are decoupled as much as possible.
 \stopitem
 
 \startitem
-    Because position tracking is also available in *DVI* mode the \lpr {savepos},
+    Because position tracking is also available in \DVI\ mode the \lpr {savepos},
     \lpr {lastxpos} and \lpr {lastypos} commands now replace their \type {pdf}
     prefixed originals.
 \stopitem
@@ -402,7 +410,7 @@ instance content moved into the margin:
 \topicindex {\ALEPH}
 
 Because we wanted proper directional typesetting the \ALEPH\ mechanisms looked
-most attractive. These are rather close to the ones provided by *Omega*, so what
+most attractive. These are rather close to the ones provided by \OMEGA, so what
 we say next applies to both these programs.
 
 \startitemize
@@ -520,7 +528,7 @@ the \PDFTEX\ manual and are classified as \ETEX\ extensions.
 \topicindex {\WEBC}
 
 The compilation framework is \WEBC\ and we keep using that but without the
-\PASCAL\ to *C code* step. This framework also provides some common features that
+\PASCAL\ to \CCODE\ step. This framework also provides some common features that
 deal with reading bytes from files and locating files in \TDS. This is what we do
 different:
 
@@ -573,8 +581,8 @@ different:
 In a previous section we mentioned that some \PDFTEX\ primitives were removed and
 others promoted to core \LUATEX\ primitives. That is only part of the story. In
 order to separate the backend specific primitives in de code these commands are
-now replaced by only a few. In traditional \TEX\ we only had the *DVI* backend
-but now we have two: *DVI* and \PDF. Additional functionality is implemented as
+now replaced by only a few. In traditional \TEX\ we only had the \DVI\ backend
+but now we have two: \DVI\ and \PDF. Additional functionality is implemented as
 \quote {extensions} in \TEX\ speak. By separating more strickly we are able to
 keep the core (frontend) clean and stable and isolate these extensions. If for
 some reason an extra backend option is needed, it can be implemented without
@@ -600,6 +608,7 @@ primitives (for as far their functionality is still around) you now can do this:
 
 \starttyping
 \protected\def\pdfliteral             {\pdfextension literal}
+\protected\def\pdflateliteral         {\pdfextension lateliteral}
 \protected\def\pdfcolorstack          {\pdfextension colorstack}
 \protected\def\pdfsetmatrix           {\pdfextension setmatrix}
 \protected\def\pdfsave                {\pdfextension save\relax}
@@ -667,6 +676,10 @@ The configuration related registers have become:
 \edef\pdfomitcidset               {\pdfvariable omitcidset}
 \edef\pdfomitcharset              {\pdfvariable omitcharset}
 \edef\pdfomitinfodict             {\pdfvariable omitinfodict}
+\edef\pdfomitinfodict             {\pdfvariable omitinfodict}
+\edef\pdfomitmediabox             {\pdfvariable omitmediabox}
+\edef\pdfomitprocset              {\pdfvariable omitprocset}
+\edef\pdfptexprefix               {\pdfvariable ptexprefix}
 \edef\pdfpagebox                  {\pdfvariable pagebox}
 \edef\pdfminorversion             {\pdfvariable minorversion}
 \edef\pdfuniqueresname            {\pdfvariable uniqueresname}
@@ -746,11 +759,12 @@ normally generated by the engine. You even need to include the brackets here!
 
 Although we started from a merge of \PDFTEX\ and \ALEPH, by now the code base as
 well as functionality has diverted from those parents. Here we show the options
-that can be passed to the extensions.
+that can be passed to the extensions. The \type {shipout} option is a compatibility
+feature. Instead one can use the \type {deferred} prefix.
 
 \starttexsyntax
 \pdfextension literal
-    [ direct | page | raw ] { tokens }
+    [shipout] [ direct | page | raw ] { tokens }
 \stoptexsyntax
 
 \starttexsyntax
@@ -917,6 +931,9 @@ The engine sets the following defaults.
 \pdfomitcidset            0
 \pdfomitcharset           0
 \pdfomitinfodict          0
+\pdfomitmediabox          0
+\pdfomitprocset           0
+\pdfptexprefix            0
 \pdfpagebox               0
 \pdfminorversion          4
 \pdfuniqueresname         0
@@ -993,13 +1010,13 @@ And even:
 
 \startsection[title=Directions]
 
-\topicindex {*Omega*}
+\topicindex {\OMEGA}
 \topicindex {\ALEPH}
 \topicindex {directions}
 
 \startsubsection[title={Four directions}]
 
-The directional model in \LUATEX\ is inherited from *Omega*|/|\ALEPH\ but we tried
+The directional model in \LUATEX\ is inherited from \OMEGA|/|\ALEPH\ but we tried
 to improve it a bit. At some point we played with recovery of modes but that was
 disabled later on when we found that it interfered with nested directions. That
 itself had as side effect that the node list was no longer balanced with respect
@@ -1144,8 +1161,12 @@ so a separate grouping related stack is used. A side effect is that there can be
 paragraphs with only a local par node followed by direction synchronization
 nodes. Paragraphs like that are seen as empty paragraphs and therefore ignored.
 Because \type {\noindent} doesn't inject anything but a \type {\indent} injects
-an box, paragraphs with only an indent and directions are handles as paragraphs
+an box, paragraphs with only an indent and directions are handled as paragraphs
 with content.
+
+By default paragraphs before a display equation containing dir nodes are never ignored.
+Changing that could break existing documents, but when you set \lpr {mathemptydisplaymode}
+to~\type {1} empty paragraphs before a display equation will be ignored.
 
 \stopsubsection
 
@@ -1256,7 +1277,7 @@ onto 4 numbers. A text direction node can mark the start or end of a sequence of
 nodes, and therefore has two states. At the \TEX\ end we don't see these states
 because \TEX\ itself will add proper end state nodes if needed.
 
-The symbolic names \type {TLT}, \type {TRT}, etc.\ originate in *Omega*. In
+The symbolic names \type {TLT}, \type {TRT}, etc.\ originate in \OMEGA. In
 \LUATEX\ we also have a number based model which sometimes makes more sense.
 
 \starttabulate[|c|l|l|]
@@ -1269,7 +1290,7 @@ The symbolic names \type {TLT}, \type {TRT}, etc.\ originate in *Omega*. In
 \LL
 \stoptabulate
 
-We support the *Omega* primitives \orm {textdir}, \orm {pardir}, \orm {pagedir},
+We support the \OMEGA\ primitives \orm {textdir}, \orm {pardir}, \orm {pagedir},
 \orm {pardir} and \orm {mathdir}. These accept three character keywords. The
 primitives that set the direction by number are: \lpr {textdirection}, \lpr
 {pardirection}, \lpr {pagedirection} and \lpr {bodydirection} and \lpr
@@ -1320,7 +1341,7 @@ ignored.
 
 The \prm {mathcode}, \prm {delcode}, \prm {catcode}, \prm {sfcode}, \prm {lccode}
 and \prm {uccode} (and the new \lpr {hjcode}) tables are now sparse arrays that
-are implemented in~*C code*. They are no longer part of the \TEX\ \quote
+are implemented in~\CCODE. They are no longer part of the \TEX\ \quote
 {equivalence table} and because each had 1.1 million entries with a few memory
 words each, this makes a major difference in memory usage. Performance is not
 really hurt by this.
@@ -1372,7 +1393,7 @@ decompression speed.
 \topicindex {files+binary}
 
 All of the internal code is changed in such a way that if one of the \type
-{read_xxx_file} callbacks is not set, then the file is read by a *C code* function
+{read_xxx_file} callbacks is not set, then the file is read by a \CCODE\ function
 using basically the same convention as the callback: a single read into a buffer
 big enough to hold the entire file contents. While this uses more memory than the
 previous code (that mostly used \type {getc} calls), it can be quite a bit faster
@@ -1402,6 +1423,26 @@ choices but consistency with other engines and the fact that in \KPSE\ mode a
 common file \IO\ layer is used can have a side effect of breaking compatibility.
 We still stick to our view that at the log level we can (and might be) more
 incompatible. We already expose some more details.
+
+\stopsubsection
+
+\startsubsection[title=Hyperlinks]
+
+\topicindex {hyperlinks}
+
+There is an experimental feature that makes multi|-|line hyper links behave a
+little better, fixing some side effects that showed up in r2l typesetting but
+also can surface in l2r. Because this got unnoticed till 2023, and because it
+depends bit on how macro packages deal with hyper links, the fix is currently
+under parameter control:
+
+\starttyping
+\pdfvariable linking = 1
+\stoptyping
+
+That way (we hope) legacy documents come out as expected, whatever those
+expectations are. One of the aspects dealt with concerns (unusual) left and right
+skips.
 
 \stopsubsection
 

@@ -96,7 +96,7 @@ If you want to unset a \LUA\ name, you can assign \type {nil} to it. The functio
 accessors are:
 
 \startfunctioncall
-lua.setluaname(<string> s,<number> n])
+lua.setluaname(<number> n, <string> s)
 <string> s = lua.getluaname(<number> n)
 \stopfunctioncall
 
@@ -147,8 +147,8 @@ index into \type {status}. The current list is:
 \NC \type{callbacks}          \NC total number of executed callbacks so far \NC \NR
 \NC \type{cs_count}           \NC number of control sequences \NC \NR
 \NC \type{dest_names_size}    \NC \PDF\ destination table size \NC \NR
-\NC \type{dvi_gone}           \NC written *DVI* bytes \NC \NR
-\NC \type{dvi_ptr}            \NC not yet written *DVI* bytes \NC \NR
+\NC \type{dvi_gone}           \NC written \DVI\ bytes \NC \NR
+\NC \type{dvi_ptr}            \NC not yet written \DVI\ bytes \NC \NR
 \NC \type{dyn_used}           \NC token (multi|-|word) memory in use  \NC \NR
 \NC \type{filename}           \NC name of the current input file \NC \NR
 \NC \type{fix_mem_end}        \NC maximum number of used tokens \NC \NR
@@ -190,7 +190,7 @@ index into \type {status}. The current list is:
 \NC \type{obj_ptr}            \NC max \PDF\ object pointer \NC \NR
 \NC \type{obj_tab_size}       \NC \PDF\ object table size \NC \NR
 \NC \type{output_active}      \NC \type {true} if the \prm {output} routine is active \NC \NR
-\NC \type{output_file_name}   \NC name of the \PDF\ or *DVI* file \NC \NR
+\NC \type{output_file_name}   \NC name of the \PDF\ or \DVI\ file \NC \NR
 \NC \type{param_size}         \NC parameter stack size \NC \NR
 \NC \type{pdf_dest_names_ptr} \NC max \PDF\ destination pointer \NC \NR
 \NC \type{pdf_gone}           \NC written \PDF\ bytes \NC \NR
@@ -204,6 +204,8 @@ index into \type {status}. The current list is:
 \NC \type{save_size}          \NC save stack size \NC \NR
 \NC \type{shell_escape}       \NC \type {0} means disabled, \type {1} means anything is permitted, and \type {2} is restricted \NC \NR
 \NC \type{safer_option}       \NC \type {1} means safer is enforced \NC \NR
+\NC \type{luadebug_option}    \NC true if the \type{debug} library is enabled at command line \NC\NR
+\NC \type{output_directory}   \NC the value of the output directory \NC \NR
 \NC \type{kpse_used}          \NC \type {1} means that kpse is used \NC \NR
 \NC \type{stack_size}         \NC input stack size \NC \NR
 \NC \type{str_ptr}            \NC number of strings \NC \NR
@@ -1379,8 +1381,8 @@ tex.print(tex.romannumeral(123))
 The first one returns the name only, the second one reports the size too.
 
 \startfunctioncall
-tex.print(tex.fontname(tex.fontname))
-tex.print(tex.fontname(tex.fontidentidier))
+tex.print(tex.fontidentifier(1))
+tex.print(tex.fontname(1))
 \stopfunctioncall
 
 \subsubsection{\type {sp}}
@@ -1412,28 +1414,28 @@ following:
 \stopitem
 \stopitemize
 
-\subsubsection{\type {tex.getlinenumber} and \type {tex.setlinenumber}}
-
-\libindex{getlinenumber}
-\libindex{setlinenumber}
-
-You can mess with the current line number:
-
-\startfunctioncall
-local n = tex.getlinenumber()
-tex.setlinenumber(n+10)
-\stopfunctioncall
-
-which can be shortcut to:
-
-\startfunctioncall
-tex.setlinenumber(10,true)
-\stopfunctioncall
-
-This might be handy when you have a callback that read numbers from a file and
-combines them in one line (in which case an error message probably has to refer
-to the original line). Interference with \TEX's internal handling of numbers is
-of course possible.
+%\subsubsection{\type {tex.getlinenumber} and \type {tex.setlinenumber}}
+%
+%\libindex{getlinenumber}
+%\libindex{setlinenumber}
+%
+%You can mess with the current line number:
+%
+%\startfunctioncall
+%local n = tex.getlinenumber()
+%tex.setlinenumber(n+10)
+%\stopfunctioncall
+%
+%which can be shortcut to:
+%
+%\startfunctioncall
+%tex.setlinenumber(10,true)
+%\stopfunctioncall
+%
+%This might be handy when you have a callback that read numbers from a file and
+%combines them in one line (in which case an error message probably has to refer
+%to the original line). Interference with \TEX's internal handling of numbers is
+%of course possible.
 
 \subsubsection{\type {error} and \type {show_context}}
 
@@ -1929,11 +1931,12 @@ the executable after loading and executing the startup file.
 \NC \type{max_print_line}   \NC number   \NC     79  \NC cf.\ web2c docs \NC \NR
 \NC \type{hash_extra}       \NC number   \NC      0  \NC cf.\ web2c docs \NC \NR
 \NC \type{pk_dpi}           \NC number   \NC     72  \NC cf.\ web2c docs \NC \NR
-\NC \type{trace_file_names} \NC boolean  \NC true
+\NC \type{trace_file_names} \NC boolean  \NC true 
 \NC
     \type {false} disables \TEX's normal file open|-|close feedback (the
     assumption is that callbacks will take care of that)
 \NC \NR
+\NC \type{trace_extra_newline} \NC boolean  \NC false \NC adds an extra newline in \type{\tracingmacros} \NC\NR
 \NC \type{file_line_error} \NC boolean \NC false
 \NC
     do \type {file:line} style error messages
@@ -1962,6 +1965,19 @@ the executable after loading and executing the startup file.
     {\tracingmacros} is set; levels above this value will be clipped with
     the level shown up front
 \NC \NR
+\NC \type{check_dvi_total_pages} \NC boolean \NC
+\NC 
+     in \DVI\ output mode, if true abort run when the number of pages exceeds 65535. 
+     This is the default behaviour. If false, the run goes on as is in \TEX.
+\NC \NR
+\NC \type{texlua_img} \NC boolean \NC
+\NC 
+     if true, allows access to the \type {img} library in \TEXLUA\ mode. If
+     false (the default), the \type {img} library is not available in \TEXLUA\
+     mode (as it was unconditionally for \LUATEX\ versions prior to 1.22.0).
+     Note that this setting is {\bf experimental} and subject to be removed at
+     any time, without notice.
+\NC \NR
 \LL
 \stoptabulate
 
@@ -1973,10 +1989,12 @@ You can kick in your own nesting level visualizer, for instance:
 
 \starttyping
 callback.register("input_level_string",function(n)
-         if tex.tracingmacros > 0 and tex.count.tracingstacklevels > 0 then
+ if tex.tracingmacros > 0 and tex.count.tracingstacklevels > 0 then
     if tex.tracingmacros > 1 then
         return "! " .. string.rep(">",n) .. " "
     end
+  end
+  return ""
 end)
 \stoptyping
 
@@ -1993,6 +2011,7 @@ Or, in sync with other engines (not checked):
         return string.rep("~",l) .. string.rep(".",n-l)
       end
     end
+    return ""
   end)
 }
 \stoptyping
@@ -2418,6 +2437,7 @@ to \lpr {luadef}.
 
 \libindex{get_next}
 \libindex{put_next}
+\libindex{unchecked_put_next}
 
 There is a (for now) experimental putter:
 
@@ -2433,7 +2453,12 @@ token.put_next ( t3, t4 )
 \stoptyping
 
 When we scan \type {wxyz!} we get \type {yzwx!} back. The argument is either a table
-with tokens or a list of tokens. The \type {token.expand} function will trigger
+with tokens or a list of tokens. The new function \type {token.unchecked_put_next}
+has been added per request of the \LATEX\ team. It skips this error checking and
+follows a different code path. It assumes that a valid token user datum is
+passed and can crash the engine otherwise.
+
+The \type {token.expand} function will trigger
 expansion but what happens really depends on what you're doing where.
 
 \stopsubsection
@@ -2818,6 +2843,64 @@ Like kpsewhich's \type {-expand-braces}:
 
 \stopsubsection
 
+\startsubsection[title={\type {in_name_ok}}]
+
+\libindex{in_name_ok}
+
+Returns true if \type{fname} is acceptable to open for reading, otherwise false and 
+write a message to standard error. 
+
+\startfunctioncall
+<boolean> r = kpse.in_name_ok(<string> fname)
+\stopfunctioncall
+
+\startsubsection[title={\type {in_name_ok_silent_extended}}]
+
+\libindex{in_name_ok_silent_extended}
+
+\startfunctioncall
+<boolean> r = kpse.in_name_ok_silent_extended(<string> fname)
+\stopfunctioncall
+
+Returns true if \type{fname} is acceptable to open for reading;
+the values of \type{TEXMFVAR} and \type{TEXMFSYSVAR} are also
+checked for absolute filenames. Returns false otherwise but it doesn't write
+a message to standard error.
+
+\stopsubsection
+
+
+\startsubsection[title={\type {out_name_ok}}]
+
+\libindex{out_name_ok}
+
+Returns true if \type{fname} is acceptable to open for writing. 
+
+\startfunctioncall
+<boolean> r = kpse.out_name_ok(<string> fname)
+\stopfunctioncall
+
+\stopsubsection
+
+
+\startsubsection[title={\type {out_name_ok_silent_extended}}]
+
+\libindex{out_name_ok_silent_extended}
+
+\startfunctioncall
+<boolean> r = kpse.out_name_ok_silent_extended(<string> fname)
+\stopfunctioncall
+
+Returns true if \type{fname} is acceptable to open for writing;
+the values of \type{TEXMFVAR} and \type{TEXMFSYSVAR} are also
+checked for absolute filenames. Returns false otherwise but it doesn't write
+a message to standard error.
+
+\stopsubsection
+
+
+
+
 \startsubsection[title={\type {show_path}}]
 
 \libindex{show_path}
@@ -2853,6 +2936,21 @@ Returns the kpathsea version string.
 \stopfunctioncall
 
 \stopsubsection
+
+\startsubsection[title={\type {check_permission}}]
+
+\libindex{check\_permission}
+
+Checks if the \type{filename} can be executed or not.
+Returns \type{1}, \type{filename} or a safe cmd alternative  if it can be executed,
+otherwise  returns \type{0} and an error message. 
+
+\startfunctioncall
+<string> res, cmd = kpse.check_permission(<string> filename)
+\stopfunctioncall
+
+\stopsubsection
+
 
 \stopsection
 

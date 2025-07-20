@@ -42,11 +42,11 @@ assumes that you have executed the \prm {directlua} command as given above.
 The startup behaviour documented above is considered stable in the sense that
 there will not be backward|-|incompatible changes any more. We have promoted some
 rather generic \PDFTEX\ primitives to core \LUATEX\ ones, and the few that we
-inherited from \ALEPH\ (*Omega*) are also promoted. Effectively this means that we
+inherited from \ALEPH\ (\OMEGA) are also promoted. Effectively this means that we
 now only have the \type {tex}, \type {etex} and \type {luatex} sets left.
 
 In \in {Chapter} [modifications] we discuss several primitives that are derived
-from \PDFTEX\ and \ALEPH\ (*Omega*). Here we stick to real new ones. In the
+from \PDFTEX\ and \ALEPH\ (\OMEGA). Here we stick to real new ones. In the
 chapters on fonts and math we discuss a few more new ones.
 
 \stopsubsection
@@ -1161,6 +1161,9 @@ but don't apply the related callbacks.
 The \prm {vsplit} primitive has to be followed by a specification of the required
 height. As alternative for the \type {to} keyword you can use \type {upto} to get
 a split of the given size but result has the natural dimensions then.
+If \prm {ignoreprimitiveerror} = 1 , the error
+"Infinite glue shrinkage found in box being split" that occurs
+when vsplit-ting a box containing infinite negative glue is turned into a warning.
 
 \stopsubsection
 
@@ -1312,7 +1315,7 @@ The \lpr {outputmode} variable tells \LUATEX\ what it has to produce:
 \starttabulate[|l|l|]
 \DB value \BC output \NC \NR
 \TB
-\NC \type {0} \NC *DVI* code \NC \NR
+\NC \type {0} \NC \DVI\ code \NC \NR
 \NC \type {1} \NC \PDF\ code \NC \NR
 \LL
 \stoptabulate
@@ -1322,7 +1325,7 @@ The \lpr {outputmode} variable tells \LUATEX\ what it has to produce:
 \startsubsection[title={\lpr {draftmode}}]
 
 The value of the \lpr {draftmode} counter signals the backend if it should output
-less. The \PDF\ backend accepts a value of~1, while the *DVI* backend ignores the
+less. The \PDF\ backend accepts a value of~1, while the \DVI\ backend ignores the
 value. This is no critical feature so we can remove it in future versions when it
 can make the backend cleaner.
 

@@ -1,4 +1,4 @@
-% language=uk
+% language=us engine=luatex runpath=texruns:manuals/luatex
 
 \environment luatex-style
 
@@ -125,7 +125,8 @@ after the \PDFTEX\ equivalents.
 \stopsubsection
 
 \startsubsection[title={\type {[set|get]suppressoptionalinfo}, \type {[set|get]trailerid},
-\type {[set|get]omitcidset} and \type {[set|get]omitinfodict}}]
+\type {[set|get]omitcidset}, \type {[set|get]omitinfo}, \type {[set|get]omitmediabox},
+\type {[set|get]omitprocset}, \type {[set|get]ptexprefix}} ]
 
 \topicindex{\PDF+options}
 \topicindex{\PDF+trailer}
@@ -134,7 +135,10 @@ after the \PDFTEX\ equivalents.
 \libindex{gettrailerid}            \libindex{settrailerid}
 \libindex{getomitcidset}           \libindex{setomitcidset}
 \libindex{getomitcharset}          \libindex{setomitcharset}
-\libindex{getomitinfodict}         \libindex{setomitinfodict}
+\libindex{getomitinfo}             \libindex{setomitinfo}
+\libindex{getomitmediabox}         \libindex{setomitmediabox}
+\libindex{getomitprocset}          \libindex{setomitprocset}
+\libindex{getptexprefix}           \libindex{setptexprefix}
 
 The optional info bitset (a number) determines what kind of info gets flushed.
 By default we flush all. See \in {section} [sec:pdfextensions] for more details.
@@ -144,7 +148,15 @@ array content with checksums.
 
 The cidset, charset and info flags (numbers) disables inclusion of a so called
 \type {CIDSet} and \type {CharSet} entries, which can be handy when aiming at
-some of the many \PDF\ substandards.
+some of the many \PDF\ substandards. The same is true for the \type {ProcSet} and
+\type {PTEX} prefix where setting this flag will force the use of a \type {_}
+instead if a \type {.}. \footnote {In the info dictionary a period is valid pre
+version 2, but the underscore has to be used elsewhere. The prefix dates from the
+early days of \PDFTEX\ and at that time using a period was considered okay. Later
+specifications clarified this.}
+
+When it is omitted, one should provide the \type {MediaBox} via the page attribute
+options, because it is a mandate field. No checking is done.
 
 \stopsubsection
 
@@ -616,12 +628,12 @@ pdfe.getstatus(<pdfe document>)
 The returned codes are:
 
 \starttabulate[|c|l|]
-\DB value       \BC explanation \NC \NR
+\DB value      \BC explanation \NC \NR
 \TB
-\NC \type {-2}  \NC the document failed to open \NC \NR
-\NC \type {-1}  \NC the document is (still) protected \NC \NR
-\NC \type {0}   \NC the document is not encrypted \NC \NR
-\NC \type {2}   \NC the document has been unencrypted \NC \NR
+\NC \type {-2} \NC the document is (still) protected \NC \NR
+\NC \type {-1} \NC the document failed to open \NC \NR
+\NC \type  {0} \NC the document is not encrypted \NC \NR
+\NC \type  {1} \NC the document has been unencrypted \NC \NR
 \LL
 \stoptabulate
 
@@ -649,7 +661,7 @@ bytes = getsize(<pdfe document>)
 major, minor = getversion(<pdfe document>)
 n = getnofobjects(<pdfe document>)
 n = getnofpages(<pdfe document>)
-bytes, waste  = getmemoryusage(<pdfe document>)
+bytes, waste = getmemoryusage(<pdfe document>)
 \stoptyping
 
 \stopsubsection
@@ -693,7 +705,7 @@ which can be inherited from the document itself. An example of a valid box name
 is \type {MediaBox}.
 
 \starttyping
-pages = pdfe.getbox(<pdfe dictionary>,boxname)
+box_dimens <array> = pdfe.getbox(<pdfe dictionary>,boxname)
 \stoptyping
 
 \stopsubsection
@@ -821,7 +833,7 @@ type, value, detail = getfromarray(<pdfe array>,index)
 \DB type       \BC meaning    \BC value            \BC detail \NC \NR
 \NC \type {0}  \NC none       \NC nil              \NC \NC \NR
 \NC \type {1}  \NC null       \NC nil              \NC \NC \NR
-\NC \type {2}  \NC boolean    \NC 1 or 0           \NC \NC \NR
+\NC \type {2}  \NC boolean    \NC boolean          \NC \NC \NR
 \NC \type {3}  \NC integer    \NC integer          \NC \NC \NR
 \NC \type {4}  \NC number     \NC float            \NC \NC \NR
 \NC \type {5}  \NC name       \NC string           \NC \NC \NR
@@ -938,7 +950,7 @@ pdfscanner.scan (<pdfe array>, <table> operatortable, <table> info)
 pdfscanner.scan (<string>, <table> operatortable, <table> info)
 \stopfunctioncall
 
-The first argument should be a \LUA\ string or a stream or array onject coming
+The first argument should be a \LUA\ string or a stream or array object coming
 from the \type {pdfe} library. The second argument, \type {operatortable}, should
 be a \LUA\ table where the keys are \PDF\ operator name strings and the values
 are \LUA\ functions (defined by you) that are used to process those operators.
