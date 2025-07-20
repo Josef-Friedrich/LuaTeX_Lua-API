@@ -32,6 +32,130 @@ Subproject = Literal[
     "luatex",
 ]
 
+# convert
+
+
+def convert_tex() -> None:
+    def _convert(file_name: str) -> None:
+        content: str = ""
+
+        with open(file_name) as src:
+            content = src.read()
+
+        content = re.sub(
+            r"\\(type|typ|prm|lpr|nod|syntax|notabene|whs|cbk)[\s]*\{([^}]*)\}",
+            r"`\2`",
+            content,
+        )
+
+        content = re.sub(
+            r"\\libidx\s*\{(.*?)\}\s*\{(.*?)\}",
+            r"`\1.\2`",
+            content,
+        )
+
+        content = re.sub(
+            r"\\(hyphenatedurl)[\s]*\{([^}]*)\}",
+            r"\2",
+            content,
+        )
+
+        content = re.sub(r"\\quote\s*\{([^}]*)\}", r"“\1”", content)
+        content = re.sub(r"\$([^$]+)\$", r"`\1`", content)
+
+        content = re.sub(r"\\TEX\\?", "*TeX*", content)
+        content = re.sub(r"\\CONTEXT\\?", "*ConTeXt*", content)
+        content = re.sub(r"\\LUATEX\\?", "*LuaTeX*", content)
+        content = re.sub(r"\\LUA\\?", "*Lua*", content)
+        content = re.sub(r"\\PDF\\?", "*PDF*", content)
+        content = re.sub(r"\\OPENTYPE\\?", "*OpenType*", content)
+        content = re.sub(r"\\TRUETYPE\\?", "*TrueType*", content)
+        content = re.sub(r"\\MICROSOFT\\?", "*Microsoft*", content)
+        content = re.sub(r"\\FONTFORGE\\?", "*FontForge*", content)
+        content = re.sub(r"\\POSTSCRIPT\\?", "*PostScript*", content)
+        content = re.sub(r"\\UTF-?8?\\?", "*UTF-8*", content)
+        content = re.sub(r"\\UNICODE\\?", "*Unicode*", content)
+
+        content = re.sub(
+            r"\\(starttyping|startfunctioncall|stoptyping|stopfunctioncall)",
+            "```",
+            content,
+        )
+
+        content = re.sub(r"\\startitemize(\[[^]]*\])?", "", content)
+        content = re.sub(r"\\startitem\s*", "* ", content)
+        content = re.sub(r"\\stopitem(ize)?", "", content)
+
+        content = content.replace("~", " ")
+        content = content.replace("|-|", "-")
+        content = content.replace("|/|", "/")
+        content = content.replace("\\NC \\NR", "")
+        content = re.sub(r"\\(NC|DB|BC|LL|TB|stoptabulate)", "", content)
+        content = re.sub(r"\\starttabulate\[.*?\]", "", content)
+        content = content.replace("etc.\\", "etc.")
+
+        content = "---" + content.replace("\n", "\n---")
+
+        content = re.sub(
+            r"\\start(sub)*(section|chapter)*\[.*title=\{(.*?)\}\]", r"# \3", content
+        )
+        content = re.sub(r"\\(sub)*section\{(.*?)\}", r"# \2", content)
+        content = re.sub(r"\\(libindex|topicindex)\s*\{[^}]+\}", "", content)
+        content = re.sub(r"---\n(---\n)+", "---\n", content)
+
+        content = re.sub(
+            r"---\\stop(sub)*section",
+            "----------------------------------------------------------------\n\n",
+            content,
+        )
+
+        content = re.sub(
+            r"--- `(.*)` +(float|string|boolean|number|table|.*node) +",
+            r"---@field \1 \2 # ",
+            content,
+        )
+
+        content = re.sub(r"\n--- {10,}", r" ", content)
+
+        with open(file_name + ".lua", "w") as dest:
+            dest.write(content)
+
+    _apply_function_on_glob("manuals/**/*.tex", _convert)
+
+
+def convert_html() -> None:
+    def _convert(file_name: str) -> None:
+        content: str = ""
+
+        with open(file_name) as src:
+            content = src.read()
+
+        content = re.sub(
+            r"</?(tt|code)>",
+            "`",
+            content,
+        )
+
+        content = re.sub(
+            r"</?pre.*?>",
+            "```",
+            content,
+        )
+
+        content = re.sub(r"<li> *", "* ", content)
+
+        content = re.sub(r"</?.*?> *", "", content)
+
+        content = "---" + content.replace("\n", "\n---")
+
+        with open(file_name + ".lua", "w") as dest:
+            dest.write(content)
+
+    _apply_function_on_glob("**/*.html", _convert)
+
+
+# example
+
 
 def compile_example(src_relpath: str) -> None:
     """
@@ -84,6 +208,9 @@ def compile_example(src_relpath: str) -> None:
         _open_file(pdf)
 
 
+# format
+
+
 def format_docstrings() -> None:
     def _format(file_name: str) -> None:
         content: str = ""
@@ -111,6 +238,9 @@ def format_docstrings() -> None:
     _apply_function_on_glob("library/**/*.lua", _format)
 
 
+# merge
+
+
 def merge_type_definitions(subproject: Subproject = "luatex") -> None:
     contents: list[str] = []
 
@@ -128,6 +258,9 @@ def merge_type_definitions(subproject: Subproject = "luatex") -> None:
     dist_dir.mkdir(parents=True, exist_ok=True)
     with open(dist_dir / (subproject + "-type-definitions.lua"), "w") as f:
         f.write("\n".join(contents))
+
+
+# navigation
 
 
 def remove_navigation_table() -> None:
@@ -161,6 +294,12 @@ def remove_navigation_table() -> None:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest="command")
+
+    convert_parser = subparsers.add_parser(
+        "convert",
+        help="Convert manuals",
+    )
+
     example_parser = subparsers.add_parser(
         "example",
         help="Compile examples in the folder ./examples",
@@ -187,7 +326,10 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    if args.command == "example":
+    if args.command == "convert":
+        convert_tex()
+        convert_html()
+    elif args.command == "example":
         compile_example(args.relpath)
     elif args.command == "format":
         format_docstrings()

@@ -3,9 +3,8 @@ all: format stylua
 format:
 	./manage.py format
 
-convert_tex_to_lua:
-	resources/convert-tex-to-lua-docstrings.py
-	# resources/convert-html-to-lua-docstrings.py
+convert:
+	./manage.py convert
 
 stylua:
 	$(HOME)/.cargo/bin/stylua library
