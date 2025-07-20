@@ -37,6 +37,7 @@ Subproject = Literal[
 
 
 def _download_url(url: str, dest_path: str) -> None:
+    print(f"Download {url} into {dest_path}")
     with urllib.request.urlopen(url) as response:
         data = response.read()
         with open(dest_path, "wb") as f:
@@ -284,27 +285,27 @@ def download_manuals() -> None:
             )
 
     for file in [
-        "luametatex-assumptions.tex"
-        "luametatex-callbacks.tex"
-        "luametatex-constructions.tex"
-        "luametatex-contents.tex"
-        "luametatex-engines.tex"
-        "luametatex-fonts.tex"
-        "luametatex-internals.tex"
-        "luametatex-introduction.tex"
-        "luametatex-languages.tex"
-        "luametatex-libraries.tex"
-        "luametatex-lua.tex"
-        "luametatex-math.tex"
-        "luametatex-metapost.tex"
-        "luametatex-nodes.tex"
-        "luametatex-pdf.tex"
-        "luametatex-primitives.tex"
-        "luametatex-principles.tex"
-        "luametatex-style.tex"
-        "luametatex-tex.tex"
-        "luametatex-tokens.tex"
-        "luametatex.tex"
+        "luametatex-assumptions.tex",
+        "luametatex-callbacks.tex",
+        "luametatex-constructions.tex",
+        "luametatex-contents.tex",
+        "luametatex-engines.tex",
+        "luametatex-fonts.tex",
+        "luametatex-internals.tex",
+        "luametatex-introduction.tex",
+        "luametatex-languages.tex",
+        "luametatex-libraries.tex",
+        "luametatex-lua.tex",
+        "luametatex-math.tex",
+        "luametatex-metapost.tex",
+        "luametatex-nodes.tex",
+        "luametatex-pdf.tex",
+        "luametatex-primitives.tex",
+        "luametatex-principles.tex",
+        "luametatex-style.tex",
+        "luametatex-tex.tex",
+        "luametatex-tokens.tex",
+        "luametatex.tex",
     ]:
         _download_url(
             f"https://github.com/contextgarden/context/blob/main/doc/context/sources/general/manuals/luametatex/{file}",

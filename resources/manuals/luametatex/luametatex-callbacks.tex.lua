@@ -1,1053 +1,1544 @@
----% language=us runpath=texruns:manuals/luametatex
 ---
----\environment luametatex-style
+---<!DOCTYPE html>
+---<html
+---  lang="en"
+---  
+---  data-color-mode="auto" data-light-theme="light" data-dark-theme="dark"
+---  data-a11y-animated-images="system" data-a11y-link-underlines="true"
+---  
+---  >
+---
+---  <head>
+---    <meta charset="utf-8">
+---  <link rel="dns-prefetch" href="https://github.githubassets.com">
+---  <link rel="dns-prefetch" href="https://avatars.githubusercontent.com">
+---  <link rel="dns-prefetch" href="https://github-cloud.s3.amazonaws.com">
+---  <link rel="dns-prefetch" href="https://user-images.githubusercontent.com/">
+---  <link rel="preconnect" href="https://github.githubassets.com" crossorigin>
+---  <link rel="preconnect" href="https://avatars.githubusercontent.com">
+---
+---  
+---
+---  <link crossorigin="anonymous" media="all" rel="stylesheet" href="https://github.githubassets.com/assets/light-d1334f2b22bf.css" /><link crossorigin="anonymous" media="all" rel="stylesheet" href="https://github.githubassets.com/assets/light_high_contrast-f695a361c6b2.css" /><link crossorigin="anonymous" media="all" rel="stylesheet" href="https://github.githubassets.com/assets/dark-f73a069fd33e.css" /><link crossorigin="anonymous" media="all" rel="stylesheet" href="https://github.githubassets.com/assets/dark_high_contrast-3a0d87f72ad4.css" /><link data-color-theme="light" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/light-d1334f2b22bf.css" /><link data-color-theme="light_high_contrast" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/light_high_contrast-f695a361c6b2.css" /><link data-color-theme="light_colorblind" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/light_colorblind-367eb9a4565a.css" /><link data-color-theme="light_colorblind_high_contrast" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/light_colorblind_high_contrast-183adc0db479.css" /><link data-color-theme="light_tritanopia" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/light_tritanopia-2ddc677c041d.css" /><link data-color-theme="light_tritanopia_high_contrast" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/light_tritanopia_high_contrast-649962a5702a.css" /><link data-color-theme="dark" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/dark-f73a069fd33e.css" /><link data-color-theme="dark_high_contrast" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/dark_high_contrast-3a0d87f72ad4.css" /><link data-color-theme="dark_colorblind" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/dark_colorblind-b17a8392e6c4.css" /><link data-color-theme="dark_colorblind_high_contrast" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/dark_colorblind_high_contrast-e9ff47cedc2b.css" /><link data-color-theme="dark_tritanopia" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/dark_tritanopia-a1cc7dba9f73.css" /><link data-color-theme="dark_tritanopia_high_contrast" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/dark_tritanopia_high_contrast-6c4dd39e2b0f.css" /><link data-color-theme="dark_dimmed" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/dark_dimmed-55459b36aa6d.css" /><link data-color-theme="dark_dimmed_high_contrast" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/dark_dimmed_high_contrast-9a0ef6e40ed3.css" />
+---
+---    <link crossorigin="anonymous" media="all" rel="stylesheet" href="https://github.githubassets.com/assets/primer-primitives-dc7ca6859caf.css" />
+---    <link crossorigin="anonymous" media="all" rel="stylesheet" href="https://github.githubassets.com/assets/primer-03a65c451725.css" />
+---    <link crossorigin="anonymous" media="all" rel="stylesheet" href="https://github.githubassets.com/assets/global-d1aed5b4075c.css" />
+---    <link crossorigin="anonymous" media="all" rel="stylesheet" href="https://github.githubassets.com/assets/github-db7b386c190b.css" />
+---  <link crossorigin="anonymous" media="all" rel="stylesheet" href="https://github.githubassets.com/assets/repository-b58e401b73ae.css" />
+---<link crossorigin="anonymous" media="all" rel="stylesheet" href="https://github.githubassets.com/assets/code-4ea853641043.css" />
+---
+---  
+---
+---  <script type="application/json" id="client-env">{"locale":"en","featureFlags":["alternate_user_config_repo","api_insights_show_missing_data_banner","attestations_filtering","attestations_sorting","client_version_header","code_scanning_security_configuration_ternary_state","codespaces_prebuild_region_target_update","contact_requests_implicit_opt_in","contentful_lp_copilot_extensions","contentful_lp_flex_features","contentful_lp_footnotes","copilot_activity_report","copilot_chat_attach_multiple_images","copilot_chat_floating_sidebar_focus_trap","copilot_chat_group_notifications","copilot_chat_navigable_refs","copilot_chat_vision_in_claude","copilot_chat_vision_skip_thread_create","copilot_chat_wholearea_dd","copilot_custom_copilots_feature_preview","copilot_custom_copilots_images","copilot_duplicate_thread","copilot_free_to_paid_telem","copilot_ftp_hyperspace_upgrade_prompt","copilot_ftp_settings_upgrade","copilot_ftp_upgrade_to_pro_from_models","copilot_ftp_your_copilot_settings","copilot_immersive_draft_issue_template_form_ui","copilot_immersive_structured_model_picker","copilot_no_floating_button","copilot_read_shared_conversation","copilot_spaces_input_menu_select","copilot_spark_allow_empty_commit","copilot_spark_single_user_iteration","copilot_spark_use_billing_headers","copilot_task_oriented_assistive_prompts","copilot_workbench_connection_reload_banner","copilot_workbench_iterate_panel","copilot_workbench_preview_analytics","copilot_workbench_refresh_on_wsod","custom_copilots_128k_window","custom_copilots_capi_mode","custom_copilots_file_uploads","direct_to_salesforce","dotcom_chat_client_side_skills","failbot_report_error_react_apps_on_page","ghost_pilot_confidence_truncation_25","ghost_pilot_confidence_truncation_40","insert_before_patch","issue_fields_report_usage","issues_catch_non_json_graphql_response","issues_comment_load_user_settings","issues_label_search_url","issues_preserve_tokens_in_urls","issues_react_blur_item_picker_on_close","issues_react_bots_timeline_pagination","issues_react_create_milestone","issues_react_optimistic_markdown","issues_react_prohibit_title_fallback","issues_react_remove_placeholders","issues_template_picker_redirect","lifecycle_label_name_updates","link_contact_sales_swp_marketo","marketing_pages_search_explore_provider","memex_mwl_filter_field_delimiter","nonreporting_relay_graphql_status_codes","primer_react_select_panel_with_modern_action_list","remove_child_patch","sample_network_conn_type","scheduled_reminders_updated_limits","site_homepage_contentful","site_msbuild_hide_integrations","site_msbuild_launch","site_msbuild_webgl_hero","spark_commit_on_default_branch","spark_sync_repository_after_iteration","swp_enterprise_contact_form","use_paginated_repo_picker_cost_center_form","viewscreen_sandbox","workbench_default_sonnet4","workbench_store_readonly"],"copilotApiUrl":"https://api.individual.githubcopilot.com"}</script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/high-contrast-cookie-039f089f08c3.js"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/wp-runtime-1685eb918d8c.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/vendors-node_modules_oddbird_popover-polyfill_dist_popover-fn_js-a8c266e5f126.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/vendors-node_modules_github_mini-throttle_dist_index_js-node_modules_stacktrace-parser_dist_s-1d3d52-babac9434833.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/ui_packages_failbot_failbot_ts-4eaa91ff7c9c.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/environment-37836f8ad297.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/vendors-node_modules_primer_behaviors_dist_esm_index_mjs-c44edfed7f0d.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/vendors-node_modules_github_selector-observer_dist_index_esm_js-cdf2757bd188.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/vendors-node_modules_github_relative-time-element_dist_index_js-5913bc24f35d.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/vendors-node_modules_github_text-expander-element_dist_index_js-e50fb7a5fe8c.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/vendors-node_modules_github_auto-complete-element_dist_index_js-node_modules_github_catalyst_-8e9f78-c1e2fb329866.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/vendors-node_modules_github_filter-input-element_dist_index_js-node_modules_github_remote-inp-b5f1d7-514a92c925f0.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/vendors-node_modules_github_markdown-toolbar-element_dist_index_js-6a8c7d9a08fe.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/vendors-node_modules_github_file-attachment-element_dist_index_js-node_modules_primer_view-co-f03a40-c631b99b0f08.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/github-elements-594e8106f187.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/element-registry-529fad20b892.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/vendors-node_modules_braintree_browser-detection_dist_browser-detection_js-node_modules_githu-bb80ec-34c4b68b1dd3.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/vendors-node_modules_lit-html_lit-html_js-b93a87060d31.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/vendors-node_modules_morphdom_dist_morphdom-esm_js-300e8e4e0414.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/vendors-node_modules_github_turbo_dist_turbo_es2017-esm_js-595819d3686f.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/vendors-node_modules_github_remote-form_dist_index_js-node_modules_delegated-events_dist_inde-893f9f-5f044d8dcee3.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/vendors-node_modules_github_quote-selection_dist_index_js-node_modules_github_session-resume_-c39857-54c022ad5a68.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/ui_packages_updatable-content_updatable-content_ts-7b14b8aa0beb.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/app_assets_modules_github_behaviors_task-list_ts-app_assets_modules_github_sso_ts-ui_packages-900dde-f953ddf42948.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/app_assets_modules_github_sticky-scroll-into-view_ts-e45aabc67d13.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/app_assets_modules_github_behaviors_ajax-error_ts-app_assets_modules_github_behaviors_include-d0d0a6-a7da4270c5f4.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/app_assets_modules_github_behaviors_commenting_edit_ts-app_assets_modules_github_behaviors_ht-83c235-567e0f340e27.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/behaviors-161506cb2918.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/vendors-node_modules_delegated-events_dist_index_js-node_modules_github_catalyst_lib_index_js-ea8eaa-0416579acb39.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/notifications-global-753a553f1820.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/vendors-node_modules_github_mini-throttle_dist_index_js-node_modules_github_catalyst_lib_inde-dbbea9-558c1f223d1d.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/code-menu-1feff9e17b7b.js" defer="defer"></script>
+---  
+---  <script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/primer-react-4622b3e58029.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/react-core-c2c42df71553.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/react-lib-8705026b409a.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/octicons-react-8ed765fdb7a0.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/vendors-node_modules_emotion_is-prop-valid_dist_emotion-is-prop-valid_esm_js-node_modules_emo-b1c483-f0fc35efa8f8.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/vendors-node_modules_cookie_index_js-node_modules_primer_live-region-element_dist_esm_index_j-1ca8f6-89ab81577c38.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/vendors-node_modules_dompurify_dist_purify_es_mjs-7457ebdd1a1f.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/vendors-node_modules_lodash-es__Stack_js-node_modules_lodash-es__Uint8Array_js-node_modules_l-4faaa6-16c4e2c524de.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/vendors-node_modules_lodash-es_isEqual_js-a0841ced23fc.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/vendors-node_modules_tanstack_react-virtual_dist_esm_index_js-807aab04afeb.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/vendors-node_modules_focus-visible_dist_focus-visible_js-node_modules_github_hydro-analytics--e21ffd-0b758af67e69.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/vendors-node_modules_fzy_js_index_js-node_modules_react-reverse-portal_dist_web_index_js-node-452414-05865700b943.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/ui_packages_paths_index_ts-bf609b99b24a.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/ui_packages_document-metadata_document-metadata_ts-ui_packages_fetch-headers_fetch-headers_ts-57e0e0-bed68ec00644.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/ui_packages_ref-selector_RefSelector_tsx-6bd266a4340b.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/ui_packages_commit-attribution_index_ts-ui_packages_commit-checks-status_index_ts-ui_packages-762eaa-4bb9b612ea61.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/ui_packages_use-analytics_use-analytics_ts-ui_packages_use-client-value_use-client-value_ts-u-8be754-144c1ca8ead3.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/ui_packages_code-view-shared_hooks_use-canonical-object_ts-ui_packages_code-view-shared_hooks-9104f7-210e1a626c16.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/ui_packages_app-uuid_app-uuid_ts-ui_packages_repos-file-tree-view_repos-file-tree-view_ts-72a4b5b8380b.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/app_assets_modules_github_blob-anchor_ts-ui_packages_code-nav_code-nav_ts-ui_packages_filter--8253c1-5fde020dbad1.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/react-code-view-a5b0067811d6.js" defer="defer"></script>
+---<link crossorigin="anonymous" media="all" rel="stylesheet" href="https://github.githubassets.com/assets/primer-react.47f1598729334a521d2a.module.css" />
+---<link crossorigin="anonymous" media="all" rel="stylesheet" href="https://github.githubassets.com/assets/react-code-view.833cfc1ade3ba9c7b2e4.module.css" />
+---
+---  <script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/ui_packages_document-metadata_document-metadata_ts-ui_packages_notifications-subscriptions-me-a3b302-2518229acf18.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/notifications-subscriptions-menu-463d138cca3f.js" defer="defer"></script>
+---<link crossorigin="anonymous" media="all" rel="stylesheet" href="https://github.githubassets.com/assets/primer-react.47f1598729334a521d2a.module.css" />
+---<link crossorigin="anonymous" media="all" rel="stylesheet" href="https://github.githubassets.com/assets/notifications-subscriptions-menu.4c58e19e87a9dd1b1dfd.module.css" />
+---
+---  <title>context/doc/context/sources/general/manuals/luametatex/luametatex-callbacks.tex at main · contextgarden/context · GitHub</title>
+---
+---  <meta name="route-pattern" content="/:user_id/:repository/blob/*name(/*path)" data-turbo-transient>
+---  <meta name="route-controller" content="blob" data-turbo-transient>
+---  <meta name="route-action" content="show" data-turbo-transient>
+---  <meta name="fetch-nonce" content="v2:1c3e2db4-16b9-61e2-f385-efc764f12273">
 ---
----\startcomponent luametatex-callbacks
+---    
+---  <meta name="current-catalog-service-hash" content="f3abb0cc802f3d7b95fc8762b94bdcb13bf39634c40c357301c4aa1d67a256fb">
 ---
----# *Lua* callbacks
+---  <meta name="request-id" content="EF45:39959B:632EA13:66CBEAD:687C9819" data-pjax-transient="true"/><meta name="html-safe-nonce" content="ab338c06165733bf23c712d9470b05ae922b7d6a32e507d4da890f8845fdd0ff" data-pjax-transient="true"/><meta name="visitor-payload" content="eyJyZWZlcnJlciI6IiIsInJlcXVlc3RfaWQiOiJFRjQ1OjM5OTU5Qjo2MzJFQTEzOjY2Q0JFQUQ6Njg3Qzk4MTkiLCJ2aXNpdG9yX2lkIjoiMTI0MjA2MzQ2NjY4ODk3NjkyMSIsInJlZ2lvbl9lZGdlIjoiZnJhIiwicmVnaW9uX3JlbmRlciI6ImZyYSJ9" data-pjax-transient="true"/><meta name="visitor-hmac" content="ff4e719faaf44a0f0fa50447cb340cb56dd08ab7d4df2318b3757d769b1d70f0" data-pjax-transient="true"/>
 ---
----# Registering callbacks[library=callback]
+---    <meta name="hovercard-subject-tag" content="repository:536121827" data-turbo-transient>
 ---
----{\em The callbacks are a moving target. Don't bother me with questions about
----them. Some are new and/or experimental and therefore not yet documented. In
----*ConTeXt* we can easily adapt interfaces so changes in these have no real effect
----on users. Of course in due time all will be official and documented.}
+---  <meta name="github-keyboard-shortcuts" content="repository,source-code,file-tree,copilot" data-turbo-transient="true" />
+---  
 ---
----This library has functions that register, find and list callbacks. Callbacks are
----*Lua* functions that are called in well defined places. There are two kinds of
----callbacks: those that mix with existing functionality, and those that (when
----enabled) replace functionality. In most cases the second category is expected to
----behave similar to the built in functionality because in a next step specific data
----is expected. For instance, you can replace the hyphenation routine. The function
----gets a list that can be hyphenated (or not). The final list should be valid and
----is (normally) used for constructing a paragraph. Another function can replace the
----ligature builder and/or kern routine. Doing something else is possible but in
----the end might not give the user the expected outcome.
----
----The first thing you need to do is registering a callback:
+---  <meta name="selected-link" value="repo_source" data-turbo-transient>
+---  <link rel="assets" href="https://github.githubassets.com/">
 ---
----```
----id = callback.register(<string> callback_name, <function> func)
----id = callback.register(<string> callback_name, nil)
----id = callback.register(<string> callback_name, false)
----```
+---    <meta name="google-site-verification" content="Apib7-x98H0j5cPqHWwSMm6dNU4GmODRoqxLiDzdx9I">
 ---
----Here the `callback_name` is a predefined callback name, see below. The
----function returns the internal `id` of the callback or `nil`, if the
----callback could not be registered.
+---<meta name="octolytics-url" content="https://collector.github.com/github/collect" />
 ---
----*LuaTeX* internalizes the callback function in such a way that it does not matter
----if you redefine a function accidentally.
+---  <meta name="analytics-location" content="/&lt;user-name&gt;/&lt;repo-name&gt;/blob/show" data-turbo-transient="true" />
 ---
----Callback assignments are always global. You can use the special value `nil`
----instead of a function for clearing the callback.
+---  
 ---
----For some minor speed gain, you can assign the boolean `false` to the
----non-file related callbacks, doing so will prevent *LuaTeX* from executing
----whatever it would execute by default (when no callback function is registered at
----all). Be warned: this may cause all sorts of grief unless you know `exactly` what you are doing!
+---    <meta name="user-login" content="">
 ---
----```
----<table> info =
----    callback.list()
----```
+---  
 ---
----The keys in the table are the known callback names, the value is a boolean where
----`true` means that the callback is currently set (active).
+---    <meta name="viewport" content="width=device-width">
 ---
----```
----<function> f = callback.find(callback_name)
----```
+---    
 ---
----If the callback is not set, `find` returns `nil`. The `known`
----function can be used to check if a callback is supported.
+---      <meta name="description" content="ConTeXt source code (mirror from https://www.pragma-ade.nl/download-1.htm) - context/doc/context/sources/general/manuals/luametatex/luametatex-callbacks.tex at main · contextgarden/context">
 ---
----```
----if callback.known("foo") then ... end
----```
+---      <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GitHub">
 ---
-----------------------------------------------------------------
-
-
+---    <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
+---    <meta property="fb:app_id" content="1401488693436528">
+---    <meta name="apple-itunes-app" content="app-id=1477376905, app-argument=https://github.com/contextgarden/context/blob/main/doc/context/sources/general/manuals/luametatex/luametatex-callbacks.tex" />
 ---
----\startsection[title={File related callbacks},reference=iocallback][library=callback]
+---      <meta name="twitter:image" content="https://opengraph.githubassets.com/0976b6ebc716aebc2fb16ffc077acc427e211c654558c16b06594a8393e65d96/contextgarden/context" /><meta name="twitter:site" content="@github" /><meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content="context/doc/context/sources/general/manuals/luametatex/luametatex-callbacks.tex at main · contextgarden/context" /><meta name="twitter:description" content="ConTeXt source code (mirror from https://www.pragma-ade.nl/download-1.htm) - contextgarden/context" />
+---  <meta property="og:image" content="https://opengraph.githubassets.com/0976b6ebc716aebc2fb16ffc077acc427e211c654558c16b06594a8393e65d96/contextgarden/context" /><meta property="og:image:alt" content="ConTeXt source code (mirror from https://www.pragma-ade.nl/download-1.htm) - contextgarden/context" /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="600" /><meta property="og:site_name" content="GitHub" /><meta property="og:type" content="object" /><meta property="og:title" content="context/doc/context/sources/general/manuals/luametatex/luametatex-callbacks.tex at main · contextgarden/context" /><meta property="og:url" content="https://github.com/contextgarden/context/blob/main/doc/context/sources/general/manuals/luametatex/luametatex-callbacks.tex" /><meta property="og:description" content="ConTeXt source code (mirror from https://www.pragma-ade.nl/download-1.htm) - contextgarden/context" />
+---  
 ---
----# `find_format_file` and `find_log_file`
+---      <meta name="hostname" content="github.com">
 ---
----These callbacks are called as:
+---        <meta name="expected-hostname" content="github.com">
 ---
----```
----<string> actualname =
----    function (<string> askedname)
----```
+---  <meta http-equiv="x-pjax-version" content="a10164239a746d51677dd7864bd8a936f1617b21c72f47e9d647f2c061013122" data-turbo-track="reload">
+---  <meta http-equiv="x-pjax-csp-version" content="352e51c42d5f5727a7c545752bf34d1f83f40219e7036c6959817149a51651bc" data-turbo-track="reload">
+---  <meta http-equiv="x-pjax-css-version" content="db5407b34ed7dd78a10c3ffb9090ce21da82a95b43668b04d1de30e3d8a51dde" data-turbo-track="reload">
+---  <meta http-equiv="x-pjax-js-version" content="94f5de206406773bbf4cb7d075bea8be0e6e953d36f462380a86b5c178c4c7ca" data-turbo-track="reload">
 ---
----The `askedname` is a format file for reading (the format file for writing
----is always opened in the current directory) or a log file for writing.
+---  <meta name="turbo-cache-control" content="no-preview" data-turbo-transient="">
 ---
-----------------------------------------------------------------
-
-
+---      <meta name="turbo-cache-control" content="no-cache" data-turbo-transient>
 ---
----# `open_data_file`
+---    <meta data-hydrostats="publish">
 ---
----This callback function gets a filename passed:
+---  <meta name="go-import" content="github.com/contextgarden/context git https://github.com/contextgarden/context.git">
 ---
----```
----<table> env = function (<string> filename)
----```
+---  <meta name="octolytics-dimension-user_id" content="4325174" /><meta name="octolytics-dimension-user_login" content="contextgarden" /><meta name="octolytics-dimension-repository_id" content="536121827" /><meta name="octolytics-dimension-repository_nwo" content="contextgarden/context" /><meta name="octolytics-dimension-repository_public" content="true" /><meta name="octolytics-dimension-repository_is_fork" content="false" /><meta name="octolytics-dimension-repository_network_root_id" content="536121827" /><meta name="octolytics-dimension-repository_network_root_nwo" content="contextgarden/context" />
 ---
----The return value is either the boolean value false or a table with two functions.
----A mandate `reader` function fill be called once for each new line to be
----read, the optional `close` function will be called once *LuaTeX* is done
----with the file.
+---    
 ---
----*LuaTeX* never looks at the rest of the table, so you can use it to store your
----private per-file data. Both the callback functions will receive the table as
----their only argument.
----
----% No longer needed anyway.
----%
----% # `if_end_of_file`
----%
----% 
----%
----% This callback has no arguments and your function should return true or false. The
----% callback is triggered by `\ifeof`. It's up to the macro package to come up
----% with a reasonable implementation. By default the test is always true.
----%
----% ```
----% <boolean> eof =
----%     function ()
----% ```
----
-----------------------------------------------------------------
-
-
----
-----------------------------------------------------------------
-
-
----
----# Data processing callbacks[library=callback]
----
----# `process_jobname`
----
----This callback allows you to change the jobname given by `jobname` in *TeX*
----and `tex.jobname` in Lua. It does not affect the internal job name or the
----name of the output or log files.
----
----```
----function(<string> jobname)
----    return <string> adjusted_jobname
----end
----```
----
----The only argument is the actual job name; you should not use `tex.jobname`
----inside this function or infinite recursion may occur. If you return `nil`,
----*LuaTeX* will pretend your callback never happened. This callback does not
----replace any internal code.
+---    <meta name="turbo-body-classes" content="logged-out env-production page-responsive">
 ---
-----------------------------------------------------------------
-
-
+---  <meta name="browser-stats-url" content="https://api.github.com/_private/browser/stats">
 ---
-----------------------------------------------------------------
-
-
+---  <meta name="browser-errors-url" content="https://api.github.com/_private/browser/errors">
 ---
----# Node list processing callbacks[library=callback]
----
----The description of nodes and node lists is in \in{chapter}[nodes].
----
----# `contribute_filter`
----
----This callback is called when *LuaTeX* adds contents to list:
+---  <meta name="release" content="af8b8db961ba78e3d23e4b92e239c190ef136f06">
+---  <meta name="ui-target" content="full">
 ---
----```
----function(<string> extrainfo)
----end
----```
----
----The string reports the group code. From this you can deduce from
----what list you can give a treat.
----
---- value              explanation                                  
----
---- `pre_box`     interline material is being added            
---- `pre_adjust`  `vadjust` material is being added       
---- `box`         a typeset box is being added (always called) 
---- `adjust`      `vadjust` material is being added       
----
-----------------------------------------------------------------
-
-
----
----# `buildpage_filter`
----
----This callback is called whenever *LuaTeX* is ready to move stuff to the main
----vertical list. You can use this callback to do specialized manipulation of the
----page building stage like imposition or column balancing.
----
----```
----function(<string> extrainfo)
----end
----```
----
----The string `extrainfo` gives some additional information about what *TeX*'s
----state is with respect to the “current page”. The possible values for the
----`buildpage_filter` callback are:
----
---- value                   explanation                             
+---  <link rel="mask-icon" href="https://github.githubassets.com/assets/pinned-octocat-093da3e6fa40.svg" color="#000000">
+---  <link rel="alternate icon" class="js-site-favicon" type="image/png" href="https://github.githubassets.com/favicons/favicon.png">
+---  <link rel="icon" class="js-site-favicon" type="image/svg+xml" href="https://github.githubassets.com/favicons/favicon.svg" data-base-href="https://github.githubassets.com/favicons/favicon">
 ---
---- `alignment`        a (partial) alignment is being added    
---- `after_output`     an output routine has just finished     
---- `new_graf`         the beginning of a new paragraph        
---- `vmode_par`        `par` was found in vertical mode   
---- `hmode_par`        `par` was found in horizontal mode 
---- `insert`           an insert is added                      
---- `penalty`          a penalty (in vertical mode)            
---- `before_display`   immediately before a display starts     
---- `after_display`    a display is finished                   
---- `end`              *LuaTeX* is terminating (it's all over) 
----
-----------------------------------------------------------------
-
-
----
----# `build_page_insert`
----
----This callback is called when the page builder adds an insert. There is not much
----control over this mechanism but this callback permits some last minute
----manipulations of the spacing before an insert, something that might be handy when
----for instance multiple inserts (types) are appended in a row.
----
----```
----function(<number> n, <number> i)
----    return <number> register
----end
----```
+---<meta name="theme-color" content="#1e2327">
+---<meta name="color-scheme" content="light dark" />
 ---
----with
----
---- value     explanation             
----
---- `n`  the insert class        
---- `i`  the order of the insert 
----
----The return value is a number indicating the skip register to use for the
----prepended spacing. This permits for instance a different top space (when `i` equals one) and intermediate space (when `i` is larger than one). Of
----course you can mess with the insert box but you need to make sure that *LuaTeX*
----is happy afterwards.
----
-----------------------------------------------------------------
-
-
----
----# `pre_linebreak_filter`
----
----This callback is called just before *LuaTeX* starts converting a list of nodes
----into a stack of `hbox`es, after the addition of `parfillskip`.
----
----```
----function(<node> head, <string> groupcode)
----    return <node> newhead
----end
----```
----
----The string called `groupcode` identifies the nodelist's context within
----*TeX*'s processing. The range of possibilities is given in the table below, but
----not all of those can actually appear in `pre_linebreak_filter`, some are
----for the `hpack_filter` and `vpack_filter` callbacks that will be
----explained in the next two paragraphs.
----
---- value                 explanation                                 
+---  <link rel="manifest" href="/manifest.json" crossOrigin="use-credentials">
 ---
---- `<empty>`        main vertical list                          
---- `hbox`           `hbox` in horizontal mode              
---- `adjusted_hbox`  `hbox` in vertical mode                
---- `vbox`           `vbox`                                 
---- `vtop`           `vtop`                                 
---- `align`          `halign` or `valign`              
---- `disc`           discretionaries                             
---- `insert`         packaging an insert                         
---- `vcenter`        `vcenter`                              
---- `local_box`      `localleftbox` or `localrightbox` 
---- `split_off`      top of a `vsplit`                      
---- `split_keep`     remainder of a `vsplit`                
---- `align_set`      alignment cell                              
---- `fin_row`        alignment row                               
----
----As for all the callbacks that deal with nodes, the return value can be one of
----three things:
----
----* boolean `true` signals successful processing
----
----* `<node>` signals that the “head” node should be replaced by the
----    returned node
----
----* boolean `false` signals that the “head” node list should be
----    ignored and flushed from memory
----
----This callback does not replace any internal code.
----
-----------------------------------------------------------------
-
-
----
----# `linebreak_filter`
----
----This callback replaces *LuaTeX*'s line breaking algorithm.
----
----```
----function(<node> head, <boolean> is_display)
----    return <node> newhead
----end
----```
----
----The returned node is the head of the list that will be added to the main vertical
----list, the boolean argument is true if this paragraph is interrupted by a
----following math display.
+---  </head>
 ---
----If you return something that is not a `<node>`, *LuaTeX* will apply the
----internal linebreak algorithm on the list that starts at `<head>`.
----Otherwise, the `<node>` you return is supposed to be the head of a list of
----nodes that are all allowed in vertical mode, and at least one of those has to
----represent an `hbox`. Failure to do so will result in a fatal error.
+---  <body class="logged-out env-production page-responsive" style="word-wrap: break-word;">
+---    <div data-turbo-body class="logged-out env-production page-responsive" style="word-wrap: break-word;">
+---      
 ---
----Setting this callback to `false` is possible, but dangerous, because it is
----possible you will end up in an unfixable “deadcycles loop”.
----
-----------------------------------------------------------------
-
-
+---    <div class="position-relative header-wrapper js-header-wrapper ">
+---      <a href="#start-of-content" data-skip-target-assigned="false" class="px-2 py-4 color-bg-accent-emphasis color-fg-on-emphasis show-on-focus js-skip-to-content">Skip to content</a>
 ---
----# `append_to_vlist_filter`
+---      <span data-view-component="true" class="progress-pjax-loader Progress position-fixed width-full">
+---    <span style="width: 0%;" data-view-component="true" class="Progress-item progress-pjax-loader-bar left-0 top-0 color-bg-accent-emphasis"></span>
+---</span>      
+---      
+---      <script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/ui_packages_ui-commands_ui-commands_ts-b755d908e0b1.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/ui_packages_document-metadata_document-metadata_ts-ui_packages_hydro-analytics_hydro-analytic-f29230-07417997172c.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/keyboard-shortcuts-dialog-cf9f9950f389.js" defer="defer"></script>
+---<link crossorigin="anonymous" media="all" rel="stylesheet" href="https://github.githubassets.com/assets/primer-react.47f1598729334a521d2a.module.css" />
+---<link crossorigin="anonymous" media="all" rel="stylesheet" href="https://github.githubassets.com/assets/keyboard-shortcuts-dialog.f8fba3bd67fe74f9227b.module.css" />
 ---
----This callback is called whenever *LuaTeX* adds a box to a vertical list (the
----`mirrored` argument is obsolete):
+---<react-partial
+---  partial-name="keyboard-shortcuts-dialog"
+---  data-ssr="false"
+---  data-attempted-ssr="false"
+---  data-react-profiling="false"
+--->
+---  
+---  <script type="application/json" data-target="react-partial.embeddedData">{"props":{"docsUrl":"https://docs.github.com/get-started/accessibility/keyboard-shortcuts"}}</script>
+---  <div data-target="react-partial.reactRoot"></div>
+---</react-partial>
+---
+---      
+--- 
+--- 
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/vendors-node_modules_gsap_index_js-028cb2a18f5a.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/vendors-node_modules_github_remote-form_dist_index_js-node_modules_delegated-events_dist_inde-94fd67-b0625c39513c.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/sessions-d7b06c3c09b0.js" defer="defer"></script>
+---<header class="HeaderMktg header-logged-out js-details-container js-header Details f4 py-3" role="banner" data-is-top="true" data-color-mode=light data-light-theme=light data-dark-theme=dark>
+---  <h2 class="sr-only">Navigation Menu</h2>
+---
+---  <button type="button" class="HeaderMktg-backdrop d-lg-none border-0 position-fixed top-0 left-0 width-full height-full js-details-target" aria-label="Toggle navigation">
+---    <span class="d-none">Toggle navigation</span>
+---  </button>
+---
+---  <div class="d-flex flex-column flex-lg-row flex-items-center px-3 px-md-4 px-lg-5 height-full position-relative z-1">
+---    <div class="d-flex flex-justify-between flex-items-center width-full width-lg-auto">
+---      <div class="flex-1">
+---        <button aria-label="Toggle navigation" aria-expanded="false" type="button" data-view-component="true" class="js-details-target js-nav-padding-recalculate js-header-menu-toggle Button--link Button--medium Button d-lg-none color-fg-inherit p-1">  <span class="Button-content">
+---    <span class="Button-label"><div class="HeaderMenu-toggle-bar rounded my-1"></div> <div class="HeaderMenu-toggle-bar rounded my-1"></div> <div class="HeaderMenu-toggle-bar rounded my-1"></div></span>
+---  </span>
+---</button>
+---      </div>
+---
+---      <a class="mr-lg-3 color-fg-inherit flex-order-2 js-prevent-focus-on-mobile-nav"
+---        href="/"
+---        aria-label="Homepage"
+---        data-analytics-event="{&quot;category&quot;:&quot;Marketing nav&quot;,&quot;action&quot;:&quot;click to go to homepage&quot;,&quot;label&quot;:&quot;ref_page:Marketing;ref_cta:Logomark;ref_loc:Header&quot;}">
+---        <svg height="32" aria-hidden="true" viewBox="0 0 24 24" version="1.1" width="32" data-view-component="true" class="octicon octicon-mark-github">
+---    <path d="M12 1C5.923 1 1 5.923 1 12c0 4.867 3.149 8.979 7.521 10.436.55.096.756-.233.756-.522 0-.262-.013-1.128-.013-2.049-2.764.509-3.479-.674-3.699-1.292-.124-.317-.66-1.293-1.127-1.554-.385-.207-.936-.715-.014-.729.866-.014 1.485.797 1.691 1.128.99 1.663 2.571 1.196 3.204.907.096-.715.385-1.196.701-1.471-2.448-.275-5.005-1.224-5.005-5.432 0-1.196.426-2.186 1.128-2.956-.111-.275-.496-1.402.11-2.915 0 0 .921-.288 3.024 1.128a10.193 10.193 0 0 1 2.75-.371c.936 0 1.871.123 2.75.371 2.104-1.43 3.025-1.128 3.025-1.128.605 1.513.221 2.64.111 2.915.701.77 1.127 1.747 1.127 2.956 0 4.222-2.571 5.157-5.019 5.432.399.344.743 1.004.743 2.035 0 1.471-.014 2.654-.014 3.025 0 .289.206.632.756.522C19.851 20.979 23 16.854 23 12c0-6.077-4.922-11-11-11Z"></path>
+---</svg>
+---      </a>
+---
+---      <div class="d-flex flex-1 flex-order-2 text-right d-lg-none gap-2 flex-justify-end"> <a href="/login?return_to=https%3A%2F%2Fgithub.com%2Fcontextgarden%2Fcontext%2Fblob%2Fmain%2Fdoc%2Fcontext%2Fsources%2Fgeneral%2Fmanuals%2Fluametatex%2Fluametatex-callbacks.tex" class="HeaderMenu-link HeaderMenu-button d-inline-flex f5 no-underline border color-border-default rounded-2 px-2 py-1 color-fg-inherit js-prevent-focus-on-mobile-nav" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;originating_url&quot;:&quot;https://github.com/contextgarden/context/blob/main/doc/context/sources/general/manuals/luametatex/luametatex-callbacks.tex&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="e32e2d8bbdc31e71c001609bd34240f78ea2c1693b293011880d63d266586335" data-analytics-event="{&quot;category&quot;:&quot;Marketing nav&quot;,&quot;action&quot;:&quot;click to Sign in&quot;,&quot;label&quot;:&quot;ref_page:Marketing;ref_cta:Sign in;ref_loc:Header&quot;}" > Sign in </a> <div class="AppHeader-appearanceSettings">
+---    <react-partial-anchor>
+---      <button data-target="react-partial-anchor.anchor" id="icon-button-53f519b1-faa5-4d0b-8fe2-f769f26cb1eb" aria-labelledby="tooltip-6c8730ed-2113-40e2-943e-12f88d79813a" type="button" disabled="disabled" data-view-component="true" class="Button Button--iconOnly Button--invisible Button--medium AppHeader-button HeaderMenu-link border cursor-wait">  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-sliders Button-visual">
+---    <path d="M15 2.75a.75.75 0 0 1-.75.75h-4a.75.75 0 0 1 0-1.5h4a.75.75 0 0 1 .75.75Zm-8.5.75v1.25a.75.75 0 0 0 1.5 0v-4a.75.75 0 0 0-1.5 0V2H1.75a.75.75 0 0 0 0 1.5H6.5Zm1.25 5.25a.75.75 0 0 0 0-1.5h-6a.75.75 0 0 0 0 1.5h6ZM15 8a.75.75 0 0 1-.75.75H11.5V10a.75.75 0 1 1-1.5 0V6a.75.75 0 0 1 1.5 0v1.25h2.75A.75.75 0 0 1 15 8Zm-9 5.25v-2a.75.75 0 0 0-1.5 0v1.25H1.75a.75.75 0 0 0 0 1.5H4.5v1.25a.75.75 0 0 0 1.5 0v-2Zm9 0a.75.75 0 0 1-.75.75h-6a.75.75 0 0 1 0-1.5h6a.75.75 0 0 1 .75.75Z"></path>
+---</svg>
+---</button><tool-tip id="tooltip-6c8730ed-2113-40e2-943e-12f88d79813a" for="icon-button-53f519b1-faa5-4d0b-8fe2-f769f26cb1eb" popover="manual" data-direction="s" data-type="label" data-view-component="true" class="sr-only position-absolute">Appearance settings</tool-tip>
+---
+---      <template data-target="react-partial-anchor.template">
+---        <script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/ui_packages_document-metadata_document-metadata_ts-ui_packages_promise-with-resolvers-polyfil-40d47c-2b0274d4149e.js" defer="defer"></script>
+---<script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/appearance-settings-d35856a333a1.js" defer="defer"></script>
+---<link crossorigin="anonymous" media="all" rel="stylesheet" href="https://github.githubassets.com/assets/primer-react.47f1598729334a521d2a.module.css" />
+---<link crossorigin="anonymous" media="all" rel="stylesheet" href="https://github.githubassets.com/assets/appearance-settings.76259b61ecc822265749.module.css" />
+---
+---<react-partial
+---  partial-name="appearance-settings"
+---  data-ssr="false"
+---  data-attempted-ssr="false"
+---  data-react-profiling="false"
+--->
+---  
+---  <script type="application/json" data-target="react-partial.embeddedData">{"props":{}}</script>
+---  <div data-target="react-partial.reactRoot"></div>
+---</react-partial>
+---
+---      </template>
+---    </react-partial-anchor>
+---  </div>
+---
+---      </div>
+---    </div>
+---
+---    <div class="HeaderMenu js-header-menu height-fit position-lg-relative d-lg-flex flex-column flex-auto top-0">
+---      <div class="HeaderMenu-wrapper d-flex flex-column flex-self-start flex-lg-row flex-auto rounded rounded-lg-0"> <nav class="HeaderMenu-nav" aria-label="Global"> <ul class="d-lg-flex list-style-none">
+--- <li class="HeaderMenu-item position-relative flex-wrap flex-justify-between flex-items-center d-block d-lg-flex flex-lg-nowrap flex-lg-items-center js-details-container js-header-menu-item">
+---      <button type="button" class="HeaderMenu-link border-0 width-full width-lg-auto px-0 px-lg-2 py-lg-2 no-wrap d-flex flex-items-center flex-justify-between js-details-target" aria-expanded="false">
+---        Product
+---        <svg opacity="0.5" aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-chevron-down HeaderMenu-icon ml-1">
+---    <path d="M12.78 5.22a.749.749 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.06 0L3.22 6.28a.749.749 0 1 1 1.06-1.06L8 8.939l3.72-3.719a.749.749 0 0 1 1.06 0Z"></path>
+---</svg>
+---      </button>
+---
+---      <div class="HeaderMenu-dropdown dropdown-menu rounded m-0 p-0 pt-2 pt-lg-4 position-relative position-lg-absolute left-0 left-lg-n3 pb-2 pb-lg-4 d-lg-flex flex-wrap dropdown-menu-wide"> <div class="HeaderMenu-column pl-lg-4 px-lg-4"> <div class="">
+--- <ul class="list-style-none f5" > <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary d-flex flex-items-center Link--has-description pb-lg-3" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;github_copilot&quot;,&quot;context&quot;:&quot;product&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;github_copilot_link_product_navbar&quot;}" href="https://github.com/features/copilot">
+---      <svg aria-hidden="true" height="24" viewBox="0 0 24 24" version="1.1" width="24" data-view-component="true" class="octicon octicon-copilot color-fg-subtle mr-3">
+---    <path d="M23.922 16.992c-.861 1.495-5.859 5.023-11.922 5.023-6.063 0-11.061-3.528-11.922-5.023A.641.641 0 0 1 0 16.736v-2.869a.841.841 0 0 1 .053-.22c.372-.935 1.347-2.292 2.605-2.656.167-.429.414-1.055.644-1.517a10.195 10.195 0 0 1-.052-1.086c0-1.331.282-2.499 1.132-3.368.397-.406.89-.717 1.474-.952 1.399-1.136 3.392-2.093 6.122-2.093 2.731 0 4.767.957 6.166 2.093.584.235 1.077.546 1.474.952.85.869 1.132 2.037 1.132 3.368 0 .368-.014.733-.052 1.086.23.462.477 1.088.644 1.517 1.258.364 2.233 1.721 2.605 2.656a.832.832 0 0 1 .053.22v2.869a.641.641 0 0 1-.078.256ZM12.172 11h-.344a4.323 4.323 0 0 1-.355.508C10.703 12.455 9.555 13 7.965 13c-1.725 0-2.989-.359-3.782-1.259a2.005 2.005 0 0 1-.085-.104L4 11.741v6.585c1.435.779 4.514 2.179 8 2.179 3.486 0 6.565-1.4 8-2.179v-6.585l-.098-.104s-.033.045-.085.104c-.793.9-2.057 1.259-3.782 1.259-1.59 0-2.738-.545-3.508-1.492a4.323 4.323 0 0 1-.355-.508h-.016.016Zm.641-2.935c.136 1.057.403 1.913.878 2.497.442.544 1.134.938 2.344.938 1.573 0 2.292-.337 2.657-.751.384-.435.558-1.15.558-2.361 0-1.14-.243-1.847-.705-2.319-.477-.488-1.319-.862-2.824-1.025-1.487-.161-2.192.138-2.533.529-.269.307-.437.808-.438 1.578v.021c0 .265.021.562.063.893Zm-1.626 0c.042-.331.063-.628.063-.894v-.02c-.001-.77-.169-1.271-.438-1.578-.341-.391-1.046-.69-2.533-.529-1.505.163-2.347.537-2.824 1.025-.462.472-.705 1.179-.705 2.319 0 1.211.175 1.926.558 2.361.365.414 1.084.751 2.657.751 1.21 0 1.902-.394 2.344-.938.475-.584.742-1.44.878-2.497Z"></path><path d="M14.5 14.25a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1Zm-5 0a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1Z"></path>
+---</svg>
+---      <div> <div class="color-fg-default h4"> GitHub Copilot </div>
+---        Write better code with AI
+---      </div>
+---
+---    
+---</a></li>
+---  <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary d-flex flex-items-center Link--has-description pb-lg-3" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;github_models&quot;,&quot;context&quot;:&quot;product&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;github_models_link_product_navbar&quot;}" href="https://github.com/features/models">
+---      <svg aria-hidden="true" height="24" viewBox="0 0 24 24" version="1.1" width="24" data-view-component="true" class="octicon octicon-ai-model color-fg-subtle mr-3">
+---    <path d="M19.375 8.5a3.25 3.25 0 1 1-3.163 4h-3a3.252 3.252 0 0 1-4.443 2.509L7.214 17.76a3.25 3.25 0 1 1-1.342-.674l1.672-2.957A3.238 3.238 0 0 1 6.75 12c0-.907.371-1.727.97-2.316L6.117 6.846A3.253 3.253 0 0 1 1.875 3.75a3.25 3.25 0 1 1 5.526 2.32l1.603 2.836A3.25 3.25 0 0 1 13.093 11h3.119a3.252 3.252 0 0 1 3.163-2.5ZM10 10.25a1.75 1.75 0 1 0-.001 3.499A1.75 1.75 0 0 0 10 10.25ZM5.125 2a1.75 1.75 0 1 0 0 3.5 1.75 1.75 0 0 0 0-3.5Zm12.5 9.75a1.75 1.75 0 1 0 3.5 0 1.75 1.75 0 0 0-3.5 0Zm-14.25 8.5a1.75 1.75 0 1 0 3.501-.001 1.75 1.75 0 0 0-3.501.001Z"></path>
+---</svg>
+---      <div> <div class="color-fg-default h4"> GitHub Models <span class="HeaderMenu-label"> New </span> </div>
+---        Manage and compare prompts
+---      </div>
+---
+---    
+---</a></li>
+--- <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary d-flex flex-items-center Link--has-description pb-lg-3" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;github_advanced_security&quot;,&quot;context&quot;:&quot;product&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;github_advanced_security_link_product_navbar&quot;}" href="https://github.com/security/advanced-security">
+---      <svg aria-hidden="true" height="24" viewBox="0 0 24 24" version="1.1" width="24" data-view-component="true" class="octicon octicon-shield-check color-fg-subtle mr-3">
+---    <path d="M16.53 9.78a.75.75 0 0 0-1.06-1.06L11 13.19l-1.97-1.97a.75.75 0 0 0-1.06 1.06l2.5 2.5a.75.75 0 0 0 1.06 0l5-5Z"></path><path d="m12.54.637 8.25 2.675A1.75 1.75 0 0 1 22 4.976V10c0 6.19-3.771 10.704-9.401 12.83a1.704 1.704 0 0 1-1.198 0C5.77 20.705 2 16.19 2 10V4.976c0-.758.489-1.43 1.21-1.664L11.46.637a1.748 1.748 0 0 1 1.08 0Zm-.617 1.426-8.25 2.676a.249.249 0 0 0-.173.237V10c0 5.46 3.28 9.483 8.43 11.426a.199.199 0 0 0 .14 0C17.22 19.483 20.5 15.461 20.5 10V4.976a.25.25 0 0 0-.173-.237l-8.25-2.676a.253.253 0 0 0-.154 0Z"></path>
+---</svg>
+---      <div> <div class="color-fg-default h4"> GitHub Advanced Security </div>
+---        Find and fix vulnerabilities
+---      </div>
+---
+---    
+---</a></li>
+--- <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary d-flex flex-items-center Link--has-description pb-lg-3" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;actions&quot;,&quot;context&quot;:&quot;product&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;actions_link_product_navbar&quot;}" href="https://github.com/features/actions">
+---      <svg aria-hidden="true" height="24" viewBox="0 0 24 24" version="1.1" width="24" data-view-component="true" class="octicon octicon-workflow color-fg-subtle mr-3">
+---    <path d="M1 3a2 2 0 0 1 2-2h6.5a2 2 0 0 1 2 2v6.5a2 2 0 0 1-2 2H7v4.063C7 16.355 7.644 17 8.438 17H12.5v-2.5a2 2 0 0 1 2-2H21a2 2 0 0 1 2 2V21a2 2 0 0 1-2 2h-6.5a2 2 0 0 1-2-2v-2.5H8.437A2.939 2.939 0 0 1 5.5 15.562V11.5H3a2 2 0 0 1-2-2Zm2-.5a.5.5 0 0 0-.5.5v6.5a.5.5 0 0 0 .5.5h6.5a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5ZM14.5 14a.5.5 0 0 0-.5.5V21a.5.5 0 0 0 .5.5H21a.5.5 0 0 0 .5-.5v-6.5a.5.5 0 0 0-.5-.5Z"></path>
+---</svg>
+---      <div> <div class="color-fg-default h4"> Actions </div>
+---        Automate any workflow
+---      </div>
+---
+---    
+---</a></li>
+--- <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary d-flex flex-items-center Link--has-description" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;codespaces&quot;,&quot;context&quot;:&quot;product&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;codespaces_link_product_navbar&quot;}" href="https://github.com/features/codespaces">
+---      <svg aria-hidden="true" height="24" viewBox="0 0 24 24" version="1.1" width="24" data-view-component="true" class="octicon octicon-codespaces color-fg-subtle mr-3">
+---    <path d="M3.5 3.75C3.5 2.784 4.284 2 5.25 2h13.5c.966 0 1.75.784 1.75 1.75v7.5A1.75 1.75 0 0 1 18.75 13H5.25a1.75 1.75 0 0 1-1.75-1.75Zm-2 12c0-.966.784-1.75 1.75-1.75h17.5c.966 0 1.75.784 1.75 1.75v4a1.75 1.75 0 0 1-1.75 1.75H3.25a1.75 1.75 0 0 1-1.75-1.75ZM5.25 3.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h13.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Zm-2 12a.25.25 0 0 0-.25.25v4c0 .138.112.25.25.25h17.5a.25.25 0 0 0 .25-.25v-4a.25.25 0 0 0-.25-.25Z"></path><path d="M10 17.75a.75.75 0 0 1 .75-.75h6.5a.75.75 0 0 1 0 1.5h-6.5a.75.75 0 0 1-.75-.75Zm-4 0a.75.75 0 0 1 .75-.75h.5a.75.75 0 0 1 0 1.5h-.5a.75.75 0 0 1-.75-.75Z"></path>
+---</svg>
+---      <div> <div class="color-fg-default h4"> Codespaces </div>
+---        Instant dev environments
+---      </div>
+---
+---    
+---</a></li>
+--- </ul> </div> </div> <div class="HeaderMenu-column pl-lg-4 px-lg-4 pb-3 pb-lg-0"> <div class="border-bottom border-lg-bottom-0 pb-3">
+--- <ul class="list-style-none f5" >  <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary d-flex flex-items-center Link--has-description pb-lg-3" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;issues&quot;,&quot;context&quot;:&quot;product&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;issues_link_product_navbar&quot;}" href="https://github.com/features/issues">
+---      <svg aria-hidden="true" height="24" viewBox="0 0 24 24" version="1.1" width="24" data-view-component="true" class="octicon octicon-issue-opened color-fg-subtle mr-3">
+---    <path d="M12 1c6.075 0 11 4.925 11 11s-4.925 11-11 11S1 18.075 1 12 5.925 1 12 1ZM2.5 12a9.5 9.5 0 0 0 9.5 9.5 9.5 9.5 0 0 0 9.5-9.5A9.5 9.5 0 0 0 12 2.5 9.5 9.5 0 0 0 2.5 12Zm9.5 2a2 2 0 1 1-.001-3.999A2 2 0 0 1 12 14Z"></path>
+---</svg>
+---      <div> <div class="color-fg-default h4"> Issues </div>
+---        Plan and track work
+---      </div>
+---
+---    
+---</a></li>
+--- <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary d-flex flex-items-center Link--has-description pb-lg-3" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;code_review&quot;,&quot;context&quot;:&quot;product&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;code_review_link_product_navbar&quot;}" href="https://github.com/features/code-review">
+---      <svg aria-hidden="true" height="24" viewBox="0 0 24 24" version="1.1" width="24" data-view-component="true" class="octicon octicon-code-review color-fg-subtle mr-3">
+---    <path d="M10.3 6.74a.75.75 0 0 1-.04 1.06l-2.908 2.7 2.908 2.7a.75.75 0 1 1-1.02 1.1l-3.5-3.25a.75.75 0 0 1 0-1.1l3.5-3.25a.75.75 0 0 1 1.06.04Zm3.44 1.06a.75.75 0 1 1 1.02-1.1l3.5 3.25a.75.75 0 0 1 0 1.1l-3.5 3.25a.75.75 0 1 1-1.02-1.1l2.908-2.7-2.908-2.7Z"></path><path d="M1.5 4.25c0-.966.784-1.75 1.75-1.75h17.5c.966 0 1.75.784 1.75 1.75v12.5a1.75 1.75 0 0 1-1.75 1.75h-9.69l-3.573 3.573A1.458 1.458 0 0 1 5 21.043V18.5H3.25a1.75 1.75 0 0 1-1.75-1.75ZM3.25 4a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h2.5a.75.75 0 0 1 .75.75v3.19l3.72-3.72a.749.749 0 0 1 .53-.22h10a.25.25 0 0 0 .25-.25V4.25a.25.25 0 0 0-.25-.25Z"></path>
+---</svg>
+---      <div> <div class="color-fg-default h4"> Code Review </div>
+---        Manage code changes
+---      </div>
+---
+---    
+---</a></li>
+--- <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary d-flex flex-items-center Link--has-description pb-lg-3" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;discussions&quot;,&quot;context&quot;:&quot;product&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;discussions_link_product_navbar&quot;}" href="https://github.com/features/discussions">
+---      <svg aria-hidden="true" height="24" viewBox="0 0 24 24" version="1.1" width="24" data-view-component="true" class="octicon octicon-comment-discussion color-fg-subtle mr-3">
+---    <path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v9.5A1.75 1.75 0 0 1 14.25 14H8.061l-2.574 2.573A1.458 1.458 0 0 1 3 15.543V14H1.75A1.75 1.75 0 0 1 0 12.25v-9.5C0 1.784.784 1 1.75 1ZM1.5 2.75v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25H1.75a.25.25 0 0 0-.25.25Z"></path><path d="M22.5 8.75a.25.25 0 0 0-.25-.25h-3.5a.75.75 0 0 1 0-1.5h3.5c.966 0 1.75.784 1.75 1.75v9.5A1.75 1.75 0 0 1 22.25 20H21v1.543a1.457 1.457 0 0 1-2.487 1.03L15.939 20H10.75A1.75 1.75 0 0 1 9 18.25v-1.465a.75.75 0 0 1 1.5 0v1.465c0 .138.112.25.25.25h5.5a.75.75 0 0 1 .53.22l2.72 2.72v-2.19a.75.75 0 0 1 .75-.75h2a.25.25 0 0 0 .25-.25v-9.5Z"></path>
+---</svg>
+---      <div> <div class="color-fg-default h4"> Discussions </div>
+---        Collaborate outside of code
+---      </div>
+---
+---    
+---</a></li>
+--- <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary d-flex flex-items-center Link--has-description" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;code_search&quot;,&quot;context&quot;:&quot;product&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;code_search_link_product_navbar&quot;}" href="https://github.com/features/code-search">
+---      <svg aria-hidden="true" height="24" viewBox="0 0 24 24" version="1.1" width="24" data-view-component="true" class="octicon octicon-code-square color-fg-subtle mr-3">
+---    <path d="M10.3 8.24a.75.75 0 0 1-.04 1.06L7.352 12l2.908 2.7a.75.75 0 1 1-1.02 1.1l-3.5-3.25a.75.75 0 0 1 0-1.1l3.5-3.25a.75.75 0 0 1 1.06.04Zm3.44 1.06a.75.75 0 1 1 1.02-1.1l3.5 3.25a.75.75 0 0 1 0 1.1l-3.5 3.25a.75.75 0 1 1-1.02-1.1l2.908-2.7-2.908-2.7Z"></path><path d="M2 3.75C2 2.784 2.784 2 3.75 2h16.5c.966 0 1.75.784 1.75 1.75v16.5A1.75 1.75 0 0 1 20.25 22H3.75A1.75 1.75 0 0 1 2 20.25Zm1.75-.25a.25.25 0 0 0-.25.25v16.5c0 .138.112.25.25.25h16.5a.25.25 0 0 0 .25-.25V3.75a.25.25 0 0 0-.25-.25Z"></path>
+---</svg>
+---      <div> <div class="color-fg-default h4"> Code Search </div>
+---        Find more, search less
+---      </div>
+---
+---    
+---</a></li>
+--- </ul> </div> </div> <div class="HeaderMenu-column pl-lg-4 border-lg-left pr-lg-7"> <div class="border-bottom border-lg-bottom-0 border-bottom-0"> <span class="d-block h4 color-fg-default my-1" id="product-explore-heading">Explore</span>
+--- <ul class="list-style-none f5" aria-labelledby="product-explore-heading"> <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;why_github&quot;,&quot;context&quot;:&quot;product&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;why_github_link_product_navbar&quot;}" href="https://github.com/why-github">
+---      Why GitHub
+---
+---    
+---</a></li>
+--- <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;all_features&quot;,&quot;context&quot;:&quot;product&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;all_features_link_product_navbar&quot;}" href="https://github.com/features">
+---      All features
+---
+---    
+---</a></li>
+--- <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary Link--external" target="_blank" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;documentation&quot;,&quot;context&quot;:&quot;product&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;documentation_link_product_navbar&quot;}" href="https://docs.github.com">
+---      Documentation
+---
+---    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-link-external HeaderMenu-external-icon color-fg-subtle">
+---    <path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2Zm6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1Z"></path>
+---</svg>
+---</a></li>
+--- <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary Link--external" target="_blank" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;github_skills&quot;,&quot;context&quot;:&quot;product&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;github_skills_link_product_navbar&quot;}" href="https://skills.github.com">
+---      GitHub Skills
+---
+---    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-link-external HeaderMenu-external-icon color-fg-subtle">
+---    <path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2Zm6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1Z"></path>
+---</svg>
+---</a></li>
+--- <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary Link--external" target="_blank" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;blog&quot;,&quot;context&quot;:&quot;product&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;blog_link_product_navbar&quot;}" href="https://github.blog">
+---      Blog
+---
+---    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-link-external HeaderMenu-external-icon color-fg-subtle">
+---    <path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2Zm6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1Z"></path>
+---</svg>
+---</a></li>
+--- </ul> </div> </div>
+---
+---      </div>
+---</li>
+--- <li class="HeaderMenu-item position-relative flex-wrap flex-justify-between flex-items-center d-block d-lg-flex flex-lg-nowrap flex-lg-items-center js-details-container js-header-menu-item">
+---      <button type="button" class="HeaderMenu-link border-0 width-full width-lg-auto px-0 px-lg-2 py-lg-2 no-wrap d-flex flex-items-center flex-justify-between js-details-target" aria-expanded="false">
+---        Solutions
+---        <svg opacity="0.5" aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-chevron-down HeaderMenu-icon ml-1">
+---    <path d="M12.78 5.22a.749.749 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.06 0L3.22 6.28a.749.749 0 1 1 1.06-1.06L8 8.939l3.72-3.719a.749.749 0 0 1 1.06 0Z"></path>
+---</svg>
+---      </button>
+---
+---      <div class="HeaderMenu-dropdown dropdown-menu rounded m-0 p-0 pt-2 pt-lg-4 position-relative position-lg-absolute left-0 left-lg-n3 d-lg-flex flex-wrap dropdown-menu-wide"> <div class="HeaderMenu-column pl-lg-4 px-lg-4 pb-3 pb-lg-0"> <div class="border-bottom border-lg-bottom-0 mb-3 pb-3"> <span class="d-block h4 color-fg-default my-1" id="solutions-by-company-size-heading">By company size</span>
+--- <ul class="list-style-none f5" aria-labelledby="solutions-by-company-size-heading"> <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;enterprises&quot;,&quot;context&quot;:&quot;solutions&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;enterprises_link_solutions_navbar&quot;}" href="https://github.com/enterprise">
+---      Enterprises
+---
+---    
+---</a></li>
+--- <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;small_and_medium_teams&quot;,&quot;context&quot;:&quot;solutions&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;small_and_medium_teams_link_solutions_navbar&quot;}" href="https://github.com/team">
+---      Small and medium teams
+---
+---    
+---</a></li>
+--- <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;startups&quot;,&quot;context&quot;:&quot;solutions&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;startups_link_solutions_navbar&quot;}" href="https://github.com/enterprise/startups">
+---      Startups
+---
+---    
+---</a></li>
+--- <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;nonprofits&quot;,&quot;context&quot;:&quot;solutions&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;nonprofits_link_solutions_navbar&quot;}" href="/solutions/industry/nonprofits">
+---      Nonprofits
+---
+---    
+---</a></li>
+--- </ul> </div> <div class="border-bottom border-lg-bottom-0 pb-3"> <span class="d-block h4 color-fg-default my-1" id="solutions-by-use-case-heading">By use case</span>
+--- <ul class="list-style-none f5" aria-labelledby="solutions-by-use-case-heading"> <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;devsecops&quot;,&quot;context&quot;:&quot;solutions&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;devsecops_link_solutions_navbar&quot;}" href="/solutions/use-case/devsecops">
+---      DevSecOps
+---
+---    
+---</a></li>
+--- <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;devops&quot;,&quot;context&quot;:&quot;solutions&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;devops_link_solutions_navbar&quot;}" href="/solutions/use-case/devops">
+---      DevOps
+---
+---    
+---</a></li>
+--- <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;ci_cd&quot;,&quot;context&quot;:&quot;solutions&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;ci_cd_link_solutions_navbar&quot;}" href="/solutions/use-case/ci-cd">
+---      CI/CD
+---
+---    
+---</a></li>
+--- <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;view_all_use_cases&quot;,&quot;context&quot;:&quot;solutions&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;view_all_use_cases_link_solutions_navbar&quot;}" href="/solutions/use-case">
+---      View all use cases
+---
+---    
+---</a></li>
+--- </ul> </div> </div> <div class="HeaderMenu-column pl-lg-4 border-lg-left pr-lg-7"> <div class="border-bottom border-lg-bottom-0 pb-3 pb-lg-0"> <span class="d-block h4 color-fg-default my-1" id="solutions-by-industry-heading">By industry</span>
+--- <ul class="list-style-none f5" aria-labelledby="solutions-by-industry-heading"> <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;healthcare&quot;,&quot;context&quot;:&quot;solutions&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;healthcare_link_solutions_navbar&quot;}" href="/solutions/industry/healthcare">
+---      Healthcare
+---
+---    
+---</a></li>
+--- <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;financial_services&quot;,&quot;context&quot;:&quot;solutions&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;financial_services_link_solutions_navbar&quot;}" href="/solutions/industry/financial-services">
+---      Financial services
+---
+---    
+---</a></li>
+--- <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;manufacturing&quot;,&quot;context&quot;:&quot;solutions&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;manufacturing_link_solutions_navbar&quot;}" href="/solutions/industry/manufacturing">
+---      Manufacturing
+---
+---    
+---</a></li>
+--- <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;government&quot;,&quot;context&quot;:&quot;solutions&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;government_link_solutions_navbar&quot;}" href="/solutions/industry/government">
+---      Government
+---
+---    
+---</a></li>
+--- <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;view_all_industries&quot;,&quot;context&quot;:&quot;solutions&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;view_all_industries_link_solutions_navbar&quot;}" href="/solutions/industry">
+---      View all industries
+---
+---    
+---</a></li>
+--- </ul> </div> </div>
+---
+---         <div class="HeaderMenu-trailing-link rounded-bottom-2 flex-shrink-0 mt-lg-4 px-lg-4 py-4 py-lg-3 f5 text-semibold"> <a href="/solutions"> View all solutions <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-chevron-right HeaderMenu-trailing-link-icon">
+---    <path d="M6.22 3.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L9.94 8 6.22 4.28a.75.75 0 0 1 0-1.06Z"></path>
+---</svg>
+---</a>         </div>
+---      </div>
+---</li>
+--- <li class="HeaderMenu-item position-relative flex-wrap flex-justify-between flex-items-center d-block d-lg-flex flex-lg-nowrap flex-lg-items-center js-details-container js-header-menu-item">
+---      <button type="button" class="HeaderMenu-link border-0 width-full width-lg-auto px-0 px-lg-2 py-lg-2 no-wrap d-flex flex-items-center flex-justify-between js-details-target" aria-expanded="false">
+---        Resources
+---        <svg opacity="0.5" aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-chevron-down HeaderMenu-icon ml-1">
+---    <path d="M12.78 5.22a.749.749 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.06 0L3.22 6.28a.749.749 0 1 1 1.06-1.06L8 8.939l3.72-3.719a.749.749 0 0 1 1.06 0Z"></path>
+---</svg>
+---      </button>
+---
+---      <div class="HeaderMenu-dropdown dropdown-menu rounded m-0 p-0 pt-2 pt-lg-4 position-relative position-lg-absolute left-0 left-lg-n3 pb-2 pb-lg-4 d-lg-flex flex-wrap dropdown-menu-wide"> <div class="HeaderMenu-column pl-lg-4 px-lg-4 pb-3 pb-lg-0"> <div class="border-bottom border-lg-bottom-0 pb-3"> <span class="d-block h4 color-fg-default my-1" id="resources-topics-heading">Topics</span>
+--- <ul class="list-style-none f5" aria-labelledby="resources-topics-heading"> <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;ai&quot;,&quot;context&quot;:&quot;resources&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;ai_link_resources_navbar&quot;}" href="/resources/articles/ai">
+---      AI
+---
+---    
+---</a></li>
+--- <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;devops&quot;,&quot;context&quot;:&quot;resources&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;devops_link_resources_navbar&quot;}" href="/resources/articles/devops">
+---      DevOps
+---
+---    
+---</a></li>
+--- <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;security&quot;,&quot;context&quot;:&quot;resources&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;security_link_resources_navbar&quot;}" href="/resources/articles/security">
+---      Security
+---
+---    
+---</a></li>
+--- <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;software_development&quot;,&quot;context&quot;:&quot;resources&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;software_development_link_resources_navbar&quot;}" href="/resources/articles/software-development">
+---      Software Development
+---
+---    
+---</a></li>
+--- <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;view_all&quot;,&quot;context&quot;:&quot;resources&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;view_all_link_resources_navbar&quot;}" href="/resources/articles">
+---      View all
+---
+---    
+---</a></li>
+--- </ul> </div> </div> <div class="HeaderMenu-column pl-lg-4 border-lg-left pr-lg-7"> <div class="border-bottom border-lg-bottom-0 border-bottom-0"> <span class="d-block h4 color-fg-default my-1" id="resources-explore-heading">Explore</span>
+--- <ul class="list-style-none f5" aria-labelledby="resources-explore-heading"> <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary Link--external" target="_blank" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;learning_pathways&quot;,&quot;context&quot;:&quot;resources&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;learning_pathways_link_resources_navbar&quot;}" href="https://resources.github.com/learn/pathways">
+---      Learning Pathways
+---
+---    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-link-external HeaderMenu-external-icon color-fg-subtle">
+---    <path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2Zm6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1Z"></path>
+---</svg>
+---</a></li>
+--- <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary Link--external" target="_blank" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;events_amp_webinars&quot;,&quot;context&quot;:&quot;resources&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;events_amp_webinars_link_resources_navbar&quot;}" href="https://resources.github.com">
+---      Events &amp; Webinars
+---
+---    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-link-external HeaderMenu-external-icon color-fg-subtle">
+---    <path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2Zm6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1Z"></path>
+---</svg>
+---</a></li>
+--- <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;ebooks_amp_whitepapers&quot;,&quot;context&quot;:&quot;resources&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;ebooks_amp_whitepapers_link_resources_navbar&quot;}" href="https://github.com/resources/whitepapers">
+---      Ebooks &amp; Whitepapers
+---
+---    
+---</a></li>
+--- <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;customer_stories&quot;,&quot;context&quot;:&quot;resources&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;customer_stories_link_resources_navbar&quot;}" href="https://github.com/customer-stories">
+---      Customer Stories
+---
+---    
+---</a></li>
+--- <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary Link--external" target="_blank" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;partners&quot;,&quot;context&quot;:&quot;resources&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;partners_link_resources_navbar&quot;}" href="https://partner.github.com">
+---      Partners
+---
+---    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-link-external HeaderMenu-external-icon color-fg-subtle">
+---    <path d="M3.75 2h3.5a.75.75 0 0 1 0 1.5h-3.5a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-3.5a.75.75 0 0 1 1.5 0v3.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5C2 2.784 2.784 2 3.75 2Zm6.854-1h4.146a.25.25 0 0 1 .25.25v4.146a.25.25 0 0 1-.427.177L13.03 4.03 9.28 7.78a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042l3.75-3.75-1.543-1.543A.25.25 0 0 1 10.604 1Z"></path>
+---</svg>
+---</a></li>
+--- <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;executive_insights&quot;,&quot;context&quot;:&quot;resources&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;executive_insights_link_resources_navbar&quot;}" href="https://github.com/solutions/executive-insights">
+---      Executive Insights
+---
+---    
+---</a></li>
+--- </ul> </div> </div>
+---
+---      </div>
+---</li>
+--- <li class="HeaderMenu-item position-relative flex-wrap flex-justify-between flex-items-center d-block d-lg-flex flex-lg-nowrap flex-lg-items-center js-details-container js-header-menu-item">
+---      <button type="button" class="HeaderMenu-link border-0 width-full width-lg-auto px-0 px-lg-2 py-lg-2 no-wrap d-flex flex-items-center flex-justify-between js-details-target" aria-expanded="false">
+---        Open Source
+---        <svg opacity="0.5" aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-chevron-down HeaderMenu-icon ml-1">
+---    <path d="M12.78 5.22a.749.749 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.06 0L3.22 6.28a.749.749 0 1 1 1.06-1.06L8 8.939l3.72-3.719a.749.749 0 0 1 1.06 0Z"></path>
+---</svg>
+---      </button>
+---
+---      <div class="HeaderMenu-dropdown dropdown-menu rounded m-0 p-0 pt-2 pt-lg-4 position-relative position-lg-absolute left-0 left-lg-n3 pb-2 pb-lg-4"> <div class="HeaderMenu-column px-lg-4"> <div class="border-bottom mb-3 mb-lg-3 pb-3">
+--- <ul class="list-style-none f5" > <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary d-flex flex-items-center Link--has-description" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;github_sponsors&quot;,&quot;context&quot;:&quot;open_source&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;github_sponsors_link_open_source_navbar&quot;}" href="/sponsors">
+---      
+---      <div> <div class="color-fg-default h4"> GitHub Sponsors </div>
+---        Fund open source developers
+---      </div>
+---
+---    
+---</a></li>
+--- </ul> </div> <div class="border-bottom mb-3 mb-lg-3 pb-3">
+--- <ul class="list-style-none f5" > <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary d-flex flex-items-center Link--has-description" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;the_readme_project&quot;,&quot;context&quot;:&quot;open_source&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;the_readme_project_link_open_source_navbar&quot;}" href="https://github.com/readme">
+---      
+---      <div> <div class="color-fg-default h4"> The ReadME Project </div>
+---        GitHub community articles
+---      </div>
+---
+---    
+---</a></li>
+--- </ul> </div> <div class="border-bottom border-bottom-0"> <span class="d-block h4 color-fg-default my-1" id="open-source-repositories-heading">Repositories</span>
+--- <ul class="list-style-none f5" aria-labelledby="open-source-repositories-heading"> <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;topics&quot;,&quot;context&quot;:&quot;open_source&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;topics_link_open_source_navbar&quot;}" href="https://github.com/topics">
+---      Topics
+---
+---    
+---</a></li>
+--- <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;trending&quot;,&quot;context&quot;:&quot;open_source&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;trending_link_open_source_navbar&quot;}" href="https://github.com/trending">
+---      Trending
+---
+---    
+---</a></li>
+--- <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;collections&quot;,&quot;context&quot;:&quot;open_source&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;collections_link_open_source_navbar&quot;}" href="https://github.com/collections">
+---      Collections
+---
+---    
+---</a></li>
+--- </ul> </div> </div>
+---
+---      </div>
+---</li>
+--- <li class="HeaderMenu-item position-relative flex-wrap flex-justify-between flex-items-center d-block d-lg-flex flex-lg-nowrap flex-lg-items-center js-details-container js-header-menu-item">
+---      <button type="button" class="HeaderMenu-link border-0 width-full width-lg-auto px-0 px-lg-2 py-lg-2 no-wrap d-flex flex-items-center flex-justify-between js-details-target" aria-expanded="false">
+---        Enterprise
+---        <svg opacity="0.5" aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-chevron-down HeaderMenu-icon ml-1">
+---    <path d="M12.78 5.22a.749.749 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.06 0L3.22 6.28a.749.749 0 1 1 1.06-1.06L8 8.939l3.72-3.719a.749.749 0 0 1 1.06 0Z"></path>
+---</svg>
+---      </button>
+---
+---      <div class="HeaderMenu-dropdown dropdown-menu rounded m-0 p-0 pt-2 pt-lg-4 position-relative position-lg-absolute left-0 left-lg-n3 pb-2 pb-lg-4"> <div class="HeaderMenu-column px-lg-4"> <div class="border-bottom mb-3 mb-lg-3 pb-3">
+--- <ul class="list-style-none f5" > <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary d-flex flex-items-center Link--has-description" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;enterprise_platform&quot;,&quot;context&quot;:&quot;enterprise&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;enterprise_platform_link_enterprise_navbar&quot;}" href="/enterprise">
+---      <svg aria-hidden="true" height="24" viewBox="0 0 24 24" version="1.1" width="24" data-view-component="true" class="octicon octicon-stack color-fg-subtle mr-3">
+---    <path d="M11.063 1.456a1.749 1.749 0 0 1 1.874 0l8.383 5.316a1.751 1.751 0 0 1 0 2.956l-8.383 5.316a1.749 1.749 0 0 1-1.874 0L2.68 9.728a1.751 1.751 0 0 1 0-2.956Zm1.071 1.267a.25.25 0 0 0-.268 0L3.483 8.039a.25.25 0 0 0 0 .422l8.383 5.316a.25.25 0 0 0 .268 0l8.383-5.316a.25.25 0 0 0 0-.422Z"></path><path d="M1.867 12.324a.75.75 0 0 1 1.035-.232l8.964 5.685a.25.25 0 0 0 .268 0l8.964-5.685a.75.75 0 0 1 .804 1.267l-8.965 5.685a1.749 1.749 0 0 1-1.874 0l-8.965-5.685a.75.75 0 0 1-.231-1.035Z"></path><path d="M1.867 16.324a.75.75 0 0 1 1.035-.232l8.964 5.685a.25.25 0 0 0 .268 0l8.964-5.685a.75.75 0 0 1 .804 1.267l-8.965 5.685a1.749 1.749 0 0 1-1.874 0l-8.965-5.685a.75.75 0 0 1-.231-1.035Z"></path>
+---</svg>
+---      <div> <div class="color-fg-default h4"> Enterprise platform </div>
+---        AI-powered developer platform
+---      </div>
+---
+---    
+---</a></li>
+--- </ul> </div> <div class="border-bottom border-bottom-0"> <span class="d-block h4 color-fg-default my-1" id="enterprise-available-add-ons-heading">Available add-ons</span>
+--- <ul class="list-style-none f5" aria-labelledby="enterprise-available-add-ons-heading"> <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary d-flex flex-items-center Link--has-description pb-lg-3" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;github_advanced_security&quot;,&quot;context&quot;:&quot;enterprise&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;github_advanced_security_link_enterprise_navbar&quot;}" href="https://github.com/security/advanced-security">
+---      <svg aria-hidden="true" height="24" viewBox="0 0 24 24" version="1.1" width="24" data-view-component="true" class="octicon octicon-shield-check color-fg-subtle mr-3">
+---    <path d="M16.53 9.78a.75.75 0 0 0-1.06-1.06L11 13.19l-1.97-1.97a.75.75 0 0 0-1.06 1.06l2.5 2.5a.75.75 0 0 0 1.06 0l5-5Z"></path><path d="m12.54.637 8.25 2.675A1.75 1.75 0 0 1 22 4.976V10c0 6.19-3.771 10.704-9.401 12.83a1.704 1.704 0 0 1-1.198 0C5.77 20.705 2 16.19 2 10V4.976c0-.758.489-1.43 1.21-1.664L11.46.637a1.748 1.748 0 0 1 1.08 0Zm-.617 1.426-8.25 2.676a.249.249 0 0 0-.173.237V10c0 5.46 3.28 9.483 8.43 11.426a.199.199 0 0 0 .14 0C17.22 19.483 20.5 15.461 20.5 10V4.976a.25.25 0 0 0-.173-.237l-8.25-2.676a.253.253 0 0 0-.154 0Z"></path>
+---</svg>
+---      <div> <div class="color-fg-default h4"> GitHub Advanced Security </div>
+---        Enterprise-grade security features
+---      </div>
+---
+---    
+---</a></li>
+--- <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary d-flex flex-items-center Link--has-description pb-lg-3" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;copilot_for_business&quot;,&quot;context&quot;:&quot;enterprise&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;copilot_for_business_link_enterprise_navbar&quot;}" href="/features/copilot/copilot-business">
+---      <svg aria-hidden="true" height="24" viewBox="0 0 24 24" version="1.1" width="24" data-view-component="true" class="octicon octicon-copilot color-fg-subtle mr-3">
+---    <path d="M23.922 16.992c-.861 1.495-5.859 5.023-11.922 5.023-6.063 0-11.061-3.528-11.922-5.023A.641.641 0 0 1 0 16.736v-2.869a.841.841 0 0 1 .053-.22c.372-.935 1.347-2.292 2.605-2.656.167-.429.414-1.055.644-1.517a10.195 10.195 0 0 1-.052-1.086c0-1.331.282-2.499 1.132-3.368.397-.406.89-.717 1.474-.952 1.399-1.136 3.392-2.093 6.122-2.093 2.731 0 4.767.957 6.166 2.093.584.235 1.077.546 1.474.952.85.869 1.132 2.037 1.132 3.368 0 .368-.014.733-.052 1.086.23.462.477 1.088.644 1.517 1.258.364 2.233 1.721 2.605 2.656a.832.832 0 0 1 .053.22v2.869a.641.641 0 0 1-.078.256ZM12.172 11h-.344a4.323 4.323 0 0 1-.355.508C10.703 12.455 9.555 13 7.965 13c-1.725 0-2.989-.359-3.782-1.259a2.005 2.005 0 0 1-.085-.104L4 11.741v6.585c1.435.779 4.514 2.179 8 2.179 3.486 0 6.565-1.4 8-2.179v-6.585l-.098-.104s-.033.045-.085.104c-.793.9-2.057 1.259-3.782 1.259-1.59 0-2.738-.545-3.508-1.492a4.323 4.323 0 0 1-.355-.508h-.016.016Zm.641-2.935c.136 1.057.403 1.913.878 2.497.442.544 1.134.938 2.344.938 1.573 0 2.292-.337 2.657-.751.384-.435.558-1.15.558-2.361 0-1.14-.243-1.847-.705-2.319-.477-.488-1.319-.862-2.824-1.025-1.487-.161-2.192.138-2.533.529-.269.307-.437.808-.438 1.578v.021c0 .265.021.562.063.893Zm-1.626 0c.042-.331.063-.628.063-.894v-.02c-.001-.77-.169-1.271-.438-1.578-.341-.391-1.046-.69-2.533-.529-1.505.163-2.347.537-2.824 1.025-.462.472-.705 1.179-.705 2.319 0 1.211.175 1.926.558 2.361.365.414 1.084.751 2.657.751 1.21 0 1.902-.394 2.344-.938.475-.584.742-1.44.878-2.497Z"></path><path d="M14.5 14.25a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1Zm-5 0a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1Z"></path>
+---</svg>
+---      <div> <div class="color-fg-default h4"> Copilot for business </div>
+---        Enterprise-grade AI features
+---      </div>
+---
+---    
+---</a></li>
+--- <li>
+---  <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary d-flex flex-items-center Link--has-description" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;premium_support&quot;,&quot;context&quot;:&quot;enterprise&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;premium_support_link_enterprise_navbar&quot;}" href="/premium-support">
+---      <svg aria-hidden="true" height="24" viewBox="0 0 24 24" version="1.1" width="24" data-view-component="true" class="octicon octicon-comment-discussion color-fg-subtle mr-3">
+---    <path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v9.5A1.75 1.75 0 0 1 14.25 14H8.061l-2.574 2.573A1.458 1.458 0 0 1 3 15.543V14H1.75A1.75 1.75 0 0 1 0 12.25v-9.5C0 1.784.784 1 1.75 1ZM1.5 2.75v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25H1.75a.25.25 0 0 0-.25.25Z"></path><path d="M22.5 8.75a.25.25 0 0 0-.25-.25h-3.5a.75.75 0 0 1 0-1.5h3.5c.966 0 1.75.784 1.75 1.75v9.5A1.75 1.75 0 0 1 22.25 20H21v1.543a1.457 1.457 0 0 1-2.487 1.03L15.939 20H10.75A1.75 1.75 0 0 1 9 18.25v-1.465a.75.75 0 0 1 1.5 0v1.465c0 .138.112.25.25.25h5.5a.75.75 0 0 1 .53.22l2.72 2.72v-2.19a.75.75 0 0 1 .75-.75h2a.25.25 0 0 0 .25-.25v-9.5Z"></path>
+---</svg>
+---      <div> <div class="color-fg-default h4"> Premium Support </div>
+---        Enterprise-grade 24/7 support
+---      </div>
+---
+---    
+---</a></li>
+--- </ul> </div> </div>
+---
+---      </div>
+---</li>
+--- <li class="HeaderMenu-item position-relative flex-wrap flex-justify-between flex-items-center d-block d-lg-flex flex-lg-nowrap flex-lg-items-center js-details-container js-header-menu-item">
+---    <a class="HeaderMenu-link no-underline px-0 px-lg-2 py-3 py-lg-2 d-block d-lg-inline-block" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;pricing&quot;,&quot;context&quot;:&quot;global&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;pricing_link_global_navbar&quot;}" href="https://github.com/pricing">Pricing</a>
+---</li>
+--- </ul> </nav>
+---
+---        <div class="d-flex flex-column flex-lg-row width-full flex-justify-end flex-lg-items-center text-center mt-3 mt-lg-0 text-lg-left ml-lg-3"> 
+---
+---<qbsearch-input class="search-input" data-scope="repo:contextgarden/context" data-custom-scopes-path="/search/custom_scopes" data-delete-custom-scopes-csrf="D1zunDjVS_K1l806aSJR9mElQvz2snxvdZ-Zs1ZS-xjHXOgLF4JV_aXsvx-Bi0jzRwr21UoUpyvj2PH28o0bQA" data-max-custom-scopes="10" data-header-redesign-enabled="false" data-initial-value="" data-blackbird-suggestions-path="/search/suggestions" data-jump-to-suggestions-path="/_graphql/GetSuggestedNavigationDestinations" data-current-repository="contextgarden/context" data-current-org="contextgarden" data-current-owner="" data-logged-in="false" data-copilot-chat-enabled="false" data-nl-search-enabled="false" data-retain-scroll-position="true">
+---  <div
+---    class="search-input-container search-with-dialog position-relative d-flex flex-row flex-items-center mr-4 rounded"
+---    data-action="click:qbsearch-input#searchInputContainerClicked"
+---  >
+---      <button
+---        type="button"
+---        class="header-search-button placeholder  input-button form-control d-flex flex-1 flex-self-stretch flex-items-center no-wrap width-full py-0 pl-2 pr-0 text-left border-0 box-shadow-none"
+---        data-target="qbsearch-input.inputButton"
+---        aria-label="Search or jump to…"
+---        aria-haspopup="dialog"
+---        placeholder="Search or jump to..."
+---        data-hotkey=s,/
+---        autocapitalize="off"
+---        data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;searchbar&quot;,&quot;context&quot;:&quot;global&quot;,&quot;tag&quot;:&quot;input&quot;,&quot;label&quot;:&quot;searchbar_input_global_navbar&quot;}"
+---        data-action="click:qbsearch-input#handleExpand"
+---      >
+---        <div class="mr-2 color-fg-muted"> <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-search">
+---    <path d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"></path>
+---</svg>
+---        </div>
+---        <span class="flex-1" data-target="qbsearch-input.inputButtonText">Search or jump to...</span> <div class="d-flex" data-target="qbsearch-input.hotkeyIndicator"> <svg xmlns="http://www.w3.org/2000/svg" width="22" height="20" aria-hidden="true" class="mr-1"><path fill="none" stroke="#979A9C" opacity=".4" d="M3.5.5h12c1.7 0 3 1.3 3 3v13c0 1.7-1.3 3-3 3h-12c-1.7 0-3-1.3-3-3v-13c0-1.7 1.3-3 3-3z"></path><path fill="#979A9C" d="M11.8 6L8 15.1h-.9L10.8 6h1z"></path></svg> </div>
+---      </button>
+---
+---    <input type="hidden" name="type" class="js-site-search-type-field">
+---
+---    
+---<div class="Overlay--hidden " data-modal-dialog-overlay>
+---  <modal-dialog data-action="close:qbsearch-input#handleClose cancel:qbsearch-input#handleClose" data-target="qbsearch-input.searchSuggestionsDialog" role="dialog" id="search-suggestions-dialog" aria-modal="true" aria-labelledby="search-suggestions-dialog-header" data-view-component="true" class="Overlay Overlay--width-large Overlay--height-auto">
+---      <h1 id="search-suggestions-dialog-header" class="sr-only">Search code, repositories, users, issues, pull requests...</h1>
+---    <div class="Overlay-body Overlay-body--paddingNone">
+---       <div data-view-component="true">        <div class="search-suggestions position-fixed width-full color-shadow-large border color-fg-default color-bg-default overflow-hidden d-flex flex-column query-builder-container" style="border-radius: 12px;" data-target="qbsearch-input.queryBuilderContainer" hidden
+---        > <!-- '"` --><!-- </textarea></xmp> --></option></form><form id="query-builder-test-form" action="" accept-charset="UTF-8" method="get">
+---  <query-builder data-target="qbsearch-input.queryBuilder" id="query-builder-query-builder-test" data-filter-key=":" data-view-component="true" class="QueryBuilder search-query-builder">
+---    <div class="FormControl FormControl--fullWidth">
+---      <label id="query-builder-test-label" for="query-builder-test" class="FormControl-label sr-only">
+---        Search
+---      </label>
+---      <div
+---        class="QueryBuilder-StyledInput width-fit "
+---        data-target="query-builder.styledInput"
+---      > <span id="query-builder-test-leadingvisual-wrap" class="FormControl-input-leadingVisualWrap QueryBuilder-leadingVisualWrap"> <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-search FormControl-input-leadingVisual">
+---    <path d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"></path>
+---</svg> </span>
+---        <div data-target="query-builder.styledInputContainer" class="QueryBuilder-StyledInputContainer"> <div aria-hidden="true" class="QueryBuilder-StyledInputContent" data-target="query-builder.styledInputContent" ></div> <div class="QueryBuilder-InputWrapper"> <div aria-hidden="true" class="QueryBuilder-Sizer" data-target="query-builder.sizer"></div> <input id="query-builder-test" name="query-builder-test" value="" autocomplete="off" type="text" role="combobox" spellcheck="false" aria-expanded="false" aria-describedby="validation-e7a0068a-f2ef-45f7-9a2b-406ad2b2db3c" data-target="query-builder.input" data-action=" input:query-builder#inputChange blur:query-builder#inputBlur keydown:query-builder#inputKeydown focus:query-builder#inputFocus
+---        " data-view-component="true" class="FormControl-input QueryBuilder-Input FormControl-medium" /> </div>
+---        </div> <span class="sr-only" id="query-builder-test-clear">Clear</span> <button role="button" id="query-builder-test-clear-button" aria-labelledby="query-builder-test-clear query-builder-test-label" data-target="query-builder.clearButton" data-action=" click:query-builder#clear focus:query-builder#clearButtonFocus blur:query-builder#clearButtonBlur " variant="small" hidden="hidden" type="button" data-view-component="true" class="Button Button--iconOnly Button--invisible Button--medium mr-1 px-2 py-0 d-flex flex-items-center rounded-1 color-fg-muted">  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-x-circle-fill Button-visual">
+---    <path d="M2.343 13.657A8 8 0 1 1 13.658 2.343 8 8 0 0 1 2.343 13.657ZM6.03 4.97a.751.751 0 0 0-1.042.018.751.751 0 0 0-.018 1.042L6.94 8 4.97 9.97a.749.749 0 0 0 .326 1.275.749.749 0 0 0 .734-.215L8 9.06l1.97 1.97a.749.749 0 0 0 1.275-.326.749.749 0 0 0-.215-.734L9.06 8l1.97-1.97a.749.749 0 0 0-.326-1.275.749.749 0 0 0-.734.215L8 6.94Z"></path>
+---</svg>
+---</button>
+---
+---      </div>
+---      <template id="search-icon">
+---  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-search">
+---    <path d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"></path>
+---</svg>
+---</template>
+---
+---<template id="code-icon">
+---  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-code">
+---    <path d="m11.28 3.22 4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L13.94 8l-3.72-3.72a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215Zm-6.56 0a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042L2.06 8l3.72 3.72a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L.47 8.53a.75.75 0 0 1 0-1.06Z"></path>
+---</svg>
+---</template>
+---
+---<template id="file-code-icon">
+---  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-file-code">
+---    <path d="M4 1.75C4 .784 4.784 0 5.75 0h5.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v8.586A1.75 1.75 0 0 1 14.25 15h-9a.75.75 0 0 1 0-1.5h9a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 10 4.25V1.5H5.75a.25.25 0 0 0-.25.25v2.5a.75.75 0 0 1-1.5 0Zm1.72 4.97a.75.75 0 0 1 1.06 0l2 2a.75.75 0 0 1 0 1.06l-2 2a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734l1.47-1.47-1.47-1.47a.75.75 0 0 1 0-1.06ZM3.28 7.78 1.81 9.25l1.47 1.47a.751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018l-2-2a.75.75 0 0 1 0-1.06l2-2a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042Zm8.22-6.218V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"></path>
+---</svg>
+---</template>
+---
+---<template id="history-icon">
+---  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-history">
+---    <path d="m.427 1.927 1.215 1.215a8.002 8.002 0 1 1-1.6 5.685.75.75 0 1 1 1.493-.154 6.5 6.5 0 1 0 1.18-4.458l1.358 1.358A.25.25 0 0 1 3.896 6H.25A.25.25 0 0 1 0 5.75V2.104a.25.25 0 0 1 .427-.177ZM7.75 4a.75.75 0 0 1 .75.75v2.992l2.028.812a.75.75 0 0 1-.557 1.392l-2.5-1A.751.751 0 0 1 7 8.25v-3.5A.75.75 0 0 1 7.75 4Z"></path>
+---</svg>
+---</template>
+---
+---<template id="repo-icon">
+---  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-repo">
+---    <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7.75.75 0 1 1-1.072 1.05A2.495 2.495 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.708A2.486 2.486 0 0 1 4.5 9h8ZM5 12.25a.25.25 0 0 1 .25-.25h3.5a.25.25 0 0 1 .25.25v3.25a.25.25 0 0 1-.4.2l-1.45-1.087a.249.249 0 0 0-.3 0L5.4 15.7a.25.25 0 0 1-.4-.2Z"></path>
+---</svg>
+---</template>
+---
+---<template id="bookmark-icon">
+---  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-bookmark">
+---    <path d="M3 2.75C3 1.784 3.784 1 4.75 1h6.5c.966 0 1.75.784 1.75 1.75v11.5a.75.75 0 0 1-1.227.579L8 11.722l-3.773 3.107A.751.751 0 0 1 3 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v9.91l3.023-2.489a.75.75 0 0 1 .954 0l3.023 2.49V2.75a.25.25 0 0 0-.25-.25Z"></path>
+---</svg>
+---</template>
+---
+---<template id="plus-circle-icon">
+---  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-plus-circle">
+---    <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Zm7.25-3.25v2.5h2.5a.75.75 0 0 1 0 1.5h-2.5v2.5a.75.75 0 0 1-1.5 0v-2.5h-2.5a.75.75 0 0 1 0-1.5h2.5v-2.5a.75.75 0 0 1 1.5 0Z"></path>
+---</svg>
+---</template>
+---
+---<template id="circle-icon">
+---  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-dot-fill">
+---    <path d="M8 4a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"></path>
+---</svg>
+---</template>
+---
+---<template id="trash-icon">
+---  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-trash">
+---    <path d="M11 1.75V3h2.25a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1 0-1.5H5V1.75C5 .784 5.784 0 6.75 0h2.5C10.216 0 11 .784 11 1.75ZM4.496 6.675l.66 6.6a.25.25 0 0 0 .249.225h5.19a.25.25 0 0 0 .249-.225l.66-6.6a.75.75 0 0 1 1.492.149l-.66 6.6A1.748 1.748 0 0 1 10.595 15h-5.19a1.75 1.75 0 0 1-1.741-1.575l-.66-6.6a.75.75 0 1 1 1.492-.15ZM6.5 1.75V3h3V1.75a.25.25 0 0 0-.25-.25h-2.5a.25.25 0 0 0-.25.25Z"></path>
+---</svg>
+---</template>
+---
+---<template id="team-icon">
+---  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-people">
+---    <path d="M2 5.5a3.5 3.5 0 1 1 5.898 2.549 5.508 5.508 0 0 1 3.034 4.084.75.75 0 1 1-1.482.235 4 4 0 0 0-7.9 0 .75.75 0 0 1-1.482-.236A5.507 5.507 0 0 1 3.102 8.05 3.493 3.493 0 0 1 2 5.5ZM11 4a3.001 3.001 0 0 1 2.22 5.018 5.01 5.01 0 0 1 2.56 3.012.749.749 0 0 1-.885.954.752.752 0 0 1-.549-.514 3.507 3.507 0 0 0-2.522-2.372.75.75 0 0 1-.574-.73v-.352a.75.75 0 0 1 .416-.672A1.5 1.5 0 0 0 11 5.5.75.75 0 0 1 11 4Zm-5.5-.5a2 2 0 1 0-.001 3.999A2 2 0 0 0 5.5 3.5Z"></path>
+---</svg>
+---</template>
+---
+---<template id="project-icon">
+---  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-project">
+---    <path d="M1.75 0h12.5C15.216 0 16 .784 16 1.75v12.5A1.75 1.75 0 0 1 14.25 16H1.75A1.75 1.75 0 0 1 0 14.25V1.75C0 .784.784 0 1.75 0ZM1.5 1.75v12.5c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25V1.75a.25.25 0 0 0-.25-.25H1.75a.25.25 0 0 0-.25.25ZM11.75 3a.75.75 0 0 1 .75.75v7.5a.75.75 0 0 1-1.5 0v-7.5a.75.75 0 0 1 .75-.75Zm-8.25.75a.75.75 0 0 1 1.5 0v5.5a.75.75 0 0 1-1.5 0ZM8 3a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 8 3Z"></path>
+---</svg>
+---</template>
+---
+---<template id="pencil-icon">
+---  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-pencil">
+---    <path d="M11.013 1.427a1.75 1.75 0 0 1 2.474 0l1.086 1.086a1.75 1.75 0 0 1 0 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 0 1-.927-.928l.929-3.25c.081-.286.235-.547.445-.758l8.61-8.61Zm.176 4.823L9.75 4.81l-6.286 6.287a.253.253 0 0 0-.064.108l-.558 1.953 1.953-.558a.253.253 0 0 0 .108-.064Zm1.238-3.763a.25.25 0 0 0-.354 0L10.811 3.75l1.439 1.44 1.263-1.263a.25.25 0 0 0 0-.354Z"></path>
+---</svg>
+---</template>
+---
+---<template id="copilot-icon">
+---  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copilot">
+---    <path d="M7.998 15.035c-4.562 0-7.873-2.914-7.998-3.749V9.338c.085-.628.677-1.686 1.588-2.065.013-.07.024-.143.036-.218.029-.183.06-.384.126-.612-.201-.508-.254-1.084-.254-1.656 0-.87.128-1.769.693-2.484.579-.733 1.494-1.124 2.724-1.261 1.206-.134 2.262.034 2.944.765.05.053.096.108.139.165.044-.057.094-.112.143-.165.682-.731 1.738-.899 2.944-.765 1.23.137 2.145.528 2.724 1.261.566.715.693 1.614.693 2.484 0 .572-.053 1.148-.254 1.656.066.228.098.429.126.612.012.076.024.148.037.218.924.385 1.522 1.471 1.591 2.095v1.872c0 .766-3.351 3.795-8.002 3.795Zm0-1.485c2.28 0 4.584-1.11 5.002-1.433V7.862l-.023-.116c-.49.21-1.075.291-1.727.291-1.146 0-2.059-.327-2.71-.991A3.222 3.222 0 0 1 8 6.303a3.24 3.24 0 0 1-.544.743c-.65.664-1.563.991-2.71.991-.652 0-1.236-.081-1.727-.291l-.023.116v4.255c.419.323 2.722 1.433 5.002 1.433ZM6.762 2.83c-.193-.206-.637-.413-1.682-.297-1.019.113-1.479.404-1.713.7-.247.312-.369.789-.369 1.554 0 .793.129 1.171.308 1.371.162.181.519.379 1.442.379.853 0 1.339-.235 1.638-.54.315-.322.527-.827.617-1.553.117-.935-.037-1.395-.241-1.614Zm4.155-.297c-1.044-.116-1.488.091-1.681.297-.204.219-.359.679-.242 1.614.091.726.303 1.231.618 1.553.299.305.784.54 1.638.54.922 0 1.28-.198 1.442-.379.179-.2.308-.578.308-1.371 0-.765-.123-1.242-.37-1.554-.233-.296-.693-.587-1.713-.7Z"></path><path d="M6.25 9.037a.75.75 0 0 1 .75.75v1.501a.75.75 0 0 1-1.5 0V9.787a.75.75 0 0 1 .75-.75Zm4.25.75v1.501a.75.75 0 0 1-1.5 0V9.787a.75.75 0 0 1 1.5 0Z"></path>
+---</svg>
+---</template>
+---
+---<template id="copilot-error-icon">
+---  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copilot-error">
+---    <path d="M16 11.24c0 .112-.072.274-.21.467L13 9.688V7.862l-.023-.116c-.49.21-1.075.291-1.727.291-.198 0-.388-.009-.571-.029L6.833 5.226a4.01 4.01 0 0 0 .17-.782c.117-.935-.037-1.395-.241-1.614-.193-.206-.637-.413-1.682-.297-.683.076-1.115.231-1.395.415l-1.257-.91c.579-.564 1.413-.877 2.485-.996 1.206-.134 2.262.034 2.944.765.05.053.096.108.139.165.044-.057.094-.112.143-.165.682-.731 1.738-.899 2.944-.765 1.23.137 2.145.528 2.724 1.261.566.715.693 1.614.693 2.484 0 .572-.053 1.148-.254 1.656.066.228.098.429.126.612.012.076.024.148.037.218.924.385 1.522 1.471 1.591 2.095Zm-5.083-8.707c-1.044-.116-1.488.091-1.681.297-.204.219-.359.679-.242 1.614.091.726.303 1.231.618 1.553.299.305.784.54 1.638.54.922 0 1.28-.198 1.442-.379.179-.2.308-.578.308-1.371 0-.765-.123-1.242-.37-1.554-.233-.296-.693-.587-1.713-.7Zm2.511 11.074c-1.393.776-3.272 1.428-5.43 1.428-4.562 0-7.873-2.914-7.998-3.749V9.338c.085-.628.677-1.686 1.588-2.065.013-.07.024-.143.036-.218.029-.183.06-.384.126-.612-.18-.455-.241-.963-.252-1.475L.31 4.107A.747.747 0 0 1 0 3.509V3.49a.748.748 0 0 1 .625-.73c.156-.026.306.047.435.139l14.667 10.578a.592.592 0 0 1 .227.264.752.752 0 0 1 .046.249v.022a.75.75 0 0 1-1.19.596Zm-1.367-.991L5.635 7.964a5.128 5.128 0 0 1-.889.073c-.652 0-1.236-.081-1.727-.291l-.023.116v4.255c.419.323 2.722 1.433 5.002 1.433 1.539 0 3.089-.505 4.063-.934Z"></path>
+---</svg>
+---</template>
+---
+---<template id="workflow-icon">
+---  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-workflow">
+---    <path d="M0 1.75C0 .784.784 0 1.75 0h3.5C6.216 0 7 .784 7 1.75v3.5A1.75 1.75 0 0 1 5.25 7H4v4a1 1 0 0 0 1 1h4v-1.25C9 9.784 9.784 9 10.75 9h3.5c.966 0 1.75.784 1.75 1.75v3.5A1.75 1.75 0 0 1 14.25 16h-3.5A1.75 1.75 0 0 1 9 14.25v-.75H5A2.5 2.5 0 0 1 2.5 11V7h-.75A1.75 1.75 0 0 1 0 5.25Zm1.75-.25a.25.25 0 0 0-.25.25v3.5c0 .138.112.25.25.25h3.5a.25.25 0 0 0 .25-.25v-3.5a.25.25 0 0 0-.25-.25Zm9 9a.25.25 0 0 0-.25.25v3.5c0 .138.112.25.25.25h3.5a.25.25 0 0 0 .25-.25v-3.5a.25.25 0 0 0-.25-.25Z"></path>
+---</svg>
+---</template>
+---
+---<template id="book-icon">
+---  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-book">
+---    <path d="M0 1.75A.75.75 0 0 1 .75 1h4.253c1.227 0 2.317.59 3 1.501A3.743 3.743 0 0 1 11.006 1h4.245a.75.75 0 0 1 .75.75v10.5a.75.75 0 0 1-.75.75h-4.507a2.25 2.25 0 0 0-1.591.659l-.622.621a.75.75 0 0 1-1.06 0l-.622-.621A2.25 2.25 0 0 0 5.258 13H.75a.75.75 0 0 1-.75-.75Zm7.251 10.324.004-5.073-.002-2.253A2.25 2.25 0 0 0 5.003 2.5H1.5v9h3.757a3.75 3.75 0 0 1 1.994.574ZM8.755 4.75l-.004 7.322a3.752 3.752 0 0 1 1.992-.572H14.5v-9h-3.495a2.25 2.25 0 0 0-2.25 2.25Z"></path>
+---</svg>
+---</template>
+---
+---<template id="code-review-icon">
+---  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-code-review">
+---    <path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0 1 14.25 13H8.061l-2.574 2.573A1.458 1.458 0 0 1 3 14.543V13H1.75A1.75 1.75 0 0 1 0 11.25v-8.5C0 1.784.784 1 1.75 1ZM1.5 2.75v8.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-8.5a.25.25 0 0 0-.25-.25H1.75a.25.25 0 0 0-.25.25Zm5.28 1.72a.75.75 0 0 1 0 1.06L5.31 7l1.47 1.47a.751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018l-2-2a.75.75 0 0 1 0-1.06l2-2a.75.75 0 0 1 1.06 0Zm2.44 0a.75.75 0 0 1 1.06 0l2 2a.75.75 0 0 1 0 1.06l-2 2a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.69 7 9.22 5.53a.75.75 0 0 1 0-1.06Z"></path>
+---</svg>
+---</template>
+---
+---<template id="codespaces-icon">
+---  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-codespaces">
+---    <path d="M0 11.25c0-.966.784-1.75 1.75-1.75h12.5c.966 0 1.75.784 1.75 1.75v3A1.75 1.75 0 0 1 14.25 16H1.75A1.75 1.75 0 0 1 0 14.25Zm2-9.5C2 .784 2.784 0 3.75 0h8.5C13.216 0 14 .784 14 1.75v5a1.75 1.75 0 0 1-1.75 1.75h-8.5A1.75 1.75 0 0 1 2 6.75Zm1.75-.25a.25.25 0 0 0-.25.25v5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25v-5a.25.25 0 0 0-.25-.25Zm-2 9.5a.25.25 0 0 0-.25.25v3c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25v-3a.25.25 0 0 0-.25-.25Z"></path><path d="M7 12.75a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1-.75-.75Zm-4 0a.75.75 0 0 1 .75-.75h.5a.75.75 0 0 1 0 1.5h-.5a.75.75 0 0 1-.75-.75Z"></path>
+---</svg>
+---</template>
+---
+---<template id="comment-icon">
+---  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-comment">
+---    <path d="M1 2.75C1 1.784 1.784 1 2.75 1h10.5c.966 0 1.75.784 1.75 1.75v7.5A1.75 1.75 0 0 1 13.25 12H9.06l-2.573 2.573A1.458 1.458 0 0 1 4 13.543V12H2.75A1.75 1.75 0 0 1 1 10.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h4.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+---</svg>
+---</template>
+---
+---<template id="comment-discussion-icon">
+---  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-comment-discussion">
+---    <path d="M1.75 1h8.5c.966 0 1.75.784 1.75 1.75v5.5A1.75 1.75 0 0 1 10.25 10H7.061l-2.574 2.573A1.458 1.458 0 0 1 2 11.543V10h-.25A1.75 1.75 0 0 1 0 8.25v-5.5C0 1.784.784 1 1.75 1ZM1.5 2.75v5.5c0 .138.112.25.25.25h1a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h3.5a.25.25 0 0 0 .25-.25v-5.5a.25.25 0 0 0-.25-.25h-8.5a.25.25 0 0 0-.25.25Zm13 2a.25.25 0 0 0-.25-.25h-.5a.75.75 0 0 1 0-1.5h.5c.966 0 1.75.784 1.75 1.75v5.5A1.75 1.75 0 0 1 14.25 12H14v1.543a1.458 1.458 0 0 1-2.487 1.03L9.22 12.28a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215l2.22 2.22v-2.19a.75.75 0 0 1 .75-.75h1a.25.25 0 0 0 .25-.25Z"></path>
+---</svg>
+---</template>
+---
+---<template id="organization-icon">
+---  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-organization">
+---    <path d="M1.75 16A1.75 1.75 0 0 1 0 14.25V1.75C0 .784.784 0 1.75 0h8.5C11.216 0 12 .784 12 1.75v12.5c0 .085-.006.168-.018.25h2.268a.25.25 0 0 0 .25-.25V8.285a.25.25 0 0 0-.111-.208l-1.055-.703a.749.749 0 1 1 .832-1.248l1.055.703c.487.325.779.871.779 1.456v5.965A1.75 1.75 0 0 1 14.25 16h-3.5a.766.766 0 0 1-.197-.026c-.099.017-.2.026-.303.026h-3a.75.75 0 0 1-.75-.75V14h-1v1.25a.75.75 0 0 1-.75.75Zm-.25-1.75c0 .138.112.25.25.25H4v-1.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 .75.75v1.25h2.25a.25.25 0 0 0 .25-.25V1.75a.25.25 0 0 0-.25-.25h-8.5a.25.25 0 0 0-.25.25ZM3.75 6h.5a.75.75 0 0 1 0 1.5h-.5a.75.75 0 0 1 0-1.5ZM3 3.75A.75.75 0 0 1 3.75 3h.5a.75.75 0 0 1 0 1.5h-.5A.75.75 0 0 1 3 3.75Zm4 3A.75.75 0 0 1 7.75 6h.5a.75.75 0 0 1 0 1.5h-.5A.75.75 0 0 1 7 6.75ZM7.75 3h.5a.75.75 0 0 1 0 1.5h-.5a.75.75 0 0 1 0-1.5ZM3 9.75A.75.75 0 0 1 3.75 9h.5a.75.75 0 0 1 0 1.5h-.5A.75.75 0 0 1 3 9.75ZM7.75 9h.5a.75.75 0 0 1 0 1.5h-.5a.75.75 0 0 1 0-1.5Z"></path>
+---</svg>
+---</template>
+---
+---<template id="rocket-icon">
+---  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-rocket">
+---    <path d="M14.064 0h.186C15.216 0 16 .784 16 1.75v.186a8.752 8.752 0 0 1-2.564 6.186l-.458.459c-.314.314-.641.616-.979.904v3.207c0 .608-.315 1.172-.833 1.49l-2.774 1.707a.749.749 0 0 1-1.11-.418l-.954-3.102a1.214 1.214 0 0 1-.145-.125L3.754 9.816a1.218 1.218 0 0 1-.124-.145L.528 8.717a.749.749 0 0 1-.418-1.11l1.71-2.774A1.748 1.748 0 0 1 3.31 4h3.204c.288-.338.59-.665.904-.979l.459-.458A8.749 8.749 0 0 1 14.064 0ZM8.938 3.623h-.002l-.458.458c-.76.76-1.437 1.598-2.02 2.5l-1.5 2.317 2.143 2.143 2.317-1.5c.902-.583 1.74-1.26 2.499-2.02l.459-.458a7.25 7.25 0 0 0 2.123-5.127V1.75a.25.25 0 0 0-.25-.25h-.186a7.249 7.249 0 0 0-5.125 2.123ZM3.56 14.56c-.732.732-2.334 1.045-3.005 1.148a.234.234 0 0 1-.201-.064.234.234 0 0 1-.064-.201c.103-.671.416-2.273 1.15-3.003a1.502 1.502 0 1 1 2.12 2.12Zm6.94-3.935c-.088.06-.177.118-.266.175l-2.35 1.521.548 1.783 1.949-1.2a.25.25 0 0 0 .119-.213ZM3.678 8.116 5.2 5.766c.058-.09.117-.178.176-.266H3.309a.25.25 0 0 0-.213.119l-1.2 1.95ZM12 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path>
+---</svg>
+---</template>
+---
+---<template id="shield-check-icon">
+---  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-shield-check">
+---    <path d="m8.533.133 5.25 1.68A1.75 1.75 0 0 1 15 3.48V7c0 1.566-.32 3.182-1.303 4.682-.983 1.498-2.585 2.813-5.032 3.855a1.697 1.697 0 0 1-1.33 0c-2.447-1.042-4.049-2.357-5.032-3.855C1.32 10.182 1 8.566 1 7V3.48a1.75 1.75 0 0 1 1.217-1.667l5.25-1.68a1.748 1.748 0 0 1 1.066 0Zm-.61 1.429.001.001-5.25 1.68a.251.251 0 0 0-.174.237V7c0 1.36.275 2.666 1.057 3.859.784 1.194 2.121 2.342 4.366 3.298a.196.196 0 0 0 .154 0c2.245-.957 3.582-2.103 4.366-3.297C13.225 9.666 13.5 8.358 13.5 7V3.48a.25.25 0 0 0-.174-.238l-5.25-1.68a.25.25 0 0 0-.153 0ZM11.28 6.28l-3.5 3.5a.75.75 0 0 1-1.06 0l-1.5-1.5a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215l.97.97 2.97-2.97a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042Z"></path>
+---</svg>
+---</template>
+---
+---<template id="heart-icon">
+---  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-heart">
+---    <path d="m8 14.25.345.666a.75.75 0 0 1-.69 0l-.008-.004-.018-.01a7.152 7.152 0 0 1-.31-.17 22.055 22.055 0 0 1-3.434-2.414C2.045 10.731 0 8.35 0 5.5 0 2.836 2.086 1 4.25 1 5.797 1 7.153 1.802 8 3.02 8.847 1.802 10.203 1 11.75 1 13.914 1 16 2.836 16 5.5c0 2.85-2.045 5.231-3.885 6.818a22.066 22.066 0 0 1-3.744 2.584l-.018.01-.006.003h-.002ZM4.25 2.5c-1.336 0-2.75 1.164-2.75 3 0 2.15 1.58 4.144 3.365 5.682A20.58 20.58 0 0 0 8 13.393a20.58 20.58 0 0 0 3.135-2.211C12.92 9.644 14.5 7.65 14.5 5.5c0-1.836-1.414-3-2.75-3-1.373 0-2.609.986-3.029 2.456a.749.749 0 0 1-1.442 0C6.859 3.486 5.623 2.5 4.25 2.5Z"></path>
+---</svg>
+---</template>
+---
+---<template id="server-icon">
+---  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-server">
+---    <path d="M1.75 1h12.5c.966 0 1.75.784 1.75 1.75v4c0 .372-.116.717-.314 1 .198.283.314.628.314 1v4a1.75 1.75 0 0 1-1.75 1.75H1.75A1.75 1.75 0 0 1 0 12.75v-4c0-.358.109-.707.314-1a1.739 1.739 0 0 1-.314-1v-4C0 1.784.784 1 1.75 1ZM1.5 2.75v4c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25v-4a.25.25 0 0 0-.25-.25H1.75a.25.25 0 0 0-.25.25Zm.25 5.75a.25.25 0 0 0-.25.25v4c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25v-4a.25.25 0 0 0-.25-.25ZM7 4.75A.75.75 0 0 1 7.75 4h4.5a.75.75 0 0 1 0 1.5h-4.5A.75.75 0 0 1 7 4.75ZM7.75 10h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM3 4.75A.75.75 0 0 1 3.75 4h.5a.75.75 0 0 1 0 1.5h-.5A.75.75 0 0 1 3 4.75ZM3.75 10h.5a.75.75 0 0 1 0 1.5h-.5a.75.75 0 0 1 0-1.5Z"></path>
+---</svg>
+---</template>
+---
+---<template id="globe-icon">
+---  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-globe">
+---    <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM5.78 8.75a9.64 9.64 0 0 0 1.363 4.177c.255.426.542.832.857 1.215.245-.296.551-.705.857-1.215A9.64 9.64 0 0 0 10.22 8.75Zm4.44-1.5a9.64 9.64 0 0 0-1.363-4.177c-.307-.51-.612-.919-.857-1.215a9.927 9.927 0 0 0-.857 1.215A9.64 9.64 0 0 0 5.78 7.25Zm-5.944 1.5H1.543a6.507 6.507 0 0 0 4.666 5.5c-.123-.181-.24-.365-.352-.552-.715-1.192-1.437-2.874-1.581-4.948Zm-2.733-1.5h2.733c.144-2.074.866-3.756 1.58-4.948.12-.197.237-.381.353-.552a6.507 6.507 0 0 0-4.666 5.5Zm10.181 1.5c-.144 2.074-.866 3.756-1.58 4.948-.12.197-.237.381-.353.552a6.507 6.507 0 0 0 4.666-5.5Zm2.733-1.5a6.507 6.507 0 0 0-4.666-5.5c.123.181.24.365.353.552.714 1.192 1.436 2.874 1.58 4.948Z"></path>
+---</svg>
+---</template>
+---
+---<template id="issue-opened-icon">
+---  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-issue-opened">
+---    <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z"></path>
+---</svg>
+---</template>
+---
+---<template id="device-mobile-icon">
+---  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-device-mobile">
+---    <path d="M3.75 0h8.5C13.216 0 14 .784 14 1.75v12.5A1.75 1.75 0 0 1 12.25 16h-8.5A1.75 1.75 0 0 1 2 14.25V1.75C2 .784 2.784 0 3.75 0ZM3.5 1.75v12.5c0 .138.112.25.25.25h8.5a.25.25 0 0 0 .25-.25V1.75a.25.25 0 0 0-.25-.25h-8.5a.25.25 0 0 0-.25.25ZM8 13a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path>
+---</svg>
+---</template>
+---
+---<template id="package-icon">
+---  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-package">
+---    <path d="m8.878.392 5.25 3.045c.54.314.872.89.872 1.514v6.098a1.75 1.75 0 0 1-.872 1.514l-5.25 3.045a1.75 1.75 0 0 1-1.756 0l-5.25-3.045A1.75 1.75 0 0 1 1 11.049V4.951c0-.624.332-1.201.872-1.514L7.122.392a1.75 1.75 0 0 1 1.756 0ZM7.875 1.69l-4.63 2.685L8 7.133l4.755-2.758-4.63-2.685a.248.248 0 0 0-.25 0ZM2.5 5.677v5.372c0 .09.047.171.125.216l4.625 2.683V8.432Zm6.25 8.271 4.625-2.683a.25.25 0 0 0 .125-.216V5.677L8.75 8.432Z"></path>
+---</svg>
+---</template>
+---
+---<template id="credit-card-icon">
+---  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-credit-card">
+---    <path d="M10.75 9a.75.75 0 0 0 0 1.5h1.5a.75.75 0 0 0 0-1.5h-1.5Z"></path><path d="M0 3.75C0 2.784.784 2 1.75 2h12.5c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0 1 14.25 14H1.75A1.75 1.75 0 0 1 0 12.25ZM14.5 6.5h-13v5.75c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25Zm0-2.75a.25.25 0 0 0-.25-.25H1.75a.25.25 0 0 0-.25.25V5h13Z"></path>
+---</svg>
+---</template>
+---
+---<template id="play-icon">
+---  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-play">
+---    <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Zm4.879-2.773 4.264 2.559a.25.25 0 0 1 0 .428l-4.264 2.559A.25.25 0 0 1 6 10.559V5.442a.25.25 0 0 1 .379-.215Z"></path>
+---</svg>
+---</template>
+---
+---<template id="gift-icon">
+---  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-gift">
+---    <path d="M2 2.75A2.75 2.75 0 0 1 4.75 0c.983 0 1.873.42 2.57 1.232.268.318.497.668.68 1.042.183-.375.411-.725.68-1.044C9.376.42 10.266 0 11.25 0a2.75 2.75 0 0 1 2.45 4h.55c.966 0 1.75.784 1.75 1.75v2c0 .698-.409 1.301-1 1.582v4.918A1.75 1.75 0 0 1 13.25 16H2.75A1.75 1.75 0 0 1 1 14.25V9.332C.409 9.05 0 8.448 0 7.75v-2C0 4.784.784 4 1.75 4h.55c-.192-.375-.3-.8-.3-1.25ZM7.25 9.5H2.5v4.75c0 .138.112.25.25.25h4.5Zm1.5 0v5h4.5a.25.25 0 0 0 .25-.25V9.5Zm0-4V8h5.5a.25.25 0 0 0 .25-.25v-2a.25.25 0 0 0-.25-.25Zm-7 0a.25.25 0 0 0-.25.25v2c0 .138.112.25.25.25h5.5V5.5h-5.5Zm3-4a1.25 1.25 0 0 0 0 2.5h2.309c-.233-.818-.542-1.401-.878-1.793-.43-.502-.915-.707-1.431-.707ZM8.941 4h2.309a1.25 1.25 0 0 0 0-2.5c-.516 0-1 .205-1.43.707-.337.392-.646.975-.879 1.793Z"></path>
+---</svg>
+---</template>
+---
+---<template id="code-square-icon">
+---  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-code-square">
+---    <path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v12.5A1.75 1.75 0 0 1 14.25 16H1.75A1.75 1.75 0 0 1 0 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25V1.75a.25.25 0 0 0-.25-.25Zm7.47 3.97a.75.75 0 0 1 1.06 0l2 2a.75.75 0 0 1 0 1.06l-2 2a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L10.69 8 9.22 6.53a.75.75 0 0 1 0-1.06ZM6.78 6.53 5.31 8l1.47 1.47a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215l-2-2a.75.75 0 0 1 0-1.06l2-2a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042Z"></path>
+---</svg>
+---</template>
+---
+---<template id="device-desktop-icon">
+---  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-device-desktop">
+---    <path d="M14.25 1c.966 0 1.75.784 1.75 1.75v7.5A1.75 1.75 0 0 1 14.25 12h-3.727c.099 1.041.52 1.872 1.292 2.757A.752.752 0 0 1 11.25 16h-6.5a.75.75 0 0 1-.565-1.243c.772-.885 1.192-1.716 1.292-2.757H1.75A1.75 1.75 0 0 1 0 10.25v-7.5C0 1.784.784 1 1.75 1ZM1.75 2.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25ZM9.018 12H6.982a5.72 5.72 0 0 1-.765 2.5h3.566a5.72 5.72 0 0 1-.765-2.5Z"></path>
+---</svg>
+---</template>
+---
+---        <div class="position-relative"> <ul role="listbox" class="ActionListWrap QueryBuilder-ListWrap" aria-label="Suggestions" data-action=" combobox-commit:query-builder#comboboxCommit mousedown:query-builder#resultsMousedown " data-target="query-builder.resultsList" data-persist-list=false id="query-builder-test-results" tabindex="-1" ></ul>
+---        </div>
+---      <div class="FormControl-inlineValidation" id="validation-e7a0068a-f2ef-45f7-9a2b-406ad2b2db3c" hidden="hidden">
+---        <span class="FormControl-inlineValidation--visual"> <svg aria-hidden="true" height="12" viewBox="0 0 12 12" version="1.1" width="12" data-view-component="true" class="octicon octicon-alert-fill">
+---    <path d="M4.855.708c.5-.896 1.79-.896 2.29 0l4.675 8.351a1.312 1.312 0 0 1-1.146 1.954H1.33A1.313 1.313 0 0 1 .183 9.058ZM7 7V3H5v4Zm-1 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"></path>
+---</svg>
+---        </span>
+---        <span></span>
+---</div>    </div>
+---    <div data-target="query-builder.screenReaderFeedback" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+---</query-builder></form> <div class="d-flex flex-row color-fg-muted px-3 text-small color-bg-default search-feedback-prompt"> <a target="_blank" href="https://docs.github.com/search-github/github-code-search/understanding-github-code-search-syntax" data-view-component="true" class="Link color-fg-accent text-normal ml-2">Search syntax tips</a>            <div class="d-flex flex-1"></div> </div>
+---        </div>
+---</div>
+---
+---    </div>
+---</modal-dialog></div>
+---  </div>
+---  <div data-action="click:qbsearch-input#retract" class="dark-backdrop position-fixed" hidden data-target="qbsearch-input.darkBackdrop"></div>
+---  <div class="color-fg-default">
+---    
+---<dialog-helper>
+---  <dialog data-target="qbsearch-input.feedbackDialog" data-action="close:qbsearch-input#handleDialogClose cancel:qbsearch-input#handleDialogClose" id="feedback-dialog" aria-modal="true" aria-labelledby="feedback-dialog-title" aria-describedby="feedback-dialog-description" data-view-component="true" class="Overlay Overlay-whenNarrow Overlay--size-medium Overlay--motion-scaleFade Overlay--disableScroll">
+---    <div data-view-component="true" class="Overlay-header">
+---  <div class="Overlay-headerContentWrap">
+---    <div class="Overlay-titleWrap">
+---      <h1 class="Overlay-title " id="feedback-dialog-title">
+---        Provide feedback
+---      </h1>
+---        
+---    </div>
+---    <div class="Overlay-actionWrap">
+---      <button data-close-dialog-id="feedback-dialog" aria-label="Close" aria-label="Close" type="button" data-view-component="true" class="close-button Overlay-closeButton"><svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-x">
+---    <path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z"></path>
+---</svg></button>
+---    </div>
+---  </div>
+---  
+---</div>
+---      <scrollable-region data-labelled-by="feedback-dialog-title">
+---        <div data-view-component="true" class="Overlay-body">        <!-- '"` --><!-- </textarea></xmp> --></option></form><form id="code-search-feedback-form" data-turbo="false" action="/search/feedback" accept-charset="UTF-8" method="post"><input type="hidden" data-csrf="true" name="authenticity_token" value="SxrpfCGUlWRYaz3DU5W27OIG5PQbIoO/6AjfT3g4H6lBxm5yafQcQOfVcRb5igW4H6W6gPAlqr9jJ7fKL7RlFw==" /> <p>We read every piece of feedback, and take your input very seriously.</p> <textarea name="feedback" class="form-control width-full mb-2" style="height: 120px" id="feedback"></textarea> <input name="include_email" id="include_email" aria-label="Include my email address so I can be contacted" class="form-control mr-2" type="checkbox"> <label for="include_email" style="font-weight: normal">Include my email address so I can be contacted</label>
+---</form></div>
+---      </scrollable-region>
+---      <div data-view-component="true" class="Overlay-footer Overlay-footer--alignEnd">          <button data-close-dialog-id="feedback-dialog" type="button" data-view-component="true" class="btn">    Cancel
+---</button> <button form="code-search-feedback-form" data-action="click:qbsearch-input#submitFeedback" type="submit" data-view-component="true" class="btn-primary btn">    Submit feedback
+---</button>
+---</div>
+---</dialog></dialog-helper>
+---
+---    <custom-scopes data-target="qbsearch-input.customScopesManager">
+---    
+---<dialog-helper>
+---  <dialog data-target="custom-scopes.customScopesModalDialog" data-action="close:qbsearch-input#handleDialogClose cancel:qbsearch-input#handleDialogClose" id="custom-scopes-dialog" aria-modal="true" aria-labelledby="custom-scopes-dialog-title" aria-describedby="custom-scopes-dialog-description" data-view-component="true" class="Overlay Overlay-whenNarrow Overlay--size-medium Overlay--motion-scaleFade Overlay--disableScroll">
+---    <div data-view-component="true" class="Overlay-header Overlay-header--divided">
+---  <div class="Overlay-headerContentWrap">
+---    <div class="Overlay-titleWrap">
+---      <h1 class="Overlay-title " id="custom-scopes-dialog-title">
+---        Saved searches
+---      </h1>
+---        <h2 id="custom-scopes-dialog-description" class="Overlay-description">Use saved searches to filter your results more quickly</h2>
+---    </div>
+---    <div class="Overlay-actionWrap">
+---      <button data-close-dialog-id="custom-scopes-dialog" aria-label="Close" aria-label="Close" type="button" data-view-component="true" class="close-button Overlay-closeButton"><svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-x">
+---    <path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z"></path>
+---</svg></button>
+---    </div>
+---  </div>
+---  
+---</div>
+---      <scrollable-region data-labelled-by="custom-scopes-dialog-title">
+---        <div data-view-component="true" class="Overlay-body">        <div data-target="custom-scopes.customScopesModalDialogFlash"></div>
+---
+---        <div hidden class="create-custom-scope-form" data-target="custom-scopes.createCustomScopeForm">
+---        <!-- '"` --><!-- </textarea></xmp> --></option></form><form id="custom-scopes-dialog-form" data-turbo="false" action="/search/custom_scopes" accept-charset="UTF-8" method="post"><input type="hidden" data-csrf="true" name="authenticity_token" value="JC78sp7JmnVjYXQuXpud4mY0SeZ0mIKGzdGSfEJOWj/sW/YdtRqj2i5VFAHA2nl2GuPCjgcUOUkIpBoJFIFW5w==" /> <div data-target="custom-scopes.customScopesModalDialogFlash"></div>
+--- <input type="hidden" id="custom_scope_id" name="custom_scope_id" data-target="custom-scopes.customScopesIdField">
+--- <div class="form-group"> <label for="custom_scope_name">Name</label> <auto-check src="/search/custom_scopes/check_name" required> <input type="text" name="custom_scope_name" id="custom_scope_name" data-target="custom-scopes.customScopesNameField" class="form-control" autocomplete="off" placeholder="github-ruby" required maxlength="50"> <input type="hidden" data-csrf="true" value="EnsT1xDgH7M57kYMXxdfovLEFGhwfPyZ19Tjj3a5hDPF9vKVG6rdqFS+8mza1fe4UuctiSxsRbu/QIlWw7kl/w==" /> </auto-check> </div>
+--- <div class="form-group"> <label for="custom_scope_query">Query</label> <input type="text" name="custom_scope_query" id="custom_scope_query" data-target="custom-scopes.customScopesQueryField" class="form-control" autocomplete="off" placeholder="(repo:mona/a OR repo:mona/b) AND lang:python" required maxlength="500"> </div>
+--- <p class="text-small color-fg-muted"> To see all available qualifiers, see our <a class="Link--inTextBlock" href="https://docs.github.com/search-github/github-code-search/understanding-github-code-search-syntax">documentation</a>. </p>
+---</form>        </div>
+---
+---        <div data-target="custom-scopes.manageCustomScopesForm"> <div data-target="custom-scopes.list"></div>
+---        </div>
+---
+---</div>
+---      </scrollable-region>
+---      <div data-view-component="true" class="Overlay-footer Overlay-footer--alignEnd Overlay-footer--divided">          <button data-action="click:custom-scopes#customScopesCancel" type="button" data-view-component="true" class="btn">    Cancel
+---</button> <button form="custom-scopes-dialog-form" data-action="click:custom-scopes#customScopesSubmit" data-target="custom-scopes.customScopesSubmitButton" type="submit" data-view-component="true" class="btn-primary btn">    Create saved search
+---</button>
+---</div>
+---</dialog></dialog-helper>
+---    </custom-scopes>
+---  </div>
+---</qbsearch-input>
+--- <div class="position-relative HeaderMenu-link-wrap d-lg-inline-block"> <a href="/login?return_to=https%3A%2F%2Fgithub.com%2Fcontextgarden%2Fcontext%2Fblob%2Fmain%2Fdoc%2Fcontext%2Fsources%2Fgeneral%2Fmanuals%2Fluametatex%2Fluametatex-callbacks.tex" class="HeaderMenu-link HeaderMenu-link--sign-in HeaderMenu-button flex-shrink-0 no-underline d-none d-lg-inline-flex border border-lg-0 rounded px-2 py-1" style="margin-left: 12px;" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;originating_url&quot;:&quot;https://github.com/contextgarden/context/blob/main/doc/context/sources/general/manuals/luametatex/luametatex-callbacks.tex&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="e32e2d8bbdc31e71c001609bd34240f78ea2c1693b293011880d63d266586335" data-analytics-event="{&quot;category&quot;:&quot;Marketing nav&quot;,&quot;action&quot;:&quot;click to go to homepage&quot;,&quot;label&quot;:&quot;ref_page:Marketing;ref_cta:Sign in;ref_loc:Header&quot;}" > Sign in </a> </div>
+--- <a href="/signup?ref_cta=Sign+up&amp;ref_loc=header+logged+out&amp;ref_page=%2F%3Cuser-name%3E%2F%3Crepo-name%3E%2Fblob%2Fshow&amp;source=header-repo&amp;source_repo=contextgarden%2Fcontext" class="HeaderMenu-link HeaderMenu-link--sign-up HeaderMenu-button flex-shrink-0 d-flex d-lg-inline-flex no-underline border color-border-default rounded px-2 py-1" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;originating_url&quot;:&quot;https://github.com/contextgarden/context/blob/main/doc/context/sources/general/manuals/luametatex/luametatex-callbacks.tex&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="e32e2d8bbdc31e71c001609bd34240f78ea2c1693b293011880d63d266586335" data-analytics-event="{&quot;category&quot;:&quot;Sign up&quot;,&quot;action&quot;:&quot;click to sign up for account&quot;,&quot;label&quot;:&quot;ref_page:/&lt;user-name&gt;/&lt;repo-name&gt;/blob/show;ref_cta:Sign up;ref_loc:header logged out&quot;}" > Sign up </a>
+--- <div class="AppHeader-appearanceSettings">
+---    <react-partial-anchor>
+---      <button data-target="react-partial-anchor.anchor" id="icon-button-02c1345f-e35f-49d1-ae2c-0d2bc4594dd7" aria-labelledby="tooltip-92ad36f9-f39f-4e5d-993f-42cfb8e89b6d" type="button" disabled="disabled" data-view-component="true" class="Button Button--iconOnly Button--invisible Button--medium AppHeader-button HeaderMenu-link border cursor-wait">  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-sliders Button-visual">
+---    <path d="M15 2.75a.75.75 0 0 1-.75.75h-4a.75.75 0 0 1 0-1.5h4a.75.75 0 0 1 .75.75Zm-8.5.75v1.25a.75.75 0 0 0 1.5 0v-4a.75.75 0 0 0-1.5 0V2H1.75a.75.75 0 0 0 0 1.5H6.5Zm1.25 5.25a.75.75 0 0 0 0-1.5h-6a.75.75 0 0 0 0 1.5h6ZM15 8a.75.75 0 0 1-.75.75H11.5V10a.75.75 0 1 1-1.5 0V6a.75.75 0 0 1 1.5 0v1.25h2.75A.75.75 0 0 1 15 8Zm-9 5.25v-2a.75.75 0 0 0-1.5 0v1.25H1.75a.75.75 0 0 0 0 1.5H4.5v1.25a.75.75 0 0 0 1.5 0v-2Zm9 0a.75.75 0 0 1-.75.75h-6a.75.75 0 0 1 0-1.5h6a.75.75 0 0 1 .75.75Z"></path>
+---</svg>
+---</button><tool-tip id="tooltip-92ad36f9-f39f-4e5d-993f-42cfb8e89b6d" for="icon-button-02c1345f-e35f-49d1-ae2c-0d2bc4594dd7" popover="manual" data-direction="s" data-type="label" data-view-component="true" class="sr-only position-absolute">Appearance settings</tool-tip>
+---
+---      <template data-target="react-partial-anchor.template">
+---        <link crossorigin="anonymous" media="all" rel="stylesheet" href="https://github.githubassets.com/assets/primer-react.47f1598729334a521d2a.module.css" />
+---<link crossorigin="anonymous" media="all" rel="stylesheet" href="https://github.githubassets.com/assets/appearance-settings.76259b61ecc822265749.module.css" />
+---
+---<react-partial
+---  partial-name="appearance-settings"
+---  data-ssr="false"
+---  data-attempted-ssr="false"
+---  data-react-profiling="false"
+--->
+---  
+---  <script type="application/json" data-target="react-partial.embeddedData">{"props":{}}</script>
+---  <div data-target="react-partial.reactRoot"></div>
+---</react-partial>
+---
+---      </template>
+---    </react-partial-anchor>
+---  </div>
+--- <button type="button" class="sr-only js-header-menu-focus-trap d-block d-lg-none">Resetting focus</button>
+---        </div>
+---      </div>
+---    </div>
+---  </div>
+---</header>
+---
+---      <div hidden="hidden" data-view-component="true" class="js-stale-session-flash stale-session-flash flash flash-warn flash-full">
+---  
+---        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-alert">
+---    <path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path>
+---</svg>
+---        <span class="js-stale-session-flash-signed-in" hidden>You signed in with another tab or window. <a class="Link--inTextBlock" href="">Reload</a> to refresh your session.</span>
+---        <span class="js-stale-session-flash-signed-out" hidden>You signed out in another tab or window. <a class="Link--inTextBlock" href="">Reload</a> to refresh your session.</span>
+---        <span class="js-stale-session-flash-switched" hidden>You switched accounts on another tab or window. <a class="Link--inTextBlock" href="">Reload</a> to refresh your session.</span>
+---
+---    <button id="icon-button-b13bec80-9fe4-42e4-9ba2-481b0269f914" aria-labelledby="tooltip-f82a5403-488f-440a-b7db-229db0026635" type="button" data-view-component="true" class="Button Button--iconOnly Button--invisible Button--medium flash-close js-flash-close">  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-x Button-visual">
+---    <path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z"></path>
+---</svg>
+---</button><tool-tip id="tooltip-f82a5403-488f-440a-b7db-229db0026635" for="icon-button-b13bec80-9fe4-42e4-9ba2-481b0269f914" popover="manual" data-direction="s" data-type="label" data-view-component="true" class="sr-only position-absolute">Dismiss alert</tool-tip>
+---
+---  
+---</div>
+---    </div>
+---
+---  <div id="start-of-content" class="show-on-focus"></div>
+---
+---    <div id="js-flash-container" class="flash-container" data-turbo-replace>
+---
+---  <template class="js-flash-template">
+---    
+---<div class="flash flash-full   {{ className }}">
+---  <div >
+---    <button autofocus class="flash-close js-flash-close" type="button" aria-label="Dismiss this message">
+---      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-x">
+---    <path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z"></path>
+---</svg>
+---    </button>
+---    <div aria-atomic="true" role="alert" class="js-flash-alert">
+---      
+---      <div>{{ message }}</div>
+---
+---    </div>
+---  </div>
+---</div>
+---  </template>
+---</div>
+---
+---    
+---
+---  <div
+---    class="application-main "
+---    data-commit-hovercards-enabled
+---    data-discussion-hovercards-enabled
+---    data-issue-and-pr-hovercards-enabled
+---    data-project-hovercards-enabled
+---  >
+---        <div itemscope itemtype="http://schema.org/SoftwareSourceCode" class="">
+---    <main id="js-repo-pjax-container" >
+---      
+---      
+---    
+---
+---    
+---
+---  
+---  <div id="repository-container-header"  class="pt-3 hide-full-screen" style="background-color: var(--page-header-bgColor, var(--color-page-header-bg));" data-turbo-replace>
+---
+---      <div class="d-flex flex-nowrap flex-justify-end mb-3  px-3 px-lg-5" style="gap: 1rem;">
+---
+---        <div class="flex-auto min-width-0 width-fit"> 
+---  <div class=" d-flex flex-wrap flex-items-center wb-break-word f3 text-normal">
+---      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-repo color-fg-muted mr-2">
+---    <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7.75.75 0 1 1-1.072 1.05A2.495 2.495 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.708A2.486 2.486 0 0 1 4.5 9h8ZM5 12.25a.25.25 0 0 1 .25-.25h3.5a.25.25 0 0 1 .25.25v3.25a.25.25 0 0 1-.4.2l-1.45-1.087a.249.249 0 0 0-.3 0L5.4 15.7a.25.25 0 0 1-.4-.2Z"></path>
+---</svg>
+---    
+---    <span class="author flex-self-stretch" itemprop="author">
+---      <a class="url fn" rel="author" data-hovercard-type="organization" data-hovercard-url="/orgs/contextgarden/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="/contextgarden">
+---        contextgarden
+---</a>    </span>
+---    <span class="mx-1 flex-self-stretch color-fg-muted">/</span>
+---    <strong itemprop="name" class="mr-2 flex-self-stretch">
+---      <a data-pjax="#repo-content-pjax-container" data-turbo-frame="repo-content-turbo-frame" href="/contextgarden/context">context</a>
+---    </strong>
+---
+---    <span></span><span class="Label Label--secondary v-align-middle mr-1">Public</span>
+---  </div>
+---
+---        </div>
+---
+---        <div id="repository-details-container" class="flex-shrink-0" data-turbo-replace style="max-width: 70%;"> <ul class="pagehead-actions flex-shrink-0 d-none d-md-inline" style="padding: 2px 0;">
+---    
+---      
+---
+---  <li> <a href="/login?return_to=%2Fcontextgarden%2Fcontext" rel="nofollow" id="repository-details-watch-button" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;notification subscription menu watch&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;originating_url&quot;:&quot;https://github.com/contextgarden/context/blob/main/doc/context/sources/general/manuals/luametatex/luametatex-callbacks.tex&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="e7036e26afaed88b21c8fe417f0d08c186beb78bdd0e0b480ef9000203f27b81" aria-label="You must be signed in to change notification settings" data-view-component="true" class="btn-sm btn">    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-bell mr-2">
+---    <path d="M8 16a2 2 0 0 0 1.985-1.75c.017-.137-.097-.25-.235-.25h-3.5c-.138 0-.252.113-.235.25A2 2 0 0 0 8 16ZM3 5a5 5 0 0 1 10 0v2.947c0 .05.015.098.042.139l1.703 2.555A1.519 1.519 0 0 1 13.482 13H2.518a1.516 1.516 0 0 1-1.263-2.36l1.703-2.554A.255.255 0 0 0 3 7.947Zm5-3.5A3.5 3.5 0 0 0 4.5 5v2.947c0 .346-.102.683-.294.97l-1.703 2.556a.017.017 0 0 0-.003.01l.001.006c0 .002.002.004.004.006l.006.004.007.001h10.964l.007-.001.006-.004.004-.006.001-.007a.017.017 0 0 0-.003-.01l-1.703-2.554a1.745 1.745 0 0 1-.294-.97V5A3.5 3.5 0 0 0 8 1.5Z"></path>
+---</svg>Notifications
+---</a>    <tool-tip id="tooltip-f843750c-00b9-479f-bd45-1c2f15a0cd7e" for="repository-details-watch-button" popover="manual" data-direction="s" data-type="description" data-view-component="true" class="sr-only position-absolute">You must be signed in to change notification settings</tool-tip>
+---
+---  </li>
+---
+---  <li> <a icon="repo-forked" id="fork-button" href="/login?return_to=%2Fcontextgarden%2Fcontext" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;repo details fork button&quot;,&quot;repository_id&quot;:536121827,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;originating_url&quot;:&quot;https://github.com/contextgarden/context/blob/main/doc/context/sources/general/manuals/luametatex/luametatex-callbacks.tex&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="2e57b37b731776d469a2b3764c895bcf77617c31e2de4fb9bc0315e70e4194cb" data-view-component="true" class="btn-sm btn">    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-repo-forked mr-2">
+---    <path d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75v-.878a2.25 2.25 0 1 1 1.5 0v.878a2.25 2.25 0 0 1-2.25 2.25h-1.5v2.128a2.251 2.251 0 1 1-1.5 0V8.5h-1.5A2.25 2.25 0 0 1 3.5 6.25v-.878a2.25 2.25 0 1 1 1.5 0ZM5 3.25a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Zm6.75.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm-3 8.75a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Z"></path>
+---</svg>Fork
+---    <span id="repo-network-counter" data-pjax-replace="true" data-turbo-replace="true" title="11" data-view-component="true" class="Counter">11</span>
+---</a>
+---  </li>
+---
+---  <li>
+---        <div data-view-component="true" class="BtnGroup d-flex">
+---        <a href="/login?return_to=%2Fcontextgarden%2Fcontext" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;star button&quot;,&quot;repository_id&quot;:536121827,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;originating_url&quot;:&quot;https://github.com/contextgarden/context/blob/main/doc/context/sources/general/manuals/luametatex/luametatex-callbacks.tex&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="d0616b0b85705a690b2712717dae08446f91657c4cd15067b008cf3e7d8220c0" aria-label="You must be signed in to star a repository" data-view-component="true" class="tooltipped tooltipped-sw btn-sm btn">    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-star v-align-text-bottom d-inline-block mr-2">
+---    <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.751.751 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Zm0 2.445L6.615 5.5a.75.75 0 0 1-.564.41l-3.097.45 2.24 2.184a.75.75 0 0 1 .216.664l-.528 3.084 2.769-1.456a.75.75 0 0 1 .698 0l2.77 1.456-.53-3.084a.75.75 0 0 1 .216-.664l2.24-2.183-3.096-.45a.75.75 0 0 1-.564-.41L8 2.694Z"></path>
+---</svg><span data-view-component="true" class="d-inline"> Star
+---</span>          <span id="repo-stars-counter-star" aria-label="47 users starred this repository" data-singular-suffix="user starred this repository" data-plural-suffix="users starred this repository" data-turbo-replace="true" title="47" data-view-component="true" class="Counter js-social-count">47</span>
+---</a></div>
+---  </li>
+---
+---</ul>
+---
+---        </div>
+---      </div>
+---
+---        <div id="responsive-meta-container" data-turbo-replace>
+---</div>
+--- <nav data-pjax="#js-repo-pjax-container" aria-label="Repository" data-view-component="true" class="js-repo-nav js-sidenav-container-pjax js-responsive-underlinenav overflow-hidden UnderlineNav px-3 px-md-4 px-lg-5">
+---
+---  <ul data-view-component="true" class="UnderlineNav-body list-style-none">
+---      <li data-view-component="true" class="d-inline-flex">
+---  <a id="code-tab" href="/contextgarden/context" data-tab-item="i0code-tab" data-selected-links="repo_source repo_downloads repo_commits repo_releases repo_tags repo_branches repo_packages repo_deployments repo_attestations /contextgarden/context" data-pjax="#repo-content-pjax-container" data-turbo-frame="repo-content-turbo-frame" data-hotkey="g c" data-analytics-event="{&quot;category&quot;:&quot;Underline navbar&quot;,&quot;action&quot;:&quot;Click tab&quot;,&quot;label&quot;:&quot;Code&quot;,&quot;target&quot;:&quot;UNDERLINE_NAV.TAB&quot;}" aria-current="page" data-view-component="true" class="UnderlineNav-item no-wrap js-responsive-underlinenav-item js-selected-navigation-item selected">
+---     <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-code UnderlineNav-octicon d-none d-sm-inline">
+---    <path d="m11.28 3.22 4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L13.94 8l-3.72-3.72a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215Zm-6.56 0a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042L2.06 8l3.72 3.72a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L.47 8.53a.75.75 0 0 1 0-1.06Z"></path>
+---</svg>
+---        <span data-content="Code">Code</span> <span id="code-repo-tab-count" data-pjax-replace="" data-turbo-replace="" title="Not available" data-view-component="true" class="Counter"></span>
+---
+---    
+---</a></li>
+---      <li data-view-component="true" class="d-inline-flex">
+---  <a id="pull-requests-tab" href="/contextgarden/context/pulls" data-tab-item="i1pull-requests-tab" data-selected-links="repo_pulls checks /contextgarden/context/pulls" data-pjax="#repo-content-pjax-container" data-turbo-frame="repo-content-turbo-frame" data-hotkey="g p" data-analytics-event="{&quot;category&quot;:&quot;Underline navbar&quot;,&quot;action&quot;:&quot;Click tab&quot;,&quot;label&quot;:&quot;Pull requests&quot;,&quot;target&quot;:&quot;UNDERLINE_NAV.TAB&quot;}" data-view-component="true" class="UnderlineNav-item no-wrap js-responsive-underlinenav-item js-selected-navigation-item">
+---     <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-git-pull-request UnderlineNav-octicon d-none d-sm-inline">
+---    <path d="M1.5 3.25a2.25 2.25 0 1 1 3 2.122v5.256a2.251 2.251 0 1 1-1.5 0V5.372A2.25 2.25 0 0 1 1.5 3.25Zm5.677-.177L9.573.677A.25.25 0 0 1 10 .854V2.5h1A2.5 2.5 0 0 1 13.5 5v5.628a2.251 2.251 0 1 1-1.5 0V5a1 1 0 0 0-1-1h-1v1.646a.25.25 0 0 1-.427.177L7.177 3.427a.25.25 0 0 1 0-.354ZM3.75 2.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm0 9.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm8.25.75a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Z"></path>
+---</svg>
+---        <span data-content="Pull requests">Pull requests</span> <span id="pull-requests-repo-tab-count" data-pjax-replace="" data-turbo-replace="" title="0" hidden="hidden" data-view-component="true" class="Counter">0</span>
+---
+---    
+---</a></li>
+---      <li data-view-component="true" class="d-inline-flex">
+---  <a id="actions-tab" href="/contextgarden/context/actions" data-tab-item="i2actions-tab" data-selected-links="repo_actions /contextgarden/context/actions" data-pjax="#repo-content-pjax-container" data-turbo-frame="repo-content-turbo-frame" data-hotkey="g a" data-analytics-event="{&quot;category&quot;:&quot;Underline navbar&quot;,&quot;action&quot;:&quot;Click tab&quot;,&quot;label&quot;:&quot;Actions&quot;,&quot;target&quot;:&quot;UNDERLINE_NAV.TAB&quot;}" data-view-component="true" class="UnderlineNav-item no-wrap js-responsive-underlinenav-item js-selected-navigation-item">
+---     <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-play UnderlineNav-octicon d-none d-sm-inline">
+---    <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Zm4.879-2.773 4.264 2.559a.25.25 0 0 1 0 .428l-4.264 2.559A.25.25 0 0 1 6 10.559V5.442a.25.25 0 0 1 .379-.215Z"></path>
+---</svg>
+---        <span data-content="Actions">Actions</span> <span id="actions-repo-tab-count" data-pjax-replace="" data-turbo-replace="" title="Not available" data-view-component="true" class="Counter"></span>
+---
+---    
+---</a></li>
+---      <li data-view-component="true" class="d-inline-flex">
+---  <a id="security-tab" href="/contextgarden/context/security" data-tab-item="i3security-tab" data-selected-links="security overview alerts policy token_scanning code_scanning /contextgarden/context/security" data-pjax="#repo-content-pjax-container" data-turbo-frame="repo-content-turbo-frame" data-hotkey="g s" data-analytics-event="{&quot;category&quot;:&quot;Underline navbar&quot;,&quot;action&quot;:&quot;Click tab&quot;,&quot;label&quot;:&quot;Security&quot;,&quot;target&quot;:&quot;UNDERLINE_NAV.TAB&quot;}" data-view-component="true" class="UnderlineNav-item no-wrap js-responsive-underlinenav-item js-selected-navigation-item">
+---     <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-shield UnderlineNav-octicon d-none d-sm-inline">
+---    <path d="M7.467.133a1.748 1.748 0 0 1 1.066 0l5.25 1.68A1.75 1.75 0 0 1 15 3.48V7c0 1.566-.32 3.182-1.303 4.682-.983 1.498-2.585 2.813-5.032 3.855a1.697 1.697 0 0 1-1.33 0c-2.447-1.042-4.049-2.357-5.032-3.855C1.32 10.182 1 8.566 1 7V3.48a1.75 1.75 0 0 1 1.217-1.667Zm.61 1.429a.25.25 0 0 0-.153 0l-5.25 1.68a.25.25 0 0 0-.174.238V7c0 1.358.275 2.666 1.057 3.86.784 1.194 2.121 2.34 4.366 3.297a.196.196 0 0 0 .154 0c2.245-.956 3.582-2.104 4.366-3.298C13.225 9.666 13.5 8.36 13.5 7V3.48a.251.251 0 0 0-.174-.237l-5.25-1.68ZM8.75 4.75v3a.75.75 0 0 1-1.5 0v-3a.75.75 0 0 1 1.5 0ZM9 10.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path>
+---</svg>
+---        <span data-content="Security">Security</span> <include-fragment src="/contextgarden/context/security/overall-count" accept="text/fragment+html" data-nonce="v2:1c3e2db4-16b9-61e2-f385-efc764f12273" data-view-component="true">
+---  
+---  <div data-show-on-forbidden-error hidden>
+---    <div class="Box">
+---  <div class="blankslate-container">
+---    <div data-view-component="true" class="blankslate blankslate-spacious color-bg-default rounded-2">
+---      
+---
+---      <h3 data-view-component="true" class="blankslate-heading">        Uh oh!
+---</h3>
+---      <p data-view-component="true">        <p class="color-fg-muted my-2 mb-2 ws-normal">There was an error while loading. <a class="Link--inTextBlock" data-turbo="false" href="" aria-label="Please reload this page">Please reload this page</a>.</p>
+---</p>
+---
+---</div>  </div>
+---</div>  </div>
+---</include-fragment>
+---
+---    
+---</a></li>
+---      <li data-view-component="true" class="d-inline-flex">
+---  <a id="insights-tab" href="/contextgarden/context/pulse" data-tab-item="i4insights-tab" data-selected-links="repo_graphs repo_contributors dependency_graph dependabot_updates pulse people community /contextgarden/context/pulse" data-pjax="#repo-content-pjax-container" data-turbo-frame="repo-content-turbo-frame" data-analytics-event="{&quot;category&quot;:&quot;Underline navbar&quot;,&quot;action&quot;:&quot;Click tab&quot;,&quot;label&quot;:&quot;Insights&quot;,&quot;target&quot;:&quot;UNDERLINE_NAV.TAB&quot;}" data-view-component="true" class="UnderlineNav-item no-wrap js-responsive-underlinenav-item js-selected-navigation-item">
+---     <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-graph UnderlineNav-octicon d-none d-sm-inline">
+---    <path d="M1.5 1.75V13.5h13.75a.75.75 0 0 1 0 1.5H.75a.75.75 0 0 1-.75-.75V1.75a.75.75 0 0 1 1.5 0Zm14.28 2.53-5.25 5.25a.75.75 0 0 1-1.06 0L7 7.06 4.28 9.78a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042l3.25-3.25a.75.75 0 0 1 1.06 0L10 7.94l4.72-4.72a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042Z"></path>
+---</svg>
+---        <span data-content="Insights">Insights</span> <span id="insights-repo-tab-count" data-pjax-replace="" data-turbo-replace="" title="Not available" data-view-component="true" class="Counter"></span>
+---
+---    
+---</a></li>
+---</ul>
+---    <div style="visibility:hidden;" data-view-component="true" class="UnderlineNav-actions js-responsive-underlinenav-overflow position-absolute pr-3 pr-md-4 pr-lg-5 right-0">      <action-menu data-select-variant="none" data-view-component="true">
+---  <focus-group direction="vertical" mnemonics retain>
+---    <button id="action-menu-46543a48-bfed-4837-acee-09576b68bb16-button" popovertarget="action-menu-46543a48-bfed-4837-acee-09576b68bb16-overlay" aria-controls="action-menu-46543a48-bfed-4837-acee-09576b68bb16-list" aria-haspopup="true" aria-labelledby="tooltip-a67a1215-42c6-4675-89d2-5b5017e33f39" type="button" data-view-component="true" class="Button Button--iconOnly Button--secondary Button--medium UnderlineNav-item">  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-kebab-horizontal Button-visual">
+---    <path d="M8 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3ZM1.5 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm13 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
+---</svg>
+---</button><tool-tip id="tooltip-a67a1215-42c6-4675-89d2-5b5017e33f39" for="action-menu-46543a48-bfed-4837-acee-09576b68bb16-button" popover="manual" data-direction="s" data-type="label" data-view-component="true" class="sr-only position-absolute">Additional navigation options</tool-tip>
+---
+---<anchored-position data-target="action-menu.overlay" id="action-menu-46543a48-bfed-4837-acee-09576b68bb16-overlay" anchor="action-menu-46543a48-bfed-4837-acee-09576b68bb16-button" align="start" side="outside-bottom" anchor-offset="normal" popover="auto" data-view-component="true">
+---  <div data-view-component="true" class="Overlay Overlay--size-auto">
+---    
+---      <div data-view-component="true" class="Overlay-body Overlay-body--paddingNone">          <action-list>
+---  <div data-view-component="true">
+---    <ul aria-labelledby="action-menu-46543a48-bfed-4837-acee-09576b68bb16-button" id="action-menu-46543a48-bfed-4837-acee-09576b68bb16-list" role="menu" data-view-component="true" class="ActionListWrap--inset ActionListWrap">
+---        <li hidden="hidden" data-menu-item="i0code-tab" data-targets="action-list.items" role="none" data-view-component="true" class="ActionListItem">
+---    
+---    
+---    <a tabindex="-1" id="item-b01d281e-5934-497c-93db-b8d886c86e0d" href="/contextgarden/context" role="menuitem" data-view-component="true" class="ActionListContent ActionListContent--visual16">
+---        <span class="ActionListItem-visual ActionListItem-visual--leading"> <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-code">
+---    <path d="m11.28 3.22 4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L13.94 8l-3.72-3.72a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215Zm-6.56 0a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042L2.06 8l3.72 3.72a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L.47 8.53a.75.75 0 0 1 0-1.06Z"></path>
+---</svg>
+---        </span>
+---      
+---        <span data-view-component="true" class="ActionListItem-label"> Code
+---</span>      
+---</a>
+---  
+---</li>
+---        <li hidden="hidden" data-menu-item="i1pull-requests-tab" data-targets="action-list.items" role="none" data-view-component="true" class="ActionListItem">
+---    
+---    
+---    <a tabindex="-1" id="item-4259a37a-d6f5-4968-bf8f-8bfec90d9331" href="/contextgarden/context/pulls" role="menuitem" data-view-component="true" class="ActionListContent ActionListContent--visual16">
+---        <span class="ActionListItem-visual ActionListItem-visual--leading"> <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-git-pull-request">
+---    <path d="M1.5 3.25a2.25 2.25 0 1 1 3 2.122v5.256a2.251 2.251 0 1 1-1.5 0V5.372A2.25 2.25 0 0 1 1.5 3.25Zm5.677-.177L9.573.677A.25.25 0 0 1 10 .854V2.5h1A2.5 2.5 0 0 1 13.5 5v5.628a2.251 2.251 0 1 1-1.5 0V5a1 1 0 0 0-1-1h-1v1.646a.25.25 0 0 1-.427.177L7.177 3.427a.25.25 0 0 1 0-.354ZM3.75 2.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm0 9.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm8.25.75a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Z"></path>
+---</svg>
+---        </span>
+---      
+---        <span data-view-component="true" class="ActionListItem-label"> Pull requests
+---</span>      
+---</a>
+---  
+---</li>
+---        <li hidden="hidden" data-menu-item="i2actions-tab" data-targets="action-list.items" role="none" data-view-component="true" class="ActionListItem">
+---    
+---    
+---    <a tabindex="-1" id="item-ddd1b26c-19ee-4c45-86f2-22856e8d4bd8" href="/contextgarden/context/actions" role="menuitem" data-view-component="true" class="ActionListContent ActionListContent--visual16">
+---        <span class="ActionListItem-visual ActionListItem-visual--leading"> <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-play">
+---    <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Zm4.879-2.773 4.264 2.559a.25.25 0 0 1 0 .428l-4.264 2.559A.25.25 0 0 1 6 10.559V5.442a.25.25 0 0 1 .379-.215Z"></path>
+---</svg>
+---        </span>
+---      
+---        <span data-view-component="true" class="ActionListItem-label"> Actions
+---</span>      
+---</a>
+---  
+---</li>
+---        <li hidden="hidden" data-menu-item="i3security-tab" data-targets="action-list.items" role="none" data-view-component="true" class="ActionListItem">
+---    
+---    
+---    <a tabindex="-1" id="item-e2aec85f-c09f-4493-afa0-8fb02c2a636d" href="/contextgarden/context/security" role="menuitem" data-view-component="true" class="ActionListContent ActionListContent--visual16">
+---        <span class="ActionListItem-visual ActionListItem-visual--leading"> <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-shield">
+---    <path d="M7.467.133a1.748 1.748 0 0 1 1.066 0l5.25 1.68A1.75 1.75 0 0 1 15 3.48V7c0 1.566-.32 3.182-1.303 4.682-.983 1.498-2.585 2.813-5.032 3.855a1.697 1.697 0 0 1-1.33 0c-2.447-1.042-4.049-2.357-5.032-3.855C1.32 10.182 1 8.566 1 7V3.48a1.75 1.75 0 0 1 1.217-1.667Zm.61 1.429a.25.25 0 0 0-.153 0l-5.25 1.68a.25.25 0 0 0-.174.238V7c0 1.358.275 2.666 1.057 3.86.784 1.194 2.121 2.34 4.366 3.297a.196.196 0 0 0 .154 0c2.245-.956 3.582-2.104 4.366-3.298C13.225 9.666 13.5 8.36 13.5 7V3.48a.251.251 0 0 0-.174-.237l-5.25-1.68ZM8.75 4.75v3a.75.75 0 0 1-1.5 0v-3a.75.75 0 0 1 1.5 0ZM9 10.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path>
+---</svg>
+---        </span>
+---      
+---        <span data-view-component="true" class="ActionListItem-label"> Security
+---</span>      
+---</a>
+---  
+---</li>
+---        <li hidden="hidden" data-menu-item="i4insights-tab" data-targets="action-list.items" role="none" data-view-component="true" class="ActionListItem">
+---    
+---    
+---    <a tabindex="-1" id="item-7cdb3c8e-1fc5-4c22-8602-78150ee168fe" href="/contextgarden/context/pulse" role="menuitem" data-view-component="true" class="ActionListContent ActionListContent--visual16">
+---        <span class="ActionListItem-visual ActionListItem-visual--leading"> <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-graph">
+---    <path d="M1.5 1.75V13.5h13.75a.75.75 0 0 1 0 1.5H.75a.75.75 0 0 1-.75-.75V1.75a.75.75 0 0 1 1.5 0Zm14.28 2.53-5.25 5.25a.75.75 0 0 1-1.06 0L7 7.06 4.28 9.78a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042l3.25-3.25a.75.75 0 0 1 1.06 0L10 7.94l4.72-4.72a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042Z"></path>
+---</svg>
+---        </span>
+---      
+---        <span data-view-component="true" class="ActionListItem-label"> Insights
+---</span>      
+---</a>
+---  
+---</li>
+---</ul>    
+---</div></action-list>
+---
+---</div>
+---      
+---</div></anchored-position>  </focus-group>
+---</action-menu></div>
+---</nav>
+---
+---  </div>
+---
+---  
+---
+---<turbo-frame id="repo-content-turbo-frame" target="_top" data-turbo-action="advance" class="">
+---    <div id="repo-content-pjax-container" class="repository-content " >
+---    
+---
+---    
+---      
+---    
+---
+---<react-app
+---  app-name="react-code-view"
+---  initial-path="/contextgarden/context/blob/main/doc/context/sources/general/manuals/luametatex/luametatex-callbacks.tex"
+---    style="display: block; min-height: calc(100vh - 64px);"
+---  data-attempted-ssr="false"
+---  data-ssr="false"
+---  data-lazy="false"
+---  data-alternate="false"
+---  data-data-router-enabled="false"
+---  data-react-profiling="false"
+--->
+---  
+---  <script type="application/json" data-target="react-app.embeddedData">{"payload":{"allShortcutsEnabled":false,"fileTree":{"doc/context/sources/general/manuals/luametatex":{"items":[{"name":"luametatex-assumptions.tex","path":"doc/context/sources/general/manuals/luametatex/luametatex-assumptions.tex","contentType":"file"},{"name":"luametatex-callbacks.tex","path":"doc/context/sources/general/manuals/luametatex/luametatex-callbacks.tex","contentType":"file"},{"name":"luametatex-constructions.tex","path":"doc/context/sources/general/manuals/luametatex/luametatex-constructions.tex","contentType":"file"},{"name":"luametatex-contents.tex","path":"doc/context/sources/general/manuals/luametatex/luametatex-contents.tex","contentType":"file"},{"name":"luametatex-engines.tex","path":"doc/context/sources/general/manuals/luametatex/luametatex-engines.tex","contentType":"file"},{"name":"luametatex-fonts.tex","path":"doc/context/sources/general/manuals/luametatex/luametatex-fonts.tex","contentType":"file"},{"name":"luametatex-internals.tex","path":"doc/context/sources/general/manuals/luametatex/luametatex-internals.tex","contentType":"file"},{"name":"luametatex-introduction.tex","path":"doc/context/sources/general/manuals/luametatex/luametatex-introduction.tex","contentType":"file"},{"name":"luametatex-languages.tex","path":"doc/context/sources/general/manuals/luametatex/luametatex-languages.tex","contentType":"file"},{"name":"luametatex-libraries.tex","path":"doc/context/sources/general/manuals/luametatex/luametatex-libraries.tex","contentType":"file"},{"name":"luametatex-lua.tex","path":"doc/context/sources/general/manuals/luametatex/luametatex-lua.tex","contentType":"file"},{"name":"luametatex-math.tex","path":"doc/context/sources/general/manuals/luametatex/luametatex-math.tex","contentType":"file"},{"name":"luametatex-metapost.tex","path":"doc/context/sources/general/manuals/luametatex/luametatex-metapost.tex","contentType":"file"},{"name":"luametatex-nodes.tex","path":"doc/context/sources/general/manuals/luametatex/luametatex-nodes.tex","contentType":"file"},{"name":"luametatex-pdf.tex","path":"doc/context/sources/general/manuals/luametatex/luametatex-pdf.tex","contentType":"file"},{"name":"luametatex-primitives.tex","path":"doc/context/sources/general/manuals/luametatex/luametatex-primitives.tex","contentType":"file"},{"name":"luametatex-principles.tex","path":"doc/context/sources/general/manuals/luametatex/luametatex-principles.tex","contentType":"file"},{"name":"luametatex-style.tex","path":"doc/context/sources/general/manuals/luametatex/luametatex-style.tex","contentType":"file"},{"name":"luametatex-tex.tex","path":"doc/context/sources/general/manuals/luametatex/luametatex-tex.tex","contentType":"file"},{"name":"luametatex-tokens.tex","path":"doc/context/sources/general/manuals/luametatex/luametatex-tokens.tex","contentType":"file"},{"name":"luametatex.tex","path":"doc/context/sources/general/manuals/luametatex/luametatex.tex","contentType":"file"}],"totalCount":21},"doc/context/sources/general/manuals":{"items":[{"name":"about","path":"doc/context/sources/general/manuals/about","contentType":"directory"},{"name":"beyond","path":"doc/context/sources/general/manuals/beyond","contentType":"directory"},{"name":"bidi","path":"doc/context/sources/general/manuals/bidi","contentType":"directory"},{"name":"canbedone","path":"doc/context/sources/general/manuals/canbedone","contentType":"directory"},{"name":"charts","path":"doc/context/sources/general/manuals/charts","contentType":"directory"},{"name":"cld","path":"doc/context/sources/general/manuals/cld","contentType":"directory"},{"name":"colors","path":"doc/context/sources/general/manuals/colors","contentType":"directory"},{"name":"columnsets","path":"doc/context/sources/general/manuals/columnsets","contentType":"directory"},{"name":"details","path":"doc/context/sources/general/manuals/details","contentType":"directory"},{"name":"epub","path":"doc/context/sources/general/manuals/epub","contentType":"directory"},{"name":"evenmore","path":"doc/context/sources/general/manuals/evenmore","contentType":"directory"},{"name":"examples","path":"doc/context/sources/general/manuals/examples","contentType":"directory"},{"name":"followingup","path":"doc/context/sources/general/manuals/followingup","contentType":"directory"},{"name":"fonts","path":"doc/context/sources/general/manuals/fonts","contentType":"directory"},{"name":"graphics","path":"doc/context/sources/general/manuals/graphics","contentType":"directory"},{"name":"hybrid","path":"doc/context/sources/general/manuals/hybrid","contentType":"directory"},{"name":"interaction","path":"doc/context/sources/general/manuals/interaction","contentType":"directory"},{"name":"languages","path":"doc/context/sources/general/manuals/languages","contentType":"directory"},{"name":"libraries","path":"doc/context/sources/general/manuals/libraries","contentType":"directory"},{"name":"lowlevel","path":"doc/context/sources/general/manuals/lowlevel","contentType":"directory"},{"name":"lua","path":"doc/context/sources/general/manuals/lua","contentType":"directory"},{"name":"luametafun","path":"doc/context/sources/general/manuals/luametafun","contentType":"directory"},{"name":"luametatex","path":"doc/context/sources/general/manuals/luametatex","contentType":"directory"},{"name":"luatex","path":"doc/context/sources/general/manuals/luatex","contentType":"directory"},{"name":"math","path":"doc/context/sources/general/manuals/math","contentType":"directory"},{"name":"mathml","path":"doc/context/sources/general/manuals/mathml","contentType":"directory"},{"name":"metafun","path":"doc/context/sources/general/manuals/metafun","contentType":"directory"},{"name":"mk","path":"doc/context/sources/general/manuals/mk","contentType":"directory"},{"name":"musings","path":"doc/context/sources/general/manuals/musings","contentType":"directory"},{"name":"nodes","path":"doc/context/sources/general/manuals/nodes","contentType":"directory"},{"name":"notnow","path":"doc/context/sources/general/manuals/notnow","contentType":"directory"},{"name":"onandon","path":"doc/context/sources/general/manuals/onandon","contentType":"directory"},{"name":"ontarget","path":"doc/context/sources/general/manuals/ontarget","contentType":"directory"},{"name":"pagecolumns","path":"doc/context/sources/general/manuals/pagecolumns","contentType":"directory"},{"name":"pdfmerge","path":"doc/context/sources/general/manuals/pdfmerge","contentType":"directory"},{"name":"publications","path":"doc/context/sources/general/manuals/publications","contentType":"directory"},{"name":"readme","path":"doc/context/sources/general/manuals/readme","contentType":"directory"},{"name":"rules","path":"doc/context/sources/general/manuals/rules","contentType":"directory"},{"name":"spacing","path":"doc/context/sources/general/manuals/spacing","contentType":"directory"},{"name":"spreadsheets","path":"doc/context/sources/general/manuals/spreadsheets","contentType":"directory"},{"name":"sql","path":"doc/context/sources/general/manuals/sql","contentType":"directory"},{"name":"start","path":"doc/context/sources/general/manuals/start","contentType":"directory"},{"name":"steps","path":"doc/context/sources/general/manuals/steps","contentType":"directory"},{"name":"still","path":"doc/context/sources/general/manuals/still","contentType":"directory"},{"name":"svg","path":"doc/context/sources/general/manuals/svg","contentType":"directory"},{"name":"swiglib","path":"doc/context/sources/general/manuals/swiglib","contentType":"directory"},{"name":"tagging","path":"doc/context/sources/general/manuals/tagging","contentType":"directory"},{"name":"templates","path":"doc/context/sources/general/manuals/templates","contentType":"directory"},{"name":"texit","path":"doc/context/sources/general/manuals/texit","contentType":"directory"},{"name":"tiptrick","path":"doc/context/sources/general/manuals/tiptrick","contentType":"directory"},{"name":"tools","path":"doc/context/sources/general/manuals/tools","contentType":"directory"},{"name":"units","path":"doc/context/sources/general/manuals/units","contentType":"directory"},{"name":"workflows","path":"doc/context/sources/general/manuals/workflows","contentType":"directory"},{"name":"xml","path":"doc/context/sources/general/manuals/xml","contentType":"directory"},{"name":"xtables","path":"doc/context/sources/general/manuals/xtables","contentType":"directory"},{"name":"manuals-explaining-contents.tex","path":"doc/context/sources/general/manuals/manuals-explaining-contents.tex","contentType":"file"},{"name":"manuals-explaining-cover.tex","path":"doc/context/sources/general/manuals/manuals-explaining-cover.tex","contentType":"file"},{"name":"manuals-explaining-environment.tex","path":"doc/context/sources/general/manuals/manuals-explaining-environment.tex","contentType":"file"},{"name":"manuals-xml-environment.tex","path":"doc/context/sources/general/manuals/manuals-xml-environment.tex","contentType":"file"},{"name":"mcommon.tex","path":"doc/context/sources/general/manuals/mcommon.tex","contentType":"file"}],"totalCount":60},"doc/context/sources/general":{"items":[{"name":"leaflets","path":"doc/context/sources/general/leaflets","contentType":"directory"},{"name":"magazines","path":"doc/context/sources/general/magazines","contentType":"directory"},{"name":"manuals","path":"doc/context/sources/general/manuals","contentType":"directory"}],"totalCount":3},"doc/context/sources":{"items":[{"name":"general","path":"doc/context/sources/general","contentType":"directory"}],"totalCount":1},"doc/context":{"items":[{"name":"documents","path":"doc/context/documents","contentType":"directory"},{"name":"examples","path":"doc/context/examples","contentType":"directory"},{"name":"presentations","path":"doc/context/presentations","contentType":"directory"},{"name":"scripts","path":"doc/context/scripts","contentType":"directory"},{"name":"sources","path":"doc/context/sources","contentType":"directory"}],"totalCount":5},"doc":{"items":[{"name":"context","path":"doc/context","contentType":"directory"},{"name":"fonts","path":"doc/fonts","contentType":"directory"}],"totalCount":2},"":{"items":[{"name":"bibtex","path":"bibtex","contentType":"directory"},{"name":"colors","path":"colors","contentType":"directory"},{"name":"context","path":"context","contentType":"directory"},{"name":"doc","path":"doc","contentType":"directory"},{"name":"fonts","path":"fonts","contentType":"directory"},{"name":"metapost","path":"metapost","contentType":"directory"},{"name":"scripts","path":"scripts","contentType":"directory"},{"name":"source","path":"source","contentType":"directory"},{"name":"tex","path":"tex","contentType":"directory"},{"name":"web2c","path":"web2c","contentType":"directory"},{"name":".gitattributes","path":".gitattributes","contentType":"file"},{"name":"README.adoc","path":"README.adoc","contentType":"file"},{"name":"context-readme.txt","path":"context-readme.txt","contentType":"file"}],"totalCount":13}},"fileTreeProcessingTime":46.807745,"foldersToFetch":[],"incompleteFileTree":false,"repo":{"id":536121827,"defaultBranch":"main","name":"context","ownerLogin":"contextgarden","currentUserCanPush":false,"isFork":false,"isEmpty":false,"createdAt":"2022-09-13T12:44:15.000Z","ownerAvatar":"https://avatars.githubusercontent.com/u/4325174?v=4","public":true,"private":false,"isOrgOwned":true},"codeLineWrapEnabled":false,"symbolsExpanded":false,"treeExpanded":true,"refInfo":{"name":"main","listCacheKey":"v0:1715441557.0","canEdit":false,"refType":"branch","currentOid":"32a6f042530d973c55705fe90f449ce560317200"},"path":"doc/context/sources/general/manuals/luametatex/luametatex-callbacks.tex","currentUser":null,"blob":{"rawLines":["% language=us runpath=texruns:manuals/luametatex","","\\environment luametatex-style","","% callback.names","% also numbers","","\\startdocument[title=Callbacks]","","\# Introduction","","Right from the start of the \*LuaTeX*\ project callbacks were the way to extend the","engine. At various places in processing the document source and typesetting the","text the engine checks if there is a callback set and if so, calls out to \*Lua*.","Here we collect the various callbacks. For examples you can consult the \*ConTeXt*\","code base.","","The \`callback` library has functions that register, find and list","callbacks. Callbacks are \*Lua*\ functions that are called in well defined places.","There are two kinds of callbacks: those that mix with existing functionality, and","those that (when enabled) replace functionality. In most cases the second","category is expected to behave similar to the built in functionality because in a","next step specific data is expected. For instance, you can replace the","hyphenation routine. The function gets a list that can be hyphenated (or not).","The final list should be valid and is (normally) used for constructing a","paragraph. Another function can replace the ligature builder and/or kern","routine. Doing something else is possible but in the end might not give the user","the expected outcome.","","In order for a callback to kick in you need register it. This can be permanent or","temporarily.","","\```[option=LUA]","id = callback.register(\u003ct:string\u003e callback_name, \u003cfunction\u003e func)","id = callback.register(\u003ct:string\u003e callback_name, nil)","id = callback.register(\u003ct:string\u003e callback_name, false)","\```","","Here the \`callback_name` is a predefined callback name as discusses in","following sections. The function returns the internal \`id` of the callback","or \`nil`, if the callback could not be registered. \*Lua*METATEX\\","internalizes the callback function in such a way that it does not matter if you","redefine a function accidentally.","","Callback assignments are always global. You can use the special value \`nil`","instead of a function for clearing the callback.","","For some minor speed gain, you can assign the boolean \`false` to the","non-file related callbacks, doing so will prevent \*LuaTeX*\ from executing","whatever it would execute by default (when no callback function is registered at","all). {\\em This needs checking.}","","\```[option=LUA]","\u003ctable\u003e info = callback.list()","\```","","The keys in the table are the known callback names, the value is a boolean where","\`true` means that the callback is currently set (active).","","\```[option=LUA]","\u003cfunction\u003e f = callback.find(callback_name)","\```","","If the callback is not set, \`find` returns \`nil`. The \`known`","function can be used to check if a callback is supported.","","\```[option=LUA]","if callback.known(\"foo\") then","    -- do what is needed","end","\```","","\\stopsection","","\\startsection[title=Files]","","\\startsubsection[title=find_log_file]","","This is one of the callbacks that has to be set in order for the engine to work","at all.","","\```[option=LUA]","function (","    \u003ct:string\u003e askedname",")","    return \u003ct:string\u003e foundname","end","\```","","\\stopsubsection","","\\startsubsection[title=find_format_file]","","A format file is an efficient memory dump of the (in our case \*ConTeXt*) macro","package. In \*LuaTeX*\ it can have a mix of \*TeX* and \*Lua*\ code but one should be","aware that storing the \*Lua*\ state is not up to the engine.","","\```[option=LUA]","function (\u003ct:string\u003e askedname)","    return \u003ct:string\u003e foundname","end","\```","","A format file can be read from any valid location but is always written in the","current directory. When written the number of bytes for each section is reported.","When read all kind of checks take place ijn order to intercept corruption or","incompatibilities. Contrary to \*LuaTeX*, the \*Lua*METATEX\\ is not (zip) compressed so,","in spite of more aggressive compression of data otherwise the file is a bit larger.","","\\stopsubsection","","\\startsubsection[title=open_data_file]","","This callback function gets a filename passed. The return value is either the boolean","value false or a table with two functions. A mandate \`reader` function fill be","called once for each new line to be read, the optional \`close` function will","be called once \*LuaTeX*\ is done with the file.","","\```[option=LUA]","function (","    \u003ct:string\u003e filename",")","    return \u003ctable\u003e {","        \u003cfunction\u003e reader(\u003ctable\u003e environment) end,","        \u003cfunction\u003e close (\u003ctable\u003e environment) end,","    }","end","\```","","\*Lua*METATEX\\ never looks at the rest of the table, so we can use it to store","additional per-file data. Both the callback functions will receive the table as","their only argument.","","\\stopsubsection","","\\startsubsection[title=start_file]","","This callback replaces the code that \*Lua*METATEX\\ prints when a file is opened like","\`(filename` for regular files. The category is a number:","","\```[option=LUA]","function (","    \u003ct:integer\u003e category,","    \u003ct:string\u003e  filename",")","    -- no return values","end","\```","","The following categories can occur:","","\","% \ value  \ meaning \ \\NR","% \","\\FL","\ value  \ meaning \ \\NR","\\ML","\ 1 \ a normal data file, like a \*TeX*\ source \ \\NR","\ 2 \ a font map coupling font names to resources \ \\NR","\ 3 \ an image file (\`png`, \`pdf`, etc) \ \\NR","\ 4 \ an embedded font subset \ \\NR","\ 5 \ a fully embedded font \ \\NR","\","\","","\\stopsubsection","","\\startsubsection[title=stop_file]","","This callback replaces the code that \*Lua*METATEX\\ prints when a file is closed like","the \`)` for regular files.","","\```[option=LUA]","function (","    \u003ct:integer\u003e category",")","    -- no return values","end","\```","","\\stopsubsection","","\\stopsection","","\\startsection[title=Running]","","\\startsubsection[title=process_jobname]","","This callback allows you to change the jobname given by \`\\jobname` in \*TeX*\","and \`tex.jobname` in \*Lua*. It does not affect the internal job name or the","name of the output or log files.","","\```[option=LUA]","function (","    \u003ct:string\u003e jobname",")","    return \u003ct:string\u003e adjusted_jobname","end","\```","","The only argument is the actual job name; you should not use \`tex.jobname`","inside this function or infinite recursion may occur. If you return \`nil`,","\*Lua*METATEX\\ will pretend your callback never happened. This callback does not","replace any internal code.","","\\stopsubsection","","\\startsubsection[title=pre_dump]","","This function is called just before dumping to a format file starts. It does not","replace any code and there are neither arguments nor return values. It can be used to do some","cleanup and other housekeeping.","","\```[option=LUA]","function (","    -- no arguments",")","    -- no return values","end","\```","","\\stopsubsection","","\\startsubsection[title=start_run]","","\```[option=LUA]","function(","    -- no arguments",")","    -- no return values","end","\```","","This callback replaces the code that prints \*LuaTeX*'s banner. Note that for","successful use, this callback has to be set in the \*Lua*\ initialization script,","otherwise it will be seen only after the run has already started.","","\\stopsubsection","","\\startsubsection[title=stop_run]","","\```[option=LUA]","function(","    -- no arguments",")","    -- no return values","end","\```","","This callback replaces the code that prints \*LuaTeX*'s statistics and \\quote","{output written to} messages. The engine can still do housekeeping and therefore","you should not rely on this hook for postprocessing the \*PDF*\ or log file.","","\\stopsubsection","","\\startsubsection[title=intercept_tex_error]","","This callback is run from inside the \*TeX*\ error function, and the idea is to","allow you to do some extra reporting on top of what \*TeX*\ already does (none of","the normal actions are removed). You may find some of the values in the \\type","{status} table useful. The \*TeX*\ related callback gets two arguments: the current","processing mode and a boolean indicating if there was a runaway.","","","\```[option=LUA]","function (","    -- no arguments",")","    -- no return values","end","\```","","\\stopsubsection","","\\startsubsection[title=intercept_lua_error]","","This callback is similar to the one discussed in the previous section but for","\*Lua*. Of course we should in a recoverable state for this to work well.","","\```[option=LUA]","function (","    -- no arguments",")","    -- no return values","end","\```","","\\stopsubsection","","\\startsubsection[title=show_error_message]","","This callback replaces the code that prints the error message. The usual","interaction after the message is not affected but it is best to quit the run","after reporting.","","\```[option=LUA]","function (","    -- no arguments",")","    -- no return values","end","\```","","\\stopsubsection","","\\startsubsection[title=show_warning_message]","","This callback replaces the code that prints a (non fatal) warning message. The","usual interaction after the message is not affected.","","\```[option=LUA]","function (","    -- no arguments",")","    -- no return values","end","\```","","\\stopsubsection","","\\startsubsection[title=wrapup_run]","","","This callback is called after the \*PDF*\ and log files are closed. Use it at your own","risk. efine_f","risk.","","\```[option=LUA]","function (","    -- no arguments",")","    -- no return values","end","\```","","\\stopsubsection","","\\startsubsection[title=handle_overload]","","One characteristic of \*TeX*\ is that you have quite some control over what a","control sequence triggers. For instance, \`\\hbox` normally starts a","horizontal box but a user can redefine this primitive as macro to do whatever is","required. This means that when other macros use this primitive their behavior","will change. One way out of this is using aliases, for instance:","","\```","\\normalsetbox0\\normalhbox{test}","\\normalifdim\\normalwd0\u003e10pt \\normalbox0 \\normalfi","\```","","But even these normal aliases can be redefined. Of course you can use special","characters like \`_` in names but once you start doing this:","","\```","\\p_setbox0\\p_hbox{test}","\\p_ifdim\\p_wd0\u003e10pt \\p_box0 \\p_fi","\```","","you should wonder if you still offer the user \*TeX*\ as a programming language.","It's not the route that \*ConTeXt*\ takes.","","In \*Lua*METATEX\\ every macro (including primitives) can be flagged and that happens","with so called prefixes. Traditional \*TeX*\ offers:","","\```","\\global\\def\\foo{...}","\\long  \\def\\foo{...} % no-op","\\outer \\def\\foo{...} % no-op","\```","","The \`\\long` and \`\\outer` made sense at that time but are no-ops in","\*Lua*METATEX: every macro can take \`\\par` equivalents as arguments and can","be \\ defined at every level. The \\ETEX\\ extensions introduced this prefix:","","\```","\\protected\\def\\foo{...}","\```","","which prevents expansion unless the value is really expected (needed). The","\*Lua*METATEX\\ engine added:","","\```","\\semiprotected\\def\\foo{...}","\```","","but when eventually I see no reason to use it in \*ConTeXt*\ it might be dropped. A","special prefix is:","","\```","\\constant\\def\\foo{...}","\```","","This effectively is equivalent to \`\\edef` but signals that in some","scenarios (like an \`\\csname` equivalent situation) no expansion and","checking has to happen which improves performance.","","These two prefixes are just signals to \*Lua*\ driven functionality:","","\```","\\deferred  \\foo","\\immediate \\foo","\```","","The prefixes do nothing except when \`\\foo` are \*Lua*\ calls that can use","this information to adapt behavior. Because we have no backend the macro package","has to come up with equivalents for e.g.\\ \`\\write` than can be immediate or","deferred (default) operations.","","Another prefix relates to alignments:","","\```","\\noaligned\\protected\\def\\foo{...}","\```","","Which makes a macro accepted between alignment rows where otherwise protected","macros will trigger an error due to look ahead.","","A definition with \`\\def` or \`\\gdef` can take arguments and these can be","made optional with:","","\```","\\def\\tolerant[#1]{...}","\```","","but there are more features related to tolerant:","","\```","\\def\\tolerant[#1]#*[#2]{...}","\```","","that are discusses in low level manuals. Users can define macros that are","reported (in tracing) as if they were primitives:","","\```","\\untraced\\protected\\def\\foo{...}","\```","","The prefixes \`\\constrained` and \`\\retained` relate to register values","being saved and restored in groups. The \`\\inherited` is used in for","instance math spacing assignments where we need dynamic binding to for instance","\`\\muskip` registers (instead of values).","","Although not related to the callback discussed here we mentioned these prefixes because","they belong to the \`prefixed_cmd` operator/operand pair. So to come back to","users being able to use primitives instead of funny unreadable aliases. It's good to","keep in  mind that one can combine prefixes like the following:","","\```","\\frozen    \\foo{...}","\\immutable \\foo{...}","\\instance  \\foo{...}","\\mutable   \\foo{...}","\\overloaded\\foo{...}","\\permanent \\foo{...}","\```","","so this is valid too:","","\```","\\global\\permanent\\untraced\\tolerant\\protected\\def\\foo[#1]#*[#2]{...}","\```","","So what do these prefixes do? It depends on the value of an internal","integer \`\\overloadmode` where the following values have meaning:","","\","% \   \         \ immutable \ permanent \ primitive \ frozen \ instance \ \\NR","% \","\\FL","\   \         \ immutable \ permanent \ primitive \ frozen \ instance \ \\NR","\\ML","\ 1 \ warning \ \\star     \ \\star     \ \\star     \        \          \ \\NR","\ 2 \ error   \ \\star     \ \\star     \ \\star     \        \          \ \\NR","\ 3 \ warning \ \\star     \ \\star     \ \\star     \ \\star  \          \ \\NR","\ 4 \ error   \ \\star     \ \\star     \ \\star     \ \\star  \          \ \\NR","\ 5 \ warning \ \\star     \ \\star     \ \\star     \ \\star  \ \\star    \ \\NR","\ 6 \ error   \ \\star     \ \\star     \ \\star     \ \\star  \ \\star    \ \\NR","\","\","","The \`\\enforced` prefix can be used to bypass this mechanism:","","\```","\\permanent\\protected\\def\\foo{...}","","\\protected\\def\\oof{\\enforced\\def\\foo{...}}","\```","","But only in so called quote {ini} mode, that is when the format file is created. In order to","save work we also have:","","\```","\\aliased\\let\\foo\\relax","\```","","This makes \`\\foo` a copy (or more precise, a reference) including all","flags, so in this case it will be flagged a a primitive which is \\type","{\\permanent} too. You cannot define primitives yourself but when reported in a","trace you see it being a primitive indeed.","","Of course this all means that one has to define basically all relevant macros","with a combination of prefixes and that happens to be the case in \*ConTeXt*, which","in the end makes this callback a rather \*ConTeXt*\ specific one.","","\```[option=LUA]","function (","    \u003ct:boolean\u003e error,","    \u003ct:integer\u003e overload,","    \u003ct:string\u003e  csname,","    \u003ct:integer\u003e flags",")","    -- no return values","end","\```","","\\stopsubsection","","\\stopsection","","\\startsection[title=Fonts]","","\\startsubsection[title=define_font]","","The engine has no font loader but it does need some information about the glyphs","that are uses like width, height and depth, possibly italic correction, kerns,","and ligatures. And for math some more information is needed. Keep in mind that","for instance italic correction is something specific for \*TeX*\ and that kerns and","ligatures only are needed when you leave them to the engine. For modern \*OpenType*\ fonts","we let \*Lua*\ deal with this.","","\```[option=LUA]","function (","    \u003ct:string\u003e  name,","    \u003ct:integer\u003e size",")","    return \u003ct:integer\u003e id","end","\```","","The string \`name` is the filename part of the font specification, as given","by the user, for instance when \`\\font` is used for defining an instance.","The number \`size` is a bit special:","","\","\* ","    If it is positive, it specifies an \“at size” in scaled points.","\","\* ","    If it is negative, its absolute value represents a \“scaled” setting","    relative to the design size of the font.","\","\","","The font can be defined with \`font.define` which returns a font identifier","that can be returned in the callback. Contrary to \*LuaTeX*, in \*Lua*METATEX\\","we only accept a number.","","The internal structure of the \`font` table that is passed to \\type","{font.define} is explained elsewhere but there can be much more in that table.","Likely the macro package will keep the passes table around for other usage, for","instance for usage in the backend.","","Setting this callback to \`false` is pointless because it will prevent font","loading completely because without fonts there is little to do for the engine.","","\\stopsubsection","","\\startsubsection[title=quality_font]","","When you use font expansion you will normally pass the glyph specific expansion and","compression values along with the dimensions. However, this can be delayed. When we","use par passes (or otherwise set one of the adjust parameters) and a font has not","yet bee setup for expansion this callback will kick in but only once per font.","","\```[option=LUA]","function (","    \u003ct:integer\u003e id",")","    -- no return values","end","\```","","The function can set additional parameters in the font and pass them to \*TeX*\ using","helpers from the font library.","","\\stopsubsection","","\\stopsection","","\\startsection[title=Typesetting]","","\\startsubsection[title=pre_output]","","This callback is called when \*TeX*\ is ready to start boxing the box 255 for \\prm","{output}. The callback does not replace any internal code.","","\```[option=LUA]","function (","    \u003ct:node\u003e    head,","    \u003ct:string\u003e  groupcode,","    \u003ct:integer\u003e size,","    \u003ct:string\u003e  packtype,","    \u003ct:integer\u003e maxdepth,","    \u003ct:integer\u003e direction",")","    return \u003ct:node\u003e newhead","end","\```","","\\stopsubsection","","\\startsubsection[title=buildpage]","","This callback is called whenever \*Lua*METATEX\\ is ready to move stuff to the main","vertical list. You can use this callback to do specialized manipulation of the","page building stage like imposition or column balancing.","","\```[option=LUA]","function (","    \u003ct:string\u003e extrainfo",")","    -- no return values","end","\```","","The string \`extrainfo` gives some additional information about what \*TeX*'s","state is with respect to the \“current page”. The possible values for this","callback are:","","\","% \ value                 \ explanation                                 \ \\NR","% \","\\FL","\ value                 \ explanation                                 \ \\NR","\\ML","\ \`alignment`      \ a (partial) alignment is being added        \ \\NR","\ \`after_output`   \ an output routine has just finished         \ \\NR","\ \`new_graf`       \ the beginning of a new paragraph            \ \\NR","\ \`vmode_par`      \ \`\\par` was found in vertical mode     \ \\NR","\ \`hmode_par`      \ \`\\par` was found in horizontal mode   \ \\NR","\ \`insert`         \ an insert is added                          \ \\NR","\ \`penalty`        \ a penalty (in vertical mode)                \ \\NR","\ \`before_display` \ immediately before a display starts         \ \\NR","\ \`after_display`  \ a display is finished                       \ \\NR","\ \`end`            \ \*Lua*METATEX\\ is terminating (it's all over) \ \\NR","\","\","","","\\stopsubsection","","\\startsubsection[title=hpack]","","This callback is called when \*TeX*\ is ready to start boxing some horizontal mode","material. Math items and line boxes are ignored at the moment. The callback does","not replace any internal code.","","\```[option=LUA]","function (","    \u003ct:node\u003e    head,","    \u003ct:string\u003e  groupcode,","    \u003ct:integer\u003e size,","    \u003ct:string\u003e  packtype","    \u003ct:integer\u003e direction,","    \u003ct:node\u003e    attributelist",")","    return \u003ct:node\u003e newhead","end","\```","","The \`packtype` is either \`additional` or \`exactly`. If \\type","{additional}, then the \`size` is a \`\\hbox spread ...` argument. If","\`exactly`, then the \`size` is a \`\\hbox to ...`. In both cases,","the number is in scaled points.","","\\stopsubsection","","\\startsubsection[title=vpack]","","This callback is called when \*TeX*\ is ready to start boxing some vertical mode","material. Math displays are ignored at the moment. The callback does not replace","any internal code.","","This function is very similar to \`hpack`. Besides the fact that it is","called at different moments, there is an extra variable that matches \*TeX*'s \\type","{\\maxdepth} setting.","","\```[option=LUA]","function (","    \u003ct:node\u003e    head,","    \u003ct:string\u003e  groupcode,","    \u003ct:integer\u003e size,","    \u003ct:string\u003e  packtype,","    \u003ct:integer\u003e maxdepth,","    \u003ct:integer\u003e direction,","    \u003ct:node\u003e    attributelist",")","    return \u003ct:node\u003e newhead","end","\```","","\\stopsubsection","","\\startsubsection[title=hyphenate]","","This callback is supposed to insert discretionary nodes in the node list it","receives.","","\```[option=LUA]","function (","    \u003ct:node\u003e head,","    \u003ct:node\u003e tail",")","    -- no return values","end","\```","","Setting this callback to \`false` will prevent the internal discretionary","insertion pass.","","\\stopsubsection","","\\startsubsection[title=ligaturing]","","This callback, which expects no return values, has to apply ligaturing to the","node list it receives.","","\```[option=LUA]","function (","    \u003ct:node\u003e head,","    \u003ct:node\u003e tail",")","    -- no return values","end","\```","","You don't have to worry about return values because the \`head` node that is","passed on to the callback is guaranteed not to be a glyph_node (if need be, a","temporary node will be prepended), and therefore it cannot be affected by the","mutations that take place. After the callback, the internal value of the \\quote","{tail of the list} will be recalculated.","","The \`next` of \`head` is guaranteed to be non-nil. The \`next` of","\`tail` is guaranteed to be nil, and therefore the second callback argument","can often be ignored. It is provided for orthogonality, and because it can","sometimes be handy when special processing has to take place.","","Setting this callback to \`false` will prevent the internal ligature","creation pass. You must not ruin the node list. For instance, the head normally","is a local par node, and the tail a glue. Messing too much can push \*LuaTeX*\ into","panic mode.","","\\stopsubsection","","\\startsubsection[title=kerning]","","This callback has to apply kerning between the nodes in the node list it","receives. See \`ligaturing` for calling conventions.","","\```[option=LUA]","function (","    \u003ct:node\u003e head,","    \u003ct:node\u003e tail",")","    -- no return values","end","\```","","Setting this callback to \`false` will prevent the internal kern insertion","pass. You must not ruin the node list. For instance, the head normally is a local","par node, and the tail a glue. Messing too much can push \*LuaTeX*\ into panic","mode.","","\\stopsubsection","","\\startsubsection[title=glyph_run]","","When set this callback is triggered when \*TeX*\ normally handles the ligaturing","and kerning. In \*LuaTeX*\ you use the \`hpack` and \`pre_linebreak`","callbacks for that (where each passes different arguments). This callback doesn't","get triggered when there are no glyphs (in \*LuaTeX*\ this optimization is","controlled by a a variable).","","\```[option=LUA]","function (","    \u003ct:node\u003e    head,","    \u003ct:string\u003e  groupcode,","    \u003ct:integer\u003e direction",")","    return \u003ct:node\u003e newhead","end","\```","","The traditional \*TeX*\ font processing is bypassed so you need to take care of that","with the helpers. (For the moment we keep the ligaturing and kerning callbacks but","they are kind of obsolete.)","","\\stopsubsection","","\\startsubsection[title=pre_linebreak]","","This callback is called just before \*LuaTeX*\ starts converting a list of nodes","into a stack of \`\\hbox`es, after the addition of \`\\parfillskip`. The","callback does not replace any internal code.","","\```[option=LUA]","function (","    \u003ct:node\u003e   head,","    \u003ct:string\u003e groupcode",")","    return \u003ct:node\u003e newhead","end","\```","","The string called \`groupcode` identifies the nodelist's context within","\*TeX*'s processing. The range of possibilities is given in the table below, but","not all of those can actually appear here, some are for the \`hpack` and","\`vpack` callbacks.","","\","% \ value                \ explanation                                     \ \\NR","% \","\\FL","\ value                \ explanation                                     \ \\NR","\\ML","\ \`\u003cempty\u003e`       \ main vertical list                              \ \\NR","\ \`hbox`          \ \`\\hbox` in horizontal mode                \ \\NR","\ \`adjusted_hbox` \ \`\\hbox` in vertical mode                  \ \\NR","\ \`vbox`          \ \`\\vbox`                                   \ \\NR","\ \`vtop`          \ \`\\vtop`                                   \ \\NR","\ \`align`         \ \`\\halign` or \`\\valign`              \ \\NR","\ \`disc`          \ discretionaries                                 \ \\NR","\ \`insert`        \ packaging an insert                             \ \\NR","\ \`vcenter`       \ \`\\vcenter`                                \ \\NR","\ \`local_box`     \ \`\\localleftbox` or \`\\localrightbox` \ \\NR","\ \`split_off`     \ top of a \`\\vsplit`                        \ \\NR","\ \`split_keep`    \ remainder of a \`\\vsplit`                  \ \\NR","\ \`align_set`     \ alignment cell                                  \ \\NR","\ \`fin_row`       \ alignment row                                   \ \\NR","\","\","","As for all the callbacks that deal with nodes, the return value can be one of","three things:","","\","\* ","    boolean \`true` signals successful processing","\","\* ","    \`\u003ct:node\u003e` signals that the \“head” node should be replaced by the","    returned node","\","\* ","    boolean \`false` signals that the \“head” node list should be","    ignored and flushed from memory","\","\","","\\stopsubsection","","\\startsubsection[title=linebreak]","","This callback replaces \*LuaTeX*'s line breaking algorithm. The callback does not","replace any internal code.","","\```[option=LUA]","function (","    \u003ct:node\u003e    head,","    \u003ct:boolean\u003e is_display",")","    return \u003ct:node\u003e newhead","end","\```","","The returned node is the head of the list that will be added to the main vertical","list, the boolean argument is true if this paragraph is interrupted by a","following math display.","","If you return something that is not a \`\u003ct:node\u003e`, \*LuaTeX*\ will apply the","internal linebreak algorithm on the list that starts at \`\u003chead\u003e`.","Otherwise, the \`\u003ct:node\u003e` you return is supposed to be the head of a list of","nodes that are all allowed in vertical mode, and at least one of those has to","represent an \`\\hbox`. Failure to do so will result in a fatal error.","","Setting this callback to \`false` is possible, but dangerous, because it is","possible you will end up in an unfixable \“deadcycles loop”.","","\\stopsubsection","","\\startsubsection[title=post_linebreak]","","This callback is called just after \*LuaTeX*\ has converted a list of nodes into a","stack of \`\\hbox`es.","","\```[option=LUA]","function (","    \u003ct:node\u003e   head,","    \u003ct:string\u003e groupcode",")","    return \u003ct:node\u003e newhead","end","\```","","\\stopsubsection","","\\startsubsection[title=append_to_vlist]","","This callback is called whenever \*LuaTeX*\ adds a box to a vertical list (the","\`mirrored` argument is obsolete):","","\```[option=LUA]","function (","    \u003ct:node\u003e    box,","    \u003ct:string\u003e  locationcode,","    \u003ct:integer\u003e prevdepth",")","    return \u003ct:node\u003e list [, \u003ct:integer\u003e prevdepth [, \u003ct:boolean\u003e checkdepth ] ]","end","\```","","It is ok to return nothing or \`nil` in which case you also need to flush","the box or deal with it yourself. The prevdepth is also optional. Locations are","\`box`, \`alignment`, \`equation`, \`equation_number` and","\`post_linebreak`. When the third argument returned is \`true` the","normal prevdepth correction will be applied, based on the first node.","","\\stopsubsection","","\\startsubsection[title=alignment]","","This is an experimental callback that when set is called several times during the","construction of an alignment. The context values are available in \\typ","{tex.getalignmentcontextvalues()}.","","\```[option=LUA]","function (","    \u003ct:node\u003e   head,","    \u003ct:string\u003e context,","    \u003ct:node\u003e   attributes,","    \u003ct:node\u003e   preamble",")","    -- no return values","end","\```","","There are no sanity checks so if a user messes up the passed node lists the results","can be unpredictable and, as with other node related callbacks, crash the engine.","","\\stopsubsection","","\\startsubsection[title=local_box]","","Local boxes are a somewhat tricky and error prone feature so use this callback","with care because the paragraph is easily messed up. A line can have a left,","right and middle box where the middle one has no width. This callback does not","replace any internal code. The callback gets quite some parameters passed:","","\```[option=LUA]","function (","    \u003ct:node\u003e    linebox,","    \u003ct:node\u003e    leftbox,","    \u003ct:node\u003e    rightbox,","    \u003ct:node\u003e    middlebox,","    \u003ct:integer\u003e linenumber,","    \u003ct:integer\u003e leftskip,","    \u003ct:integer\u003e rightskip,","    \u003ct:integer\u003e lefthang,","    \u003ct:integer\u003e righthang,","    \u003ct:integer\u003e indentation,","    \u003ct:integer\u003e parinitleftskip,","    \u003ct:integer\u003e parinitrightskip,","    \u003ct:integer\u003e parfillleftskip,","    \u003ct:integer\u003e parfillrightskip,","    \u003ct:integer\u003e overshoot",")","    -- no return values","end","\```","","This is an experimental callback that will be tested in different \*ConTeXt*\","mechanisms before it will be declared stable.","","\\stopsubsection","","\\startsubsection[title=packed_vbox]","","After the \`vpack` callback (see previous section) is triggered the box get","packed and after that this callback can be configured to kick in.","","\```[option=LUA]","function (","    \u003ct:node\u003e   head,","    \u003ct:string\u003e groupcode",")","    return \u003ct:node\u003e newhead","end","\```","","\\stopsubsection","","\\startsubsection[title=handle_uleader]","","The \`\\uleaders` command inserts a user leader into the list. When a list get packed","and has such leaders, a run over the list happens after packing so that it can be","finalized.","","\```[option=LUA]","function (","    \u003ct:node\u003e    head,","    \u003ct:string\u003e  context,","    \u003ct:integer\u003e index,","    \u003ct:node\u003e    box,","    \u003ct:integer\u003e location",")","    return \u003ct:node\u003e head","end","\```","","\\stopsubsection","","\\startsubsection[title=italic_correction]","","The concept of italic correction is very much related to traditional \*TeX*\ fonts.","At least in 2024 it is absent from \*OpenType*\ although it has some meaning in","\*OpenType*\ math. In \*TeX*\ this correction is normally inserted by \`\\/`","although in \*Lua*METATEX\\ we also have \`\\explicititaliccorrection` as well as","\`\\forcedleftcorrection` and \`\\forcedrightcorrection`.","","When this callback is enabled it gets triggered when one of left or right","correction commands is given and the returned kern is then used as correction.","","\```[option=LUA]","function (","    \u003ct:node\u003e    glyph,","    \u003ct:integer\u003e kern,","    \u003ct:integer\u003e subtype,",")","    return \u003ct:integer\u003e kern","end","\```","","\\stopsubsection","","\\startsubsection[title=insert_par]","","Each paragraph starts with a local par node that keeps track of for instance","the direction. You can hook a callback into the creator:","","\```[option=LUA]","function (","    \u003ct:node\u003e   par,","    \u003ct:string\u003e location",")","    -- no return values","end","\```","","There is no return value and you should make sure that the node stays valid","as otherwise \*TeX*\ can get confused.","","\\stopsubsection","","\\startsubsection[title=append_line]","","Every time a line is added this callback is triggered, when set. migrated","material and adjusts also qualify as such and the detail relates to the adjust","index.","","\```[option=LUA]","function (","    \u003ct:node\u003e    head,","    \u003ct:node\u003e    tail,","    \u003ct:string\u003e  context,","    \u003ct:integer\u003e detail",")","    return \u003ct:node\u003e newhead","end","\```","","A list of possible context values can be queried with \\typ","{tex.getappendlinecontextvalues()}.","","\\stopsubsection","","\\startsubsection[title=insert_distance]","","This callback is called when the page builder adds an insert. There is not much","control over this mechanism but this callback permits some last minute","manipulations of the spacing before an insert, something that might be handy when","for instance multiple inserts (types) are appended in a row.","","\```[option=LUA]","function (","    \u003ct:integer\u003e class,","    \u003ct:integer\u003e order",")","    return \u003ct:integer\u003e register","end","\```","","The return value is a number indicating the skip register to use for the","prepended spacing. This permits for instance a different top space (when \\type","{class} equals one) and intermediate space (when \`class` is larger than","one). Of course you can mess with the insert box but you need to make sure that","\*LuaTeX*\ is happy afterwards.","","\\stopsubsection","","\\startsubsection[title=begin_paragraph]","","Every time a paragraph starts this callback, when configured, will kick in:","","\```[option=LUA]","function (","    \u003ct:boolean\u003e invmode,","    \u003ct:boolean\u003e indented,","    \u003ct:string\u003e  context",")","    return \u003ct:boolean\u003e indented","end","\```","","There are many places where a new paragraph can be triggered:","","\\startfourrows","\\getbuffer[engine:syntax:parcontextcodes]","\\stopfourrows","","\\stopsubsection","","\\startsubsection[title=paragraph_context]","","When the return value of this callback is \`false` the paragraph related","settings, when they have been updated, will not be updated.","","\```[option=LUA]","function (","    \u003ct:string\u003e context",")","    return \u003ct:boolean\u003e ignore","end","\```","","\\stopsubsection","","\\startsubsection[title=missing_character]","","This callback is triggered when a character node is created and the font doesn't","have the requested character.","","\```[option=LUA]","function (","    \u003ct:integer\u003e location,","    \u003ct:node\u003e    glyph,","    \u003ct:integer\u003e font,","    \u003ct:integer\u003e character",")","    -- no return value","end","\```","","When \`tracinglostchars` is set to a positive value a message goes to the log","and a value larger than one also makes it show up non the terminal. In the","callback, the location is one of:","","\\startfourrows","\\getbuffer[engine:syntax:missingcharactervalues]","\\stopfourrows","","\\stopsubsection","","\\startsubsection[title=process_character]","","This callback is experimental and gets called when a glyph node is created and","the callback field in a character is set.","","\```[option=LUA]","function (","    \u003ct:integer\u003e font,","    \u003ct:integer\u003e character",")","    -- no return value","end","\```","","\\stopsubsection","","\\startsubsection[title=tail_append]","","%         This callback is called when \*LuaTeX*\ adds contents to list:","","%         \```[option=LUA]","%         function (","%             \u003ct:string\u003e extrainfo","%         )","%         end","%         \```","","%         The string reports the group code. From this you can deduce from","%         what list you can give a treat.","","%         \","%         \ value             \ explanation                                  \ \\NR","%         \","%         \ \`pre_box`    \ interline material is being added            \ \\NR","%         \ \`pre_adjust` \ \`\\vadjust` material is being added     \ \\NR","%         \ \`box`        \ a typeset box is being added (always called) \ \\NR","%         \ \`adjust`     \ \`\\vadjust` material is being added     \ \\NR","%         \","%         \","","\\stopsubsection","","\\stopsection","","\\startsection[title=Tracing]","","\\startsubsection[title=hpack_quality]","","This callback can be used to intercept the overfull messages that can result from","packing a horizontal list (as happens in the par builder). The function takes a","few arguments:","","\```[option=LUA]","function (","    \u003ct:string\u003e  incident,","    \u003ct:integer\u003e detail,","    \u003ct:node\u003e    head,","    \u003ct:integer\u003e first,","    \u003ct:integer\u003e last"," )","    return \u003ct:node\u003e whatever","end","\```","","The incident is one of \`overfull`, \`underfull`, \`loose` or","\`tight`. The detail is either the amount of overflow in case of \\type","{overfull}, or the badness otherwise. The head is the list that is constructed","(when protrusion or expansion is enabled, this is an intermediate list).","Optionally you can return a node, for instance an overfull rule indicator. That","node will be appended to the list (just like \*TeX*'s own rule would).","","\\stopsubsection","","\\startsubsection[title=vpack_quality]","","This callback can be used to intercept the overfull messages that can result from","packing a vertical list (as happens in the page builder). The function takes a","few arguments:","","\```[option=LUA]","function (","    \u003ct:string\u003e  incident,","    \u003ct:integer\u003e detail,","    \u003ct:node\u003e    head,","    \u003ct:integer\u003e first,","    \u003ct:integer\u003e last",")","    -- no return values","end","\```","","The incident is one of \`overfull`, \`underfull`, \`loose` or","\`tight`. The detail is either the amount of overflow in case of \\type","{overfull}, or the badness otherwise. The head is the list that is constructed.","","\\stopsubsection","","\\startsubsection[title=line_break]","","This callback is actually a set of callbacks that has to be deals with as a","whole. The main reason why we have this callback is that we wanted to be able to","see what the par builder is doing, especially when we implement multiple","paragraph building passes. This makes the callback pretty much a rather \*ConTeXt*\","specific one.","","{\\em We can also consider fetching the passive and active lists because we now keep","much more info around.}","","\```[option=LUA]","function(","    \u003ct:integer\u003e context,","    \u003ct:integer\u003e checks,","    ...",")","    -- no return values","end","\```","","\```[option=LUA]","function initialize (","    \u003ct:integer\u003e context,","    \u003ct:integer\u003e checks,","    \u003ct:integer\u003e subpasses",")","    -- no return values","end","\```","","\```[option=LUA]","function start (","    \u003ct:integer\u003e context,","    \u003ct:integer\u003e checks,","    \u003ct:integer\u003e pass,","    \u003ct:integer\u003e subpass,","    \u003ct:integer\u003e classes,","    \u003ct:integer\u003e decent",")","    -- no return values","end","\```","","\```[option=LUA]","function stop (","    \u003ct:integer\u003e context,","    \u003ct:integer\u003e checks,","    \u003ct:integer\u003e demerits",")","    -- no return values","end","\```","","\```[option=LUA]","function collect (","    \u003ct:integer\u003e context,","    \u003ct:integer\u003e checks",")","    -- no return values","end","\```","","\```[option=LUA]","function line (","    \u003ct:integer\u003e context,","    \u003ct:integer\u003e checks,","    \u003ct:integer\u003e box,","    \u003ct:integer\u003e badness,","    \u003ct:integer\u003e overshoot,","    \u003ct:integer\u003e shrink,","    \u003ct:integer\u003e stretch,","    \u003ct:integer\u003e line,","    \u003ct:integer\u003e serial",")","    -- no return values","end","\```","","\```[option=LUA]","function delete (","    \u003ct:integer\u003e context,","    \u003ct:integer\u003e checks,","    \u003ct:integer\u003e serial",")","    -- no return values","end","\```","","\```[option=LUA]","function wrapup (","    \u003ct:integer\u003e context,","    \u003ct:integer\u003e checks,","    \u003ct:integer\u003e demerits,","    \u003ct:integer\u003e looseness",")","    -- no return values","end","\```","\```[option=LUA]","function check (","    \u003ct:integer\u003e context,","    \u003ct:integer\u003e checks,","    \u003ct:integer\u003e pass,","    \u003ct:integer\u003e subpass,","    \u003ct:integer\u003e serial,","    \u003ct:integer\u003e prevserial,","    \u003ct:integer\u003e linenumber,","    \u003ct:integer\u003e nodetype,","    \u003ct:integer\u003e fitness,,","    \u003ct:integer\u003e demerits,","    \u003ct:integer\u003e classes,","    \u003ct:integer\u003e badness,","    \u003ct:integer\u003e demerits,","    \u003ct:node\u003e    breakpoint,","    \u003ct:integer\u003e short,","    \u003ct:integer\u003e glue,","    \u003ct:integer\u003e linewidth",")","    return \u003ct:integer\u003e demerits  -- optional","end","\```","","\```[option=LUA]","function list (","    \u003ct:integer\u003e context,","    \u003ct:integer\u003e checks,","    \u003ct:integer\u003e serial",")","    -- no return values","end","\```","","Every one of these gets a \`context` and \`checks` passes. Possible","contexts are:","","\\startfourrows","\\getbuffer[engine:syntax:linebreakcontextcodes]","\\stopfourrows","","The \`checks` parameters is the value of \`\\linebreakchecks` which","makes it possible to plug in actions depending on that number. To give an idea if","what gets called, this is what you get when typesetting \`tufte.tex`:","initialize, start, report, delete, delete, stop, start, report, report, delete,","report, report, report, delete, delete, report, report, report, delete, report,","delete, delete, report, report, report, delete, report, delete, delete, report,","report, delete, report, report, delete, delete, delete, report, delete, report,","delete, delete, report, report, report, delete, delete, report, delete, report,","report, delete, report, delete, delete, delete, report, report, delete, report,","report, delete, report, delete, report, delete, report, delete, delete, report,","report, report, report, delete, delete, delete, delete, delete, delete, delete,","delete, delete, report, stop, collect, list, list, list, list, list, list, list,","list, list, line, line, line, line, line, line, line, line, line, wrapup.","","\\stopsubsection","","\\startsubsection[title=show_build]","","You can trace (and even influence) the page builder with this callback. It comes in","several variants that are called during the process. Callbacks like these assume that","one knows what is going on in the engine.","","\```[option=LUA]","function initialize (","    \u003ct:integer\u003e context",")","    -- no return values","end","\```","","\```[option=LUA]","function step (","    \u003ct:integer\u003e context,","    \u003ct:node\u003e    current,","    \u003ct:integer\u003e pagegoal,","    \u003ct:integer\u003e pagetotal",")","    -- no return values","end","\```","","\```[option=LUA]","function check (","    \u003ct:integer\u003e context,","    \u003ct:node\u003e    current,","    \u003ct:boolean\u003e moveon,","    \u003ct:boolean\u003e fireup,","    \u003ct:integer\u003e badness,","    \u003ct:integer\u003e costs,","    \u003ct:integer\u003e penalty",")","    return \u003ct:boolean\u003e moveon, \u003ct:boolean\u003e fireup","end","\```","","\```[option=LUA]","function skip (","    \u003ct:integer\u003e context,","    \u003ct:node\u003e    current,",")","    -- no return values","end","\```","","\```[option=LUA]","function move (","    \u003ct:integer\u003e context,","        \u003ct:node\u003e    current,","        \u003ct:integer\u003e lastheight,","        \u003ct:integer\u003e lastdepth,","        \u003ct:integer\u003e laststretch,","        \u003ct:integer\u003e lastshrink,","        \u003ct:boolean\u003e hasstretch",")","    -- no return values","end","\```","","\```[option=LUA]","function fireup (","    \u003ct:integer\u003e context,","    \u003ct:node\u003e current",")","    -- no return values","end","\```","","\```[option=LUA]","function wrapup (","    \u003ct:integer\u003e context",")","    -- no return values","end","\```","","\\stopsubsection","","\\startsubsection[title=show_whatsit]","","Because we only have a generic whatsit it is up to the macro package to provide","details when tracing them.","","\```[option=LUA]","function (","    \u003ct:node\u003e    whatsit,","    \u003ct:integer\u003e indentation,","    \u003ct:integer\u003e tracinglevel,","    \u003ct:integer\u003e currentlevel,","    \u003ct:integer\u003e inputlevel",")","    -- no return value","end","\```","","Here \`indentation` tells how many periods are to be typeset if you want to","be compatible with the rest of tracing. The \`tracinglevel` indicates if the","current level and/or input level are shown cf. \`\\tracinglevels`. Of","course one is free to show whatever in whatever way suits the whatsit best.","","\\stopsubsection","","\\startsubsection[title=linebreak_quality]","","\```[option=LUA]","function (","    \u003ct:node\u003e    par,","    \u003ct:integer\u003e id,","    \u003ct:integer\u003e pass,","    \u003ct:integer\u003e subpass,","    \u003ct:integer\u003e subpasses,","    \u003ct:integer\u003e state,","    \u003ct:integer\u003e overfull,","    \u003ct:integer\u003e underfull,","    \u003ct:integer\u003e verdict,","    \u003ct:integer\u003e classified,","    \u003ct:integer\u003e line",")","    return \u003ct:node\u003e result","end","\```","","\\stopsubsection","","\\startsubsection[title=show_loners]","","In spite of widow, club, broken and shaping penalties we can have single lines in the","result. When set, this callback replaces the output that normally \`\\tracingloners`","produces.","","\```[option=LUA]","function (","    \u003ct:integer\u003e options,","    \u003ct:integer\u003e penalty",")","    return \u003ct:node\u003e result","end","\```","","The options are those set on the encountered penalty:","","\\startthreerows","\\getbuffer[engine:syntax:penaltyoptioncodes]","\\stopthreerows","","\\stopsubsection","","\\startsubsection[title=get_attribute]","","Because attributes are abstract pairs of indices and values the reported","properties makes not much sense and are very macro package (and user) dependent.","This callback permits more verbose reporting by the engine when tracing is","enabled.","","\```[option=LUA]","function (","    \u003ct:integer\u003e index,","    \u003ct:integer\u003e value",")","    return \u003ct:string\u003e, \u003ct:string\u003e","end","\```","","\\stopsubsection","","\\startsubsection[title=get_noad_class]","","We have built-in math classes but there can also be user defined ones. This","callback can be used to report more meaningful strings instead of numbers when","tracing.","","\```[option=LUA]","function (","    \u003ct:integer\u003e class",")","    return \u003ct:string\u003e","end","\```","","\\stopsubsection","","\\startsubsection[title=get_math_dictionary]","    todo","\\stopsubsection","","\\startsubsection[title=show_lua_call]","","When the engine traces something that involves a \*Lua*\ call it makes sense to report something","more meaningful than just that. This callback can be used provide a meaningful string (like the","name of a function).","","\```[option=LUA]","function (","    \u003ct:string\u003e  name,","    \u003ct:integer\u003e index",")","    return \u003ct:string\u003e","end","\```","","\\stopsubsection","","\\startsubsection[title=trace_memory]","","When the engine starts all kind of memory is pre-allocated\u003e depending on the","configuration more gets allocated when a category runs out of memory. The","\*Lua*METATEX\\ engine is more dynamic than \*LuaTeX*. If this callback is set it will","get called as follows:","","\```[option=LUA]","function (","    \u003ct:string\u003e  category,","    \u003ct:boolean\u003e success",")","    -- no return value","end","\```","","The boolean indicates if the allocation has been successful. One can best quit","the run when this one is \`false` which the engine is likely to do that","anyway, be in in a less graceful way that you might like.","","\\stopsubsection","","\\startsubsection[title=paragraph_pass]","","{\\em This callback is not yet stable.}","","\\stopsubsection","","\\stopsection","","\\startsection[title=Math]","","\\startsubsection[title=mlist_to_hlist]","","This callback replaces \*LuaTeX*'s math list to node list conversion algorithm.","","\```[option=LUA]","function (","    \u003ct:node\u003e    head,","    \u003ct:string\u003e  display_type,","    \u003ct:boolean\u003e need_penalties",")","    return \u003ct:node\u003e newhead","end","\```","","The returned node is the head of the list that will be added to the vertical or","horizontal list, the string argument is either \“text” or \“display”","depending on the current math mode, the boolean argument is \`true` if","penalties have to be inserted in this list, \`false` otherwise.","","Setting this callback to \`false` is bad, it will almost certainly result in","an endless loop.","","\\stopsubsection","","\\startsubsection[title=math_rule]","","In math rules are used for fractions, radicals and accents. In the case of","radicals rules mix with glyphs to build the symbol. In \*ConTeXt*\ we can enable an","alternate approach that uses glyphs instead of rules so that we can have more","consistent shapes, for instance with slopes or non square endings. This callback","takes care of that.","","\```[option=LUA]","function (","    \u003ct:integer\u003e subtype,","    \u003ct:integer\u003e font,","    \u003ct:integer\u003e width,","    \u003ct:integer\u003e height,","    \u003ct:node\u003e    attributes",")","    return \u003ct:node\u003e rule","end","\```","","\\stopsubsection","","\\startsubsection[title=make_extensible]","","Like \`math_rule` this callback is used to construct nicer extensibles in \*ConTeXt*\","math support. It can optionally be followed by \`register_extensible`.","","\```[option=LUA]","function (","    \u003ct:node\u003e    extensible,","    \u003ct:integer\u003e fnt,","    \u003ct:integer\u003e chr,","    \u003ct:integer\u003e size,","    \u003ct:integer\u003e width,","    \u003ct:integer\u003e height,","    \u003ct:integer\u003e depth,","    \u003ct:integer\u003e linewidth,","    \u003ct:integer\u003e axis,","    \u003ct:integer\u003e exheight,","    \u003ct:integer\u003e emwidth",")","    return \u003ct:node\u003e -- boxed extensible","end","\```","","\\stopsubsection","","\\startsubsection[title=register_extensible]","","This callback is a possible follow up on \`make_extensible` and it can be","used to share pre-build extensibles or package them otherwise (for instance as","\\TYPETHREE\\ glyph).","","\```[option=LUA]","function (","    \u003ct:integer\u003e fnt,","    \u003ct:integer\u003e chr,","    \u003ct:integer\u003e size,","    \u003ct:node\u003e    attributes,","    \u003ct:node\u003e    extensible",")","    return \u003ct:node\u003e -- boxed","end","\```","","\\stopsubsection","","\\startsubsection[title=balance]","","This callback is comparable with the \`line_break` callback. We use it for","tracing in \*ConTeXt*\ during development (as well as for documentation).","","\\stopsubsection","","\\startsubsection[title=balance_insert]","","This is callback kicks in every time an insert is seen when balancing.","","\```[option=LUA]","function (","    \u003ct:node\u003e    current,","    \u003ct:integer\u003e callback,","    \u003ct:integer\u003e insert_index,","    \u003ct:integer\u003e insert_identifier",")","    -- no return value","end","\```","","\\stopsubsection","","\\startsubsection[title=balance_boundary]","","When balancing, this is callback kicks in every time a node resulting from \\prm","{balanceboundary} is seen.","","\```[option=LUA]","function (","    \u003ct:integer\u003e boundary_data,","    \u003ct:integer\u003e boundary_reserved,","    \u003ct:integer\u003e shape_identifier,","    \u003ct:integer\u003e shape_slot",")","    return","        \u003ct:integer\u003e, -- action","        \u003ct:integer\u003e, -- penalty","        \u003ct:integer\u003e  -- extra","end","\```","","What happens after the callback returns control to \*TeX*\ depends on the first","return value:","","\\showenginevalues{getbalancecallbackvalues}","","This is an experimental feature. In due time there will be a bit more explanation","here.","","\\stopsubsection","","\\stopsection","","\\stopdocument","","% timestamp october 2024, after running into Anna von Hausswolff's \"All Thoughts","% Fly\" live at Basilica di Santa Maria dei Servi 29.11.2021"],"stylingDirectives":[[[0,48,"pl-c"],[0,1,"pl-c"]],[],[[0,12,"pl-c1"]],[],[[0,16,"pl-c"],[0,1,"pl-c"]],[[0,14,"pl-c"],[0,1,"pl-c"]],[],[[0,14,"pl-c1"]],[],[[0,13,"pl-c1"]],[],[[28,35,"pl-c1"],[35,37,"pl-cce"]],[],[[74,78,"pl-c1"]],[[72,80,"pl-c1"],[80,81,"pl-cce"]],[],[],[[4,9,"pl-c1"]],[[25,29,"pl-c1"],[29,31,"pl-cce"]],[],[],[],[],[],[],[],[],[],[],[],[],[],[[0,12,"pl-c1"]],[],[],[],[[0,11,"pl-c1"]],[],[[9,14,"pl-c1"]],[[54,59,"pl-c1"]],[[3,8,"pl-c1"],[57,68,"pl-c1"],[68,69,"pl-cce"]],[],[],[],[[70,75,"pl-c1"]],[],[],[[54,59,"pl-c1"]],[[52,59,"pl-c1"],[59,61,"pl-cce"]],[],[[7,10,"pl-c1"]],[],[[0,12,"pl-c1"]],[],[[0,11,"pl-c1"]],[],[],[[0,5,"pl-c1"]],[],[[0,12,"pl-c1"]],[],[[0,11,"pl-c1"]],[],[[28,33,"pl-c1"],[49,54,"pl-c1"],[66,71,"pl-c1"]],[],[],[[0,12,"pl-c1"]],[],[],[],[[0,11,"pl-c1"]],[],[[0,12,"pl-c1"]],[],[[0,13,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[[62,70,"pl-c1"]],[[12,19,"pl-c1"],[19,21,"pl-cce"],[42,46,"pl-c1"],[51,55,"pl-c1"],[55,57,"pl-cce"]],[[23,27,"pl-c1"],[27,29,"pl-cce"]],[],[[0,12,"pl-c1"]],[],[],[],[[0,11,"pl-c1"]],[],[],[],[],[[31,38,"pl-c1"],[44,55,"pl-c1"],[55,57,"pl-cce"]],[],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[],[[53,58,"pl-c1"]],[[55,60,"pl-c1"]],[[15,22,"pl-c1"],[22,24,"pl-cce"]],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,11,"pl-c1"],[11,13,"pl-cce"]],[],[],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[[37,48,"pl-c1"],[48,50,"pl-cce"]],[[0,5,"pl-c1"]],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[],[],[[0,14,"pl-c1"]],[[0,32,"pl-c"],[0,1,"pl-c"]],[[0,5,"pl-c"],[0,1,"pl-c"]],[[0,3,"pl-c1"]],[[0,3,"pl-c1"],[11,14,"pl-c1"],[23,26,"pl-c1"],[27,30,"pl-c1"]],[[0,3,"pl-c1"]],[[0,3,"pl-c1"],[6,9,"pl-c1"],[37,41,"pl-c1"],[41,43,"pl-cce"],[50,53,"pl-c1"],[54,57,"pl-c1"]],[[0,3,"pl-c1"],[6,9,"pl-c1"],[54,57,"pl-c1"],[58,61,"pl-c1"]],[[0,3,"pl-c1"],[6,9,"pl-c1"],[25,30,"pl-c1"],[38,43,"pl-c1"],[56,59,"pl-c1"],[60,63,"pl-c1"]],[[0,3,"pl-c1"],[6,9,"pl-c1"],[34,37,"pl-c1"],[38,41,"pl-c1"]],[[0,3,"pl-c1"],[6,9,"pl-c1"],[32,35,"pl-c1"],[36,39,"pl-c1"]],[[0,3,"pl-c1"]],[[0,13,"pl-c1"]],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[[37,48,"pl-c1"],[48,50,"pl-cce"]],[[4,9,"pl-c1"]],[],[[0,12,"pl-c1"]],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,15,"pl-c1"]],[],[[0,12,"pl-c1"]],[],[[0,13,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[[56,61,"pl-c1"],[63,71,"pl-c1"],[76,80,"pl-c1"],[80,81,"pl-cce"]],[[4,9,"pl-c1"],[27,31,"pl-c1"]],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[61,66,"pl-c1"]],[[68,73,"pl-c1"]],[[0,11,"pl-c1"],[11,13,"pl-cce"]],[],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[],[],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[[0,12,"pl-c1"]],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[44,51,"pl-c1"]],[[51,55,"pl-c1"],[55,57,"pl-cce"]],[],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[[0,12,"pl-c1"]],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[44,51,"pl-c1"],[69,75,"pl-c1"]],[],[[56,60,"pl-c1"],[60,62,"pl-cce"]],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[[37,41,"pl-c1"],[41,43,"pl-cce"]],[[52,56,"pl-c1"],[56,58,"pl-cce"]],[[72,77,"pl-c1"]],[[27,31,"pl-c1"],[31,33,"pl-cce"]],[],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[],[[0,4,"pl-c1"]],[],[[0,12,"pl-c1"]],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[],[],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[],[[34,38,"pl-c1"],[38,40,"pl-cce"]],[],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[[22,26,"pl-c1"],[26,28,"pl-cce"]],[[41,46,"pl-c1"],[48,53,"pl-c1"]],[],[],[],[],[[0,12,"pl-c1"]],[[0,13,"pl-c1"],[14,25,"pl-c1"]],[[0,21,"pl-c1"],[28,38,"pl-c1"],[40,49,"pl-c1"]],[[0,11,"pl-c1"]],[],[],[[16,21,"pl-c1"]],[],[[0,12,"pl-c1"]],[[0,2,"pl-c1"],[10,12,"pl-c1"]],[[0,2,"pl-c1"],[8,10,"pl-c1"],[20,22,"pl-c1"],[28,30,"pl-c1"]],[[0,11,"pl-c1"]],[],[[46,50,"pl-c1"],[50,52,"pl-cce"]],[[24,32,"pl-c1"],[32,34,"pl-cce"]],[],[[3,14,"pl-c1"],[14,16,"pl-cce"]],[[37,41,"pl-c1"],[41,43,"pl-cce"]],[],[[0,12,"pl-c1"]],[[0,15,"pl-c1"]],[[0,5,"pl-c1"],[7,15,"pl-c1"],[21,28,"pl-c"],[21,22,"pl-c"]],[[0,6,"pl-c1"],[7,15,"pl-c1"],[21,28,"pl-c"],[21,22,"pl-c"]],[[0,11,"pl-c1"]],[],[[4,9,"pl-c1"],[11,16,"pl-c1"],[22,27,"pl-c1"],[29,35,"pl-c1"]],[[0,11,"pl-c1"],[34,39,"pl-c1"],[41,45,"pl-c1"]],[[3,5,"pl-cce"],[33,38,"pl-c1"],[38,40,"pl-cce"]],[],[[0,12,"pl-c1"]],[[0,18,"pl-c1"]],[[0,11,"pl-c1"]],[],[],[[0,11,"pl-c1"],[11,13,"pl-cce"]],[],[[0,12,"pl-c1"]],[[0,22,"pl-c1"]],[[0,11,"pl-c1"]],[],[[49,57,"pl-c1"],[57,59,"pl-cce"]],[],[],[[0,12,"pl-c1"]],[[0,17,"pl-c1"]],[[0,11,"pl-c1"]],[],[[34,39,"pl-c1"],[41,46,"pl-c1"]],[[19,24,"pl-c1"],[26,33,"pl-k"]],[],[],[[39,43,"pl-c1"],[43,45,"pl-cce"]],[],[[0,12,"pl-c1"]],[[0,9,"pl-c1"],[11,15,"pl-c1"]],[[0,10,"pl-c1"],[11,15,"pl-c1"]],[[0,11,"pl-c1"]],[],[[36,41,"pl-c1"],[43,47,"pl-c1"],[53,57,"pl-c1"],[57,59,"pl-cce"]],[],[[40,42,"pl-cce"],[42,47,"pl-c1"],[49,55,"pl-c1"]],[],[],[],[],[[0,12,"pl-c1"]],[[0,28,"pl-c1"]],[[0,11,"pl-c1"]],[],[],[],[],[[18,23,"pl-c1"],[25,29,"pl-c1"],[34,39,"pl-c1"],[41,46,"pl-c1"]],[],[],[[0,12,"pl-c1"]],[[0,13,"pl-c1"]],[[0,11,"pl-c1"]],[],[],[],[[0,12,"pl-c1"]],[[0,13,"pl-c1"]],[[0,11,"pl-c1"]],[],[],[],[],[[0,12,"pl-c1"]],[[0,27,"pl-c1"]],[[0,11,"pl-c1"]],[],[[13,18,"pl-c1"],[20,32,"pl-c1"],[38,43,"pl-c1"],[45,54,"pl-c1"]],[[40,45,"pl-c1"],[47,57,"pl-c1"]],[],[[0,5,"pl-c1"],[7,14,"pl-c1"]],[],[],[[19,24,"pl-c1"]],[],[],[],[[0,12,"pl-c1"]],[[0,7,"pl-c1"],[11,15,"pl-c1"]],[[0,10,"pl-c1"],[11,15,"pl-c1"]],[[0,9,"pl-c1"],[11,15,"pl-c1"]],[[0,8,"pl-c1"],[11,15,"pl-c1"]],[[0,15,"pl-c1"]],[[0,10,"pl-c1"],[11,15,"pl-c1"]],[[0,11,"pl-c1"]],[],[],[],[[0,12,"pl-c1"]],[[0,53,"pl-c1"]],[[0,11,"pl-c1"]],[],[],[[8,13,"pl-c1"],[15,28,"pl-c1"]],[],[[0,14,"pl-c1"]],[[0,93,"pl-c"],[0,1,"pl-c"]],[[0,5,"pl-c"],[0,1,"pl-c"]],[[0,3,"pl-c1"]],[[0,3,"pl-c1"],[6,9,"pl-c1"],[18,21,"pl-c1"],[32,35,"pl-c1"],[46,49,"pl-c1"],[60,63,"pl-c1"],[71,74,"pl-c1"],[84,87,"pl-c1"],[88,91,"pl-c1"]],[[0,3,"pl-c1"]],[[0,3,"pl-c1"],[6,9,"pl-c1"],[18,21,"pl-c1"],[22,27,"pl-c1"],[32,35,"pl-c1"],[36,41,"pl-c1"],[46,49,"pl-c1"],[50,55,"pl-c1"],[60,63,"pl-c1"],[71,74,"pl-c1"],[84,87,"pl-c1"],[88,91,"pl-c1"]],[[0,3,"pl-c1"],[6,9,"pl-c1"],[18,21,"pl-c1"],[22,27,"pl-c1"],[32,35,"pl-c1"],[36,41,"pl-c1"],[46,49,"pl-c1"],[50,55,"pl-c1"],[60,63,"pl-c1"],[71,74,"pl-c1"],[84,87,"pl-c1"],[88,91,"pl-c1"]],[[0,3,"pl-c1"],[6,9,"pl-c1"],[18,21,"pl-c1"],[22,27,"pl-c1"],[32,35,"pl-c1"],[36,41,"pl-c1"],[46,49,"pl-c1"],[50,55,"pl-c1"],[60,63,"pl-c1"],[64,69,"pl-c1"],[71,74,"pl-c1"],[84,87,"pl-c1"],[88,91,"pl-c1"]],[[0,3,"pl-c1"],[6,9,"pl-c1"],[18,21,"pl-c1"],[22,27,"pl-c1"],[32,35,"pl-c1"],[36,41,"pl-c1"],[46,49,"pl-c1"],[50,55,"pl-c1"],[60,63,"pl-c1"],[64,69,"pl-c1"],[71,74,"pl-c1"],[84,87,"pl-c1"],[88,91,"pl-c1"]],[[0,3,"pl-c1"],[6,9,"pl-c1"],[18,21,"pl-c1"],[22,27,"pl-c1"],[32,35,"pl-c1"],[36,41,"pl-c1"],[46,49,"pl-c1"],[50,55,"pl-c1"],[60,63,"pl-c1"],[64,69,"pl-c1"],[71,74,"pl-c1"],[75,80,"pl-c1"],[84,87,"pl-c1"],[88,91,"pl-c1"]],[[0,3,"pl-c1"],[6,9,"pl-c1"],[18,21,"pl-c1"],[22,27,"pl-c1"],[32,35,"pl-c1"],[36,41,"pl-c1"],[46,49,"pl-c1"],[50,55,"pl-c1"],[60,63,"pl-c1"],[64,69,"pl-c1"],[71,74,"pl-c1"],[75,80,"pl-c1"],[84,87,"pl-c1"],[88,91,"pl-c1"]],[[0,3,"pl-c1"]],[[0,13,"pl-c1"]],[],[[4,9,"pl-c1"],[11,20,"pl-c1"]],[],[[0,12,"pl-c1"]],[[0,28,"pl-c1"]],[],[[0,18,"pl-c1"],[19,36,"pl-c1"]],[[0,11,"pl-c1"]],[],[],[],[],[[0,12,"pl-c1"]],[[0,22,"pl-c1"]],[[0,11,"pl-c1"]],[],[[11,16,"pl-c1"],[18,22,"pl-c1"]],[[65,70,"pl-c1"]],[[1,11,"pl-c1"]],[],[],[],[[66,74,"pl-c1"]],[[40,48,"pl-c1"],[48,50,"pl-cce"]],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,15,"pl-c1"]],[],[[0,12,"pl-c1"]],[],[[0,13,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[],[],[],[[57,61,"pl-c1"],[61,63,"pl-cce"]],[[72,81,"pl-c1"],[81,83,"pl-cce"]],[[7,11,"pl-c1"],[11,13,"pl-cce"]],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[11,16,"pl-c1"]],[[31,36,"pl-c1"],[38,43,"pl-c1"]],[[11,16,"pl-c1"]],[],[[0,13,"pl-c1"]],[[0,10,"pl-c1"]],[[39,45,"pl-c1"]],[[0,9,"pl-c1"]],[[0,10,"pl-c1"]],[[55,61,"pl-c1"]],[],[[0,9,"pl-c1"]],[[0,12,"pl-c1"]],[],[[29,34,"pl-c1"]],[[50,57,"pl-c1"],[62,73,"pl-c1"],[73,74,"pl-cce"]],[],[],[[30,35,"pl-c1"],[67,72,"pl-c1"]],[],[],[],[],[[25,30,"pl-c1"]],[],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[],[],[],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[72,76,"pl-c1"],[76,78,"pl-cce"]],[],[],[[0,15,"pl-c1"]],[],[[0,12,"pl-c1"]],[],[[0,13,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[[29,33,"pl-c1"],[33,35,"pl-cce"],[76,80,"pl-c1"]],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[[33,44,"pl-c1"],[44,46,"pl-cce"]],[],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[11,16,"pl-c1"],[74,78,"pl-c1"]],[[29,35,"pl-c1"]],[],[],[[0,14,"pl-c1"]],[[0,83,"pl-c"],[0,1,"pl-c"]],[[0,5,"pl-c"],[0,1,"pl-c"]],[[0,3,"pl-c1"]],[[0,3,"pl-c1"],[26,29,"pl-c1"],[74,77,"pl-c1"],[78,81,"pl-c1"]],[[0,3,"pl-c1"]],[[0,3,"pl-c1"],[4,9,"pl-c1"],[26,29,"pl-c1"],[74,77,"pl-c1"],[78,81,"pl-c1"]],[[0,3,"pl-c1"],[4,9,"pl-c1"],[26,29,"pl-c1"],[74,77,"pl-c1"],[78,81,"pl-c1"]],[[0,3,"pl-c1"],[4,9,"pl-c1"],[26,29,"pl-c1"],[74,77,"pl-c1"],[78,81,"pl-c1"]],[[0,3,"pl-c1"],[4,9,"pl-c1"],[26,29,"pl-c1"],[30,35,"pl-c1"],[37,41,"pl-c1"],[74,77,"pl-c1"],[78,81,"pl-c1"]],[[0,3,"pl-c1"],[4,9,"pl-c1"],[26,29,"pl-c1"],[30,35,"pl-c1"],[37,41,"pl-c1"],[74,77,"pl-c1"],[78,81,"pl-c1"]],[[0,3,"pl-c1"],[4,9,"pl-c1"],[26,29,"pl-c1"],[74,77,"pl-c1"],[78,81,"pl-c1"]],[[0,3,"pl-c1"],[4,9,"pl-c1"],[26,29,"pl-c1"],[74,77,"pl-c1"],[78,81,"pl-c1"]],[[0,3,"pl-c1"],[4,9,"pl-c1"],[26,29,"pl-c1"],[74,77,"pl-c1"],[78,81,"pl-c1"]],[[0,3,"pl-c1"],[4,9,"pl-c1"],[26,29,"pl-c1"],[74,77,"pl-c1"],[78,81,"pl-c1"]],[[0,3,"pl-c1"],[4,9,"pl-c1"],[26,29,"pl-c1"],[30,41,"pl-c1"],[41,43,"pl-cce"],[74,77,"pl-c1"],[78,81,"pl-c1"]],[[0,3,"pl-c1"]],[[0,13,"pl-c1"]],[],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[[29,33,"pl-c1"],[33,35,"pl-cce"]],[],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[4,9,"pl-c1"],[31,36,"pl-c1"],[53,58,"pl-c1"],[73,78,"pl-c1"]],[[23,28,"pl-c1"],[41,46,"pl-c1"],[48,53,"pl-c1"]],[[0,5,"pl-c1"],[26,31,"pl-c1"],[44,49,"pl-c1"],[51,56,"pl-c1"]],[],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[[29,33,"pl-c1"],[33,35,"pl-cce"]],[],[],[],[[33,38,"pl-c1"]],[[69,73,"pl-c1"],[76,81,"pl-c1"]],[[1,10,"pl-c1"]],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[25,30,"pl-c1"]],[],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[56,61,"pl-c1"]],[],[],[[73,79,"pl-c1"]],[],[],[[4,9,"pl-c1"],[20,25,"pl-c1"],[66,71,"pl-c1"]],[[0,5,"pl-c1"]],[],[],[],[[25,30,"pl-c1"]],[],[[68,75,"pl-c1"],[75,77,"pl-cce"]],[],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[],[[14,19,"pl-c1"]],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[25,30,"pl-c1"]],[],[[57,64,"pl-c1"],[64,66,"pl-cce"]],[],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[[41,45,"pl-c1"],[45,47,"pl-cce"]],[[16,23,"pl-c1"],[23,25,"pl-cce"],[37,41,"pl-c1"],[54,58,"pl-c1"]],[],[[43,50,"pl-c1"],[50,52,"pl-cce"]],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[16,20,"pl-c1"],[20,22,"pl-cce"]],[],[],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[[36,43,"pl-c1"],[43,45,"pl-cce"]],[[16,21,"pl-c1"],[23,28,"pl-c1"],[55,60,"pl-c1"],[62,74,"pl-c1"]],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[18,23,"pl-c1"]],[[0,4,"pl-c1"]],[[60,65,"pl-c1"]],[[0,5,"pl-c1"]],[],[[0,14,"pl-c1"]],[[0,86,"pl-c"],[0,1,"pl-c"]],[[0,5,"pl-c"],[0,1,"pl-c"]],[[0,3,"pl-c1"]],[[0,3,"pl-c1"],[25,28,"pl-c1"],[77,80,"pl-c1"],[81,84,"pl-c1"]],[[0,3,"pl-c1"]],[[0,3,"pl-c1"],[4,9,"pl-c1"],[25,28,"pl-c1"],[77,80,"pl-c1"],[81,84,"pl-c1"]],[[0,3,"pl-c1"],[4,9,"pl-c1"],[25,28,"pl-c1"],[29,34,"pl-c1"],[36,41,"pl-c1"],[77,80,"pl-c1"],[81,84,"pl-c1"]],[[0,3,"pl-c1"],[4,9,"pl-c1"],[25,28,"pl-c1"],[29,34,"pl-c1"],[36,41,"pl-c1"],[77,80,"pl-c1"],[81,84,"pl-c1"]],[[0,3,"pl-c1"],[4,9,"pl-c1"],[25,28,"pl-c1"],[29,34,"pl-c1"],[36,41,"pl-c1"],[77,80,"pl-c1"],[81,84,"pl-c1"]],[[0,3,"pl-c1"],[4,9,"pl-c1"],[25,28,"pl-c1"],[29,34,"pl-c1"],[36,41,"pl-c1"],[77,80,"pl-c1"],[81,84,"pl-c1"]],[[0,3,"pl-c1"],[4,9,"pl-c1"],[25,28,"pl-c1"],[29,34,"pl-c1"],[36,43,"pl-c1"],[48,53,"pl-c1"],[55,62,"pl-c1"],[77,80,"pl-c1"],[81,84,"pl-c1"]],[[0,3,"pl-c1"],[4,9,"pl-c1"],[25,28,"pl-c1"],[77,80,"pl-c1"],[81,84,"pl-c1"]],[[0,3,"pl-c1"],[4,9,"pl-c1"],[25,28,"pl-c1"],[77,80,"pl-c1"],[81,84,"pl-c1"]],[[0,3,"pl-c1"],[4,9,"pl-c1"],[25,28,"pl-c1"],[29,34,"pl-c1"],[36,44,"pl-c1"],[77,80,"pl-c1"],[81,84,"pl-c1"]],[[0,3,"pl-c1"],[4,9,"pl-c1"],[25,28,"pl-c1"],[29,34,"pl-c1"],[36,49,"pl-c1"],[54,59,"pl-c1"],[61,75,"pl-c1"],[77,80,"pl-c1"],[81,84,"pl-c1"]],[[0,3,"pl-c1"],[4,9,"pl-c1"],[25,28,"pl-c1"],[38,43,"pl-c1"],[45,52,"pl-c1"],[77,80,"pl-c1"],[81,84,"pl-c1"]],[[0,3,"pl-c1"],[4,9,"pl-c1"],[25,28,"pl-c1"],[44,49,"pl-c1"],[51,58,"pl-c1"],[77,80,"pl-c1"],[81,84,"pl-c1"]],[[0,3,"pl-c1"],[4,9,"pl-c1"],[25,28,"pl-c1"],[77,80,"pl-c1"],[81,84,"pl-c1"]],[[0,3,"pl-c1"],[4,9,"pl-c1"],[25,28,"pl-c1"],[77,80,"pl-c1"],[81,84,"pl-c1"]],[[0,3,"pl-c1"]],[[0,13,"pl-c1"]],[],[],[],[],[[0,13,"pl-c1"]],[[0,10,"pl-c1"]],[[12,17,"pl-c1"]],[[0,9,"pl-c1"]],[[0,10,"pl-c1"]],[[4,9,"pl-c1"],[38,44,"pl-c1"]],[],[[0,9,"pl-c1"]],[[0,10,"pl-c1"]],[[12,17,"pl-c1"],[43,49,"pl-c1"]],[],[[0,9,"pl-c1"]],[[0,12,"pl-c1"]],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[[23,30,"pl-c1"]],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[],[],[],[],[[38,43,"pl-c1"],[56,63,"pl-c1"],[63,65,"pl-cce"]],[[56,61,"pl-c1"]],[[15,20,"pl-c1"]],[],[[13,18,"pl-c1"],[20,25,"pl-c1"]],[],[[25,30,"pl-c1"]],[[41,47,"pl-c1"]],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[[35,42,"pl-c1"],[42,44,"pl-cce"]],[[9,14,"pl-c1"],[16,21,"pl-c1"]],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[[33,40,"pl-c1"],[40,42,"pl-cce"]],[[0,5,"pl-c1"]],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[30,35,"pl-c1"]],[],[[0,5,"pl-c1"],[13,18,"pl-c1"],[32,37,"pl-c1"],[50,55,"pl-c1"]],[[0,5,"pl-c1"],[60,65,"pl-c1"]],[],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[],[[66,70,"pl-c1"]],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[],[],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[],[],[],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[66,74,"pl-c1"],[74,75,"pl-cce"]],[],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[[10,15,"pl-c1"]],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[[4,8,"pl-c1"],[10,19,"pl-c1"]],[],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[[69,73,"pl-c1"],[73,75,"pl-cce"]],[[35,44,"pl-c1"],[44,46,"pl-cce"]],[[0,9,"pl-c1"],[9,11,"pl-cce"],[20,24,"pl-c1"],[24,26,"pl-cce"],[66,71,"pl-c1"],[73,75,"pl-cce"]],[[12,23,"pl-c1"],[23,25,"pl-cce"],[38,42,"pl-c1"],[44,69,"pl-c1"]],[[0,4,"pl-c1"],[6,27,"pl-c1"],[33,37,"pl-c1"],[39,61,"pl-c1"]],[],[],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[],[[13,17,"pl-c1"],[17,19,"pl-cce"]],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[],[],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[54,58,"pl-c1"]],[],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[],[],[],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[],[[73,78,"pl-c1"]],[[49,54,"pl-c1"]],[],[[0,7,"pl-c1"],[7,9,"pl-cce"]],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[],[],[[0,14,"pl-c1"]],[[0,10,"pl-c1"]],[[0,13,"pl-c1"]],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[[42,46,"pl-c1"]],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[5,9,"pl-c1"]],[],[],[],[[0,14,"pl-c1"]],[[0,10,"pl-c1"]],[[0,13,"pl-c1"]],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[[0,70,"pl-c"],[0,1,"pl-c"]],[],[[0,34,"pl-c"],[0,1,"pl-c"]],[[0,20,"pl-c"],[0,1,"pl-c"]],[[0,34,"pl-c"],[0,1,"pl-c"]],[[0,11,"pl-c"],[0,1,"pl-c"]],[[0,13,"pl-c"],[0,1,"pl-c"]],[[0,21,"pl-c"],[0,1,"pl-c"]],[],[[0,74,"pl-c"],[0,1,"pl-c"]],[[0,41,"pl-c"],[0,1,"pl-c"]],[],[[0,31,"pl-c"],[0,1,"pl-c"]],[[0,88,"pl-c"],[0,1,"pl-c"]],[[0,13,"pl-c"],[0,1,"pl-c"]],[[0,88,"pl-c"],[0,1,"pl-c"]],[[0,88,"pl-c"],[0,1,"pl-c"]],[[0,88,"pl-c"],[0,1,"pl-c"]],[[0,88,"pl-c"],[0,1,"pl-c"]],[[0,13,"pl-c"],[0,1,"pl-c"]],[[0,23,"pl-c"],[0,1,"pl-c"]],[],[[0,15,"pl-c1"]],[],[[0,12,"pl-c1"]],[],[[0,13,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[],[],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[23,28,"pl-c1"],[41,46,"pl-c1"],[60,65,"pl-c1"]],[[0,5,"pl-c1"],[70,75,"pl-c1"]],[],[],[],[[45,49,"pl-c1"]],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[],[],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[23,28,"pl-c1"],[41,46,"pl-c1"],[60,65,"pl-c1"]],[[0,5,"pl-c1"],[70,75,"pl-c1"]],[],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[],[],[],[[72,80,"pl-c1"],[80,81,"pl-cce"]],[],[],[[1,4,"pl-c1"]],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[],[],[[0,11,"pl-c1"]],[[0,12,"pl-c1"]],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[26,31,"pl-c1"],[46,51,"pl-c1"]],[],[],[[0,14,"pl-c1"]],[[0,10,"pl-c1"]],[[0,13,"pl-c1"]],[],[[4,9,"pl-c1"],[46,51,"pl-c1"],[53,69,"pl-c1"]],[],[[56,61,"pl-c1"]],[],[],[],[],[],[],[],[],[],[],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[],[],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,12,"pl-c1"]],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[5,10,"pl-c1"]],[[44,49,"pl-c1"]],[[49,54,"pl-c1"],[56,70,"pl-c1"]],[],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[],[[66,70,"pl-c1"],[72,86,"pl-c1"]],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[],[],[[0,15,"pl-c1"]],[[0,10,"pl-c1"]],[[0,14,"pl-c1"]],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[],[],[],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[],[],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[[49,53,"pl-c1"],[53,55,"pl-cce"]],[],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[],[],[[0,11,"pl-c1"],[11,13,"pl-cce"],[41,48,"pl-c1"]],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[],[[25,30,"pl-c1"]],[],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[[1,4,"pl-c1"]],[],[[0,15,"pl-c1"]],[],[[0,12,"pl-c1"]],[],[[0,13,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[[23,30,"pl-c1"]],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[],[[47,53,"pl-c1"],[64,70,"pl-c1"]],[[60,65,"pl-c1"]],[[44,49,"pl-c1"]],[],[[25,30,"pl-c1"]],[],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[],[[55,63,"pl-c1"],[63,65,"pl-cce"]],[],[],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[[5,9,"pl-c1"],[78,86,"pl-c1"],[86,87,"pl-cce"]],[[47,51,"pl-c1"]],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[[41,45,"pl-c1"]],[],[[0,10,"pl-c1"],[10,12,"pl-cce"]],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[[37,42,"pl-c1"]],[[11,19,"pl-c1"],[19,21,"pl-cce"]],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[0,15,"pl-c1"]],[],[[0,16,"pl-c1"]],[],[[75,79,"pl-c1"]],[],[],[[0,12,"pl-c1"]],[],[],[],[],[],[],[],[],[],[],[],[[0,11,"pl-c1"]],[],[[51,55,"pl-c1"],[55,57,"pl-cce"]],[],[],[[0,17,"pl-c1"]],[],[],[],[],[[0,15,"pl-c1"]],[],[[0,12,"pl-c1"]],[],[[0,13,"pl-c1"]],[],[[0,80,"pl-c"],[0,1,"pl-c"]],[[0,59,"pl-c"],[0,1,"pl-c"]]],"colorizedLines":null,"csv":null,"csvError":null,"dependabotInfo":{"showConfigurationBanner":false,"configFilePath":null,"networkDependabotPath":"/contextgarden/context/network/updates","dismissConfigurationNoticePath":"/settings/dismiss-notice/dependabot_configuration_notice","configurationNoticeDismissed":null},"displayName":"luametatex-callbacks.tex","displayUrl":"https://github.com/contextgarden/context/blob/main/doc/context/sources/general/manuals/luametatex/luametatex-callbacks.tex?raw=true","headerInfo":{"blobSize":"48.9 KB","deleteTooltip":"You must be signed in to make or propose changes","editTooltip":"You must be signed in to make or propose changes","ghDesktopPath":"https://desktop.github.com","isGitLfs":false,"onBranch":true,"shortPath":"12c3a2d","siteNavLoginPath":"/login?return_to=https%3A%2F%2Fgithub.com%2Fcontextgarden%2Fcontext%2Fblob%2Fmain%2Fdoc%2Fcontext%2Fsources%2Fgeneral%2Fmanuals%2Fluametatex%2Fluametatex-callbacks.tex","isCSV":false,"isRichtext":false,"toc":null,"lineInfo":{"truncatedLoc":"1812","truncatedSloc":"1427"},"mode":"file"},"image":false,"isCodeownersFile":null,"isPlain":false,"isValidLegacyIssueTemplate":false,"issueTemplate":null,"discussionTemplate":null,"language":"TeX","languageID":369,"large":false,"planSupportInfo":{"repoIsFork":null,"repoOwnedByCurrentUser":null,"requestFullPath":"/contextgarden/context/blob/main/doc/context/sources/general/manuals/luametatex/luametatex-callbacks.tex","showFreeOrgGatedFeatureMessage":null,"showPlanSupportBanner":null,"upgradeDataAttributes":null,"upgradePath":null},"publishBannersInfo":{"dismissActionNoticePath":"/settings/dismiss-notice/publish_action_from_dockerfile","releasePath":"/contextgarden/context/releases/new?marketplace=true","showPublishActionBanner":false},"rawBlobUrl":"https://github.com/contextgarden/context/raw/refs/heads/main/doc/context/sources/general/manuals/luametatex/luametatex-callbacks.tex","renderImageOrRaw":false,"richText":null,"renderedFileInfo":null,"shortPath":null,"symbolsEnabled":true,"tabSize":8,"topBannersInfo":{"overridingGlobalFundingFile":false,"globalPreferredFundingPath":null,"showInvalidCitationWarning":false,"citationHelpUrl":"https://docs.github.com/github/creating-cloning-and-archiving-repositories/creating-a-repository-on-github/about-citation-files","actionsOnboardingTip":null},"truncated":false,"viewable":true,"workflowRedirectUrl":null,"symbols":{"timed_out":false,"not_analyzed":true,"symbols":[]}},"copilotInfo":null,"copilotAccessAllowed":false,"modelsAccessAllowed":false,"modelsRepoIntegrationEnabled":false,"isMarketplaceEnabled":true,"csrf_tokens":{"/contextgarden/context/branches":{"post":"NjhKkIicI9KwJKrIQE0-bX5qc8Ah_gbxQ9wHaimysusCnr5K3TI1Hz5g-6VT63xYYSGnuOjN2OBqtQn5-XUiWQ"},"/repos/preferences":{"post":"-oxHd8XtmfyHVVp3m84ZZp_JNJhdsLSaDNUlfS6gwpPRyZQO9qYX2PsWhmxwTn6atfuFU3BqGZ5puJQ8t2v9aw"}}},"title":"context/doc/context/sources/general/manuals/luametatex/luametatex-callbacks.tex at main · contextgarden/context","appPayload":{"helpUrl":"https://docs.github.com","findFileWorkerPath":"/assets-cdn/worker/find-file-worker-263cab1760dd.js","findInFileWorkerPath":"/assets-cdn/worker/find-in-file-worker-41d93d549163.js","githubDevUrl":null,"enabled_features":{"code_nav_ui_events":false,"react_blob_overlay":false,"accessible_code_button":true}}}</script>
+---  <div data-target="react-app.reactRoot"></div>
+---</react-app>
+---</turbo-frame>
+---
+---  </div>
+---
+---</turbo-frame>
+---
+---    </main>
+---  </div>
+---
+---  </div>
+--- <footer class="footer pt-8 pb-6 f6 color-fg-muted p-responsive" role="contentinfo" >
+---  <h2 class='sr-only'>Footer</h2>
+---
+---  
+---
+---  <div class="d-flex flex-justify-center flex-items-center flex-column-reverse flex-lg-row flex-wrap flex-lg-nowrap">
+---    <div class="d-flex flex-items-center flex-shrink-0 mx-2">
+---      <a aria-label="GitHub Homepage" class="footer-octicon mr-2" href="https://github.com">
+---        <svg aria-hidden="true" height="24" viewBox="0 0 24 24" version="1.1" width="24" data-view-component="true" class="octicon octicon-mark-github">
+---    <path d="M12 1C5.923 1 1 5.923 1 12c0 4.867 3.149 8.979 7.521 10.436.55.096.756-.233.756-.522 0-.262-.013-1.128-.013-2.049-2.764.509-3.479-.674-3.699-1.292-.124-.317-.66-1.293-1.127-1.554-.385-.207-.936-.715-.014-.729.866-.014 1.485.797 1.691 1.128.99 1.663 2.571 1.196 3.204.907.096-.715.385-1.196.701-1.471-2.448-.275-5.005-1.224-5.005-5.432 0-1.196.426-2.186 1.128-2.956-.111-.275-.496-1.402.11-2.915 0 0 .921-.288 3.024 1.128a10.193 10.193 0 0 1 2.75-.371c.936 0 1.871.123 2.75.371 2.104-1.43 3.025-1.128 3.025-1.128.605 1.513.221 2.64.111 2.915.701.77 1.127 1.747 1.127 2.956 0 4.222-2.571 5.157-5.019 5.432.399.344.743 1.004.743 2.035 0 1.471-.014 2.654-.014 3.025 0 .289.206.632.756.522C19.851 20.979 23 16.854 23 12c0-6.077-4.922-11-11-11Z"></path>
+---</svg>
+---</a>
+---      <span>
+---        &copy; 2025 GitHub,&nbsp;Inc.
+---      </span>
+---    </div>
+---
+---    <nav aria-label="Footer">
+---      <h3 class="sr-only" id="sr-footer-heading">Footer navigation</h3>
+---
+---      <ul class="list-style-none d-flex flex-justify-center flex-wrap mb-2 mb-lg-0" aria-labelledby="sr-footer-heading">
+--- <li class="mx-2"> <a data-analytics-event="{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to Terms&quot;,&quot;label&quot;:&quot;text:terms&quot;}" href="https://docs.github.com/site-policy/github-terms/github-terms-of-service" data-view-component="true" class="Link--secondary Link">Terms</a> </li>
+--- <li class="mx-2"> <a data-analytics-event="{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to privacy&quot;,&quot;label&quot;:&quot;text:privacy&quot;}" href="https://docs.github.com/site-policy/privacy-policies/github-privacy-statement" data-view-component="true" class="Link--secondary Link">Privacy</a> </li>
+--- <li class="mx-2"> <a data-analytics-event="{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to security&quot;,&quot;label&quot;:&quot;text:security&quot;}" href="https://github.com/security" data-view-component="true" class="Link--secondary Link">Security</a> </li>
+--- <li class="mx-2"> <a data-analytics-event="{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to status&quot;,&quot;label&quot;:&quot;text:status&quot;}" href="https://www.githubstatus.com/" data-view-component="true" class="Link--secondary Link">Status</a> </li>
+--- <li class="mx-2"> <a data-analytics-event="{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to docs&quot;,&quot;label&quot;:&quot;text:docs&quot;}" href="https://docs.github.com/" data-view-component="true" class="Link--secondary Link">Docs</a> </li>
+--- <li class="mx-2"> <a data-analytics-event="{&quot;category&quot;:&quot;Footer&quot;,&quot;action&quot;:&quot;go to contact&quot;,&quot;label&quot;:&quot;text:contact&quot;}" href="https://support.github.com?tags=dotcom-footer" data-view-component="true" class="Link--secondary Link">Contact</a> </li>
+--- <li class="mx-2" >
+---  <cookie-consent-link>
+---    <button
+---      type="button"
+---      class="Link--secondary underline-on-hover border-0 p-0 color-bg-transparent"
+---      data-action="click:cookie-consent-link#showConsentManagement"
+---      data-analytics-event="{&quot;location&quot;:&quot;footer&quot;,&quot;action&quot;:&quot;cookies&quot;,&quot;context&quot;:&quot;subfooter&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;cookies_link_subfooter_footer&quot;}"
+---    >
+---       Manage cookies
+---    </button>
+---  </cookie-consent-link>
+---</li>
+---
+---<li class="mx-2">
+---  <cookie-consent-link>
+---    <button
+---      type="button"
+---      class="Link--secondary underline-on-hover border-0 p-0 color-bg-transparent text-left"
+---      data-action="click:cookie-consent-link#showConsentManagement"
+---      data-analytics-event="{&quot;location&quot;:&quot;footer&quot;,&quot;action&quot;:&quot;dont_share_info&quot;,&quot;context&quot;:&quot;subfooter&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;dont_share_info_link_subfooter_footer&quot;}"
+---    >
+---      Do not share my personal information
+---    </button>
+---  </cookie-consent-link>
+---</li>
+---
+---      </ul>
+---    </nav>
+---  </div>
+---</footer>
+---
+---    <ghcc-consent id="ghcc" class="position-fixed bottom-0 left-0" style="z-index: 999999"
+---      data-locale="en"
+---      data-initial-cookie-consent-allowed=""
+---      data-cookie-consent-required="true"
+---    ></ghcc-consent>
+---
+---  <div id="ajax-error-message" class="ajax-error-message flash flash-error" hidden>
+---    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-alert">
+---    <path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path>
+---</svg>
+---    <button type="button" class="flash-close js-ajax-error-dismiss" aria-label="Dismiss error">
+---      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-x">
+---    <path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z"></path>
+---</svg>
+---    </button>
+---    You can’t perform that action at this time.
+---  </div>
+---
+---    <template id="site-details-dialog">
+---  <details class="details-reset details-overlay details-overlay-dark lh-default color-fg-default hx_rsm" open>
+---    <summary role="button" aria-label="Close dialog"></summary>
+---    <details-dialog class="Box Box--overlay d-flex flex-column anim-fade-in fast hx_rsm-dialog hx_rsm-modal">
+---      <button class="Box-btn-octicon m-0 btn-octicon position-absolute right-0 top-0" type="button" aria-label="Close dialog" data-close-dialog>
+---        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-x">
+---    <path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z"></path>
+---</svg>
+---      </button>
+---      <div class="octocat-spinner my-6 js-details-dialog-spinner"></div>
+---    </details-dialog>
+---  </details>
+---</template>
+---
+---    <div class="Popover js-hovercard-content position-absolute" style="display: none; outline: none;">
+---  <div class="Popover-message Popover-message--bottom-left Popover-message--large Box color-shadow-large" style="width:360px;">
+---  </div>
+---</div>
+---
+---    <template id="snippet-clipboard-copy-button">
+---  <div class="zeroclipboard-container position-absolute right-0 top-0">
+---    <clipboard-copy aria-label="Copy" class="ClipboardButton btn js-clipboard-copy m-2 p-0" data-copy-feedback="Copied!" data-tooltip-direction="w">
+---      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon m-2">
+---    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+---</svg>
+---      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none m-2">
+---    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+---</svg>
+---    </clipboard-copy>
+---  </div>
+---</template>
+---<template id="snippet-clipboard-copy-button-unpositioned">
+---  <div class="zeroclipboard-container">
+---    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w">
+---      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+---    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+---</svg>
+---      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+---    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+---</svg>
+---    </clipboard-copy>
+---  </div>
+---</template>
+---
+---    </div>
+---    <div id="js-global-screen-reader-notice" class="sr-only mt-n1" aria-live="polite" aria-atomic="true" ></div>
+---    <div id="js-global-screen-reader-notice-assertive" class="sr-only mt-n1" aria-live="assertive" aria-atomic="true"></div>
+---  </body>
+---</html>
 ---
----```
----function(<node> box, <string> locationcode, <number> prevdepth)
----    return list [, prevdepth [, checkdepth ] ]
----end
----```
----
----It is ok to return nothing or `nil` in which case you also need to flush
----the box or deal with it yourself. The prevdepth is also optional. Locations are
----`box`, `alignment`, `equation`, `equation_number` and
----`post_linebreak`. When the third argument returned is `true` the
----normal prevdepth correction will be applied, based on the first node.
----
-----------------------------------------------------------------
-
-
----
----# `post_linebreak_filter`
----
----This callback is called just after *LuaTeX* has converted a list of nodes into a
----stack of `hbox`es.
----
----```
----function(<node> head, <string> groupcode)
----    return <node> newhead
----end
----```
----
----This callback does not replace any internal code.
----
-----------------------------------------------------------------
-
-
----
----# `glyph_run`
----
----When set this callback is triggered when *TeX* normally handles the ligaturing
----and kerning. In *LuaTeX* you use the `hpack_filter` and `per_linebreak_filter` callbacks for that (where each passes different
----arguments). This callback doesn't get triggered when there are no glyphs (in
----*LuaTeX* this optimization is controlled by a a variable).
----
----```
----function(<node> head, <string> groupcode, <number> direction])
----    return <node> newhead
----end
----```
----
----The traditional *TeX* font processing is bypassed so you need to take care of that
----with the helpers. (For the moment we keep the ligaturing and kerning callbacks but
----they are kind of obsolete.)
----
-----------------------------------------------------------------
-
-
----
----# `hpack_filter`
----
----This callback is called when *TeX* is ready to start boxing some horizontal mode
----material. Math items and line boxes are ignored at the moment.
----
----```
----function(<node> head, <string> groupcode, <number> size,
----         <string> packtype [, <number> direction] [, <node> attributelist])
----    return <node> newhead
----end
----```
----
----The `packtype` is either `additional` or `exactly`. If `additional`, then the `size` is a `\hbox spread ...` argument. If
----`exactly`, then the `size` is a `\hbox to ...`. In both cases,
----the number is in scaled points.
----
----This callback does not replace any internal code.
----
-----------------------------------------------------------------
-
-
----
----# `vpack_filter`
----
----This callback is called when *TeX* is ready to start boxing some vertical mode
----material. Math displays are ignored at the moment.
----
----This function is very similar to the `hpack_filter`. Besides the fact
----that it is called at different moments, there is an extra variable that matches
----*TeX*'s `maxdepth` setting.
----
----```
----function(<node> head, <string> groupcode, <number> size, <string> packtype,
----        <number> maxdepth [, <number> direction] [, <node> attributelist]))
----    return <node> newhead
----end
----```
----
----This callback does not replace any internal code.
----
-----------------------------------------------------------------
-
-
----
----# `packed_vbox_filter`
----
----After the `vpack_filter` callback (see previous section) is triggered the
----box get packed and after that this callback can be configured to kick in.
----
----```
----function(<node> head, <string> groupcode)
----    return <node> newhead
----end
----```
----
----This callback does not replace any internal code.
----
-----------------------------------------------------------------
-
-
----
----# `alignment_filter`
----
----This is an experimental callback that when set is called several times during the
----construction of an alignment. The context values are available in `tex.getalignmentcontextvalues()`.
----
----```
----function(<node> head, <string> context, <node> attributes, <node> preamble)
----    -- no return values
----end
----```
----
----There are no sanity checks so if a user messes up the passed node lists the results
----can be unpredictable and, as with other node related callbacks, crash the engine.
----
-----------------------------------------------------------------
-
-
----
----# `localbox_filter`
----
----Local boxes are a somewhat tricky and error prone feature so use this callback
----with care because the paragraph is easily messed up. A line can have a left,
----right and middle box where the middle one has no width. The callback gets quite
----some parameters passed:
----
----```
----function(<node> linebox, <node> leftbox, <node> rightbox, <node> middlebox,
----    <number> linenumber,
----    <number> leftskip, <number> rightskip, <number> lefthang, <number> righthang,
----    <number> indentation, <number> parinitleftskip, <number> parinitrightskip,
----    <number> parfillleftskip, <number> parfillrightskip,
----    <number> overshoot)
----    -- no return values
----end
----```
----
----This is an experimental callback that will be tested in different *ConTeXt*
----mechanisms before it will be declared stable.
----
-----------------------------------------------------------------
-
-
----
----# `process_rule`
----
----This is an experimental callback. It can be used with rules of subtype 4
----(user). The callback gets three arguments: the node, the width and the
----height. The callback can use `pdf.print` to write code to the *PDF*
----file but beware of not messing up the final result. No checking is done.
----
-----------------------------------------------------------------
-
-
----
----# `pre_output_filter`
----
----This callback is called when *TeX* is ready to start boxing the box 255 for `output`.
----
----```
----function(<node> head, <string> groupcode, <number> size, <string> packtype,
----        <number> maxdepth [, <number> direction])
----    return <node> newhead
----end
----```
----
----This callback does not replace any internal code.
----
-----------------------------------------------------------------
-
-
----
----# `hyphenate`
----
----This callback is supposed to insert discretionary nodes in the node list it
----receives.
----
----```
----function(<node> head, <node> tail)
----    -- no return values
----end
----```
----
----Setting this callback to `false` will prevent the internal discretionary
----insertion pass.
----
-----------------------------------------------------------------
-
-
----
----# `ligaturing`
----
----This callback, which expects no return values, has to apply ligaturing to the
----node list it receives.
----
----```
----function(<node> head, <node> tail)
----    -- no return values
----end
----```
----
----You don't have to worry about return values because the `head` node that is
----passed on to the callback is guaranteed not to be a glyph_node (if need be, a
----temporary node will be prepended), and therefore it cannot be affected by the
----mutations that take place. After the callback, the internal value of the “tail of the list” will be recalculated.
----
----The `next` of `head` is guaranteed to be non-nil. The `next` of
----`tail` is guaranteed to be nil, and therefore the second callback argument
----can often be ignored. It is provided for orthogonality, and because it can
----sometimes be handy when special processing has to take place.
----
----Setting this callback to `false` will prevent the internal ligature
----creation pass. You must not ruin the node list. For instance, the head normally
----is a local par node, and the tail a glue. Messing too much can push *LuaTeX* into
----panic mode.
----
-----------------------------------------------------------------
-
-
----
----# `kerning`
----
----This callback has to apply kerning between the nodes in the node list it
----receives. See `ligaturing` for calling conventions.
----
----```
----function(<node> head, <node> tail)
----    -- no return values
----end
----```
----
----Setting this callback to `false` will prevent the internal kern insertion
----pass. You must not ruin the node list. For instance, the head normally is a local
----par node, and the tail a glue. Messing too much can push *LuaTeX* into panic
----mode.
----
-----------------------------------------------------------------
-
-
----
----# `append_line_filter`
----
----Every time a line is added this callback is triggered, when set. migrated
----material and adjusts also qualify as such and the detail relates to the adjust
----index.
----
----```
----function(<node> head, <node> tail, <string> context, <number> detail)
----    return <node> newhead
----end
----```
----
----A list of possible context values can be queried with `tex.getappendlinecontextvalues()`.
----
-----------------------------------------------------------------
-
-
----
-----------------------------------------------------------------
-
-
----
----# Paragraph callbacks
----
----# `insert_par`
----
----Each paragraph starts with a local par node that keeps track of for instance
----the direction. You can hook a callback into the creator:
----
----```
----function(<node> par, <string> location)
----    -- no return values
----end
----```
----
----There is no return value and you should make sure that the node stays valid
----as otherwise *TeX* can get confused.
----
-----------------------------------------------------------------
-
-
----
----# `begin_paragraph`
----
----{\em todo}
----
-----------------------------------------------------------------
-
-
----
----# `paragraph_context`
----
----{\em todo}
----
-----------------------------------------------------------------
-
-
----
----# Math related callbacks
----
----# `mlist_to_hlist`
----
----This callback replaces *LuaTeX*'s math list to node list conversion algorithm.
----
----```
----function(<node> head, <string> display_type, <boolean> need_penalties)
----    return <node> newhead
----end
----```
----
----The returned node is the head of the list that will be added to the vertical or
----horizontal list, the string argument is either “text” or “display”
----depending on the current math mode, the boolean argument is `true` if
----penalties have to be inserted in this list, `false` otherwise.
----
----Setting this callback to `false` is bad, it will almost certainly result in
----an endless loop.
----
-----------------------------------------------------------------
-
-
----
----# `math_rule`
----
----{\em todo}
----
-----------------------------------------------------------------
-
-
----
----# `make_extensible`
----
----{\em todo}
----
-----------------------------------------------------------------
-
-
----
----# `register_extensible`
----
----{\em todo}
----
-----------------------------------------------------------------
-
-
----
-----------------------------------------------------------------
-
-
----
----# Information reporting callbacks[library=callback]
----
----# `pre_dump`
----
----```
----function()
----    -- no return values
----end
----```
----
----This function is called just before dumping to a format file starts. It does not
----replace any code and there are neither arguments nor return values.
----
-----------------------------------------------------------------
-
-
----
----# `start_run`
----
----```
----function()
----    -- no return values
----end
----```
----
----This callback replaces the code that prints *LuaTeX*'s banner. Note that for
----successful use, this callback has to be set in the *Lua* initialization script,
----otherwise it will be seen only after the run has already started.
----
-----------------------------------------------------------------
-
-
----
----# `stop_run`
----
----```
----function()
----end
----```
----
----This callback replaces the code that prints *LuaTeX*'s statistics and “output written to” messages. The engine can still do housekeeping and therefore
----you should not rely on this hook for postprocessing the *PDF* or log file.
----
-----------------------------------------------------------------
-
-
----
----# `intercept_tex_error`, `intercept_lua_error`
----
----```
----function()
----    -- no return values
----end
----```
----
----This callback is run from inside the *TeX* error function, and the idea is to
----allow you to do some extra reporting on top of what *TeX* already does (none of
----the normal actions are removed). You may find some of the values in the `status` table useful. The *TeX* related callback gets two arguments: the current
----processing mode and a boolean indicating if there was a runaway.
----
-----------------------------------------------------------------
-
-
----
----# `show_error_message` and `show_warning_message`
----
----```
----function()
----    -- no return values
----end
----```
----
----These callback replaces the code that prints the error message. The usual
----interaction after the message is not affected.
----
-----------------------------------------------------------------
-
-
----
----# `start_file`
----
----```
----function(category,filename)
----    -- no return values
----end
----```
----
----This callback replaces the code that *LuaTeX* prints when a file is opened like
----`(filename` for regular files. The category is a number:
----
---- value   meaning 
----
---- 1  a normal data file, like a *TeX* source 
---- 2  a font map coupling font names to resources 
---- 3  an image file (`png`, `pdf`, etc) 
---- 4  an embedded font subset 
---- 5  a fully embedded font 
----
-----------------------------------------------------------------
-
-
----
----# `stop_file`
----
----```
----function(category)
----    -- no return values
----end
----```
----
----This callback replaces the code that *LuaTeX* prints when a file is closed like
----the `)` for regular files.
----
-----------------------------------------------------------------
-
-
----
----# `wrapup_run`
----
----This callback is called after the *PDF* and log files are closed. Use it at your own
----risk.
----
-----------------------------------------------------------------
-
-
----
-----------------------------------------------------------------
-
-
----
----# Font-related callbacks[library=callback]
----
----# `define_font`
----
----```
----function(<string> name, <number> size)
----    return <number> id
----end
----```
----
----The string `name` is the filename part of the font specification, as given
----by the user.
----
----The number `size` is a bit special:
----
----* If it is positive, it specifies an “at size” in scaled points.
----
----* If it is negative, its absolute value represents a “scaled” setting
----    relative to the design size of the font.
----
----The font can be defined with `font.define` which returns a font identifier
----that can be returned in the callback. So, contrary to *LuaTeX*, in *Lua*METATEX\
----we only accept a number.
----
----The internal structure of the `font` table that is passed to `font.define` is explained in \in {chapter} [fonts]. That table is saved
----internally, so you can put extra fields in the table for your later *Lua* code to
----use. In alternative, `retval` can be a previously defined fontid. This is
----useful if a previous definition can be reused instead of creating a whole new
----font structure.
----
----Setting this callback to `false` is pointless as it will prevent font
----loading completely but will nevertheless generate errors.
----
-----------------------------------------------------------------
-
-
----
----# `missing_character` and `process_character`
----
----This callback is triggered when a character node is created and the font doesn't
----have the requested character.
----
----```
----function(<node> glyph, <number> font, <number> character)
----    -- no return value
----end
----```
----
----The `process_character` callback is experimental and gets called when a
----glyph node is created and the callback field in a character is set.
----
----```
----function(<number> font, <number> character)
----    -- no return value
----end
----```
----
-----------------------------------------------------------------
-
-
----
-----------------------------------------------------------------
-
-
----
----\startsection[title=Reporting]
----
----# `show_whatsit`
----
----Because we only have a generic whatsit it is up to the macro package to provide
----details when tracing them.
----
----```
----function(<node> whatsit, <number> indentation,
----    <number> tracinglevel, <number> currentlevel, <number> inputlevel)
----    -- no return value
----end
----```
----
----The indentation tells how many periods are to be typeset if you want to be
----compatible with the rest of tracing. The tracinglevels indicates if the current
----level and\|/or input level are shown cf. `tracinglevels`. Of course one
----is free to show whatever in whatever way suits the whatsit best.
----
-----------------------------------------------------------------
-
-
----
----# `get_attribute`
----
----Because attributes are abstract pairs of indices and values the reported
----properties makes not much sense and are very macro package (and user) dependent.
----This callback permits more verbose reporting by the engine when tracing is
----enabled.
----
----```
----function(<number> index, <number> value)
----    return <string>, <string>
----end
----```
----
-----------------------------------------------------------------
-
-
----
----# `get_noad_class`
----
----We have built-in math classes but there can also be user defined ones. This
----callback can be used to report more meaningful strings instead of numbers when
----tracing.
----
----```
----function(<number> class)
----    return <string>
----end
----```
----
-----------------------------------------------------------------
-
-
----
----# `trace_memory`
----
----When the engine starts all kind of memory is pre-allocated> depending on the
----configuration more gets allocated when a category runs out of memory. The
----*Lua*METATEX\ engine is more dynamic than *LuaTeX*. If this callback is set it will
----get called as follows:
----
----```
----function(<string> category, <boolean> success)
----    -- no return value
----end
----```
----
----The boolean indicates if the allocation has been successful. One can best quit
----the run when this one is `false`, if the engine doesn't already do that.
----
-----------------------------------------------------------------
-
-
----
----# `hpack_quality`
----
----This callback can be used to intercept the overfull messages that can result from
----packing a horizontal list (as happens in the par builder). The function takes a
----few arguments:
----
----```
----function(<string> incident, <number> detail, <node> head, <number> first,
----         <number> last)
----    return <node> whatever
----end
----```
----
----The incident is one of `overfull`, `underfull`, `loose` or
----`tight`. The detail is either the amount of overflow in case of `overfull`, or the badness otherwise. The head is the list that is constructed
----(when protrusion or expansion is enabled, this is an intermediate list).
----Optionally you can return a node, for instance an overfull rule indicator. That
----node will be appended to the list (just like *TeX*'s own rule would).
----
-----------------------------------------------------------------
-
-
----
----# `vpack_quality`
----
----This callback can be used to intercept the overfull messages that can result from
----packing a vertical list (as happens in the page builder). The function takes a
----few arguments:
----
----```
----function(<string> incident, <number> detail, <node> head, <number> first,
----    <number> last)
----end
----```
----
----The incident is one of `overfull`, `underfull`, `loose` or
----`tight`. The detail is either the amount of overflow in case of `overfull`, or the badness otherwise. The head is the list that is constructed.
----
-----------------------------------------------------------------
-
-
----
----# `show_lua_call`
----
----This one can be used to help reporting definitions that relate to *Lua* calls to
----be more meaningful when tracing.
----
----```
----function(<string> name, <number> index)
----    return <string>
----end
----```
----
-----------------------------------------------------------------
-
-
----
----# `handle_overload`
----
----This is one of the few callbacks that is aimed at *ConTeXt*: it relates to overload
----protection of macros and other variables.
----
----```
----function(<boolean> error, <number> overload, <string> csname, <number> flags)
----    -- no return values
----end
----```
----
----The overload is determined by:
---- immutable  permanent  primitive  frozen  instance 
----
---- 1  warning  \star      \star      \star                       
---- 2  error    \star      \star      \star                       
---- 3  warning  \star      \star      \star      \star            
---- 4  error    \star      \star      \star      \star            
---- 5  warning  \star      \star      \star      \star   \star    
---- 6  error    \star      \star      \star      \star   \star    
----
----This relates to the optional prefixed that can be used when defining and setting
----quantities and is therefore also a bit of a playground. All macros and aliases in
----*ConTeXt* are classified this way.
----
-----------------------------------------------------------------
-
-
----
----\stopchapter
----
----\stopcomponent
 ---
