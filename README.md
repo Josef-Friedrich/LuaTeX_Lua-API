@@ -1842,11 +1842,3 @@ return function()
     end
 end
 ```
-
-| returned string | type of `<pdfe_obj>` |
-| --------------- | -------------------- |
-| pdfe            | PdfeDocument         |
-| pdfe.dictionary | PdfeDictionary       |
-| pdfe.array      | PdfeArray            |
-| pdfe.stream     | PdfeStream           |
-| pdfe.reference  | PdfeReference        |

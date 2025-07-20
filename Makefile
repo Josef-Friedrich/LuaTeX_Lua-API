@@ -59,4 +59,12 @@ update_manual:
 	wget -O /usr/local/texlive/texmf-dist/doc/luatex/base/luatex.pdf https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/raw/master/manual/luatex.pdf
 	wget -O /usr/local/texlive/texmf-dist/doc/context/documents/general/manuals/luametatex.pdf https://raw.githubusercontent.com/contextgarden/context/main/doc/context/documents/general/manuals/luametatex.pdf
 
+example_luatex_fontloader_fields:
+	luatex --luaonly examples/luatex/fontloader/fields.lua
+example_luatex_fontloader_info:
+	luatex --luaonly examples/luatex/fontloader/info.lua
+example_luatex_fontloader_fontinfo:
+	luatex --luaonly examples/luatex/fontloader/Fontinfo.lua
+
+
 .PHONY: all format convert_tex_to_lua stylua debug print_namespace generate_doc dist update_lls_addons test diff patch clean update_manual

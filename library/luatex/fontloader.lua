@@ -20,18 +20,19 @@ _N._12_1_getting_quick_information_on_a_font = "page 237"
 ---
 ---__Reference:__
 ---
----* Corresponding C source code: [luafflib.c#L2257-L2284](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2257-L2284)^
+---* Corresponding C source code: [luafflib.c#L2256-2283](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/a4b8e13d3879e95c21e1719af0c3e31722bedd4f/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2256-2283)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontInfo
----@field fontname string # The *PostScript* name of the font
----@field fullname string # The formal name of the font
----@field familyname string # The family name this font belongs to
----@field weight string # A string indicating the color value of the font
----@field version string # The internal font version
----@field italicangle number # The slant angle
----@field units_per_em number # 1000 for *PostScript*-based fonts, usually 2048 for *TrueType*NC \NR
+---@field fontname string # The *PostScript* name of the font, for example `NimbusRoman-Regular`.
+---@field fullname string # The formal name of the font, for example `NimbusRoman-Regular`.
+---@field familyname string # The family name this font belongs to, for example `Nimbus Roman`.
+---@field weight string # A string indicating the color value of the font, for example `Book`.
+---@field version string # The internal font version, for example `1.00`,
+---@field italicangle number # The slant angle, for example `0.0`, `-12.0`, `-9.4626`, `-10.5`, `-15.5` or `11.0`.
+---@field units_per_em number # `1000` for *PostScript*-based fonts, usually `2048` for *TrueType*, for example `1000`.
 ---@field pfminfo FontloaderPfminfo #
+---@field names FontloaderLangName # https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/a4b8e13d3879e95c21e1719af0c3e31722bedd4f/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2278-2282
 
 ---
 ---Get various information fields from an font file.
@@ -49,9 +50,9 @@ _N._12_1_getting_quick_information_on_a_font = "page 237"
 ---
 ---* Corresponding C source code: [luafflib.c#L2257-L2284](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2257-L2284)
 ---
----@param filename string
+---@param filename string The path a font file.
 ---
----@return FontInfo
+---@return FontInfo|nil
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fontloader.info(filename) end
@@ -315,7 +316,7 @@ _N._main_table = "FontloaderField"
 ---@field pfminfo FontloaderPfminfo #
 ---
 ---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2905-L2912
----@field names FontloaderLangNames #
+---@field names FontloaderLangName #
 ---
 ---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2913-L2919
 ---@field cidinfo FontloaderCidinfo #
@@ -343,7 +344,6 @@ _N._main_table = "FontloaderField"
 ---
 ---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2964-L2978
 ---@field texdata? FontloaderTexdata #
----
 ---
 ---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2987-L2994
 ---@field kerns? FontloaderGlyph[] #
@@ -578,28 +578,28 @@ _N._12_6_6_pfminfo = "page 248"
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderPfminfo
----@field pfmset integer #
----@field winascent_add integer #
----@field windescent_add integer #
----@field hheadascent_add integer #
----@field hheaddescent_add integer #
----@field typoascent_add integer #
----@field typodescent_add integer #
----@field subsuper_set integer #
----@field panose_set integer #
----@field hheadset integer #
----@field vheadset integer #
----@field pfmfamily integer #
----@field weight integer #
----@field width integer #
----@field avgwidth integer #
----@field firstchar integer #
----@field lastchar integer #
----@field fstype integer #
----@field linegap integer #
----@field vlinegap integer #
----@field hhead_ascent integer #
----@field hhead_descent number #
+---@field pfmset integer # for example `0` or `1`.
+---@field winascent_add integer # for example `0` or `1`.
+---@field windescent_add integer # for example `0` or `1`.
+---@field hheadascent_add integer # for example `0` or `1`.
+---@field hheaddescent_add integer # for example `0` or `1`.
+---@field typoascent_add integer # for example `0` or `1`.
+---@field typodescent_add integer # for example `0` or `1`.
+---@field subsuper_set integer # for example `0` or `1`.
+---@field panose_set integer # for example `0` or `1`.
+---@field hheadset integer # for example `0` or `1`.
+---@field vheadset integer # for example `0` or `1`.
+---@field pfmfamily integer # for example `17`, `65` or `81`.
+---@field weight integer # for example `400`.
+---@field width integer # for example `5`.
+---@field avgwidth integer # for example `725`.
+---@field firstchar integer # for example `32`.
+---@field lastchar integer # for example `61440`.
+---@field fstype integer # for example `0`.
+---@field linegap integer # for example `0`.
+---@field vlinegap integer # for example `0`.
+---@field hhead_ascent integer # for example `870`.
+---@field hhead_descent number # for example `-373`.
 ---@field os2_typoascent integer # The typographic ascender for this font. This field should be combined with the sTypoDescender and sTypoLineGap values to determine default line spacing. https://learn.microsoft.com/en-us/typography/opentype/spec/os2#stypoascender
 ---@field os2_typodescent integer # The typographic descender for this font. This field should be combined with the sTypoAscender and sTypoLineGap values to determine default line spacing. https://learn.microsoft.com/en-us/typography/opentype/spec/os2#stypodescender
 ---@field os2_typolinegap integer # The typographic line gap for this font. This field should be combined with the sTypoAscender and sTypoDescender values to determine default line spacing. https://learn.microsoft.com/en-us/typography/opentype/spec/os2#stypolinegap
@@ -629,19 +629,24 @@ _N._12_6_6_pfminfo = "page 248"
 ---__Reference:__
 ---
 ---* Corresponding C source code: [luafflib.c#L1222-L1232](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1222-L1232)
+---* https://learn.microsoft.com/en-us/typography/opentype/spec/os2#panose
+---* https://monotype.github.io/panose/pan1.htm
+---* https://developer.apple.com/fonts/TrueType-Reference-Manual/RM06/Chap6OS2.html
+---* https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/a4b8e13d3879e95c21e1719af0c3e31722bedd4f/manual/luatex-fontloader.tex#L694-715
+---* https://learn.microsoft.com/en-us/windows/win32/api/wingdi/ns-wingdi-panose
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class FontloaderPanose
----@field familytype `Any`|`No Fit`|`Text and Display`|`Script`|`Decorative`|`Pictorial` # Values as in the *OpenType* font specification:
----@field serifstyle string # See the *OpenType* font specification for values
----@field weight string # idem
----@field proportion string # idem
----@field contrast string # idem
----@field strokevariation string # idem
----@field armstyle string # idem
----@field letterform string # idem
----@field midline string # idem
----@field xheight string # idem
+---@field familytype `Any`|`No Fit`|`Text and Display`|`Script`|`Decorative`|`Pictorial` # Values as in the *OpenType* font specification, for example `Text and Display`; Corresponding C source code: [luafflib.c#L1122-1124](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/a4b8e13d3879e95c21e1719af0c3e31722bedd4f/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1122-1124).
+---@field serifstyle `Any`|`No Fit`|`Cove`|`Obtuse Cove`|`Square Cove`|`Obtuse Square Cove`|`Square`|`Thin`|`Bone`|`Exaggerated`|`Triangle`|`Normal Sans`|`Obtuse Sans`|`Perp Sans`|`Flared`|`Rounded` # See the *OpenType* font specification for values, for example `Normal Sans`; Corresponding C source code: [luafflib.c#L1126-1131](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/a4b8e13d3879e95c21e1719af0c3e31722bedd4f/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1126-1131).
+---@field weight `Any`|`No Fit`|`Very Light`|`Light`|`Thin`|`Book`|`Medium`|`Demi`|`Bold`|`Heavy`|`Black`|`Nord` # For example `Medium`; Corresponding C source code: [luafflib.c#L1133-1136](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/a4b8e13d3879e95c21e1719af0c3e31722bedd4f/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1133-1136).
+---@field proportion `Any`|`No Fit`|`Old Style`|`Modern`|`Even Width`|`Expanded`|`Condensed`|`Very Expanded`|`Very Condensed`|`Monospaced` # Values as in the *OpenType* font specification, for example `Monospaced`; Corresponding C source code: [luafflib.c#L1138-1141](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/a4b8e13d3879e95c21e1719af0c3e31722bedd4f/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1138-1141).
+---@field contrast `Any`|`No Fit`|`None`|`Very Low`|`Low`|`Medium Low`|`Medium`|`Medium High`|`High`|`Very High` # Values as in the *OpenType* font specification, for example `Medium`; Corresponding C source code: [luafflib.c#L1143-1146](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/a4b8e13d3879e95c21e1719af0c3e31722bedd4f/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1143-1146).
+---@field strokevariation `Any`|`No Fit`|`Gradual/Diagonal`|`Gradual/Transitional`|`Gradual/Vertical`|`Gradual/Horizontal`|`Rapid/Vertical`|`Rapid/Horizontal`|`Instant/Vertical` # Values as in the *OpenType* font specification, for example `No Fit`; Corresponding C source code: [luafflib.c#L1148-1153](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/a4b8e13d3879e95c21e1719af0c3e31722bedd4f/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1148-1153).
+---@field armstyle `Any`|`No Fit`|`Straight Arms/Horizontal`|`Straight Arms/Wedge`|`Straight Arms/Vertical`|`Straight Arms/Single Serif`|`Straight Arms/Double Serif`|`Non-Straight Arms/Horizontal`|`Non-Straight Arms/Wedge`|`Non-Straight Arms/Vertical`|`Non-Straight Arms/Single Serif`|`Non-Straight Arms/Double Serif` # Values as in the *OpenType* font specification, for example `Straight Arms/Horizontal`; Corresponding C source code: [luafflib.c#L1155-1163](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/a4b8e13d3879e95c21e1719af0c3e31722bedd4f/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1155-1163).
+---@field letterform `Any`|`No Fit`|`Normal/Contact`|`Normal/Weighted`|`Normal/Boxed`|`Normal/Flattened`|`Normal/Rounded`|`Normal/Off Center`|`Normal/Square`|`Oblique/Contact`|`Oblique/Weighted`|`Oblique/Boxed`|`Oblique/Flattened`|`Oblique/Rounded`|`Oblique/Off Center`|`Oblique/Square` # Values as in the *OpenType* font specification, for example `Oblique/Weighted`; Corresponding C source code: [luafflib.c#L1165-1172](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/a4b8e13d3879e95c21e1719af0c3e31722bedd4f/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1165-1172).
+---@field midline `Any`|`No Fit`|`Standard/Trimmed`|`Standard/Pointed`|`Standard/Serifed`|`High/Trimmed`|`High/Pointed`|`High/Serifed`|`Constant/Trimmed`|`Constant/Pointed`|`Constant/Serifed`|`Low/Trimmed`|`Low/Pointed`|`Low/Serifed` # Values as in the *OpenType* font specification, for example `Standard/Pointed`; Corresponding C source code: [luafflib.c#L1174-1180](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/a4b8e13d3879e95c21e1719af0c3e31722bedd4f/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1174-1180).
+---@field xheight `Any`|`No Fit`|`Constant/Small`|`Constant/Standard`|`Constant/Large`|`Ducking/Small`|`Ducking/Standard`|`Ducking/Large` # Values as in the *OpenType* font specification, for example `Constant/Small`; Corresponding C source code: [luafflib.c#L1182-1185](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/a4b8e13d3879e95c21e1719af0c3e31722bedd4f/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1182-1185).
 ---
 
 _N._12_6_7_names = "page 249"
@@ -652,9 +657,9 @@ _N._12_6_7_names = "page 249"
 ---* Corresponding C source code: [luafflib.c#L1418-L1416](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1418-L1416)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
----@class FontloaderLangNames
----@field lang string # language for this entry
----@field names FontloaderNamesTrueType # The `names` keys are the actual *TrueType* name strings.
+---@class FontloaderLangName
+---@field lang string # The language for this entry, for example `Basque`, `Spanish Mexico`, `Portuguese (Brasil)`, `Spanish (Modern)`, `French Canadian` or `English (US)`
+---@field names FontloaderTrueTypeNames # The `names` keys are the actual *TrueType* name strings.
 
 ---
 ---__Reference:__
@@ -662,30 +667,30 @@ _N._12_6_7_names = "page 249"
 ---* Corresponding C source code: [luafflib.c#L108-L115](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L108-L115)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
----@class FontloaderNamesTrueType
----@field copyright string
----@field family string
----@field subfamily string
----@field uniqueid string
----@field fullname string
----@field version string
----@field postscriptname string
----@field trademark string
----@field manufacturer string
----@field designer string
----@field descriptor string
----@field venderurl string
----@field designerurl string
----@field license string
----@field licenseurl string
+---@class FontloaderTrueTypeNames
+---@field copyright string # for example `Copyright (c) 2003 by Bitstream, Inc. All Rights Reserved. DejaVu changes are in public domain, math extensions are in public domain.`.
+---@field family string # for example `DejaVu Math TeX Gyre`.
+---@field subfamily string # for example `Bold`.
+---@field uniqueid string # for example `Monotype:Arial Bold:Version 2.82 (Microsoft)`.
+---@field fullname string # for example `DejaVuMathTeXGyre-Regular`.
+---@field version string # for example `Version 2.82`.
+---@field postscriptname string # for example `Arial-BoldMT`.
+---@field trademark string # for example `Arial® Trademark of The Monotype Corporation plc registered in the US Pat & TM Off. and elsewhere.`.
+---@field manufacturer string # for example `Monotype Typography`.
+---@field designer string # for example `Monotype Type Drawing Office - Robin Nicholas, Patricia Saunders 1982`.
+---@field descriptor string # for example `Contemporary sans serif design, Arial contains ...`.
+---@field venderurl string # for example `http://www.monotype.com/html/mtname/ms_arial.html`.
+---@field designerurl string # for example `http://www.monotype.com/html/mtname/ms_welcome.html`.
+---@field license string # for example `NOTIFICATION OF LICENSE AGREEMENT\r\n\r\nThis typeface is the property of Monotype Typography and its use by you is covered under the terms of a license agreement. ...`.
+---@field licenseurl string # for example `http://dejavu-fonts.org/wiki/License`.
 ---@field idontknow string
----@field preffamilyname string
----@field prefmodifiers string
----@field compatfull string
----@field sampletext string
----@field cidfindfontname string
+---@field preffamilyname string # for example `JetBrains Mono NL`.
+---@field prefmodifiers string # for example `65 Bold` or `Light Italic` or `SemiCondensed SemiBold`.
+---@field compatfull string # for example `Noto Looped Lao ExtraCondensed SemiBold`.
+---@field sampletext string # for example `How razorback-jumping frogs can level six piqued gymnasts!`.
+---@field cidfindfontname string # for example `Vemana2000`.
 ---@field wwsfamily string
----@field wwssubfamily string
+---@field wwssubfamily string # for example ``.
 
 _N._12_6_8_anchor_classes = "page 250"
 
