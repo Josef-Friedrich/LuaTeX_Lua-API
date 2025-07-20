@@ -250,7 +250,7 @@ def format_docstrings() -> None:
 
 
 def download_manuals() -> None:
-    files: dict[str, Union[str, None]] = {
+    luatex_files: dict[str, Union[str, None]] = {
         "luatex-backend.tex": "14_backend.tex",
         "luatex-callbacks.tex": "09_callbacks.tex",
         "luatex-contents.tex": None,
@@ -275,12 +275,41 @@ def download_manuals() -> None:
         "luatex-tex.tex": "10_tex.tex",
         "luatex-titlepage.tex": None,
     }
-    for file, renamed in files.items():
+
+    for file, renamed in luatex_files.items():
         if renamed:
             _download_url(
                 f"https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/raw/master/manual/{file}",
                 str(project_base_path) + f"/resources/manuals/luatex/{renamed}",
             )
+
+    for file in [
+        "luametatex-assumptions.tex"
+        "luametatex-callbacks.tex"
+        "luametatex-constructions.tex"
+        "luametatex-contents.tex"
+        "luametatex-engines.tex"
+        "luametatex-fonts.tex"
+        "luametatex-internals.tex"
+        "luametatex-introduction.tex"
+        "luametatex-languages.tex"
+        "luametatex-libraries.tex"
+        "luametatex-lua.tex"
+        "luametatex-math.tex"
+        "luametatex-metapost.tex"
+        "luametatex-nodes.tex"
+        "luametatex-pdf.tex"
+        "luametatex-primitives.tex"
+        "luametatex-principles.tex"
+        "luametatex-style.tex"
+        "luametatex-tex.tex"
+        "luametatex-tokens.tex"
+        "luametatex.tex"
+    ]:
+        _download_url(
+            f"https://github.com/contextgarden/context/blob/main/doc/context/sources/general/manuals/luametatex/{file}",
+            str(project_base_path) + f"/resources/manuals/luametatex/{file}",
+        )
 
 
 # merge
