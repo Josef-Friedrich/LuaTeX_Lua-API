@@ -44,6 +44,8 @@ diff:
 patch:
 	resources/patch.sh patch
 
+doc: doc_pdf
+
 doc_pdf:
 	lualatex --shell-escape $(jobname)-doc.tex
 	makeindex -s gglo.ist -o $(jobname)-doc.gls $(jobname)-doc.glo

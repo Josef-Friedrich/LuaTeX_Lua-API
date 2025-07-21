@@ -4,7 +4,7 @@
 \CodelineIndex
 \RecordChanges
 
-\usepackage{minted}
+\usepackage[highlightmode=immediate]{minted}
 \usepackage{hyperref}
 
 
@@ -60,6 +60,45 @@ warnings and errors, should therefore not only be possible in
 \href{https://langserver.org/#implementations-client}{large number of
 editors} that support the |LSP|.
 
+\section{Directory structure of the repository}
+
+In the subfolder |library| are files named after the global libraries
+they document. For example, the |library/tex.lua| file contains the
+documentation for the |tex| library. These \emph{Lua} files don’t contain
+real \emph{Lua} code. They consist only of function bodies and empty
+tables. The main focus is in the docstrings.
+
+The API documentation is written in a
+\href{https://luals.github.io/wiki/annotations}{well documented
+annotation format}. This format is based on the
+\href{https://emmylua.github.io}{EmmyLua} format. Unfortunately, the
+\emph{Lua} community has not yet been able to agree on a standarized
+annotation format. Many \emph{Lua} project are documented in the
+\href{https://github.com/lunarmodules/LDoc}{LDoc} format. However, the
+differences between these formats are marginal.
+
+\subsection{Directory \texttt{library}}
+
+The actual definitions are located in the directory |library|. This
+directory is divided into further subdirectories. In the folder |luatex|
+you will find the definitions that the engine \emph{Lua\TeX} provides. The
+folder |lualibs| documents the extension library of the same name. If
+you use |lualatex|, you may be interested in the folder of the same
+name.
+
+\subsection{Directory \texttt{resources}}
+
+The folder |resources| contains \emph{\TeX} manuals and \emph{HTML}
+online documentation converted into \emph{Lua} docstrings.
+
+\subsection{Directory \texttt{examples}}
+
+% Der Ordner |example| enthält \TeX{}- und \emph{Lua}-Dateien zur
+% Demonstration und zum Testen der dokumentierten Lua-API.
+The |example| folder contains \emph{\TeX{}} and \emph{Lua} files for
+demonstrating and testing the documented \emph{Lua} API.
+
+
 \section{Version on CTAN}
 
 % Die Typ-Definitionen werden auf CTAN als eine einzige Datei
@@ -76,11 +115,11 @@ be made so that the language server can load the file.
 The following configuration example sets the preload file size to a
 maximum of 5000 kB.
 
-\begin{minted}{json}
+\begin{verbatim}
 {
   "Lua.workspace.preloadFileSize": 5000,
 }
-\end{minted}
+\end{verbatim}
 
 
 % Es gibt mehrere Möglichkeiten die Typdefinitionen in einem Projekt
@@ -91,11 +130,11 @@ The easiest way is to copy the file into the project folder.
 % Oder Sie verwenden die Konfiguration |Lua.workspace.library|
 Or you can use the configuration |Lua.workspace.library|:
 
-\begin{minted}{json}
+\begin{verbatim}
 {
     "Lua.workspace.library": ["/path/to/luatex-type-definitions.lua"]
 }
-\end{minted}
+\end{verbatim}
 
 \pagebreak
 \PrintIndex

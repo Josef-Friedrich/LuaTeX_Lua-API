@@ -47,40 +47,40 @@ the `LSP`.
 * [LuaCats: tex-lualatex](https://github.com/LuaCATS/tex-lualatex)
   ← [library/luatex](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/tree/main/library/luatex)
 
-## Structure of this project / documentation
+## Directory structure of the repository
 
 In the subfolder `library` are files named after the global libraries
 they document. For example, the `library/tex.lua` file contains the
-documentation for the `tex` library. These `Lua` files don’t contain
-really `Lua` code. They consist of just function bodies and empty
-tables. The main focus lies in the docstrings.
+documentation for the `tex` library. These *Lua* files don’t contain
+real *Lua* code. They consist only of function bodies and empty
+tables. The main focus is in the docstrings.
 
-The API docmentation is written in a [well documented annotation
-format](https://github.com/sumneko/lua-language-server/wiki/Annotations#meta).
-This format is based on the [EmmyLua](https://emmylua.github.io/)
-format. Unfortunately, the `Lua` community has not yet been able to
-agree on a standarized annotation format. Many `Lua` project are
+The API documentation is written in a [well documented annotation
+format](https://luals.github.io/wiki/annotations).
+This format is based on the [EmmyLua](https://emmylua.github.io)
+format. Unfortunately, the *Lua* community has not yet been able to
+agree on a standarized annotation format. Many *Lua* project are
 documented in the [LDoc](https://github.com/lunarmodules/LDoc) format.
 However, the differences between these formats are marginal.
 
-### `library`
+### Directory `library`
 
 The actual definitions are located in the directory `library`. This
 directory is divided into further subdirectories. In the folder `luatex`
-you will find the definitions that the engine `LuaTeX` provides. The
+you will find the definitions that the engine *LuaTeX* provides. The
 folder `lualibs` documents the extension library of the same name. If
 you use `lualatex`, you may be interested in the folder of the same
 name.
 
-### `resources`
+### Directory `resources`
 
-The folder resources contains TeX manuals and HTML online documentation
-converted into Lua docstrings.
+The folder `resources` contains *TeX* manuals and *HTML* online
+documentation  converted into *Lua* docstrings.
 
-### `examples`
+### Directory `examples`
 
-The `example` folder contains TeX files for demonstrating and testing
-the documented Lua API.
+The `example` folder contains *TeX* and *Lua* files for demonstrating
+and testing the documented Lua API.
 
 ## Version on CTAN
 
@@ -105,6 +105,10 @@ Or you can use the configuration `Lua.workspace.library`:
     "Lua.workspace.library": ["/path/to/luatex-type-definitions.lua"]
 }
 ```
+
+## Current version
+
+2025/07/13 v0.1.0
 
 ## License
 
