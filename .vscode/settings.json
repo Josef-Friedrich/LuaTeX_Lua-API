@@ -24,25 +24,25 @@
     "**/*.tar.gz": true,
     "**/*.toc": true
   },
-  "latex-workshop.latex.recipes": [
-    {
-      "name": "luatex",
-      "tools": ["luatex"]
-    }
-  ],
+  // "latex-workshop.latex.recipes": [
+  //   {
+  //     "name": "luatex",
+  //     "tools": ["luatex"]
+  //   }
+  // ],
 
-  "latex-workshop.latex.tools": [
-    {
-      "name": "luatex",
-      "command": "luatex",
-      "args": [
-        "--synctex=1",
-        "--interaction=nonstopmode",
-        "--file-line-error",
-        "%DOC%"
-      ],
-      "env": {}
-    }
-  ],
+  // "latex-workshop.latex.tools": [
+  //   {
+  //     "name": "luatex",
+  //     "command": "luatex",
+  //     "args": [
+  //       "--synctex=1",
+  //       "--interaction=nonstopmode",
+  //       "--file-line-error",
+  //       "%DOC%"
+  //     ],
+  //     "env": {}
+  //   }
+  // ],
   "Lua.workspace.checkThirdParty": false
 }

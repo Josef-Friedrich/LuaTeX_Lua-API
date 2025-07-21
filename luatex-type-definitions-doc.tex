@@ -5,6 +5,7 @@
 \RecordChanges
 
 \usepackage{minted}
+\usepackage{hyperref}
 
 
 \begin{document}
@@ -13,8 +14,8 @@
 \author{%
   Josef Friedrich\\%
   \url{josef@friedrich.rocks}\\%
-  \href{https://github.com/Josef-Friedrich/luakeys}
-       {github.com/Josef-Friedrich/luakeys}%
+  \href{https://github.com/Josef-Friedrich/LuaTeX_Lua-API}
+       {github.com/Josef-Friedrich/LuaTeX\_Lua-API}%
 }
 \date{v0.2.0 from 2025/07/21}
 
@@ -28,6 +29,36 @@
 
 % \section{Einführung}
 \section{Introduction}
+
+% \href{http://luatex.org}{Lua\TeX} verfügt über eine sehr umfangreiche
+% \href{https://www.lua.org}{Lua} API. -->
+\href{http://luatex.org}{Lua\TeX} has a very large
+\href{https://www.lua.org}{Lua} API.
+% Dieses Projekt versucht, diese API im Texteditor Ihrer Wahl
+% zugänglich zu machen.
+This project tries to make this API accessible in the text editor
+of your choice.
+% Ermöglicht wird dies durch den
+% \href{https://github.com/LuaLS/lua-language-server}{lua-language-server}
+% – einen Server, der das
+% \href{https://en.wikipedia.org/wiki/Language_Server_Protocol}{Language
+% Server Protocol (LSP)} für die Sprache Lua implementiert.
+This is made possible by the
+\href{https://github.com/LuaLS/lua-language-server}{lua-language-server}
+- a server that implements the
+\href{https://en.wikipedia.org/wiki/Language_Server_Protocol}{Language
+Server Protocol (LSP)} for the |Lua| language.
+% Funktionen wie die Syntaxhervorhebung, Code-Vervollständigung und die
+% Markierung von Warnungen und Fehlern sollten daher nicht nur in
+% \href{https://code.visualstudio.com}{Visual Studio Code}, sondern in
+% einer \href{https://langserver.org/#implementations-client}{großen Anzahl an
+% Editoren} möglich
+% sein, die das „LSP“ unterstützen.
+Features such as code completion, syntax highlighting and marking of
+warnings and errors, should therefore not only be possible in
+\href{https://code.visualstudio.com}{Visual Studio Code}, but in a
+\href{https://langserver.org/#implementations-client}{large number of
+editors} that support the |LSP|.
 
 \pagebreak
 \PrintIndex

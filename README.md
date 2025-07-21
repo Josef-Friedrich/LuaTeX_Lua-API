@@ -1,11 +1,8 @@
 # LuaTeX Lua API
 
-Type definitions / Stubs for the Lua API / interface of `LuaTeX` and
-related `Lua` modules.
+Type definitions for the Lua API of `LuaTeX` and related projects.
 
 ![](resources/screencasts/node.new.gif)
-
-Work in progress! Please contribute!
 
 <!-- [LuaTeX](http://luatex.org) verfügt über eine sehr umfangreiche
 [Lua](https://www.lua.org) API. -->
@@ -31,7 +28,7 @@ und die Markierung von Warnungen und Fehlern sollten daher nicht nur in [Visual
 Studio Code](https://code.visualstudio.com), sondern in einer
 [großen Anzahl an Editoren](https://langserver.org/#implementations-client)
 möglich sein, die das „LSP“ unterstützen. -->
-Features such as code completion syntax highlighting and marking of
+Features such as code completion, syntax highlighting and marking of
 warnings and errors, should therefore not only be possible in [Visual
 Studio Code](https://code.visualstudio.com), but in a [large number of
 editors](https://langserver.org/#implementations-client) that support
