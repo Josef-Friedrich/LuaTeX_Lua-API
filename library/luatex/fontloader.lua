@@ -89,30 +89,63 @@ _N._12_2_loading_an_opentype_or_truetype_file = "page 237"
 ---@param filename string
 ---@param fontname? string
 ---
----@return userdata font # The first return value is a userdata representation of the font.
+---@return FontloaderFont font # The first return value is a userdata representation of the font.
 ---@return table warnings # The second return value is a table containing any warnings and errors reported by fontloader while opening the font. In normal typesetting, you would probably ignore the second argument, but it can be useful for debugging purposes.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fontloader.open(filename, fontname) end
 
 ---
+---If you want to use an \OPENTYPE\ font, you have to get the metric information
+---from somewhere. Using the fontloader library, the simplest way to get
+---that information is thus:
+---
+---__Example:__
+---
+---```lua
+---function load_font (filename)
+---  local metrics = nil
+---  local font = fontloader.open(filename)
+---  if font then
+---     metrics = fontloader.to_table(font)
+---     fontloader.close(font)
+---  end
+---  return metrics
+---end
+---
+---myfont = load_font('/opt/tex/texmf/fonts/data/arial.ttf')
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [luafflib.c#L2244-L2255](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2244-L2255)
 ---
----@param font userdata
+---@param font FontloaderFont
 ---
----@return FontloaderField f
+---@return FontloaderFont|false f
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fontloader.to_table(font) end
 
 ---
+---Discard a loaded font.
+---
+---__Example:__
+---
+---```lua
+---local f = fontloader.open(
+---              '/usr/share/fonts/opentype/urw-base35/NimbusRoman-Regular.otf')
+---print(fontloader.to_table(f)) -- table: 0x3d23b50
+---fontloader.close(f)
+---print(fontloader.to_table(f)) -- false
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [luafflib.c#L265-L280](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L265-L280)
+---* Source code of the `LuaTeX` manual: [luatex-fontloader.tex#L149-153](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/4f2b914d365bab8a2747afe6e8c86d0f1c8475f7/manual/luatex-fontloader.tex#L149-153)
 ---
----@param font userdata
+---@param font FontloaderFont
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fontloader.close(font) end
@@ -153,12 +186,88 @@ function fontloader.apply_afmfile(font, filename) end
 
 _N._12_5_fontloader_font_tables = "page 241"
 
+
+
+---
+---@alias FontloaderFontField
+---|`table_version`
+---|`fontname`
+---|`fullname`
+---|`familyname`
+---|`weight`
+---|`copyright`
+---|`filename`
+---|`version`
+---|`italicangle`
+---|`upos`
+---|`uwidth`
+---|`ascent`
+---|`descent`
+---|`uniqueid`
+---|`glyphcnt`
+---|`glyphmax`
+---|`glyphmin`
+---|`units_per_em`
+---|`lookups`
+---|`glyphs`
+---|`hasvmetrics`
+---|`onlybitmaps`
+---|`serifcheck`
+---|`isserif`
+---|`issans`
+---|`encodingchanged`
+---|`strokedfont`
+---|`use_typo_metrics`
+---|`weight_width_slope_only`
+---|`head_optimized_for_cleartype`
+---|`uni_interp`
+---|`map`
+---|`origname`
+---|`private`
+---|`xuid`
+---|`pfminfo`
+---|`names`
+---|`cidinfo`
+---|`subfonts`
+---|`comments`
+---|`fontlog`
+---|`cvt_names`
+---|`ttf_tables`
+---|`ttf_tab_saved`
+---|`texdata`
+---|`anchor_classes`
+---|`kerns`
+---|`vkerns`
+---|`gsub`
+---|`gpos`
+---|`features`
+---|`mm`
+---|`chosenname`
+---|`macstyle`
+---|`fondname`
+---|`design_size`
+---|`fontstyle_id`
+---|`fontstyle_name`
+---|`design_range_bottom`
+---|`design_range_top`
+---|`strokewidth`
+---|`mark_classes`
+---|`creationtime`
+---|`modificationtime`
+---|`os2_version`
+---|`sfd_version`
+---|`math`
+---|`validation_state`
+---|`horiz_base`
+---|`vert_base`
+---|`extrema_bound`
+---|`notdef_loc`
+
 ---
 ---__Example:__
 ---
 ---```lua
 ---local f = fontloader.open('/usr/share/fonts/opentype/urw-base35/NimbusRoman-Regular.otf')
----
 ---for _, value in ipairs(fontloader.fields(f)) do
 ---    print(value, f[value])
 ---end
@@ -168,28 +277,63 @@ _N._12_5_fontloader_font_tables = "page 241"
 ---
 ---* Corresponding C source code: [luafflib.c#L2491-L2511](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2491-L2511)
 ---
----@param font userdata
+---@param font FontloaderFont
 ---
----@return table FontloaderField
+---@return FontloaderFontField[] fields
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fontloader.fields(font) end
 
 ---
+---@alias FontloaderGlyphField
+---|`name`
+---|`unicode`
+---|`boundingbox`
+---|`vwidth`
+---|`width`
+---|`lsidebearing`
+---|`class`
+---|`kerns`
+---|`vkerns`
+---|`dependents`
+---|`lookups`
+---|`ligatures`
+---|`comment`
+---|`anchors`
+---|`altuni`
+---|`tex_height`
+---|`tex_depth`
+---|`is_extended_shape`
+---|`italic_correction`
+---|`top_accent`
+---|`vert_variants`
+---|`horiz_variants`
+---|`mathkern`
+
+---
+------__Example:__
+---
+---```lua
+---local f = fontloader.open('/usr/share/fonts/opentype/urw-base35/NimbusRoman-Regular.otf')
+---for _, value in ipairs(fontloader.fields(f.glyphs[1])) do
+---    print(value, f[value])
+---end
+---```---
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [luafflib.c#L2491-L2511](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2491-L2511)
 ---
----@param font_glyph userdata
+---@param glyph FontloaderGlyph
 ---
----@return table fields
+---@return FontloaderGlyphField[] fields
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function fontloader.fields(font_glyph) end
+function fontloader.fields(glyph) end
 
 _N._12_6_table_types = "page 240"
 
-_N._main_table = "FontloaderField"
+_N._main_table = "FontloaderFont"
 
 ---
 ---__Example:__
@@ -207,119 +351,46 @@ _N._main_table = "FontloaderField"
 ---* Corresponding C source code: [luafflib.c#L1899-2241](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/a4b8e13d3879e95c21e1719af0c3e31722bedd4f/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1899-2241)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fontloader.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
----@class FontloaderField
----
----https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2772-L2774
----@field table_version string # Indicates the metrics version (currently `0.3`), for example `0.5`
----
----https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2775-L2777
----@field fontname string # *PostScript* font name, for example `NimbusRoman-Regular`.
----
----https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2778-L2780
----@field fullname string # official (human-oriented) font name, for example `Nimbus Roman Regular`.
----
----https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2781-L2783
----@field familyname string # The family name, for example `Nimbus Roman`.
----
----https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2784-L2786
----@field weight string # The weight indicator, for example `Regular`
----
----https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2787-L2789
----@field copyright string # The copyright information, for example `Copyright (URW)++,Copyright 2014 by (URW)++ Design & Development`.
----
----https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2790-L2792
----@field filename string # The file name
----
----https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2793-L2795
----@field version string # The font version
----
----https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2796-L2798
----@field italicangle integer # The slant angle
----
----https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2827-L2829
----@field units_per_em integer # `1000` for *PostScript*-based fonts, usually `2048` for *TrueType*
----
----https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2805-L2807
----@field ascent integer # The height of ascender in `units_per_em`
----
+---@class FontloaderFont
+---@field table_version string # Indicates the metrics version (currently `0.3`), for example `0.5`; Corresponding C source code: [luafflib.c#L2772-L2774](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2772-L2774).
+---@field fontname string # The *PostScript* font name, for example `NimbusRoman-Regular`; Corresponding C source code: [luafflib.c#L2775-L2777](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2775-L2777).
+---@field fullname string # The official (human-oriented) font name, for example `Nimbus Roman Regular`; Corresponding C source code: [luafflib.c#L2778-L2780](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2778-L2780).
+---@field familyname string # The family name, for example `Nimbus Roman`; Corresponding C source code: [luafflib.c#L2781-L2783](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2781-L2783).
+---@field weight string # The weight indicator, for example `Regular`; Corresponding C source code: [luafflib.c#L2784-L2786](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2784-L2786).
+---@field copyright string # The copyright information, for example `Copyright (URW)++,Copyright 2014 by (URW)++ Design & Development`; Corresponding C source code: [luafflib.c#L2787-L2789](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2787-L2789).
+---@field filename string # The file name; Corresponding C source code: [luafflib.c#L2790-L2792](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2790-L2792).
+---@field version string # The font version; Corresponding C source code: [luafflib.c#L2793-L2795](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2793-L2795).
+---@field italicangle integer # The slant angle; Corresponding C source code: [luafflib.c#L2796-L2798](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2796-L2798)
+---@field units_per_em integer # `1000` for *PostScript*-based fonts, usually `2048` for *TrueType*; Corresponding C source code: [luafflib.c#L2827-L2829](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2827-L2829).
+---@field ascent integer # The height of ascender in `units_per_em`; Corresponding C source code: [luafflib.c#L2805-L2807](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2805-L2807).
 ---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2808-L2810
----@field descent integer # The depth of descender in `units_per_em`
----
----https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2799-L2801
----@field upos integer #
----
----https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2802-L2804
----@field uwidth integer #
----
----https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2811-L2813
----@field uniqueid integer #
----
----https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2838-L2845
----@field glyphs FontloaderGlyph[] # The `glyphs` is an array containing the per-character information (quite a few of these are only present if non-zero).
----
----https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2814-L2820
----@field glyphcnt integer # The number of included glyphs
----
----https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2821-L2823
----@field glyphmax integer # The maximum used index the glyphs array
----
----https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2824-L2826
----@field glyphmin integer # The minimum used index the glyphs array
----@field notdef_loc integer # The location of the `.notdef` glyph or `-1` when not present
----
----https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2846-L2848
----@field hasvmetrics integer #
----
----https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2849-L2851
----@field onlybitmaps integer #
----
----https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2852-L2854
----@field serifcheck integer #
----
----https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2855-L2857
----@field isserif integer #
----
----https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2858-L2860
----@field issans integer #
----
----https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2861-L2863
----@field encodingchanged integer #
----
----https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2864-L2866
----@field strokedfont integer #
----
----https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2867-L2869
----@field use_typo_metrics integer #
----
----https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2870-L2872
----@field weight_width_slope_only integer #
----
----https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2873-L2875
----@field head_optimized_for_cleartype integer #
----
----https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2876-L2878
----@field uni_interp `unset`|`none`|`adobe`|`greek`|`japanese`|`trad_chinese`|`simp_chinese`|`korean`|`ams`, , for example `none`.
----
----https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2887-L2889
----@field origname string # The file name, as supplied by the user
----
----https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2879-L2886
----@field map FontloaderMap #
----
----https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2890-L2897
----@field public private FontloaderPrivate #
----
----https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2041
----@field xuid string # `[1021 618 1197637146 7437765]`
----
----https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2901-L2904
----@field pfminfo FontloaderPfminfo #
----
----https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2905-L2912
----@field names FontloaderLangName #
----
----https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2913-L2919
----@field cidinfo FontloaderCidinfo #
+---@field descent integer # The depth of descender in `units_per_em`; Corresponding C source code: [luafflib.c#L2808-L2810](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2808-L2810).
+---@field upos integer # Corresponding C source code: [luafflib.c#L2799-L2801](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2799-L2801)
+---@field uwidth integer # Corresponding C source code: [luafflib.c#L2802-L2804](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2802-L2804)
+---@field uniqueid integer # Corresponding C source code: [luafflib.c#L2811-L2813](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2811-L2813)
+---@field glyphs FontloaderGlyph[] # The `glyphs` is an array containing the per-character information (quite a few of these are only present if non-zero); Corresponding C source code: [luafflib.c#L2838-L2845](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2838-L2845).
+---@field glyphcnt integer # The number of included glyphs; Corresponding C source code: [luafflib.c#L2814-L2820](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2814-L2820).
+---@field glyphmax integer # The maximum used index the glyphs array; Corresponding C source code: [luafflib.c#L2821-L2823](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2821-L2823).
+---@field glyphmin integer # The minimum used index the glyphs array; Corresponding C source code: [luafflib.c#L2824-L2826](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2824-L2826).
+---@field notdef_loc integer # The location of the `.notdef` glyph or `-1` when not present, for example `0`, `-1`, `854`; Corresponding C source code: [luafflib.c#L1920](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L1920).
+---@field hasvmetrics integer # Corresponding C source code: [luafflib.c#L2846-L2848](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2846-L2848).
+---@field onlybitmaps integer # Corresponding C source code: [luafflib.c#L2849-L2851](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2849-L2851).
+---@field serifcheck integer # Corresponding C source code: [luafflib.c#L2852-L2854](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2852-L2854).
+---@field isserif integer # Corresponding C source code: [luafflib.c#L2855-L2857](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2855-L2857).
+---@field issans integer # Corresponding C source code: [luafflib.c#L2858-L2860](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2858-L2860).
+---@field encodingchanged integer # Corresponding C source code: [luafflib.c#L2861-L2863](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2861-L2863).
+---@field strokedfont integer # Corresponding C source code: [luafflib.c#L2864-L2866](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2864-L2866).
+---@field use_typo_metrics integer # Corresponding C source code: [luafflib.c#L2867-L2869](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2867-L2869).
+---@field weight_width_slope_only integer # Corresponding C source code: [luafflib.c#L2870-L2872](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2870-L2872).
+---@field head_optimized_for_cleartype integer # Corresponding C source code: [luafflib.c#L2873-L2875](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2873-L2875).
+---@field uni_interp `unset`|`none`|`adobe`|`greek`|`japanese`|`trad_chinese`|`simp_chinese`|`korean`|`ams` # for example `none`; Corresponding C source code: [luafflib.c#L2876-L2878](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2876-L2878).
+---@field origname string # The file name, as supplied by the user; Corresponding C source code: [luafflib.c#L2887-L2889](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2887-L2889).
+---@field map FontloaderMap # Corresponding C source code: [luafflib.c#L2879-L2886](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2879-L2886).
+---@field public private FontloaderPrivate # Corresponding C source code: [luafflib.c#L2890-L2897](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2890-L2897).
+---@field xuid string # `[1021 618 1197637146 7437765]`; Corresponding C source code: [luafflib.c#L2041](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2041).
+---@field pfminfo FontloaderPfminfo # Corresponding C source code: [luafflib.c#L2901-L2904](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2901-L2904).
+---@field names FontloaderLangName # Corresponding C source code: [luafflib.c#L2905-L2912](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2905-L2912)
+---@field cidinfo FontloaderCidinfo # Corresponding C source code: [luafflib.c#L2913-L2919](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2913-L2919).
 ---
 ---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L2920-L2930
 ---@field subfonts? table
@@ -616,7 +687,7 @@ _N._12_6_6_pfminfo = "page 248"
 ---@field os2_strikeysize integer # Thickness of the strikeout stroke in font design units. Should be > 0. https://learn.microsoft.com/en-us/typography/opentype/spec/os2#ystrikeoutsize
 ---@field os2_strikeypos integer # The position of the top of the strikeout stroke relative to the baseline in font design units. https://learn.microsoft.com/en-us/typography/opentype/spec/os2#ystrikeoutposition
 ---@field os2_family_class integer # This field provides a classification of font-family design. # https://learn.microsoft.com/en-us/typography/opentype/spec/os2#sfamilyclass
----@field os2_xheight integer # the height of lower case letters such as “x”
+---@field os2_xheight integer # The height of lower case letters such as “x”
 ---@field os2_capheight integer # This metric specifies the distance between the baseline and the approximate height of uppercase letters measured in font design units. https://learn.microsoft.com/en-us/typography/opentype/spec/os2#scapheight
 ---@field os2_defaultchar integer # This is the Unicode code point, in UTF-16 encoding, of a character that can be used for a default glyph if a requested character is not supported in the font. https://learn.microsoft.com/en-us/typography/opentype/spec/os2#scapheight
 ---@field os2_breakchar integer # This is the Unicode code point, in UTF-16 encoding, of a character that can be used as a default break character. https://learn.microsoft.com/en-us/typography/opentype/spec/os2#usbreakchar

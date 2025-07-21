@@ -1,5 +1,11 @@
 local inspect = require('inspect')
 
-local f = fontloader.open('/usr/share/fonts/opentype/urw-base35/NimbusRoman-Regular.otf')
+local utils = require('./resources/utils')
 
-print(inspect(fontloader.to_table(f)))
+for path in utils.list_files_recursively('/usr/share/fonts') do
+  local f = fontloader.open(path)
+  if f then
+    print(path)
+    utils.pinspect(fontloader.to_table(f))
+  end
+end

@@ -1,10 +1,13 @@
 ---This file is intended as a library for the various example files.
-
 local inspect = require('inspect')
 
 ---Print the inspected version of the value
-local function pinspect(value)
-    print(inspect(value))
+local function pinspect(value) print(inspect(value)) end
+
+---
+---@param names string[]
+local function convert_string_array_to_alias_union(names)
+    for index, name in ipairs(names) do print('---|`' .. name .. '`') end
 end
 
 ---
@@ -43,6 +46,7 @@ end
 
 return {
     pinspect = pinspect,
+    convert_string_array_to_alias_union = convert_string_array_to_alias_union,
     list_files_recursively = list_files_recursively,
     get_file_extension = get_file_extension
 }
