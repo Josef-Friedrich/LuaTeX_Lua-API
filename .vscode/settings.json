@@ -6,14 +6,24 @@
   ],
   "Lua.diagnostics.disable": ["duplicate-set-field", "param-type-mismatch"],
   "files.exclude": {
-    "**/*.log": true,
-    "**/*.pdf": true,
+    "**/_minted*/": true,
     "**/*.aux": true,
     "**/*.fdb_latexmk": true,
     "**/*.fls": true,
-    "**/*.synctex*": true
+    "**/*.glo": true,
+    "**/*.gls": true,
+    "**/*.hd": true,
+    "**/*.idx": true,
+    "**/*.ilg": true,
+    "**/*.ind": true,
+    "**/*.log": true,
+    "**/*.out": true,
+    "**/*.synctex.gz": true,
+    "**/*.synctex": true,
+    "**/*.synctex*": true,
+    "**/*.tar.gz": true,
+    "**/*.toc": true
   },
-
   "latex-workshop.latex.recipes": [
     {
       "name": "luatex",

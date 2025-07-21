@@ -1,3 +1,8 @@
+jobname = luatex-type-definitions
+texmf = $(HOME)/texmf
+texmftex = $(texmf)/tex/luatex
+installdir = $(texmftex)/$(jobname)
+
 all: format stylua
 
 format:
@@ -38,6 +43,14 @@ diff:
 
 patch:
 	resources/patch.sh patch
+
+doc_pdf:
+	lualatex --shell-escape $(jobname)-doc.tex
+	makeindex -s gglo.ist -o $(jobname)-doc.gls $(jobname)-doc.glo
+	makeindex -s gind.ist -o $(jobname)-doc.ind $(jobname)-doc.idx
+	lualatex --shell-escape $(jobname)-doc.tex
+	mkdir -p $(texmf)/doc
+	cp $(jobname)-doc.pdf $(texmf)/doc/$(jobname).pdf
 
 ctan_luatex: dist_rsync
 	./manage.py merge luatex
