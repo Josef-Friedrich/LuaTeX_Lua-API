@@ -17,7 +17,7 @@ a [large number of
 editors](https://langserver.org/#implementations-client) that support
 the `LSP`.
 
-## Related projects
+## Distribution
 
 * [Visual Studio Code LuaTeX Extension](https://github.com/Josef-Friedrich/vscode_LuaTeX_Lua-API)
   ← [library](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/tree/main/library)
@@ -42,10 +42,14 @@ the `LSP`.
 
 ### Subprojects (push) detached from this repository
 
+* [LuaCats: tex-lualatex](https://github.com/LuaCATS/tex-lualatex)
+  ← [library/lualatex](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/tree/main/library/lualatex)
 * [LuaCats: tex-luatex](https://github.com/LuaCATS/tex-luatex)
   ← [library/luatex](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/tree/main/library/luatex)
-* [LuaCats: tex-lualatex](https://github.com/LuaCATS/tex-lualatex)
-  ← [library/luatex](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/tree/main/library/luatex)
+* [LuaCats: tex-lualibs](https://github.com/LuaCATS/tex-lualibs)
+  ← [library/lualibs](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/tree/main/library/lualibs)
+* [LuaCats: tex-luametatex](https://github.com/LuaCATS/tex-luametatex)
+  ← [library/luametatex](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/tree/main/library/luametatex)
 
 ## Directory structure of the repository
 

@@ -60,6 +60,71 @@ warnings and errors, should therefore not only be possible in
 \href{https://langserver.org/#implementations-client}{large number of
 editors} that support the |LSP|.
 
+\section{Distribution}
+
+\subsection{Subprojects (upstream / pull) detached from this repository}
+
+\def\lArrow{ $\leftarrow$ }
+
+\def\rArrow{ $\rightarrow$ }
+
+\begin{itemize}
+\item \href{https://github.com/LuaCATS/lpeg}{LuaCats: lpeg} \rArrow
+\href{https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/libra
+ry/luatex/lpeg.lua}{library/luatex/lpeg.lua}
+
+\item \href{https://github.com/LuaCATS/luaharfbuzz}{LuaCats: luaharfbuzz} \rArrow
+\href{https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/libra
+ry/luatex/luaharfbuzz.lua}{library/luatex/luaharfbuzz.lua}
+
+\item \href{https://github.com/LuaCATS/luasocket}{LuaCats: luasocket} \rArrow
+\href{https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/libra
+ry/luatex/socket.lua}{library/luatex/socket.lua} \rArrow
+\href{https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/libra
+ry/luatex/mime.lua}{library/luatex/mime.lua}
+
+\item \href{https://github.com/LuaCATS/luazip}{LuaCats: luazip} \rArrow
+\href{https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/libra
+ry/luatex/zip.lua}{library/luatex/zip.lua}
+
+\item \href{https://github.com/LuaCATS/lzlib}{LuaCats: lzlib} \rArrow
+\href{https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/libra
+ry/luatex/zlib.lua}{library/luatex/zlib.lua}
+
+\item \href{https://github.com/LuaCATS/md5}{LuaCats: md5} \rArrow
+\href{https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/libra
+ry/luatex/md5.lua}{library/luatex/md5.lua}
+
+\item \href{https://github.com/LuaCATS/slnunicode}{LuaCats: slnunicode} \rArrow
+\href{https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/libra
+ry/luatex/unicode.lua}{library/luatex/unicode.lua}
+\end{itemize}
+
+\subsection{Subprojects (push) detached from this repository}
+
+\begin{itemize}
+
+\item \href{https://github.com/LuaCATS/tex-lualatex}{LuaCats:
+tex-lualatex} \lArrow
+\href{https://github.com/Josef-Friedrich/LuaTeX_Lua-API/tree/main/libra
+ry/lualatex}{library/lualatex}
+
+\item \href{https://github.com/LuaCATS/tex-luatex}{LuaCats: tex-luatex}
+\lArrow
+\href{https://github.com/Josef-Friedrich/LuaTeX_Lua-API/tree/main/libra
+ry/luatex}{library/luatex}
+
+\item \href{https://github.com/LuaCATS/tex-lualibs}{LuaCats:
+tex-lualibs} \lArrow
+\href{https://github.com/Josef-Friedrich/LuaTeX_Lua-API/tree/main/libra
+ry/lualibs}{library/lualibs}
+
+\item \href{https://github.com/LuaCATS/tex-luametatex}{LuaCats:
+tex-luametatex} \lArrow
+\href{https://github.com/Josef-Friedrich/LuaTeX_Lua-API/tree/main/libra
+ry/luametatex}{library/luametatex}
+\end{itemize}
+
 \section{Directory structure of the repository}
 
 In the subfolder |library| are files named after the global libraries
