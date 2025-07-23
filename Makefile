@@ -85,11 +85,21 @@ example_luatex_fontloader_info:
 example_luatex_fontloader_to_table:
 	luatex --luaonly examples/luatex/fontloader/to_table.lua
 
+example_luatex_string_characterpairs:
+	luatex --luaonly examples/luatex/string/characterpairs.lua
+example_luatex_string_characters:
+	luatex --luaonly examples/luatex/string/characters.lua
 example_luatex_string_explode:
 	luatex --luaonly examples/luatex/string/explode.lua
-example_luatex_string_utfvalue:
-	luatex --luaonly examples/luatex/string/utfvalue.lua
 example_luatex_string_utfcharacter:
 	luatex --luaonly examples/luatex/string/utfcharacter.lua
+example_luatex_string_utfcharacters:
+	luatex --luaonly examples/luatex/string/utfcharacters.lua
+example_luatex_string_utflength:
+	luatex --luaonly examples/luatex/string/utflength.lua
+example_luatex_string_utfvalue:
+	luatex --luaonly examples/luatex/string/utfvalue.lua
+example_luatex_string_utfvalues:
+	luatex --luaonly examples/luatex/string/utfvalues.lua
 
 .PHONY: all format convert_tex_to_lua stylua debug print_namespace generate_doc dist update_lls_addons test diff patch clean update_manual
