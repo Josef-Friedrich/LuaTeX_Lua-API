@@ -44,7 +44,6 @@ local function list_files_recursively(path)
     return coroutine.wrap(function() yieldtree(path) end)
 end
 
-
 local inspect = require('inspect')
 require('lualibs')
 
@@ -154,11 +153,10 @@ local function print_global_namespace()
     end
 end
 
-local print_namespace function()
+local function print_namespace()
     print_global_namespace()
     print_lib_members('unicode.ascii', _ENV.unicode.ascii, true)
 end
-
 
 return {
     pinspect = pinspect,
