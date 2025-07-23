@@ -15,7 +15,7 @@ _N = {}
 ---
 ---__Reference:__
 ---
----* Source code of the `LuaTeX` manual: [luatex-tex.tex#L2091-L2098](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L2091-L2098)
+---* Source file of the `LuaTeX` manual: [luatex-tex.tex#L2091-L2098](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L2091-L2098)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/token.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 token = {}
@@ -371,7 +371,7 @@ _N._1_picking_one_token = "page 218"
 ---
 ---__Reference:__
 ---
----* Source code of the `LuaTeX` manual: [luatex-tex.tex#L2237-L2239](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L2237-L2239)
+---* Source file of the `LuaTeX` manual: [luatex-tex.tex#L2237-L2239](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L2237-L2239)
 ---* Corresponding C source code: [lnewtokenlib.c#L231-L239](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L231-L239)
 ---
 ---@return Token
@@ -590,7 +590,7 @@ _N._3_creating = "page 218"
 ---
 ---__Reference:__
 ---
----* Source code of the `LuaTeX` manual: [luatex-tex.tex#L2285-L2310](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L2285-L2310)
+---* Source file of the `LuaTeX` manual: [luatex-tex.tex#L2285-L2310](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L2285-L2310)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/token.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class Token
@@ -907,7 +907,7 @@ _N._4_macros = "page 219"
 ---
 ---__Reference:__
 ---
----* Source code of the `LuaTeX` manual: [luatex-tex.tex#L2368-L2382](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L2368-L2382)
+---* Source file of the `LuaTeX` manual: [luatex-tex.tex#L2368-L2382](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L2368-L2382)
 ---* Corresponding C source code: [lnewtokenlib.c#L1218-L1342](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L1218-L1342)
 ---
 ---@param csname string
@@ -931,7 +931,7 @@ function token.set_macro(csname, content, global) end
 ---
 ---__Reference:__
 ---
----* Source code of the `LuaTeX` manual: [luatex-tex.tex#L2368-L2382](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L2368-L2382)
+---* Source file of the `LuaTeX` manual: [luatex-tex.tex#L2368-L2382](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L2368-L2382)
 ---* Corresponding C source code: [lnewtokenlib.c#L1218-L1342](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L1218-L1342)
 ---
 ---@param catcodetable integer # A catcodetable identifier.
@@ -1032,7 +1032,7 @@ _N._5_pushing_back = "page 220"
 ---
 ---__Reference:__
 ---
----* Source code of the `LuaTeX` manual: [luatex-tex.tex#L2422-L2433](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L2422-L2433)
+---* Source file of the `LuaTeX` manual: [luatex-tex.tex#L2422-L2433](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L2422-L2433)
 ---* Corresponding C source code: [lnewtokenlib.c#L262-L337](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnewtokenlib.c#L262-L337)
 ---
 ---@param ... Token

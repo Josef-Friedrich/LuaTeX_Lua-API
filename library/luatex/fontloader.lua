@@ -143,7 +143,7 @@ function fontloader.to_table(font) end
 ---__Reference:__
 ---
 ---* Corresponding C source code: [luafflib.c#L265-L280](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/luafontloader/src/luafflib.c#L265-L280)
----* Source code of the `LuaTeX` manual: [luatex-fontloader.tex#L149-153](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/4f2b914d365bab8a2747afe6e8c86d0f1c8475f7/manual/luatex-fontloader.tex#L149-153)
+---* Source file of the `LuaTeX` manual: [luatex-fontloader.tex#L149-153](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/4f2b914d365bab8a2747afe6e8c86d0f1c8475f7/manual/luatex-fontloader.tex#L149-153)
 ---
 ---@param font FontloaderFont
 ---
@@ -185,8 +185,6 @@ _N._12_4_applying_an_afm_file = "page 241"
 function fontloader.apply_afmfile(font, filename) end
 
 _N._12_5_fontloader_font_tables = "page 241"
-
-
 
 ---
 ---@alias FontloaderFontField

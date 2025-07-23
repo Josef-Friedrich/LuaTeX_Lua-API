@@ -48,7 +48,7 @@ _N._11_2_1_new = "page 230"
 ---
 ---__Reference:__
 ---
----* Source code of the `LuaTeX` manual: [luatex-graphics.tex#L387-L409](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-graphics.tex#L387-L409)
+---* Source file of the `LuaTeX` manual: [luatex-graphics.tex#L387-L409](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-graphics.tex#L387-L409)
 ---* Corresponding C source code: [lmplib.c#L308-L322](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L308-L322)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -76,7 +76,7 @@ local MpInstance = {}
 ---
 ---__Reference:__
 ---
----* Source code of the `LuaTeX` manual: [luatex-graphics.tex#L381-L385](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-graphics.tex#L381-L385)
+---* Source file of the `LuaTeX` manual: [luatex-graphics.tex#L381-L385](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-graphics.tex#L381-L385)
 ---* Corresponding C source code: [lmplib.c#L532-L627](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L532-L627)
 ---
 ---@param args? MpArguments
@@ -97,7 +97,7 @@ _N._11_2_2_statistics = "page 233"
 ---
 ---__Reference:__
 ---
----* Source code of the `LuaTeX` manual: [luatex-graphics.tex#L460-L470](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-graphics.tex#L460-L470)
+---* Source file of the `LuaTeX` manual: [luatex-graphics.tex#L460-L470](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-graphics.tex#L460-L470)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mplib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class MpStats
@@ -117,7 +117,7 @@ _N._11_2_2_statistics = "page 233"
 ---
 ---__Reference:__
 ---
----* Source code of the `LuaTeX` manual: [luatex-graphics.tex#L470-L482](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-graphics.tex#L470-L482)
+---* Source file of the `LuaTeX` manual: [luatex-graphics.tex#L470-L482](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-graphics.tex#L470-L482)
 ---* Corresponding C source code: [lmplib.c#L771-L792](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L771-L792)
 ---
 ---@param mp MpInstance
@@ -138,7 +138,7 @@ function mplib.statistics(mp) end
 ---
 ---__Reference:__
 ---
----* Source code of the `LuaTeX` manual: [luatex-graphics.tex#L470-L482](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-graphics.tex#L470-L482)
+---* Source file of the `LuaTeX` manual: [luatex-graphics.tex#L470-L482](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-graphics.tex#L470-L482)
 ---* Corresponding C source code: [lmplib.c#L771-L792](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L771-L792)
 ---
 ---@return MpStats
@@ -165,7 +165,7 @@ _N._11_2_3_execute = "page 233"
 ---
 ---__Reference:__
 ---
----* Source code of the `LuaTeX` manual: [luatex-graphics.tex#L488-L507](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-graphics.tex#L488-L507)
+---* Source file of the `LuaTeX` manual: [luatex-graphics.tex#L488-L507](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-graphics.tex#L488-L507)
 ---* Corresponding C source code: [lmplib.c#L692-L711](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L692-L711)
 ---
 ---@param mp MpInstance
@@ -193,7 +193,7 @@ function mplib.execute(mp, code) end
 ---
 ---__Reference:__
 ---
----* Source code of the `LuaTeX` manual: [luatex-graphics.tex#L488-L507](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-graphics.tex#L488-L507)
+---* Source file of the `LuaTeX` manual: [luatex-graphics.tex#L488-L507](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-graphics.tex#L488-L507)
 ---* Corresponding C source code: [lmplib.c#L692-L711](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/mplibdir/lmplib.c#L692-L711)
 ---
 ---@param code string

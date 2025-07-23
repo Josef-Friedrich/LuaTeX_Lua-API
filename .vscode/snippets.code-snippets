@@ -55,10 +55,10 @@
     ],
     "body": [
       "",
-      "---* Source code of the `LuaTeX` manual: [$2]($1)",
+      "---* Source file of the `LuaTeX` manual: [$2]($1)",
       "---$0"
     ],
-    "description": "* Source code of the `LuaTeX` manual"
+    "description": "* Source file of the `LuaTeX` manual"
   },
   "link": {
     "prefix": [

@@ -299,7 +299,7 @@ function os.times() end
 ---
 ---__Reference:__
 ---
----* Source code of the `LuaTeX` manual: [luatex-lua.tex#L531-L538](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-lua.tex#L531-L538)
+---* Source file of the `LuaTeX` manual: [luatex-lua.tex#L531-L538](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-lua.tex#L531-L538)
 ---* Corresponding C source code: [loslibext.c#L971-L997](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L971-L997)
 ---
 ---@param template? string # for example `luatex.XXXXXX`

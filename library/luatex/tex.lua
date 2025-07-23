@@ -14,7 +14,7 @@ _N._10_3_2_internal_parameter_values_set_get = "page 190"
 ---
 ---__Reference:__
 ---
----* Source code of the `LuaTeX` manual: [luatex-tex.tex#L284-350](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L284-350)
+---* Source file of the `LuaTeX` manual: [luatex-tex.tex#L284-350](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L284-350)
 ---@alias ReadWriteIntegerParameter
 ---| 'adjdemerits' # Penalty for adjacent visually incompatible lines. Default: `10000`.
 ---| 'binoppenalty' # Penalty for breaking after a binary operator not enclosed in a subformula. Default: `700`.
@@ -89,7 +89,7 @@ _N._10_3_2_internal_parameter_values_set_get = "page 190"
 ---
 ---__Reference:__
 ---
----* Source code of the `LuaTeX` manual: [luatex-tex.tex#L358-366](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L358-366)
+---* Source file of the `LuaTeX` manual: [luatex-tex.tex#L358-366](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L358-366)
 ---@alias ReadOnlyIntegerParameter
 ---| 'deadcycles' # Counter that keeps track of how many times the output routine has been called without a `\shipout` taking place.
 ---| 'insertpenalties' # Total of penalties for split insertions. Inside the output routine, the number of held-over insertions.
@@ -108,7 +108,7 @@ _N._10_3_2_internal_parameter_values_set_get = "page 190"
 ---
 ---__Reference:__
 ---
----* Source code of the `LuaTeX` manual: [luatex-tex.tex#L378-407](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L378-407)
+---* Source file of the `LuaTeX` manual: [luatex-tex.tex#L378-407](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L378-407)
 ---@alias ReadWriteDimensionParameter
 ---| 'boxmaxdepth' # Maximum allowed depth of boxes. Default: `\maxdimen`.
 ---| 'delimitershortfall' # Size of the part of a delimited formula that is allowed to go uncovered by a delimiter. Default: `5pt`.
@@ -148,7 +148,7 @@ _N._10_3_2_internal_parameter_values_set_get = "page 190"
 ---
 ---__Reference:__
 ---
----* Source code of the `LuaTeX` manual: [luatex-tex.tex#L415-422](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L415-422)
+---* Source file of the `LuaTeX` manual: [luatex-tex.tex#L415-422](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L415-422)
 ---@alias ReadOnlyDimensionParameter
 ---| 'pagedepth' # Depth of the current page.
 ---| 'pagefilllstretch' # Accumulated third-order stretch of the current page.
@@ -164,7 +164,7 @@ _N._10_3_2_internal_parameter_values_set_get = "page 190"
 ---
 ---__Reference:__
 ---
----* Source code of the `LuaTeX` manual: [luatex-tex.tex#L465-469](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L465-469)
+---* Source file of the `LuaTeX` manual: [luatex-tex.tex#L465-469](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L465-469)
 ---@alias DirectionParameter
 ---| 'bodydir' # The direction for vboxes, including the main body of text. Default: `TLT`.
 ---| 'mathdir' # The direction for mathematics. Default: `TLT`.
@@ -178,7 +178,7 @@ _N._10_3_2_internal_parameter_values_set_get = "page 190"
 ---
 ---__Reference:__
 ---
----* Source code of the `LuaTeX` manual: [luatex-tex.tex#L479-493](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L479-493)
+---* Source file of the `LuaTeX` manual: [luatex-tex.tex#L479-493](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L479-493)
 ---@alias GlueParameter
 ---| 'abovedisplayshortskip' # Glue above a display if the line preceding the display was short. Default: `0pt plus 3pt`.
 ---| 'abovedisplayskip' # Glue above a display. Default: `12pt plus 3pt minus 9pt`.
@@ -201,7 +201,7 @@ _N._10_3_2_internal_parameter_values_set_get = "page 190"
 ---
 ---__Reference:__
 ---
----* Source code of the `LuaTeX` manual: [luatex-tex.tex#L503-505](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L503-505)
+---* Source file of the `LuaTeX` manual: [luatex-tex.tex#L503-505](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L503-505)
 ---@alias MuglueParameter
 ---| 'medmuskip' # Medium amount of mu (math units) glue.
 ---| 'thickmuskip' # Large amount of mu (math units) glue.
@@ -217,7 +217,7 @@ _N._10_3_2_internal_parameter_values_set_get = "page 190"
 ---
 ---__Reference:__
 ---
----* Source code of the `LuaTeX` manual: [luatex-tex.tex#L520-529](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L520-529)
+---* Source file of the `LuaTeX` manual: [luatex-tex.tex#L520-529](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L520-529)
 ---@alias TokenlistParameter
 ---| 'errhelp' # Tokens that will be displayed if the user asks further help after an `\errmessage`.
 ---| 'everycr' # Token list inserted after every `\cr` or non-redundant `\crcr`.
@@ -5071,7 +5071,7 @@ _N._10_3_14_1_print = "page 201"
 ---
 ---__Reference:__
 ---
----* Source code of the `LuaTeX` manual: [luatex-tex.tex#L1222-L1224](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L1222-L1224)
+---* Source file of the `LuaTeX` manual: [luatex-tex.tex#L1222-L1224](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L1222-L1224)
 ---* Corresponding C source code: [ltexlib.c#L161-164](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L161-164)
 ---
 ---@param input_line PrintableInput # Each string argument is treated by *TeX* as a separate input line.
@@ -5088,7 +5088,7 @@ function tex.print(input_line, ...) end
 ---
 ---__Reference:__
 ---
----* Source code of the `LuaTeX` manual: [luatex-tex.tex#L1222-L1224](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L1222-L1224)
+---* Source file of the `LuaTeX` manual: [luatex-tex.tex#L1222-L1224](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L1222-L1224)
 ---* Corresponding C source code: [ltexlib.c#L161-164](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L161-164)
 ---
 ---@param catcodetable_no integer The parameter can be used to print the strings using the catcode regime defined by `\catcodetable` `catcodetable_no`. If `catcodetable_no` is `-1`, the currently active catcode regime is used. If `catcodetable_no` is `-2`, the resulting catcodes are the result of `\the` `\toks`: all category codes are `12` (`other`) except for the space character, that has category code `10` (`space`). Otherwise, if `catcodetable_no` is not a valid catcode table, then it is ignored, and the currently active catcode regime is used instead.
@@ -5113,7 +5113,7 @@ function tex.print(catcodetable_no, input_line, ...) end
 ---
 ---__Reference:__
 ---
----* Source code of the `LuaTeX` manual: [luatex-tex.tex#L1222-L1224](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L1222-L1224)
+---* Source file of the `LuaTeX` manual: [luatex-tex.tex#L1222-L1224](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L1222-L1224)
 ---* Corresponding C source code: [ltexlib.c#L161-164](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L161-164)
 ---
 ---@param input_lines PrintableInput[] # Each string (or number) element of the input table is treated by *TeX* as a separate input line.
@@ -5131,7 +5131,7 @@ function tex.print(input_lines) end
 ---
 ---__Reference:__
 ---
----* Source code of the `LuaTeX` manual: [luatex-tex.tex#L1222-L1224](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L1222-L1224)
+---* Source file of the `LuaTeX` manual: [luatex-tex.tex#L1222-L1224](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L1222-L1224)
 ---* Corresponding C source code: [ltexlib.c#L161-164](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L161-164)
 ---
 ---@param catcodetable_no integer The parameter can be used to print the strings using the catcode regime defined by `\catcodetable` `catcodetable_no`. If `catcodetable_no` is `-1`, the currently active catcode regime is used. If `catcodetable_no` is `-2`, the resulting catcodes are the result of `\the` `\toks`: all category codes are `12` (`other`) except for the space character, that has category code `10` (`space`). Otherwise, if `catcodetable_no` is not a valid catcode table, then it is ignored, and the currently active catcode regime is used instead.
@@ -5523,7 +5523,7 @@ _N._10_3_15_5_sp = "page 204"
 ---
 ---__Reference:__
 ---
----* Source code of the `LuaTeX` manual: [luatex-tex.tex#L1395-L1396](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L1395-L1396)
+---* Source file of the `LuaTeX` manual: [luatex-tex.tex#L1395-L1396](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L1395-L1396)
 ---
 ---@param o integer
 ---
@@ -5555,7 +5555,7 @@ function tex.sp(o) end
 ---__Reference__:
 ---
 ---* `LuaTeX` manual: 10.3.15.5 `sp` page 204
----* Source code of the `LuaTeX` manual: [luatex-tex.tex#L1386-L1413](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L1386-L1413)
+---* Source file of the `LuaTeX` manual: [luatex-tex.tex#L1386-L1413](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L1386-L1413)
 ---
 ---@param s string # A string to convert into scaled points.
 ---
@@ -5580,7 +5580,7 @@ _N._10_3_15_7_error_show_context = "page 204"
 ---
 ---__Reference:__
 ---
----* Source code of the `LuaTeX` manual: [luatex-tex.tex#L1438-L1457](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L1438-L1457)
+---* Source file of the `LuaTeX` manual: [luatex-tex.tex#L1438-L1457](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L1438-L1457)
 ---* Corresponding C source code: [ltexlib.c#L654-692](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L654-692)
 ---
 ---@param message string # An error message like `\errmessage`.
@@ -5615,7 +5615,7 @@ _N._10_3_15_8_run_finish = "page 205"
 ---
 ---__Reference:__
 ---
----* Source code of the `LuaTeX` manual: [luatex-tex.tex#L1459-L1470](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L1459-L1470)
+---* Source file of the `LuaTeX` manual: [luatex-tex.tex#L1459-L1470](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L1459-L1470)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.run() end
@@ -5625,7 +5625,7 @@ function tex.run() end
 ---
 ---__Reference:__
 ---
----* Source code of the `LuaTeX` manual: [luatex-tex.tex#L1464](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L1464)
+---* Source file of the `LuaTeX` manual: [luatex-tex.tex#L1464](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L1464)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.finish() end
@@ -5668,7 +5668,7 @@ _N._10_3_15_9_runtoks = "page 205"
 ---
 ---__Reference:__
 ---
----* Source code of the `LuaTeX` manual: [luatex-tex.tex#L1472-L1508](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L1472-L1508)
+---* Source file of the `LuaTeX` manual: [luatex-tex.tex#L1472-L1508](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-tex.tex#L1472-L1508)
 ---* Corresponding C source code: [ltexlib.c#L3464-L3536](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/ltexlib.c#L3464-L3536)
 ---
 ---@param token_register integer
