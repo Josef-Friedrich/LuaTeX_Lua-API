@@ -338,6 +338,45 @@ def merge_type_definitions(subproject: Subproject = "luatex") -> None:
 # navigation
 
 
+def create_navigation_table() -> None:
+    with open("tmp.lua") as src:
+        content = src.read()
+
+    content = re.sub(
+        r"[^\w\n]",
+        "_",
+        content,
+    )
+
+    content = re.sub(
+        r"__+",
+        "_",
+        content,
+    )
+
+    content = re.sub(
+        r"_\n",
+        "\n",
+        content,
+    )
+
+    content = re.sub(
+        r"\n(?=\w)",
+        "\n_N._",
+        content,
+    )
+
+    content = re.sub(
+        r"(?<=\w)\n",
+        " = 0\n",
+        content,
+    )
+
+    with open("tmp-read.lua", "w") as dest:
+        print(content)
+        dest.write(content)
+
+
 def remove_navigation_table() -> None:
     def _remove(file_name: str) -> None:
         content: str = ""
