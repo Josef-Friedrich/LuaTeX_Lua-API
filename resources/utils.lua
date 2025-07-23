@@ -1,5 +1,6 @@
 ---This file is intended as a library for the various example files.
 local inspect = require('inspect')
+require('lualibs')
 
 ---Print the inspected version of the value
 local function pinspect(value) print(inspect(value)) end
@@ -44,12 +45,7 @@ local function list_files_recursively(path)
     return coroutine.wrap(function() yieldtree(path) end)
 end
 
-local inspect = require('inspect')
-require('lualibs')
 
----Print and inspect
----@param args any
-local function printi(args) print(inspect(args)) end
 
 ---https://stackoverflow.com/a/29246308
 ---
@@ -107,7 +103,7 @@ local function print_lib_members(lib_name, lib, as_lua)
         if not as_lua then
             if member_type == 'table' then
                 printf('- *`%s.%s` (%s)*', lib_name, member, member_type)
-                printi(lib[member])
+                pinspect(lib[member])
             elseif member_type == 'function' then
                 printf('- __`%s.%s` (%s)__', lib_name, member, member_type)
             else
@@ -160,6 +156,7 @@ end
 
 return {
     pinspect = pinspect,
+    print_namespace = print_namespace,
     convert_string_array_to_alias_union = convert_string_array_to_alias_union,
     list_files_recursively = list_files_recursively,
     get_file_extension = get_file_extension
