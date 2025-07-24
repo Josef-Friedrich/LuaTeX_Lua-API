@@ -19,10 +19,44 @@ the `LSP`.
 
 ## Distribution ...
 
+## via CTAN
+
+![](resources/images/Screenshot_CTAN.png)
+
+The type definitions are published on
+[CTAN](https://www.ctan.org/pkg/luatex-type-definitions) as a single
+file to avoid cluttering the CTAN directory with many individual Lua
+files. Since this one file is just under 1.5 MB in size, a configuration
+must be made so that the language server can load the file. The
+following configuration example sets the preload file size to a maximum
+of 5000 kB.
+
+```json
+{
+    "Lua.workspace.preloadFileSize": 5000,
+}
+```
+
+There are several ways to include type definitions in a project.
+The easiest way is to copy the file into the project folder.
+Or you can use the configuration `Lua.workspace.library`:
+
+```json
+{
+    "Lua.workspace.library": ["/path/to/luatex-type-definitions.lua"]
+}
+```
+
+### via Visual Studio Code Extension
+
+![](resources/images/Screenshot_VSCode-extension.png)
+
 * [Visual Studio Code LuaTeX Extension](https://github.com/Josef-Friedrich/vscode_LuaTeX_Lua-API)
   ← [library](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/tree/main/library)
 
 ### via LuaCATS git respositories
+
+![](resources/images/Screenshot_LuaCATS.png)
 
 [LuaCATS](https://github.com/LuaCATS) is a [Github](https://github.com)
 organisation and stands for *“Lua Comment And Type System”*. This
@@ -128,29 +162,6 @@ documentation  converted into *Lua* docstrings.
 The `example` folder contains *TeX* and *Lua* files for demonstrating
 and testing the documented Lua API.
 
-## Version on CTAN
-
-The type definitions are published on CTAN as a single file to avoid
-cluttering the CTAN directory with many individual Lua files. Since this
-one file is just under 1.5 MB in size, a configuration must be made so
-that the language server can load the file. The following configuration
-example sets the preload file size to a maximum of 5000 kB.
-
-```json
-{
-    "Lua.workspace.preloadFileSize": 5000,
-}
-```
-
-There are several ways to include type definitions in a project.
-The easiest way is to copy the file into the project folder.
-Or you can use the configuration `Lua.workspace.library`:
-
-```json
-{
-    "Lua.workspace.library": ["/path/to/luatex-type-definitions.lua"]
-}
-```
 
 ## Current version
 
