@@ -1,5 +1,5 @@
 ---This file is intended as a library for the various example files.
-local inspect = require('inspect')
+local inspect = require('./resources/inspect')
 
 ---Print the inspected version of the value
 local function pinspect(value) print(inspect(value)) end
@@ -98,9 +98,9 @@ local function print_lib_members(lib_name, lib, as_lua)
     for _, member in ipairs(member_names) do
         local member_type = type(lib[member])
         if not as_lua then
-            if member_type == 'table' then
+            if member_type == 'table' and member ~= '__index' and member ~= '_M' then
                 printf('- *`%s.%s` (%s)*', lib_name, member, member_type)
-                pinspect(lib[member])
+                print_lib_members(lib_name .. '.' .. member,  lib[member], as_lua)
             elseif member_type == 'function' then
                 printf('- __`%s.%s` (%s)__', lib_name, member, member_type)
             else
@@ -118,6 +118,7 @@ end
 
 local lua_std = {
     _G = true,
+    arg = true,
     boolean = true,
     coroutine = true,
     debug = true,
@@ -146,14 +147,9 @@ local function print_global_namespace()
     end
 end
 
-local function print_namespace()
-    print_global_namespace()
-    print_lib_members('unicode.ascii', _ENV.unicode.ascii, true)
-end
-
 return {
     pinspect = pinspect,
-    print_namespace = print_namespace,
+    print_global_namespace = print_global_namespace,
     convert_string_array_to_alias_union = convert_string_array_to_alias_union,
     list_files_recursively = list_files_recursively,
     get_file_extension = get_file_extension
