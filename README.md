@@ -17,12 +17,44 @@ a [large number of
 editors](https://langserver.org/#implementations-client) that support
 the `LSP`.
 
-## Distribution
+## Distribution ...
 
 * [Visual Studio Code LuaTeX Extension](https://github.com/Josef-Friedrich/vscode_LuaTeX_Lua-API)
   ← [library](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/tree/main/library)
 
-### Subprojects (upstream / pull) detached from this repository
+### via LuaCATS git respositories
+
+[LuaCATS](https://github.com/LuaCATS) is a [Github](https://github.com)
+organisation and stands for “Lua Comment And Type System”. This
+organization provides a place for community projects to live. These
+projects are [addons](https://luals.github.io/wiki/addons) for popular
+libraries/frameworks.
+The repositories in this organization are used by
+[LLS-Addons](https://github.com/LuaLS/LLS-Addons), a repository that is used by the [addon
+manager](https://luals.github.io/wiki/addons/#addon-manager) of the [VS
+Code
+extension](https://marketplace.visualstudio.com/items?itemName=sumneko.lua)
+for the [Lua Language Server]([lls](https://github.com/LuaLS/lua-language-server)).
+
+#### Related LuaCATS repositories
+
+This repositories in LuaCATS are related to this project:
+
+* [lmathx](https://github.com/LuaCATS/lmathx)
+* [lpeg](https://github.com/LuaCATS/lpeg)
+* [luafilesystem](https://github.com/LuaCATS/luafilesystem)
+* [luaharfbuzz](https://github.com/LuaCATS/luaharfbuzz)
+* [luasocket](https://github.com/LuaCATS/luasocket)
+* [luazip](https://github.com/LuaCATS/luazip)
+* [lzlib](https://github.com/LuaCATS/lzlib)
+* [md5](https://github.com/LuaCATS/md5)
+* [slnunicode](https://github.com/LuaCATS/slnunicode)
+* [tex-lualatex](https://github.com/LuaCATS/tex-lualatex)
+* [tex-lualibs](https://github.com/LuaCATS/tex-lualibs)
+* [tex-luametatex](https://github.com/LuaCATS/tex-luametatex)
+* [tex-luatex](https://github.com/LuaCATS/tex-luatex)
+
+#### Subprojects (upstream / pull) detached from this repository
 
 * [LuaCats: lpeg](https://github.com/LuaCATS/lpeg)
   → [library/luatex/lpeg.lua](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lpeg.lua)
@@ -40,7 +72,7 @@ the `LSP`.
 * [LuaCats: slnunicode](https://github.com/LuaCATS/slnunicode)
   → [library/luatex/unicode.lua](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/unicode.lua)
 
-### Subprojects (push) detached from this repository
+#### Subprojects (push) detached from this repository
 
 * [LuaCats: tex-lualatex](https://github.com/LuaCATS/tex-lualatex)
   ← [library/lualatex](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/tree/main/library/lualatex)
