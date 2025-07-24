@@ -30,3 +30,5 @@ _minted*/
 *.tar.gz
 *.toc
 *.data.minted
+tmp.tex
+tmp.lua

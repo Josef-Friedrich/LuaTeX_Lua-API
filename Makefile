@@ -75,10 +75,14 @@ update_manual:
 	wget -O /usr/local/texlive/texmf-dist/doc/context/documents/general/manuals/luametatex.pdf https://raw.githubusercontent.com/contextgarden/context/main/doc/context/documents/general/manuals/luametatex.pdf
 
 namespace_luametatex:
+	./manage.py example luametatex/namespace.lua
+namespace_luametatex_luaonly:
 	luametatex --luaonly examples/luatex/namespace.lua
+
 namespace_luatex:
-	# luatex --luaonly examples/luatex/namespace.lua
 	./manage.py example luatex/namespace.lua
+namespace_luatex_luaonly:
+	luatex --luaonly examples/luatex/namespace_luaonly.lua
 
 example_luatex_fontloader_close:
 	luatex --luaonly examples/luatex/fontloader/close.lua

@@ -177,7 +177,7 @@ def convert_html() -> None:
 # example
 
 
-def compile_example(src_relpath: str) -> None:
+def compile_example(src_relpath: str, luaonly: bool = False) -> None:
     """
     Compiles a Lua or TeX example file using LuaTeX.
 
@@ -190,6 +190,7 @@ def compile_example(src_relpath: str) -> None:
 
     Args:
         src_relpath (str): Relative path to the source example file (Lua or TeX).
+        luaonly: Only execute the Lua file and don’t create a corresponding TeX file.
 
     Returns:
         None
@@ -202,7 +203,12 @@ def compile_example(src_relpath: str) -> None:
     else:
         src = project_base_path / "examples" / src_relpath
 
-    dest: Path = tmp_dir / src.name
+    # dest: Path = tmp_dir / src.name
+    # """The path of the destination file that is copied to a temporary directory."""
+
+    dest: Path = project_base_path / ("tmp" + src.suffix)
+    """Lua require does not support absolute paths"""
+
     src_content = src.read_text()
 
     src_content = re.sub(
@@ -213,30 +219,31 @@ def compile_example(src_relpath: str) -> None:
 
     args: list[str] = ["luatex"]
 
+    if luaonly:
+        args.append("--luaonly")
+
     # Parse the first line to support a shebang like syntax
     # --! luatex --lua-only
     # --! /usr/local/texlive/bin/x86_64-linux/luatex
     if src_content.startswith("--!"):
         first_line = src_content.splitlines()[0]
         first_line = first_line.replace("--!", "")
+        if "--luaonly" in first_line:
+            luaonly = True
         args = shlex.split(first_line)
         print(args)
 
     dest.write_text(src_content)
 
-    dest_lua: Path
-    dest_tex: Path
+    dest: Path
 
-    if src.suffix == ".lua":
+    if src.suffix == ".lua" and not luaonly:
         dest_lua = dest
-        dest_tex = dest.with_suffix(".tex")
-        dest_tex.write_text("\\directlua{dofile('" + str(dest_lua) + "')}\n\\bye\n")
-    else:
-        dest_tex = dest
-        dest_lua = dest.with_suffix(".lua")
+        dest = dest.with_suffix(".tex")
+        dest.write_text("\\directlua{dofile('" + str(dest_lua) + "')}\n\\bye\n")
 
     result = subprocess.run(
-        [*args, "--halt-on-error", str(dest_tex)],
+        [*args, "--halt-on-error", str(dest)],
         capture_output=True,
         text=True,
         cwd=tmp_dir,
