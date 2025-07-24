@@ -77,7 +77,8 @@ update_manual:
 namespace_luametatex:
 	luametatex --luaonly examples/luatex/namespace.lua
 namespace_luatex:
-	luatex --luaonly examples/luatex/namespace.lua
+	# luatex --luaonly examples/luatex/namespace.lua
+	./manage.py example luatex/namespace.lua
 
 example_luatex_fontloader_close:
 	luatex --luaonly examples/luatex/fontloader/close.lua

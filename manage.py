@@ -3,14 +3,25 @@
 import argparse
 import glob
 import re
+import shlex
 import subprocess
 import sys
 import tempfile
 import urllib.request
 from pathlib import Path
 from typing import Callable, Literal, Union
+import logging
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(message)s",
+)
+
+logger = logging.getLogger(__name__)
+
 
 project_base_path: Path = Path(__file__).resolve().parent
+"""The parent directory of this repository."""
 
 
 def _open_file(path: Path) -> None:
@@ -192,7 +203,26 @@ def compile_example(src_relpath: str) -> None:
         src = project_base_path / "examples" / src_relpath
 
     dest: Path = tmp_dir / src.name
-    dest.write_bytes(src.read_bytes())
+    src_content = src.read_text()
+
+    src_content = re.sub(
+        r"(\./)?resources/utils",
+        str(project_base_path / "resources/utils"),
+        src_content,
+    )
+
+    args: list[str] = ["luatex"]
+
+    # Parse the first line to support a shebang like syntax
+    # --! luatex --lua-only
+    # --! /usr/local/texlive/bin/x86_64-linux/luatex
+    if src_content.startswith("--!"):
+        first_line = src_content.splitlines()[0]
+        first_line = first_line.replace("--!", "")
+        args = shlex.split(first_line)
+        print(args)
+
+    dest.write_text(src_content)
 
     dest_lua: Path
     dest_tex: Path
@@ -206,11 +236,13 @@ def compile_example(src_relpath: str) -> None:
         dest_lua = dest.with_suffix(".lua")
 
     result = subprocess.run(
-        ["luatex", str(dest_tex)], capture_output=True, text=True, cwd=tmp_dir
+        [*args, "--halt-on-error", str(dest_tex)],
+        capture_output=True,
+        text=True,
+        cwd=tmp_dir,
+        timeout=5,
     )
-
     print(result.stdout)
-
     pdf: Path = dest.with_suffix(".pdf")
 
     if pdf.exists():
