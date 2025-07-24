@@ -1,10 +1,7 @@
-_N._9_lua_callbacks = "page 169"
-_N._9_1_registering_callbacks = "page 169"
-
 ---
 ---Current version
 ---
----2025/07/13 v0.1.0
+---2025/07/24 v0.2.0
 ---
 ---Copyright (C) 2022-2025 by Josef Friedrich <josef@friedrich.rocks>
 ------------------------------------------------------------------------
@@ -26,6 +23,9 @@ _N._9_1_registering_callbacks = "page 169"
 ---A helper table to better navigate through the documentation using the
 ---outline: https://github.com/Josef-Friedrich/LuaTeX_Lua-API#navigation-table-_n
 _N = {}
+
+_N._9_lua_callbacks = "page 169"
+_N._9_1_registering_callbacks = "page 169"
 
 ---
 ---This library has functions that register, find and list callbacks. Callbacks are

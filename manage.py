@@ -368,7 +368,7 @@ def merge_type_definitions(subproject: Subproject = "luatex") -> None:
 
     _apply_function_on_glob("dist/" + subproject + "/*.lua", _merge)
 
-    dist_dir: Path = project_base_path / "dist-ctan" / subproject
+    dist_dir: Path = project_base_path / "luatex-type-definitions"
     dist_dir.mkdir(parents=True, exist_ok=True)
     with open(dist_dir / (subproject + "-type-definitions.lua"), "w") as f:
         f.write("\n".join(contents))

@@ -54,15 +54,14 @@ doc_pdf:
 	mkdir -p $(texmf)/doc
 	cp $(jobname)-doc.pdf $(texmf)/doc/$(jobname).pdf
 
-ctan_luatex: dist_rsync
+ctan_luatex: doc dist_rsync
+	rm -rf $(jobname)
+	rm -rf $(jobname).tar.gz
+	mkdir $(jobname)
 	./manage.py merge luatex
-	rm -rf luatex-type-definitions.tar.gz
-	rm -rf luatex-type-definitions
-	mkdir luatex-type-definitions
-	cp -f dist-ctan/luatex/README.md luatex-type-definitions
-	cp -f dist-ctan/luatex/luatex-type-definitions.lua luatex-type-definitions
-	tar cvfz luatex-type-definitions.tar.gz luatex-type-definitions
-	rm -rf luatex-type-definitions
+	cp -f README.md $(jobname)
+	tar cvfz $(jobname).tar.gz $(jobname)
+	rm -rf $(jobname)
 
 clean:
 	git clean -dfX

@@ -170,10 +170,9 @@ documentation  converted into *Lua* docstrings.
 The `example` folder contains *TeX* and *Lua* files for demonstrating
 and testing the documented Lua API.
 
-
 ## Current version
 
-2025/07/13 v0.1.0
+2025/07/24 v0.2.0
 
 ## License
 
