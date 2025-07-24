@@ -4,7 +4,10 @@
   "Lua.workspace.library": [
     "~/repos/repos/lua/luatex_api_all/library"
   ],
-  "Lua.diagnostics.disable": ["duplicate-set-field", "param-type-mismatch"],
+  "Lua.diagnostics.disable": [
+    "duplicate-set-field",
+    "param-type-mismatch"
+  ],
   "files.exclude": {
     "**/_minted*/": true,
     "**/*.aux": true,
@@ -30,7 +33,6 @@
   //     "tools": ["luatex"]
   //   }
   // ],
-
   // "latex-workshop.latex.tools": [
   //   {
   //     "name": "luatex",
@@ -44,5 +46,10 @@
   //     "env": {}
   //   }
   // ],
-  "Lua.workspace.checkThirdParty": false
+  "Lua.workspace.checkThirdParty": false,
+  "Lua.format.defaultConfig": {
+    "indent_style": "space",
+    "indent_size": "2"
+  },
+  "Lua.format.enable": true,
 }
