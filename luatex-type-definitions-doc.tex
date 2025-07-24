@@ -65,8 +65,8 @@ editors} that support the |LSP|.
 \subsection{via LuaCATS git respositories}
 
 \href{https://github.com/LuaCATS}{LuaCATS} is a
-\href{https://github.com}{Github} organisation and stands for “Lua
-Comment And Type System”. This organization provides a place for
+\href{https://github.com}{Github} organisation and stands for \emph{“Lua
+Comment And Type System”}. This organization provides a place for
 community projects to live. These projects are
 \href{https://luals.github.io/wiki/addons}{addons} for popular
 libraries/frameworks. The repositories in this organization are used
@@ -78,7 +78,7 @@ VSCodeextension} for the
 \href{https://github.com/LuaLS/lua-language-server}{Lua
 Language Server}.
 
-\subsubsection{Related LuaCATS repositories}
+\subsubsection{All related LuaCATS repositories}
 
 This repositories in LuaCATS are related to this project:
 
@@ -98,67 +98,77 @@ This repositories in LuaCATS are related to this project:
 \item \href{https://github.com/LuaCATS/tex-luatex}{tex-luatex}
 \end{itemize}
 
-\subsubsection{Subprojects (upstream / pull) detached from this repository}
+\subsubsection{Upstream LuaCATS repositories}
+
+% Bei den folgenden Repositories handelt es sich um Upstream-Projekte.
+The following repositories are \emph{upstream} projects.
+% Das bedeutet.
+This means:
+% Die Typdefinitionen werden in einem LuaCATS-Repository entwickelt und
+% von diesem Projekt übernommen.
+The type definitions are developed in a LuaCATS repository and
+\emph{pulled} in by this project.
 
 \def\lArrow{ $\leftarrow$ }
 
 \def\rArrow{ $\rightarrow$ }
 
 \begin{itemize}
-\item \href{https://github.com/LuaCATS/lpeg}{LuaCats: lpeg} \rArrow
-\href{https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/libra
-ry/luatex/lpeg.lua}{library/luatex/lpeg.lua}
 
-\item \href{https://github.com/LuaCATS/luaharfbuzz}{LuaCats: luaharfbuzz} \rArrow
-\href{https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/libra
-ry/luatex/luaharfbuzz.lua}{library/luatex/luaharfbuzz.lua}
+\item \href{https://github.com/LuaCATS/lmathx}{LuaCATS: lmathx} \rArrow
+\href{https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luametatex/lmathx.lua}{library/luametatex/lmathx.lua}
 
-\item \href{https://github.com/LuaCATS/luasocket}{LuaCats: luasocket} \rArrow
-\href{https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/libra
-ry/luatex/socket.lua}{library/luatex/socket.lua} \rArrow
-\href{https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/libra
-ry/luatex/mime.lua}{library/luatex/mime.lua}
+\item \href{https://github.com/LuaCATS/lpeg}{LuaCATS: lpeg} \rArrow
+\href{https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lpeg.lua}{library/luatex/lpeg.lua}
 
-\item \href{https://github.com/LuaCATS/luazip}{LuaCats: luazip} \rArrow
-\href{https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/libra
-ry/luatex/zip.lua}{library/luatex/zip.lua}
+\item \href{https://github.com/LuaCATS/luaharfbuzz}{LuaCATS: luaharfbuzz} \rArrow
+\href{https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/luaharfbuzz.lua}{library/luatex/luaharfbuzz.lua}
 
-\item \href{https://github.com/LuaCATS/lzlib}{LuaCats: lzlib} \rArrow
-\href{https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/libra
-ry/luatex/zlib.lua}{library/luatex/zlib.lua}
+\item \href{https://github.com/LuaCATS/luasocket}{LuaCATS: luasocket} \rArrow
+\href{https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/socket.lua}{library/luatex/socket.lua} \rArrow
+\href{https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mime.lua}{library/luatex/mime.lua}
 
-\item \href{https://github.com/LuaCATS/md5}{LuaCats: md5} \rArrow
-\href{https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/libra
-ry/luatex/md5.lua}{library/luatex/md5.lua}
+\item \href{https://github.com/LuaCATS/luazip}{LuaCATS: luazip} \rArrow
+\href{https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/zip.lua}{library/luatex/zip.lua}
 
-\item \href{https://github.com/LuaCATS/slnunicode}{LuaCats: slnunicode} \rArrow
-\href{https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/libra
-ry/luatex/unicode.lua}{library/luatex/unicode.lua}
+\item \href{https://github.com/LuaCATS/lzlib}{LuaCATS: lzlib} \rArrow
+\href{https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/zlib.lua}{library/luatex/zlib.lua}
+
+\item \href{https://github.com/LuaCATS/md5}{LuaCATS: md5} \rArrow
+\href{https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/md5.lua}{library/luatex/md5.lua}
+
+\item \href{https://github.com/LuaCATS/slnunicode}{LuaCATS: slnunicode} \rArrow
+\href{https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/unicode.lua}{library/luatex/unicode.lua}
 \end{itemize}
 
-\subsubsection{Subprojects (push) detached from this repository}
+\subsubsection{Downstream LuaCATS repositories}
+
+% Bei den folgenden Repositories handelt es sich um Downstream-Projekte.
+The following repositories are \emph{downstream} projects.
+% Das bedeutet.
+This means:
+% Die Typdefinitionen werden in diesem Projekt entwickelt und
+% anschließend in ein LuaCATS-Repository übertragen.
+The type definitions are developed in this project. They are then
+\emph{pushed} into a LuaCATS repository.
 
 \begin{itemize}
 
-\item \href{https://github.com/LuaCATS/tex-lualatex}{LuaCats:
+\item \href{https://github.com/LuaCATS/tex-lualatex}{LuaCATS:
 tex-lualatex} \lArrow
-\href{https://github.com/Josef-Friedrich/LuaTeX_Lua-API/tree/main/libra
-ry/lualatex}{library/lualatex}
+\href{https://github.com/Josef-Friedrich/LuaTeX_Lua-API/tree/main/library/lualatex}{library/lualatex}
 
-\item \href{https://github.com/LuaCATS/tex-luatex}{LuaCats: tex-luatex}
+\item \href{https://github.com/LuaCATS/tex-luatex}{LuaCATS: tex-luatex}
 \lArrow
-\href{https://github.com/Josef-Friedrich/LuaTeX_Lua-API/tree/main/libra
-ry/luatex}{library/luatex}
+\href{https://github.com/Josef-Friedrich/LuaTeX_Lua-API/tree/main/library/luatex}{library/luatex}
 
-\item \href{https://github.com/LuaCATS/tex-lualibs}{LuaCats:
+\item \href{https://github.com/LuaCATS/tex-lualibs}{LuaCATS:
 tex-lualibs} \lArrow
-\href{https://github.com/Josef-Friedrich/LuaTeX_Lua-API/tree/main/libra
-ry/lualibs}{library/lualibs}
+\href{https://github.com/Josef-Friedrich/LuaTeX_Lua-API/tree/main/library/lualibs}{library/lualibs}
 
-\item \href{https://github.com/LuaCATS/tex-luametatex}{LuaCats:
+\item \href{https://github.com/LuaCATS/tex-luametatex}{LuaCATS:
 tex-luametatex} \lArrow
-\href{https://github.com/Josef-Friedrich/LuaTeX_Lua-API/tree/main/libra
-ry/luametatex}{library/luametatex}
+\href{https://github.com/Josef-Friedrich/LuaTeX_Lua-API/tree/main/library/luametatex}{library/luametatex}
 \end{itemize}
 
 \section{Directory structure of the repository}

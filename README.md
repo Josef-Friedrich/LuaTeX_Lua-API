@@ -25,7 +25,7 @@ the `LSP`.
 ### via LuaCATS git respositories
 
 [LuaCATS](https://github.com/LuaCATS) is a [Github](https://github.com)
-organisation and stands for “Lua Comment And Type System”. This
+organisation and stands for *“Lua Comment And Type System”*. This
 organization provides a place for community projects to live. These
 projects are [addons](https://luals.github.io/wiki/addons) for popular
 libraries/frameworks.
@@ -36,7 +36,7 @@ Code
 extension](https://marketplace.visualstudio.com/items?itemName=sumneko.lua)
 for the [Lua Language Server]([lls](https://github.com/LuaLS/lua-language-server)).
 
-#### Related LuaCATS repositories
+#### All related LuaCATS repositories
 
 This repositories in LuaCATS are related to this project:
 
@@ -54,33 +54,43 @@ This repositories in LuaCATS are related to this project:
 * [tex-luametatex](https://github.com/LuaCATS/tex-luametatex)
 * [tex-luatex](https://github.com/LuaCATS/tex-luatex)
 
-#### Subprojects (upstream / pull) detached from this repository
+#### Upstream LuaCATS repositories
 
-* [LuaCats: lpeg](https://github.com/LuaCATS/lpeg)
+The following repositories are *upstream* projects. This means: The type
+definitions are developed in a LuaCATS repository and *pulled* in by
+this project.
+
+* [LuaCATS: lmathx](https://github.com/LuaCATS/lmathx)
+  → [library/luametatex/lmathx.lua](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luametatex/lmathx.lua)
+* [LuaCATS: lpeg](https://github.com/LuaCATS/lpeg)
   → [library/luatex/lpeg.lua](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lpeg.lua)
-* [LuaCats: luaharfbuzz](https://github.com/LuaCATS/luaharfbuzz)
+* [LuaCATS: luaharfbuzz](https://github.com/LuaCATS/luaharfbuzz)
   → [library/luatex/luaharfbuzz.lua](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/luaharfbuzz.lua)
-* [LuaCats: luasocket](https://github.com/LuaCATS/luasocket)
+* [LuaCATS: luasocket](https://github.com/LuaCATS/luasocket)
   → [library/luatex/socket.lua](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/socket.lua)
   → [library/luatex/mime.lua](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/mime.lua)
-* [LuaCats: luazip](https://github.com/LuaCATS/luazip)
+* [LuaCATS: luazip](https://github.com/LuaCATS/luazip)
   → [library/luatex/zip.lua](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/zip.lua)
-* [LuaCats: lzlib](https://github.com/LuaCATS/lzlib)
+* [LuaCATS: lzlib](https://github.com/LuaCATS/lzlib)
   → [library/luatex/zlib.lua](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/zlib.lua)
-* [LuaCats: md5](https://github.com/LuaCATS/md5)
+* [LuaCATS: md5](https://github.com/LuaCATS/md5)
   → [library/luatex/md5.lua](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/md5.lua)
-* [LuaCats: slnunicode](https://github.com/LuaCATS/slnunicode)
+* [LuaCATS: slnunicode](https://github.com/LuaCATS/slnunicode)
   → [library/luatex/unicode.lua](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/unicode.lua)
 
 #### Subprojects (push) detached from this repository
 
-* [LuaCats: tex-lualatex](https://github.com/LuaCATS/tex-lualatex)
+The following repositories are *downstream* projects. This means: The
+type definitions are developed in this project. They are then *pushed*
+into a LuaCATS repository.
+
+* [LuaCATS: tex-lualatex](https://github.com/LuaCATS/tex-lualatex)
   ← [library/lualatex](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/tree/main/library/lualatex)
-* [LuaCats: tex-luatex](https://github.com/LuaCATS/tex-luatex)
+* [LuaCATS: tex-luatex](https://github.com/LuaCATS/tex-luatex)
   ← [library/luatex](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/tree/main/library/luatex)
-* [LuaCats: tex-lualibs](https://github.com/LuaCATS/tex-lualibs)
+* [LuaCATS: tex-lualibs](https://github.com/LuaCATS/tex-lualibs)
   ← [library/lualibs](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/tree/main/library/lualibs)
-* [LuaCats: tex-luametatex](https://github.com/LuaCATS/tex-luametatex)
+* [LuaCATS: tex-luametatex](https://github.com/LuaCATS/tex-luametatex)
   ← [library/luametatex](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/tree/main/library/luametatex)
 
 ## Directory structure of the repository
