@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Improved the docstrings in `luatex/string.lua`, `luatex/tex.lua`
+- Improve the docstrings in `luatex/string.lua`, `luatex/tex.lua`
 
 ## [0.1.0] - 2025-07-13
 

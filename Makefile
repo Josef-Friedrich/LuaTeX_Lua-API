@@ -57,6 +57,7 @@ ctan: doc dist_rsync
 	rm -rf $(jobname).tar.gz
 	mkdir $(jobname)
 	./manage.py merge luatex
+	$(HOME)/.cargo/bin/stylua $(jobname)
 	cp -f README.md $(jobname)
 	cp -f $(jobname)-doc.tex $(jobname)
 	cp -f $(jobname)-doc.pdf $(jobname)
