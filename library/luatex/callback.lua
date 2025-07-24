@@ -21,6 +21,7 @@ _N._9_1_registering_callbacks = "page 169"
 ---
 ---You should have received a copy of the GNU General Public License along
 ---with this program. If not, see <https://www.gnu.org/licenses/>.
+---
 ---@meta
 ---A helper table to better navigate through the documentation using the
 ---outline: https://github.com/Josef-Friedrich/LuaTeX_Lua-API#navigation-table-_n

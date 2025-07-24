@@ -21,6 +21,8 @@ string = {}
 ---`separator` is not hidden by surrounding braces as it would be if this function was
 ---written in *TeX* macros.
 ---
+---__Example:__
+---
 ---```lua
 ---for _, word in ipairs(string.explode("one  two three")) do
 ---  print(word)
@@ -62,6 +64,8 @@ function string.explode(text, separator) end
 ---
 ---Return the Unicode codepoints of the characters in the given string.
 ---
+---__Example:__
+---
 ---```lua
 ---local a = string.utfvalue("abc")
 ---print(a) -- 97
@@ -90,6 +94,8 @@ function string.utfvalue(text) end
 ---Provide an iterator function that iterates over each character of the
 ---string by returning an integer value in the Unicode range.
 ---
+---__Example:__
+---
 ---```lua
 ---for code_point in string.utfvalues("abc") do
 ---  print(code_point)
@@ -114,6 +120,8 @@ function string.utfvalues(text) end
 ---
 ---Convert multiple unicode code points into a string.
 ---
+---__Example:__
+---
 ---```
 ---print(string.utfcharacter(97, 98, 99)) -- abc
 ---```
@@ -134,6 +142,8 @@ function string.utfcharacter(code_point, ...) end
 ---
 ---Provide an iterator function that iterates over each character of the
 ---string by returning a string with a single UTF-8 token in it.
+---
+---__Example:__
 ---
 ---```lua
 ---for character in string.utfcharacters("\u{61}\u{62}\u{63}") do
@@ -159,6 +169,8 @@ function string.utfcharacters(text) end
 ---
 ---Return the length of the given string.
 ---
+---__Example:__
+---
 ---```lua
 ---print(string.len("äöü"))
 ---print(string.utflength("äöü"))
@@ -179,6 +191,8 @@ function string.utflength(text) end
 ---
 ---Provide an iterator function that iterates over each character of the
 ---string by returning a string containing __one byte__.
+---
+---__Example:__
 ---
 ---```lua
 ---for character in string.characters('abc') do
@@ -204,6 +218,8 @@ function string.utflength(text) end
 ---* Corresponding C source code: [lstrlibext.c#L239-L245](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lstrlibext.c#L239-L245)
 ---* Source file of the `LuaTeX` manual: [luatex-lua.tex#L424](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/4f2b914d365bab8a2747afe6e8c86d0f1c8475f7/manual/luatex-lua.tex#L424)
 ---
+---@see string.bytes
+---
 ---@param text string # The input string.
 ---
 ---@return fun(): string # A string containing __one byte__.
@@ -218,6 +234,8 @@ function string.characters(text) end
 ---Each of these returned strings contains __one byte__ or an __empty__
 ---second string if the input string length was odd.
 ---
+---__Example:__
+---
 ---```lua
 ---for c1, c2 in string.characterpairs('äöü') do
 ---  print(c1, c2)
@@ -229,12 +247,19 @@ function string.characters(text) end
 ----- ö
 ----- �	�
 ----- ü
+---
+---for c1, c2 in string.characterpairs('a') do
+---  print("'" .. c1 .. "'", "'" .. c2 .. "'")
+---end
+----- 'a'	''
 ---```
 ---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lstrlibext.c#L216-L222](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lstrlibext.c#L216-L222)
 ---* Source file of the `LuaTeX` manual: [luatex-lua.tex#L427-428](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/4f2b914d365bab8a2747afe6e8c86d0f1c8475f7/manual/luatex-lua.tex#L427-428)
+---
+---@see string.bytepairs
 ---
 ---@param text string # The input string.
 ---
@@ -247,14 +272,37 @@ function string.characterpairs(text) end
 ---Provide an iterator function that iterates over each character of the
 ---string by returning a single byte value.
 ---
+---__Example:__
+---
+---```lua
+---for byte in string.bytes('abc') do
+---  print(byte)
+---end
+----- 97
+----- 98
+----- 99
+---
+---for byte in string.bytes('äöü') do
+---  print(byte)
+---end
+----- 195
+----- 164
+----- 195
+----- 182
+----- 195
+----- 188
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lstrlibext.c#L85-L91](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lstrlibext.c#L85-L91)
 ---* Source file of the `LuaTeX` manual: [luatex-lua.tex#L431](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/4f2b914d365bab8a2747afe6e8c86d0f1c8475f7/manual/luatex-lua.tex#L431)
 ---
+---@see string.characters
+---
 ---@param text string # The input string.
 ---
----@return fun(): string # a single byte value
+---@return fun(): integer # A single byte value.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/string.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function string.bytes(text) end
@@ -265,14 +313,33 @@ function string.bytes(text) end
 ---
 ---If the input string has an odd length, `nil` is returned.
 ---
+---__Example:__
+---
+---```lua
+---for b1, b2 in string.bytepairs('abc') do
+---  print(b1, b2)
+---end
+----- 97	98
+----- 99	nil
+---
+---for b1, b2 in string.bytepairs('äöü') do
+---  print(b1, b2)
+---end
+----- 195	164
+----- 195	182
+----- 195	188
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lstrlibext.c#L62-L68](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lstrlibext.c#L62-L68)
 ---* Source file of the `LuaTeX` manual: [luatex-lua.tex#L434-435](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/4f2b914d365bab8a2747afe6e8c86d0f1c8475f7/manual/luatex-lua.tex#L434-435)
 ---
+---@see string.characterpairs
+---
 ---@param text string # The input string.
 ---
----@return fun(): string, string|nil # Two byte values or `nil` as the second return value if the input string length was odd.
+---@return fun(): integer, integer|nil # Two byte values or `nil` as the second return value if the input string length was odd.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/string.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function string.bytepairs(text) end

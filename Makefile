@@ -85,6 +85,10 @@ example_luatex_fontloader_info:
 example_luatex_fontloader_to_table:
 	luatex --luaonly examples/luatex/fontloader/to_table.lua
 
+example_luatex_string_bytepairs:
+	luatex --luaonly examples/luatex/string/bytepairs.lua
+example_luatex_string_bytes:
+	luatex --luaonly examples/luatex/string/bytes.lua
 example_luatex_string_characterpairs:
 	luatex --luaonly examples/luatex/string/characterpairs.lua
 example_luatex_string_characters:
