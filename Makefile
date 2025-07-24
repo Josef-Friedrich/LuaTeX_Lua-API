@@ -74,6 +74,11 @@ update_manual:
 	wget -O /usr/local/texlive/texmf-dist/doc/luatex/base/luatex.pdf https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/raw/master/manual/luatex.pdf
 	wget -O /usr/local/texlive/texmf-dist/doc/context/documents/general/manuals/luametatex.pdf https://raw.githubusercontent.com/contextgarden/context/main/doc/context/documents/general/manuals/luametatex.pdf
 
+namespace_luametatex:
+	luametatex --luaonly examples/luatex/namespace.lua
+namespace_luatex:
+	luatex --luaonly examples/luatex/namespace.lua
+
 example_luatex_fontloader_close:
 	luatex --luaonly examples/luatex/fontloader/close.lua
 example_luatex_fontloader_fields:

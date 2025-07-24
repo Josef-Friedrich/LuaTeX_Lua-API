@@ -1,6 +1,5 @@
 ---This file is intended as a library for the various example files.
 local inspect = require('inspect')
-require('lualibs')
 
 ---Print the inspected version of the value
 local function pinspect(value) print(inspect(value)) end
@@ -34,18 +33,16 @@ local function list_files_recursively(path)
     local function yieldtree(dir)
         for entry in lfs.dir(dir) do
             if entry ~= "." and entry ~= ".." then
-                entry = dir .. "/" .. entry
-                local attr = lfs.attributes(entry)
-                coroutine.yield(entry, attr)
-                if attr.mode == "directory" then yieldtree(entry) end
+                local new_entry = dir .. "/" .. entry
+                local attr = lfs.attributes(new_entry)
+                coroutine.yield(new_entry, attr)
+                if attr.mode == "directory" then yieldtree(new_entry) end
             end
         end
     end
 
     return coroutine.wrap(function() yieldtree(path) end)
 end
-
-
 
 ---https://stackoverflow.com/a/29246308
 ---
