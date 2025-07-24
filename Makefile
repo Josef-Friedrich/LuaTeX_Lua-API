@@ -44,9 +44,7 @@ diff:
 patch:
 	resources/patch.sh patch
 
-doc: doc_pdf
-
-doc_pdf:
+doc:
 	lualatex --shell-escape $(jobname)-doc.tex
 	makeindex -s gglo.ist -o $(jobname)-doc.gls $(jobname)-doc.glo
 	makeindex -s gind.ist -o $(jobname)-doc.ind $(jobname)-doc.idx
@@ -54,14 +52,16 @@ doc_pdf:
 	mkdir -p $(texmf)/doc
 	cp $(jobname)-doc.pdf $(texmf)/doc/$(jobname).pdf
 
-ctan_luatex: doc dist_rsync
+ctan: doc dist_rsync
 	rm -rf $(jobname)
 	rm -rf $(jobname).tar.gz
 	mkdir $(jobname)
 	./manage.py merge luatex
 	cp -f README.md $(jobname)
+	cp -f $(jobname)-doc.tex $(jobname)
+	cp -f $(jobname)-doc.pdf $(jobname)
 	tar cvfz $(jobname).tar.gz $(jobname)
-	rm -rf $(jobname)
+	# rm -rf $(jobname)
 
 clean:
 	git clean -dfX

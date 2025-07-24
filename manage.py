@@ -11,6 +11,7 @@ import urllib.request
 from pathlib import Path
 from typing import Callable, Literal, Union
 import logging
+from datetime import datetime
 
 logging.basicConfig(
     level=logging.INFO,
@@ -23,6 +24,22 @@ logger = logging.getLogger(__name__)
 project_base_path: Path = Path(__file__).resolve().parent
 """The parent directory of this repository."""
 
+# Removed by a regex: ---Copyright (C) 2022-2025 by Josef Friedrich <josef@friedrich.rocks>
+copyright_notice = """------------------------------------------------------------------------
+---
+---This program is free software: you can redistribute it and/or modify it
+---under the terms of the GNU General Public License as published by the
+---Free Software Foundation, either version 2 of the License, or (at your
+---option) any later version.
+---
+---This program is distributed in the hope that it will be useful, but
+---WITHOUT ANY WARRANTY; without even the implied warranty of
+---MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+---Public License for more details.
+---
+---You should have received a copy of the GNU General Public License along
+---with this program. If not, see <https://www.gnu.org/licenses/>."""
+
 
 def _open_file(path: Path) -> None:
     subprocess.call(
@@ -34,6 +51,23 @@ def _apply_function_on_glob(glob_relpath: str, fn: Callable[[str], None]) -> Non
     for file_name in glob.glob(str(project_base_path) + "/" + glob_relpath):
         print(file_name)
         fn(file_name)
+
+
+def _clean_docstrings(content: str) -> str:
+    # Start a docstring with an empty comment line.
+    content = re.sub(r"\n\n---(?=[^\n])", r"\n\n---\n---", content)
+
+    # Remove duplicate empty comment lines.
+    content = re.sub("\n---(\n---)+\n", "\n---\n", content)
+
+    # Side effect with code examples in Lua docstrings
+    # content = content.replace(") end\n---", ") end\n\n---")
+
+    # Add an empty comment line before the @param annotation.
+    # content = re.sub(
+    #     r"(?<!\n---)\n---@param(?=.*?\n.*?@param)", r"\n---\n---@param", content
+    # )
+    return content
 
 
 Subproject = Literal[
@@ -266,19 +300,7 @@ def format_docstrings() -> None:
         with open(file_name) as src:
             content = src.read()
 
-        # Start a docstring with an empty comment line.
-        content = re.sub(r"\n\n---(?=[^\n])", r"\n\n---\n---", content)
-
-        # Remove duplicate empty comment lines.
-        content = re.sub("\n---(\n---)+\n", "\n---\n", content)
-
-        # Side effect with code examples in Lua docstrings
-        # content = content.replace(") end\n---", ") end\n\n---")
-
-        # Add an empty comment line before the @param annotation.
-        # content = re.sub(
-        #     r"(?<!\n---)\n---@param(?=.*?\n.*?@param)", r"\n---\n---@param", content
-        # )
+        content = _clean_docstrings(content)
 
         with open(file_name, "w") as dest:
             dest.write(content)
@@ -356,6 +378,7 @@ def download_manuals() -> None:
 
 
 def merge_type_definitions(subproject: Subproject = "luatex") -> None:
+    """Merge all lua files of a subproject into one big file for the CTAN upload."""
     contents: list[str] = []
 
     def _merge(file_name: str) -> None:
@@ -364,14 +387,36 @@ def merge_type_definitions(subproject: Subproject = "luatex") -> None:
             content = src.read()
         # Remove the return statements
         content = re.sub(r"^return .+\n", "", content, flags=re.MULTILINE)
+
+        content = re.sub(
+            r"---Copyright \(C\) 2022-20\d\d by Josef Friedrich <josef@friedrich\.rocks>\n",
+            "",
+            content,
+        )
+        content = content.replace(copyright_notice, "")
+        # Remove all ---@meta definitions. We add one ---@meta later
+        content = content.replace("---@meta\n", "")
         contents.append(content)
 
     _apply_function_on_glob("dist/" + subproject + "/*.lua", _merge)
 
+    # Add copyright notice and meta definition at the beginning
+    contents.insert(
+        0,
+        f"---Copyright (C) 2022-{datetime.now().year} by Josef Friedrich <josef@friedrich.rocks>",
+    )
+    contents.insert(1, copyright_notice)
+    contents.insert(2, "---@meta\n")
+
     dist_dir: Path = project_base_path / "luatex-type-definitions"
     dist_dir.mkdir(parents=True, exist_ok=True)
+
+    content = "\n".join(contents)
+    # Artefact of the copyright removal
+    content = content.replace("\n\n---\n\n", "")
+    content = _clean_docstrings(content)
     with open(dist_dir / (subproject + "-type-definitions.lua"), "w") as f:
-        f.write("\n".join(contents))
+        f.write(content)
 
 
 # navigation
