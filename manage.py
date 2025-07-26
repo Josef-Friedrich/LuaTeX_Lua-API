@@ -15,8 +15,8 @@ import logging
 from datetime import datetime
 
 logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s %(levelname)s %(message)s",
+    format="%(levelname)s %(message)s",
+    stream=sys.stdout,
 )
 
 logger = logging.getLogger(__name__)
@@ -248,6 +248,8 @@ def compile_example(
     else:
         src = project_base_path / "examples" / subproject / src_relpath
 
+    logger.debug(f"Example source: {src}")
+
     # dest: Path = tmp_dir / src.name
     # """The path of the destination file that is copied to a temporary directory."""
 
@@ -288,6 +290,8 @@ def compile_example(
     if src.suffix == ".lua" and not luaonly:
         dest_lua = dest
         dest = dest.with_suffix(".tex")
+        tex_content = "\\directlua{dofile('" + str(dest_lua) + "')}\n\\bye\n"
+        logger.debug(tex_content)
         dest.write_text("\\directlua{dofile('" + str(dest_lua) + "')}\n\\bye\n")
 
     result = subprocess.run(
@@ -511,8 +515,15 @@ def remove_navigation_table() -> None:
 
 @dataclass
 class Args:
+    debug: bool
     command: Literal[
-        "convert", "example", "e", "format", "manuals", "merge", "remove-navigation-table"
+        "convert",
+        "example",
+        "e",
+        "format",
+        "manuals",
+        "merge",
+        "remove-navigation-table",
     ]
     relpath: Optional[str]
     subproject: Optional[Subproject]
@@ -521,6 +532,9 @@ class Args:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+
+    parser.add_argument("-d", "--debug", action="store_true")
+
     subparsers = parser.add_subparsers(dest="command")
 
     convert_parser = subparsers.add_parser(
@@ -569,6 +583,9 @@ if __name__ == "__main__":
 
     args = cast(Args, parser.parse_args())
 
+    if args.debug:
+        print('Enable logging')
+        logger.setLevel(logging.DEBUG)
     if args.command == "e":
         args.command = "example"
 

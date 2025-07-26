@@ -86,11 +86,17 @@ namespace_luatex_luaonly:
 
 # examples
 
+EXAMPLE = ./manage.py --debug example
+
 ## luatex
+
+### font
+example_luatex_font_getcopy:
+	$(EXAMPLE) font/getcopy.lua
 
 ### fontloader
 example_luatex_fontloader_close:
-	luatex --luaonly examples/luatex/fontloader/close.lua
+	$(EXAMPLE) fontloader/close.lua
 example_luatex_fontloader_fields:
 	luatex --luaonly examples/luatex/fontloader/fields.lua
 example_luatex_fontloader_fontinfo:
@@ -148,6 +154,7 @@ example_luatex_os_spawn:
 example_luatex_os_times:
 	./manage.py e os/times.lua
 
+
 ### string
 example_luatex_string_bytepairs:
 	luatex --luaonly examples/luatex/string/bytepairs.lua
@@ -169,5 +176,14 @@ example_luatex_string_utfvalue:
 	luatex --luaonly examples/luatex/string/utfvalue.lua
 example_luatex_string_utfvalues:
 	luatex --luaonly examples/luatex/string/utfvalues.lua
+
+### texconfig
+example_luatex_texconfig:
+	./manage.py e texconfig/texconfig.lua
+
+### status
+example_luatex_status_list:
+	./manage.py e status/list.lua
+
 
 .PHONY: all format convert_tex_to_lua stylua debug print_namespace generate_doc dist update_lls_addons test diff patch clean update_manual
