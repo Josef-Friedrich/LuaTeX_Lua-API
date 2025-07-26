@@ -95,6 +95,13 @@ example_luatex_fontloader_info:
 example_luatex_fontloader_to_table:
 	luatex --luaonly examples/luatex/fontloader/to_table.lua
 
+example_luatex_mplib_new:
+	./manage.py example luatex/mplib/new.lua
+example_luatex_mplib_statistics:
+	./manage.py example luatex/mplib/statistics.lua
+example_luatex_mplib_version:
+	./manage.py example luatex/mplib/version.lua
+
 example_luatex_string_bytepairs:
 	luatex --luaonly examples/luatex/string/bytepairs.lua
 example_luatex_string_bytes:
