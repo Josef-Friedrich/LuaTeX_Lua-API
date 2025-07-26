@@ -267,9 +267,10 @@ def compile_example(src_relpath: str, luaonly: bool = False) -> None:
         args = shlex.split(first_line)
         print(args)
 
-    dest.write_text(src_content)
+    if src.suffix == ".lua":
+        src_content = "print('---start---')\n" + src_content + "\nprint('---stop---')"
 
-    dest: Path
+    dest.write_text(src_content)
 
     if src.suffix == ".lua" and not luaonly:
         dest_lua = dest
@@ -283,7 +284,13 @@ def compile_example(src_relpath: str, luaonly: bool = False) -> None:
         cwd=tmp_dir,
         timeout=5,
     )
-    print(result.stdout)
+
+    output = result.stdout
+
+    output = re.sub(r"^.*---start---", "", output, flags=re.DOTALL)
+    output = re.sub(r"---stop---.*$", "", output, flags =re.DOTALL)
+
+    print(output)
     pdf: Path = dest.with_suffix(".pdf")
 
     if pdf.exists():
