@@ -26,14 +26,22 @@ _N._5_8_1_new_and_id = "page 83"
 ---
 ---Create a new language object, with an optional fixed id number.
 ---
----Create a new userdata object of type `<language>`.
+---__Example:__
 ---
----These functions can also be used as if they were object methods, using the colon
----syntax.
+---```lua
+---local l1 = lang.new()
+---print(l1:id())
+----- 1
+---
+---local l42 = lang.new(42)
+---print(l42:id())
+----- 42
+---```
 ---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [llanglib.c#L27-L48](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llanglib.c#L27-L48)
+---* https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-languages.tex#L944-954
 ---
 ---@param id? integer # Without an argument, the next available internal id number will be assigned to this object. With an argument, an object will be created that links to the internal language with that id number.
 ---
@@ -45,9 +53,18 @@ function lang.new(id) end
 ---
 ---Return the current internal `language` id number.
 ---
+---__Example:__
+---
+---```lua
+---local l = lang.new(123)
+---print(lang.id(l))
+----- 123
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [llanglib.c#L50-L56](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llanglib.c#L50-L56)
+---* https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-languages.tex#L956-960
 ---
 ---@param language Language # The language object.
 ---
@@ -59,9 +76,18 @@ function lang.id(language) end
 ---
 ---Return the current internal `language` id number.
 ---
+---__Example:__
+---
+---```lua
+---local l = lang.new(123)
+---print(l:id())
+----- 123
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [llanglib.c#L50-L56](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llanglib.c#L50-L56)
+---* https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-languages.tex#L956-960
 ---
 ---@return integer # The number returned is the internal `language` id number this object refers to.
 ---
@@ -72,6 +98,8 @@ _N._5_8_2_hyphenation = "page 84"
 
 ---
 ---Add hyphenation exceptions.
+---
+---__Example:__
 ---
 ---```lua
 ---local l = lang.new()
@@ -84,6 +112,7 @@ _N._5_8_2_hyphenation = "page 84"
 ---__Reference:__
 ---
 ---* Corresponding C source code: [llanglib.c#L86-L104](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llanglib.c#L86-L104)
+---* https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-languages.tex#L968-980
 ---
 ---@param language Language # The language object.
 ---@param hyphenation_exceptions string
@@ -93,6 +122,8 @@ function lang.hyphenation(language, hyphenation_exceptions) end
 
 ---
 ---Add hyphenation exceptions.
+---
+---__Example:__
 ---
 ---```lua
 ---local l = lang.new()
@@ -105,6 +136,7 @@ function lang.hyphenation(language, hyphenation_exceptions) end
 ---__Reference:__
 ---
 ---* Corresponding C source code: [llanglib.c#L86-L104](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llanglib.c#L86-L104)
+---* https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-languages.tex#L968-980
 ---
 ---@param hyphenation_exceptions string
 ---
@@ -114,9 +146,18 @@ function Language:hyphenation(hyphenation_exceptions) end
 ---
 ---Get the hyphenation exceptions.
 ---
+---__Example:__
+---
+---```lua
+---local l = lang.new()
+---lang.hyphenation(l, "man-u-script")
+---print(lang.hyphenation(l)) -- man-u-script
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [llanglib.c#L86-L104](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llanglib.c#L86-L104)
+---* https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-languages.tex#L968-980
 ---
 ---@param language Language # The language object.
 ---
@@ -128,9 +169,18 @@ function lang.hyphenation(language) end
 ---
 ---Get the hyphenation exceptions.
 ---
+---__Example:__
+---
+---```lua
+---local l = lang.new()
+---l:hyphenation("man-u-script")
+---print(l:hyphenation()) -- man-u-script
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [llanglib.c#L86-L104](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llanglib.c#L86-L104)
+---* https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-languages.tex#L968-980
 ---
 ---@return string|nil hyphenation_exceptions
 ---
@@ -142,6 +192,18 @@ _N._5_8_3_clear_hyphenation_and_clean = "page 84"
 ---
 ---Clear the set of hyphenation exceptions.
 ---
+---__Example:__
+---
+---```lua
+---local l = lang.new()
+---print(lang.hyphenation(l)) -- nil
+---lang.hyphenation(l, "man-u-script")
+---lang.hyphenation(l, "ca-tas-tro-phe")
+---print(lang.hyphenation(l)) --  man-u-script ca-tas-tro-phe
+---lang.clear_hyphenation(l)
+---print(lang.hyphenation(l)) -- nil
+---```
+---
 ---@param language Language
 ---
 ---__Reference:__
@@ -150,6 +212,28 @@ _N._5_8_3_clear_hyphenation_and_clean = "page 84"
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lang.clear_hyphenation(language) end
+
+---
+---Clear the set of hyphenation exceptions.
+---
+---__Example:__
+---
+---```lua
+---local l = lang.new()
+---print(l:hyphenation()) -- nil
+---lang.hyphenation(l, "man-u-script")
+---lang.hyphenation(l, "ca-tas-tro-phe")
+---print(lang.hyphenation(l)) --  man-u-script ca-tas-tro-phe
+---lang.clear_hyphenation(l)
+---print(lang.hyphenation(l)) -- nil
+---```
+---
+---__Reference:__
+---
+---* Corresponding C source code: [llanglib.c#L215-L221](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/llanglib.c#L215-L221)
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lang.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function Language:clear_hyphenation() end
 
 ---
 ---Clear the exception dictionary (string) for this language.

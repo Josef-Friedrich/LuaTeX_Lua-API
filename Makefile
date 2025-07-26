@@ -100,6 +100,32 @@ example_luatex_fontloader_info:
 example_luatex_fontloader_to_table:
 	luatex --luaonly examples/luatex/fontloader/to_table.lua
 
+### img
+example_luatex_img_boxes:
+	./manage.py example luatex/img/boxes.lua
+example_luatex_img_fields:
+	./manage.py example luatex/img/fields.lua
+example_luatex_img_keys:
+	./manage.py example luatex/img/keys.lua
+example_luatex_img_types:
+	./manage.py example luatex/img/types.lua
+
+### lang
+example_luatex_lang_clean:
+	./manage.py example luatex/lang/clean.lua
+example_luatex_lang_clear_hyphenation:
+	./manage.py example luatex/lang/clear_hyphenation.lua
+example_luatex_lang_hyphenation:
+	./manage.py example luatex/lang/hyphenation.lua
+example_luatex_lang_id:
+	./manage.py example luatex/lang/id.lua
+example_luatex_lang_Language_clear_hyphenation:
+	./manage.py example luatex/lang/Language:hyphenation.lua
+example_luatex_lang_new:
+	./manage.py example luatex/lang/new.lua
+example_luatex_lang_patterns:
+	./manage.py example luatex/lang/patterns.lua
+
 ### mplib
 example_luatex_mplib_new:
 	./manage.py example luatex/mplib/new.lua
