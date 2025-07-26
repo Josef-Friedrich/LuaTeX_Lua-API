@@ -80,7 +80,7 @@ namespace_luametatex_luaonly:
 	luametatex --luaonly examples/luatex/namespace.lua
 
 namespace_luatex:
-	./manage.py example luatex/namespace.lua
+	./manage.py example namespace.lua
 namespace_luatex_luaonly:
 	luatex --luaonly examples/luatex/namespace_luaonly.lua
 
@@ -102,37 +102,51 @@ example_luatex_fontloader_to_table:
 
 ### img
 example_luatex_img_boxes:
-	./manage.py example luatex/img/boxes.lua
+	./manage.py e img/boxes.lua
 example_luatex_img_fields:
-	./manage.py example luatex/img/fields.lua
+	./manage.py e img/fields.lua
 example_luatex_img_keys:
-	./manage.py example luatex/img/keys.lua
+	./manage.py e img/keys.lua
 example_luatex_img_types:
-	./manage.py example luatex/img/types.lua
+	./manage.py e img/types.lua
 
 ### lang
 example_luatex_lang_clean:
-	./manage.py example luatex/lang/clean.lua
+	./manage.py e lang/clean.lua
 example_luatex_lang_clear_hyphenation:
-	./manage.py example luatex/lang/clear_hyphenation.lua
+	./manage.py e lang/clear_hyphenation.lua
 example_luatex_lang_hyphenation:
-	./manage.py example luatex/lang/hyphenation.lua
+	./manage.py e lang/hyphenation.lua
 example_luatex_lang_id:
-	./manage.py example luatex/lang/id.lua
+	./manage.py e lang/id.lua
 example_luatex_lang_Language_clear_hyphenation:
-	./manage.py example luatex/lang/Language:hyphenation.lua
+	./manage.py e lang/Language:hyphenation.lua
 example_luatex_lang_new:
-	./manage.py example luatex/lang/new.lua
+	./manage.py e lang/new.lua
 example_luatex_lang_patterns:
-	./manage.py example luatex/lang/patterns.lua
+	./manage.py e lang/patterns.lua
 
 ### mplib
 example_luatex_mplib_new:
-	./manage.py example luatex/mplib/new.lua
+	./manage.py e mplib/new.lua
 example_luatex_mplib_statistics:
-	./manage.py example luatex/mplib/statistics.lua
+	./manage.py e mplib/statistics.lua
 example_luatex_mplib_version:
-	./manage.py example luatex/mplib/version.lua
+	./manage.py e mplib/version.lua
+
+### os
+example_luatex_os_exec:
+	./manage.py e os/exec.lua
+example_luatex_os_gettimeofday:
+	./manage.py e os/gettimeofday.lua
+example_luatex_os_name:
+	./manage.py e os/name.lua
+example_luatex_os_sleep:
+	./manage.py e os/sleep.lua
+example_luatex_os_spawn:
+	./manage.py e os/spawn.lua
+example_luatex_os_times:
+	./manage.py e os/times.lua
 
 ### string
 example_luatex_string_bytepairs:

@@ -1,3 +1,4 @@
 #! luatex --luaonly
 
-assert(os.name == 'linux', os.name)
+print(os.name)
+assert(os.name == 'linux')

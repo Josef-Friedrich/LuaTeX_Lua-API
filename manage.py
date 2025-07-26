@@ -1,6 +1,7 @@
 #! /usr/bin/python
 
 import argparse
+from dataclasses import dataclass
 import glob
 import re
 import shlex
@@ -9,7 +10,7 @@ import sys
 import tempfile
 import urllib.request
 from pathlib import Path
-from typing import Callable, Literal, Union
+from typing import Callable, Literal, Optional, Union, cast
 import logging
 from datetime import datetime
 
@@ -71,6 +72,14 @@ def _clean_docstrings(content: str) -> str:
 
 
 Subproject = Literal[
+    "lualatex",
+    "lualibs",
+    "luametatex",
+    "luaotfload",
+    "luatex",
+]
+
+subprojects = [
     "lualatex",
     "lualibs",
     "luametatex",
@@ -211,9 +220,11 @@ def convert_html() -> None:
 # example
 
 
-def compile_example(src_relpath: str, luaonly: bool = False) -> None:
+def compile_example(
+    src_relpath: str, luaonly: bool = False, subproject: Subproject = "luatex"
+) -> None:
     """
-    Compiles a Lua or TeX example file using LuaTeX.
+    Compiles a Lua or TeX example file.
 
     Given a relative path to a source file (either Lua or TeX), this function:
     - Copies the source file to a temporary directory.
@@ -235,7 +246,7 @@ def compile_example(src_relpath: str, luaonly: bool = False) -> None:
     if src_relpath.startswith("examples"):
         src = project_base_path / src_relpath
     else:
-        src = project_base_path / "examples" / src_relpath
+        src = project_base_path / "examples" / subproject / src_relpath
 
     # dest: Path = tmp_dir / src.name
     # """The path of the destination file that is copied to a temporary directory."""
@@ -256,16 +267,18 @@ def compile_example(src_relpath: str, luaonly: bool = False) -> None:
     if luaonly:
         args.append("--luaonly")
 
-    # Parse the first line to support a shebang like syntax
-    # --! luatex --lua-only
-    # --! /usr/local/texlive/bin/x86_64-linux/luatex
-    if src_content.startswith("--!"):
-        first_line = src_content.splitlines()[0]
-        first_line = first_line.replace("--!", "")
+    # Parse the first line to support a shebang syntax
+    # #! luatex --lua-only
+    # #! /usr/local/texlive/bin/x86_64-linux/luatex
+    if src_content.startswith("#!"):
+        lines = src_content.splitlines()
+        first_line = lines[0]
+        first_line = first_line.replace("#!", "")
         if "--luaonly" in first_line:
             luaonly = True
         args = shlex.split(first_line)
-        print(args)
+        # Remove the shebang
+        src_content = "\n".join(lines[1:])
 
     if src.suffix == ".lua":
         src_content = "print('---start---')\n" + src_content + "\nprint('---stop---')"
@@ -288,7 +301,7 @@ def compile_example(src_relpath: str, luaonly: bool = False) -> None:
     output = result.stdout
 
     output = re.sub(r"^.*---start---", "", output, flags=re.DOTALL)
-    output = re.sub(r"---stop---.*$", "", output, flags =re.DOTALL)
+    output = re.sub(r"---stop---.*$", "", output, flags=re.DOTALL)
 
     print(output)
     pdf: Path = dest.with_suffix(".pdf")
@@ -496,6 +509,16 @@ def remove_navigation_table() -> None:
     _apply_function_on_glob("dist/**/*.lua", _remove)
 
 
+@dataclass
+class Args:
+    command: Literal[
+        "convert", "example", "e", "format", "manuals", "merge", "remove-navigation-table"
+    ]
+    relpath: Optional[str]
+    subproject: Optional[Subproject]
+    luaonly: bool
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest="command")
@@ -507,8 +530,18 @@ if __name__ == "__main__":
 
     example_parser = subparsers.add_parser(
         "example",
+        aliases=["e"],
         help="Compile examples in the folder ./examples",
         description="You can specify the relative path of a Lua file or of a TeX file.",
+    )
+    example_parser.add_argument(
+        "-p", "--subproject", help="Select the subproject.", choices=subprojects
+    )
+    example_parser.add_argument(
+        "-l",
+        "--luaonly",
+        help="Exectute the example in an Lua only environement without the TeX related libraries",
+        action="store_true",
     )
     example_parser.add_argument("relpath")
 
@@ -534,18 +567,24 @@ if __name__ == "__main__":
         help="Remove the navigation table in all subprojects in the dist folder.",
     )
 
-    args = parser.parse_args()
+    args = cast(Args, parser.parse_args())
+
+    if args.command == "e":
+        args.command = "example"
 
     if args.command == "convert":
         convert_tex()
         convert_html()
-    elif args.command == "example":
-        compile_example(args.relpath)
+    elif args.command == "example" and args.relpath:
+        if args.subproject:
+            compile_example(args.relpath, args.luaonly, args.subproject)
+        else:
+            compile_example(args.relpath, args.luaonly)
     elif args.command == "format":
         format_docstrings()
     elif args.command == "manuals":
         download_manuals()
-    elif args.command == "merge":
+    elif args.command == "merge" and args.subproject:
         merge_type_definitions(args.subproject)
     elif args.command == "remove-navigation-table":
         remove_navigation_table()
