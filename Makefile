@@ -84,6 +84,11 @@ namespace_luatex:
 namespace_luatex_luaonly:
 	luatex --luaonly examples/luatex/namespace_luaonly.lua
 
+# examples
+
+## luatex
+
+### fontloader
 example_luatex_fontloader_close:
 	luatex --luaonly examples/luatex/fontloader/close.lua
 example_luatex_fontloader_fields:
@@ -95,6 +100,7 @@ example_luatex_fontloader_info:
 example_luatex_fontloader_to_table:
 	luatex --luaonly examples/luatex/fontloader/to_table.lua
 
+### string
 example_luatex_string_bytepairs:
 	luatex --luaonly examples/luatex/string/bytepairs.lua
 example_luatex_string_bytes:
