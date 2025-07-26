@@ -84,11 +84,16 @@ be made so that the language server can load the file.
 The following configuration example sets the preload file size to a
 maximum of 5000 kB.
 
-\begin{verbatim}
+% ! Package minted Error: minted v3 Python executable could not find output direc
+% tory; upgrade to TeX distribution that supports TEXMF_OUTPUT_DIRECTORY or set e
+% nvironment variable TEXMF_OUTPUT_DIRECTORY manually).
+
+
+\begin{minted}{json}
 {
   "Lua.workspace.preloadFileSize": 5000,
 }
-\end{verbatim}
+\end{minted}
 
 % Es gibt mehrere Möglichkeiten die Typdefinitionen in einem Projekt
 % einzubingen.
@@ -98,11 +103,11 @@ The easiest way is to copy the file into the project folder.
 % Oder Sie verwenden die Konfiguration |Lua.workspace.library|
 Or you can use the configuration |Lua.workspace.library|:
 
-\begin{verbatim}
+\begin{minted}{json}
 {
     "Lua.workspace.library": ["/path/to/luatex-type-definitions.lua"]
 }
-\end{verbatim}
+\end{minted}
 
 \subsection{via Visual Studio Code Extension}
 
@@ -260,6 +265,85 @@ online documentation converted into \emph{Lua} docstrings.
 % Demonstration und zum Testen der dokumentierten Lua-API.
 The |example| folder contains \emph{\TeX{}} and \emph{Lua} files for
 demonstrating and testing the documented \emph{Lua} API.
+
+\subsubsection{Documentation of callback functions}
+
+How a callback function is documented is shown using the
+|pre_linebreak_filter| as an example.
+
+\subsubsection{@alias \texttt{PreLinebreakFilterGroupCode}}
+
+\begin{minted}{lua}
+---
+---The string called `groupcode` identifies the nodelist's context within
+---*TeX*'s processing. The range of possibilities is given in the table below, but
+---not all of those can actually appear in `pre_linebreak_filter`, some are
+---for the `hpack_filter` and `vpack_filter` callbacks that will be
+---explained in the next two paragraphs.
+---@alias PreLinebreakFilterGroupCode
+---|'' # main vertical list
+---|'hbox' # hbox` in horizontal mode
+---|'adjusted_hbox' #hbox` in vertical mode
+---|'vbox' # vbox`
+---|'vtop' # vtop' #
+---|'align' # halign` or `valign`
+---|'disc' # discretionaries
+---|'insert' # packaging an insert
+---|'vcenter' # vcenter`
+---|'local_box' # localleftbox` or `localrightbox`
+---|'split_off' # top of a `vsplit`
+---|'split_keep' # remainder of a `vsplit`
+---|'align_set' # alignment cell
+---|'fin_row' # alignment row
+\end{minted}
+
+\subsubsection{@alias \texttt{NodeCallbackReturn}}
+
+\begin{minted}{lua}
+---
+---As for all the callbacks that deal with nodes, the return value can be one of
+---three things:
+---
+---* boolean `true` signals successful processing
+---* `<node>` signals that the “head” node should be replaced by the
+---  returned node
+---* boolean `false` signals that the “head” node list should be
+---  ignored and flushed from memory
+---@alias NodeCallbackReturn true|false|Node
+\end{minted}
+
+\subsubsection{@alias \texttt{PreLinebreakFilter}}
+
+\begin{minted}{lua}
+---
+---# `pre_linebreak_filter` callback
+---
+---This callback is called just before *LuaTeX* starts converting a list of nodes
+---into a stack of `hbox`es, after the addition of `parfillskip`.
+---
+---```lua
+------@type PreLinebreakFilter
+---function(head, groupcode)
+---  --- true|false|node
+---  return true
+---end
+---```
+---
+---This callback does not replace any internal code.
+---@alias PreLinebreakFilter fun(head: Node, groupcode: PreLinebreakFilterGroupCode): NodeCallbackReturn
+\end{minted}
+
+Annotation your custom callback function with |@type|.
+
+\begin{minted}{lua}
+---@type PreLinebreakFilter
+local function visit_nodes(head, group)
+  return true
+end
+
+luatexbase.add_to_callback('pre_linebreak_filter', visit_nodes, 'visit nodes')
+\end{minted}
+
 
 \pagebreak
 \PrintIndex
