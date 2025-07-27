@@ -372,7 +372,6 @@ def convert_html() -> None:
     _apply("resources/**/*.html", _convert)
 
 
-
 def example(
     src_relpath: str, luaonly: bool = False, subproject: Subproject = "luatex"
 ) -> None:
@@ -712,7 +711,7 @@ def _push_into_downstream_submodule(subproject: Subproject, commit_id: str) -> N
 
     _git_commit_push(
         path,
-        "Update submodules",
+        f"Sync with https://github.com/Josef-Friedrich/LuaTeX_Lua-API/commit/{commit_id}",
     )
 
 
@@ -737,6 +736,8 @@ def dist() -> None:
 
     for subproject in subprojects:
         _push_into_downstream_submodule(subproject, commit_id)
+
+    _git_commit_push(project_base_path, "Update submodules")
 
 
 @dataclass
