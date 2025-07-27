@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import Callable, Literal, Optional, Union, cast
 import logging
 from datetime import datetime
+import difflib
 
 logging.basicConfig(
     format="%(levelname)s %(message)s",
@@ -69,6 +70,50 @@ def _clean_docstrings(content: str) -> str:
     #     r"(?<!\n---)\n---@param(?=.*?\n.*?@param)", r"\n---\n---@param", content
     # )
     return content
+
+
+class Colors:
+    """ ANSI color codes
+
+    Source: https://gist.github.com/rene-d/9e584a7dd2935d0f461904b9f2950007
+    """
+    BLACK = "\033[0;30m"
+    RED = "\033[0;31m"
+    GREEN = "\033[0;32m"
+    BROWN = "\033[0;33m"
+    BLUE = "\033[0;34m"
+    PURPLE = "\033[0;35m"
+    CYAN = "\033[0;36m"
+    LIGHT_GRAY = "\033[0;37m"
+    DARK_GRAY = "\033[1;30m"
+    LIGHT_RED = "\033[1;31m"
+    LIGHT_GREEN = "\033[1;32m"
+    YELLOW = "\033[1;33m"
+    LIGHT_BLUE = "\033[1;34m"
+    LIGHT_PURPLE = "\033[1;35m"
+    LIGHT_CYAN = "\033[1;36m"
+    LIGHT_WHITE = "\033[1;37m"
+    BOLD = "\033[1m"
+    FAINT = "\033[2m"
+    ITALIC = "\033[3m"
+    UNDERLINE = "\033[4m"
+    BLINK = "\033[5m"
+    NEGATIVE = "\033[7m"
+    CROSSED = "\033[9m"
+    END = "\033[0m"
+
+
+
+def _diff(a: str, b: str) -> None:
+    for line in difflib.unified_diff(a.splitlines(), b.splitlines(), n=1):
+        if line.startswith('-'):
+            print(Colors.RED + line + Colors.END)
+        elif line.startswith('+'):
+            print(Colors.GREEN + line + Colors.END)
+        elif line.startswith('@@'):
+            print(Colors.PURPLE + line + Colors.END)
+        else:
+            print(line)
 
 
 Subproject = Literal[
@@ -489,8 +534,11 @@ def remove_navigation_table() -> None:
     def _remove(file_name: str) -> None:
         content: str = ""
 
+        orig: str = ""
+
         with open(file_name) as src:
             content = src.read()
+            orig = content
 
         content = content.replace(
             "---A helper table to better navigate through the documentation using the\n"
@@ -509,6 +557,7 @@ def remove_navigation_table() -> None:
 
         with open(file_name, "w") as dest:
             dest.write(content)
+            _diff(orig, content)
 
     _apply_function_on_glob("dist/**/*.lua", _remove)
 
@@ -584,7 +633,6 @@ if __name__ == "__main__":
     args = cast(Args, parser.parse_args())
 
     if args.debug:
-        print('Enable logging')
         logger.setLevel(logging.DEBUG)
     if args.command == "e":
         args.command = "example"
