@@ -660,13 +660,14 @@ def _push_into_downstream_submodule(subproject: Subproject) -> None:
     if not _is_git_commited():
         raise Exception("Uncommited changes found! Commit first, then retry!")
 
+    subprocess.check_call(["git", "checkout", "main"], cwd=path)
     subprocess.check_call(["git", "add", "-A"], cwd=path)
     subprocess.check_call(["git", "reset", "--hard", "HEAD"], cwd=path)
     subprocess.check_call(["git", "pull", "origin", "main"], cwd=path)
 
     commit_id = _get_latest_git_commitid()
 
-    _copy_directory(project_base_path / "library" / subproject, path / "library")
+    _copy_directory(project_base_path / "dist" / subproject, path / "library")
     subprocess.check_call(["git", "add", "-A"], cwd=path)
     result = subprocess.run(
         [
