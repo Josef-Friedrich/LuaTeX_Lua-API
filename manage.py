@@ -15,6 +15,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 from typing import Callable, Literal, Optional, Union, cast
+import unittest
 
 logging.basicConfig(
     format="%(levelname)s %(message)s",
@@ -624,15 +625,33 @@ class Args:
     command: Literal[
         "convert",
         "dist",
-        "example",
         "e",
+        "example",
         "format",
         "manuals",
         "merge",
+        "test",
     ]
     relpath: Optional[str]
     subproject: Optional[Subproject]
     luaonly: bool
+
+
+class TestManager(unittest.TestCase):
+
+    def test_upper(self):
+        self.assertEqual('foo'.upper(), 'FOOO')
+
+    def test_isupper(self):
+        self.assertTrue('FOO'.isupper())
+        self.assertFalse('Foo'.isupper())
+
+    def test_split(self):
+        s = 'hello world'
+        self.assertEqual(s.split(), ['hello', 'world'])
+        # check that s.split fails when the separator is not a string
+        with self.assertRaises(TypeError):
+            s.split(2)
 
 
 if __name__ == "__main__":
@@ -645,6 +664,11 @@ if __name__ == "__main__":
     convert_parser = subparsers.add_parser(
         "convert",
         help="Convert manuals",
+    )
+
+    dist_parser = subparsers.add_parser(
+        "dist",
+        help="Copy library to dist and remove the navigation table.",
     )
 
     example_parser = subparsers.add_parser(
@@ -681,9 +705,9 @@ if __name__ == "__main__":
     )
     merge_parser.add_argument("subproject")
 
-    dist_parser = subparsers.add_parser(
-        "dist",
-        help="Copy library to dist and remove the navigation table.",
+    test_parser = subparsers.add_parser(
+        "test",
+        help="Run the embedded unittest."
     )
 
     args = cast(Args, parser.parse_args())
@@ -709,7 +733,10 @@ if __name__ == "__main__":
         download_manuals()
     elif args.command == "merge" and args.subproject:
         merge_type_definitions(args.subproject)
-
+    elif args.command == "test":
+        suite = unittest.defaultTestLoader.loadTestsFromTestCase(TestManager)
+        runner = unittest.TextTestRunner()
+        runner.run(suite)
     else:
         parser.print_help()
         sys.exit(1)
