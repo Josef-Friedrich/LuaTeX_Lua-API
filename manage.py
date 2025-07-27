@@ -163,6 +163,20 @@ def _update_text_file(path: str | Path, fn: Callable[[str], str]) -> None:
 
 
 def _clean_docstrings(content: str) -> str:
+    """
+    Cleans and formats Lua-style docstrings in the given content string.
+
+    This function performs the following operations:
+    - Ensures that a docstring starts with an empty comment line.
+    - Removes duplicate empty comment lines.
+    - Allows only one consecutive empty line in the content.
+
+    Args:
+        content: The string containing Lua-style docstrings to be cleaned.
+
+    Returns:
+        str: The cleaned and formatted docstring content.
+    """
     # Start a docstring with an empty comment line.
     content = re.sub(r"\n\n---(?=[^\n])", r"\n\n---\n---", content)
 
@@ -358,10 +372,8 @@ def convert_html() -> None:
     _apply("resources/**/*.html", _convert)
 
 
-# example
 
-
-def compile_example(
+def example(
     src_relpath: str, luaonly: bool = False, subproject: Subproject = "luatex"
 ) -> None:
     """
@@ -461,7 +473,7 @@ def compile_example(
 # format
 
 
-def format_docstrings() -> None:
+def format() -> None:
     def _format(path: Path) -> None:
         _update_text_file(path, _clean_docstrings)
         _run_stylua(path)
@@ -472,7 +484,7 @@ def format_docstrings() -> None:
 # manuals
 
 
-def download_manuals() -> None:
+def manuals() -> None:
     luatex_files: dict[str, Union[str, None]] = {
         "luatex-backend.tex": "14_backend.tex",
         "luatex-callbacks.tex": "09_callbacks.tex",
@@ -538,7 +550,7 @@ def download_manuals() -> None:
 # merge
 
 
-def merge_type_definitions(subproject: Subproject = "luatex") -> None:
+def merge(subproject: Subproject = "luatex") -> None:
     """Merge all lua files of a subproject into one big file for the CTAN upload."""
     contents: list[str] = []
 
@@ -704,7 +716,7 @@ def _push_into_downstream_submodule(subproject: Subproject, commit_id: str) -> N
     )
 
 
-def distribute() -> None:
+def dist() -> None:
     """
     Copies the contents of the 'library' directory to a new 'dist' directory,
     removing any existing 'dist' directory first.
@@ -712,6 +724,7 @@ def distribute() -> None:
     Raises:
         OSError: If there is an error removing or copying directories.
     """
+    format()
     src_dir = project_base_path / "library"
     dest_dir = project_base_path / "dist"
     _copy_directory(src_dir, dest_dir)
@@ -766,7 +779,7 @@ class TestManager(unittest.TestCase):
 
     def test_distribute(self) -> None:
         shutil.rmtree(project_base_path / "dist")
-        distribute()
+        dist()
         self.assertTrue(
             (project_base_path / "dist" / "luatex" / "callback.lua").exists()
         )
@@ -841,18 +854,18 @@ if __name__ == "__main__":
         convert_tex()
         convert_html()
     elif args.command == "dist":
-        distribute()
+        dist()
     elif args.command == "example" and args.relpath:
         if args.subproject:
-            compile_example(args.relpath, args.luaonly, args.subproject)
+            example(args.relpath, args.luaonly, args.subproject)
         else:
-            compile_example(args.relpath, args.luaonly)
+            example(args.relpath, args.luaonly)
     elif args.command == "format":
-        format_docstrings()
+        format()
     elif args.command == "manuals":
-        download_manuals()
+        manuals()
     elif args.command == "merge" and args.subproject:
-        merge_type_definitions(args.subproject)
+        merge(args.subproject)
     elif args.command == "test":
         suite = unittest.defaultTestLoader.loadTestsFromTestCase(TestManager)
         runner = unittest.TextTestRunner()
