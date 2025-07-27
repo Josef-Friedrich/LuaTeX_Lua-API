@@ -34,3 +34,6 @@
 [submodule "resources/LuaCATS/downstream/tex-luametatex"]
 	path = resources/LuaCATS/downstream/tex-luametatex
 	url = git@github.com:LuaCATS/tex-luametatex.git
+[submodule "resources/vscode_extension"]
+	path = resources/vscode_extension
+	url = git@github.com:Josef-Friedrich/vscode_LuaTeX_Lua-API.git
