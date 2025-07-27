@@ -644,7 +644,22 @@ def _remove_navigation_table(path: Path) -> None:
     _update_text_file(path, __remove_navigation_table)
 
 
-def _push_into_downstream_submodule(subproject: Subproject) -> None:
+def _push_into_downstream_submodule(subproject: Subproject, commit_id: str) -> None:
+    """
+    Synchronizes the specified subproject's distribution files with its downstream LuaCATS submodule repository.
+
+    This function performs the following steps:
+    1. Determines the downstream submodule path for the given subproject.
+    2. Skips processing if the downstream repository does not exist.
+    3. Ensures the downstream repository is on the 'main' branch and up-to-date.
+    4. Copies the built distribution files into the downstream repository's 'library' directory.
+    5. Stages all changes and commits them with a message referencing the source commit.
+    6. Pushes the commit to the remote 'main' branch if changes were committed.
+
+    Args:
+        subproject: The name of the subproject to synchronize.
+        commit_id: The commit hash from the source repository to reference in the commit message.
+    """
     path = (
         project_base_path
         / "resources"
@@ -657,15 +672,10 @@ def _push_into_downstream_submodule(subproject: Subproject) -> None:
     if not path.exists():
         return
 
-    if not _is_git_commited():
-        raise Exception("Uncommited changes found! Commit first, then retry!")
-
     subprocess.check_call(["git", "checkout", "main"], cwd=path)
     subprocess.check_call(["git", "add", "-A"], cwd=path)
     subprocess.check_call(["git", "reset", "--hard", "HEAD"], cwd=path)
     subprocess.check_call(["git", "pull", "origin", "main"], cwd=path)
-
-    commit_id = _get_latest_git_commitid()
 
     _copy_directory(project_base_path / "dist" / subproject, path / "library")
     subprocess.check_call(["git", "add", "-A"], cwd=path)
@@ -696,8 +706,12 @@ def distribute() -> None:
 
     _apply("dist/**/*.lua", _remove_navigation_table)
 
+    if not _is_git_commited():
+        raise Exception("Uncommited changes found! Commit first, then retry!")
+    commit_id = _get_latest_git_commitid()
+
     for subproject in subprojects:
-        _push_into_downstream_submodule(subproject)
+        _push_into_downstream_submodule(subproject, commit_id)
 
 
 @dataclass
