@@ -668,7 +668,7 @@ def _push_into_downstream_submodule(subproject: Subproject) -> None:
 
     _copy_directory(project_base_path / "library" / subproject, path / "library")
     subprocess.check_call(["git", "add", "-A"], cwd=path)
-    subprocess.check_call(
+    result = subprocess.run(
         [
             "git",
             "commit",
@@ -677,7 +677,8 @@ def _push_into_downstream_submodule(subproject: Subproject) -> None:
         ],
         cwd=path,
     )
-    subprocess.check_call(["git", "push", "-u", "origin", "main"], cwd=path)
+    if result.returncode == 0:
+        subprocess.check_call(["git", "push", "-u", "origin", "main"], cwd=path)
 
 
 def distribute() -> None:
