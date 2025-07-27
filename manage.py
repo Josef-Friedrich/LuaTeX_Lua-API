@@ -95,7 +95,14 @@ def _open_file(path: Path) -> None:
 
 
 def _run_stylua(path: Path | str) -> None:
-    subprocess.check_call(["stylua", str(path)])
+    subprocess.check_call(
+        [
+            "/usr/local/bin/stylua",
+            "--config-path",
+            project_base_path / "resources" / "stylua.toml",
+            path,
+        ]
+    )
 
 
 def _apply(glob_relpath: str, fn: Callable[[str], None]) -> None:
@@ -409,6 +416,7 @@ def compile_example(
 def format_docstrings() -> None:
     def _format(file_name: str) -> None:
         _update_text_file(file_name, _clean_docstrings)
+        _run_stylua(file_name)
 
     _apply("library/**/*.lua", _format)
 
