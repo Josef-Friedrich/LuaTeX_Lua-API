@@ -2,6 +2,7 @@
 ---outline: https://github.com/Josef-Friedrich/LuaTeX_Lua-API#navigation-table-_n
 _N = {}
 
+---
 ---@meta
 
 ---

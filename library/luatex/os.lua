@@ -27,7 +27,6 @@ os = {}
 
 _N._4_2_6_extra_os_library_functions = "page 64"
 
-
 ---
 ---A variable that holds the directory path of the
 ---actual executable.
