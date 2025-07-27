@@ -202,7 +202,7 @@ Subproject = Literal[
     "luatex",
 ]
 
-subprojects = [
+subprojects: list[Subproject] = [
     "lualatex",
     "lualibs",
     "luametatex",
@@ -626,7 +626,50 @@ def _remove_navigation_table(path: Path) -> None:
     _update_text_file(path, __remove_navigation_table)
 
 
+def _push_into_downstream_submodule(subproject: Subproject) -> None:
+    path = (
+        project_base_path
+        / "resources"
+        / "LuaCATS"
+        / "downstream"
+        / ("tex-" + subproject)
+    )
+
+    # luaotfload has no downstream LuaCATS repository
+    if not path.exists():
+        return
+
+    if not _is_git_commited():
+        raise Exception("Uncommited changes found! Commit first, then retry!")
+
+    subprocess.check_call(["git", "add", "-A"], cwd=path)
+    subprocess.check_call(["git", "reset", "--hard", "HEAD"], cwd=path)
+    subprocess.check_call(["git", "pull", "origin"], cwd=path)
+
+    commit_id = _get_latest_git_commitid()
+
+    shutil.copytree(project_base_path / "library" / subproject, path / "library")
+    subprocess.check_call(["git", "add", "-A"], cwd=path)
+    subprocess.check_call(
+        [
+            "git",
+            "commit",
+            "-m",
+            f"Sync with https://github.com/Josef-Friedrich/LuaTeX_Lua-API/commit/{commit_id}",
+        ],
+        cwd=path,
+    )
+    subprocess.check_call(["git", "push", "-u", "origin", "main"], cwd=path)
+
+
 def distribute() -> None:
+    """
+    Copies the contents of the 'library' directory to a new 'dist' directory,
+    removing any existing 'dist' directory first.
+
+    Raises:
+        OSError: If there is an error removing or copying directories.
+    """
     src_dir = project_base_path / "library"
     dest_dir = project_base_path / "dist"
     if dest_dir.exists():
@@ -634,6 +677,9 @@ def distribute() -> None:
     shutil.copytree(src_dir, dest_dir)
 
     _apply("dist/**/*.lua", _remove_navigation_table)
+
+    for subproject in subprojects:
+        _push_into_downstream_submodule(subproject)
 
 
 @dataclass
