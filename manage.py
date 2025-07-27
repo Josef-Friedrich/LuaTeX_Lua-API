@@ -644,6 +644,28 @@ def _remove_navigation_table(path: Path) -> None:
     _update_text_file(path, __remove_navigation_table)
 
 
+def _git_reset_pull(path: str | Path) -> None:
+    subprocess.check_call(["git", "checkout", "main"], cwd=path)
+    subprocess.check_call(["git", "add", "-A"], cwd=path)
+    subprocess.check_call(["git", "reset", "--hard", "HEAD"], cwd=path)
+    subprocess.check_call(["git", "pull", "origin", "main"], cwd=path)
+
+
+def _git_commit_push(path: str | Path, message: str) -> None:
+    subprocess.check_call(["git", "add", "-A"], cwd=path)
+    result = subprocess.run(
+        [
+            "git",
+            "commit",
+            "-m",
+            message,
+        ],
+        cwd=path,
+    )
+    if result.returncode == 0:
+        subprocess.check_call(["git", "push", "-u", "origin", "main"], cwd=path)
+
+
 def _push_into_downstream_submodule(subproject: Subproject, commit_id: str) -> None:
     """
     Synchronizes the specified subproject's distribution files with its downstream LuaCATS submodule repository.
@@ -672,24 +694,14 @@ def _push_into_downstream_submodule(subproject: Subproject, commit_id: str) -> N
     if not path.exists():
         return
 
-    subprocess.check_call(["git", "checkout", "main"], cwd=path)
-    subprocess.check_call(["git", "add", "-A"], cwd=path)
-    subprocess.check_call(["git", "reset", "--hard", "HEAD"], cwd=path)
-    subprocess.check_call(["git", "pull", "origin", "main"], cwd=path)
+    _git_reset_pull(path)
 
     _copy_directory(project_base_path / "dist" / subproject, path / "library")
-    subprocess.check_call(["git", "add", "-A"], cwd=path)
-    result = subprocess.run(
-        [
-            "git",
-            "commit",
-            "-m",
-            f"Sync with https://github.com/Josef-Friedrich/LuaTeX_Lua-API/commit/{commit_id}",
-        ],
-        cwd=path,
+
+    _git_commit_push(
+        path,
+        "Update submodules",
     )
-    if result.returncode == 0:
-        subprocess.check_call(["git", "push", "-u", "origin", "main"], cwd=path)
 
 
 def distribute() -> None:

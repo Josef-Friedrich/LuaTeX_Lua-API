@@ -29,7 +29,7 @@ sync: fix_lua_docstrings clean
 	resources/update-lls-addons.sh
 
 dist:
-	./manage.py --debug dist
+	./manage.py dist
 
 update_lls_addons:
 	resources/update-lls-addons.sh
