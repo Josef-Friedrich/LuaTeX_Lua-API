@@ -105,6 +105,15 @@ def _run_stylua(path: Path | str) -> None:
     )
 
 
+def _run_pygmentize(path: Path | str) -> None:
+    subprocess.check_call(
+        [
+            "pygmentize",
+            path,
+        ]
+    )
+
+
 def _apply(glob_relpath: str, fn: Callable[[Path], None]) -> None:
     """
     Applies a given function to each file matching a glob pattern.
@@ -353,6 +362,9 @@ def compile_example(
     """Lua require does not support absolute paths"""
 
     src_content = src.read_text()
+
+    if logger.isEnabledFor(logging.DEBUG):
+        _run_pygmentize(src)
 
     src_content = re.sub(
         r"(\./)?resources/utils",
