@@ -6,7 +6,7 @@ installdir = $(texmftex)/$(jobname)
 all: format stylua
 
 format:
-	./manage.py --debug format
+	./manage.py format
 
 convert:
 	./manage.py convert
@@ -22,11 +22,6 @@ print_namespace:
 
 generate_doc:
 	$(HOME)/.vscode/extensions/sumneko.lua-3.6.8-linux-x64/server/bin/lua-language-server --doc library
-
-sync: fix_lua_docstrings clean
-	rsync -av --delete library/ dist/
-	resources/sync-projects.sh
-	resources/update-lls-addons.sh
 
 dist:
 	./manage.py dist
