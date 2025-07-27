@@ -103,7 +103,7 @@ definitions are developed in a LuaCATS repository and *pulled* in by
 this project.
 
 * [LuaCATS: lmathx](https://github.com/LuaCATS/lmathx)
-  → [library/luametatex/lmathx.lua](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luametatex/lmathx.lua)
+  → [library/luametatex/lmathx.lua](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luametatex/xmath.lua)
 * [LuaCATS: lpeg](https://github.com/LuaCATS/lpeg)
   → [library/luatex/lpeg.lua](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lpeg.lua)
 * [LuaCATS: luaharfbuzz](https://github.com/LuaCATS/luaharfbuzz)
@@ -120,7 +120,7 @@ this project.
 * [LuaCATS: slnunicode](https://github.com/LuaCATS/slnunicode)
   → [library/luatex/unicode.lua](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/unicode.lua)
 
-#### Subprojects (push) detached from this repository
+#### Downstream LuaCATS repositories
 
 The following repositories are *downstream* projects. This means: The
 type definitions are developed in this project. They are then *pushed*
