@@ -1,19 +1,20 @@
 #! /usr/bin/python
 
 import argparse
-from dataclasses import dataclass
+import difflib
 import glob
+import logging
 import re
 import shlex
+import shutil
 import subprocess
 import sys
 import tempfile
 import urllib.request
+from dataclasses import dataclass
+from datetime import datetime
 from pathlib import Path
 from typing import Callable, Literal, Optional, Union, cast
-import logging
-from datetime import datetime
-import difflib
 
 logging.basicConfig(
     format="%(levelname)s %(message)s",
@@ -43,40 +44,12 @@ copyright_notice = """----------------------------------------------------------
 ---with this program. If not, see <https://www.gnu.org/licenses/>."""
 
 
-def _open_file(path: Path) -> None:
-    subprocess.call(
-        ["xdg-open", str(path)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
-    )
-
-
-def _apply_function_on_glob(glob_relpath: str, fn: Callable[[str], None]) -> None:
-    for file_name in glob.glob(str(project_base_path) + "/" + glob_relpath):
-        print(file_name)
-        fn(file_name)
-
-
-def _clean_docstrings(content: str) -> str:
-    # Start a docstring with an empty comment line.
-    content = re.sub(r"\n\n---(?=[^\n])", r"\n\n---\n---", content)
-
-    # Remove duplicate empty comment lines.
-    content = re.sub("\n---(\n---)+\n", "\n---\n", content)
-
-    # Side effect with code examples in Lua docstrings
-    # content = content.replace(") end\n---", ") end\n\n---")
-
-    # Add an empty comment line before the @param annotation.
-    # content = re.sub(
-    #     r"(?<!\n---)\n---@param(?=.*?\n.*?@param)", r"\n---\n---@param", content
-    # )
-    return content
-
-
 class Colors:
-    """ ANSI color codes
+    """ANSI color codes
 
     Source: https://gist.github.com/rene-d/9e584a7dd2935d0f461904b9f2950007
     """
+
     BLACK = "\033[0;30m"
     RED = "\033[0;31m"
     GREEN = "\033[0;32m"
@@ -103,14 +76,80 @@ class Colors:
     END = "\033[0m"
 
 
+def _apply_color(color: str, text: str) -> str:
+    return color + text + Colors.END
+
+
+def red(text: str) -> str:
+    return _apply_color(Colors.RED, text)
+
+
+def green(text: str) -> str:
+    return _apply_color(Colors.GREEN, text)
+
+
+def _open_file(path: Path) -> None:
+    subprocess.call(
+        ["xdg-open", str(path)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
+    )
+
+
+def _apply(glob_relpath: str, fn: Callable[[str], None]) -> None:
+    """
+    Applies a given function to each file matching a glob pattern.
+
+    Args:
+        glob_relpath: Relative glob pattern to match files.
+        fn: Function to apply to each matched file. The function should accept a single string argument representing the file path.
+
+    Returns:
+        None
+    """
+    for file_name in glob.glob(str(project_base_path / glob_relpath), recursive=True):
+        logger.debug(
+            "Apply function %s on file %s", green(fn.__name__), green(file_name)
+        )
+        fn(file_name)
+
+
+def _update_text_file(path: str | Path, fn: Callable[[str], str]) -> None:
+    orig: str
+    updated: str
+    with open(path) as src:
+        orig = src.read()
+    updated = fn(orig)
+    with open(path, "w") as dest:
+        dest.write(updated)
+    if logger.isEnabledFor(logging.DEBUG):
+        _diff(orig, updated)
+
+
+def _clean_docstrings(content: str) -> str:
+    # Start a docstring with an empty comment line.
+    content = re.sub(r"\n\n---(?=[^\n])", r"\n\n---\n---", content)
+
+    # Remove duplicate empty comment lines.
+    content = re.sub("\n---(\n---)+\n", "\n---\n", content)
+
+    content = re.sub("\n\n\n+", "\n\n", content)
+
+    # Side effect with code examples in Lua docstrings
+    # content = content.replace(") end\n---", ") end\n\n---")
+
+    # Add an empty comment line before the @param annotation.
+    # content = re.sub(
+    #     r"(?<!\n---)\n---@param(?=.*?\n.*?@param)", r"\n---\n---@param", content
+    # )
+    return content
+
 
 def _diff(a: str, b: str) -> None:
     for line in difflib.unified_diff(a.splitlines(), b.splitlines(), n=1):
-        if line.startswith('-'):
+        if line.startswith("-"):
             print(Colors.RED + line + Colors.END)
-        elif line.startswith('+'):
+        elif line.startswith("+"):
             print(Colors.GREEN + line + Colors.END)
-        elif line.startswith('@@'):
+        elif line.startswith("@@"):
             print(Colors.PURPLE + line + Colors.END)
         else:
             print(line)
@@ -228,7 +267,7 @@ def convert_tex() -> None:
         with open(file_name + ".lua", "w") as dest:
             dest.write(content)
 
-    _apply_function_on_glob("resources/manuals/**/*.tex", _convert)
+    _apply("resources/manuals/**/*.tex", _convert)
 
 
 def convert_html() -> None:
@@ -259,7 +298,7 @@ def convert_html() -> None:
         with open(file_name + ".lua", "w") as dest:
             dest.write(content)
 
-    _apply_function_on_glob("resources/**/*.html", _convert)
+    _apply("resources/**/*.html", _convert)
 
 
 # example
@@ -364,17 +403,9 @@ def compile_example(
 
 def format_docstrings() -> None:
     def _format(file_name: str) -> None:
-        content: str = ""
+        _update_text_file(file_name, _clean_docstrings)
 
-        with open(file_name) as src:
-            content = src.read()
-
-        content = _clean_docstrings(content)
-
-        with open(file_name, "w") as dest:
-            dest.write(content)
-
-    _apply_function_on_glob("library/**/*.lua", _format)
+    _apply("library/**/*.lua", _format)
 
 
 # manuals
@@ -467,7 +498,7 @@ def merge_type_definitions(subproject: Subproject = "luatex") -> None:
         content = content.replace("---@meta\n", "")
         contents.append(content)
 
-    _apply_function_on_glob("dist/" + subproject + "/*.lua", _merge)
+    _apply("dist/" + subproject + "/*.lua", _merge)
 
     # Add copyright notice and meta definition at the beginning
     contents.insert(
@@ -530,36 +561,45 @@ def create_navigation_table() -> None:
         dest.write(content)
 
 
-def remove_navigation_table() -> None:
-    def _remove(file_name: str) -> None:
-        content: str = ""
+def _remove_navigation_table(file_name: str) -> None:
+    content: str = ""
 
-        orig: str = ""
+    orig: str = ""
 
-        with open(file_name) as src:
-            content = src.read()
-            orig = content
+    with open(file_name) as src:
+        content = src.read()
+        orig = content
 
-        content = content.replace(
-            "---A helper table to better navigate through the documentation using the\n"
-            + "---outline: https://github.com/Josef-Friedrich/LuaTeX_Lua-API#navigation-table-_n\n",
-            "",
-        )
+    content = content.replace(
+        "---A helper table to better navigate through the documentation using the\n"
+        + "---outline: https://github.com/Josef-Friedrich/LuaTeX_Lua-API#navigation-table-_n\n",
+        "",
+    )
 
-        # Remove the navigation table
-        content = re.sub(r"^_N.+\n", "", content, flags=re.MULTILINE)
+    # Remove the navigation table
+    content = re.sub(r"^_N.+\n", "", content, flags=re.MULTILINE)
 
-        # Remove duplicate empty lines.
-        content = re.sub("\n\n+", "\n\n", content)
+    # Remove duplicate empty lines.
+    content = re.sub("\n\n+", "\n\n", content)
 
-        # Remove leading and trailing whitespace
-        content = content.strip() + "\n"
+    # Remove leading and trailing whitespace
+    content = content.strip() + "\n"
 
-        with open(file_name, "w") as dest:
-            dest.write(content)
+    with open(file_name, "w") as dest:
+        dest.write(content)
+
+        if logger.isEnabledFor(logging.DEBUG):
             _diff(orig, content)
 
-    _apply_function_on_glob("dist/**/*.lua", _remove)
+
+def distribute() -> None:
+    src_dir = project_base_path / "library"
+    dest_dir = project_base_path / "dist"
+    if dest_dir.exists():
+        shutil.rmtree(dest_dir)
+    shutil.copytree(src_dir, dest_dir)
+
+    _apply("dist/**/*.lua", _remove_navigation_table)
 
 
 @dataclass
@@ -567,12 +607,12 @@ class Args:
     debug: bool
     command: Literal[
         "convert",
+        "dist",
         "example",
         "e",
         "format",
         "manuals",
         "merge",
-        "remove-navigation-table",
     ]
     relpath: Optional[str]
     subproject: Optional[Subproject]
@@ -625,9 +665,9 @@ if __name__ == "__main__":
     )
     merge_parser.add_argument("subproject")
 
-    navigation_parser = subparsers.add_parser(
-        "remove-navigation-table",
-        help="Remove the navigation table in all subprojects in the dist folder.",
+    dist_parser = subparsers.add_parser(
+        "dist",
+        help="Copy library to dist and remove the navigation table.",
     )
 
     args = cast(Args, parser.parse_args())
@@ -640,6 +680,8 @@ if __name__ == "__main__":
     if args.command == "convert":
         convert_tex()
         convert_html()
+    elif args.command == "dist":
+        distribute()
     elif args.command == "example" and args.relpath:
         if args.subproject:
             compile_example(args.relpath, args.luaonly, args.subproject)
@@ -651,8 +693,7 @@ if __name__ == "__main__":
         download_manuals()
     elif args.command == "merge" and args.subproject:
         merge_type_definitions(args.subproject)
-    elif args.command == "remove-navigation-table":
-        remove_navigation_table()
+
     else:
         parser.print_help()
         sys.exit(1)
