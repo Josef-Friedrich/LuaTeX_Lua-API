@@ -513,19 +513,19 @@ Quick info `node.id(type)`
 
 Type error in `node.id(type)`
 
-![](resources/images/node.id_wrong-type.png)
+![](https://raw.githubusercontent.com/Josef-Friedrich/LuaTeX_Lua-API/main/resources/images/node.id_wrong-type.png)
 
 `node.id(type)` type definition
 
-![](resources/images/node.id_definition.png)
+![](https://raw.githubusercontent.com/Josef-Friedrich/LuaTeX_Lua-API/main/resources/images/node.id_definition.png)
 
 Quick info `node.write(n)`
 
-![](resources/images/node.write.png)
+![](https://raw.githubusercontent.com/Josef-Friedrich/LuaTeX_Lua-API/main/resources/images/node.write.png)
 
 Documentation for the field `data` of the `pdf_colorstack` node:
 
-![](resources/images/PdfColorstockWhatsitNode.data.png)
+![](https://raw.githubusercontent.com/Josef-Friedrich/LuaTeX_Lua-API/main/resources/images/PdfColorstockWhatsitNode.data.png)
 
 ## Documentation
 
