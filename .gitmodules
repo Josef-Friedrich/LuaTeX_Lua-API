@@ -22,3 +22,15 @@
 [submodule "resources/LuaCATS/upstream/slnunicode"]
 	path = resources/LuaCATS/upstream/slnunicode
 	url = git@github.com:LuaCATS/slnunicode.git
+[submodule "resources/LuaCATS/downstream/tex-lualatex"]
+	path = resources/LuaCATS/downstream/tex-lualatex
+	url = git@github.com:LuaCATS/tex-lualatex.git
+[submodule "resources/LuaCATS/downstream/tex-luatex"]
+	path = resources/LuaCATS/downstream/tex-luatex
+	url = git@github.com:LuaCATS/tex-luatex.git
+[submodule "resources/LuaCATS/downstream/tex-lualibs"]
+	path = resources/LuaCATS/downstream/tex-lualibs
+	url = git@github.com:LuaCATS/tex-lualibs.git
+[submodule "resources/LuaCATS/downstream/tex-luametatex"]
+	path = resources/LuaCATS/downstream/tex-luametatex
+	url = git@github.com:LuaCATS/tex-luametatex.git
