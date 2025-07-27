@@ -115,6 +115,11 @@ def _run_pygmentize(path: Path | str) -> None:
     )
 
 
+def _is_git_commited() -> bool:
+    output = subprocess.check_output(["git", "diff", "HEAD"], encoding="utf-8")
+    return output == ""
+
+
 def _apply(glob_relpath: str, fn: Callable[[Path], None]) -> None:
     """
     Applies a given function to each file matching a glob pattern.
@@ -638,20 +643,9 @@ class Args:
 
 
 class TestManager(unittest.TestCase):
+    def test_is_git_commited(self) -> None:
+        self.assertEqual(_is_git_commited(), True)
 
-    def test_upper(self):
-        self.assertEqual('foo'.upper(), 'FOOO')
-
-    def test_isupper(self):
-        self.assertTrue('FOO'.isupper())
-        self.assertFalse('Foo'.isupper())
-
-    def test_split(self):
-        s = 'hello world'
-        self.assertEqual(s.split(), ['hello', 'world'])
-        # check that s.split fails when the separator is not a string
-        with self.assertRaises(TypeError):
-            s.split(2)
 
 
 if __name__ == "__main__":
@@ -705,10 +699,7 @@ if __name__ == "__main__":
     )
     merge_parser.add_argument("subproject")
 
-    test_parser = subparsers.add_parser(
-        "test",
-        help="Run the embedded unittest."
-    )
+    test_parser = subparsers.add_parser("test", help="Run the embedded unittest.")
 
     args = cast(Args, parser.parse_args())
 
