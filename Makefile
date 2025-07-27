@@ -34,6 +34,10 @@ dist:
 update_lls_addons:
 	resources/update-lls-addons.sh
 
+init:
+	git submodule init
+	git submodule update
+
 test:
 	 luatex --luaonly examples/unicode/all.lua
 
@@ -153,7 +157,6 @@ example_luatex_os_spawn:
 example_luatex_os_times:
 	./manage.py e os/times.lua
 
-
 ### string
 example_luatex_string_bytepairs:
 	luatex --luaonly examples/luatex/string/bytepairs.lua
@@ -183,6 +186,5 @@ example_luatex_texconfig:
 ### status
 example_luatex_status_list:
 	./manage.py e status/list.lua
-
 
 .PHONY: all format convert_tex_to_lua stylua debug print_namespace generate_doc dist update_lls_addons test diff patch clean update_manual
