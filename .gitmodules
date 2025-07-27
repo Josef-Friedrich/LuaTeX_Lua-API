@@ -1,3 +1,3 @@
-[submodule "resources/LuaCats/upstream/lmathx"]
-	path = resources/LuaCats/upstream/lmathx
+[submodule "resources/LuaCATS/upstream/lmathx"]
+	path = resources/LuaCATS/upstream/lmathx
 	url = git@github.com:LuaCATS/lmathx.git
