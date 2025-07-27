@@ -94,6 +94,10 @@ def _open_file(path: Path) -> None:
     )
 
 
+def _run_stylua(path: Path | str) -> None:
+    subprocess.check_call(["stylua", str(path)])
+
+
 def _apply(glob_relpath: str, fn: Callable[[str], None]) -> None:
     """
     Applies a given function to each file matching a glob pattern.
@@ -131,7 +135,8 @@ def _clean_docstrings(content: str) -> str:
     # Remove duplicate empty comment lines.
     content = re.sub("\n---(\n---)+\n", "\n---\n", content)
 
-    content = re.sub("\n\n\n+", "\n\n", content)
+    # Allow only one empty line
+    content = _remove_duplicate_empty_lines(content)
 
     # Side effect with code examples in Lua docstrings
     # content = content.replace(") end\n---", ") end\n\n---")
@@ -561,35 +566,26 @@ def create_navigation_table() -> None:
         dest.write(content)
 
 
+def _remove_duplicate_empty_lines(content: str) -> str:
+    """Remove duplicate empty lines."""
+    return re.sub("\n\n+", "\n\n", content)
+
+
 def _remove_navigation_table(file_name: str) -> None:
-    content: str = ""
+    def __remove_navigation_table(content: str) -> str:
+        content = content.replace(
+            "---A helper table to better navigate through the documentation using the\n"
+            + "---outline: https://github.com/Josef-Friedrich/LuaTeX_Lua-API#navigation-table-_n\n",
+            "",
+        )
+        # Remove the navigation table
+        content = re.sub(r"^_N.+\n", "", content, flags=re.MULTILINE)
 
-    orig: str = ""
+        content = _remove_duplicate_empty_lines(content)
+        # Remove leading and trailing whitespace
+        return content.strip() + "\n"
 
-    with open(file_name) as src:
-        content = src.read()
-        orig = content
-
-    content = content.replace(
-        "---A helper table to better navigate through the documentation using the\n"
-        + "---outline: https://github.com/Josef-Friedrich/LuaTeX_Lua-API#navigation-table-_n\n",
-        "",
-    )
-
-    # Remove the navigation table
-    content = re.sub(r"^_N.+\n", "", content, flags=re.MULTILINE)
-
-    # Remove duplicate empty lines.
-    content = re.sub("\n\n+", "\n\n", content)
-
-    # Remove leading and trailing whitespace
-    content = content.strip() + "\n"
-
-    with open(file_name, "w") as dest:
-        dest.write(content)
-
-        if logger.isEnabledFor(logging.DEBUG):
-            _diff(orig, content)
+    _update_text_file(file_name, __remove_navigation_table)
 
 
 def distribute() -> None:
