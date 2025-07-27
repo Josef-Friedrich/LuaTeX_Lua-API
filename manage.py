@@ -644,7 +644,7 @@ def _push_into_downstream_submodule(subproject: Subproject) -> None:
 
     subprocess.check_call(["git", "add", "-A"], cwd=path)
     subprocess.check_call(["git", "reset", "--hard", "HEAD"], cwd=path)
-    subprocess.check_call(["git", "pull", "origin"], cwd=path)
+    subprocess.check_call(["git", "pull", "origin", "main"], cwd=path)
 
     commit_id = _get_latest_git_commitid()
 
