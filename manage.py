@@ -116,8 +116,20 @@ def _run_pygmentize(path: Path | str) -> None:
 
 
 def _is_git_commited() -> bool:
-    output = subprocess.check_output(["git", "diff", "HEAD"], encoding="utf-8")
+    """
+    Checks if there are no uncommitted changes in the current Git repository.
+
+    Returns:
+        bool: True if the working directory is clean (no changes since last commit), False otherwise.
+    """
+    output: str = subprocess.check_output(["git", "diff", "HEAD"], encoding="utf-8")
     return output == ""
+
+
+def _get_latest_git_commitid() -> str:
+    return subprocess.check_output(
+        ["git", "rev-parse", "HEAD"], encoding="utf-8"
+    ).strip()
 
 
 def _apply(glob_relpath: str, fn: Callable[[Path], None]) -> None:
@@ -202,7 +214,7 @@ subprojects = [
 
 
 def _download_url(url: str, dest_path: str) -> None:
-    print(f"Download {url} into {dest_path}")
+    logger.debug("Download %s into %s", url, dest_path)
     with urllib.request.urlopen(url) as response:
         data = response.read()
         with open(dest_path, "wb") as f:
@@ -644,8 +656,35 @@ class Args:
 
 class TestManager(unittest.TestCase):
     def test_is_git_commited(self) -> None:
-        self.assertEqual(_is_git_commited(), True)
+        self.assertIsInstance(_is_git_commited(), bool)
 
+    def test_get_latest_git_commitidself(self) -> None:
+        self.assertEqual(len(_get_latest_git_commitid()), 40)
+
+    def test_red(self) -> None:
+        self.assertEqual(red("red"), "\x1b[0;31mred\x1b[0m")
+
+    def test_green(self) -> None:
+        self.assertEqual(green("green"), "\x1b[0;32mgreen\x1b[0m")
+
+    def test_download(self) -> None:
+        with tempfile.NamedTemporaryFile(delete=True) as tmp:
+            _download_url("https://example.com", tmp.name)
+            t = Path(tmp.name)
+            self.assertTrue(t.exists())
+            self.assertIn("Example", t.read_text())
+
+    def test_distribute(self) -> None:
+        shutil.rmtree(project_base_path / "dist")
+        distribute()
+        self.assertTrue(
+            (project_base_path / "dist" / "luatex" / "callback.lua").exists()
+        )
+
+        def __check_navigation_table(path: Path):
+            self.assertNotIn("_N.", path.read_text(), path)
+
+        _apply("dist/**/*lua", __check_navigation_table)
 
 
 if __name__ == "__main__":

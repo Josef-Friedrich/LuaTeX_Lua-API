@@ -2698,9 +2698,6 @@ function node.mlist_to_hlist(n, display_type, penalties) end
 
 _N._8_18_slide = "page 150"
 
----
----see _N._9_9
-
 _N._8_19_tail = "page 150"
 
 ---
