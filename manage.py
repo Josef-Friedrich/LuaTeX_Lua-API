@@ -105,7 +105,7 @@ def _run_stylua(path: Path | str) -> None:
     )
 
 
-def _apply(glob_relpath: str, fn: Callable[[str], None]) -> None:
+def _apply(glob_relpath: str, fn: Callable[[Path], None]) -> None:
     """
     Applies a given function to each file matching a glob pattern.
 
@@ -116,11 +116,11 @@ def _apply(glob_relpath: str, fn: Callable[[str], None]) -> None:
     Returns:
         None
     """
-    for file_name in glob.glob(str(project_base_path / glob_relpath), recursive=True):
+    for path in glob.glob(str(project_base_path / glob_relpath), recursive=True):
         logger.debug(
-            "Apply function %s on file %s", green(fn.__name__), green(file_name)
+            "Apply function %s on file %s", green(fn.__name__), green(str(path))
         )
-        fn(file_name)
+        fn(Path(path))
 
 
 def _update_text_file(path: str | Path, fn: Callable[[str], str]) -> None:
@@ -195,10 +195,10 @@ def _download_url(url: str, dest_path: str) -> None:
 
 
 def convert_tex() -> None:
-    def _convert(file_name: str) -> None:
+    def _convert(path: Path) -> None:
         content: str = ""
 
-        with open(file_name) as src:
+        with open(path) as src:
             content = src.read()
 
         content = re.sub(
@@ -276,17 +276,17 @@ def convert_tex() -> None:
 
         content = re.sub(r"\n--- {10,}", r" ", content)
 
-        with open(file_name + ".lua", "w") as dest:
+        with open(str(path) + ".lua", "w") as dest:
             dest.write(content)
 
     _apply("resources/manuals/**/*.tex", _convert)
 
 
 def convert_html() -> None:
-    def _convert(file_name: str) -> None:
+    def _convert(path: Path) -> None:
         content: str = ""
 
-        with open(file_name) as src:
+        with open(path) as src:
             content = src.read()
 
         content = re.sub(
@@ -307,7 +307,7 @@ def convert_html() -> None:
 
         content = "---" + content.replace("\n", "\n---")
 
-        with open(file_name + ".lua", "w") as dest:
+        with open(str(path) + ".lua", "w") as dest:
             dest.write(content)
 
     _apply("resources/**/*.html", _convert)
@@ -414,9 +414,9 @@ def compile_example(
 
 
 def format_docstrings() -> None:
-    def _format(file_name: str) -> None:
-        _update_text_file(file_name, _clean_docstrings)
-        _run_stylua(file_name)
+    def _format(path: Path) -> None:
+        _update_text_file(path, _clean_docstrings)
+        _run_stylua(path)
 
     _apply("library/**/*.lua", _format)
 
@@ -494,9 +494,9 @@ def merge_type_definitions(subproject: Subproject = "luatex") -> None:
     """Merge all lua files of a subproject into one big file for the CTAN upload."""
     contents: list[str] = []
 
-    def _merge(file_name: str) -> None:
+    def _merge(path: Path) -> None:
         content: str = ""
-        with open(file_name) as src:
+        with open(path) as src:
             content = src.read()
         # Remove the return statements
         content = re.sub(r"^return .+\n", "", content, flags=re.MULTILINE)
@@ -579,7 +579,7 @@ def _remove_duplicate_empty_lines(content: str) -> str:
     return re.sub("\n\n+", "\n\n", content)
 
 
-def _remove_navigation_table(file_name: str) -> None:
+def _remove_navigation_table(path: Path) -> None:
     def __remove_navigation_table(content: str) -> str:
         content = content.replace(
             "---A helper table to better navigate through the documentation using the\n"
@@ -593,7 +593,7 @@ def _remove_navigation_table(file_name: str) -> None:
         # Remove leading and trailing whitespace
         return content.strip() + "\n"
 
-    _update_text_file(file_name, __remove_navigation_table)
+    _update_text_file(path, __remove_navigation_table)
 
 
 def distribute() -> None:
