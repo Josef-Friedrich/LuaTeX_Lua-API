@@ -194,6 +194,24 @@ def _diff(a: str, b: str) -> None:
             print(line)
 
 
+def _copy_directory(src: str | Path, dest: str | Path) -> None:
+    """
+    Copies the contents of the source directory to the destination directory.
+
+    If the destination directory exists, it is first removed along with all its contents.
+    Then, the source directory is copied to the destination path.
+
+    Args:
+        src: Path to the source directory to copy.
+        dest: Path to the destination directory.
+    """
+    if isinstance(dest, str):
+        dest = Path(dest)
+    if dest.exists():
+        shutil.rmtree(dest)
+    shutil.copytree(src, dest)
+
+
 Subproject = Literal[
     "lualatex",
     "lualibs",
@@ -648,7 +666,7 @@ def _push_into_downstream_submodule(subproject: Subproject) -> None:
 
     commit_id = _get_latest_git_commitid()
 
-    shutil.copytree(project_base_path / "library" / subproject, path / "library")
+    _copy_directory(project_base_path / "library" / subproject, path / "library")
     subprocess.check_call(["git", "add", "-A"], cwd=path)
     subprocess.check_call(
         [
@@ -672,9 +690,7 @@ def distribute() -> None:
     """
     src_dir = project_base_path / "library"
     dest_dir = project_base_path / "dist"
-    if dest_dir.exists():
-        shutil.rmtree(dest_dir)
-    shutil.copytree(src_dir, dest_dir)
+    _copy_directory(src_dir, dest_dir)
 
     _apply("dist/**/*.lua", _remove_navigation_table)
 
