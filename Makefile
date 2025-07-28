@@ -30,8 +30,9 @@ update_lls_addons:
 	resources/update-lls-addons.sh
 
 submodules:
-	git submodule init
-	git submodule update --recursive --remote
+	-git submodule foreach --recursive git clean -xfd
+	-git submodule foreach --recursive git reset --hard
+	git submodule update --init --recursive --remote
 
 test:
 	 luatex --luaonly examples/unicode/all.lua
