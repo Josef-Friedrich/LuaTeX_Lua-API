@@ -162,10 +162,6 @@ function string.booleanstring(str) end
 
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/string.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function string.checkedsplit(str, separator) end
-
----
----😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/string.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function string.containsws(str, what) end
 
 ---
@@ -177,8 +173,72 @@ function string.formatter(str) end
 function string.is_boolean(str, default, strict) end
 
 ---
+---Return a list of substrings of `string` delimited by `separator`.
+---
+---Consecutive separators result in the empty string; its counterpart `string.checkedsplit` does not match these sequences, returning `nil` instead.
+---
+---__Example:__
+---
+---```lua
+---local theory =
+---  [[All brontosauruses are thin at one end, much much thicker in the middle, and then thin again at the far end.]]
+---
+---local theorems = string.split(theory, lpeg.P(", ") * lpeg.P("and ") ^ -1)
+---
+---for n, element in ipairs(theorems) do
+---  io.write(string.format("Theorem %u: %s\n", n, element))
+---end
+---```
+---
+---__Reference:__
+---
+---* ConTeXt wiki: [ConTeXt and Lua programming/Extensions to the Lua IO library/String manipulation](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library/String_manipulation)
+---
+---@see string.checkedsplit
+---@see lpeg.split
+---@see lpeg.checkedsplit
+---
+---@param string string
+---@param separator string
+---
+---@return string[]
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/string.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function string.split(str, separator) end
+function string.split(string, separator) end
+
+---
+---Return a list of substrings of `string` delimited by `separator`.
+---
+---Consecutive separators result in `nil`.
+---
+---__Example:__
+---
+---```lua
+---local theory =
+---  [[All brontosauruses are thin at one end, much much thicker in the middle, and then thin again at the far end.]]
+---
+---local theorems = string.checkedsplit(theory, lpeg.P(", ") * lpeg.P("and ") ^ -1)
+---
+---for n, element in ipairs(theorems) do
+---  io.write(string.format("Theorem %u: %s\n", n, element))
+---end
+---```
+---
+---__Reference:__
+---
+---* ConTeXt wiki: [ConTeXt and Lua programming/Extensions to the Lua IO library/String manipulation](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library/String_manipulation)
+---
+---@see lpeg.split
+---@see lpeg.checkedsplit
+---@see string.split
+---
+---@param string string
+---@param separator string
+---
+---@return string[]
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/string.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function string.checkedsplit(string, separator) end
 
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/string.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
