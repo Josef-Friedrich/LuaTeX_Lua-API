@@ -746,7 +746,6 @@ class Args:
     command: Literal[
         "convert",
         "dist",
-        "e",
         "example",
         "format",
         "manuals",
@@ -810,7 +809,6 @@ if __name__ == "__main__":
 
     example_parser = subparsers.add_parser(
         "example",
-        aliases=["e"],
         help="Compile examples in the folder ./examples",
         description="You can specify the relative path of a Lua file or of a TeX file.",
     )
@@ -848,8 +846,6 @@ if __name__ == "__main__":
 
     if args.debug:
         logger.setLevel(logging.DEBUG)
-    if args.command == "e":
-        args.command = "example"
 
     if args.command == "convert":
         convert_tex()

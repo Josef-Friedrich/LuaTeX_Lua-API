@@ -29,9 +29,9 @@ dist:
 update_lls_addons:
 	resources/update-lls-addons.sh
 
-init:
+submodules:
 	git submodule init
-	git submodule update
+	git submodule update --recursive --remote
 
 test:
 	 luatex --luaonly examples/unicode/all.lua
@@ -72,19 +72,19 @@ update_manual:
 	wget -O /usr/local/texlive/texmf-dist/doc/luatex/base/luatex.pdf https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/raw/master/manual/luatex.pdf
 	wget -O /usr/local/texlive/texmf-dist/doc/context/documents/general/manuals/luametatex.pdf https://raw.githubusercontent.com/contextgarden/context/main/doc/context/documents/general/manuals/luametatex.pdf
 
+EXAMPLE = ./manage.py --debug example
+
 namespace_luametatex:
-	./manage.py example luametatex/namespace.lua
+	$(EXAMPLE) luametatex/namespace.lua
 namespace_luametatex_luaonly:
 	luametatex --luaonly examples/luatex/namespace.lua
 
 namespace_luatex:
-	./manage.py example namespace.lua
+	$(EXAMPLE) namespace.lua
 namespace_luatex_luaonly:
 	luatex --luaonly examples/luatex/namespace_luaonly.lua
 
 # examples
-
-EXAMPLE = ./manage.py --debug example
 
 ## luatex
 
@@ -106,51 +106,51 @@ example_luatex_fontloader_to_table:
 
 ### img
 example_luatex_img_boxes:
-	./manage.py e img/boxes.lua
+	$(EXAMPLE) img/boxes.lua
 example_luatex_img_fields:
-	./manage.py e img/fields.lua
+	$(EXAMPLE) img/fields.lua
 example_luatex_img_keys:
-	./manage.py e img/keys.lua
+	$(EXAMPLE) img/keys.lua
 example_luatex_img_types:
-	./manage.py e img/types.lua
+	$(EXAMPLE) img/types.lua
 
 ### lang
 example_luatex_lang_clean:
-	./manage.py e lang/clean.lua
+	$(EXAMPLE) lang/clean.lua
 example_luatex_lang_clear_hyphenation:
-	./manage.py e lang/clear_hyphenation.lua
+	$(EXAMPLE) lang/clear_hyphenation.lua
 example_luatex_lang_hyphenation:
-	./manage.py e lang/hyphenation.lua
+	$(EXAMPLE) lang/hyphenation.lua
 example_luatex_lang_id:
-	./manage.py e lang/id.lua
+	$(EXAMPLE) lang/id.lua
 example_luatex_lang_Language_clear_hyphenation:
-	./manage.py e lang/Language:hyphenation.lua
+	$(EXAMPLE) lang/Language:hyphenation.lua
 example_luatex_lang_new:
-	./manage.py e lang/new.lua
+	$(EXAMPLE) lang/new.lua
 example_luatex_lang_patterns:
-	./manage.py e lang/patterns.lua
+	$(EXAMPLE) lang/patterns.lua
 
 ### mplib
 example_luatex_mplib_new:
-	./manage.py e mplib/new.lua
+	$(EXAMPLE) mplib/new.lua
 example_luatex_mplib_statistics:
-	./manage.py e mplib/statistics.lua
+	$(EXAMPLE) mplib/statistics.lua
 example_luatex_mplib_version:
-	./manage.py e mplib/version.lua
+	$(EXAMPLE) mplib/version.lua
 
 ### os
 example_luatex_os_exec:
-	./manage.py e os/exec.lua
+	$(EXAMPLE) os/exec.lua
 example_luatex_os_gettimeofday:
-	./manage.py e os/gettimeofday.lua
+	$(EXAMPLE) os/gettimeofday.lua
 example_luatex_os_name:
-	./manage.py e os/name.lua
+	$(EXAMPLE) os/name.lua
 example_luatex_os_sleep:
-	./manage.py e os/sleep.lua
+	$(EXAMPLE) os/sleep.lua
 example_luatex_os_spawn:
-	./manage.py e os/spawn.lua
+	$(EXAMPLE) os/spawn.lua
 example_luatex_os_times:
-	./manage.py e os/times.lua
+	$(EXAMPLE) os/times.lua
 
 ### string
 example_luatex_string_bytepairs:
@@ -176,10 +176,10 @@ example_luatex_string_utfvalues:
 
 ### texconfig
 example_luatex_texconfig:
-	./manage.py e texconfig/texconfig.lua
+	$(EXAMPLE) texconfig/texconfig.lua
 
 ### status
 example_luatex_status_list:
-	./manage.py e status/list.lua
+	$(EXAMPLE) status/list.lua
 
 .PHONY: all format convert_tex_to_lua stylua debug print_namespace generate_doc dist update_lls_addons test diff patch clean update_manual
