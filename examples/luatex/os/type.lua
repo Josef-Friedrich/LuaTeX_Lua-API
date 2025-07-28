@@ -1,3 +1,3 @@
 #! luatex --luaonly
 
-assert(os.type == 'unix', os.type)
+assert(os.type == "unix", os.type)

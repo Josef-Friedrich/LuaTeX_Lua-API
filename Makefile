@@ -5,14 +5,15 @@ installdir = $(texmftex)/$(jobname)
 
 all: format stylua
 
-format:
+format: stylua
 	./manage.py format
 
 convert:
 	./manage.py convert
 
 stylua:
-	stylua library
+	stylua --config-path ./resources/stylua.toml library
+	stylua --config-path ./resources/stylua.toml examples
 
 debug:
 	luatex --luaonly debug.lua

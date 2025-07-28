@@ -7,7 +7,7 @@ end
 -- two
 -- three
 
-for _, word in ipairs(string.explode("one,,two,three", ',')) do
+for _, word in ipairs(string.explode("one,,two,three", ",")) do
   print(word)
 end
 -- one
@@ -15,7 +15,7 @@ end
 -- two
 -- three
 
-for _, word in ipairs(string.explode("one,,two,three", ',+')) do
+for _, word in ipairs(string.explode("one,,two,three", ",+")) do
   print(word)
 end
 -- one

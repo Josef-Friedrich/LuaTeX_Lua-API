@@ -1,6 +1,6 @@
 #! luatex --luaonly
 
-local g_file = gzip.open('test.gz', 'rb')
+local g_file = gzip.open("test.gz", "rb")
 assert(g_file)
 local success = gzip.close(g_file)
 assert(success == true)

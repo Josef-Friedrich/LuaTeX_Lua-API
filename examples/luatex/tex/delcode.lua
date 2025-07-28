@@ -1,4 +1,4 @@
-for i=1,128 do
+for i = 1, 128 do
   local delcode = tex.delcode[i]
   print(i, utf8.char(i), delcode[1], delcode[2], delcode[3], delcode[4])
 end

@@ -13,9 +13,30 @@ io = {}
 function io.readall(f) end
 
 ---
+---A wrapper for `io.open`. Automatically supplies the `r` flag and handles opening and closing, returns the complete content of file `filename`. The optional argument `textmode` when non-nil|false triggers non-binary mode in certain operating systems.
+---
+---__Example:__
+---
+---```lua
+---local f = io.open("./text.txt", "w")
+---if f then
+---  f:write("Some Text.")
+---  f:close()
+---end
+---
+---local text = io.loaddata("./text.txt")
+---io.write(text)
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-io.lua#L69-L82](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-io.lua#L69-L82)
+---* ConTeXt wiki: [ConTeXt and Lua programming/Extensions to the Lua IO library](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library)
+---
+---@param filename string
+---@param textmode? any # non-nil|false triggers non-binary mode in certain operating systems.
+---
+---@return any
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/io.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function io.loaddata(filename, textmode) end
@@ -29,12 +50,50 @@ function io.loaddata(filename, textmode) end
 function io.copydata(source, target, action) end
 
 ---
+---Writes `data` to file `filename`. Handles opening and closing routines automatically. `data` can be generic data, a list or a function. Lists are joined prior to write, using the optional separator as separator (nice for CSV output). Functions are applied to the file object.
+---
+---__Example:__
+---
+---```lua
+---local text = "Some Text."
+---
+---text = text:gsub(".\n", "") .. " and again " .. text:lower()
+---io.savedata("./moretext.txt", text)
+---os.execute("cat ./moretext.txt")
+---
+---local sometable = { "spam", "spam", "spam", "baked beans", "spam" }
+---io.savedata("./moretext.txt", sometable, ",")
+---os.execute("cat ./moretext.txt && echo '\n'")
+---
+---local function weird_write(obj)
+---  for i = 1, 10 do
+---    if i % 2 == 0 then
+---      obj:write("But cool. ")
+---    else
+---      obj:write("Weird. ")
+---    end
+---  end
+---  obj:write("\n")
+---end
+---
+---io.savedata("./weirdtext.txt", weird_write)
+---os.execute("cat ./weirdtext.txt")
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-io.lua#L150-L169](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-io.lua#L150-L169)
+---* ConTeXt wiki: [ConTeXt and Lua programming/Extensions to the Lua IO library](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library)
+---
+---@param filename string
+---@param data string|string[]|fun(object: file*)
+---@param separator? string
+---@param append? any
+---
+---@return boolean
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/io.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function io.savedata(filename, data, joiner, append) end
+function io.savedata(filename, data, separator, append) end
 
 ---
 ---__Reference:__
@@ -53,49 +112,205 @@ function io.loadlines(filename, n) end
 function io.loadchunk(filename, n) end
 
 ---
+---Tests for file `filename`'s existence and returns a boolean accordingly.
+---
+---__Example:__
+---
+---```lua
+---print(
+---  io.exists("moretext.txt") and "Yes, you're right (as usual)!"
+---    or "No, you're wasting your time, Sir!"
+---)
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-io.lua#L250-L258](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-io.lua#L250-L258)
+---* ConTeXt wiki: [ConTeXt and Lua programming/Extensions to the Lua IO library](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library)
+---
+---@param filename string
+---
+---@return boolean
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/io.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function io.exists(filename) end
 
 ---
+---Returns the byte count of file `filename` or 0 if the file is not found.
+---
+---__Example:__
+---
+---```lua
+---local check1 = io.size("moretext.txt")
+---local check2 = tonumber(
+---  io.popen([[du -b moretext.txt | sed -e 's/^\([0-9]*\).*/\1/']]):read("*all")
+---)
+---
+---io.write(
+---  "I counted "
+---    .. check1
+---    .. " bytes, and it's got "
+---    .. check2
+---    .. " bytes according to ‘du’.\nTherefore "
+---)
+---io.write(
+---  check1 == check2 and "the size info should be reasonably accurate.\n"
+---    or "something's thoroughly wrong.\n"
+---)
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-io.lua#L260-L269](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-io.lua#L260-L269)
+---* ConTeXt wiki: [ConTeXt and Lua programming/Extensions to the Lua IO library](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library)
+---
+---@param filename string
+---
+---@return integer
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/io.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function io.size(filename) end
 
 ---
+---Returns the line count of a file object `object`.
+---
+---__Example:__
+---
+---```lua
+---local f = io.popen("dmesg")
+---if f then
+---  local infolength = io.noflines(f)
+---  f:close()
+---  print("There's " .. infolength .. " lines in the kernel ring buffer.")
+---end
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-io.lua#L271-L290](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-io.lua#L271-L290)
+---* ConTeXt wiki: [ConTeXt and Lua programming/Extensions to the Lua IO library](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library)
+---
+---@param object file*
+---
+---@return integer line_count # The line count of a file object `object`.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/io.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function io.noflines(f) end
+function io.noflines(object) end
 
+---
+---@alias CharacterGroup -4|-2|1|2|4
+
+---
+---Returns an iterator over the one-byte characters of a file object `object`. The optional argument `group` accepts a signed integer which determines the number and byte order of the characters returned simultaneously. Possible values are -4, -2, 1, 2, and 4. Negative values result in the order of the characters to be reversed.
+---
+---__Example:__
+---
+---```lua
+---local f = io.popen("cat ./moretext.txt")
+---if f then
+---  for char1, char2 in io.characters(f, 2) do
+---    io.write(string.format("“%s”, “%s”\n", char1, char2 or ""))
+---  end
+---  f:close()
+---end
+---
+---f = io.open("./moretext.txt")
+---if f then
+---  for char1, char2, char3, char4 in io.characters(f, -4) do
+---    io.write(
+---      string.format(
+---        "1: “%s”, 2: “%s”, 3: “%s”, 4: “%s”\n",
+---        char1,
+---        char2 or "",
+---        char3 or "",
+---        char4 or ""
+---      )
+---    )
+---  end
+---  f:close()
+---end
+---```
 ---
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-io.lua#L317-L321](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-io.lua#L317-L321)
+---* ConTeXt wiki: [ConTeXt and Lua programming/Extensions to the Lua IO library](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library)
+---
+---@param object file*
+---@param group? CharacterGroup
+---
+---@return fun(): string, string|nil, string|nil, string|nil
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/io.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function io.characters(f, n) end
+function io.characters(object, group) end
 
+---
+---Returns an iterator over the bytes of a file `object`. As with io.characters, the optional argument `group` specifies the number and order of the bytes returned simultaneously. If there fewer bytes left at the end of a file than the absolute of `group`, then the remainder is ignored. Thus to process the whole file make sure that its size is a multiple of `group`.
+---
+---__Example:__
+---
+---```lua
+---local f = io.open("./moretext.txt")
+---if f then
+---  for char1, char2, char3, char4 in io.bytes(f, 4) do
+---    io.write(
+---      string.format(
+---        "1: “%s”, 2: “%s”, 3: “%s”, 4: “%s”\n",
+---        char1,
+---        char2 or "",
+---        char3 or "",
+---        char4 or ""
+---      )
+---    )
+---  end
+---  f:close()
+---end
+---```
 ---
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-io.lua#L368-L374](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-io.lua#L368-L374)
+---* ConTeXt wiki: [ConTeXt and Lua programming/Extensions to the Lua IO library](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library)
+---
+---@param object file*
+---@param group? CharacterGroup
+---
+---@return fun(): string, string|nil, string|nil, string|nil
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/io.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function io.bytes(f, n) end
+function io.bytes(object, group) end
 
+---
+---Interrupts the program flow to wait for user input. Prints the string `question` to stdout and returns the string given by the user. If a string `default` is given, it is printed in brackets and returned if the user input is empty. `options` has to be a list of valid input strings which are then printed in brackets as well; no other strings are accepted if `options` is specified.
+---
+---__Example:__
+---
+---```lua
+---local options = {
+---  default = "An African or European swallow?",
+---  other = { "http://www.style.org/unladenswallow/", "42" },
+---}
+---local someanswer = io.ask(
+---  "What is the air speed velocity of an unladen swallow?",
+---  options.default,
+---  options.other
+---)
+---
+---print(
+---  someanswer == options.default
+---      and "I don't know that! /He is thrown into the chasm./"
+---    or "OK, off you go!"
+---)
+---```
 ---
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-io.lua#L376-L408](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-io.lua#L376-L408)
+---* ConTeXt wiki: [ConTeXt and Lua programming/Extensions to the Lua IO library](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library)
+---
+---@param question string
+---@param default? string
+---@param options? string[]
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/io.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function io.ask(question, default, options) end
@@ -108,18 +323,20 @@ function io.ask(question, default, options) end
 ---```lua
 ---io.savedata("nums.txt", "\001\001\001\001\002\002\002\002\003\003\003\003")
 ---
----f = io.open("nums.txt", "r")
----print(io.readnumber(f, 1))
----print(io.readnumber(f, 5, 1))
----print(io.readnumber(f, 4))
----print(io.readnumber(f, 2))
----f:close()
+---local f = io.open("nums.txt", "r")
+---if f then
+---  print(io.readnumber(f, 1))
+---  print(io.readnumber(f, 5, 1))
+---  print(io.readnumber(f, 4))
+---  print(io.readnumber(f, 2))
+---  f:close()
+---end
 ---```
 ---
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-io.lua#L410-L448](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-io.lua#L410-L448)
----* https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library
+---* ConTeXt wiki: [ConTeXt and Lua programming/Extensions to the Lua IO library](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library)
 ---
 ---@param object string
 ---@param offset integer
@@ -137,26 +354,27 @@ function io.readnumber(object, offset, count) end
 ---```lua
 ---io.savedata("nums.txt", "\001\001\001\001\002\002\002\002\003\003\003\003")
 ---
----f = io.open("nums.txt", "r")
----print(io.readnumber(f, 1))
----print(io.readnumber(f, 5, 1))
----print(io.readnumber(f, 4))
----print(io.readnumber(f, 2))
----f:close()
+---local f = io.open("nums.txt", "r")
+---if f then
+---  print(io.readnumber(f, 1))
+---  print(io.readnumber(f, 5, 1))
+---  print(io.readnumber(f, 4))
+---  print(io.readnumber(f, 2))
+---  f:close()
+---end
 ---```
 ---
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-io.lua#L410-L448](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-io.lua#L410-L448)
----* https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library
+---* ConTeXt wiki: [ConTeXt and Lua programming/Extensions to the Lua IO library](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library)
 ---
 ---@param object string
 ---@param count integer
 ---
 ---@return integer
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/io.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function io.readnumber(object,  count) end
-
+function io.readnumber(object, count) end
 
 ---
 ---Returns the next `length` bytes from `object`, starting from the current position or, optionally, the `byte` offset.
@@ -164,16 +382,18 @@ function io.readnumber(object,  count) end
 ---__Example:__
 ---
 ---```lua
----f = io.open("text.txt", "r")
----str = io.readstring(f, 5, 3)
+---local f = io.open("text.txt", "r")
+---local str = io.readstring(f, 5, 3)
 ---print(str)
----f:close()
+---if f then
+---  f:close()
+---end
 ---```
 ---
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-io.lua#L452-L459](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-io.lua#L452-L459)
----* https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library
+---* ConTeXt wiki: [ConTeXt and Lua programming/Extensions to the Lua IO library](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library)
 ---
 ---@param object string
 ---@param offset integer
@@ -186,20 +406,21 @@ function io.readstring(object, offset, length) end
 ---
 ---Returns the next `length` bytes from `object`, starting from the current position or, optionally, the `byte` offset.
 ---
----
 ---__Example:__
 ---
 ---```lua
----f = io.open("text.txt", "r")
----str = io.readstring(f, 5, 3)
+---local f = io.open("text.txt", "r")
+---local str = io.readstring(f, 5, 3)
 ---print(str)
----f:close()
+---if f then
+---  f:close()
+---end
 ---```
 ---
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-io.lua#L452-L459](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-io.lua#L452-L459)
----* https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library
+---* ConTeXt wiki: [ConTeXt and Lua programming/Extensions to the Lua IO library](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library)
 ---
 ---@param object string
 ---@param length integer

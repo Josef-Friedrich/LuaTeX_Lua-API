@@ -1,8 +1,9 @@
-local utils = require('./resources/utils')
+local utils = require("./resources/utils")
 
-local inspect = require('inspect')
+local inspect = require("inspect")
 local f = fontloader.open(
-              '/usr/share/fonts/opentype/urw-base35/NimbusRoman-Regular.otf')
+  "/usr/share/fonts/opentype/urw-base35/NimbusRoman-Regular.otf"
+)
 
 print(inspect(fontloader.fields(f)))
 
@@ -26,7 +27,6 @@ print(inspect(fontloader.fields(f)))
 -- print(inspect(fontloader.fields(f.glyphs[1])))
 
 utils.convert_string_array_to_alias_union(fontloader.fields(f.glyphs[1]))
-
 
 -- {
 --     "name", "unicode", "boundingbox", "vwidth", "width", "lsidebearing",

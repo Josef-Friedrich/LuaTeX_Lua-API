@@ -1,11 +1,11 @@
-for byte in string.bytes('abc') do
+for byte in string.bytes("abc") do
   print(byte)
 end
 -- 97
 -- 98
 -- 99
 
-for byte in string.bytes('äöü') do
+for byte in string.bytes("äöü") do
   print(byte)
 end
 -- 195

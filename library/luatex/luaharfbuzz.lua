@@ -524,7 +524,12 @@ function Face:ot_layout_get_language_tags(table_tag, script_index) end
 ---@return HbTag[] # The array of HbTag feature tags found for the query.
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
-function Face:ot_layout_get_feature_tags(table_tag, script_index, language_index) end
+function Face:ot_layout_get_feature_tags(
+  table_tag,
+  script_index,
+  language_index
+)
+end
 
 ---
 ---Fetch the index if a given script tag in the specified face's GSUB table or GPOS table.
@@ -586,7 +591,13 @@ function Face:ot_layout_find_language(tag, script_index, language_tag) end
 ---@return integer index # The index of the requested feature.
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
-function Face:ot_layout_find_feature(tag, script_index, language_index, feature) end
+function Face:ot_layout_find_feature(
+  tag,
+  script_index,
+  language_index,
+  feature
+)
+end
 
 ---
 ---Data type for holding fonts.

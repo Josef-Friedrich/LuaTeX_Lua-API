@@ -35,13 +35,15 @@ Nam liber tempor cum soluta nobis eleifend option congue nihil
 ]]
 
 local compressed, result
-print('original length        : ' .. string.len(uncompressed))
+print("original length        : " .. string.len(uncompressed))
 compressed = zlib.compress(uncompressed)
-print('compressed length      : ' .. string.len(compressed))
+print("compressed length      : " .. string.len(compressed))
 result = zlib.decompress(compressed)
-print('uncompressed length    : ' .. string.len(result))
-print('result == uncompressed : ' .. tostring(result == uncompressed))
-print('compression ratio      : ' ..
-          tostring(string.len(uncompressed) / string.len(compressed)))
+print("uncompressed length    : " .. string.len(result))
+print("result == uncompressed : " .. tostring(result == uncompressed))
+print(
+  "compression ratio      : "
+    .. tostring(string.len(uncompressed) / string.len(compressed))
+)
 
 assert(result == uncompressed)

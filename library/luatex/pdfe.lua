@@ -128,7 +128,8 @@ function pdfe.close(doc) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdfe.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function pdfe.unencrypt(doc, userpassword, ownerpassword) end
 
-_N._14_2_3_getsize_getversion_getnofobjects_getnofpages_getmemoryusage = "page 288"
+_N._14_2_3_getsize_getversion_getnofobjects_getnofpages_getmemoryusage =
+  "page 288"
 
 ---
 ---Return the size of a pdfe document in bytes.

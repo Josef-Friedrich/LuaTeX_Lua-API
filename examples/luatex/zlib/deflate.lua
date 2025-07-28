@@ -5,14 +5,16 @@ print(gzip)
 local dataToDeflate = {}
 print("Generating test data...")
 for i = 0, 10000 do
-    table.insert(dataToDeflate, string.sub(tostring(math.random()), 3))
+  table.insert(dataToDeflate, string.sub(tostring(math.random()), 3))
 end
 local dataToDeflate = table.concat(dataToDeflate)
 
 print("Length of data to deflate", #dataToDeflate)
 
 local buffer = {}
-local func = function(data) table.insert(buffer, data) end
+local func = function(data)
+  table.insert(buffer, data)
+end
 
 local stream = zlib.deflate(func) -- best compression, deflated
 stream:write(dataToDeflate)

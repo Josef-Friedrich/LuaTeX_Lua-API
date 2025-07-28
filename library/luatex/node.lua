@@ -3651,7 +3651,15 @@ _N._8_1_setglue = "page 155"
 ---@param shrink_order integer|any
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function node.setglue(n, width, stretch, shrink, stretch_order, shrink_order) end
+function node.setglue(
+  n,
+  width,
+  stretch,
+  shrink,
+  stretch_order,
+  shrink_order
+)
+end
 
 ---
 ---Set the five properties of a `glue` node in one go.
@@ -3681,7 +3689,15 @@ function node.setglue(n, width, stretch, shrink, stretch_order, shrink_order) en
 ---@param shrink_order integer|any
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function node.direct.setglue(d, width, stretch, shrink, stretch_order, shrink_order) end
+function node.direct.setglue(
+  d,
+  width,
+  stretch,
+  shrink,
+  stretch_order,
+  shrink_order
+)
+end
 
 _N._8_2_getglue = "page 155"
 

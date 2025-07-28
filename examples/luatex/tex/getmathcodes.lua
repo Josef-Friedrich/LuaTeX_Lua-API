@@ -7,7 +7,6 @@
 -- character: 60
 print(tex.getmathcodes(60)) -- 3 1 60
 
-
 -- \mathcode‘*="2203
 -- ASCII `*`: 42 (decimal) 2A (hexadecimal)
 -- class: 2

@@ -3,7 +3,7 @@ for key, value in pairs(info) do
   print(key, value)
 end
 assert(info)
-assert(info.luatex_engine == 'luatex')
+assert(info.luatex_engine == "luatex")
 
 -- dyn_used	8569
 -- lc_ctype	en_US.UTF-8

@@ -1,1 +1,3 @@
-return function() tex.write({'string', 1, 2, 3}) end
+return function()
+  tex.write({ "string", 1, 2, 3 })
+end

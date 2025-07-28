@@ -1,8 +1,8 @@
 for i = 0, 1024 do
-    -- Exclude C0 and C1 control codes
-    if i > 31 and not (i >= 127 and i <= 159) then
-        print(i, utf8.char(i), tex.uccode[i], utf8.char(tex.uccode[i]))
-    end
+  -- Exclude C0 and C1 control codes
+  if i > 31 and not (i >= 127 and i <= 159) then
+    print(i, utf8.char(i), tex.uccode[i], utf8.char(tex.uccode[i]))
+  end
 end
 
 ---Output:

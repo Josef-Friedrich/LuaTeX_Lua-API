@@ -132,7 +132,15 @@ function zlib.adler32(crc32, buffer) end
 ---@return string buffer
 ---
 ---😱 [Types](https://github.com/LuaCATS/lzlib/blob/main/library/lzlib.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lzlib/pulls)
-function zlib.compress(buffer, level, method, window_bits, mem_level, strategy) end
+function zlib.compress(
+  buffer,
+  level,
+  method,
+  window_bits,
+  mem_level,
+  strategy
+)
+end
 
 ---
 ---Return the decompressed stream after processing the given buffer.

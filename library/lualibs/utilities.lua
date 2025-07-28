@@ -279,7 +279,15 @@ function utilities.parsers.groupedsplitat(symbol, withaction) end
 
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function utilities.parsers.hash_to_string(h, separator, yes, no, strict, omit) end
+function utilities.parsers.hash_to_string(
+  h,
+  separator,
+  yes,
+  no,
+  strict,
+  omit
+)
+end
 
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)

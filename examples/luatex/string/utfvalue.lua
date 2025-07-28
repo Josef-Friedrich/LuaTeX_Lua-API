@@ -6,4 +6,4 @@ print(a, b, c) -- 97 98 99
 
 print(string.utfvalue("abc")) -- 97 98 99
 
-print(string.utfvalue('')) --
+print(string.utfvalue("")) --
