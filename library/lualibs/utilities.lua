@@ -254,13 +254,31 @@ function utilities.lua.strippedloadstring(code, name, forcestrip) end
 utilities.parsers = {}
 
 ---
+---Parse and write directly into table.
+---
+---__Reference:__
+---
+---* ConTeXt wiki: [ConTeXt and Lua programming/Extensions to the Lua IO library/String manipulation](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library/String_manipulation)
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function utilities.parsers.add_settings_to_array(t, str) end
 
 ---
+---Parse arguments, return table.
+---
+---__Reference:__
+---
+---* ConTeXt wiki: [ConTeXt and Lua programming/Extensions to the Lua IO library/String manipulation](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library/String_manipulation)
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function utilities.parsers.arguments_to_table(str) end
 
+---
+---Concatenates a with custom sep or comma.
+---
+---__Reference:__
+---
+---* ConTeXt wiki: [ConTeXt and Lua programming/Extensions to the Lua IO library/String manipulation](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library/String_manipulation)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function utilities.parsers.array_to_string(a, separator) end
@@ -270,6 +288,12 @@ function utilities.parsers.array_to_string(a, separator) end
 function utilities.parsers.csvsplitter(specification) end
 
 ---
+---Write `settings_to_hash` to an array with a metatable. A metatable is a sort of parent: when a table is accessed, undefined values will be looked up in the metatable.
+---
+---__Reference:__
+---
+---* ConTeXt wiki: [ConTeXt and Lua programming/Extensions to the Lua IO library/String manipulation](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library/String_manipulation)
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function utilities.parsers.getparameters(self, class, parentclass, settings) end
 
@@ -277,6 +301,12 @@ function utilities.parsers.getparameters(self, class, parentclass, settings) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function utilities.parsers.groupedsplitat(symbol, withaction) end
 
+---
+---Turn a hash into a string, with optional strictness settings.
+---
+---__Reference:__
+---
+---* ConTeXt wiki: [ConTeXt and Lua programming/Extensions to the Lua IO library/String manipulation](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library/String_manipulation)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function utilities.parsers.hash_to_string(
@@ -301,6 +331,12 @@ function utilities.parsers.keq_to_hash(str) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function utilities.parsers.listitem(str) end
 
+---
+---Returns parser pattern for strict, tolerant, or normal arg-parsing.
+---
+---__Reference:__
+---
+---* ConTeXt wiki: [ConTeXt and Lua programming/Extensions to the Lua IO library/String manipulation](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library/String_manipulation)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function utilities.parsers.make_settings_to_hash_pattern(set, how) end
@@ -330,6 +366,10 @@ function utilities.parsers.rfc4180splitter(specification) end
 function utilities.parsers.runtime(time) end
 
 ---
+---__Reference:__
+---
+---* ConTeXt wiki: [ConTeXt and Lua programming/Extensions to the Lua IO library/String manipulation](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library/String_manipulation)
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function utilities.parsers.settings_to_array(str, strict) end
 
@@ -342,6 +382,10 @@ function utilities.parsers.settings_to_array_obey_fences(str) end
 function utilities.parsers.settings_to_array_with_repeat(str, expand) end
 
 ---
+---__Reference:__
+---
+---* ConTeXt wiki: [ConTeXt and Lua programming/Extensions to the Lua IO library/String manipulation](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library/String_manipulation)
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function utilities.parsers.settings_to_hash(str, existing) end
 
@@ -350,9 +394,21 @@ function utilities.parsers.settings_to_hash(str, existing) end
 function utilities.parsers.settings_to_hash_colon_too(str) end
 
 ---
+---Like `settings_to_hash` with strict parsing.
+---
+---__Reference:__
+---
+---* ConTeXt wiki: [ConTeXt and Lua programming/Extensions to the Lua IO library/String manipulation](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library/String_manipulation)
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function utilities.parsers.settings_to_hash_strict(str, existing) end
 
+---
+---Like `settings_to_hash` with tolerant parsing.
+---
+---__Reference:__
+---
+---* ConTeXt wiki: [ConTeXt and Lua programming/Extensions to the Lua IO library/String manipulation](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library/String_manipulation)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function utilities.parsers.settings_to_hash_tolerant(str, existing) end
@@ -362,9 +418,19 @@ function utilities.parsers.settings_to_hash_tolerant(str, existing) end
 function utilities.parsers.settings_to_numbers(str) end
 
 ---
+---__Reference:__
+---
+---* ConTeXt wiki: [ConTeXt and Lua programming/Extensions to the Lua IO library/String manipulation](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library/String_manipulation)
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function utilities.parsers.settings_to_set(str) end
 
+---
+---Concatenate the values of a hash.
+---
+---__Reference:__
+---
+---* ConTeXt wiki: [ConTeXt and Lua programming/Extensions to the Lua IO library/String manipulation](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library/String_manipulation)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function utilities.parsers.simple_hash_to_string(h, separator) end
@@ -373,6 +439,12 @@ function utilities.parsers.simple_hash_to_string(h, separator) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function utilities.parsers.splitmethod(str, default) end
 
+---
+---Turns 12345678.44 into 12,345,678.44.
+---
+---__Reference:__
+---
+---* ConTeXt wiki: [ConTeXt and Lua programming/Extensions to the Lua IO library/String manipulation](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library/String_manipulation)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function utilities.parsers.splitthousands(str) end
