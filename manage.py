@@ -720,6 +720,8 @@ def dist() -> None:
     Copies the contents of the 'library' directory to a new 'dist' directory,
     removing any existing 'dist' directory first.
 
+    Entry point for `make dist`
+
     Raises:
         OSError: If there is an error removing or copying directories.
     """
@@ -736,6 +738,14 @@ def dist() -> None:
 
     for subproject in subprojects:
         _push_into_downstream_submodule(subproject, commit_id)
+
+    vscode_path = project_base_path / "resources" / "vscode_extension"
+    _git_reset_pull(vscode_path)
+    _copy_directory(project_base_path / "dist", vscode_path / "library")
+    _git_commit_push(
+        vscode_path,
+        f"Sync with https://github.com/Josef-Friedrich/LuaTeX_Lua-API/commit/{commit_id}",
+    )
 
     _git_commit_push(project_base_path, "Update submodules")
 
