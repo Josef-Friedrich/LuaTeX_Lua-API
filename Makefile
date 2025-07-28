@@ -12,7 +12,7 @@ convert:
 	./manage.py convert
 
 stylua:
-	$(HOME)/.cargo/bin/stylua library
+	stylua library
 
 debug:
 	luatex --luaonly debug.lua

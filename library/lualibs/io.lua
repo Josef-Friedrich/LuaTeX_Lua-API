@@ -101,17 +101,109 @@ function io.bytes(f, n) end
 function io.ask(question, default, options) end
 
 ---
+---Reads `count` next bytes from a file `object`, optionally starting at byte `offset`. The bytes are treated as representing a single integer which is then returned in base 10. Valid byte counts are 1, 2, 4, 8, and 12; throws an error when there are fewer bytes left from the current position to the end of file than count.
+---
+---__Example:__
+---
+---```lua
+---io.savedata("nums.txt", "\001\001\001\001\002\002\002\002\003\003\003\003")
+---
+---f = io.open("nums.txt", "r")
+---print(io.readnumber(f, 1))
+---print(io.readnumber(f, 5, 1))
+---print(io.readnumber(f, 4))
+---print(io.readnumber(f, 2))
+---f:close()
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-io.lua#L410-L448](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-io.lua#L410-L448)
+---* https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library
 ---
+---@param object string
+---@param offset integer
+---@param count integer
+---
+---@return integer
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/io.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function io.readnumber(f, n, m) end
+function io.readnumber(object, offset, count) end
 
+---
+---Reads `count` next bytes from a file `object`, optionally starting at byte `offset`. The bytes are treated as representing a single integer which is then returned in base 10. Valid byte counts are 1, 2, 4, 8, and 12; throws an error when there are fewer bytes left from the current position to the end of file than count.
+---
+---__Example:__
+---
+---```lua
+---io.savedata("nums.txt", "\001\001\001\001\002\002\002\002\003\003\003\003")
+---
+---f = io.open("nums.txt", "r")
+---print(io.readnumber(f, 1))
+---print(io.readnumber(f, 5, 1))
+---print(io.readnumber(f, 4))
+---print(io.readnumber(f, 2))
+---f:close()
+---```
+---
+---__Reference:__
+---
+---* Corresponding Lua source code: [lualibs-io.lua#L410-L448](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-io.lua#L410-L448)
+---* https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library
+---
+---@param object string
+---@param count integer
+---
+---@return integer
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/io.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function io.readnumber(object,  count) end
+
+
+---
+---Returns the next `length` bytes from `object`, starting from the current position or, optionally, the `byte` offset.
+---
+---__Example:__
+---
+---```lua
+---f = io.open("text.txt", "r")
+---str = io.readstring(f, 5, 3)
+---print(str)
+---f:close()
+---```
 ---
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-io.lua#L452-L459](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-io.lua#L452-L459)
+---* https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library
 ---
+---@param object string
+---@param offset integer
+---@param length integer
+---
+---@return string
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/io.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function io.readstring(f, n, m) end
+function io.readstring(object, offset, length) end
+
+---
+---Returns the next `length` bytes from `object`, starting from the current position or, optionally, the `byte` offset.
+---
+---
+---__Example:__
+---
+---```lua
+---f = io.open("text.txt", "r")
+---str = io.readstring(f, 5, 3)
+---print(str)
+---f:close()
+---```
+---
+---__Reference:__
+---
+---* Corresponding Lua source code: [lualibs-io.lua#L452-L459](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-io.lua#L452-L459)
+---* https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library
+---
+---@param object string
+---@param length integer
+---
+---@return string
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/io.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function io.readstring(object, length) end
