@@ -94,16 +94,26 @@ LUALIBS = ./manage.py example --subproject lualibs
 
 example_lualibs_string_checkedsplit:
 	$(LUALIBS) string/checkedsplit.lua
+example_lualibs_string_collapsespaces:
+	$(LUALIBS) string/collapsespaces.lua
 example_lualibs_string_count:
 	$(LUALIBS) string/count.lua
+example_lualibs_string_fullstrip:
+	$(LUALIBS) string/fullstrip.lua
 example_lualibs_string_limit:
 	$(LUALIBS) string/limit.lua
+example_lualibs_string_longtostring:
+	$(LUALIBS) string/longtostring.lua
+example_lualibs_string_nospaces:
+	$(LUALIBS) string/nospaces.lua
 example_lualibs_string_quote:
 	$(LUALIBS) string/quote.lua
 example_lualibs_string_quoted:
 	$(LUALIBS) string/quoted.lua
 example_lualibs_string_split:
 	$(LUALIBS) string/split.lua
+example_lualibs_string_strip:
+	$(LUALIBS) string/strip.lua
 example_lualibs_string_unquote:
 	$(LUALIBS) string/unquote.lua
 example_lualibs_string_unquoted:
