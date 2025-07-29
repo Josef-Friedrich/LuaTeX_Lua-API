@@ -1,3 +1,5 @@
+require("lualibs")
+
 local theory =
   [[All brontosauruses are thin at one end, much much thicker in the middle, and then thin again at the far end.]]
 

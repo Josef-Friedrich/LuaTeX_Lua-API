@@ -88,6 +88,28 @@ namespace_luatex_luaonly:
 
 # examples
 
+## lualibs
+
+LUALIBS = ./manage.py example --subproject lualibs
+
+example_lualibs_string_checkedsplit:
+	$(LUALIBS) string/checkedsplit.lua
+example_lualibs_string_count:
+	$(LUALIBS) string/count.lua
+example_lualibs_string_limit:
+	$(LUALIBS) string/limit.lua
+example_lualibs_string_quote:
+	$(LUALIBS) string/quote.lua
+example_lualibs_string_quoted:
+	$(LUALIBS) string/quoted.lua
+example_lualibs_string_split:
+	$(LUALIBS) string/split.lua
+example_lualibs_string_unquote:
+	$(LUALIBS) string/unquote.lua
+example_lualibs_string_unquoted:
+	$(LUALIBS) string/unquoted.lua
+
+
 ## luatex
 
 ### font

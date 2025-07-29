@@ -1,3 +1,5 @@
+require("lualibs")
+
 local theory =
   [[All brontosauruses are thin at one end, much much thicker in the middle, and then thin again at the far end.]]
 
@@ -6,3 +8,7 @@ local theorems = string.split(theory, lpeg.P(", ") * lpeg.P("and ") ^ -1)
 for n, element in ipairs(theorems) do
   io.write(string.format("Theorem %u: %s\n", n, element))
 end
+
+assert(theorems[1] == "All brontosauruses are thin at one end")
+assert(theorems[2] == "much much thicker in the middle")
+assert(theorems[3] == "then thin again at the far end.")
