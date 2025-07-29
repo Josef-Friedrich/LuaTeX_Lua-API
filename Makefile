@@ -98,6 +98,10 @@ example_lualibs_string_collapsespaces:
 	$(LUALIBS) string/collapsespaces.lua
 example_lualibs_string_count:
 	$(LUALIBS) string/count.lua
+example_lualibs_string_escapedpattern:
+	$(LUALIBS) string/escapedpattern.lua
+example_lualibs_string_formatter:
+	$(LUALIBS) string/formatter.lua
 example_lualibs_string_fullstrip:
 	$(LUALIBS) string/fullstrip.lua
 example_lualibs_string_limit:
