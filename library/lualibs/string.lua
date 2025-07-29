@@ -359,7 +359,7 @@ function string.replacenewlines(str) end
 ---* Corresponding Lua source code: [lualibs-string.lua#L168-L170](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-string.lua#L168-L170)
 ---
 ---@param text string
----@param simple boolean
+---@param simple? boolean
 ---
 ---@return string text
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/string.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -414,11 +414,19 @@ function string.totable(text, bytes) end
 function string.tformat(fmt) end
 
 ---
+---__Reference:__
+---
+---* Corresponding Lua source code: [lualibs-boolean.lua#L42-L58](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-boolean.lua#L42-L58)
+---
 ---@param text string
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/string.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function string.booleanstring(text) end
 
+---
+---__Reference:__
+---
+---* Corresponding Lua source code: [lualibs-lpeg.lua#L1198-L1200](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-lpeg.lua#L1198-L1200)
 ---
 ---@param text string
 ---
@@ -467,7 +475,9 @@ function string.containsws(text, what) end
 ---assert(string.formatter("Hexadecimal: %H", 15) == "Hexadecimal: 0x0000F")
 ---```
 ---
----https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-str.lua#L1404
+---__Reference:__
+---
+---* Corresponding Lua source code: [lualibs-util-str.lua#L1404](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-str.lua#L1404)
 ---
 ---@param text string
 ---@param ... any
@@ -476,7 +486,9 @@ function string.containsws(text, what) end
 function string.formatter(text, ...) end
 
 ---
----https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-boolean.lua#L60-L69
+---__Reference:__
+---
+---* Corresponding Lua source code: [](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-boolean.lua#L60-L69
 ---
 ---@param text string
 ---
@@ -552,7 +564,9 @@ function string.split(string, separator) end
 function string.checkedsplit(text, separator) end
 
 ---
----https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-lpeg.lua#L420-L422
+---__Reference:__
+---
+---* Corresponding Lua source code: [lualibs-lpeg.lua#L420-L422](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-lpeg.lua#L420-L422)
 ---
 ---@param text string
 ---
@@ -560,7 +574,9 @@ function string.checkedsplit(text, separator) end
 function string.splitlines(text) end
 
 ---
----https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-lpeg.lua#L373-L378
+---__Reference:__
+---
+---* Corresponding Lua source code: [lualibs-lpeg.lua#L373-L378](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-lpeg.lua#L373-L378)
 ---
 ---@param text string
 ---
@@ -568,7 +584,9 @@ function string.splitlines(text) end
 function string.splitup(text, separator) end
 
 ---
----https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-str.lua#L676
+---__Reference:__
+---
+---* Corresponding Lua source code: [lualibs-util-str.lua#L676](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-str.lua#L676)
 ---
 ---@param text string
 ---
@@ -576,7 +594,9 @@ function string.splitup(text, separator) end
 function string.texnewlines(text) end
 
 ---
----https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-boolean.lua#L18-L40
+---__Reference:__
+---
+---* Corresponding Lua source code: [lualibs-boolean.lua#L18-L40](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-boolean.lua#L18-L40)
 ---
 ---@param text string
 ---
@@ -584,7 +604,9 @@ function string.texnewlines(text) end
 function string.toboolean(text, tolerant) end
 
 ---
----https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-lpeg.lua#L1171-L1177
+---__Reference:__
+---
+---* Corresponding Lua source code: [lualibs-lpeg.lua#L1171-L1177](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-lpeg.lua#L1171-L1177)
 ---
 ---@param text string
 ---
@@ -592,7 +614,9 @@ function string.toboolean(text, tolerant) end
 function string.tobytes(text) end
 
 ---
----https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-lpeg.lua#L1163-L1169
+---__Reference:__
+---
+---* Corresponding Lua source code: [lualibs-lpeg.lua#L1163-L1169](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-lpeg.lua#L1163-L1169)
 ---
 ---@param text string
 ---
@@ -600,7 +624,9 @@ function string.tobytes(text) end
 function string.todec(text) end
 
 ---
----https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-dim.lua#L361-L382
+---__Reference:__
+---
+---* Corresponding Lua source code: [lualibs-util-dim.lua#L361-L382](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-dim.lua#L361-L382)
 ---
 ---@param text string
 ---
@@ -608,7 +634,9 @@ function string.todec(text) end
 function string.todimen(text) end
 
 ---
----https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-lpeg.lua#L1155-L1161
+---__Reference:__
+---
+---* Corresponding Lua source code: [lualibs-lpeg.lua#L1155-L1161](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-lpeg.lua#L1155-L1161)
 ---
 ---@param text string
 ---
@@ -616,7 +644,9 @@ function string.todimen(text) end
 function string.tohex(text) end
 
 ---
----https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-lpeg.lua#L1147-L1153
+---__Reference:__
+---
+---* Corresponding Lua source code: [lualibs-lpeg.lua#L1147-L1153](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-lpeg.lua#L1147-L1153)
 ---
 ---@param text string
 ---
@@ -624,7 +654,9 @@ function string.tohex(text) end
 function string.toHEX(text) end
 
 ---
----https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-unicode.lua#L270-L272
+---__Reference:__
+---
+---* Corresponding Lua source code: [lualibs-unicode.lua#L270-L272](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-unicode.lua#L270-L272)
 ---
 ---@param text string
 ---
@@ -632,13 +664,9 @@ function string.toHEX(text) end
 function string.toutf(text) end
 
 ---
----@param text string
+---__Reference:__
 ---
----😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/string.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function string.utflength(text) end
-
----
----https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-unicode.lua#L1325-L1341
+---* Corresponding Lua source code: [lualibs-unicode.lua#L1325-L1341](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-unicode.lua#L1325-L1341)
 ---
 ---@param text string
 ---
@@ -646,7 +674,9 @@ function string.utflength(text) end
 function string.utfpadd(text, n) end
 
 ---
----https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-str.lua#L212-L222
+---__Reference:__
+---
+---* Corresponding Lua source code: [lualibs-util-str.lua#L212-L222](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-str.lua#L212-L222)
 ---
 ---@param text string
 ---
@@ -654,7 +684,9 @@ function string.utfpadd(text, n) end
 function string.utfpadding(text, n) end
 
 ---
----https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-str.lua#L1554-L1556
+---__Reference:__
+---
+---* Corresponding Lua source code: [lualibs-util-str.lua#L1554-L1556](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-str.lua#L1554-L1556)
 ---
 ---@param text string
 ---
