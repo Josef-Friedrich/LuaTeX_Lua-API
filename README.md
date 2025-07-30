@@ -328,13 +328,40 @@ was used to convert the source files.
 
 ### Navigation table `_N`
 
-Some Lua files contain a table named `_N`. `_N` stands for `navigation`.
+Some Lua files contain a table named `_N`. `_N` stands for *navigation*.
 With the help of this table and the outline view of the editor, it is
 easier to navigate through the documentation. The name is inspired by
 the global Lua table `_G`. Many parts of the documentation, such as the
 definition of the various `Node` classes, are not shown in the outline.
-If the API documentation is published, the `_N` table can be commented
-out.
+In the released version, this navigation table is removed using the
+`manage.py` management script.
+
+```lua
+---A helper table to better navigate through the documentation using the
+---outline: https://github.com/Josef-Friedrich/LuaTeX_Lua-API#navigation-table-_n
+_N = {}
+```
+
+The different node types are defined as classes. Since this class
+definition takes place entirely in the comments, it is not displayed in
+the outline.
+
+```lua
+_N.hlist = 0
+
+---@class HlistNode: ListNode
+
+_N.vlist = 1
+
+---@class VlistNode: ListNode
+```
+
+The following example refers to section “8.7.2 is_node” on page 149 in
+the LuaTeX documentation.
+
+```lua
+_N._8_7_2_is_node = "page 149"
+```
 
 ### Documentation of function overloading
 

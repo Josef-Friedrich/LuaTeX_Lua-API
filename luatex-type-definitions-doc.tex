@@ -265,6 +265,52 @@ online documentation converted into \emph{Lua} docstrings.
 The |example| folder contains \emph{\TeX{}} and \emph{Lua} files for
 demonstrating and testing the documented \emph{Lua} API.
 
+\section{Navigation table \texttt{\_N}}
+
+% Einige Lua-Dateien enthalten eine Tabelle mit dem Namen |_N|.
+Some Lua files contain a table named |_N|.
+% |_N| steht für \emph{Navigation}.
+|_N| stands for \emph{navigation}.
+% Mithilfe dieser Tabelle und der Gliederungsansicht des Editors ist die Navigation durch die Dokumentation einfacher.
+With the help of this table and the outline view of the editor, it is
+easier to navigate through the documentation.
+% Der Name ist von der globalen Lua-Tabelle |_G| inspiriert.
+The name is inspired by the global Lua table |_G|.
+% Viele Teile der Dokumentation, wie beispielsweise die Definition der verschiedenen Knotenklassen, werden in der Gliederung nicht angezeigt.
+Many parts of the documentation, such as the
+definition of the various `Node` classes, are not shown in the outline.
+% In der veröffentlichten Version wird diese Navigationstabelle mithilfe des Verwaltungsskripts manage.py entfernt.
+In the released version, this navigation table is removed using the
+|manage.py| management script.
+
+\begin{minted}{lua}
+---A helper table to better navigate through the documentation using the
+---outline: https://github.com/Josef-Friedrich/LuaTeX_Lua-API#navigation-table-_n
+_N = {}
+\end{minted}
+
+% Die verschiedenen Node-Typen werden als Klassen definiert.
+The different node types are defined as classes.
+% Da diese Klassendefinition komplett in den Kommentaren statt findet, wird sie nicht in der Outline angezeigt.
+Since this class definition takes place entirely in the comments, it is not displayed in the outline.
+
+\begin{minted}{lua}
+_N.hlist = 0
+
+---@class HlistNode: ListNode
+
+_N.vlist = 1
+
+---@class VlistNode: ListNode
+\end{minted}
+
+% Das folgende Beispiel verweist auf das Kapitel „8.7.2 is_node“ auf Seite 149 in der LuaTeX Dokumentation.
+The following example refers to section “8.7.2 is\_node” on page 149 in the Lua\TeX{} documentation.
+
+\begin{minted}{lua}
+_N._8_7_2_is_node = "page 149"
+\end{minted}
+
 \subsubsection{Documentation of callback functions}
 
 How a callback function is documented is shown using the
