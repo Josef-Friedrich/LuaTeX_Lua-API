@@ -1,4 +1,3 @@
 require("lualibs")
 
-
-print(string.toHEX('\xff\xff'))
+print(string.toHEX("\xff\xff"))

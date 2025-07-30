@@ -598,118 +598,159 @@ Documentation for the field `data` of the `pdf_colorstack` node:
 /usr/local/texlive/texmf-dist/tex/luatex/lualibs/lualibs-basic-merged.lua
 /usr/local/texlive/texmf-dist/tex/luatex/lualibs/lualibs-extended-merged.lua
 
-
-
 #### dir.lua
 
-| filename | ConTeXt                                                                                                           | LaTeX                                                                          |
+| Filename | ConTeXt                                                                                                           | LaTeX                                                                          |
 | -------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
 | dir.lua  | [context/base/mkiv/l-dir.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-dir.lua) | [lualibs-dir.lua](https://github.com/latex3/lualibs/blob/main/lualibs-dir.lua) |
 
+#### file.lua
 
-| filename | ConTeXt                                                                                                             | LaTeX                                                                            |
+| Filename | ConTeXt                                                                                                             | LaTeX                                                                            |
 | -------- | ------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
 | file.lua | [context/base/mkiv/l-file.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-file.lua) | [lualibs-file.lua](https://github.com/latex3/lualibs/blob/main/lualibs-file.lua) |
 
+#### gzip.lua
 
-| filename | ConTeXt | LaTeX                                                                                    |
+
+| Filename | ConTeXt | LaTeX                                                                                    |
 | -------- | ------- | ---------------------------------------------------------------------------------------- |
 | gzip.lua |         | [lualibs-util-zip.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-zip.lua) |
 
+#### io.lua
 
-| filename | ConTeXt                                                                                                         | LaTeX                                                                        |
+
+| Filename | ConTeXt                                                                                                         | LaTeX                                                                        |
 | -------- | --------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| io.lua   | [context/base/mkiv/l-io.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-io.lua) | [lualibs-io.lua](https://github.com/latex3/lualibs/blob/main/lualibs-io.lua) |
+|          | [context/base/mkiv/l-io.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-io.lua) | [lualibs-io.lua](https://github.com/latex3/lualibs/blob/main/lualibs-io.lua) |
+
+#### lfs.lua
 
 
-| filename | ConTeXt | LaTeX |
+| Filename | ConTeXt | LaTeX |
 | -------- | ------- | ----- |
 | lfs.lua  |         |       |
 
 
-| filename | ConTeXt                                                                                                             | LaTeX                                                                            |
+#### lpeg.lua
+
+| Filename | ConTeXt                                                                                                             | LaTeX                                                                            |
 | -------- | ------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
 | lpeg.lua | [context/base/mkiv/l-lpeg.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-lpeg.lua) | [lualibs-lpeg.lua](https://github.com/latex3/lualibs/blob/main/lualibs-lpeg.lua) |
 
 
-| filename    | ConTeXt | LaTeX |
+#### lualibs.lua
+
+| Filename    | ConTeXt | LaTeX |
 | ----------- | ------- | ----- |
 | lualibs.lua |         |       |
 
-| filename | ConTeXt | LaTeX |
+#### lua.lua
+
+| Filename | ConTeXt | LaTeX |
 | -------- | ------- | ----- |
 | lua.lua  |         |       |
 
 
-| filename | ConTeXt | LaTeX |
+#### math.lua
+
+| Filename | ConTeXt | LaTeX |
 | -------- | ------- | ----- |
 | math.lua |         |       |
 
-| filename    | ConTeXt | LaTeX |
+#### modules.lua
+
+| Filename    | ConTeXt | LaTeX |
 | ----------- | ------- | ----- |
 | modules.lua |         |       |
 
+####  number.lua
 
-| filename   | ConTeXt                                                                                                                 | LaTeX                                                                                |
+
+| Filename   | ConTeXt                                                                                                                 | LaTeX                                                                                |
 | ---------- | ----------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
 | number.lua | [context/base/mkiv/l-number.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-number.lua) | [lualibs-number.lua](https://github.com/latex3/lualibs/blob/main/lualibs-number.lua) |
 
+#### os.lua
 
-| filename | ConTeXt                                                                                                         | LaTeX                                                                        |
+
+| Filename | ConTeXt                                                                                                         | LaTeX                                                                        |
 | -------- | --------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
 | os.lua   | [context/base/mkiv/l-os.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-os.lua) | [lualibs-os.lua](https://github.com/latex3/lualibs/blob/main/lualibs-os.lua) |
 
+#### package.lua
 
-| filename    | ConTeXt                                                                                                                   | LaTeX                                                                                  |
+
+| Filename    | ConTeXt                                                                                                                   | LaTeX                                                                                  |
 | ----------- | ------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
 | package.lua | [context/base/mkiv/l-package.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-package.lua) | [lualibs-package.lua](https://github.com/latex3/lualibs/blob/main/lualibs-package.lua) |
 
-| filename | ConTeXt                                                                                                           | LaTeX                                                                          |
+#### set.lua
+
+| Filename | ConTeXt                                                                                                           | LaTeX                                                                          |
 | -------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
 | set.lua  | [context/base/mkiv/l-set.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-set.lua) | [lualibs-set.lua](https://github.com/latex3/lualibs/blob/main/lualibs-set.lua) |
 
-| filename       | ConTeXt | LaTeX |
+#### statistics.lua
+
+| Filename       | ConTeXt | LaTeX |
 | -------------- | ------- | ----- |
 | statistics.lua |         |       |
 
+
+
 #### string.lua
 
-| filename   | ConTeXt                                                                                                                 | LaTeX                                                                                |
-| ---------- | ----------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| string.lua | [context/base/mkiv/l-string.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-string.lua) | [lualibs-string.lua](https://github.com/latex3/lualibs/blob/main/lualibs-string.lua) |
+| Filename                   | ConTeXt                                                                                                                   | LaTeX                                                                                    |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| string.lua                 | [context/base/mkiv/l-string.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-string.lua)   | [lualibs-string.lua](https://github.com/latex3/lualibs/blob/main/lualibs-string.lua)     |
+| boolean.lua | [context/base/mkiv/l-boolean.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-boolean.lua) | [lualibs-boolean.lua](https://github.com/latex3/lualibs/blob/main/lualibs-boolean.lua) |
+| lpeg.lua | [context/base/mkiv/l-lpeg.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-lpeg.lua) | [lualibs-lpeg.lua](https://github.com/latex3/lualibs/blob/main/lualibs-lpeg.lua) |
+| unicode.lua                | [context/base/mkiv/l-unicode.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-unicode.lua) | [lualibs-unicode.lua](https://github.com/latex3/lualibs/blob/main/lualibs-unicode.lua)   |
+| util-dim.lua (`dimensions`) | [context/base/mkiv/util-dim.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/util-dim.lua)   | [lualibs-util-dim.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-dim.lua) |
+| util-str.lua (`strings`)                 | [context/base/mkiv/util-str.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/util-str.lua) | [lualibs-util-str.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-str.lua) |
 
-| filename  | ConTeXt                                                                                                               | LaTeX                                                                              |
+#### table.lua
+
+| Filename  | ConTeXt                                                                                                               | LaTeX                                                                              |
 | --------- | --------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
 | table.lua | [context/base/mkiv/l-table.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-table.lua) | [lualibs-table.lua](https://github.com/latex3/lualibs/blob/main/lualibs-table.lua) |
 
-| filename     | ConTeXt | LaTeX |
+
+#### trackers.lua
+
+| Filename     | ConTeXt | LaTeX |
 | ------------ | ------- | ----- |
 | trackers.lua |         |
 
-| filename | ConTeXt                                                                                                           | LaTeX                                                                          |
+#### url.lua
+
+| Filename | ConTeXt                                                                                                           | LaTeX                                                                          |
 | -------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
 | url.lua  | [context/base/mkiv/l-url.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-url.lua) | [lualibs-url.lua](https://github.com/latex3/lualibs/blob/main/lualibs-url.lua) |
 
-| filename | ConTeXt | LaTeX |
+#### utf.lua
+
+| Filename | ConTeXt | LaTeX |
 | -------- | ------- | ----- |
 | utf.lua  |         |       |
 
 #### utilities.lua                                                                                                                           |
 
-| filename     | ConTeXt | LaTeX                                                                                    |
-| ------------ | ------- | ---------------------------------------------------------------------------------------- |
-| util-deb.lua |         | [lualibs-util-deb.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-deb.lua) |
-| util-fil.lua |         | [lualibs-util-fil.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-fil.lua) |
-| util-jsn.lua |         | [lualibs-util-jsn.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-jsn.lua) |
-| util-lua.lua |         | [lualibs-util-lua.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-lua.lua) |
-| util-prs.lua |         | [lualibs-util-prs.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-prs.lua) |
-| util-sac.lua |         | [lualibs-util-sac.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-sac.lua) |
-| util-sta.lua |         | [lualibs-util-sta.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-sta.lua) |
-| util-sto.lua |         | [lualibs-util-sto.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-sto.lua) |
-| util-str.lua |         | [lualibs-util-str.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-str.lua) |
+| Filename                                 | ConTeXt                                                                                                                 | LaTeX                                                                                    |
+| ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| util-deb.lua (`debugger`)                | [context/base/mkiv/util-deb.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/util-deb.lua) | [lualibs-util-deb.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-deb.lua) |
+| util-fil.lua (`files`)                   | [context/base/mkiv/util-fil.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/util-fil.lua) | [lualibs-util-fil.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-fil.lua) |
+| util-jsn.lua (`json`)                    | [context/base/mkiv/util-jsn.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/util-jsn.lua) | [lualibs-util-jsn.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-jsn.lua) |
+| util-lua.lua (`lua`)                     | [context/base/mkiv/util-lua.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/util-lua.lua) | [lualibs-util-lua.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-lua.lua) |
+| util-prs.lua (`parsers`)                 | [context/base/mkiv/util-prs.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/util-prs.lua) | [lualibs-util-prs.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-prs.lua) |
+| util-sac.lua (`streams` (string access)) | [context/base/mkiv/util-sac.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/util-sac.lua) | [lualibs-util-sac.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-sac.lua) |
+| util-sta.lua (`stacker`)                 | [context/base/mkiv/util-sta.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/util-sta.lua) | [lualibs-util-sta.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-sta.lua) |
+| util-sto.lua (`storage`)                 | [context/base/mkiv/util-sto.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/util-sto.lua) | [lualibs-util-sto.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-sto.lua) |
+| util-str.lua (`strings`)                 | [context/base/mkiv/util-str.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/util-str.lua) | [lualibs-util-str.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-str.lua) |
+| util-tpl.lua (`templates`)               | [context/base/mkiv/util-tpl.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/util-tpl.lua) | [lualibs-util-tpl.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-tpl.lua) |
 
-
-#### xziplua
+#### xzip.lua
 
 ## Global namespaces
 

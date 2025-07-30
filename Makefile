@@ -92,6 +92,8 @@ namespace_luatex_luaonly:
 
 LUALIBS = ./manage.py example --subproject lualibs
 
+### string
+
 example_lualibs_string_checkedsplit:
 	$(LUALIBS) string/checkedsplit.lua
 example_lualibs_string_collapsespaces:
@@ -132,6 +134,15 @@ example_lualibs_string_unquote:
 	$(LUALIBS) string/unquote.lua
 example_lualibs_string_unquoted:
 	$(LUALIBS) string/unquoted.lua
+example_lualibs_string_wordsplitter:
+	$(LUALIBS) string/wordsplitter.lua
+
+### utilities
+
+#### utilities_strings
+
+example_lualibs_utilities_strings_nice:
+	$(LUALIBS) utilities/strings/nice.lua
 
 ## luatex
 

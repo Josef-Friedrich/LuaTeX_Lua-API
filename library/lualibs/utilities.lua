@@ -710,36 +710,85 @@ function utilities.storage.sparse(t) end
 utilities.strings = {}
 
 ---
+---__Reference:__
+---
+---* Corresponding Lua source code: [lualibs-util-str.lua#L144-L146](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-str.lua#L144-L146)
+---
+---@param text string
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function utilities.strings.collapse(str) end
+function utilities.strings.collapsecrlf(text) end
 
 ---
+---__Reference:__
+---
+---* Corresponding Lua source code: [lualibs-util-str.lua#L152-L175](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-str.lua#L152-L175)
+---
+---@param text string
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function utilities.strings.collapsecrlf(str) end
+function utilities.strings.newrepeater(text, offset) end
 
+---
+---__Reference:__
+---
+---* Corresponding Lua source code: [lualibs-util-str.lua#L207-L210](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-str.lua#L207-L210)
+---
+---@param text string
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function utilities.strings.tabtospace(text, tab) end
+
+---
+---__Reference:__
+---
+---* Corresponding Lua source code: [lualibs-util-str.lua#L310-L312](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-str.lua#L310-L312)
+---
+---@see utilities.strings.striplong
+---
+---@param text string
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function utilities.strings.striplines(text, how) end
+
+---
+---Alias of `utilities.strings.striplines`
+---
+---__Reference:__
+---
+---* Corresponding Lua source code: [lualibs-util-str.lua#L323](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-str.lua#L323)
+---
+---@see utilities.strings.striplines
+---
+---@param text string
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function utilities.strings.striplong(text, how) end
+
+---
+---__Reference:__
+---
+---* Corresponding Lua source code: [lualibs-util-str.lua#L314-L316](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-str.lua#L314-L316)
+---
+---@param text string
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function utilities.strings.collapse(text) end
+
+---
+---__Reference:__
+---
+---* Corresponding Lua source code: [lualibs-util-str.lua#L354-L357](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-str.lua#L354-L357)
+---
+---@param text string
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function utilities.strings.nice(text) end
+
+---
+---__Reference:__
+---
+---* Corresponding Lua source code: [lualibs-util-str.lua#L1488-L1502](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-str.lua#L1488-L1502)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function utilities.strings.newcollector() end
-
----
----😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function utilities.strings.newrepeater(str, offset) end
-
----
----😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function utilities.strings.nice(str) end
-
----
----😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function utilities.strings.striplines(str, how) end
-
----
----😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function utilities.strings.striplong(str, how) end
-
----
----😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function utilities.strings.tabtospace(str, tab) end
 
 -- https://github.com/latex3/lualibs/blob/main/lualibs-util-tpl.lua
 utilities.templates = {}
