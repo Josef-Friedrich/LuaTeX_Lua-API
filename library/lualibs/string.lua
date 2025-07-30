@@ -659,6 +659,15 @@ function string.tobytes(text) end
 function string.todec(text) end
 
 ---
+---__Example:__
+---
+---```lua
+---assert(string.tohex('\xff') == 'ff')
+---assert(string.tohex(string.tobytes('ff')) == 'ff')
+---assert(string.tohex('\x00') == '00')
+---assert(string.tohex('\xAD\xFE\x03\x45') == 'adfe0345')
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-lpeg.lua#L1155-L1161](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-lpeg.lua#L1155-L1161)
@@ -668,6 +677,17 @@ function string.todec(text) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/string.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function string.tohex(text) end
 
+
+
+---
+---__Example:__
+---
+---```lua
+---assert(string.toHEX('\xff') == 'FF')
+---assert(string.toHEX(string.tobytes('ff')) == 'FF')
+---assert(string.toHEX('\x00') == '00')
+---assert(string.toHEX('\xAD\xFE\x03\x45') == 'ADFE0345')
+---```
 ---
 ---__Reference:__
 ---
@@ -681,11 +701,21 @@ function string.toHEX(text) end
 _N.util_dim = "lualibs-util-dim.lua"
 
 ---
+---__Example:__
+---
+---```lua
+---assert(string.todimen(1) == 1)
+---assert(string.todimen("1sp") == 1)
+---assert(string.todimen("1pt") == 65536)
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-util-dim.lua#L361-L382](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-dim.lua#L361-L382)
 ---
----@param text string
+---@param text string|number
+---
+---@return integer scaled_points
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/string.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function string.todimen(text) end

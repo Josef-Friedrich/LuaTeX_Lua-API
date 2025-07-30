@@ -118,11 +118,20 @@ example_lualibs_string_split:
 	$(LUALIBS) string/split.lua
 example_lualibs_string_strip:
 	$(LUALIBS) string/strip.lua
+example_lualibs_string_tobytes:
+	$(LUALIBS) string/tobytes.lua
+example_lualibs_string_todec:
+	$(LUALIBS) string/todec.lua
+example_lualibs_string_todimen:
+	$(LUALIBS) string/todimen.lua
+example_lualibs_string_tohex_lowercase:
+	$(LUALIBS) string/tohex_lowercase.lua
+example_lualibs_string_toHEX_uppercase:
+	$(LUALIBS) string/toHEX_uppercase.lua
 example_lualibs_string_unquote:
 	$(LUALIBS) string/unquote.lua
 example_lualibs_string_unquoted:
 	$(LUALIBS) string/unquoted.lua
-
 
 ## luatex
 
