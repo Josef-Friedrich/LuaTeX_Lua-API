@@ -141,9 +141,12 @@ example_lualibs_string_wordsplitter:
 
 #### utilities_strings
 
+example_lualibs_utilities_strings_collapse:
+	$(LUALIBS) utilities/strings/collapse.lua
 example_lualibs_utilities_strings_nice:
 	$(LUALIBS) utilities/strings/nice.lua
-
+example_lualibs_utilities_strings_striplines:
+	$(LUALIBS) utilities/strings/striplines.lua
 ## luatex
 
 ### font
