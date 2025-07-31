@@ -875,6 +875,7 @@ function utilities.strings.tabtospace(text, tab) end
 ---
 ---__Reference:__
 ---
+---* Context Lua Documents, July 8, 2023: [page 90-94](https://www.pragma-ade.nl/general/manuals/cld-mkiv.pdf)
 ---* Corresponding Lua source code: [lualibs-util-str.lua#L310-L312](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-str.lua#L310-L312)
 ---
 ---@see utilities.strings.striplong
@@ -1010,6 +1011,7 @@ function utilities.strings.striplines(text, how) end
 ---
 ---__Reference:__
 ---
+---* Context Lua Documents, July 8, 2023: [page 90-94](https://www.pragma-ade.nl/general/manuals/cld-mkiv.pdf)
 ---* Corresponding Lua source code: [lualibs-util-str.lua#L323](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-str.lua#L323)
 ---
 ---@see utilities.strings.striplines

@@ -10,7 +10,13 @@ _N.CLD_sorted = "page "
 _N.table = "lualibs-table.lua"
 
 ---
+---__Reference:__
+---
+---* Context Lua Documents, July 8, 2023: [page 77](https://www.pragma-ade.nl/general/manuals/cld-mkiv.pdf)
+---
 ---@param tab table
+---
+---@return table
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/table.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function table.sorted(tab) end
@@ -27,7 +33,7 @@ _N.CLD_keys_sortedkeys_sortedhashkeys_sortedhash = "page 77"
 ---
 ---__Reference:__
 ---
----* Context Lua Documents, July 25. 2021, page 77
+---* Context Lua Documents, July 8, 2023: [page 77](https://www.pragma-ade.nl/general/manuals/cld-mkiv.pdf)
 ---* Corresponding Lua source code: [lualibs-table.lua#L43-L55](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L43-L55)
 ---
 ---@param tab table
@@ -47,7 +53,7 @@ function table.keys(tab) end
 ---
 ---__Reference:__
 ---
----* Context Lua Documents, July 25. 2021, page 77
+---* Context Lua Documents, July 8, 2023: [page 77](https://www.pragma-ade.nl/general/manuals/cld-mkiv.pdf)
 ---* Corresponding Lua source code: [lualibs-table.lua#L148-L188](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L148-L188)
 ---
 ---@param tab table
@@ -65,7 +71,7 @@ function table.sortedkeys(tab) end
 ---
 ---__Reference:__
 ---
----* Context Lua Documents, July 25. 2021, page 77
+---* Context Lua Documents, July 8, 2023: [page 77](https://www.pragma-ade.nl/general/manuals/cld-mkiv.pdf)
 ---* Corresponding Lua source code: [lualibs-table.lua#L228-L245](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L228-L245)
 ---
 ---@param tab table
@@ -87,7 +93,7 @@ function table.sortedhashkeys(tab, cmp) end
 ---```
 ---__Reference:__
 ---
----* Context Lua Documents, July 25. 2021, page 77
+---* Context Lua Documents, July 8, 2023: [page 77](https://www.pragma-ade.nl/general/manuals/cld-mkiv.pdf)
 ---* Corresponding Lua source code: [lualibs-table.lua#L264-L288](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L264-L288)
 ---
 ---@param tab table
@@ -104,6 +110,7 @@ function table.sortedhash(tab, cmp) end
 ---
 ---__Reference:__
 ---
+---* Context Lua Documents, July 8, 2023: [page 77](https://www.pragma-ade.nl/general/manuals/cld-mkiv.pdf)
 ---* Corresponding Lua source code: [lualibs-table.lua#L264-L288](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L264-L288)
 ---
 ---@deprecated
@@ -157,7 +164,7 @@ _N.CLD_serialize_print_tohandle_tofile = "page 77"
 ---
 ---__Reference:__
 ---
----* Context Lua Documents, July 25. 2021, page 77
+---* Context Lua Documents, July 8, 2023: [page 79](https://www.pragma-ade.nl/general/manuals/cld-mkiv.pdf)
 ---* Corresponding Lua source code: [lualibs-table.lua#L965-L974](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L965-L974)
 ---* Corresponding Lua source code: [lualibs-util-tab.lua#L715-L909](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-util-tab.lua#L715-L909)
 ---
@@ -169,7 +176,7 @@ function table.serialize(root, name, specification) end
 ---
 ---__Reference:__
 ---
----* Context Lua Documents, July 25. 2021, page 77
+---* Context Lua Documents, July 8, 2023: [page 79](https://www.pragma-ade.nl/general/manuals/cld-mkiv.pdf)
 ---* Corresponding Lua source code: [lualibs-table.lua#L1308-L1314](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1308-L1314)
 ---
 ---@param tab table
@@ -182,7 +189,7 @@ function table.print(tab) end
 ---
 ---__Reference:__
 ---
----* Context Lua Documents, July 25. 2021, page 77
+---* Context Lua Documents, July 8, 2023: [page 79](https://www.pragma-ade.nl/general/manuals/cld-mkiv.pdf)
 ---* Corresponding Lua source code: [lualibs-table.lua#L987-L1013](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L987-L1013)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/table.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -193,7 +200,7 @@ function table.tofile(filename, root, name, specification) end
 ---
 ---__Reference:__
 ---
----* Context Lua Documents, July 25. 2021, page 77
+---* Context Lua Documents, July 8, 2023: [page 77](https://www.pragma-ade.nl/general/manuals/cld-mkiv.pdf)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/table.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function table.tohandle(handle, root, name, specification) end
@@ -214,7 +221,7 @@ _N.CLD_identical_are_equal = "page 79"
 ---
 ---__Reference:__
 ---
----* Context Lua Documents, July 8. 2023, page 79
+---* Context Lua Documents, July 8, 2023: [page 79](https://www.pragma-ade.nl/general/manuals/cld-mkiv.pdf)
 ---* Corresponding Lua source code: [lualibs-table.lua#L1134-L1150](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1134-L1150)
 ---
 ---@param a table
@@ -458,6 +465,7 @@ _N.CLD_merge_merged_imerge_imerged = "page 81"
 ---
 ---__Reference:__
 ---
+---* Context Lua Documents, July 8, 2023: [page 81](https://www.pragma-ade.nl/general/manuals/cld-mkiv.pdf)
 ---* Corresponding Lua source code: [lualibs-table.lua#L357-L367](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L357-L367)
 ---
 ---@param tab table
@@ -475,6 +483,7 @@ function table.merge(tab, ...) end
 ---
 ---__Reference:__
 ---
+---* Context Lua Documents, July 8, 2023: [page 81](https://www.pragma-ade.nl/general/manuals/cld-mkiv.pdf)
 ---* Corresponding Lua source code: [lualibs-table.lua#L401-L411](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L401-L411)
 ---
 ---@param tab any[] # An indexed table (array table, table with consecutive integers as indices).
@@ -493,6 +502,7 @@ function table.imerge(tab, ...) end
 ---
 ---__Reference:__
 ---
+---* Context Lua Documents, July 8, 2023: [page 81](https://www.pragma-ade.nl/general/manuals/cld-mkiv.pdf)
 ---* Corresponding Lua source code: [lualibs-table.lua#L379-L387](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L379-L387)
 ---
 ---@param ... table
@@ -510,6 +520,7 @@ function table.merged(...) end
 ---
 ---__Reference:__
 ---
+---* Context Lua Documents, July 8, 2023: [page 81](https://www.pragma-ade.nl/general/manuals/cld-mkiv.pdf)
 ---* Corresponding Lua source code: [lualibs-table.lua#L425-L436](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L425-L436)
 ---
 ---@param ... any[] # An indexed table (array table, table with consecutive integers as indices).
@@ -528,6 +539,7 @@ _N.CLD_copy_fastcopy = "page 81"
 ---
 ---__Reference:__
 ---
+---* Context Lua Documents, July 8, 2023: [page 81](https://www.pragma-ade.nl/general/manuals/cld-mkiv.pdf)
 ---* Corresponding Lua source code: [lualibs-table.lua#L463-L492](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L463-L492)
 ---
 ---@param tab table
@@ -547,6 +559,7 @@ function table.copy(tab, tables) end
 ---
 ---__Reference:__
 ---
+---* Context Lua Documents, July 8, 2023: [page 81](https://www.pragma-ade.nl/general/manuals/cld-mkiv.pdf)
 ---* Corresponding Lua source code: [lualibs-table.lua#L438-L459](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L438-L459)
 ---
 ---@param tab table
@@ -560,8 +573,11 @@ function table.fastcopy(tab, metatabletoo) end
 _N.CLD_flattened = "page 82"
 
 ---
+---Unnest a nested table.
+---
 ---__Reference:__
 ---
+---* Context Lua Documents, July 8, 2023: [page 82](https://www.pragma-ade.nl/general/manuals/cld-mkiv.pdf)
 ---* Corresponding Lua source code: [lualibs-table.lua#L1015-L1044](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1015-L1044)
 ---
 ---@param tab table
@@ -569,21 +585,32 @@ _N.CLD_flattened = "page 82"
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/table.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function table.flattened(tab, f, depth) end
 
-_N.loweredkeys = ""
+_N.CLD_loweredkeys = "page 82"
 
+---
+---Return a new table with the keys being lower case.
+---
+---This is handy
+---in cases where the keys have a change to be inconsistent, as can be the case when users input keys
+---and values in less controlled ways.
 ---
 ---__Reference:__
 ---
+---* Context Lua Documents, July 8, 2023: [page 82](https://www.pragma-ade.nl/general/manuals/cld-mkiv.pdf)
+---
 ---@param tab table
+---
+---@return table
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/table.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function table.loweredkeys(tab) end
 
-_N.CLD_contains = ""
+_N.CLD_contains = "page 83"
 
 ---
 ---__Reference:__
 ---
+---* Context Lua Documents, July 8, 2023: [page 83](https://www.pragma-ade.nl/general/manuals/cld-mkiv.pdf)
 ---* Corresponding Lua source code: [lualibs-table.lua#L1178-L1187](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1178-L1187)
 ---
 ---@param tab table
@@ -591,17 +618,22 @@ _N.CLD_contains = ""
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/table.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function table.contains(tab, v) end
 
-_N.CLD_unique = ""
-
----
----😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/table.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function table.unique(old) end
-
-_N.CLD_count = ""
+_N.CLD_unique = "page 83"
 
 ---
 ---__Reference:__
 ---
+---* Context Lua Documents, July 8, 2023: [page 83](https://www.pragma-ade.nl/general/manuals/cld-mkiv.pdf)
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/table.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function table.unique(old) end
+
+_N.CLD_count = "page 83"
+
+---
+---__Reference:__
+---
+---* Context Lua Documents, July 8, 2023: [page 83](https://www.pragma-ade.nl/general/manuals/cld-mkiv.pdf)
 ---* Corresponding Lua source code: [lualibs-table.lua#L1189-L1195](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1189-L1195)
 ---
 ---@param tab table
@@ -609,11 +641,12 @@ _N.CLD_count = ""
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/table.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function table.count(tab) end
 
-_N.CLD_sequenced = ""
+_N.CLD_sequenced = "page 83"
 
 ---
 ---__Reference:__
 ---
+---* Context Lua Documents, July 8, 2023: [page 83](https://www.pragma-ade.nl/general/manuals/cld-mkiv.pdf)
 ---* Corresponding Lua source code: [lualibs-table.lua#L1255-L1304](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1255-L1304)
 ---
 ---@param tab table

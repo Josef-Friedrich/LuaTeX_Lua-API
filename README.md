@@ -602,7 +602,11 @@ Documentation for the field `data` of the `pdf_colorstack` node:
 /usr/local/texlive/texmf-dist/tex/luatex/lualibs/lualibs-basic-merged.lua
 /usr/local/texlive/texmf-dist/tex/luatex/lualibs/lualibs-extended-merged.lua
 
+#### boolean.lua
 
+| Filename | ConTeXt                                                                                                           | LaTeX                                                                          |
+| -------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| boolean.lua  | [context/base/mkiv/l-boolean.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-boolean.lua) | [lualibs-boolean.lua](https://github.com/latex3/lualibs/blob/main/lualibs-boolean.lua) |
 
 #### dir.lua
 
