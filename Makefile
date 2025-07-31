@@ -98,6 +98,8 @@ example_lualibs_string_checkedsplit:
 	$(LUALIBS) string/checkedsplit.lua
 example_lualibs_string_collapsespaces:
 	$(LUALIBS) string/collapsespaces.lua
+example_lualibs_string_containsws:
+	$(LUALIBS) string/containsws.lua
 example_lualibs_string_count:
 	$(LUALIBS) string/count.lua
 example_lualibs_string_escapedpattern:
@@ -120,6 +122,8 @@ example_lualibs_string_split:
 	$(LUALIBS) string/split.lua
 example_lualibs_string_strip:
 	$(LUALIBS) string/strip.lua
+example_lualibs_string_texnewlines:
+	$(LUALIBS) string/texnewlines.lua
 example_lualibs_string_tobytes:
 	$(LUALIBS) string/tobytes.lua
 example_lualibs_string_todec:
@@ -134,6 +138,8 @@ example_lualibs_string_unquote:
 	$(LUALIBS) string/unquote.lua
 example_lualibs_string_unquoted:
 	$(LUALIBS) string/unquoted.lua
+example_lualibs_string_utfpadding:
+	$(LUALIBS) string/utfpadding.lua
 example_lualibs_string_wordsplitter:
 	$(LUALIBS) string/wordsplitter.lua
 

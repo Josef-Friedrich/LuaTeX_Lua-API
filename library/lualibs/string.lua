@@ -597,16 +597,20 @@ _N.util_str = "lualibs-util-str.lua"
 ---
 ---* Corresponding Lua source code: [lualibs-util-str.lua#L426-L438](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-util-str.lua#L426-L438)
 ---
+---@param text string
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/string.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function string.autodouble(s, sep) end
+function string.autodouble(text, sep) end
 
 ---
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-util-str.lua#L440-L452](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-util-str.lua#L440-L452)
 ---
+---@param text string
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/string.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function string.autosingle(s, sep) end
+function string.autosingle(text, sep) end
 
 ---
 ---__Reference:__
@@ -621,32 +625,40 @@ function string.tracedchar(b) end
 ---
 ---* Corresponding Lua source code: [lualibs-util-str.lua#L648-L650](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-util-str.lua#L648-L650)
 ---
+---@param text string
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/string.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function string.escapedquotes(s) end
+function string.escapedquotes(text) end
 
 ---
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-util-str.lua#L659-L661](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-util-str.lua#L659-L661)
 ---
+---@param text string
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/string.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function string.unescapedquotes(s) end
+function string.unescapedquotes(text) end
 
 ---
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-util-str.lua#L1471-L1473](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-util-str.lua#L1471-L1473)
 ---
+---@param text string
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/string.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function string.optionalquoted(str) end
+function string.optionalquoted(text) end
 
 ---
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-util-str.lua#L1477-L1479](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-util-str.lua#L1477-L1479)
 ---
+---@param text string
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/string.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function string.replacenewlines(str) end
+function string.replacenewlines(text) end
 
 ---
 ---__Reference:__
@@ -711,21 +723,48 @@ function string.containsws(text, what) end
 function string.formatter(text, ...) end
 
 ---
+---Replace newline patterns in a string with carriage return (`\r`).
+---
+---__Example:__
+---
+---```lua
+---assert(string.texnewlines("line1\nline2") == "line1\rline2")
+---assert(string.texnewlines("line1\n\nline2") == "line1\r\rline2")
+---assert(string.texnewlines("line1\nline2\n") == "line1\rline2\r")
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-util-str.lua#L676](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-str.lua#L676)
 ---
 ---@param text string
 ---
+---@return string text
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/string.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function string.texnewlines(text) end
 
+
+---
+---__Example:__
+---
+---```lua
+---assert(string.utfpadding("äöü", 1) == '')
+---assert(string.utfpadding("äöü", 2) == '')
+---assert(string.utfpadding("äöü", 3) == '')
+---assert(string.utfpadding("äöü", 4) == ' ')
+---assert(string.utfpadding("äöü", 5) == '  ')
+---assert(string.utfpadding("äöü", -5) == '  ')
+---```
 ---
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-util-str.lua#L212-L222](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-str.lua#L212-L222)
 ---
 ---@param text string
+---@param n integer
+---
+---@return string
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/string.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function string.utfpadding(text, n) end
