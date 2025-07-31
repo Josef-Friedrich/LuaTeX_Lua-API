@@ -145,12 +145,28 @@ example_lualibs_string_wordsplitter:
 
 ### table
 
+example_lualibs_table_append:
+	$(LUALIBS) table/append.lua
 example_lualibs_table_are_equal:
 	$(LUALIBS) table/are_equal.lua
+example_lualibs_table_fromhash:
+	$(LUALIBS) table/fromhash.lua
 example_lualibs_table_identical:
 	$(LUALIBS) table/identical.lua
+example_lualibs_table_mirrored:
+	$(LUALIBS) table/mirrored.lua
+example_lualibs_table_prepend:
+	$(LUALIBS) table/prepend.lua
+example_lualibs_table_reverse:
+	$(LUALIBS) table/reverse.lua
+example_lualibs_table_reversed:
+	$(LUALIBS) table/reversed.lua
 example_lualibs_table_serialize:
 	$(LUALIBS) table/serialize.lua
+example_lualibs_table_swapped:
+	$(LUALIBS) table/swapped.lua
+example_lualibs_table_tohash:
+	$(LUALIBS) table/tohash.lua
 
 ### utilities
 

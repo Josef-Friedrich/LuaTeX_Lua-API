@@ -393,6 +393,59 @@ local function get_file_extension(path)
 end
 
 ---
+---Deeply compare two objects.
+---
+---Source: [gist.github.com/sapphyrus/fd9aeb871e3ce966cc4b0b969f62f539](https://gist.github.com/sapphyrus/fd9aeb871e3ce966cc4b0b969f62f539?permalink_comment_id=4563041#gistcomment-4563041)
+---
+---@param o1 unknown # An object of any type.
+---@param o2 unknown # An object of any type.
+---@param ignore_mt? boolean # Ignore the metatable.
+---
+---@return boolean # `true`, if the two specified objects are deeply equal.
+local function are_same(o1, o2, ignore_mt)
+  -- same object
+  if o1 == o2 then
+    return true
+  end
+
+  local o1Type = type(o1)
+  local o2Type = type(o2)
+  --- different type
+  if o1Type ~= o2Type then
+    return false
+  end
+  --- same type but not table, already compared above
+  if o1Type ~= 'table' then
+    return false
+  end
+
+  -- use metatable method
+  if not ignore_mt then
+    local mt1 = getmetatable(o1)
+    if mt1 and mt1.__eq then
+      -- compare using built in method
+      return o1 == o2
+    end
+  end
+
+  -- iterate over o1
+  for key1, value1 in pairs(o1) do
+    local value2 = o2[key1]
+    if value2 == nil or are_same(value1, value2, ignore_mt) == false then
+      return false
+    end
+  end
+
+  --- check keys in o2 but missing from o1
+  for key2, _ in pairs(o2) do
+    if o1[key2] == nil then
+      return false
+    end
+  end
+  return true
+end
+
+---
 ---https://stackoverflow.com/a/49405922
 ---
 ---@param path string The path of a directory
@@ -535,6 +588,7 @@ end
 
 return {
   pinspect = pinspect,
+  are_same = are_same,
   print_global_namespace = print_global_namespace,
   convert_string_array_to_alias_union = convert_string_array_to_alias_union,
   list_files_recursively = list_files_recursively,

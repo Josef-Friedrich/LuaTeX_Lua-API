@@ -595,8 +595,14 @@ Documentation for the field `data` of the `pdf_colorstack` node:
 
 ### lualibs
 
+* Context Lua Documents, July 8, 2023: [page 79](https://www.pragma-ade.nl/general/manuals/cld-mkiv.pdf)
+* Corresponding Lua source code: [lualibs-table.lua#L1106-L1132](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1106-L1132)
+* ConTeXt wiki: [ConTeXt and Lua programming/Extensions to the Lua IO library/String manipulation](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library/String_manipulation)
+
 /usr/local/texlive/texmf-dist/tex/luatex/lualibs/lualibs-basic-merged.lua
 /usr/local/texlive/texmf-dist/tex/luatex/lualibs/lualibs-extended-merged.lua
+
+
 
 #### dir.lua
 
