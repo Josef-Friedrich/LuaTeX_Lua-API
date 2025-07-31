@@ -24,6 +24,14 @@ print_namespace:
 generate_doc:
 	$(HOME)/.vscode/extensions/sumneko.lua-3.6.8-linux-x64/server/bin/lua-language-server --doc library
 
+# https://github.com/LuaLS/LuaParser
+install_luaparser:
+	sudo luarocks install lpeglabel
+	rm -rf /tmp/LuaParser
+	git clone https://github.com/LuaLS/LuaParser.git /tmp/LuaParser
+	sudo rsync -av --delete /tmp/LuaParser/src/parser/  /usr/local/share/lua/5.3/parser/
+	sudo cp /tmp/LuaParser/src/utility.lua /usr/local/share/lua/5.3/utility.lua
+
 dist:
 	./manage.py dist
 
