@@ -5,6 +5,7 @@ file = {}
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-file.lua#L122-L124](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-file.lua#L122-L124)
+---
 ---@param filename string
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/file.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -14,6 +15,7 @@ function file.pathpart(filename, default) end
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-file.lua#L169](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-file.lua#L169)
+---
 ---@see file.pathpart
 ---@deprecated
 ---@param filename string
@@ -167,6 +169,7 @@ function file.reslash(filename) end
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-file.lua#L394](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-file.lua#L394)
+---
 ---@see file.is_writable
 ---@deprecated
 ---@param filename string
@@ -188,6 +191,7 @@ function file.is_writable(filename) end
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-file.lua#L393](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-file.lua#L393)
+---
 ---@see file.is_readable
 ---@deprecated
 ---@param filename string
@@ -229,6 +233,7 @@ function file.splitpath(filename, separator) end
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-compat.lua#L30](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-compat.lua#L30)
+---
 ---@see file.splitpath
 ---@param filename string
 ---
@@ -265,6 +270,7 @@ function file.collapsepath(filename, anchor) end
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-file.lua#L545-L597](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-file.lua#L545-L597)
+---
 ---@see file.collapsepath
 ---@deprecated
 ---@param filename string
@@ -387,6 +393,7 @@ function file.savechecksum() end
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-dir.lua#L601](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-dir.lua#L601)
+---
 ---@see dir.expandname
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/file.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -396,6 +403,7 @@ function file.expandname() end
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-file.lua#L631](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-file.lua#L631)
+---
 ---@see io.loaddata
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/file.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -405,6 +413,7 @@ function file.readdata() end
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-file.lua#L632](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-file.lua#L632)
+---
 ---@see io.savedata
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/file.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)

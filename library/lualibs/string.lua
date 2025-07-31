@@ -744,7 +744,6 @@ function string.formatter(text, ...) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/string.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function string.texnewlines(text) end
 
-
 ---
 ---__Example:__
 ---

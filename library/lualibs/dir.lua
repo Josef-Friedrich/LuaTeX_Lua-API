@@ -21,6 +21,7 @@ function dir.globpattern(path, patt, recurse, method) end
 ---__Reference:__
 ---
 ---* Corresponding source code: [lualibs-dir.lua#L188-L221](https://github.com/latex3/lualibs/blob/116ffb3eddeb32663879200b91bc3177d74ee1ff/lualibs-dir.lua#L188-L221)
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/dir.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function dir.collectpattern(path, patt, recurse, result) end
 
