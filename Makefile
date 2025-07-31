@@ -143,6 +143,15 @@ example_lualibs_string_utfpadding:
 example_lualibs_string_wordsplitter:
 	$(LUALIBS) string/wordsplitter.lua
 
+### table
+
+example_lualibs_table_are_equal:
+	$(LUALIBS) table/are_equal.lua
+example_lualibs_table_identical:
+	$(LUALIBS) table/identical.lua
+example_lualibs_table_serialize:
+	$(LUALIBS) table/serialize.lua
+
 ### utilities
 
 #### utilities_strings

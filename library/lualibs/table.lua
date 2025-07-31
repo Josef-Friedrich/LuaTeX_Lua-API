@@ -5,7 +5,7 @@
 ---
 ---https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-table.lua
 
-_N.sorted = "page "
+_N.CLD_sorted = "page "
 
 _N.table = "lualibs-table.lua"
 
@@ -15,7 +15,7 @@ _N.table = "lualibs-table.lua"
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/table.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function table.sorted(tab) end
 
-_N.keys_sortedkeys_sortedhashkeys_sortedhash = "page "
+_N.CLD_keys_sortedkeys_sortedhashkeys_sortedhash = "page 77"
 
 ---
 ---__Example:__
@@ -114,10 +114,44 @@ function table.sortedhash(tab, cmp) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/table.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function table.sortedpairs(tab, cmp) end
 
-_N.serialize_print_tohandle_tofile = ""
+_N.CLD_serialize_print_tohandle_tofile = "page 77"
 
 ---
 ---Convert a table into a verbose representation.
+---
+---__Example:__
+---
+---```lua
+---assert(table.serialize({ a = 2 }) == [[t={
+--- ["a"]=2,
+---}]])
+---
+---assert(table.serialize({ a = 2 }, "name") == [[name={
+--- ["a"]=2,
+---}]])
+---
+---assert(table.serialize({ a = 2 }, true) == [[return {
+--- ["a"]=2,
+---}]])
+---
+---assert(table.serialize({ a = 2 }, false) == [[{
+--- ["a"]=2,
+---}]])
+---
+---assert(table.serialize({ a = 2 }, "return") == [[return {
+--- ["a"]=2,
+---}]])
+---
+---assert(table.serialize({ a = 2 }, 12) == [[["12"]={
+--- ["a"]=2,
+---}]])
+---
+---assert(table.serialize({ a = 2, [3] = "b", [true] = "6" }, nil, true) == [[t={
+--- [3]="b",
+--- ["a"]=2,
+--- [true]="6",
+---}]])
+---```
 ---
 ---__Reference:__
 ---
@@ -162,15 +196,30 @@ function table.tofile(filename, root, name, specification) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/table.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function table.tohandle(handle, root, name, specification) end
 
-_N.identical_are_equal = ""
+_N.CLD_identical_are_equal = "page 79"
 
 ---
 ---Operate on a hash.
 ---
+---
+---__Example:__
+---
+---```lua
+---assert(table.identical({ a = { x = 2 } }, { a = { x = 3 } }) == false)
+---assert(table.identical({ a = { x = 2 } }, { a = { x = 2 } }) == true)
+---assert(table.identical({ "one", "two" }, { "one", "two" }) == true)
+---assert(table.identical({ "one", "two" }, { "two", "one" }) == false)
+---```
+---
+---__Reference:__
+---
+---* Context Lua Documents, July 8. 2023, page 79
 ---* Corresponding Lua source code: [lualibs-table.lua#L1134-L1150](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1134-L1150)
 ---
 ---@param a table
 ---@param b table
+---
+---@return boolean
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/table.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function table.identical(a, b) end
@@ -178,15 +227,31 @@ function table.identical(a, b) end
 ---
 ---Assume an indexed table.
 ---
+---
+---__Example:__
+---
+---```lua
+---assert(table.are_equal({ a = { x = 2 } }, { a = { x = 3 } }) == true)
+---assert(table.are_equal({ a = { x = 2 } }, { a = { x = 2 } }) == true)
+---assert(table.are_equal({ "one", "two" }, { "one", "two" }) == true)
+---assert(table.are_equal({ "one", "two" }, { "two", "one" }) == false)
+---```
+---
+---
+---__Reference:__
+---
+---* Context Lua Documents, July 8. 2023, page 79
 ---* Corresponding Lua source code: [lualibs-table.lua#L1106-L1132](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1106-L1132)
 ---
 ---@param a table
 ---@param b table
 ---
+---@return boolean
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/table.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function table.are_equal(a, b, n, m) end
 
-_N.tohash_fromhash_swapped_swaphash_reversed_reverse_mirrored = ""
+_N.CLD_tohash_fromhash_swapped_swaphash_reversed_reverse_mirrored = "page 79"
 
 ---
 ---Convert a list into a hash so
@@ -221,7 +286,7 @@ function table.fromhash(tab) end
 function table.swapped(tab, s) end
 
 ---
-------Reverse the values in an indexed table.
+---Reverse the values in an indexed table.
 ---
 ---* Corresponding Lua source code: [lualibs-table.lua#L1241-L1251](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1241-L1251)
 ---
@@ -248,7 +313,7 @@ function table.reversed(tab) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/table.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function table.mirrored(tab) end
 
-_N.append_prepend = ""
+_N.CLD_append_prepend = "page 81"
 
 ---
 ---The first table gets
@@ -278,7 +343,7 @@ function table.append(tab, list) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/table.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function table.prepend(tab, list) end
 
-_N.merge_merged_imerge_imerged = ""
+_N.CLD_merge_merged_imerge_imerged = "page 81"
 
 ---
 ---Merge multiple hashes
@@ -340,7 +405,7 @@ function table.merged(...) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/table.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function table.imerged(...) end
 
-_N.copy_fastcopy = ""
+_N.CLD_copy_fastcopy = "page 81"
 
 ---
 ---Make a real and deep copy.
@@ -374,7 +439,7 @@ function table.copy(tab, tables) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/table.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function table.fastcopy(tab, metatabletoo) end
 
-_N.flattened = ""
+_N.CLD_flattened = "page 82"
 
 ---
 ---* Corresponding Lua source code: [lualibs-table.lua#L1015-L1044](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1015-L1044)
@@ -392,7 +457,7 @@ _N.loweredkeys = ""
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/table.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function table.loweredkeys(tab) end
 
-_N.contains = ""
+_N.CLD_contains = ""
 
 ---
 ---* Corresponding Lua source code: [lualibs-table.lua#L1178-L1187](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1178-L1187)
@@ -402,13 +467,13 @@ _N.contains = ""
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/table.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function table.contains(tab, v) end
 
-_N.unique = ""
+_N.CLD_unique = ""
 
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/table.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function table.unique(old) end
 
-_N.count = ""
+_N.CLD_count = ""
 
 ---
 ---* Corresponding Lua source code: [lualibs-table.lua#L1189-L1195](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1189-L1195)
@@ -418,7 +483,7 @@ _N.count = ""
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/table.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function table.count(tab) end
 
-_N.sequenced = ""
+_N.CLD_sequenced = ""
 
 ---
 ---* Corresponding Lua source code: [lualibs-table.lua#L1255-L1304](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1255-L1304)
