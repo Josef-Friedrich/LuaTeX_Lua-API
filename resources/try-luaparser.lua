@@ -1,7 +1,11 @@
+-- May be helpful https://github.com/LuaLS/lua-language-server/blob/master/script/cli/doc/init.lua
+
 local inspect = require('inspect')
 local parser = require('parser')
 
-local function pinspect(value) print(inspect(value)) end
+local function pinspect(value)
+  print(inspect(value))
+end
 
 ---https://github.com/LuaLS/LuaParser/blob/master/src/parser/guide.lua
 ---@class parser.object
@@ -94,7 +98,28 @@ local one_function = [[
 local function test1(arg1) end
 ]]
 
-local test_function = [[
+local global_function = [[
+---Docs
+---
+---```lua
+---print('lol')
+---```
+function test1(arg1) end
+]]
+
+local global_table = [[
+---Docs
+my_table = {}
+]]
+
+local multiple_variables = [[
+---Docs
+local var1 = true
+local var2 = false
+local var3 = "A string"
+]]
+
+local two_functions = [[
 ---Test Function
 ---@param arg1 string
 ---
@@ -108,22 +133,36 @@ local function test1(arg1) end
 local function test2(arg1) end
 ]]
 
-local state = parser.compile(one_function, 'Lua')
+local state = parser.compile(multiple_variables, 'Lua')
 parser.luadoc.luadoc(state)
 
-for index, value in ipairs(state.ast) do
-    ---@type parser.object
-    local object = value
-    -- pinspect(value.effect)
-    -- print(value.type)
-    pinspect(object)
-end
-
+---pinspect(state.ast)
 ---
 ---@param object parser.object
-local function descender (object)
+local function descend(object)
+  -- pinspect(object)
 
+  if type(object) == 'table' and object[1] then
+    --print(object.type, object[1])
 
- end
+    if object.value then
+      for _, o in ipairs(object.value) do
+        descend(o)
+      end
+    end
+
+    -- pinspect(object.parent[1].parent.type)
+
+    for _, o in ipairs(object) do
+      descend(o)
+    end
+  else
+    pinspect(object)
+  end
+end
+
+-- for index, object in ipairs(state.ast) do descend(object) end
+
+descend(state.ast)
 
 -- parser.luadoc.buildAndBindDoc(state.ast, test_function, state.ast.vstart)
