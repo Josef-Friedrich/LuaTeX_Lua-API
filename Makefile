@@ -36,7 +36,7 @@ luaparser_download:
 	./manage.py parser
 
 luaparser:
-	lua ./resources/try-luaparser.lua
+	cd parser; lua _try-luaparser.lua
 
 dist:
 	./manage.py dist

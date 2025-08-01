@@ -2,8 +2,7 @@
   "python.formatting.provider": "black",
   // https://github.com/sumneko/lua-language-server/wiki/Libraries
   "Lua.workspace.library": [
-    "~/repos/repos/lua/luatex_api_all/library",
-    "/usr/local/share/lua/5.3/parser"
+    "~/repos/repos/lua/luatex_api_all/library"
   ],
   "Lua.diagnostics.disable": [
     "duplicate-set-field",
