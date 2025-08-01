@@ -480,7 +480,37 @@ def format() -> None:
     _apply("library/**/*.lua", _format)
 
 
-# manuals
+def parser() -> None:
+    """Entry point for ./manage.py parser.
+
+    Download the Lua sources of the LuaParser (https://github.com/LuaLS/LuaParser).
+    """
+
+    def _download(src: str, dest: str) -> None:
+        _download_url(
+            f"https://raw.githubusercontent.com/LuaLS/LuaParser/refs/heads/master/src/{src}",
+            str(project_base_path) + f"/parser/{dest}",
+        )
+
+    for file in [
+        "compile.lua",
+        "guide.lua",
+        "init.lua",
+        "lines.lua",
+        "luadoc.lua",
+        "relabel.lua",
+        "tokens.lua",
+    ]:
+        _download(
+            f"parser/{file}",
+            file,
+        )
+
+    for file in ["meta.lua", "utility.lua"]:
+        _download(
+            file,
+            file,
+        )
 
 
 def manuals() -> None:
@@ -760,6 +790,7 @@ class Args:
         "format",
         "manuals",
         "merge",
+        "parser",
         "test",
     ]
     relpath: Optional[str]
@@ -801,22 +832,25 @@ class TestManager(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
+    main_parser = argparse.ArgumentParser()
 
-    parser.add_argument("-d", "--debug", action="store_true")
+    main_parser.add_argument("-d", "--debug", action="store_true")
 
-    subparsers = parser.add_subparsers(dest="command")
+    subparsers = main_parser.add_subparsers(dest="command")
 
+    # convert
     convert_parser = subparsers.add_parser(
         "convert",
         help="Convert manuals",
     )
 
+    # dist
     dist_parser = subparsers.add_parser(
         "dist",
         help="Copy library to dist and remove the navigation table.",
     )
 
+    # example
     example_parser = subparsers.add_parser(
         "example",
         help="Compile examples in the folder ./examples",
@@ -833,16 +867,19 @@ if __name__ == "__main__":
     )
     example_parser.add_argument("relpath")
 
+    # format
     format_parser = subparsers.add_parser(
         "format",
         help="Format the lua docstrings (Remove duplicate empty comment lines, start docstring with an empty line)",
     )
 
+    # manuals
     manuals_parser = subparsers.add_parser(
         "manuals",
         help="Download the TeX or HTML sources of the manuals.",
     )
 
+    # merge
     merge_parser = subparsers.add_parser(
         "merge",
         help="Merge multiple definitions files into one for the CTAN upload.",
@@ -850,9 +887,16 @@ if __name__ == "__main__":
     )
     merge_parser.add_argument("subproject")
 
+    # parser
+    parser_parser = subparsers.add_parser(
+        "parser",
+        help="Download the Lua sources of the LuaParser (https://github.com/LuaLS/LuaParser).",
+    )
+
+    # test
     test_parser = subparsers.add_parser("test", help="Run the embedded unittest.")
 
-    args = cast(Args, parser.parse_args())
+    args = cast(Args, main_parser.parse_args())
 
     if args.debug:
         logger.setLevel(logging.DEBUG)
@@ -873,10 +917,12 @@ if __name__ == "__main__":
         manuals()
     elif args.command == "merge" and args.subproject:
         merge(args.subproject)
+    elif args.command == "parser":
+        parser()
     elif args.command == "test":
         suite = unittest.defaultTestLoader.loadTestsFromTestCase(TestManager)
         runner = unittest.TextTestRunner()
         runner.run(suite)
     else:
-        parser.print_help()
+        main_parser.print_help()
         sys.exit(1)

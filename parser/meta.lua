@@ -1,0 +1,2 @@
+---@alias uri string
+---@class noders

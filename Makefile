@@ -32,6 +32,9 @@ luaparser_install:
 	sudo rsync -av --delete /tmp/LuaParser/src/parser/  /usr/local/share/lua/5.3/parser/
 	sudo cp /tmp/LuaParser/src/utility.lua /usr/local/share/lua/5.3/utility.lua
 
+luaparser_download:
+	./manage.py parser
+
 luaparser:
 	lua ./resources/try-luaparser.lua
 
