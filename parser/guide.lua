@@ -144,6 +144,7 @@ local type         = type
 ---@field _eachCache?   parser.Node[]
 ---@field _isGlobal?    boolean
 ---@field _typeCache?   parser.Node[][]
+---@field text? string # doc.tailcomment
 
 ---@class guide
 ---@field debugMode boolean
@@ -850,7 +851,8 @@ function m.eachSourceTypes(ast, tps, callback)
     end
 end
 
---- 遍历所有的source
+---
+---Iterate over all sources (遍历所有的source)
 ---@param ast parser.Node
 ---@param callback fun(src: parser.Node): boolean?
 function m.eachSource(ast, callback)
@@ -890,6 +892,8 @@ function m.eachChild(source, callback)
     f(source, callback)
 end
 
+---
+---
 --- 获取指定的 special
 ---@param ast parser.Node
 ---@param name string

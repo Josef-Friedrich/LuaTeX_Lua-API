@@ -7,6 +7,57 @@ local guide = parser.guide
 --- m = module to export
 local m = {}
 
+m.guide = guide
+
+local function format_color_code(code)
+  return string.char(27) .. "[" .. tostring(code) .. "m"
+end
+
+local ansi_colors = {
+  red = format_color_code(31),
+  green = format_color_code(32),
+  yellow = format_color_code(32),
+  blue = format_color_code(34),
+  reset = format_color_code(0),
+}
+
+---
+---@param color_code string
+---@param text string
+---
+---@return string
+local function colorize(color_code, text)
+  return color_code .. tostring(text) .. ansi_colors.reset
+end
+
+---@param text string
+---
+---@return string
+local function red(text)
+  return colorize(ansi_colors.red, text)
+end
+
+---@param text string
+---
+---@return string
+local function green(text)
+  return colorize(ansi_colors.green, text)
+end
+
+---@param text string
+---
+---@return string
+local function yellow(text)
+  return colorize(ansi_colors.yellow, text)
+end
+
+---@param text string
+---
+---@return string
+local function blue(text)
+  return colorize(ansi_colors.blue, text)
+end
+
 ---
 ---Parse the given Lua code and return the state object.
 ---
@@ -42,24 +93,65 @@ function m.print_object(node)
   print(node.type)
 end
 
----
----Descend the Abstract Syntax Tree
----
----@param object parser.Node
-function m.descend(object)
-  if type(object) == "table" and object[1] then
-    if object.value then
-      for _, o in ipairs(object.value) do
-        m.descend(o)
-      end
-    end
-
-    for _, o in ipairs(object) do
-      m.descend(o)
-    end
-  else
-    m.pinspect(object)
+---@param node parser.Node
+function m.stringify(node)
+  local secondary_value = nil
+  local value = guide.getKeyName(node)
+  if value == nil then
+    value = ""
   end
+
+  if node.type == 'function' then
+
+    m.pinspect(node)
+  end
+
+  if node.type == "doc.comment" then
+    value = node.comment.text
+  elseif node.type == "doc.param.name" then
+    value = node[1]
+  elseif node.type == "doc.tailcomment" then
+    value = node.text
+  elseif node.type == "doc.type.code" then
+    value = node[1]
+    secondary_value = node.comment
+  end
+  local output = node.type .. " " .. red(value)
+
+  if secondary_value then
+    return output .. " " .. yellow(secondary_value)
+  end
+  return output
+end
+
+---
+---Debug the Abstract Syntax Tree by traversing it and printing some basic informations.
+---
+---@param node parser.Node
+---@param each_source? boolean # Use `guide.eachSource` instead of `guide.eachChild` to traverse.
+function m.debug(node, each_source)
+  ---@param node parser.Node
+  ---@param depth integer
+  local function descend(node, depth)
+    local indent = string.rep("\t", depth)
+    if not each_source then
+      guide.eachChild(node, function(src)
+        if src then
+          print(indent, m.stringify(src))
+          descend(src, depth + 1)
+        end
+      end)
+    else
+      guide.eachSource(node, function(src)
+        if src ~= node then
+          print(indent, m.stringify(src))
+          descend(src, depth + 1)
+        end
+      end)
+    end
+  end
+  print("\n")
+  descend(node, 0)
 end
 
 ---
@@ -126,7 +218,7 @@ end
 ---
 ---@return parser.Node
 function m.get_main(ast)
-    return guide.getRoot(ast)
+  return guide.getRoot(ast)
 end
 
 ---
@@ -156,19 +248,6 @@ function m.get_first_function(ast)
     error("No functions found")
   end
   return functions[1]
-end
-
----
----Get the first function
----
----@param ast parser.Node
----
----@return parser.Node[]
-function m.get_variables(ast)
-    --m.pinspect(ast)
-
-    return {}
-
 end
 
 return m
