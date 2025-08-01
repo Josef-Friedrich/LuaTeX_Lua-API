@@ -100,7 +100,7 @@ def _run_stylua(path: Path | str) -> None:
         [
             "/usr/local/bin/stylua",
             "--config-path",
-            project_base_path / "resources" / "stylua.toml",
+            project_base_path / "stylua.toml",
             path,
         ]
     )

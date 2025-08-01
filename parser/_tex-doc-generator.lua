@@ -101,11 +101,6 @@ function m.stringify(node)
     value = ""
   end
 
-  if node.type == 'function' then
-
-    m.pinspect(node)
-  end
-
   if node.type == "doc.comment" then
     value = node.comment.text
   elseif node.type == "doc.param.name" then

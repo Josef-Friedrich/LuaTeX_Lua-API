@@ -12,8 +12,8 @@ convert:
 	./manage.py convert
 
 stylua:
-	stylua --config-path ./resources/stylua.toml library
-	stylua --config-path ./resources/stylua.toml examples
+	stylua --config-path ./stylua.toml library
+	stylua --config-path ./stylua.toml examples
 
 debug:
 	luatex --luaonly debug.lua
