@@ -1,13 +1,76 @@
 local error        = error
 local type         = type
 
+---@alias parser.ObjectType
+---|`main`#  {'#', 'docs'},
+---|`repeat` # {'#', 'filter'},
+---|`while` # {'filter', '#'},
+---|`in` # {'keys', 'exps', '#'},
+---|`loop` # {'loc', 'init', 'max', 'step', '#'},
+---|`do` # {'#'},
+---|`if` # {'#'},
+---|`ifblock` # {'filter', '#'},
+---|`elseifblock` # {'filter', '#'},
+---|`elseblock` # {'#'},
+---|`setfield` # {'node', 'field', 'value'},
+---|`getfield` # {'node', 'field'},
+---|`setmethod` # {'node', 'method', 'value'},
+---|`getmethod` # {'node', 'method'},
+---|`setindex` # {'node', 'index', 'value'},
+---|`getindex` # {'node', 'index'},
+---|`tableindex` # {'index', 'value'},
+---|`tablefield` # {'field', 'value'},
+---|`tableexp` # {'value'},
+---|`setglobal` # {'value'},
+---|`local` # {'attrs', 'value'},
+---|`setlocal` # {'value'},
+---|`return` # {'#'},
+---|`select` # {'vararg'},
+---|`table` # {'#'},
+---|`function` # {'args', '#'},
+---|`funcargs` # {'#'},
+---|`paren` # {'exp'},
+---|`call` # {'node', 'args'},
+---|`callargs` # {'#'},
+---|`list` # {'#'},
+---|`binary` # {1, 2},
+---|`unary` # {1},
+---|`doc` # {'#'},
+---|`doc.class` # {'class', '#extends', '#signs', 'docAttr', 'comment'},
+---|`doc.type` # {'#types', 'name', 'comment'},
+---|`doc.alias` # {'alias', 'docAttr', 'extends', 'comment'},
+---|`doc.enum` # {'enum', 'extends', 'comment', 'docAttr'},
+---|`doc.param` # {'param', 'extends', 'comment'},
+---|`doc.return` # {'#returns', 'comment'},
+---|`doc.field` # {'field', 'extends', 'comment'},
+---|`doc.generic` # {'#generics', 'comment'},
+---|`doc.generic.object` = {'generic', 'extends', 'comment'},
+---|`doc.vararg` # {'vararg', 'comment'},
+---|`doc.type.array` # {'node'},
+---|`doc.type.function` # {'#args', '#returns', 'comment'},
+---|`doc.type.table` # {'#fields', 'comment'},
+---|`doc.type.literal` # {'node'},
+---|`doc.type.arg` # {'name', 'extends'},
+---|`doc.type.field` # {'name', 'extends'},
+---|`doc.type.sign` # {'node', '#signs'},
+---|`doc.overload` # {'overload', 'comment'},
+---|`doc.see` # {'name', 'comment'},
+---|`doc.version` # {'#versions'},
+---|`doc.diagnostic` # {'#names'},
+---|`doc.as` # {'as'},
+---|`doc.cast` # {'name', '#casts'},
+---|`doc.cast.block` # {'extends'},
+---|`doc.operator` # {'op', 'exp', 'extends'},
+---|`doc.meta` # {'name'},
+---|`doc.attr` # {'#names'},
+
 ---@class parser.object
 ---@field bindDocs              parser.object[]
 ---@field bindGroup             parser.object[]
 ---@field bindSource            parser.object
 ---@field value                 parser.object
 ---@field parent                parser.object
----@field type                  string
+---@field type                  parser.ObjectType
 ---@field special               string
 ---@field tag                   string
 ---@field args                  { [integer]: parser.object, start: integer, finish: integer, type: string }
@@ -77,10 +140,10 @@ local type         = type
 ---@field [integer]             parser.object|any
 ---@field dot                   { type: string, start: integer, finish: integer }
 ---@field colon                 { type: string, start: integer, finish: integer }
----@field package _root         parser.object
----@field package _eachCache?   parser.object[]
----@field package _isGlobal?    boolean
----@field package _typeCache?   parser.object[][]
+---@field _root         parser.object
+---@field _eachCache?   parser.object[]
+---@field _isGlobal?    boolean
+---@field _typeCache?   parser.object[][]
 
 ---@class guide
 ---@field debugMode boolean
@@ -395,7 +458,7 @@ function m.getBreakBlock(obj)
     error('guide.getBreakBlock overstack')
 end
 
---- 寻找doc的主体
+---Find the body of the doc (寻找doc的主体)
 ---@param obj parser.object
 ---@return parser.object
 function m.getDocState(obj)

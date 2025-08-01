@@ -33,10 +33,11 @@ luaparser_install:
 	sudo cp /tmp/LuaParser/src/utility.lua /usr/local/share/lua/5.3/utility.lua
 
 luaparser_download:
+	sudo luarocks install lpeglabel
 	./manage.py parser
 
 luaparser:
-	cd parser; lua _try-luaparser.lua
+	cd parser; lua _tex-doc-generator.lua
 
 dist:
 	./manage.py dist
