@@ -39,6 +39,9 @@ luaparser_download:
 luaparser:
 	cd parser; lua _tex-doc-generator.lua
 
+luaparser_test:
+	cd parser; busted _test.lua
+
 dist:
 	./manage.py dist
 

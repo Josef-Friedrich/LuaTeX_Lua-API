@@ -140,24 +140,24 @@ Symbol              <-  ({} {
 
 ---@alias parser.visibleType 'public' | 'protected' | 'private' | 'package'
 
----@class parser.object
+---@class parser.Node
 ---@field literal           boolean
----@field signs             parser.object[]
----@field originalComment   parser.object
----@field as?               parser.object
+---@field signs             parser.Node[]
+---@field originalComment   parser.Node
+---@field as?               parser.Node
 ---@field touch?            integer
 ---@field module?           string
 ---@field async?            boolean
 ---@field versions?         table[]
----@field names?            parser.object[]
+---@field names?            parser.Node[]
 ---@field path?             string
----@field bindComments?     parser.object[]
+---@field bindComments?     parser.Node[]
 ---@field visible?          parser.visibleType
----@field operators?        parser.object[]
----@field calls?            parser.object[]
----@field generics?         parser.object[]
----@field generic?          parser.object
----@field docAttr?          parser.object
+---@field operators?        parser.Node[]
+---@field calls?            parser.Node[]
+---@field generics?         parser.Node[]
+---@field generic?          parser.Node
+---@field docAttr?          parser.Node
 ---@field pattern?          string
 
 local function parseTokens(text, offset)

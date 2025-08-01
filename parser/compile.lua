@@ -2774,9 +2774,9 @@ local function skipSeps()
     end
 end
 
----@return parser.object?   first
----@return parser.object?   second
----@return parser.object[]? rest
+---@return parser.Node?   first
+---@return parser.Node?   second
+---@return parser.Node[]? rest
 local function parseSetValues()
     skipSpace()
     local first = parseExp()
@@ -2831,8 +2831,8 @@ local function pushActionIntoCurrentChunk(action)
     end
 end
 
----@return parser.object?   second
----@return parser.object[]? rest
+---@return parser.Node?   second
+---@return parser.Node[]? rest
 local function parseVarTails(parser, isLocal)
     if Tokens[Index + 1] ~= ',' then
         return nil
@@ -3568,7 +3568,7 @@ local function parseFor()
         forStateVars = 3
         LocalCount = LocalCount + forStateVars
         if name then
-            ---@cast name parser.object
+            ---@cast name parser.Node
             -- In Lua 5.5, for loop variables are treated as constants
             local attrs
             if State.version == 'Lua 5.5' then
@@ -3688,7 +3688,7 @@ local function parseFor()
             action.keys = list
             for i = 1, #list do
                 local obj = list[i]
-                ---@cast obj parser.object
+                ---@cast obj parser.Node
                 -- In Lua 5.5, for loop variables are treated as constants
                 local attrs
                 if State.version == 'Lua 5.5' then

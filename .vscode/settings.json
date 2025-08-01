@@ -2,8 +2,13 @@
   "python.formatting.provider": "black",
   // https://github.com/sumneko/lua-language-server/wiki/Libraries
   "Lua.workspace.library": [
-    "~/repos/repos/lua/luatex_api_all/library"
+    "~/repos/repos/lua/luatex_api_all/library",
+    "${addons}/busted/module/library",
+    "${3rd}/luassert/library"
   ],
+  "[lua]": {
+    "editor.defaultFormatter": "JohnnyMorganz.stylua"
+  },
   "Lua.diagnostics.disable": [
     "duplicate-set-field",
     "param-type-mismatch"
