@@ -601,47 +601,46 @@ Documentation for the field `data` of the `pdf_colorstack` node:
 
 [/usr/local/texlive/texmf-dist/tex/luatex/lualibs/lualibs-basic-merged.lua](https://github.com/latex3/lualibs/blob/main/lualibs-basic-merged.lua)
 
-
-| lualibs name[^basic] | ConTeXt name   | primary purpose           |
-| -------------------- | -------------- | ------------------------- |
-| lualibs-lua.lua      | l-lua.lua      | compatibility             |
-| lualibs-package.lua  | l-package.lua  | Lua file loaders          |
-| lualibs-lpeg.lua     | l-lpeg.lua     | patterns                  |
-| lualibs-function.lua | l-function.lua | defines a dummy function  |
-| lualibs-string.lua   | l-string.lua   | string manipulation       |
-| lualibs-table.lua    | l-table.lua    | serialization, conversion |
-| lualibs-boolean.lua  | l-boolean.lua  | boolean converter         |
-| lualibs-number.lua   | l-number.lua   | bit operations            |
-| lualibs-math.lua     | l-math.lua     | math functions            |
-| lualibs-io.lua       | l-io.lua       | reading and writing files |
-| lualibs-os.lua       | l-os.lua       | platform specific code    |
-| lualibs-file.lua     | l-file.lua     | filesystem operations     |
-| lualibs-md5.lua      | l-md5.lua      | checksum functions        |
-| lualibs-dir.lua      | l-dir.lua      | directory handling        |
-| lualibs-unicode.lua  | l-unicode.lua  | utf and unicode           |
-| lualibs-url.lua      | l-url.lua      | url handling              |
-| lualibs-set.lua      | l-set.lua      | sets                      |
+| lualibs name[^basic]                                                                     | ConTeXt name                                                                                              | primary purpose           |
+| ---------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | ------------------------- |
+| [lualibs-lua.lua](https://github.com/latex3/lualibs/blob/main/lualibs-lua.lua)           | [l-lua.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-lua.lua)           | Compatibility             |
+| [lualibs-package.lua](https://github.com/latex3/lualibs/blob/main/lualibs-package.lua)   | [l-package.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-package.lua)   | Lua file loaders          |
+| [lualibs-lpeg.lua](https://github.com/latex3/lualibs/blob/main/lualibs-lpeg.lua)         | [l-lpeg.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-lpeg.lua)         | Patterns                  |
+| [lualibs-function.lua](https://github.com/latex3/lualibs/blob/main/lualibs-function.lua) | [l-function.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-function.lua) | Defines a dummy function  |
+| [lualibs-string.lua](https://github.com/latex3/lualibs/blob/main/lualibs-string.lua)     | [l-string.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-string.lua)     | String manipulation       |
+| [lualibs-table.lua](https://github.com/latex3/lualibs/blob/main/lualibs-table.lua)       | [l-table.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-table.lua)       | Serialization, conversion |
+| [lualibs-boolean.lua](https://github.com/latex3/lualibs/blob/main/lualibs-boolean.lua)   | [l-boolean.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-boolean.lua)   | Boolean converter         |
+| [lualibs-number.lua](https://github.com/latex3/lualibs/blob/main/lualibs-number.lua)     | [l-number.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-number.lua)     | Bit operations            |
+| [lualibs-math.lua](https://github.com/latex3/lualibs/blob/main/lualibs-math.lua)         | [l-math.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-math.lua)         | Math functions            |
+| [lualibs-io.lua](https://github.com/latex3/lualibs/blob/main/lualibs-io.lua)             | [l-io.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-io.lua)             | Reading and writing files |
+| [lualibs-os.lua](https://github.com/latex3/lualibs/blob/main/lualibs-os.lua)             | [l-os.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-os.lua)             | Platform specific code    |
+| [lualibs-file.lua](https://github.com/latex3/lualibs/blob/main/lualibs-file.lua)         | [l-file.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-file.lua)         | Filesystem operations     |
+| [lualibs-md5.lua](https://github.com/latex3/lualibs/blob/main/lualibs-md5.lua)           | [l-md5.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-md5.lua)           | Checksum functions        |
+| [lualibs-dir.lua](https://github.com/latex3/lualibs/blob/main/lualibs-dir.lua)           | [l-dir.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-dir.lua)           | Directory handling        |
+| [lualibs-unicode.lua](https://github.com/latex3/lualibs/blob/main/lualibs-unicode.lua)   | [l-unicode.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-unicode.lua)   | Utf and unicode           |
+| [lualibs-url.lua](https://github.com/latex3/lualibs/blob/main/lualibs-url.lua)           | [l-url.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-url.lua)           | Url handling              |
+| [lualibs-set.lua](https://github.com/latex3/lualibs/blob/main/lualibs-set.lua)           | [l-set.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-set.lua)           | Sets                      |
 
 [/usr/local/texlive/texmf-dist/tex/luatex/lualibs/lualibs-extended-merged.lua](https://github.com/latex3/lualibs/blob/main/lualibs-extended-merged.lua)
 
 [^basic]: https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs.dtx#L313-L330
 
-| lualibs name[^extended] | ConTeXt name | primary purpose               |
-| ----------------------- | ------------ | ----------------------------- |
-| lualibs-util-sac.lua    | util-sac.lua | string based file readers     |
-| lualibs-util-str.lua    | util-str.lua | extra string functions        |
-| lualibs-util-fil.lua    | util-fil.lua | extra file functions          |
-| lualibs-util-tab.lua    | util-tab.lua | extra table functions         |
-| lualibs-util-sto.lua    | util-sto.lua | table allocation              |
-| lualibs-util-prs.lua    | util-sto.lua | miscellaneous parsers         |
-| lualibs-util-dim.lua    | util-dim.lua | conversion between dimensions |
-| lualibs-trac-inf.lua    | trac-inf.lua | timing, statistics            |
-| lualibs-util-lua.lua    | util-lua.lua | operations on bytecode        |
-| lualibs-util-deb.lua    | util-deb.lua | extra debug functionality     |
-| lualibs-util-tpl.lua    | util-tpl.lua | templating                    |
-| lualibs-util-sta.lua    | util-sta.lua | stacker (e. g. for pdf)       |
-| lualibs-util-jsn.lua    | util-jsn.lua | conversion to and from json   |
-| lualibs-util-zip.lua    | util-zip.lua | compression and zip files     |
+| lualibs name[^extended]                                                                  | ConTeXt name                                                                                          | primary purpose               |
+| ---------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------- |
+| [lualibs-util-sac.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-sac.lua) | [util-sac.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/util-sac.lua) | String based file readers     |
+| [lualibs-util-str.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-str.lua) | [util-str.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/util-str.lua) | Extra string functions        |
+| [lualibs-util-fil.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-fil.lua) | [util-fil.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/util-fil.lua) | Extra file functions          |
+| [lualibs-util-tab.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-tab.lua) | [util-tab.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/util-tab.lua) | Extra table functions         |
+| [lualibs-util-sto.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-sto.lua) | [util-sto.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/util-sto.lua) | Table allocation              |
+| [lualibs-util-prs.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-prs.lua) | [util-sto.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/util-sto.lua) | Miscellaneous parsers         |
+| [lualibs-util-dim.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-dim.lua) | [util-dim.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/util-dim.lua) | Conversion between dimensions |
+| [lualibs-trac-inf.lua](https://github.com/latex3/lualibs/blob/main/lualibs-trac-inf.lua) | [trac-inf.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/util-inf.lua) | Timing, statistics            |
+| [lualibs-util-lua.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-lua.lua) | [util-lua.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/util-lua.lua) | Operations on bytecode        |
+| [lualibs-util-deb.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-deb.lua) | [util-deb.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/util-deb.lua) | Extra debug functionality     |
+| [lualibs-util-tpl.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-tpl.lua) | [util-tpl.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/util-tpl.lua) | Templating                    |
+| [lualibs-util-sta.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-sta.lua) | [util-sta.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/util-sta.lua) | Stacker (e. g. for pdf)       |
+| [lualibs-util-jsn.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-jsn.lua) | [util-jsn.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/util-jsn.lua) | Conversion to and from json   |
+| [lualibs-util-zip.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-zip.lua) | [util-zip.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/util-zip.lua) | Compression and zip files     |
 
 [^extended]: https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs.dtx#L348-L362
 
