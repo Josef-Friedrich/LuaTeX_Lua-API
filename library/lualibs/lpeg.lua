@@ -3,6 +3,11 @@
 lpeg = {}
 
 ---
+---A helper table to better navigate through the documentation using the
+---outline: https://github.com/Josef-Friedrich/LuaTeX_Lua-API#navigation-table-_n
+_N = {}
+
+---
 --- https://github.com/latex3/lualibs/blob/116ffb3eddeb32663879200b91bc3177d74ee1ff/lualibs-lpeg.lua
 
 ---
@@ -24,6 +29,8 @@ function lpeg.US() end
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lpeg.afterprefix() end
+
+_N.CLD_anywhere = "page 106"
 
 ---
 ---__Reference:__
@@ -61,14 +68,6 @@ function lpeg.beforesuffix() end
 ---
 ---__Reference:__
 ---
----* Corresponding Lua source code: [lualibs-lpeg.lua#L428-L437](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-lpeg.lua#L428-L437)
----
----😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function lpeg.checkedsplit() end
-
----
----__Reference:__
----
 ---* Corresponding Lua source code: [lualibs-lpeg.lua#L1185-L1194](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-lpeg.lua#L1185-L1194)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -97,52 +96,6 @@ function lpeg.endstripper() end
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lpeg.finder() end
-
----
----Return a pattern that matches the substring until the first occurrence of separator
----
----__Example:__
----
----```lua
----local str =
----  "menu = spam, spam, spam, spam, spam, baked beans, spam, spam and spam"
----print(lpeg.firstofsplit(" = "):match(str))
----```
----
----__Reference:__
----
----* Corresponding Lua source code: [lualibs-lpeg.lua#L584-L592](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-lpeg.lua#L584-L592)
----* ConTeXt wiki: [ConTeXt and Lua programming/Extensions to the Lua IO library/String manipulation](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library/String_manipulation)
----
----@param separator string
----
----@return Pattern
----
----😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function lpeg.firstofsplit(separator) end
-
----
----Match the whole rest after that regardless of any further occurrences of separator.
----
----__Example:__
----
----```lua
----local str =
----  "menu = spam, spam, spam, spam, spam, baked beans, spam, spam and spam"
----print(lpeg.secondofsplit(" = "):match(str))
----```
----
----__Reference:__
----
----* Corresponding Lua source code: [lualibs-lpeg.lua#L594-L602](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-lpeg.lua#L594-L602)
----* ConTeXt wiki: [ConTeXt and Lua programming/Extensions to the Lua IO library/String manipulation](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library/String_manipulation)
----
----@param separator string
----
----@return Pattern
----
----😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function lpeg.secondofsplit(separator) end
 
 ---
 ---__Reference:__
@@ -191,6 +144,168 @@ function lpeg.print() end
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lpeg.ptree() end
+
+---
+---__Reference:__
+---
+---* Corresponding Lua source code: [lualibs-lpeg.lua#L846-L849](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-lpeg.lua#L846-L849)
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function lpeg.setutfcasers() end
+
+_N.CLD_splitter_splitat_firstofsplit_secondofsplit = "page 106"
+
+---
+---__Reference:__
+---
+---* Corresponding Lua source code: [lualibs-lpeg.lua#L323-L329](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-lpeg.lua#L323-L329)
+---* ConTeXt wiki: [ConTeXt and Lua programming/Extensions to the Lua IO library/String manipulation](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library/String_manipulation)
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function lpeg.splitter() end
+
+---
+---Return a pattern that produces a list of substrings delimited by delimiter (which can be a pattern or a string).
+---
+---The optional boolean single determines whether the string should be split only at the first match.
+---
+---__Example:__
+---
+---```lua
+---local str = [[
+---Number twenty-three. The shin.
+---Number twenty-four. Reginald Maudling's shin.
+---Number twenty-five. The brain.
+---Number twenty-six. Magaret Thatcher's brain.
+---Number twenty-seven. More naughty bits.
+---]]
+---
+---local t = { lpeg.splitat("Number", false):match(str) }
+---for n, element in pairs(t) do
+---  element = element == "" and element .. "\n" or element
+---  io.write(n .. ": " .. element)
+---end
+---```
+---
+---__Reference:__
+---
+---* ConTeXt wiki: [ConTeXt and Lua programming/Extensions to the Lua IO library/String manipulation](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library/String_manipulation)
+---
+---@param delimiter string
+---@param single? boolean
+---
+---@return Pattern
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function lpeg.splitat(delimiter, single) end
+
+---
+---Return a pattern that matches the substring until the first occurrence of separator
+---
+---__Example:__
+---
+---```lua
+---local str =
+---  "menu = spam, spam, spam, spam, spam, baked beans, spam, spam and spam"
+---print(lpeg.firstofsplit(" = "):match(str))
+---```
+---
+---__Reference:__
+---
+---* Corresponding Lua source code: [lualibs-lpeg.lua#L584-L592](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-lpeg.lua#L584-L592)
+---* ConTeXt wiki: [ConTeXt and Lua programming/Extensions to the Lua IO library/String manipulation](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library/String_manipulation)
+---
+---@param separator string
+---
+---@return Pattern
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function lpeg.firstofsplit(separator) end
+
+---
+---Match the whole rest after that regardless of any further occurrences of separator.
+---
+---__Example:__
+---
+---```lua
+---local str =
+---  "menu = spam, spam, spam, spam, spam, baked beans, spam, spam and spam"
+---print(lpeg.secondofsplit(" = "):match(str))
+---```
+---
+---__Reference:__
+---
+---* Corresponding Lua source code: [lualibs-lpeg.lua#L594-L602](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-lpeg.lua#L594-L602)
+---* ConTeXt wiki: [ConTeXt and Lua programming/Extensions to the Lua IO library/String manipulation](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library/String_manipulation)
+---
+---@param separator string
+---
+---@return Pattern
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function lpeg.secondofsplit(separator) end
+
+_N.CLD_split_checkedsplit = "page 107"
+
+---
+---__Reference:__
+---
+---* Corresponding Lua source code: [lualibs-lpeg.lua#L344-L359](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-lpeg.lua#L344-L359)
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function lpeg.split() end
+
+---
+---__Reference:__
+---
+---* Corresponding Lua source code: [lualibs-lpeg.lua#L428-L437](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-lpeg.lua#L428-L437)
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function lpeg.checkedsplit() end
+
+_N.CLD_stripper_keeper_replacer = "page 108"
+
+---
+---Return a pattern that removes either, if the argument is a string, all occurrences of every character of that string or, if the argument is a pattern, all occurrences of that pattern.
+---
+---__Example:__
+---
+---```lua
+---local str =
+---  "A dromedary has one hump and a camel has a refreshment car, buffet, and ticket collector."
+---print(lpeg.stripper("aeiou"):match(str))
+---print(lpeg.stripper(lpeg.P("camel ")):match(str))
+---```
+---
+---__Reference:__
+---
+---* Corresponding Lua source code: [lualibs-lpeg.lua#L469-L480](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-lpeg.lua#L469-L480)
+---* ConTeXt wiki: [ConTeXt and Lua programming/Extensions to the Lua IO library/String manipulation](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library/String_manipulation)
+---
+---@see lpeg.keeper
+---
+---@param pattern string|Pattern
+---
+---@return Pattern
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function lpeg.stripper(pattern) end
+
+---
+---Remove anything but the string or pattern respectively. Note: `string.keeper` does not seem to work as expected with patterns consisting of more than one byte, e.g. lpeg.P("camel").
+---
+---__Reference:__
+---
+---* Corresponding Lua source code: [lualibs-lpeg.lua#L484-L495](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-lpeg.lua#L484-L495)
+---
+---@see lpeg.stripper
+---
+---@param pattern string|Pattern
+---
+---@return Pattern
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function lpeg.keeper(pattern) end
 
 ---
 ---Returns a pattern that substitutes any first elements of a given pair by its second element.
@@ -243,108 +358,6 @@ function lpeg.ptree() end
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function lpeg.replacer(table) end
-
----
----__Reference:__
----
----* Corresponding Lua source code: [lualibs-lpeg.lua#L846-L849](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-lpeg.lua#L846-L849)
----
----😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function lpeg.setutfcasers() end
-
----
----__Reference:__
----
----* Corresponding Lua source code: [lualibs-lpeg.lua#L344-L359](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-lpeg.lua#L344-L359)
----
----😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function lpeg.split() end
-
----
----Return a pattern that produces a list of substrings delimited by delimiter (which can be a pattern or a string).
----
----The optional boolean single determines whether the string should be split only at the first match.
----
----__Example:__
----
----```lua
----local str = [[
----Number twenty-three. The shin.
----Number twenty-four. Reginald Maudling's shin.
----Number twenty-five. The brain.
----Number twenty-six. Magaret Thatcher's brain.
----Number twenty-seven. More naughty bits.
----]]
----
----local t = { lpeg.splitat("Number", false):match(str) }
----for n, element in pairs(t) do
----  element = element == "" and element .. "\n" or element
----  io.write(n .. ": " .. element)
----end
----```
----
----__Reference:__
----
----* ConTeXt wiki: [ConTeXt and Lua programming/Extensions to the Lua IO library/String manipulation](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library/String_manipulation)
----
----@param delimiter string
----@param single? boolean
----
----@return Pattern
----
----😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function lpeg.splitat(delimiter, single) end
-
----
----__Reference:__
----
----* Corresponding Lua source code: [lualibs-lpeg.lua#L323-L329](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-lpeg.lua#L323-L329)
----* ConTeXt wiki: [ConTeXt and Lua programming/Extensions to the Lua IO library/String manipulation](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library/String_manipulation)
----
----😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function lpeg.splitter() end
-
----
----Return a pattern that removes either, if the argument is a string, all occurrences of every character of that string or, if the argument is a pattern, all occurrences of that pattern.
----
----__Example:__
----
----```lua
----local str =
----  "A dromedary has one hump and a camel has a refreshment car, buffet, and ticket collector."
----print(lpeg.stripper("aeiou"):match(str))
----print(lpeg.stripper(lpeg.P("camel ")):match(str))
----```
----
----__Reference:__
----
----* Corresponding Lua source code: [lualibs-lpeg.lua#L469-L480](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-lpeg.lua#L469-L480)
----* ConTeXt wiki: [ConTeXt and Lua programming/Extensions to the Lua IO library/String manipulation](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library/String_manipulation)
----
----@see lpeg.keeper
----
----@param pattern string|Pattern
----
----@return Pattern
----
----😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function lpeg.stripper(pattern) end
-
----
----Remove anything but the string or pattern respectively. Note: `string.keeper` does not seem to work as expected with patterns consisting of more than one byte, e.g. lpeg.P("camel").
----
----__Reference:__
----
----* Corresponding Lua source code: [lualibs-lpeg.lua#L484-L495](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-lpeg.lua#L484-L495)
----
----@see lpeg.stripper
----
----@param pattern string|Pattern
----
----@return Pattern
----
----😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function lpeg.keeper(pattern) end
 
 ---
 ---__Reference:__

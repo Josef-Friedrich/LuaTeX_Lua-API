@@ -9,6 +9,8 @@ _N = {}
 
 _N.string = "lualibs-string.lua"
 
+_N.CLD_quoted_unquoted = "page 100"
+
 ---
 ---Surround `text` with double quotes.
 ---
@@ -115,6 +117,8 @@ function string.unquoted(text) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/string.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function string.unquote(text) end
 
+_N.CLD_count = "page 100"
+
 ---
 ---Return the `count` of matches for `pattern` in `text`.
 ---
@@ -136,6 +140,8 @@ function string.unquote(text) end
 ---@return integer count
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/string.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function string.count(text, pattern) end
+
+_N.CLD_count = "page 100"
 
 ---
 ---Returns the `text` capped at position `max` (minus the byte count of `tail`) with tail appended. The optional `tail` defaults to "...".
@@ -160,6 +166,8 @@ function string.count(text, pattern) end
 ---@return string text
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/string.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function string.limit(text, max, tail) end
+
+_N.CLD_strip = "page 99"
 
 ---
 ---Yields `text` with leading and trailing whitespace (spaces ` `, horizontal `\t` and vertical tabs `\v`, form feeds `\f`) removed.
@@ -277,6 +285,8 @@ function string.nospaces(str) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/string.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function string.longtostring(str) end
 
+_N.CLD_is_empty = "page 101"
+
 ---
 ---__Reference:__
 ---
@@ -285,6 +295,8 @@ function string.longtostring(str) end
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/string.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function string.is_empty(str) end
+
+_N.escapedpattern_topattern = "page 101"
 
 ---
 ---Escape all occurences of the characters `-`, `.`, `+`, `*`, `%`, `(`, `)`, `[`, and `]` using percent signs (`%`).
@@ -427,6 +439,8 @@ function string.is_boolean(text, default, strict) end
 
 _N.lpeg = "lualibs-lpeg.lua"
 
+_N.CLD_split_splitlines_checkedsplit = "page 99"
+
 ---
 ---Return a list of substrings of `string` delimited by `separator`.
 ---
@@ -463,6 +477,16 @@ _N.lpeg = "lualibs-lpeg.lua"
 function string.split(string, separator) end
 
 ---
+---__Reference:__
+---
+---* Corresponding Lua source code: [lualibs-lpeg.lua#L420-L422](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-lpeg.lua#L420-L422)
+---
+---@param text string
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/string.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+function string.splitlines(text) end
+
+---
 ---Return a list of substrings of `text` delimited by `separator`.
 ---
 ---Consecutive separators result in `nil`.
@@ -496,16 +520,6 @@ function string.split(string, separator) end
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/string.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function string.checkedsplit(text, separator) end
-
----
----__Reference:__
----
----* Corresponding Lua source code: [lualibs-lpeg.lua#L420-L422](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-lpeg.lua#L420-L422)
----
----@param text string
----
----😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/string.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function string.splitlines(text) end
 
 ---
 ---__Reference:__

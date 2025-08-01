@@ -14,7 +14,7 @@ _N = {}
 
 _N.number = "lualibs-number.lua"
 
-_N.bit = ""
+_N.CLD_tobitstring = "page 105"
 
 ---
 ---__Reference:__
@@ -24,7 +24,7 @@ _N.bit = ""
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/number.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function number.tobitstring(b, m, w) end
 
-_N.valid = ""
+_N.CLD_valid = "page 105"
 
 ---
 ---__Reference:__
