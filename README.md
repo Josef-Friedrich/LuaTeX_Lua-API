@@ -595,18 +595,61 @@ Documentation for the field `data` of the `pdf_colorstack` node:
 
 ### lualibs
 
-* Context Lua Documents, July 8, 2023: [page 79](https://www.pragma-ade.nl/general/manuals/cld-mkiv.pdf)
-* Corresponding Lua source code: [lualibs-table.lua#L1106-L1132](https://github.com/latex3/lualibs/blob/26fe094de645fdee79f65d9fc93040a53cb97272/lualibs-table.lua#L1106-L1132)
-* ConTeXt wiki: [ConTeXt and Lua programming/Extensions to the Lua IO library/String manipulation](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming/Extensions_to_the_Lua_IO_library/String_manipulation)
+* Context Lua Documents, July 8, 2023: [cld-mkiv.pdf](https://www.pragma-ade.nl/general/manuals/cld-mkiv.pdf)
+* Corresponding Lua source code: [github.com/latex3/lualibs](https://github.com/latex3/lualibs)
+* ConTeXt wiki: [ConTeXt and Lua programming](https://wiki.contextgarden.net/ConTeXt_and_Lua_programming)
 
-/usr/local/texlive/texmf-dist/tex/luatex/lualibs/lualibs-basic-merged.lua
-/usr/local/texlive/texmf-dist/tex/luatex/lualibs/lualibs-extended-merged.lua
+[/usr/local/texlive/texmf-dist/tex/luatex/lualibs/lualibs-basic-merged.lua](https://github.com/latex3/lualibs/blob/main/lualibs-basic-merged.lua)
+
+
+| lualibs name[^basic] | ConTeXt name   | primary purpose           |
+| -------------------- | -------------- | ------------------------- |
+| lualibs-lua.lua      | l-lua.lua      | compatibility             |
+| lualibs-package.lua  | l-package.lua  | Lua file loaders          |
+| lualibs-lpeg.lua     | l-lpeg.lua     | patterns                  |
+| lualibs-function.lua | l-function.lua | defines a dummy function  |
+| lualibs-string.lua   | l-string.lua   | string manipulation       |
+| lualibs-table.lua    | l-table.lua    | serialization, conversion |
+| lualibs-boolean.lua  | l-boolean.lua  | boolean converter         |
+| lualibs-number.lua   | l-number.lua   | bit operations            |
+| lualibs-math.lua     | l-math.lua     | math functions            |
+| lualibs-io.lua       | l-io.lua       | reading and writing files |
+| lualibs-os.lua       | l-os.lua       | platform specific code    |
+| lualibs-file.lua     | l-file.lua     | filesystem operations     |
+| lualibs-md5.lua      | l-md5.lua      | checksum functions        |
+| lualibs-dir.lua      | l-dir.lua      | directory handling        |
+| lualibs-unicode.lua  | l-unicode.lua  | utf and unicode           |
+| lualibs-url.lua      | l-url.lua      | url handling              |
+| lualibs-set.lua      | l-set.lua      | sets                      |
+
+[/usr/local/texlive/texmf-dist/tex/luatex/lualibs/lualibs-extended-merged.lua](https://github.com/latex3/lualibs/blob/main/lualibs-extended-merged.lua)
+
+[^basic]: https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs.dtx#L313-L330
+
+| lualibs name[^extended] | ConTeXt name | primary purpose               |
+| ----------------------- | ------------ | ----------------------------- |
+| lualibs-util-sac.lua    | util-sac.lua | string based file readers     |
+| lualibs-util-str.lua    | util-str.lua | extra string functions        |
+| lualibs-util-fil.lua    | util-fil.lua | extra file functions          |
+| lualibs-util-tab.lua    | util-tab.lua | extra table functions         |
+| lualibs-util-sto.lua    | util-sto.lua | table allocation              |
+| lualibs-util-prs.lua    | util-sto.lua | miscellaneous parsers         |
+| lualibs-util-dim.lua    | util-dim.lua | conversion between dimensions |
+| lualibs-trac-inf.lua    | trac-inf.lua | timing, statistics            |
+| lualibs-util-lua.lua    | util-lua.lua | operations on bytecode        |
+| lualibs-util-deb.lua    | util-deb.lua | extra debug functionality     |
+| lualibs-util-tpl.lua    | util-tpl.lua | templating                    |
+| lualibs-util-sta.lua    | util-sta.lua | stacker (e. g. for pdf)       |
+| lualibs-util-jsn.lua    | util-jsn.lua | conversion to and from json   |
+| lualibs-util-zip.lua    | util-zip.lua | compression and zip files     |
+
+[^extended]: https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs.dtx#L348-L362
 
 #### boolean.lua
 
-| Filename | ConTeXt                                                                                                           | LaTeX                                                                          |
-| -------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
-| boolean.lua  | [context/base/mkiv/l-boolean.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-boolean.lua) | [lualibs-boolean.lua](https://github.com/latex3/lualibs/blob/main/lualibs-boolean.lua) |
+| Filename    | ConTeXt                                                                                                                   | LaTeX                                                                                  |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| boolean.lua | [context/base/mkiv/l-boolean.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-boolean.lua) | [lualibs-boolean.lua](https://github.com/latex3/lualibs/blob/main/lualibs-boolean.lua) |
 
 #### dir.lua
 
@@ -622,25 +665,21 @@ Documentation for the field `data` of the `pdf_colorstack` node:
 
 #### gzip.lua
 
-
-| Filename | ConTeXt | LaTeX                                                                                    |
-| -------- | ------- | ---------------------------------------------------------------------------------------- |
-| gzip.lua |         | [lualibs-util-zip.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-zip.lua) |
+| Filename | ConTeXt                                                                                               | LaTeX                                                                                    |
+| -------- | ----------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| gzip.lua | [util-zip.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/util-zip.lua) | [lualibs-util-zip.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-zip.lua) |
 
 #### io.lua
 
-
 | Filename | ConTeXt                                                                                                         | LaTeX                                                                        |
 | -------- | --------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-|          | [context/base/mkiv/l-io.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-io.lua) | [lualibs-io.lua](https://github.com/latex3/lualibs/blob/main/lualibs-io.lua) |
+| io.lua   | [context/base/mkiv/l-io.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-io.lua) | [lualibs-io.lua](https://github.com/latex3/lualibs/blob/main/lualibs-io.lua) |
 
 #### lfs.lua
 
-
-| Filename | ConTeXt | LaTeX |
-| -------- | ------- | ----- |
-| lfs.lua  |         |       |
-
+| Filename | ConTeXt                                                                                                             | LaTeX                                                                            |
+| -------- | ------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| lfs.lua  | [context/base/mkiv/l-file.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-file.lua) | [lualibs-file.lua](https://github.com/latex3/lualibs/blob/main/lualibs-file.lua) |
 
 #### lpeg.lua
 
@@ -648,34 +687,29 @@ Documentation for the field `data` of the `pdf_colorstack` node:
 | -------- | ------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
 | lpeg.lua | [context/base/mkiv/l-lpeg.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-lpeg.lua) | [lualibs-lpeg.lua](https://github.com/latex3/lualibs/blob/main/lualibs-lpeg.lua) |
 
-
 #### lualibs.lua
 
-| Filename    | ConTeXt | LaTeX |
-| ----------- | ------- | ----- |
-| lualibs.lua |         |       |
+| Filename    | ConTeXt | LaTeX                                                                  |
+| ----------- | ------- | ---------------------------------------------------------------------- |
+| lualibs.lua |         | [lualibs.dtx](https://github.com/latex3/lualibs/blob/main/lualibs.dtx) |
 
 #### lua.lua
 
-| Filename | ConTeXt | LaTeX |
-| -------- | ------- | ----- |
-| lua.lua  |         |       |
-
+| Filename | ConTeXt                                                                                                           | LaTeX                                                                          |
+| -------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| lua.lua  | [context/base/mkiv/l-lua.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-lua.lua) | [lualibs-lua.lua](https://github.com/latex3/lualibs/blob/main/lualibs-lua.lua) |
 
 #### math.lua
 
-| Filename | ConTeXt | LaTeX |
-| -------- | ------- | ----- |
-| math.lua |         |       |
+| Filename | ConTeXt                                                                                                             | LaTeX                                                                            |
+| -------- | ------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| math.lua | [context/base/mkiv/l-math.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-math.lua) | [lualibs-math.lua](https://github.com/latex3/lualibs/blob/main/lualibs-math.lua) |
 
 #### modules.lua
 
-| Filename    | ConTeXt | LaTeX |
-| ----------- | ------- | ----- |
-| modules.lua |         |       |
+definied in every file
 
 ####  number.lua
-
 
 | Filename   | ConTeXt                                                                                                                 | LaTeX                                                                                |
 | ---------- | ----------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
@@ -683,13 +717,11 @@ Documentation for the field `data` of the `pdf_colorstack` node:
 
 #### os.lua
 
-
 | Filename | ConTeXt                                                                                                         | LaTeX                                                                        |
 | -------- | --------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
 | os.lua   | [context/base/mkiv/l-os.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-os.lua) | [lualibs-os.lua](https://github.com/latex3/lualibs/blob/main/lualibs-os.lua) |
 
 #### package.lua
-
 
 | Filename    | ConTeXt                                                                                                                   | LaTeX                                                                                  |
 | ----------- | ------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
@@ -703,35 +735,35 @@ Documentation for the field `data` of the `pdf_colorstack` node:
 
 #### statistics.lua
 
-| Filename       | ConTeXt | LaTeX |
-| -------------- | ------- | ----- |
-| statistics.lua |         |       |
-
-
+| Filename       | ConTeXt                                                                                                                 | LaTeX                                                                                                                        |
+| -------------- | ----------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| statistics.lua | [context/base/mkiv/trac-inf.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/trac-inf.lua) | [lualibs-trac-inf.lua](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-trac-inf.lua) |
 
 #### string.lua
 
-| Filename                   | ConTeXt                                                                                                                   | LaTeX                                                                                    |
-| -------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| string.lua                 | [context/base/mkiv/l-string.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-string.lua)   | [lualibs-string.lua](https://github.com/latex3/lualibs/blob/main/lualibs-string.lua)     |
-| boolean.lua | [context/base/mkiv/l-boolean.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-boolean.lua) | [lualibs-boolean.lua](https://github.com/latex3/lualibs/blob/main/lualibs-boolean.lua) |
-| lpeg.lua | [context/base/mkiv/l-lpeg.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-lpeg.lua) | [lualibs-lpeg.lua](https://github.com/latex3/lualibs/blob/main/lualibs-lpeg.lua) |
-| unicode.lua                | [context/base/mkiv/l-unicode.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-unicode.lua) | [lualibs-unicode.lua](https://github.com/latex3/lualibs/blob/main/lualibs-unicode.lua)   |
+| Filename                    | ConTeXt                                                                                                                   | LaTeX                                                                                    |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| string.lua                  | [context/base/mkiv/l-string.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-string.lua)   | [lualibs-string.lua](https://github.com/latex3/lualibs/blob/main/lualibs-string.lua)     |
+| boolean.lua                 | [context/base/mkiv/l-boolean.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-boolean.lua) | [lualibs-boolean.lua](https://github.com/latex3/lualibs/blob/main/lualibs-boolean.lua)   |
+| lpeg.lua                    | [context/base/mkiv/l-lpeg.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-lpeg.lua)       | [lualibs-lpeg.lua](https://github.com/latex3/lualibs/blob/main/lualibs-lpeg.lua)         |
+| unicode.lua                 | [context/base/mkiv/l-unicode.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-unicode.lua) | [lualibs-unicode.lua](https://github.com/latex3/lualibs/blob/main/lualibs-unicode.lua)   |
 | util-dim.lua (`dimensions`) | [context/base/mkiv/util-dim.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/util-dim.lua)   | [lualibs-util-dim.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-dim.lua) |
-| util-str.lua (`strings`)                 | [context/base/mkiv/util-str.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/util-str.lua) | [lualibs-util-str.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-str.lua) |
+| util-str.lua (`strings`)    | [context/base/mkiv/util-str.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/util-str.lua)   | [lualibs-util-str.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-str.lua) |
 
 #### table.lua
 
-| Filename  | ConTeXt                                                                                                               | LaTeX                                                                              |
-| --------- | --------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| table.lua | [context/base/mkiv/l-table.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-table.lua) | [lualibs-table.lua](https://github.com/latex3/lualibs/blob/main/lualibs-table.lua) |
-
+| Filename                 | ConTeXt                                                                                                                 | LaTeX                                                                                    |
+| ------------------------ | ----------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| table.lua                | [context/base/mkiv/l-table.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-table.lua)   | [lualibs-table.lua](https://github.com/latex3/lualibs/blob/main/lualibs-table.lua)       |
+| util-tab.lua (`table`)   | [context/base/mkiv/util-tpl.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/util-tab.lua) | [lualibs-util-tab.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-tab.lua) |
+| util-sto.lua (`storage`) | [context/base/mkiv/util-sto.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/util-sto.lua) | [lualibs-util-sto.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-sto.lua) |
+| compat.lua               | -                                                                                                                       | [lualibs-compat.lua](https://github.com/latex3/lualibs/blob/main/lualibs-compat.lua)     |
 
 #### trackers.lua
 
-| Filename     | ConTeXt | LaTeX |
-| ------------ | ------- | ----- |
-| trackers.lua |         |
+| Filename     | ConTeXt | LaTeX                                                                                                           |
+| ------------ | ------- | --------------------------------------------------------------------------------------------------------------- |
+| trackers.lua | -       | [lualibs.dtx](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs.dtx#L741) |
 
 #### url.lua
 
@@ -741,11 +773,11 @@ Documentation for the field `data` of the `pdf_colorstack` node:
 
 #### utf.lua
 
-| Filename | ConTeXt | LaTeX |
-| -------- | ------- | ----- |
-| utf.lua  |         |       |
+| Filename | ConTeXt                                                                                                                   | LaTeX                                                                                  |
+| -------- | ------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| utf.lua  | [context/base/mkiv/l-unicode.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/l-unicode.lua) | [lualibs-unicode.lua](https://github.com/latex3/lualibs/blob/main/lualibs-unicode.lua) |
 
-#### utilities.lua                                                                                                                           |
+#### utilities.lua
 
 | Filename                                 | ConTeXt                                                                                                                 | LaTeX                                                                                    |
 | ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
@@ -759,8 +791,6 @@ Documentation for the field `data` of the `pdf_colorstack` node:
 | util-sto.lua (`storage`)                 | [context/base/mkiv/util-sto.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/util-sto.lua) | [lualibs-util-sto.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-sto.lua) |
 | util-str.lua (`strings`)                 | [context/base/mkiv/util-str.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/util-str.lua) | [lualibs-util-str.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-str.lua) |
 | util-tpl.lua (`templates`)               | [context/base/mkiv/util-tpl.lua](https://github.com/contextgarden/context/blob/main/tex/context/base/mkiv/util-tpl.lua) | [lualibs-util-tpl.lua](https://github.com/latex3/lualibs/blob/main/lualibs-util-tpl.lua) |
-
-#### xzip.lua
 
 ## Global namespaces
 
