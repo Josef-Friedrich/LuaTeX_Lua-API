@@ -1,5 +1,5 @@
-local tokens     = require 'parser.tokens'
-local guide      = require 'parser.guide'
+local tokens     = require 'tokens'
+local guide      = require 'guide'
 
 local sbyte      = string.byte
 local sfind      = string.find

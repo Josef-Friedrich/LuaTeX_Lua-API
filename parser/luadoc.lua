@@ -1,8 +1,12 @@
+local inspect = require("inspect")
+
 local m          = require 'lpeglabel'
-local re         = require 'parser.relabel'
-local guide      = require 'parser.guide'
-local compile    = require 'parser.compile'
+local re         = require 'relabel'
+local guide      = require 'guide'
+local compile    = require 'compile'
 local util       = require 'utility'
+
+local function pinspect(value) print('\n\n\n') print(inspect(value)) end
 
 local TokenTypes, TokenStarts, TokenFinishs, TokenContents, TokenMarks
 ---@type integer
@@ -1827,6 +1831,7 @@ local function isNextLine(lastDoc, nextDoc)
     return newRow - lastRow == 1
 end
 
+---@param binded parser.Node[]
 local function bindGeneric(binded)
     local generics = {}
     for _, doc in ipairs(binded) do
@@ -1869,6 +1874,9 @@ local function bindGeneric(binded)
     end
 end
 
+---
+---@param doc parser.Node
+---@param source parser.Node
 local function bindDocWithSource(doc, source)
     if not source.bindDocs then
         source.bindDocs = {}
@@ -1879,6 +1887,11 @@ local function bindDocWithSource(doc, source)
     doc.bindSource = source
 end
 
+---
+---@param source parser.Node
+---@param binded parser.Node[]
+---
+---@return boolean
 local function bindDoc(source, binded)
     local isParam = source.type == 'self'
                 or  source.type == 'local'
@@ -1984,8 +1997,14 @@ local function bindDoc(source, binded)
     return ok
 end
 
+---
+---@param sources parser.Node[]
+---@param binded parser.Node[]
+---@param start integer
+---@param finish integer
+---@return boolean
 local function bindDocsBetween(sources, binded, start, finish)
-    -- 用二分法找到第一个
+    -- Use bisection to find the first (用二分法找到第一个)
     local max = #sources
     local index
     local left  = 1
@@ -2008,7 +2027,7 @@ local function bindDocsBetween(sources, binded, start, finish)
     end
 
     local ok = false
-    -- 从前往后进行绑定
+    -- Binding from front to back (从前往后进行绑定)
     for i = index, max do
         local src = sources[i]
         if src and src.start >= start then
@@ -2041,6 +2060,7 @@ local function bindDocsBetween(sources, binded, start, finish)
     return ok
 end
 
+---@param binded parser.Node[]
 local function bindReturnIndex(binded)
     local returnIndex = 0
     for _, doc in ipairs(binded) do
@@ -2053,6 +2073,9 @@ local function bindReturnIndex(binded)
     end
 end
 
+---
+---@param doc parser.Node
+---@param comments parser.Node[]
 local function bindCommentsToDoc(doc, comments)
     doc.bindComments = comments
     for _, comment in ipairs(comments) do
@@ -2060,13 +2083,15 @@ local function bindCommentsToDoc(doc, comments)
     end
 end
 
+---@param binded parser.Node[]
 local function bindCommentsAndFields(binded)
     local class
     local comments = {}
     local source
     for _, doc in ipairs(binded) do
         if doc.type == 'doc.class' then
-            -- 多个class连续写在一起，只有最后一个class可以绑定source
+            -- When multiple classes are written together, only the last class can be bound to the source
+            -- (多个class连续写在一起，只有最后一个class可以绑定source)
             if class then
                 class.bindSource = nil
             end

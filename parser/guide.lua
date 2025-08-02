@@ -66,6 +66,7 @@ local type         = type
 ---|`doc.comment`
 ---|`doc.param.name`
 ---|`doc.tailcomment`
+---|`doc.see.name`
 
 ---@class parser.Node
 ---@field bindDocs              parser.Node[]

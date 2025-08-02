@@ -87,6 +87,12 @@ level1 = {
   },
 }
 ]],
+
+  --https://luals.github.io/wiki/annotations/#see
+  see = [[
+---@see another_function # A comment
+local function fun1() end
+]],
 }
 
 ---
@@ -175,7 +181,7 @@ it("Function: get_main()", function()
 end)
 
 it("Function: debug", function()
-  m.debug(c("nested_function"), { bind_docs = true })
+  m.debug(c("nested_function"), { additional = "bindDocs" })
 end)
 
 it("Function: get_path", function()
@@ -191,4 +197,13 @@ it("Function: stringify_ast", function()
     m.stringify_ast(c("global_table")),
     "setglobal: my_table (table); doc (doc.comment: Docs)"
   )
+
+  assert.equal(
+    m.stringify_ast(c("see")),
+    "local: fun1 (function (funcargs)); doc (doc.see (doc.see.name: another_function; doc.tailcomment: A comment))"
+  )
+end)
+
+it("Function: pinspect", function()
+  m.pinspect({ a = "a", b = "b" })
 end)

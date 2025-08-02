@@ -82,7 +82,25 @@ end
 ---@param value unknown
 function m.pinspect(value)
   print("\n\n\n")
-  print(inspect(value))
+  print(inspect(value, {
+    process = function(item, path)
+      -- Exclude some noisy fields
+      if
+        item == "bfinish"
+        or item == "bstart"
+        or item == "effect"
+        or item == "finish"
+        or item == "firstFinish"
+        or item == "keyword"
+        or item == "lines"
+        or item == "range"
+        or item == "start"
+      then
+        return
+      end
+      return item
+    end,
+  }))
 end
 
 ---
@@ -105,6 +123,9 @@ function m.get_content(node)
   elseif node.type == "doc.tailcomment" then
     -- @param a string # Tail comment
     return node.text
+  elseif node.type == "doc.see.name" then
+    -- ---@see type # Tail comment.
+    return node[1]
   elseif node.type == "doc.type.code" then
     -- ---|`a` # This is a.
     return node[1], node.comment
@@ -142,13 +163,16 @@ function m.stringify(node, colorize)
   return output
 end
 
----@param ast parser.Node
+---@param ast parser.Node|parser.Node[]|unknown
 ---
 ---@return string?
 function m.stringify_ast(ast)
-  ---@param node parser.Node
+  ---@param node parser.Node|unknown
   ---@return string?
   local function descend(node)
+    if type(node) ~= "table" then
+      return tostring(node)
+    end
     local output = ""
     guide.eachChild(node, function(n)
       if n then
@@ -167,12 +191,23 @@ function m.stringify_ast(ast)
       return output
     end
   end
+  if type(ast) == "table" and not ast.type then
+    local output = {}
+    for _, node in ipairs(ast) do
+      local o = descend(node)
+      if o then
+        table.insert(output, o)
+      end
+    end
+    return table.concat(output, ", ")
+  end
   return descend(ast)
 end
 
 ---@class DebugOptions
 ---@field traverse_source? boolean # Use `guide.eachSource` instead of `guide.eachChild` to traverse.
----@field bind_docs? boolean # Debug `node.bindDocs`
+---@field additional? string # Debug a additional field, for example `bindDocs`
+---@field inspect? parser.NodeType # print and inspect nodes of the specified type
 
 ---
 ---Debug the Abstract Syntax Tree by traversing it and printing some basic informations.
@@ -189,24 +224,24 @@ function m.debug(node, opts)
     local indent = string.rep("\t", depth)
     local callback = function(n)
       if n then
-        local bind_docs = ""
-        if n.bindDocs and opts.bind_docs then
-          for _, value in ipairs(n.bindDocs) do
-            local ast = m.stringify_ast(value)
-            if ast then
-              if bind_docs == "" then
-                bind_docs = ast
-              else
-                bind_docs = bind_docs .. ", " .. ast
-              end
-            end
-          end
+        ---@type string|nil
+        local additional = ""
+        if opts.additional and n[opts.additional] then
+          additional = m.stringify_ast(n[opts.additional])
         end
 
-        if bind_docs ~= "" then
-          print(indent, m.stringify(n, true), "bind_docs: " .. yellow(bind_docs))
+        if additional ~= "" then
+          print(
+            indent,
+            m.stringify(n, true),
+            opts.additional .. ": " .. yellow(additional)
+          )
         else
           print(indent, m.stringify(n, true))
+        end
+
+        if opts.inspect and n.type == opts.inspect then
+          m.pinspect(n)
         end
 
         descend(n, depth + 1)

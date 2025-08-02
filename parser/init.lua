@@ -1,8 +1,8 @@
 local api = {
-    compile    = require 'parser.compile',
-    lines      = require 'parser.lines',
-    guide      = require 'parser.guide',
-    luadoc     = require 'parser.luadoc',
+    compile    = require 'compile',
+    lines      = require 'lines',
+    guide      = require 'guide',
+    luadoc     = require 'luadoc',
 }
 
 return api
