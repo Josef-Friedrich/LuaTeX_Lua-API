@@ -9,65 +9,46 @@ local m = {}
 
 m.guide = guide
 
-local function format_color_code(code)
-  return string.char(27) .. "[" .. tostring(code) .. "m"
+---
+---__ANSI color codes:__
+---
+---* `0`: Reset
+---* `30`: Black
+---* `31`: Red
+---* `32`: Green
+---* `33`: Yellow
+---* `34`: Blue
+---* `35`: Purple
+---* `36`: Cyan
+---* `37`: White
+---@param color_code integer
+local function get_ansi_color(color_code)
+  return string.char(27) .. "[" .. tostring(color_code) .. "m"
 end
 
--- \e[0;30m 	Black
--- \e[0;31m 	Red
--- \e[0;32m 	Green
--- \e[0;33m 	Yellow
--- \e[0;34m 	Blue
--- \e[0;35m 	Purple
--- \e[0;36m 	Cyan
--- \e[0;37m 	White
-
-local ansi_colors = {
-  red = format_color_code(31),
-  green = format_color_code(32),
-  yellow = format_color_code(32),
-  blue = format_color_code(34),
-  reset = format_color_code(0),
-}
-
 ---
----@param color_code string|integer
----@param text string
+---__ANSI color codes:__
+---
+---* `0`: Reset
+---* `30`: Black
+---* `31`: Red
+---* `32`: Green
+---* `33`: Yellow
+---* `34`: Blue
+---* `35`: Purple
+---* `36`: Cyan
+---* `37`: White
+---
+---@param color_code integer
+---@param text unknown
+---@param skip_colorize? boolean
 ---
 ---@return string
-local function colorize(color_code, text)
-  if type(color_code) == "number" then
-    color_code = format_color_code(color_code)
+local function colorize(color_code, text, skip_colorize)
+  if skip_colorize then
+    return text
   end
-  return color_code .. tostring(text) .. ansi_colors.reset
-end
-
----@param text string
----
----@return string
-local function red(text)
-  return colorize(ansi_colors.red, text)
-end
-
----@param text string
----
----@return string
-local function green(text)
-  return colorize(ansi_colors.green, text)
-end
-
----@param text string
----
----@return string
-local function yellow(text)
-  return colorize(ansi_colors.yellow, text)
-end
-
----@param text string
----
----@return string
-local function blue(text)
-  return colorize(ansi_colors.blue, text)
+  return get_ansi_color(color_code) .. tostring(text) .. get_ansi_color(0)
 end
 
 ---
@@ -148,12 +129,11 @@ end
 local node_index = 0
 
 ---@type table<string, integer>
-local nodes = {}
-
+local node_hash_cache = {}
 
 local function reset_node_id_cache()
   node_index = 0
-  nodes = {}
+  node_hash_cache = {}
 end
 
 ---
@@ -162,11 +142,11 @@ end
 ---@return integer
 local function get_node_id(node)
   local node_hash = tostring(node)
-  if nodes[node_hash] then
-    return nodes[node_hash]
+  if node_hash_cache[node_hash] then
+    return node_hash_cache[node_hash]
   end
   node_index = node_index + 1
-  nodes[node_hash] = node_index
+  node_hash_cache[node_hash] = node_index
   return node_index
 end
 
@@ -188,10 +168,9 @@ local function get_colorized_node_ids(nodes)
     nodes = { nodes }
   end
   local output = {}
-  for index, node in ipairs(nodes) do
+  for _, node in ipairs(nodes) do
     table.insert(output, get_colorized_node_id(node))
   end
-  local node_id = get_node_id(node)
   return table.concat(output, ",")
 end
 
@@ -203,68 +182,17 @@ end
 ---
 ---@return string
 function m.stringify(node, colorize_output)
-  ---@param text any
-  ---@return string
-  local function dummpy(text)
-    return tostring(text)
-  end
+  local skip_colorize = not colorize_output
 
-  local _red = dummpy
-  local _yellow = dummpy
-  if colorize_output then
-    _red = red
-    _yellow = yellow
-  end
   local primary, secondary = m.get_content(node)
   local output = node.type
   if primary then
-    output = output .. ": " .. _red(primary)
+    output = output .. ": " .. colorize(31, primary, skip_colorize)
   end
   if secondary then
-    output = output .. ", " .. _yellow(secondary)
+    output = output .. ", " .. colorize(33, secondary, skip_colorize)
   end
   return get_colorized_node_id(node) .. ":" .. output
-end
-
----@param ast parser.Node|parser.Node[]|unknown
----
----@return string?
-function m.stringify_ast(ast)
-  ---@param node parser.Node|unknown
-  ---@return string?
-  local function descend(node)
-    if type(node) ~= "table" then
-      return tostring(node)
-    end
-    local output = ""
-    guide.eachChild(node, function(n)
-      if n then
-        if output == "" then
-          output = m.stringify(n, false)
-        else
-          output = output .. "; " .. m.stringify(n, false)
-        end
-        local descend_output = descend(n)
-        if descend_output then
-          output = output .. " (" .. descend_output .. ")"
-        end
-      end
-    end)
-    if output ~= "" then
-      return output
-    end
-  end
-  if type(ast) == "table" and not ast.type then
-    local output = {}
-    for _, node in ipairs(ast) do
-      local o = descend(node)
-      if o then
-        table.insert(output, o)
-      end
-    end
-    return table.concat(output, ", ")
-  end
-  return descend(ast)
 end
 
 ---@class DebugOptions
@@ -301,7 +229,8 @@ function m.debug(node, opts)
             if n[field] then
               additional = additional
                 .. " "
-                .. field .. ": "
+                .. field
+                .. ": "
                 .. get_colorized_node_ids(n[field])
             end
           end
