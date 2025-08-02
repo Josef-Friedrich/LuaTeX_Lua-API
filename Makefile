@@ -54,7 +54,7 @@ submodules:
 	git submodule update --init --recursive --remote
 
 test:
-	luatex --luaonly examples/unicode/all.lua
+	./manage.py test
 
 diff:
 	resources/patch.sh diff
