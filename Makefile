@@ -196,7 +196,12 @@ example_lualibs_utilities_strings_nice:
 	$(LUALIBS) utilities/strings/nice.lua
 example_lualibs_utilities_strings_striplines:
 	$(LUALIBS) utilities/strings/striplines.lua
+
 ## luatex
+
+### fio
+example_luatex_fio_readcardinal1:
+	$(EXAMPLE) fio/readcardinal1.lua
 
 ### font
 example_luatex_font_getcopy:

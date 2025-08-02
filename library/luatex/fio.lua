@@ -59,17 +59,21 @@ _N._4_2_7_binary_input_from_files_with_fio = "page 66"
 fio = {}
 
 ---
+---Read a 1 byte unsigned integer (8-bit) from a file.
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [liolibext.c#L114-L122](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L114-L122)
 ---
 ---@param f file* # A file handle.
 ---
----@return integer # a 1 byte unsigned integer
+---@return integer # A 1 byte unsigned integer
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readcardinal1(f) end
 
+---
+---Read a 2 byte unsigned integer (16-bit) from a file.
 ---
 ---__Reference:__
 ---
@@ -77,11 +81,13 @@ function fio.readcardinal1(f) end
 ---
 ---@param f file* # A file handle.
 ---
----@return integer # a 2 byte unsigned integer
+---@return integer # A 2 byte unsigned integer
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readcardinal2(f) end
 
+---
+---Read a 3 byte unsigned integer (24-bit) from a file.
 ---
 ---__Reference:__
 ---
@@ -89,11 +95,13 @@ function fio.readcardinal2(f) end
 ---
 ---@param f file* # A file handle.
 ---
----@return integer # a 3 byte unsigned integer
+---@return integer # A 3 byte unsigned integer
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readcardinal3(f) end
 
+---
+---Read a 4 byte unsigned integer (32-bit) from a file.
 ---
 ---__Reference:__
 ---
@@ -101,11 +109,15 @@ function fio.readcardinal3(f) end
 ---
 ---@param f file* # A file handle.
 ---
----@return integer # a 4 byte unsigned integer
+---@return integer # A 4 byte unsigned integer.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readcardinal4(f) end
 
+---
+---__Reference:__
+---
+---* Corresponding C source code: [liolibext.c#L299-363](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L299-363)
 ---
 ---@param f file* # A file handle.
 ---@param n integer
@@ -115,11 +127,11 @@ function fio.readcardinal4(f) end
 function fio.readcardinaltable(f, n, b) end
 
 ---
+---Read a 1 byte unsigned little endian integer (8-bit) from a file.
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [liolibext.c#L137-L147](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L137-L147)
----
----little endian variant
 ---
 ---@param f file* # A file handle.
 ---
@@ -128,6 +140,8 @@ function fio.readcardinaltable(f, n, b) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readcardinal1le(f) end
 
+---
+---Read a 2 byte unsigned little endian integer (16-bit) from a file.
 ---
 ---__Reference:__
 ---
@@ -143,6 +157,8 @@ function fio.readcardinal1le(f) end
 function fio.readcardinal2le(f) end
 
 ---
+---Read a 3 byte unsigned little endian integer (24-bit) from a file.
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [liolibext.c#L199-L210](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L199-L210)
@@ -156,6 +172,8 @@ function fio.readcardinal2le(f) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readcardinal3le(f) end
 
+---
+---Read a 4 byte unsigned little endian integer (32-bit) from a file.
 ---
 ---__Reference:__
 ---
@@ -171,17 +189,21 @@ function fio.readcardinal3le(f) end
 function fio.readcardinal4le(f) end
 
 ---
+---Read a 1 byte signed integer (8-bit) from a file.
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [liolibext.c#L432-L442](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L432-L442)
 ---
 ---@param f file* # A file handle.
 ---
----@return integer # a 1 byte signed integer
+---@return integer # A 1 byte signed integer.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readinteger1(f) end
 
+---
+---Read a 2 byte signed integer (16-bit) from a file.
 ---
 ---__Reference:__
 ---
@@ -189,27 +211,43 @@ function fio.readinteger1(f) end
 ---
 ---@param f file* # A file handle.
 ---
----@return integer # a 2 byte signed integer
+---@return integer # A 2 byte signed integer.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readinteger2(f) end
 
 ---
+---Read a 3 byte signed integer (24-bit) from a file.
+---
+---__Reference:__
+---
+---* Corresponding C source code: [liolibext.c#L518-530](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L518-530)
+---
 ---@param f file* # A file handle.
 ---
----@return integer # a 3 byte signed integer
+---@return integer # A 3 byte signed integer.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readinteger3(f) end
 
 ---
+---Read a 4 byte signed integer (32-bit) from a file.
+---
+---__Reference:__
+---
+---* Corresponding C source code: [liolibext.c#L580-593](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L580-593)
+---
 ---@param f file* # A file handle.
 ---
----@return integer # a 4 byte signed integer
+---@return integer # A 4 byte signed integer.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readinteger4(f) end
 
+---
+---__Reference:__
+---
+---* Corresponding C source code: [liolibext.c#L472-483](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L472-483)
 ---
 ---@param f file* # A file handle.
 ---@param n integer
@@ -221,7 +259,7 @@ function fio.readinteger4(f) end
 function fio.readintegertable(f, n, b) end
 
 ---
-------* Corresponding C source code: [liolibext.c#L432-L442](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L432-L442)
+---* Corresponding C source code: [liolibext.c#L432-L442](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L432-L442)
 ---
 ---little endian variant
 ---
@@ -232,6 +270,10 @@ function fio.readintegertable(f, n, b) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readinteger1le(f) end
 
+---
+---__Reference:__
+---
+---* Corresponding C source code: [liolibext.c#L472-483](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L472-483)
 ---
 ---little endian variant
 ---
@@ -245,6 +287,10 @@ function fio.readinteger2le(f) end
 ---
 ---little endian variant
 ---
+---__Reference:__
+---
+---* Corresponding C source code: [liolibext.c#L531-543](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L531-543)
+---
 ---@param f file* # A file handle.
 ---
 ---@return integer
@@ -255,6 +301,10 @@ function fio.readinteger3le(f) end
 ---
 ---little endian variant
 ---
+---__Reference:__
+---
+---* Corresponding C source code: [liolibext.c#L594-607](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L594-607)
+---
 ---@param f file* # A file handle.
 ---
 ---@return integer
@@ -262,6 +312,10 @@ function fio.readinteger3le(f) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readinteger4le(f) end
 
+---
+---__Reference:__
+---
+---* Corresponding C source code: [liolibext.c#L802-813](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L802-813)
 ---
 ---@param f file* # A file handle.
 ---
@@ -271,6 +325,10 @@ function fio.readinteger4le(f) end
 function fio.readfixed2(f) end
 
 ---
+---__Reference:__
+---
+---* Corresponding C source code: [liolibext.c#L830-843](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L830-843)
+---
 ---@param f file* # A file handle.
 ---
 ---@return number # a 4 byte float (used in font files)
@@ -278,6 +336,10 @@ function fio.readfixed2(f) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readfixed4(f) end
 
+---
+---__Reference:__
+---
+---* Corresponding C source code: [liolibext.c#L862-874](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L862-874)
 ---
 ---@param f file* # A file handle.
 ---
@@ -289,6 +351,10 @@ function fio.read2dot14(f) end
 ---
 ---goto position `p`
 ---
+---__Reference:__
+---
+---* Corresponding C source code: [liolibext.c#L901-910](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L901-910)
+---
 ---@param f file* # A file handle.
 ---@param p integer
 ---
@@ -298,6 +364,10 @@ function fio.setposition(f, p) end
 ---
 ---get the current position
 ---
+---__Reference:__
+---
+---* Corresponding C source code: [liolibext.c#L891-899](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L891-899)
+---
 ---@param f file* # A file handle.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -305,6 +375,10 @@ function fio.getposition(f) end
 
 ---
 ---skip `n` positions.
+---
+---__Reference:__
+---
+---* Corresponding C source code: [liolibext.c#L912-921](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L912-921)
 ---
 ---@param f file* # A file handle.
 ---@param n integer
@@ -314,6 +388,10 @@ function fio.skipposition(f, n) end
 
 ---
 ---Read `n` bytes.
+---
+---__Reference:__
+---
+---* Corresponding C source code: [liolibext.c#L967-980](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L967-980)
 ---
 ---@param f file* # A file handle.
 ---@param n integer
@@ -326,6 +404,10 @@ function fio.readbytes(f, n) end
 ---
 ---Read `n` bytes as a table.
 ---
+---__Reference:__
+---
+---* Corresponding C source code: [liolibext.c#L923-943](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L923-943)
+---
 ---@param f file* # A file handle.
 ---@param n integer
 ---
@@ -334,6 +416,10 @@ function fio.readbytes(f, n) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readbytetable(f, n) end
 
+---
+---__Reference:__
+---
+---* Corresponding C source code: [liolibext.c#L1003-1032](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L1003-1032)
 ---
 ---@param f file* # A file handle.
 ---
