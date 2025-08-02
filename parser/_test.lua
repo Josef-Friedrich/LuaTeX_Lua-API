@@ -175,7 +175,7 @@ it("Function: get_main()", function()
 end)
 
 it("Function: debug", function()
-  m.debug(c("nested_function"), false)
+  m.debug(c("nested_function"), { bind_docs = true })
 end)
 
 it("Function: get_path", function()

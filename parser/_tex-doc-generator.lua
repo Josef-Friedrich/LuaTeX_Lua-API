@@ -170,28 +170,49 @@ function m.stringify_ast(ast)
   return descend(ast)
 end
 
+---@class DebugOptions
+---@field traverse_source? boolean # Use `guide.eachSource` instead of `guide.eachChild` to traverse.
+---@field bind_docs? boolean # Debug `node.bindDocs`
+
 ---
 ---Debug the Abstract Syntax Tree by traversing it and printing some basic informations.
 ---
 ---@param node parser.Node
----@param traverse_source? boolean # Use `guide.eachSource` instead of `guide.eachChild` to traverse.
-function m.debug(node, traverse_source)
+---@param opts? DebugOptions
+function m.debug(node, opts)
+  if type(opts) ~= "table" then
+    opts = {}
+  end
   ---@param node parser.Node
   ---@param depth integer
   local function descend(node, depth)
     local indent = string.rep("\t", depth)
     local callback = function(n)
       if n then
-        print(indent, m.stringify(n, true))
-        if n.bindDocs then
+        local bind_docs = ""
+        if n.bindDocs and opts.bind_docs then
           for _, value in ipairs(n.bindDocs) do
-            print(indent, m.stringify_ast(value))
+            local ast = m.stringify_ast(value)
+            if ast then
+              if bind_docs == "" then
+                bind_docs = ast
+              else
+                bind_docs = bind_docs .. ", " .. ast
+              end
+            end
           end
         end
+
+        if bind_docs ~= "" then
+          print(indent, m.stringify(n, true), "bind_docs: " .. yellow(bind_docs))
+        else
+          print(indent, m.stringify(n, true))
+        end
+
         descend(n, depth + 1)
       end
     end
-    if not traverse_source then
+    if not opts.traverse_source then
       guide.eachChild(node, callback)
     else
       guide.eachSource(node, callback)
