@@ -85,54 +85,116 @@ function m.pinspect(value)
   print(inspect(value))
 end
 
+---
+---Get the string contents of a node.
+---
 ---@param node parser.Node
-function m.stringify(node)
-  local secondary_value = nil
-  local value = guide.getKeyName(node)
-  if value == nil then
-    value = ""
-  end
+---
+---@return string? primary_content
+---@return string? secondary_content
+function m.get_content(node)
   if node.type == "doc.comment" then
-    value = node.comment.text
+    -- A line of the comment body starting with `-`
+    local text = node.comment.text
+    if string.sub(text, 1, 1) == "-" then
+      text = string.sub(text, 2)
+    end
+    return text
   elseif node.type == "doc.param.name" then
-    value = node[1]
+    return node[1]
   elseif node.type == "doc.tailcomment" then
-    value = node.text
+    -- @param a string # Tail comment
+    return node.text
   elseif node.type == "doc.type.code" then
-    value = node[1]
-    secondary_value = node.comment
+    -- ---|`a` # This is a.
+    return node[1], node.comment
   end
-  local output = node.type .. " " .. red(value)
-  if secondary_value then
-    return output .. " " .. yellow(secondary_value)
+  return m.get_name(node)
+end
+
+---
+---Stringify a node.
+---
+---@param node parser.Node
+---@param colorize? boolean
+---
+---@return string
+function m.stringify(node, colorize)
+  ---@param text any
+  ---@return string
+  local function dummpy(text)
+    return tostring(text)
+  end
+  local _red = dummpy
+  local _yellow = dummpy
+  if colorize then
+    _red = red
+    _yellow = yellow
+  end
+  local primary, secondary = m.get_content(node)
+  local output = node.type
+  if primary then
+    output = output .. ": " .. _red(primary)
+  end
+  if secondary then
+    output = output .. ", " .. _yellow(secondary)
   end
   return output
+end
+
+---@param ast parser.Node
+---
+---@return string?
+function m.stringify_ast(ast)
+  ---@param node parser.Node
+  ---@return string?
+  local function descend(node)
+    local output = ""
+    guide.eachChild(node, function(n)
+      if n then
+        if output == "" then
+          output = m.stringify(n, false)
+        else
+          output = output .. "; " .. m.stringify(n, false)
+        end
+        local descend_output = descend(n)
+        if descend_output then
+          output = output .. " (" .. descend_output .. ")"
+        end
+      end
+    end)
+    if output ~= "" then
+      return output
+    end
+  end
+  return descend(ast)
 end
 
 ---
 ---Debug the Abstract Syntax Tree by traversing it and printing some basic informations.
 ---
 ---@param node parser.Node
----@param each_source? boolean # Use `guide.eachSource` instead of `guide.eachChild` to traverse.
-function m.debug(node, each_source)
+---@param traverse_source? boolean # Use `guide.eachSource` instead of `guide.eachChild` to traverse.
+function m.debug(node, traverse_source)
   ---@param node parser.Node
   ---@param depth integer
   local function descend(node, depth)
     local indent = string.rep("\t", depth)
-    if not each_source then
-      guide.eachChild(node, function(src)
-        if src then
-          print(indent, m.stringify(src))
-          descend(src, depth + 1)
+    local callback = function(n)
+      if n then
+        print(indent, m.stringify(n, true))
+        if n.bindDocs then
+          for _, value in ipairs(n.bindDocs) do
+            print(indent, m.stringify_ast(value))
+          end
         end
-      end)
+        descend(n, depth + 1)
+      end
+    end
+    if not traverse_source then
+      guide.eachChild(node, callback)
     else
-      guide.eachSource(node, function(src)
-        if src ~= node then
-          print(indent, m.stringify(src))
-          descend(src, depth + 1)
-        end
-      end)
+      guide.eachSource(node, callback)
     end
   end
   print("\n")
@@ -144,7 +206,10 @@ end
 ---
 ---@return string?
 function m.get_name(node)
-  return guide.getKeyName(node)
+  local result = guide.getKeyName(node)
+  if result ~= nil then
+    return tostring(result)
+  end
 end
 
 ---
@@ -162,7 +227,7 @@ end
 ---@param node_type parser.NodeType
 ---
 ---@return parser.Node[][]
-function m.get_objects_by_type(node, node_type)
+function m.get_nodes_by_type(node, node_type)
   local type_cache = m.get_bind_doc(node)._typeCache[node_type]
   if type_cache then
     return type_cache
@@ -175,7 +240,7 @@ end
 ---
 ---@return string[]
 local function get_doc_type_names(object)
-  local typeNames = m.get_objects_by_type(object, "doc.type.name")
+  local typeNames = m.get_nodes_by_type(object, "doc.type.name")
   local result = {}
   for _, type_name in ipairs(typeNames) do
     table.insert(result, type_name[1])
@@ -207,32 +272,53 @@ function m.get_main(ast)
 end
 
 ---
----Get all functions
+---@param ast parser.Node
+---@param t? parser.NodeType
+---
+---@return parser.Node[]
+function m.get_sources(ast, t)
+  ---@type parser.Node[]
+  local nodes = {}
+
+  if t ~= nil then
+    guide.eachSourceType(ast, t, function(node)
+      table.insert(nodes, node)
+    end)
+  else
+    guide.eachSource(ast, function(node)
+      table.insert(nodes, node)
+    end)
+  end
+
+  return nodes
+end
+
 ---
 ---@param ast parser.Node
 ---
 ---@return parser.Node[]
-function m.get_functions(ast)
+function m.get_childs(ast)
   ---@type parser.Node[]
-  local functions = {}
-  guide.eachSourceType(ast, "function", function(object)
-    table.insert(functions, object)
+  local nodes = {}
+  guide.eachChild(ast, function(node)
+    table.insert(nodes, node)
   end)
-  return functions
+  return nodes
 end
 
 ---
----Get the first function
+---Get the first node of the specified node type for the sources `guide.eachSourceType`
 ---
 ---@param ast parser.Node
+---@param t parser.NodeType
 ---
 ---@return parser.Node
-function m.get_first_function(ast)
-  local functions = m.get_functions(ast)
-  if not #functions then
-    error("No functions found")
+function m.get_first(ast, t)
+  local nodes = m.get_sources(ast, t)
+  if not nodes[1] then
+    error("Node with type " .. t .. " not found!")
   end
-  return functions[1]
+  return nodes[1]
 end
 
 local function reverse(tab)

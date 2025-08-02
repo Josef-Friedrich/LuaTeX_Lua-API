@@ -1,7 +1,7 @@
 --- m = module
 local m = require("_tex-doc-generator")
 
-local lua_codes = {
+local code_snippets = {
   one_function = [[
 ---Docs
 ---
@@ -55,7 +55,7 @@ local var3 = "A string"
 ]],
 
   two_functions = [[
----Test Function
+---Test Function 1
 ---@param arg1 string
 ---
 ---@return string
@@ -100,40 +100,76 @@ local function p(lua_code)
 end
 
 ---
----c = code (lua_codes)
+---c = code (code_snippets)
 ---
 ---Shortcut for `m.parse`
 ---
----@param key_name string
+---@param code_snippet string
 ---
 ---@return parser.Node
-local function c(key_name)
-  if not lua_codes[key_name] then
-    error("Unknown lua code example")
+local function c(code_snippet)
+  if not code_snippets[code_snippet] then
+    error("Unknown code snippet!")
   end
-  return m.parse(lua_codes[key_name])
+  return m.parse(code_snippets[code_snippet])
 end
 
 it("Function: parse()", function()
-  assert.truthy(m.parse(lua_codes["global_function"]))
+  assert.truthy(m.parse(code_snippets["global_function"]))
 end)
 
-it("Function: get_functions()", function()
-  local objects = m.get_functions(c("two_functions"))
-  assert.truthy(objects[1])
-  assert.truthy(objects[2])
-  assert.is_nil(objects[3])
+it("Function: get_sources()", function()
+  local nodes = m.get_sources(c("two_functions"), "function")
+  assert.truthy(nodes[1])
+  assert.truthy(nodes[2])
+  assert.is_nil(nodes[3])
 end)
 
-it("Function: get_first_function()", function()
-  assert.equal(m.get_first_function(c("two_functions")).type, "function")
+it("Function: get_first()", function()
+  assert.equal(m.get_first(c("two_functions"), "function").type, "function")
+  assert.equal(
+    m.get_first(c("two_functions"), "doc.comment").type,
+    "doc.comment"
+  )
+end)
+
+describe("Function: get_content()", function()
+  ---@param code_snippet string
+  ---@param node_type parser.NodeType
+  ---
+  ---@return string?
+  ---@return string?
+  local function get_content(code_snippet, node_type)
+    return m.get_content(m.get_first(c(code_snippet), node_type))
+  end
+
+  it("doc.comment", function()
+    assert.equal(get_content("two_functions", "doc.comment"), "Test Function 1")
+  end)
+
+  it("doc.param.name", function()
+    assert.equal(get_content("two_functions", "doc.param.name"), "arg1")
+  end)
+
+  it("doc.tailcomment", function()
+    assert.equal(
+      get_content("global_function", "doc.tailcomment"),
+      "This is arg1"
+    )
+  end)
+
+  it("doc.type.code", function()
+    local primary, secondary = get_content("alias", "doc.type.code")
+    assert.equal(primary, "a")
+    assert.equal(secondary, "This is a")
+  end)
 end)
 
 it("Function: get_main()", function()
   assert.equal(m.get_main(c("two_functions")).type, "main")
 
   assert.equal(
-    m.get_main(m.get_first_function(c("global_table_with_function"))).type,
+    m.get_main(m.get_first(c("global_table_with_function"), "function")).type,
     "main"
   )
 end)
@@ -143,9 +179,16 @@ it("Function: debug", function()
 end)
 
 it("Function: get_path", function()
-  m.get_path(m.get_first_function(c("nested_function")))
+  m.get_path(m.get_first(c("nested_function"), "function"))
   assert.same(
-    m.get_path(m.get_first_function(c("nested_function"))),
+    m.get_path(m.get_first(c("nested_function"), "function")),
     { "level1", "level2", "level3" }
+  )
+end)
+
+it("Function: stringify_ast", function()
+  assert.equal(
+    m.stringify_ast(c("global_table")),
+    "setglobal: my_table (table); doc (doc.comment: Docs)"
   )
 end)

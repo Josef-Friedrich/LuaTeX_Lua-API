@@ -63,6 +63,9 @@ local type         = type
 ---|`doc.operator` # {'op', 'exp', 'extends'},
 ---|`doc.meta` # {'name'},
 ---|`doc.attr` # {'#names'},
+---|`doc.comment`
+---|`doc.param.name`
+---|`doc.tailcomment`
 
 ---@class parser.Node
 ---@field bindDocs              parser.Node[]
@@ -824,7 +827,7 @@ end
 ---Traverse all sources of the specified type (遍历所有指定类型的source)
 ---
 ---@param ast parser.Node
----@param ty string
+---@param ty parser.NodeType
 ---@param callback fun(src: parser.Node): any
 ---
 ---@return any
@@ -843,7 +846,7 @@ function m.eachSourceType(ast, ty, callback)
 end
 
 ---@param ast parser.Node
----@param tps string[]
+---@param tps parser.NodeType[]
 ---@param callback fun(src: parser.Node)
 function m.eachSourceTypes(ast, tps, callback)
     local cache = m.getSourceTypeCache(ast)
@@ -1095,7 +1098,7 @@ function m.getKeyNameOfLiteral(obj)
 end
 
 ---
----Get the name of a node (mostly from node[1])
+---Get the name of a node (mostly from `node[1]`)
 ---
 ---@param obj parser.Node
 ---
