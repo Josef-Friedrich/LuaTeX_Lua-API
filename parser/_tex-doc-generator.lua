@@ -85,14 +85,6 @@ function m.pinspect(value)
   print(inspect(value))
 end
 
----
----@param node parser.Node
-function m.print_object(node)
-  m.pinspect(node)
-
-  print(node.type)
-end
-
 ---@param node parser.Node
 function m.stringify(node)
   local secondary_value = nil
@@ -100,7 +92,6 @@ function m.stringify(node)
   if value == nil then
     value = ""
   end
-
   if node.type == "doc.comment" then
     value = node.comment.text
   elseif node.type == "doc.param.name" then
@@ -112,7 +103,6 @@ function m.stringify(node)
     secondary_value = node.comment
   end
   local output = node.type .. " " .. red(value)
-
   if secondary_value then
     return output .. " " .. yellow(secondary_value)
   end
@@ -243,6 +233,34 @@ function m.get_first_function(ast)
     error("No functions found")
   end
   return functions[1]
+end
+
+local function reverse(tab)
+  for i = 1, #tab // 2, 1 do
+    tab[i], tab[#tab - i + 1] = tab[#tab - i + 1], tab[i]
+  end
+  return tab
+end
+
+---
+---Get the path in a nested data structure
+---
+---For example a function in a nested table,
+---
+---@param node parser.Node
+---
+---@return string[]
+function m.get_path(node)
+  ---@type string[]
+  local path = {}
+  while node do
+    local key = guide.getKeyName(node)
+    if key then
+      table.insert(path, key)
+    end
+    node = node.parent
+  end
+  return reverse(path)
 end
 
 return m

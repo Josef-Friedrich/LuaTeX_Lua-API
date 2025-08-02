@@ -476,8 +476,9 @@ function m.getDocState(obj)
     error('guide.getDocState overstack')
 end
 
---- 寻找所在父类型
+---Find the parent type 寻找所在父类型
 ---@param obj parser.Node
+---@param want parser.NodeType
 ---@return parser.Node?
 function m.getParentType(obj, want)
     for _ = 1, 10000 do
@@ -492,8 +493,11 @@ function m.getParentType(obj, want)
     error('guide.getParentType overstack')
 end
 
---- 寻找所在父类型
+---Find the parent type (寻找所在父类型)
+---
 ---@param obj parser.Node
+---@param wants table<parser.NodeType, any>
+---
 ---@return parser.Node?
 function m.getParentTypes(obj, wants)
     for _ = 1, 10000 do
@@ -817,10 +821,12 @@ function m.getSourceTypeCache(ast)
     return cache
 end
 
---- 遍历所有指定类型的source
+---Traverse all sources of the specified type (遍历所有指定类型的source)
+---
 ---@param ast parser.Node
 ---@param ty string
 ---@param callback fun(src: parser.Node): any
+---
 ---@return any
 function m.eachSourceType(ast, ty, callback)
     local cache = m.getSourceTypeCache(ast)
@@ -853,6 +859,7 @@ end
 
 ---
 ---Iterate over all sources (遍历所有的source)
+---
 ---@param ast parser.Node
 ---@param callback fun(src: parser.Node): boolean?
 function m.eachSource(ast, callback)
@@ -892,9 +899,10 @@ function m.eachChild(source, callback)
     f(source, callback)
 end
 
+
 ---
+---Get the specified special (获取指定的 special)
 ---
---- 获取指定的 special
 ---@param ast parser.Node
 ---@param name string
 ---@param callback fun(src: parser.Node)
@@ -1086,7 +1094,12 @@ function m.getKeyNameOfLiteral(obj)
     end
 end
 
----@return string?
+---
+---Get the name of a node (mostly from node[1])
+---
+---@param obj parser.Node
+---
+---@return (string|number)?
 function m.getKeyName(obj)
     if not obj then
         return nil
@@ -1141,6 +1154,9 @@ function m.getKeyName(obj)
     return m.getKeyNameOfLiteral(obj)
 end
 
+---@param obj parser.Node
+---
+---@return (`string`|`number`|`integer`|`boolean`)?
 function m.getKeyTypeOfLiteral(obj)
     if not obj then
         return nil
@@ -1160,6 +1176,9 @@ function m.getKeyTypeOfLiteral(obj)
     end
 end
 
+---@param obj parser.Node
+---
+---@return (`local`|`nil`|`number`|`string`|`boolean`|`table`|`function`|`thread`|`userdata`)?
 function m.getKeyType(obj)
     if not obj then
         return nil

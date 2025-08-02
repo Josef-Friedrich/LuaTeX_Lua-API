@@ -141,3 +141,11 @@ end)
 it("Function: debug", function()
   m.debug(c("nested_function"), false)
 end)
+
+it("Function: get_path", function()
+  m.get_path(m.get_first_function(c("nested_function")))
+  assert.same(
+    m.get_path(m.get_first_function(c("nested_function"))),
+    { "level1", "level2", "level3" }
+  )
+end)
