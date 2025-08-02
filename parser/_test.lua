@@ -111,13 +111,18 @@ end
 ---Shortcut for `m.parse`
 ---
 ---@param code_snippet string
+---@param print_snippet? boolean
 ---
 ---@return parser.Node
-local function c(code_snippet)
-  if not code_snippets[code_snippet] then
+local function c(code_snippet, print_snippet)
+  local code = code_snippets[code_snippet]
+  if not code then
     error("Unknown code snippet!")
   end
-  return m.parse(code_snippets[code_snippet])
+  if print_snippet then
+    print('\n\n\n' .. code)
+  end
+  return m.parse(code)
 end
 
 it("Function: parse()", function()
@@ -180,8 +185,35 @@ it("Function: get_main()", function()
   )
 end)
 
-it("Function: debug", function()
-  m.debug(c("nested_function"), { additional = "bindDocs" })
+describe("Function: debug", function()
+  ---
+  ---@param code_snippet string
+  local function debug(code_snippet)
+    m.debug(
+      c(code_snippet, true),
+      { additional = { "bindSource", "bindDocs", "bindGroup" } }
+    )
+  end
+
+  it("one_function", function()
+    debug("one_function")
+  end)
+
+  it("alias", function()
+    debug("alias")
+  end)
+
+  it("global_function", function()
+    debug("global_function")
+  end)
+
+  it("global_table", function()
+    debug("global_table")
+  end)
+
+  it("global_table_with_function", function()
+    debug("global_table_with_function")
+  end)
 end)
 
 it("Function: get_path", function()

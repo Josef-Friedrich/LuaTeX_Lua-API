@@ -13,6 +13,15 @@ local function format_color_code(code)
   return string.char(27) .. "[" .. tostring(code) .. "m"
 end
 
+-- \e[0;30m 	Black
+-- \e[0;31m 	Red
+-- \e[0;32m 	Green
+-- \e[0;33m 	Yellow
+-- \e[0;34m 	Blue
+-- \e[0;35m 	Purple
+-- \e[0;36m 	Cyan
+-- \e[0;37m 	White
+
 local ansi_colors = {
   red = format_color_code(31),
   green = format_color_code(32),
@@ -22,11 +31,14 @@ local ansi_colors = {
 }
 
 ---
----@param color_code string
+---@param color_code string|integer
 ---@param text string
 ---
 ---@return string
 local function colorize(color_code, text)
+  if type(color_code) == "number" then
+    color_code = format_color_code(color_code)
+  end
   return color_code .. tostring(text) .. ansi_colors.reset
 end
 
@@ -133,22 +145,73 @@ function m.get_content(node)
   return m.get_name(node)
 end
 
+local node_index = 0
+
+---@type table<string, integer>
+local nodes = {}
+
+
+local function reset_node_id_cache()
+  node_index = 0
+  nodes = {}
+end
+
+---
+---@param node parser.Node
+---
+---@return integer
+local function get_node_id(node)
+  local node_hash = tostring(node)
+  if nodes[node_hash] then
+    return nodes[node_hash]
+  end
+  node_index = node_index + 1
+  nodes[node_hash] = node_index
+  return node_index
+end
+
+---
+---@param node parser.Node
+---
+---@return string
+local function get_colorized_node_id(node)
+  local node_id = get_node_id(node)
+  return colorize(node_id % 6 + 31, node_id)
+end
+
+---
+---@param nodes parser.Node|parser.Node[]
+---
+---@return string
+local function get_colorized_node_ids(nodes)
+  if nodes.type then
+    nodes = { nodes }
+  end
+  local output = {}
+  for index, node in ipairs(nodes) do
+    table.insert(output, get_colorized_node_id(node))
+  end
+  local node_id = get_node_id(node)
+  return table.concat(output, ",")
+end
+
 ---
 ---Stringify a node.
 ---
 ---@param node parser.Node
----@param colorize? boolean
+---@param colorize_output? boolean
 ---
 ---@return string
-function m.stringify(node, colorize)
+function m.stringify(node, colorize_output)
   ---@param text any
   ---@return string
   local function dummpy(text)
     return tostring(text)
   end
+
   local _red = dummpy
   local _yellow = dummpy
-  if colorize then
+  if colorize_output then
     _red = red
     _yellow = yellow
   end
@@ -160,7 +223,7 @@ function m.stringify(node, colorize)
   if secondary then
     output = output .. ", " .. _yellow(secondary)
   end
-  return output
+  return get_colorized_node_id(node) .. ":" .. output
 end
 
 ---@param ast parser.Node|parser.Node[]|unknown
@@ -206,7 +269,7 @@ end
 
 ---@class DebugOptions
 ---@field traverse_source? boolean # Use `guide.eachSource` instead of `guide.eachChild` to traverse.
----@field additional? string # Debug a additional field, for example `bindDocs`
+---@field additional? string|string[] # Show additional fields, for example `bindDocs`, `bindSource`, `bindGroup`
 ---@field inspect? parser.NodeType # print and inspect nodes of the specified type
 
 ---
@@ -221,24 +284,34 @@ function m.debug(node, opts)
   ---@param node parser.Node
   ---@param depth integer
   local function descend(node, depth)
-    local indent = string.rep("\t", depth)
+    local indent = string.rep("  ", depth)
     local callback = function(n)
       if n then
         ---@type string|nil
         local additional = ""
-        if opts.additional and n[opts.additional] then
-          additional = m.stringify_ast(n[opts.additional])
+
+        if opts.additional then
+          if type(opts.additional) == "string" then
+            opts.additional = {
+              opts.additional --[[@as string]],
+            }
+          end
+
+          for _, field in ipairs(opts.additional) do
+            if n[field] then
+              additional = additional
+                .. " "
+                .. field .. ": "
+                .. get_colorized_node_ids(n[field])
+            end
+          end
         end
 
+        local output = indent .. m.stringify(n, true)
         if additional ~= "" then
-          print(
-            indent,
-            m.stringify(n, true),
-            opts.additional .. ": " .. yellow(additional)
-          )
-        else
-          print(indent, m.stringify(n, true))
+          output = output .. additional
         end
+        print(output)
 
         if opts.inspect and n.type == opts.inspect then
           m.pinspect(n)
@@ -254,6 +327,7 @@ function m.debug(node, opts)
     end
   end
   print("\n")
+  reset_node_id_cache()
   descend(node, 0)
 end
 
