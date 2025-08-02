@@ -54,6 +54,11 @@ utilities.files = {}
 ---
 ---* Corresponding Lua source code: [lualibs-util-fil.lua#L22-L28](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-fil.lua#L22-L28)
 ---
+---@param filename string
+---@param zb? boolean
+---
+---@return file*
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function utilities.files.open(filename, zb) end
 
@@ -74,13 +79,19 @@ function utilities.files.close(f) end
 ---
 ---@param f file*
 ---
+---@return integer
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function utilities.files.size(f) end
 
 ---
+---Alias of `utilities.files.size`
+---
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-util-fil.lua#L42](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-fil.lua#L42)
+---
+---@see utilities.files.size
 ---
 ---@param f file*
 ---
@@ -92,16 +103,23 @@ function utilities.files.getsize(f) end
 ---
 ---* Corresponding Lua source code: [lualibs-util-fil.lua#L44-L50](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-fil.lua#L44-L50)
 ---
+---@param f file*
+---@param n integer
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function utilities.files.setposition() end
+function utilities.files.setposition(f, n) end
 
 ---
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-util-fil.lua#L52-L58](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-fil.lua#L52-L58)
 ---
+---@param f file*
+---
+---@return integer
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function utilities.files.getposition() end
+function utilities.files.getposition(f) end
 
 ---
 ---__Reference:__
@@ -109,6 +127,7 @@ function utilities.files.getposition() end
 ---* Corresponding Lua source code: [lualibs-util-fil.lua#L60-L69](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-fil.lua#L60-L69)
 ---
 ---@param f file*
+---@param n integer
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function utilities.files.look(f, n, chars) end
@@ -119,6 +138,7 @@ function utilities.files.look(f, n, chars) end
 ---* Corresponding Lua source code: [lualibs-util-fil.lua#L71-L77](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-fil.lua#L71-L77)
 ---
 ---@param f file*
+---@param n integer
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function utilities.files.skip(f, n) end
@@ -128,24 +148,32 @@ function utilities.files.skip(f, n) end
 ---
 ---* Corresponding Lua source code: [lualibs-util-fil.lua#L79-L81](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-fil.lua#L79-L81)
 ---
+---@param f file*
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function utilities.files.readbyte() end
+function utilities.files.readbyte(f) end
 
 ---
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-util-fil.lua#L83-L85](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-fil.lua#L83-L85)
 ---
+---@param f file*
+---@param n integer
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function utilities.files.readbytes() end
+function utilities.files.readbytes(f, n) end
 
 ---
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-util-fil.lua#L87-L91](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-fil.lua#L87-L91)
 ---
+---@param f file*
+---@param n integer
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function utilities.files.readbytetable() end
+function utilities.files.readbytetable(f, n) end
 
 ---
 ---__Reference:__
@@ -163,6 +191,7 @@ function utilities.files.readchar(f) end
 ---* Corresponding Lua source code: [lualibs-util-fil.lua#L97-L99](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-fil.lua#L97-L99)
 ---
 ---@param f file*
+---@param n integer
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function utilities.files.readstring(f, n) end
@@ -172,48 +201,60 @@ function utilities.files.readstring(f, n) end
 ---
 ---* Corresponding Lua source code: [lualibs-util-fil.lua#L101-L108](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-fil.lua#L101-L108)
 ---
+---@param f file*
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function utilities.files.readinteger1() end
+function utilities.files.readinteger1(f) end
 
 ---
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-util-fil.lua#L110](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-fil.lua#L110)
 ---
+---@param f file*
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function utilities.files.readcardinal1() end
+function utilities.files.readcardinal1(f) end
 
 ---
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-util-fil.lua#L111](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-fil.lua#L111)
 ---
+---@param f file*
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function utilities.files.readcardinal() end
+function utilities.files.readcardinal(f) end
 
 ---
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-util-fil.lua#L112](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-fil.lua#L112)
 ---
+---@param f file*
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function utilities.files.readinteger() end
+function utilities.files.readinteger(f) end
 
 ---
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-util-fil.lua#L113](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-fil.lua#L113)
 ---
+---@param f file*
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function utilities.files.readsignedbyte() end
+function utilities.files.readsignedbyte(f) end
 
 ---
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-util-fil.lua#L115-L118](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-fil.lua#L115-L118)
 ---
+---@param f file*
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function utilities.files.readcardinal2() end
+function utilities.files.readcardinal2(f) end
 
 ---
 ---__Reference:__
@@ -230,8 +271,10 @@ function utilities.files.readcardinal2le(f) end
 ---
 ---* Corresponding Lua source code: [lualibs-util-fil.lua#L125-L132](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-fil.lua#L125-L132)
 ---
+---@param f file*
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function utilities.files.readinteger2() end
+function utilities.files.readinteger2(f) end
 
 ---
 ---__Reference:__
@@ -248,8 +291,10 @@ function utilities.files.readinteger2le(f) end
 ---
 ---* Corresponding Lua source code: [lualibs-util-fil.lua#L143-L146](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-fil.lua#L143-L146)
 ---
+---@param f file*
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function utilities.files.readcardinal3() end
+function utilities.files.readcardinal3(f) end
 
 ---
 ---__Reference:__
@@ -266,8 +311,10 @@ function utilities.files.readcardinal3le(f) end
 ---
 ---* Corresponding Lua source code: [lualibs-util-fil.lua#L153-L160](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-fil.lua#L153-L160)
 ---
+---@param f file*
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function utilities.files.readinteger3() end
+function utilities.files.readinteger3(f) end
 
 ---
 ---__Reference:__
@@ -284,8 +331,10 @@ function utilities.files.readinteger3le(f) end
 ---
 ---* Corresponding Lua source code: [lualibs-util-fil.lua#L171-L174](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-fil.lua#L171-L174)
 ---
+---@param f file*
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function utilities.files.readcardinal4() end
+function utilities.files.readcardinal4(f) end
 
 ---
 ---__Reference:__
@@ -302,8 +351,10 @@ function utilities.files.readcardinal4le(f) end
 ---
 ---* Corresponding Lua source code: [lualibs-util-fil.lua#L181-L188](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-fil.lua#L181-L188)
 ---
+---@param f file*
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function utilities.files.readinteger4() end
+function utilities.files.readinteger4(f) end
 
 ---
 ---__Reference:__
@@ -318,24 +369,30 @@ function utilities.files.readinteger4le(f) end
 ---
 ---* Corresponding Lua source code: [lualibs-util-fil.lua#L208-L215](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-fil.lua#L208-L215)
 ---
+---@param f file*
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function utilities.files.readfixed2() end
+function utilities.files.readfixed2(f) end
 
 ---
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-util-fil.lua#L228-L235](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-fil.lua#L228-L235)
 ---
+---@param f file*
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function utilities.files.readfixed4() end
+function utilities.files.readfixed4(f) end
 
 ---
 ---__Reference:__
 ---
 ---* Corresponding Lua source code: [lualibs-util-fil.lua#L244-L253](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-fil.lua#L244-L253)
 ---
+---@param f file*
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function utilities.files.read2dot14() end
+function utilities.files.read2dot14(f) end
 
 ---
 ---__Reference:__
@@ -343,6 +400,7 @@ function utilities.files.read2dot14() end
 ---* Corresponding Lua source code: [lualibs-util-fil.lua#L257-L259](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-fil.lua#L257-L259)
 ---
 ---@param f file*
+---@param n integer
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function utilities.files.skipshort(f, n) end
@@ -353,6 +411,7 @@ function utilities.files.skipshort(f, n) end
 ---* Corresponding Lua source code: [lualibs-util-fil.lua#L261-L263](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-fil.lua#L261-L263)
 ---
 ---@param f file*
+---@param n integer
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function utilities.files.skiplong(f, n) end
@@ -363,7 +422,8 @@ function utilities.files.skiplong(f, n) end
 ---* Corresponding Lua source code: [lualibs-util-fil.lua#L271-L287](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-fil.lua#L271-L287)
 ---
 ---@param f file*
----
+---@param n integer
+---@
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function utilities.files.writecardinal2(f, n) end
 
@@ -373,7 +433,8 @@ function utilities.files.writecardinal2(f, n) end
 ---* Corresponding Lua source code: [lualibs-util-fil.lua#L291-L300](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-fil.lua#L291-L300)
 ---
 ---@param f file*
----
+---@param n integer
+---@
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function utilities.files.writecardinal4(f, n) end
 
@@ -383,6 +444,7 @@ function utilities.files.writecardinal4(f, n) end
 ---* Corresponding Lua source code: [lualibs-util-fil.lua#L302-L304](https://github.com/latex3/lualibs/blob/a86c5cdf063692ff7d31da439bddd88c1a3ec0c9/lualibs-util-fil.lua#L302-L304)
 ---
 ---@param f file*
+---@param s string
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/lualibs/utilities.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function utilities.files.writestring(f, s) end
