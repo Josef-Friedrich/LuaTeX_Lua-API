@@ -1715,6 +1715,11 @@ local function trimTailComment(text)
     return util.trim(comment)
 end
 
+---
+---@param comment parser.Node
+---
+---@return parser.Node|nil
+---@return unknown?
 local function buildLuaDoc(comment)
     local headPos = (comment.type == 'comment.short' and comment.text:match '^%-%s*@()')
                  or (comment.type == 'comment.long'  and comment.text:match '^%s*@()')
@@ -2334,6 +2339,12 @@ local function luadoc(state)
 end
 
 return {
+    ---
+    ---@param ast parser.Node
+    ---@param src string
+    ---@param comment any
+    ---@param group any
+    ---@return parser.Node?
     buildAndBindDoc = function (ast, src, comment, group)
         local doc = buildLuaDoc(comment)
         if doc then
