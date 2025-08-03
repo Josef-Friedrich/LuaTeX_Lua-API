@@ -18,6 +18,8 @@ git push -u origin main
 
 UPDATE_BRANCH="update_$(date +%F)"
 
+git push -d origin update_2025-08-03
+
 git branch "$UPDATE_BRANCH"
 git checkout "$UPDATE_BRANCH"
 
@@ -48,6 +50,8 @@ ${ADDON_ROOT}"
 for ADDON in $ADDONS; do
   _update $ADDON
 done
+
+cd "${ROOT}"
 
 git add -Av
 git commit -m "Update TeX related submodules to the latest version"
