@@ -1,17 +1,25 @@
 #! /bin/sh
 
 LUA_HOME="${HOME}/repos/lua"
-
 ROOT="${LUA_HOME}/lls_addons"
 
 rm -rf "${ROOT}"
 
-git clone --recurse-submodules git@github.com:Josef-Friedrich/LLS-Addons.git "${ROOT}"
+git clone --recurse-submodules  git@github.com:Josef-Friedrich/LLS-Addons.git "${ROOT}"
 
 cd "${ROOT}"
 
-git branch update
-git checkout update
+# https://stackoverflow.com/a/7244456
+git remote add upstream git@github.com:LuaLS/LLS-Addons.git
+git fetch upstream
+git checkout main
+git rebase upstream/main
+git push -u origin main
+
+UPDATE_BRANCH="update_$(date +%F)"
+
+git branch "$UPDATE_BRANCH"
+git checkout "$UPDATE_BRANCH"
 
 ADDONS="\
 lmathx
@@ -34,7 +42,7 @@ ${ADDON_ROOT}"
   cd "${ADDON_ROOT}"
   git checkout main
   git pull
-  $HOME/.cargo/bin/stylua "${ADDON_ROOT}/library"
+  stylua "${ADDON_ROOT}/library"
 }
 
 for ADDON in $ADDONS; do

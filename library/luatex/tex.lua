@@ -4712,8 +4712,7 @@ function tex.getbox(register) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.isbox(register) end
 
-_N._10_3_8_reusing_boxes_use_save_boxresource_and_getboxresourcedimensions =
-  "page 198"
+_N._10_3_8_reusing_boxes = "page 198"
 
 ---
 ---Register a box for reuse (this is modelled after so
@@ -4824,7 +4823,7 @@ _N._10_3_10_splitbox = "page 198"
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/tex.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function tex.splitbox(n, height, mode) end
 
-_N._10_3_11_accessing_math_parameters_get_set_math = "page 198"
+_N._10_3_11_accessing_math = "page 198"
 
 ---
 ---Set the internal math parameters.
