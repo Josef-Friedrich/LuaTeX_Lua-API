@@ -279,6 +279,16 @@ example_luatex_os_spawn:
 example_luatex_os_times:
 	$(LUATEX) os/times.lua
 
+### sio
+example_luatex_sio_readcardinal1:
+	$(LUATEX) sio/readcardinal1.lua
+example_luatex_sio_readcardinal2:
+	$(LUATEX) sio/readcardinal2.lua
+example_luatex_sio_readcardinal3:
+	$(LUATEX) sio/readcardinal3.lua
+example_luatex_sio_readcardinal4:
+	$(LUATEX) sio/readcardinal4.lua
+
 ### string
 example_luatex_string_bytepairs:
 	luatex --luaonly examples/luatex/string/bytepairs.lua

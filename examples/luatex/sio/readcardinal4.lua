@@ -1,0 +1,5 @@
+-- t.e.s.t:
+-- decimal=1952805748
+-- hexadecimal=74.65.73.74
+-- binary=01110100.01100101.01110011.01110100
+assert(sio.readcardinal4("test", 1) == 1952805748)
