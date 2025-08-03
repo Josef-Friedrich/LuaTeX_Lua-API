@@ -692,8 +692,7 @@ function pdf.getlastannot() end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/pdf.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function pdf.getretval() end
 
-_N._14_1_14_getmaxobjnum_getobjtype_getfontname_getfontobjnum_getfontsize_getxformname =
-  "page 283"
+_N._14_1_14_getmaxobjnum = "page 283"
 
 ---
 ---Return the object number of the latest created pdf object.
