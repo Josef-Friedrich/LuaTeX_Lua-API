@@ -29,6 +29,8 @@
 ---* Translate some Chinese comments into English
 ---* Rename the class parser.object into parser.Node
 ---* Remove all code from lines.lua
+---* Removed unused code in utilites
+---* Remove unused function in luacode
 
 local inspect = require("inspect")
 local lpeglabel = require("lpeglabel")
@@ -6241,11 +6243,6 @@ local luadoc = (function()
   local re = relabel
   local util = utility
 
-  local function pinspect(value)
-    print("\n\n\n")
-    print(inspect(value))
-  end
-
   local TokenTypes, TokenStarts, TokenFinishs, TokenContents, TokenMarks
   ---@type integer
   local Ci
@@ -8606,26 +8603,6 @@ Symbol              <-  ({} {
   end
 
   return {
-    ---
-    ---@param ast parser.Node
-    ---@param src string
-    ---@param comment any
-    ---@param group any
-    ---@return parser.Node?
-    buildAndBindDoc = function(ast, src, comment, group)
-      local doc = buildLuaDoc(comment)
-      if doc then
-        local pluginDocs = ast.state.pluginDocs or {}
-        pluginDocs[#pluginDocs + 1] = doc
-        doc.special = src
-        doc.originalComment = comment
-        doc.virtual = true
-        doc.specialBindGroup = group
-        ast.state.pluginDocs = pluginDocs
-        return doc
-      end
-      return nil
-    end,
     luadoc = luadoc,
   }
 end)()
