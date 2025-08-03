@@ -1,6 +1,7 @@
 ---MIT License
 ---
----Copyright (c) 2018 最萌小汐 (The cutest Xiaoxi)
+---Copyright (c) 2018-2025 最萌小汐 (The cutest Xiaoxi)
+---Copyright (c) 2025 Josef Friedrich
 ---
 ---Permission is hereby granted, free of charge, to any person obtaining a copy
 ---of this software and associated documentation files (the "Software"), to deal
@@ -31,9 +32,38 @@
 ---* Remove all code from lines.lua
 ---* Removed unused code in utilites
 ---* Remove unused function in luacode
+---* Add code into the namespace tex_doc_generator
+---* Add dependency to inspect
 
 local inspect = require("inspect")
 local lpeglabel = require("lpeglabel")
+
+---
+---Print and inspect
+---
+---@param value unknown
+local function pinspect(value)
+  print("\n\n\n")
+  print(inspect(value, {
+    process = function(item, path)
+      -- Exclude some noisy fields
+      if
+        item == "bfinish"
+        or item == "bstart"
+        or item == "effect"
+        or item == "finish"
+        or item == "firstFinish"
+        or item == "keyword"
+        or item == "lines"
+        or item == "range"
+        or item == "start"
+      then
+        return
+      end
+      return item
+    end,
+  }))
+end
 
 ---From https://github.com/LuaLS/LuaParser/blob/master/src/meta.lua
 ---@alias uri string
@@ -8614,6 +8644,8 @@ local tex_doc_generator = (function()
   --- m = module to export
   local m = {}
 
+  m.pinspect = pinspect
+
   m.guide = guide
 
   ---
@@ -8676,31 +8708,6 @@ local tex_doc_generator = (function()
   ---@return parser.Node
   function m.parse(lua_code)
     return m.parse_state(lua_code).ast
-  end
-
-  ---
-  ---@param value unknown
-  function m.pinspect(value)
-    print("\n\n\n")
-    print(inspect(value, {
-      process = function(item, path)
-        -- Exclude some noisy fields
-        if
-          item == "bfinish"
-          or item == "bstart"
-          or item == "effect"
-          or item == "finish"
-          or item == "firstFinish"
-          or item == "keyword"
-          or item == "lines"
-          or item == "range"
-          or item == "start"
-        then
-          return
-        end
-        return item
-      end,
-    }))
   end
 
   ---
@@ -8850,7 +8857,7 @@ local tex_doc_generator = (function()
           print(output)
 
           if opts.inspect and n.type == opts.inspect then
-            m.pinspect(n)
+            pinspect(n)
           end
 
           descend(n, depth + 1)
@@ -8922,7 +8929,7 @@ local tex_doc_generator = (function()
         print(arg_name)
 
         local argTypes = get_doc_type_names(arg)
-        m.pinspect(argTypes)
+        pinspect(argTypes)
       end
     end)
   end
