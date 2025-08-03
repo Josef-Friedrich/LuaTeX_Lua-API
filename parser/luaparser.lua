@@ -69,6 +69,163 @@ end
 ---@alias uri string
 ---@class noders
 
+---@alias parser.NodeType
+---|`main`#  {'#', 'docs'},
+---|`repeat` # {'#', 'filter'},
+---|`while` # {'filter', '#'},
+---|`in` # {'keys', 'exps', '#'},
+---|`loop` # {'loc', 'init', 'max', 'step', '#'},
+---|`do` # {'#'},
+---|`if` # {'#'},
+---|`ifblock` # {'filter', '#'},
+---|`elseifblock` # {'filter', '#'},
+---|`elseblock` # {'#'},
+---|`setfield` # {'node', 'field', 'value'},
+---|`getfield` # {'node', 'field'},
+---|`setmethod` # {'node', 'method', 'value'},
+---|`getmethod` # {'node', 'method'},
+---|`setindex` # {'node', 'index', 'value'},
+---|`getindex` # {'node', 'index'},
+---|`tableindex` # {'index', 'value'},
+---|`tablefield` # {'field', 'value'},
+---|`tableexp` # {'value'},
+---|`setglobal` # {'value'},
+---|`local` # {'attrs', 'value'},
+---|`setlocal` # {'value'},
+---|`return` # {'#'},
+---|`select` # {'vararg'},
+---|`table` # {'#'},
+---|`function` # {'args', '#'},
+---|`funcargs` # {'#'},
+---|`paren` # {'exp'},
+---|`call` # {'node', 'args'},
+---|`callargs` # {'#'},
+---|`list` # {'#'},
+---|`binary` # {1, 2},
+---|`unary` # {1},
+---|`doc` # {'#'},
+---|`doc.class` # {'class', '#extends', '#signs', 'docAttr', 'comment'},
+---|`doc.type` # {'#types', 'name', 'comment'},
+---|`doc.alias` # {'alias', 'docAttr', 'extends', 'comment'},
+---|`doc.enum` # {'enum', 'extends', 'comment', 'docAttr'},
+---|`doc.param` # {'param', 'extends', 'comment'},
+---|`doc.return` # {'#returns', 'comment'},
+---|`doc.field` # {'field', 'extends', 'comment'},
+---|`doc.generic` # {'#generics', 'comment'},
+---|`doc.generic.object` = {'generic', 'extends', 'comment'},
+---|`doc.vararg` # {'vararg', 'comment'},
+---|`doc.type.array` # {'node'},
+---|`doc.type.function` # {'#args', '#returns', 'comment'},
+---|`doc.type.table` # {'#fields', 'comment'},
+---|`doc.type.literal` # {'node'},
+---|`doc.type.arg` # {'name', 'extends'},
+---|`doc.type.field` # {'name', 'extends'},
+---|`doc.type.sign` # {'node', '#signs'},
+---|`doc.overload` # {'overload', 'comment'},
+---|`doc.see` # {'name', 'comment'},
+---|`doc.version` # {'#versions'},
+---|`doc.diagnostic` # {'#names'},
+---|`doc.as` # {'as'},
+---|`doc.cast` # {'name', '#casts'},
+---|`doc.cast.block` # {'extends'},
+---|`doc.operator` # {'op', 'exp', 'extends'},
+---|`doc.meta` # {'name'},
+---|`doc.attr` # {'#names'},
+---|`doc.comment`
+---|`doc.param.name`
+---|`doc.tailcomment`
+---|`doc.see.name`
+
+---@class parser.Node
+---@field bindDocs              parser.Node[]
+---@field bindGroup             parser.Node[]
+---@field bindSource            parser.Node
+---@field value                 parser.Node
+---@field parent                parser.Node
+---@field type                  parser.NodeType
+---@field special               string
+---@field tag                   string
+---@field args                  { [integer]: parser.Node, start: integer, finish: integer, type: string }
+---@field locals                parser.Node[]
+---@field returns?              parser.Node[]
+---@field breaks?               parser.Node[]
+---@field exps                  parser.Node[]
+---@field keys                  parser.Node
+---@field uri                   uri
+---@field start                 integer
+---@field finish                integer
+---@field range                 integer
+---@field effect                integer
+---@field bstart                integer
+---@field bfinish               integer
+---@field attrs                 table
+---@field specials              parser.Node[]
+---@field labels                parser.Node[]
+---@field node                  parser.Node
+---@field field                 parser.Node
+---@field method                parser.Node
+---@field index                 parser.Node
+---@field extends               parser.Node[]|parser.Node
+---@field types                 parser.Node[]
+---@field fields                parser.Node[]
+---@field tkey                  parser.Node
+---@field tvalue                parser.Node
+---@field tindex                integer
+---@field op                    parser.Node
+---@field next                  parser.Node
+---@field docParam              parser.Node
+---@field sindex                integer
+---@field name                  parser.Node
+---@field call                  parser.Node
+---@field closure               parser.Node
+---@field proto                 parser.Node
+---@field exp                   parser.Node
+---@field alias                 parser.Node
+---@field class                 parser.Node
+---@field enum                  parser.Node
+---@field vararg                parser.Node
+---@field param                 parser.Node
+---@field overload              parser.Node
+---@field docParamMap           table<string, integer>
+---@field upvalues              table<string, string[]>
+---@field ref                   parser.Node[]
+---@field returnIndex           integer
+---@field assignIndex           integer
+---@field docIndex              integer
+---@field docs                  parser.Node
+---@field state                 table
+---@field comment               table|string
+---@field optional              boolean
+---@field max                   parser.Node
+---@field init                  parser.Node
+---@field step                  parser.Node
+---@field redundant             { max: integer, passed: integer }
+---@field filter                parser.Node
+---@field loc                   parser.Node
+---@field keyword               integer[]
+---@field casts                 parser.Node[]
+---@field mode?                 '+' | '-'
+---@field hasGoTo?              true
+---@field hasReturn?            true
+---@field hasBreak?             true
+---@field hasExit?              true
+---@field [integer]             parser.Node|any
+---@field dot                   { type: string, start: integer, finish: integer }
+---@field colon                 { type: string, start: integer, finish: integer }
+---@field _root         parser.Node
+---@field _eachCache?   parser.Node[]
+---@field _isGlobal?    boolean
+---@field _typeCache?   parser.Node[][]
+---@field text? string # doc.tailcomment
+---@field bindComments? parser.Node[]
+---@field literal? boolean
+---@field generics? parser.Node[]
+---@field generic? parser.Node
+---@field signs?  parser.Node[]
+---@field source?  parser.Node[]
+---@field mark?  parser.Node[]
+---@field _bindedDocType? boolean
+
 ---https://github.com/LuaLS/LuaParser/blob/master/src/utility.lua
 local utility = (function()
   local tostring = tostring
@@ -162,155 +319,6 @@ end)()
 local guide = (function()
   local error = error
   local type = type
-
-  ---@alias parser.NodeType
-  ---|`main`#  {'#', 'docs'},
-  ---|`repeat` # {'#', 'filter'},
-  ---|`while` # {'filter', '#'},
-  ---|`in` # {'keys', 'exps', '#'},
-  ---|`loop` # {'loc', 'init', 'max', 'step', '#'},
-  ---|`do` # {'#'},
-  ---|`if` # {'#'},
-  ---|`ifblock` # {'filter', '#'},
-  ---|`elseifblock` # {'filter', '#'},
-  ---|`elseblock` # {'#'},
-  ---|`setfield` # {'node', 'field', 'value'},
-  ---|`getfield` # {'node', 'field'},
-  ---|`setmethod` # {'node', 'method', 'value'},
-  ---|`getmethod` # {'node', 'method'},
-  ---|`setindex` # {'node', 'index', 'value'},
-  ---|`getindex` # {'node', 'index'},
-  ---|`tableindex` # {'index', 'value'},
-  ---|`tablefield` # {'field', 'value'},
-  ---|`tableexp` # {'value'},
-  ---|`setglobal` # {'value'},
-  ---|`local` # {'attrs', 'value'},
-  ---|`setlocal` # {'value'},
-  ---|`return` # {'#'},
-  ---|`select` # {'vararg'},
-  ---|`table` # {'#'},
-  ---|`function` # {'args', '#'},
-  ---|`funcargs` # {'#'},
-  ---|`paren` # {'exp'},
-  ---|`call` # {'node', 'args'},
-  ---|`callargs` # {'#'},
-  ---|`list` # {'#'},
-  ---|`binary` # {1, 2},
-  ---|`unary` # {1},
-  ---|`doc` # {'#'},
-  ---|`doc.class` # {'class', '#extends', '#signs', 'docAttr', 'comment'},
-  ---|`doc.type` # {'#types', 'name', 'comment'},
-  ---|`doc.alias` # {'alias', 'docAttr', 'extends', 'comment'},
-  ---|`doc.enum` # {'enum', 'extends', 'comment', 'docAttr'},
-  ---|`doc.param` # {'param', 'extends', 'comment'},
-  ---|`doc.return` # {'#returns', 'comment'},
-  ---|`doc.field` # {'field', 'extends', 'comment'},
-  ---|`doc.generic` # {'#generics', 'comment'},
-  ---|`doc.generic.object` = {'generic', 'extends', 'comment'},
-  ---|`doc.vararg` # {'vararg', 'comment'},
-  ---|`doc.type.array` # {'node'},
-  ---|`doc.type.function` # {'#args', '#returns', 'comment'},
-  ---|`doc.type.table` # {'#fields', 'comment'},
-  ---|`doc.type.literal` # {'node'},
-  ---|`doc.type.arg` # {'name', 'extends'},
-  ---|`doc.type.field` # {'name', 'extends'},
-  ---|`doc.type.sign` # {'node', '#signs'},
-  ---|`doc.overload` # {'overload', 'comment'},
-  ---|`doc.see` # {'name', 'comment'},
-  ---|`doc.version` # {'#versions'},
-  ---|`doc.diagnostic` # {'#names'},
-  ---|`doc.as` # {'as'},
-  ---|`doc.cast` # {'name', '#casts'},
-  ---|`doc.cast.block` # {'extends'},
-  ---|`doc.operator` # {'op', 'exp', 'extends'},
-  ---|`doc.meta` # {'name'},
-  ---|`doc.attr` # {'#names'},
-  ---|`doc.comment`
-  ---|`doc.param.name`
-  ---|`doc.tailcomment`
-  ---|`doc.see.name`
-
-  ---@class parser.Node
-  ---@field bindDocs              parser.Node[]
-  ---@field bindGroup             parser.Node[]
-  ---@field bindSource            parser.Node
-  ---@field value                 parser.Node
-  ---@field parent                parser.Node
-  ---@field type                  parser.NodeType
-  ---@field special               string
-  ---@field tag                   string
-  ---@field args                  { [integer]: parser.Node, start: integer, finish: integer, type: string }
-  ---@field locals                parser.Node[]
-  ---@field returns?              parser.Node[]
-  ---@field breaks?               parser.Node[]
-  ---@field exps                  parser.Node[]
-  ---@field keys                  parser.Node
-  ---@field uri                   uri
-  ---@field start                 integer
-  ---@field finish                integer
-  ---@field range                 integer
-  ---@field effect                integer
-  ---@field bstart                integer
-  ---@field bfinish               integer
-  ---@field attrs                 table
-  ---@field specials              parser.Node[]
-  ---@field labels                parser.Node[]
-  ---@field node                  parser.Node
-  ---@field field                 parser.Node
-  ---@field method                parser.Node
-  ---@field index                 parser.Node
-  ---@field extends               parser.Node[]|parser.Node
-  ---@field types                 parser.Node[]
-  ---@field fields                parser.Node[]
-  ---@field tkey                  parser.Node
-  ---@field tvalue                parser.Node
-  ---@field tindex                integer
-  ---@field op                    parser.Node
-  ---@field next                  parser.Node
-  ---@field docParam              parser.Node
-  ---@field sindex                integer
-  ---@field name                  parser.Node
-  ---@field call                  parser.Node
-  ---@field closure               parser.Node
-  ---@field proto                 parser.Node
-  ---@field exp                   parser.Node
-  ---@field alias                 parser.Node
-  ---@field class                 parser.Node
-  ---@field enum                  parser.Node
-  ---@field vararg                parser.Node
-  ---@field param                 parser.Node
-  ---@field overload              parser.Node
-  ---@field docParamMap           table<string, integer>
-  ---@field upvalues              table<string, string[]>
-  ---@field ref                   parser.Node[]
-  ---@field returnIndex           integer
-  ---@field assignIndex           integer
-  ---@field docIndex              integer
-  ---@field docs                  parser.Node
-  ---@field state                 table
-  ---@field comment               table
-  ---@field optional              boolean
-  ---@field max                   parser.Node
-  ---@field init                  parser.Node
-  ---@field step                  parser.Node
-  ---@field redundant             { max: integer, passed: integer }
-  ---@field filter                parser.Node
-  ---@field loc                   parser.Node
-  ---@field keyword               integer[]
-  ---@field casts                 parser.Node[]
-  ---@field mode?                 '+' | '-'
-  ---@field hasGoTo?              true
-  ---@field hasReturn?            true
-  ---@field hasBreak?             true
-  ---@field hasExit?              true
-  ---@field [integer]             parser.Node|any
-  ---@field dot                   { type: string, start: integer, finish: integer }
-  ---@field colon                 { type: string, start: integer, finish: integer }
-  ---@field _root         parser.Node
-  ---@field _eachCache?   parser.Node[]
-  ---@field _isGlobal?    boolean
-  ---@field _typeCache?   parser.Node[][]
-  ---@field text? string # doc.tailcomment
 
   ---@class guide
   ---@field debugMode boolean
@@ -6413,26 +6421,6 @@ Symbol              <-  ({} {
 
   ---@alias parser.visibleType 'public' | 'protected' | 'private' | 'package'
 
-  ---@class parser.Node
-  ---@field literal           boolean
-  ---@field signs             parser.Node[]
-  ---@field originalComment   parser.Node
-  ---@field as?               parser.Node
-  ---@field touch?            integer
-  ---@field module?           string
-  ---@field async?            boolean
-  ---@field versions?         table[]
-  ---@field names?            parser.Node[]
-  ---@field path?             string
-  ---@field bindComments?     parser.Node[]
-  ---@field visible?          parser.visibleType
-  ---@field operators?        parser.Node[]
-  ---@field calls?            parser.Node[]
-  ---@field generics?         parser.Node[]
-  ---@field generic?          parser.Node
-  ---@field docAttr?          parser.Node
-  ---@field pattern?          string
-
   local function parseTokens(text, offset)
     Ci = 0
     Offset = offset
@@ -8735,7 +8723,8 @@ local tex_doc_generator = (function()
       return node[1]
     elseif node.type == "doc.type.code" then
       -- ---|`a` # This is a.
-      return node[1], node.comment
+      local comment = node.comment --[[@as string]]
+      return node[1], comment
     end
     return m.get_name(node)
   end
