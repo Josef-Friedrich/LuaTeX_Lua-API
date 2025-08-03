@@ -1714,7 +1714,11 @@ local function parseTable()
     missSymbol("}")
     skipSpace()
     tbl.bfinish = getPosition(Tokens[Index], "left")
-    break
+    -- error: could not format from stdin: failed to format from stdin: error parsing:
+    -- - unexpected token `::` (1717:5 to 1717:10), expected `end` to close while loop block
+    -- - unexpected token `end` (1722:1 to 1722:4), unexpected token, this needs to be a statement
+    -- - unexpected token `local` (1724:1 to 1724:6), unexpected statement after last statement
+    -- break
     ::CONTINUE::
   end
   tbl.finish = lastRightPosition()

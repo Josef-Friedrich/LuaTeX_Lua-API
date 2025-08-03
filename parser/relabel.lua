@@ -219,10 +219,9 @@ local exp = m.P({
     + m.V("Suffix"),
   Suffix = m.Cf(
     m.V("Primary")
-      * (S * (m.P("+") * m.Cc(1, mt.__pow) + m.P("*") * m.Cc(0, mt.__pow) + m.P("?") * m.Cc(
-          -1,
-          mt.__pow
-        ) + "^" * expect(
+      * (S * (m.P("+") * m.Cc(1, mt.__pow) + m.P("*") * m.Cc(0, mt.__pow) + m.P(
+          "?"
+        ) * m.Cc(-1, mt.__pow) + "^" * expect(
           m.Cg(num * m.Cc(mult))
             + m.Cg(
               m.C(m.S("+-") * m.R("09") ^ 1) * m.Cc(mt.__pow)
