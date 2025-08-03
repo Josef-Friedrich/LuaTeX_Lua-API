@@ -48,3 +48,8 @@ ${ADDON_ROOT}"
 for ADDON in $ADDONS; do
   _update $ADDON
 done
+
+git add -Av
+git commit -m "Update TeX related submodules to the latest version"
+
+git push -u origin "$UPDATE_BRANCH"
