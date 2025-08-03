@@ -92,15 +92,15 @@ update_manual:
 	wget -O /usr/local/texlive/texmf-dist/doc/luatex/base/luatex.pdf https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/raw/master/manual/luatex.pdf
 	wget -O /usr/local/texlive/texmf-dist/doc/context/documents/general/manuals/luametatex.pdf https://raw.githubusercontent.com/contextgarden/context/main/doc/context/documents/general/manuals/luametatex.pdf
 
-EXAMPLE = ./manage.py --debug example
+LUATEX = ./manage.py example
 
 namespace_luametatex:
-	$(EXAMPLE) luametatex/namespace.lua
+	$(LUATEX) luametatex/namespace.lua
 namespace_luametatex_luaonly:
 	luametatex --luaonly examples/luatex/namespace.lua
 
 namespace_luatex:
-	$(EXAMPLE) namespace.lua
+	$(LUATEX) namespace.lua
 namespace_luatex_luaonly:
 	luatex --luaonly examples/luatex/namespace_luaonly.lua
 
@@ -201,15 +201,27 @@ example_lualibs_utilities_strings_striplines:
 
 ### fio
 example_luatex_fio_readcardinal1:
-	$(EXAMPLE) fio/readcardinal1.lua
+	$(LUATEX) fio/readcardinal1.lua
+example_luatex_fio_readcardinal2:
+	$(LUATEX) fio/readcardinal2.lua
+example_luatex_fio_readcardinal3:
+	$(LUATEX) fio/readcardinal3.lua
+example_luatex_fio_readcardinal4:
+	$(LUATEX) fio/readcardinal4.lua
+example_luatex_fio_readbytes:
+	$(LUATEX) fio/readbytes.lua
+example_luatex_fio_readbytetable:
+	$(LUATEX) fio/readbytetable.lua
+example_luatex_fio_readline:
+	$(LUATEX) fio/readline.lua
 
 ### font
 example_luatex_font_getcopy:
-	$(EXAMPLE) font/getcopy.lua
+	$(LUATEX) font/getcopy.lua
 
 ### fontloader
 example_luatex_fontloader_close:
-	$(EXAMPLE) fontloader/close.lua
+	$(LUATEX) fontloader/close.lua
 example_luatex_fontloader_fields:
 	luatex --luaonly examples/luatex/fontloader/fields.lua
 example_luatex_fontloader_fontinfo:
@@ -221,51 +233,51 @@ example_luatex_fontloader_to_table:
 
 ### img
 example_luatex_img_boxes:
-	$(EXAMPLE) img/boxes.lua
+	$(LUATEX) img/boxes.lua
 example_luatex_img_fields:
-	$(EXAMPLE) img/fields.lua
+	$(LUATEX) img/fields.lua
 example_luatex_img_keys:
-	$(EXAMPLE) img/keys.lua
+	$(LUATEX) img/keys.lua
 example_luatex_img_types:
-	$(EXAMPLE) img/types.lua
+	$(LUATEX) img/types.lua
 
 ### lang
 example_luatex_lang_clean:
-	$(EXAMPLE) lang/clean.lua
+	$(LUATEX) lang/clean.lua
 example_luatex_lang_clear_hyphenation:
-	$(EXAMPLE) lang/clear_hyphenation.lua
+	$(LUATEX) lang/clear_hyphenation.lua
 example_luatex_lang_hyphenation:
-	$(EXAMPLE) lang/hyphenation.lua
+	$(LUATEX) lang/hyphenation.lua
 example_luatex_lang_id:
-	$(EXAMPLE) lang/id.lua
+	$(LUATEX) lang/id.lua
 example_luatex_lang_Language_clear_hyphenation:
-	$(EXAMPLE) lang/Language:hyphenation.lua
+	$(LUATEX) lang/Language:hyphenation.lua
 example_luatex_lang_new:
-	$(EXAMPLE) lang/new.lua
+	$(LUATEX) lang/new.lua
 example_luatex_lang_patterns:
-	$(EXAMPLE) lang/patterns.lua
+	$(LUATEX) lang/patterns.lua
 
 ### mplib
 example_luatex_mplib_new:
-	$(EXAMPLE) mplib/new.lua
+	$(LUATEX) mplib/new.lua
 example_luatex_mplib_statistics:
-	$(EXAMPLE) mplib/statistics.lua
+	$(LUATEX) mplib/statistics.lua
 example_luatex_mplib_version:
-	$(EXAMPLE) mplib/version.lua
+	$(LUATEX) mplib/version.lua
 
 ### os
 example_luatex_os_exec:
-	$(EXAMPLE) os/exec.lua
+	$(LUATEX) os/exec.lua
 example_luatex_os_gettimeofday:
-	$(EXAMPLE) os/gettimeofday.lua
+	$(LUATEX) os/gettimeofday.lua
 example_luatex_os_name:
-	$(EXAMPLE) os/name.lua
+	$(LUATEX) os/name.lua
 example_luatex_os_sleep:
-	$(EXAMPLE) os/sleep.lua
+	$(LUATEX) os/sleep.lua
 example_luatex_os_spawn:
-	$(EXAMPLE) os/spawn.lua
+	$(LUATEX) os/spawn.lua
 example_luatex_os_times:
-	$(EXAMPLE) os/times.lua
+	$(LUATEX) os/times.lua
 
 ### string
 example_luatex_string_bytepairs:
@@ -291,10 +303,10 @@ example_luatex_string_utfvalues:
 
 ### texconfig
 example_luatex_texconfig:
-	$(EXAMPLE) texconfig/texconfig.lua
+	$(LUATEX) texconfig/texconfig.lua
 
 ### status
 example_luatex_status_list:
-	$(EXAMPLE) status/list.lua
+	$(LUATEX) status/list.lua
 
 .PHONY: all format convert_tex_to_lua stylua debug print_namespace generate_doc dist update_lls_addons test diff patch clean update_manual
