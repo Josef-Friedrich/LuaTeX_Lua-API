@@ -317,8 +317,27 @@ function sio.readinteger4(text, position) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readintegertable(text, position, n, b) end
 
+
+
+---
+---__Example:__
+---
+---```lua
+---assert(sio.readinteger1le("test", 0) == nil)
+----- t: decimal=116 hexadecimal=74 binary=01110100
+---assert(sio.readinteger1le("test", 1) == 116)
+----- e: decimal=101 hexadecimal=65 binary=01100101
+---assert(sio.readinteger1le("test", 2) == 101)
+----- s: decimal=115 hexadecimal=73 binary=01110011
+---assert(sio.readinteger1le("test", 3) == 115)
+----- t: decimal=116 hexadecimal=74 binary=01110100
+---assert(sio.readinteger1le("test", 4) == 116)
+---assert(sio.readinteger1le("test", 5) == nil)
+---```
+---
 ---
 ---__Reference:__
+---
 ---
 ---* Corresponding C source code: [liolibext.c#L444-L458](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L444-L458)
 ---little endian variant
@@ -333,6 +352,18 @@ function sio.readintegertable(text, position, n, b) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readinteger1le(text, position) end
 
+
+---
+---__Example:__
+---
+---```lua
+---assert(sio.readinteger2le("test", 0) == 29696)
+---assert(sio.readinteger2le("test", 1) == 25972)
+---assert(sio.readinteger2le("test", 2) == 29541)
+---assert(sio.readinteger2le("test", 3) == 29811)
+---assert(sio.readinteger2le("test", 4) == nil)
+---```
+---
 ---
 ---__Reference:__
 ---
@@ -350,6 +381,17 @@ function sio.readinteger1le(text, position) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readinteger2le(text, position) end
 
+
+---
+---__Example:__
+---
+---```lua
+---assert(sio.readinteger3le("test", 0) == 6648832)
+---assert(sio.readinteger3le("test", 1) == 7562612)
+---assert(sio.readinteger3le("test", 2) == 7631717)
+---assert(sio.readinteger3le("test", 3) == nil)
+---```
+---
 ---
 ---__Reference:__
 ---
@@ -367,6 +409,16 @@ function sio.readinteger2le(text, position) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readinteger3le(text, position) end
 
+
+---
+---__Example:__
+---
+---```lua
+---assert(sio.readinteger4le("test", 0) == 1936028672)
+---assert(sio.readinteger4le("test", 1) == 1953719668)
+---assert(sio.readinteger4le("test", 2) == nil)
+---```
+---
 ---
 ---__Reference:__
 ---
@@ -387,7 +439,6 @@ function sio.readinteger4le(text, position) end
 ---
 ---Read a 2 byte float (used in font files).
 ---
-
 ---
 ---__Example:__
 ---

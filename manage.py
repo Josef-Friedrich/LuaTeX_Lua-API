@@ -410,8 +410,7 @@ def example(
 
     src_content = src.read_text()
 
-    if logger.isEnabledFor(logging.DEBUG):
-        _run_pygmentize(src)
+    _run_pygmentize(src)
 
     src_content = re.sub(
         r"(\./)?resources/utils",

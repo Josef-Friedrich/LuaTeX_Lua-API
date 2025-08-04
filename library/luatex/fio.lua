@@ -323,6 +323,27 @@ function fio.readinteger4(file) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readintegertable(file, n, b) end
 
+
+---
+---__Example:__
+---
+---```lua
+---local f = io.open("tmp.txt", "w+")
+---if f then
+---  f:write("test")
+---  fio.setposition(f, 0)
+---  -- t: decimal=116 hexadecimal=74 binary=01110100
+---  assert(fio.readinteger1le(f) == 116)
+---  -- e: decimal=101 hexadecimal=65 binary=01100101
+---  assert(fio.readinteger1le(f) == 101)
+---  -- s: decimal=115 hexadecimal=73 binary=01110011
+---  assert(fio.readinteger1le(f) == 115)
+---  -- t: decimal=116 hexadecimal=74 binary=01110100
+---  assert(fio.readinteger1le(f) == 116)
+---  f:close()
+---end
+---```
+---
 ---
 ---* Corresponding C source code: [liolibext.c#L432-L442](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L432-L442)
 ---
@@ -335,6 +356,22 @@ function fio.readintegertable(file, n, b) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readinteger1le(file) end
 
+
+---
+---__Example:__
+---
+---```lua
+---local f = io.open("tmp.txt", "w+")
+---if f then
+---  f:write("test")
+---  fio.setposition(f, 0)
+---  assert(fio.readinteger2le(f) == 25972)
+---  assert(fio.readinteger2le(f) == 29811)
+---  assert(fio.readinteger2le(f) == nil)
+---  f:close()
+---end
+---```
+---
 ---
 ---__Reference:__
 ---
@@ -344,11 +381,26 @@ function fio.readinteger1le(file) end
 ---
 ---@param file file* # A file handle.
 ---
----@return integer
+---@return integer|nil
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readinteger2le(file) end
 
+
+---
+---__Example:__
+---
+---```lua
+---local f = io.open("tmp.txt", "w+")
+---if f then
+---  f:write("test")
+---  fio.setposition(f, 0)
+---  assert(fio.readinteger3le(f) == 7562612)
+---  assert(fio.readinteger3le(f) == nil)
+---  f:close()
+---end
+---```
+---
 ---
 ---little endian variant
 ---
@@ -358,11 +410,26 @@ function fio.readinteger2le(file) end
 ---
 ---@param file file* # A file handle.
 ---
----@return integer
+---@return integer|nil
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readinteger3le(file) end
 
+
+---
+---__Example:__
+---
+---```lua
+---local f = io.open("tmp.txt", "w+")
+---if f then
+---  f:write("test")
+---  fio.setposition(f, 0)
+---  assert(fio.readinteger4le(f) == 1953719668)
+---  assert(fio.readinteger4le(f) == nil)
+---  f:close()
+---end
+---```
+---
 ---
 ---little endian variant
 ---
@@ -372,7 +439,7 @@ function fio.readinteger3le(file) end
 ---
 ---@param file file* # A file handle.
 ---
----@return integer
+---@return integer|nil
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readinteger4le(file) end
@@ -380,13 +447,34 @@ function fio.readinteger4le(file) end
 ---
 ---Read a 2 byte float (used in font files).
 ---
+---
+---
+---__Example:__
+---
+---```lua
+---local function compare_numbers(a, b, epsilon)
+---  epsilon = epsilon or 1e-6
+---  return a == b or math.abs(a - b) < epsilon
+---end
+---
+---local f = io.open("tmp.txt", "w+")
+---if f then
+---  f:write("test")
+---  fio.setposition(f, 0)
+---  assert(compare_numbers(fio.readfixed2(f), 116.39453125))
+---  assert(compare_numbers(fio.readfixed2(f), 115.453125))
+---  assert(fio.readfixed2(f) == nil)
+---  f:close()
+---end
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [liolibext.c#L802-813](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L802-813)
 ---
 ---@param file file* # A file handle.
 ---
----@return number # a 2 byte float (used in font files)
+---@return number|nil # a 2 byte float (used in font files)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readfixed2(file) end
@@ -394,13 +482,33 @@ function fio.readfixed2(file) end
 ---
 ---Read a 4 byte float (used in font files).
 ---
+---
+---__Example:__
+---
+---```lua
+---local function compare_numbers(a, b, epsilon)
+---  epsilon = epsilon or 1e-6
+---  return a == b or math.abs(a - b) < epsilon
+---end
+---
+---local f = io.open("tmp.txt", "w+")
+---if f then
+---  f:write("test")
+---  fio.setposition(f, 0)
+---  assert(compare_numbers(fio.readfixed4(f), 29797.45098877))
+---  assert(fio.readfixed4(f) == nil)
+---  f:close()
+---end
+---```
+---
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [liolibext.c#L830-843](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L830-843)
 ---
 ---@param file file* # A file handle.
 ---
----@return number # a 4 byte float (used in font files)
+---@return number|nil # a 4 byte float (used in font files)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readfixed4(file) end
@@ -440,13 +548,13 @@ function fio.readfixed4(file) end
 ---
 ---@param file file* # A file handle.
 ---
----@return number # a 2 byte float (used in font files)
+---@return number|nil # a 2 byte float (used in font files)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.read2dot14(file) end
 
 ---
----goto position `p`
+---Goto position `p`.
 ---
 ---__Reference:__
 ---
@@ -459,7 +567,7 @@ function fio.read2dot14(file) end
 function fio.setposition(file, p) end
 
 ---
----get the current position
+---Get the current position.
 ---
 ---__Reference:__
 ---

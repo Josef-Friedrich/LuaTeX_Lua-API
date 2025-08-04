@@ -200,6 +200,21 @@ example_lualibs_utilities_strings_striplines:
 ## luatex
 
 ### fio
+example_luatex_fio: \
+	example_luatex_fio_read2dot14 \
+	example_luatex_fio_readbytes \
+	example_luatex_fio_readbytetable \
+	example_luatex_fio_readcardinal1 \
+	example_luatex_fio_readcardinal2 \
+	example_luatex_fio_readcardinal3 \
+	example_luatex_fio_readcardinal4 \
+	example_luatex_fio_readfixed2 \
+	example_luatex_fio_readfixed4 \
+	example_luatex_fio_readinteger1le \
+	example_luatex_fio_readinteger2le \
+	example_luatex_fio_readinteger3le \
+	example_luatex_fio_readinteger4le \
+	example_luatex_fio_readline
 example_luatex_fio_read2dot14:
 	$(LUATEX) fio/read2dot14.lua
 example_luatex_fio_readbytes:
@@ -214,6 +229,18 @@ example_luatex_fio_readcardinal3:
 	$(LUATEX) fio/readcardinal3.lua
 example_luatex_fio_readcardinal4:
 	$(LUATEX) fio/readcardinal4.lua
+example_luatex_fio_readfixed2:
+	$(LUATEX) fio/readfixed2.lua
+example_luatex_fio_readfixed4:
+	$(LUATEX) fio/readfixed4.lua
+example_luatex_fio_readinteger1le:
+	$(LUATEX) fio/readinteger1le.lua
+example_luatex_fio_readinteger2le:
+	$(LUATEX) fio/readinteger2le.lua
+example_luatex_fio_readinteger3le:
+	$(LUATEX) fio/readinteger3le.lua
+example_luatex_fio_readinteger4le:
+	$(LUATEX) fio/readinteger4le.lua
 example_luatex_fio_readline:
 	$(LUATEX) fio/readline.lua
 
@@ -284,17 +311,21 @@ example_luatex_os_times:
 ### sio
 example_luatex_sio: \
 	example_luatex_sio_read2dot14 \
-	example_luatex_sio_read2fixed \
-	example_luatex_sio_read4fixed \
 	example_luatex_sio_readbytes \
 	example_luatex_sio_readbytetable \
 	example_luatex_sio_readcardinal1 \
 	example_luatex_sio_readcardinal2 \
 	example_luatex_sio_readcardinal3 \
-	example_luatex_sio_readcardinal4
+	example_luatex_sio_readcardinal4 \
+	example_luatex_sio_readfixed2 \
+	example_luatex_sio_readfixed4 \
+	example_luatex_sio_readinteger1le \
+	example_luatex_sio_readinteger2le \
+	example_luatex_sio_readinteger3le \
+	example_luatex_sio_readinteger4le
+
 example_luatex_sio_read2dot14:
 	$(LUATEX) sio/read2dot14.lua
-
 example_luatex_sio_readbytes:
 	$(LUATEX) sio/readbytes.lua
 example_luatex_sio_readbytetable:
@@ -311,6 +342,14 @@ example_luatex_sio_readfixed2:
 	$(LUATEX) sio/readfixed2.lua
 example_luatex_sio_readfixed4:
 	$(LUATEX) sio/readfixed4.lua
+example_luatex_sio_readinteger1le:
+	$(LUATEX) sio/readinteger1le.lua
+example_luatex_sio_readinteger2le:
+	$(LUATEX) sio/readinteger2le.lua
+example_luatex_sio_readinteger3le:
+	$(LUATEX) sio/readinteger3le.lua
+example_luatex_sio_readinteger4le:
+	$(LUATEX) sio/readinteger4le.lua
 
 ### string
 example_luatex_string_bytepairs:
