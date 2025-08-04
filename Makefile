@@ -288,6 +288,8 @@ example_luatex_sio_readcardinal3:
 	$(LUATEX) sio/readcardinal3.lua
 example_luatex_sio_readcardinal4:
 	$(LUATEX) sio/readcardinal4.lua
+example_luatex_sio_readbytetable:
+	$(LUATEX) sio/readbytetable.lua
 
 ### string
 example_luatex_string_bytepairs:

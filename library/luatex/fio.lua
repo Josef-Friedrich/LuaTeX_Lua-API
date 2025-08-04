@@ -446,10 +446,10 @@ function fio.getposition(file) end
 ---* Corresponding C source code: [liolibext.c#L912-921](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L912-921)
 ---
 ---@param file file* # A file handle.
----@param n integer
+---@param number integer # The number of bytes to be read.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function fio.skipposition(file, n) end
+function fio.skipposition(file, number) end
 
 ---
 ---Read `number` bytes.
@@ -479,7 +479,7 @@ function fio.skipposition(file, n) end
 ---* Corresponding C source code: [liolibext.c#L967-980](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L967-980)
 ---
 ---@param file file* # A file handle.
----@param number integer
+---@param number integer # The number of bytes to be read.
 ---
 ---@return integer ...
 ---
@@ -514,7 +514,7 @@ function fio.readbytes(file, number) end
 ---* Corresponding C source code: [liolibext.c#L923-943](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L923-943)
 ---
 ---@param file file* # A file handle.
----@param number integer # How many bytes should be read.
+---@param number integer # The number of bytes to be read.
 ---
 ---@return integer[]
 ---

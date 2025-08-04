@@ -16,8 +16,6 @@
 ---with this program. If not, see <https://www.gnu.org/licenses/>.
 ---@meta
 
-_N._4_2_8_binary_input_from_strings_with_sio = "page 66"
-
 ---
 ---# Binary input from strings with `sio`
 ---
@@ -258,6 +256,10 @@ function sio.readinteger1(text) end
 function sio.readinteger2(text) end
 
 ---
+---__Reference:__
+---
+---* Corresponding C source code: [liolibext.c#L545-561](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L545-561)
+---
 ---@see fio.readinteger3
 ---
 ---@param text string # A string to read from.
@@ -268,6 +270,10 @@ function sio.readinteger2(text) end
 function sio.readinteger3(text) end
 
 ---
+---__Reference:__
+---
+---* Corresponding C source code: [liolibext.c#L609-626](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L609-626)
+---
 ---@see fio.readinteger4
 ---
 ---@param text string # A string to read from.
@@ -277,6 +283,10 @@ function sio.readinteger3(text) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readinteger4(text) end
 
+---
+---__Reference:__
+---
+---* Corresponding C source code: [liolibext.c#L717-798](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L717-798)
 ---
 ---@see fio.readintegertable
 ---
@@ -321,6 +331,10 @@ function sio.readinteger1le(text) end
 function sio.readinteger2le(text) end
 
 ---
+---__Reference:__
+---
+---* Corresponding C source code: [liolibext.c#L562-578](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L562-578)
+---
 ---little endian variant
 ---
 ---@see fio.readinteger3le
@@ -332,6 +346,10 @@ function sio.readinteger2le(text) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readinteger3le(text) end
 
+---
+---__Reference:__
+---
+---* Corresponding C source code: [liolibext.c#L627-644](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L627-644)
 ---
 ---little endian variant
 ---
@@ -345,6 +363,10 @@ function sio.readinteger3le(text) end
 function sio.readinteger4le(text) end
 
 ---
+---__Reference:__
+---
+---* Corresponding C source code: [liolibext.c#L815-828](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L815-828)
+---
 ---@see fio.readfixed2
 ---
 ---@param text string # A string to read from.
@@ -354,6 +376,10 @@ function sio.readinteger4le(text) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readfixed2(text) end
 
+---
+---__Reference:__
+---
+---* Corresponding C source code: [liolibext.c#L845-860](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L845-860)
 ---
 ---@see fio.readfixed4
 ---
@@ -365,6 +391,10 @@ function sio.readfixed2(text) end
 function sio.readfixed4(text) end
 
 ---
+---__Reference:__
+---
+---* Corresponding C source code: [liolibext.c#L876-889](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L876-889)
+---
 ---@see fio.read2dot14
 ---
 ---@param text string # A string to read from.
@@ -375,61 +405,34 @@ function sio.readfixed4(text) end
 function sio.read2dot14(text) end
 
 ---
----@see fio.setposition
+---__Reference:__
 ---
----@param text string # A string to read from.
----@param p integer
----
----😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function sio.setposition(text, p) end
-
----
----@see fio.getposition
----
----@param text string # A string to read from.
----
----😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function sio.getposition(text) end
-
----
----@see fio.skipposition
----
----@param text string # A string to read from.
----@param n integer
----
----😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function sio.skipposition(text, n) end
-
+---* Corresponding C source code: [liolibext.c#L982-1001](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L982-1001)
 ---
 ---@see fio.readbytes
 ---
 ---@param text string # A string to read from.
----@param n integer
+---@param number integer # The number of bytes to be read.
 ---
 ---@return integer ...
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function sio.readbytes(text, n) end
+function sio.readbytes(text, number) end
 
+---
+---__Reference:__
+---
+---* Corresponding C source code: [liolibext.c#L945-965](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L945-965)
 ---
 ---@see fio.readbytetable
 ---
 ---@param text string # A string to read from.
----@param n integer
+---@param p integer
+---@param n integer # The number of bytes to be read.
 ---
 ---@return table<integer, integer>
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function sio.readbytetable(text, n) end
-
----
----@see fio.readline
----
----@param text string # A string to read from.
----
----@return string
----
----😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function sio.readline(text) end
+function sio.readbytetable(text, p, n) end
 
 return sio
