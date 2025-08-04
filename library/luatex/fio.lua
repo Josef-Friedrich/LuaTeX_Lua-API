@@ -323,7 +323,6 @@ function fio.readinteger4(file) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readintegertable(file, n, b) end
 
-
 ---
 ---__Example:__
 ---
@@ -344,7 +343,6 @@ function fio.readintegertable(file, n, b) end
 ---end
 ---```
 ---
----
 ---* Corresponding C source code: [liolibext.c#L432-L442](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L432-L442)
 ---
 ---little endian variant
@@ -355,7 +353,6 @@ function fio.readintegertable(file, n, b) end
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readinteger1le(file) end
-
 
 ---
 ---__Example:__
@@ -372,7 +369,6 @@ function fio.readinteger1le(file) end
 ---end
 ---```
 ---
----
 ---__Reference:__
 ---
 ---* Corresponding C source code: [liolibext.c#L472-483](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L472-483)
@@ -385,7 +381,6 @@ function fio.readinteger1le(file) end
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readinteger2le(file) end
-
 
 ---
 ---__Example:__
@@ -401,7 +396,6 @@ function fio.readinteger2le(file) end
 ---end
 ---```
 ---
----
 ---little endian variant
 ---
 ---__Reference:__
@@ -414,7 +408,6 @@ function fio.readinteger2le(file) end
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readinteger3le(file) end
-
 
 ---
 ---__Example:__
@@ -429,7 +422,6 @@ function fio.readinteger3le(file) end
 ---  f:close()
 ---end
 ---```
----
 ---
 ---little endian variant
 ---
@@ -446,8 +438,6 @@ function fio.readinteger4le(file) end
 
 ---
 ---Read a 2 byte float (used in font files).
----
----
 ---
 ---__Example:__
 ---
@@ -482,7 +472,6 @@ function fio.readfixed2(file) end
 ---
 ---Read a 4 byte float (used in font files).
 ---
----
 ---__Example:__
 ---
 ---```lua
@@ -500,7 +489,6 @@ function fio.readfixed2(file) end
 ---  f:close()
 ---end
 ---```
----
 ---
 ---__Reference:__
 ---
