@@ -1,3 +1,4 @@
+assert(sio.readcardinal1("test", 0) == nil)
 -- t: decimal=116 hexadecimal=74 binary=01110100
 assert(sio.readcardinal1("test", 1) == 116)
 -- e: decimal=101 hexadecimal=65 binary=01100101
@@ -6,3 +7,4 @@ assert(sio.readcardinal1("test", 2) == 101)
 assert(sio.readcardinal1("test", 3) == 115)
 -- t: decimal=116 hexadecimal=74 binary=01110100
 assert(sio.readcardinal1("test", 4) == 116)
+assert(sio.readcardinal1("test", 5) == nil)
