@@ -98,7 +98,13 @@ local inspect = (function()
   end
 
   local function escape(str)
-    return (gsub(gsub(gsub(str, "\\", "\\\\"), "(%c)%f[0-9]", longControlCharEscapes), "%c", shortControlCharEscapes))
+    return (
+      gsub(
+        gsub(gsub(str, "\\", "\\\\"), "(%c)%f[0-9]", longControlCharEscapes),
+        "%c",
+        shortControlCharEscapes
+      )
+    )
   end
 
   local luaKeywords = {
@@ -127,12 +133,17 @@ local inspect = (function()
   }
 
   local function isIdentifier(str)
-    return type(str) == "string" and not not str:match("^[_%a][_%a%d]*$") and not luaKeywords[str]
+    return type(str) == "string"
+      and not not str:match("^[_%a][_%a%d]*$")
+      and not luaKeywords[str]
   end
 
   local flr = math.floor
   local function isSequenceKey(k, sequenceLength)
-    return type(k) == "number" and flr(k) == k and 1 <= k and k <= sequenceLength
+    return type(k) == "number"
+      and flr(k) == k
+      and 1 <= k
+      and k <= sequenceLength
   end
 
   local defaultTypeOrders = {
@@ -219,13 +230,20 @@ local inspect = (function()
       local processedKey
 
       for k, v in rawpairs(processed) do
-        processedKey = processRecursive(process, k, makePath(path, k, inspect.KEY), visited)
+        processedKey =
+          processRecursive(process, k, makePath(path, k, inspect.KEY), visited)
         if processedKey ~= nil then
-          processedCopy[processedKey] = processRecursive(process, v, makePath(path, processedKey), visited)
+          processedCopy[processedKey] =
+            processRecursive(process, v, makePath(path, processedKey), visited)
         end
       end
 
-      local mt = processRecursive(process, getmetatable(processed), makePath(path, inspect.METATABLE), visited)
+      local mt = processRecursive(
+        process,
+        getmetatable(processed),
+        makePath(path, inspect.METATABLE),
+        visited
+      )
       if type(mt) ~= "table" then
         mt = nil
       end
@@ -245,7 +263,10 @@ local inspect = (function()
   local Inspector_mt = { __index = Inspector }
 
   local function tabify(inspector)
-    puts(inspector.buf, inspector.newline .. rep(inspector.indent, inspector.level))
+    puts(
+      inspector.buf,
+      inspector.newline .. rep(inspector.indent, inspector.level)
+    )
   end
 
   function Inspector:getId(v)
@@ -264,7 +285,13 @@ local inspect = (function()
     local tv = type(v)
     if tv == "string" then
       puts(buf, smartQuote(escape(v)))
-    elseif tv == "number" or tv == "boolean" or tv == "nil" or tv == "cdata" or tv == "ctype" then
+    elseif
+      tv == "number"
+      or tv == "boolean"
+      or tv == "nil"
+      or tv == "cdata"
+      or tv == "ctype"
+    then
       puts(buf, tostring(v))
     elseif tv == "table" and not self.ids[v] then
       local t = v
@@ -415,7 +442,7 @@ local function are_same(o1, o2, ignore_mt)
     return false
   end
   --- same type but not table, already compared above
-  if o1Type ~= 'table' then
+  if o1Type ~= "table" then
     return false
   end
 
@@ -589,6 +616,13 @@ end
 return {
   pinspect = pinspect,
   are_same = are_same,
+  assert_equals = function(actual, expected)
+    if actual ~= expected then
+      print("actual:", actual)
+      print("expected:", expected)
+    end
+    assert(actual == expected)
+  end,
   print_global_namespace = print_global_namespace,
   convert_string_array_to_alias_union = convert_string_array_to_alias_union,
   list_files_recursively = list_files_recursively,

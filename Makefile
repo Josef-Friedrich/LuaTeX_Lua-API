@@ -92,7 +92,7 @@ update_manual:
 	wget -O /usr/local/texlive/texmf-dist/doc/luatex/base/luatex.pdf https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/raw/master/manual/luatex.pdf
 	wget -O /usr/local/texlive/texmf-dist/doc/context/documents/general/manuals/luametatex.pdf https://raw.githubusercontent.com/contextgarden/context/main/doc/context/documents/general/manuals/luametatex.pdf
 
-LUATEX = ./manage.py example
+LUATEX = ./manage.py example --print-docstring --subproject luatex
 
 namespace_luametatex:
 	$(LUATEX) luametatex/namespace.lua
@@ -223,12 +223,20 @@ example_luatex_fio_readbytetable:
 	$(LUATEX) fio/readbytetable.lua
 example_luatex_fio_readcardinal1:
 	$(LUATEX) fio/readcardinal1.lua
+example_luatex_fio_readcardinal1le:
+	$(LUATEX) fio/readcardinal1le.lua
 example_luatex_fio_readcardinal2:
 	$(LUATEX) fio/readcardinal2.lua
+example_luatex_fio_readcardinal2le:
+	$(LUATEX) fio/readcardinal2le.lua
 example_luatex_fio_readcardinal3:
 	$(LUATEX) fio/readcardinal3.lua
+example_luatex_fio_readcardinal3le:
+	$(LUATEX) fio/readcardinal3le.lua
 example_luatex_fio_readcardinal4:
 	$(LUATEX) fio/readcardinal4.lua
+example_luatex_fio_readcardinal4le:
+	$(LUATEX) fio/readcardinal4le.lua
 example_luatex_fio_readfixed2:
 	$(LUATEX) fio/readfixed2.lua
 example_luatex_fio_readfixed4:
@@ -323,7 +331,6 @@ example_luatex_sio: \
 	example_luatex_sio_readinteger2le \
 	example_luatex_sio_readinteger3le \
 	example_luatex_sio_readinteger4le
-
 example_luatex_sio_read2dot14:
 	$(LUATEX) sio/read2dot14.lua
 example_luatex_sio_readbytes:
@@ -332,12 +339,20 @@ example_luatex_sio_readbytetable:
 	$(LUATEX) sio/readbytetable.lua
 example_luatex_sio_readcardinal1:
 	$(LUATEX) sio/readcardinal1.lua
+example_luatex_sio_readcardinal1le:
+	$(LUATEX) sio/readcardinal1le.lua
 example_luatex_sio_readcardinal2:
 	$(LUATEX) sio/readcardinal2.lua
+example_luatex_sio_readcardinal2le:
+	$(LUATEX) sio/readcardinal2le.lua
 example_luatex_sio_readcardinal3:
 	$(LUATEX) sio/readcardinal3.lua
+example_luatex_sio_readcardinal3le:
+	$(LUATEX) sio/readcardinal3le.lua
 example_luatex_sio_readcardinal4:
 	$(LUATEX) sio/readcardinal4.lua
+example_luatex_sio_readcardinal4le:
+	$(LUATEX) sio/readcardinal4le.lua
 example_luatex_sio_readfixed2:
 	$(LUATEX) sio/readfixed2.lua
 example_luatex_sio_readfixed4:

@@ -173,6 +173,17 @@ function sio.readcardinal4(text, position) end
 function sio.readcardinaltable(text, position, n, b) end
 
 ---
+---__Example:__
+---
+---```lua
+---equals(sio.readcardinal1le("test", 0), nil)
+---equals(sio.readcardinal1le("test", 1), 116)
+---equals(sio.readcardinal1le("test", 2), 101)
+---equals(sio.readcardinal1le("test", 3), 115)
+---equals(sio.readcardinal1le("test", 4), 116)
+---equals(sio.readcardinal1le("test", 5), nil)
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [liolibext.c#L124-L135](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L124-L135)
@@ -189,6 +200,15 @@ function sio.readcardinaltable(text, position, n, b) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readcardinal1le(text, position) end
 
+
+---__Example:__
+---
+---```lua
+---equals(sio.readcardinal2le("test", 0), 29696)
+---equals(sio.readcardinal2le("test", 1), 25972)
+---equals(sio.readcardinal2le("test", 3), 29811)
+---equals(sio.readcardinal2le("test", 4), nil)
+---```
 ---
 ---__Reference:__
 ---
@@ -196,7 +216,7 @@ function sio.readcardinal1le(text, position) end
 ---
 ---little endian variant
 ---
----@see fio.readcardinal3le
+---@see fio.readcardinal2le
 ---
 ---@param text string # A string to read from.
 ---@param position integer The position in bytes from which to read. `1` and not `0` reads from the first byte.
@@ -204,8 +224,17 @@ function sio.readcardinal1le(text, position) end
 ---@return integer
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function sio.readcardinal3le(text, position) end
+function sio.readcardinal2le(text, position) end
 
+---
+---__Example:__
+---
+---```lua
+---equals(sio.readcardinal3le("luatex", 0), 7695360)
+---equals(sio.readcardinal3le("luatex", 1), 6387052)
+---equals(sio.readcardinal3le("luatex", 4), 7890292)
+---equals(sio.readcardinal3le("luatex", 5), nil)
+---```
 ---
 ---__Reference:__
 ---
@@ -223,6 +252,14 @@ function sio.readcardinal3le(text, position) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readcardinal3le(text, position) end
 
+---
+---__Example:__
+---
+---```lua
+---equals(sio.readcardinal4le("test", 0), 1936028672)
+---equals(sio.readcardinal4le("test", 1), 1953719668)
+---equals(sio.readcardinal4le("test", 2), nil)
+---```
 ---
 ---__Reference:__
 ---

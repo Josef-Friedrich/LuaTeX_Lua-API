@@ -373,7 +373,10 @@ def convert_html() -> None:
 
 
 def example(
-    src_relpath: str, luaonly: bool = False, subproject: Subproject = "luatex"
+    src_relpath: str,
+    luaonly: bool = False,
+    subproject: Subproject = "luatex",
+    print_docstring: bool = False,
 ) -> None:
     """
     Compiles a Lua or TeX example file.
@@ -411,6 +414,11 @@ def example(
     src_content = src.read_text()
 
     _run_pygmentize(src)
+
+    if print_docstring:
+        print("\n---\n" "---__Example:__\n" + "---\n" + "---```lua")
+        print("\n".join("---" + line for line in src_content.splitlines()))
+        print("---```\n" + "---\n")
 
     src_content = re.sub(
         r"(\./)?resources/utils",
@@ -794,6 +802,7 @@ class Args:
     ]
     relpath: Optional[str]
     subproject: Optional[Subproject]
+    print_docstring: bool
     luaonly: bool
 
 
@@ -864,6 +873,11 @@ if __name__ == "__main__":
         help="Exectute the example in an Lua only environement without the TeX related libraries",
         action="store_true",
     )
+    example_parser.add_argument(
+        "--print-docstring",
+        help="Print the lua code into fenced markdown code plain as a Lua comment.",
+        action="store_true",
+    )
     example_parser.add_argument("relpath")
 
     # format
@@ -907,7 +921,7 @@ if __name__ == "__main__":
         dist()
     elif args.command == "example" and args.relpath:
         if args.subproject:
-            example(args.relpath, args.luaonly, args.subproject)
+            example(args.relpath, args.luaonly, args.subproject, args.print_docstring)
         else:
             example(args.relpath, args.luaonly)
     elif args.command == "format":
