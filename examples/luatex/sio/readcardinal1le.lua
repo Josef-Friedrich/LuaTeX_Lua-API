@@ -1,4 +1,4 @@
-local equals = require('./resources/utils').assert_equals
+local equals = require("./resources/utils").assert_equals
 
 equals(sio.readcardinal1le("test", 0), nil)
 equals(sio.readcardinal1le("test", 1), 116)

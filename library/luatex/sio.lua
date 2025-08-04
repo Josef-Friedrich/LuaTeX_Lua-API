@@ -160,17 +160,31 @@ function sio.readcardinal3(text, position) end
 function sio.readcardinal4(text, position) end
 
 ---
+---__Example:__
+---
+---```lua
+---local t = sio.readcardinaltable("test", 1, 4, 1)
+----- t: decimal=116 hexadecimal=74 binary=01110100
+---equals(t[1], 116)
+----- e: decimal=101 hexadecimal=65 binary=01100101
+---equals(t[2], 101)
+----- s: decimal=115 hexadecimal=73 binary=01110011
+---equals(t[3], 115)
+----- t: decimal=116 hexadecimal=74 binary=01110100
+---equals(t[4], 116)
+---```
+---
 ---@see fio.readcardinaltable
 ---
 ---@param text string # A string to read from.
 ---@param position integer The position in bytes from which to read. `1` and not `0` reads from the first byte.
----@param n integer
----@param b integer
+---@param number integer # The number of integers in the resulting table.
+---@param bytes 1|2|3|4 # Specify 1 for 1 byte unsigned integers, 2 for a 2 byte unsigned integers.
 ---
 ---@return table<integer, integer>
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function sio.readcardinaltable(text, position, n, b) end
+function sio.readcardinaltable(text, position, number, bytes) end
 
 ---
 ---__Example:__
@@ -200,7 +214,7 @@ function sio.readcardinaltable(text, position, n, b) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readcardinal1le(text, position) end
 
-
+---
 ---__Example:__
 ---
 ---```lua
@@ -338,6 +352,20 @@ function sio.readinteger3(text, position) end
 function sio.readinteger4(text, position) end
 
 ---
+---__Example:__
+---
+---```lua
+---local t = sio.readintegertable("test", 1, 4, 1)
+----- t: decimal=116 hexadecimal=74 binary=01110100
+---equals(t[1], 116)
+----- e: decimal=101 hexadecimal=65 binary=01100101
+---equals(t[2], 101)
+----- s: decimal=115 hexadecimal=73 binary=01110011
+---equals(t[3], 115)
+----- t: decimal=116 hexadecimal=74 binary=01110100
+---equals(t[4], 116)
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [liolibext.c#L717-798](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L717-798)
@@ -345,14 +373,14 @@ function sio.readinteger4(text, position) end
 ---@see fio.readintegertable
 ---
 ---@param text string # A string to read from.
----@param position integer The position in bytes from which to read. `1` and not `0` reads from the first byte.
----@param n integer
----@param b integer
+---@param position integer # The position in bytes from which to read. `1` and not `0` reads from the first byte.
+---@param number integer # The number of integers in the resulting table.
+---@param bytes 1|2|3|4 # Specify 1 for 1 byte signed integers, 2 for a 2 byte signed integers.
 ---
 ---@return table<integer, integer>
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function sio.readintegertable(text, position, n, b) end
+function sio.readintegertable(text, position, number, bytes) end
 
 ---
 ---__Example:__
