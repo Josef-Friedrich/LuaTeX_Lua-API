@@ -173,5 +173,3 @@ function md5.decrypt(message, key) end
 ---
 ---😱 [Types](https://github.com/LuaCATS/md5/blob/main/library/md5.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/md5/pulls)
 function md5.exor(s1, s2) end
-
-return md5

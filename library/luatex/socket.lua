@@ -1027,5 +1027,3 @@ function socket.udp6() end
 
 --#endregion
 --}}}
-
-return socket

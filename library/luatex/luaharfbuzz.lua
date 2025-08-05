@@ -1754,5 +1754,3 @@ local Variation = {}
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)
 luaharfbuzz.Variation = Variation
-
-return luaharfbuzz

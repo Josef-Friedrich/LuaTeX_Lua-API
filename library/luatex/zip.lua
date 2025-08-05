@@ -381,5 +381,3 @@ function ZInternalFile:close() end
 ---
 ---😱 [Types](https://github.com/LuaCATS/luazip/blob/main/library/zip.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luazip/pulls)
 function ZInternalFile:lines() end
-
-return zip

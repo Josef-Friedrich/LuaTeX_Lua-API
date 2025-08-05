@@ -646,5 +646,3 @@ function lpeg.Ct(patt) end
 ---
 ---😱 [Types](https://github.com/LuaCATS/lpeg/blob/main/library/lpeg.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/lpeg/pulls)
 function lpeg.Cmt(patt, fn) end
-
-return lpeg

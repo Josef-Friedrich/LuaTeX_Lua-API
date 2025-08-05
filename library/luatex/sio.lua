@@ -644,5 +644,3 @@ function sio.readbytes(text, position, number) end
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readbytetable(text, position, number) end
-
-return sio

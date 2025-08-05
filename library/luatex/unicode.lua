@@ -906,5 +906,3 @@ function unicode.utf8.sub(s, i, j) end
 ---
 ---😱 [Types](https://github.com/LuaCATS/slnunicode/blob/main/library/unicode.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/slnunicode/pulls)
 function unicode.utf8.upper(s) end
-
-return unicode

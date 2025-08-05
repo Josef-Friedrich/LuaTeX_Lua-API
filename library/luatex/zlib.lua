@@ -281,5 +281,3 @@ function ZStream:close() end
 ---
 ---@return number adler
 function ZStream.adler() end
-
-return zlib

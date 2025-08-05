@@ -901,5 +901,3 @@ function mplib.solve_path(mp, coordinates, cyclic) end
 ---@param coordinates table
 ---@param cyclic boolean
 function MpInstance:solve_path(coordinates, cyclic) end
-
-return mplib

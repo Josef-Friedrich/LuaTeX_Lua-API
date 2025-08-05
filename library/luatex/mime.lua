@@ -302,5 +302,3 @@ function mime.unqp(C, D) end
 ---
 ---😱 [Types](https://github.com/LuaCATS/luasocket/blob/main/library/mime.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luasocket/pulls)
 function mime.wrp(n, B, length) end
-
-return mime

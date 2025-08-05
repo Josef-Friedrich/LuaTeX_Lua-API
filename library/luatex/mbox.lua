@@ -86,5 +86,3 @@ function mbox.parse(mbox_s) end
 ---
 ---😱 [Types](https://github.com/LuaCATS/luasocket/blob/main/library/mbox.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luasocket/pulls)
 function mbox.parse_message(message_s) end
-
-return mbox
