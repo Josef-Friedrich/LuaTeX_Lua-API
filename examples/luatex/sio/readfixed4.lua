@@ -1,8 +1,5 @@
-local function compare_numbers(a, b, epsilon)
-  epsilon = epsilon or 1e-6
-  return a == b or math.abs(a - b) < epsilon
-end
+local assert = require("utils").assert
 
-assert(compare_numbers(sio.readfixed4("test", 0), 116.39628601074))
-assert(compare_numbers(sio.readfixed4("test", 1), 29797.45098877))
-assert(sio.readfixed4("test", 2) == nil)
+assert.numbers(sio.readfixed4("test", 0), 116.39628601074)
+assert.numbers(sio.readfixed4("test", 1), 29797.45098877)
+assert.is_nil(sio.readfixed4("test", 2))

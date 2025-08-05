@@ -1,4 +1,6 @@
-assert(sio.readinteger3le("test", 0) == 6648832)
-assert(sio.readinteger3le("test", 1) == 7562612)
-assert(sio.readinteger3le("test", 2) == 7631717)
-assert(sio.readinteger3le("test", 3) == nil)
+local assert = require("utils").assert
+
+assert.equals(sio.readinteger3("test", 0), 29797)
+assert.equals(sio.readinteger3("test", 1), 7628147)
+assert.equals(sio.readinteger3("test", 2), 6648692)
+assert.is_nil(sio.readinteger3("test", 3))

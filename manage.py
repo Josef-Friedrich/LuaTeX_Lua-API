@@ -403,14 +403,12 @@ def example(
     else:
         src = project_base_path / "examples" / subproject / src_relpath
 
-
     for extension in ["lua", "tex"]:
         src_with_extension = Path(str(src) + "." + extension)
 
         if src_with_extension.exists():
             src = src_with_extension
             continue
-
 
     logger.debug(f"Example source: {src}")
 
@@ -484,6 +482,9 @@ def example(
     if pdf.exists():
         _open_file(pdf)
 
+    if result.returncode != 0:
+        sys.exit(1)
+
 
 def example_makefile() -> None:
     """Generate phony targets for the Makefile to run all examples."""
@@ -516,7 +517,6 @@ def example_makefile() -> None:
                 if function.endswith(".lua") or function.endswith(".tex"):
                     basename = function.replace(".lua", "").replace(".tex", "")
                     functions.add(basename)
-
 
             function_targets: list[str] = []
             for function in sorted(list(functions)):

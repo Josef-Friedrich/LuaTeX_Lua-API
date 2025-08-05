@@ -420,59 +420,6 @@ local function get_file_extension(path)
 end
 
 ---
----Deeply compare two objects.
----
----Source: [gist.github.com/sapphyrus/fd9aeb871e3ce966cc4b0b969f62f539](https://gist.github.com/sapphyrus/fd9aeb871e3ce966cc4b0b969f62f539?permalink_comment_id=4563041#gistcomment-4563041)
----
----@param o1 unknown # An object of any type.
----@param o2 unknown # An object of any type.
----@param ignore_mt? boolean # Ignore the metatable.
----
----@return boolean # `true`, if the two specified objects are deeply equal.
-local function are_same(o1, o2, ignore_mt)
-  -- same object
-  if o1 == o2 then
-    return true
-  end
-
-  local o1Type = type(o1)
-  local o2Type = type(o2)
-  --- different type
-  if o1Type ~= o2Type then
-    return false
-  end
-  --- same type but not table, already compared above
-  if o1Type ~= "table" then
-    return false
-  end
-
-  -- use metatable method
-  if not ignore_mt then
-    local mt1 = getmetatable(o1)
-    if mt1 and mt1.__eq then
-      -- compare using built in method
-      return o1 == o2
-    end
-  end
-
-  -- iterate over o1
-  for key1, value1 in pairs(o1) do
-    local value2 = o2[key1]
-    if value2 == nil or are_same(value1, value2, ignore_mt) == false then
-      return false
-    end
-  end
-
-  --- check keys in o2 but missing from o1
-  for key2, _ in pairs(o2) do
-    if o1[key2] == nil then
-      return false
-    end
-  end
-  return true
-end
-
----
 ---https://stackoverflow.com/a/49405922
 ---
 ---@param path string The path of a directory
@@ -613,16 +560,120 @@ local function print_global_namespace()
   end
 end
 
+---
+---@param actual unknown
+---@param expected unknown
+---@param compare fun(actual: unknown, expected: unknown): boolean
+local function report_diff(compare, actual, expected)
+  if not compare(actual, expected) then
+    print("actual:", actual)
+    print("expected:", expected)
+    assert(false)
+  end
+end
+
+---@param actual unknown
+---@param expected unknown
+---
+---@return boolean
+local function compare_equality(actual, expected)
+  return actual == expected
+end
+
+---@param actual unknown
+---@param expected unknown
+local function assert_equals(actual, expected)
+  report_diff(compare_equality, actual, expected)
+end
+
+---@param actual unknown
+local function assert_is_nil(actual)
+  report_diff(compare_equality, actual, nil)
+end
+
+local function compare_numbers(a, b, epsilon)
+  epsilon = epsilon or 1e-6
+  return a == b or math.abs(a - b) < epsilon
+end
+
+---@param actual unknown
+---@param expected unknown
+local function assert_numbers(actual, expected)
+  report_diff(compare_numbers, actual, expected)
+end
+
+---
+---Deeply compare two objects.
+---
+---Source: [gist.github.com/sapphyrus/fd9aeb871e3ce966cc4b0b969f62f539](https://gist.github.com/sapphyrus/fd9aeb871e3ce966cc4b0b969f62f539?permalink_comment_id=4563041#gistcomment-4563041)
+---
+---@param o1 unknown # An object of any type.
+---@param o2 unknown # An object of any type.
+---@param ignore_mt? boolean # Ignore the metatable.
+---
+---@return boolean # `true`, if the two specified objects are deeply equal.
+local function compare_tables(o1, o2, ignore_mt)
+  -- same object
+  if o1 == o2 then
+    return true
+  end
+
+  local o1Type = type(o1)
+  local o2Type = type(o2)
+  --- different type
+  if o1Type ~= o2Type then
+    return false
+  end
+  --- same type but not table, already compared above
+  if o1Type ~= "table" then
+    return false
+  end
+
+  -- use metatable method
+  if not ignore_mt then
+    local mt1 = getmetatable(o1)
+    if mt1 and mt1.__eq then
+      -- compare using built in method
+      return o1 == o2
+    end
+  end
+
+  -- iterate over o1
+  for key1, value1 in pairs(o1) do
+    local value2 = o2[key1]
+    if value2 == nil or compare_tables(value1, value2, ignore_mt) == false then
+      return false
+    end
+  end
+
+  --- check keys in o2 but missing from o1
+  for key2, _ in pairs(o2) do
+    if o1[key2] == nil then
+      return false
+    end
+  end
+  return true
+end
+
+local function assert_same(actual, expected)
+  report_diff(compare_tables, actual, expected)
+end
+
+local assert_functions = {
+  equals = assert_equals,
+  is_nil = assert_is_nil,
+  numbers = assert_numbers,
+  same = assert_same,
+}
+
 return {
   pinspect = pinspect,
-  are_same = are_same,
-  assert_equals = function(actual, expected)
-    if actual ~= expected then
-      print("actual:", actual)
-      print("expected:", expected)
-    end
-    assert(actual == expected)
-  end,
+  are_same = compare_tables,
+  assert = assert_functions,
+  assert_equals = assert_equals,
+  assert_is_nil = assert_is_nil,
+  assert_numbers = assert_numbers,
+  assert_same = assert_same,
   print_global_namespace = print_global_namespace,
   convert_string_array_to_alias_union = convert_string_array_to_alias_union,
   list_files_recursively = list_files_recursively,
