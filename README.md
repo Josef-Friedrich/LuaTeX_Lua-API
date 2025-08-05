@@ -665,6 +665,49 @@ Mark Meta File
 
 [^luals-meta]: https://github.com/LuaLS/LuaLS.github.io/blob/f87938ff71a9322ac2bdcbac2164ad2da7e394f0/src/content/wiki/annotations.mdx?plain=1#L731-L752
 
+## HTML doc generator
+
+The [EmmyLua Analyzer
+Rust](https://github.com/EmmyLuaLs/emmylua-analyzer-rust) provides a
+[documentation generation tool](https://github.com/EmmyLuaLs/emmylua-analyzer-rust/tree/main/crates/emmylua_doc_cli).
+This tool generates Markdown files which can be parsed by [mkdocs](https://www.mkdocs.org).
+
+```yml
+site_name: LuaTeX Lua API type definitions
+
+theme:
+  name: material
+  font:
+    text: Roboto
+    code: Roboto Mono
+  search: true
+  features:
+    - quick-links
+    - navigation
+    - search
+    - toc
+    - fullscreen
+    - bookmarks
+    - tabs
+    - code
+    - edit-on-github
+    - language-selector
+    - code
+    - cover
+    - footer
+    - social-share
+    - theme-switcher
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+```
+
 ## References
 
 ```lua
