@@ -31,27 +31,13 @@ print_namespace:
 generate_doc:
 	$(HOME)/.vscode/extensions/sumneko.lua-3.6.8-linux-x64/server/bin/lua-language-server --doc library
 
-# https://github.com/LuaLS/LuaParser
 .PHONY:
-luaparser_install:
-	sudo luarocks install lpeglabel
-	rm -rf /tmp/LuaParser
-	git clone https://github.com/LuaLS/LuaParser.git /tmp/LuaParser
-	sudo rsync -av --delete /tmp/LuaParser/src/parser/  /usr/local/share/lua/5.3/parser/
-	sudo cp /tmp/LuaParser/src/utility.lua /usr/local/share/lua/5.3/utility.lua
+lua_doc_generator:
+	cd doc-generators/lua; lua doc-generator.lua
 
 .PHONY:
-luaparser_download:
-	sudo luarocks install lpeglabel
-	./manage.py parser
-
-.PHONY:
-luaparser:
-	cd parser; lua _tex-doc-generator.lua
-
-.PHONY:
-luaparser_test:
-	cd parser; busted _test.lua
+lua_doc_generator_test:
+	cd doc-generators/lua; busted test.lua
 
 .PHONY:
 dist:

@@ -565,39 +565,6 @@ def format() -> None:
     _apply("library/**/*.lua", _format)
 
 
-def parser() -> None:
-    """Entry point for ./manage.py parser.
-
-    Download the Lua sources of the LuaParser (https://github.com/LuaLS/LuaParser).
-    """
-
-    def _download(src: str, dest: str) -> None:
-        _download_url(
-            f"https://raw.githubusercontent.com/LuaLS/LuaParser/refs/heads/master/src/{src}",
-            str(project_base_path) + f"/parser/{dest}",
-        )
-
-    for file in [
-        "compile.lua",
-        "guide.lua",
-        "init.lua",
-        "lines.lua",
-        "luadoc.lua",
-        "relabel.lua",
-        "tokens.lua",
-    ]:
-        _download(
-            f"parser/{file}",
-            file,
-        )
-
-    for file in ["meta.lua", "utility.lua"]:
-        _download(
-            file,
-            file,
-        )
-
-
 def manuals() -> None:
     luatex_files: dict[str, Union[str, None]] = {
         "luatex-backend.tex": "14_backend.tex",
@@ -875,7 +842,6 @@ class Args:
         "format",
         "manuals",
         "merge",
-        "parser",
         "test",
     ]
     relpath: Optional[str]
@@ -984,11 +950,6 @@ if __name__ == "__main__":
     )
     merge_parser.add_argument("subproject")
 
-    # parser
-    parser_parser = subparsers.add_parser(
-        "parser",
-        help="Download the Lua sources of the LuaParser (https://github.com/LuaLS/LuaParser).",
-    )
 
     # test
     test_parser = subparsers.add_parser("test", help="Run the embedded unittest.")
@@ -1016,8 +977,6 @@ if __name__ == "__main__":
         manuals()
     elif args.command == "merge" and args.subproject:
         merge(args.subproject)
-    elif args.command == "parser":
-        parser()
     elif args.command == "test":
         suite = unittest.defaultTestLoader.loadTestsFromTestCase(TestManager)
         runner = unittest.TextTestRunner()

@@ -1,5 +1,5 @@
 --- m = module
-local m = require("luaparser")
+local m = require("doc-generator")
 
 local code_snippets = {
   one_function = [[
