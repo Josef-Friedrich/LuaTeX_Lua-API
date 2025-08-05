@@ -332,7 +332,7 @@ example_luametatex_xcomplex_totable:
 
 ## luatex
 
-E_LUATEX = ./manage.py example --subproject luatex
+E_LUATEX = ./manage.py example --subproject luatex --print-docstring
 
 ### callback
 
@@ -665,6 +665,8 @@ example_luatex_node_direct.setlist:
 	$(E_LUATEX) node/direct.setlist
 example_luatex_node_direct.setwhd:
 	$(E_LUATEX) node/direct.setwhd
+example_luatex_node_direct.getwhd:
+	$(E_LUATEX) node/direct.getwhd
 example_luatex_node_direct.setwidth:
 	$(E_LUATEX) node/direct.setwidth
 example_luatex_node_direct.tostring:

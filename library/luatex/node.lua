@@ -4479,6 +4479,17 @@ function node.direct.getchar(d) end
 ---
 ---Set the `width`, `height` and `depth` fields of `hlist`, `vlist`, `rule` or `unset` nodes.
 ---
+---__Example:__
+---
+---```lua
+---local n = node.new("hlist") --[[@as HlistNode]]
+---local d = node.direct.todirect(n)
+---node.direct.setwhd(d, 1, 2, 3)
+---assert.equals(n.width, 1)
+---assert.equals(n.height, 2)
+---assert.equals(n.depth, 3)
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L1307-L1346](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1307-L1346)
@@ -4499,7 +4510,7 @@ function node.direct.setwhd(d, width, height, depth) end
 ---* Corresponding C source code: [lnodelib.c#L1350-L1378](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1350-L1378)
 ---
 ---@param n Node
----@param get_ex boolean
+---@param get_expansion_factor? boolean
 ---
 ---@return integer width
 ---@return integer height
@@ -4507,17 +4518,38 @@ function node.direct.setwhd(d, width, height, depth) end
 ---@return integer|nil ex # If the node is a `glyph` and `get_ex` is true
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function node.getwhd(n, get_ex) end
+function node.getwhd(n, get_expansion_factor) end
 
 ---
 ---Return the `width`, `height` and `depth` of a list, rule or (unexpanded) `glyph` as well as `glue` (its spec is looked at) and `unset` node.
+---
+---__Example:__
+---
+---```lua
+---local hlist = node.new("hlist") --[[@as HlistNode]]
+---hlist.width = 1
+---hlist.height = 2
+---hlist.depth = 3
+---local width, height, depth, expansion_factor =
+---node.direct.getwhd(node.direct.todirect(hlist))
+---assert.equals(width, 1)
+---assert.equals(height, 2)
+---assert.equals(depth, 3)
+---assert.is_nil(expansion_factor)
+---
+---local glpyh = node.new("glyph") --[[@as GlyphNode]]
+---glpyh.expansion_factor = 3
+---local _, _, _, expansion_factor =
+---  node.direct.getwhd(node.direct.todirect(glpyh), true)
+---assert.equals(expansion_factor, 3)
+---```
 ---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L1277-L1305](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1277-L1305)
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
----@param get_ex boolean
+---@param get_expansion_factor? boolean
 ---
 ---@return integer width
 ---@return integer height
@@ -4525,7 +4557,7 @@ function node.getwhd(n, get_ex) end
 ---@return integer|nil ex # If the node is a `glyph` and `get_ex` is true
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function node.direct.getwhd(d, get_ex) end
+function node.direct.getwhd(d, get_expansion_factor) end
 
 ---
 ---Set the `pre`, `post`, `replace`, `subtype` and `penalty` on a `disc` node.
@@ -4881,6 +4913,15 @@ function node.direct.setdir(d, dir) end
 ---
 ---Get the direction  of `dir`, `hlist`, `vlist`, `rule` and `local_par` nodes as a string.
 ---
+---__Example:__
+---
+---```lua
+---local n = node.new("hlist")
+---local d = node.direct.todirect(n)
+---node.direct.setdir(d, "TLT")
+---assert.equals(node.direct.getdir(d), "TLT")
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L1047-L1067](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1047-L1067)
@@ -4907,6 +4948,15 @@ function node.direct.setdirection(d, dir) end
 
 ---
 ---Get the direction of `dir`, `hlist`, `vlist`, `rule` and `local_par` nodes as an integer.
+---
+---__Example:__
+---
+---```lua
+---local n = node.new("hlist")
+---local d = node.direct.todirect(n)
+---node.direct.setdir(d, "LTL")
+---assert.equals(node.direct.getdirection(d), 2)
+---```
 ---
 ---__Reference:__
 ---
