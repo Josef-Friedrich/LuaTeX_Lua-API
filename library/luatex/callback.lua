@@ -4,9 +4,9 @@
 ---2025/07/24 v0.2.0
 ---
 
--- ---------------------------------------------------------------------
+-- ----------------------------------------------------------------------------
 -- Copyright (C) 2022-2025 by Josef Friedrich <josef@friedrich.rocks>
--- ---------------------------------------------------------------------
+-- ----------------------------------------------------------------------------
 --
 -- This program is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as published by the
@@ -20,7 +20,8 @@
 --
 -- You should have received a copy of the GNU General Public License along
 -- with this program. If not, see <https://www.gnu.org/licenses/>.
--- ---------------------------------------------------------------------
+--
+-- ----------------------------------------------------------------------------
 
 ---@meta
 ---A helper table to better navigate through the documentation using the

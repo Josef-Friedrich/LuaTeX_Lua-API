@@ -1,24 +1,28 @@
----
----Copyright (C) 2022-2025 by Josef Friedrich <josef@friedrich.rocks>
-------------------------------------------------------------------------
----
----This program is free software: you can redistribute it and/or modify it
----under the terms of the GNU General Public License as published by the
----Free Software Foundation, either version 2 of the License, or (at your
----option) any later version.
----
----This program is distributed in the hope that it will be useful, but
----WITHOUT ANY WARRANTY; without even the implied warranty of
----MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
----Public License for more details.
----
----You should have received a copy of the GNU General Public License along
----with this program. If not, see <https://www.gnu.org/licenses/>.
----@meta
+-- ----------------------------------------------------------------------------
+-- Copyright (C) 2022-2025 by Josef Friedrich <josef@friedrich.rocks>
+-- ----------------------------------------------------------------------------
+--
+-- This program is free software: you can redistribute it and/or modify it
+-- under the terms of the GNU General Public License as published by the
+-- Free Software Foundation, either version 2 of the License, or (at your
+-- option) any later version.
+--
+-- This program is distributed in the hope that it will be useful, but
+-- WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+-- Public License for more details.
+--
+-- You should have received a copy of the GNU General Public License along
+-- with this program. If not, see <https://www.gnu.org/licenses/>.
+--
+-- ----------------------------------------------------------------------------
+
+
 ---A helper table to better navigate through the documentation using the
 ---outline: https://github.com/Josef-Friedrich/LuaTeX_Lua-API#navigation-table-_n
 _N = {}
 
+---@meta
 ---
 ---The node library contains functions that facilitate dealing with (lists of) nodes and their values.
 ---They allow you to create, alter, copy, delete, and insert LuaTEX node objects, the core objects
