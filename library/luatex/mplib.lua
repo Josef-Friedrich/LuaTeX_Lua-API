@@ -438,9 +438,6 @@ function MpFig.italcorr() end
 ---
 ---@return number|nil
 function MpFig.charcode() end
-
----
-
 _N._11_2_5_1_fill = "page 234"
 
 ---

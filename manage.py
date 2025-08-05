@@ -184,6 +184,8 @@ def _clean_docstrings(content: str) -> str:
     # Remove duplicate empty comment lines.
     content = re.sub("\n---(\n---)+\n", "\n---\n", content)
 
+    content = content.replace("\n\n---\n\n", "\n")
+
     # Allow only one empty line
     content = _remove_duplicate_empty_lines(content)
 
@@ -814,6 +816,11 @@ def dist() -> None:
 
     _apply("dist/**/*.lua", _remove_navigation_table)
 
+    def _clean(path: Path) -> None:
+        _update_text_file(path, _clean_docstrings)
+
+    _apply("dist/**/*.lua", _clean)
+
     if not _is_git_commited():
         raise Exception("Uncommited changes found! Commit first, then retry!")
     commit_id = _get_latest_git_commitid()
@@ -949,7 +956,6 @@ if __name__ == "__main__":
         description="Specify the subproject folder.",
     )
     merge_parser.add_argument("subproject")
-
 
     # test
     test_parser = subparsers.add_parser("test", help="Run the embedded unittest.")
