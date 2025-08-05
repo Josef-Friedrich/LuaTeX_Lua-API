@@ -33,5 +33,6 @@ _minted*/
 tmp.tex
 tmp.lua
 tmp.txt
+dist-doc/
 
 luatex-type-definitions/

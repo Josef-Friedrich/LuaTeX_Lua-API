@@ -37,3 +37,6 @@
 [submodule "resources/vscode_extension"]
 	path = resources/vscode_extension
 	url = git@github.com:Josef-Friedrich/vscode_LuaTeX_Lua-API.git
+[submodule "doc-generators/rust"]
+	path = doc-generators/rust
+	url = git@github.com:Josef-Friedrich/emmylua-analyzer-rust.git
