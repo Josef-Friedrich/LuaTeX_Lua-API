@@ -9,6 +9,7 @@ all: format stylua
 .PHONY: format
 format: stylua
 	./manage.py format
+	./manage.py example --makefile .
 
 .PHONY: convert
 convert:
@@ -126,7 +127,7 @@ namespace_luatex_luaonly:
 
 ## lualibs
 
-E_LUALIBS = ./manage.py example --subproject lualibs
+E_LUALIBS = ./manage.py example --print-docstring --subproject lualibs
 
 ### io
 
@@ -304,7 +305,7 @@ example_lualibs_url_toquery:
 
 ## luametatex
 
-E_LUAMETATEX = ./manage.py example --subproject luametatex
+E_LUAMETATEX = ./manage.py example --print-docstring --subproject luametatex
 
 ### status
 
@@ -332,7 +333,7 @@ example_luametatex_xcomplex_totable:
 
 ## luatex
 
-E_LUATEX = ./manage.py example --subproject luatex --print-docstring
+E_LUATEX = ./manage.py example --print-docstring --subproject luatex
 
 ### callback
 
@@ -612,6 +613,8 @@ example_luatex_node: example_luatex_node_Node_AttributeListNode \
 	example_luatex_node_direct.getdir \
 	example_luatex_node_direct.getdirection \
 	example_luatex_node_direct.getlist \
+	example_luatex_node_direct.getwhd \
+	example_luatex_node_direct.is_glyph \
 	example_luatex_node_direct.setlist \
 	example_luatex_node_direct.setwhd \
 	example_luatex_node_direct.setwidth \
@@ -661,12 +664,14 @@ example_luatex_node_direct.getdirection:
 	$(E_LUATEX) node/direct.getdirection
 example_luatex_node_direct.getlist:
 	$(E_LUATEX) node/direct.getlist
+example_luatex_node_direct.getwhd:
+	$(E_LUATEX) node/direct.getwhd
+example_luatex_node_direct.is_glyph:
+	$(E_LUATEX) node/direct.is_glyph
 example_luatex_node_direct.setlist:
 	$(E_LUATEX) node/direct.setlist
 example_luatex_node_direct.setwhd:
 	$(E_LUATEX) node/direct.setwhd
-example_luatex_node_direct.getwhd:
-	$(E_LUATEX) node/direct.getwhd
 example_luatex_node_direct.setwidth:
 	$(E_LUATEX) node/direct.setwidth
 example_luatex_node_direct.tostring:
@@ -1001,6 +1006,12 @@ example_luatex_tex_write:
 example_luatex_texconfig: example_luatex_texconfig_texconfig
 example_luatex_texconfig_texconfig:
 	$(E_LUATEX) texconfig/texconfig
+
+### texio
+
+example_luatex_texio: example_luatex_texio_write
+example_luatex_texio_write:
+	$(E_LUATEX) texio/write
 
 ### token
 

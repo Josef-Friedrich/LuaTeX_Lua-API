@@ -533,7 +533,7 @@ def example_makefile() -> None:
         lines.append(f"\n## {subproject}")
         subproject_executable = f"E_{subproject.upper()}"
         lines.append(
-            f"\n{subproject_executable} = ./manage.py example --subproject {subproject}"
+            f"\n{subproject_executable} = ./manage.py example --print-docstring --subproject {subproject}"
         )
 
         for module in sorted(os.listdir(subproject_path)):

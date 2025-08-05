@@ -2971,6 +2971,16 @@ function node.is_glyph(n) end
 ---Signal if the glyph is already turned into a character reference
 ---or not by examining the subtype.
 ---
+---__Example:__
+---
+---```lua
+---local character, font =
+---  node.direct.is_glyph(node.direct.todirect(node.new("glyph")))
+---assert.equals(character, 0)
+---assert.equals(font, 0)
+---assert.is_false(node.direct.is_glyph(node.direct.todirect(node.new("hlist"))))
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L7594-L7605](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L7594-L7605)
@@ -5800,7 +5810,6 @@ function node.make_extensible(fnt, chr, size, overlap, horizontal, attlist) end
 ---})
 ---```
 ---
----
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L3153-L3222](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3153-L3222)
@@ -5845,7 +5854,6 @@ function node.tostring(n) end
 ---)
 ---```
 ---
----
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L5922-L5931](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L5922-L5931)
@@ -5869,7 +5877,6 @@ function node.direct.tostring(d) end
 ---)
 ---```
 ---
----
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L6471-L6476](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6471-L6476)
@@ -5887,7 +5894,6 @@ function node.usedlist() end
 ---```lua
 ---assert.equals(node.direct.usedlist(), 234)
 ---```
----
 ---
 ---__Reference:__
 ---
