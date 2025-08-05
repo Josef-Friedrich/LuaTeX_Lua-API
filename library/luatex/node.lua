@@ -2946,6 +2946,15 @@ function node.direct.is_char(d, font) end
 ---Signal if the glyph is already turned into a character reference
 ---or not by examining the subtype.
 ---
+---__Example:__
+---
+---```lua
+---local character, font = node.is_glyph(node.new("glyph"))
+---assert.equals(character, 0)
+---assert.equals(font, 0)
+---assert.is_false(node.is_glyph(node.new("hlist")))
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L3026-L3037](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3026-L3037)
@@ -2982,9 +2991,14 @@ _N._8_22_traverse = "page 153"
 ---__Example:__
 ---
 ---```lua
----for n in node.traverse(head) do
----   ...
----end
+---callback.register("post_linebreak_filter", function(head)
+---  for n, type, subtype in node.traverse(head.head) do
+---    assert.is_type(n, "userdata")
+---    assert.is_type(type, "number")
+---    assert.is_type(subtype, "number")
+---  end
+---  return head
+---end)
 ---```
 ---
 ---It should be clear from the definition of the function `f` that even though
@@ -5603,8 +5617,189 @@ function node.make_extensible(fnt, chr, size, overlap, horizontal, attlist) end
 ---__Example:__
 ---
 ---```lua
----node.subtypes('fence') -- {"left", "middle", "right", "no", [0] = "unset"}
+---local subtypes = {}
+---
+---for _, node_type in pairs(node.types()) do
+---  local subtype = node.subtypes(node_type)
+---  if subtype then
+---    subtypes[node_type] = subtype
+---  end
+---end
+---
+---assert.same(subtypes, {
+---  accent = {
+---    "fixedtop",
+---    "fixedbottom",
+---    "fixedboth",
+---    [0] = "bothflexible",
+---  },
+---  adjust = { "pre", [0] = "normal" },
+---  boundary = { "user", "protrusion", "word", [0] = "cancel" },
+---  dir = { "cancel", [0] = "normal" },
+---  disc = {
+---    "explicit",
+---    "automatic",
+---    "regular",
+---    "first",
+---    "second",
+---    [0] = "discretionary",
+---  },
+---  fence = { "left", "middle", "right", "no", [0] = "unset" },
+---  glue = {
+---    "lineskip",
+---    "baselineskip",
+---    "parskip",
+---    "abovedisplayskip",
+---    "belowdisplayskip",
+---    "abovedisplayshortskip",
+---    "belowdisplayshortskip",
+---    "leftskip",
+---    "rightskip",
+---    "topskip",
+---    "splittopskip",
+---    "tabskip",
+---    "spaceskip",
+---    "xspaceskip",
+---    "parfillskip",
+---    "mathskip",
+---    "thinmuskip",
+---    "medmuskip",
+---    "thickmuskip",
+---    [0] = "userskip",
+---    [98] = "conditionalmathskip",
+---    [99] = "muglue",
+---    [100] = "leaders",
+---    [101] = "cleaders",
+---    [102] = "xleaders",
+---    [103] = "gleaders",
+---  },
+---  glyph = {
+---    "character",
+---    "ligature",
+---    [0] = "unset",
+---    [4] = "ghost",
+---    [8] = "left",
+---    [16] = "right",
+---  },
+---  hlist = {
+---    "line",
+---    "box",
+---    "indent",
+---    "alignment",
+---    "cell",
+---    "equation",
+---    "equationnumber",
+---    "math",
+---    "mathchar",
+---    "hextensible",
+---    "vextensible",
+---    "hdelimiter",
+---    "vdelimiter",
+---    "overdelimiter",
+---    "underdelimiter",
+---    "numerator",
+---    "denominator",
+---    "limits",
+---    "fraction",
+---    "nucleus",
+---    "sup",
+---    "sub",
+---    "degree",
+---    "scripts",
+---    "over",
+---    "under",
+---    "accent",
+---    "radical",
+---    [0] = "unknown",
+---  },
+---  kern = {
+---    "userkern",
+---    "accentkern",
+---    "italiccorrection",
+---    [0] = "fontkern",
+---  },
+---  math = { "endmath", [0] = "beginmath" },
+---  noad = {
+---    "opdisplaylimits",
+---    "oplimits",
+---    "opnolimits",
+---    "bin",
+---    "rel",
+---    "open",
+---    "close",
+---    "punct",
+---    "inner",
+---    "under",
+---    "over",
+---    "vcenter",
+---    [0] = "ord",
+---  },
+---  penalty = {
+---    "linebreakpenalty",
+---    "linepenalty",
+---    "wordpenalty",
+---    "finalpenalty",
+---    "noadpenalty",
+---    "beforedisplaypenalty",
+---    "afterdisplaypenalty",
+---    "equationnumberpenalty",
+---    [0] = "userpenalty",
+---  },
+---  radical = {
+---    "uradical",
+---    "uroot",
+---    "uunderdelimiter",
+---    "uoverdelimiter",
+---    "udelimiterunder",
+---    "udelimiterover",
+---    [0] = "radical",
+---  },
+---  rule = {
+---    "box",
+---    "image",
+---    "empty",
+---    "user",
+---    "over",
+---    "under",
+---    "fraction",
+---    "radical",
+---    "outline",
+---    [0] = "normal",
+---  },
+---  vlist = {
+---    "line",
+---    "box",
+---    "indent",
+---    "alignment",
+---    "cell",
+---    "equation",
+---    "equationnumber",
+---    "math",
+---    "mathchar",
+---    "hextensible",
+---    "vextensible",
+---    "hdelimiter",
+---    "vdelimiter",
+---    "overdelimiter",
+---    "underdelimiter",
+---    "numerator",
+---    "denominator",
+---    "limits",
+---    "fraction",
+---    "nucleus",
+---    "sup",
+---    "sub",
+---    "degree",
+---    "scripts",
+---    "over",
+---    "under",
+---    "accent",
+---    "radical",
+---    [0] = "unknown",
+---  },
+---})
 ---```
+---
 ---
 ---__Reference:__
 ---
@@ -5631,6 +5826,8 @@ function node.subtypes(subtype) end
 ---
 ---* Corresponding C source code: [lnodelib.c#L5913-L5918](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L5913-L5918)
 ---
+---@see node.direct.tostring
+---
 ---@param n Node
 ---
 ---@return string # For example `<node    nil <    234 >    nil : glyph 0>`
@@ -5639,9 +5836,22 @@ function node.subtypes(subtype) end
 function node.tostring(n) end
 
 ---
+---__Example:__
+---
+---```lua
+---assert.equals(
+---  node.direct.tostring(node.direct.todirect(node.new("glyph"))),
+---  "<node    nil <    234 >    nil : glyph 0>"
+---)
+---```
+---
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L5922-L5931](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L5922-L5931)
+---
+---@see node.tostring
+---
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---
 ---@return string # For example `<direct    nil <    234 >    nil : glyph 0>`
@@ -5650,9 +5860,21 @@ function node.tostring(n) end
 function node.direct.tostring(d) end
 
 ---
+---__Example:__
+---
+---```lua
+---assert.equals(
+---  tostring(node.usedlist()),
+---  "<node    nil <    234 >    239 : dir 0>"
+---)
+---```
+---
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L6471-L6476](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6471-L6476)
+---
+---@see node.direct.usedlist
 ---
 ---@return Node n
 ---
@@ -5660,9 +5882,18 @@ function node.direct.tostring(d) end
 function node.usedlist() end
 
 ---
+---__Example:__
+---
+---```lua
+---assert.equals(node.direct.usedlist(), 234)
+---```
+---
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L6480-L6484](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6480-L6484)
+---
+---@see node.usedlist
 ---
 ---@return integer d
 ---

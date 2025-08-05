@@ -2,8 +2,8 @@
 local inspect = (function()
   --- https://raw.githubusercontent.com/kikito/inspect.lua/refs/heads/master/inspect.lua
   local _tl_compat
-  if (tonumber((_VERSION or ""):match("[%d.]*$")) or 0) < 5.3 then
-    local p, m = pcall(require, "compat53.module")
+  if (tonumber((_VERSION or ''):match('[%d.]*$')) or 0) < 5.3 then
+    local p, m = pcall(require, 'compat53.module')
     if p then
       _tl_compat = m
     end
@@ -13,9 +13,9 @@ local inspect = (function()
   local table = _tl_compat and _tl_compat.table or table
   local inspect = { Options = {} }
 
-  inspect._VERSION = "inspect.lua 3.1.0"
-  inspect._URL = "http://github.com/kikito/inspect.lua"
-  inspect._DESCRIPTION = "human-readable representations of tables"
+  inspect._VERSION = 'inspect.lua 3.1.0'
+  inspect._URL = 'http://github.com/kikito/inspect.lua'
+  inspect._DESCRIPTION = 'human-readable representations of tables'
   inspect._LICENSE = [[
   MIT LICENSE
 
@@ -42,12 +42,12 @@ local inspect = (function()
 ]]
   inspect.KEY = setmetatable({}, {
     __tostring = function()
-      return "inspect.KEY"
+      return 'inspect.KEY'
     end,
   })
   inspect.METATABLE = setmetatable({}, {
     __tostring = function()
-      return "inspect.METATABLE"
+      return 'inspect.METATABLE'
     end,
   })
 
@@ -79,87 +79,87 @@ local inspect = (function()
   end
 
   local shortControlCharEscapes = {
-    ["\a"] = "\\a",
-    ["\b"] = "\\b",
-    ["\f"] = "\\f",
-    ["\n"] = "\\n",
-    ["\r"] = "\\r",
-    ["\t"] = "\\t",
-    ["\v"] = "\\v",
-    ["\127"] = "\\127",
+    ['\a'] = '\\a',
+    ['\b'] = '\\b',
+    ['\f'] = '\\f',
+    ['\n'] = '\\n',
+    ['\r'] = '\\r',
+    ['\t'] = '\\t',
+    ['\v'] = '\\v',
+    ['\127'] = '\\127',
   }
-  local longControlCharEscapes = { ["\127"] = "\127" }
+  local longControlCharEscapes = { ['\127'] = '\127' }
   for i = 0, 31 do
     local ch = char(i)
     if not shortControlCharEscapes[ch] then
-      shortControlCharEscapes[ch] = "\\" .. i
-      longControlCharEscapes[ch] = fmt("\\%03d", i)
+      shortControlCharEscapes[ch] = '\\' .. i
+      longControlCharEscapes[ch] = fmt('\\%03d', i)
     end
   end
 
   local function escape(str)
     return (
       gsub(
-        gsub(gsub(str, "\\", "\\\\"), "(%c)%f[0-9]", longControlCharEscapes),
-        "%c",
+        gsub(gsub(str, '\\', '\\\\'), '(%c)%f[0-9]', longControlCharEscapes),
+        '%c',
         shortControlCharEscapes
       )
     )
   end
 
   local luaKeywords = {
-    ["and"] = true,
-    ["break"] = true,
-    ["do"] = true,
-    ["else"] = true,
-    ["elseif"] = true,
-    ["end"] = true,
-    ["false"] = true,
-    ["for"] = true,
-    ["function"] = true,
-    ["goto"] = true,
-    ["if"] = true,
-    ["in"] = true,
-    ["local"] = true,
-    ["nil"] = true,
-    ["not"] = true,
-    ["or"] = true,
-    ["repeat"] = true,
-    ["return"] = true,
-    ["then"] = true,
-    ["true"] = true,
-    ["until"] = true,
-    ["while"] = true,
+    ['and'] = true,
+    ['break'] = true,
+    ['do'] = true,
+    ['else'] = true,
+    ['elseif'] = true,
+    ['end'] = true,
+    ['false'] = true,
+    ['for'] = true,
+    ['function'] = true,
+    ['goto'] = true,
+    ['if'] = true,
+    ['in'] = true,
+    ['local'] = true,
+    ['nil'] = true,
+    ['not'] = true,
+    ['or'] = true,
+    ['repeat'] = true,
+    ['return'] = true,
+    ['then'] = true,
+    ['true'] = true,
+    ['until'] = true,
+    ['while'] = true,
   }
 
   local function isIdentifier(str)
-    return type(str) == "string"
-      and not not str:match("^[_%a][_%a%d]*$")
+    return type(str) == 'string'
+      and not not str:match('^[_%a][_%a%d]*$')
       and not luaKeywords[str]
   end
 
   local flr = math.floor
   local function isSequenceKey(k, sequenceLength)
-    return type(k) == "number"
+    return type(k) == 'number'
       and flr(k) == k
       and 1 <= k
       and k <= sequenceLength
   end
 
   local defaultTypeOrders = {
-    ["number"] = 1,
-    ["boolean"] = 2,
-    ["string"] = 3,
-    ["table"] = 4,
-    ["function"] = 5,
-    ["userdata"] = 6,
-    ["thread"] = 7,
+    ['number'] = 1,
+    ['boolean'] = 2,
+    ['string'] = 3,
+    ['table'] = 4,
+    ['function'] = 5,
+    ['userdata'] = 6,
+    ['thread'] = 7,
   }
 
   local function sortKeys(a, b)
     local ta, tb = type(a), type(b)
 
-    if ta == tb and (ta == "string" or ta == "number") then
+    if ta == tb and (ta == 'string' or ta == 'number') then
       return a < b
     end
 
@@ -188,7 +188,7 @@ local inspect = (function()
   end
 
   local function countCycles(x, cycles)
-    if type(x) == "table" then
+    if type(x) == 'table' then
       if cycles[x] then
         cycles[x] = cycles[x] + 1
       else
@@ -224,7 +224,7 @@ local inspect = (function()
     end
 
     local processed = process(item, path)
-    if type(processed) == "table" then
+    if type(processed) == 'table' then
       local processedCopy = {}
       visited[item] = processedCopy
       local processedKey
@@ -244,7 +244,7 @@ local inspect = (function()
         makePath(path, inspect.METATABLE),
         visited
       )
-      if type(mt) ~= "table" then
+      if type(mt) ~= 'table' then
         mt = nil
       end
       setmetatable(processedCopy, mt)
@@ -283,39 +283,39 @@ local inspect = (function()
   function Inspector:putValue(v)
     local buf = self.buf
     local tv = type(v)
-    if tv == "string" then
+    if tv == 'string' then
       puts(buf, smartQuote(escape(v)))
     elseif
-      tv == "number"
-      or tv == "boolean"
-      or tv == "nil"
-      or tv == "cdata"
-      or tv == "ctype"
+      tv == 'number'
+      or tv == 'boolean'
+      or tv == 'nil'
+      or tv == 'cdata'
+      or tv == 'ctype'
     then
       puts(buf, tostring(v))
-    elseif tv == "table" and not self.ids[v] then
+    elseif tv == 'table' and not self.ids[v] then
       local t = v
 
       if t == inspect.KEY or t == inspect.METATABLE then
         puts(buf, tostring(t))
       elseif self.level >= self.depth then
-        puts(buf, "{...}")
+        puts(buf, '{...}')
       else
         if self.cycles[t] > 1 then
-          puts(buf, fmt("<%d>", self:getId(t)))
+          puts(buf, fmt('<%d>', self:getId(t)))
         end
 
         local keys, keysLen, seqLen = getKeys(t)
 
-        puts(buf, "{")
+        puts(buf, '{')
         self.level = self.level + 1
 
         for i = 1, seqLen + keysLen do
           if i > 1 then
-            puts(buf, ",")
+            puts(buf, ',')
           end
           if i <= seqLen then
-            puts(buf, " ")
+            puts(buf, ' ')
             self:putValue(t[i])
           else
             local k = keys[i - seqLen]
@@ -323,37 +323,37 @@ local inspect = (function()
             if isIdentifier(k) then
               puts(buf, k)
             else
-              puts(buf, "[")
+              puts(buf, '[')
               self:putValue(k)
-              puts(buf, "]")
+              puts(buf, ']')
             end
-            puts(buf, " = ")
+            puts(buf, ' = ')
             self:putValue(t[k])
           end
         end
 
         local mt = getmetatable(t)
-        if type(mt) == "table" then
+        if type(mt) == 'table' then
           if seqLen + keysLen > 0 then
-            puts(buf, ",")
+            puts(buf, ',')
           end
           tabify(self)
-          puts(buf, "<metatable> = ")
+          puts(buf, '<metatable> = ')
           self:putValue(mt)
         end
 
         self.level = self.level - 1
 
-        if keysLen > 0 or type(mt) == "table" then
+        if keysLen > 0 or type(mt) == 'table' then
           tabify(self)
         elseif seqLen > 0 then
-          puts(buf, " ")
+          puts(buf, ' ')
         end
 
-        puts(buf, "}")
+        puts(buf, '}')
       end
     else
-      puts(buf, fmt("<%s %d>", tv, self:getId(v)))
+      puts(buf, fmt('<%s %d>', tv, self:getId(v)))
     end
   end
 
@@ -361,8 +361,8 @@ local inspect = (function()
     options = options or {}
 
     local depth = options.depth or math.huge
-    local newline = options.newline or "\n"
-    local indent = options.indent or "  "
+    local newline = options.newline or '\n'
+    local indent = options.indent or '  '
     local process = options.process
 
     if process then
@@ -410,7 +410,7 @@ end)()
 ---* `37`: White
 ---@param color_code integer
 local function format_ansi_color_code(color_code)
-  return string.char(27) .. "[" .. tostring(color_code) .. "m"
+  return string.char(27) .. '[' .. tostring(color_code) .. 'm'
 end
 
 ---
@@ -449,7 +449,7 @@ end
 ---@param names string[]
 local function convert_string_array_to_alias_union(names)
   for index, name in ipairs(names) do
-    print("---|`" .. name .. "`")
+    print('---|`' .. name .. '`')
   end
 end
 
@@ -460,7 +460,7 @@ end
 ---
 ---@return string|nil: The file extension (including the dot), or nil if no extension is found.
 local function get_file_extension(path)
-  return path:match("^.+(%..+)$")
+  return path:match('^.+(%..+)$')
 end
 
 ---
@@ -470,8 +470,8 @@ end
 ---
 ---@return fun(...): string, LuaFileSystem.Attributes
 local function list_files_recursively(path)
-  assert(path and path ~= "", "Please pass directory parameter")
-  if string.sub(path, -1) == "/" then
+  assert(path and path ~= '', 'Please pass directory parameter')
+  if string.sub(path, -1) == '/' then
     path = string.sub(path, 1, -2)
   end
 
@@ -479,11 +479,11 @@ local function list_files_recursively(path)
   ---@param dir string
   local function yieldtree(dir)
     for entry in lfs.dir(dir) do
-      if entry ~= "." and entry ~= ".." then
-        local new_entry = dir .. "/" .. entry
+      if entry ~= '.' and entry ~= '..' then
+        local new_entry = dir .. '/' .. entry
         local attr = lfs.attributes(new_entry)
         coroutine.yield(new_entry, attr)
-        if attr.mode == "directory" then
+        if attr.mode == 'directory' then
           yieldtree(new_entry)
         end
       end
@@ -505,25 +505,25 @@ local function get_function_args(fun)
 
   local arg_hook = function(...)
     local info = debug.getinfo(3)
-    if "pcall" ~= info.name then
+    if 'pcall' ~= info.name then
       return
     end
 
     for i = 1, math.huge do
       local name, value = debug.getlocal(2, i)
-      if "(*temporary)" == name then
+      if '(*temporary)' == name then
         debug.sethook(hook)
-        error("")
+        error('')
         return
       end
       table.insert(args, name)
     end
   end
 
-  debug.sethook(arg_hook, "c")
+  debug.sethook(arg_hook, 'c')
   pcall(fun)
 
-  return table.concat(args, ", ")
+  return table.concat(args, ', ')
 end
 
 ---
@@ -557,18 +557,18 @@ local function print_lib_members(lib_name, lib, as_lua)
   for _, member in ipairs(member_names) do
     local member_type = type(lib[member])
     if not as_lua then
-      if member_type == "table" and member ~= "__index" and member ~= "_M" then
-        printf("- *`%s.%s` (%s)*", lib_name, member, member_type)
-        print_lib_members(lib_name .. "." .. member, lib[member], as_lua)
-      elseif member_type == "function" then
-        printf("- __`%s.%s` (%s)__", lib_name, member, member_type)
+      if member_type == 'table' and member ~= '__index' and member ~= '_M' then
+        printf('- *`%s.%s` (%s)*', lib_name, member, member_type)
+        print_lib_members(lib_name .. '.' .. member, lib[member], as_lua)
+      elseif member_type == 'function' then
+        printf('- __`%s.%s` (%s)__', lib_name, member, member_type)
       else
-        printf("- `%s.%s` (%s)", lib_name, member, member_type)
+        printf('- `%s.%s` (%s)', lib_name, member, member_type)
       end
     else
-      if member_type == "function" then
+      if member_type == 'function' then
         local args = get_function_args(lib[member])
-        printf("function %s.%s(%s) end", lib_name, member, args)
+        printf('function %s.%s(%s) end', lib_name, member, args)
       end
     end
   end
@@ -596,8 +596,8 @@ local function print_global_namespace()
   for _, lib_name in ipairs(lib_names) do
     if not lua_std[lib_name] then
       local lib = env[lib_name]
-      if type(lib) == "table" then
-        printf("\n### %s\n", lib_name)
+      if type(lib) == 'table' then
+        printf('\n### %s\n', lib_name)
         print_lib_members(lib_name, env[lib_name])
       end
     end
@@ -610,8 +610,8 @@ end
 ---@param compare fun(actual: unknown, expected: unknown): boolean
 local function report_diff(compare, actual, expected)
   if not compare(actual, expected) then
-    print("actual:", inspect(actual))
-    print("expected:", inspect(expected))
+    print('actual:', inspect(actual))
+    print('expected:', inspect(expected))
     assert(false)
   else
     print(colorize(31, inspect(actual)))
@@ -626,26 +626,9 @@ local function compare_equality(actual, expected)
   return actual == expected
 end
 
----@param actual unknown
----@param expected unknown
-local function assert_equals(actual, expected)
-  report_diff(compare_equality, actual, expected)
-end
-
----@param actual unknown
-local function assert_is_nil(actual)
-  report_diff(compare_equality, actual, nil)
-end
-
 local function compare_numbers(a, b, epsilon)
   epsilon = epsilon or 1e-6
   return a == b or math.abs(a - b) < epsilon
-end
-
----@param actual unknown
----@param expected unknown
-local function assert_numbers(actual, expected)
-  report_diff(compare_numbers, actual, expected)
 end
 
 ---
@@ -671,7 +654,7 @@ local function compare_tables(o1, o2, ignore_mt)
     return false
   end
   --- same type but not table, already compared above
-  if o1Type ~= "table" then
+  if o1Type ~= 'table' then
     return false
   end
 
@@ -701,25 +684,43 @@ local function compare_tables(o1, o2, ignore_mt)
   return true
 end
 
-local function assert_same(actual, expected)
-  report_diff(compare_tables, actual, expected)
-end
-
 local assert_functions = {
-  equals = assert_equals,
-  is_nil = assert_is_nil,
-  numbers = assert_numbers,
-  same = assert_same,
+  ---@param actual unknown
+  ---@param expected unknown
+  equals = function(actual, expected)
+    report_diff(compare_equality, actual, expected)
+  end,
+  ---@param actual unknown
+  is_nil = function(actual)
+    report_diff(compare_equality, actual, nil)
+  end,
+  ---@param actual unknown
+  is_true = function(actual)
+    report_diff(compare_equality, actual, true)
+  end,
+  is_false = function(actual)
+    report_diff(compare_equality, actual, false)
+  end,
+  ---@param actual unknown
+  ---@param expected unknown
+  is_type = function(actual, expected)
+    report_diff(compare_equality, type(actual), expected)
+  end,
+  ---@param actual unknown
+  ---@param expected unknown
+  numbers = function(actual, expected)
+    report_diff(compare_numbers, actual, expected)
+  end,
+  ---@param actual unknown
+  ---@param expected unknown
+  same = function(actual, expected)
+    report_diff(compare_tables, actual, expected)
+  end,
 }
 
 return {
   pinspect = pinspect,
-  are_same = compare_tables,
   assert = assert_functions,
-  assert_equals = assert_equals,
-  assert_is_nil = assert_is_nil,
-  assert_numbers = assert_numbers,
-  assert_same = assert_same,
   print_global_namespace = print_global_namespace,
   convert_string_array_to_alias_union = convert_string_array_to_alias_union,
   list_files_recursively = list_files_recursively,

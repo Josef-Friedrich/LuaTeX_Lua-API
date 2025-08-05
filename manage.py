@@ -414,9 +414,6 @@ def example(
 
     logger.debug(f"Example source: {src}")
 
-    # dest: Path = tmp_dir / src.name
-    # """The path of the destination file that is copied to a temporary directory."""
-
     dest: Path = project_base_path / ("tmp" + src.suffix)
     """Lua require does not support absolute paths"""
 
@@ -427,7 +424,17 @@ def example(
         src_content_cleaned = src_content_cleaned[1:]
     if src_content_cleaned[0] == "":
         src_content_cleaned = src_content_cleaned[1:]
-    src_content_cleaned = "\n".join(src_content_cleaned).strip()
+
+    tex_markup: list[str] = []
+
+    lua_content_cleaned: list[str] = []
+    for line in src_content_cleaned:
+        if line.startswith("--tex: "):
+            tex_markup.append(line[7:])
+        else:
+            lua_content_cleaned.append(line)
+
+    src_content_cleaned = "\n".join(lua_content_cleaned).strip()
     src_cleaned = project_base_path / "tmp_cleaned.lua"
     src_cleaned.write_text(src_content_cleaned)
 
@@ -467,12 +474,24 @@ def example(
 
     dest.write_text(src_content)
 
+
     if src.suffix == ".lua" and not luaonly:
         dest_lua = dest
         dest = dest.with_suffix(".tex")
-        tex_content = "\\directlua{dofile('" + str(dest_lua) + "')}\n\\bye\n"
+        tex_content = (
+            "\\directlua{dofile('"
+            + str(dest_lua)
+            + "')}\n"
+            + "\n".join(tex_markup)
+            + "\\bye\n"
+        )
         logger.debug(tex_content)
-        dest.write_text("\\directlua{dofile('" + str(dest_lua) + "')}\n\\bye\n")
+        dest.write_text(tex_content)
+
+    pdf: Path = dest.with_suffix(".pdf")
+
+    if pdf.exists():
+        pdf.unlink()
 
     result = subprocess.run(
         [*args, "--halt-on-error", str(dest)],
@@ -488,7 +507,7 @@ def example(
     output = re.sub(r"---stop---.*$", "", output, flags=re.DOTALL)
 
     print(output)
-    pdf: Path = dest.with_suffix(".pdf")
+
 
     if pdf.exists():
         _open_file(pdf)
