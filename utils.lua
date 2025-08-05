@@ -396,6 +396,50 @@ local inspect = (function()
   return inspect
 end)()
 
+---
+---__ANSI color codes:__
+---
+---* `0`: Reset
+---* `30`: Black
+---* `31`: Red
+---* `32`: Green
+---* `33`: Yellow
+---* `34`: Blue
+---* `35`: Purple
+---* `36`: Cyan
+---* `37`: White
+---@param color_code integer
+local function format_ansi_color_code(color_code)
+  return string.char(27) .. "[" .. tostring(color_code) .. "m"
+end
+
+---
+---__ANSI color codes:__
+---
+---* `0`: Reset
+---* `30`: Black
+---* `31`: Red
+---* `32`: Green
+---* `33`: Yellow
+---* `34`: Blue
+---* `35`: Purple
+---* `36`: Cyan
+---* `37`: White
+---
+---@param color_code integer
+---@param text unknown
+---@param skip_colorize? boolean
+---
+---@return string
+local function colorize(color_code, text, skip_colorize)
+  if skip_colorize then
+    return text
+  end
+  return format_ansi_color_code(color_code)
+    .. tostring(text)
+    .. format_ansi_color_code(0)
+end
+
 ---Print the inspected version of the value
 local function pinspect(value)
   print(inspect(value))
@@ -566,9 +610,11 @@ end
 ---@param compare fun(actual: unknown, expected: unknown): boolean
 local function report_diff(compare, actual, expected)
   if not compare(actual, expected) then
-    print("actual:", actual)
-    print("expected:", expected)
+    print("actual:", inspect(actual))
+    print("expected:", inspect(expected))
     assert(false)
+  else
+    print(colorize(31, inspect(actual)))
   end
 end
 

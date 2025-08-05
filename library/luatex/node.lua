@@ -1799,12 +1799,72 @@ _N._8_3_types_whatsits = "page 145"
 ---Return a table that maps node id numbers to node type strings, providing an
 ---overview of the possible top-level `id` types.
 ---
+---__Example:__
+---
+---```lua
+---assert.same(
+---  node.types(),
+---  {
+---    [0] = "hlist",
+---    [1] = "vlist",
+---    [2] = "rule",
+---    [3] = "ins",
+---    [4] = "mark",
+---    [5] = "adjust",
+---    [6] = "boundary",
+---    [7] = "disc",
+---    [8] = "whatsit",
+---    [9] = "local_par",
+---    [10] = "dir",
+---    [11] = "math",
+---    [12] = "glue",
+---    [13] = "kern",
+---    [14] = "penalty",
+---    [15] = "unset",
+---    [16] = "style",
+---    [17] = "choice",
+---    [18] = "noad",
+---    [19] = "radical",
+---    [20] = "fraction",
+---    [21] = "accent",
+---    [22] = "fence",
+---    [23] = "math_char",
+---    [24] = "sub_box",
+---    [25] = "sub_mlist",
+---    [26] = "math_text_char",
+---    [27] = "delim",
+---    [28] = "margin_kern",
+---    [29] = "glyph",
+---    [30] = "align_record",
+---    [31] = "pseudo_file",
+---    [32] = "pseudo_line",
+---    [33] = "page_insert",
+---    [34] = "split_insert",
+---    [35] = "expr_stack",
+---    [36] = "nested_list",
+---    [37] = "span",
+---    [38] = "attribute",
+---    [39] = "glue_spec",
+---    [40] = "attribute_list",
+---    [41] = "temp",
+---    [42] = "align_stack",
+---    [43] = "movement_stack",
+---    [44] = "if_stack",
+---    [45] = "unhyphenated",
+---    [46] = "hyphenated",
+---    [47] = "delta",
+---    [48] = "passive",
+---    [49] = "shape",
+---  }
+---)
+---```
+---
 ---__Reference:__
 ---
 ---* Source file of the `LuaTeX` manual: [luatex-nodes.tex#L1218-L1224](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L1218-L1224)
 ---* Corresponding C source code: [lnodelib.c#L3066-L3069](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3066-L3069)
 ---
----@return table
+---@return table<integer, string>
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.types() end
@@ -1812,15 +1872,47 @@ function node.types() end
 ---
 ---Provides a table of subtype mappings.
 ---
----TEX’s ‘whatsits’ all have the same id. The various subtypes are defined by their subtype fields.
-
+---TeX’s ‘whatsits’ all have the same id. The various subtypes are defined by their subtype fields.
+---
+---__Example:__
+---
+---```lua
+---assert.same(node.whatsits(), {
+---  [0] = "open",
+---  [1] = "write",
+---  [2] = "close",
+---  [3] = "special",
+---  [4] = "late_special",
+---  [7] = "save_pos",
+---  [8] = "late_lua",
+---  [9] = "user_defined",
+---  [16] = "pdf_literal",
+---  [17] = "pdf_late_literal",
+---  [18] = "pdf_refobj",
+---  [19] = "pdf_annot",
+---  [20] = "pdf_start_link",
+---  [21] = "pdf_end_link",
+---  [22] = "pdf_dest",
+---  [23] = "pdf_action",
+---  [24] = "pdf_thread",
+---  [25] = "pdf_start_thread",
+---  [26] = "pdf_end_thread",
+---  [27] = "pdf_thread_data",
+---  [28] = "pdf_link_data",
+---  [29] = "pdf_colorstack",
+---  [30] = "pdf_setmatrix",
+---  [31] = "pdf_save",
+---  [32] = "pdf_restore",
+---  [33] = "pdf_link_state",
+---})
+---```
 ---
 ---__Reference:__
 ---
 ---* Source file of the `LuaTeX` manual: [luatex-nodes.tex#L1226-L1233](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L1226-L1233)
 ---* Corresponding C source code: [lnodelib.c#L3073-L3076](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3073-L3076)
 ---
----@return table
+---@return table<integer, string>
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.whatsits() end
@@ -1858,9 +1950,9 @@ _N._8_5_type_subtype = "page 145"
 ---represents a node, and `nil` otherwise.
 ---
 ---```lua
----node.type(29) -- glyph
----node.type(node.new("glyph")) -- node
----node.type('xxx') -- nil
+---assert.equals(node.type(29), "glyph")
+---assert.equals(node.type(node.id("glyph")), "glyph")
+---assert.is_nil(node.type("xxx"))
 ---```
 ---
 ---__Reference:__
@@ -5526,11 +5618,21 @@ function node.make_extensible(fnt, chr, size, overlap, horizontal, attlist) end
 function node.subtypes(subtype) end
 
 ---
+---__Example:__
+---
+---```lua
+---assert.equals(
+---  node.tostring(node.new("glyph")),
+---  "<node    nil <    234 >    nil : glyph 0>"
+---)
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L5913-L5918](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L5913-L5918)
 ---
 ---@param n Node
+---
 ---@return string # For example `<node    nil <    234 >    nil : glyph 0>`
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -5578,7 +5680,46 @@ function node.direct.usedlist() end
 ---__Example:__
 ---
 ---```lua
----node.values('dir') -- { "TLT", "TRT", "LTL", "RTT" },
+---assert.same(
+---  node.values("dir"),
+---  { [0] = "TLT", [1] = "TRT", [2] = "LTL", [3] = "RTT" }
+---)
+---assert.same(
+---  node.values("direction"),
+---  { [0] = "TLT", [1] = "TRT", [2] = "LTL", [3] = "RTT" }
+---)
+---assert.same(
+---  node.values("glue"),
+---  { [0] = "normal", [1] = "fi", [2] = "fil", [3] = "fill", [4] = "filll" }
+---)
+---assert.same(
+---  node.values("pdf_literal"),
+---  {
+---    [0] = "origin",
+---    [1] = "page",
+---    [2] = "always",
+---    [3] = "raw",
+---    [4] = "text",
+---    [5] = "font",
+---    [6] = "special",
+---  }
+---)
+---assert.same(
+---  node.values("pdf_action"),
+---  { [0] = "page", [1] = "goto", [2] = "thread", [3] = "user" }
+---)
+---assert.same(
+---  node.values("pdf_window"),
+---  { [0] = "unset", [1] = "new", [2] = "nonew" }
+---)
+---assert.same(
+---  node.values("color_stack"),
+---  { [0] = "set", [1] = "push", [2] = "pop", [3] = "current" }
+---)
+---assert.same(
+---  node.values("pagestate"),
+---  { [0] = "empty", [1] = "box_there", [2] = "inserts_only" }
+---)
 ---```
 ---
 ---__Reference:__

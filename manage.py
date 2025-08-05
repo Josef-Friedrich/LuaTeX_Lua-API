@@ -422,11 +422,20 @@ def example(
 
     src_content = src.read_text()
 
-    _run_pygmentize(src)
+    src_content_cleaned = src_content.splitlines()
+    if 'require("utils")' in src_content_cleaned[0]:
+        src_content_cleaned = src_content_cleaned[1:]
+    if src_content_cleaned[0] == "":
+        src_content_cleaned = src_content_cleaned[1:]
+    src_content_cleaned = "\n".join(src_content_cleaned).strip()
+    src_cleaned = project_base_path / "tmp_cleaned.lua"
+    src_cleaned.write_text(src_content_cleaned)
+
+    _run_pygmentize(src_cleaned)
 
     if print_docstring:
         print("\n---\n" "---__Example:__\n" + "---\n" + "---```lua")
-        print("\n".join("---" + line for line in src_content.splitlines()))
+        print("\n".join("---" + line for line in src_content_cleaned.splitlines()))
         print("---```\n" + "---\n")
 
     src_content = re.sub(

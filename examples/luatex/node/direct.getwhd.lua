@@ -5,7 +5,7 @@ hlist.width = 1
 hlist.height = 2
 hlist.depth = 3
 local width, height, depth, expansion_factor =
-node.direct.getwhd(node.direct.todirect(hlist))
+  node.direct.getwhd(node.direct.todirect(hlist))
 assert.equals(width, 1)
 assert.equals(height, 2)
 assert.equals(depth, 3)

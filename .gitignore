@@ -30,6 +30,7 @@ _minted*/
 *.tar.gz
 *.toc
 *.data.minted
+tmp_cleaned.lua
 tmp.tex
 tmp.lua
 tmp.txt
