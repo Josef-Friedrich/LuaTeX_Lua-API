@@ -138,8 +138,7 @@ E_LUALIBS = ./manage.py example --subproject lualibs
 
 ### io
 
-example_lualibs_io: \
-	example_lualibs_io_ask \
+example_lualibs_io: example_lualibs_io_ask \
 	example_lualibs_io_bytes \
 	example_lualibs_io_characters \
 	example_lualibs_io_exists \
@@ -172,8 +171,7 @@ example_lualibs_io_size:
 
 ### lpeg
 
-example_lualibs_lpeg: \
-	example_lualibs_lpeg_firstofsplit \
+example_lualibs_lpeg: example_lualibs_lpeg_firstofsplit \
 	example_lualibs_lpeg_replacer \
 	example_lualibs_lpeg_secondofsplit \
 	example_lualibs_lpeg_splitat \
@@ -191,8 +189,7 @@ example_lualibs_lpeg_stripper:
 
 ### string
 
-example_lualibs_string: \
-	example_lualibs_string_checkedsplit \
+example_lualibs_string: example_lualibs_string_checkedsplit \
 	example_lualibs_string_collapsespaces \
 	example_lualibs_string_containsws \
 	example_lualibs_string_count \
@@ -267,8 +264,7 @@ example_lualibs_string_wordsplitter:
 
 ### table
 
-example_lualibs_table: \
-	example_lualibs_table_append \
+example_lualibs_table: example_lualibs_table_append \
 	example_lualibs_table_are_equal \
 	example_lualibs_table_fromhash \
 	example_lualibs_table_identical \
@@ -304,8 +300,7 @@ example_lualibs_table_tohash:
 
 ### url
 
-example_lualibs_url: \
-	example_lualibs_url_query \
+example_lualibs_url: example_lualibs_url_query \
 	example_lualibs_url_toquery
 example_lualibs_url_query:
 	$(E_LUALIBS) url/query
@@ -314,8 +309,6 @@ example_lualibs_url_toquery:
 
 ### utilities
 
-example_lualibs_utilities: \
-
 
 ## luametatex
 
@@ -323,8 +316,7 @@ E_LUAMETATEX = ./manage.py example --subproject luametatex
 
 ### status
 
-example_luametatex_status: \
-	example_luametatex_status_getbufferstate \
+example_luametatex_status: example_luametatex_status_getbufferstate \
 	example_luametatex_status_list
 example_luametatex_status_getbufferstate:
 	$(E_LUAMETATEX) status/getbufferstate
@@ -333,8 +325,7 @@ example_luametatex_status_list:
 
 ### xcomplex
 
-example_luametatex_xcomplex: \
-	example_luametatex_xcomplex_new \
+example_luametatex_xcomplex: example_luametatex_xcomplex_new \
 	example_luametatex_xcomplex_topair \
 	example_luametatex_xcomplex_tostring \
 	example_luametatex_xcomplex_totable
@@ -353,18 +344,13 @@ E_LUATEX = ./manage.py example --subproject luatex
 
 ### callback
 
-example_luatex_callback: \
-	example_luatex_callback_process_pdf_image_content \
-	example_luatex_callback_process_pdf_image_content copy
+example_luatex_callback: example_luatex_callback_process_pdf_image_content
 example_luatex_callback_process_pdf_image_content:
 	$(E_LUATEX) callback/process_pdf_image_content
-example_luatex_callback_process_pdf_image_content copy:
-	$(E_LUATEX) callback/process_pdf_image_content copy
 
 ### fio
 
-example_luatex_fio: \
-	example_luatex_fio_read2dot14 \
+example_luatex_fio: example_luatex_fio_read2dot14 \
 	example_luatex_fio_readbytes \
 	example_luatex_fio_readbytetable \
 	example_luatex_fio_readcardinal1 \
@@ -409,8 +395,7 @@ example_luatex_fio_readline:
 
 ### font
 
-example_luatex_font: \
-	example_luatex_font_definefont \
+example_luatex_font: example_luatex_font_definefont \
 	example_luatex_font_each \
 	example_luatex_font_getcopy \
 	example_luatex_font_getparameters \
@@ -431,8 +416,7 @@ example_luatex_font_read_vf:
 
 ### fontloader
 
-example_luatex_fontloader: \
-	example_luatex_fontloader_Fontinfo \
+example_luatex_fontloader: example_luatex_fontloader_Fontinfo \
 	example_luatex_fontloader_FontloaderPfminfo \
 	example_luatex_fontloader_close \
 	example_luatex_fontloader_fields \
@@ -465,8 +449,7 @@ example_luatex_fontloader_to_table:
 
 ### gzip
 
-example_luatex_gzip: \
-	example_luatex_gzip_close \
+example_luatex_gzip: example_luatex_gzip_close \
 	example_luatex_gzip_lines \
 	example_luatex_gzip_open
 example_luatex_gzip_close:
@@ -478,8 +461,7 @@ example_luatex_gzip_open:
 
 ### img
 
-example_luatex_img: \
-	example_luatex_img_boxes \
+example_luatex_img: example_luatex_img_boxes \
 	example_luatex_img_copy \
 	example_luatex_img_fields \
 	example_luatex_img_keys \
@@ -497,15 +479,14 @@ example_luatex_img_types:
 
 ### lang
 
-example_luatex_lang: \
-	example_luatex_lang_Language:clear_hyphenation \
+example_luatex_lang: example_luatex_lang_Language_clear_hyphenation \
 	example_luatex_lang_clean \
 	example_luatex_lang_clear_hyphenation \
 	example_luatex_lang_hyphenation \
 	example_luatex_lang_id \
 	example_luatex_lang_new \
 	example_luatex_lang_patterns
-example_luatex_lang_Language:clear_hyphenation:
+example_luatex_lang_Language_clear_hyphenation:
 	$(E_LUATEX) lang/Language:clear_hyphenation
 example_luatex_lang_clean:
 	$(E_LUATEX) lang/clean
@@ -522,8 +503,7 @@ example_luatex_lang_patterns:
 
 ### lpeg
 
-example_luatex_lpeg: \
-	example_luatex_lpeg_C \
+example_luatex_lpeg: example_luatex_lpeg_C \
 	example_luatex_lpeg_Cf \
 	example_luatex_lpeg_Cp \
 	example_luatex_lpeg_Cs \
@@ -550,8 +530,7 @@ example_luatex_lpeg_match:
 
 ### lua
 
-example_luatex_lua: \
-	example_luatex_lua_get_functions_table \
+example_luatex_lua: example_luatex_lua_get_functions_table \
 	example_luatex_lua_getluaname \
 	example_luatex_lua_setbytecode \
 	example_luatex_lua_setluaname
@@ -566,8 +545,7 @@ example_luatex_lua_setluaname:
 
 ### luaharfbuzz
 
-example_luatex_luaharfbuzz: \
-	example_luatex_luaharfbuzz_Buffer \
+example_luatex_luaharfbuzz: example_luatex_luaharfbuzz_Buffer \
 	example_luatex_luaharfbuzz_Direction \
 	example_luatex_luaharfbuzz_shapers \
 	example_luatex_luaharfbuzz_version
@@ -582,8 +560,7 @@ example_luatex_luaharfbuzz_version:
 
 ### md5
 
-example_luatex_md5: \
-	example_luatex_md5_crypt \
+example_luatex_md5: example_luatex_md5_crypt \
 	example_luatex_md5_decrypt \
 	example_luatex_md5_exor \
 	example_luatex_md5_sum \
@@ -604,8 +581,7 @@ example_luatex_md5_sumhexa_lowercase:
 
 ### mplib
 
-example_luatex_mplib: \
-	example_luatex_mplib_execute \
+example_luatex_mplib: example_luatex_mplib_execute \
 	example_luatex_mplib_min-test \
 	example_luatex_mplib_mplib.new \
 	example_luatex_mplib_myluamplib \
@@ -635,8 +611,7 @@ example_luatex_mplib_wikitex:
 
 ### node
 
-example_luatex_node: \
-	example_luatex_node_Node_AttributeListNode \
+example_luatex_node: example_luatex_node_Node_AttributeListNode \
 	example_luatex_node_Node_AttributeNode \
 	example_luatex_node_Node_FenceNode \
 	example_luatex_node_Node_LateLuaWhatsitNode \
@@ -759,8 +734,7 @@ example_luatex_node_whatsits:
 
 ### os
 
-example_luatex_os: \
-	example_luatex_os_exec \
+example_luatex_os: example_luatex_os_exec \
 	example_luatex_os_gettimeofday \
 	example_luatex_os_name \
 	example_luatex_os_sleep \
@@ -790,22 +764,19 @@ example_luatex_os_uname:
 
 ### pdf
 
-example_luatex_pdf: \
-	example_luatex_pdf_getcreationdate
+example_luatex_pdf: example_luatex_pdf_getcreationdate
 example_luatex_pdf_getcreationdate:
 	$(E_LUATEX) pdf/getcreationdate
 
 ### pdfscanner
 
-example_luatex_pdfscanner: \
-	example_luatex_pdfscanner_scan
+example_luatex_pdfscanner: example_luatex_pdfscanner_scan
 example_luatex_pdfscanner_scan:
 	$(E_LUATEX) pdfscanner/scan
 
 ### sio
 
-example_luatex_sio: \
-	example_luatex_sio_read2dot14 \
+example_luatex_sio: example_luatex_sio_read2dot14 \
 	example_luatex_sio_readbytes \
 	example_luatex_sio_readbytetable \
 	example_luatex_sio_readcardinal1 \
@@ -877,22 +848,19 @@ example_luatex_sio_readintegertable:
 
 ### socket
 
-example_luatex_socket: \
-	example_luatex_socket_gettime
+example_luatex_socket: example_luatex_socket_gettime
 example_luatex_socket_gettime:
 	$(E_LUATEX) socket/gettime
 
 ### status
 
-example_luatex_status: \
-	example_luatex_status_list
+example_luatex_status: example_luatex_status_list
 example_luatex_status_list:
 	$(E_LUATEX) status/list
 
 ### string
 
-example_luatex_string: \
-	example_luatex_string_bytepairs \
+example_luatex_string: example_luatex_string_bytepairs \
 	example_luatex_string_bytes \
 	example_luatex_string_characterpairs \
 	example_luatex_string_characters \
@@ -925,8 +893,7 @@ example_luatex_string_utfvalues:
 
 ### tex
 
-example_luatex_tex: \
-	example_luatex_tex_baselineskip \
+example_luatex_tex: example_luatex_tex_baselineskip \
 	example_luatex_tex_catcode \
 	example_luatex_tex_cprint \
 	example_luatex_tex_delcode \
@@ -1037,15 +1004,13 @@ example_luatex_tex_write:
 
 ### texconfig
 
-example_luatex_texconfig: \
-	example_luatex_texconfig_texconfig
+example_luatex_texconfig: example_luatex_texconfig_texconfig
 example_luatex_texconfig_texconfig:
 	$(E_LUATEX) texconfig/texconfig
 
 ### token
 
-example_luatex_token: \
-	example_luatex_token__catcodes \
+example_luatex_token: example_luatex_token__catcodes \
 	example_luatex_token__get_next_while-to-end \
 	example_luatex_token__par-insertion \
 	example_luatex_token__token-object \
@@ -1141,15 +1106,13 @@ example_luatex_token_type:
 
 ### unicode
 
-example_luatex_unicode: \
-	example_luatex_unicode_all
+example_luatex_unicode: example_luatex_unicode_all
 example_luatex_unicode_all:
 	$(E_LUATEX) unicode/all
 
 ### zip
 
-example_luatex_zip: \
-	example_luatex_zip_close \
+example_luatex_zip: example_luatex_zip_close \
 	example_luatex_zip_open \
 	example_luatex_zip_openfile \
 	example_luatex_zip_type
@@ -1164,8 +1127,7 @@ example_luatex_zip_type:
 
 ### zlib
 
-example_luatex_zlib: \
-	example_luatex_zlib_adler32 \
+example_luatex_zlib: example_luatex_zlib_adler32 \
 	example_luatex_zlib_all \
 	example_luatex_zlib_compress \
 	example_luatex_zlib_compressobj \

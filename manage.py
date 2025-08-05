@@ -4,19 +4,19 @@ import argparse
 import difflib
 import glob
 import logging
+import os
 import re
 import shlex
 import shutil
 import subprocess
 import sys
 import tempfile
+import unittest
 import urllib.request
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 from typing import Callable, Literal, Optional, Union, cast
-import unittest
-import os
 
 logging.basicConfig(
     format="%(levelname)s %(message)s",
@@ -396,13 +396,21 @@ def example(
     Returns:
         None
     """
-    tmp_dir = Path(tempfile.mkdtemp())
 
     src: Path
     if src_relpath.startswith("examples"):
         src = project_base_path / src_relpath
     else:
         src = project_base_path / "examples" / subproject / src_relpath
+
+
+    for extension in ["lua", "tex"]:
+        src_with_extension = Path(str(src) + "." + extension)
+
+        if src_with_extension.exists():
+            src = src_with_extension
+            continue
+
 
     logger.debug(f"Example source: {src}")
 
@@ -461,7 +469,7 @@ def example(
         [*args, "--halt-on-error", str(dest)],
         capture_output=True,
         text=True,
-        cwd=tmp_dir,
+        cwd=project_base_path,
         timeout=5,
     )
 
@@ -481,6 +489,9 @@ def example_makefile() -> None:
     """Generate phony targets for the Makefile to run all examples."""
 
     examples_dir = project_base_path / "examples"
+
+    def _clean_function_target(function_name: str) -> str:
+        return function_name.replace(":", "_")
 
     lines: list[str] = []
 
@@ -506,17 +517,24 @@ def example_makefile() -> None:
                     basename = function.replace(".lua", "").replace(".tex", "")
                     functions.add(basename)
 
-            lines.append(f"example_{subproject}_{module}: \\")
 
             function_targets: list[str] = []
             for function in sorted(list(functions)):
-                function_targets.append(f"\texample_{subproject}_{module}_{function}")
+                function_targets.append(
+                    f"example_{subproject}_{module}_{_clean_function_target(function)}"
+                )
 
-            lines.append(" \\ \n".join(function_targets))
+            if len(function_targets) > 1:
+                lines.append(f"example_{subproject}_{module}: {function_targets[0]} \\")
+                lines.append("\t" + (" \\\n\t".join(function_targets[1:])))
+            elif len(function_targets) == 1:
+                lines.append(f"example_{subproject}_{module}: {function_targets[0]}")
 
             for function in sorted(list(functions)):
                 relpath = f"{module}/{function}"
-                target = f"example_{subproject}_{module}_{function}"
+                target = (
+                    f"example_{subproject}_{module}_{_clean_function_target(function)}"
+                )
                 lines.append(f"{target}:\n\t$({subproject_executable}) {relpath}")
 
         print("\n".join(lines))

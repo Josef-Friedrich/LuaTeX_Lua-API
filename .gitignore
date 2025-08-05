@@ -32,5 +32,6 @@ _minted*/
 *.data.minted
 tmp.tex
 tmp.lua
+tmp.txt
 
 luatex-type-definitions/
