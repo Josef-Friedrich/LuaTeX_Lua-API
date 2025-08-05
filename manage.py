@@ -16,6 +16,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Callable, Literal, Optional, Union, cast
 import unittest
+import os
 
 logging.basicConfig(
     format="%(levelname)s %(message)s",
@@ -476,6 +477,65 @@ def example(
         _open_file(pdf)
 
 
+def example_makefile() -> None:
+    """Generate phony targets for the Makefile to run all examples."""
+
+    examples_dir = project_base_path / "examples"
+
+    lines: list[str] = []
+
+    for subproject in sorted(os.listdir(examples_dir)):
+        subproject_path = examples_dir / subproject
+        if not subproject_path.is_dir():
+            continue
+        lines.append(f"\n## {subproject}")
+        subproject_executable = f"E_{subproject.upper()}"
+        lines.append(
+            f"\n{subproject_executable} = ./manage.py example --subproject {subproject}"
+        )
+
+        for module in sorted(os.listdir(subproject_path)):
+            module_path = subproject_path / module
+            if not module_path.is_dir():
+                continue
+            lines.append(f"\n### {module}\n")
+
+            functions: set[str] = set()
+            for function in os.listdir(module_path):
+                if function.endswith(".lua") or function.endswith(".tex"):
+                    basename = function.replace(".lua", "").replace(".tex", "")
+                    functions.add(basename)
+
+            lines.append(f"example_{subproject}_{module}: \\")
+
+            function_targets: list[str] = []
+            for function in sorted(list(functions)):
+                function_targets.append(f"\texample_{subproject}_{module}_{function}")
+
+            lines.append(" \\ \n".join(function_targets))
+
+            for function in sorted(list(functions)):
+                relpath = f"{module}/{function}"
+                target = f"example_{subproject}_{module}_{function}"
+                lines.append(f"{target}:\n\t$({subproject_executable}) {relpath}")
+
+        print("\n".join(lines))
+
+    # Write generated lines to the Makefile, replacing the section "# examples"
+    makefile_path = project_base_path / "Makefile"
+    if makefile_path.exists():
+        with open(makefile_path, "r") as f:
+            makefile_content = f.read()
+        # Replace the section starting with "# examples" up to the next "#" at the start of a line or end of file
+        new_content = re.sub(
+            r"(?ms)^# examples.*?(?=^# |\Z)",
+            "# examples\n" + "\n".join(lines) + "\n",
+            makefile_content,
+        )
+        with open(makefile_path, "w") as f:
+            f.write(new_content)
+
+
 # format
 
 
@@ -803,6 +863,7 @@ class Args:
     relpath: Optional[str]
     subproject: Optional[Subproject]
     print_docstring: bool
+    makefile: bool
     luaonly: bool
 
 
@@ -878,6 +939,11 @@ if __name__ == "__main__":
         help="Print the lua code into fenced markdown code plain as a Lua comment.",
         action="store_true",
     )
+    example_parser.add_argument(
+        "--makefile",
+        help="Generate phony targets for the Makefile to run all examples.",
+        action="store_true",
+    )
     example_parser.add_argument("relpath")
 
     # format
@@ -920,7 +986,9 @@ if __name__ == "__main__":
     elif args.command == "dist":
         dist()
     elif args.command == "example" and args.relpath:
-        if args.subproject:
+        if args.makefile:
+            example_makefile()
+        elif args.subproject:
             example(args.relpath, args.luaonly, args.subproject, args.print_docstring)
         else:
             example(args.relpath, args.luaonly)
