@@ -1,13 +1,16 @@
+---A helper table to better navigate through the documentation using the
+---outline: https://github.com/Josef-Friedrich/LuaTeX_Lua-API#navigation-table-_n
+_N = {}
+
 _N._13_1_The_luaharfbuzz_library = "page 255"
 
 ---
 ---Changes to upstream: global luaharfbuzz table
-
 ---
----@meta
 ---The definitions are developed in this repository: https://github.com/LuaCATS/luaharfbuzz
 
 ---
+---@meta
 ---https://github.com/ufyTeX/luaharfbuzz/blob/master/src/harfbuzz.luadoc
 ---
 ---😱 [Types](https://github.com/LuaCATS/luaharfbuzz/blob/main/library/luaharfbuzz.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/LuaCATS/luaharfbuzz/pulls)

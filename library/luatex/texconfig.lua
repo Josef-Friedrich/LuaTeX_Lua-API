@@ -17,6 +17,11 @@
 --
 -- ----------------------------------------------------------------------------
 
+---
+---A helper table to better navigate through the documentation using the
+---outline: https://github.com/Josef-Friedrich/LuaTeX_Lua-API#navigation-table-_n
+_N = {}
+
 _N._10_4_the_texconfig_table = "page 212"
 
 ---

@@ -17,11 +17,15 @@
 --
 -- ----------------------------------------------------------------------------
 
+---
+---A helper table to better navigate through the documentation using the
+---outline: https://github.com/Josef-Friedrich/LuaTeX_Lua-API#navigation-table-_n
+_N = {}
+
 _N._5_8_the_lang_library = "page 83"
 
 ---
 ---@meta
-
 ---
 ---This library provides the interface to *LuaTeX*'s structure representing a
 ---language, and the associated functions.

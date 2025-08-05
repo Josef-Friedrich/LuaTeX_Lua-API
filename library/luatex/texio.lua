@@ -18,6 +18,11 @@
 -- ----------------------------------------------------------------------------
 
 ---
+---A helper table to better navigate through the documentation using the
+---outline: https://github.com/Josef-Friedrich/LuaTeX_Lua-API#navigation-table-_n
+_N = {}
+
+---
 ---@meta
 ---
 ---The `texio` library takes care of the low-level I/O interface: writing to the log file

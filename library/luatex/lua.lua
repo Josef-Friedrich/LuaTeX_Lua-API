@@ -18,12 +18,16 @@
 -- ----------------------------------------------------------------------------
 
 ---
+---A helper table to better navigate through the documentation using the
+---outline: https://github.com/Josef-Friedrich/LuaTeX_Lua-API#navigation-table-_n
+_N = {}
+
+---
 ---@meta
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/lua.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 lua = {}
 
-_N = {}
 _N._10_1_the_lua_library = "page 187"
 _N._10_1_1_version_information = "page 187"
 

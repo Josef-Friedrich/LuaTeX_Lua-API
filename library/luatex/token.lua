@@ -23,6 +23,11 @@
 _N = {}
 
 ---
+---A helper table to better navigate through the documentation using the
+---outline: https://github.com/Josef-Friedrich/LuaTeX_Lua-API#navigation-table-_n
+_N = {}
+
+---
 ---@meta
 ---
 ---The token library provides means to intercept the input and deal with it at the

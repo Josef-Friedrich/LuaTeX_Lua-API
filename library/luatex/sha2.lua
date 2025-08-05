@@ -17,6 +17,11 @@
 --
 -- ----------------------------------------------------------------------------
 
+---
+---A helper table to better navigate through the documentation using the
+---outline: https://github.com/Josef-Friedrich/LuaTeX_Lua-API#navigation-table-_n
+_N = {}
+
 _N._4_2_9_hashes_conform_sha2 = "page 66"
 
 ---

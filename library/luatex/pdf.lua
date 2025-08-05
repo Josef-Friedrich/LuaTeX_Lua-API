@@ -17,6 +17,11 @@
 --
 -- ----------------------------------------------------------------------------
 
+---
+---A helper table to better navigate through the documentation using the
+---outline: https://github.com/Josef-Friedrich/LuaTeX_Lua-API#navigation-table-_n
+_N = {}
+
 _N._4_2_6_extra_os_library_functions = "page 64"
 
 ---

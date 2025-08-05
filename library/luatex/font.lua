@@ -18,6 +18,11 @@
 -- ----------------------------------------------------------------------------
 
 ---
+---A helper table to better navigate through the documentation using the
+---outline: https://github.com/Josef-Friedrich/LuaTeX_Lua-API#navigation-table-_n
+_N = {}
+
+---
 ---@meta
 ---The font library provides the interface into the internals of the font system,
 ---and it also contains helper functions to load traditional *TeX* font metrics

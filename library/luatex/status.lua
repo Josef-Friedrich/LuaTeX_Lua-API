@@ -1,5 +1,3 @@
----
-
 -- ----------------------------------------------------------------------------
 -- Copyright (C) 2022-2025 by Josef Friedrich <josef@friedrich.rocks>
 -- ----------------------------------------------------------------------------
@@ -18,6 +16,11 @@
 -- with this program. If not, see <https://www.gnu.org/licenses/>.
 --
 -- ----------------------------------------------------------------------------
+
+---
+---A helper table to better navigate through the documentation using the
+---outline: https://github.com/Josef-Friedrich/LuaTeX_Lua-API#navigation-table-_n
+_N = {}
 
 _N._10_2_the_status_library = "page 188"
 
