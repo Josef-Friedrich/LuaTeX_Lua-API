@@ -26,6 +26,7 @@ _N._10_4_the_texconfig_table = "page 212"
 
 ---
 ---@meta
+
 ---
 ---This is a table that is created empty. A startup *Lua* script could
 ---fill this table with a number of settings that are read out by

@@ -24,6 +24,7 @@ _N = {}
 
 ---
 ---@meta
+
 ---
 ---# Binary input from strings with `sio`
 ---

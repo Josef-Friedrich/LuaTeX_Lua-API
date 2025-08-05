@@ -24,6 +24,7 @@ _N = {}
 
 ---
 ---@meta
+
 ---
 ---This library provides two separate, but nearly identical interfaces to the
 ---`kpathsea` file search functionality: there is a “normal” procedural

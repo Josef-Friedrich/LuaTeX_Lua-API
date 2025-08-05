@@ -24,6 +24,8 @@ _N = {}
 
 ---
 ---@meta
+
+---
 mplib = {}
 
 _N._11_2_mplib_library = "page 200"

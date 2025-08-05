@@ -29,6 +29,7 @@ _N = {}
 
 ---
 ---@meta
+
 ---
 ---The token library provides means to intercept the input and deal with it at the
 ---Lua level. The library provides a basic scanner infrastructure that can be used

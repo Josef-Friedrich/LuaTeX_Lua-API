@@ -18,6 +18,8 @@ _N._4_3_lua_modules = "page 67"
 
 ---
 ---@meta
+
+---
 ---There are four `string`-like tables of functions:
 ---`ascii`, `latin1`, `utf8` and `grapheme`.
 ---

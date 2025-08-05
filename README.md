@@ -628,6 +628,42 @@ Documentation for the field `data` of the `pdf_colorstack` node:
 * [In the lua-language-server included 3rd party libraries](https://github.com/sumneko/lua-language-server/tree/master/meta/3rd)
 * [FiveM Lua Stubs](https://github.com/jamie-34254/fivem_lua_stubs)
 
+## Annotation
+
+### @meta
+
+Do not put the `@meta` tag in the docstrings for a global table, because
+EmmaLua Rust will not render the docstrings for this global table.
+
+Marks a file as "meta", meaning it is used for definitions and not for
+its functional Lua code. It is used internally by the language server
+for defining the [built-in Lua
+libraries](https://github.com/LuaLS/lua-language-server/tree/master/meta/template).
+If you are writing your own [definition files](/wiki/definition-files),
+you will probably want to include this annotation in them. If you
+specify a name, it will only be able to be required by the given name.
+Giving the name `_` will make it unable to be required. Files with the
+`@meta` tag in them behave a little different:
+
+- Completion will not display context in a meta file
+- Hovering a `require` of a meta file will show `[meta]` instead of its absolute path
+- `Find Reference` ignores meta files
+
+**Syntax**
+
+`---@meta [name]`
+
+**Examples**
+
+
+Mark Meta File
+
+```Lua
+---@meta [name]
+```
+[^luals-meta]
+
+[^luals-meta]: https://github.com/LuaLS/LuaLS.github.io/blob/f87938ff71a9322ac2bdcbac2164ad2da7e394f0/src/content/wiki/annotations.mdx?plain=1#L731-L752
 
 ## References
 

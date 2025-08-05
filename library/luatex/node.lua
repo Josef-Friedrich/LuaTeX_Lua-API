@@ -24,6 +24,7 @@ _N = {}
 
 ---
 ---@meta
+
 ---
 ---The node library contains functions that facilitate dealing with (lists of) nodes and their values.
 ---They allow you to create, alter, copy, delete, and insert LuaTEX node objects, the core objects

@@ -26,6 +26,7 @@ _N._6_4_the_vf_library = "page 97"
 
 ---
 ---@meta
+
 ---
 ---The `vf` library can be used when *Lua* code, as defined in the `commands` of the font, is executed. The functions provided are similar as the
 ---commands: `char`, `down`, `fontid`, `image`, `node`, `nop`, `pop`, `push`, `right`, `rule`, `special` and `pdf`. This library has been present for a while but not been
