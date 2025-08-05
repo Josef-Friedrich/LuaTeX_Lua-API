@@ -184,7 +184,7 @@ def _clean_docstrings(content: str) -> str:
     # Remove duplicate empty comment lines.
     content = re.sub("\n---(\n---)+\n", "\n---\n", content)
 
-    content = content.replace("\n\n---\n\n", "\n")
+    content = content.replace("\n\n---\n\n", "\n\n")
 
     # Allow only one empty line
     content = _remove_duplicate_empty_lines(content)
