@@ -1165,33 +1165,43 @@ _N.fence = 22
 _N.whatsit = 8
 
 ---
+---__Reference:__
+---
+---* Corresponding C source code: [texnodes.c#L956-1006](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/4f2b914d365bab8a2747afe6e8c86d0f1c8475f7/source/texk/web2c/luatexdir/tex/texnodes.c#L956-1006)
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias WhatsitTypeId
 ---|0  # open
 ---|1  # write
 ---|2  # close
 ---|3  # special
----|6  # save_pos
----|7  # late_lua
----|8  # user_defined
+---|4  # late_special
+---|7  # save_pos
+---|8  # late_lua
+---|9  # user_defined
 ---|16 # pdf_literal
----|17 # pdf_refobj
----|18 # pdf_annot
----|19 # pdf_start_link
----|20 # pdf_end_link
----|21 # pdf_dest
----|22 # pdf_action
----|23 # pdf_thread
----|24 # pdf_start_thread
----|25 # pdf_end_thread
----|26 # pdf_thread_data
----|27 # pdf_link_data
----|28 # pdf_colorstack
----|29 # pdf_setmatrix
----|30 # pdf_save
----|31 # pdf_restore
----|32 # pdf_link_state
+---|17 # pdf_late_literal
+---|18 # pdf_refobj
+---|19 # pdf_annot
+---|20 # pdf_start_link
+---|21 # pdf_end_link
+---|22 # pdf_dest
+---|23 # pdf_action
+---|24 # pdf_thread
+---|25 # pdf_start_thread
+---|26 # pdf_end_thread
+---|27 # pdf_thread_data
+---|28 # pdf_link_data
+---|29 # pdf_colorstack
+---|30 # pdf_setmatrix
+---|31 # pdf_save
+---|32 # pdf_restore
+---|33 # pdf_link_state
 
+---
+---__Reference:__
+---
+---* Corresponding C source code: [texnodes.c#L956-1006](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/4f2b914d365bab8a2747afe6e8c86d0f1c8475f7/source/texk/web2c/luatexdir/tex/texnodes.c#L956-1006)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias WhatsitTypeName
@@ -1199,26 +1209,28 @@ _N.whatsit = 8
 ---| 'write' # 1
 ---| 'close' # 2
 ---| 'special' # 3
----| 'save_pos' # 6
----| 'late_lua' # 7
----| 'user_defined' # 8
+---| 'late_special' # 4
+---| 'save_pos' # 7
+---| 'late_lua' # 8
+---| 'user_defined' # 9
 ---| 'pdf_literal' # 16
----| 'pdf_refobj' # 17
----| 'pdf_annot' # 18
----| 'pdf_start_link' # 19
----| 'pdf_end_link' # 20
----| 'pdf_dest' # 21
----| 'pdf_action' # 22
----| 'pdf_thread' # 23
----| 'pdf_start_thread' # 24
----| 'pdf_end_thread' # 25
----| 'pdf_thread_data' # 26
----| 'pdf_link_data' # 27
----| 'pdf_colorstack' # 28
----| 'pdf_setmatrix' # 29
----| 'pdf_save' # 30
----| 'pdf_restore' # 31
----| 'pdf_link_state' # 32
+---| 'pdf_late_literal' # 17
+---| 'pdf_refobj' # 18
+---| 'pdf_annot' # 19
+---| 'pdf_start_link' # 20
+---| 'pdf_end_link' # 21
+---| 'pdf_dest' # 22
+---| 'pdf_action' # 23
+---| 'pdf_thread' # 24
+---| 'pdf_start_thread' # 25
+---| 'pdf_end_thread' # 26
+---| 'pdf_thread_data' # 27
+---| 'pdf_link_data' # 28
+---| 'pdf_colorstack' # 29
+---| 'pdf_setmatrix' # 30
+---| 'pdf_save' # 31
+---| 'pdf_restore' # 32
+---| 'pdf_link_state' # 33
 
 _N._whatsit = {}
 
@@ -1969,9 +1981,39 @@ function node.type(n) end
 ---
 ---Convert a single `whatsit` name to its internal numeric representation (subtype).
 ---
+---__Example:__
+---
 ---```lua
----node.subtype('pdf_literal') -- 16
----node.subtype('xxx') -- nil
+---local function equals(name, id)
+---  assert.equals(node.subtype(name), id)
+---end
+---
+---equals("open", 0)
+---equals("write", 1)
+---equals("close", 2)
+---equals("special", 3)
+---equals("late_special", 4)
+---equals("save_pos", 7)
+---equals("late_lua", 8)
+---equals("user_defined", 9)
+---equals("pdf_literal", 16)
+---equals("pdf_late_literal", 17)
+---equals("pdf_refobj", 18)
+---equals("pdf_annot", 19)
+---equals("pdf_start_link", 20)
+---equals("pdf_end_link", 21)
+---equals("pdf_dest", 22)
+---equals("pdf_action", 23)
+---equals("pdf_thread", 24)
+---equals("pdf_start_thread", 25)
+---equals("pdf_end_thread", 26)
+---equals("pdf_thread_data", 27)
+---equals("pdf_link_data", 28)
+---equals("pdf_colorstack", 29)
+---equals("pdf_setmatrix", 30)
+---equals("pdf_save", 31)
+---equals("pdf_restore", 32)
+---equals("pdf_link_state", 33)
 ---```
 ---
 ---__Reference:__
@@ -4287,9 +4329,20 @@ _N._10_two_access_models = "page 159"
 ---
 ---Convert a userdata node into its numeric reference in the memory table.
 ---
+---__Example:__
+---
+---```lua
+---local n = node.new("glyph")
+---local d = node.direct.todirect(n)
+---local from_direct = node.direct.tonode(d)
+---assert.equals(n, from_direct)
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L6552-L6565](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6552-L6565)
+---
+---@see node.direct.tonode
 ---
 ---@param n Node
 ---
@@ -4301,9 +4354,20 @@ function node.direct.todirect(n) end
 ---
 ---Convert numeric reference in the memory table of a node into a userdata node.
 ---
+---__Example:__
+---
+---```lua
+---local n = node.new("glyph")
+---local d = node.direct.todirect(n)
+---local from_direct = node.direct.tonode(d)
+---assert.equals(n, from_direct)
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L6570-L6581](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L6570-L6581)
+---
+---@see node.direct.todirect
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---
@@ -4816,9 +4880,19 @@ function node.direct.getleader(d) end
 ---
 ---Set the value of a generic node field.
 ---
+---__Example:__
+---
+---```lua
+---local n = node.new("glyph")
+---node.setfield(n, "char", 2)
+---assert.equals(node.getfield(n, "char"), 2)
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L7348-L7364](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L7348-L7364)
+---
+---@see node.direct.setfield
 ---
 ---@param n Node
 ---@param field string
@@ -4830,9 +4904,19 @@ function node.setfield(n, field, value) end
 ---
 ---Set the value of a generic node field.
 ---
+---__Example:__
+---
+---```lua
+---local d = node.direct.todirect(node.new("glyph"))
+---node.direct.setfield(d, "char", 3)
+---assert.equals(node.direct.getfield(d, "char"), 3)
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L7660-L8188](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L7660-L8188)
+---
+---@see node.setfield
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---@param field string

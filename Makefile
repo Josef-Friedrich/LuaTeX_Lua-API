@@ -615,9 +615,12 @@ example_luatex_node: example_luatex_node_Node_AttributeListNode \
 	example_luatex_node_direct.getlist \
 	example_luatex_node_direct.getwhd \
 	example_luatex_node_direct.is_glyph \
+	example_luatex_node_direct.setfield \
 	example_luatex_node_direct.setlist \
 	example_luatex_node_direct.setwhd \
 	example_luatex_node_direct.setwidth \
+	example_luatex_node_direct.todirect \
+	example_luatex_node_direct.tonode \
 	example_luatex_node_direct.tostring \
 	example_luatex_node_direct.usedlist \
 	example_luatex_node_fields \
@@ -637,8 +640,6 @@ example_luatex_node: example_luatex_node_Node_AttributeListNode \
 	example_luatex_node_setfield \
 	example_luatex_node_subtype \
 	example_luatex_node_subtypes \
-	example_luatex_node_todirect \
-	example_luatex_node_tonode \
 	example_luatex_node_tostring \
 	example_luatex_node_traverse \
 	example_luatex_node_type \
@@ -668,12 +669,18 @@ example_luatex_node_direct.getwhd:
 	$(E_LUATEX) node/direct.getwhd
 example_luatex_node_direct.is_glyph:
 	$(E_LUATEX) node/direct.is_glyph
+example_luatex_node_direct.setfield:
+	$(E_LUATEX) node/direct.setfield
 example_luatex_node_direct.setlist:
 	$(E_LUATEX) node/direct.setlist
 example_luatex_node_direct.setwhd:
 	$(E_LUATEX) node/direct.setwhd
 example_luatex_node_direct.setwidth:
 	$(E_LUATEX) node/direct.setwidth
+example_luatex_node_direct.todirect:
+	$(E_LUATEX) node/direct.todirect
+example_luatex_node_direct.tonode:
+	$(E_LUATEX) node/direct.tonode
 example_luatex_node_direct.tostring:
 	$(E_LUATEX) node/direct.tostring
 example_luatex_node_direct.usedlist:
@@ -712,10 +719,6 @@ example_luatex_node_subtype:
 	$(E_LUATEX) node/subtype
 example_luatex_node_subtypes:
 	$(E_LUATEX) node/subtypes
-example_luatex_node_todirect:
-	$(E_LUATEX) node/todirect
-example_luatex_node_tonode:
-	$(E_LUATEX) node/tonode
 example_luatex_node_tostring:
 	$(E_LUATEX) node/tostring
 example_luatex_node_traverse:
