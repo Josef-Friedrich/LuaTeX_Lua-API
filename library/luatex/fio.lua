@@ -19,6 +19,7 @@
 
 _N._4_2_7_binary_input_from_files_with_fio = "page 66"
 
+---
 ---@meta
 ---
 ---# Binary input from files with `fio`

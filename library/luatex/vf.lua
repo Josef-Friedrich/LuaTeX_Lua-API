@@ -17,9 +17,9 @@
 --
 -- ----------------------------------------------------------------------------
 
-
 _N._6_4_the_vf_library = "page 97"
 
+---
 ---@meta
 ---
 ---The `vf` library can be used when *Lua* code, as defined in the `commands` of the font, is executed. The functions provided are similar as the

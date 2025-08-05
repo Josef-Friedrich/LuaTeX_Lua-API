@@ -5,9 +5,9 @@ _N._4_3_lua_modules = "page 67"
 ---Changes to upstream: global zip table
 
 ---
----
 ---The definitions are developed in this repository: https://github.com/LuaCATS/luazip
 
+---
 ---@meta
 ---`LuaZip` is a lightweight Lua extension library that can be used to read files stored inside zip files. It uses `zziplib` to do all the hard work.
 ---

@@ -17,6 +17,7 @@
 --
 -- ----------------------------------------------------------------------------
 
+---
 ---@meta
 ---The font library provides the interface into the internals of the font system,
 ---and it also contains helper functions to load traditional *TeX* font metrics

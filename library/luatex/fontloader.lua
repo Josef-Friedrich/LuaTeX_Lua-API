@@ -17,6 +17,7 @@
 --
 -- ----------------------------------------------------------------------------
 
+---
 ---@meta
 ---The fontloader library is sort of independent of the rest in the sense that it
 ---can load font into a *Lua* table that then can be converted into a table suitable
