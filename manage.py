@@ -409,119 +409,164 @@ def example(
         None
     """
 
+    def _extract_tex_markup(lua_code: str) -> tuple[str, str]:
+        """
+        Extracts lines marked with '--tex: ' from Lua code and separates them from the rest.
+
+        Args:
+            lua_code: The Lua code as a string, potentially containing lines starting with '--tex: '.
+
+        Returns:
+            tuple[str, str]: A tuple containing:
+                - The cleaned Lua code as a single string with '--tex: ' lines removed.
+                - The extracted TeX markup as a single string, with the '--tex: ' prefix stripped from each line.
+        """
+
+        tex_markup: list[str] = []
+        cleaned: list[str] = []
+        for line in lua_code.splitlines():
+            if line.startswith("--tex: "):
+                tex_markup.append(line[7:])
+            else:
+                cleaned.append(line)
+        return ("\n".join(cleaned), "\n".join(tex_markup))
+
+    def _clean(lua_code: str) -> str:
+        """Clean the source Lua example file. Remove the import from utils. Trim."""
+        cleaned = lua_code.splitlines()
+        if 'require("utils")' in cleaned[0]:
+            cleaned = cleaned[1:]
+        if cleaned[0] == "":
+            cleaned = cleaned[1:]
+        output = "\n".join(cleaned)
+        return output.strip()
+
+    def _extract_shebang(
+        lua_code: str,
+    ) -> tuple[str, list[str], Optional[Literal[True]]]:
+        # Parse the first line to support a shebang syntax
+        # #! luatex --lua-only
+        # #! /usr/local/texlive/bin/x86_64-linux/luatex
+        args: list[str] = []
+        luaonly: Optional[bool] = None
+        if lua_code.startswith("#!"):
+            lines = lua_code.splitlines()
+            first_line = lines[0]
+            first_line = first_line.replace("#!", "")
+            if "--luaonly" in first_line:
+                luaonly = True
+            args = shlex.split(first_line)
+            # Remove the shebang
+            lua_code = "\n".join(lines[1:])
+        return (lua_code, args, luaonly)
+
+    def _print_docstring(lua_code: str) -> None:
+        print("\n---\n" "---__Example:__\n" + "---\n" + "---```lua")
+        print("\n".join("---" + line for line in lua_code.splitlines()))
+        print("---```\n" + "---\n")
+
+    def _write_tex_file(path: Path, additional_tex_markup: str) -> None:
+        tex_content: str = (
+            "\\directlua{dofile('tmp.lua')}\n" + additional_tex_markup + "\\bye\n"
+        )
+        logger.debug(tex_content)
+        path.write_text(tex_content)
+
+    def _run_example(
+        src: Path,
+        luaonly: bool = False,
+        print_docstring: bool = False,
+    ):
+        """Run and execute one example file"""
+
+        logger.debug(f"Example source: {src}")
+
+        dest_lua: Path = project_base_path / "tmp.lua"
+        """Lua require does not support absolute paths"""
+
+        src_code = src.read_text()
+
+        (
+            src_code,
+            args,
+            _luaonly,
+        ) = _extract_shebang(src_code)
+
+        if _luaonly is not None:
+            luaonly = True
+
+        src_code_cleaned = _clean(src_code)
+        src_code_cleaned, tex_markup = _extract_tex_markup(src_code_cleaned)
+
+        src_cleaned = project_base_path / "tmp_cleaned.lua"
+        src_cleaned.write_text(src_code_cleaned)
+
+        _run_pygmentize(src_cleaned)
+
+        if print_docstring:
+            _print_docstring(src_code_cleaned)
+
+        dest_lua.write_text(
+            "print('---start---')\n" + src_code + "\nprint('---stop---')"
+        )
+
+        dest_tex: Optional[Path] = None
+
+        if not luaonly:
+            dest_tex = project_base_path / "tmp.tex"
+            _write_tex_file(dest_tex, tex_markup)
+
+        pdf: Path = dest_lua.with_suffix(".pdf")
+        if pdf.exists():
+            pdf.unlink()
+
+        dest: Path
+        if dest_tex is None:
+            dest = dest_lua
+        else:
+            dest = dest_tex
+
+        if len(args) == 0:
+            args: list[str] = ["luatex"]
+        if luaonly and "--luaonly" not in args:
+            args.append("--luaonly")
+        result = subprocess.run(
+            [*args, "--halt-on-error", str(dest)],
+            capture_output=True,
+            text=True,
+            cwd=project_base_path,
+            timeout=5,
+        )
+        output = result.stdout
+        output = re.sub(r"^.*---start---", "", output, flags=re.DOTALL)
+        output = re.sub(r"---stop---.*$", "", output, flags=re.DOTALL)
+        print(output)
+
+        if pdf.exists():
+            _open_file(pdf)
+
+        if result.returncode != 0:
+            sys.exit(1)
+
     src: Path
     if src_relpath.startswith("examples"):
         src = project_base_path / src_relpath
     else:
         src = project_base_path / "examples" / subproject / src_relpath
 
-    for extension in ["lua", "tex"]:
-        src_with_extension = Path(str(src) + "." + extension)
+    if not src.exists():
+        with_extension = Path(str(src) + ".lua")
+        if with_extension.exists():
+            src = with_extension
 
-        if src_with_extension.exists():
-            src = src_with_extension
-            continue
+    if not src.exists():
+        raise Exception(f"The specified path doesn’t exist: {src}")
 
-    logger.debug(f"Example source: {src}")
-
-    dest: Path = project_base_path / ("tmp" + src.suffix)
-    """Lua require does not support absolute paths"""
-
-    src_content = src.read_text()
-
-    src_content_cleaned = src_content.splitlines()
-    if 'require("utils")' in src_content_cleaned[0]:
-        src_content_cleaned = src_content_cleaned[1:]
-    if src_content_cleaned[0] == "":
-        src_content_cleaned = src_content_cleaned[1:]
-
-    tex_markup: list[str] = []
-
-    lua_content_cleaned: list[str] = []
-    for line in src_content_cleaned:
-        if line.startswith("--tex: "):
-            tex_markup.append(line[7:])
-        else:
-            lua_content_cleaned.append(line)
-
-    src_content_cleaned = "\n".join(lua_content_cleaned).strip()
-    src_cleaned = project_base_path / "tmp_cleaned.lua"
-    src_cleaned.write_text(src_content_cleaned)
-
-    _run_pygmentize(src_cleaned)
-
-    if print_docstring:
-        print("\n---\n" "---__Example:__\n" + "---\n" + "---```lua")
-        print("\n".join("---" + line for line in src_content_cleaned.splitlines()))
-        print("---```\n" + "---\n")
-
-    src_content = re.sub(
-        r"(\./)?resources/utils",
-        str(project_base_path / "resources/utils"),
-        src_content,
-    )
-
-    args: list[str] = ["luatex"]
-
-    if luaonly:
-        args.append("--luaonly")
-
-    # Parse the first line to support a shebang syntax
-    # #! luatex --lua-only
-    # #! /usr/local/texlive/bin/x86_64-linux/luatex
-    if src_content.startswith("#!"):
-        lines = src_content.splitlines()
-        first_line = lines[0]
-        first_line = first_line.replace("#!", "")
-        if "--luaonly" in first_line:
-            luaonly = True
-        args = shlex.split(first_line)
-        # Remove the shebang
-        src_content = "\n".join(lines[1:])
-
-    if src.suffix == ".lua":
-        src_content = "print('---start---')\n" + src_content + "\nprint('---stop---')"
-
-    dest.write_text(src_content)
-
-    if src.suffix == ".lua" and not luaonly:
-        dest_lua = dest
-        dest = dest.with_suffix(".tex")
-        tex_content = (
-            "\\directlua{dofile('"
-            + str(dest_lua)
-            + "')}\n"
-            + "\n".join(tex_markup)
-            + "\\bye\n"
-        )
-        logger.debug(tex_content)
-        dest.write_text(tex_content)
-
-    pdf: Path = dest.with_suffix(".pdf")
-
-    if pdf.exists():
-        pdf.unlink()
-
-    result = subprocess.run(
-        [*args, "--halt-on-error", str(dest)],
-        capture_output=True,
-        text=True,
-        cwd=project_base_path,
-        timeout=5,
-    )
-
-    output = result.stdout
-
-    output = re.sub(r"^.*---start---", "", output, flags=re.DOTALL)
-    output = re.sub(r"---stop---.*$", "", output, flags=re.DOTALL)
-
-    print(output)
-
-    if pdf.exists():
-        _open_file(pdf)
-
-    if result.returncode != 0:
-        sys.exit(1)
+    if src.is_dir():
+        for path in glob.glob(f"{src}/**/*.lua", recursive=True):
+            _run_example(Path(path), luaonly, print_docstring)
+    else:
+        _run_example(src, luaonly, print_docstring)
 
 
 def example_makefile() -> None:
