@@ -922,6 +922,8 @@ markdown_extensions:
     logger.debug("Github pages repo: %s", gh_pages_repo)
 
     if gh_pages_repo.is_dir():
+        subprocess.check_call(["git", "add", "-Av"], cwd=gh_pages_repo)
+        subprocess.check_call(["git", "reset", "--hard", "HEAD"], cwd=gh_pages_repo)
         subprocess.run(
             ["git", "branch", "gh-pages"], cwd=gh_pages_repo
         )  # ignore cli error
