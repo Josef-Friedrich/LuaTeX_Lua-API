@@ -211,7 +211,7 @@ def _diff(a: str, b: str) -> None:
             print(line)
 
 
-def _copy_directory(src: str | Path, dest: str | Path) -> None:
+def _copy_directory(src: str | Path, dest: str | Path, delete_dest: bool = True) -> None:
     """
     Copies the contents of the source directory to the destination directory.
 
@@ -224,7 +224,7 @@ def _copy_directory(src: str | Path, dest: str | Path) -> None:
     """
     if isinstance(dest, str):
         dest = Path(dest)
-    if dest.exists():
+    if dest.exists() and delete_dest:
         shutil.rmtree(dest)
     shutil.copytree(src, dest)
 
@@ -929,7 +929,7 @@ markdown_extensions:
         subprocess.run(
             ["git", "pull", "origin", "gh-pages"], cwd=gh_pages_repo
         )  # ignore cli error
-        _copy_directory(dest / "site", gh_pages_repo)
+        _copy_directory(dest / "site", gh_pages_repo, delete_dest=False)
 
         _git_commit_push(gh_pages_repo, commit_id=commit_id, branch="gh-pages")
 
