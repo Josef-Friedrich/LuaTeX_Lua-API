@@ -904,7 +904,7 @@ markdown_extensions:
 
     gh_pages_repo = project_base_path / "subrepos" / "Lua-TeX" / subproject_title
 
-    logger.debug("Github pages repo: %", gh_pages_repo)
+    logger.debug("Github pages repo: %s", gh_pages_repo)
 
     if gh_pages_repo.is_dir():
         print("Teeeeeeeeeeeeeeeeeeeeeeeest")
