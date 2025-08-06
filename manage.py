@@ -830,7 +830,8 @@ def _push_into_downstream_submodule(subproject: Subproject, commit_id: str) -> N
 def _generate_markdown_docs(subproject: Subproject) -> None:
     src = project_base_path / "dist" / "library" / subproject
     dest = project_base_path / "dist" / "docs" / subproject
-    subprocess.check_call(["/usr/local/bin/emmylua_doc", src, "--output", dest])
+    subprocess.check_call(["emmylua_doc", src, "--output", dest])
+    subprocess.check_call(["mkdocs", "build"], cwd=dest)
 
 
 def dist() -> None:
