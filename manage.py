@@ -474,7 +474,6 @@ def example(
 
     dest.write_text(src_content)
 
-
     if src.suffix == ".lua" and not luaonly:
         dest_lua = dest
         dest = dest.with_suffix(".tex")
@@ -507,7 +506,6 @@ def example(
     output = re.sub(r"---stop---.*$", "", output, flags=re.DOTALL)
 
     print(output)
-
 
     if pdf.exists():
         _open_file(pdf)
@@ -682,7 +680,7 @@ def merge(subproject: Subproject = "luatex") -> None:
         content = content.replace("---@meta\n", "")
         contents.append(content)
 
-    _apply("dist/" + subproject + "/*.lua", _merge)
+    _apply("dist/library/" + subproject + "/*.lua", _merge)
 
     # Add copyright notice and meta definition at the beginning
     contents.insert(
@@ -819,7 +817,9 @@ def _push_into_downstream_submodule(subproject: Subproject, commit_id: str) -> N
 
     _git_reset_pull(path)
 
-    _copy_directory(project_base_path / "dist" / subproject, path / "library")
+    _copy_directory(
+        project_base_path / "dist" / "library" / subproject, path / "library"
+    )
 
     _git_commit_push(
         path,
@@ -839,15 +839,15 @@ def dist() -> None:
     """
     format()
     src_dir = project_base_path / "library"
-    dest_dir = project_base_path / "dist"
+    dest_dir = project_base_path / "dist" / "library"
     _copy_directory(src_dir, dest_dir)
 
-    _apply("dist/**/*.lua", _remove_navigation_table)
+    _apply("dist/library/**/*.lua", _remove_navigation_table)
 
     def _clean(path: Path) -> None:
         _update_text_file(path, _clean_docstrings)
 
-    _apply("dist/**/*.lua", _clean)
+    _apply("dist/library/**/*.lua", _clean)
 
     if not _is_git_commited():
         raise Exception("Uncommited changes found! Commit first, then retry!")
@@ -858,7 +858,7 @@ def dist() -> None:
 
     vscode_path = project_base_path / "resources" / "vscode_extension"
     _git_reset_pull(vscode_path)
-    _copy_directory(project_base_path / "dist", vscode_path / "library")
+    _copy_directory(project_base_path / "dist" / "library", vscode_path / "library")
     _git_commit_push(
         vscode_path,
         f"Sync with https://github.com/Josef-Friedrich/LuaTeX_Lua-API/commit/{commit_id}",
@@ -907,10 +907,12 @@ class TestManager(unittest.TestCase):
             self.assertIn("Example", t.read_text())
 
     def test_distribute(self) -> None:
-        shutil.rmtree(project_base_path / "dist")
+        shutil.rmtree(project_base_path / "dist" / "library")
         dist()
         self.assertTrue(
-            (project_base_path / "dist" / "luatex" / "callback.lua").exists()
+            (
+                project_base_path / "dist" / "library" / "luatex" / "callback.lua"
+            ).exists()
         )
 
         def __check_navigation_table(path: Path):
