@@ -902,9 +902,8 @@ def _generate_markdown_docs(subproject: Subproject, commit_id: str) -> None:
     mkdocs_yml = dest / "mkdocs.yml"
 
     css = dest / "docs" / "stylesheets" / "extra.css"
-
-    if not css.exists():
-        css.touch()
+    css.parent.mkdir(parents=True, exist_ok=True)
+    css.touch(exist_ok=True)
     css.write_text(
         """
 .extra {
