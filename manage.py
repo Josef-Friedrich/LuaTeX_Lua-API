@@ -903,6 +903,8 @@ def _generate_markdown_docs(subproject: Subproject, commit_id: str) -> None:
 
     css = dest / "docs" / "stylesheets" / "extra.css"
 
+    if not css.exists():
+        css.touch()
     css.write_text(
         """
 .extra {
