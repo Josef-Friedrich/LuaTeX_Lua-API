@@ -250,7 +250,7 @@ function os.sleep(interval, unit) end
 function os.gettimeofday() end
 
 ---
----@class Times
+---@class os.Times
 ---@field cstime number # system time of children
 ---@field cutime number # user time of children
 ---@field stime number # system time
@@ -287,7 +287,7 @@ function os.gettimeofday() end
 ---
 ---* Corresponding C source code: [loslibext.c#L872-L894](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L872-L894)
 ---
----@return Times
+---@return os.Times
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/os.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function os.times() end
