@@ -45,6 +45,10 @@ lua_doc_generator_test:
 lua_doc_generator:
 	cd doc-generators/lua; lua doc-generator.lua
 
+
+mkdocs_luatex:
+	cd dist/docs/luatex; mkdocs serve
+
 .PHONY: dist
 dist:
 	./manage.py --debug dist
