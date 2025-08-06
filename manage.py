@@ -852,6 +852,24 @@ def _push_into_downstream_submodule(subproject: Subproject, commit_id: str) -> N
     )
 
 
+def _replace(path: Path, search: str, replace: str) -> str:
+    """
+    Replace all occurrences of 'search' with 'replace' in the file at 'path'.
+
+    Args:
+        path: The path to the file to modify.
+        search: The substring to search for.
+        replace: The string to replace with.
+
+    Returns:
+        The updated file content as a string.
+    """
+    content = path.read_text()
+    updated = content.replace(search, replace)
+    path.write_text(updated)
+    return updated
+
+
 def _replace_line(path: Path, search: str, new_line: str) -> None:
     """
     Replaces lines in a file that contain a specific search string with a new line.
@@ -901,6 +919,8 @@ def _generate_markdown_docs(subproject: Subproject, commit_id: str) -> None:
 
     mkdocs_yml = dest / "mkdocs.yml"
 
+    # css
+
     css = dest / "docs" / "stylesheets" / "extra.css"
     css.parent.mkdir(parents=True, exist_ok=True)
     css.touch(exist_ok=True)
@@ -916,6 +936,29 @@ def _generate_markdown_docs(subproject: Subproject, commit_id: str) -> None:
     _append_text(
         mkdocs_yml,
         """
+extra_css:
+  - stylesheets/extra.css
+""",
+    )
+
+    # logo
+
+    # https://squidfunk.github.io/mkdocs-material/setup/changing-the-logo-and-icons/#logo
+    logo_src = (
+        project_base_path / "resources" / "images" / "logos" / (subproject + ".svg")
+    )
+    if logo_src.exists():
+        logo_dest = dest / "docs" / "assets" / "logo.svg"
+        logo_dest.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(logo_src, logo_dest)
+        mkdocs_yml.read_text()
+        _replace(mkdocs_yml, "\ntheme:\n", "\ntheme:\n  logo: assets/logo.svg")
+
+    # syntax highlighting
+
+    _append_text(
+        mkdocs_yml,
+        """
 markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
@@ -924,8 +967,6 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
-extra_css:
-  - stylesheets/extra.css
 """,
     )
 
