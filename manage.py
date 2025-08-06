@@ -833,6 +833,21 @@ def _generate_markdown_docs(subproject: Subproject) -> None:
     subprocess.check_call(["emmylua_doc", src, "--output", dest])
     subprocess.check_call(["mkdocs", "build"], cwd=dest)
 
+    mkdocs_yml = dest / "mkdocs.yml"
+
+    code_highlighting = """
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+"""
+
+    mkdocs_yml.write_text(mkdocs_yml.read_text() + code_highlighting)
+
 
 def dist() -> None:
     """
