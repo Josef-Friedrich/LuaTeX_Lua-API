@@ -16,7 +16,7 @@ import urllib.request
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
-from typing import Callable, Literal, Optional, Union, cast
+from typing import Any, Callable, Literal, Optional, Union, cast
 
 logging.basicConfig(
     format="%(levelname)s %(message)s",
@@ -78,22 +78,16 @@ class Colors:
     END = "\033[0m"
 
 
-def _apply_color(color: str, text: str) -> str:
-    return color + text + Colors.END
+def _apply_color(color: str, text: Any) -> str:
+    return color + str(text) + Colors.END
 
 
-def red(text: str) -> str:
+def red(text: Any) -> str:
     return _apply_color(Colors.RED, text)
 
 
-def green(text: str) -> str:
+def green(text: Any) -> str:
     return _apply_color(Colors.GREEN, text)
-
-
-def _open_file(path: Path) -> None:
-    subprocess.call(
-        ["xdg-open", str(path)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
-    )
 
 
 def _run_stylua(path: Path | str) -> None:
@@ -391,24 +385,6 @@ def example(
     subproject: Subproject = "luatex",
     print_docstring: bool = False,
 ) -> None:
-    """
-    Compiles a Lua or TeX example file.
-
-    Given a relative path to a source file (either Lua or TeX), this function:
-    - Copies the source file to a temporary directory.
-    - If the source is a Lua file, generates a TeX wrapper that runs the Lua file via \\directlua.
-    - Runs LuaTeX on the TeX file in the temporary directory.
-    - Prints the output from LuaTeX.
-    - If a PDF is generated, opens the PDF file.
-
-    Args:
-        src_relpath (str): Relative path to the source example file (Lua or TeX).
-        luaonly: Only execute the Lua file and don’t create a corresponding TeX file.
-
-    Returns:
-        None
-    """
-
     def _extract_tex_markup(lua_code: str) -> tuple[str, str]:
         """
         Extracts lines marked with '--tex: ' from Lua code and separates them from the rest.
@@ -478,11 +454,14 @@ def example(
         print_docstring: bool = False,
     ):
         """Run and execute one example file"""
+        relpath = str(src).replace(str(project_base_path / "examples") + "/", "")
+        print(f"Example: {green(relpath)}")
 
         logger.debug(f"Example source: {src}")
 
+        # Lua require does not support absolute paths, so we are running all
+        # examples from this repos base path
         dest_lua: Path = project_base_path / "tmp.lua"
-        """Lua require does not support absolute paths"""
 
         src_code = src.read_text()
 
@@ -516,10 +495,6 @@ def example(
             dest_tex = project_base_path / "tmp.tex"
             _write_tex_file(dest_tex, tex_markup)
 
-        pdf: Path = dest_lua.with_suffix(".pdf")
-        if pdf.exists():
-            pdf.unlink()
-
         dest: Path
         if dest_tex is None:
             dest = dest_lua
@@ -541,10 +516,6 @@ def example(
         output = re.sub(r"^.*---start---", "", output, flags=re.DOTALL)
         output = re.sub(r"---stop---.*$", "", output, flags=re.DOTALL)
         print(output)
-
-        if pdf.exists():
-            _open_file(pdf)
-
         if result.returncode != 0:
             sys.exit(1)
 
