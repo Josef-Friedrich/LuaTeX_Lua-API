@@ -835,14 +835,14 @@ def _push_into_downstream_submodule(subproject: Subproject, commit_id: str) -> N
     )
 
 
-def _replace_line(path: Path, search: str, line: str) -> None:
+def _replace_line(path: Path, search: str, new_line: str) -> None:
     """
     Replaces lines in a file that contain a specific search string with a new line.
 
     Args:
         path: The path to the file to be modified.
         search: The substring to search for in each line.
-        line: The line to replace any matching lines with.
+        new_line: The line to replace any matching lines with.
 
     Returns:
         None
@@ -853,11 +853,11 @@ def _replace_line(path: Path, search: str, line: str) -> None:
     if path.exists():
         lines: list[str] = path.read_text().splitlines()
         new_lines: list[str] = []
-        for line in lines:
-            if search in line:
-                new_lines.append(line)
+        for old_line in lines:
+            if search in old_line:
+                new_lines.append(new_line)
             else:
-                new_lines.append(line)
+                new_lines.append(old_line)
         path.write_text("\n".join(new_lines) + "\n")
 
 
@@ -882,7 +882,9 @@ def _generate_markdown_docs(subproject: Subproject) -> None:
 
     mkdocs_yml = dest / "mkdocs.yml"
 
-    code_highlighting = """
+    _append_text(
+        mkdocs_yml,
+        """
 markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
@@ -891,9 +893,8 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
-"""
-
-    _append_text(mkdocs_yml, code_highlighting)
+""",
+    )
 
     _replace_line(
         mkdocs_yml, "site_name: ", f"site_name: {subprojects_dict[subproject]}"
