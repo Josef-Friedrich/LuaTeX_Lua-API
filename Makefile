@@ -47,7 +47,7 @@ lua_doc_generator:
 
 .PHONY: dist
 dist:
-	./manage.py dist
+	./manage.py --debug dist
 
 .PHONY: update_lls_addons
 update_lls_addons:

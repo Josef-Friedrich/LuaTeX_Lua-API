@@ -904,6 +904,8 @@ markdown_extensions:
 
     gh_pages_repo = project_base_path / "subrepos" / "Lua-TeX" / subproject_title
 
+    logger.debug("Github pages repo: %", gh_pages_repo)
+
     if gh_pages_repo.is_dir():
         print("Teeeeeeeeeeeeeeeeeeeeeeeest")
         subprocess.check_call(["git", "branch", "gh-pages"], cwd=gh_pages_repo)
