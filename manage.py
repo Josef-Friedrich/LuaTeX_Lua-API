@@ -245,6 +245,14 @@ subprojects: list[Subproject] = [
     "luatex",
 ]
 
+subprojects_dict: dict[str, str] = {
+    "lualatex": "LuaLaTeX",
+    "lualibs": "Lualibs",
+    "luametatex": "LuaMetaTeX",
+    "luaotfload": "LuaOTFLoad",
+    "luatex": "LuaOTFLoad",
+}
+
 # convert
 
 
@@ -827,11 +835,50 @@ def _push_into_downstream_submodule(subproject: Subproject, commit_id: str) -> N
     )
 
 
+def _replace_line(path: Path, search: str, line: str) -> None:
+    """
+    Replaces lines in a file that contain a specific search string with a new line.
+
+    Args:
+        path: The path to the file to be modified.
+        search: The substring to search for in each line.
+        line: The line to replace any matching lines with.
+
+    Returns:
+        None
+
+    Note:
+        If the file does not exist, the function does nothing.
+    """
+    if path.exists():
+        lines: list[str] = path.read_text().splitlines()
+        new_lines: list[str] = []
+        for line in lines:
+            if search in line:
+                new_lines.append(line)
+            else:
+                new_lines.append(line)
+        path.write_text("\n".join(new_lines) + "\n")
+
+
+def _append_text(path: Path, text: str) -> None:
+    """
+    Appends the given text to the end of the file at the specified path.
+
+    Args:
+        path: The path to the file to which the text will be appended.
+        text: The text to append to the file.
+
+    Raises:
+        OSError: If there is an error reading from or writing to the file.
+    """
+    path.write_text(path.read_text() + text)
+
+
 def _generate_markdown_docs(subproject: Subproject) -> None:
     src = project_base_path / "dist" / "library" / subproject
     dest = project_base_path / "dist" / "docs" / subproject
     subprocess.check_call(["emmylua_doc", src, "--output", dest])
-    subprocess.check_call(["mkdocs", "build"], cwd=dest)
 
     mkdocs_yml = dest / "mkdocs.yml"
 
@@ -846,7 +893,13 @@ markdown_extensions:
   - pymdownx.superfences
 """
 
-    mkdocs_yml.write_text(mkdocs_yml.read_text() + code_highlighting)
+    _append_text(mkdocs_yml, code_highlighting)
+
+    _replace_line(
+        mkdocs_yml, "site_name: ", f"site_name: {subprojects_dict[subproject]}"
+    )
+
+    subprocess.check_call(["mkdocs", "build"], cwd=dest)
 
 
 def dist() -> None:
