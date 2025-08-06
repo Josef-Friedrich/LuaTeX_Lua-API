@@ -906,8 +906,9 @@ def _generate_markdown_docs(subproject: Subproject, commit_id: str) -> None:
     css.touch(exist_ok=True)
     css.write_text(
         """
-.extra {
-      font-size: 14pt;
+.md-header {
+  /* \\definecolor[othercolor][r=.5,g=.5] https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/4f2b914d365bab8a2747afe6e8c86d0f1c8475f7/manual/luatex-style.tex#L114 */
+  background-color: #808000;
 }
 """
     )
