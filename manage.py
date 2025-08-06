@@ -211,7 +211,9 @@ def _diff(a: str, b: str) -> None:
             print(line)
 
 
-def _copy_directory(src: str | Path, dest: str | Path, delete_dest: bool = True) -> None:
+def _copy_directory(
+    src: str | Path, dest: str | Path, delete_dest: bool = True
+) -> None:
     """
     Copies the contents of the source directory to the destination directory.
 
@@ -226,7 +228,7 @@ def _copy_directory(src: str | Path, dest: str | Path, delete_dest: bool = True)
         dest = Path(dest)
     if dest.exists() and delete_dest:
         shutil.rmtree(dest)
-    shutil.copytree(src, dest)
+    shutil.copytree(src, dest, dirs_exist_ok=True)
 
 
 Subproject = Literal[
