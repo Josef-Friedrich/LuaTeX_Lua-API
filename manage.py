@@ -551,7 +551,7 @@ def example_makefile() -> None:
             function_targets: list[str] = []
             for function in sorted(list(functions)):
                 function_targets.append(
-                    f"example_{subproject}_{module}_{_clean_function_target(function)}"
+                    f"example_{subproject}_{module}.{_clean_function_target(function)}"
                 )
 
             if len(function_targets) > 1:
@@ -563,7 +563,7 @@ def example_makefile() -> None:
             for function in sorted(list(functions)):
                 relpath = f"{module}/{function}"
                 target = (
-                    f"example_{subproject}_{module}_{_clean_function_target(function)}"
+                    f"example_{subproject}_{module}.{_clean_function_target(function)}"
                 )
                 lines.append(f"{target}:\n\t$({subproject_executable}) {relpath}")
 

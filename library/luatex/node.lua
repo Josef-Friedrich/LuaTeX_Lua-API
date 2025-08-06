@@ -108,7 +108,7 @@ node.direct = {}
 ---
 ---__Reference:__
 ---
----* Corresponding C source code: [texnodes.c#L493-L542](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L493-L542)
+---* Corresponding C source code: [texnodes.c#L493-L542](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/4f2b914d365bab8a2747afe6e8c86d0f1c8475f7/source/texk/web2c/luatexdir/tex/texnodes.c#L493-L542)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@alias NodeTypeName
@@ -1934,10 +1934,64 @@ _N._8_4_id = "page 145"
 ---
 ---Convert a single type name to its internal numeric representation.
 ---
----```lua
----node.id('glyph') -- 29
----```
+---__Example:__
 ---
+---```lua
+---local function equals(name, id)
+---  assert.equals(node.id(name), id)
+---end
+---
+---equals("hlist", 0)
+---equals("vlist", 1)
+---equals("rule", 2)
+---equals("ins", 3)
+---equals("mark", 4)
+---equals("adjust", 5)
+---equals("boundary", 6)
+---equals("disc", 7)
+---equals("whatsit", 8)
+---equals("local_par", 9)
+---equals("dir", 10)
+---equals("math", 11)
+---equals("glue", 12)
+---equals("kern", 13)
+---equals("penalty", 14)
+---equals("unset", 15)
+---equals("style", 16)
+---equals("choice", 17)
+---equals("noad", 18)
+---equals("radical", 19)
+---equals("fraction", 20)
+---equals("accent", 21)
+---equals("fence", 22)
+---equals("math_char", 23)
+---equals("sub_box", 24)
+---equals("sub_mlist", 25)
+---equals("math_text_char", 26)
+---equals("delim", 27)
+---equals("margin_kern", 28)
+---equals("glyph", 29)
+---equals("align_record", 30)
+---equals("pseudo_file", 31)
+---equals("pseudo_line", 32)
+---equals("page_insert", 33)
+---equals("split_insert", 34)
+---equals("expr_stack", 35)
+---equals("nested_list", 36)
+---equals("span", 37)
+---equals("attribute", 38)
+---equals("glue_spec", 39)
+---equals("attribute_list", 40)
+---equals("temp", 41)
+---equals("align_stack", 42)
+---equals("movement_stack", 43)
+---equals("if_stack", 44)
+---equals("unhyphenated", 45)
+---equals("hyphenated", 46)
+---equals("delta", 47)
+---equals("passive", 48)
+---equals("shape", 49)
+---```
 ---__Reference:__
 ---
 ---* Source file of the `LuaTeX` manual: [luatex-nodes.tex#L1235-L1244](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L1235-L1244)
@@ -2032,6 +2086,412 @@ _N._8_6_fields = "page 146"
 ---
 ---Return an array of valid field names for a particular type of
 ---node.
+------
+---__Example:__
+---
+---```lua
+---local types = {}
+---for type_id, type in pairs(node.types()) do
+---  if type_id ~= 8 then
+---    types[type] = {}
+---    for field_id, field in pairs(node.fields(type_id)) do
+---      types[type][field_id] = field
+---    end
+---  end
+---end
+---
+---assert.same(types, {
+---  accent = {
+---    "id",
+---    "subtype",
+---    "attr",
+---    "nucleus",
+---    "sub",
+---    "sup",
+---    "accent",
+---    "bot_accent",
+---    "top_accent",
+---    "overlay_accent",
+---    "fraction",
+---    [-1] = "prev",
+---    [0] = "next",
+---  },
+---  adjust = {
+---    "id",
+---    "subtype",
+---    "attr",
+---    "head",
+---    [-1] = "prev",
+---    [0] = "next",
+---  },
+---  align_record = { "id", "subtype", [-1] = "prev", [0] = "next" },
+---  align_stack = { "id", "subtype", [-1] = "prev", [0] = "next" },
+---  attribute = { "id", "number", "value", [0] = "next" },
+---  attribute_list = { "id", [0] = "next" },
+---  boundary = {
+---    "id",
+---    "subtype",
+---    "attr",
+---    "value",
+---    [-1] = "prev",
+---    [0] = "next",
+---  },
+---  choice = {
+---    "id",
+---    "subtype",
+---    "attr",
+---    "display",
+---    "text",
+---    "script",
+---    "scriptscript",
+---    [-1] = "prev",
+---    [0] = "next",
+---  },
+---  delim = {
+---    "id",
+---    "subtype",
+---    "attr",
+---    "small_fam",
+---    "small_char",
+---    "large_fam",
+---    "large_char",
+---    [-1] = "prev",
+---    [0] = "next",
+---  },
+---  delta = { "id", "subtype", [-1] = "prev", [0] = "next" },
+---  dir = {
+---    "id",
+---    "subtype",
+---    "attr",
+---    "dir",
+---    "level",
+---    [-1] = "prev",
+---    [0] = "next",
+---  },
+---  disc = {
+---    "id",
+---    "subtype",
+---    "attr",
+---    "pre",
+---    "post",
+---    "replace",
+---    "penalty",
+---    [-1] = "prev",
+---    [0] = "next",
+---  },
+---  expr_stack = { "id", "subtype", [-1] = "prev", [0] = "next" },
+---  fence = {
+---    "id",
+---    "subtype",
+---    "attr",
+---    "delim",
+---    "italic",
+---    "height",
+---    "depth",
+---    "options",
+---    "class",
+---    [-1] = "prev",
+---    [0] = "next",
+---  },
+---  fraction = {
+---    "id",
+---    "subtype",
+---    "attr",
+---    "width",
+---    "num",
+---    "denom",
+---    "left",
+---    "right",
+---    "middle",
+---    "fam",
+---    "options",
+---    [-1] = "prev",
+---    [0] = "next",
+---  },
+---  glue = {
+---    "id",
+---    "subtype",
+---    "attr",
+---    "leader",
+---    "width",
+---    "stretch",
+---    "shrink",
+---    "stretch_order",
+---    "shrink_order",
+---    [-1] = "prev",
+---    [0] = "next",
+---  },
+---  glue_spec = {
+---    "id",
+---    "width",
+---    "stretch",
+---    "shrink",
+---    "stretch_order",
+---    "shrink_order",
+---    [0] = "next",
+---  },
+---  glyph = {
+---    "id",
+---    "subtype",
+---    "attr",
+---    "char",
+---    "font",
+---    "lang",
+---    "left",
+---    "right",
+---    "uchyph",
+---    "components",
+---    "xoffset",
+---    "yoffset",
+---    "width",
+---    "height",
+---    "depth",
+---    "expansion_factor",
+---    "data",
+---    [-1] = "prev",
+---    [0] = "next",
+---  },
+---  hlist = {
+---    "id",
+---    "subtype",
+---    "attr",
+---    "width",
+---    "depth",
+---    "height",
+---    "dir",
+---    "shift",
+---    "glue_order",
+---    "glue_sign",
+---    "glue_set",
+---    "head",
+---    [-1] = "prev",
+---    [0] = "next",
+---  },
+---  hyphenated = { "id", "subtype", [-1] = "prev", [0] = "next" },
+---  if_stack = { "id", "subtype", [-1] = "prev", [0] = "next" },
+---  ins = {
+---    "id",
+---    "subtype",
+---    "attr",
+---    "cost",
+---    "depth",
+---    "height",
+---    "spec",
+---    "head",
+---    [-1] = "prev",
+---    [0] = "next",
+---  },
+---  kern = {
+---    "id",
+---    "subtype",
+---    "attr",
+---    "kern",
+---    "expansion_factor",
+---    [-1] = "prev",
+---    [0] = "next",
+---  },
+---  local_par = {
+---    "id",
+---    "subtype",
+---    "attr",
+---    "pen_inter",
+---    "pen_broken",
+---    "dir",
+---    "box_left",
+---    "box_left_width",
+---    "box_right",
+---    "box_right_width",
+---    [-1] = "prev",
+---    [0] = "next",
+---  },
+---  margin_kern = {
+---    "id",
+---    "subtype",
+---    "attr",
+---    "width",
+---    "glyph",
+---    [-1] = "prev",
+---    [0] = "next",
+---  },
+---  mark = {
+---    "id",
+---    "subtype",
+---    "attr",
+---    "class",
+---    "mark",
+---    [-1] = "prev",
+---    [0] = "next",
+---  },
+---  math = {
+---    "id",
+---    "subtype",
+---    "attr",
+---    "surround",
+---    "width",
+---    "stretch",
+---    "shrink",
+---    "stretch_order",
+---    "shrink_order",
+---    [-1] = "prev",
+---    [0] = "next",
+---  },
+---  math_char = {
+---    "id",
+---    "subtype",
+---    "attr",
+---    "fam",
+---    "char",
+---    [-1] = "prev",
+---    [0] = "next",
+---  },
+---  math_text_char = {
+---    "id",
+---    "subtype",
+---    "attr",
+---    "fam",
+---    "char",
+---    [-1] = "prev",
+---    [0] = "next",
+---  },
+---  movement_stack = { "id", "subtype", [-1] = "prev", [0] = "next" },
+---  nested_list = { "id", "subtype", [-1] = "prev", [0] = "next" },
+---  noad = {
+---    "id",
+---    "subtype",
+---    "attr",
+---    "nucleus",
+---    "sub",
+---    "sup",
+---    [-1] = "prev",
+---    [0] = "next",
+---  },
+---  page_insert = {
+---    "id",
+---    "subtype",
+---    "height",
+---    "last_ins_ptr",
+---    "best_ins_ptr",
+---    "width",
+---    "stretch",
+---    "shrink",
+---    "stretch_order",
+---    "shrink_order",
+---    [-1] = "prev",
+---    [0] = "next",
+---  },
+---  passive = { "id", "subtype", [-1] = "prev", [0] = "next" },
+---  penalty = {
+---    "id",
+---    "subtype",
+---    "attr",
+---    "penalty",
+---    [-1] = "prev",
+---    [0] = "next",
+---  },
+---  pseudo_file = { "id", "subtype", [-1] = "prev", [0] = "next" },
+---  pseudo_line = { "id", "subtype", [-1] = "prev", [0] = "next" },
+---  radical = {
+---    "id",
+---    "subtype",
+---    "attr",
+---    "nucleus",
+---    "sub",
+---    "sup",
+---    "left",
+---    "degree",
+---    "width",
+---    "options",
+---    [-1] = "prev",
+---    [0] = "next",
+---  },
+---  rule = {
+---    "id",
+---    "subtype",
+---    "attr",
+---    "width",
+---    "depth",
+---    "height",
+---    "dir",
+---    "index",
+---    "left",
+---    "right",
+---    [-1] = "prev",
+---    [0] = "next",
+---  },
+---  shape = { "id", "subtype", [-1] = "prev", [0] = "next" },
+---  span = { "id", "subtype", [-1] = "prev", [0] = "next" },
+---  split_insert = {
+---    "id",
+---    "subtype",
+---    "height",
+---    "last_ins_ptr",
+---    "best_ins_ptr",
+---    "broken_ptr",
+---    "broken_ins",
+---    [-1] = "prev",
+---    [0] = "next",
+---  },
+---  style = {
+---    "id",
+---    "subtype",
+---    "attr",
+---    "style",
+---    [-1] = "prev",
+---    [0] = "next",
+---  },
+---  sub_box = {
+---    "id",
+---    "subtype",
+---    "attr",
+---    "head",
+---    [-1] = "prev",
+---    [0] = "next",
+---  },
+---  sub_mlist = {
+---    "id",
+---    "subtype",
+---    "attr",
+---    "head",
+---    [-1] = "prev",
+---    [0] = "next",
+---  },
+---  temp = { "id", "subtype", [-1] = "prev", [0] = "next" },
+---  unhyphenated = { "id", "subtype", [-1] = "prev", [0] = "next" },
+---  unset = {
+---    "id",
+---    "subtype",
+---    "attr",
+---    "width",
+---    "depth",
+---    "height",
+---    "dir",
+---    "shrink",
+---    "glue_order",
+---    "glue_sign",
+---    "stretch",
+---    "span",
+---    "head",
+---    [-1] = "prev",
+---    [0] = "next",
+---  },
+---  vlist = {
+---    "id",
+---    "subtype",
+---    "attr",
+---    "width",
+---    "depth",
+---    "height",
+---    "dir",
+---    "shift",
+---    "glue_order",
+---    "glue_sign",
+---    "glue_set",
+---    "head",
+---    [-1] = "prev",
+---    [0] = "next",
+---  },
+---})
+---```
 ---
 ---If you want to get the valid fields for a “whatsit”, you have to
 ---supply the second argument also. In other cases, any given second argument will
@@ -2054,9 +2514,43 @@ _N._8_7_has_field = "page 146"
 ---
 ---Return a boolean that is only `true` if `n` is actually a node, and it has the field.
 ---
+---__Example:__
+---
+---```lua
+---local glyph = node.new("glyph")
+---
+---for _, field in ipairs({
+---  "prev",
+---  "next",
+---  "id",
+---  "subtype",
+---  "attr",
+---  "char",
+---  "font",
+---  "lang",
+---  "left",
+---  "right",
+---  "uchyph",
+---  "components",
+---  "xoffset",
+---  "yoffset",
+---  "width",
+---  "height",
+---  "depth",
+---  "expansion_factor",
+---  "data",
+---}) do
+---  assert.is_true(node.has_field(glyph, field))
+---end
+---
+---  assert.is_false(node.has_field(glyph, "xxx"))
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L2993-L3000](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2993-L3000)
+---
+---@see node.direct.has_field
 ---
 ---@param n Node
 ---@param field string
@@ -2069,9 +2563,42 @@ function node.has_field(n, field) end
 ---
 ---Return a boolean that is only `true` if `d` is actually a node, and it has the field.
 ---
+---__Example:__
+---
+---```lua
+---local glyph = node.direct.todirect(node.new("glyph"))
+---for _, field in ipairs({
+---  "prev",
+---  "next",
+---  "id",
+---  "subtype",
+---  "attr",
+---  "char",
+---  "font",
+---  "lang",
+---  "left",
+---  "right",
+---  "uchyph",
+---  "components",
+---  "xoffset",
+---  "yoffset",
+---  "width",
+---  "height",
+---  "depth",
+---  "expansion_factor",
+---  "data",
+---}) do
+---  assert.is_true(node.direct.has_field(glyph, field))
+---end
+---
+---assert.is_false(node.direct.has_field(glyph, "xxx"))
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L3041-L3049](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3041-L3049)
+---
+---@see node.has_field
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---@param field string
@@ -2092,10 +2619,29 @@ _N._8_8_new = "page 146"
 ---the second argument is required. As with all node functions, this function
 ---creates a node at the *TeX* level.
 ---
+---__Example:__
+---
+---```lua
+---for type_id, node_type in pairs(node.types()) do
+---  if node_type == "whatsit" then
+---    for subtype_id, subtype in pairs(node.whatsits()) do
+---      local n = node.new(node_type, subtype)
+---      assert.equals(n.id, type_id)
+---      assert.equals(n.subtype, subtype_id)
+---    end
+---  else
+---    local n = node.new(node_type)
+---    assert.equals(n.id, type_id)
+---  end
+---end
+---```
+---
 ---__Reference:__
 ---
 ---* Source file of the `LuaTeX` manual: [luatex-nodes.tex#L1299-L1314](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L1299-L1314)
 ---* Corresponding C source code: [lnodelib.c#L2055-L2060](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2055-L2060)
+---
+---@see node.direct.new
 ---
 ---@param id integer|NodeTypeName
 ---@param subtype? integer|string
@@ -2114,10 +2660,31 @@ function node.new(id, subtype) end
 ---the second argument is required. As with all node functions, this function
 ---creates a node at the *TeX* level.
 ---
+---__Example:__
+---
+---```lua
+---for type_id, node_type in pairs(node.types()) do
+---  if node_type == "whatsit" then
+---    for subtype_id, subtype in pairs(node.whatsits()) do
+---      local direct = node.direct.new(node_type, subtype)
+---      local n = node.direct.tonode(direct)
+---      assert.equals(n.id, type_id)
+---      assert.equals(n.subtype, subtype_id)
+---    end
+---  else
+---    local direct = node.direct.new(node_type)
+---    local n = node.direct.tonode(direct)
+---    assert.equals(n.id, type_id)
+---  end
+---end
+---```
+---
 ---__Reference:__
 ---
 ---* Source file of the `LuaTeX` manual: [luatex-nodes.tex#L1299-L1314](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L1299-L1314)
 ---* Corresponding C source code: [lnodelib.c#L2064-L2069](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L2064-L2069)
+---
+---@see node.new
 ---
 ---@param id integer|NodeTypeName
 ---@param subtype? integer|string
