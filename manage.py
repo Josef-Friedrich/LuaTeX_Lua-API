@@ -901,6 +901,16 @@ def _generate_markdown_docs(subproject: Subproject, commit_id: str) -> None:
 
     mkdocs_yml = dest / "mkdocs.yml"
 
+    css = dest / "docs" / "stylesheets" / "extra.css"
+
+    css.write_text(
+        """
+.extra {
+      font-size: 14pt;
+}
+"""
+    )
+
     _append_text(
         mkdocs_yml,
         """
@@ -912,6 +922,8 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
+extra_css:
+  - stylesheets/extra.css
 """,
     )
 
