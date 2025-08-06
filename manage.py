@@ -904,7 +904,7 @@ markdown_extensions:
 
     gh_pages_repo = project_base_path / "subrepos" / "Lua-TeX" / subproject_title
 
-    if gh_pages_repo.exists():
+    if gh_pages_repo.is_dir():
         subprocess.check_call(["git", "branch", "gh-pages"], cwd=gh_pages_repo)
         subprocess.check_call(["git", "checkout", "gh-pages"], cwd=gh_pages_repo)
         subprocess.check_call(["git", "pull"], cwd=gh_pages_repo)
