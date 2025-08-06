@@ -614,15 +614,26 @@ example_luatex_node: example_luatex_node.Node_AttributeListNode \
 	example_luatex_node.Node_LateLuaWhatsitNode \
 	example_luatex_node.Node_ShapeNode \
 	example_luatex_node._node-info \
+	example_luatex_node.direct.getboth \
+	example_luatex_node.direct.getchar \
 	example_luatex_node.direct.getdir \
 	example_luatex_node.direct.getdirection \
+	example_luatex_node.direct.getfont \
+	example_luatex_node.direct.getid \
 	example_luatex_node.direct.getlist \
+	example_luatex_node.direct.getnext \
+	example_luatex_node.direct.getprev \
 	example_luatex_node.direct.getwhd \
 	example_luatex_node.direct.has_field \
 	example_luatex_node.direct.is_glyph \
 	example_luatex_node.direct.new \
+	example_luatex_node.direct.setboth \
+	example_luatex_node.direct.setchar \
 	example_luatex_node.direct.setfield \
+	example_luatex_node.direct.setfont \
 	example_luatex_node.direct.setlist \
+	example_luatex_node.direct.setnext \
+	example_luatex_node.direct.setprev \
 	example_luatex_node.direct.setwhd \
 	example_luatex_node.direct.setwidth \
 	example_luatex_node.direct.todirect \
@@ -667,12 +678,24 @@ example_luatex_node.Node_ShapeNode:
 	$(E_LUATEX) node/Node_ShapeNode
 example_luatex_node._node-info:
 	$(E_LUATEX) node/_node-info
+example_luatex_node.direct.getboth:
+	$(E_LUATEX) node/direct.getboth
+example_luatex_node.direct.getchar:
+	$(E_LUATEX) node/direct.getchar
 example_luatex_node.direct.getdir:
 	$(E_LUATEX) node/direct.getdir
 example_luatex_node.direct.getdirection:
 	$(E_LUATEX) node/direct.getdirection
+example_luatex_node.direct.getfont:
+	$(E_LUATEX) node/direct.getfont
+example_luatex_node.direct.getid:
+	$(E_LUATEX) node/direct.getid
 example_luatex_node.direct.getlist:
 	$(E_LUATEX) node/direct.getlist
+example_luatex_node.direct.getnext:
+	$(E_LUATEX) node/direct.getnext
+example_luatex_node.direct.getprev:
+	$(E_LUATEX) node/direct.getprev
 example_luatex_node.direct.getwhd:
 	$(E_LUATEX) node/direct.getwhd
 example_luatex_node.direct.has_field:
@@ -681,10 +704,20 @@ example_luatex_node.direct.is_glyph:
 	$(E_LUATEX) node/direct.is_glyph
 example_luatex_node.direct.new:
 	$(E_LUATEX) node/direct.new
+example_luatex_node.direct.setboth:
+	$(E_LUATEX) node/direct.setboth
+example_luatex_node.direct.setchar:
+	$(E_LUATEX) node/direct.setchar
 example_luatex_node.direct.setfield:
 	$(E_LUATEX) node/direct.setfield
+example_luatex_node.direct.setfont:
+	$(E_LUATEX) node/direct.setfont
 example_luatex_node.direct.setlist:
 	$(E_LUATEX) node/direct.setlist
+example_luatex_node.direct.setnext:
+	$(E_LUATEX) node/direct.setnext
+example_luatex_node.direct.setprev:
+	$(E_LUATEX) node/direct.setprev
 example_luatex_node.direct.setwhd:
 	$(E_LUATEX) node/direct.setwhd
 example_luatex_node.direct.setwidth:

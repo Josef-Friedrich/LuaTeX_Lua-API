@@ -723,21 +723,21 @@ _N.glyph = 29
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class GlyphNode: Node
 ---@field subtype GlyphNodeSubtype # A bit field
----@field attr Node # A list of attributes
----@field char integer # The character index. in the font
----@field font integer # The font identifier
----@field lang integer # The language identifier
----@field left integer # The frozen `\lefthyphenmnin` value
----@field right integer # The frozen `\righthyphenmnin` value
----@field uchyph boolean # The frozen `uchyph` value
----@field components Node # A Pointer to ligature components
----@field xoffset integer # A virtual displacement in horizontal direction
----@field yoffset integer # A virtual displacement in vertical direction
----@field width integer # The (original) width of the character
----@field height integer # The (original) height of the character
----@field depth integer # The (original) depth of the character
----@field expansion_factor integer # The to be applied expansion factor
----@field data integer # A general purpose field for users (we had room for it)
+---@field attr Node # A list of attributes.
+---@field char integer # The character index in the font.
+---@field font integer # The font identifier.
+---@field lang integer # The language identifier.
+---@field left integer # The frozen `\lefthyphenmnin` value.
+---@field right integer # The frozen `\righthyphenmnin` value.
+---@field uchyph boolean # The frozen `uchyph` value.
+---@field components Node # A Pointer to ligature components.
+---@field xoffset integer # A virtual displacement in horizontal direction.
+---@field yoffset integer # A virtual displacement in vertical direction.
+---@field width integer # The (original) width of the character.
+---@field height integer # The (original) height of the character.
+---@field depth integer # The (original) depth of the character.
+---@field expansion_factor integer # The to be applied expansion factor.
+---@field data integer # A general purpose field for users (we had room for it).
 
 ---
 ---Return `true` when a glyph or disc node references that font.
@@ -4948,6 +4948,15 @@ _N._10_two_access_models_page_2 = "page 160"
 ---
 ---Set the next node of the current node.
 ---
+---__Example:__
+---
+---```lua
+---local d1 = node.direct.new("glyph")
+---local d2 = node.direct.new("glyph")
+---node.direct.setnext(d1, d2)
+---assert.equals(node.direct.getnext(d1), d2)
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L1767-L1778](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1767-L1778)
@@ -4961,9 +4970,21 @@ function node.direct.setnext(d, next) end
 ---
 ---Return the next node of the current node.
 ---
+---__Example:__
+---
+---```lua
+---local n1 = node.new("glyph")
+---local n2 = node.new("glyph")
+---n1.next = n2
+---assert.equals(node.getnext(n1), n2)
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L1782-L1800](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1782-L1800)
+---
+---@see node.getprev
+---@see node.direct.getnext
 ---
 ---@param n Node
 ---
@@ -4974,6 +4995,15 @@ function node.getnext(n) end
 
 ---
 ---Return the next node of the current node.
+---
+---__Example:__
+---
+---```lua
+---local d1 = node.direct.new("glyph")
+---local d2 = node.direct.new("glyph")
+---node.direct.setnext(d1, d2)
+---assert.equals(node.direct.getnext(d1), d2)
+---```
 ---
 ---__Reference:__
 ---
@@ -4989,9 +5019,22 @@ function node.direct.getnext(d) end
 ---
 ---Set the previous node of the current node.
 ---
+---__Example:__
+---
+---```lua
+---local d1 = node.direct.new("glyph")
+---local d2 = node.direct.new("glyph")
+---node.direct.setprev(d1, d2)
+---assert.equals(node.direct.getprev(d1), d2)
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L1816-L1827](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1816-L1827)
+---
+---@see node.getprev
+---@see node.direct.setprev
+---@see node.direct.getprev
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---@param prev integer
@@ -5001,6 +5044,15 @@ function node.direct.setprev(d, prev) end
 
 ---
 ---Return the previous node of the current node.
+---
+---__Example:__
+---
+---```lua
+---local n1 = node.new("glyph")
+---local n2 = node.new("glyph")
+---n1.prev = n2
+---assert.equals(node.getprev(n1), n2)
+---```
 ---
 ---__Reference:__
 ---
@@ -5016,6 +5068,15 @@ function node.getprev(n) end
 ---
 ---Return the previous node of a node.
 ---
+---__Example:__
+---
+---```lua
+---local d1 = node.direct.new("glyph")
+---local d2 = node.direct.new("glyph")
+---node.direct.setprev(d1, d2)
+---assert.equals(node.direct.getprev(d1), d2)
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L1805-L1814](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1805-L1814)
@@ -5030,9 +5091,23 @@ function node.direct.getprev(n) end
 ---
 ---Set the previous and next pointers at once.
 ---
+---__Example:__
+---
+---```lua
+---local d1 = node.direct.new("glyph")
+---local d2 = node.direct.new("glyph")
+---local d3 = node.direct.new("glyph")
+---node.direct.setboth(d1, d2, d3)
+---local prev, next = node.direct.getboth(d1)
+---assert.equals(prev, d2)
+---assert.equals(next, d3)
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L1864-L1880](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1864-L1880)
+---
+---@see node.direct.getboth
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---@param prev integer
@@ -5044,9 +5119,23 @@ function node.direct.setboth(d, prev, next) end
 ---
 ---Return the previous and next pointer of a node.
 ---
+---__Example:__
+---
+---```lua
+---local d1 = node.direct.new("glyph")
+---local d2 = node.direct.new("glyph")
+---local d3 = node.direct.new("glyph")
+---node.direct.setboth(d1, d2, d3)
+---local prev, next = node.direct.getboth(d1)
+---assert.equals(prev, d2)
+---assert.equals(next, d3)
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L1884-L1902](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1884-L1902)
+---
+---@see node.direct.setboth
 ---
 ---@param n Node
 ---
@@ -5088,6 +5177,12 @@ function node.getid(n) end
 ---
 ---Return the `id` (type) of a node.
 ---
+---__Example:__
+---
+---```lua
+---assert.equals(node.getid(node.new("glyph")), 29)
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L500-L517](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L500-L517)
@@ -5101,6 +5196,12 @@ function node.direct.getid(d) end
 
 ---
 ---Set the `subtype` of a node.
+---
+---__Example:__
+---
+---```lua
+---assert.equals(node.direct.getid(node.direct.todirect(node.new("glyph"))), 29)
+---```
 ---
 ---__Reference:__
 ---
@@ -5143,6 +5244,14 @@ function node.direct.getsubtype(d) end
 ---
 ---Set the font identifier on a `glyph` node.
 ---
+---__Example:__
+---
+---```lua
+---local d = node.direct.new("glyph")
+---node.direct.setfont(d, 1)
+---assert.equals(node.direct.getfont(d), 1)
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L621-L632](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L621-L632)
@@ -5156,6 +5265,14 @@ function node.direct.setfont(d, font) end
 
 ---
 ---Return the font identifier of a `glyph`, `math_char`, `math_text_char` or `delim` node.
+---
+---__Example:__
+---
+---```lua
+---local n = node.new("glyph") --[[@as GlyphNode]]
+---n.font = 1
+---assert.equals(node.getfont(n), 29)
+---```
 ---
 ---__Reference:__
 ---
@@ -5171,6 +5288,14 @@ function node.getfont(n) end
 ---
 ---Return the font identifier of a `glyph`, `math_char`, `math_text_char` or `delim` node.
 ---
+---__Example:__
+---
+---```lua
+---local d = node.direct.new("glyph")
+---node.direct.setfont(d, 1)
+---assert.equals(node.direct.getfont(d), 1)
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L601-L619](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L601-L619)
@@ -5185,6 +5310,14 @@ function node.direct.getfont(d) end
 ---
 ---Set the character index (`char`) in the font on `glyph`, `math_char`, `math_text_char` or `delim` nodes.
 ---
+---__Example:__
+---
+---```lua
+---local d = node.direct.new("glyph") --[[@as GlyphNode]]
+---node.direct.setchar(d, 1)
+---assert.equals(node.direct.getchar(d), 1)
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L702-L717](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L702-L717)
@@ -5198,9 +5331,20 @@ function node.direct.setchar(d, char) end
 ---
 ---Return the character index (`char`) in the font of `glyph`, `math_char`, `math_text_char` or `delim` nodes.
 ---
+---__Example:__
+---
+---```lua
+---local n = node.new("glyph") --[[@as GlyphNode]]
+---n.char = 1
+---assert.equals(node.getchar(n), 1)
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L739-L758](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L739-L758)
+---
+---@see node.direct.getchar
+---@see node.direct.setchar
 ---
 ---@param n Node
 ---
@@ -5211,6 +5355,14 @@ function node.getchar(n) end
 
 ---
 ---Return the character index (`char`) in the font of `glyph`, `math_char`, `math_text_char` or `delim` nodes.
+---
+---__Example:__
+---
+---```lua
+---local d = node.direct.new("glyph") --[[@as GlyphNode]]
+---node.direct.setchar(d, 1)
+---assert.equals(node.direct.getchar(d), 1)
+---```
 ---
 ---__Reference:__
 ---
@@ -5363,7 +5515,22 @@ function node.getdisc(n, get_tail) end
 function node.direct.getdisc(d, get_tail) end
 
 ---
----Set child node lists to parent `hlist`, `vlist`, `sub_box`, `sub_mlist`, `ins`, or `adjust` nodes.
+---Set child node lists to parent `hlist`, `vlist`, `sub_box`, `sub_mlist`, `ins` or `adjust` nodes.
+---
+---__Example:__
+---
+---```lua
+---local hlist = node.direct.new("hlist")
+---local glyph1 = node.direct.new("glyph")
+---local glyph2 = node.direct.new("glyph")
+---
+---node.direct.setlist(hlist, glyph1)
+---node.direct.setnext(glyph1, glyph2)
+---
+---local list = node.direct.getlist(hlist)
+---assert.equals(list, glyph1)
+---assert.equals(node.direct.getnext(list), glyph2)
+---```
 ---
 ---__Reference:__
 ---
@@ -5378,6 +5545,21 @@ function node.direct.setlist(d, list) end
 ---
 ---Get child node lists of parent `hlist`, `vlist`, `sub_box`, `sub_mlist`, `ins`, or `adjust` nodes.
 ---
+---__Example:__
+---
+---```lua
+---local hlist = node.new("hlist")
+---local glyph1 = node.new("glyph")
+---local glyph2 = node.new("glyph")
+---
+---hlist.head = glyph1
+---glyph1.next = glyph2
+---
+---local list = node.getlist(hlist)
+---assert.equals(list, glyph1)
+---assert.equals(list.next, glyph2)
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L1440-L1458](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L1440-L1458)
@@ -5391,6 +5573,21 @@ function node.getlist(n) end
 
 ---
 ---Get child node lists of parent `hlist`, `vlist`, `sub_box`, `sub_mlist`, `ins`, or `adjust` nodes.
+---
+---__Example:__
+---
+---```lua
+---local hlist = node.direct.new("hlist")
+---local glyph1 = node.direct.new("glyph")
+---local glyph2 = node.direct.new("glyph")
+---
+---node.direct.setlist(hlist, glyph1)
+---node.direct.setnext(glyph1, glyph2)
+---
+---local list = node.direct.getlist(hlist)
+---assert.equals(list, glyph1)
+---assert.equals(node.direct.getnext(list), glyph2)
+---```
 ---
 ---__Reference:__
 ---
