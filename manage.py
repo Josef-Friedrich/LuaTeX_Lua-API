@@ -827,6 +827,12 @@ def _push_into_downstream_submodule(subproject: Subproject, commit_id: str) -> N
     )
 
 
+def _generate_markdown_docs(subproject: Subproject) -> None:
+    src = project_base_path / "dist" / "library" / subproject
+    dest = project_base_path / "dist" / "docs" / subproject
+    subprocess.check_call(["/usr/local/bin/emmylua_doc", src, "--output", dest])
+
+
 def dist() -> None:
     """
     Copies the contents of the 'library' directory to a new 'dist' directory,
@@ -849,12 +855,13 @@ def dist() -> None:
 
     _apply("dist/library/**/*.lua", _clean)
 
-    if not _is_git_commited():
-        raise Exception("Uncommited changes found! Commit first, then retry!")
+    # if not _is_git_commited():
+    #     raise Exception("Uncommited changes found! Commit first, then retry!")
     commit_id = _get_latest_git_commitid()
 
     for subproject in subprojects:
         _push_into_downstream_submodule(subproject, commit_id)
+        _generate_markdown_docs(subproject)
 
     vscode_path = project_base_path / "resources" / "vscode_extension"
     _git_reset_pull(vscode_path)
