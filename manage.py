@@ -250,7 +250,7 @@ subprojects_dict: dict[str, str] = {
     "lualibs": "Lualibs",
     "luametatex": "LuaMetaTeX",
     "luaotfload": "LuaOTFLoad",
-    "luatex": "LuaOTFLoad",
+    "luatex": "LuaTeX",
 }
 
 # convert
@@ -907,10 +907,9 @@ markdown_extensions:
     logger.debug("Github pages repo: %s", gh_pages_repo)
 
     if gh_pages_repo.is_dir():
-        print("Teeeeeeeeeeeeeeeeeeeeeeeest")
-        subprocess.check_call(["git", "branch", "gh-pages"], cwd=gh_pages_repo)
+        subprocess.run(["git", "branch", "gh-pages"], cwd=gh_pages_repo)
         subprocess.check_call(["git", "checkout", "gh-pages"], cwd=gh_pages_repo)
-        subprocess.check_call(["git", "pull"], cwd=gh_pages_repo)
+        subprocess.run(["git", "pull", "origin", "gh-pages"], cwd=gh_pages_repo)
         _copy_directory(dest / "site", gh_pages_repo)
 
 
