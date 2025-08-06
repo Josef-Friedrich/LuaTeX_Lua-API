@@ -952,7 +952,7 @@ extra_css:
         logo_dest.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(logo_src, logo_dest)
         mkdocs_yml.read_text()
-        _replace(mkdocs_yml, "\ntheme:\n", "\ntheme:\n  logo: assets/logo.svg")
+        _replace(mkdocs_yml, "\ntheme:\n", "\ntheme:\n  logo: assets/logo.svg\n")
 
     # syntax highlighting
 
