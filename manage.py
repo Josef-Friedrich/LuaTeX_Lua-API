@@ -780,8 +780,23 @@ def _git_reset_pull(path: str | Path) -> None:
     subprocess.check_call(["git", "pull", "origin", "main"], cwd=path)
 
 
-def _git_commit_push(path: str | Path, message: str) -> None:
-    subprocess.check_call(["git", "add", "-A"], cwd=path)
+def _format_commit_message(commit_id: str) -> str:
+    return f"Sync with https://github.com/Josef-Friedrich/LuaTeX_Lua-API/commit/{commit_id}"
+
+
+def _git_commit_push(
+    repo: str | Path,
+    message: Optional[str] = None,
+    commit_id: Optional[str] = None,
+    branch: str = "main",
+) -> None:
+    subprocess.check_call(["git", "add", "-A"], cwd=repo)
+
+    if commit_id:
+        message = _format_commit_message(commit_id)
+    if not message:
+        raise Exception("Provide a message or a commit id")
+
     result = subprocess.run(
         [
             "git",
@@ -789,10 +804,10 @@ def _git_commit_push(path: str | Path, message: str) -> None:
             "-m",
             message,
         ],
-        cwd=path,
+        cwd=repo,
     )
     if result.returncode == 0:
-        subprocess.check_call(["git", "push", "-u", "origin", "main"], cwd=path)
+        subprocess.check_call(["git", "push", "-u", "origin", branch], cwd=repo)
 
 
 def _push_into_downstream_submodule(subproject: Subproject, commit_id: str) -> None:
@@ -831,7 +846,7 @@ def _push_into_downstream_submodule(subproject: Subproject, commit_id: str) -> N
 
     _git_commit_push(
         path,
-        f"Sync with https://github.com/Josef-Friedrich/LuaTeX_Lua-API/commit/{commit_id}",
+        commit_id=commit_id,
     )
 
 
@@ -875,7 +890,7 @@ def _append_text(path: Path, text: str) -> None:
     path.write_text(path.read_text() + text)
 
 
-def _generate_markdown_docs(subproject: Subproject) -> None:
+def _generate_markdown_docs(subproject: Subproject, commit_id: str) -> None:
     src = project_base_path / "dist" / "library" / subproject
     dest = project_base_path / "dist" / "docs" / subproject
     subprocess.check_call(["emmylua_doc", src, "--output", dest])
@@ -907,10 +922,16 @@ markdown_extensions:
     logger.debug("Github pages repo: %s", gh_pages_repo)
 
     if gh_pages_repo.is_dir():
-        subprocess.run(["git", "branch", "gh-pages"], cwd=gh_pages_repo)
+        subprocess.run(
+            ["git", "branch", "gh-pages"], cwd=gh_pages_repo
+        )  # ignore cli error
         subprocess.check_call(["git", "checkout", "gh-pages"], cwd=gh_pages_repo)
-        subprocess.run(["git", "pull", "origin", "gh-pages"], cwd=gh_pages_repo)
+        subprocess.run(
+            ["git", "pull", "origin", "gh-pages"], cwd=gh_pages_repo
+        )  # ignore cli error
         _copy_directory(dest / "site", gh_pages_repo)
+
+        _git_commit_push(gh_pages_repo, commit_id=commit_id, branch="gh-pages")
 
 
 def dist() -> None:
@@ -941,14 +962,14 @@ def dist() -> None:
 
     for subproject in subprojects:
         _push_into_downstream_submodule(subproject, commit_id)
-        _generate_markdown_docs(subproject)
+        _generate_markdown_docs(subproject, commit_id)
 
     vscode_path = project_base_path / "resources" / "vscode_extension"
     _git_reset_pull(vscode_path)
     _copy_directory(project_base_path / "dist" / "library", vscode_path / "library")
     _git_commit_push(
         vscode_path,
-        f"Sync with https://github.com/Josef-Friedrich/LuaTeX_Lua-API/commit/{commit_id}",
+        _format_commit_message(commit_id),
     )
 
     _git_commit_push(project_base_path, "Update submodules")
