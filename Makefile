@@ -627,6 +627,7 @@ example_luatex_node: example_luatex_node.Node_AttributeListNode \
 	example_luatex_node.direct.has_field \
 	example_luatex_node.direct.is_glyph \
 	example_luatex_node.direct.new \
+	example_luatex_node.direct.remove \
 	example_luatex_node.direct.setboth \
 	example_luatex_node.direct.setchar \
 	example_luatex_node.direct.setfield \
@@ -704,6 +705,8 @@ example_luatex_node.direct.is_glyph:
 	$(E_LUATEX) node/direct.is_glyph
 example_luatex_node.direct.new:
 	$(E_LUATEX) node/direct.new
+example_luatex_node.direct.remove:
+	$(E_LUATEX) node/direct.remove
 example_luatex_node.direct.setboth:
 	$(E_LUATEX) node/direct.setboth
 example_luatex_node.direct.setchar:
