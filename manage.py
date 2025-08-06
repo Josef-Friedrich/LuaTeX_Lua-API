@@ -956,8 +956,8 @@ def dist() -> None:
 
     _apply("dist/library/**/*.lua", _clean)
 
-    # if not _is_git_commited():
-    #     raise Exception("Uncommited changes found! Commit first, then retry!")
+    if not _is_git_commited():
+        raise Exception("Uncommited changes found! Commit first, then retry!")
     commit_id = _get_latest_git_commitid()
 
     for subproject in subprojects:
