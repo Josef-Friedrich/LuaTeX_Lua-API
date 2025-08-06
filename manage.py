@@ -880,6 +880,8 @@ def _generate_markdown_docs(subproject: Subproject) -> None:
     dest = project_base_path / "dist" / "docs" / subproject
     subprocess.check_call(["emmylua_doc", src, "--output", dest])
 
+    subproject_title = subprojects_dict[subproject]
+
     mkdocs_yml = dest / "mkdocs.yml"
 
     _append_text(
@@ -896,11 +898,17 @@ markdown_extensions:
 """,
     )
 
-    _replace_line(
-        mkdocs_yml, "site_name: ", f"site_name: {subprojects_dict[subproject]}"
-    )
+    _replace_line(mkdocs_yml, "site_name: ", f"site_name: {subproject_title}")
 
     subprocess.check_call(["mkdocs", "build"], cwd=dest)
+
+    gh_pages_repo = project_base_path / "subrepos" / "Lua-TeX" / subproject_title
+
+    if gh_pages_repo.exists():
+        subprocess.check_call(["git", "branch", "gh-pages"], cwd=gh_pages_repo)
+        subprocess.check_call(["git", "checkout", "gh-pages"], cwd=gh_pages_repo)
+        subprocess.check_call(["git", "pull"], cwd=gh_pages_repo)
+        _copy_directory(dest / "site", gh_pages_repo)
 
 
 def dist() -> None:
