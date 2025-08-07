@@ -41,7 +41,11 @@ _N._4_2_6_extra_os_library_functions = "page 64"
 ---A variable that holds the directory path of the
 ---actual executable.
 ---
----For example: `\directlua {tex.sprint(os.selfdir)`}.
+---__Example:__
+---
+---```lua
+---assert.is_type(os.selfdir, "string")
+---```
 ---
 ---__Reference:__
 ---
@@ -63,16 +67,13 @@ os.selfdir = ""
 ---  integer index zero. If there is, this is the command to be executed.
 ---  Otherwise, it will use the value at integer index one. If neither are
 ---  present, nothing at all happens.
----
 ---* The set of consecutive values starting at integer 1 in the table are the
 ---  arguments that are passed on to the command (the value at index 1 becomes
 ---  `arg[0]`). The command is searched for in the execution path, so
 ---  there is normally no need to pass on a fully qualified path name.
----
 ---* If the argument is a string, then it is automatically converted into a
 ---  table by splitting on whitespace. In this case, it is impossible for the
 ---  command and first argument to differ from each other.
----
 ---* In the string argument format, whitespace can be protected by putting
 ---  (part of) an argument inside single or double quotes. One layer of quotes
 ---  is interpreted by *LuaTeX*, and all occurrences of `\"`, `\'`
@@ -91,6 +92,19 @@ os.selfdir = ""
 ---The original reason for this command is that it cleans out the current
 ---process before starting the new one, making it especially useful for use in
 ---*TeX*LUA.
+---
+---__Example:__
+---
+---```lua
+------@diagnostic disable-next-line
+---local exit, err = os.exec(1, 2, 3)
+---assert.is_nil(exit)
+---assert.equals(err, "invalid arguments passed")
+---
+---os.exec("/usr/bin/uname -a")
+---
+---os.exec({ "/usr/bin/uname", "-a" })
+---```
 ---
 ---__Reference:__
 ---
@@ -112,6 +126,18 @@ function os.exec(commandline) end
 ---
 ---If the command ran ok, then the return value is the exit status of the
 ---command. Otherwise, it will return the two values `nil` and `error`.
+---
+---__Example:__
+---
+---```lua
+------@diagnostic disable-next-line
+---local exit, err = os.spawn(1, 2, 3)
+---assert.is_nil(exit)
+---assert.equals(err, "invalid arguments passed")
+---
+---os.spawn("/usr/bin/uname -a")
+---os.spawn({ "/usr/bin/uname", "-a" })
+---```
 ---
 ---__Reference:__
 ---
@@ -201,18 +227,20 @@ os.env = {}
 ---
 ---Suspend execution for second intervals.
 ---
+
+---
 ---__Example:__
 ---
 ---```lua
 ---local start_time = os.gettimeofday()
 ---os.sleep(1)
 ---local end_time = os.gettimeofday()
----assert(end_time - start_time > 1)
 ---
----os.sleep(1) -- Sleep 1 second
----os.sleep(1, 10) -- Sleep 1 decisecond
----os.sleep(1, 100) -- Sleep 1 centisecond
----os.sleep(1, 1000) -- Sleep 1 millisecond
+---assert.is_true(end_time - start_time > 1)
+---os.sleep(1) -- second
+---os.sleep(1, 10) -- decisecond
+---os.sleep(1, 100) -- centisecond
+---os.sleep(1, 1000) -- millisecond
 ---```
 ---
 ---__Reference:__
@@ -237,7 +265,7 @@ function os.sleep(interval, unit) end
 ---
 ---```lua
 ---local time = os.gettimeofday()
----assert(time > 1682153121.3217, time)
+---assert.is_true(time > 1682153121.3217)
 ---```
 ---
 ---__Reference:__
@@ -251,10 +279,10 @@ function os.gettimeofday() end
 
 ---
 ---@class os.Times
----@field cstime number # system time of children
----@field cutime number # user time of children
----@field stime number # system time
----@field utime number # user time
+---@field cstime number # System time of children
+---@field cutime number # Zser time of children
+---@field stime number # System time
+---@field utime number # User time
 
 ---
 ---Return the current process times according to the
@@ -277,10 +305,10 @@ function os.gettimeofday() end
 ---
 ---```lua
 ---local times = os.times()
----assert(type(times.cstime) == 'number')
----assert(type(times.cutime) == 'number')
----assert(type(times.stime) == 'number')
----assert(type(times.utime) == 'number')
+---assert.is_type(times.cstime, "number")
+---assert.is_type(times.cutime, "number")
+---assert.is_type(times.stime, "number")
+---assert.is_type(times.utime, "number")
 ---```
 ---
 ---__Reference:__
@@ -304,22 +332,22 @@ function os.times() end
 ---__Example:__
 ---
 ---```lua
----lfs.chdir('/tmp')
+---lfs.chdir("/tmp")
 ---local dir, err = os.tmpdir()
----assert(type(dir) == 'string')
----assert(lfs.isdir('/tmp/' .. dir))
+---assert.is_type(dir, "string")
+---assert.is_true(lfs.isdir("/tmp/" .. dir))
 ---
----dir, err = os.tmpdir('tmp.XXXXXX')
----assert(type(dir) == 'string')
----assert(lfs.isdir('/tmp/' .. dir))
+---dir, err = os.tmpdir("tmp.XXXXXX")
+---assert.is_type(dir, "string")
+---assert.is_true(lfs.isdir("/tmp/" .. dir))
 ---
----dir, err = os.tmpdir('tmp.X')
----assert(dir == nil)
----assert(err == 'Invalid argument to os.tmpdir()', err)
+---dir, err = os.tmpdir("tmp.X")
+---assert.is_nil(dir)
+---assert.equals(err, "Invalid argument to os.tmpdir()")
 ---
----dir, err = os.tmpdir('tmp.XXXXXXX_suffix')
----assert(dir == nil)
----assert(err == 'Invalid argument to os.tmpdir()', err)
+---dir, err = os.tmpdir("tmp.XXXXXXX_suffix")
+---assert.is_nil(dir)
+---assert.equals(err, "Invalid argument to os.tmpdir()")
 ---```
 ---
 ---__Reference:__
@@ -345,7 +373,7 @@ function os.tmpdir(template) end
 ---__Example:__
 ---
 ---```lua
----assert(os.type == 'unix')
+---assert.is_type(os.type, "string")
 ---```
 ---
 ---__Reference:__
@@ -369,7 +397,7 @@ os.type = ""
 ---__Example:__
 ---
 ---```lua
----assert(os.name == 'linux')
+---assert.is_type(os.name, "string")
 ---```
 ---
 ---__Reference:__
@@ -382,7 +410,7 @@ os.type = ""
 os.name = ""
 
 ---
----@class Uname
+---@class os.Uname
 ---@field sysname string # for example `x86_64`
 ---@field machine string # for example `zotac`
 ---@field release string # for example `5.15.0-57-generic`
@@ -393,26 +421,24 @@ os.name = ""
 ---Return a table with specific operating system
 ---information acquired at runtime.
 ---
----The keys in the returned table are all
----string values, and their names are: `sysname`, `machine`, `release`, `version`, and `nodename`.
----
 ---__Example:__
 ---
 ---```lua
 ---local uname = os.uname()
----assert(type(uname.machine) == 'string')
----assert(type(uname.nodename) == 'string')
----assert(type(uname.release) == 'string')
----assert(type(uname.sysname) == 'string')
----assert(type(uname.version) == 'string')
+---assert.is_type(type(uname.machine), "string")
+---assert.is_type(type(uname.nodename), "string")
+---assert.is_type(type(uname.release), "string")
+---assert.is_type(type(uname.sysname), "string")
+---assert.is_type(type(uname.version), "string")
 ---```
 ---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [loslibext.c#L849-L868](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/loslibext.c#L849-L868)
 ---
+---@return os.Uname
 ---```lua
----{
+---{ ==
 ---  machine = "x86_64",
 ---  nodename = "mypc",
 ---  release = "5.15.0-57-generic",
@@ -420,12 +446,22 @@ os.name = ""
 ---  version = "#63-Ubuntu SMP Thu Nov 24 13:43:17 UTC 2022"
 ---}
 ---```
----
----@return Uname
----
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/os.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function os.uname() end
 
+---
+---Freeze the program execution during a given amount of time.
+---
+---This function is a duplicate of `socket.sleep()` and is always available.
+---The socket library can be nil in some setups.
+---
+---__Example:__
+---
+---```lua
+---local time = os.socketgettime()
+---os.socketsleep(1)
+---assert.is_true(os.socketgettime() - time >= 1)
+---```
 ---
 ---__Reference:__
 ---
@@ -433,17 +469,35 @@ function os.uname() end
 ---
 ---@see socket.sleep
 ---
----@param time number
+---@param time integer # `time` is the number of seconds to sleep for. If `time` is negative, the function returns immediately.
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/os.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function os.socketsleep(time) end
 
+---
+---Return the UNIX time in seconds.
+---
+---You should subtract the values returned by this function
+---to get meaningful values.
+---
+---This function is a duplicate of `socket.gettime()` and is always available.
+---The socket library can be nil in some setups.
+---
+---__Example:__
+---
+---```lua
+---local time = os.socketgettime()
+---os.socketsleep(1)
+---assert.is_true(os.socketgettime() - time >= 1)
+---```
 ---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [loslibext.c#L1171-1179](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/b6437de2fa62bb25e17f162e624e8d815fc4d88b/source/texk/web2c/luatexdir/lua/loslibext.c#L1171-1179)
 ---
 ---@see socket.gettime
+---
+---@return number time # for example `1683526723.1653`
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/os.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function os.socketgettime() end

@@ -1,5 +1,5 @@
 #! luatex --luaonly
+local assert = require("utils").assert
 
 local time = os.gettimeofday()
-print(time)
-assert(time > 1682153121.3217)
+assert.is_true(time > 1682153121.3217)

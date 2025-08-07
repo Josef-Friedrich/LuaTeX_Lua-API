@@ -1,3 +1,4 @@
 #! luatex --luaonly
+local assert = require("utils").assert
 
-assert(os.type == "unix", os.type)
+assert.is_type(os.type, "string")

@@ -1,18 +1,19 @@
 #! luatex --luaonly
+local assert = require("utils").assert
 
 lfs.chdir("/tmp")
 local dir, err = os.tmpdir()
-assert(type(dir) == "string")
-assert(lfs.isdir("/tmp/" .. dir))
+assert.is_type(dir, "string")
+assert.is_true(lfs.isdir("/tmp/" .. dir))
 
 dir, err = os.tmpdir("tmp.XXXXXX")
-assert(type(dir) == "string")
-assert(lfs.isdir("/tmp/" .. dir))
+assert.is_type(dir, "string")
+assert.is_true(lfs.isdir("/tmp/" .. dir))
 
 dir, err = os.tmpdir("tmp.X")
-assert(dir == nil)
-assert(err == "Invalid argument to os.tmpdir()", err)
+assert.is_nil(dir)
+assert.equals(err, "Invalid argument to os.tmpdir()")
 
 dir, err = os.tmpdir("tmp.XXXXXXX_suffix")
-assert(dir == nil)
-assert(err == "Invalid argument to os.tmpdir()", err)
+assert.is_nil(dir)
+assert.equals(err, "Invalid argument to os.tmpdir()")

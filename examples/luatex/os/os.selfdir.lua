@@ -1,4 +1,4 @@
 #! luatex --luaonly
 local assert = require("utils").assert
 
-assert.is_type(os.name, "string")
+assert.is_type(os.selfdir, "string")
