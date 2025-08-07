@@ -361,6 +361,7 @@ _N.hlist = 0
 ---    "radical (28)",
 ---  },
 ---  fields = {
+---    "prev (-1)",
 ---    "next (0)",
 ---    "id (1)",
 ---    "subtype (2)",
@@ -376,7 +377,7 @@ _N.hlist = 0
 ---    "head (12)",
 ---  },
 ---})
----```lua
+---```
 ---
 ---__Reference:__
 ---
@@ -395,6 +396,61 @@ _N.vlist = 1
 ---|4 # alignment
 ---|5 # cell
 
+---
+---__Example:__
+---
+---```lua
+---assert.node_type("vlist", nil, {
+---  id = "vlist (1)",
+---  subtypes = {
+---    "unknown (0)",
+---    "line (1)",
+---    "box (2)",
+---    "indent (3)",
+---    "alignment (4)",
+---    "cell (5)",
+---    "equation (6)",
+---    "equationnumber (7)",
+---    "math (8)",
+---    "mathchar (9)",
+---    "hextensible (10)",
+---    "vextensible (11)",
+---    "hdelimiter (12)",
+---    "vdelimiter (13)",
+---    "overdelimiter (14)",
+---    "underdelimiter (15)",
+---    "numerator (16)",
+---    "denominator (17)",
+---    "limits (18)",
+---    "fraction (19)",
+---    "nucleus (20)",
+---    "sup (21)",
+---    "sub (22)",
+---    "degree (23)",
+---    "scripts (24)",
+---    "over (25)",
+---    "under (26)",
+---    "accent (27)",
+---    "radical (28)",
+---  },
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "width (4)",
+---    "depth (5)",
+---    "height (6)",
+---    "dir (7)",
+---    "shift (8)",
+---    "glue_order (9)",
+---    "glue_sign (10)",
+---    "glue_set (11)",
+---    "head (12)",
+---  },
+---})
+---```
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class VlistNode: ListNode
@@ -438,6 +494,40 @@ _N.rule = 2
 ---construct a rule node with *Lua* and write it to the *TeX* input. The `outline` subtype is just a convenient variant and the `transform` field
 ---specifies the width of the outline.
 ---
+---__Example:__
+---
+---```lua
+---assert.node_type("rule", nil, {
+---  id = "rule (2)",
+---  subtypes = {
+---    "normal (0)",
+---    "box (1)",
+---    "image (2)",
+---    "empty (3)",
+---    "user (4)",
+---    "over (5)",
+---    "under (6)",
+---    "fraction (7)",
+---    "radical (8)",
+---    "outline (9)",
+---  },
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "width (4)",
+---    "depth (5)",
+---    "height (6)",
+---    "dir (7)",
+---    "index (8)",
+---    "left (9)",
+---    "right (10)",
+---  },
+---})
+---```
+---
 ---__Reference:__
 ---
 ---* Source file of the `LuaTeX` manual: [luatex-nodes.tex#L119-L157](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L119-L157)
@@ -459,6 +549,26 @@ _N.rule = 2
 _N.ins = 3
 
 ---
+---__Example:__
+---
+---```lua
+---assert.node_type("ins", nil, {
+---  id = "ins (3)",
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "cost (4)",
+---    "depth (5)",
+---    "height (6)",
+---    "spec (7)",
+---    "head (8)",
+---  },
+---})
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L818-L824](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L818-L824)
@@ -475,6 +585,23 @@ _N.ins = 3
 
 _N.mark = 4
 
+---
+---__Example:__
+---
+---```lua
+---assert.node_type("mark", nil, {
+---  id = "mark (4)",
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "class (4)",
+---    "mark (5)",
+---  },
+---})
+---```
 ---
 ---__Reference:__
 ---
@@ -499,6 +626,23 @@ _N.adjust = 5
 ---|0 # normal
 ---|1 # pre
 
+---
+---__Example:__
+---
+---```lua
+---assert.node_type("adjust", nil, {
+---  id = "adjust (5)",
+---  subtypes = { "normal (0)", "pre (1)" },
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "head (4)",
+---  },
+---})
+---```
 ---
 ---__Reference:__
 ---
@@ -528,18 +672,52 @@ _N.disc = 7
 ---|5 # second
 
 ---
+---A disc node, which occurs only in horizontal lists, specifies a
+---“discretionary” line break. If such a break occurs at a node, the
+---text that starts at `pre` will precede the break, the text
+---that starts at `post` will follow the break, and text that
+---appears in `replace` will be ignored.
+---
+---__Example:__
+---
+---```lua
+---assert.node_type("disc", nil, {
+---  id = "disc (7)",
+---  subtypes = {
+---    "discretionary (0)",
+---    "explicit (1)",
+---    "automatic (2)",
+---    "regular (3)",
+---    "first (4)",
+---    "second (5)",
+---  },
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "pre (4)",
+---    "post (5)",
+---    "replace (6)",
+---    "penalty (7)",
+---  },
+---})
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L758-L763](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L758-L763)
+---* Donald Ervin Knuth. “TeX: The Program”: page 53 [tex.pdf](https://mirrors.ctan.org/info/knuth-pdf/tex/tex.pdf)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class DiscNode: Node
 ---@field subtype DiscNodeSubtype
 ---@field attr Node # A list of attributes.
----@field pre Node # pointer to the pre-break text
----@field post Node # pointer to the post-break text
----@field replace Node # pointer to the no-break text
----@field penalty integer # the penalty associated with the break, normally `hyphenpenalty` or `exhyphenpenalty`
+---@field pre Node # A pointer to the pre-break text.
+---@field post Node # A pointer to the post-break text.
+---@field replace Node # A pointer to the no-break text.
+---@field penalty integer # The penalty associated with the break, normally `hyphenpenalty` or `exhyphenpenalty`.
 
 _N.math = 11
 
@@ -775,8 +953,16 @@ _N.glyph = 29
 ---```lua
 ---assert.node_type("glyph", nil, {
 ---  id = "glyph (29)",
----  subtypes = { "unset (0)", "character (1)", "ligature (2)" },
+---  subtypes = {
+---    "unset (0)",
+---    "character (1)",
+---    "ligature (2)",
+---    "ghost (4)",
+---    "left (8)",
+---    "right (16)",
+---  },
 ---  fields = {
+---    "prev (-1)",
 ---    "next (0)",
 ---    "id (1)",
 ---    "subtype (2)",
@@ -1214,6 +1400,28 @@ _N.fraction = 20
 _N.fence = 22
 
 ---
+---__Example:__
+---
+---```lua
+---assert.node_type("fence", nil, {
+---  id = "fence (22)",
+---  subtypes = { "unset (0)", "left (1)", "middle (2)", "right (3)", "no (4)" },
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "delim (4)",
+---    "italic (5)",
+---    "height (6)",
+---    "depth (7)",
+---    "options (8)",
+---    "class (9)",
+---  },
+---})
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L627-L631](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L627-L631)
@@ -1386,7 +1594,7 @@ _N._whatsit.save_pos = 6
 ---@class SavePosWhatsitNode: WhatsitNode
 ---@field attr Node # A list of attributes.
 
-_N._whatsit.late_lua = 7
+_N._whatsit.late_lua = 8
 
 ---
 ---The difference between `data` and `string` is that on assignment, the
@@ -1395,6 +1603,26 @@ _N._whatsit.late_lua = 7
 ---
 ---When a function is used, it gets called with as first argument the node that triggers
 ---the call.
+---
+---__Example:__
+---
+---```lua
+---assert.node_type("whatsit", "late_lua", {
+---  id = "whatsit (8)",
+---  subtype = "late_lua (8)",
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "reg (4)",
+---    "data (5)",
+---    "name (6)",
+---    "string (7)",
+---  },
+---})
+---```
 ---
 ---__Reference:__
 ---
@@ -1732,6 +1960,19 @@ _N.nested_list = 36
 _N.span = 37
 
 ---
+---__Example:__
+---
+---```lua
+---assert.node_type(
+---  "attribute",
+---  nil,
+---  {
+---    id = "attribute (38)",
+---    fields = { "next (0)", "id (1)", "number (2)", "value (3)" },
+---  }
+---)
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L476](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L476)
@@ -1753,6 +1994,16 @@ _N.attribute = 38
 
 _N.attribute_list = 40
 
+---
+---__Example:__
+---
+---```lua
+---assert.node_type(
+---  "attribute_list",
+---  nil,
+---  { id = "attribute_list (40)", fields = { "next (0)", "id (1)" } }
+---)
+---```
 ---
 ---__Reference:__
 ---
@@ -1847,6 +2098,19 @@ _N.shape = 49
 
 ---
 ---`\parshape`
+---
+---__Example:__
+---
+---```lua
+---assert.node_type(
+---  "shape",
+---  nil,
+---  {
+---    id = "shape (49)",
+---    fields = { "prev (-1)", "next (0)", "id (1)", "subtype (2)" },
+---  }
+---)
+---```
 ---
 ---__Reference:__
 ---

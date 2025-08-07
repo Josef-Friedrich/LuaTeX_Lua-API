@@ -2,8 +2,16 @@ local assert = require("utils").assert
 
 assert.node_type("glyph", nil, {
   id = "glyph (29)",
-  subtypes = { "unset (0)", "character (1)", "ligature (2)" },
+  subtypes = {
+    "unset (0)",
+    "character (1)",
+    "ligature (2)",
+    "ghost (4)",
+    "left (8)",
+    "right (16)",
+  },
   fields = {
+    "prev (-1)",
     "next (0)",
     "id (1)",
     "subtype (2)",

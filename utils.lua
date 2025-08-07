@@ -639,11 +639,11 @@ local function get_node_info(id, subtype)
     if not tbl then
       return
     end
-    local counter = 0
     local new = {}
-    while tbl[counter] do
-      table.insert(new, tbl[counter] .. " (" .. counter .. ")")
-      counter = counter + 1
+    for i = -3, 100 do
+      if tbl[i] then
+        table.insert(new, tbl[i] .. " (" .. i .. ")")
+      end
     end
     return new
   end
@@ -655,12 +655,13 @@ local function get_node_info(id, subtype)
   ---@type NodeTypeInfo
   local info = {
     id = id .. render_numberic(node.id(id)),
-    subtypes = reindex_array(node.subtypes(id)),
-    fields = reindex_array(node.fields(node.id(id))),
   }
   if subtype ~= nil then
     info.subtype = subtype .. render_numberic(node.subtype(subtype))
-    info.fields = node.fields(node.id(id), node.subtype(subtype))
+    info.fields = reindex_array(node.fields(node.id(id), node.subtype(subtype)))
+  else
+    info.subtypes = reindex_array(node.subtypes(id))
+    info.fields = reindex_array(node.fields(node.id(id)))
   end
   return info
 end

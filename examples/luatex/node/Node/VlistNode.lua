@@ -1,21 +1,6 @@
 local assert = require("utils").assert
 
 assert.node_type("vlist", nil, {
-  fields = {
-    "next (0)",
-    "id (1)",
-    "subtype (2)",
-    "attr (3)",
-    "width (4)",
-    "depth (5)",
-    "height (6)",
-    "dir (7)",
-    "shift (8)",
-    "glue_order (9)",
-    "glue_sign (10)",
-    "glue_set (11)",
-    "head (12)",
-  },
   id = "vlist (1)",
   subtypes = {
     "unknown (0)",
@@ -47,5 +32,21 @@ assert.node_type("vlist", nil, {
     "under (26)",
     "accent (27)",
     "radical (28)",
+  },
+  fields = {
+    "prev (-1)",
+    "next (0)",
+    "id (1)",
+    "subtype (2)",
+    "attr (3)",
+    "width (4)",
+    "depth (5)",
+    "height (6)",
+    "dir (7)",
+    "shift (8)",
+    "glue_order (9)",
+    "glue_sign (10)",
+    "glue_set (11)",
+    "head (12)",
   },
 })
