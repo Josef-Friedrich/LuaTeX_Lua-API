@@ -4,6 +4,7 @@ import argparse
 import difflib
 import glob
 import logging
+import os
 import re
 import shlex
 import shutil
@@ -435,10 +436,13 @@ def example(
             lua_code = "\n".join(lines[1:])
         return (lua_code, args, luaonly)
 
-    def _print_docstring(lua_code: str) -> None:
-        print("\n---\n---__Example:__\n" + "---\n" + "---```lua")
-        print("\n".join("---" + line for line in lua_code.splitlines()))
-        print("---```\n" + "---\n")
+    def _render_docstring(lua_code: str) -> str:
+        lines: list[str] = ["", "---__Example:__", "---", "---```lua"]
+        for line in lua_code.splitlines():
+            lines.append("---" + line)
+        lines.append("---```")
+        lines.append("---")
+        return "\n".join(lines)
 
     def _write_tex_file(path: Path, additional_tex_markup: str) -> None:
         tex_content: str = (
@@ -446,6 +450,12 @@ def example(
         )
         logger.debug(tex_content)
         path.write_text(tex_content)
+
+    def _copy_to_clipboard(content: str) -> None:
+        read, write = os.pipe()
+        os.write(write, content.encode(encoding="utf-8"))
+        os.close(write)
+        subprocess.check_call(["xclip", "-selection", "clipboard"], stdin=read)
 
     def _run_example(
         src: Path,
@@ -481,8 +491,11 @@ def example(
 
         _run_pygmentize(src_cleaned)
 
+        docstring: str = _render_docstring(src_code_cleaned)
         if print_docstring:
-            _print_docstring(src_code_cleaned)
+            print(docstring)
+
+        _copy_to_clipboard(docstring)
 
         dest_lua.write_text(
             "print('---start---')\n" + src_code + "\nprint('---stop---')"

@@ -495,265 +495,312 @@ local function list_files_recursively(path)
   end)
 end
 
----https://stackoverflow.com/a/29246308
----
----@param fun function
----@return string
-local function get_function_args(fun)
-  local args = {}
-  local hook = debug.gethook()
+local namespace = (function()
+  ---https://stackoverflow.com/a/29246308
+  ---
+  ---@param fun function
+  ---@return string
+  local function get_function_args(fun)
+    local args = {}
+    local hook = debug.gethook()
 
-  local arg_hook = function(...)
-    local info = debug.getinfo(3)
-    if "pcall" ~= info.name then
-      return
-    end
-
-    for i = 1, math.huge do
-      local name, value = debug.getlocal(2, i)
-      if "(*temporary)" == name then
-        debug.sethook(hook)
-        error("")
+    local arg_hook = function(...)
+      local info = debug.getinfo(3)
+      if "pcall" ~= info.name then
         return
       end
-      table.insert(args, name)
+
+      for i = 1, math.huge do
+        local name, value = debug.getlocal(2, i)
+        if "(*temporary)" == name then
+          debug.sethook(hook)
+          error("")
+          return
+        end
+        table.insert(args, name)
+      end
     end
+
+    debug.sethook(arg_hook, "c")
+    pcall(fun)
+
+    return table.concat(args, ", ")
   end
 
-  debug.sethook(arg_hook, "c")
-  pcall(fun)
-
-  return table.concat(args, ", ")
-end
-
----
----@param s string
----@param ... any
-local function printf(s, ...)
-  print(string.format(s, ...))
-end
-
----
----@param t table
----@return table
-local function sort_keys(t)
-  local keys = {}
-  for k in pairs(t) do
-    table.insert(keys, k)
+  ---
+  ---@param s string
+  ---@param ... any
+  local function printf(s, ...)
+    print(string.format(s, ...))
   end
-  table.sort(keys)
-  return keys
-end
 
----
----@param lib_name string
----@param lib table
----@param as_lua? boolean # Print as Lua code, not as Markdown
-local function print_lib_members(lib_name, lib, as_lua)
-  if as_lua == nil then
-    as_lua = false
+  ---
+  ---@param t table
+  ---@return table
+  local function sort_keys(t)
+    local keys = {}
+    for k in pairs(t) do
+      table.insert(keys, k)
+    end
+    table.sort(keys)
+    return keys
   end
-  local member_names = sort_keys(lib)
-  for _, member in ipairs(member_names) do
-    local member_type = type(lib[member])
-    if not as_lua then
-      if member_type == "table" and member ~= "__index" and member ~= "_M" then
-        printf("- *`%s.%s` (%s)*", lib_name, member, member_type)
-        print_lib_members(lib_name .. "." .. member, lib[member], as_lua)
-      elseif member_type == "function" then
-        printf("- __`%s.%s` (%s)__", lib_name, member, member_type)
+
+  ---
+  ---@param lib_name string
+  ---@param lib table
+  ---@param as_lua? boolean # Print as Lua code, not as Markdown
+  local function print_lib_members(lib_name, lib, as_lua)
+    if as_lua == nil then
+      as_lua = false
+    end
+    local member_names = sort_keys(lib)
+    for _, member in ipairs(member_names) do
+      local member_type = type(lib[member])
+      if not as_lua then
+        if
+          member_type == "table"
+          and member ~= "__index"
+          and member ~= "_M"
+        then
+          printf("- *`%s.%s` (%s)*", lib_name, member, member_type)
+          print_lib_members(lib_name .. "." .. member, lib[member], as_lua)
+        elseif member_type == "function" then
+          printf("- __`%s.%s` (%s)__", lib_name, member, member_type)
+        else
+          printf("- `%s.%s` (%s)", lib_name, member, member_type)
+        end
       else
-        printf("- `%s.%s` (%s)", lib_name, member, member_type)
-      end
-    else
-      if member_type == "function" then
-        local args = get_function_args(lib[member])
-        printf("function %s.%s(%s) end", lib_name, member, args)
+        if member_type == "function" then
+          local args = get_function_args(lib[member])
+          printf("function %s.%s(%s) end", lib_name, member, args)
+        end
       end
     end
   end
-end
 
-local lua_std = {
-  _G = true,
-  arg = true,
-  boolean = true,
-  coroutine = true,
-  debug = true,
-  io = true,
-  math = true,
-  number = true,
-  os = true,
-  package = true,
-  string = true,
-  table = true,
-  utf8 = true,
-}
+  local lua_std = {
+    _G = true,
+    arg = true,
+    boolean = true,
+    coroutine = true,
+    debug = true,
+    io = true,
+    math = true,
+    number = true,
+    os = true,
+    package = true,
+    string = true,
+    table = true,
+    utf8 = true,
+  }
 
-local function print_global_namespace()
-  local env = _ENV
-  local lib_names = sort_keys(env)
-  for _, lib_name in ipairs(lib_names) do
-    if not lua_std[lib_name] then
-      local lib = env[lib_name]
-      if type(lib) == "table" then
-        printf("\n### %s\n", lib_name)
-        print_lib_members(lib_name, env[lib_name])
+  local function print_global_namespace()
+    local env = _ENV
+    local lib_names = sort_keys(env)
+    for _, lib_name in ipairs(lib_names) do
+      if not lua_std[lib_name] then
+        local lib = env[lib_name]
+        if type(lib) == "table" then
+          printf("\n### %s\n", lib_name)
+          print_lib_members(lib_name, env[lib_name])
+        end
       end
     end
   end
-end
 
----
----@param actual unknown
----@param expected unknown
----@param compare fun(actual: unknown, expected: unknown): boolean
-local function report_diff(compare, actual, expected)
-  if not compare(actual, expected) then
-    print("actual:", inspect(actual))
-    print("expected:", inspect(expected))
-    assert(false)
-  else
-    print(colorize(31, inspect(actual)))
-  end
-end
-
----@param actual unknown
----@param expected unknown
----
----@return boolean
-local function compare_equality(actual, expected)
-  return actual == expected
-end
-
-local function compare_numbers(a, b, epsilon)
-  epsilon = epsilon or 1e-6
-  return a == b or math.abs(a - b) < epsilon
-end
-
----
----Deeply compare two objects.
----
----Source: [gist.github.com/sapphyrus/fd9aeb871e3ce966cc4b0b969f62f539](https://gist.github.com/sapphyrus/fd9aeb871e3ce966cc4b0b969f62f539?permalink_comment_id=4563041#gistcomment-4563041)
----
----@param o1 unknown # An object of any type.
----@param o2 unknown # An object of any type.
----@param ignore_mt? boolean # Ignore the metatable.
----
----@return boolean # `true`, if the two specified objects are deeply equal.
-local function compare_tables(o1, o2, ignore_mt)
-  -- same object
-  if o1 == o2 then
-    return true
-  end
-
-  local o1Type = type(o1)
-  local o2Type = type(o2)
-  --- different type
-  if o1Type ~= o2Type then
-    return false
-  end
-  --- same type but not table, already compared above
-  if o1Type ~= "table" then
-    return false
-  end
-
-  -- use metatable method
-  if not ignore_mt then
-    local mt1 = getmetatable(o1)
-    if mt1 and mt1.__eq then
-      -- compare using built in method
-      return o1 == o2
-    end
-  end
-
-  -- iterate over o1
-  for key1, value1 in pairs(o1) do
-    local value2 = o2[key1]
-    if value2 == nil or compare_tables(value1, value2, ignore_mt) == false then
-      return false
-    end
-  end
-
-  --- check keys in o2 but missing from o1
-  for key2, _ in pairs(o2) do
-    if o1[key2] == nil then
-      return false
-    end
-  end
-  return true
-end
-
-local assert_functions = {
-  ---@param actual unknown
-  ---@param expected unknown
-  equals = function(actual, expected)
-    report_diff(compare_equality, actual, expected)
-  end,
-  ---@param actual unknown
-  is_nil = function(actual)
-    report_diff(compare_equality, actual, nil)
-  end,
-  ---@param actual unknown
-  is_true = function(actual)
-    report_diff(compare_equality, actual, true)
-  end,
-  is_false = function(actual)
-    report_diff(compare_equality, actual, false)
-  end,
-  ---@param actual unknown
-  ---@param expected unknown
-  is_type = function(actual, expected)
-    report_diff(compare_equality, type(actual), expected)
-  end,
-  ---@param actual unknown
-  ---@param expected unknown
-  numbers = function(actual, expected)
-    report_diff(compare_numbers, actual, expected)
-  end,
-  ---@param actual unknown
-  ---@param expected unknown
-  same = function(actual, expected)
-    report_diff(compare_tables, actual, expected)
-  end,
-}
+  return print_global_namespace
+end)()
 
 ---@class NodeTypeInfo
 ---@field id NodeTypeName
----@field id_numeric integer
 ---@field subtype? WhatsitTypeName
----@field subtype_numeric integer
----@field subtypes table<integer, string>
----@field fields table<integer, string>
+---@field subtypes? table<integer, string>
+---@field fields? table<integer, string>
 
 ---
 ---@param id NodeTypeName
 ---@param subtype? WhatsitTypeName
 ---@return NodeTypeInfo
 local function get_node_info(id, subtype)
-  print("id", node.id(id), id)
-
-  local info = {
-    id = id,
-    id_numeric = node.id(id),
-    subtype = subtype,
-    subtype_numeric = node.subtype(subtype)
-  }
-  if subtype ~= nil then
-    info.fields = node.fields(node.id(id), node.subtype(subtype))
-  else
-    info.fields = node.fields(node.id(id))
+  ---
+  ---Some luatex lua functions return an array table with a 0 index for the first element.
+  ---
+  ---inspect prints out:
+  ---
+  ---```lua
+  ---{ "line", "box",
+  ---  [0] = "unknown"
+  ---}
+  ---```
+  ---
+  ---@param tbl? table<integer, any>
+  local function reindex_array(tbl)
+    if not tbl then
+      return
+    end
+    local counter = 0
+    local new = {}
+    while tbl[counter] do
+      table.insert(new, tbl[counter] .. " (" .. counter .. ")")
+      counter = counter + 1
+    end
+    return new
   end
 
-  info.subtypes = node.subtypes(id)
+  local function render_numberic(number)
+    return " (" .. tostring(number) .. ")"
+  end
+
+  ---@type NodeTypeInfo
+  local info = {
+    id = id .. render_numberic(node.id(id)),
+    subtypes = reindex_array(node.subtypes(id)),
+    fields = reindex_array(node.fields(node.id(id))),
+  }
+  if subtype ~= nil then
+    info.subtype = subtype .. render_numberic(node.subtype(subtype))
+    info.fields = node.fields(node.id(id), node.subtype(subtype))
+  end
   return info
 end
 
+local assertions = (function()
+  ---
+  ---@param actual unknown
+  ---@param expected unknown
+  ---@param compare fun(actual: unknown, expected: unknown): boolean
+  local function report_diff(compare, actual, expected)
+    if not compare(actual, expected) then
+      print("actual:", inspect(actual))
+      print("expected:", inspect(expected))
+      assert(false)
+    else
+      print(colorize(31, inspect(actual)))
+    end
+  end
+
+  ---@param actual unknown
+  ---@param expected unknown
+  ---
+  ---@return boolean
+  local function compare_equality(actual, expected)
+    return actual == expected
+  end
+
+  local function compare_numbers(a, b, epsilon)
+    epsilon = epsilon or 1e-6
+    return a == b or math.abs(a - b) < epsilon
+  end
+
+  ---
+  ---Deeply compare two objects.
+  ---
+  ---Source: [gist.github.com/sapphyrus/fd9aeb871e3ce966cc4b0b969f62f539](https://gist.github.com/sapphyrus/fd9aeb871e3ce966cc4b0b969f62f539?permalink_comment_id=4563041#gistcomment-4563041)
+  ---
+  ---@param o1 unknown # An object of any type.
+  ---@param o2 unknown # An object of any type.
+  ---@param ignore_mt? boolean # Ignore the metatable.
+  ---
+  ---@return boolean # `true`, if the two specified objects are deeply equal.
+  local function compare_tables(o1, o2, ignore_mt)
+    -- same object
+    if o1 == o2 then
+      return true
+    end
+
+    local o1Type = type(o1)
+    local o2Type = type(o2)
+    --- different type
+    if o1Type ~= o2Type then
+      return false
+    end
+    --- same type but not table, already compared above
+    if o1Type ~= "table" then
+      return false
+    end
+
+    -- use metatable method
+    if not ignore_mt then
+      local mt1 = getmetatable(o1)
+      if mt1 and mt1.__eq then
+        -- compare using built in method
+        return o1 == o2
+      end
+    end
+
+    -- iterate over o1
+    for key1, value1 in pairs(o1) do
+      local value2 = o2[key1]
+      if
+        value2 == nil or compare_tables(value1, value2, ignore_mt) == false
+      then
+        return false
+      end
+    end
+
+    --- check keys in o2 but missing from o1
+    for key2, _ in pairs(o2) do
+      if o1[key2] == nil then
+        return false
+      end
+    end
+    return true
+  end
+
+  return {
+    ---@param actual unknown
+    ---@param expected unknown
+    equals = function(actual, expected)
+      report_diff(compare_equality, actual, expected)
+    end,
+
+    ---@param actual unknown
+    is_nil = function(actual)
+      report_diff(compare_equality, actual, nil)
+    end,
+
+    ---@param actual unknown
+    is_true = function(actual)
+      report_diff(compare_equality, actual, true)
+    end,
+
+    is_false = function(actual)
+      report_diff(compare_equality, actual, false)
+    end,
+
+    ---@param actual unknown
+    ---@param expected unknown
+    is_type = function(actual, expected)
+      report_diff(compare_equality, type(actual), expected)
+    end,
+
+    ---@param actual unknown
+    ---@param expected unknown
+    numbers = function(actual, expected)
+      report_diff(compare_numbers, actual, expected)
+    end,
+
+    ---@param actual unknown
+    ---@param expected unknown
+    same = function(actual, expected)
+      report_diff(compare_tables, actual, expected)
+    end,
+
+    ---@param id NodeTypeName
+    ---@param subtype? WhatsitTypeName
+    ---@param expected unknown
+    node_type = function(id, subtype, expected)
+      local info = get_node_info(id, subtype)
+      report_diff(compare_tables, info, expected)
+    end,
+  }
+end)()
+
 return {
-  get_node_info = get_node_info,
   pinspect = pinspect,
-  assert = assert_functions,
-  print_global_namespace = print_global_namespace,
+  assert = assertions,
+  print_global_namespace = namespace,
   convert_string_array_to_alias_union = convert_string_array_to_alias_union,
   list_files_recursively = list_files_recursively,
   get_file_extension = get_file_extension,

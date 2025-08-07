@@ -1,6 +1,6 @@
 local inspect = require("inspect")
 
-local utils = require("./resources/utils")
+local utils = require("utils")
 
 for path in utils.list_files_recursively("/usr/share/fonts") do
   local f = fontloader.open(path)

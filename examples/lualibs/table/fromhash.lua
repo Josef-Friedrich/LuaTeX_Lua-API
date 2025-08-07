@@ -1,5 +1,5 @@
 require("lualibs")
-local utils = require("./resources/utils")
+local utils = require("utils")
 
 local result = table.fromhash({ a = true, b = false, c = true })
 table.sort(result)

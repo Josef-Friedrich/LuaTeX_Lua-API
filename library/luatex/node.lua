@@ -324,6 +324,60 @@ _N.hlist = 0
 ---makes more sense to refer to a list by `head`, sometimes `list` makes
 ---more sense.
 ---
+---__Example:__
+---
+---```lua
+---assert.node_type("hlist", nil, {
+---  id = "hlist (0)",
+---  subtypes = {
+---    "unknown (0)",
+---    "line (1)",
+---    "box (2)",
+---    "indent (3)",
+---    "alignment (4)",
+---    "cell (5)",
+---    "equation (6)",
+---    "equationnumber (7)",
+---    "math (8)",
+---    "mathchar (9)",
+---    "hextensible (10)",
+---    "vextensible (11)",
+---    "hdelimiter (12)",
+---    "vdelimiter (13)",
+---    "overdelimiter (14)",
+---    "underdelimiter (15)",
+---    "numerator (16)",
+---    "denominator (17)",
+---    "limits (18)",
+---    "fraction (19)",
+---    "nucleus (20)",
+---    "sup (21)",
+---    "sub (22)",
+---    "degree (23)",
+---    "scripts (24)",
+---    "over (25)",
+---    "under (26)",
+---    "accent (27)",
+---    "radical (28)",
+---  },
+---  fields = {
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "width (4)",
+---    "depth (5)",
+---    "height (6)",
+---    "dir (7)",
+---    "shift (8)",
+---    "glue_order (9)",
+---    "glue_sign (10)",
+---    "glue_set (11)",
+---    "head (12)",
+---  },
+---})
+---```lua
+---
 ---__Reference:__
 ---
 ---* Source file of the `LuaTeX` manual: [luatex-nodes.tex#L78-L108](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L78-L108)
@@ -715,6 +769,35 @@ _N.glyph = 29
 ---|3 # left
 ---|4 # right
 
+---
+---__Example:__
+---
+---```lua
+---assert.node_type("glyph", nil, {
+---  id = "glyph (29)",
+---  subtypes = { "unset (0)", "character (1)", "ligature (2)" },
+---  fields = {
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "char (4)",
+---    "font (5)",
+---    "lang (6)",
+---    "left (7)",
+---    "right (8)",
+---    "uchyph (9)",
+---    "components (10)",
+---    "xoffset (11)",
+---    "yoffset (12)",
+---    "width (13)",
+---    "height (14)",
+---    "depth (15)",
+---    "expansion_factor (16)",
+---    "data (17)",
+---  },
+---})
+---```
 ---
 ---__Reference:__
 ---

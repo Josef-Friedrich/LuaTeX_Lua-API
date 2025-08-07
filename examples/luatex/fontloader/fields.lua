@@ -1,4 +1,4 @@
-local utils = require("./resources/utils")
+local utils = require("utils")
 
 local inspect = require("inspect")
 local f = fontloader.open(

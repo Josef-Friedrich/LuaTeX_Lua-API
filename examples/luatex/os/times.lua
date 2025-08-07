@@ -1,4 +1,4 @@
-local utils = require("./resources/utils")
+local utils = require("utils")
 
 local times = os.times()
 assert(type(times.cstime) == "number")
