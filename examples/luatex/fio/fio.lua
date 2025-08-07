@@ -78,13 +78,13 @@ fio = {}
 ---  f:write("test")
 ---  fio.setposition(f, 0)
 ---  -- t: decimal=116 hexadecimal=74 binary=01110100
----  assert.equals(fio.readcardinal1(f), 116)
+---  assert(fio.readcardinal1(f) == 116)
 ---  -- e: decimal=101 hexadecimal=65 binary=01100101
----  assert.equals(fio.readcardinal1(f), 101)
+---  assert(fio.readcardinal1(f) == 101)
 ---  -- s: decimal=115 hexadecimal=73 binary=01110011
----  assert.equals(fio.readcardinal1(f), 115)
+---  assert(fio.readcardinal1(f) == 115)
 ---  -- t: decimal=116 hexadecimal=74 binary=01110100
----  assert.equals(fio.readcardinal1(f), 116)
+---  assert(fio.readcardinal1(f) == 116)
 ---  f:close()
 ---end
 ---```
@@ -111,9 +111,9 @@ function fio.readcardinal1(file) end
 ---  f:write("test")
 ---  fio.setposition(f, 0)
 ---  -- t.e: decimal=29797 hexadecimal=74.65 binary=01110100.01100101
----  assert.equals(fio.readcardinal2(f), 29797)
+---  assert(fio.readcardinal2(f) == 29797)
 ---  -- s.t: decimal=29556 hexadecimal=73.74 binary=01110011.01110100
----  assert.equals(fio.readcardinal2(f), 29556)
+---  assert(fio.readcardinal2(f) == 29556)
 ---  f:close()
 ---end
 ---```
@@ -139,10 +139,10 @@ function fio.readcardinal2(file) end
 ---if f then
 ---  f:write("luatex")
 ---  fio.setposition(f, 0)
----  -- l.u.a: decimal=7107937 hexadecimal=6C.75.61 binary=01101100.01110101.01100001
----  assert.equals(fio.readcardinal3(f), 7107937)
----  -- t.e.x: decimal=7628152 hexadecimal=74.65.78 binary=01110100.01100101.01111000
----  assert.equals(fio.readcardinal3(f), 7628152)
+---  -- l.u.a: decimal=29797 hexadecimal=6C.75.61 binary=01101100.01110101.01100001
+---  assert(fio.readcardinal3(f) == 7107937)
+---  -- t.e.x: decimal=29556 hexadecimal=74.65.78 binary=01110100.01100101.01111000
+---  assert(fio.readcardinal3(f) == 7628152)
 ---  f:close()
 ---end
 ---```
@@ -172,7 +172,7 @@ function fio.readcardinal3(file) end
 ---  -- decimal=1952805748
 ---  -- hexadecimal=74.65.73.74
 ---  -- binary=01110100.01100101.01110011.01110100
----  assert.equals(fio.readcardinal4(f), 1952805748)
+---  assert(fio.readcardinal4(f) == 1952805748)
 ---  f:close()
 ---end
 ---```
@@ -189,55 +189,19 @@ function fio.readcardinal3(file) end
 function fio.readcardinal4(file) end
 
 ---
----__Example:__
----
----```lua
----local f = io.open("tmp.txt", "w+")
----if f then
----  f:write("test")
----  fio.setposition(f, 0)
----  local t = fio.readcardinaltable(f, 4, 1)
----  -- t: decimal=116 hexadecimal=74 binary=01110100
----  assert.equals(t[1], 116)
----  -- e: decimal=101 hexadecimal=65 binary=01100101
----  assert.equals(t[2], 101)
----  -- s: decimal=115 hexadecimal=73 binary=01110011
----  assert.equals(t[3], 115)
----  -- t: decimal=116 hexadecimal=74 binary=01110100
----  assert.equals(t[4], 116)
----  f:close()
----end
----```
----
 ---__Reference:__
 ---
 ---* Corresponding C source code: [liolibext.c#L299-363](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L299-363)
 ---
 ---@param file file* # A file handle.
----@param number integer # The number of integers in the resulting table.
----@param bytes 1|2|3|4 # Specify 1 for 1 byte unsigned integer, 2 for a 2 byte unsigned integers, and so on.
+---@param n integer
+---@param b integer
 ---
 ---@return table<integer, integer>
-function fio.readcardinaltable(file, number, bytes) end
+function fio.readcardinaltable(file, n, b) end
 
 ---
 ---Read a 1 byte unsigned little endian integer (8-bit) from a file.
----
----__Example:__
----
----```lua
----local f = io.open("tmp.txt", "w+")
----if f then
----  f:write("test")
----  fio.setposition(f, 0)
----  assert.equals(fio.readcardinal1le(f), 116)
----  assert.equals(fio.readcardinal1le(f), 101)
----  assert.equals(fio.readcardinal1le(f), 115)
----  assert.equals(fio.readcardinal1le(f), 116)
----  assert.is_nil(fio.readcardinal1le(f))
----  f:close()
----end
----```
 ---
 ---__Reference:__
 ---
@@ -252,20 +216,6 @@ function fio.readcardinal1le(file) end
 
 ---
 ---Read a 2 byte unsigned little endian integer (16-bit) from a file.
----
----__Example:__
----
----```lua
----local f = io.open("tmp.txt", "w+")
----if f then
----  f:write("test")
----  fio.setposition(f, 0)
----  assert.equals(fio.readcardinal2le(f), 25972)
----  assert.equals(fio.readcardinal2le(f), 29811)
----  assert.is_nil(fio.readcardinal2le(f))
----  f:close()
----end
----```
 ---
 ---__Reference:__
 ---
@@ -283,19 +233,6 @@ function fio.readcardinal2le(file) end
 ---
 ---Read a 3 byte unsigned little endian integer (24-bit) from a file.
 ---
----__Example:__
----
----```lua
----local f = io.open("tmp.txt", "w+")
----if f then
----  f:write("test")
----  fio.setposition(f, 0)
----  assert.equals(fio.readcardinal3le(f), 7562612)
----  assert.is_nil(fio.readcardinal3le(f))
----  f:close()
----end
----```
----
 ---__Reference:__
 ---
 ---* Corresponding C source code: [liolibext.c#L199-L210](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L199-L210)
@@ -311,19 +248,6 @@ function fio.readcardinal3le(file) end
 
 ---
 ---Read a 4 byte unsigned little endian integer (32-bit) from a file.
----
----__Example:__
----
----```lua
----local f = io.open("tmp.txt", "w+")
----if f then
----  f:write("test")
----  fio.setposition(f, 0)
----  assert.equals(fio.readcardinal4le(f), 1953719668)
----  assert.is_nil(fio.readcardinal4le(f))
----  f:close()
----end
----```
 ---
 ---__Reference:__
 ---
@@ -356,6 +280,7 @@ function fio.readcardinal4le(file) end
 ---  f:close()
 ---end
 ---```
+---
 ---
 ---__Reference:__
 ---
@@ -449,7 +374,6 @@ function fio.readinteger3(file) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readinteger4(file) end
 
----
 ---__Example:__
 ---
 ---```lua
@@ -657,6 +581,7 @@ function fio.readfixed4(file) end
 ---
 ---Read a 2 byte float (used in font files).
 ---
+---
 ---__Example:__
 ---
 ---```lua
@@ -718,6 +643,7 @@ function fio.setposition(file, position) end
 
 ---
 ---Get the current position.
+---
 ---
 ---__Example:__
 ---
@@ -851,7 +777,6 @@ function fio.readbytes(file, number) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/fio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function fio.readbytetable(file, number) end
 
----
 ---__Example:__
 ---
 ---```lua

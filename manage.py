@@ -4,7 +4,6 @@ import argparse
 import difflib
 import glob
 import logging
-import os
 import re
 import shlex
 import shutil
@@ -419,7 +418,7 @@ def example(
 
     def _extract_shebang(
         lua_code: str,
-    ) -> tuple[str, list[str], Optional[Literal[True]]]:
+    ) -> tuple[str, list[str], Optional[bool]]:
         # Parse the first line to support a shebang syntax
         # #! luatex --lua-only
         # #! /usr/local/texlive/bin/x86_64-linux/luatex
@@ -437,7 +436,7 @@ def example(
         return (lua_code, args, luaonly)
 
     def _print_docstring(lua_code: str) -> None:
-        print("\n---\n" "---__Example:__\n" + "---\n" + "---```lua")
+        print("\n---\n---__Example:__\n" + "---\n" + "---```lua")
         print("\n".join("---" + line for line in lua_code.splitlines()))
         print("---```\n" + "---\n")
 
@@ -452,9 +451,9 @@ def example(
         src: Path,
         luaonly: bool = False,
         print_docstring: bool = False,
-    ):
+    ) -> None:
         """Run and execute one example file"""
-        relpath = str(src).replace(str(project_base_path / "examples") + "/", "")
+        relpath: str = str(src).replace(str(project_base_path / "examples") + "/", "")
         print(f"Example: {green(relpath)}")
 
         logger.debug(f"Example source: {src}")
@@ -502,7 +501,7 @@ def example(
             dest = dest_tex
 
         if len(args) == 0:
-            args: list[str] = ["luatex"]
+            args = ["luatex"]
         if luaonly and "--luaonly" not in args:
             args.append("--luaonly")
         result = subprocess.run(
@@ -535,77 +534,9 @@ def example(
 
     if src.is_dir():
         for path in glob.glob(f"{src}/**/*.lua", recursive=True):
-            _run_example(Path(path), luaonly, print_docstring)
+            _run_example(Path(path), luaonly=luaonly, print_docstring=print_docstring)
     else:
-        _run_example(src, luaonly, print_docstring)
-
-
-def example_makefile() -> None:
-    """Generate phony targets for the Makefile to run all examples."""
-
-    examples_dir = project_base_path / "examples"
-
-    def _clean_function_target(function_name: str) -> str:
-        return function_name.replace(":", "_")
-
-    lines: list[str] = []
-
-    for subproject in sorted(os.listdir(examples_dir)):
-        subproject_path = examples_dir / subproject
-        if not subproject_path.is_dir():
-            continue
-        lines.append(f"\n## {subproject}")
-        subproject_executable = f"E_{subproject.upper()}"
-        lines.append(
-            f"\n{subproject_executable} = ./manage.py example --print-docstring --subproject {subproject}"
-        )
-
-        for module in sorted(os.listdir(subproject_path)):
-            module_path = subproject_path / module
-            if not module_path.is_dir():
-                continue
-            lines.append(f"\n### {module}\n")
-
-            functions: set[str] = set()
-            for function in os.listdir(module_path):
-                if function.endswith(".lua") or function.endswith(".tex"):
-                    basename = function.replace(".lua", "").replace(".tex", "")
-                    functions.add(basename)
-
-            function_targets: list[str] = []
-            for function in sorted(list(functions)):
-                function_targets.append(
-                    f"example_{subproject}_{module}.{_clean_function_target(function)}"
-                )
-
-            if len(function_targets) > 1:
-                lines.append(f"example_{subproject}_{module}: {function_targets[0]} \\")
-                lines.append("\t" + (" \\\n\t".join(function_targets[1:])))
-            elif len(function_targets) == 1:
-                lines.append(f"example_{subproject}_{module}: {function_targets[0]}")
-
-            for function in sorted(list(functions)):
-                relpath = f"{module}/{function}"
-                target = (
-                    f"example_{subproject}_{module}.{_clean_function_target(function)}"
-                )
-                lines.append(f"{target}:\n\t$({subproject_executable}) {relpath}")
-
-        print("\n".join(lines))
-
-    # Write generated lines to the Makefile, replacing the section "# examples"
-    makefile_path = project_base_path / "Makefile"
-    if makefile_path.exists():
-        with open(makefile_path, "r") as f:
-            makefile_content = f.read()
-        # Replace the section starting with "# examples" up to the next "#" at the start of a line or end of file
-        new_content = re.sub(
-            r"(?ms)^# examples.*?(?=^# |\Z)",
-            "# examples\n" + "\n".join(lines) + "\n",
-            makefile_content,
-        )
-        with open(makefile_path, "w") as f:
-            f.write(new_content)
+        _run_example(src, luaonly=luaonly, print_docstring=print_docstring)
 
 
 # format
@@ -1063,9 +994,8 @@ class Args:
         "test",
     ]
     relpath: Optional[str]
-    subproject: Optional[Subproject]
+    subproject: Subproject
     print_docstring: bool
-    makefile: bool
     luaonly: bool
 
 
@@ -1130,7 +1060,11 @@ if __name__ == "__main__":
         description="You can specify the relative path of a Lua file or of a TeX file.",
     )
     example_parser.add_argument(
-        "-p", "--subproject", help="Select the subproject.", choices=subprojects
+        "-p",
+        "--subproject",
+        help="Select the subproject.",
+        choices=subprojects,
+        default="luatex",
     )
     example_parser.add_argument(
         "-l",
@@ -1143,11 +1077,7 @@ if __name__ == "__main__":
         help="Print the lua code into fenced markdown code plain as a Lua comment.",
         action="store_true",
     )
-    example_parser.add_argument(
-        "--makefile",
-        help="Generate phony targets for the Makefile to run all examples.",
-        action="store_true",
-    )
+
     example_parser.add_argument("relpath")
 
     # format
@@ -1184,12 +1114,13 @@ if __name__ == "__main__":
     elif args.command == "dist":
         dist()
     elif args.command == "example" and args.relpath:
-        if args.makefile:
-            example_makefile()
-        elif args.subproject:
-            example(args.relpath, args.luaonly, args.subproject, args.print_docstring)
-        else:
-            example(args.relpath, args.luaonly)
+        example(
+            args.relpath,
+            luaonly=args.luaonly,
+            subproject=args.subproject,
+            print_docstring=args.print_docstring,
+        )
+
     elif args.command == "format":
         format()
     elif args.command == "manuals":

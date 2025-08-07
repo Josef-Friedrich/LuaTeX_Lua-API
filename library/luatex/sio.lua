@@ -63,16 +63,16 @@ sio = {}
 ---__Example:__
 ---
 ---```lua
----assert(sio.readcardinal1("test", 0) == nil)
+---assert.is_nil(sio.readcardinal1("test", 0))
 ----- t: decimal=116 hexadecimal=74 binary=01110100
----assert(sio.readcardinal1("test", 1) == 116)
+---assert.equals(sio.readcardinal1("test", 1), 116)
 ----- e: decimal=101 hexadecimal=65 binary=01100101
----assert(sio.readcardinal1("test", 2) == 101)
+---assert.equals(sio.readcardinal1("test", 2), 101)
 ----- s: decimal=115 hexadecimal=73 binary=01110011
----assert(sio.readcardinal1("test", 3) == 115)
+---assert.equals(sio.readcardinal1("test", 3), 115)
 ----- t: decimal=116 hexadecimal=74 binary=01110100
----assert(sio.readcardinal1("test", 4) == 116)
----assert(sio.readcardinal1("test", 5) == nil)
+---assert.equals(sio.readcardinal1("test", 4), 116)
+---assert.is_nil(sio.readcardinal1("test", 5))
 ---```
 ---
 ---__Reference:__
@@ -93,12 +93,12 @@ function sio.readcardinal1(text, position) end
 ---__Example:__
 ---
 ---```lua
----assert(sio.readcardinal2("test", 0) == 116)
+---assert.equals(sio.readcardinal2("test", 0), 116)
 ----- t.e: decimal=29797 hexadecimal=74.65 binary=01110100.01100101
----assert(sio.readcardinal2("test", 1) == 29797)
+---assert.equals(sio.readcardinal2("test", 1), 29797)
 ----- s.t: decimal=29556 hexadecimal=73.74 binary=01110011.01110100
----assert(sio.readcardinal2("test", 3) == 29556)
----assert(sio.readcardinal2("test", 4) == nil)
+---assert.equals(sio.readcardinal2("test", 3), 29556)
+---assert.is_nil(sio.readcardinal2("test", 4))
 ---```
 ---
 ---__Reference:__
@@ -119,12 +119,12 @@ function sio.readcardinal2(text, position) end
 ---__Example:__
 ---
 ---```lua
----assert(sio.readcardinal3("test", 0) == 29797)
+---assert.equals(sio.readcardinal3("test", 0), 29797)
 ----- l.u.a: decimal=7107937 hexadecimal=6C.75.61 binary=01101100.01110101.01100001
----assert(sio.readcardinal3("luatex", 1) == 7107937)
+---assert.equals(sio.readcardinal3("luatex", 1), 7107937)
 ----- t.e.x: decimal=7628152 hexadecimal=74.65.78 binary=01110100.01100101.01111000
----assert(sio.readcardinal3("luatex", 4) == 7628152)
----assert(sio.readcardinal3("test", 5) == nil)
+---assert.equals(sio.readcardinal3("luatex", 4), 7628152)
+---assert.is_nil(sio.readcardinal3("test", 5))
 ---```
 ---
 ---__Reference:__
@@ -145,13 +145,13 @@ function sio.readcardinal3(text, position) end
 ---__Example:__
 ---
 ---```lua
----assert(sio.readcardinal4("test", 0) == 7628147)
+---assert.equals(sio.readcardinal4("test", 0), 7628147)
 ----- t.e.s.t:
 ----- decimal=1952805748
 ----- hexadecimal=74.65.73.74
 ----- binary=01110100.01100101.01110011.01110100
----assert(sio.readcardinal4("test", 1) == 1952805748)
----assert(sio.readcardinal4("test", 2) == nil)
+---assert.equals(sio.readcardinal4("test", 1), 1952805748)
+---assert.is_nil(sio.readcardinal4("test", 2))
 ---```
 ---
 ---__Reference:__
@@ -174,13 +174,13 @@ function sio.readcardinal4(text, position) end
 ---```lua
 ---local t = sio.readcardinaltable("test", 1, 4, 1)
 ----- t: decimal=116 hexadecimal=74 binary=01110100
----equals(t[1], 116)
+---assert.equals(t[1], 116)
 ----- e: decimal=101 hexadecimal=65 binary=01100101
----equals(t[2], 101)
+---assert.equals(t[2], 101)
 ----- s: decimal=115 hexadecimal=73 binary=01110011
----equals(t[3], 115)
+---assert.equals(t[3], 115)
 ----- t: decimal=116 hexadecimal=74 binary=01110100
----equals(t[4], 116)
+---assert.equals(t[4], 116)
 ---```
 ---
 ---@see fio.readcardinaltable
@@ -199,12 +199,16 @@ function sio.readcardinaltable(text, position, number, bytes) end
 ---__Example:__
 ---
 ---```lua
----equals(sio.readcardinal1le("test", 0), nil)
----equals(sio.readcardinal1le("test", 1), 116)
----equals(sio.readcardinal1le("test", 2), 101)
----equals(sio.readcardinal1le("test", 3), 115)
----equals(sio.readcardinal1le("test", 4), 116)
----equals(sio.readcardinal1le("test", 5), nil)
+---assert.is_nil(sio.readinteger1le("test", 0))
+----- t: decimal=116 hexadecimal=74 binary=01110100
+---assert.equals(sio.readinteger1le("test", 1), 116)
+----- e: decimal=101 hexadecimal=65 binary=01100101
+---assert.equals(sio.readinteger1le("test", 2), 101)
+----- s: decimal=115 hexadecimal=73 binary=01110011
+---assert.equals(sio.readinteger1le("test", 3), 115)
+----- t: decimal=116 hexadecimal=74 binary=01110100
+---assert.equals(sio.readinteger1le("test", 4), 116)
+---assert.is_nil(sio.readinteger1le("test", 5))
 ---```
 ---
 ---__Reference:__
@@ -222,15 +226,15 @@ function sio.readcardinaltable(text, position, number, bytes) end
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readcardinal1le(text, position) end
-
 ---
 ---__Example:__
 ---
 ---```lua
----equals(sio.readcardinal2le("test", 0), 29696)
----equals(sio.readcardinal2le("test", 1), 25972)
----equals(sio.readcardinal2le("test", 3), 29811)
----equals(sio.readcardinal2le("test", 4), nil)
+---assert.equals(sio.readinteger2le("test", 0), 29696)
+---assert.equals(sio.readinteger2le("test", 1), 25972)
+---assert.equals(sio.readinteger2le("test", 2), 29541)
+---assert.equals(sio.readinteger2le("test", 3), 29811)
+---assert.is_nil(sio.readinteger2le("test", 4))
 ---```
 ---
 ---__Reference:__
@@ -253,10 +257,10 @@ function sio.readcardinal2le(text, position) end
 ---__Example:__
 ---
 ---```lua
----equals(sio.readcardinal3le("luatex", 0), 7695360)
----equals(sio.readcardinal3le("luatex", 1), 6387052)
----equals(sio.readcardinal3le("luatex", 4), 7890292)
----equals(sio.readcardinal3le("luatex", 5), nil)
+---assert.equals(sio.readinteger3le("test", 0), 6648832)
+---assert.equals(sio.readinteger3le("test", 1), 7562612)
+---assert.equals(sio.readinteger3le("test", 2), 7631717)
+---assert.is_nil(sio.readinteger3le("test", 3))
 ---```
 ---
 ---__Reference:__
@@ -279,9 +283,9 @@ function sio.readcardinal3le(text, position) end
 ---__Example:__
 ---
 ---```lua
----equals(sio.readcardinal4le("test", 0), 1936028672)
----equals(sio.readcardinal4le("test", 1), 1953719668)
----equals(sio.readcardinal4le("test", 2), nil)
+---assert.equals(sio.readinteger4le("test", 0), 1936028672)
+---assert.equals(sio.readinteger4le("test", 1), 1953719668)
+---assert.equals(sio.readinteger4le("test", 2), nil)
 ---```
 ---
 ---__Reference:__
@@ -301,6 +305,21 @@ function sio.readcardinal3le(text, position) end
 function sio.readcardinal4le(text, position) end
 
 ---
+---__Example:__
+---
+---```lua
+---assert.is_nil(sio.readinteger1("test", 0))
+----- t: decimal=116 hexadecimal=74 binary=01110100
+---assert.equals(sio.readinteger1("test", 1), 116)
+----- e: decimal=101 hexadecimal=65 binary=01100101
+---assert.equals(sio.readinteger1("test", 2), 101)
+----- s: decimal=115 hexadecimal=73 binary=01110011
+---assert.equals(sio.readinteger1("test", 3), 115)
+----- t: decimal=116 hexadecimal=74 binary=01110100
+---assert.equals(sio.readinteger1("test", 4), 116)
+---assert.is_nil(sio.readinteger1("test", 5))
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [liolibext.c#L444-L458](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L444-L458)
@@ -315,6 +334,16 @@ function sio.readcardinal4le(text, position) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readinteger1(text, position) end
 
+---
+---__Example:__
+---
+---```lua
+---assert.equals(sio.readinteger2("test", 0), 116)
+---assert.equals(sio.readinteger2("test", 1), 29797)
+---assert.equals(sio.readinteger2("test", 2), 25971)
+---assert.equals(sio.readinteger2("test", 3), 29556)
+---assert.is_nil(sio.readinteger2("test", 4))
+---```
 ---
 ---__Reference:__
 ---
@@ -331,6 +360,15 @@ function sio.readinteger1(text, position) end
 function sio.readinteger2(text, position) end
 
 ---
+---__Example:__
+---
+---```lua
+---assert.equals(sio.readinteger3("test", 0), 29797)
+---assert.equals(sio.readinteger3("test", 1), 7628147)
+---assert.equals(sio.readinteger3("test", 2), 6648692)
+---assert.is_nil(sio.readinteger3("test", 3))
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [liolibext.c#L545-561](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/liolibext.c#L545-561)
@@ -345,6 +383,14 @@ function sio.readinteger2(text, position) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/sio.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function sio.readinteger3(text, position) end
 
+---
+---__Example:__
+---
+---```lua
+---assert.equals(sio.readinteger4("test", 0), 7628147)
+---assert.equals(sio.readinteger4("test", 1), 1952805748)
+---assert.is_nil(sio.readinteger4("test", 2))
+---```
 ---
 ---__Reference:__
 ---
@@ -366,13 +412,13 @@ function sio.readinteger4(text, position) end
 ---```lua
 ---local t = sio.readintegertable("test", 1, 4, 1)
 ----- t: decimal=116 hexadecimal=74 binary=01110100
----equals(t[1], 116)
+---assert.equals(t[1], 116)
 ----- e: decimal=101 hexadecimal=65 binary=01100101
----equals(t[2], 101)
+---assert.equals(t[2], 101)
 ----- s: decimal=115 hexadecimal=73 binary=01110011
----equals(t[3], 115)
+---assert.equals(t[3], 115)
 ----- t: decimal=116 hexadecimal=74 binary=01110100
----equals(t[4], 116)
+---assert.equals(t[4], 116)
 ---```
 ---
 ---__Reference:__
@@ -384,7 +430,7 @@ function sio.readinteger4(text, position) end
 ---@param text string # A string to read from.
 ---@param position integer # The position in bytes from which to read. `1` and not `0` reads from the first byte.
 ---@param number integer # The number of integers in the resulting table.
----@param bytes 1|2|3|4 # Specify 1 for 1 byte signed integers, 2 for a 2 byte signed integers.
+---@param bytes 1|2|3|4 # Specify 1 for 1 byte signed integers, 2 for a 2 byte signed integers, and so on.
 ---
 ---@return table<integer, integer>
 ---
@@ -395,16 +441,16 @@ function sio.readintegertable(text, position, number, bytes) end
 ---__Example:__
 ---
 ---```lua
----assert(sio.readinteger1le("test", 0) == nil)
+---assert.is_nil(sio.readinteger1le("test", 0))
 ----- t: decimal=116 hexadecimal=74 binary=01110100
----assert(sio.readinteger1le("test", 1) == 116)
+---assert.equals(sio.readinteger1le("test", 1), 116)
 ----- e: decimal=101 hexadecimal=65 binary=01100101
----assert(sio.readinteger1le("test", 2) == 101)
+---assert.equals(sio.readinteger1le("test", 2), 101)
 ----- s: decimal=115 hexadecimal=73 binary=01110011
----assert(sio.readinteger1le("test", 3) == 115)
+---assert.equals(sio.readinteger1le("test", 3), 115)
 ----- t: decimal=116 hexadecimal=74 binary=01110100
----assert(sio.readinteger1le("test", 4) == 116)
----assert(sio.readinteger1le("test", 5) == nil)
+---assert.equals(sio.readinteger1le("test", 4), 116)
+---assert.is_nil(sio.readinteger1le("test", 5))
 ---```
 ---
 ---__Reference:__
@@ -426,11 +472,11 @@ function sio.readinteger1le(text, position) end
 ---__Example:__
 ---
 ---```lua
----assert(sio.readinteger2le("test", 0) == 29696)
----assert(sio.readinteger2le("test", 1) == 25972)
----assert(sio.readinteger2le("test", 2) == 29541)
----assert(sio.readinteger2le("test", 3) == 29811)
----assert(sio.readinteger2le("test", 4) == nil)
+---assert.equals(sio.readinteger2le("test", 0), 29696)
+---assert.equals(sio.readinteger2le("test", 1), 25972)
+---assert.equals(sio.readinteger2le("test", 2), 29541)
+---assert.equals(sio.readinteger2le("test", 3), 29811)
+---assert.is_nil(sio.readinteger2le("test", 4))
 ---```
 ---
 ---__Reference:__
@@ -453,10 +499,10 @@ function sio.readinteger2le(text, position) end
 ---__Example:__
 ---
 ---```lua
----assert(sio.readinteger3le("test", 0) == 6648832)
----assert(sio.readinteger3le("test", 1) == 7562612)
----assert(sio.readinteger3le("test", 2) == 7631717)
----assert(sio.readinteger3le("test", 3) == nil)
+---assert.equals(sio.readinteger3le("test", 0), 6648832)
+---assert.equals(sio.readinteger3le("test", 1), 7562612)
+---assert.equals(sio.readinteger3le("test", 2), 7631717)
+---assert.is_nil(sio.readinteger3le("test", 3))
 ---```
 ---
 ---__Reference:__
@@ -479,9 +525,9 @@ function sio.readinteger3le(text, position) end
 ---__Example:__
 ---
 ---```lua
----assert(sio.readinteger4le("test", 0) == 1936028672)
----assert(sio.readinteger4le("test", 1) == 1953719668)
----assert(sio.readinteger4le("test", 2) == nil)
+---assert.equals(sio.readinteger4le("test", 0), 1936028672)
+---assert.equals(sio.readinteger4le("test", 1), 1953719668)
+---assert.equals(sio.readinteger4le("test", 2), nil)
 ---```
 ---
 ---__Reference:__
@@ -506,15 +552,10 @@ function sio.readinteger4le(text, position) end
 ---__Example:__
 ---
 ---```lua
----local function compare_numbers(a, b, epsilon)
----  epsilon = epsilon or 1e-6
----  return a == b or math.abs(a - b) < epsilon
----end
----
----assert(compare_numbers(sio.readfixed2("test", 0), 0.453125))
----assert(compare_numbers(sio.readfixed2("test", 1), 116.39453125))
----assert(sio.readfixed2("test", 2) == nil)
----assert(sio.readfixed2("test", 3) == nil)
+---assert.numbers(sio.readfixed2("test", 0), 0.453125)
+---assert.numbers(sio.readfixed2("test", 1), 116.39453125)
+---assert.is_nil(sio.readfixed2("test", 2))
+---assert.is_nil(sio.readfixed2("test", 3))
 ---```
 ---
 ---__Reference:__
@@ -537,14 +578,9 @@ function sio.readfixed2(text, position) end
 ---__Example:__
 ---
 ---```lua
----local function compare_numbers(a, b, epsilon)
----  epsilon = epsilon or 1e-6
----  return a == b or math.abs(a - b) < epsilon
----end
----
----assert(compare_numbers(sio.readfixed4("test", 0), 116.39628601074))
----assert(compare_numbers(sio.readfixed4("test", 1), 29797.45098877))
----assert(sio.readfixed4("test", 2) == nil)
+---assert.numbers(sio.readfixed4("test", 0), 116.39628601074)
+---assert.numbers(sio.readfixed4("test", 1), 29797.45098877)
+---assert.is_nil(sio.readfixed4("test", 2))
 ---```
 ---
 ---__Reference:__
@@ -567,15 +603,10 @@ function sio.readfixed4(text, position) end
 ---__Example:__
 ---
 ---```lua
----local function compare_numbers(a, b, epsilon)
----    epsilon = epsilon or 1e-6
----    return a == b or math.abs(a - b) < epsilon
----end
----
----assert(compare_numbers(sio.read2dot14("test", 1), 1.8186645507812))
----assert(compare_numbers(sio.read2dot14("test", 2), 1.5851440429688))
----assert(compare_numbers(sio.read2dot14("test", 3), 1.803955078125))
----assert(sio.read2dot14("test", 4) == nil)
+---assert.numbers(sio.read2dot14("test", 1), 1.8186645507812)
+---assert.numbers(sio.read2dot14("test", 2), 1.5851440429688)
+---assert.numbers(sio.read2dot14("test", 3), 1.803955078125)
+---assert.is_nil(sio.read2dot14("test", 4))
 ---```
 ---
 ---__Reference:__
@@ -600,13 +631,13 @@ function sio.read2dot14(text, position) end
 ---```lua
 ---local b1, b2, b3, b4 = sio.readbytes("test", 1, 4)
 ----- t: decimal=116 hexadecimal=74 binary=01110100
----assert(b1 == 116)
+---assert.equals(b1, 116)
 ----- e: decimal=101 hexadecimal=65 binary=01100101
----assert(b2 == 101)
+---assert.equals(b2, 101)
 ----- s: decimal=115 hexadecimal=73 binary=01110011
----assert(b3 == 115)
+---assert.equals(b3, 115)
 ----- t: decimal=116 hexadecimal=74 binary=01110100
----assert(b4 == 116)
+---assert.equals(b4, 116)
 ---```
 ---
 ---__Reference:__
@@ -630,13 +661,13 @@ function sio.readbytes(text, position, number) end
 ---```lua
 ---local t = sio.readbytetable("test", 1, 4)
 ----- t: decimal=116 hexadecimal=74 binary=01110100
----assert(t[1] == 116)
+---assert.equals(t[1], 116)
 ----- e: decimal=101 hexadecimal=65 binary=01100101
----assert(t[2] == 101)
+---assert.equals(t[2], 101)
 ----- s: decimal=115 hexadecimal=73 binary=01110011
----assert(t[3] == 115)
+---assert.equals(t[3], 115)
 ----- t: decimal=116 hexadecimal=74 binary=01110100
----assert(t[4] == 116)
+---assert.equals(t[4], 116)
 ---```
 ---
 ---__Reference:__

@@ -5158,7 +5158,6 @@ function node.direct.setboth(d, prev, next) end
 ---
 ---Return the previous and next pointer of a node.
 ---
----
 ---__Example:__
 ---
 ---```lua
@@ -5191,7 +5190,6 @@ function node.getboth(n) end
 
 ---
 ---Return the previous and next pointer of a node.
----
 ---
 ---__Example:__
 ---
