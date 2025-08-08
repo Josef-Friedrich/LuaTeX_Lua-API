@@ -43,3 +43,6 @@
 [submodule "subrepos/Lua-TeX/LuaTeX"]
 	path = subrepos/TeXLuaCATS/LuaTeX
 	url = git@github.com:TeXLuaCATS/LuaTeX.git
+[submodule "subrepos/TeXLuaCATS/Lualibs"]
+	path = subrepos/TeXLuaCATS/Lualibs
+	url = git@github.com:TeXLuaCATS/Lualibs.git
