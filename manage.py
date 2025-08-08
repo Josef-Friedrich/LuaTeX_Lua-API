@@ -17,6 +17,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Callable, Literal, Optional, Union, cast
+import textwrap
 
 logging.basicConfig(
     format="%(levelname)s %(message)s",
@@ -994,6 +995,39 @@ def dist() -> None:
     _git_commit_push(project_base_path, "Update submodules")
 
 
+def rewrap(path: str) -> None:
+    """Rewrap the comments"""
+    abspath = Path(path).resolve()
+    lines: list[str] = []
+    for line in abspath.read_text().splitlines():
+        if line.startswith('---'):
+            line = line[3:]
+        else:
+            line = ""
+        lines.append(line)
+
+    # Rewrap paragraphs: group lines into paragraphs, then wrap each paragraph
+    paragraphs: list[str] = []
+    current_paragraph: list[str] = []
+    for line in lines:
+        if line.strip() == "":
+            if current_paragraph:
+                paragraphs.append(" ".join(current_paragraph))
+                current_paragraph = []
+        else:
+            current_paragraph.append(line.strip())
+    if current_paragraph:
+        paragraphs.append(" ".join(current_paragraph))
+
+    rewrapped = "\n\n".join(
+        "\n".join(textwrap.wrap(paragraph, width=77)) for paragraph in paragraphs
+    )
+    lines: list[str] = []
+    for line in rewrapped.splitlines():
+        lines.append('---' + line)
+    print("\n".join(lines))
+
+
 @dataclass
 class Args:
     debug: bool
@@ -1004,9 +1038,11 @@ class Args:
         "format",
         "manuals",
         "merge",
+        "rewrap",
         "test",
     ]
     relpath: Optional[str]
+    path: Optional[str]
     subproject: Subproject
     print_docstring: bool
     luaonly: bool
@@ -1113,6 +1149,13 @@ if __name__ == "__main__":
     )
     merge_parser.add_argument("subproject")
 
+    # rewrap
+    rewrap_parser = subparsers.add_parser(
+        "rewrap",
+        help="The Rewrap extension (https://github.com/dnut/Rewrap) does not support rewraping of thee hyphens prefixed comment lines.",
+    )
+    rewrap_parser.add_argument("path")
+
     # test
     test_parser = subparsers.add_parser("test", help="Run the embedded unittest.")
 
@@ -1140,6 +1183,8 @@ if __name__ == "__main__":
         manuals()
     elif args.command == "merge" and args.subproject:
         merge(args.subproject)
+    elif args.command == "rewrap" and args.path:
+        rewrap(args.path)
     elif args.command == "test":
         suite = unittest.defaultTestLoader.loadTestsFromTestCase(TestManager)
         runner = unittest.TextTestRunner()
