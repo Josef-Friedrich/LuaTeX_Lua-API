@@ -199,9 +199,9 @@ Only two hyphens are used here, rather than three, so that the copyright notice
 does not end up in the rendered documentation.
 
 ```lua
--- ----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
 -- Copyright (C) 2022-2025 by Josef Friedrich <josef@friedrich.rocks>
--- ----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
 --
 -- This program is free software: you can redistribute it and/or modify it
 -- under the terms of the GNU General Public License as published by the
@@ -216,7 +216,7 @@ does not end up in the rendered documentation.
 -- You should have received a copy of the GNU General Public License along
 -- with this program. If not, see <https://www.gnu.org/licenses/>.
 --
--- ----------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
 
 ```
 
@@ -365,8 +365,8 @@ In the released version, this navigation table is removed using the
 `manage.py` management script.
 
 ```lua
----A helper table to better navigate through the documentation using the
----outline: https://github.com/Josef-Friedrich/LuaTeX_Lua-API#navigation-table-_n
+-- A helper table to better navigate through the documentation using the
+-- outline: https://github.com/Josef-Friedrich/LuaTeX_Lua-API#navigation-table-_n
 _N = {}
 ```
 
