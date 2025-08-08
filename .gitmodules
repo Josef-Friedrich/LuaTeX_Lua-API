@@ -42,4 +42,4 @@
 	url = git@github.com:Josef-Friedrich/emmylua-analyzer-rust.git
 [submodule "subrepos/Lua-TeX/LuaTeX"]
 	path = subrepos/TeXLuaCATS/LuaTeX
-	url = git@github.com:Lua-TeX/LuaTeX.git
+	url = git@github.com:TeXLuaCATS/LuaTeX.git
