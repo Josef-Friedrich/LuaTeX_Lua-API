@@ -935,7 +935,7 @@ markdown_extensions:
 
     subprocess.check_call(["mkdocs", "build"], cwd=dest)
 
-    gh_pages_repo = project_base_path / "subrepos" / "Lua-TeX" / subproject_title
+    gh_pages_repo = project_base_path / "subrepos" / "TeXLuaCATS" / subproject_title
 
     logger.debug("Github pages repo: %s", gh_pages_repo)
 
