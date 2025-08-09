@@ -2175,6 +2175,23 @@ _N._whatsit.special = 3
 ---There is only one DVI backend whatsit, and it just flushes its content to the
 ---output file.
 ---
+---__Example:__
+---
+---```lua
+---assert.node_type("whatsit", "special", {
+---  id = "whatsit (8)",
+---  subtype = "special (3)",
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "data (4)",
+---  },
+---})
+---```
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class SpecialWhatsitNode: WhatsitNode
 ---@field attr Node # A list of attributes.
@@ -2202,6 +2219,24 @@ _N._whatsit.pdf_literal = 16
 ---Especially the `raw` variant can produce bad *PDF* so you can best check
 ---what you generate.
 ---
+---__Example:__
+---
+---```lua
+---assert.node_type("whatsit", "pdf_literal", {
+---  id = "whatsit (8)",
+---  subtype = "pdf_literal (16)",
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "mode (4)",
+---    "data (5)",
+---  },
+---})
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L1148-L1151](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L1148-L1151)
@@ -2216,6 +2251,23 @@ _N._whatsit.pdf_literal = 16
 _N._whatsit.pdf_refobj = 17
 
 ---
+---__Example:__
+---
+---```lua
+---assert.node_type("whatsit", "pdf_refobj", {
+---  id = "whatsit (8)",
+---  subtype = "pdf_refobj (18)",
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "objnum (4)",
+---  },
+---})
+---```
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PdfRefobjWhatsitNode: WhatsitNode
 ---@field attr Node # A list of attributes.
@@ -2223,6 +2275,27 @@ _N._whatsit.pdf_refobj = 17
 
 _N._whatsit.pdf_annot = 18
 
+---
+---__Example:__
+---
+---```lua
+---assert.node_type("whatsit", "pdf_annot", {
+---  id = "whatsit (8)",
+---  subtype = "pdf_annot (19)",
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "width (4)",
+---    "depth (5)",
+---    "height (6)",
+---    "objnum (7)",
+---    "data (8)",
+---  },
+---})
+---```
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PdfAnnotWhatsitNode: WhatsitNode
@@ -2235,6 +2308,28 @@ _N._whatsit.pdf_annot = 18
 
 _N._whatsit.pdf_start_link = 19
 
+---
+---__Example:__
+---
+---```lua
+---assert.node_type("whatsit", "pdf_start_link", {
+---  id = "whatsit (8)",
+---  subtype = "pdf_start_link (20)",
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "width (4)",
+---    "depth (5)",
+---    "height (6)",
+---    "objnum (7)",
+---    "link_attr (8)",
+---    "action (9)",
+---  },
+---})
+---```
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PdfStartLinkWhatsitNode: WhatsitNode
@@ -2249,12 +2344,46 @@ _N._whatsit.pdf_start_link = 19
 _N._whatsit.pdf_end_link = 20
 
 ---
+---__Example:__
+---
+---```lua
+---assert.node_type("whatsit", "pdf_end_link", {
+---  id = "whatsit (8)",
+---  subtype = "pdf_end_link (21)",
+---  fields = { "prev (-1)", "next (0)", "id (1)", "subtype (2)", "attr (3)" },
+---})
+---```
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PdfEndLinkWhatsitNode: WhatsitNode
 ---@field attr Node # A list of attributes.
 
 _N._whatsit.pdf_dest = 21
 
+---
+---__Example:__
+---
+---```lua
+---assert.node_type("whatsit", "pdf_dest", {
+---  id = "whatsit (8)",
+---  subtype = "pdf_dest (22)",
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "width (4)",
+---    "depth (5)",
+---    "height (6)",
+---    "named_id (7)",
+---    "dest_id (8)",
+---    "dest_type (9)",
+---    "xyz_zoom (10)",
+---    "objnum (11)",
+---  },
+---})
+---```
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PdfDestWhatsitNode: WhatsitNode
@@ -2295,6 +2424,28 @@ _N._8_6_7_pdf_action = "page 142"
 ---|2 'nonew'
 
 ---
+---__Example:__
+---
+---```lua
+---assert.node_type("whatsit", "pdf_action", {
+---  id = "whatsit (8)",
+---  subtype = "pdf_action (23)",
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "action_type (3)",
+---    "named_id (4)",
+---    "action_id (5)",
+---    "file (6)",
+---    "new_window (7)",
+---    "data (8)",
+---    "struct_id (9)",
+---  },
+---})
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L1104-L1111](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L1104-L1111)
@@ -2311,6 +2462,28 @@ _N._8_6_7_pdf_action = "page 142"
 
 _N._whatsit.pdf_thread = 23
 
+---
+---__Example:__
+---
+---```lua
+---assert.node_type("whatsit", "pdf_thread", {
+---  id = "whatsit (8)",
+---  subtype = "pdf_thread (24)",
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "width (4)",
+---    "depth (5)",
+---    "height (6)",
+---    "named_id (7)",
+---    "thread_id (8)",
+---    "thread_attr (9)",
+---  },
+---})
+---```
 ---
 ---__Reference:__
 ---
