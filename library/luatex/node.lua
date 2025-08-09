@@ -2570,18 +2570,118 @@ _N._whatsit.pdf_save = 30
 _N._whatsit.pdf_restore = 31
 
 ---
+---__Example:__
+---
+---```lua
+---assert.node_type("whatsit", "pdf_restore", {
+---  id = "whatsit (8)",
+---  subtype = "pdf_restore (32)",
+---  fields = { "prev (-1)", "next (0)", "id (1)", "subtype (2)", "attr (3)" },
+---})
+---```
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PdfRestoreWhatsitNode
 ---@field attr Node # A list of attributes.
 
 _N._whatsit.pdf_thread_data = 26
 
+---
+---__Example:__
+---
+---```lua
+---assert.node_type(
+---  "whatsit",
+---  "pdf_thread_data",
+---  {
+---    id = "whatsit (8)",
+---    subtype = "pdf_thread_data (27)",
+---    fields = { "prev (-1)", "next (0)", "id (1)", "subtype (2)" },
+---  }
+---)
+---```
+---
+---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/4f2b914d365bab8a2747afe6e8c86d0f1c8475f7/source/texk/web2c/luatexdir/tex/texnodes.c#L1065
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+---@class PdfThreadDataWhatsitNode
+
 _N._whatsit.pdf_link_data = 27
+
+---
+---__Example:__
+---
+---```lua
+---assert.node_type(
+---  "whatsit",
+---  "pdf_link_data",
+---  {
+---    id = "whatsit (8)",
+---    subtype = "pdf_link_data (28)",
+---    fields = { "prev (-1)", "next (0)", "id (1)", "subtype (2)" },
+---  }
+---)
+---```
+---
+---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/4f2b914d365bab8a2747afe6e8c86d0f1c8475f7/source/texk/web2c/luatexdir/tex/texnodes.c#L1066
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+---@class PdfLinkDataWhatsitNode
 
 _N._whatsit.pdf_link_state = 32
 
+---
+---__Example:__
+---
+---```lua
+---assert.node_type("whatsit", "pdf_link_state", {
+---  id = "whatsit (8)",
+---  subtype = "pdf_link_state (33)",
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "value (4)",
+---  },
+---})
+---```
+---
+---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/4f2b914d365bab8a2747afe6e8c86d0f1c8475f7/source/texk/web2c/luatexdir/tex/texnodes.c#L1141-1143
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+---@class PdfLinkStateWhatsitNode
+---@field attr Node # A list of attributes.
+---@field value integer
+
 _N.unset = 15
 
+---
+---__Example:__
+---
+---```lua
+---assert.node_type("unset", nil, {
+---  id = "unset (15)",
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "width (4)",
+---    "depth (5)",
+---    "height (6)",
+---    "dir (7)",
+---    "shrink (8)",
+---    "glue_order (9)",
+---    "glue_sign (10)",
+---    "stretch (11)",
+---    "span (12)",
+---    "head (13)",
+---  },
+---})
+---```
 ---
 ---__Reference:__
 ---
@@ -2604,11 +2704,33 @@ _N.unset = 15
 _N.align_record = 30
 
 ---
+---__Example:__
+---
+---```lua
+---assert.node_type("align_record", nil, {
+---  id = "align_record (30)",
+---  fields = { "prev (-1)", "next (0)", "id (1)", "subtype (2)" },
+---})
+---```
+---
+---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/4f2b914d365bab8a2747afe6e8c86d0f1c8475f7/source/texk/web2c/luatexdir/tex/texnodes.c#L523
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class AlignRecordNode: Node
 
 _N.pseudo_file = 31
 
+---
+---__Example:__
+---
+---```lua
+---assert.node_type("pseudo_file", nil, {
+---  id = "pseudo_file (31)",
+---  fields = { "prev (-1)", "next (0)", "id (1)", "subtype (2)" },
+---})
+---```
+---
+---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/4f2b914d365bab8a2747afe6e8c86d0f1c8475f7/source/texk/web2c/luatexdir/tex/texnodes.c#L524
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PseudoFileNode: Node
@@ -2616,11 +2738,44 @@ _N.pseudo_file = 31
 _N.pseudo_line = 32
 
 ---
+---__Example:__
+---
+---```lua
+---assert.node_type("pseudo_line", nil, {
+---  id = "pseudo_line (32)",
+---  fields = { "prev (-1)", "next (0)", "id (1)", "subtype (2)" },
+---})
+---```
+---
+---https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/4f2b914d365bab8a2747afe6e8c86d0f1c8475f7/source/texk/web2c/luatexdir/tex/texnodes.c#L525
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PseudoLineNode: Node
 
 _N.page_insert = 33
 
+---
+---__Example:__
+---
+---```lua
+---assert.node_type("page_insert", nil, {
+---  id = "page_insert (33)",
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "height (3)",
+---    "last_ins_ptr (4)",
+---    "best_ins_ptr (5)",
+---    "width (6)",
+---    "stretch (7)",
+---    "shrink (8)",
+---    "stretch_order (9)",
+---    "shrink_order (10)",
+---  },
+---})
+---```
 ---
 ---__Reference:__
 ---
@@ -2631,6 +2786,25 @@ _N.page_insert = 33
 
 _N.split_insert = 34
 
+---
+---__Example:__
+---
+---```lua
+---assert.node_type("split_insert", nil, {
+---  id = "split_insert (34)",
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "height (3)",
+---    "last_ins_ptr (4)",
+---    "best_ins_ptr (5)",
+---    "broken_ptr (6)",
+---    "broken_ins (7)",
+---  },
+---})
+---```
 ---
 ---__Reference:__
 ---
@@ -2647,6 +2821,15 @@ _N.split_insert = 34
 _N.expr_stack = 35
 
 ---
+---__Example:__
+---
+---```lua
+---assert.node_type("expr_stack", nil, {
+---  id = "expr_stack (35)",
+---  fields = { "prev (-1)", "next (0)", "id (1)", "subtype (2)" },
+---})
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L474](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L474)
@@ -2656,6 +2839,15 @@ _N.expr_stack = 35
 
 _N.nested_list = 36
 
+---
+---__Example:__
+---
+---```lua
+---assert.node_type("nested_list", nil, {
+---  id = "nested_list (36)",
+---  fields = { "prev (-1)", "next (0)", "id (1)", "subtype (2)" },
+---})
+---```
 ---
 ---__Reference:__
 ---
@@ -2670,14 +2862,10 @@ _N.span = 37
 ---__Example:__
 ---
 ---```lua
----assert.node_type(
----  "attribute",
----  nil,
----  {
----    id = "attribute (38)",
----    fields = { "next (0)", "id (1)", "number (2)", "value (3)" },
----  }
----)
+---assert.node_type("span", nil, {
+---  id = "span (37)",
+---  fields = { "prev (-1)", "next (0)", "id (1)", "subtype (2)" },
+---})
 ---```
 ---
 ---__Reference:__
@@ -2689,6 +2877,15 @@ _N.span = 37
 
 _N.attribute = 38
 
+---
+---__Example:__
+---
+---```lua
+---assert.node_type("attribute", nil, {
+---  id = "attribute (38)",
+---  fields = { "next (0)", "id (1)", "number (2)", "value (3)" },
+---})
+---```
 ---
 ---__Reference:__
 ---
@@ -2722,6 +2919,15 @@ _N.attribute_list = 40
 _N.temp = 41
 
 ---
+---__Example:__
+---
+---```lua
+---assert.node_type("temp", nil, {
+---  id = "temp (41)",
+---  fields = { "prev (-1)", "next (0)", "id (1)", "subtype (2)" },
+---})
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L480](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L480)
@@ -2731,6 +2937,15 @@ _N.temp = 41
 
 _N.align_stack = 42
 
+---
+---__Example:__
+---
+---```lua
+---assert.node_type("align_stack", nil, {
+---  id = "align_stack (42)",
+---  fields = { "prev (-1)", "next (0)", "id (1)", "subtype (2)" },
+---})
+---```
 ---
 ---__Reference:__
 ---
@@ -2742,6 +2957,15 @@ _N.align_stack = 42
 _N.movement_stack = 43
 
 ---
+---__Example:__
+---
+---```lua
+---assert.node_type("movement_stack", nil, {
+---  id = "movement_stack (43)",
+---  fields = { "prev (-1)", "next (0)", "id (1)", "subtype (2)" },
+---})
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L482](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L482)
@@ -2751,6 +2975,15 @@ _N.movement_stack = 43
 
 _N.if_stack = 44
 
+---
+---__Example:__
+---
+---```lua
+---assert.node_type("if_stack", nil, {
+---  id = "if_stack (44)",
+---  fields = { "prev (-1)", "next (0)", "id (1)", "subtype (2)" },
+---})
+---```
 ---
 ---__Reference:__
 ---
@@ -2762,6 +2995,15 @@ _N.if_stack = 44
 _N.unhyphenated = 45
 
 ---
+---__Example:__
+---
+---```lua
+---assert.node_type("unhyphenated", nil, {
+---  id = "unhyphenated (45)",
+---  fields = { "prev (-1)", "next (0)", "id (1)", "subtype (2)" },
+---})
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L484](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L484)
@@ -2772,6 +3014,15 @@ _N.unhyphenated = 45
 _N.hyphenated = 46
 
 ---
+---__Example:__
+---
+---```lua
+---assert.node_type("hyphenated", nil, {
+---  id = "hyphenated (46)",
+---  fields = { "prev (-1)", "next (0)", "id (1)", "subtype (2)" },
+---})
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L485](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L485)
@@ -2781,6 +3032,15 @@ _N.hyphenated = 46
 
 _N.delta = 47
 
+---
+---__Example:__
+---
+---```lua
+---assert.node_type("delta", nil, {
+---  id = "delta (47)",
+---  fields = { "prev (-1)", "next (0)", "id (1)", "subtype (2)" },
+---})
+---```
 ---
 ---__Reference:__
 ---
@@ -2793,6 +3053,15 @@ _N.passive = 48
 
 ---
 ---Used in the line breaking algorithm.
+---
+---__Example:__
+---
+---```lua
+---assert.node_type("passive", nil, {
+---  id = "passive (48)",
+---  fields = { "prev (-1)", "next (0)", "id (1)", "subtype (2)" },
+---})
+---```
 ---
 ---__Reference:__
 ---

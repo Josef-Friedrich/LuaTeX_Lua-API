@@ -1,6 +1,6 @@
 local assert = require("utils").assert
 
-assert.node_type("math_char_text", nil, {
+assert.node_type("math_char", nil, {
   id = "math_char (23)",
   fields = {
     "prev (-1)",
