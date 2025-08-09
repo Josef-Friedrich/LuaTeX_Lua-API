@@ -753,7 +753,7 @@ markdown_extensions:
 * Victor Eijkhout. “TeX by Topic” (1991, 2007) [page 185](http://mirrors.ctan.org/info/texbytopic/TeXbyTopic.pdf)
 * Donald Ervin Knuth. “The TexBook” (1984): page 76. Also: 76, 271, 285, 363, 433. [TeX-Source](https://ctan.org/tex-archive/systems/knuth/dist/tex/texbook.tex) [PDF](https://visualmatheditor.equatheque.net/doc/texbook.pdf)
 * David Bausum. “TeX Reference Manual” (2002) [](https://www.tug.org/utilities/plain/cseq.html)
-* Donald Ervin Knuth. “TeX: The Program”: page [tex.pdf](https://mirrors.ctan.org/info/knuth-pdf/tex/tex.pdf)
+* Donald Ervin Knuth. “TeX: The Program”: section 141, page 42 [tex.pdf](https://mirrors.ctan.org/info/knuth-pdf/tex/tex.pdf)
 * Corresponding fontforge C source code: [github.com/fontforge/fontforge](https://github.com/fontforge/fontforge)
 
 ```lua

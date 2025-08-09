@@ -316,6 +316,8 @@ _N.hlist = 0
 ---@field dir DirectionSpecifier
 
 ---
+---An hlist node stands for a box that was made from a horizontal list.
+---
 ---A warning: never assign a node list to the `head` field unless you are sure
 ---its internal link structure is correct, otherwise an error may result.
 ---
@@ -381,6 +383,7 @@ _N.hlist = 0
 ---__Reference:__
 ---
 ---* Source file of the `LuaTeX` manual: [luatex-nodes.tex#L78-L108](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L78-L108)
+---* Donald Ervin Knuth. “TeX: The Program”: page 51 [tex.pdf](https://mirrors.ctan.org/info/knuth-pdf/tex/tex.pdf)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class HlistNode: ListNode
@@ -395,6 +398,8 @@ _N.vlist = 1
 ---|4 # alignment
 ---|5 # cell
 
+---
+---A vlist node is like an hlist node in all respects except that it contains a vertical list.
 ---
 ---__Example:__
 ---
@@ -451,6 +456,10 @@ _N.vlist = 1
 ---})
 ---```
 ---
+---__Reference:__
+---
+---* Donald Ervin Knuth. “TeX: The Program”: page 51 [tex.pdf](https://mirrors.ctan.org/info/knuth-pdf/tex/tex.pdf)
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class VlistNode: ListNode
 ---@field subtype VlistNodeSubtype
@@ -475,6 +484,8 @@ _N.rule = 2
 ---|8 # radical
 ---|9 # outline
 
+---
+---A rule node stands for a solid black rectangle.
 ---
 ---Contrary to traditional *TeX*, *LuaTeX* has more `rule` subtypes because we
 ---also use rules to store reuseable objects and images. User nodes are invisible
@@ -531,6 +542,7 @@ _N.rule = 2
 ---
 ---* Source file of the `LuaTeX` manual: [luatex-nodes.tex#L119-L157](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L119-L157)
 ---* Corresponding C source code: [texnodes.c#L912-L920](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L912-L920)
+---* Donald Ervin Knuth. “TeX: The Program”: section 135. page 51 [tex.pdf](https://mirrors.ctan.org/info/knuth-pdf/tex/tex.pdf)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class RuleNode: Node
@@ -547,6 +559,8 @@ _N.rule = 2
 
 _N.ins = 3
 
+---
+---Insertions are represented by ins node records, where the subtype indicates the corresponding box number.
 ---
 ---__Example:__
 ---
@@ -571,6 +585,7 @@ _N.ins = 3
 ---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L818-L824](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L818-L824)
+---* Donald Ervin Knuth. “TeX: The Program”: section 140, page 52 [tex.pdf](https://mirrors.ctan.org/info/knuth-pdf/tex/tex.pdf)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class InsNode: Node
@@ -584,6 +599,8 @@ _N.ins = 3
 
 _N.mark = 4
 
+---
+---A mark node has a mark field that points a token list that contains the user’s `\mark` text.
 ---
 ---__Example:__
 ---
@@ -605,6 +622,7 @@ _N.mark = 4
 ---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L868-L871](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L868-L871)
+---* Donald Ervin Knuth. “TeX: The Program”: section 141, page 42 [tex.pdf](https://mirrors.ctan.org/info/knuth-pdf/tex/tex.pdf)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class MarkNode: Node
@@ -626,6 +644,8 @@ _N.adjust = 5
 ---|1 # pre
 
 ---
+---An adjust node, which occurs only in horizontal lists, specifies material that will be moved out into the surrounding vertical list; i.e., it is used to implement TeX’s `\vadjust` operation.
+---
 ---__Example:__
 ---
 ---```lua
@@ -646,6 +666,7 @@ _N.adjust = 5
 ---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L725-L727](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L725-L727)
+---* Donald Ervin Knuth. “TeX: The Program”: section 142, page 42 [tex.pdf](https://mirrors.ctan.org/info/knuth-pdf/tex/tex.pdf)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class AdjustNode: Node
@@ -707,7 +728,7 @@ _N.disc = 7
 ---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L758-L763](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L758-L763)
----* Donald Ervin Knuth. “TeX: The Program”: page 53 [tex.pdf](https://mirrors.ctan.org/info/knuth-pdf/tex/tex.pdf)
+---* Donald Ervin Knuth. “TeX: The Program”: section 145, page 53 [tex.pdf](https://mirrors.ctan.org/info/knuth-pdf/tex/tex.pdf)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class DiscNode: Node
@@ -731,15 +752,18 @@ _N.math = 11
 ---|1 # endmath
 
 ---
+---A math node, which occurs only in horizontal lists, appears before and after mathematical formulas. The subtype field is `beginmath` before the formula and `endmath` after it. There is a `surround` field, which represents the amount of surrounding space inserted by `\mathsurround`.
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L873-L880](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L873-L880)
+---* Donald Ervin Knuth. “TeX: The Program”: section 147, page 54 [tex.pdf](https://mirrors.ctan.org/info/knuth-pdf/tex/tex.pdf)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class MathNode: Node
 ---@field subtype MathNodeSubtype
 ---@field attr Node # A list of attributes.
----@field surround integer # width of the `mathsurround` kern
+---@field surround integer # The width of the `\mathsurround` kern.
 
 _N.glue_spec = 39
 
