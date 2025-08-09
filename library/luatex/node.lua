@@ -1193,6 +1193,7 @@ _N.boundary = 6
 ---|2 # protrusion
 ---|3 # word
 
+---
 ---__Example:__
 ---
 ---```lua
@@ -1210,7 +1211,6 @@ _N.boundary = 6
 ---})
 ---```
 ---
----
 ---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L735-L737](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L735-L737)
@@ -1223,6 +1223,7 @@ _N.boundary = 6
 
 _N.local_par = 9
 
+---
 ---__Example:__
 ---
 ---```lua
@@ -1244,7 +1245,6 @@ _N.local_par = 9
 ---  },
 ---})
 ---```
----
 ---
 ---__Reference:__
 ---
