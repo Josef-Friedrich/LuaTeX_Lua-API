@@ -1671,6 +1671,22 @@ _N.accent = 21
 _N.style = 16
 
 ---
+---__Example:__
+---
+---```lua
+---assert.node_type("style", nil, {
+---  id = "style (16)",
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "style (4)",
+---  },
+---})
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L929-L931](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L929-L931)
@@ -1685,6 +1701,25 @@ _N.choice = 17
 ---
 ---Warning: never assign a node list to the `display`, `text`, `script`, or `scriptscript` field unless you are sure its internal link
 ---structure is correct, otherwise an error can occur.
+---
+---__Example:__
+---
+---```lua
+---assert.node_type("choice", nil, {
+---  id = "choice (17)",
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "display (4)",
+---    "text (5)",
+---    "script (6)",
+---    "scriptscript (7)",
+---  },
+---})
+---```
 ---
 ---__Reference:__
 ---
@@ -1716,9 +1751,39 @@ _N.radical = 19
 ---|6 # udelimiterover
 
 ---
-----
---Warning: never assign a node list to the `nucleus`, `sub`, `sup`, `left`, or `degree` field unless you are sure its internal
+---Warning: never assign a node list to the `nucleus`, `sub`, `sup`, `left`, or `degree` field unless you are sure its internal
 ---link structure is correct, otherwise an error can be triggered.
+---
+---__Example:__
+---
+---```lua
+---assert.node_type("radical", nil, {
+---  id = "radical (19)",
+---  subtypes = {
+---    "radical (0)",
+---    "uradical (1)",
+---    "uroot (2)",
+---    "uunderdelimiter (3)",
+---    "uoverdelimiter (4)",
+---    "udelimiterunder (5)",
+---    "udelimiterover (6)",
+---  },
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "nucleus (4)",
+---    "sub (5)",
+---    "sup (6)",
+---    "left (7)",
+---    "degree (8)",
+---    "width (9)",
+---    "options (10)",
+---  },
+---})
+---```
 ---
 ---__Reference:__
 ---
@@ -1743,6 +1808,29 @@ _N.fraction = 20
 ---unless you are sure its internal link structure is correct, otherwise an error
 ---can result.
 ---
+---__Example:__
+---
+---```lua
+---assert.node_type("fraction", nil, {
+---  id = "fraction (20)",
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "width (4)",
+---    "num (5)",
+---    "denom (6)",
+---    "left (7)",
+---    "right (8)",
+---    "middle (9)",
+---    "fam (10)",
+---    "options (11)",
+---  },
+---})
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L774-L783](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L774-L783)
@@ -1761,6 +1849,22 @@ _N.fraction = 20
 
 _N.fence = 22
 
+---
+---__Reference:__
+---
+---* Corresponding C source code: [texnodes.c#L627-L631](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L627-L631)
+---
+---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
+---@alias FenceNodeSubtype
+---|0 # unset
+---|1 # left
+---|2 # middle
+---|3 # right
+---|4 # no
+
+---
+---Warning: some of these fields are used by the renderer and might get adapted in
+---the process.
 ---
 ---__Example:__
 ---
@@ -1783,22 +1887,6 @@ _N.fence = 22
 ---  },
 ---})
 ---```
----
----__Reference:__
----
----* Corresponding C source code: [texnodes.c#L627-L631](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L627-L631)
----
----😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
----@alias FenceNodeSubtype
----|0 # unset
----|1 # left
----|2 # middle
----|3 # right
----|4 # no
-
----
----Warning: some of these fields are used by the renderer and might get adapted in
----the process.
 ---
 ---__Reference:__
 ---
@@ -1892,7 +1980,7 @@ _N._whatsit = {}
 ---`node.whatsits`.
 ---
 ---Some of them are generic and independent of the output mode and others are
----specific to the chosen backend: *DVI* or \PDF. Here we discuss the generic
+---specific to the chosen backend: *DVI* or *PDF*. Here we discuss the generic
 ---font-end nodes nodes.
 ---
 ---Source: [luatex-nodes.tex#L781-L797](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L781-L797)
@@ -1902,6 +1990,26 @@ _N._whatsit = {}
 
 _N._whatsit.open = 0
 
+---
+---__Example:__
+---
+---```lua
+---assert.node_type("whatsit", "open", {
+---  id = "whatsit (8)",
+---  subtype = "open (0)",
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "stream (4)",
+---    "name (5)",
+---    "area (6)",
+---    "ext (7)",
+---  },
+---})
+---```
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class OpenWhatsitNode: Node
@@ -1914,6 +2022,24 @@ _N._whatsit.open = 0
 _N._whatsit.write = 1
 
 ---
+---__Example:__
+---
+---```lua
+---assert.node_type("whatsit", "write", {
+---  id = "whatsit (8)",
+---  subtype = "write (1)",
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "stream (4)",
+---    "data (5)",
+---  },
+---})
+---```
+---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class WriteWhatsitNode: Node
 ---@field attr Node # A list of attributes.
@@ -1922,6 +2048,23 @@ _N._whatsit.write = 1
 
 _N._whatsit.close = 2
 
+---
+---__Example:__
+---
+---```lua
+---assert.node_type("whatsit", "close", {
+---  id = "whatsit (8)",
+---  subtype = "close (2)",
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "stream (4)",
+---  },
+---})
+---```
 ---
 ---__Reference:__
 ---
@@ -1939,6 +2082,25 @@ _N._whatsit.user_defined = 8
 ---effect, they are an extension to the extension mechanism. The *LuaTeX* engine
 ---will simply step over such whatsits without ever looking at the contents.
 ---
+---__Example:__
+---
+---```lua
+---assert.node_type("whatsit", "user_defined", {
+---  id = "whatsit (8)",
+---  subtype = "user_defined (9)",
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "user_id (4)",
+---    "type (5)",
+---    "value (6)",
+---  }
+---})
+---```
+---
 ---__Reference:__
 ---
 ---* Source file of the `LuaTeX` manual: [luatex-nodes.tex#L833-L864](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/manual/luatex-nodes.tex#L833-L864)
@@ -1951,6 +2113,16 @@ _N._whatsit.user_defined = 8
 
 _N._whatsit.save_pos = 6
 
+---
+---__Example:__
+---
+---```lua
+---assert.node_type("whatsit", "save_pos", {
+---  id = "whatsit (8)",
+---  subtype = "save_pos (7)",
+---  fields = { "prev (-1)", "next (0)", "id (1)", "subtype (2)", "attr (3)" },
+---})
+---```
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class SavePosWhatsitNode: WhatsitNode
