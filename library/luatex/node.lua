@@ -754,6 +754,28 @@ _N.math = 11
 ---
 ---A math node, which occurs only in horizontal lists, appears before and after mathematical formulas. The subtype field is `beginmath` before the formula and `endmath` after it. There is a `surround` field, which represents the amount of surrounding space inserted by `\mathsurround`.
 ---
+---__Example:__
+---
+---```lua
+---assert.node_type("math", nil, {
+---  id = "math (11)",
+---  subtypes = { "beginmath (0)", "endmath (1)" },
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "surround (4)",
+---    "width (5)",
+---    "stretch (6)",
+---    "shrink (7)",
+---    "stretch_order (8)",
+---    "shrink_order (9)",
+---  },
+---})
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L873-L880](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L873-L880)
@@ -850,6 +872,52 @@ _N.glue = 12
 ---A regular word space also results in a `spaceskip` subtype (this used to be
 ---a `userskip` with subtype zero).
 ---
+---__Example:__
+---
+---```lua
+---assert.node_type("glue", nil, {
+---  id = "glue (12)",
+---  subtypes = {
+---    "userskip (0)",
+---    "lineskip (1)",
+---    "baselineskip (2)",
+---    "parskip (3)",
+---    "abovedisplayskip (4)",
+---    "belowdisplayskip (5)",
+---    "abovedisplayshortskip (6)",
+---    "belowdisplayshortskip (7)",
+---    "leftskip (8)",
+---    "rightskip (9)",
+---    "topskip (10)",
+---    "splittopskip (11)",
+---    "tabskip (12)",
+---    "spaceskip (13)",
+---    "xspaceskip (14)",
+---    "parfillskip (15)",
+---    "mathskip (16)",
+---    "thinmuskip (17)",
+---    "medmuskip (18)",
+---    "thickmuskip (19)",
+---    "conditionalmathskip (98)",
+---    "muglue (99)",
+---    "leaders (100)",
+---  },
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "leader (4)",
+---    "width (5)",
+---    "stretch (6)",
+---    "shrink (7)",
+---    "stretch_order (8)",
+---    "shrink_order (9)",
+---  },
+---})
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L785-L792](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L785-L792)
@@ -916,6 +984,29 @@ _N.kern = 13
 ---The `kern` command creates such nodes but for instance the font and math
 ---machinery can also add them.
 ---
+---__Example:__
+---
+---```lua
+---assert.node_type("kern", nil, {
+---  id = "kern (13)",
+---  subtypes = {
+---    "fontkern (0)",
+---    "userkern (1)",
+---    "accentkern (2)",
+---    "italiccorrection (3)",
+---  },
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "kern (4)",
+---    "expansion_factor (5)",
+---  },
+---})
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L836-L839](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L836-L839)
@@ -944,6 +1035,33 @@ _N.penalty = 14
 ---|7 # afterdisplaypenalty
 ---|8 # equationnumberpenalty
 
+---
+---__Example:__
+---
+---```lua
+---assert.node_type("penalty", nil, {
+---  id = "penalty (14)",
+---  subtypes = {
+---    "userpenalty (0)",
+---    "linebreakpenalty (1)",
+---    "linepenalty (2)",
+---    "wordpenalty (3)",
+---    "finalpenalty (4)",
+---    "noadpenalty (5)",
+---    "beforedisplaypenalty (6)",
+---    "afterdisplaypenalty (7)",
+---    "equationnumberpenalty (8)",
+---  },
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "penalty (4)",
+---  },
+---})
+---```
 ---
 ---__Reference:__
 ---
@@ -1075,6 +1193,23 @@ _N.boundary = 6
 ---|2 # protrusion
 ---|3 # word
 
+---__Example:__
+---
+---```lua
+---assert.node_type("boundary", nil, {
+---  id = "boundary (6)",
+---  subtypes = { "cancel (0)", "user (1)", "protrusion (2)", "word (3)" },
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "value (4)",
+---  },
+---})
+---```
+---
 ---
 ---__Reference:__
 ---
@@ -1088,6 +1223,28 @@ _N.boundary = 6
 
 _N.local_par = 9
 
+---__Example:__
+---
+---```lua
+---assert.node_type("local_par", nil, {
+---  id = "local_par (9)",
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "pen_inter (4)",
+---    "pen_broken (5)",
+---    "dir (6)",
+---    "box_left (7)",
+---    "box_left_width (8)",
+---    "box_right (9)",
+---    "box_right_width (10)",
+---  },
+---})
+---```
+---
 ---
 ---__Reference:__
 ---
@@ -1119,6 +1276,24 @@ _N.dir = 10
 ---direction is indicated by a `+` or `-`, indicating whether the value
 ---is pushed or popped from the direction stack.
 ---
+---__Example:__
+---
+---```lua
+---assert.node_type("dir", nil, {
+---  id = "dir (10)",
+---  subtypes = { "normal (0)", "cancel (1)" },
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "dir (4)",
+---    "level (5)",
+---  },
+---})
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L753-L756](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L753-L756)
@@ -1144,6 +1319,23 @@ _N.margin_kern = 28
 ---
 ---Margin kerns result from protrusion.
 ---
+---__Example:__
+---
+---```lua
+---assert.node_type("margin_kern", nil, {
+---  id = "margin_kern (28)",
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "width (4)",
+---    "glyph (5)",
+---  },
+---})
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L863-L866](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L863-L866)
@@ -1160,6 +1352,23 @@ _N.math_char = 23
 ---
 ---The `math_char` is the simplest subnode field, it contains the character
 ---and family for a single glyph object.
+---
+---__Example:__
+---
+---```lua
+---assert.node_type("math_char", nil, {
+---  id = "math_char (23)",
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "fam (4)",
+---    "char (5)",
+---  },
+---})
+---```
 ---
 ---__Reference:__
 ---
@@ -1178,6 +1387,23 @@ _N.math_text_char = 26
 ---case that you will not normally encounter, it arises temporarily during math list
 ---conversion (its sole function is to suppress a following italic correction).
 ---
+---__Example:__
+---
+---```lua
+---assert.node_type("math_text_char", nil, {
+---  id = "math_text_char (26)",
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "fam (4)",
+---    "char (5)",
+---  },
+---})
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L887-L890](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L887-L890)
@@ -1193,6 +1419,22 @@ _N.sub_box = 24
 ---
 ---For subsidiary list items
 ---
+---__Example:__
+---
+---```lua
+---assert.node_type("sub_box", nil, {
+---  id = "sub_box (24)",
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "head (4)",
+---  },
+---})
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L933-L935](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L933-L935)
@@ -1206,6 +1448,22 @@ _N.sub_mlist = 25
 
 ---
 ---For subsidiary list items
+---
+---__Example:__
+---
+---```lua
+---assert.node_type("sub_mlist", nil, {
+---  id = "sub_mlist (25)",
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "head (4)",
+---  },
+---})
+---```
 ---
 ---__Reference:__
 ---
@@ -1225,6 +1483,25 @@ _N.delim = 27
 ---The fields `large_char` and `large_fam` can be zero, in that case the
 ---font that is set for the `small_fam` is expected to provide the large
 ---version as an extension to the `small_char`.
+---
+---__Example:__
+---
+---```lua
+---assert.node_type("delim", nil, {
+---  id = "delim (27)",
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "small_fam (4)",
+---    "small_char (5)",
+---    "large_fam (6)",
+---    "large_char (7)",
+---  },
+---})
+---```
 ---
 ---__Reference:__
 ---
@@ -1263,8 +1540,8 @@ _N.noad = 18
 
 ---
 ---First, there are the objects (the *TeX* book calls them “atoms”) that are
----associated with the simple math objects: ord, op, bin, rel, open, close, punct,
----inner, over, under, vcent. These all have the same fields, and they are combined
+---associated with the simple math objects: `ord`, `op`, `bin`, `rel`, `open`, `close`, `punct`,
+---`inner`, `over`, `under`, `vcent`. These all have the same fields, and they are combined
 ---into a single node type with separate subtypes for differentiation.
 ---
 ---Some noads have an option field. The values in this bitset are common:
@@ -1283,6 +1560,39 @@ _N.noad = 18
 --- | no sub script   | `0x21` + `0x08` |
 --- | no super script | `0x22` + `0x08` |
 --- | no script       | `0x23` + `0x08` |
+---
+---__Example:__
+---
+---```lua
+---assert.node_type("noad", nil, {
+---  id = "noad (18)",
+---  subtypes = {
+---    "ord (0)",
+---    "opdisplaylimits (1)",
+---    "oplimits (2)",
+---    "opnolimits (3)",
+---    "bin (4)",
+---    "rel (5)",
+---    "open (6)",
+---    "close (7)",
+---    "punct (8)",
+---    "inner (9)",
+---    "under (10)",
+---    "over (11)",
+---    "vcenter (12)",
+---  },
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "nucleus (4)",
+---    "sub (5)",
+---    "sup (6)",
+---  },
+---})
+---```
 ---
 ---__Reference:__
 ---
@@ -1311,6 +1621,35 @@ _N.accent = 21
 ---|2 # fixedbottom
 ---|3 # fixedboth
 
+---
+---__Example:__
+---
+---```lua
+---assert.node_type("accent", nil, {
+---  id = "accent (21)",
+---  subtypes = {
+---    "bothflexible (0)",
+---    "fixedtop (1)",
+---    "fixedbottom (2)",
+---    "fixedboth (3)",
+---  },
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "nucleus (4)",
+---    "sub (5)",
+---    "sup (6)",
+---    "accent (7)",
+---    "bot_accent (8)",
+---    "top_accent (9)",
+---    "overlay_accent (10)",
+---    "fraction (11)",
+---  },
+---})
+---```
 ---
 ---__Reference:__
 ---
