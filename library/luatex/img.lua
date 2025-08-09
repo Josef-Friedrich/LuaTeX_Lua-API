@@ -33,7 +33,7 @@ _N._11_1_1_new = "page 225"
 
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/img.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
----@class Image
+---@class luatex.img.Image
 ---@field attr string # the image attributes for *LuaTeX*
 ---@field bbox table # table with 4 boundingbox dimensions `llx`, `lly`, `urx` and `ury` overruling the `pagebox` entry
 ---@field colordepth number # the number of bits used by the color space
@@ -126,9 +126,9 @@ _N._11_1_1_new = "page 225"
 ---
 ---* Corresponding C source code: [limglib.c#L75-L102](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L75-L102)
 ---
----@param image_spec? ImageSpec
+---@param image_spec? luatex.img.ImageSpec
 ---
----@return Image
+---@return luatex.img.Image
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/img.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function img.new(image_spec) end
@@ -139,7 +139,7 @@ _N._11_1_2_fields = "page 226"
 ---__Reference:__
 ---
 ---* Corresponding C source code: [limglib.c#L301-L304](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L301-L304)
----@return ImageSpec keys
+---@return luatex.img.ImageSpec keys
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/img.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function img.fields() end
@@ -162,7 +162,7 @@ function img.keys() end
 ---* Corresponding C source code: [luatex-api.h#L506-L532](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/luatex-api.h#L506-L532)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/img.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
----@class ImageSpec
+---@class luatex.img.ImageSpec
 ---@field attr? string # the image attributes for *LuaTeX*
 ---@field bbox? table # table with 4 boundingbox dimensions `llx`, `lly`, `urx` and `ury` overruling the `pagebox` entry
 ---@field colordepth? number # the number of bits used by the color space
@@ -221,9 +221,9 @@ _N._11_1_3_scan = "page 227"
 ---
 ---* Corresponding C source code: [limglib.c#L145-L157](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L145-L157)
 ---
----@param image Image|ImageSpec
+---@param image luatex.img.Image|luatex.img.ImageSpec
 ---
----@return Image
+---@return luatex.img.Image
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/img.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function img.scan(image) end
@@ -243,9 +243,9 @@ _N._11_1_4_copy = "page 230"
 ---
 ---* Corresponding C source code: [limglib.c#L104-L114](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L104-L114)
 ---
----@param image Image|ImageSpec
+---@param image luatex.img.Image|luatex.img.ImageSpec
 ---
----@return Image
+---@return luatex.img.Image
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/img.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function img.copy(image) end
@@ -273,9 +273,9 @@ _N._11_1_5_write_immediatewrite_immediatewriteobject = "page 228"
 ---
 ---* Corresponding C source code: [limglib.c#L267-L271](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L267-L271)
 ---
----@param image Image|ImageSpec
+---@param image luatex.img.Image|luatex.img.ImageSpec
 ---
----@return Image
+---@return luatex.img.Image
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/img.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function img.write(image) end
@@ -304,9 +304,9 @@ function img.write(image) end
 ---
 ---* Corresponding C source code: [limglib.c#L273-L282](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L273-L282)
 ---
----@param image Image|ImageSpec
+---@param image luatex.img.Image|luatex.img.ImageSpec
 ---
----@return Image
+---@return luatex.img.Image
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/img.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function img.immediatewrite(image) end
@@ -321,10 +321,10 @@ function img.immediatewrite(image) end
 ---
 ---* Corresponding C source code: [limglib.c#L284-L293](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L284-L293)
 ---
----@param image Image|ImageSpec
+---@param image luatex.img.Image|luatex.img.ImageSpec
 ---@param objnum integer
 ---
----@return Image
+---@return luatex.img.Image
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/img.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function img.immediatewriteobject(image, objnum) end
@@ -353,7 +353,7 @@ _N._11_1_6_node = "page 229"
 ---
 ---* Corresponding C source code: [limglib.c#L295-L299](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L295-L299)
 ---
----@param image Image|ImageSpec
+---@param image luatex.img.Image|luatex.img.ImageSpec
 ---
 ---@return Node
 ---
@@ -364,7 +364,7 @@ _N._11_1_7_types = "page 229"
 
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/img.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
----@alias ImgType `pdf` | `png` | `jpg` | `jp2` | `jbig2`
+---@alias luatex.img.ImgType `pdf` | `png` | `jpg` | `jp2` | `jbig2`
 
 ---
 ---Return a list with the supported image file type names, currently
@@ -379,7 +379,7 @@ _N._11_1_7_types = "page 229"
 ---
 ---* Corresponding C source code: [limglib.c#L306-L309](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L306-L309)
 ---
----@return ImgType[]
+---@return luatex.img.ImgType[]
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/img.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function img.types() end
@@ -392,7 +392,7 @@ _N._11_1_8_boxes = "page 229"
 ---* Corresponding C source code: [luatex-api.h#L534-L540](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/luatex-api.h#L534-L540)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/img.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
----@alias ImgBox `media` | `crop` | `bleed` | `trim` | `art`
+---@alias luatex.img.ImgBox `media` | `crop` | `bleed` | `trim` | `art`
 
 ---
 ---Return a list with the supported *PDF* page box names, currently
@@ -406,7 +406,7 @@ _N._11_1_8_boxes = "page 229"
 ---
 ---* Corresponding C source code: [limglib.c#L311-L314](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/limglib.c#L311-L314)
 ---
----@return ImgBox[]
+---@return luatex.img.ImgBox[]
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/img.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function img.boxes() end
