@@ -44,6 +44,12 @@ lua_doc_generator_test:
 lua_doc_generator:
 	cd doc-generators/lua; lua doc-generator.lua
 
+export VIRTUAL_ENV = /opt/venvs/mkdocs
+mkdocs_install:
+	sudo rm -rf /opt/venvs/mkdocs
+	sudo /home/jf/.local/bin/uv venv /opt/venvs/mkdocs
+	sudo chown -R jf:jf /opt/venvs/mkdocs
+	/home/jf/.local/bin/uv pip install mkdocs mkdocs-material
 
 mkdocs_luatex:
 	cd dist/docs/luatex; mkdocs serve
