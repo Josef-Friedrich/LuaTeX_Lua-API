@@ -880,6 +880,9 @@ def _generate_markdown_docs(subproject: Subproject, commit_id: str) -> None:
 
     mkdocs_yml = dest / "mkdocs.yml"
 
+    _replace(mkdocs_yml, "text: Roboto", "text: DejaVu Serif")
+    _replace(mkdocs_yml, "code: Roboto Mono", "code: DejaVu Sans Mono")
+
     # css
 
     css = dest / "docs" / "stylesheets" / "extra.css"
@@ -1022,7 +1025,7 @@ def rewrap(path: str) -> None:
     rewrapped = "\n\n".join(
         "\n".join(textwrap.wrap(paragraph, width=77)) for paragraph in paragraphs
     )
-    lines: list[str] = []
+    lines = []
     for line in rewrapped.splitlines():
         lines.append('---' + line)
     print("\n".join(lines))
