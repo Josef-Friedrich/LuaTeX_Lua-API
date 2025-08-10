@@ -813,75 +813,23 @@ def _push_into_downstream_submodule(subproject: Subproject, commit_id: str) -> N
     )
 
 
-def _replace(path: Path, search: str, replace: str) -> str:
-    """
-    Replace all occurrences of 'search' with 'replace' in the file at 'path'.
-
-    Args:
-        path: The path to the file to modify.
-        search: The substring to search for.
-        replace: The string to replace with.
-
-    Returns:
-        The updated file content as a string.
-    """
-    content = path.read_text()
-    updated = content.replace(search, replace)
-    path.write_text(updated)
-    return updated
-
-
-def _replace_line(path: Path, search: str, new_line: str) -> None:
-    """
-    Replaces lines in a file that contain a specific search string with a new line.
-
-    Args:
-        path: The path to the file to be modified.
-        search: The substring to search for in each line.
-        new_line: The line to replace any matching lines with.
-
-    Returns:
-        None
-
-    Note:
-        If the file does not exist, the function does nothing.
-    """
-    if path.exists():
-        lines: list[str] = path.read_text().splitlines()
-        new_lines: list[str] = []
-        for old_line in lines:
-            if search in old_line:
-                new_lines.append(new_line)
-            else:
-                new_lines.append(old_line)
-        path.write_text("\n".join(new_lines) + "\n")
-
-
-def _append_text(path: Path, text: str) -> None:
-    """
-    Appends the given text to the end of the file at the specified path.
-
-    Args:
-        path: The path to the file to which the text will be appended.
-        text: The text to append to the file.
-
-    Raises:
-        OSError: If there is an error reading from or writing to the file.
-    """
-    path.write_text(path.read_text() + text)
-
-
 def _generate_markdown_docs(subproject: Subproject, commit_id: str) -> None:
-    src = project_base_path / "dist" / "library" / subproject
-    dest = project_base_path / "dist" / "docs" / subproject
-    subprocess.check_call(["emmylua_doc", src, "--output", dest])
-
     subproject_title = subprojects_dict[subproject]
 
-    mkdocs_yml = dest / "mkdocs.yml"
-
-    _replace(mkdocs_yml, "text: Roboto", "text: DejaVu Serif")
-    _replace(mkdocs_yml, "code: Roboto Mono", "code: DejaVu Sans Mono")
+    src = project_base_path / "dist" / "library" / subproject
+    dest = project_base_path / "dist" / "docs" / subproject
+    subprocess.check_call(
+        [
+            "emmylua_doc",
+            src,
+            "--override-template",
+            project_base_path / "resources" / "emmylua-templates",
+            "--site-name",
+            subproject_title,
+            "--output",
+            dest,
+        ]
+    )
 
     # css
 
@@ -897,16 +845,7 @@ def _generate_markdown_docs(subproject: Subproject, commit_id: str) -> None:
 """
     )
 
-    _append_text(
-        mkdocs_yml,
-        """
-extra_css:
-  - stylesheets/extra.css
-""",
-    )
-
     # logo
-
     # https://squidfunk.github.io/mkdocs-material/setup/changing-the-logo-and-icons/#logo
     logo_src = (
         project_base_path / "resources" / "images" / "logos" / (subproject + ".svg")
@@ -915,26 +854,6 @@ extra_css:
         logo_dest = dest / "docs" / "assets" / "logo.svg"
         logo_dest.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(logo_src, logo_dest)
-        mkdocs_yml.read_text()
-        _replace(mkdocs_yml, "\ntheme:\n", "\ntheme:\n  logo: assets/logo.svg\n")
-
-    # syntax highlighting
-
-    _append_text(
-        mkdocs_yml,
-        """
-markdown_extensions:
-  - pymdownx.highlight:
-      anchor_linenums: true
-      line_spans: __span
-      pygments_lang_class: true
-  - pymdownx.inlinehilite
-  - pymdownx.snippets
-  - pymdownx.superfences
-""",
-    )
-
-    _replace_line(mkdocs_yml, "site_name: ", f"site_name: {subproject_title}")
 
     subprocess.check_call(["mkdocs", "build"], cwd=dest)
 
@@ -1003,7 +922,7 @@ def rewrap(path: str) -> None:
     abspath = Path(path).resolve()
     lines: list[str] = []
     for line in abspath.read_text().splitlines():
-        if line.startswith('---'):
+        if line.startswith("---"):
             line = line[3:]
         else:
             line = ""
@@ -1027,7 +946,7 @@ def rewrap(path: str) -> None:
     )
     lines = []
     for line in rewrapped.splitlines():
-        lines.append('---' + line)
+        lines.append("---" + line)
     print("\n".join(lines))
 
 

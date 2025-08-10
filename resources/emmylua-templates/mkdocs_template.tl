@@ -7,8 +7,9 @@ site_name: Docs
 theme:
   name: material
   font:
-    text: Roboto
-    code: Roboto Mono
+    text: DejaVu Serif
+    code: DejaVu Sans Mono
+  logo: assets/logo.svg
   search: true
   features:
     - quick-links
@@ -48,3 +49,15 @@ nav:
   {% endif %}
 extra:
   footer: ""
+
+extra_css:
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
