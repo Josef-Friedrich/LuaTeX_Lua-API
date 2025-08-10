@@ -755,6 +755,7 @@ markdown_extensions:
 * David Bausum. “TeX Reference Manual” (2002) [](https://www.tug.org/utilities/plain/cseq.html)
 * Donald Ervin Knuth. “TeX: The Program”: section 141, page 42 [tex.pdf](https://mirrors.ctan.org/info/knuth-pdf/tex/tex.pdf)
 * Corresponding fontforge C source code: [github.com/fontforge/fontforge](https://github.com/fontforge/fontforge)
+* Hàn Thế  Thành and others. The pdfTEX user manual, pdfTEX 1.40.27, February 12, 2025 [pdftex-a.pdf](http://mirrors.ctan.org/systems/doc/pdftex/manual/pdftex-a.pdf)
 
 ```lua
 ---

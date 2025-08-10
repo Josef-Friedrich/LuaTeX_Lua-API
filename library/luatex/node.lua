@@ -378,7 +378,7 @@ _N.Node = true
 ---@field attr Node # A list of attributes.. almost all nodes also have an `attr` field
 
 _N.hlist = 0
-_N._8_2_1_hlist_nodes = "page "
+_N._8_2_1_hlist_nodes = "page 132"
 
 ---
 ---__Reference:__
@@ -510,7 +510,7 @@ _N._8_2_1_hlist_nodes = "page "
 ---@field subtype HlistNodeSubtype
 
 _N.vlist = 1
-_N._8_2_2_vlist_nodes = "page "
+_N._8_2_2_vlist_nodes = "page 132"
 
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
@@ -586,7 +586,7 @@ _N._8_2_2_vlist_nodes = "page "
 ---@field subtype VlistNodeSubtype
 
 _N.rule = 2
-_N._8_2_3_rule_nodes = "page "
+_N._8_2_3_rule_nodes = "page 132"
 
 ---
 ---__Reference:__
@@ -680,7 +680,7 @@ _N._8_2_3_rule_nodes = "page "
 ---@field transform integer # an private variable (also used to specify outline width)
 
 _N.ins = 3
-_N._8_2_4_ins_nodes = "page "
+_N._8_2_4_ins_nodes = "page 133"
 
 ---
 ---Insertions are represented by ins node records, where the subtype indicates the corresponding box number.
@@ -721,7 +721,7 @@ _N._8_2_4_ins_nodes = "page "
 ---@field list Node # the first node of the body of this insert
 
 _N.mark = 4
-_N._8_2_5_mark_nodes = "page "
+_N._8_2_5_mark_nodes = "page 133"
 
 ---
 ---A mark node has a mark field that points a token list that contains the user’s `\mark` text.
@@ -756,7 +756,7 @@ _N._8_2_5_mark_nodes = "page "
 ---@field mark table # a table representing a token list
 
 _N.adjust = 5
-_N._8_2_6_adjust_nodes = "page "
+_N._8_2_6_adjust_nodes = "page 134"
 
 ---
 ---__Reference:__
@@ -801,7 +801,7 @@ _N._8_2_6_adjust_nodes = "page "
 ---@field list Node # adjusted material
 
 _N.disc = 7
-_N._8_2_7_disc_nodes = "page "
+_N._8_2_7_disc_nodes = "page 134"
 
 ---
 ---__Reference:__
@@ -866,7 +866,7 @@ _N._8_2_7_disc_nodes = "page "
 ---@field penalty integer # The penalty associated with the break, normally `hyphenpenalty` or `exhyphenpenalty`.
 
 _N.math = 11
-_N._8_2_8_math_nodes = "page "
+_N._8_2_8_math_nodes = "page 134"
 
 ---
 ---__Reference:__
@@ -915,7 +915,7 @@ _N._8_2_8_math_nodes = "page "
 ---@field surround integer # The width of the `\mathsurround` kern.
 
 _N.glue_spec = 39
-_N._8_2_9_glue_nodes = "page "
+_N._8_2_9_glue_nodes = "page 135"
 
 ---
 ---Skips are about the only type of data objects in traditional *TeX* that are not a
@@ -1095,7 +1095,7 @@ function node.effective_glue(glue, parent, round) end
 function node.direct.effective_glue(d, parent, round) end
 
 _N.kern = 13
-_N._8_2_10_kern_nodes = "page "
+_N._8_2_10_kern_nodes = "page 136"
 
 ---
 ---__Reference:__
@@ -1146,7 +1146,7 @@ _N._8_2_10_kern_nodes = "page "
 ---@field kern integer # Fixed horizontal or vertical advance (in scaled points)
 
 _N.penalty = 14
-_N._8_2_11_penalty_nodes = "page "
+_N._8_2_11_penalty_nodes = "page 136"
 
 ---
 ---__Reference:__
@@ -1204,7 +1204,7 @@ _N._8_2_11_penalty_nodes = "page "
 ---@field penalty integer # the penalty value
 
 _N.glyph = 29
-_N._8_2_12_glyph_nodes = "page "
+_N._8_2_12_glyph_nodes = "page 136"
 
 ---
 ---__Reference:__
@@ -1311,7 +1311,7 @@ function node.uses_font(n, font) end
 function node.direct.uses_font(d, font) end
 
 _N.boundary = 6
-_N._8_2_13_boundary_nodes = "page "
+_N._8_2_13_boundary_nodes = "page 138"
 
 ---
 ---__Reference:__
@@ -1354,7 +1354,7 @@ _N._8_2_13_boundary_nodes = "page "
 ---@field value integer # values 0-255 are reserved
 
 _N.local_par = 9
-_N._8_2_14_local_par_nodes = "page "
+_N._8_2_14_local_par_nodes = "page 138"
 
 ---
 ---__Example:__
@@ -1395,7 +1395,7 @@ _N._8_2_14_local_par_nodes = "page "
 ---@field box_right_width integer # width of the `localrightbox`
 
 _N.dir = 10
-_N._8_2_15_dir_nodes = "page "
+_N._8_2_15_dir_nodes = "page 138"
 
 ---
 ---Direction specifiers are three-letter combinations of `T`, `B`,
@@ -1439,7 +1439,7 @@ _N._8_2_15_dir_nodes = "page "
 ---@field level integer # nesting level of this direction whatsit
 
 _N.margin_kern = 28
-_N._8_2_16_marginkern_nodes = "page "
+_N._8_2_16_marginkern_nodes = "page 139"
 
 ---
 ---__Reference:__
@@ -1482,11 +1482,11 @@ _N._8_2_16_marginkern_nodes = "page "
 ---@field width integer # the advance of the kern
 ---@field glyph Node # the glyph to be used
 
-_N._8_3_Math_noads = "page "
-_N._8_3_1_Math_kernel_subnodes = "page "
+_N._8_3_Math_noads = "page 139"
+_N._8_3_1_Math_kernel_subnodes = "page 139"
 
 _N.math_char = 23
-_N._8_3_2_math_char_and_math_text_char_subnodes = "page "
+_N._8_3_2_math_char_and_math_text_char_subnodes = "page 139"
 
 ---
 ---The `math_char` is the simplest subnode field, it contains the character
@@ -1554,7 +1554,7 @@ _N.math_text_char = 26
 ---@field fam integer # The family number.
 
 _N.sub_box = 24
-_N._8_3_3_sub_box_and_sub_mlist_subnodes = "page "
+_N._8_3_3_sub_box_and_sub_mlist_subnodes = "page 139"
 
 ---
 ---For subsidiary list items
@@ -1615,7 +1615,7 @@ _N.sub_mlist = 25
 ---@field head Node # A list of nodes. `head` points to a math list that is yet to be converted.
 
 _N.delim = 27
-_N._8_3_4_delim_subnodes = "page "
+_N._8_3_4_delim_subnodes = "page 140"
 
 ---
 ---There is a fifth subnode type that is used exclusively for delimiter fields. As
@@ -1656,10 +1656,10 @@ _N._8_3_4_delim_subnodes = "page "
 ---@field large_char integer # character index of next larger character
 ---@field large_fam integer # family number of next larger character
 
-_N._8_3_5_Math_core_nodes = "page "
+_N._8_3_5_Math_core_nodes = "page 140"
 
 _N.noad = 18
-_N._8_3_6_simple_noad_nodes = "page "
+_N._8_3_6_simple_noad_nodes = "page 141"
 
 ---
 ---__Reference:__
@@ -1752,7 +1752,7 @@ _N._8_3_6_simple_noad_nodes = "page "
 ---@field options integer # bitset of rendering options
 
 _N.accent = 21
-_N._8_3_7_accent_nodes = "page "
+_N._8_3_7_accent_nodes = "page 141"
 
 ---
 ---__Reference:__
@@ -1814,7 +1814,7 @@ _N._8_3_7_accent_nodes = "page "
 ---@field fraction integer # larger step criterium (divided by 1000)
 
 _N.style = 16
-_N._8_3_8_style_nodes = "page "
+_N._8_3_8_style_nodes = "page 141"
 
 ---
 ---__Example:__
@@ -1843,7 +1843,7 @@ _N._8_3_8_style_nodes = "page "
 ---@field style string # contains the style
 
 _N.choice = 17
-_N._8_3_9_choice_nodes = "page "
+_N._8_3_9_choice_nodes = "page 141"
 
 ---
 ---Warning: never assign a node list to the `display`, `text`, `script`, or `scriptscript` field unless you are sure its internal link
@@ -1881,7 +1881,7 @@ _N._8_3_9_choice_nodes = "page "
 ---@field scriptscript Node # list of scriptscriptsize alternatives
 
 _N.radical = 19
-_N._8_3_10_radical_nodes = "page "
+_N._8_3_10_radical_nodes = "page 142"
 
 ---
 ---__Reference:__
@@ -1950,7 +1950,7 @@ _N._8_3_10_radical_nodes = "page "
 ---@field options integer # bitset of rendering options
 
 _N.fraction = 20
-_N._8_3_11_fraction_nodes = "page "
+_N._8_3_11_fraction_nodes = "page 142"
 
 ---
 ---Warning: never assign a node list to the `num`, or `denom` field
@@ -1997,7 +1997,7 @@ _N._8_3_11_fraction_nodes = "page "
 ---
 
 _N.fence = 22
-_N._8_3_12_fence_nodes = "page "
+_N._8_3_12_fence_nodes = "page 142"
 
 ---
 ---__Reference:__
@@ -2053,7 +2053,7 @@ _N._8_3_12_fence_nodes = "page "
 ---@field options integer # bitset of rendering options
 ---@field class integer # spacing related class
 
-_N._8_4_Front_end_whatsits = "page "
+_N._8_4_Front_end_whatsits = "page 143"
 
 _N.whatsit = 8
 
@@ -2141,7 +2141,7 @@ _N._whatsit = {}
 ---@class WhatsitNode: Node
 
 _N._whatsit.open = 0
-_N._8_4_1_open = "page "
+_N._8_4_1_open = "page 143"
 
 ---
 ---__Example:__
@@ -2173,7 +2173,7 @@ _N._8_4_1_open = "page "
 ---@field area string # file area (this may become obsolete)
 
 _N._whatsit.write = 1
-_N._8_4_2_write = "page "
+_N._8_4_2_write = "page 143"
 
 ---
 ---__Example:__
@@ -2201,7 +2201,7 @@ _N._8_4_2_write = "page "
 ---@field data table # a table representing the token list to be written
 
 _N._whatsit.close = 2
-_N._8_4_3_close = "page "
+_N._8_4_3_close = "page 143"
 
 ---
 ---__Example:__
@@ -2231,7 +2231,7 @@ _N._8_4_3_close = "page "
 ---@field stream integer # *TeX*'s stream id number
 
 _N._whatsit.user_defined = 8
-_N._8_4_4_user_defined = "page "
+_N._8_4_4_user_defined = "page 143"
 
 ---
 ---User-defined whatsit nodes can only be created and handled from *Lua* code. In
@@ -2268,7 +2268,7 @@ _N._8_4_4_user_defined = "page "
 ---@field value number|Node|string|table
 
 _N._whatsit.save_pos = 6
-_N._8_4_5_save_pos = "page "
+_N._8_4_5_save_pos = "page 144"
 
 ---
 ---__Example:__
@@ -2286,7 +2286,7 @@ _N._8_4_5_save_pos = "page "
 ---@field attr Node # A list of attributes.
 
 _N._whatsit.late_lua = 8
-_N._8_4_6_late_lua = "page "
+_N._8_4_6_late_lua = "page 144"
 
 ---
 ---The difference between `data` and `string` is that on assignment, the
@@ -2327,9 +2327,9 @@ _N._8_4_6_late_lua = "page "
 ---@field token string # the to be written information stored as token list
 ---@field name string # the name to use for *Lua* error reporting
 
-_N._8_5_DVI_backend_whatsits = "page "
+_N._8_5_DVI_backend_whatsits = "page 144"
 _N._whatsit.special = 3
-_N._8_5_1_special = "page "
+_N._8_5_1_special = "page 144"
 
 ---
 ---There is only one DVI backend whatsit, and it just flushes its content to the
@@ -2357,10 +2357,10 @@ _N._8_5_1_special = "page "
 ---@field attr Node # A list of attributes.
 ---@field data string # the `special` information
 
-_N._8_6_PDF_backend_whatsits = "page "
+_N._8_6_PDF_backend_whatsits = "page 145"
 
 _N._whatsit.pdf_literal = 16
-_N._8_6_1_pdf_literal_and_pdf_late_literal = "page "
+_N._8_6_1_pdf_literal_and_pdf_late_literal = "page 145"
 
 ---
 ---__Reference:__
@@ -2412,7 +2412,7 @@ _N._8_6_1_pdf_literal_and_pdf_late_literal = "page "
 ---@field token string # the to be written information stored as token list
 
 _N._whatsit.pdf_refobj = 18
-_N._8_6_2_pdf_refobj = "page "
+_N._8_6_2_pdf_refobj = "page 145"
 
 ---
 ---__Example:__
@@ -2438,7 +2438,7 @@ _N._8_6_2_pdf_refobj = "page "
 ---@field objnum integer # the referenced *PDF* object number
 
 _N._whatsit.pdf_annot = 19
-_N._8_6_3_pdf_annot = "page "
+_N._8_6_3_pdf_annot = "page 145"
 
 ---
 ---__Example:__
@@ -2472,7 +2472,7 @@ _N._8_6_3_pdf_annot = "page "
 ---@field data string # the annotation data
 
 _N._whatsit.pdf_start_link = 20
-_N._8_6_4_pdf_start_link = "page "
+_N._8_6_4_pdf_start_link = "page 145"
 
 ---
 ---__Example:__
@@ -2508,7 +2508,7 @@ _N._8_6_4_pdf_start_link = "page "
 ---@field action Node # the action to perform
 
 _N._whatsit.pdf_end_link = 20
-_N._8_6_5_pdf_end_link = "page "
+_N._8_6_5_pdf_end_link = "page 146"
 
 ---
 ---__Example:__
@@ -2526,7 +2526,7 @@ _N._8_6_5_pdf_end_link = "page "
 ---@field attr Node # A list of attributes.
 
 _N._whatsit.pdf_dest = 21
-_N._8_6_6_pdf_dest = "page "
+_N._8_6_6_pdf_dest = "page 146"
 
 ---
 ---__Example:__
@@ -2566,7 +2566,7 @@ _N._8_6_6_pdf_dest = "page "
 ---@field objnum integer # the *PDF* object number; for structure references the *PDF* object number of the linked structure element
 
 _N._whatsit.pdf_action = 22
-_N._8_6_7_pdf_action = "page 142"
+_N._8_6_7_pdf_action = "page 146"
 
 ---
 ---__Reference:__
@@ -2628,9 +2628,14 @@ _N._8_6_7_pdf_action = "page 142"
 ---@field struct_id nil|integer|string # `nil`: the action does not reference a structure; `integer`: id of the referenced structure; `string`: name of the referenced structure destination
 ---@field data string # the name of the destination
 
-_N._8_6_8_pdf_thread = "page "
+_N._8_6_8_pdf_thread = "page 147"
 _N._whatsit.pdf_thread = 23
 
+---
+---`\pdfthread [ ⟨rule spec⟩ ] [ ⟨attr spec⟩ ] ⟨id spec⟩ (h, v, m)`
+---
+---Defines a bead within an article thread. Thread beads with same identifiers (spread across the
+---document) will be joined together.
 ---
 ---__Example:__
 ---
@@ -2657,6 +2662,7 @@ _N._whatsit.pdf_thread = 23
 ---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L1185-L1192](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L1185-L1192)
+---* Hàn Thế  Thành and others. The pdfTEX user manual, pdfTEX 1.40.27, February 12, 2025, page 51 [pdftex-a.pdf](http://mirrors.ctan.org/systems/doc/pdftex/manual/pdftex-a.pdf)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PdfThreadWhatsitNode
@@ -2668,9 +2674,20 @@ _N._whatsit.pdf_thread = 23
 ---@field tread_id integer # the thread id  string  the thread name
 ---@field thread_attr integer # extra thread information
 
-_N._8_6_9_pdf_start_thread = "page "
+_N._8_6_9_pdf_start_thread = "page 147"
 _N._whatsit.pdf_start_thread = 24
 
+---
+---
+---`\pdftstartthread [ ⟨rule spec⟩ ] [ ⟨attr spec⟩ ] ⟨id spec⟩ (v, m)`
+---
+---This uses the same syntax as `\pdfthread`, apart that it must be followed by a `\pdfendthread`.
+---`\pdfstartthread` and the corresponding `\pdfendthread` must end up in vboxes with the same
+---nesting level; all vboxes between them will be added into the thread.
+---In the output routine, if there are other newly created boxes which have the same nesting level
+---as the vbox(es) containing `\pdfstartthread` and `\pdfendthread`, they will be also added into the
+---thread, which is probably not what you want. To avoid such undesired behavior, it’s often enough
+---to wrap boxes that shouldn’t belong to the thread by a box to change their box nesting level.
 ---
 ---__Example:__
 ---
@@ -2697,6 +2714,7 @@ _N._whatsit.pdf_start_thread = 24
 ---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L1176-L1183](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L1176-L1183)
+---* Hàn Thế  Thành and others. The pdfTEX user manual, pdfTEX 1.40.27, February 12, 2025, page 51 [pdftex-a.pdf](http://mirrors.ctan.org/systems/doc/pdftex/manual/pdftex-a.pdf)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PdfStartThreadWhatsitNode
@@ -2709,8 +2727,12 @@ _N._whatsit.pdf_start_thread = 24
 ---@field thread_attr integer # extra thread information
 
 _N._whatsit.pdf_end_thread = 25
-_N._8_6_10_pdf_end_thread = "page "
+_N._8_6_10_pdf_end_thread = "page 147"
 
+---
+---`\pdfendthread (v, m)`
+---
+---This ends an article thread started before by `\pdfstartthread`.
 ---
 ---__Example:__
 ---
@@ -2725,13 +2747,14 @@ _N._8_6_10_pdf_end_thread = "page "
 ---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L1145-L1146](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L1145-L1146)
+---* Hàn Thế  Thành and others. The pdfTEX user manual, pdfTEX 1.40.27, February 12, 2025, page 51 [pdftex-a.pdf](http://mirrors.ctan.org/systems/doc/pdftex/manual/pdftex-a.pdf)
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PdfEndThreadWhatsitNode
 ---@field attr Node # A list of attributes.
 
 _N._whatsit.pdf_colorstack = 28
-_N._8_6_11_pdf_colorstack = "page "
+_N._8_6_11_pdf_colorstack = "page 147"
 
 ---
 ---From the pdfTeX manual:
@@ -2776,7 +2799,7 @@ _N._8_6_11_pdf_colorstack = "page "
 ---@field data string # General text that is placed on top of the stack, for example `1 0 0 rg 1 0 0 RG`. `rg` only colors filled outlines while the stroke color is set with `RG`. From the [PDF Reference, fourth edition](https://opensource.adobe.com/dc-acrobat-sdk-docs/pdfstandards/pdfreference1.5_v6.pdf), 4.5.7 Color Operators Page 251: `gray G`: Set the stroking color space to DeviceGray. `gray` is a number between 0.0 (black) and 1.0 (white). `gray g`: Same as `G`, but for nonstroking operations. `r g b RG`: Set the stroking color space to DeviceRGB. Each operand must be a number between 0.0 (minimum intensity) and 1.0 (maximum intensity). `r g b rg`: same as `RG`, but for nonstroking operations. `c m y k K`: Set the stroking color space to DeviceCMYK. Each operand must be a number between 0.0 (zero concentration) and 1.0 (maximum concentration). `c m y k k`: Same as `K`, but for nonstroking operations.
 
 _N._whatsit.pdf_setmatrix = 30
-_N._8_6_12_pdf_setmatrix = "page "
+_N._8_6_12_pdf_setmatrix = "page 148"
 
 ---
 ---__Example:__
@@ -2802,7 +2825,7 @@ _N._8_6_12_pdf_setmatrix = "page "
 ---@field data string # data
 
 _N._whatsit.pdf_save = 30
-_N._8_6_13_pdf_save = "page "
+_N._8_6_13_pdf_save = "page 148"
 
 ---
 ---__Example:__
@@ -2820,7 +2843,7 @@ _N._8_6_13_pdf_save = "page "
 ---@field attr Node # A list of attributes.
 
 _N._whatsit.pdf_restore = 31
-_N._8_6_14_pdf_restore = "page "
+_N._8_6_14_pdf_restore = "page 148"
 
 ---
 ---__Example:__
