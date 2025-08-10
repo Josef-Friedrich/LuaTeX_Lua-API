@@ -816,6 +816,8 @@ def _push_into_downstream_submodule(subproject: Subproject, commit_id: str) -> N
 def _generate_markdown_docs(subproject: Subproject, commit_id: str) -> None:
     subproject_title = subprojects_dict[subproject]
 
+    resources = project_base_path / "resources" / "html-docs"
+
     src = project_base_path / "dist" / "library" / subproject
     dest = project_base_path / "dist" / "docs" / subproject
     subprocess.check_call(
@@ -832,28 +834,23 @@ def _generate_markdown_docs(subproject: Subproject, commit_id: str) -> None:
     )
 
     # css
-
-    css = dest / "docs" / "stylesheets" / "extra.css"
-    css.parent.mkdir(parents=True, exist_ok=True)
-    css.touch(exist_ok=True)
-    css.write_text(
-        """
-.md-header {
-  /* \\definecolor[othercolor][r=.5,g=.5] https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/4f2b914d365bab8a2747afe6e8c86d0f1c8475f7/manual/luatex-style.tex#L114 */
-  background-color: #808000;
-}
-"""
+    shutil.copyfile(
+        resources / "extra.css", dest / "docs" / "stylesheets" / "extra.css"
     )
 
     # logo
     # https://squidfunk.github.io/mkdocs-material/setup/changing-the-logo-and-icons/#logo
-    logo_src = (
-        project_base_path / "resources" / "images" / "logos" / (subproject + ".svg")
-    )
+    logo_src = resources / "images" / "logos" / (subproject + ".svg")
     if logo_src.exists():
         logo_dest = dest / "docs" / "assets" / "logo.svg"
         logo_dest.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(logo_src, logo_dest)
+
+    _copy_directory(
+        resources / "webfonts" / "DejaVu",
+        dest / "docs" / "assets" / "fonts",
+        delete_dest=False,
+    )
 
     subprocess.check_call(["mkdocs", "build"], cwd=dest)
 
