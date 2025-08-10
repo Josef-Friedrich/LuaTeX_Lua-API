@@ -825,7 +825,7 @@ def _generate_markdown_docs(subproject: Subproject, commit_id: str) -> None:
             "emmylua_doc",
             src,
             "--override-template",
-            project_base_path / "resources" / "emmylua-templates",
+            resources / "emmylua-templates",
             "--site-name",
             subproject_title,
             "--output",
