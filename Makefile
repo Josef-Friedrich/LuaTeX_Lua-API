@@ -29,7 +29,12 @@ print_namespace:
 
 .PHONY: rust_doc_generator
 rust_doc_generator: dist
-	/usr/local/bin/emmylua_doc dist/luatex --output dist-doc/luatex
+	/usr/local/bin/emmylua_doc dist/library/luatex --output dist/docs/luatex
+
+rust_doc_generator_luatex:
+	/usr/local/bin/emmylua_doc dist/library/luatex \
+	--output dist/docs/luatex \
+	--override-template resources/emmylua-templates
 
 .PHONY: rust_doc_generator_install
 rust_doc_generator_install:
