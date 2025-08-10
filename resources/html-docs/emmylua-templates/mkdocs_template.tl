@@ -6,9 +6,7 @@ site_name: Docs
 
 theme:
   name: material
-  font:
-    text: DejaVu Serif
-    code: DejaVu Sans Mono
+  font: false
   logo: assets/logo.svg
   search: true
   features:
