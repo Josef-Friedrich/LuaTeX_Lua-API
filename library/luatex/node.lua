@@ -2248,7 +2248,7 @@ _N._whatsit.pdf_literal = 16
 ---@field data string # the to be written information stored as *Lua* string
 ---@field token string # the to be written information stored as token list
 
-_N._whatsit.pdf_refobj = 17
+_N._whatsit.pdf_refobj = 18
 
 ---
 ---__Example:__
@@ -2273,7 +2273,7 @@ _N._whatsit.pdf_refobj = 17
 ---@field attr Node # A list of attributes.
 ---@field objnum integer # the referenced *PDF* object number
 
-_N._whatsit.pdf_annot = 18
+_N._whatsit.pdf_annot = 19
 
 ---
 ---__Example:__
@@ -2306,7 +2306,7 @@ _N._whatsit.pdf_annot = 18
 ---@field objnum integer # the referenced *PDF* object number
 ---@field data string # the annotation data
 
-_N._whatsit.pdf_start_link = 19
+_N._whatsit.pdf_start_link = 20
 
 ---
 ---__Example:__
@@ -2502,6 +2502,28 @@ _N._whatsit.pdf_thread = 23
 _N._whatsit.pdf_start_thread = 24
 
 ---
+---__Example:__
+---
+---```lua
+---assert.node_type("whatsit", "pdf_start_thread", {
+---  id = "whatsit (8)",
+---  subtype = "pdf_start_thread (25)",
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "width (4)",
+---    "depth (5)",
+---    "height (6)",
+---    "named_id (7)",
+---    "thread_id (8)",
+---    "thread_attr (9)",
+---  },
+---})
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [texnodes.c#L1176-L1183](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/tex/texnodes.c#L1176-L1183)
@@ -2518,6 +2540,16 @@ _N._whatsit.pdf_start_thread = 24
 
 _N._whatsit.pdf_end_thread = 25
 
+---
+---__Example:__
+---
+---```lua
+---assert.node_type("whatsit", "pdf_end_thread", {
+---  id = "whatsit (8)",
+---  subtype = "pdf_end_thread (26)",
+---  fields = { "prev (-1)", "next (0)", "id (1)", "subtype (2)", "attr (3)" },
+---})
+---```
 ---
 ---__Reference:__
 ---
@@ -2541,6 +2573,25 @@ _N._whatsit.pdf_colorstack = 28
 ---without changing the stack size. `current` keyword instructs just to use the current stack value
 ---without modifying the stack at all.
 ---
+---__Example:__
+---
+---```lua
+---assert.node_type("whatsit", "pdf_colorstack", {
+---  id = "whatsit (8)",
+---  subtype = "pdf_colorstack (29)",
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "stack (4)",
+---    "cmd (5)",
+---    "data (6)",
+---  },
+---})
+---```
+---
 ---__Reference:__
 ---
 ---* Source file of the `LuaTeX` manual: [pdftex-t.tex#L3954-L3980](https://github.com/tex-mirror/pdftex/blob/6fb2352aa70a23ad3830f1434613170be3f3cd74/doc/manual/pdftex-t.tex#L3954-L3980)
@@ -2552,8 +2603,23 @@ _N._whatsit.pdf_colorstack = 28
 ---@field command integer # The command to execute. ⟨stack action⟩ → set (0) | push (1) | pop (2) | current (3) [texnodes.c#L3523-L3545](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/6472bd794fea67de09f01e1a89e9b12141be7474/source/texk/web2c/luatexdir/tex/texnodes.c#L3523-L3545)
 ---@field data string # General text that is placed on top of the stack, for example `1 0 0 rg 1 0 0 RG`. `rg` only colors filled outlines while the stroke color is set with `RG`. From the [PDF Reference, fourth edition](https://opensource.adobe.com/dc-acrobat-sdk-docs/pdfstandards/pdfreference1.5_v6.pdf), 4.5.7 Color Operators Page 251: `gray G`: Set the stroking color space to DeviceGray. `gray` is a number between 0.0 (black) and 1.0 (white). `gray g`: Same as `G`, but for nonstroking operations. `r g b RG`: Set the stroking color space to DeviceRGB. Each operand must be a number between 0.0 (minimum intensity) and 1.0 (maximum intensity). `r g b rg`: same as `RG`, but for nonstroking operations. `c m y k K`: Set the stroking color space to DeviceCMYK. Each operand must be a number between 0.0 (zero concentration) and 1.0 (maximum concentration). `c m y k k`: Same as `K`, but for nonstroking operations.
 
-_N._whatsit.pdf_setmatrix = 29
-
+---
+---__Example:__
+---
+---```lua
+---assert.node_type("whatsit", "pdf_setmatrix", {
+---  id = "whatsit (8)",
+---  subtype = "pdf_setmatrix (30)",
+---  fields = {
+---    "prev (-1)",
+---    "next (0)",
+---    "id (1)",
+---    "subtype (2)",
+---    "attr (3)",
+---    "data (4)",
+---  },
+---})
+---```
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PdfSetmatrixWhatsitNode
@@ -2562,6 +2628,16 @@ _N._whatsit.pdf_setmatrix = 29
 
 _N._whatsit.pdf_save = 30
 
+---
+---__Example:__
+---
+---```lua
+---assert.node_type("whatsit", "pdf_save", {
+---  id = "whatsit (8)",
+---  subtype = "pdf_save (31)",
+---  fields = { "prev (-1)", "next (0)", "id (1)", "subtype (2)", "attr (3)" },
+---})
+---```
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 ---@class PdfSaveWhatsitNode
