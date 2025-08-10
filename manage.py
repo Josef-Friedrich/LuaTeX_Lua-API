@@ -11,13 +11,13 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import textwrap
 import unittest
 import urllib.request
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Callable, Literal, Optional, Union, cast
-import textwrap
 
 logging.basicConfig(
     format="%(levelname)s %(message)s",
@@ -820,18 +820,21 @@ def _generate_markdown_docs(subproject: Subproject, commit_id: str) -> None:
 
     src = project_base_path / "dist" / "library" / subproject
     dest = project_base_path / "dist" / "docs" / subproject
-    subprocess.check_call(
-        [
-            "emmylua_doc",
-            src,
-            "--override-template",
-            resources / "emmylua-templates",
-            "--site-name",
-            subproject_title,
-            "--output",
-            dest,
-        ]
-    )
+
+    args: list[str | Path] = [
+        "emmylua_doc",
+        src,
+        "--override-template",
+        resources / "emmylua-templates",
+        "--site-name",
+        subproject_title,
+        "--output",
+        dest,
+    ]
+    readme = project_base_path / "library" / subproject / "README.md"
+    if readme.exists():
+        args.extend(["--mixin", readme])
+    subprocess.check_call(args)
 
     # css
     shutil.copyfile(
