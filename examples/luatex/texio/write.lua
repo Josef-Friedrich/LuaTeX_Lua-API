@@ -1,1 +1,0 @@
-texio.write("test")

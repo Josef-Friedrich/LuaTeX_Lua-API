@@ -1,9 +1,0 @@
-
-\directlua{
-  nodetree = require('nodetree')
-  tex.setbox(0, node.new('hlist'))
-  nodetree.print(tex.getbox(0))
-  % tex.setbox('MyBox', node.new('vlist')) incorrect index specification for tex .setbox()
-}
-
-\bye

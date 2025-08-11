@@ -1,8 +1,0 @@
-\directlua{
-  local inspect = require('inspect')
-  local function printi(data) print(inspect(data)) end
-  require('lualibs')
-  % printi(url.toquery("a=b&c=d"))  attempt to get length of a nil value (global 'str')
-  printi(url.toquery({ a = "b", c = "d" }))
-}
-\bye
