@@ -1,38 +1,38 @@
 [submodule "resources/LuaCATS/upstream/lmathx"]
-	path = resources/LuaCATS/upstream/lmathx
+	path = LuaCATS/upstream/lmathx
 	url = git@github.com:LuaCATS/lmathx.git
 [submodule "resources/LuaCATS/upstream/lpeg"]
-	path = resources/LuaCATS/upstream/lpeg
+	path = LuaCATS/upstream/lpeg
 	url = git@github.com:LuaCATS/lpeg.git
 [submodule "resources/LuaCATS/upstream/luaharfbuzz"]
-	path = resources/LuaCATS/upstream/luaharfbuzz
+	path = LuaCATS/upstream/luaharfbuzz
 	url = git@github.com:LuaCATS/luaharfbuzz.git
 [submodule "resources/LuaCATS/upstream/luasocket"]
-	path = resources/LuaCATS/upstream/luasocket
+	path = LuaCATS/upstream/luasocket
 	url = git@github.com:LuaCATS/luasocket.git
 [submodule "resources/LuaCATS/upstream/luazip"]
-	path = resources/LuaCATS/upstream/luazip
+	path = LuaCATS/upstream/luazip
 	url = git@github.com:LuaCATS/luazip.git
 [submodule "resources/LuaCATS/upstream/lzlib"]
-	path = resources/LuaCATS/upstream/lzlib
+	path = LuaCATS/upstream/lzlib
 	url = git@github.com:LuaCATS/lzlib.git
 [submodule "resources/LuaCATS/upstream/md5"]
-	path = resources/LuaCATS/upstream/md5
+	path = LuaCATS/upstream/md5
 	url = git@github.com:LuaCATS/md5.git
 [submodule "resources/LuaCATS/upstream/slnunicode"]
-	path = resources/LuaCATS/upstream/slnunicode
+	path = LuaCATS/upstream/slnunicode
 	url = git@github.com:LuaCATS/slnunicode.git
 [submodule "resources/LuaCATS/downstream/tex-lualatex"]
-	path = resources/LuaCATS/downstream/tex-lualatex
+	path = LuaCATS/downstream/tex-lualatex
 	url = git@github.com:LuaCATS/tex-lualatex.git
 [submodule "resources/LuaCATS/downstream/tex-luatex"]
-	path = resources/LuaCATS/downstream/tex-luatex
+	path = LuaCATS/downstream/tex-luatex
 	url = git@github.com:LuaCATS/tex-luatex.git
 [submodule "resources/LuaCATS/downstream/tex-lualibs"]
-	path = resources/LuaCATS/downstream/tex-lualibs
+	path = LuaCATS/downstream/tex-lualibs
 	url = git@github.com:LuaCATS/tex-lualibs.git
 [submodule "resources/LuaCATS/downstream/tex-luametatex"]
-	path = resources/LuaCATS/downstream/tex-luametatex
+	path = LuaCATS/downstream/tex-luametatex
 	url = git@github.com:LuaCATS/tex-luametatex.git
 [submodule "resources/vscode_extension"]
 	path = resources/vscode_extension
