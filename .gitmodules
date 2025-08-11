@@ -52,3 +52,6 @@
 [submodule "TeXLuaCATS/LuaOTFload"]
 	path = TeXLuaCATS/LuaOTFload
 	url = git@github.com:TeXLuaCATS/LuaOTFload.git
+[submodule "TeXLuaCATS/LuaMetaTeX"]
+	path = TeXLuaCATS/LuaMetaTeX
+	url = git@github.com:TeXLuaCATS/LuaMetaTeX.git
