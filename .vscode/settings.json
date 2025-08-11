@@ -7,7 +7,8 @@
     "${3rd}/luassert/library"
   ],
   "[lua]": {
-    "editor.defaultFormatter": "JohnnyMorganz.stylua"
+    "editor.defaultFormatter": "JohnnyMorganz.stylua",
+    "editor.rulers": [80]
   },
   "Lua.diagnostics.disable": [
     "duplicate-set-field",
@@ -56,5 +57,5 @@
     "indent_style": "space",
     "indent_size": "2"
   },
-  "Lua.format.enable": true,
+  "Lua.format.enable": true
 }

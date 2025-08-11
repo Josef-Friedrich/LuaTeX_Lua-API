@@ -4295,13 +4295,21 @@ function node.direct.new(id, subtype) end
 _N._8_9_free_flush_node_list = "page 146"
 
 ---
----Free the *TeX* memory allocated for node `n`.
+---Free the *TeX* memory allocated for node `n` and return the next field of the
+---freed node.
 ---
----Be careful: no checks are
----done on whether this node is still pointed to from a register or some `next` field: it is up to you to make sure that the internal data structures
----remain correct.
+---Be careful: no checks are done on whether this node is still pointed to from
+---a register or some `next` field: it is up to you to make sure that the
+---internal data structures remain correct.
 ---
----The `free` function returns the next field of the freed node
+---__Example:__
+---
+---```lua
+---local n1 = node.new("glyph")
+---local n2 = node.new("glyph")
+---n1.next = n2
+---assert.equals(node.free(n1), n2)
+---```
 ---
 ---__Reference:__
 ---
@@ -4312,16 +4320,25 @@ _N._8_9_free_flush_node_list = "page 146"
 ---@return Node next
 ---
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
-function node.direct.free(n) end
+function node.free(n) end
 
 ---
 ---Free the *TeX* memory allocated for the specified node.
 ---
----Be careful: no checks are
----done on whether this node is still pointed to from a register or some `next` field: it is up to you to make sure that the internal data structures
----remain correct.
+---Be careful: no checks are done on whether this node is still pointed to from
+---a register or some `next` field: it is up to you to make sure that the
+---internal data structures remain correct.
 ---
 ---The `free` function returns the next field of the freed node
+---
+---__Example:__
+---
+---```lua
+---local d1 = node.direct.new("glyph")
+---local d2 = node.direct.new("glyph")
+---node.direct.setnext(d1, d2)
+---assert.equals(node.direct.free(d1), d2)
+---```
 ---
 ---__Reference:__
 ---
@@ -7649,7 +7666,20 @@ function node.direct.setexpansion(d) end
 function node.direct.getexpansion(d) end
 
 ---
----Set the the family number of `math_char`, `math_text_char`, `delim`, `fraction_noad`, `simple_noad` nodes.
+---Set the family number of `math_char`, `math_text_char`, `delim`,
+---`fraction_noad` and `simple_noad` nodes.
+---
+---__Example:__
+---
+---```lua
+---local math_char = node.direct.new("math_char")
+---node.direct.setfam(math_char, 42)
+---assert.equals(node.direct.getfam(math_char), 42)
+---
+---local glyph = node.direct.new("glyph")
+---node.direct.setfam(glyph, 42)
+---assert.is_nil(node.direct.getfam(glyph))
+---```
 ---
 ---__Reference:__
 ---
@@ -7662,6 +7692,21 @@ function node.direct.getexpansion(d) end
 function node.direct.setfam(d, fam) end
 
 ---
+---Get the family number of `math_char`, `math_text_char`, `delim`,
+---`fraction_noad` and `simple_noad` nodes.
+---
+---__Example:__
+---
+---```lua
+---local math_char = node.direct.new("math_char")
+---node.direct.setfam(math_char, 42)
+---assert.equals(node.direct.getfam(math_char), 42)
+---
+---local glyph = node.direct.new("glyph")
+---node.direct.setfam(glyph, 42)
+---assert.is_nil(node.direct.getfam(glyph))
+---```
+---
 ---__Reference:__
 ---
 ---* Corresponding C source code: [lnodelib.c#L680-L700](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L680-L700)
@@ -7672,11 +7717,23 @@ function node.direct.setfam(d, fam) end
 function node.direct.getfam(d) end
 
 ---
----Set the width on `hlist`, `vlist`, `rule`, `glue`, `glue_spec`, `math`, `kern`, `margin_kern`, `ins`, `unset`, `fraction_noad` or `radical_noad` nodes.
+---Set the width on `hlist`, `vlist`, `rule`, `glue`, `glue_spec`, `math`,
+---`kern`, `margin_kern`, `ins`, `unset`, `fraction_noad` or `radical_noad`
+---nodes.
+---
+---__Example:__
+---
+---```lua
+---local n = node.new("hlist") --[[@as HlistNode]]
+---local d = node.direct.todirect(n)
+---node.direct.setwidth(d, 42)
+---assert.equals(node.direct.getwidth(d), 42)
+---assert.equals(n.width, 42)
+---```
 ---
 ---__Reference:__
 ---
----* Corresponding C source code: [lnodelib.c#L3641-L3657](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3641-L3657)
+---* Corresponding C source code: [lnodelib.c#L3641-L3657](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/4f2b914d365bab8a2747afe6e8c86d0f1c8475f7/source/texk/web2c/luatexdir/lua/lnodelib.c#L3641-L3657)
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---@param width number # Rounded to an integer
@@ -7685,11 +7742,21 @@ function node.direct.getfam(d) end
 function node.direct.setwidth(d, width) end
 
 ---
----Get the width of `hlist`, `vlist`, `rule`, `glyph`, `glue`, `glue_spec`, `math`, `kern`, `margin_kern`, `ins` and `unset` nodes.
+---Set the width on `hlist`, `vlist`, `rule`, `glue`, `glue_spec`, `math`,
+---`kern`, `margin_kern`, `ins`, `unset`, `fraction_noad` or `radical_noad`
+---nodes.
+---
+---__Example:__
+---
+---```lua
+---local d = node.direct.new("hlist")
+---node.direct.setwidth(d, 42)
+---assert.equals(node.direct.getwidth(d), 42)
+---```
 ---
 ---__Reference:__
 ---
----* Corresponding C source code: [lnodelib.c#L3607-L3639](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3607-L3639)
+---* Corresponding C source code: [lnodelib.c#L3607-L3639](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/4f2b914d365bab8a2747afe6e8c86d0f1c8475f7/source/texk/web2c/luatexdir/lua/lnodelib.c#L3607-L3639)
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---
@@ -7703,7 +7770,7 @@ function node.direct.getwidth(d) end
 ---
 ---__Reference:__
 ---
----* Corresponding C source code: [lnodelib.c#L3681-L3697](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3681-L3697)
+---* Corresponding C source code: [lnodelib.c#L3681-L3697](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/4f2b914d365bab8a2747afe6e8c86d0f1c8475f7/source/texk/web2c/luatexdir/lua/lnodelib.c#L3681-L3697)
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---
@@ -7715,7 +7782,7 @@ function node.direct.setheight(d) end
 ---
 ---__Reference:__
 ---
----* Corresponding C source code: [lnodelib.c#L3659-L3679](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3659-L3679)
+---* Corresponding C source code: [lnodelib.c#L3659-L3679](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/4f2b914d365bab8a2747afe6e8c86d0f1c8475f7/source/texk/web2c/luatexdir/lua/lnodelib.c#L3659-L3679)
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---
@@ -7729,7 +7796,7 @@ function node.direct.getheight(d) end
 ---
 ---__Reference:__
 ---
----* Corresponding C source code: [lnodelib.c#L3721-L3737](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3721-L3737)
+---* Corresponding C source code: [lnodelib.c#L3721-L3737](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/4f2b914d365bab8a2747afe6e8c86d0f1c8475f7/source/texk/web2c/luatexdir/lua/lnodelib.c#L3721-L3737)
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---@param depth number
@@ -7742,7 +7809,7 @@ function node.direct.setdepth(d, depth) end
 ---
 ---__Reference:__
 ---
----* Corresponding C source code: [lnodelib.c#L3699-L3719](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3699-L3719)
+---* Corresponding C source code: [lnodelib.c#L3699-L3719](https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/blob/f52b099f3e01d53dc03b315e1909245c3d5418d3/source/texk/web2c/luatexdir/lua/lnodelib.c#L3699-3719)
 ---
 ---@param d integer # The index number of the node in the memory table for direct access.
 ---
@@ -7805,7 +7872,8 @@ function node.direct.setlang(d, lang) end
 function node.direct.getlang(d) end
 
 ---
----Set the `nucleus` (base) field an `simple_noad`, `accent_noad` and `radical_noad` nodes.
+---Set the `nucleus` (base) field an `simple_noad`, `accent_noad` and
+---`radical_noad` nodes.
 ---
 ---__Reference:__
 ---
@@ -7818,7 +7886,8 @@ function node.direct.getlang(d) end
 function node.direct.setnucleus(d, nucleus) end
 
 ---
----Return the `nucleus` (base) field of `simple_noad`, `accent_noad` and `radical_noad` nodes.
+---Return the `nucleus` (base) field of `simple_noad`, `accent_noad` and
+---`radical_noad` nodes.
 ---
 ---__Reference:__
 ---
@@ -7846,8 +7915,6 @@ function node.direct.getnucleus(d) end
 ---😱 [Types](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/library/luatex/node.lua) incomplete or incorrect? 🙏 [Please contribute!](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/pulls)
 function node.direct.setoffsets(d, a, b) end
 
----
----Set the `penalty` field on `glyph` and `rule` nodes.
 ---
 ---__Reference:__
 ---
