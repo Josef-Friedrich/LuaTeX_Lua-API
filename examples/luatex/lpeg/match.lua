@@ -1,4 +1,5 @@
 #! luatex --luaonly
+local assert = require("utils").assert
 
 -- http://www.inf.puc-rio.br/~roberto/lpeg/
 

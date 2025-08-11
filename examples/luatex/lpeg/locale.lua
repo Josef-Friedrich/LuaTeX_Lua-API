@@ -1,4 +1,5 @@
 #! luatex --luaonly
+local assert = require("utils").assert
 
 -- http://www.inf.puc-rio.br/~roberto/lpeg/
 lpeg.locale(lpeg)
@@ -8,9 +9,9 @@ local sep = lpeg.S(",;") * space
 local pair = lpeg.Cg(name * "=" * space * name) * sep ^ -1
 local list = lpeg.Cf(lpeg.Ct("") * pair ^ 0, rawset)
 local t = list:match("a=b, c = hi; next = pi")
-assert(t.a == "b")
-assert(t.c == "hi")
-assert(t.next == "pi")
+assert.equals(t.a, "b")
+assert.equals(t.c, "hi")
+assert.equals(t.next, "pi")
 
 local locale = lpeg.locale()
-assert(type(locale.digit) == "userdata")
+assert.equals(type(locale.digit), "userdata")

@@ -1,4 +1,5 @@
 #! luatex --luaonly
+local assert = require("utils").assert
 
 local function split(s, sep)
   sep = lpeg.P(sep)
@@ -8,6 +9,6 @@ local function split(s, sep)
 end
 
 local a, b, c = split("a,b,c", ",")
-assert(a == "a")
-assert(b == "b")
-assert(c == "c")
+assert.equals(a, "a")
+assert.equals(b, "b")
+assert.equals(c, "c")
