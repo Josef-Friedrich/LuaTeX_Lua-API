@@ -292,7 +292,7 @@ class ManagedSubproject:
                 dest_filename = src_filename
             _download_url(
                 f"{self.manuals_base_url}/{src_filename}",
-                str(project_base_path) + f"{self.manuals_path}/{src_filename}",
+                f"{self.manuals_path}/{dest_filename}",
             )
 
         if self.manuals is not None and self.manuals_base_url is not None:
