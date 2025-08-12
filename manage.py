@@ -272,14 +272,14 @@ class Repository(Path):
     def reset(self) -> None:
         self._execute("git", "reset", "--hard", "HEAD")
 
-    def pull(self, origin: str = "origin", branch: str = "main") -> None:
-        self._execute("git", "pull", origin, branch)
+    def pull(self, remote: str = "origin", branch: str = "main") -> None:
+        self._execute("git", "pull", remote, branch)
 
-    def sync_from_origin(self, branch: str = "main") -> None:
+    def sync_from_origin(self, remote: str = "origin", branch: str = "main") -> None:
         self.checkout(branch)
         self.add()
         self.reset()
-        self.pull(branch)
+        self.pull(remote, branch)
 
     def push(
         self,
@@ -320,8 +320,14 @@ class ManagedSubproject:
     manuals_base_url: Optional[str] = None
 
     @property
+    def lowercase_name(self) -> str:
+        return self.capitalized_name.lower()
+
+    @property
     def luacats_repo(self) -> Optional[Repository]:
-        repo = Repository(project_base_path / "LuaCATS" / self.capitalized_name)
+        repo = Repository(
+            project_base_path / "LuaCATS" / "downstream" / f"tex-{self.lowercase_name}"
+        )
         if repo.exists():
             return repo
 
@@ -356,6 +362,8 @@ class ManagedSubproject:
 
 
 managed_subprojects = {
+    "lualatex": ManagedSubproject("LuaLaTeX"),
+    "lualibs": ManagedSubproject("Lualibs"),
     "luametatex": ManagedSubproject(
         "LuaMetaTeX",
         manuals={
@@ -384,6 +392,7 @@ managed_subprojects = {
         },
         manuals_base_url="https://raw.githubusercontent.com/contextgarden/context/refs/heads/main/doc/context/sources/general/manuals/luametatex",
     ),
+    "luaotfload": ManagedSubproject("LuaOTFload"),
     "luatex": ManagedSubproject(
         "LuaTeX",
         manuals={
@@ -1219,7 +1228,7 @@ if __name__ == "__main__":
         merge(args.subproject)
     elif args.command == "rewrap" and args.path:
         rewrap(args.path)
-    elif args.command == "submodule" and args.path:
+    elif args.command == "submodule":
         submodule()
     elif args.command == "test":
         suite = unittest.defaultTestLoader.loadTestsFromTestCase(TestManager)
