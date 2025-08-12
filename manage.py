@@ -226,6 +226,14 @@ def _copy_directory(
     shutil.copytree(src, dest, dirs_exist_ok=True)
 
 
+def _download_url(url: str, dest_path: str) -> None:
+    logger.debug("Download %s into %s", url, dest_path)
+    with urllib.request.urlopen(url) as response:
+        data = response.read()
+        with open(dest_path, "wb") as f:
+            f.write(data)
+
+
 Subproject = Literal[
     "lualatex",
     "lualibs",
@@ -250,15 +258,114 @@ subprojects_dict: dict[str, str] = {
     "luatex": "LuaTeX",
 }
 
+ManualsSpec = Union[list[str], dict[str, Optional[str]]]
+
+
+@dataclass
+class ManagedSubproject:
+    capitalized_name: str
+
+    manuals: Optional[ManualsSpec] = None
+
+    manuals_base_url: Optional[str] = None
+
+    @property
+    def luacats_path(self) -> Optional[Path]:
+        path = project_base_path / "LuaCATS" / self.capitalized_name
+        if path.exists():
+            return path
+
+    @property
+    def tex_luacats_path(self) -> Path:
+        return project_base_path / "TeXLuaCATS" / self.capitalized_name
+
+    @property
+    def manuals_path(self) -> Path:
+        path = self.tex_luacats_path / "resources" / "manual"
+        if not path.exists():
+            path.mkdir(parents=True)
+        return path
+
+    def download_manuals(self) -> None:
+        def _download(src_filename: str, dest_filename: Optional[str] = None) -> None:
+            if dest_filename is None:
+                dest_filename = src_filename
+            _download_url(
+                f"{self.manuals_base_url}/{src_filename}",
+                str(project_base_path) + f"{self.manuals_path}/{src_filename}",
+            )
+
+        if self.manuals is not None and self.manuals_base_url is not None:
+            if isinstance(self.manuals, list):
+                for src_filename in self.manuals:
+                    _download(src_filename)
+            else:
+                for src_filename, dest_filename in self.manuals.items():
+                    if dest_filename:
+                        _download(src_filename, dest_filename)
+
+
+managed_subprojects = {
+    "luametatex": ManagedSubproject(
+        "LuaMetaTeX",
+        manuals=[
+            "luametatex-assumptions.tex",
+            "luametatex-callbacks.tex",
+            "luametatex-constructions.tex",
+            "luametatex-contents.tex",
+            "luametatex-engines.tex",
+            "luametatex-fonts.tex",
+            "luametatex-internals.tex",
+            "luametatex-introduction.tex",
+            "luametatex-languages.tex",
+            "luametatex-libraries.tex",
+            "luametatex-lua.tex",
+            "luametatex-math.tex",
+            "luametatex-metapost.tex",
+            "luametatex-nodes.tex",
+            "luametatex-pdf.tex",
+            "luametatex-primitives.tex",
+            "luametatex-principles.tex",
+            "luametatex-style.tex",
+            "luametatex-tex.tex",
+            "luametatex-tokens.tex",
+            "luametatex.tex",
+        ],
+        manuals_base_url="https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/raw/master/manual",
+    ),
+    "luatex": ManagedSubproject(
+        "LuaTeX",
+        manuals={
+            "luatex-backend.tex": "14_backend.tex",
+            "luatex-callbacks.tex": "09_callbacks.tex",
+            "luatex-contents.tex": None,
+            "luatex-enhancements.tex": "02_enhancements.tex",
+            "luatex-export-titlepage.tex": None,
+            "luatex-firstpage.tex": None,
+            "luatex-fontloader.tex": "12_fontloader.tex",
+            "luatex-fonts.tex": "06_fonts.tex",
+            "luatex-graphics.tex": "11_graphics.tex",
+            "luatex-harfbuzz.tex": "13_harfbuzz.tex",
+            "luatex-introduction.tex": None,
+            "luatex-languages.tex": "05_languages.tex",
+            "luatex-logos.tex": None,
+            "luatex-lua.tex": "04_lua.tex",
+            "luatex-math.tex": "07_math.tex",
+            "luatex-modifications.tex": "03_modifications.tex",
+            "luatex-nodes.tex": "08_nodes.tex",
+            "luatex-preamble.tex": "01_preamble.tex",
+            "luatex-registers.tex": None,
+            "luatex-statistics.tex": None,
+            "luatex-style.tex": None,
+            "luatex-tex.tex": "10_tex.tex",
+            "luatex-titlepage.tex": None,
+        },
+        manuals_base_url="https://raw.githubusercontent.com/contextgarden/context/refs/heads/main/doc/context/sources/general/manuals/luametatex",
+    ),
+}
+
+
 # convert
-
-
-def _download_url(url: str, dest_path: str) -> None:
-    logger.debug("Download %s into %s", url, dest_path)
-    with urllib.request.urlopen(url) as response:
-        data = response.read()
-        with open(dest_path, "wb") as f:
-            f.write(data)
 
 
 def convert_tex() -> None:
@@ -565,66 +672,8 @@ def format() -> None:
 
 
 def manuals() -> None:
-    luatex_files: dict[str, Union[str, None]] = {
-        "luatex-backend.tex": "14_backend.tex",
-        "luatex-callbacks.tex": "09_callbacks.tex",
-        "luatex-contents.tex": None,
-        "luatex-enhancements.tex": "02_enhancements.tex",
-        "luatex-export-titlepage.tex": None,
-        "luatex-firstpage.tex": None,
-        "luatex-fontloader.tex": "12_fontloader.tex",
-        "luatex-fonts.tex": "06_fonts.tex",
-        "luatex-graphics.tex": "11_graphics.tex",
-        "luatex-harfbuzz.tex": "13_harfbuzz.tex",
-        "luatex-introduction.tex": None,
-        "luatex-languages.tex": "05_languages.tex",
-        "luatex-logos.tex": None,
-        "luatex-lua.tex": "04_lua.tex",
-        "luatex-math.tex": "07_math.tex",
-        "luatex-modifications.tex": "03_modifications.tex",
-        "luatex-nodes.tex": "08_nodes.tex",
-        "luatex-preamble.tex": "01_preamble.tex",
-        "luatex-registers.tex": None,
-        "luatex-statistics.tex": None,
-        "luatex-style.tex": None,
-        "luatex-tex.tex": "10_tex.tex",
-        "luatex-titlepage.tex": None,
-    }
-
-    for file, renamed in luatex_files.items():
-        if renamed:
-            _download_url(
-                f"https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/raw/master/manual/{file}",
-                str(project_base_path) + f"/resources/manuals/luatex/{renamed}",
-            )
-
-    for file in [
-        "luametatex-assumptions.tex",
-        "luametatex-callbacks.tex",
-        "luametatex-constructions.tex",
-        "luametatex-contents.tex",
-        "luametatex-engines.tex",
-        "luametatex-fonts.tex",
-        "luametatex-internals.tex",
-        "luametatex-introduction.tex",
-        "luametatex-languages.tex",
-        "luametatex-libraries.tex",
-        "luametatex-lua.tex",
-        "luametatex-math.tex",
-        "luametatex-metapost.tex",
-        "luametatex-nodes.tex",
-        "luametatex-pdf.tex",
-        "luametatex-primitives.tex",
-        "luametatex-principles.tex",
-        "luametatex-style.tex",
-        "luametatex-tex.tex",
-        "luametatex-tokens.tex",
-        "luametatex.tex",
-    ]:
-        _download_url(
-            f"https://github.com/contextgarden/context/blob/main/doc/context/sources/general/manuals/luametatex/{file}",
-            str(project_base_path) + f"/resources/manuals/luametatex/{file}",
-        )
+    for _, subproject in managed_subprojects.items():
+        subproject.download_manuals()
 
 
 # merge
