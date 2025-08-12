@@ -258,6 +258,56 @@ subprojects_dict: dict[str, str] = {
     "luatex": "LuaTeX",
 }
 
+
+class Repository(Path):
+    def _execute(self, *args: str) -> None:
+        subprocess.check_call(args, cwd=self)
+
+    def checkout(self, branch: str = "main") -> None:
+        self._execute("git", "checkout", branch)
+
+    def add(self) -> None:
+        self._execute("git", "add", "-A")
+
+    def reset(self) -> None:
+        self._execute("git", "reset", "--hard", "HEAD")
+
+    def pull(self, origin: str = "origin", branch: str = "main") -> None:
+        self._execute("git", "pull", origin, branch)
+
+    def sync_from_origin(self, branch: str = "main") -> None:
+        self.checkout(branch)
+        self.add()
+        self.reset()
+        self.pull(branch)
+
+    def push(
+        self,
+        repo: str | Path,
+        message: Optional[str] = None,
+        commit_id: Optional[str] = None,
+        branch: str = "main",
+    ) -> None:
+        subprocess.check_call(["git", "add", "-A"], cwd=repo)
+
+        if commit_id:
+            message = _format_commit_message(commit_id)
+        if not message:
+            raise Exception("Provide a message or a commit id")
+
+        result = subprocess.run(
+            [
+                "git",
+                "commit",
+                "-m",
+                message,
+            ],
+            cwd=repo,
+        )
+        if result.returncode == 0:
+            subprocess.check_call(["git", "push", "-u", "origin", branch], cwd=repo)
+
+
 ManualsSpec = Union[list[str], dict[str, Optional[str]]]
 
 
@@ -270,18 +320,18 @@ class ManagedSubproject:
     manuals_base_url: Optional[str] = None
 
     @property
-    def luacats_path(self) -> Optional[Path]:
-        path = project_base_path / "LuaCATS" / self.capitalized_name
-        if path.exists():
-            return path
+    def luacats_repo(self) -> Optional[Repository]:
+        repo = Repository(project_base_path / "LuaCATS" / self.capitalized_name)
+        if repo.exists():
+            return repo
 
     @property
-    def tex_luacats_path(self) -> Path:
-        return project_base_path / "TeXLuaCATS" / self.capitalized_name
+    def tex_luacats_repo(self) -> Repository:
+        return Repository(project_base_path / "TeXLuaCATS" / self.capitalized_name)
 
     @property
     def manuals_path(self) -> Path:
-        path = self.tex_luacats_path / "resources" / "manual"
+        path = self.tex_luacats_repo / "resources" / "manual"
         if not path.exists():
             path.mkdir(parents=True)
         return path
@@ -997,6 +1047,14 @@ def rewrap(path: str) -> None:
     print("\n".join(lines))
 
 
+def submodule() -> None:
+    for _, subproject in managed_subprojects.items():
+        subproject.tex_luacats_repo.sync_from_origin()
+        luacats = subproject.luacats_repo
+        if luacats is not None:
+            luacats.sync_from_origin()
+
+
 @dataclass
 class Args:
     debug: bool
@@ -1008,6 +1066,7 @@ class Args:
         "manuals",
         "merge",
         "rewrap",
+        "submodule",
         "test",
     ]
     relpath: Optional[str]
@@ -1125,6 +1184,12 @@ if __name__ == "__main__":
     )
     rewrap_parser.add_argument("path")
 
+    # submodule
+    submodule_parser = subparsers.add_parser(
+        "submodule",
+        help="Update all submodules",
+    )
+
     # test
     test_parser = subparsers.add_parser("test", help="Run the embedded unittest.")
 
@@ -1154,6 +1219,8 @@ if __name__ == "__main__":
         merge(args.subproject)
     elif args.command == "rewrap" and args.path:
         rewrap(args.path)
+    elif args.command == "submodule" and args.path:
+        submodule()
     elif args.command == "test":
         suite = unittest.defaultTestLoader.loadTestsFromTestCase(TestManager)
         runner = unittest.TextTestRunner()
