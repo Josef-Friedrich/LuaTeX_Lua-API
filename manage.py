@@ -331,7 +331,7 @@ managed_subprojects = {
             "luametatex-tokens.tex",
             "luametatex.tex",
         ],
-        manuals_base_url="https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/raw/master/manual",
+        manuals_base_url="https://raw.githubusercontent.com/contextgarden/context/refs/heads/main/doc/context/sources/general/manuals/luametatex",
     ),
     "luatex": ManagedSubproject(
         "LuaTeX",
@@ -360,7 +360,7 @@ managed_subprojects = {
             "luatex-tex.tex": "10_tex.tex",
             "luatex-titlepage.tex": None,
         },
-        manuals_base_url="https://raw.githubusercontent.com/contextgarden/context/refs/heads/main/doc/context/sources/general/manuals/luametatex",
+        manuals_base_url="https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/raw/master/manual",
     ),
 }
 
