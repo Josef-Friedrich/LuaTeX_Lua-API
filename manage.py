@@ -384,6 +384,11 @@ class ManagedSubproject:
         return None
 
     @property
+    def downstream_library(self) -> Optional[Path]:
+        if self._downstream_repo:
+            return self._downstream_repo / "library"
+
+    @property
     def manuals_path(self) -> Path:
         path = self.repo / "resources" / "manual"
         if not path.exists():
@@ -415,11 +420,11 @@ class ManagedSubproject:
             downstream.sync_from_remote()
 
     def format(self) -> None:
-        _clean_docstrings(self.repo)
-        _run_stylua(self.repo)
-        if self.downstream_repo:
-            _clean_docstrings(self.downstream_repo)
-            _run_stylua(self.downstream_repo)
+        _run_stylua(self.library)
+        _apply(str(self.library) + "/**/*.lua", _clean_docstrings)
+        if self.downstream_library:
+            _apply(str(self.downstream_library) + "/**/*.lua", _clean_docstrings)
+            _run_stylua(self.downstream_library)
 
     def distribute(self) -> None:
         """
@@ -843,7 +848,6 @@ def example(
             _run_example(Path(path), luaonly=luaonly, print_docstring=print_docstring)
     else:
         _run_example(src, luaonly=luaonly, print_docstring=print_docstring)
-
 
 
 def format() -> None:
