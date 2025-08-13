@@ -147,6 +147,26 @@ def _apply(glob_relpath: str, fn: Callable[[Path], None]) -> None:
 
 
 def _update_text_file(path: str | Path, fn: Callable[[str], str]) -> None:
+    """
+    Updates the content of a text file by applying a transformation function.
+
+    Args:
+        path (str | Path): The path to the text file to be updated.
+        fn (Callable[[str], str]): A function that takes the original content of the file
+            as input and returns the updated content.
+
+    Returns:
+        None
+
+    Side Effects:
+        - Reads the content of the file at the specified path.
+        - Writes the transformed content back to the same file.
+        - Logs a diff of the original and updated content if debug logging is enabled.
+
+    Note:
+        This function assumes the file at the given path is a text file and will overwrite
+        its content with the transformed content.
+    """
     orig: str
     updated: str
     with open(path) as src:
@@ -158,7 +178,7 @@ def _update_text_file(path: str | Path, fn: Callable[[str], str]) -> None:
         _diff(orig, updated)
 
 
-def _clean_docstrings(content: str) -> str:
+def _clean_docstrings(path: Path) -> None:
     """
     Cleans and formats Lua-style docstrings in the given content string.
 
@@ -168,30 +188,31 @@ def _clean_docstrings(content: str) -> str:
     - Allows only one consecutive empty line in the content.
 
     Args:
-        content: The string containing Lua-style docstrings to be cleaned.
-
-    Returns:
-        str: The cleaned and formatted docstring content.
+        path: The path containing Lua-style docstrings to be cleaned.
     """
-    # Start a docstring with an empty comment line.
-    content = re.sub(r"\n\n---(?=[^\n])", r"\n\n---\n---", content)
 
-    # Remove duplicate empty comment lines.
-    content = re.sub("\n---(\n---)+\n", "\n---\n", content)
+    def __inner(content: str) -> str:
+        # Start a docstring with an empty comment line.
+        content = re.sub(r"\n\n---(?=[^\n])", r"\n\n---\n---", content)
 
-    content = content.replace("\n\n---\n\n", "\n\n")
+        # Remove duplicate empty comment lines.
+        content = re.sub("\n---(\n---)+\n", "\n---\n", content)
 
-    # Allow only one empty line
-    content = _remove_duplicate_empty_lines(content)
+        content = content.replace("\n\n---\n\n", "\n\n")
 
-    # Side effect with code examples in Lua docstrings
-    # content = content.replace(") end\n---", ") end\n\n---")
+        # Allow only one empty line
+        content = _remove_duplicate_empty_lines(content)
 
-    # Add an empty comment line before the @param annotation.
-    # content = re.sub(
-    #     r"(?<!\n---)\n---@param(?=.*?\n.*?@param)", r"\n---\n---@param", content
-    # )
-    return content
+        # Side effect with code examples in Lua docstrings
+        # content = content.replace(") end\n---", ") end\n\n---")
+
+        # Add an empty comment line before the @param annotation.
+        # content = re.sub(
+        #     r"(?<!\n---)\n---@param(?=.*?\n.*?@param)", r"\n---\n---@param", content
+        # )
+        return content
+
+    _update_text_file(path, __inner)
 
 
 def _diff(a: str, b: str) -> None:
@@ -391,11 +412,7 @@ class ManagedSubproject:
         _copy_directory(self.library, dist)
 
         _apply(str(dist) + "/**/*.lua", _remove_navigation_table)
-
-        def _clean(path: Path) -> None:
-            _update_text_file(path, _clean_docstrings)
-
-        _apply(str(dist) + "/**/*.lua", _clean)
+        _apply(str(dist) + "/**/*.lua", _clean_docstrings)
 
         # if not _is_git_commited():
         #     raise Exception("Uncommited changes found! Commit first, then retry!")
@@ -804,7 +821,7 @@ def example(
 
 def format() -> None:
     def _format(path: Path) -> None:
-        _update_text_file(path, _clean_docstrings)
+        _clean_docstrings(path)
         _run_stylua(path)
 
     _apply("library/**/*.lua", _format)
@@ -855,9 +872,15 @@ def merge(subproject: Subproject = "luatex") -> None:
     content = "\n".join(contents)
     # Artefact of the copyright removal
     content = content.replace("\n\n---\n\n", "")
-    content = _clean_docstrings(content)
-    with open(dist_dir / (subproject + "-type-definitions.lua"), "w") as f:
+    # content = _clean_docstrings(content)
+
+    dest = dist_dir / (subproject + "-type-definitions.lua")
+
+    with open(dest, "w") as f:
         f.write(content)
+
+    _clean_docstrings(dest)
+
 
 
 # navigation
@@ -908,7 +931,7 @@ def _remove_duplicate_empty_lines(content: str) -> str:
 
 
 def _remove_navigation_table(path: Path) -> None:
-    def __remove_navigation_table(content: str) -> str:
+    def __inner(content: str) -> str:
         content = content.replace(
             "---A helper table to better navigate through the documentation using the\n"
             + "---outline: https://github.com/Josef-Friedrich/LuaTeX_Lua-API#navigation-table-_n\n",
@@ -921,7 +944,7 @@ def _remove_navigation_table(path: Path) -> None:
         # Remove leading and trailing whitespace
         return content.strip() + "\n"
 
-    _update_text_file(path, __remove_navigation_table)
+    _update_text_file(path, __inner)
 
 
 def _git_reset_pull(path: str | Path) -> None:
@@ -1077,11 +1100,7 @@ def dist() -> None:
     _copy_directory(src_dir, dest_dir)
 
     _apply("dist/library/**/*.lua", _remove_navigation_table)
-
-    def _clean(path: Path) -> None:
-        _update_text_file(path, _clean_docstrings)
-
-    _apply("dist/library/**/*.lua", _clean)
+    _apply("dist/library/**/*.lua", _clean_docstrings)
 
     if not _is_git_commited():
         raise Exception("Uncommited changes found! Commit first, then retry!")
