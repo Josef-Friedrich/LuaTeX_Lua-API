@@ -275,7 +275,7 @@ class Repository(Path):
     def pull(self, remote: str = "origin", branch: str = "main") -> None:
         self._execute("git", "pull", remote, branch)
 
-    def sync_from_origin(self, remote: str = "origin", branch: str = "main") -> None:
+    def sync_from_remote(self, remote: str = "origin", branch: str = "main") -> None:
         self.checkout(branch)
         self.add()
         self.reset()
@@ -313,7 +313,8 @@ ManualsSpec = Union[list[str], dict[str, Optional[str]]]
 
 @dataclass
 class ManagedSubproject:
-    capitalized_name: str
+    name: str
+    """The name of the subproject must match the name of its parent subfolder exactly."""
 
     manuals: Optional[ManualsSpec] = None
 
@@ -321,23 +322,19 @@ class ManagedSubproject:
 
     @property
     def lowercase_name(self) -> str:
-        return self.capitalized_name.lower()
+        return self.name.lower()
 
     @property
-    def luacats_repo(self) -> Optional[Repository]:
-        repo = Repository(
-            project_base_path / "LuaCATS" / "downstream" / f"tex-{self.lowercase_name}"
-        )
-        if repo.exists():
-            return repo
+    def downstream_repo(self) -> Optional[Repository]:
+        return None
 
     @property
-    def tex_luacats_repo(self) -> Repository:
-        return Repository(project_base_path / "TeXLuaCATS" / self.capitalized_name)
+    def repo(self) -> Repository:
+        return Repository(project_base_path / "LuaCATS" / "upstream" / self.name)
 
     @property
     def manuals_path(self) -> Path:
-        path = self.tex_luacats_repo / "resources" / "manual"
+        path = self.repo / "resources" / "manual"
         if not path.exists():
             path.mkdir(parents=True)
         return path
@@ -360,11 +357,41 @@ class ManagedSubproject:
                     if dest_filename:
                         _download(src_filename, dest_filename)
 
+    def sync_from_remote(self) -> None:
+        self.repo.sync_from_remote()
+        downstream = self.downstream_repo
+        if downstream is not None:
+            downstream.sync_from_remote()
 
-managed_subprojects = {
-    "lualatex": ManagedSubproject("LuaLaTeX"),
-    "lualibs": ManagedSubproject("Lualibs"),
-    "luametatex": ManagedSubproject(
+
+@dataclass
+class ManagedTeXSubproject(ManagedSubproject):
+    @property
+    def downstream_repo(self) -> Optional[Repository]:
+        repo = Repository(
+            project_base_path / "LuaCATS" / "downstream" / f"tex-{self.lowercase_name}"
+        )
+        if repo.exists():
+            return repo
+
+    @property
+    def repo(self) -> Repository:
+        return Repository(project_base_path / "TeXLuaCATS" / self.name)
+
+
+managed_subprojects: dict[str, ManagedSubproject] = {
+    "lmathx": ManagedSubproject("lmathx"),
+    "lpeg": ManagedSubproject("lpeg"),
+    "luaharfbazz": ManagedSubproject("luaharfbazz"),
+    "luasocket": ManagedSubproject("luasocket"),
+    "luazip": ManagedSubproject("luazip"),
+    "lzlib": ManagedSubproject("lzlib"),
+    "md5": ManagedSubproject("md5"),
+    "slnunicode": ManagedSubproject("slnunicode"),
+    # TeX
+    "lualatex": ManagedTeXSubproject("LuaLaTeX"),
+    "lualibs": ManagedTeXSubproject("Lualibs"),
+    "luametatex": ManagedTeXSubproject(
         "LuaMetaTeX",
         manuals={
             "luametatex-assumptions.tex": "04_assumptions.tex",
@@ -392,8 +419,8 @@ managed_subprojects = {
         },
         manuals_base_url="https://raw.githubusercontent.com/contextgarden/context/refs/heads/main/doc/context/sources/general/manuals/luametatex",
     ),
-    "luaotfload": ManagedSubproject("LuaOTFload"),
-    "luatex": ManagedSubproject(
+    "luaotfload": ManagedTeXSubproject("LuaOTFload"),
+    "luatex": ManagedTeXSubproject(
         "LuaTeX",
         manuals={
             "luatex-backend.tex": "14_backend.tex",
@@ -1058,10 +1085,7 @@ def rewrap(path: str) -> None:
 
 def submodule() -> None:
     for _, subproject in managed_subprojects.items():
-        subproject.tex_luacats_repo.sync_from_origin()
-        luacats = subproject.luacats_repo
-        if luacats is not None:
-            luacats.sync_from_origin()
+        subproject.sync_from_remote()
 
 
 @dataclass
