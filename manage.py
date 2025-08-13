@@ -281,52 +281,64 @@ subprojects_dict: dict[str, str] = {
 
 
 class Repository(Path):
-    def _execute(self, *args: str) -> None:
-        subprocess.check_call(args, cwd=self)
+    def __execute(self, *args: str) -> int:
+        return subprocess.check_call(args, cwd=self)
 
-    def checkout(self, branch: str = "main") -> None:
-        self._execute("git", "checkout", branch)
+    def __checkout(self, branch: str = "main") -> None:
+        self.__execute("git", "checkout", branch)
 
-    def add(self) -> None:
-        self._execute("git", "add", "-A")
+    def __add(self) -> None:
+        self.__execute("git", "add", "-A")
 
-    def reset(self) -> None:
-        self._execute("git", "reset", "--hard", "HEAD")
+    def __reset(self) -> None:
+        self.__execute("git", "reset", "--hard", "HEAD")
 
-    def pull(self, remote: str = "origin", branch: str = "main") -> None:
-        self._execute("git", "pull", remote, branch)
+    def __pull(self, remote: str = "origin", branch: str = "main") -> None:
+        self.__execute("git", "pull", remote, branch)
+
+    def __push(self, remote: str = "origin", branch: str = "main") -> None:
+        self.__execute("git", "push", "-u", remote, branch)
+
+    def __commit(self, message: str) -> bool:
+        result = subprocess.run(["git", "commit", "-m", message], cwd=self)
+        return result.returncode == 0
+
+    def is_git_commited(self) -> bool:
+        """
+        Checks if there are no uncommitted changes in the current Git repository.
+
+        Returns:
+            bool: True if the working directory is clean (no changes since last commit), False otherwise.
+        """
+        return (
+            subprocess.check_output(["git", "diff", "HEAD"], encoding="utf-8", cwd=self)
+            == ""
+        )
+
+    def get_latest_git_commitid(self) -> str:
+        return subprocess.check_output(
+            ["git", "rev-parse", "HEAD"], encoding="utf-8", cwd=self
+        ).strip()
 
     def sync_from_remote(self, remote: str = "origin", branch: str = "main") -> None:
-        self.checkout(branch)
-        self.add()
-        self.reset()
-        self.pull(remote, branch)
+        self.__checkout(branch)
+        self.__add()
+        self.__reset()
+        self.__pull(remote, branch)
 
-    def push(
+    def sync_to_remote(
         self,
-        repo: str | Path,
         message: Optional[str] = None,
         commit_id: Optional[str] = None,
         branch: str = "main",
     ) -> None:
-        subprocess.check_call(["git", "add", "-A"], cwd=repo)
-
+        self.__add()
         if commit_id:
             message = _format_commit_message(commit_id)
         if not message:
             raise Exception("Provide a message or a commit id")
-
-        result = subprocess.run(
-            [
-                "git",
-                "commit",
-                "-m",
-                message,
-            ],
-            cwd=repo,
-        )
-        if result.returncode == 0:
-            subprocess.check_call(["git", "push", "-u", "origin", branch], cwd=repo)
+        if self.__commit(message):
+            self.__push(branch=branch)
 
 
 ManualsSpec = Union[list[str], dict[str, Optional[str]]]
@@ -882,7 +894,6 @@ def merge(subproject: Subproject = "luatex") -> None:
     _clean_docstrings(dest)
 
 
-
 # navigation
 
 
@@ -1319,7 +1330,6 @@ if __name__ == "__main__":
             subproject=args.subproject,
             print_docstring=args.print_docstring,
         )
-
     elif args.command == "format":
         format()
     elif args.command == "manuals":
