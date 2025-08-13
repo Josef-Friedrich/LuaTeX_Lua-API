@@ -369,13 +369,19 @@ class ManagedSubproject:
     def dist(self) -> Path:
         return project_base_path / "dist" / self.name
 
-    @property
-    def downstream_repo(self) -> Optional[Repository]:
-        return None
+    _repo: Optional[Repository] = None
 
     @property
     def repo(self) -> Repository:
-        return Repository(self.base)
+        if not self._repo:
+            self._repo = Repository(self.base)
+        return self._repo
+
+    _downstream_repo: Optional[Repository] = None
+
+    @property
+    def downstream_repo(self) -> Optional[Repository]:
+        return None
 
     @property
     def manuals_path(self) -> Path:
@@ -407,6 +413,13 @@ class ManagedSubproject:
         downstream = self.downstream_repo
         if downstream is not None:
             downstream.sync_from_remote()
+
+    def format(self) -> None:
+        _clean_docstrings(self.repo)
+        _run_stylua(self.repo)
+        if self.downstream_repo:
+            _clean_docstrings(self.downstream_repo)
+            _run_stylua(self.downstream_repo)
 
     def distribute(self) -> None:
         """
@@ -453,11 +466,15 @@ class ManagedTeXSubproject(ManagedSubproject):
 
     @property
     def downstream_repo(self) -> Optional[Repository]:
-        repo = Repository(
-            project_base_path / "LuaCATS" / "downstream" / f"tex-{self.lowercase_name}"
-        )
-        if repo.exists():
-            return repo
+        if not self._downstream_repo:
+            self._downstream_repo = Repository(
+                project_base_path
+                / "LuaCATS"
+                / "downstream"
+                / f"tex-{self.lowercase_name}"
+            )
+        if self._downstream_repo.exists():
+            return self._downstream_repo
 
 
 managed_subprojects: dict[str, ManagedSubproject] = {
@@ -828,23 +845,15 @@ def example(
         _run_example(src, luaonly=luaonly, print_docstring=print_docstring)
 
 
-# format
-
 
 def format() -> None:
-    def _format(path: Path) -> None:
-        _clean_docstrings(path)
-        _run_stylua(path)
-
-    _apply("library/**/*.lua", _format)
+    for _, subproject in managed_subprojects.items():
+        subproject.format()
 
 
 def manuals() -> None:
     for _, subproject in managed_subprojects.items():
         subproject.download_manuals()
-
-
-# merge
 
 
 def merge(subproject: Subproject = "luatex") -> None:
