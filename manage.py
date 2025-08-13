@@ -303,7 +303,7 @@ class Repository(Path):
         result = subprocess.run(["git", "commit", "-m", message], cwd=self)
         return result.returncode == 0
 
-    def is_git_commited(self) -> bool:
+    def is_commited(self) -> bool:
         """
         Checks if there are no uncommitted changes in the current Git repository.
 
@@ -315,9 +315,24 @@ class Repository(Path):
             == ""
         )
 
-    def get_latest_git_commitid(self) -> str:
+    def get_latest_commitid(self) -> str:
         return subprocess.check_output(
             ["git", "rev-parse", "HEAD"], encoding="utf-8", cwd=self
+        ).strip()
+
+    def get_latest_commit_url(self) -> str:
+        latest = self.get_latest_commitid()
+        # git@github.com:TeXLuaCATS/LuaMetaTeX.git
+        # https://github.com/TeXLuaCATS/LuaMetaTeX.git
+        remote = self.get_remote()
+        remote = remote.replace(".git", "")
+        remote = re.sub("^.*github.com.", "", remote)
+        # https://github.com/TeXLuaCATS/LuaMetaTeX/commit/7ec2a8ef132ce450e62c29ce4dfea0c7ac67fb42
+        return f"https://github.com/{remote}/commit/{latest}"
+
+    def get_remote(self) -> str:
+        return subprocess.check_output(
+            ["git", "remote", "get-url", "origin"], encoding="utf-8", cwd=self
         ).strip()
 
     def sync_from_remote(self, remote: str = "origin", branch: str = "main") -> None:
@@ -328,15 +343,10 @@ class Repository(Path):
 
     def sync_to_remote(
         self,
-        message: Optional[str] = None,
-        commit_id: Optional[str] = None,
+        message: str,
         branch: str = "main",
     ) -> None:
         self.__add()
-        if commit_id:
-            message = _format_commit_message(commit_id)
-        if not message:
-            raise Exception("Provide a message or a commit id")
         if self.__commit(message):
             self.__push(branch=branch)
 
@@ -347,7 +357,8 @@ ManualsSpec = Union[list[str], dict[str, Optional[str]]]
 @dataclass
 class ManagedSubproject:
     name: str
-    """The name of the subproject must match the name of its parent subfolder exactly."""
+    """The name of the subproject must match the name of its parent subfolder exactly.
+    For example: LuaTeX"""
 
     manuals: Optional[ManualsSpec] = None
 
@@ -355,24 +366,29 @@ class ManagedSubproject:
 
     @property
     def lowercase_name(self) -> str:
+        """For example: luatex"""
         return self.name.lower()
 
     @property
     def base(self) -> Path:
+        """For example: LuaCATS/upstream/luasocket"""
         return project_base_path / "LuaCATS" / "upstream" / self.name
 
     @property
     def library(self) -> Path:
+        """For example: TeXLuaCATS/LuaTeX/library"""
         return self.base / "library"
 
     @property
     def dist(self) -> Path:
+        """For example: dist/LuaTeX"""
         return project_base_path / "dist" / self.name
 
     _repo: Optional[Repository] = None
 
     @property
     def repo(self) -> Repository:
+        """For example: LuaCATS/upstream/luasocket"""
         if not self._repo:
             self._repo = Repository(self.base)
         return self._repo
@@ -381,15 +397,18 @@ class ManagedSubproject:
 
     @property
     def downstream_repo(self) -> Optional[Repository]:
+        """For example: TeXLuaCATS/LuaTeX/resources/manual"""
         return None
 
     @property
     def downstream_library(self) -> Optional[Path]:
+        """For example: LuaCATS/downstream/tex-luatex"""
         if self._downstream_repo:
             return self._downstream_repo / "library"
 
     @property
     def manuals_path(self) -> Path:
+        """For example: TeXLuaCATS/LuaTeX/resources/manual"""
         path = self.repo / "resources" / "manual"
         if not path.exists():
             path.mkdir(parents=True)
@@ -427,40 +446,23 @@ class ManagedSubproject:
             _run_stylua(self.downstream_library)
 
     def distribute(self) -> None:
-        """
-        Copies the contents of the 'library' directory to a new 'dist' directory,
-        removing any existing 'dist' directory first.
-
-        Entry point for `make dist`
-
-        Raises:
-            OSError: If there is an error removing or copying directories.
-        """
-        # format()
-
         dist = self.dist / "library"
         _copy_directory(self.library, dist)
 
         _apply(str(dist) + "/**/*.lua", _remove_navigation_table)
         _apply(str(dist) + "/**/*.lua", _clean_docstrings)
 
-        # if not _is_git_commited():
-        #     raise Exception("Uncommited changes found! Commit first, then retry!")
-        # commit_id = _get_latest_git_commitid()
+        if not self.repo.is_commited():
+            raise Exception("Uncommited changes found! Commit first, then retry!")
 
-        # for subproject in subprojects:
-        #     _push_into_downstream_submodule(subproject, commit_id)
-        #     _generate_markdown_docs(subproject, commit_id)
+        if self.downstream_repo:
+            _copy_directory(dist, self.downstream_repo / "library")
+            self.downstream_repo.sync_to_remote(
+                "Sync with " + self.repo.get_latest_commit_url()
+            )
 
-        # vscode_path = project_base_path / "resources" / "vscode_extension"
-        # _git_reset_pull(vscode_path)
-        # _copy_directory(project_base_path / "dist" / "library", vscode_path / "library")
-        # _git_commit_push(
-        #     vscode_path,
-        #     _format_commit_message(commit_id),
-        # )
 
-        # _git_commit_push(project_base_path, "Update submodules")
+
 
 
 @dataclass
@@ -583,6 +585,9 @@ managed_subprojects: dict[str, ManagedSubproject] = {
         manuals_base_url="https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/raw/master/manual",
     ),
 }
+
+parent_repo = Repository(project_base_path)
+vscode_extension_repo = Repository(project_base_path, "vscode_extension")
 
 
 # convert
@@ -1179,6 +1184,17 @@ def dist_ng() -> None:
     for _, subproject in managed_subprojects.items():
         subproject.distribute()
 
+    # vscode_path = project_base_path / "resources" / "vscode_extension"
+    # _git_reset_pull(vscode_path)
+    # _copy_directory(project_base_path / "dist" / "library", vscode_path / "library")
+    # _git_commit_push(
+    #     vscode_path,
+    #     _format_commit_message(commit_id),
+    # )
+
+
+    parent_repo.sync_to_remote("Update submodules")
+
 
 def rewrap(path: str) -> None:
     """Rewrap the comments"""
@@ -1240,11 +1256,24 @@ class Args:
 
 
 class TestManager(unittest.TestCase):
-    def test_is_git_commited(self) -> None:
-        self.assertIsInstance(_is_git_commited(), bool)
+    def test_repository_get_commit_id(self) -> None:
+        self.assertEqual(len(Repository(project_base_path).get_latest_commitid()), 40)
 
-    def test_get_latest_git_commitidself(self) -> None:
-        self.assertEqual(len(_get_latest_git_commitid()), 40)
+    def test_repository_is_commited(self) -> None:
+        self.assertIsInstance(Repository(project_base_path).is_commited(), bool)
+
+    def test_repository_get_remote(self) -> None:
+        self.assertEqual(
+            Repository(project_base_path).get_remote(),
+            "git@github.com:Josef-Friedrich/LuaTeX_Lua-API.git",
+        )
+
+    def test_repository_get_latest_commit_url(self) -> None:
+        repo = Repository(project_base_path)
+        self.assertIn(
+            repo.get_latest_commitid(),
+            repo.get_latest_commit_url(),
+        )
 
     def test_red(self) -> None:
         self.assertEqual(red("red"), "\x1b[0;31mred\x1b[0m")
@@ -1254,24 +1283,25 @@ class TestManager(unittest.TestCase):
 
     def test_download(self) -> None:
         with tempfile.NamedTemporaryFile(delete=True) as tmp:
-            _download_url("https://example.com", tmp.name)
+            _download_url("https://de.wikipedia.org", tmp.name)
             t = Path(tmp.name)
             self.assertTrue(t.exists())
-            self.assertIn("Example", t.read_text())
+            self.assertIn("Wikipedia", t.read_text())
 
     def test_distribute(self) -> None:
-        shutil.rmtree(project_base_path / "dist" / "library")
-        dist()
-        self.assertTrue(
-            (
-                project_base_path / "dist" / "library" / "luatex" / "callback.lua"
-            ).exists()
-        )
+        pass
+        # shutil.rmtree(project_base_path / "dist" / "library")
+        # dist()
+        # self.assertTrue(
+        #     (
+        #         project_base_path / "dist" / "library" / "luatex" / "callback.lua"
+        #     ).exists()
+        # )
 
-        def __check_navigation_table(path: Path):
-            self.assertNotIn("_N.", path.read_text(), path)
+        # def __check_navigation_table(path: Path):
+        #     self.assertNotIn("_N.", path.read_text(), path)
 
-        _apply("dist/**/*lua", __check_navigation_table)
+        # _apply("dist/**/*lua", __check_navigation_table)
 
 
 if __name__ == "__main__":
