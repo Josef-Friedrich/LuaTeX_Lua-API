@@ -325,12 +325,24 @@ class ManagedSubproject:
         return self.name.lower()
 
     @property
+    def base(self) -> Path:
+        return project_base_path / "LuaCATS" / "upstream" / self.name
+
+    @property
+    def library(self) -> Path:
+        return self.base / "library"
+
+    @property
+    def dist(self) -> Path:
+        return project_base_path / "dist" / self.name
+
+    @property
     def downstream_repo(self) -> Optional[Repository]:
         return None
 
     @property
     def repo(self) -> Repository:
-        return Repository(project_base_path / "LuaCATS" / "upstream" / self.name)
+        return Repository(self.base)
 
     @property
     def manuals_path(self) -> Path:
@@ -363,9 +375,53 @@ class ManagedSubproject:
         if downstream is not None:
             downstream.sync_from_remote()
 
+    def distribute(self) -> None:
+        """
+        Copies the contents of the 'library' directory to a new 'dist' directory,
+        removing any existing 'dist' directory first.
+
+        Entry point for `make dist`
+
+        Raises:
+            OSError: If there is an error removing or copying directories.
+        """
+        # format()
+
+        dist = self.dist / "library"
+        _copy_directory(self.library, dist)
+
+        _apply(str(dist) + "/**/*.lua", _remove_navigation_table)
+
+        def _clean(path: Path) -> None:
+            _update_text_file(path, _clean_docstrings)
+
+        _apply(str(dist) + "/**/*.lua", _clean)
+
+        # if not _is_git_commited():
+        #     raise Exception("Uncommited changes found! Commit first, then retry!")
+        # commit_id = _get_latest_git_commitid()
+
+        # for subproject in subprojects:
+        #     _push_into_downstream_submodule(subproject, commit_id)
+        #     _generate_markdown_docs(subproject, commit_id)
+
+        # vscode_path = project_base_path / "resources" / "vscode_extension"
+        # _git_reset_pull(vscode_path)
+        # _copy_directory(project_base_path / "dist" / "library", vscode_path / "library")
+        # _git_commit_push(
+        #     vscode_path,
+        #     _format_commit_message(commit_id),
+        # )
+
+        # _git_commit_push(project_base_path, "Update submodules")
+
 
 @dataclass
 class ManagedTeXSubproject(ManagedSubproject):
+    @property
+    def base(self) -> Path:
+        return project_base_path / "TeXLuaCATS" / self.name
+
     @property
     def downstream_repo(self) -> Optional[Repository]:
         repo = Repository(
@@ -374,15 +430,11 @@ class ManagedTeXSubproject(ManagedSubproject):
         if repo.exists():
             return repo
 
-    @property
-    def repo(self) -> Repository:
-        return Repository(project_base_path / "TeXLuaCATS" / self.name)
-
 
 managed_subprojects: dict[str, ManagedSubproject] = {
     "lmathx": ManagedSubproject("lmathx"),
     "lpeg": ManagedSubproject("lpeg"),
-    "luaharfbazz": ManagedSubproject("luaharfbazz"),
+    "luaharfbuzz": ManagedSubproject("luaharfbuzz"),
     "luasocket": ManagedSubproject("luasocket"),
     "luazip": ManagedSubproject("luazip"),
     "lzlib": ManagedSubproject("lzlib"),
@@ -1050,6 +1102,11 @@ def dist() -> None:
     _git_commit_push(project_base_path, "Update submodules")
 
 
+def dist_ng() -> None:
+    for _, subproject in managed_subprojects.items():
+        subproject.distribute()
+
+
 def rewrap(path: str) -> None:
     """Rewrap the comments"""
     abspath = Path(path).resolve()
@@ -1235,7 +1292,7 @@ if __name__ == "__main__":
         convert_tex()
         convert_html()
     elif args.command == "dist":
-        dist()
+        dist_ng()
     elif args.command == "example" and args.relpath:
         example(
             args.relpath,
