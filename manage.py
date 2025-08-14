@@ -110,24 +110,6 @@ def _run_pygmentize(path: Path | str) -> None:
         ]
     )
 
-
-def _is_git_commited() -> bool:
-    """
-    Checks if there are no uncommitted changes in the current Git repository.
-
-    Returns:
-        bool: True if the working directory is clean (no changes since last commit), False otherwise.
-    """
-    output: str = subprocess.check_output(["git", "diff", "HEAD"], encoding="utf-8")
-    return output == ""
-
-
-def _get_latest_git_commitid() -> str:
-    return subprocess.check_output(
-        ["git", "rev-parse", "HEAD"], encoding="utf-8"
-    ).strip()
-
-
 def _apply(glob_relpath: str, fn: Callable[[Path], None]) -> None:
     """
     Applies a given function to each file matching a glob pattern.
@@ -460,9 +442,6 @@ class ManagedSubproject:
             self.downstream_repo.sync_to_remote(
                 "Sync with " + self.repo.get_latest_commit_url()
             )
-
-
-
 
 
 @dataclass
@@ -1006,11 +985,6 @@ def _remove_navigation_table(path: Path) -> None:
     _update_text_file(path, __inner)
 
 
-def _git_reset_pull(path: str | Path) -> None:
-    subprocess.check_call(["git", "checkout", "main"], cwd=path)
-    subprocess.check_call(["git", "add", "-A"], cwd=path)
-    subprocess.check_call(["git", "reset", "--hard", "HEAD"], cwd=path)
-    subprocess.check_call(["git", "pull", "origin", "main"], cwd=path)
 
 
 def _format_commit_message(commit_id: str) -> str:
@@ -1042,45 +1016,6 @@ def _git_commit_push(
     if result.returncode == 0:
         subprocess.check_call(["git", "push", "-u", "origin", branch], cwd=repo)
 
-
-def _push_into_downstream_submodule(subproject: Subproject, commit_id: str) -> None:
-    """
-    Synchronizes the specified subproject's distribution files with its downstream LuaCATS submodule repository.
-
-    This function performs the following steps:
-    1. Determines the downstream submodule path for the given subproject.
-    2. Skips processing if the downstream repository does not exist.
-    3. Ensures the downstream repository is on the 'main' branch and up-to-date.
-    4. Copies the built distribution files into the downstream repository's 'library' directory.
-    5. Stages all changes and commits them with a message referencing the source commit.
-    6. Pushes the commit to the remote 'main' branch if changes were committed.
-
-    Args:
-        subproject: The name of the subproject to synchronize.
-        commit_id: The commit hash from the source repository to reference in the commit message.
-    """
-    path = (
-        project_base_path
-        / "resources"
-        / "LuaCATS"
-        / "downstream"
-        / ("tex-" + subproject)
-    )
-
-    # luaotfload has no downstream LuaCATS repository
-    if not path.exists():
-        return
-
-    _git_reset_pull(path)
-
-    _copy_directory(
-        project_base_path / "dist" / "library" / subproject, path / "library"
-    )
-
-    _git_commit_push(
-        path,
-        commit_id=commit_id,
-    )
 
 
 def _generate_markdown_docs(subproject: Subproject, commit_id: str) -> None:
@@ -1144,55 +1079,16 @@ def _generate_markdown_docs(subproject: Subproject, commit_id: str) -> None:
 
 
 def dist() -> None:
-    """
-    Copies the contents of the 'library' directory to a new 'dist' directory,
-    removing any existing 'dist' directory first.
-
-    Entry point for `make dist`
-
-    Raises:
-        OSError: If there is an error removing or copying directories.
-    """
-    format()
-    src_dir = project_base_path / "library"
-    dest_dir = project_base_path / "dist" / "library"
-    _copy_directory(src_dir, dest_dir)
-
-    _apply("dist/library/**/*.lua", _remove_navigation_table)
-    _apply("dist/library/**/*.lua", _clean_docstrings)
-
-    if not _is_git_commited():
-        raise Exception("Uncommited changes found! Commit first, then retry!")
-    commit_id = _get_latest_git_commitid()
-
-    for subproject in subprojects:
-        _push_into_downstream_submodule(subproject, commit_id)
-        _generate_markdown_docs(subproject, commit_id)
-
-    vscode_path = project_base_path / "resources" / "vscode_extension"
-    _git_reset_pull(vscode_path)
-    _copy_directory(project_base_path / "dist" / "library", vscode_path / "library")
-    _git_commit_push(
-        vscode_path,
-        _format_commit_message(commit_id),
-    )
-
-    _git_commit_push(project_base_path, "Update submodules")
-
-
-def dist_ng() -> None:
     for _, subproject in managed_subprojects.items():
         subproject.distribute()
-
-    # vscode_path = project_base_path / "resources" / "vscode_extension"
-    # _git_reset_pull(vscode_path)
-    # _copy_directory(project_base_path / "dist" / "library", vscode_path / "library")
-    # _git_commit_push(
-    #     vscode_path,
-    #     _format_commit_message(commit_id),
-    # )
-
-
+    latest_commit_urls: list[str] = []
+    for name in ["lualatex", "lualibs", "luametatex", "luaotfload", "luatex"]:
+        subproject = managed_subprojects[name]
+        _copy_directory(subproject.dist, vscode_extension_repo / "library" / "name")
+        latest_commit_urls.append(subproject.repo.get_latest_commit_url())
+    vscode_extension_repo.sync_to_remote(
+        "Sync with submodules\n\n" + "- " + "\n- ".join(latest_commit_urls)
+    )
     parent_repo.sync_to_remote("Update submodules")
 
 
@@ -1395,7 +1291,7 @@ if __name__ == "__main__":
         convert_tex()
         convert_html()
     elif args.command == "dist":
-        dist_ng()
+        dist()
     elif args.command == "example" and args.relpath:
         example(
             args.relpath,
