@@ -1051,7 +1051,7 @@ def dist() -> None:
     for lowercase_name in ["lualatex", "lualibs", "luametatex", "luaotfload", "luatex"]:
         subproject = managed_subprojects[lowercase_name]
         _copy_directory(
-            subproject.dist, vscode_extension_repo / "library" / lowercase_name
+            subproject.dist / "library", vscode_extension_repo / "library" / lowercase_name
         )
         latest_commit_urls.append(subproject.repo.get_latest_commit_url())
     vscode_extension_repo.sync_to_remote(

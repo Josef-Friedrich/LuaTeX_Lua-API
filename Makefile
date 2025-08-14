@@ -61,7 +61,7 @@ mkdocs_luatex:
 
 .PHONY: dist
 dist:
-	./manage.py --debug dist
+	./manage.py dist
 
 .PHONY: update_lls_addons
 update_lls_addons:
