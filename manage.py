@@ -1048,6 +1048,7 @@ def dist() -> None:
     for _, subproject in managed_subprojects.items():
         subproject.distribute()
     # vscode extension
+    vscode_extension_repo.checkout_clean("main")
     latest_commit_urls: list[str] = []
     for lowercase_name in ["lualatex", "lualibs", "luametatex", "luaotfload", "luatex"]:
         subproject = managed_subprojects[lowercase_name]
@@ -1056,7 +1057,6 @@ def dist() -> None:
             vscode_extension_repo / "library" / lowercase_name,
         )
         latest_commit_urls.append(subproject.repo.get_latest_commit_url())
-    vscode_extension_repo.checkout_clean("main")
     vscode_extension_repo.sync_to_remote(
         "Sync with:\n\n" + "- " + "\n- ".join(latest_commit_urls)
     )
