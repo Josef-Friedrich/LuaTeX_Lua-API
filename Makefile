@@ -41,7 +41,7 @@ rust_doc_generator_install:
 	cd doc-generators/rust; cargo build -p emmylua_doc_cli --release
 	sudo cp ./doc-generators/rust/target/release/emmylua_doc_cli /usr/local/bin/emmylua_doc
 
-export VIRTUAL_ENV = /opt/venvs/mkdocs
+# export VIRTUAL_ENV = /opt/venvs/mkdocs
 mkdocs_install:
 	sudo rm -rf /opt/venvs/mkdocs
 	sudo /home/jf/.local/bin/uv venv /opt/venvs/mkdocs
@@ -64,6 +64,7 @@ submodules:
 	git submodule foreach --recursive git clean -xfd
 	git submodule foreach --recursive git reset --hard
 	git submodule update --init --recursive --remote
+	cd manager; make install
 
 .PHONY: test
 test:

@@ -55,3 +55,6 @@
 [submodule "TeXLuaCATS/LuaMetaTeX"]
 	path = TeXLuaCATS/LuaMetaTeX
 	url = git@github.com:TeXLuaCATS/LuaMetaTeX.git
+[submodule "manager"]
+	path = manager
+	url = git@github.com:TeXLuaCATS/manager.git
