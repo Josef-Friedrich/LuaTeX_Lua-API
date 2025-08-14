@@ -110,6 +110,7 @@ def _run_pygmentize(path: Path | str) -> None:
         ]
     )
 
+
 def _apply(glob_relpath: str, fn: Callable[[Path], None]) -> None:
     """
     Applies a given function to each file matching a glob pattern.
@@ -268,6 +269,14 @@ class Repository(Path):
 
     def __checkout(self, branch: str = "main") -> None:
         self.__execute("git", "checkout", branch)
+
+    def checkout_clean(self, branch: str) -> None:
+        self.__add()
+        self.__reset()
+        self.__checkout(branch)
+        self.__add()
+        self.__reset()
+        self.__pull("origin", branch)
 
     def __add(self) -> None:
         self.__execute("git", "add", "-A")
@@ -442,6 +451,54 @@ class ManagedSubproject:
             self.downstream_repo.sync_to_remote(
                 "Sync with " + self.repo.get_latest_commit_url()
             )
+
+    def generate_markdown_docs(self, commit_id: str) -> None:
+        self.distribute()
+
+        resources = project_base_path / "resources" / "html-docs"
+
+        src = self.dist / "library"
+        dest = project_base_path / "dist" / self.dist / "docs"
+
+        subprocess.check_call(
+            [
+                "emmylua_doc",
+                src,
+                "--override-template",
+                resources / "emmylua-templates",
+                "--site-name",
+                self.name,
+                "--output",
+                self.repo,
+            ]
+        )
+
+        # css
+        shutil.copyfile(
+            resources / "extra.css", dest / "docs" / "stylesheets" / "extra.css"
+        )
+
+        # logo
+        # https://squidfunk.github.io/mkdocs-material/setup/changing-the-logo-and-icons/#logo
+        logo_src = resources / "images" / "logos" / (self.lowercase_name + ".svg")
+        if logo_src.exists():
+            logo_dest = dest / "docs" / "assets" / "logo.svg"
+            logo_dest.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(logo_src, logo_dest)
+
+        _copy_directory(
+            resources / "webfonts" / "DejaVu",
+            dest / "docs" / "assets" / "fonts",
+            delete_dest=False,
+        )
+
+        subprocess.check_call(["mkdocs", "build"], cwd=dest)
+
+        self.repo.checkout_clean("gh-pages")
+
+        _copy_directory(dest, self.repo)
+
+        self.repo.sync_to_remote("Generate docs", "gh-pages")
 
 
 @dataclass
@@ -983,99 +1040,6 @@ def _remove_navigation_table(path: Path) -> None:
         return content.strip() + "\n"
 
     _update_text_file(path, __inner)
-
-
-
-
-def _format_commit_message(commit_id: str) -> str:
-    return f"Sync with https://github.com/Josef-Friedrich/LuaTeX_Lua-API/commit/{commit_id}"
-
-
-def _git_commit_push(
-    repo: str | Path,
-    message: Optional[str] = None,
-    commit_id: Optional[str] = None,
-    branch: str = "main",
-) -> None:
-    subprocess.check_call(["git", "add", "-A"], cwd=repo)
-
-    if commit_id:
-        message = _format_commit_message(commit_id)
-    if not message:
-        raise Exception("Provide a message or a commit id")
-
-    result = subprocess.run(
-        [
-            "git",
-            "commit",
-            "-m",
-            message,
-        ],
-        cwd=repo,
-    )
-    if result.returncode == 0:
-        subprocess.check_call(["git", "push", "-u", "origin", branch], cwd=repo)
-
-
-
-def _generate_markdown_docs(subproject: Subproject, commit_id: str) -> None:
-    subproject_title = subprojects_dict[subproject]
-
-    resources = project_base_path / "resources" / "html-docs"
-
-    src = project_base_path / "dist" / "library" / subproject
-    dest = project_base_path / "dist" / "docs" / subproject
-    subprocess.check_call(
-        [
-            "emmylua_doc",
-            src,
-            "--override-template",
-            resources / "emmylua-templates",
-            "--site-name",
-            subproject_title,
-            "--output",
-            dest,
-        ]
-    )
-
-    # css
-    shutil.copyfile(
-        resources / "extra.css", dest / "docs" / "stylesheets" / "extra.css"
-    )
-
-    # logo
-    # https://squidfunk.github.io/mkdocs-material/setup/changing-the-logo-and-icons/#logo
-    logo_src = resources / "images" / "logos" / (subproject + ".svg")
-    if logo_src.exists():
-        logo_dest = dest / "docs" / "assets" / "logo.svg"
-        logo_dest.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(logo_src, logo_dest)
-
-    _copy_directory(
-        resources / "webfonts" / "DejaVu",
-        dest / "docs" / "assets" / "fonts",
-        delete_dest=False,
-    )
-
-    subprocess.check_call(["mkdocs", "build"], cwd=dest)
-
-    gh_pages_repo = project_base_path / "subrepos" / "TeXLuaCATS" / subproject_title
-
-    logger.debug("Github pages repo: %s", gh_pages_repo)
-
-    if gh_pages_repo.is_dir():
-        subprocess.check_call(["git", "add", "-Av"], cwd=gh_pages_repo)
-        subprocess.check_call(["git", "reset", "--hard", "HEAD"], cwd=gh_pages_repo)
-        subprocess.run(
-            ["git", "branch", "gh-pages"], cwd=gh_pages_repo
-        )  # ignore cli error
-        subprocess.check_call(["git", "checkout", "gh-pages"], cwd=gh_pages_repo)
-        subprocess.run(
-            ["git", "pull", "origin", "gh-pages"], cwd=gh_pages_repo
-        )  # ignore cli error
-        _copy_directory(dest / "site", gh_pages_repo, delete_dest=False)
-
-        _git_commit_push(gh_pages_repo, commit_id=commit_id, branch="gh-pages")
 
 
 def dist() -> None:
