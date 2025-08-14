@@ -41,14 +41,6 @@ rust_doc_generator_install:
 	cd doc-generators/rust; cargo build -p emmylua_doc_cli --release
 	sudo cp ./doc-generators/rust/target/release/emmylua_doc_cli /usr/local/bin/emmylua_doc
 
-.PHONY: lua_doc_generator_test
-lua_doc_generator_test:
-	cd doc-generators/lua; busted test.lua
-
-.PHONY: lua_doc_generator
-lua_doc_generator:
-	cd doc-generators/lua; lua doc-generator.lua
-
 export VIRTUAL_ENV = /opt/venvs/mkdocs
 mkdocs_install:
 	sudo rm -rf /opt/venvs/mkdocs
@@ -76,14 +68,6 @@ submodules:
 .PHONY: test
 test:
 	./manage.py test
-
-.PHONY: diff
-diff:
-	resources/patch.sh diff
-
-.PHONY: patch
-patch:
-	resources/patch.sh patch
 
 .PHONY: doc
 doc:
