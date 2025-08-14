@@ -111,95 +111,6 @@ def _run_pygmentize(path: Path | str) -> None:
     )
 
 
-def _apply(glob_relpath: str, fn: Callable[[Path], None]) -> None:
-    """
-    Applies a given function to each file matching a glob pattern.
-
-    Args:
-        glob_relpath: Relative glob pattern to match files.
-        fn: Function to apply to each matched file. The function should accept a single string argument representing the file path.
-
-    Returns:
-        None
-    """
-    for path in glob.glob(str(project_base_path / glob_relpath), recursive=True):
-        logger.debug(
-            "Apply function %s on file %s",
-            Colors.green(fn.__name__),
-            Colors.green(str(path)),
-        )
-        fn(Path(path))
-
-
-def _update_text_file(path: str | Path, fn: Callable[[str], str]) -> None:
-    """
-    Updates the content of a text file by applying a transformation function.
-
-    Args:
-        path (str | Path): The path to the text file to be updated.
-        fn (Callable[[str], str]): A function that takes the original content of the file
-            as input and returns the updated content.
-
-    Returns:
-        None
-
-    Side Effects:
-        - Reads the content of the file at the specified path.
-        - Writes the transformed content back to the same file.
-        - Logs a diff of the original and updated content if debug logging is enabled.
-
-    Note:
-        This function assumes the file at the given path is a text file and will overwrite
-        its content with the transformed content.
-    """
-    orig: str
-    updated: str
-    with open(path) as src:
-        orig = src.read()
-    updated = fn(orig)
-    with open(path, "w") as dest:
-        dest.write(updated)
-    if logger.isEnabledFor(logging.DEBUG):
-        _diff(orig, updated)
-
-
-def _clean_docstrings(path: Path) -> None:
-    """
-    Cleans and formats Lua-style docstrings in the given content string.
-
-    This function performs the following operations:
-    - Ensures that a docstring starts with an empty comment line.
-    - Removes duplicate empty comment lines.
-    - Allows only one consecutive empty line in the content.
-
-    Args:
-        path: The path containing Lua-style docstrings to be cleaned.
-    """
-
-    def __inner(content: str) -> str:
-        # Start a docstring with an empty comment line.
-        content = re.sub(r"\n\n---(?=[^\n])", r"\n\n---\n---", content)
-
-        # Remove duplicate empty comment lines.
-        content = re.sub("\n---(\n---)+\n", "\n---\n", content)
-
-        content = content.replace("\n\n---\n\n", "\n\n")
-
-        # Allow only one empty line
-        content = _remove_duplicate_empty_lines(content)
-
-        # Side effect with code examples in Lua docstrings
-        # content = content.replace(") end\n---", ") end\n\n---")
-
-        # Add an empty comment line before the @param annotation.
-        # content = re.sub(
-        #     r"(?<!\n---)\n---@param(?=.*?\n.*?@param)", r"\n---\n---@param", content
-        # )
-        return content
-
-    _update_text_file(path, __inner)
-
-
 def _diff(a: str, b: str) -> None:
     for line in difflib.unified_diff(a.splitlines(), b.splitlines(), n=1):
         if line.startswith("-"):
@@ -266,6 +177,7 @@ subprojects_dict: dict[str, str] = {
 
 
 class TextFile(Path):
+    orig_content: str
     content: str
 
     def __init__(self, *args, **kwargs) -> None:  # type: ignore
@@ -274,6 +186,7 @@ class TextFile(Path):
             self.content = self.read_text()
         else:
             self.content = ""
+        self.orig_content = self.content
 
     def remove_duplicate_empty_lines(self) -> None:
         """Remove duplicate empty lines."""
@@ -288,9 +201,10 @@ class TextFile(Path):
         # Remove the navigation table
         self.content = re.sub(r"^_N.+\n", "", self.content, flags=re.MULTILINE)
 
-        self.content = _remove_duplicate_empty_lines(self.content)
+        self.remove_duplicate_empty_lines()
         # Remove leading and trailing whitespace
         self.content = self.content.strip() + "\n"
+        self.save()
 
     def clean_docstrings(self) -> None:
         """
@@ -314,7 +228,7 @@ class TextFile(Path):
         self.content = self.content.replace("\n\n---\n\n", "\n\n")
 
         # Allow only one empty line
-        self.content = _remove_duplicate_empty_lines(self.content)
+        self.remove_duplicate_empty_lines()
 
         # Side effect with code examples in Lua docstrings
         # content = content.replace(") end\n---", ") end\n\n---")
@@ -323,9 +237,32 @@ class TextFile(Path):
         # content = re.sub(
         #     r"(?<!\n---)\n---@param(?=.*?\n.*?@param)", r"\n---\n---@param", content
         # )
+        self.save()
 
     def save(self) -> None:
+        if logger.isEnabledFor(logging.DEBUG):
+            _diff(self.orig_content, self.content)
         self.write_text(self.content)
+
+
+def _apply(glob_relpath: str, fn: Callable[[TextFile], None]) -> None:
+    """
+    Applies a given function to each file matching a glob pattern.
+
+    Args:
+        glob_relpath: Relative glob pattern to match files.
+        fn: Function to apply to each matched file. The function should accept a single string argument representing the file path.
+
+    Returns:
+        None
+    """
+    for path in glob.glob(str(project_base_path / glob_relpath), recursive=True):
+        logger.debug(
+            "Apply function %s on file %s",
+            Colors.green(fn.__name__),
+            Colors.green(str(path)),
+        )
+        fn(TextFile(path))
 
 
 class Repository(Path):
@@ -496,17 +433,20 @@ class ManagedSubproject:
 
     def format(self) -> None:
         _run_stylua(self.library)
-        _apply(str(self.library) + "/**/*.lua", _clean_docstrings)
+        _apply(str(self.library) + "/**/*.lua", lambda file: file.clean_docstrings())
         if self.downstream_library:
-            _apply(str(self.downstream_library) + "/**/*.lua", _clean_docstrings)
+            _apply(
+                str(self.downstream_library) + "/**/*.lua",
+                lambda file: file.clean_docstrings(),
+            )
             _run_stylua(self.downstream_library)
 
     def distribute(self) -> None:
         dist = self.dist / "library"
         _copy_directory(self.library, dist)
 
-        _apply(str(dist) + "/**/*.lua", _remove_navigation_table)
-        _apply(str(dist) + "/**/*.lua", _clean_docstrings)
+        _apply(str(dist) + "/**/*.lua", lambda file: file.remove_navigation_table())
+        _apply(str(dist) + "/**/*.lua", lambda file: file.clean_docstrings())
 
         if not self.repo.is_commited():
             raise Exception("Uncommited changes found! Commit first, then retry!")
@@ -1040,7 +980,7 @@ def merge(subproject: Subproject = "luatex") -> None:
     with open(dest, "w") as f:
         f.write(content)
 
-    _clean_docstrings(dest)
+    TextFile(dest).clean_docstrings()
 
 
 # navigation
@@ -1083,28 +1023,6 @@ def create_navigation_table() -> None:
     with open("tmp-read.lua", "w") as dest:
         print(content)
         dest.write(content)
-
-
-def _remove_duplicate_empty_lines(content: str) -> str:
-    """Remove duplicate empty lines."""
-    return re.sub("\n\n+", "\n\n", content)
-
-
-def _remove_navigation_table(path: Path) -> None:
-    def __inner(content: str) -> str:
-        content = content.replace(
-            "---A helper table to better navigate through the documentation using the\n"
-            + "---outline: https://github.com/Josef-Friedrich/LuaTeX_Lua-API#navigation-table-_n\n",
-            "",
-        )
-        # Remove the navigation table
-        content = re.sub(r"^_N.+\n", "", content, flags=re.MULTILINE)
-
-        content = _remove_duplicate_empty_lines(content)
-        # Remove leading and trailing whitespace
-        return content.strip() + "\n"
-
-    _update_text_file(path, __inner)
 
 
 def dist() -> None:
