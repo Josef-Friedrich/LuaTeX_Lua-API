@@ -188,7 +188,7 @@ class TextFile(Path):
             self.content = ""
         self.orig_content = self.content
 
-    def remove_duplicate_empty_lines(self) -> None:
+    def _remove_duplicate_empty_lines(self) -> None:
         """Remove duplicate empty lines."""
         self.content = re.sub("\n\n+", "\n\n", self.content)
 
@@ -201,7 +201,7 @@ class TextFile(Path):
         # Remove the navigation table
         self.content = re.sub(r"^_N.+\n", "", self.content, flags=re.MULTILINE)
 
-        self.remove_duplicate_empty_lines()
+        self._remove_duplicate_empty_lines()
         # Remove leading and trailing whitespace
         self.content = self.content.strip() + "\n"
         self.save()
@@ -228,7 +228,7 @@ class TextFile(Path):
         self.content = self.content.replace("\n\n---\n\n", "\n\n")
 
         # Allow only one empty line
-        self.remove_duplicate_empty_lines()
+        self._remove_duplicate_empty_lines()
 
         # Side effect with code examples in Lua docstrings
         # content = content.replace(") end\n---", ") end\n\n---")
@@ -239,13 +239,139 @@ class TextFile(Path):
         # )
         self.save()
 
+    def convert_html_to_lua(self) -> None:
+        self.content = re.sub(
+            r"</?(tt|code)>",
+            "`",
+            self.content,
+        )
+        self.content = re.sub(
+            r"</?pre.*?>",
+            "```",
+            self.content,
+        )
+        self.content = re.sub(r"<li> *", "* ", self.content)
+        self.content = re.sub(r"</?.*?> *", "", self.content)
+        self.content = "---" + self.content.replace("\n", "\n---")
+        self.save()
+
+    def convert_tex_to_lua(self) -> None:
+        self.content = re.sub(
+            r"\\(type|typ|prm|lpr|nod|syntax|notabene|whs|cbk)[\s]*\{([^}]*)\}",
+            r"`\2`",
+            self.content,
+        )
+
+        self.content = re.sub(
+            r"\\libidx\s*\{(.*?)\}\s*\{(.*?)\}",
+            r"`\1.\2`",
+            self.content,
+        )
+
+        self.content = re.sub(
+            r"\\(hyphenatedurl)[\s]*\{([^}]*)\}",
+            r"\2",
+            self.content,
+        )
+
+        self.content = re.sub(r"\\quote\s*\{([^}]*)\}", r"“\1”", self.content)
+        self.content = re.sub(r"\$([^$]+)\$", r"`\1`", self.content)
+
+        self.content = re.sub(r"\\TEX\\?", "*TeX*", self.content)
+        self.content = re.sub(r"\\CONTEXT\\?", "*ConTeXt*", self.content)
+        self.content = re.sub(r"\\LUATEX\\?", "*LuaTeX*", self.content)
+        self.content = re.sub(r"\\LUA\\?", "*Lua*", self.content)
+        self.content = re.sub(r"\\PDF\\?", "*PDF*", self.content)
+        self.content = re.sub(r"\\OPENTYPE\\?", "*OpenType*", self.content)
+        self.content = re.sub(r"\\TRUETYPE\\?", "*TrueType*", self.content)
+        self.content = re.sub(r"\\MICROSOFT\\?", "*Microsoft*", self.content)
+        self.content = re.sub(r"\\FONTFORGE\\?", "*FontForge*", self.content)
+        self.content = re.sub(r"\\POSTSCRIPT\\?", "*PostScript*", self.content)
+        self.content = re.sub(r"\\UTF-?8?\\?", "*UTF-8*", self.content)
+        self.content = re.sub(r"\\UNICODE\\?", "*Unicode*", self.content)
+
+        self.content = re.sub(
+            r"\\(starttyping|startfunctioncall|stoptyping|stopfunctioncall)",
+            "```",
+            self.content,
+        )
+
+        self.content = re.sub(r"\\startitemize(\[[^]]*\])?", "", self.content)
+        self.content = re.sub(r"\\startitem\s*", "* ", self.content)
+        self.content = re.sub(r"\\stopitem(ize)?", "", self.content)
+
+        self.content = self.content.replace("~", " ")
+        self.content = self.content.replace("|-|", "-")
+        self.content = self.content.replace("|/|", "/")
+        self.content = self.content.replace("\\NC \\NR", "")
+        self.content = re.sub(r"\\(NC|DB|BC|LL|TB|stoptabulate)", "", self.content)
+        self.content = re.sub(r"\\starttabulate\[.*?\]", "", self.content)
+        self.content = self.content.replace("etc.\\", "etc.")
+
+        self.content = "---" + self.content.replace("\n", "\n---")
+
+        self.content = re.sub(
+            r"\\start(sub)*(section|chapter)*\[.*title=\{(.*?)\}\]",
+            r"# \3",
+            self.content,
+        )
+        self.content = re.sub(r"\\(sub)*section\{(.*?)\}", r"# \2", self.content)
+        self.content = re.sub(r"\\(libindex|topicindex)\s*\{[^}]+\}", "", self.content)
+        self.content = re.sub(r"---\n(---\n)+", "---\n", self.content)
+
+        self.content = re.sub(
+            r"---\\stop(sub)*section",
+            "----------------------------------------------------------------\n\n",
+            self.content,
+        )
+
+        self.content = re.sub(
+            r"--- `(.*)` +(float|string|boolean|number|table|.*node) +",
+            r"---@field \1 \2 # ",
+            self.content,
+        )
+
+        self.content = re.sub(r"\n--- {10,}", r" ", self.content)
+
+        self.save()
+
+    def create_navigation_table(self) -> None:
+        self.content = re.sub(
+            r"[^\w\n]",
+            "_",
+            self.content,
+        )
+        self.content = re.sub(
+            r"__+",
+            "_",
+            self.content,
+        )
+        self.content = re.sub(
+            r"_\n",
+            "\n",
+            self.content,
+        )
+        self.content = re.sub(
+            r"\n(?=\w)",
+            "\n_N._",
+            self.content,
+        )
+        self.content = re.sub(
+            r"(?<=\w)\n",
+            " = 0\n",
+            self.content,
+        )
+        self.save()
+
     def save(self) -> None:
         if logger.isEnabledFor(logging.DEBUG):
             _diff(self.orig_content, self.content)
         self.write_text(self.content)
 
 
-def _apply(glob_relpath: str, fn: Callable[[TextFile], None]) -> None:
+def _apply(
+    relpath: str | Path, fn: Callable[[TextFile], None], extension: str = "lua"
+) -> None:
     """
     Applies a given function to each file matching a glob pattern.
 
@@ -256,7 +382,9 @@ def _apply(glob_relpath: str, fn: Callable[[TextFile], None]) -> None:
     Returns:
         None
     """
-    for path in glob.glob(str(project_base_path / glob_relpath), recursive=True):
+    for path in glob.glob(
+        str(project_base_path / relpath) + "/**/*." + extension, recursive=True
+    ):
         logger.debug(
             "Apply function %s on file %s",
             Colors.green(fn.__name__),
@@ -433,7 +561,7 @@ class ManagedSubproject:
 
     def format(self) -> None:
         _run_stylua(self.library)
-        _apply(str(self.library) + "/**/*.lua", lambda file: file.clean_docstrings())
+        _apply(self.library, lambda file: file.clean_docstrings())
         if self.downstream_library:
             _apply(
                 str(self.downstream_library) + "/**/*.lua",
@@ -445,8 +573,8 @@ class ManagedSubproject:
         dist = self.dist / "library"
         _copy_directory(self.library, dist)
 
-        _apply(str(dist) + "/**/*.lua", lambda file: file.remove_navigation_table())
-        _apply(str(dist) + "/**/*.lua", lambda file: file.clean_docstrings())
+        _apply(dist, lambda file: file.remove_navigation_table())
+        _apply(dist, lambda file: file.clean_docstrings())
 
         if not self.repo.is_commited():
             raise Exception("Uncommited changes found! Commit first, then retry!")
@@ -635,122 +763,11 @@ vscode_extension_repo = Repository(project_base_path, "vscode_extension")
 
 
 def convert_tex() -> None:
-    def _convert(path: Path) -> None:
-        content: str = ""
-
-        with open(path) as src:
-            content = src.read()
-
-        content = re.sub(
-            r"\\(type|typ|prm|lpr|nod|syntax|notabene|whs|cbk)[\s]*\{([^}]*)\}",
-            r"`\2`",
-            content,
-        )
-
-        content = re.sub(
-            r"\\libidx\s*\{(.*?)\}\s*\{(.*?)\}",
-            r"`\1.\2`",
-            content,
-        )
-
-        content = re.sub(
-            r"\\(hyphenatedurl)[\s]*\{([^}]*)\}",
-            r"\2",
-            content,
-        )
-
-        content = re.sub(r"\\quote\s*\{([^}]*)\}", r"“\1”", content)
-        content = re.sub(r"\$([^$]+)\$", r"`\1`", content)
-
-        content = re.sub(r"\\TEX\\?", "*TeX*", content)
-        content = re.sub(r"\\CONTEXT\\?", "*ConTeXt*", content)
-        content = re.sub(r"\\LUATEX\\?", "*LuaTeX*", content)
-        content = re.sub(r"\\LUA\\?", "*Lua*", content)
-        content = re.sub(r"\\PDF\\?", "*PDF*", content)
-        content = re.sub(r"\\OPENTYPE\\?", "*OpenType*", content)
-        content = re.sub(r"\\TRUETYPE\\?", "*TrueType*", content)
-        content = re.sub(r"\\MICROSOFT\\?", "*Microsoft*", content)
-        content = re.sub(r"\\FONTFORGE\\?", "*FontForge*", content)
-        content = re.sub(r"\\POSTSCRIPT\\?", "*PostScript*", content)
-        content = re.sub(r"\\UTF-?8?\\?", "*UTF-8*", content)
-        content = re.sub(r"\\UNICODE\\?", "*Unicode*", content)
-
-        content = re.sub(
-            r"\\(starttyping|startfunctioncall|stoptyping|stopfunctioncall)",
-            "```",
-            content,
-        )
-
-        content = re.sub(r"\\startitemize(\[[^]]*\])?", "", content)
-        content = re.sub(r"\\startitem\s*", "* ", content)
-        content = re.sub(r"\\stopitem(ize)?", "", content)
-
-        content = content.replace("~", " ")
-        content = content.replace("|-|", "-")
-        content = content.replace("|/|", "/")
-        content = content.replace("\\NC \\NR", "")
-        content = re.sub(r"\\(NC|DB|BC|LL|TB|stoptabulate)", "", content)
-        content = re.sub(r"\\starttabulate\[.*?\]", "", content)
-        content = content.replace("etc.\\", "etc.")
-
-        content = "---" + content.replace("\n", "\n---")
-
-        content = re.sub(
-            r"\\start(sub)*(section|chapter)*\[.*title=\{(.*?)\}\]", r"# \3", content
-        )
-        content = re.sub(r"\\(sub)*section\{(.*?)\}", r"# \2", content)
-        content = re.sub(r"\\(libindex|topicindex)\s*\{[^}]+\}", "", content)
-        content = re.sub(r"---\n(---\n)+", "---\n", content)
-
-        content = re.sub(
-            r"---\\stop(sub)*section",
-            "----------------------------------------------------------------\n\n",
-            content,
-        )
-
-        content = re.sub(
-            r"--- `(.*)` +(float|string|boolean|number|table|.*node) +",
-            r"---@field \1 \2 # ",
-            content,
-        )
-
-        content = re.sub(r"\n--- {10,}", r" ", content)
-
-        with open(str(path) + ".lua", "w") as dest:
-            dest.write(content)
-
-    _apply("resources/manuals/**/*.tex", _convert)
+    _apply("resources/manuals", lambda file: file.convert_tex_to_lua(), extension="tex")
 
 
 def convert_html() -> None:
-    def _convert(path: Path) -> None:
-        content: str = ""
-
-        with open(path) as src:
-            content = src.read()
-
-        content = re.sub(
-            r"</?(tt|code)>",
-            "`",
-            content,
-        )
-
-        content = re.sub(
-            r"</?pre.*?>",
-            "```",
-            content,
-        )
-
-        content = re.sub(r"<li> *", "* ", content)
-
-        content = re.sub(r"</?.*?> *", "", content)
-
-        content = "---" + content.replace("\n", "\n---")
-
-        with open(str(path) + ".lua", "w") as dest:
-            dest.write(content)
-
-    _apply("resources/**/*.html", _convert)
+    _apply("resources", lambda file: file.convert_html_to_lua(), extension="html")
 
 
 def example(
@@ -981,48 +998,6 @@ def merge(subproject: Subproject = "luatex") -> None:
         f.write(content)
 
     TextFile(dest).clean_docstrings()
-
-
-# navigation
-
-
-def create_navigation_table() -> None:
-    with open("tmp.lua") as src:
-        content = src.read()
-
-    content = re.sub(
-        r"[^\w\n]",
-        "_",
-        content,
-    )
-
-    content = re.sub(
-        r"__+",
-        "_",
-        content,
-    )
-
-    content = re.sub(
-        r"_\n",
-        "\n",
-        content,
-    )
-
-    content = re.sub(
-        r"\n(?=\w)",
-        "\n_N._",
-        content,
-    )
-
-    content = re.sub(
-        r"(?<=\w)\n",
-        " = 0\n",
-        content,
-    )
-
-    with open("tmp-read.lua", "w") as dest:
-        print(content)
-        dest.write(content)
 
 
 def dist() -> None:
