@@ -272,13 +272,13 @@ class Repository(Path):
     def __checkout(self, branch: str = "main") -> None:
         self.__execute("git", "checkout", branch)
 
-    def checkout_clean(self, branch: str) -> None:
+    def checkout_clean(self, branch: str = "main") -> None:
         self.__add()
         self.__reset()
         self.__checkout(branch)
         self.__add()
         self.__reset()
-        self.__pull("origin", branch)
+        self.__pull(branch)
 
     def __add(self) -> None:
         self.__execute("git", "add", "-A")
@@ -286,11 +286,11 @@ class Repository(Path):
     def __reset(self) -> None:
         self.__execute("git", "reset", "--hard", "HEAD")
 
-    def __pull(self, remote: str = "origin", branch: str = "main") -> None:
-        self.__execute("git", "pull", remote, branch)
+    def __pull(self, branch: str = "main") -> None:
+        self.__execute("git", "pull", "origin", branch)
 
-    def __push(self, remote: str = "origin", branch: str = "main") -> None:
-        self.__execute("git", "push", "-u", remote, branch)
+    def __push(self, branch: str = "main") -> None:
+        self.__execute("git", "push", "-u", "origin", branch)
 
     def __commit(self, message: str) -> bool:
         result = subprocess.run(["git", "commit", "-m", message], cwd=self)
@@ -328,11 +328,11 @@ class Repository(Path):
             ["git", "remote", "get-url", "origin"], encoding="utf-8", cwd=self
         ).strip()
 
-    def sync_from_remote(self, remote: str = "origin", branch: str = "main") -> None:
+    def sync_from_remote(self, branch: str = "main") -> None:
         self.__checkout(branch)
         self.__add()
         self.__reset()
-        self.__pull(remote, branch)
+        self.__pull(branch)
 
     def sync_to_remote(
         self,
@@ -1052,9 +1052,11 @@ def dist() -> None:
     for lowercase_name in ["lualatex", "lualibs", "luametatex", "luaotfload", "luatex"]:
         subproject = managed_subprojects[lowercase_name]
         _copy_directory(
-            subproject.dist / "library", vscode_extension_repo / "library" / lowercase_name
+            subproject.dist / "library",
+            vscode_extension_repo / "library" / lowercase_name,
         )
         latest_commit_urls.append(subproject.repo.get_latest_commit_url())
+    vscode_extension_repo.checkout_clean("main")
     vscode_extension_repo.sync_to_remote(
         "Sync with:\n\n" + "- " + "\n- ".join(latest_commit_urls)
     )
