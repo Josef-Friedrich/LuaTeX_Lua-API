@@ -1047,6 +1047,7 @@ def _remove_navigation_table(path: Path) -> None:
 def dist() -> None:
     for _, subproject in managed_subprojects.items():
         subproject.distribute()
+    # vscode extension
     latest_commit_urls: list[str] = []
     for lowercase_name in ["lualatex", "lualibs", "luametatex", "luaotfload", "luatex"]:
         subproject = managed_subprojects[lowercase_name]
