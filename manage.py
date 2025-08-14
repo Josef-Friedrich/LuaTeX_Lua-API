@@ -78,17 +78,17 @@ class Colors:
     CROSSED = "\033[9m"
     END = "\033[0m"
 
+    @staticmethod
+    def _apply_color(color: str, text: Any) -> str:
+        return color + str(text) + Colors.END
 
-def _apply_color(color: str, text: Any) -> str:
-    return color + str(text) + Colors.END
+    @staticmethod
+    def red(text: Any) -> str:
+        return Colors._apply_color(Colors.RED, text)
 
-
-def red(text: Any) -> str:
-    return _apply_color(Colors.RED, text)
-
-
-def green(text: Any) -> str:
-    return _apply_color(Colors.GREEN, text)
+    @staticmethod
+    def green(text: Any) -> str:
+        return Colors._apply_color(Colors.GREEN, text)
 
 
 def _run_stylua(path: Path | str) -> None:
@@ -124,7 +124,9 @@ def _apply(glob_relpath: str, fn: Callable[[Path], None]) -> None:
     """
     for path in glob.glob(str(project_base_path / glob_relpath), recursive=True):
         logger.debug(
-            "Apply function %s on file %s", green(fn.__name__), green(str(path))
+            "Apply function %s on file %s",
+            Colors.green(fn.__name__),
+            Colors.green(str(path)),
         )
         fn(Path(path))
 
@@ -833,7 +835,7 @@ def example(
     ) -> None:
         """Run and execute one example file"""
         relpath: str = str(src).replace(str(project_base_path / "examples") + "/", "")
-        print(f"Example: {green(relpath)}")
+        print(f"Example: {Colors.green(relpath)}")
 
         logger.debug(f"Example source: {src}")
 
@@ -1046,12 +1048,14 @@ def dist() -> None:
     for _, subproject in managed_subprojects.items():
         subproject.distribute()
     latest_commit_urls: list[str] = []
-    for name in ["lualatex", "lualibs", "luametatex", "luaotfload", "luatex"]:
-        subproject = managed_subprojects[name]
-        _copy_directory(subproject.dist, vscode_extension_repo / "library" / "name")
+    for lowercase_name in ["lualatex", "lualibs", "luametatex", "luaotfload", "luatex"]:
+        subproject = managed_subprojects[lowercase_name]
+        _copy_directory(
+            subproject.dist, vscode_extension_repo / "library" / lowercase_name
+        )
         latest_commit_urls.append(subproject.repo.get_latest_commit_url())
     vscode_extension_repo.sync_to_remote(
-        "Sync with submodules\n\n" + "- " + "\n- ".join(latest_commit_urls)
+        "Sync with:\n\n" + "- " + "\n- ".join(latest_commit_urls)
     )
     parent_repo.sync_to_remote("Update submodules")
 
@@ -1136,10 +1140,10 @@ class TestManager(unittest.TestCase):
         )
 
     def test_red(self) -> None:
-        self.assertEqual(red("red"), "\x1b[0;31mred\x1b[0m")
+        self.assertEqual(Colors.red("red"), "\x1b[0;31mred\x1b[0m")
 
     def test_green(self) -> None:
-        self.assertEqual(green("green"), "\x1b[0;32mgreen\x1b[0m")
+        self.assertEqual(Colors.green("green"), "\x1b[0;32mgreen\x1b[0m")
 
     def test_download(self) -> None:
         with tempfile.NamedTemporaryFile(delete=True) as tmp:
