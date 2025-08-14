@@ -8,11 +8,11 @@ all: format stylua
 
 .PHONY: format
 format: stylua
-	./manage.py format
+	./manage format
 
 .PHONY: convert
 convert:
-	./manage.py convert
+	./manage convert
 
 .PHONY: stylua
 stylua:
@@ -53,7 +53,7 @@ mkdocs_luatex:
 
 .PHONY: dist
 dist:
-	./manage.py dist
+	./manage dist
 
 .PHONY: update_lls_addons
 update_lls_addons:
@@ -68,7 +68,7 @@ submodules:
 
 .PHONY: test
 test:
-	./manage.py test
+	./manage test
 
 .PHONY: doc
 doc:
@@ -84,7 +84,7 @@ ctan: doc dist_rsync
 	rm -rf $(jobname)
 	rm -rf $(jobname).tar.gz
 	mkdir $(jobname)
-	./manage.py merge luatex
+	./manage merge luatex
 	$(HOME)/.cargo/bin/stylua $(jobname)
 	cp -f README.md $(jobname)
 	cp -f $(jobname)-doc.tex $(jobname)
@@ -98,14 +98,14 @@ clean:
 
 .PHONY: download_manuals
 download_manuals:
-	./manage.py manuals
+	./manage manuals
 
 .PHONY: update_manual
 update_manual:
 	wget -O /usr/local/texlive/texmf-dist/doc/luatex/base/luatex.pdf https://gitlab.lisn.upsaclay.fr/texlive/luatex/-/raw/master/manual/luatex.pdf
 	wget -O /usr/local/texlive/texmf-dist/doc/context/documents/general/manuals/luametatex.pdf https://raw.githubusercontent.com/contextgarden/context/main/doc/context/documents/general/manuals/luametatex.pdf
 
-LUATEX = ./manage.py example --print-docstring --subproject luatex
+LUATEX = ./manage example --print-docstring --subproject luatex
 
 .PHONY: namespace_luametatex
 namespace_luametatex:
