@@ -265,6 +265,69 @@ subprojects_dict: dict[str, str] = {
 }
 
 
+class TextFile(Path):
+    content: str
+
+    def __init__(self, *args, **kwargs) -> None:  # type: ignore
+        super().__init__(*args, **kwargs)  # type: ignore
+        if self.exists():
+            self.content = self.read_text()
+        else:
+            self.content = ""
+
+    def remove_duplicate_empty_lines(self) -> None:
+        """Remove duplicate empty lines."""
+        self.content = re.sub("\n\n+", "\n\n", self.content)
+
+    def remove_navigation_table(self) -> None:
+        self.content = self.content.replace(
+            "---A helper table to better navigate through the documentation using the\n"
+            + "---outline: https://github.com/Josef-Friedrich/LuaTeX_Lua-API#navigation-table-_n\n",
+            "",
+        )
+        # Remove the navigation table
+        self.content = re.sub(r"^_N.+\n", "", self.content, flags=re.MULTILINE)
+
+        self.content = _remove_duplicate_empty_lines(self.content)
+        # Remove leading and trailing whitespace
+        self.content = self.content.strip() + "\n"
+
+    def clean_docstrings(self) -> None:
+        """
+        Cleans and formats Lua-style docstrings in the given content string.
+
+        This function performs the following operations:
+        - Ensures that a docstring starts with an empty comment line.
+        - Removes duplicate empty comment lines.
+        - Allows only one consecutive empty line in the content.
+
+        Args:
+            path: The path containing Lua-style docstrings to be cleaned.
+        """
+
+        # Start a docstring with an empty comment line.
+        self.content = re.sub(r"\n\n---(?=[^\n])", r"\n\n---\n---", self.content)
+
+        # Remove duplicate empty comment lines.
+        self.content = re.sub("\n---(\n---)+\n", "\n---\n", self.content)
+
+        self.content = self.content.replace("\n\n---\n\n", "\n\n")
+
+        # Allow only one empty line
+        self.content = _remove_duplicate_empty_lines(self.content)
+
+        # Side effect with code examples in Lua docstrings
+        # content = content.replace(") end\n---", ") end\n\n---")
+
+        # Add an empty comment line before the @param annotation.
+        # content = re.sub(
+        #     r"(?<!\n---)\n---@param(?=.*?\n.*?@param)", r"\n---\n---@param", content
+        # )
+
+    def save(self) -> None:
+        self.write_text(self.content)
+
+
 class Repository(Path):
     def __execute(self, *args: str) -> int:
         return subprocess.check_call(args, cwd=self)
