@@ -58,3 +58,6 @@
 [submodule "manager"]
 	path = manager
 	url = git@github.com:TeXLuaCATS/manager.git
+[submodule "doc-generator"]
+	path = doc-generator
+	url = git@github.com:TeXLuaCATS/doc-generator.git
