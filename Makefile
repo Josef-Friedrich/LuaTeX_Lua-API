@@ -27,30 +27,6 @@ debug:
 print_namespace:
 	luatex resources/print-namespace.tex
 
-.PHONY: rust_doc_generator
-rust_doc_generator: dist
-	/usr/local/bin/emmylua_doc dist/library/luatex --output dist/docs/luatex
-
-rust_doc_generator_luatex:
-	/usr/local/bin/emmylua_doc dist/library/luatex \
-	--output dist/docs/luatex \
-	--override-template resources/emmylua-templates
-
-.PHONY: rust_doc_generator_install
-rust_doc_generator_install:
-	cd doc-generators/rust; cargo build -p emmylua_doc_cli --release
-	sudo cp ./doc-generators/rust/target/release/emmylua_doc_cli /usr/local/bin/emmylua_doc
-
-# export VIRTUAL_ENV = /opt/venvs/mkdocs
-mkdocs_install:
-	sudo rm -rf /opt/venvs/mkdocs
-	sudo /home/jf/.local/bin/uv venv /opt/venvs/mkdocs
-	sudo chown -R jf:jf /opt/venvs/mkdocs
-	/home/jf/.local/bin/uv pip install mkdocs mkdocs-material
-
-mkdocs_luatex:
-	cd dist/docs/luatex; mkdocs serve
-
 .PHONY: dist
 dist:
 	./manage dist
