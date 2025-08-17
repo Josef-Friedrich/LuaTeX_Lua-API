@@ -39,6 +39,7 @@ update_lls_addons:
 submodules:
 	git submodule foreach --recursive git clean -xfd
 	git submodule foreach --recursive git reset --hard
+	git submodule foreach --recursive git checkout main
 	git submodule update --init --recursive --remote
 	cd manager; make install
 
