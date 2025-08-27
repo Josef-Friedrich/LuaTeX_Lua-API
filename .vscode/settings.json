@@ -2,7 +2,7 @@
   "python.formatting.provider": "black",
   // https://github.com/sumneko/lua-language-server/wiki/Libraries
   "Lua.workspace.library": [
-    "~/repos/repos/lua/luatex_api_all/library",
+    "./TeXLuaCATS/LuaTeX/library",
     "${addons}/busted/module/library",
     "${3rd}/luassert/library"
   ],

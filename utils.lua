@@ -98,13 +98,7 @@ local inspect = (function()
   end
 
   local function escape(str)
-    return (
-      gsub(
-        gsub(gsub(str, "\\", "\\\\"), "(%c)%f[0-9]", longControlCharEscapes),
-        "%c",
-        shortControlCharEscapes
-      )
-    )
+    return (gsub(gsub(gsub(str, "\\", "\\\\"), "(%c)%f[0-9]", longControlCharEscapes), "%c", shortControlCharEscapes))
   end
 
   local luaKeywords = {
@@ -133,17 +127,12 @@ local inspect = (function()
   }
 
   local function isIdentifier(str)
-    return type(str) == "string"
-      and not not str:match("^[_%a][_%a%d]*$")
-      and not luaKeywords[str]
+    return type(str) == "string" and not not str:match("^[_%a][_%a%d]*$") and not luaKeywords[str]
   end
 
   local flr = math.floor
   local function isSequenceKey(k, sequenceLength)
-    return type(k) == "number"
-      and flr(k) == k
-      and 1 <= k
-      and k <= sequenceLength
+    return type(k) == "number" and flr(k) == k and 1 <= k and k <= sequenceLength
   end
 
   local defaultTypeOrders = {
@@ -230,20 +219,13 @@ local inspect = (function()
       local processedKey
 
       for k, v in rawpairs(processed) do
-        processedKey =
-          processRecursive(process, k, makePath(path, k, inspect.KEY), visited)
+        processedKey = processRecursive(process, k, makePath(path, k, inspect.KEY), visited)
         if processedKey ~= nil then
-          processedCopy[processedKey] =
-            processRecursive(process, v, makePath(path, processedKey), visited)
+          processedCopy[processedKey] = processRecursive(process, v, makePath(path, processedKey), visited)
         end
       end
 
-      local mt = processRecursive(
-        process,
-        getmetatable(processed),
-        makePath(path, inspect.METATABLE),
-        visited
-      )
+      local mt = processRecursive(process, getmetatable(processed), makePath(path, inspect.METATABLE), visited)
       if type(mt) ~= "table" then
         mt = nil
       end
@@ -263,10 +245,7 @@ local inspect = (function()
   local Inspector_mt = { __index = Inspector }
 
   local function tabify(inspector)
-    puts(
-      inspector.buf,
-      inspector.newline .. rep(inspector.indent, inspector.level)
-    )
+    puts(inspector.buf, inspector.newline .. rep(inspector.indent, inspector.level))
   end
 
   function Inspector:getId(v)
@@ -285,13 +264,7 @@ local inspect = (function()
     local tv = type(v)
     if tv == "string" then
       puts(buf, smartQuote(escape(v)))
-    elseif
-      tv == "number"
-      or tv == "boolean"
-      or tv == "nil"
-      or tv == "cdata"
-      or tv == "ctype"
-    then
+    elseif tv == "number" or tv == "boolean" or tv == "nil" or tv == "cdata" or tv == "ctype" then
       puts(buf, tostring(v))
     elseif tv == "table" and not self.ids[v] then
       local t = v
@@ -435,9 +408,7 @@ local function colorize(color_code, text, skip_colorize)
   if skip_colorize then
     return text
   end
-  return format_ansi_color_code(color_code)
-    .. tostring(text)
-    .. format_ansi_color_code(0)
+  return format_ansi_color_code(color_code) .. tostring(text) .. format_ansi_color_code(0)
 end
 
 ---Print the inspected version of the value
@@ -558,11 +529,7 @@ local namespace = (function()
     for _, member in ipairs(member_names) do
       local member_type = type(lib[member])
       if not as_lua then
-        if
-          member_type == "table"
-          and member ~= "__index"
-          and member ~= "_M"
-        then
+        if member_type == "table" and member ~= "__index" and member ~= "_M" then
           printf("- *`%s.%s` (%s)*", lib_name, member, member_type)
           print_lib_members(lib_name .. "." .. member, lib[member], as_lua)
         elseif member_type == "function" then
@@ -689,6 +656,21 @@ local assertions = (function()
     return actual == expected
   end
 
+  ---@param actual unknown
+  ---
+  ---@return boolean
+  local function compare_truthy(actual)
+    if actual then
+      return true
+    end
+    return false
+  end
+
+  ---@param a number
+  ---@param b number
+  ---@param epsilon number
+  ---
+  ---@return boolean
   local function compare_numbers(a, b, epsilon)
     epsilon = epsilon or 1e-6
     return a == b or math.abs(a - b) < epsilon
@@ -733,9 +715,7 @@ local assertions = (function()
     -- iterate over o1
     for key1, value1 in pairs(o1) do
       local value2 = o2[key1]
-      if
-        value2 == nil or compare_tables(value1, value2, ignore_mt) == false
-      then
+      if value2 == nil or compare_tables(value1, value2, ignore_mt) == false then
         return false
       end
     end
@@ -766,6 +746,12 @@ local assertions = (function()
       report_diff(compare_equality, actual, true)
     end,
 
+    ---@param actual unknown
+    is_truthy = function(actual)
+      report_diff(compare_truthy, actual, true)
+    end,
+
+    ---@param actual unknown
     is_false = function(actual)
       report_diff(compare_equality, actual, false)
     end,

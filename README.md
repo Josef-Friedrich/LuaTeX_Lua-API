@@ -740,7 +740,7 @@ The Makefile provides targets for printing the global namespace
 available on the specific engines. The Makefile uses some Lua functions
 to output all functions and tables of the global namespace that can be
 found in
-[utils.lua](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/resources/utils.lua).
+[utils.lua](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/utils.lua).
 
 To print the [LuaTeX global
 namespace](https://github.com/Josef-Friedrich/LuaTeX_Lua-API/blob/main/resources/namespaces/luatex.md):
