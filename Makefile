@@ -4,20 +4,15 @@ texmftex = $(texmf)/tex/luatex
 installdir = $(texmftex)/$(jobname)
 
 .PHONY: all
-all: format stylua
+all: format
 
 .PHONY: format
-format: stylua
+format:
 	./manage format
 
 .PHONY: convert
 convert:
 	./manage convert
-
-.PHONY: stylua
-stylua:
-	stylua --config-path ./stylua.toml library
-	stylua --config-path ./stylua.toml examples
 
 .PHONY: debug
 debug:
