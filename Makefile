@@ -32,11 +32,11 @@ update_lls_addons:
 
 .PHONY: submodules
 submodules:
-	# git submodule update --init --recursive --remote
-	git submodule foreach --recursive git clean -xfd
-	git submodule foreach --recursive git reset --hard
-	git submodule foreach --recursive git checkout main
-	git submodule foreach --recursive git pull origin main
+	./manage submodules
+
+.PHONY: submodules_init
+submodules_init:
+	git submodule update --init --recursive --remote
 	cd manager; make install
 
 .PHONY: test
