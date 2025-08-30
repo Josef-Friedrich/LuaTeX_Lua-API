@@ -30,7 +30,7 @@
     "**/*.synctex.gz": true,
     "**/*.synctex": true,
     "**/*.synctex*": true,
-    "**/*.tar.gz": true,
+    "**/*.tar.gz": false,
     "**/*.toc": true
   },
   // "latex-workshop.latex.recipes": [

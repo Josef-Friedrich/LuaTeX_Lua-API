@@ -757,7 +757,7 @@ local assertions = (function()
     end,
 
     ---@param actual unknown
-    ---@param expected unknown
+    ---@param expected "nil"|"number"|"string"|"boolean"|"table"|"function"|"thread"|"userdata"
     is_type = function(actual, expected)
       report_diff(compare_equality, type(actual), expected)
     end,
